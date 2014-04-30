@@ -79,17 +79,17 @@ using namespace upm;
 
 Hmc5883l::Hmc5883l()
 {
-    i2c = maa_i2c_init();
+    m_i2c = maa_i2c_init();
 
-    maa_i2c_address(i2c, HMC5883L_I2C_ADDR);
-    rx_tx_buf[0] = HMC5883L_CONF_REG_B;
-    rx_tx_buf[1] = GA_1_3_REG;
-    maa_i2c_write(i2c, rx_tx_buf, 2);
+    maa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    m_rx_tx_buf[0] = HMC5883L_CONF_REG_B;
+    m_rx_tx_buf[1] = GA_1_3_REG;
+    maa_i2c_write(m_i2c, m_rx_tx_buf, 2);
 
-    maa_i2c_address(i2c, HMC5883L_I2C_ADDR);
-    rx_tx_buf[0] = HMC5883L_MODE_REG;
-    rx_tx_buf[1] = HMC5883L_CONT_MODE;
-    maa_i2c_write(i2c, rx_tx_buf, 2);
+    maa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    m_rx_tx_buf[0] = HMC5883L_MODE_REG;
+    m_rx_tx_buf[1] = HMC5883L_CONT_MODE;
+    maa_i2c_write(m_i2c, m_rx_tx_buf, 2);
 
     Hmc5883l::update();
 }
@@ -97,18 +97,18 @@ Hmc5883l::Hmc5883l()
 int
 Hmc5883l::update(void)
 {
-    maa_i2c_address(i2c, HMC5883L_I2C_ADDR);
-    maa_i2c_write_byte(i2c, HMC5883L_DATA_REG);
+    maa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    maa_i2c_write_byte(m_i2c, HMC5883L_DATA_REG);
 
-    maa_i2c_address(i2c, HMC5883L_I2C_ADDR);
-    maa_i2c_read(i2c, rx_tx_buf, DATA_REG_SIZE);
+    maa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    maa_i2c_read(m_i2c, m_rx_tx_buf, DATA_REG_SIZE);
 
     // x
-    coor[0] = (rx_tx_buf[HMC5883L_X_MSB_REG] << 8 ) | rx_tx_buf[HMC5883L_X_LSB_REG] ;
+    m_coor[0] = (m_rx_tx_buf[HMC5883L_X_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_X_LSB_REG];
     // z
-    coor[2] = (rx_tx_buf[HMC5883L_Z_MSB_REG] << 8 ) | rx_tx_buf[HMC5883L_Z_LSB_REG] ;
+    m_coor[2] = (m_rx_tx_buf[HMC5883L_Z_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Z_LSB_REG];
     // y
-    coor[1] = (rx_tx_buf[HMC5883L_Y_MSB_REG] << 8 ) | rx_tx_buf[HMC5883L_Y_LSB_REG] ;
+    m_coor[1] = (m_rx_tx_buf[HMC5883L_Y_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Y_LSB_REG];
 
     return MAA_SUCCESS;
 }
@@ -116,7 +116,7 @@ Hmc5883l::update(void)
 float
 Hmc5883l::direction(void)
 {
-    return atan2(coor[1] * SCALE_0_92_MG, coor[0] * SCALE_0_92_MG);
+    return atan2(m_coor[1] * SCALE_0_92_MG, m_coor[0] * SCALE_0_92_MG);
 }
 
 float
@@ -128,5 +128,5 @@ Hmc5883l::heading(void)
 int*
 Hmc5883l::coordinates(void)
 {
-    return &coor[0];
+    return &m_coor[0];
 }

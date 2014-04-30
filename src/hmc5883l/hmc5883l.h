@@ -31,15 +31,31 @@ namespace upm {
 
 class Hmc5883l {
 public:
+    /// Creates a Hmc5883l object
     Hmc5883l();
+
+    /// Returns the direction
     float direction();
+
+    /// Returns the heading
     float heading();
+
+    /**
+     * Returns a pointer to an int[3] that contains the coordinates as ints
+     * @return *int to an int[3]
+     */
     int* coordinates();
+
+    /**
+     * Updates the values by reading from i2c
+     * 
+     * @return 0 for success
+     */
     int update();
 private:
-    int coor[3];
-    char rx_tx_buf[MAX_BUFFER_LENGTH];
-    maa_i2c_context* i2c;
+    int m_coor[3];
+    char m_rx_tx_buf[MAX_BUFFER_LENGTH];
+    maa_i2c_context* m_i2c;
 };
 
 }

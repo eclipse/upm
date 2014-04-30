@@ -1,4 +1,5 @@
 UPM - Sensor/Actuator repository for Maa
+==============
 
 UPM is a high level repository for sensors that use maa. Each sensor links to
 libmaa and are not meant to be interlinked although some groups of sensors may
@@ -22,4 +23,4 @@ However implementation and API design is compeltely up to the developer, some
 enumerable sensors for example may provide much clever instanciation. Displays
 may also create more complex structures in order to interface with them.
 
-For more information on maa, see the maa README
+For more information on maa, see the maa documentation
