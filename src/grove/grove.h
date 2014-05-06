@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <maa/aio.h>
 #include <maa/gpio.h>
 
 namespace upm {
@@ -47,7 +48,17 @@ class GroveLed: public Grove {
         maa_result_t off();
         maa_result_t on();
     private:
-        maa_gpio_context * m_gpio;
+        maa_gpio_context* m_gpio;
+};
+
+class GroveTemp: public Grove {
+    public:
+        GroveTemp(unsigned int pin);
+        ~GroveTemp();
+        float raw_value();
+        int value();
+    private:
+        maa_aio_context* m_aio;
 };
 
 }

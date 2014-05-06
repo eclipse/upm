@@ -22,69 +22,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
-
 #include "grove.h"
-#include "math.h"
 
-using namespace upm;
-
-//// GroveLed ////
-
-GroveLed::GroveLed(int pin)
+int
+main(int argc, char **argv)
 {
-    maa_init();
-    m_gpio = maa_gpio_init(pin);
-    maa_gpio_dir(m_gpio, MAA_GPIO_OUT);
-    m_name = "LED Socket";
-}
-
-GroveLed::~GroveLed()
-{
-    maa_gpio_close(m_gpio);
-}
-
-maa_result_t GroveLed::write(int value)
-{
-    if (value >= 1) {
-        return maa_gpio_write(m_gpio, 1);
+    // Use i2c device 0 all the time
+    upm::GroveTemp* s = new upm::GroveTemp(0);
+    std::cout << s->name() << std::endl;
+    for (int i=0; i < 10; i++) {
+        std::cout << s->value() << std::endl;
+        sleep(1);
     }
-    return maa_gpio_write(m_gpio, 0);
-}
 
-maa_result_t GroveLed::on()
-{
-    return write(1);
-}
-
-maa_result_t GroveLed::off()
-{
-    return write(0);
-}
-
-//// GroveTemp ////
-
-GroveTemp::GroveTemp(unsigned int pin)
-{
-    maa_init();
-    m_aio = maa_aio_init(pin);
-    m_name = "Temperature Sensor";
-}
-
-GroveTemp::~GroveTemp()
-{
-    maa_aio_close(m_aio);
-}
-
-int GroveTemp::value ()
-{
-    int a = maa_aio_read_u16(m_aio);
-    float r = (float)(1023-a)*10000/a;
-    float t = 1/(logf(r/10000)/3975 + 1/298.15)-273.15;
-    return (int) t;
-}
-
-float GroveTemp::raw_value()
-{
-    return (float) maa_aio_read_u16(m_aio);
+    return 0;
 }
