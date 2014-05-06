@@ -22,14 +22,37 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "hmc5883l.h"
+#include "grove.h"
 
-int
-main(int argc, char **argv)
+using namespace upm;
+
+GroveLed::GroveLed(int pin)
 {
-    // Use i2c device 0 all the time
-    upm::Hmc5883l* compass = new upm::Hmc5883l(0);
-    fprintf(stdout, "heading: %f\n", compass->heading());
+    maa_init();
+    m_gpio = maa_gpio_init(pin);
+    maa_gpio_dir(m_gpio, MAA_GPIO_OUT);
+    m_name = "LED Socket";
+}
 
-    return 0;
+GroveLed::~GroveLed()
+{
+    maa_gpio_close(m_gpio);
+}
+
+maa_result_t GroveLed::write(int value)
+{
+    if (value >= 1) {
+        return maa_gpio_write(m_gpio, 1);
+    }
+    return maa_gpio_write(m_gpio, 0);
+}
+
+maa_result_t GroveLed::on()
+{
+    return write(1);
+}
+
+maa_result_t GroveLed::off()
+{
+    return write(0);
 }

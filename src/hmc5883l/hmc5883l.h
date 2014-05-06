@@ -32,7 +32,7 @@ namespace upm {
 class Hmc5883l {
 public:
     /// Creates a Hmc5883l object
-    Hmc5883l();
+    Hmc5883l(int bus);
 
     /// Returns the direction
     float direction();

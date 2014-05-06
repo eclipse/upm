@@ -77,9 +77,9 @@
 
 using namespace upm;
 
-Hmc5883l::Hmc5883l()
+Hmc5883l::Hmc5883l(int bus)
 {
-    m_i2c = maa_i2c_init();
+    m_i2c = maa_i2c_init(bus);
 
     maa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
     m_rx_tx_buf[0] = HMC5883L_CONF_REG_B;

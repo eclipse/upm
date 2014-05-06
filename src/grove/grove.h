@@ -21,15 +21,33 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include "hmc5883l.h"
+#include <string>
+#include <maa/gpio.h>
 
-int
-main(int argc, char **argv)
-{
-    // Use i2c device 0 all the time
-    upm::Hmc5883l* compass = new upm::Hmc5883l(0);
-    fprintf(stdout, "heading: %f\n", compass->heading());
+namespace upm {
 
-    return 0;
+class Grove {
+    public:
+        virtual ~Grove() {}
+        std::string name()
+        {
+            return m_name;
+        }
+    protected:
+        std::string m_name;
+};
+
+class GroveLed: public Grove {
+    public:
+        GroveLed(int pin);
+        ~GroveLed();
+        maa_result_t write(int value);
+        maa_result_t off();
+        maa_result_t on();
+    private:
+        maa_gpio_context * m_gpio;
+};
+
 }

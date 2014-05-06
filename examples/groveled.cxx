@@ -22,14 +22,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "hmc5883l.h"
+#include <unistd.h>
+#include <iostream>
+#include "grove.h"
 
 int
 main(int argc, char **argv)
 {
     // Use i2c device 0 all the time
-    upm::Hmc5883l* compass = new upm::Hmc5883l(0);
-    fprintf(stdout, "heading: %f\n", compass->heading());
+    upm::GroveLed* led = new upm::GroveLed(2);
+    std::cout << led->name() << std::endl;
+    for (int i=0; i < 10; i++) {
+        led->on();
+        sleep(1);
+        led->off();
+        sleep(1);
+    }
 
     return 0;
 }

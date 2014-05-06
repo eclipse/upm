@@ -7,7 +7,7 @@ if (SWIG_FOUND)
 endif ()
 
 find_package (PkgConfig REQUIRED)
-pkg_check_modules (MAA maa>=0.2.1)
+pkg_check_modules (MAA maa>=0.2.2)
 message (INFO " found libmaa version: ${MAA_VERSION}")
 
 set (CMAKE_SWIG_FLAGS "")
