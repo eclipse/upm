@@ -88,3 +88,30 @@ float GroveTemp::raw_value()
 {
     return (float) maa_aio_read_u16(m_aio);
 }
+
+//// GroveLight ////
+
+GroveLight::GroveLight(unsigned int pin)
+{
+    maa_init();
+    m_aio = maa_aio_init(pin);
+    m_name = "Light Sensor";
+}
+
+GroveLight::~GroveLight()
+{
+    maa_aio_close(m_aio);
+}
+
+int GroveLight::value ()
+{
+    // rough conversion to Lux
+    int a = maa_aio_read_u16(m_aio);
+    a = 10000/(((1023-a)*10/a)*15)^(4/3);
+    return a;
+}
+
+float GroveLight::raw_value()
+{
+    return (float) maa_aio_read_u16(m_aio);
+}

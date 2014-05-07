@@ -61,4 +61,14 @@ class GroveTemp: public Grove {
         maa_aio_context* m_aio;
 };
 
+class GroveLight: public Grove {
+    public:
+        GroveLight(unsigned int pin);
+        ~GroveLight();
+        float raw_value();
+        int value();
+    private:
+        maa_aio_context* m_aio;
+};
+
 }
