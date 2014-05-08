@@ -755,6 +755,7 @@ WARN_LOGFILE           =
 
 INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/src/hmc5883l/hmc5883l.h \
                          @CMAKE_CURRENT_SOURCE_DIR@/src/grove/grove.h \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src/lcm1602/lcm1602.h \
                          @CMAKE_CURRENT_SOURCE_DIR@/README.md
 
 # This tag can be used to specify the character encoding of the source files
