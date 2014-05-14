@@ -78,7 +78,7 @@ GroveTemp::~GroveTemp()
 
 int GroveTemp::value ()
 {
-    int a = maa_aio_read_u16(m_aio);
+    int a = maa_aio_read(m_aio);
     float r = (float)(1023-a)*10000/a;
     float t = 1/(logf(r/10000)/3975 + 1/298.15)-273.15;
     return (int) t;
@@ -86,7 +86,7 @@ int GroveTemp::value ()
 
 float GroveTemp::raw_value()
 {
-    return (float) maa_aio_read_u16(m_aio);
+    return (float) maa_aio_read(m_aio);
 }
 
 //// GroveLight ////
@@ -106,12 +106,12 @@ GroveLight::~GroveLight()
 int GroveLight::value ()
 {
     // rough conversion to Lux
-    int a = maa_aio_read_u16(m_aio);
+    int a = maa_aio_read(m_aio);
     a = 10000/(((1023-a)*10/a)*15)^(4/3);
     return a;
 }
 
 float GroveLight::raw_value()
 {
-    return (float) maa_aio_read_u16(m_aio);
+    return (float) maa_aio_read(m_aio);
 }
