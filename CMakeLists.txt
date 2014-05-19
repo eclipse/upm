@@ -9,7 +9,7 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 # force the libmaa version to be the required version
-pkg_check_modules (MAA REQUIRED maa=0.2.3)
+pkg_check_modules (MAA REQUIRED maa=0.2.5)
 message (INFO " found libmaa version: ${MAA_VERSION}")
 
 set (CMAKE_SWIG_FLAGS "")

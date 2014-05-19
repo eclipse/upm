@@ -58,7 +58,7 @@ private:
     int write4bits(char value);
     int expandWrite(char value);
     int pulseEnable(char value);
-    maa_i2c_context* m_i2c;
+    maa_i2c_context m_i2c;
 };
 
 }

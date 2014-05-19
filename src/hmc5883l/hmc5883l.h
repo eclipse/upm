@@ -55,7 +55,7 @@ public:
 private:
     int m_coor[3];
     char m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    maa_i2c_context* m_i2c;
+    maa_i2c_context m_i2c;
 };
 
 }

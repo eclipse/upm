@@ -48,7 +48,7 @@ class GroveLed: public Grove {
         maa_result_t off();
         maa_result_t on();
     private:
-        maa_gpio_context* m_gpio;
+        maa_gpio_context m_gpio;
 };
 
 class GroveTemp: public Grove {
@@ -58,7 +58,7 @@ class GroveTemp: public Grove {
         float raw_value();
         int value();
     private:
-        maa_aio_context* m_aio;
+        maa_aio_context m_aio;
 };
 
 class GroveLight: public Grove {
@@ -68,7 +68,7 @@ class GroveLight: public Grove {
         float raw_value();
         int value();
     private:
-        maa_aio_context* m_aio;
+        maa_aio_context m_aio;
 };
 
 }
