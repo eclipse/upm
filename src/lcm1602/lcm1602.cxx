@@ -68,12 +68,15 @@ using namespace upm;
 
 Lcm1602::Lcm1602(int bus_in, int addr_in)
 {
-    address = addr_in;
-    bus = bus_in;
-    maa_init();
-    m_i2c = maa_i2c_init(bus);
+    m_address = addr_in;
+    m_bus = bus_in;
 
-    maa_i2c_address(m_i2c, address);
+    m_i2c = maa_i2c_init(m_bus);
+
+    maa_result_t ret = maa_i2c_address(m_i2c, m_address);
+    if (ret != MAA_SUCCESS) {
+        fprintf(stderr, "Messed up i2c bus\n");
+    }
 
     usleep(50000);
     expandWrite(LCD_BACKLIGHT);
@@ -98,7 +101,6 @@ Lcm1602::Lcm1602(int bus_in, int addr_in)
     send(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT, 0);
 
     home();
-
 }
 
 int
@@ -122,53 +124,53 @@ Lcm1602::cursor(int row, int column)
     return send(LCD_SETDDRAMADDR | ((column % 16) + row_addr[row]),0);
 }
 
-int
+maa_result_t
 Lcm1602::write(std::string msg)
 {
-    int ret = 0;
+    maa_result_t ret = MAA_SUCCESS;
     for(std::string::size_type i = 0; i < msg.size(); ++i) {
         ret = send(msg[i], LCD_RS);
     }
-    return 0;
+    return ret;
 }
 
-int
+maa_result_t
 Lcm1602::close()
 {
     return maa_i2c_stop(m_i2c);
 }
 
-int
-Lcm1602::send(char value, int mode)
+maa_result_t
+Lcm1602::send(uint8_t value, int mode)
 {
-    int ret = 0;
-    char h = value & 0xf0;
-    char l = (value << 4) & 0xf0;
+    maa_result_t ret = MAA_SUCCESS;
+    uint8_t h = value & 0xf0;
+    uint8_t l = (value << 4) & 0xf0;
     ret = write4bits(h | mode);
     ret = write4bits(l | mode);
     return ret;
 }
 
-int
-Lcm1602::write4bits(char value)
+maa_result_t
+Lcm1602::write4bits(uint8_t value)
 {
-    int ret = 0;
+    maa_result_t ret = MAA_SUCCESS;
     ret = expandWrite(value);
     ret = pulseEnable(value);
-    return 0;
+    return ret;
 }
 
-int
-Lcm1602::expandWrite(char value)
+maa_result_t
+Lcm1602::expandWrite(uint8_t value)
 {
-    char buffer = value | LCD_BACKLIGHT;
+    uint8_t buffer = value | LCD_BACKLIGHT;
     return maa_i2c_write_byte(m_i2c, buffer);
 }
 
-int
-Lcm1602::pulseEnable(char value)
+maa_result_t
+Lcm1602::pulseEnable(uint8_t value)
 {
-    int ret = 0;
+    maa_result_t ret = MAA_SUCCESS;
     ret = expandWrite(value | LCD_EN);
     usleep(1);
     ret = expandWrite(value & ~LCD_EN);

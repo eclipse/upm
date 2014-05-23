@@ -7,7 +7,7 @@
  * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * Permission is hereby granted, free of uint8_tge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
@@ -48,16 +48,16 @@ public:
     // change cursor to row,column.
     int cursor(int row, int column);
     //write a string at the position
-    int write(std::string msg);
-    int close();
+    maa_result_t write(std::string msg);
+    maa_result_t close();
 
 private:
-    int address;
-    int bus;
-    int send(char value, int mode);
-    int write4bits(char value);
-    int expandWrite(char value);
-    int pulseEnable(char value);
+    int m_address;
+    int m_bus;
+    maa_result_t send(uint8_t value, int mode);
+    maa_result_t write4bits(uint8_t value);
+    maa_result_t expandWrite(uint8_t value);
+    maa_result_t pulseEnable(uint8_t value);
     maa_i2c_context m_i2c;
 };
 
