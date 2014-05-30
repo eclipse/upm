@@ -1,5 +1,5 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,20 +21,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include "lcm1602.h"
+#include <string>
+#include "iiclcd.h"
 
-int
-main(int argc, char **argv)
-{
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    lcd->close();
+namespace upm {
+
+class Jhd1313m1 : public IICLcd {
+    public:
+		Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
+		~Jhd1313m1 ();
+		maa_result_t write (std::string msg);
+		maa_result_t setCursor (int row, int column);
+		maa_result_t clear ();
+		maa_result_t home ();
+
+	private:
+		maa_result_t cmd (maa_i2c_context ctx, uint8_t value);
+		maa_result_t setReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
+
+		int m_rgb_address;
+		maa_i2c_context m_i2c_lcd_rgb;
+};
+
 }
