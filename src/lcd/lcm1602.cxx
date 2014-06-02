@@ -30,56 +30,13 @@
 
 #include "lcm1602.h"
 
-#define LCD_CLEARDISPLAY 0x01
-#define LCD_RETURNHOME 0x02
-#define LCD_ENTRYMODESET 0x04
-#define LCD_DISPLAYCONTROL 0x08
-#define LCD_CURSORSHIFT 0x10
-#define LCD_FUNCTIONSET 0x20
-#define LCD_SETCGRAMADDR 0x40
-#define LCD_SETDDRAMADDR 0x80
-#define LCD_BACKLIGHT 0x08
-#define LCD_NOBACKLIGHT 0x00
-
-#define LCD_ENTRYRIGHT 0x00
-#define LCD_ENTRYLEFT 0x02
-#define LCD_ENTRYSHIFTINCREMENT 0x01
-#define LCD_ENTRYSHIFTDECREMENT 0x00
-
-#define LCD_DISPLAYON 0x04
-#define LCD_DISPLAYOFF 0x00
-#define LCD_CURSORON 0x02
-#define LCD_CURSOROFF 0x00
-#define LCD_BLINKON 0x01
-#define LCD_BLINKOFF 0x00
-
-#define LCD_8BITMODE 0x10
-#define LCD_4BITMODE 0x00
-#define LCD_2LINE 0x08
-#define LCD_1LINE 0x00
-#define LCD_5x10DOTS 0x04
-#define LCD_5x8DOTS 0x00
-
-#define LCD_EN 0x04 // Enable bit
-#define LCD_RW 0x02 // Read/Write bit
-#define LCD_RS 0x01 // Register select bit
-
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in)
-{
-    m_address = addr_in;
-    m_bus = bus_in;
+Lcm1602::Lcm1602(int bus_in, int addr_in) : IICLcd (bus_in, addr_in) {
+	maa_result_t error = MAA_SUCCESS;
 
-    m_i2c = maa_i2c_init(m_bus);
-
-    maa_result_t ret = maa_i2c_address(m_i2c, m_address);
-    if (ret != MAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-    }
-
-    usleep(50000);
-    expandWrite(LCD_BACKLIGHT);
+	usleep(50000);
+	expandWrite(LCD_BACKLIGHT);
     usleep(100000);
 
     write4bits(0x03 << 4);
@@ -103,47 +60,52 @@ Lcm1602::Lcm1602(int bus_in, int addr_in)
     home();
 }
 
-int
-Lcm1602::clear()
-{
-    return send(LCD_CLEARDISPLAY, 0);
+Lcm1602::~Lcm1602 () {
+	
 }
 
-int
-Lcm1602::home()
-{
-    return send(LCD_RETURNHOME, 0);
-}
-
-int
-Lcm1602::cursor(int row, int column)
-{
-    if (row > 3)
-        return 99;
-    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
-    return send(LCD_SETDDRAMADDR | ((column % 16) + row_addr[row]),0);
-}
-
+/*
+ * **************
+ *  virtual area
+ * **************
+ */
 maa_result_t
-Lcm1602::write(std::string msg)
-{
-    maa_result_t ret = MAA_SUCCESS;
-    for(std::string::size_type i = 0; i < msg.size(); ++i) {
-        ret = send(msg[i], LCD_RS);
+Lcm1602::write (std::string msg) {
+	maa_result_t error = MAA_SUCCESS;
+    for (std::string::size_type i = 0; i < msg.size(); ++i) {
+        error = send (msg[i], LCD_RS);
     }
-    return ret;
+    return error;
 }
 
-maa_result_t
-Lcm1602::close()
-{
-    return maa_i2c_stop(m_i2c);
+maa_result_t 
+Lcm1602::setCursor (int row, int column) {
+	maa_result_t error = MAA_SUCCESS;
+
+	int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
+	uint8_t offset = ((column % 16) + row_addr[row]);
+
+	return send (LCD_SETDDRAMADDR | offset, 0);
 }
 
-maa_result_t
-Lcm1602::send(uint8_t value, int mode)
-{
-    maa_result_t ret = MAA_SUCCESS;
+maa_result_t 
+Lcm1602::clear () {
+	return send(LCD_CLEARDISPLAY, 0);
+}
+
+maa_result_t 
+Lcm1602::home () {
+	return send(LCD_RETURNHOME, 0);
+}
+
+/*
+ * **************
+ *  private area
+ * **************
+ */
+maa_result_t 
+Lcm1602::send (uint8_t value, int mode) {
+	maa_result_t ret = MAA_SUCCESS;
     uint8_t h = value & 0xf0;
     uint8_t l = (value << 4) & 0xf0;
     ret = write4bits(h | mode);
@@ -164,7 +126,7 @@ maa_result_t
 Lcm1602::expandWrite(uint8_t value)
 {
     uint8_t buffer = value | LCD_BACKLIGHT;
-    return maa_i2c_write_byte(m_i2c, buffer);
+    return maa_i2c_write_byte(m_i2c_lcd_control, buffer);
 }
 
 maa_result_t

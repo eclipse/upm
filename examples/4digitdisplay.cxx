@@ -1,5 +1,5 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,19 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+#include <unistd.h>
+#include <iostream>
+#include "tm1637.h"
 
 int
 main(int argc, char **argv)
 {
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    lcd->close();
+	uint8_t data[] = { 0xaa, 0xff, 0xff, 0xff };
+
+    upm::TM1637 *display = new upm::TM1637(8, 9); // di - 8, dcki - 9
+	display->write ("1981");
+	
+	std::cout << "exiting application" << std::endl;
+
+	delete display;
+
+    return 0;
 }

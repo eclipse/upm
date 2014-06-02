@@ -1,5 +1,5 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,19 +22,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+#include <string.h>
+#include <unistd.h>
+#include <iostream>
+#include "nrf24l01.h"
+#include <signal.h>
+
+int running = 0;
+upm::NRF24l01 *comm = NULL;
+
+void
+sig_handler(int signo)
+{
+	printf("got signal\n");
+    if (signo == SIGINT) {
+        printf("exiting application\n");
+        running = 1;
+    }
+}
+
+void nrf_handler () {
+	std::cout << "devi1 :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
+}
 
 int
 main(int argc, char **argv)
 {
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    lcd->close();
+    comm = new upm::NRF24l01(7);
+	comm->nrfSetRXaddr ((uint8_t *) "devi1");
+	comm->nrfSetTXaddr ((uint8_t *) "devi2");
+	comm->nrfSetPayload (MAX_BUFFER);
+	comm->nrfConfigModule ();
+	comm->dataRecievedHandler = nrf_handler;
+	
+	signal(SIGINT, sig_handler);
+
+	while (!running) {
+		comm->nrfListenForChannel ();
+	}
+
+	std::cout << "exiting application" << std::endl;
+
+	delete comm;
+
+    return 0;
 }

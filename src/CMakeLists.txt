@@ -1,4 +1,7 @@
 add_subdirectory (hmc5883l)
 add_subdirectory (grove)
-add_subdirectory (lcm1602)
+add_subdirectory (lcd)
 add_subdirectory (buzzer)
+add_subdirectory (ledbar)
+add_subdirectory (4digitdisplay)
+add_subdirectory (nrf24l01)

@@ -1,5 +1,5 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,19 +22,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+#include <unistd.h>
+#include <iostream>
+#include "my9221.h"
+#include <signal.h>
+
+int running = 0;
+
+void
+sig_handler(int signo)
+{
+	printf("got signal\n");
+    if (signo == SIGINT) {
+        printf("exiting application\n");
+        running = 1;
+    }
+}
 
 int
 main(int argc, char **argv)
 {
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    lcd->close();
+    upm::MY9221 *bar = new upm::MY9221(8, 9);
+	
+	signal(SIGINT, sig_handler);
+
+	while (!running) {
+		for (int idx = 1; idx < 11; idx++) {
+			bar->setBarLevel (idx);
+			usleep(1000);
+		}
+	}
+
+	std::cout << "exiting application" << std::endl;
+
+	delete bar;
+
+    return 0;
 }

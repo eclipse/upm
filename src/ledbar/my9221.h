@@ -1,5 +1,5 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,20 +21,38 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include "lcm1602.h"
+#include <string>
+#include <maa/aio.h>
+#include <maa/gpio.h>
 
-int
-main(int argc, char **argv)
-{
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    lcd->close();
+#define MAX_BIT_PER_BLOCK 	16
+#define CMDMODE     		0x0000
+#define BIT_HIGH          	0x00ff
+#define BIT_LOW	        	0x0000
+
+#define HIGH          		1
+#define LOW	        		0
+
+namespace upm {
+
+class MY9221 {
+    public:
+		MY9221 (uint8_t di, uint8_t dcki);
+		~MY9221 ();
+		maa_result_t setBarLevel (uint8_t level);
+		std::string name()
+        {
+            return m_name;
+        }
+	private:
+		maa_result_t lockData ();
+		maa_result_t send16bitBlock (short data);
+
+		std::string m_name;
+		maa_gpio_context m_clkPinCtx;
+		maa_gpio_context m_dataPinCtx;
+};
+
 }
