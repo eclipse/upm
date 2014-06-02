@@ -71,7 +71,7 @@ MY9221::~MY9221() {
     }
 }
 
-maa_result_t 
+maa_result_t
 MY9221::setBarLevel (uint8_t level) {
 	if (level > 10) {
 		return MAA_ERROR_INVALID_PARAMETER;
@@ -85,7 +85,7 @@ MY9221::setBarLevel (uint8_t level) {
     lockData ();
 }
 
-maa_result_t 
+maa_result_t
 MY9221::lockData () {
 	maa_result_t error = MAA_SUCCESS;
 	error = maa_gpio_write (m_dataPinCtx, LOW);
@@ -97,7 +97,7 @@ MY9221::lockData () {
     }
 }
 
-maa_result_t 
+maa_result_t
 MY9221::send16bitBlock (short data) {
 	maa_result_t error = MAA_SUCCESS;
 	for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {

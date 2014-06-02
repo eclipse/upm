@@ -48,7 +48,7 @@ public:
 
     /**
      * Updates the values by reading from i2c
-     * 
+     *
      * @return 0 for success
      */
     int update();

@@ -50,7 +50,7 @@ NRF24l01::~NRF24l01 () {
     }
 }
 
-void 
+void
 NRF24l01::nrfInitModule (uint8_t chip_select, uint8_t chip_enable) {
 	maa_result_t error = MAA_SUCCESS;
 
@@ -84,7 +84,7 @@ NRF24l01::nrfInitModule (uint8_t chip_select, uint8_t chip_enable) {
 	m_spi = maa_spi_init (0);
 }
 
-void 
+void
 NRF24l01::nrfConfigModule() {
 	/* Set RF channel */
 	nrfConfigRegister (RF_CH, m_channel);
@@ -101,7 +101,7 @@ NRF24l01::nrfConfigModule() {
 }
 
 /* Clocks only one byte into the given MiRF register */
-void 
+void
 NRF24l01::nrfConfigRegister(uint8_t reg, uint8_t value) {
 	nrfCSOn ();
 	maa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
@@ -109,16 +109,16 @@ NRF24l01::nrfConfigRegister(uint8_t reg, uint8_t value) {
 	nrfCSOff ();
 }
 
-void 
+void
 NRF24l01::nrfPowerUpRX() {
 	m_ptx = 0;
 	nrfCELow();
 	nrfConfigRegister(CONFIG, mirf_CONFIG | ( (1<<PWR_UP) | (1<<PRIM_RX) ) );
 	nrfCEHigh();
-	nrfConfigRegister(STATUS,(1 << TX_DS) | (1 << MAX_RT)); 
+	nrfConfigRegister(STATUS,(1 << TX_DS) | (1 << MAX_RT));
 }
 
-void 
+void
 NRF24l01::nrfFlushRX() {
 	nrfCSOn ();
 	maa_spi_write (m_spi, FLUSH_RX);
@@ -126,7 +126,7 @@ NRF24l01::nrfFlushRX() {
 }
 
 /* Sets the receiving address */
-void 
+void
 NRF24l01::nrfSetRXaddr(uint8_t * addr) {
 	nrfCELow();
 	nrfWriteRegister(RX_ADDR_P1, addr, mirf_ADDR_LEN);
@@ -134,7 +134,7 @@ NRF24l01::nrfSetRXaddr(uint8_t * addr) {
 }
 
 /* Sets the transmitting address */
-void 
+void
 NRF24l01::nrfSetTXaddr(uint8_t * addr)
 {
 	/* RX_ADDR_P0 must be set to the sending addr for auto ack to work. */
@@ -143,20 +143,20 @@ NRF24l01::nrfSetTXaddr(uint8_t * addr)
 }
 
 /* The broadcast address should be 0xFFFFF */
-void 
+void
 NRF24l01::nrfSetBroadcastAddr (uint8_t * addr) {
 	nrfCELow ();
 	nrfWriteRegister (RX_ADDR_P2, addr, mirf_ADDR_LEN);
 	nrfCEHigh ();
 }
 
-void 
+void
 NRF24l01::nrfSetPayload (uint8_t load) {
 	m_payload = load;
 }
 
-void 
-NRF24l01::nrfWriteRegister(uint8_t reg, uint8_t * value, uint8_t len) 
+void
+NRF24l01::nrfWriteRegister(uint8_t reg, uint8_t * value, uint8_t len)
 {
 	nrfCSOn ();
 	maa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
@@ -164,7 +164,7 @@ NRF24l01::nrfWriteRegister(uint8_t reg, uint8_t * value, uint8_t len)
 	nrfCSOff ();
 }
 
-void 
+void
 NRF24l01::nrfTransmitSync(uint8_t *dataout, uint8_t len){
 	uint8_t i;
 	for(i = 0; i < len; i++) {
@@ -173,7 +173,7 @@ NRF24l01::nrfTransmitSync(uint8_t *dataout, uint8_t len){
 }
 
 /* Checks if data is available for reading */
-bool 
+bool
 NRF24l01::nrfDataReady() {
 	uint8_t status = nrfGetStatus();
 	if ( status & (1 << RX_DR) ) {
@@ -183,7 +183,7 @@ NRF24l01::nrfDataReady() {
 	return !nrfRXFifoEmpty();
 }
 
-uint8_t 
+uint8_t
 NRF24l01::nrfGetStatus () {
 	uint8_t rv;
 	nrfReadRegister (STATUS, &rv, 1);
@@ -191,7 +191,7 @@ NRF24l01::nrfGetStatus () {
 }
 
 /* Reads an array of bytes from the given start position in the MiRF registers. */
-void 
+void
 NRF24l01::nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len)
 {
 	nrfCSOn ();
@@ -200,7 +200,7 @@ NRF24l01::nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len)
 	nrfCSOff ();
 }
 
-void 
+void
 NRF24l01::nrfTransferSync (uint8_t *dataout,uint8_t *datain,uint8_t len) {
 	uint8_t i;
 	for(i = 0;i < len;i++) {
@@ -208,7 +208,7 @@ NRF24l01::nrfTransferSync (uint8_t *dataout,uint8_t *datain,uint8_t len) {
 	}
 }
 
-bool 
+bool
 NRF24l01::nrfRXFifoEmpty () {
 	uint8_t fifo_status;
 	nrfReadRegister (FIFO_STATUS, &fifo_status, sizeof(fifo_status));
@@ -216,8 +216,8 @@ NRF24l01::nrfRXFifoEmpty () {
 }
 
 /* Reads payload bytes into data array */
-void 
-NRF24l01::nrfGetData (uint8_t * data) 
+void
+NRF24l01::nrfGetData (uint8_t * data)
 {
 	nrfCSOn ();
 	/* Send cmd to read rx payload */
@@ -230,7 +230,7 @@ NRF24l01::nrfGetData (uint8_t * data)
 
 /* Sends a data package to the default address. Be sure to send the correct
  * amount of bytes as configured as payload on the receiver. */
-void 
+void
 NRF24l01::nrfSend(uint8_t * value) {
 	uint8_t status;
 	status = nrfGetStatus();
@@ -257,12 +257,12 @@ NRF24l01::nrfSend(uint8_t * value) {
 	nrfCEHigh();							// Start transmission
 }
 
-void 
+void
 NRF24l01::nrfSend () {
 	nrfSend (m_txBuffer);
 }
 
-bool 
+bool
 NRF24l01::nrfIsSending () {
 	uint8_t status;
 	if (m_ptx)	{ // Sending mode.
@@ -270,46 +270,46 @@ NRF24l01::nrfIsSending () {
 		/* if sending successful (TX_DS) or max retries exceded (MAX_RT). */
 		if((status & ((1 << TX_DS)  | (1 << MAX_RT)))){
 			nrfPowerUpRX();
-			return false; 
+			return false;
 		}
 		return true;
 	}
 	return false;
 }
 
-void 
+void
 NRF24l01::nrfPowerUpTX () {
 	m_ptx = 1;
 	nrfConfigRegister (CONFIG, mirf_CONFIG | ( (1<<PWR_UP) | (0<<PRIM_RX) ) );
 }
 
-void 
+void
 NRF24l01::nrfPowerDown () {
 	nrfCELow ();
 	nrfConfigRegister (CONFIG, mirf_CONFIG);
 }
 
-maa_result_t 
+maa_result_t
 NRF24l01::nrfCEHigh () {
 	return maa_gpio_write (m_cePinCtx, HIGH);
 }
 
-maa_result_t 
+maa_result_t
 NRF24l01::nrfCELow () {
 	return maa_gpio_write (m_cePinCtx, LOW);
 }
 
-maa_result_t 
+maa_result_t
 NRF24l01::nrfCSOn () {
 	return maa_gpio_write (m_csnPinCtx, LOW);
 }
 
-maa_result_t 
+maa_result_t
 NRF24l01::nrfCSOff () {
 	return maa_gpio_write (m_csnPinCtx, HIGH);
 }
 
-void 
+void
 NRF24l01::nrfListenForChannel() {
 	if(!nrfIsSending() && nrfDataReady()) {
 		nrfGetData(m_rxBuffer);

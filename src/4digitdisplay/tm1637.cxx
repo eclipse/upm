@@ -94,12 +94,12 @@ TM1637::~TM1637() {
     }
 }
 
-maa_result_t 
+maa_result_t
 TM1637::setBrightness (uint8_t level) {
 	m_brightness = level;
 }
 
-maa_result_t 
+maa_result_t
 TM1637::setSegments (const uint8_t segments[], uint8_t length, uint8_t pos) {
 	start();
 	writeByte(TM1637_I2C_COMM1);
@@ -117,7 +117,7 @@ TM1637::setSegments (const uint8_t segments[], uint8_t length, uint8_t pos) {
 	stop();
 }
 
-maa_result_t 
+maa_result_t
 TM1637::write (std::string msg) {
 	char leter = '\0';
 	uint8_t data[] = { 0x0, 0x0, 0x0, 0x0 };
@@ -131,7 +131,7 @@ TM1637::write (std::string msg) {
 	setSegments(data);
 }
 
-maa_result_t 
+maa_result_t
 TM1637::pinMode (maa_gpio_context ctx, gpio_dir_t mode) {
 	maa_result_t error = MAA_SUCCESS;
 	error = maa_gpio_dir(ctx, mode);
@@ -140,13 +140,13 @@ TM1637::pinMode (maa_gpio_context ctx, gpio_dir_t mode) {
     }
 }
 
-maa_result_t 
+maa_result_t
 TM1637::start() {
 	pinMode (m_dataPinCtx, MAA_GPIO_OUT);
 	usleep(PULSE_LENGTH);
 }
 
-maa_result_t 
+maa_result_t
 TM1637::stop() {
 	pinMode (m_dataPinCtx, MAA_GPIO_OUT);
 	usleep(PULSE_LENGTH);
@@ -156,7 +156,7 @@ TM1637::stop() {
 	usleep(PULSE_LENGTH);
 }
 
-maa_result_t 
+maa_result_t
 TM1637::writeByte(uint8_t value) {
 	for (uint8_t idx = 0; idx < 8; idx++) {
 		pinMode(m_clkPinCtx, MAA_GPIO_OUT);

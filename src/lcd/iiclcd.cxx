@@ -41,7 +41,7 @@ IICLcd::IICLcd (int bus, int lcdAddress) {
     }
 }
 
-maa_result_t 
+maa_result_t
 IICLcd::write (int row, int column, std::string msg) {
 	setCursor (row, column);
 	write (msg);

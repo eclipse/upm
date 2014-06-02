@@ -78,7 +78,7 @@ Lcm1602::write (std::string msg) {
     return error;
 }
 
-maa_result_t 
+maa_result_t
 Lcm1602::setCursor (int row, int column) {
 	maa_result_t error = MAA_SUCCESS;
 
@@ -88,12 +88,12 @@ Lcm1602::setCursor (int row, int column) {
 	return send (LCD_SETDDRAMADDR | offset, 0);
 }
 
-maa_result_t 
+maa_result_t
 Lcm1602::clear () {
 	return send(LCD_CLEARDISPLAY, 0);
 }
 
-maa_result_t 
+maa_result_t
 Lcm1602::home () {
 	return send(LCD_RETURNHOME, 0);
 }
@@ -103,7 +103,7 @@ Lcm1602::home () {
  *  private area
  * **************
  */
-maa_result_t 
+maa_result_t
 Lcm1602::send (uint8_t value, int mode) {
 	maa_result_t ret = MAA_SUCCESS;
     uint8_t h = value & 0xf0;
