@@ -32,7 +32,7 @@ int running = 0;
 void
 sig_handler(int signo)
 {
-	printf("got signal\n");
+    printf("got signal\n");
     if (signo == SIGINT) {
         printf("exiting application\n");
         running = 1;
@@ -43,19 +43,19 @@ int
 main(int argc, char **argv)
 {
     upm::MY9221 *bar = new upm::MY9221(8, 9);
-	
-	signal(SIGINT, sig_handler);
+    
+    signal(SIGINT, sig_handler);
 
-	while (!running) {
-		for (int idx = 1; idx < 11; idx++) {
-			bar->setBarLevel (idx);
-			usleep(1000);
-		}
-	}
+    while (!running) {
+        for (int idx = 1; idx < 11; idx++) {
+            bar->setBarLevel (idx);
+            usleep(1000);
+        }
+    }
 
-	std::cout << "exiting application" << std::endl;
+    std::cout << "exiting application" << std::endl;
 
-	delete bar;
+    delete bar;
 
     return 0;
 }

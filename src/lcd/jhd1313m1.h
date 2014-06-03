@@ -30,19 +30,19 @@ namespace upm {
 
 class Jhd1313m1 : public IICLcd {
     public:
-		Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
-		~Jhd1313m1 ();
-		maa_result_t write (std::string msg);
-		maa_result_t setCursor (int row, int column);
-		maa_result_t clear ();
-		maa_result_t home ();
+        Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
+        ~Jhd1313m1 ();
+        maa_result_t write (std::string msg);
+        maa_result_t setCursor (int row, int column);
+        maa_result_t clear ();
+        maa_result_t home ();
 
-	private:
-		maa_result_t cmd (maa_i2c_context ctx, uint8_t value);
-		maa_result_t setReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
+    private:
+        maa_result_t cmd (maa_i2c_context ctx, uint8_t value);
+        maa_result_t setReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
 
-		int m_rgb_address;
-		maa_i2c_context m_i2c_lcd_rgb;
+        int m_rgb_address;
+        maa_i2c_context m_i2c_lcd_rgb;
 };
 
 }

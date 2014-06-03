@@ -30,24 +30,24 @@
 using namespace upm;
 
 IICLcd::IICLcd (int bus, int lcdAddress) {
-	m_lcd_control_address = lcdAddress;
+    m_lcd_control_address = lcdAddress;
     m_bus = bus;
 
     m_i2c_lcd_control = maa_i2c_init(m_bus);
 
     maa_result_t ret = maa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
-	if (ret != MAA_SUCCESS) {
+    if (ret != MAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 }
 
 maa_result_t
 IICLcd::write (int row, int column, std::string msg) {
-	setCursor (row, column);
-	write (msg);
+    setCursor (row, column);
+    write (msg);
 }
 
 maa_result_t
 IICLcd::close() {
-	return maa_i2c_stop(m_i2c_lcd_control);
+    return maa_i2c_stop(m_i2c_lcd_control);
 }

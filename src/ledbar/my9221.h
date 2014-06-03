@@ -27,32 +27,32 @@
 #include <maa/aio.h>
 #include <maa/gpio.h>
 
-#define MAX_BIT_PER_BLOCK 	16
-#define CMDMODE     		0x0000
-#define BIT_HIGH          	0x00ff
-#define BIT_LOW	        	0x0000
+#define MAX_BIT_PER_BLOCK     16
+#define CMDMODE             0x0000
+#define BIT_HIGH              0x00ff
+#define BIT_LOW                0x0000
 
-#define HIGH          		1
-#define LOW	        		0
+#define HIGH                  1
+#define LOW                    0
 
 namespace upm {
 
 class MY9221 {
     public:
-		MY9221 (uint8_t di, uint8_t dcki);
-		~MY9221 ();
-		maa_result_t setBarLevel (uint8_t level);
-		std::string name()
+        MY9221 (uint8_t di, uint8_t dcki);
+        ~MY9221 ();
+        maa_result_t setBarLevel (uint8_t level);
+        std::string name()
         {
             return m_name;
         }
-	private:
-		maa_result_t lockData ();
-		maa_result_t send16bitBlock (short data);
+    private:
+        maa_result_t lockData ();
+        maa_result_t send16bitBlock (short data);
 
-		std::string m_name;
-		maa_gpio_context m_clkPinCtx;
-		maa_gpio_context m_dataPinCtx;
+        std::string m_name;
+        maa_gpio_context m_clkPinCtx;
+        maa_gpio_context m_dataPinCtx;
 };
 
 }

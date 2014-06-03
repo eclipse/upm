@@ -36,47 +36,47 @@
 //     ---
 //      D
 
-#define SEG_A   			0b00000001
-#define SEG_B   			0b00000010
-#define SEG_C   			0b00000100
-#define SEG_D   			0b00001000
-#define SEG_E   			0b00010000
-#define SEG_F   			0b00100000
-#define SEG_G   			0b01000000
+#define SEG_A               0b00000001
+#define SEG_B               0b00000010
+#define SEG_C               0b00000100
+#define SEG_D               0b00001000
+#define SEG_E               0b00010000
+#define SEG_F               0b00100000
+#define SEG_G               0b01000000
 
 #define TM1637_I2C_COMM1    0x40
 #define TM1637_I2C_COMM2    0xC0
 #define TM1637_I2C_COMM3    0x80
 
-#define PULSE_LENGTH		50
+#define PULSE_LENGTH        50
 
-#define HIGH          		1
-#define LOW	        		0
+#define HIGH                  1
+#define LOW                    0
 
 namespace upm {
 
 class TM1637 {
     public:
-		TM1637 (uint8_t di, uint8_t dcki);
-		~TM1637 ();
-		maa_result_t setBrightness (uint8_t level);
-		maa_result_t setSegments (const uint8_t segments[], uint8_t length = 4, uint8_t pos = 0);
-		maa_result_t write (std::string msg);
-		
-		std::string name()
+        TM1637 (uint8_t di, uint8_t dcki);
+        ~TM1637 ();
+        maa_result_t setBrightness (uint8_t level);
+        maa_result_t setSegments (const uint8_t segments[], uint8_t length = 4, uint8_t pos = 0);
+        maa_result_t write (std::string msg);
+        
+        std::string name()
         {
             return m_name;
         }
-	private:
-		maa_result_t start();
-		maa_result_t stop();
-		maa_result_t writeByte (uint8_t value);
-		maa_result_t pinMode (maa_gpio_context ctx, gpio_dir_t mode);
+    private:
+        maa_result_t start();
+        maa_result_t stop();
+        maa_result_t writeByte (uint8_t value);
+        maa_result_t pinMode (maa_gpio_context ctx, gpio_dir_t mode);
 
-		std::string m_name;
-		maa_gpio_context m_clkPinCtx;
-		maa_gpio_context m_dataPinCtx;
-		uint8_t m_brightness;
+        std::string m_name;
+        maa_gpio_context m_clkPinCtx;
+        maa_gpio_context m_dataPinCtx;
+        uint8_t m_brightness;
 };
 
 }

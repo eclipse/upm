@@ -24,48 +24,49 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "my9221.h"
 
 using namespace upm;
 
 MY9221::MY9221 (uint8_t di, uint8_t dcki) {
-	maa_result_t error = MAA_SUCCESS;
-	maa_init();
+    maa_result_t error = MAA_SUCCESS;
+    maa_init();
 
-	// init clock context
-	m_clkPinCtx = maa_gpio_init(dcki);
-	if (m_clkPinCtx == NULL) {
+    // init clock context
+    m_clkPinCtx = maa_gpio_init(dcki);
+    if (m_clkPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
-		exit(1);
-	}
-	// init data context
-	m_dataPinCtx = maa_gpio_init(di);
-	if (m_dataPinCtx == NULL) {
+        exit(1);
+    }
+    // init data context
+    m_dataPinCtx = maa_gpio_init(di);
+    if (m_dataPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
-		exit(1);
-	}
-	
-	// set direction (out)
-	error = maa_gpio_dir(m_clkPinCtx, MAA_GPIO_OUT);
+        exit(1);
+    }
+    
+    // set direction (out)
+    error = maa_gpio_dir(m_clkPinCtx, MAA_GPIO_OUT);
     if (error != MAA_SUCCESS) {
         maa_result_print(error);
     }
 
-	// set direction (out)
-	error = maa_gpio_dir(m_dataPinCtx, MAA_GPIO_OUT);
+    // set direction (out)
+    error = maa_gpio_dir(m_dataPinCtx, MAA_GPIO_OUT);
     if (error != MAA_SUCCESS) {
         maa_result_print(error);
     }
 }
 
 MY9221::~MY9221() {
-	maa_result_t error = MAA_SUCCESS;
-	error = maa_gpio_close (m_dataPinCtx);
+    maa_result_t error = MAA_SUCCESS;
+    error = maa_gpio_close (m_dataPinCtx);
     if (error != MAA_SUCCESS) {
         maa_result_print(error);
     }
-	error = maa_gpio_close (m_clkPinCtx);
+    error = maa_gpio_close (m_clkPinCtx);
     if (error != MAA_SUCCESS) {
         maa_result_print(error);
     }
@@ -73,12 +74,12 @@ MY9221::~MY9221() {
 
 maa_result_t
 MY9221::setBarLevel (uint8_t level) {
-	if (level > 10) {
-		return MAA_ERROR_INVALID_PARAMETER;
-	}
+    if (level > 10) {
+        return MAA_ERROR_INVALID_PARAMETER;
+    }
 
-	send16bitBlock (CMDMODE);
-	for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
+    send16bitBlock (CMDMODE);
+    for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
         uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
         send16bitBlock (state);
     }
@@ -87,32 +88,32 @@ MY9221::setBarLevel (uint8_t level) {
 
 maa_result_t
 MY9221::lockData () {
-	maa_result_t error = MAA_SUCCESS;
-	error = maa_gpio_write (m_dataPinCtx, LOW);
-	usleep(100);
-	
-	for(int idx = 0; idx < 4; idx++) {
-		error = maa_gpio_write (m_dataPinCtx, HIGH);
-		error = maa_gpio_write (m_dataPinCtx, LOW);
+    maa_result_t error = MAA_SUCCESS;
+    error = maa_gpio_write (m_dataPinCtx, LOW);
+    usleep(100);
+    
+    for(int idx = 0; idx < 4; idx++) {
+        error = maa_gpio_write (m_dataPinCtx, HIGH);
+        error = maa_gpio_write (m_dataPinCtx, LOW);
     }
 }
 
 maa_result_t
 MY9221::send16bitBlock (short data) {
-	maa_result_t error = MAA_SUCCESS;
-	for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
-		uint32_t state = (data & 0x8000) ? HIGH : LOW;
-		error = maa_gpio_write (m_dataPinCtx, state);
-		state = maa_gpio_read (m_clkPinCtx);
+    maa_result_t error = MAA_SUCCESS;
+    for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
+        uint32_t state = (data & 0x8000) ? HIGH : LOW;
+        error = maa_gpio_write (m_dataPinCtx, state);
+        state = maa_gpio_read (m_clkPinCtx);
 
-		if (state) {
-			state = LOW;
-		} else {
-			state = HIGH;
-		}
+        if (state) {
+            state = LOW;
+        } else {
+            state = HIGH;
+        }
 
-		error = maa_gpio_write (m_clkPinCtx, state);
+        error = maa_gpio_write (m_clkPinCtx, state);
 
-		data <<= 1;
-	}
+        data <<= 1;
+    }
 }
