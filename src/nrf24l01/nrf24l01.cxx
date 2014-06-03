@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "nrf24l01.h"
 

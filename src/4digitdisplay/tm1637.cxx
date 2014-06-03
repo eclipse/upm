@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "tm1637.h"
 

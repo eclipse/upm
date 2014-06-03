@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "my9221.h"
 
