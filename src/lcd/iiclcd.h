@@ -68,23 +68,23 @@ namespace upm {
 #define LCD_RS 0x01 // Register select bit
 
 class IICLcd {
-	public:
-		IICLcd (int bus, int lcdAddress);
-		virtual maa_result_t write (std::string msg) = 0;
-		maa_result_t write (int x, int y, std::string msg);
-		virtual maa_result_t setCursor (int row, int column) = 0;
-		virtual maa_result_t clear () = 0;
-		virtual maa_result_t home () = 0;
-		maa_result_t close();
-		std::string name()
+    public:
+        IICLcd (int bus, int lcdAddress);
+        virtual maa_result_t write (std::string msg) = 0;
+        maa_result_t write (int x, int y, std::string msg);
+        virtual maa_result_t setCursor (int row, int column) = 0;
+        virtual maa_result_t clear () = 0;
+        virtual maa_result_t home () = 0;
+        maa_result_t close();
+        std::string name()
         {
             return m_name;
         }
-	protected:
-		std::string m_name;
-		int m_lcd_control_address;
-	    int m_bus;
-		maa_i2c_context m_i2c_lcd_control;
+    protected:
+        std::string m_name;
+        int m_lcd_control_address;
+        int m_bus;
+        maa_i2c_context m_i2c_lcd_control;
 };
 
 }

@@ -33,10 +33,10 @@
 using namespace upm;
 
 Lcm1602::Lcm1602(int bus_in, int addr_in) : IICLcd (bus_in, addr_in) {
-	maa_result_t error = MAA_SUCCESS;
+    maa_result_t error = MAA_SUCCESS;
 
-	usleep(50000);
-	expandWrite(LCD_BACKLIGHT);
+    usleep(50000);
+    expandWrite(LCD_BACKLIGHT);
     usleep(100000);
 
     write4bits(0x03 << 4);
@@ -61,7 +61,7 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) : IICLcd (bus_in, addr_in) {
 }
 
 Lcm1602::~Lcm1602 () {
-	
+    
 }
 
 /*
@@ -71,7 +71,7 @@ Lcm1602::~Lcm1602 () {
  */
 maa_result_t
 Lcm1602::write (std::string msg) {
-	maa_result_t error = MAA_SUCCESS;
+    maa_result_t error = MAA_SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
         error = send (msg[i], LCD_RS);
     }
@@ -80,22 +80,22 @@ Lcm1602::write (std::string msg) {
 
 maa_result_t
 Lcm1602::setCursor (int row, int column) {
-	maa_result_t error = MAA_SUCCESS;
+    maa_result_t error = MAA_SUCCESS;
 
-	int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
-	uint8_t offset = ((column % 16) + row_addr[row]);
+    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
+    uint8_t offset = ((column % 16) + row_addr[row]);
 
-	return send (LCD_SETDDRAMADDR | offset, 0);
+    return send (LCD_SETDDRAMADDR | offset, 0);
 }
 
 maa_result_t
 Lcm1602::clear () {
-	return send(LCD_CLEARDISPLAY, 0);
+    return send(LCD_CLEARDISPLAY, 0);
 }
 
 maa_result_t
 Lcm1602::home () {
-	return send(LCD_RETURNHOME, 0);
+    return send(LCD_RETURNHOME, 0);
 }
 
 /*
@@ -105,7 +105,7 @@ Lcm1602::home () {
  */
 maa_result_t
 Lcm1602::send (uint8_t value, int mode) {
-	maa_result_t ret = MAA_SUCCESS;
+    maa_result_t ret = MAA_SUCCESS;
     uint8_t h = value & 0xf0;
     uint8_t l = (value << 4) & 0xf0;
     ret = write4bits(h | mode);

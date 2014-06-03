@@ -33,7 +33,7 @@ int running = 0;
 void
 sig_handler(int signo)
 {
-	printf("got signal\n");
+    printf("got signal\n");
     if (signo == SIGINT) {
         printf("exiting application\n");
         running = 1;
@@ -42,25 +42,25 @@ sig_handler(int signo)
 
 int
 main(int argc, char **argv) {
-	int chord[] = { DO, RE, MI, FA, SOL, LA, SI, DO, SI };
-	// create Buzzer instance
+    int chord[] = { DO, RE, MI, FA, SOL, LA, SI, DO, SI };
+    // create Buzzer instance
     upm::Buzzer* sound = new upm::Buzzer(5);
-	// print sensor name
+    // print sensor name
     std::cout << sound->name() << std::endl;
-	// play sound (DO, RE, ME, etc...)
+    // play sound (DO, RE, ME, etc...)
 
-	signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-	while (!running) {
-		for (int chord_ind = 0; chord_ind < 9; chord_ind++) {
-			std::cout << sound->playSound(chord[chord_ind]) << std::endl;
-			usleep(1000);
-		}
-	}
+    while (!running) {
+        for (int chord_ind = 0; chord_ind < 9; chord_ind++) {
+            std::cout << sound->playSound(chord[chord_ind]) << std::endl;
+            usleep(1000);
+        }
+    }
 
-	std::cout << "exiting application" << std::endl;
+    std::cout << "exiting application" << std::endl;
 
-	delete sound;
+    delete sound;
     
     return 0;
 }

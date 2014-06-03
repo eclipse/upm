@@ -38,16 +38,16 @@ namespace upm {
 
 class Buzzer {
     public:
-		Buzzer (int pinNumber);
-		~Buzzer ();
-		int playSound (int note);
+        Buzzer (int pinNumber);
+        ~Buzzer ();
+        int playSound (int note);
         std::string name()
         {
             return m_name;
         }
     protected:
         std::string m_name;
-	private:
-		maa_pwm_context m_pwm_context;
+    private:
+        maa_pwm_context m_pwm_context;
 };
 }

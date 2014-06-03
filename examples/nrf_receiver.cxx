@@ -34,7 +34,7 @@ upm::NRF24l01 *comm = NULL;
 void
 sig_handler(int signo)
 {
-	printf("got signal\n");
+    printf("got signal\n");
     if (signo == SIGINT) {
         printf("exiting application\n");
         running = 1;
@@ -42,28 +42,28 @@ sig_handler(int signo)
 }
 
 void nrf_handler () {
-	std::cout << "devi1 :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
+    std::cout << "devi1 :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
 }
 
 int
 main(int argc, char **argv)
 {
     comm = new upm::NRF24l01(7);
-	comm->nrfSetRXaddr ((uint8_t *) "devi1");
-	comm->nrfSetTXaddr ((uint8_t *) "devi2");
-	comm->nrfSetPayload (MAX_BUFFER);
-	comm->nrfConfigModule ();
-	comm->dataRecievedHandler = nrf_handler;
-	
-	signal(SIGINT, sig_handler);
+    comm->nrfSetRXaddr ((uint8_t *) "devi1");
+    comm->nrfSetTXaddr ((uint8_t *) "devi2");
+    comm->nrfSetPayload (MAX_BUFFER);
+    comm->nrfConfigModule ();
+    comm->dataRecievedHandler = nrf_handler;
+    
+    signal(SIGINT, sig_handler);
 
-	while (!running) {
-		comm->nrfListenForChannel ();
-	}
+    while (!running) {
+        comm->nrfListenForChannel ();
+    }
 
-	std::cout << "exiting application" << std::endl;
+    std::cout << "exiting application" << std::endl;
 
-	delete comm;
+    delete comm;
 
     return 0;
 }
