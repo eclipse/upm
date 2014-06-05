@@ -37,3 +37,9 @@ if (SWIG_FOUND)
   endif ()
 
 endif ()
+
+install (TARGETS ${libname} DESTINATION lib/upm COMPONENT ${libname})
+install (FILES grove.h DESTINATION include/upm COMPONENT ${libname})
+
+cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
+set(CPACK_COMPONENT_${libname}_DESCRIPTION "libupm grove libary")

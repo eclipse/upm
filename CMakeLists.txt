@@ -25,5 +25,6 @@ if (DOXYGEN_FOUND)
   )
 endif (DOXYGEN_FOUND)
 
+include(CPack)
 add_subdirectory (src)
 add_subdirectory (examples)

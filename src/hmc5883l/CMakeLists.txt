@@ -37,3 +37,9 @@ if (SWIG_FOUND)
   endif ()
 
 endif ()
+
+install (TARGETS ${libname} DESTINATION lib/upm COMPONENT ${libname})
+install (FILES hmc5883l.h DESTINATION include/upm COMPONENT ${libname})
+
+cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
+set(CPACK_COMPONENT_${libname}_DESCRIPTION "libupm Digital Compass")
