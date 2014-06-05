@@ -156,16 +156,13 @@ class SSD1308 : public IICLcd {
         ~SSD1308 ();
         maa_result_t draw(uint8_t *data, int bytes);
 
-        // virtual methods
+        // pure virtual methods
         maa_result_t write (std::string msg);
         maa_result_t setCursor (int row, int column);
         maa_result_t clear ();
         maa_result_t home ();
 
     private:
-        maa_result_t i2Cmd (maa_i2c_context ctx, uint8_t value);
-        maa_result_t i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
-        maa_result_t i2cData (maa_i2c_context ctx, uint8_t value);
         maa_result_t writeChar (maa_i2c_context ctx, uint8_t value);
         maa_result_t setNormalDisplay ();
         maa_result_t setAddressingMode (displayAddressingMode mode);

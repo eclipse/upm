@@ -85,7 +85,7 @@ Lcm1602::setCursor (int row, int column) {
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
     uint8_t offset = ((column % 16) + row_addr[row]);
 
-    return send (LCD_SETDDRAMADDR | offset, 0);
+    return send (LCD_CMD | offset, 0);
 }
 
 maa_result_t

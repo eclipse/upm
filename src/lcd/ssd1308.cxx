@@ -117,39 +117,6 @@ SSD1308::home () {
  * **************
  */
 maa_result_t
-SSD1308::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
-
-    uint8_t data[2] = { addr, value };
-    error = maa_i2c_address (ctx, deviceAdress);
-    error = maa_i2c_write (ctx, data, 2);
-
-    return error;
-}
-
-maa_result_t
-SSD1308::i2Cmd (maa_i2c_context ctx, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
-
-    uint8_t data[2] = { 0x80, value };
-    error = maa_i2c_address (ctx, m_lcd_control_address);
-    error = maa_i2c_write (ctx, data, 2);
-
-    return error;
-}
-
-maa_result_t
-SSD1308::i2cData (maa_i2c_context ctx, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
-
-    uint8_t data[2] = { 0x40, value };
-    error = maa_i2c_address (ctx, m_lcd_control_address);
-    error = maa_i2c_write (ctx, data, 2);
-
-    return error;
-}
-
-maa_result_t
 SSD1308::writeChar (maa_i2c_context ctx, uint8_t value) {
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space

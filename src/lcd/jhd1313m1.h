@@ -38,9 +38,6 @@ class Jhd1313m1 : public IICLcd {
         maa_result_t home ();
 
     private:
-        maa_result_t cmd (maa_i2c_context ctx, uint8_t value);
-        maa_result_t setReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
-
         int m_rgb_address;
         maa_i2c_context m_i2c_lcd_rgb;
 };
