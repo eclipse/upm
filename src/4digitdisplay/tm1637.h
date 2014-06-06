@@ -27,15 +27,6 @@
 #include <maa/aio.h>
 #include <maa/gpio.h>
 
-//
-//      A
-//     ---
-//  F |   | B
-//     -G-
-//  E |   | C
-//     ---
-//      D
-
 #define SEG_A               0b00000001
 #define SEG_B               0b00000010
 #define SEG_C               0b00000100
@@ -50,32 +41,84 @@
 
 #define PULSE_LENGTH        50
 
-#define HIGH                  1
-#define LOW                    0
+#define HIGH                1
+#define LOW                 0
 
 namespace upm {
 
+/**
+ * @brief C++ API for Seven segments screen
+ *
+ * This file defines the TM1637 C++ interface for lib4digitdisplay
+ *
+ * @snippet 4digitdisplay.cxx Interesting
+ *
+ *      A
+ *     ---
+ *  F |   | B
+ *     -G-
+ *  E |   | C
+ *     ---
+ *      D
+ *
+ */
 class TM1637 {
     public:
+        /**
+         * Instanciates a TM1637 object
+         *
+         * @param di data pin
+         * @param dcki clock pin
+         */
         TM1637 (uint8_t di, uint8_t dcki);
+        /**
+         * TM1637 object destructor, this will close all used Gpio
+         * pins  (di and dcki)
+         */
         ~TM1637 ();
+
+        /**
+         * Set the brightness of the seven segment display
+         *
+         * @param level The brightness level of leds
+         */
         maa_result_t setBrightness (uint8_t level);
+
+        /**
+         * Set the the segment screen data and number of segments
+         *
+         * @param segments[] data to write on the segments, each elemnt
+         * in array is segment
+         * @param length number of elements in segments array
+         * @param pos data writing offset
+         */
         maa_result_t setSegments (const uint8_t segments[], uint8_t length = 4, uint8_t pos = 0);
+
+        /**
+         * Write message on the screen.
+         *
+         * @param msg The message to be written on the sreen
+         */
         maa_result_t write (std::string msg);
-        
+
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
         }
+
     private:
         maa_result_t start();
         maa_result_t stop();
         maa_result_t writeByte (uint8_t value);
         maa_result_t pinMode (maa_gpio_context ctx, gpio_dir_t mode);
 
-        std::string m_name;
         maa_gpio_context m_clkPinCtx;
         maa_gpio_context m_dataPinCtx;
+
+        std::string m_name;
         uint8_t m_brightness;
 };
 
