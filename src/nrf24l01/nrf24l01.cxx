@@ -64,13 +64,13 @@ NRF24l01::nrfInitModule (uint8_t chip_select, uint8_t chip_enable) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_csn);
         exit (1);
     }
-    
+
     m_cePinCtx = maa_gpio_init (m_ce);
     if (m_cePinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_ce);
         exit (1);
     }
-    
+
     error = maa_gpio_dir (m_csnPinCtx, MAA_GPIO_OUT);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -80,7 +80,7 @@ NRF24l01::nrfInitModule (uint8_t chip_select, uint8_t chip_enable) {
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     nrfCELow ();
     m_spi = maa_spi_init (0);
 }
@@ -95,7 +95,7 @@ NRF24l01::nrfConfigModule() {
     nrfConfigRegister (RX_PW_P1, m_payload);
     /* Set length of incoming payload for broadcast */
     nrfConfigRegister (RX_PW_P2, m_payload);
-    
+
     /* Start receiver */
     nrfPowerUpRX ();
     nrfFlushRX ();
@@ -114,7 +114,7 @@ void
 NRF24l01::nrfPowerUpRX() {
     m_ptx = 0;
     nrfCELow();
-    nrfConfigRegister(CONFIG, mirf_CONFIG | ( (1<<PWR_UP) | (1<<PRIM_RX) ) );
+    nrfConfigRegister(CONFIG, NRF_CONFIG | ( (1<<PWR_UP) | (1<<PRIM_RX) ) );
     nrfCEHigh();
     nrfConfigRegister(STATUS,(1 << TX_DS) | (1 << MAX_RT));
 }
@@ -130,7 +130,7 @@ NRF24l01::nrfFlushRX() {
 void
 NRF24l01::nrfSetRXaddr(uint8_t * addr) {
     nrfCELow();
-    nrfWriteRegister(RX_ADDR_P1, addr, mirf_ADDR_LEN);
+    nrfWriteRegister(RX_ADDR_P1, addr, ADDR_LEN);
     nrfCEHigh();
 }
 
@@ -139,15 +139,15 @@ void
 NRF24l01::nrfSetTXaddr(uint8_t * addr)
 {
     /* RX_ADDR_P0 must be set to the sending addr for auto ack to work. */
-    nrfWriteRegister (RX_ADDR_P0, addr, mirf_ADDR_LEN);
-    nrfWriteRegister (TX_ADDR, addr, mirf_ADDR_LEN);
+    nrfWriteRegister (RX_ADDR_P0, addr, ADDR_LEN);
+    nrfWriteRegister (TX_ADDR, addr, ADDR_LEN);
 }
 
 /* The broadcast address should be 0xFFFFF */
 void
 NRF24l01::nrfSetBroadcastAddr (uint8_t * addr) {
     nrfCELow ();
-    nrfWriteRegister (RX_ADDR_P2, addr, mirf_ADDR_LEN);
+    nrfWriteRegister (RX_ADDR_P2, addr, ADDR_LEN);
     nrfCEHigh ();
 }
 
@@ -180,7 +180,7 @@ NRF24l01::nrfDataReady() {
     if ( status & (1 << RX_DR) ) {
         return 1;
     }
-    
+
     return !nrfRXFifoEmpty();
 }
 
@@ -250,7 +250,7 @@ NRF24l01::nrfSend(uint8_t * value) {
     nrfCSOn ();
     maa_spi_write (m_spi, FLUSH_TX);        // Write cmd to flush tx fifo
     nrfCSOff ();
-    
+
     nrfCSOn ();
     maa_spi_write (m_spi, W_TX_PAYLOAD);     // Write cmd to write payload
     nrfTransmitSync(value, m_payload);        // Write payload
@@ -281,13 +281,13 @@ NRF24l01::nrfIsSending () {
 void
 NRF24l01::nrfPowerUpTX () {
     m_ptx = 1;
-    nrfConfigRegister (CONFIG, mirf_CONFIG | ( (1<<PWR_UP) | (0<<PRIM_RX) ) );
+    nrfConfigRegister (CONFIG, NRF_CONFIG | ( (1<<PWR_UP) | (0<<PRIM_RX) ) );
 }
 
 void
 NRF24l01::nrfPowerDown () {
     nrfCELow ();
-    nrfConfigRegister (CONFIG, mirf_CONFIG);
+    nrfConfigRegister (CONFIG, NRF_CONFIG);
 }
 
 maa_result_t

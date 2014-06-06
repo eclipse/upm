@@ -47,6 +47,7 @@ void nrf_handler () {
 int
 main(int argc, char **argv)
 {
+//! [Interesting]
     uint32_t dummyData = 0;
     comm = new upm::NRF24l01(7);
     comm->nrfSetRXaddr ((uint8_t *) "devi2");
@@ -54,7 +55,7 @@ main(int argc, char **argv)
     comm->nrfSetPayload (MAX_BUFFER);
     comm->nrfConfigModule ();
     comm->dataRecievedHandler = nrf_handler;
-    
+
     signal(SIGINT, sig_handler);
 
     while (!running) {
@@ -68,6 +69,6 @@ main(int argc, char **argv)
     std::cout << "exiting application" << std::endl;
 
     delete comm;
-
+//! [Interesting]
     return 0;
 }

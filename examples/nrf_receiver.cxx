@@ -41,20 +41,23 @@ sig_handler(int signo)
     }
 }
 
+//! [Interesting]
 void nrf_handler () {
     std::cout << "devi1 :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
 }
+//! [Interesting]
 
 int
 main(int argc, char **argv)
 {
+//! [Interesting]
     comm = new upm::NRF24l01(7);
     comm->nrfSetRXaddr ((uint8_t *) "devi1");
     comm->nrfSetTXaddr ((uint8_t *) "devi2");
     comm->nrfSetPayload (MAX_BUFFER);
     comm->nrfConfigModule ();
     comm->dataRecievedHandler = nrf_handler;
-    
+
     signal(SIGINT, sig_handler);
 
     while (!running) {
@@ -64,6 +67,6 @@ main(int argc, char **argv)
     std::cout << "exiting application" << std::endl;
 
     delete comm;
-
+//! [Interesting]
     return 0;
 }

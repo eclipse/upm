@@ -106,8 +106,8 @@
 #define NOP                   0xFF
 
 /* Nrf24l settings */
-#define mirf_ADDR_LEN        5
-#define mirf_CONFIG         ((1<<EN_CRC) | (0<<CRCO) )
+#define ADDR_LEN        5
+#define NRF_CONFIG         ((1<<EN_CRC) | (0<<CRCO) )
 
 #define MAX_BUFFER            32
 
@@ -118,50 +118,217 @@ namespace upm {
 
 typedef void (* funcPtrVoidVoid) ();
 
+/**
+ * @brief C++ API for NRF24l01 transceiver module
+ *
+ * This file defines the NRF24l01 C++ interface for libnrf24l01
+ *
+ * @snippet nrf_receiver.cxx Interesting
+ * @snippet nrf_transmitter.cxx Interesting
+ */
 class NRF24l01 {
     public:
+        /**
+         * Instanciates a NRF24l01 object
+         *
+         * @param cs chip select pin
+         */
         NRF24l01 (uint8_t cs);
+
+        /**
+         * NRF24l01 object destructor
+         */
         ~NRF24l01 ();
+
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
         }
 
+        /**
+         * Initialize needed Gpio pins and SPI interface
+         *
+         * @param chipSelect setting up the chip select pin
+         * @param chipEnable setting up the chip enable pin
+         */
         void nrfInitModule (uint8_t chipSelect, uint8_t chipEnable);
+
+        /**
+         * Configure NRF24l01 chip
+         */
         void nrfConfigModule ();
+
+        /**
+         * Send the buffer data
+         *
+         * @param *value pointer to the buffer
+         */
         void nrfSend (uint8_t *value);
+
+        /**
+         * Send the data located in inner bufer, user must fill the
+         * m_txBuffer buffer
+         */
         void nrfSend ();
+
+        /**
+         * Set recieving address of the device
+         *
+         * @param addr 5 bytes addres
+         */
         void nrfSetRXaddr (uint8_t * addr);
+
+        /**
+         * Set recipient address. nrfSend method will send the data buffer
+         * to this address
+         *
+         * @param addr 5 bytes addres
+         */
         void nrfSetTXaddr (uint8_t * addr);
+
+        /**
+         * Set broadcasting address.
+         *
+         * @param addr 5 bytes addres
+         */
         void nrfSetBroadcastAddr (uint8_t * addr);
+
+        /**
+         * Set payload size.
+         *
+         * @param load size of the payload (MAX 32)
+         */
         void nrfSetPayload (uint8_t load);
+
+        /**
+         * Check if data arrived
+         */
         bool nrfDataReady ();
+
+        /**
+         * Check if chip in sending mode
+         */
         bool nrfIsSending ();
+
+        /**
+         * Check if recieving stack is empty
+         */
         bool nrfRXFifoEmpty ();
+
+        /**
+         * Check if transmitting stack is empty
+         */
         bool nrfTXFifoEmpty ();
+
+        /**
+         * Sink all arrived data into the provided buffer
+         *
+         * @param load size of the payload (MAX 32)
+         */
         void nrfGetData (uint8_t * data);
+
+        /**
+         * Check the chip state
+         */
         uint8_t nrfGetStatus ();
-        
+
+        /**
+         * Transmit provided data to the chip
+         *
+         * @param *dataout pointer to the buffer with data
+         * @param len length of the buffer
+         */
         void nrfTransmitSync (uint8_t *dataout, uint8_t len);
+
+        /**
+         * Recieve data from the chip
+         *
+         * @param *dataout pointer to the buffer with data
+         * @param *datain pointer to the buffer where the arrived data
+         * will be sinked
+         * @param len length of the buffer
+         */
         void nrfTransferSync (uint8_t *dataout ,uint8_t *datain, uint8_t len);
+
+        /**
+         * Write byte value into a register
+         *
+         * @param reg register address
+         * @param value the value to write
+         */
         void nrfConfigRegister (uint8_t reg, uint8_t value);
+
+        /**
+         * Read continues data from register
+         *
+         * @param reg register address
+         * @param *value pointer to the buffer
+         * @param len length of the buffer
+         */
         void nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len);
+
+        /**
+         * Write continues data to register
+         *
+         * @param reg register address
+         * @param *value pointer to the buffer
+         * @param len length of the buffer
+         */
         void nrfWriteRegister (uint8_t reg, uint8_t * value, uint8_t len);
+
+        /**
+         * Power up reciever
+         */
         void nrfPowerUpRX ();
+
+        /**
+         * Power up transmitter
+         */
         void nrfPowerUpTX ();
+
+        /**
+         * Power down all
+         */
         void nrfPowerDown ();
 
+        /**
+         * Set chip enable pin HIGH
+         */
         maa_result_t nrfCEHigh ();
+
+        /**
+         * Set chip enable LOW
+         */
         maa_result_t nrfCELow ();
+
+        /**
+         * Set chip select pin LOW
+         */
         maa_result_t nrfCSOn ();
+
+        /**
+         * Set chip select pin HIGH
+         */
         maa_result_t nrfCSOff ();
+
+        /**
+         * Flush reciver stack
+         */
         void nrfFlushRX ();
+
+        /**
+         * Pulling method which listenning for arrived data, if data
+         * arrived dataRecievedHandler will be triggered
+         */
         void nrfListenForChannel();
 
-        uint8_t                m_rxBuffer[MAX_BUFFER];
-        uint8_t                m_txBuffer[MAX_BUFFER];
+        uint8_t                m_rxBuffer[MAX_BUFFER]; /**< Reciver buffer */
+        uint8_t                m_txBuffer[MAX_BUFFER]; /**< Transmit buffer */
 
-        funcPtrVoidVoid dataRecievedHandler;
+        funcPtrVoidVoid dataRecievedHandler; /**< Data arrived handler */
     private:
         maa_spi_context        m_spi;
         uint8_t                m_ce;
@@ -170,7 +337,7 @@ class NRF24l01 {
         uint8_t             m_ptx;
         uint8_t                m_payload;
         uint8_t                m_localAddress[5];
-        
+
         maa_gpio_context     m_csnPinCtx;
         maa_gpio_context     m_cePinCtx;
 
