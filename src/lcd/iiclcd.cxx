@@ -51,3 +51,36 @@ maa_result_t
 IICLcd::close() {
     return maa_i2c_stop(m_i2c_lcd_control);
 }
+
+maa_result_t
+IICLcd::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
+    maa_result_t error = MAA_SUCCESS;
+
+    uint8_t data[2] = { addr, value };
+    error = maa_i2c_address (ctx, deviceAdress);
+    error = maa_i2c_write (ctx, data, 2);
+
+    return error;
+}
+
+maa_result_t
+IICLcd::i2Cmd (maa_i2c_context ctx, uint8_t value) {
+    maa_result_t error = MAA_SUCCESS;
+
+    uint8_t data[2] = { LCD_CMD, value };
+    error = maa_i2c_address (ctx, m_lcd_control_address);
+    error = maa_i2c_write (ctx, data, 2);
+
+    return error;
+}
+
+maa_result_t
+IICLcd::i2cData (maa_i2c_context ctx, uint8_t value) {
+    maa_result_t error = MAA_SUCCESS;
+
+    uint8_t data[2] = { LCD_DATA, value };
+    error = maa_i2c_address (ctx, m_lcd_control_address);
+    error = maa_i2c_write (ctx, data, 2);
+
+    return error;
+}

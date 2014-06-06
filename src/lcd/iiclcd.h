@@ -35,8 +35,8 @@ namespace upm {
 #define LCD_DISPLAYCONTROL 0x08
 #define LCD_CURSORSHIFT 0x10
 #define LCD_FUNCTIONSET 0x20
-#define LCD_SETCGRAMADDR 0x40
-#define LCD_SETDDRAMADDR 0x80
+#define LCD_DATA 0x40
+#define LCD_CMD 0x80
 
 #define LCD_BACKLIGHT 0x08
 #define LCD_NOBACKLIGHT 0x00
@@ -70,11 +70,16 @@ namespace upm {
 class IICLcd {
     public:
         IICLcd (int bus, int lcdAddress);
-        virtual maa_result_t write (std::string msg) = 0;
         maa_result_t write (int x, int y, std::string msg);
+        
+        virtual maa_result_t write (std::string msg) = 0;
         virtual maa_result_t setCursor (int row, int column) = 0;
         virtual maa_result_t clear () = 0;
         virtual maa_result_t home () = 0;
+        virtual maa_result_t i2Cmd (maa_i2c_context ctx, uint8_t value);
+        virtual maa_result_t i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
+        virtual maa_result_t i2cData (maa_i2c_context ctx, uint8_t value);
+        
         maa_result_t close();
         std::string name()
         {
