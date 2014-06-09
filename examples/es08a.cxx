@@ -43,6 +43,7 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
+    //! [Interesting]
     upm::ES08A *servo = new upm::ES08A(5);
 
     signal(SIGINT, sig_handler);
@@ -59,6 +60,7 @@ main(int argc, char **argv)
             clock -= 10;
         }
     }
+    //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
 

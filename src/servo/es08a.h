@@ -31,9 +31,26 @@ namespace upm {
 #define MIN_PULSE_WIDTH      600
 #define MAX_PULSE_WIDTH      2500
 
+/**
+ * @brief C++ API for ES08A servo component
+ *
+ * This file defines the ES08A C++ interface for libes08a
+ *
+ * @snippet es08a.cxx Interesting
+ *
+ */
 class ES08A : public Servo {
     public:
+        /**
+         * Instanciates a ES08A object
+         *
+         * @param pin servo pin number
+         */
         ES08A (int pin);
+
+        /**
+         * ES08A object destructor.
+         */
         ~ES08A ();
 };
 

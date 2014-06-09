@@ -35,12 +35,46 @@ namespace upm {
 #define HIGH                  1
 #define LOW                   0
 
+/**
+ * @brief Base class for other servo components
+ *
+ * PMOD pins for MAX44000PMB1 board
+ *
+ */
 class Servo {
     public:
+        /**
+         * Instanciates a servo object
+         *
+         * @param pin servo pin number
+         */
         Servo (int pin);
+
+        /**
+         * Servo object destructor.
+         */
         ~Servo();
+
+        /**
+         * Set the of the servo engine.
+         *
+         * X = between (MIN_PULSE_WIDTH , MAX_PULSE_WIDTH)
+         *
+         * X usec
+         * _______
+         *        |_______________________________________
+         *                      20000 usec
+         *
+         * Max period can be only 7968750(nses) which is ~8(msec)
+         * so the servo will not work as expected.
+         *
+         * @param angle number between 0 and 180
+         */
         maa_result_t setAngle (int angle);
 
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
