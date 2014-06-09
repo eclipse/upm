@@ -29,10 +29,10 @@
 int
 main(int argc, char **argv)
 {
-    uint8_t data[] = { 0xaa, 0xff, 0xff, 0xff };
-
+    //! [Interesting]
     upm::TM1637 *display = new upm::TM1637(8, 9); // di - 8, dcki - 9
-    display->write ("1981");
+    display->write ("1337");
+    //! [Interesting]
     
     std::cout << "exiting application" << std::endl;
 
