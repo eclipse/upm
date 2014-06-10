@@ -43,6 +43,8 @@ sig_handler(int signo)
 int
 main(int argc, char **argv) {
     int chord[] = { DO, RE, MI, FA, SOL, LA, SI, DO, SI };
+
+    //! [Interesting]
     // create Buzzer instance
     upm::Buzzer* sound = new upm::Buzzer(5);
     // print sensor name
@@ -57,10 +59,11 @@ main(int argc, char **argv) {
             usleep(1000);
         }
     }
+    //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
 
     delete sound;
-    
+
     return 0;
 }

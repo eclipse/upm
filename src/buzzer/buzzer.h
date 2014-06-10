@@ -36,11 +36,38 @@
 
 namespace upm {
 
+/**
+ * @brief C++ API for Buzzer servo component
+ *
+ * This file defines the Buzzer C++ interface for libbuzzer
+ *
+ * @snippet es08a.cxx Interesting
+ *
+ */
 class Buzzer {
     public:
+        /**
+         * Instanciates a Buzzer object
+         *
+         * @param pin Buzzer pin number
+         */
         Buzzer (int pinNumber);
+
+        /**
+         * Buzzer object destructor.
+         */
         ~Buzzer ();
+
+        /**
+         * Play chords.
+         *
+         * @param note chords (DO, RE, ME, etc...)
+         */
         int playSound (int note);
+
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
