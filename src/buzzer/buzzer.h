@@ -37,7 +37,7 @@
 namespace upm {
 
 /**
- * @brief C++ API for Buzzer servo component
+ * @brief C++ API for Buzzer component
  *
  * This file defines the Buzzer C++ interface for libbuzzer
  *
