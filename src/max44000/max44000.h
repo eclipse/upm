@@ -29,12 +29,23 @@
 #define ADDR               0x4A // device address
 
 // registers address
-#define ALSDATA_HIGH       0x04 // ambient sensor data high byte
-#define ALSDATA_LOW        0x05 // ambient sensor data low byte
-#define PRXDATA            0x15 // proximity sensor data
+#define ISR                0x00 // Interrupt Status Register
 #define MCR                0x01 // Main Configuration Register
 #define RCR                0x02 // Receive Configuration Register
 #define TCR                0x03 // Transmit Configuration Register
+#define ALSDATA_HIGH       0x04 // ambient sensor data high byte
+#define ALSDATA_LOW        0x05 // ambient sensor data low byte
+#define PRXDATA            0x15 // proximity sensor data
+
+#define ALS_UP_THRESH_HIGH 0x06 // ALS Interrupt Threshold Registers High
+#define ALS_UP_THRESH_LOW  0x07 // ALS Interrupt Threshold Registers LOW
+#define ALS_LO_THRESH_HIGH 0x08 // ALS Interrupt Threshold Registers High
+#define ALS_LO_THRESH_LOW  0x09 // ALS Interrupt Threshold Registers Low
+#define TPTR               0x0A // ALS/PROX Threshold Persist Timer Register
+#define PROX_THRESH_IND    0x0B // Proximity Threshold Register
+#define PROX_THRESH        0x0C // Proximity Threshold Register
+#define TRIM_GAIN_GREEN    0x0F // Digital Gain Trim Register
+#define TRIM_GAIN_IR       0x10 // Digital Gain Trim Register
 
 #define HIGH               1
 #define LOW                0
@@ -90,14 +101,12 @@ class MAX44000 {
         {
             return m_name;
         }
-    private:
-        uint16_t getALSData ();
-        uint16_t getPRXData ();
 
         uint8_t i2cReadReg_8 (int reg);
         uint16_t i2cReadReg_16 (int reg);
         maa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
+    private:
         std::string m_name;
 
         int m_maxControlAddr;
