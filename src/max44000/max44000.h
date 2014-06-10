@@ -102,8 +102,26 @@ class MAX44000 {
             return m_name;
         }
 
+        /**
+         * Read one byte register
+         *
+         * @param reg address of a register
+         */
         uint8_t i2cReadReg_8 (int reg);
+
+        /**
+         * Read two bytes register
+         *
+         * @param reg address of a register
+         */
         uint16_t i2cReadReg_16 (int reg);
+
+        /**
+         * Write to one byte register
+         *
+         * @param reg address of a register
+         * @param value byte to be written
+         */
         maa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
     private:

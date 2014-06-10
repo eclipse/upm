@@ -64,7 +64,7 @@ MAX44000::getProximity () {
 uint16_t
 MAX44000::getAmbient () {
     uint16_t data = 0;
-    
+
     data = (i2cReadReg_8 (ALSDATA_HIGH) & 0x7F) << 8;
     data = data | i2cReadReg_8 (ALSDATA_LOW);
 
