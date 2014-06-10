@@ -41,6 +41,7 @@ sig_handler(int signo)
     }
 }
 
+//! [Interesting]
 void
 interrupt (void) {
     sonar->ackEdgeDetected ();
@@ -59,3 +60,4 @@ main(int argc, char **argv)
 
     return 0;
 }
+//! [Interesting]

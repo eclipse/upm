@@ -37,15 +37,48 @@
 
 namespace upm {
 
+/**
+ * @brief C++ API for HCSR04 (ultrasonic ranging module) component
+ *
+ * This file defines the HCSR04 C++ interface for libhcsr04
+ *
+ * @snippet hcsr04.cxx Interesting
+ *
+ */
 class HCSR04 {
     public:
+        /**
+         * Instanciates a HCSR04 object
+         *
+         * @param triggerPin pin for triggering the sensor for distance
+         * @param echoPin pulse response to triggering
+         * @param fptr function pointer for handling raising and
+         * falling interrupts
+         */
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void));
+
+        /**
+         * HCSR04 object destructor.
+         */
         ~HCSR04 ();
+
+        /**
+         * Get the distance from the sensor.
+         */
         int getDistance ();
+
+        /**
+         * On each interrupt this function will detect if the interrupt
+         * was falling edge or rising.
+         * Should be called from the interrupt handler.
+         */
         void ackEdgeDetected ();
 
-        uint8_t m_doWork;
+        uint8_t m_doWork; /**< Flag to controll blocking function while waiting for falling edge interrupt */
 
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
