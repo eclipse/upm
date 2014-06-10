@@ -42,8 +42,9 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
+    //! [Interesting]
     upm::MY9221 *bar = new upm::MY9221(8, 9);
-    
+
     signal(SIGINT, sig_handler);
 
     while (!running) {
@@ -52,6 +53,7 @@ main(int argc, char **argv)
             usleep(1000);
         }
     }
+    //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
 

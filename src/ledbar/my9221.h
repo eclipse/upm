@@ -28,20 +28,47 @@
 #include <maa/gpio.h>
 
 #define MAX_BIT_PER_BLOCK     16
-#define CMDMODE             0x0000
+#define CMDMODE               0x0000
 #define BIT_HIGH              0x00ff
-#define BIT_LOW                0x0000
+#define BIT_LOW               0x0000
 
 #define HIGH                  1
-#define LOW                    0
+#define LOW                   0
 
 namespace upm {
 
+/**
+ * @brief C++ API for MY9221 led bar module
+ *
+ * This file defines the MY9221 C++ interface for libmy9221
+ *
+ * @snippet led-bar.cxx Interesting
+ */
 class MY9221 {
     public:
+         /**
+         * Instanciates a MY9221 object
+         *
+         * @param di data pin
+         * @param dcki clock pin
+         */
         MY9221 (uint8_t di, uint8_t dcki);
+
+        /**
+         * MY9221 object destructor
+         */
         ~MY9221 ();
+
+        /**
+         * Set the level bar
+         *
+         * @param level selected level for the bar (1 - 10)
+         */
         maa_result_t setBarLevel (uint8_t level);
+
+        /**
+         * Return name of the component
+         */
         std::string name()
         {
             return m_name;
