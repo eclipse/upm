@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
 find_package (SWIG)
@@ -39,12 +39,15 @@ endif()
 set (upm_VERSION_MAJOR ${VERSION_MAJOR})
 set (upm_VERSION_MINOR ${VERSION_MINOR})
 set (upm_VERSION_PATCH ${VERSION_PATCH})
-set (upm_VERSION_STRING ${maa_VERSION_MAJOR}.${maa_VERSION_MINOR}.${maa_VERSION_PATCH})
+set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH})
 
 set (CMAKE_SWIG_FLAGS "")
 
 option (IPK "Generate IPK using CPack" OFF)
 option (BUILDDOC "Build all doc." OFF)
+option (BUILDSWIG "Build swig modules." ON)
+option (BUILDSWIGPYTHON "Build swig python modules." ON)
+option (BUILDSWIGNODE "Build swig node modules." ON)
 
 if (BUILDDOC)
   # add a target to generate API documentation with Doxygen
