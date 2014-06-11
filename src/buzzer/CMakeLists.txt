@@ -1,12 +1,4 @@
 set (libname "buzzer")
+set (libdescription "upm buzzer")
 add_library (buzzer SHARED buzzer.cxx)
-include_directories (${MAA_INCLUDE_DIR})
-target_link_libraries (buzzer ${MAA_LIBRARIES})
-
-install (TARGETS ${libname} DESTINATION lib/upm COMPONENT ${libname})
-install (FILES buzzer.h DESTINATION include/upm COMPONENT ${libname})
-
-if (IPK)
-  cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
-  set(CPACK_COMPONENT_${libname}_DESCRIPTION "libupm buzzer")
-endif()
+upm_module_init()
