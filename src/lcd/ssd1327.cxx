@@ -32,7 +32,7 @@ using namespace upm;
 #define INIT_SLEEP 50000
 #define CMD_SLEEP  10000
 
-SSD1327::SSD1327 (int bus_in, int addr_in) : IICLcd (bus_in, addr_in) {
+SSD1327::SSD1327 (int bus_in, int addr_in) : I2CLcd (bus_in, addr_in) {
     maa_result_t error  = MAA_SUCCESS;
     usleep (INIT_SLEEP);
     i2Cmd (m_i2c_lcd_control, 0xFD); // Unlock OLED driver IC MCU interface from entering command. i.e: Accept commands

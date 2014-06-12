@@ -28,11 +28,11 @@
 #pragma once
 
 #include <string>
-#include "iiclcd.h"
+#include "i2clcd.h"
 
 namespace upm {
 
-class Lcm1602 : public IICLcd {
+class Lcm1602 : public I2CLcd {
     public:
         /** LCM1602 Constructor.
          * Calls MAA initialisation functions.

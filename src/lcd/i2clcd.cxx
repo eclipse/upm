@@ -25,11 +25,11 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "iiclcd.h"
+#include "i2clcd.h"
 
 using namespace upm;
 
-IICLcd::IICLcd (int bus, int lcdAddress) {
+I2CLcd::I2CLcd (int bus, int lcdAddress) {
     m_lcd_control_address = lcdAddress;
     m_bus = bus;
 
@@ -42,18 +42,18 @@ IICLcd::IICLcd (int bus, int lcdAddress) {
 }
 
 maa_result_t
-IICLcd::write (int row, int column, std::string msg) {
+I2CLcd::write (int row, int column, std::string msg) {
     setCursor (row, column);
     write (msg);
 }
 
 maa_result_t
-IICLcd::close() {
+I2CLcd::close() {
     return maa_i2c_stop(m_i2c_lcd_control);
 }
 
 maa_result_t
-IICLcd::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
+I2CLcd::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
     maa_result_t error = MAA_SUCCESS;
 
     uint8_t data[2] = { addr, value };
@@ -64,7 +64,7 @@ IICLcd::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) 
 }
 
 maa_result_t
-IICLcd::i2Cmd (maa_i2c_context ctx, uint8_t value) {
+I2CLcd::i2Cmd (maa_i2c_context ctx, uint8_t value) {
     maa_result_t error = MAA_SUCCESS;
 
     uint8_t data[2] = { LCD_CMD, value };
@@ -75,7 +75,7 @@ IICLcd::i2Cmd (maa_i2c_context ctx, uint8_t value) {
 }
 
 maa_result_t
-IICLcd::i2cData (maa_i2c_context ctx, uint8_t value) {
+I2CLcd::i2cData (maa_i2c_context ctx, uint8_t value) {
     maa_result_t error = MAA_SUCCESS;
 
     uint8_t data[2] = { LCD_DATA, value };

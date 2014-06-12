@@ -67,9 +67,9 @@ namespace upm {
 #define LCD_RW 0x02 // Read/Write bit
 #define LCD_RS 0x01 // Register select bit
 
-class IICLcd {
+class I2CLcd {
     public:
-        IICLcd (int bus, int lcdAddress);
+        I2CLcd (int bus, int lcdAddress);
         maa_result_t write (int x, int y, std::string msg);
         
         virtual maa_result_t write (std::string msg) = 0;

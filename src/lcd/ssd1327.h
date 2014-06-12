@@ -25,7 +25,7 @@
 #pragma once
 
 #include <string>
-#include "iiclcd.h"
+#include "i2clcd.h"
 
 namespace upm {
 /*
@@ -145,7 +145,7 @@ typedef enum {
     PAGE          =  2
 } displayAddressingMode;
 
-class SSD1327 : public IICLcd {
+class SSD1327 : public I2CLcd {
     public:
         /** SSD1308 Constructor.
          * Calls MAA initialisation functions.

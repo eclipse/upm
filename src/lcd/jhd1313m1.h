@@ -24,11 +24,11 @@
 #pragma once
 
 #include <string>
-#include "iiclcd.h"
+#include "i2clcd.h"
 
 namespace upm {
 
-class Jhd1313m1 : public IICLcd {
+class Jhd1313m1 : public I2CLcd {
     public:
         Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
         ~Jhd1313m1 ();

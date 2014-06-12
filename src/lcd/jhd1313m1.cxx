@@ -29,7 +29,7 @@
 
 using namespace upm;
 
-Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : IICLcd(bus, lcdAddress) {
+Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdAddress) {
     maa_result_t error = MAA_SUCCESS;
 
     m_rgb_address = rgbAddress;
