@@ -1,4 +1,4 @@
-%module pyupm_es08a
+%module pyupm_servo
 
 %feature("autodoc", "3");
 
