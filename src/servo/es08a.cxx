@@ -30,8 +30,10 @@
 using namespace upm;
 
 ES08A::ES08A (int pin) : Servo(pin) {
-    m_name     = "ES08A";
-    m_maxAngle = 180.0;
+    m_name          = "ES08A";
+    m_maxAngle      = 180.0;
+    m_minPulseWidth = 600;
+    m_maxPulseWidth = 2200;
 }
 
 ES08A::~ES08A() {

@@ -28,38 +28,16 @@
 #include <signal.h>
 #include <stdlib.h>
 
-int running = 0;
-
-void
-sig_handler(int signo)
-{
-    printf("got signal\n");
-    if (signo == SIGINT) {
-        printf("exiting application\n");
-        running = 1;
-    }
-}
-
 int
 main(int argc, char **argv)
 {
     //! [Interesting]
-    upm::ES08A *servo = new upm::ES08A(5);
-
-    signal(SIGINT, sig_handler);
-
-    int clock = 0;
-    while (!running) {
-        for (int i = 0; i < 18; i++) {
-            servo->setAngle (clock);
-            clock += 10;
-        }
-
-        for (int i = 0; i < 18; i++) {
-            servo->setAngle (clock);
-            clock -= 10;
-        }
-    }
+    upm::ES08A *servo = new upm::ES08A(5);    
+    servo->setAngle (180);
+    servo->setAngle (90);
+    servo->setAngle (0);
+    servo->setAngle (90);
+    servo->setAngle (180);
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;

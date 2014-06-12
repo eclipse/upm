@@ -79,6 +79,43 @@ class Servo {
         {
             return m_name;
         }
+        
+        /**
+         * Set min pulse width
+         *
+         * @param width HIGH signal width
+         */
+        void setMinPulseWidth (int width);
+        
+        /**
+         * Set max pulse width
+         *
+         * @param width HIGH signal width
+         */
+        void setMaxPulseWidth (int width);
+        
+        /**
+         * Set max period width
+         *
+         * @param width PWM period width
+         */
+        void setMaxPeriod (int width);
+        
+        /**
+         * Return min pulse width
+         */
+        int getMinPulseWidth ();
+        
+        /**
+         * Return max pulse width
+         */
+        int getMaxPulseWidth ();
+        
+        /**
+         * Return max PWM period width
+         */
+        int getMaxPeriod ();
+        
     protected:
         int calcPulseTraveling (int value);
 
@@ -86,7 +123,11 @@ class Servo {
         int                 m_servoPin;
         float               m_maxAngle;
         maa_pwm_context     m_pwmServoContext;
-        // maa_gpio_context    m_servoPinCtx;
+        int                 m_currAngle;
+        
+        int                 m_minPulseWidth;
+        int                 m_maxPulseWidth;
+        int                 m_maxPeriod;
 };
 
 }

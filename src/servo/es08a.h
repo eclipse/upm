@@ -28,9 +28,6 @@
 
 namespace upm {
 
-#define MIN_PULSE_WIDTH      600
-#define MAX_PULSE_WIDTH      2500
-
 /**
  * @brief C++ API for ES08A servo component
  *
