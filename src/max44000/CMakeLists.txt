@@ -1,4 +1,5 @@
 set (libname "max44000")
 set (libdescription "upm MAX44000")
-add_library (max44000 SHARED max44000.cxx)
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
 upm_module_init()

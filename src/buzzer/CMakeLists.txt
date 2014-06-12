@@ -1,4 +1,5 @@
 set (libname "buzzer")
 set (libdescription "upm buzzer")
-add_library (buzzer SHARED buzzer.cxx)
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
 upm_module_init()

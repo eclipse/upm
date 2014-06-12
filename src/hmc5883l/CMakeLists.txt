@@ -1,4 +1,5 @@
 set (libname "hmc5883l")
 set (libdescription "libupm Digital Compass")
-add_library (hmc5883l SHARED hmc5883l.cxx)
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
 upm_module_init()

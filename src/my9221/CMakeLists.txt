@@ -1,4 +1,5 @@
 set (libname "my9221")
 set (libdescription "upm ledbar")
-add_library (${libname} SHARED my9221.cxx)
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
 upm_module_init()

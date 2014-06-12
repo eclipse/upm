@@ -1,4 +1,5 @@
 set (libname "nrf24l01")
 set (libdescription "libupm NRF tx/rx")
-add_library (nrf24l01 SHARED nrf24l01.cxx)
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
 upm_module_init()
