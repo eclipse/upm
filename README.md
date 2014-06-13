@@ -12,15 +12,20 @@ to provide identification/pin location on the board.
 Typically an update() function will be called in order to get new data from the
 sensor in order to reduce load when doing multiple reads to sensor data.
 
-A basic sensor is expected to work as such:
-s = new sensor();
-print(sensor->read());
-sleep(1);
-s->update();
-print(sensor->read();
+### Example
+
+A sensor/acturo is expected to work as such (here is the servo ES08A api):
+@snippet es08a.cxx Interesting
 
 However implementation and API design is compeltely up to the developer, some
 enumerable sensors for example may provide much clever instanciation. Displays
 may also create more complex structures in order to interface with them.
 
-For more information on maa, see the maa documentation
+### Building UPM
+
+See @ref building
+
+### Making your own UPM module
+
+@ref porting has more information on making new UPM modules
+

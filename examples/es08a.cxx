@@ -34,11 +34,12 @@ main(int argc, char **argv)
     //! [Interesting]
     upm::ES08A *servo = new upm::ES08A(5);    
     servo->setAngle (180);
+    //! [Interesting]
+
     servo->setAngle (90);
     servo->setAngle (0);
     servo->setAngle (90);
     servo->setAngle (180);
-    //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
 
