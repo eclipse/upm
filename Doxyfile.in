@@ -865,7 +865,8 @@ EXCLUDE_SYMBOLS        =
 # command).
 
 EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples/ \
-                         @CMAKE_CURRENT_SOURCE_DIR@/docs/
+                         @CMAKE_CURRENT_SOURCE_DIR@/docs/ \
+			 @CMAKE_CURRENT_SOURCE_DIR@/src/max31855/
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp and

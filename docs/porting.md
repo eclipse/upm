@@ -3,7 +3,8 @@ Porting a module from Arduino                         {#porting}
 
 Porting arduino libraries to libmaa as UPM libraries is usually fairly easy.
 The issues typically come from misunderstanding of how a non real time OS deals
-with interupts and timers. It also highly depends on the sensor.
+with interupts and timers. It also highly depends on the sensor. A concrete
+example is explained in detail on @ref max31855
 
 ### Adding a new module to UPM
 
