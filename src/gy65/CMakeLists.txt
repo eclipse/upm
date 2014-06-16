@@ -1,0 +1,5 @@
+set (libname "gy65")
+set (libdescription "upm GY65")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
