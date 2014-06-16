@@ -32,14 +32,14 @@
 
 using namespace upm;
 
-ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst) : GFX (160, 128) {
+ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst) : GFX (160, 128, m_map, font) {
     maa_init();
-    
+
     m_csLCD = csLCD;
     m_cSD   = cSD;
     m_rST   = rst;
     m_rS    = rs;
-    
+
     initModule ();
     configModule ();
 }
@@ -71,7 +71,7 @@ ST7735::~ST7735 () {
 void
 ST7735::initModule () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     m_height = 160;
     m_width  = 128;
 
@@ -86,13 +86,13 @@ ST7735::initModule () {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_cSD);
         exit (1);
     }
-    
+
     m_rSTPinCtx = maa_gpio_init (m_rST);
     if (m_rSTPinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_rST);
         exit (1);
     }
-    
+
     m_rSPinCtx = maa_gpio_init (m_rS);
     if (m_rSPinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_rS);
@@ -108,12 +108,12 @@ ST7735::initModule () {
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     error = maa_gpio_dir (m_rSTPinCtx, MAA_GPIO_OUT);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     error = maa_gpio_dir (m_rSPinCtx, MAA_GPIO_OUT);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -124,7 +124,7 @@ ST7735::initModule () {
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     lcdCSOn ();
 }
 
@@ -140,7 +140,7 @@ ST7735::data (uint8_t value) {
     maa_spi_write (m_spi, value);
 }
 
-void 
+void
 ST7735::executeCMDList(const uint8_t *addr) {
     uint8_t  numCommands, numArgs;
     uint16_t ms;
@@ -165,45 +165,45 @@ ST7735::executeCMDList(const uint8_t *addr) {
     }
 }
 
-void 
+void
 ST7735::setAddrWindow(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) {
     uint8_t colstart, rowstart;
     colstart  = rowstart = 0;
 
     write (ST7735_CASET);                       // Column addr set
-    
+
     rsHIGH ();
-    m_spiBuffer[0] = 0x00;              
+    m_spiBuffer[0] = 0x00;
     m_spiBuffer[1] = x0 + colstart;             // XSTART
     m_spiBuffer[2] = 0x00;
     m_spiBuffer[3] = x1 + colstart;             // XEND
     maa_spi_write_buf(m_spi, m_spiBuffer, 4);
-    
+
     write (ST7735_RASET);                       // Row addr set
-    
+
     rsHIGH ();
-    m_spiBuffer[0] = 0x00;              
+    m_spiBuffer[0] = 0x00;
     m_spiBuffer[1] = y0 + rowstart;             // YSTART
     m_spiBuffer[2] = 0x00;
     m_spiBuffer[3] = y1 + rowstart;             // YEND
     maa_spi_write_buf(m_spi, m_spiBuffer, 4);
-    
+
     write (ST7735_RAMWR);                       // write to RAM
 }
 
-void 
+void
 ST7735::drawPixel(int16_t x, int16_t y, uint16_t color) {
     if (MAA_SUCCESS != setPixel (x, y, color)) {
         return;
     }
-    
+
     refresh ();
 }
 
-void 
+void
 ST7735::refresh () {
     rsHIGH ();
-    
+
     int fragmentSize = m_height * m_width * 2 / 20;
     for (int fragment = 0; fragment < 20; fragment++) {
         maa_spi_write_buf(m_spi, &m_map[fragment * fragmentSize], fragmentSize);
@@ -215,72 +215,36 @@ ST7735::configModule() {
     rsHIGH ();
     lcdCSOff ();
     lcdCSOn ();
-    
+
     maa_gpio_write (m_rSTPinCtx, HIGH);
     usleep (500000);
     maa_gpio_write (m_rSTPinCtx, LOW);
     usleep (500000);
     maa_gpio_write (m_rSTPinCtx, HIGH);
     usleep (500000);
-    
+
     executeCMDList (Rcmd1);
     executeCMDList (Rcmd2red);
     executeCMDList (Rcmd3);
-    
+
     write (ST7735_MADCTL);
     data (0xC0);
-        
+
     setAddrWindow (0, 0, m_width - 1, m_height - 1);
-    
+
     fillScreen (ST7735_BLACK);
     refresh ();
-}
-
-void 
-ST7735::fill (int col, uint16_t* buff, int len) {
-    uint8_t colstart, rowstart;
-    uint8_t buf[len * 2];
-    
-    colstart = 0;
-
-    write (ST7735_CASET);                       // Column addr set
-    
-    rsHIGH ();
-    m_spiBuffer[0] = 0x00;              
-    m_spiBuffer[1] = col + 1;             // XSTART
-    m_spiBuffer[2] = 0x00;
-    m_spiBuffer[3] = col + 1;             // XEND
-    maa_spi_write_buf(m_spi, m_spiBuffer, 4);
-    
-    write (ST7735_RASET);                       // Row addr set
-    
-    rsHIGH ();
-    m_spiBuffer[0] = 0x00;              
-    m_spiBuffer[1] = 0x01;             // YSTART
-    m_spiBuffer[2] = 0x00;
-    m_spiBuffer[3] = 0x9F;             // YEND
-    maa_spi_write_buf(m_spi, m_spiBuffer, 4);
-    
-    write (ST7735_RAMWR);                       // write to RAM
-    
-    /*for (int idx = 0; idx < len; idx++) {
-        buf[idx*2] = buff[idx] >> 8;
-        buf[(idx*2)+1] = buff[idx];
-    }*/
-    
-    rsHIGH ();
-    maa_spi_write_buf(m_spi, (uint8_t *)buff, len * 2);
 }
 
 maa_result_t
 ST7735::lcdCSOn () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_csLCDPinCtx, LOW);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     error = maa_gpio_write (m_cSDPinCtx, HIGH);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -292,7 +256,7 @@ ST7735::lcdCSOn () {
 maa_result_t
 ST7735::lcdCSOff () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_csLCDPinCtx, HIGH);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -304,12 +268,12 @@ ST7735::lcdCSOff () {
 maa_result_t
 ST7735::sdCSOn () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_cSDPinCtx, LOW);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
     }
-    
+
     error = maa_gpio_write (m_csLCDPinCtx, HIGH);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -321,7 +285,7 @@ ST7735::sdCSOn () {
 maa_result_t
 ST7735::sdCSOff () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_cSDPinCtx, HIGH);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -333,7 +297,7 @@ ST7735::sdCSOff () {
 maa_result_t
 ST7735::rsHIGH () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_rSPinCtx, HIGH);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
@@ -345,7 +309,7 @@ ST7735::rsHIGH () {
 maa_result_t
 ST7735::rsLOW () {
     maa_result_t error = MAA_SUCCESS;
-    
+
     error = maa_gpio_write (m_rSPinCtx, LOW);
     if (error != MAA_SUCCESS) {
         maa_result_print (error);
