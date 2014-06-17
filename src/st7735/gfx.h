@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
-#include <maa/maa.h>
+#include <maa.h>
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
