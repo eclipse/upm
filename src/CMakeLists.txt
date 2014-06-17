@@ -97,7 +97,12 @@ macro(upm_module_init)
   add_library (${libname} SHARED ${module_src})
   include_directories (${MAA_INCLUDE_DIR} .)
   target_link_libraries (${libname} ${MAA_LIBRARIES})
-  set_target_properties(${libname} PROPERTIES PREFIX "libupm-")
+  set_target_properties(
+    ${libname}
+    PROPERTIES PREFIX "libupm-"
+    SOVERSION ${upm_VERSION_MAJOR}
+    VERSION ${upm_VERSION_STRING}
+  )
   upm_create_install_pkgconfig (upm-${libname}.pc lib${LIB_SUFFIX}/pkgconfig)
   if (SWIG_FOUND)
     upm_swig_python()
