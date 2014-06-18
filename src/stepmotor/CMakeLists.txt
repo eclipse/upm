@@ -1,5 +1,5 @@
-set (libname "step_motor")
-set (libdescription "upm STEP_MOTOR")
+set (libname "stepmotor")
+set (libdescription "upm STEPMOTOR")
 set (module_src ${libname}.cxx)
 set (module_h ${libname}.h)
 upm_module_init()

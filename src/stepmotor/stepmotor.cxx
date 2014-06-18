@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "step_motor.h"
+#include "stepmotor.h"
 
 using namespace upm;
 

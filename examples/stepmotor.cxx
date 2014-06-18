@@ -25,7 +25,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
-#include "step_motor.h"
+#include "stepmotor.h"
 #include <signal.h>
 
 int doWork = 0;
