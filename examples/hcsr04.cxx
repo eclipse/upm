@@ -43,7 +43,7 @@ sig_handler(int signo)
 
 //! [Interesting]
 void
-interrupt (void) {
+interrupt (void * args) {
     sonar->ackEdgeDetected ();
 }
 

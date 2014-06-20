@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void)) {
+HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
     maa_result_t error  = MAA_SUCCESS;
     m_name              = "HCSR04";
 
@@ -50,7 +50,7 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void)) {
 
     maa_gpio_dir(m_echoPinCtx, MAA_GPIO_IN);
     gpio_edge_t edge = MAA_GPIO_EDGE_BOTH;
-    maa_gpio_isr (m_echoPinCtx, edge, fptr);
+    maa_gpio_isr (m_echoPinCtx, edge, fptr, NULL);
 }
 
 HCSR04::~HCSR04 () {
