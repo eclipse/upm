@@ -34,14 +34,14 @@ Buzzer::Buzzer (int pinNumber) {
     m_name = "Buzzer";
 }
 
-int Buzzer::playSound (int note) {
+int Buzzer::playSound (int note, int delay) {
     maa_pwm_enable (m_pwm_context, 1);
     maa_pwm_period_us (m_pwm_context, note);
-    maa_pwm_write (m_pwm_context, 50.0);
-    usleep (10000);
+    maa_pwm_pulsewidth_us (m_pwm_context, note / 2);
+    usleep (delay);
     maa_pwm_enable (m_pwm_context, 0);
 
-    return 0;
+    return note;
 }
 
 Buzzer::~Buzzer() {

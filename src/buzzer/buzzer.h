@@ -26,13 +26,13 @@
 #include <string>
 #include <maa/pwm.h>
 
-#define  DO     3830000    // 261 Hz
-#define  RE     3400000    // 294 Hz
-#define  MI     3038000    // 329 Hz
-#define  FA     2864000    // 349 Hz
-#define  SOL    2550000    // 392 Hz
-#define  LA     2272000    // 440 Hz
-#define  SI     2028000    // 493 Hz
+#define  DO     3300    // 261 Hz 3830
+#define  RE     2930    // 294 Hz
+#define  MI     2600    // 329 Hz
+#define  FA     2460    // 349 Hz
+#define  SOL    2190    // 392 Hz
+#define  LA     1960    // 440 Hz
+#define  SI     1750    // 493 Hz
 
 namespace upm {
 
@@ -41,7 +41,7 @@ namespace upm {
  *
  * This file defines the Buzzer C++ interface for libbuzzer
  *
- * @snippet es08a.cxx Interesting
+ * @snippet buzzer-sound.cxx Interesting
  *
  */
 class Buzzer {
@@ -62,8 +62,9 @@ class Buzzer {
          * Play chords.
          *
          * @param note chords (DO, RE, ME, etc...)
+         * @param delay time in microsec for playing the sound
          */
-        int playSound (int note);
+        int playSound (int note, int delay);
 
         /**
          * Return name of the component

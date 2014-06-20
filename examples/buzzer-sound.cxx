@@ -25,20 +25,8 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-
 #include "buzzer.h"
 
-int running = 0;
-
-void
-sig_handler(int signo)
-{
-    printf("got signal\n");
-    if (signo == SIGINT) {
-        printf("exiting application\n");
-        running = 1;
-    }
-}
 
 int
 main(int argc, char **argv) {
@@ -51,13 +39,10 @@ main(int argc, char **argv) {
     std::cout << sound->name() << std::endl;
     // play sound (DO, RE, ME, etc...)
 
-    signal(SIGINT, sig_handler);
-
-    while (!running) {
-        for (int chord_ind = 0; chord_ind < 9; chord_ind++) {
-            std::cout << sound->playSound(chord[chord_ind]) << std::endl;
-            usleep(1000);
-        }
+    for (int chord_ind = 0; chord_ind < 7; chord_ind++) {
+        // play one second for each chord
+        std::cout << sound->playSound(chord[chord_ind], 1000000) << std::endl;
+        usleep(100000);
     }
     //! [Interesting]
 
