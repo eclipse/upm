@@ -1,0 +1,5 @@
+set (libname "mpu9150")
+set (libdescription "giro, acceleromter and magnometer sensor based on mpu9150")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
