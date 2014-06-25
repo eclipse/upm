@@ -8,9 +8,9 @@ endif ()
 
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
-# force the libmaa version to be the required version
-pkg_check_modules (MAA REQUIRED maa>=0.3.1)
-message (INFO " found libmaa version: ${MAA_VERSION}")
+# force the libmraa version to be the required version
+pkg_check_modules (MRAA REQUIRED mraa>=0.4.0)
+message (INFO " found libmraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
@@ -19,7 +19,7 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
-  message (WARNING " - Install git to compile a production libmaa!")
+  message (WARNING " - Install git to compile a production libmraa!")
   set (VERSION "v0.1.4-dirty")
 endif ()
 
@@ -81,7 +81,7 @@ if (IPK)
   set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
   set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${DETECTED_ARCH})
   set(CPACK_SYSTEM_NAME ${DETECTED_ARCH})
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libmaa0 (>= ${MAA_VERSION})")
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libmraa0 (>= ${MRAA_VERSION})")
   set(CPACK_DEBIAN_PACKAGE_PROVIDES "upm-dev, upm-dbg, upm-doc")
   set(CPACK_DEBIAN_PACKAGE_REPLACES ${CPACK_DEBIAN_PACKAGE_PROVIDES})
   set(CPACK_DEBIAN_PACKAGE_CONFLICTS ${CPACK_DEBIAN_PACKAGE_PROVIDES})

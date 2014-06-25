@@ -51,56 +51,56 @@ const uint8_t digitToSegment[] = {
 };
 
 TM1637::TM1637 (uint8_t di, uint8_t dcki) {
-    maa_result_t error = MAA_SUCCESS;
-    maa_init();
+    mraa_result_t error = MRAA_SUCCESS;
+    mraa_init();
 
     // init clock context
-    m_clkPinCtx = maa_gpio_init(dcki);
+    m_clkPinCtx = mraa_gpio_init(dcki);
     if (m_clkPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
         exit(1);
     }
     // init data context
-    m_dataPinCtx = maa_gpio_init(di);
+    m_dataPinCtx = mraa_gpio_init(di);
     if (m_dataPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
         exit(1);
     }
     
     // set direction (out)
-    error = maa_gpio_dir(m_clkPinCtx, MAA_GPIO_IN);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_IN);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 
     // set direction (out)
-    error = maa_gpio_dir(m_dataPinCtx, MAA_GPIO_IN);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_dir(m_dataPinCtx, MRAA_GPIO_IN);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 
-    error = maa_gpio_write (m_dataPinCtx, LOW);
-    error = maa_gpio_write (m_clkPinCtx, LOW);
+    error = mraa_gpio_write (m_dataPinCtx, LOW);
+    error = mraa_gpio_write (m_clkPinCtx, LOW);
 }
 
 TM1637::~TM1637() {
-    maa_result_t error = MAA_SUCCESS;
-    error = maa_gpio_close (m_dataPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    mraa_result_t error = MRAA_SUCCESS;
+    error = mraa_gpio_close (m_dataPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
-    error = maa_gpio_close (m_clkPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close (m_clkPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
-maa_result_t
+mraa_result_t
 TM1637::setBrightness (uint8_t level) {
     m_brightness = level;
 }
 
-maa_result_t
+mraa_result_t
 TM1637::setSegments (const uint8_t segments[], uint8_t length, uint8_t pos) {
     start();
     writeByte(TM1637_I2C_COMM1);
@@ -118,7 +118,7 @@ TM1637::setSegments (const uint8_t segments[], uint8_t length, uint8_t pos) {
     stop();
 }
 
-maa_result_t
+mraa_result_t
 TM1637::write (std::string msg) {
     char leter = '\0';
     uint8_t data[] = { 0x0, 0x0, 0x0, 0x0 };
@@ -132,60 +132,60 @@ TM1637::write (std::string msg) {
     setSegments(data);
 }
 
-maa_result_t
-TM1637::pinMode (maa_gpio_context ctx, gpio_dir_t mode) {
-    maa_result_t error = MAA_SUCCESS;
-    error = maa_gpio_dir(ctx, mode);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+mraa_result_t
+TM1637::pinMode (mraa_gpio_context ctx, gpio_dir_t mode) {
+    mraa_result_t error = MRAA_SUCCESS;
+    error = mraa_gpio_dir(ctx, mode);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
-maa_result_t
+mraa_result_t
 TM1637::start() {
-    pinMode (m_dataPinCtx, MAA_GPIO_OUT);
+    pinMode (m_dataPinCtx, MRAA_GPIO_OUT);
     usleep(PULSE_LENGTH);
 }
 
-maa_result_t
+mraa_result_t
 TM1637::stop() {
-    pinMode (m_dataPinCtx, MAA_GPIO_OUT);
+    pinMode (m_dataPinCtx, MRAA_GPIO_OUT);
     usleep(PULSE_LENGTH);
-    pinMode (m_clkPinCtx, MAA_GPIO_IN);
+    pinMode (m_clkPinCtx, MRAA_GPIO_IN);
     usleep(PULSE_LENGTH);
-    pinMode (m_dataPinCtx, MAA_GPIO_IN);
+    pinMode (m_dataPinCtx, MRAA_GPIO_IN);
     usleep(PULSE_LENGTH);
 }
 
-maa_result_t
+mraa_result_t
 TM1637::writeByte(uint8_t value) {
     for (uint8_t idx = 0; idx < 8; idx++) {
-        pinMode(m_clkPinCtx, MAA_GPIO_OUT);
+        pinMode(m_clkPinCtx, MRAA_GPIO_OUT);
         usleep(PULSE_LENGTH);
         if (value & 0x01) {
-              pinMode(m_dataPinCtx, MAA_GPIO_IN);
+              pinMode(m_dataPinCtx, MRAA_GPIO_IN);
         } else {
-              pinMode(m_dataPinCtx, MAA_GPIO_OUT);
+              pinMode(m_dataPinCtx, MRAA_GPIO_OUT);
         }
         usleep(PULSE_LENGTH);
 
-        pinMode(m_clkPinCtx, MAA_GPIO_IN);
+        pinMode(m_clkPinCtx, MRAA_GPIO_IN);
         usleep(PULSE_LENGTH);
         value = value >> 1;
     }
 
-    pinMode(m_clkPinCtx, MAA_GPIO_OUT);
-    pinMode(m_dataPinCtx, MAA_GPIO_IN);
+    pinMode(m_clkPinCtx, MRAA_GPIO_OUT);
+    pinMode(m_dataPinCtx, MRAA_GPIO_IN);
     usleep(PULSE_LENGTH);
 
-    pinMode(m_clkPinCtx, MAA_GPIO_IN);
+    pinMode(m_clkPinCtx, MRAA_GPIO_IN);
     usleep(PULSE_LENGTH);
 
-    uint8_t ack = maa_gpio_read (m_dataPinCtx);
+    uint8_t ack = mraa_gpio_read (m_dataPinCtx);
     if (ack == 0) {
-        pinMode(m_dataPinCtx, MAA_GPIO_OUT);
+        pinMode(m_dataPinCtx, MRAA_GPIO_OUT);
     } usleep(PULSE_LENGTH);
 
-    pinMode(m_clkPinCtx, MAA_GPIO_OUT);
+    pinMode(m_clkPinCtx, MRAA_GPIO_OUT);
     usleep(50);
 }

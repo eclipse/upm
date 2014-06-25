@@ -24,9 +24,9 @@
 #pragma once
 
 #include <string>
-#include <maa/aio.h>
-#include <maa/gpio.h>
-#include <maa/pwm.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
+#include <mraa/pwm.h>
 #include <sys/time.h>
 
 #define HIGH                   1
@@ -85,8 +85,8 @@ class HCSR04 {
         }
 
     private:
-        maa_pwm_context     m_pwmTriggerCtx;
-        maa_gpio_context    m_echoPinCtx;
+        mraa_pwm_context     m_pwmTriggerCtx;
+        mraa_gpio_context    m_echoPinCtx;
 
         uint8_t m_waitEcho;
         long    m_RisingTimeStamp;

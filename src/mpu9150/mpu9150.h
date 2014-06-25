@@ -27,7 +27,7 @@
 #pragma once
 
 #include <string>
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 
 #define MPU6050_ADDRESS_AD0_LOW             0x68 // address pin low (GND), default for InvenSense evaluation board
 #define MPU6050_ADDRESS_AD0_HIGH            0x69 // address pin high (VCC)
@@ -133,7 +133,7 @@ class MPU9150 {
         /**
          * Initiate MPU9150 chips
          */
-        maa_result_t initSensor ();
+        mraa_result_t initSensor ();
 
         /**
          * Get identity of the device
@@ -144,22 +144,22 @@ class MPU9150 {
          * Get the Accelerometer, Gyro and Compass data from the chip and
          * save it in private section.
          */
-        maa_result_t getData ();
+        mraa_result_t getData ();
 
         /**
          * @param data structure with 3 axis (x,y,z)
          */
-        maa_result_t getAcceleromter (Vector3D * data);
+        mraa_result_t getAcceleromter (Vector3D * data);
 
         /**
          * @param data structure with 3 axis (x,y,z)
          */
-        maa_result_t getGyro (Vector3D * data);
+        mraa_result_t getGyro (Vector3D * data);
 
         /**
          * @param data structure with 3 axis (x,y,z)
          */
-        maa_result_t getMagnometer (Vector3D * data);
+        mraa_result_t getMagnometer (Vector3D * data);
 
         /**
          * Read on die temperature from the chip
@@ -179,14 +179,14 @@ class MPU9150 {
 
         int m_i2cAddr;
         int m_bus;
-        maa_i2c_context m_i2Ctx;
+        mraa_i2c_context m_i2Ctx;
 
         AxisData axisMagnetomer;
         AxisData axisAcceleromter;
         AxisData axisGyroscope;
 
         uint16_t i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer);
-        maa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
         int updateRegBits (uint8_t reg, uint8_t bitStart,
                                     uint8_t length, uint16_t data);
         uint8_t getRegBits (uint8_t reg, uint8_t bitStart,

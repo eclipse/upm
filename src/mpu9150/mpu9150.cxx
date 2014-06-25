@@ -39,10 +39,10 @@ MPU9150::MPU9150 (int bus, int devAddr) {
     m_i2cAddr = devAddr;
     m_bus = bus;
 
-    m_i2Ctx = maa_i2c_init(m_bus);
+    m_i2Ctx = mraa_i2c_init(m_bus);
 
-    maa_result_t ret = maa_i2c_address(m_i2Ctx, m_i2cAddr);
-    if (ret != MAA_SUCCESS) {
+    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
+    if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
@@ -50,10 +50,10 @@ MPU9150::MPU9150 (int bus, int devAddr) {
 }
 
 MPU9150::~MPU9150() {
-    maa_i2c_stop(m_i2Ctx);
+    mraa_i2c_stop(m_i2Ctx);
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::initSensor () {
     uint8_t regData = 0x0;
 
@@ -71,7 +71,7 @@ MPU9150::initSensor () {
     regData &= ~(1 << MPU6050_PWR1_SLEEP_BIT);
     i2cWriteReg (MPU6050_RA_PWR_MGMT_1, regData);
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
 uint8_t
@@ -81,7 +81,7 @@ MPU9150::getDeviceID () {
     return regData;
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::getData () {
     uint8_t buffer[14];
 
@@ -130,31 +130,31 @@ MPU9150::getData () {
     axisMagnetomer.data.axisZ = axisMagnetomer.sumData.axisZ / SMOOTH_TIMES;
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::getAcceleromter (Vector3D * data) {
     data->axisX = axisAcceleromter.data.axisX;
     data->axisY = axisAcceleromter.data.axisY;
     data->axisZ = axisAcceleromter.data.axisZ;
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::getGyro (Vector3D * data) {
     data->axisX = axisGyroscope.data.axisX;
     data->axisY = axisGyroscope.data.axisY;
     data->axisZ = axisGyroscope.data.axisZ;
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::getMagnometer (Vector3D * data) {
     data->axisX = axisMagnetomer.data.axisX;
     data->axisY = axisMagnetomer.data.axisY;
     data->axisZ = axisMagnetomer.data.axisZ;
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
 float
@@ -177,21 +177,21 @@ MPU9150::getTemperature () {
 uint16_t
 MPU9150::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
-    maa_i2c_address(m_i2Ctx, m_i2cAddr);
-    maa_i2c_write_byte(m_i2Ctx, reg);
+    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
+    mraa_i2c_write_byte(m_i2Ctx, reg);
 
-    maa_i2c_address(m_i2Ctx, m_i2cAddr);
-    readByte = maa_i2c_read(m_i2Ctx, buffer, len);
+    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
+    readByte = mraa_i2c_read(m_i2Ctx, buffer, len);
     return readByte;
 }
 
-maa_result_t
+mraa_result_t
 MPU9150::i2cWriteReg (uint8_t reg, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = maa_i2c_address (m_i2Ctx, m_i2cAddr);
-    error = maa_i2c_write (m_i2Ctx, data, 2);
+    error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
+    error = mraa_i2c_write (m_i2Ctx, data, 2);
 
     return error;
 }

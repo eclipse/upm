@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <maa/pwm.h>
+#include <mraa/pwm.h>
 
 namespace upm {
 
@@ -70,7 +70,7 @@ class Servo {
          *
          * @param angle number between 0 and 180
          */
-        maa_result_t setAngle (int angle);
+        mraa_result_t setAngle (int angle);
 
         /**
          * Return name of the component
@@ -122,7 +122,7 @@ class Servo {
         std::string         m_name;
         int                 m_servoPin;
         float               m_maxAngle;
-        maa_pwm_context     m_pwmServoContext;
+        mraa_pwm_context     m_pwmServoContext;
         int                 m_currAngle;
         
         int                 m_minPulseWidth;

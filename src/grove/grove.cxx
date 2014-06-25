@@ -33,31 +33,31 @@ using namespace upm;
 
 GroveLed::GroveLed(int pin)
 {
-    maa_init();
-    m_gpio = maa_gpio_init(pin);
-    maa_gpio_dir(m_gpio, MAA_GPIO_OUT);
+    mraa_init();
+    m_gpio = mraa_gpio_init(pin);
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
     m_name = "LED Socket";
 }
 
 GroveLed::~GroveLed()
 {
-    maa_gpio_close(m_gpio);
+    mraa_gpio_close(m_gpio);
 }
 
-maa_result_t GroveLed::write(int value)
+mraa_result_t GroveLed::write(int value)
 {
     if (value >= 1) {
-        return maa_gpio_write(m_gpio, 1);
+        return mraa_gpio_write(m_gpio, 1);
     }
-    return maa_gpio_write(m_gpio, 0);
+    return mraa_gpio_write(m_gpio, 0);
 }
 
-maa_result_t GroveLed::on()
+mraa_result_t GroveLed::on()
 {
     return write(1);
 }
 
-maa_result_t GroveLed::off()
+mraa_result_t GroveLed::off()
 {
     return write(0);
 }
@@ -66,19 +66,19 @@ maa_result_t GroveLed::off()
 
 GroveTemp::GroveTemp(unsigned int pin)
 {
-    maa_init();
-    m_aio = maa_aio_init(pin);
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
     m_name = "Temperature Sensor";
 }
 
 GroveTemp::~GroveTemp()
 {
-    maa_aio_close(m_aio);
+    mraa_aio_close(m_aio);
 }
 
 int GroveTemp::value ()
 {
-    int a = maa_aio_read(m_aio);
+    int a = mraa_aio_read(m_aio);
     float r = (float)(1023-a)*10000/a;
     float t = 1/(logf(r/10000)/3975 + 1/298.15)-273.15;
     return (int) t;
@@ -86,32 +86,32 @@ int GroveTemp::value ()
 
 float GroveTemp::raw_value()
 {
-    return (float) maa_aio_read(m_aio);
+    return (float) mraa_aio_read(m_aio);
 }
 
 //// GroveLight ////
 
 GroveLight::GroveLight(unsigned int pin)
 {
-    maa_init();
-    m_aio = maa_aio_init(pin);
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
     m_name = "Light Sensor";
 }
 
 GroveLight::~GroveLight()
 {
-    maa_aio_close(m_aio);
+    mraa_aio_close(m_aio);
 }
 
 int GroveLight::value ()
 {
     // rough conversion to Lux
-    int a = maa_aio_read(m_aio);
+    int a = mraa_aio_read(m_aio);
     a = 10000/(((1023-a)*10/a)*15)^(4/3);
     return a;
 }
 
 float GroveLight::raw_value()
 {
-    return (float) maa_aio_read(m_aio);
+    return (float) mraa_aio_read(m_aio);
 }

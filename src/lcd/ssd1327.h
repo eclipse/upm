@@ -148,26 +148,26 @@ typedef enum {
 class SSD1327 : public I2CLcd {
     public:
         /** SSD1308 Constructor.
-         * Calls MAA initialisation functions.
+         * Calls MRAA initialisation functions.
          * @param bus i2c bus to use
          * @param address the slave address the lcd is registered on.
          */
         SSD1327 (int bus, int address);
         ~SSD1327 ();
-        maa_result_t draw(uint8_t *data, int bytes);
+        mraa_result_t draw(uint8_t *data, int bytes);
 
         // virtual methods
-        maa_result_t write (std::string msg);
-        maa_result_t setCursor (int row, int column);
-        maa_result_t clear ();
-        maa_result_t home ();
-        maa_result_t setGrayLevel (uint8_t level);
+        mraa_result_t write (std::string msg);
+        mraa_result_t setCursor (int row, int column);
+        mraa_result_t clear ();
+        mraa_result_t home ();
+        mraa_result_t setGrayLevel (uint8_t level);
 
     private:
-        maa_result_t writeChar (maa_i2c_context ctx, uint8_t value);
-        maa_result_t setNormalDisplay ();
-        maa_result_t setHorizontalMode ();
-        maa_result_t setVerticalMode ();
+        mraa_result_t writeChar (mraa_i2c_context ctx, uint8_t value);
+        mraa_result_t setNormalDisplay ();
+        mraa_result_t setHorizontalMode ();
+        mraa_result_t setVerticalMode ();
 
         uint8_t grayHigh;
         uint8_t grayLow;

@@ -31,51 +31,51 @@
 using namespace upm;
 
 MY9221::MY9221 (uint8_t di, uint8_t dcki) {
-    maa_result_t error = MAA_SUCCESS;
-    maa_init();
+    mraa_result_t error = MRAA_SUCCESS;
+    mraa_init();
 
     // init clock context
-    m_clkPinCtx = maa_gpio_init(dcki);
+    m_clkPinCtx = mraa_gpio_init(dcki);
     if (m_clkPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
         exit(1);
     }
     // init data context
-    m_dataPinCtx = maa_gpio_init(di);
+    m_dataPinCtx = mraa_gpio_init(di);
     if (m_dataPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
         exit(1);
     }
     
     // set direction (out)
-    error = maa_gpio_dir(m_clkPinCtx, MAA_GPIO_OUT);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 
     // set direction (out)
-    error = maa_gpio_dir(m_dataPinCtx, MAA_GPIO_OUT);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_dir(m_dataPinCtx, MRAA_GPIO_OUT);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
 MY9221::~MY9221() {
-    maa_result_t error = MAA_SUCCESS;
-    error = maa_gpio_close (m_dataPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    mraa_result_t error = MRAA_SUCCESS;
+    error = mraa_gpio_close (m_dataPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
-    error = maa_gpio_close (m_clkPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close (m_clkPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
-maa_result_t
+mraa_result_t
 MY9221::setBarLevel (uint8_t level) {
     if (level > 10) {
-        return MAA_ERROR_INVALID_PARAMETER;
+        return MRAA_ERROR_INVALID_PARAMETER;
     }
 
     send16bitBlock (CMDMODE);
@@ -86,25 +86,25 @@ MY9221::setBarLevel (uint8_t level) {
     lockData ();
 }
 
-maa_result_t
+mraa_result_t
 MY9221::lockData () {
-    maa_result_t error = MAA_SUCCESS;
-    error = maa_gpio_write (m_dataPinCtx, LOW);
+    mraa_result_t error = MRAA_SUCCESS;
+    error = mraa_gpio_write (m_dataPinCtx, LOW);
     usleep(100);
     
     for(int idx = 0; idx < 4; idx++) {
-        error = maa_gpio_write (m_dataPinCtx, HIGH);
-        error = maa_gpio_write (m_dataPinCtx, LOW);
+        error = mraa_gpio_write (m_dataPinCtx, HIGH);
+        error = mraa_gpio_write (m_dataPinCtx, LOW);
     }
 }
 
-maa_result_t
+mraa_result_t
 MY9221::send16bitBlock (short data) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
     for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
         uint32_t state = (data & 0x8000) ? HIGH : LOW;
-        error = maa_gpio_write (m_dataPinCtx, state);
-        state = maa_gpio_read (m_clkPinCtx);
+        error = mraa_gpio_write (m_dataPinCtx, state);
+        state = mraa_gpio_read (m_clkPinCtx);
 
         if (state) {
             state = LOW;
@@ -112,7 +112,7 @@ MY9221::send16bitBlock (short data) {
             state = HIGH;
         }
 
-        error = maa_gpio_write (m_clkPinCtx, state);
+        error = mraa_gpio_write (m_clkPinCtx, state);
 
         data <<= 1;
     }

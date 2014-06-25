@@ -30,13 +30,13 @@
 using namespace upm;
 
 Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdAddress) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     m_rgb_address = rgbAddress;
-    m_i2c_lcd_rgb = maa_i2c_init(m_bus);
+    m_i2c_lcd_rgb = mraa_i2c_init(m_bus);
 
-    maa_result_t ret = maa_i2c_address(m_i2c_lcd_rgb, m_rgb_address);
-    if (ret != MAA_SUCCESS) {
+    mraa_result_t ret = mraa_i2c_address(m_i2c_lcd_rgb, m_rgb_address);
+    if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
@@ -75,9 +75,9 @@ Jhd1313m1::~Jhd1313m1() {
  *  virtual area
  * **************
  */
-maa_result_t
+mraa_result_t
 Jhd1313m1::write (std::string msg) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
     uint8_t data[2] = {0x40, 0};
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
         error = i2cData (m_i2c_lcd_control, msg[i]);
@@ -86,9 +86,9 @@ Jhd1313m1::write (std::string msg) {
     return error;
 }
 
-maa_result_t
+mraa_result_t
 Jhd1313m1::setCursor (int row, int column) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
     uint8_t offset = ((column % 16) + row_addr[row]);
     error =  i2Cmd (m_i2c_lcd_control, offset);
@@ -96,12 +96,12 @@ Jhd1313m1::setCursor (int row, int column) {
     return error;
 }
 
-maa_result_t
+mraa_result_t
 Jhd1313m1::clear () {
     return i2Cmd (m_i2c_lcd_control, LCD_CLEARDISPLAY);
 }
 
-maa_result_t
+mraa_result_t
 Jhd1313m1::home () {
     return i2Cmd (m_i2c_lcd_control, LCD_RETURNHOME);
 }

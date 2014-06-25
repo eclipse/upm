@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 
 #define ADDR               0x4A // device address
 
@@ -122,14 +122,14 @@ class MAX44000 {
          * @param reg address of a register
          * @param value byte to be written
          */
-        maa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
     private:
         std::string m_name;
 
         int m_maxControlAddr;
         int m_bus;
-        maa_i2c_context m_i2cMaxControlCtx;
+        mraa_i2c_context m_i2cMaxControlCtx;
 };
 
 }

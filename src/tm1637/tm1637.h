@@ -24,8 +24,8 @@
 #pragma once
 
 #include <string>
-#include <maa/aio.h>
-#include <maa/gpio.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
 
 #define SEG_A               0b00000001
 #define SEG_B               0b00000010
@@ -82,7 +82,7 @@ class TM1637 {
          *
          * @param level The brightness level of leds
          */
-        maa_result_t setBrightness (uint8_t level);
+        mraa_result_t setBrightness (uint8_t level);
 
         /**
          * Set the the segment screen data and number of segments
@@ -92,14 +92,14 @@ class TM1637 {
          * @param length number of elements in segments array
          * @param pos data writing offset
          */
-        maa_result_t setSegments (const uint8_t segments[], uint8_t length = 4, uint8_t pos = 0);
+        mraa_result_t setSegments (const uint8_t segments[], uint8_t length = 4, uint8_t pos = 0);
 
         /**
          * Write message on the screen.
          *
          * @param msg The message to be written on the sreen
          */
-        maa_result_t write (std::string msg);
+        mraa_result_t write (std::string msg);
 
         /**
          * Return name of the component
@@ -110,13 +110,13 @@ class TM1637 {
         }
 
     private:
-        maa_result_t start();
-        maa_result_t stop();
-        maa_result_t writeByte (uint8_t value);
-        maa_result_t pinMode (maa_gpio_context ctx, gpio_dir_t mode);
+        mraa_result_t start();
+        mraa_result_t stop();
+        mraa_result_t writeByte (uint8_t value);
+        mraa_result_t pinMode (mraa_gpio_context ctx, gpio_dir_t mode);
 
-        maa_gpio_context m_clkPinCtx;
-        maa_gpio_context m_dataPinCtx;
+        mraa_gpio_context m_clkPinCtx;
+        mraa_gpio_context m_dataPinCtx;
 
         std::string m_name;
         uint8_t m_brightness;

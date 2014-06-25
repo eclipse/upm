@@ -36,10 +36,10 @@ MAX44000::MAX44000 (int bus, int devAddr) {
     m_maxControlAddr = devAddr;
     m_bus = bus;
 
-    m_i2cMaxControlCtx = maa_i2c_init(m_bus);
+    m_i2cMaxControlCtx = mraa_i2c_init(m_bus);
 
-    maa_result_t ret = maa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    if (ret != MAA_SUCCESS) {
+    mraa_result_t ret = mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
@@ -48,7 +48,7 @@ MAX44000::MAX44000 (int bus, int devAddr) {
 }
 
 MAX44000::~MAX44000() {
-    maa_i2c_stop(m_i2cMaxControlCtx);
+    mraa_i2c_stop(m_i2cMaxControlCtx);
 }
 
 uint16_t
@@ -80,11 +80,11 @@ uint8_t
 MAX44000::i2cReadReg_8 (int reg) {
     uint8_t data;
 
-    maa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    maa_i2c_write_byte(m_i2cMaxControlCtx, reg);
+    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    mraa_i2c_write_byte(m_i2cMaxControlCtx, reg);
 
-    maa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    maa_i2c_read(m_i2cMaxControlCtx, &data, 0x1);
+    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    mraa_i2c_read(m_i2cMaxControlCtx, &data, 0x1);
 
     return data;
 }
@@ -93,22 +93,22 @@ uint16_t
 MAX44000::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    maa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    maa_i2c_write_byte(m_i2cMaxControlCtx, reg);
+    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    mraa_i2c_write_byte(m_i2cMaxControlCtx, reg);
 
-    maa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    maa_i2c_read(m_i2cMaxControlCtx, (uint8_t *)&data, 0x2);
+    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    mraa_i2c_read(m_i2cMaxControlCtx, (uint8_t *)&data, 0x2);
 
     return data;
 }
 
-maa_result_t
+mraa_result_t
 MAX44000::i2cWriteReg (uint8_t reg, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = maa_i2c_address (m_i2cMaxControlCtx, m_maxControlAddr);
-    error = maa_i2c_write (m_i2cMaxControlCtx, data, 2);
+    error = mraa_i2c_address (m_i2cMaxControlCtx, m_maxControlAddr);
+    error = mraa_i2c_write (m_i2cMaxControlCtx, data, 2);
 
     return error;
 }

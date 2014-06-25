@@ -36,10 +36,10 @@ GY65::GY65 (int bus, int devAddr, uint8_t mode) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = maa_i2c_init(m_bus);
+    m_i2ControlCtx = mraa_i2c_init(m_bus);
 
-    maa_result_t ret = maa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (ret != MAA_SUCCESS) {
+    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
@@ -70,7 +70,7 @@ GY65::GY65 (int bus, int devAddr, uint8_t mode) {
 }
 
 GY65::~GY65() {
-    maa_i2c_stop(m_i2ControlCtx);
+    mraa_i2c_stop(m_i2ControlCtx);
 }
 
 int32_t
@@ -180,13 +180,13 @@ GY65::computeB5(int32_t UT) {
     return X1 + X2;
 }
 
-maa_result_t
+mraa_result_t
 GY65::i2cWriteReg (uint8_t reg, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = maa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = maa_i2c_write (m_i2ControlCtx, data, 2);
+    error = mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
+    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
 
     return error;
 }
@@ -195,11 +195,11 @@ uint16_t
 GY65::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    maa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    maa_i2c_write_byte(m_i2ControlCtx, reg);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_write_byte(m_i2ControlCtx, reg);
 
-    maa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    maa_i2c_read(m_i2ControlCtx, (uint8_t *)&data, 0x2);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_read(m_i2ControlCtx, (uint8_t *)&data, 0x2);
 
     uint8_t high = (data & 0xFF00) >> 8;
     data = (data << 8) & 0xFF00;
@@ -212,11 +212,11 @@ uint8_t
 GY65::i2cReadReg_8 (int reg) {
     uint8_t data;
 
-    maa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    maa_i2c_write_byte(m_i2ControlCtx, reg);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_write_byte(m_i2ControlCtx, reg);
 
-    maa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    maa_i2c_read(m_i2ControlCtx, &data, 0x1);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_read(m_i2ControlCtx, &data, 0x1);
 
     return data;
 }

@@ -31,35 +31,35 @@
 using namespace upm;
 
 StepMotor::StepMotor (int dirPin, int stePin) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
     m_name = "StepMotor";
 
-    maa_init();
+    mraa_init();
 
     m_stePin = stePin;
     m_dirPin = dirPin;
 
-    m_pwmStepContext = maa_pwm_init (m_stePin);
-    m_dirPinCtx = maa_gpio_init (m_dirPin);
+    m_pwmStepContext = mraa_pwm_init (m_stePin);
+    m_dirPinCtx = mraa_gpio_init (m_dirPin);
     if (m_dirPinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_dirPin);
         exit (1);
     }
 
-    error = maa_gpio_dir (m_dirPinCtx, MAA_GPIO_OUT);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    error = mraa_gpio_dir (m_dirPinCtx, MRAA_GPIO_OUT);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 }
 
 StepMotor::~StepMotor() {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
-    maa_pwm_close (m_pwmStepContext);
+    mraa_pwm_close (m_pwmStepContext);
 
-    error = maa_gpio_close (m_dirPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close (m_dirPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
@@ -76,51 +76,51 @@ StepMotor::setSpeed (int speed) {
     m_speed = speed;
 }
 
-maa_result_t
+mraa_result_t
 StepMotor::stepForward (int ticks) {
     dirForward ();
     move (ticks);
 }
 
-maa_result_t
+mraa_result_t
 StepMotor::stepBackwards (int ticks) {
     dirBackwards ();
     move (ticks);
 }
 
-maa_result_t
+mraa_result_t
 StepMotor::move (int ticks) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
-    maa_pwm_enable (m_pwmStepContext, 1);
+    mraa_pwm_enable (m_pwmStepContext, 1);
     for (int tick = 0; tick < ticks; tick++) {
-        maa_pwm_period_us (m_pwmStepContext, m_speed);
-        maa_pwm_pulsewidth_us (m_pwmStepContext, PULSEWIDTH);
+        mraa_pwm_period_us (m_pwmStepContext, m_speed);
+        mraa_pwm_pulsewidth_us (m_pwmStepContext, PULSEWIDTH);
     }
-    maa_pwm_enable (m_pwmStepContext, 0);
+    mraa_pwm_enable (m_pwmStepContext, 0);
 
     return error;
 }
 
-maa_result_t
+mraa_result_t
 StepMotor::dirForward () {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
-    error = maa_gpio_write (m_dirPinCtx, HIGH);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    error = mraa_gpio_write (m_dirPinCtx, HIGH);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 
     return error;
 }
 
-maa_result_t
+mraa_result_t
 StepMotor::dirBackwards () {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
-    error = maa_gpio_write (m_dirPinCtx, LOW);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    error = mraa_gpio_write (m_dirPinCtx, LOW);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 
     return error;

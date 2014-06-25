@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <maa/pwm.h>
+#include <mraa/pwm.h>
 
 #define  DO     3300    // 261 Hz 3830
 #define  RE     2930    // 294 Hz
@@ -76,6 +76,6 @@ class Buzzer {
     protected:
         std::string m_name;
     private:
-        maa_pwm_context m_pwm_context;
+        mraa_pwm_context m_pwm_context;
 };
 }

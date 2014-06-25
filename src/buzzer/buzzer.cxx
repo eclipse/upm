@@ -30,22 +30,22 @@
 using namespace upm;
 
 Buzzer::Buzzer (int pinNumber) {
-    m_pwm_context = maa_pwm_init (pinNumber);
+    m_pwm_context = mraa_pwm_init (pinNumber);
     m_name = "Buzzer";
 }
 
 int Buzzer::playSound (int note, int delay) {
-    maa_pwm_enable (m_pwm_context, 1);
-    maa_pwm_period_us (m_pwm_context, note);
-    maa_pwm_pulsewidth_us (m_pwm_context, note / 2);
+    mraa_pwm_enable (m_pwm_context, 1);
+    mraa_pwm_period_us (m_pwm_context, note);
+    mraa_pwm_pulsewidth_us (m_pwm_context, note / 2);
     usleep (delay);
-    maa_pwm_enable (m_pwm_context, 0);
+    mraa_pwm_enable (m_pwm_context, 0);
 
     return note;
 }
 
 Buzzer::~Buzzer() {
-    maa_pwm_close(m_pwm_context);
-    std::cout << "executed maa_pwm_close" << std::endl;
+    mraa_pwm_close(m_pwm_context);
+    std::cout << "executed mraa_pwm_close" << std::endl;
 }
 

@@ -31,58 +31,58 @@
 using namespace upm;
 
 NRF24l01::NRF24l01 (uint8_t cs) {
-    maa_init();
+    mraa_init();
     nrfInitModule (cs, 8);
 }
 
 NRF24l01::~NRF24l01 () {
-    maa_result_t error = MAA_SUCCESS;
-    error = maa_spi_stop(m_spi);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    mraa_result_t error = MRAA_SUCCESS;
+    error = mraa_spi_stop(m_spi);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
-    error = maa_gpio_close (m_cePinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close (m_cePinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
-    error = maa_gpio_close (m_csnPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close (m_csnPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
 void
 NRF24l01::nrfInitModule (uint8_t chip_select, uint8_t chip_enable) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     m_csn         = chip_select;
     m_ce         = chip_enable;
     m_channel     = 1;
 
-    m_csnPinCtx = maa_gpio_init (m_csn);
+    m_csnPinCtx = mraa_gpio_init (m_csn);
     if (m_csnPinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_csn);
         exit (1);
     }
 
-    m_cePinCtx = maa_gpio_init (m_ce);
+    m_cePinCtx = mraa_gpio_init (m_ce);
     if (m_cePinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_ce);
         exit (1);
     }
 
-    error = maa_gpio_dir (m_csnPinCtx, MAA_GPIO_OUT);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 
-    error = maa_gpio_dir (m_cePinCtx, MAA_GPIO_OUT);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    error = mraa_gpio_dir (m_cePinCtx, MRAA_GPIO_OUT);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 
     nrfCELow ();
-    m_spi = maa_spi_init (0);
+    m_spi = mraa_spi_init (0);
 }
 
 void
@@ -105,8 +105,8 @@ NRF24l01::nrfConfigModule() {
 void
 NRF24l01::nrfConfigRegister(uint8_t reg, uint8_t value) {
     nrfCSOn ();
-    maa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
-    maa_spi_write (m_spi, value);
+    mraa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
+    mraa_spi_write (m_spi, value);
     nrfCSOff ();
 }
 
@@ -122,7 +122,7 @@ NRF24l01::nrfPowerUpRX() {
 void
 NRF24l01::nrfFlushRX() {
     nrfCSOn ();
-    maa_spi_write (m_spi, FLUSH_RX);
+    mraa_spi_write (m_spi, FLUSH_RX);
     nrfCSOff ();
 }
 
@@ -160,7 +160,7 @@ void
 NRF24l01::nrfWriteRegister(uint8_t reg, uint8_t * value, uint8_t len)
 {
     nrfCSOn ();
-    maa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
+    mraa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
     nrfTransmitSync(value, len);
     nrfCSOff ();
 }
@@ -169,7 +169,7 @@ void
 NRF24l01::nrfTransmitSync(uint8_t *dataout, uint8_t len){
     uint8_t i;
     for(i = 0; i < len; i++) {
-        maa_spi_write (m_spi, dataout[i]);
+        mraa_spi_write (m_spi, dataout[i]);
     }
 }
 
@@ -196,7 +196,7 @@ void
 NRF24l01::nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len)
 {
     nrfCSOn ();
-    maa_spi_write (m_spi, R_REGISTER | (REGISTER_MASK & reg));
+    mraa_spi_write (m_spi, R_REGISTER | (REGISTER_MASK & reg));
     nrfTransferSync (value, value, len);
     nrfCSOff ();
 }
@@ -205,7 +205,7 @@ void
 NRF24l01::nrfTransferSync (uint8_t *dataout,uint8_t *datain,uint8_t len) {
     uint8_t i;
     for(i = 0;i < len;i++) {
-        datain[i] = maa_spi_write (m_spi, dataout[i]);
+        datain[i] = mraa_spi_write (m_spi, dataout[i]);
     }
 }
 
@@ -222,7 +222,7 @@ NRF24l01::nrfGetData (uint8_t * data)
 {
     nrfCSOn ();
     /* Send cmd to read rx payload */
-    maa_spi_write (m_spi, R_RX_PAYLOAD);
+    mraa_spi_write (m_spi, R_RX_PAYLOAD);
     /* Read payload */
     nrfTransferSync(data, data, m_payload);
     nrfCSOff ();
@@ -248,11 +248,11 @@ NRF24l01::nrfSend(uint8_t * value) {
     nrfCELow();
     nrfPowerUpTX();                            // Set to transmitter mode , Power up
     nrfCSOn ();
-    maa_spi_write (m_spi, FLUSH_TX);        // Write cmd to flush tx fifo
+    mraa_spi_write (m_spi, FLUSH_TX);        // Write cmd to flush tx fifo
     nrfCSOff ();
 
     nrfCSOn ();
-    maa_spi_write (m_spi, W_TX_PAYLOAD);     // Write cmd to write payload
+    mraa_spi_write (m_spi, W_TX_PAYLOAD);     // Write cmd to write payload
     nrfTransmitSync(value, m_payload);        // Write payload
     nrfCSOff ();
     nrfCEHigh();                            // Start transmission
@@ -290,24 +290,24 @@ NRF24l01::nrfPowerDown () {
     nrfConfigRegister (CONFIG, NRF_CONFIG);
 }
 
-maa_result_t
+mraa_result_t
 NRF24l01::nrfCEHigh () {
-    return maa_gpio_write (m_cePinCtx, HIGH);
+    return mraa_gpio_write (m_cePinCtx, HIGH);
 }
 
-maa_result_t
+mraa_result_t
 NRF24l01::nrfCELow () {
-    return maa_gpio_write (m_cePinCtx, LOW);
+    return mraa_gpio_write (m_cePinCtx, LOW);
 }
 
-maa_result_t
+mraa_result_t
 NRF24l01::nrfCSOn () {
-    return maa_gpio_write (m_csnPinCtx, LOW);
+    return mraa_gpio_write (m_csnPinCtx, LOW);
 }
 
-maa_result_t
+mraa_result_t
 NRF24l01::nrfCSOff () {
-    return maa_gpio_write (m_csnPinCtx, HIGH);
+    return mraa_gpio_write (m_csnPinCtx, HIGH);
 }
 
 void

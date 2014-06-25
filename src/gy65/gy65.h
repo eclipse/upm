@@ -27,7 +27,7 @@
 #pragma once
 
 #include <string>
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 #include <math.h>
 
 #define ADDR               0x77 // device address
@@ -137,7 +137,7 @@ class GY65 {
          * @param reg address of a register
          * @param value byte to be written
          */
-        maa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
          * Read one byte register
@@ -151,7 +151,7 @@ class GY65 {
 
         int m_controlAddr;
         int m_bus;
-        maa_i2c_context m_i2ControlCtx;
+        mraa_i2c_context m_i2ControlCtx;
 
         uint8_t oversampling;
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;

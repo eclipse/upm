@@ -33,54 +33,54 @@ I2CLcd::I2CLcd (int bus, int lcdAddress) {
     m_lcd_control_address = lcdAddress;
     m_bus = bus;
 
-    m_i2c_lcd_control = maa_i2c_init(m_bus);
+    m_i2c_lcd_control = mraa_i2c_init(m_bus);
 
-    maa_result_t ret = maa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
-    if (ret != MAA_SUCCESS) {
+    mraa_result_t ret = mraa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
+    if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 }
 
-maa_result_t
+mraa_result_t
 I2CLcd::write (int row, int column, std::string msg) {
     setCursor (row, column);
     write (msg);
 }
 
-maa_result_t
+mraa_result_t
 I2CLcd::close() {
-    return maa_i2c_stop(m_i2c_lcd_control);
+    return mraa_i2c_stop(m_i2c_lcd_control);
 }
 
-maa_result_t
-I2CLcd::i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+mraa_result_t
+I2CLcd::i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { addr, value };
-    error = maa_i2c_address (ctx, deviceAdress);
-    error = maa_i2c_write (ctx, data, 2);
+    error = mraa_i2c_address (ctx, deviceAdress);
+    error = mraa_i2c_write (ctx, data, 2);
 
     return error;
 }
 
-maa_result_t
-I2CLcd::i2Cmd (maa_i2c_context ctx, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+mraa_result_t
+I2CLcd::i2Cmd (mraa_i2c_context ctx, uint8_t value) {
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { LCD_CMD, value };
-    error = maa_i2c_address (ctx, m_lcd_control_address);
-    error = maa_i2c_write (ctx, data, 2);
+    error = mraa_i2c_address (ctx, m_lcd_control_address);
+    error = mraa_i2c_write (ctx, data, 2);
 
     return error;
 }
 
-maa_result_t
-I2CLcd::i2cData (maa_i2c_context ctx, uint8_t value) {
-    maa_result_t error = MAA_SUCCESS;
+mraa_result_t
+I2CLcd::i2cData (mraa_i2c_context ctx, uint8_t value) {
+    mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { LCD_DATA, value };
-    error = maa_i2c_address (ctx, m_lcd_control_address);
-    error = maa_i2c_write (ctx, data, 2);
+    error = mraa_i2c_address (ctx, m_lcd_control_address);
+    error = mraa_i2c_write (ctx, data, 2);
 
     return error;
 }

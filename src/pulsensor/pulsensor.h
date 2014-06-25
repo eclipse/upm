@@ -28,9 +28,9 @@
 
 #include <string>
 #include <math.h>
-#include <maa/pwm.h>
-#include <maa/aio.h>
-#include <maa/gpio.h>
+#include <mraa/pwm.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
 #include <pthread.h>
 
 #define HIGH               1
@@ -62,7 +62,7 @@ struct pulsensor_context {
     uint8_t          second_beat;
     uint8_t          pin;
     uint8_t          ret;
-    maa_aio_context  pin_ctx;
+    mraa_aio_context  pin_ctx;
     
     callback_handler callback;
 };

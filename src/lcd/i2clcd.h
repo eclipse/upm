@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 
 namespace upm {
 
@@ -70,17 +70,17 @@ namespace upm {
 class I2CLcd {
     public:
         I2CLcd (int bus, int lcdAddress);
-        maa_result_t write (int x, int y, std::string msg);
+        mraa_result_t write (int x, int y, std::string msg);
         
-        virtual maa_result_t write (std::string msg) = 0;
-        virtual maa_result_t setCursor (int row, int column) = 0;
-        virtual maa_result_t clear () = 0;
-        virtual maa_result_t home () = 0;
-        virtual maa_result_t i2Cmd (maa_i2c_context ctx, uint8_t value);
-        virtual maa_result_t i2cReg (maa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
-        virtual maa_result_t i2cData (maa_i2c_context ctx, uint8_t value);
+        virtual mraa_result_t write (std::string msg) = 0;
+        virtual mraa_result_t setCursor (int row, int column) = 0;
+        virtual mraa_result_t clear () = 0;
+        virtual mraa_result_t home () = 0;
+        virtual mraa_result_t i2Cmd (mraa_i2c_context ctx, uint8_t value);
+        virtual mraa_result_t i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
+        virtual mraa_result_t i2cData (mraa_i2c_context ctx, uint8_t value);
         
-        maa_result_t close();
+        mraa_result_t close();
         std::string name()
         {
             return m_name;
@@ -89,7 +89,7 @@ class I2CLcd {
         std::string m_name;
         int m_lcd_control_address;
         int m_bus;
-        maa_i2c_context m_i2c_lcd_control;
+        mraa_i2c_context m_i2c_lcd_control;
 };
 
 }

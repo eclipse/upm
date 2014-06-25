@@ -33,7 +33,7 @@ using namespace upm;
 #define CMD_SLEEP  10000
 
 SSD1327::SSD1327 (int bus_in, int addr_in) : I2CLcd (bus_in, addr_in) {
-    maa_result_t error  = MAA_SUCCESS;
+    mraa_result_t error  = MRAA_SUCCESS;
     usleep (INIT_SLEEP);
     i2Cmd (m_i2c_lcd_control, 0xFD); // Unlock OLED driver IC MCU interface from entering command. i.e: Accept commands
     usleep (INIT_SLEEP);
@@ -123,9 +123,9 @@ SSD1327::~SSD1327 () {
 
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::draw (uint8_t *data, int bytes) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     setHorizontalMode ();
     for (int row = 0; row < bytes; row++) {
@@ -151,9 +151,9 @@ SSD1327::draw (uint8_t *data, int bytes) {
  *  virtual area
  * **************
  */
-maa_result_t
+mraa_result_t
 SSD1327::write (std::string msg) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     setVerticalMode ();
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
@@ -163,9 +163,9 @@ SSD1327::write (std::string msg) {
     return error;
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::setCursor (int row, int column) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     //Column Address
     i2Cmd (m_i2c_lcd_control, 0x15);                /* Set Column Address */
@@ -185,9 +185,9 @@ SSD1327::setCursor (int row, int column) {
     return error;
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::clear () {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     for(rowIdx = 0; rowIdx < 12; rowIdx++) {
@@ -197,15 +197,15 @@ SSD1327::clear () {
         }
     }
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::home () {
     return setCursor (0, 0);
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::setGrayLevel (uint8_t level) {
     grayHigh = (level << 4) & 0xF0;
     grayLow  =  level & 0x0F;
@@ -216,8 +216,8 @@ SSD1327::setGrayLevel (uint8_t level) {
  *  private area
  * **************
  */
-maa_result_t
-SSD1327::writeChar (maa_i2c_context ctx, uint8_t value) {
+mraa_result_t
+SSD1327::writeChar (mraa_i2c_context ctx, uint8_t value) {
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
     }
@@ -238,12 +238,12 @@ SSD1327::writeChar (maa_i2c_context ctx, uint8_t value) {
     }
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::setNormalDisplay () {
     return i2Cmd (m_i2c_lcd_control, DISPLAY_CMD_SET_NORMAL);    // set to normal display '1' is ON
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::setHorizontalMode () {
     i2Cmd (m_i2c_lcd_control, 0xA0); // remap to
     usleep (CMD_SLEEP);
@@ -267,7 +267,7 @@ SSD1327::setHorizontalMode () {
     usleep (CMD_SLEEP);
 }
 
-maa_result_t
+mraa_result_t
 SSD1327::setVerticalMode () {
     i2Cmd (m_i2c_lcd_control, 0xA0); // remap to
     usleep (CMD_SLEEP);

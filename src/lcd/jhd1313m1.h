@@ -32,14 +32,14 @@ class Jhd1313m1 : public I2CLcd {
     public:
         Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
         ~Jhd1313m1 ();
-        maa_result_t write (std::string msg);
-        maa_result_t setCursor (int row, int column);
-        maa_result_t clear ();
-        maa_result_t home ();
+        mraa_result_t write (std::string msg);
+        mraa_result_t setCursor (int row, int column);
+        mraa_result_t clear ();
+        mraa_result_t home ();
 
     private:
         int m_rgb_address;
-        maa_i2c_context m_i2c_lcd_rgb;
+        mraa_i2c_context m_i2c_lcd_rgb;
 };
 
 }

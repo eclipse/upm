@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 
 #define ADDR               0x1D // device address
 
@@ -183,7 +183,7 @@ class MMA7455 {
         /**
          * Calibrate the sensor
          */
-        maa_result_t calibrate ();
+        mraa_result_t calibrate ();
         
         /**
          * Read X, Y and Z acceleration data
@@ -192,7 +192,7 @@ class MMA7455 {
          * @param ptrY Y axis
          * @param ptrZ Z axis
          */
-        maa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
+        mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
         
         /**
          * 
@@ -210,14 +210,14 @@ class MMA7455 {
          * @param buf register data buffer 
          * @param size buffer size
          */
-        maa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        mraa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
 
     private:
         std::string m_name;
 
         int              m_controlAddr;
         int              m_bus;
-        maa_i2c_context  m_i2ControlCtx;
+        mraa_i2c_context  m_i2ControlCtx;
 };
 
 }

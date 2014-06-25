@@ -27,9 +27,9 @@
 #pragma once
 
 #include <string>
-#include <maa/aio.h>
-#include <maa/gpio.h>
-#include <maa/spi.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
+#include <mraa/spi.h>
 #include <gfx.h>
 
 #define INITR_GREENTAB      0x0
@@ -584,45 +584,45 @@ class ST7735 : public GFX {
         /**
          * LCD chip select LOW.
          */
-        maa_result_t lcdCSOn ();
+        mraa_result_t lcdCSOn ();
 
         /**
          * LCD chip select HIGH.
          */
-        maa_result_t lcdCSOff ();
+        mraa_result_t lcdCSOff ();
 
         /**
          * CD card chip select LOW.
          */
-        maa_result_t sdCSOn ();
+        mraa_result_t sdCSOn ();
 
         /**
          * CD card select HIGH.
          */
-        maa_result_t sdCSOff ();
+        mraa_result_t sdCSOff ();
 
         /**
          * Data select HIGH.
          */
-        maa_result_t rsHIGH ();
+        mraa_result_t rsHIGH ();
 
         /**
          * Data select LOW.
          */
-        maa_result_t rsLOW ();
+        mraa_result_t rsLOW ();
 
         uint8_t m_map[160 * 128 * 2]; /**< Screens buffer */
     private:
-        maa_spi_context      m_spi;
+        mraa_spi_context      m_spi;
         uint8_t              m_csLCD;
         uint8_t              m_cSD;
         uint8_t              m_rST;
         uint8_t              m_rS;
 
-        maa_gpio_context     m_csLCDPinCtx;
-        maa_gpio_context     m_cSDPinCtx;
-        maa_gpio_context     m_rSTPinCtx;
-        maa_gpio_context     m_rSPinCtx;
+        mraa_gpio_context     m_csLCDPinCtx;
+        mraa_gpio_context     m_cSDPinCtx;
+        mraa_gpio_context     m_rSTPinCtx;
+        mraa_gpio_context     m_rSPinCtx;
 
         uint8_t              m_spiBuffer[32];
 

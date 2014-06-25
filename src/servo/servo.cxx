@@ -32,7 +32,7 @@
 using namespace upm;
 
 Servo::Servo (int pin) {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
     m_minPulseWidth   = MIN_PULSE_WIDTH;
     m_maxPulseWidth   = MAX_PULSE_WIDTH;
@@ -40,7 +40,7 @@ Servo::Servo (int pin) {
 
     m_maxAngle        = 180.0;
     m_servoPin        = pin;
-    m_pwmServoContext = maa_pwm_init (m_servoPin);
+    m_pwmServoContext = mraa_pwm_init (m_servoPin);
     
     m_currAngle = 180;
     
@@ -48,7 +48,7 @@ Servo::Servo (int pin) {
 }
 
 Servo::~Servo () {
-    maa_pwm_close (m_pwmServoContext);
+    mraa_pwm_close (m_pwmServoContext);
 }
 
 /*
@@ -62,14 +62,14 @@ Servo::~Servo () {
  * Max period can be only 7968750(nses) which is ~8(msec)
  * so the servo wil not work as expected.
  * */
-maa_result_t Servo::setAngle (int angle) {
+mraa_result_t Servo::setAngle (int angle) {
     if (m_pwmServoContext == NULL) {
         std::cout << "PWM context is NULL" << std::endl;
-        return MAA_ERROR_UNSPECIFIED;
+        return MRAA_ERROR_UNSPECIFIED;
     }
     
     if (angle > m_maxAngle || angle < 0) {
-        return MAA_ERROR_UNSPECIFIED;
+        return MRAA_ERROR_UNSPECIFIED;
     }
 
     int period = (m_maxPulseWidth - m_minPulseWidth) / m_maxAngle;
@@ -78,12 +78,12 @@ maa_result_t Servo::setAngle (int angle) {
 
     // int cycles = (int)(100.0 * ((float)angle / (float)m_maxAngle));
 
-    maa_pwm_enable (m_pwmServoContext, 1);
+    mraa_pwm_enable (m_pwmServoContext, 1);
     for (int cycle = 0; cycle < cycles; cycle++) {
-        maa_pwm_period_us (m_pwmServoContext, m_maxPeriod);
-        maa_pwm_pulsewidth_us (m_pwmServoContext, calcPulseTraveling(angle));
+        mraa_pwm_period_us (m_pwmServoContext, m_maxPeriod);
+        mraa_pwm_pulsewidth_us (m_pwmServoContext, calcPulseTraveling(angle));
     }
-    maa_pwm_enable (m_pwmServoContext, 0);
+    mraa_pwm_enable (m_pwmServoContext, 0);
 
     std::cout << "angle = " << angle << " ,pulse = " << calcPulseTraveling(angle) << ", cycles " << cycles << std::endl;
     

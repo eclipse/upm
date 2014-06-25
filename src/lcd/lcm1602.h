@@ -35,21 +35,21 @@ namespace upm {
 class Lcm1602 : public I2CLcd {
     public:
         /** LCM1602 Constructor.
-         * Calls MAA initialisation functions.
+         * Calls MRAA initialisation functions.
          * @param bus i2c bus to use
          * @param address the slave address the lcd is registered on.
          */
         Lcm1602(int bus, int address);
         ~Lcm1602();
-        maa_result_t write (std::string msg);
-        maa_result_t setCursor (int row, int column);
-        maa_result_t clear ();
-        maa_result_t home ();
+        mraa_result_t write (std::string msg);
+        mraa_result_t setCursor (int row, int column);
+        mraa_result_t clear ();
+        mraa_result_t home ();
 
     private :
-        maa_result_t send (uint8_t value, int mode);
-        maa_result_t write4bits(uint8_t value);
-        maa_result_t expandWrite(uint8_t value);
-        maa_result_t pulseEnable(uint8_t value);
+        mraa_result_t send (uint8_t value, int mode);
+        mraa_result_t write4bits(uint8_t value);
+        mraa_result_t expandWrite(uint8_t value);
+        mraa_result_t pulseEnable(uint8_t value);
     };
 }

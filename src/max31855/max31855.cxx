@@ -36,12 +36,12 @@ using namespace upm;
 MAX31855::MAX31855(int bus, int cs)
 {
     // initialise chip select as a normal gpio
-    m_gpio = maa_gpio_init(cs);
-    maa_gpio_dir(m_gpio, MAA_GPIO_OUT);
+    m_gpio = mraa_gpio_init(cs);
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 
     // initialise the spi bus with a 2Mhz clock
-    m_sensor = maa_spi_init(bus);
-    maa_spi_frequency(m_sensor, 2000000);
+    m_sensor = mraa_spi_init(bus);
+    mraa_spi_frequency(m_sensor, 2000000);
 }
 //! [Constructor]
 
@@ -49,14 +49,14 @@ MAX31855::MAX31855(int bus, int cs)
 MAX31855::~MAX31855()
 {
     // close both m_sensor & m_gpio cleanly
-    maa_result_t error;
-    error = maa_spi_stop(m_sensor);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    mraa_result_t error;
+    error = mraa_spi_stop(m_sensor);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
-    error = maa_gpio_close(m_gpio);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    error = mraa_gpio_close(m_gpio);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 //! [Destructor]
@@ -66,7 +66,7 @@ MAX31855::getTemp()
 {
 //! [spi]
     // set chip select low
-    maa_gpio_write(m_gpio, 0);
+    mraa_gpio_write(m_gpio, 0);
 
     uint8_t buf[4];
 
@@ -74,14 +74,14 @@ MAX31855::getTemp()
     memset(buf, 0, sizeof(uint8_t)*4);
 
     // Write buffer to the spi slave
-    uint8_t* x = maa_spi_write_buf(m_sensor, buf, 4);
+    uint8_t* x = mraa_spi_write_buf(m_sensor, buf, 4);
 //! [spi]
 
 //! [conversion]
     // Endian correct way of making our char array into an 32bit int
     int32_t temp = (x[0] << 24) | (x[1] << 16) | (x[2] << 8) | x[3];;
 
-    // maa_spi_write_buf does not free the return buffer
+    // mraa_spi_write_buf does not free the return buffer
     free(x);
 
     if (temp & 0x7) {
@@ -97,7 +97,7 @@ MAX31855::getTemp()
 //! [conversion]
 
     // set chip select high
-    maa_gpio_write(m_gpio, 1);
+    mraa_gpio_write(m_gpio, 1);
 
     return c;
 }

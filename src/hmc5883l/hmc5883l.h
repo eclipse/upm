@@ -23,7 +23,7 @@
  */
 #pragma once
 
-#include <maa/i2c.h>
+#include <mraa/i2c.h>
 
 #define MAX_BUFFER_LENGTH 6
 
@@ -55,7 +55,7 @@ public:
 private:
     int m_coor[3];
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    maa_i2c_context m_i2c;
+    mraa_i2c_context m_i2c;
 };
 
 }

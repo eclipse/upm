@@ -28,9 +28,9 @@
 
 #include <string>
 #include <math.h>
-#include <maa/pwm.h>
-#include <maa/aio.h>
-#include <maa/gpio.h>
+#include <mraa/pwm.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
 
 #define MIN_PERIOD         500
 #define MAX_PERIOD         1000
@@ -75,14 +75,14 @@ class StepMotor {
          *
          * @param ticks number of tickes the motor will move
          */
-        maa_result_t stepForward (int ticks);
+        mraa_result_t stepForward (int ticks);
 
         /**
          * Rotate motor backward
          *
          * @param ticks number of tickes the motor will move
          */
-        maa_result_t stepBackwards (int ticks);
+        mraa_result_t stepBackwards (int ticks);
 
     private:
         std::string         m_name;
@@ -91,11 +91,11 @@ class StepMotor {
         int                 m_stePin;
         int                 m_speed;
 
-        maa_gpio_context    m_dirPinCtx;
-        maa_pwm_context     m_pwmStepContext;
+        mraa_gpio_context    m_dirPinCtx;
+        mraa_pwm_context     m_pwmStepContext;
 
-        maa_result_t move (int ticks);
-        maa_result_t dirForward ();
-        maa_result_t dirBackwards ();
+        mraa_result_t move (int ticks);
+        mraa_result_t dirForward ();
+        mraa_result_t dirBackwards ();
     };
 }

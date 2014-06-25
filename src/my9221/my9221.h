@@ -24,8 +24,8 @@
 #pragma once
 
 #include <string>
-#include <maa/aio.h>
-#include <maa/gpio.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
 
 #define MAX_BIT_PER_BLOCK     16
 #define CMDMODE               0x0000
@@ -64,7 +64,7 @@ class MY9221 {
          *
          * @param level selected level for the bar (1 - 10)
          */
-        maa_result_t setBarLevel (uint8_t level);
+        mraa_result_t setBarLevel (uint8_t level);
 
         /**
          * Return name of the component
@@ -74,12 +74,12 @@ class MY9221 {
             return m_name;
         }
     private:
-        maa_result_t lockData ();
-        maa_result_t send16bitBlock (short data);
+        mraa_result_t lockData ();
+        mraa_result_t send16bitBlock (short data);
 
         std::string m_name;
-        maa_gpio_context m_clkPinCtx;
-        maa_gpio_context m_dataPinCtx;
+        mraa_gpio_context m_clkPinCtx;
+        mraa_gpio_context m_dataPinCtx;
 };
 
 }

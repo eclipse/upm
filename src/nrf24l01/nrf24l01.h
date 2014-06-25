@@ -24,9 +24,9 @@
 #pragma once
 
 #include <string>
-#include <maa/aio.h>
-#include <maa/gpio.h>
-#include <maa/spi.h>
+#include <mraa/aio.h>
+#include <mraa/gpio.h>
+#include <mraa/spi.h>
 
 /* Memory Map */
 #define CONFIG              0x00
@@ -297,22 +297,22 @@ class NRF24l01 {
         /**
          * Set chip enable pin HIGH
          */
-        maa_result_t nrfCEHigh ();
+        mraa_result_t nrfCEHigh ();
 
         /**
          * Set chip enable LOW
          */
-        maa_result_t nrfCELow ();
+        mraa_result_t nrfCELow ();
 
         /**
          * Set chip select pin LOW
          */
-        maa_result_t nrfCSOn ();
+        mraa_result_t nrfCSOn ();
 
         /**
          * Set chip select pin HIGH
          */
-        maa_result_t nrfCSOff ();
+        mraa_result_t nrfCSOff ();
 
         /**
          * Flush reciver stack
@@ -330,7 +330,7 @@ class NRF24l01 {
 
         funcPtrVoidVoid dataRecievedHandler; /**< Data arrived handler */
     private:
-        maa_spi_context        m_spi;
+        mraa_spi_context        m_spi;
         uint8_t                m_ce;
         uint8_t                m_csn;
         uint8_t                m_channel;
@@ -338,8 +338,8 @@ class NRF24l01 {
         uint8_t                m_payload;
         uint8_t                m_localAddress[5];
 
-        maa_gpio_context     m_csnPinCtx;
-        maa_gpio_context     m_cePinCtx;
+        mraa_gpio_context     m_csnPinCtx;
+        mraa_gpio_context     m_cePinCtx;
 
         std::string         m_name;
 };

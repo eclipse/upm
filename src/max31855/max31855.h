@@ -24,8 +24,8 @@
 #pragma once
 
 #include <string>
-#include <maa/spi.h>
-#include <maa/gpio.h>
+#include <mraa/spi.h>
+#include <mraa/gpio.h>
 
 namespace upm {
 
@@ -61,8 +61,8 @@ class MAX31855 {
         double getTemp();
 
     private:
-        maa_spi_context m_sensor;
-        maa_gpio_context m_gpio;
+        mraa_spi_context m_sensor;
+        mraa_gpio_context m_gpio;
 };
 //! [Interesting]
 

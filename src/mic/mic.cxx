@@ -33,17 +33,17 @@ using namespace upm;
 
 Microphone::Microphone(int micPin) {
     // initialise analog mic input
-    m_micCtx = maa_aio_init(micPin);
+    m_micCtx = mraa_aio_init(micPin);
 
 
 }
 
 Microphone::~Microphone() {
     // close analog input
-    maa_result_t error;
-    error = maa_aio_close(m_micCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print(error);
+    mraa_result_t error;
+    error = mraa_aio_close(m_micCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print(error);
     }
 }
 
@@ -63,7 +63,7 @@ Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
     }
 
     while (sampleIdx < numberOfSamples) {
-        buffer[sampleIdx++] = maa_aio_read (m_micCtx);
+        buffer[sampleIdx++] = mraa_aio_read (m_micCtx);
         usleep(freqMS * 1000);
     }
 

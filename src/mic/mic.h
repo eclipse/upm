@@ -24,8 +24,8 @@
 #pragma once
 
 #include <string>
-#include <maa/gpio.h>
-#include <maa/aio.h>
+#include <mraa/gpio.h>
+#include <mraa/aio.h>
 
 struct thresholdContext {
     long averageReading;
@@ -80,7 +80,7 @@ class Microphone {
         void printGraph (thresholdContext* ctx);
 
     private:
-        maa_aio_context    m_micCtx;
+        mraa_aio_context    m_micCtx;
 };
 
 }

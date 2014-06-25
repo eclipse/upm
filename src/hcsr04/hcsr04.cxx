@@ -32,43 +32,43 @@
 using namespace upm;
 
 HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
-    maa_result_t error  = MAA_SUCCESS;
+    mraa_result_t error  = MRAA_SUCCESS;
     m_name              = "HCSR04";
 
-    m_pwmTriggerCtx     = maa_pwm_init (triggerPin);
+    m_pwmTriggerCtx     = mraa_pwm_init (triggerPin);
     if (m_pwmTriggerCtx == NULL) {
         std::cout << "PWM context is NULL" << std::endl;
         exit (1);
     }
 
-    maa_init();
-    m_echoPinCtx = maa_gpio_init(echoPin);
+    mraa_init();
+    m_echoPinCtx = mraa_gpio_init(echoPin);
     if (m_echoPinCtx == NULL) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", echoPin);
         exit (1);
     }
 
-    maa_gpio_dir(m_echoPinCtx, MAA_GPIO_IN);
-    gpio_edge_t edge = MAA_GPIO_EDGE_BOTH;
-    maa_gpio_isr (m_echoPinCtx, edge, fptr, NULL);
+    mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
+    gpio_edge_t edge = MRAA_GPIO_EDGE_BOTH;
+    mraa_gpio_isr (m_echoPinCtx, edge, fptr, NULL);
 }
 
 HCSR04::~HCSR04 () {
-    maa_result_t error = MAA_SUCCESS;
+    mraa_result_t error = MRAA_SUCCESS;
 
-    maa_pwm_close (m_pwmTriggerCtx);
-    error = maa_gpio_close (m_echoPinCtx);
-    if (error != MAA_SUCCESS) {
-        maa_result_print (error);
+    mraa_pwm_close (m_pwmTriggerCtx);
+    error = mraa_gpio_close (m_echoPinCtx);
+    if (error != MRAA_SUCCESS) {
+        mraa_result_print (error);
     }
 }
 
 int
 HCSR04::getDistance () {
-    maa_pwm_enable (m_pwmTriggerCtx, 1);
-    maa_pwm_period_us (m_pwmTriggerCtx, MAX_PERIOD);
-    maa_pwm_pulsewidth_us (m_pwmTriggerCtx, TRIGGER_PULSE);
-    maa_pwm_enable (m_pwmTriggerCtx, 0);
+    mraa_pwm_enable (m_pwmTriggerCtx, 1);
+    mraa_pwm_period_us (m_pwmTriggerCtx, MAX_PERIOD);
+    mraa_pwm_pulsewidth_us (m_pwmTriggerCtx, TRIGGER_PULSE);
+    mraa_pwm_enable (m_pwmTriggerCtx, 0);
 
     m_doWork = 0;
     m_InterruptCounter = 0;

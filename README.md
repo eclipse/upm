@@ -1,8 +1,8 @@
-UPM - Sensor/Actuator repository for Maa
+UPM - Sensor/Actuator repository for Mraa
 ==============
 
-UPM is a high level repository for sensors that use maa. Each sensor links to
-libmaa and are not meant to be interlinked although some groups of sensors may
+UPM is a high level repository for sensors that use mraa. Each sensor links to
+libmraa and are not meant to be interlinked although some groups of sensors may
 be. Each sensor contains a header which allows to interface with it. Typically
 a sensor is represented as a class and instanciated.
 

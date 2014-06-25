@@ -40,17 +40,17 @@ GFX::GFX (int width, int height, uint8_t * screenBuffer, const unsigned char * f
 GFX::~GFX () {
 }
 
-maa_result_t
+mraa_result_t
 GFX::setPixel (int x, int y, uint16_t color) {
     if((x < 0) ||(x >= m_width) || (y < 0) || (y >= m_height)) {
-        return MAA_ERROR_UNSPECIFIED;
+        return MRAA_ERROR_UNSPECIFIED;
     }
 
     int index = ((y * m_width) + x) * sizeof(uint16_t);
     m_map[index] = (uint8_t) (color >> 8);
     m_map[++index] = (uint8_t)(color);
 
-    return MAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
 
 void

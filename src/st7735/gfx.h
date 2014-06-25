@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
-#include <maa.h>
+#include <mraa.h>
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
@@ -106,7 +106,7 @@ class GFX {
          * @param y axis on vertical scale
          * @param color pixel's color
          */
-        maa_result_t setPixel (int x, int y, uint16_t color);
+        mraa_result_t setPixel (int x, int y, uint16_t color);
 
         /**
          * Fill screen with selected color

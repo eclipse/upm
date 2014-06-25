@@ -29,7 +29,7 @@
 void init_pulsensor (pulsensor_context * ctx, callback_handler handler) {
     ctx->callback = handler;
     
-    ctx->pin_ctx = maa_aio_init(0);
+    ctx->pin_ctx = mraa_aio_init(0);
     
     ctx->sample_counter = 0;
     ctx->last_beat_time = 0;
@@ -63,8 +63,8 @@ void * do_sample (void * arg) {
     clbk_data callback_data;
     while (ctx_counter) {
         pulsensor_context * ctx = (pulsensor_context *) arg;
-        maa_aio_context pin = ctx->pin_ctx;
-        data_from_sensor = maa_aio_read (pin);
+        mraa_aio_context pin = ctx->pin_ctx;
+        data_from_sensor = mraa_aio_read (pin);
         ctx->ret = FALSE;
         
         ctx->sample_counter += 2;

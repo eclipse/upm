@@ -20,7 +20,7 @@ macro(upm_SWIG_PYTHON)
     set (CMAKE_C_FLAGS -DSWIGPYTHON=${SWIG_FOUND})
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
-    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MAA_LIBRARIES})
+    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_pyupm_${libname}_REAL_NAME}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
@@ -39,7 +39,7 @@ macro(upm_SWIG_NODE)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES SWIG_FLAGS "-node")
     swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i ${module_src})
-    swig_link_libraries (jsupm_${libname} ${MAA_LIBRARIES} ${NODE_LIBRARIES})
+    swig_link_libraries (jsupm_${libname} ${MRAA_LIBRARIES} ${NODE_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
       "${NODE_INCLUDE_DIRS}"
@@ -95,8 +95,8 @@ endif()
 
 macro(upm_module_init)
   add_library (${libname} SHARED ${module_src})
-  include_directories (${MAA_INCLUDE_DIR} .)
-  target_link_libraries (${libname} ${MAA_LIBRARIES})
+  include_directories (${MRAA_INCLUDE_DIR} .)
+  target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
     PROPERTIES PREFIX "libupm-"
