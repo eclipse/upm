@@ -20,7 +20,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
   message (WARNING " - Install git to compile a production libmraa!")
-  set (VERSION "v0.1.4-dirty")
+  set (VERSION "v0.1.5-dirty")
 endif ()
 
 message (INFO " - UPM Version ${VERSION}")
