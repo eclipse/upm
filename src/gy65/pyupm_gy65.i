@@ -1,4 +1,5 @@
 %module pyupm_gy65
+%include "../upm.i"
 
 %include "stdint.i"
 

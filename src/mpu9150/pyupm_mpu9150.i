@@ -1,4 +1,5 @@
 %module pyupm_mpu9150
+%include "../upm.i"
 
 %include "stdint.i"
 

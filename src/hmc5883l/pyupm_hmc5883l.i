@@ -1,4 +1,5 @@
 %module pyupm_hmc5883l
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

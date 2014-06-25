@@ -1,4 +1,5 @@
 %module pyupm_servo
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

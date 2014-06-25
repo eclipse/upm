@@ -1,4 +1,5 @@
 %module pyupm_pulsensor
+%include "../upm.i"
 
 %include "stdint.i"
 

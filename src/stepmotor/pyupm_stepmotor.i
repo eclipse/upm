@@ -1,4 +1,5 @@
 %module pyupm_stepmotor
+%include "../upm.i"
 
 %include "stdint.i"
 

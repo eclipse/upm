@@ -1,4 +1,5 @@
 %module pyupm_buzzer
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

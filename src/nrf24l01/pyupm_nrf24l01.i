@@ -1,4 +1,5 @@
 %module pyupm_nrf24l01
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

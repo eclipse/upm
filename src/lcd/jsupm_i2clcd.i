@@ -1,4 +1,5 @@
 %module jsupm_i2clcd
+%include "../upm.i"
 
 %include "i2clcd.h"
 %{

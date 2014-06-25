@@ -1,4 +1,5 @@
 %module pyupm_mma7455
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

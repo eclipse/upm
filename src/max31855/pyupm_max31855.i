@@ -1,4 +1,5 @@
 %module pyupm_max31855
+%include "../upm.i"
 
 %include "stdint.i"
 

@@ -1,4 +1,5 @@
 %module pyupm_grove
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

@@ -1,4 +1,5 @@
 %module pyupm_i2clcd
+%include "../upm.i"
 
 %feature("autodoc", "3");
 

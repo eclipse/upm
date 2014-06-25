@@ -1,4 +1,5 @@
 %module pyupm_mic
+%include "../upm.i"
 
 %include "stdint.i"
 
