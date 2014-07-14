@@ -70,6 +70,20 @@ Jhd1313m1::~Jhd1313m1() {
     
 }
 
+mraa_result_t
+Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
+{
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0, 0);
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 1, 0);
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
+
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x04, r);
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x03, g);
+    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x02, b);
+
+    return MRAA_SUCCESS;
+}
+
 /*
  * **************
  *  virtual area

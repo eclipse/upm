@@ -32,6 +32,7 @@ class Jhd1313m1 : public I2CLcd {
     public:
         Jhd1313m1 (int bus, int lcdAddress, int rgbAddress);
         ~Jhd1313m1 ();
+        mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
         mraa_result_t write (std::string msg);
         mraa_result_t setCursor (int row, int column);
         mraa_result_t clear ();
