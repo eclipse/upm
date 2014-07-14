@@ -104,6 +104,7 @@ MY9221::lockData () {
         error = mraa_gpio_write (m_dataPinCtx, HIGH);
         error = mraa_gpio_write (m_dataPinCtx, LOW);
     }
+    return error;
 }
 
 mraa_result_t
@@ -124,4 +125,5 @@ MY9221::send16bitBlock (short data) {
 
         data <<= 1;
     }
+    return error;
 }
