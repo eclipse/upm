@@ -37,6 +37,7 @@ class Jhd1313m1 : public I2CLcd {
         mraa_result_t setCursor (int row, int column);
         mraa_result_t clear ();
         mraa_result_t home ();
+        mraa_result_t scroll (bool direction);
 
     private:
         int m_rgb_address;

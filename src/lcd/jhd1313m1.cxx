@@ -84,6 +84,14 @@ Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
     return MRAA_SUCCESS;
 }
 
+mraa_result_t
+Jhd1313m1::scroll(bool direction)
+{
+    if (direction)
+        return i2Cmd (m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT));
+    return i2Cmd (m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT));
+}
+
 /*
  * **************
  *  virtual area
