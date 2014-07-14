@@ -73,17 +73,25 @@ MY9221::~MY9221() {
 }
 
 mraa_result_t
-MY9221::setBarLevel (uint8_t level) {
+MY9221::setBarLevel (uint8_t level, bool direction) {
     if (level > 10) {
         return MRAA_ERROR_INVALID_PARAMETER;
     }
 
     send16bitBlock (CMDMODE);
-    for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
-        uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
-        send16bitBlock (state);
+    if (direction) {
+        level += 3;
+        for(uint8_t block_idx = 12; block_idx > 0; block_idx--) {
+            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
+            send16bitBlock (state);
+        }
+    } else {
+        for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
+            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
+            send16bitBlock (state);
+        }
     }
-    lockData ();
+    return lockData ();
 }
 
 mraa_result_t

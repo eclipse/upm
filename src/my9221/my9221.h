@@ -63,8 +63,9 @@ class MY9221 {
          * Set the level bar
          *
          * @param level selected level for the bar (1 - 10)
+         * @param direction up or down, true is up and is the default
          */
-        mraa_result_t setBarLevel (uint8_t level);
+        mraa_result_t setBarLevel (uint8_t level, bool direction=true);
 
         /**
          * Return name of the component
