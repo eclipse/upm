@@ -29,3 +29,14 @@ Building debug build:
 Using clang instead of gcc:
  -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang
 
+Often developers are only interested in building one module or even just the
+python/node module to do some quick testing using scripting. In order to do
+this you need to use the target name for the python or node module you want to
+rebuild. For example the lcd module target name is i2clcd. Therfore the python
+module target name will be prefixed by _pyupm_. Just do the following to build
+only that module. Modules not using the UPM cmake macros may have different
+naming.
+
+~~~~~~~~~~~~~
+make _pyupm_i2clcd
+~~~~~~~~~~~~~
