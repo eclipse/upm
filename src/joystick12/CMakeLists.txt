@@ -1,0 +1,5 @@
+set (libname "joystick12")
+set (libdescription "ElecFreaks Joystick 1.2")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
