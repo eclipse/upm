@@ -61,9 +61,9 @@ class Microphone {
          * Get samples from microphone according to provided window and
          * number of samples
          *
-         * @return freqMS time between each sample (in microseconds)
-         * @return numberOfSamples number of sample to sample for this window
-         * @return buffer bufer with sampled data
+         * @param freqMS time between each sample (in microseconds)
+         * @param numberOfSamples number of sample to sample for this window
+         * @param buffer bufer with sampled data
          */
         int getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples, uint16_t * buffer);
 
@@ -71,12 +71,19 @@ class Microphone {
          * Given sampled buffer this method will return TRUE/FALSE if threshold
          * was reached
          *
-         * @return threshold sample threshold
-         * @return buffer buffer with samples
-         * @return len bufer len
+         * @param ctx threshold context
+         * @param threshold sample threshold
+         * @param buffer buffer with samples
+         * @param len bufer len
          */
         int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, unsigned int len);
 
+        /**  
+         *  
+         * Print running average of threshold context
+         *
+         * @param ctx threshold context
+         */
         void printGraph (thresholdContext* ctx);
 
     private:

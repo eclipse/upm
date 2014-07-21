@@ -163,8 +163,10 @@ class GFX {
         /**
          * Draw a circle
          *
-         * @param x center of circule on X scale
-         * @param y center of circule on Y scale
+         * @param x center of circle on X scale
+         * @param y center of circle on Y scale
+         * @param r radius of circle
+         * @param color color of circle
          */
         void drawCircle (int16_t x, int16_t y, int16_t r, uint16_t color);
 
