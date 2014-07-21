@@ -73,7 +73,8 @@ class GY65 {
          * Instanciates a GY65 object
          *
          * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param devAddr address of used i2c device
+         * @param mode BMP085 mode
          */
         GY65 (int bus, int devAddr, uint8_t mode = BMP085_ULTRAHIGHRES);
 

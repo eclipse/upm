@@ -164,7 +164,7 @@ class NRF24l01 {
         /**
          * Send the buffer data
          *
-         * @param *value pointer to the buffer
+         * @param value pointer to the buffer
          */
         void nrfSend (uint8_t *value);
 
@@ -226,7 +226,7 @@ class NRF24l01 {
         /**
          * Sink all arrived data into the provided buffer
          *
-         * @param load size of the payload (MAX 32)
+         * @param data pointer to buffer of data
          */
         void nrfGetData (uint8_t * data);
 
@@ -238,7 +238,7 @@ class NRF24l01 {
         /**
          * Transmit provided data to the chip
          *
-         * @param *dataout pointer to the buffer with data
+         * @param dataout pointer to the buffer with data
          * @param len length of the buffer
          */
         void nrfTransmitSync (uint8_t *dataout, uint8_t len);
@@ -246,8 +246,8 @@ class NRF24l01 {
         /**
          * Recieve data from the chip
          *
-         * @param *dataout pointer to the buffer with data
-         * @param *datain pointer to the buffer where the arrived data
+         * @param dataout pointer to the buffer with data
+         * @param datain pointer to the buffer where the arrived data
          * will be sinked
          * @param len length of the buffer
          */
@@ -265,7 +265,7 @@ class NRF24l01 {
          * Read continues data from register
          *
          * @param reg register address
-         * @param *value pointer to the buffer
+         * @param value pointer to the buffer
          * @param len length of the buffer
          */
         void nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len);
@@ -274,7 +274,7 @@ class NRF24l01 {
          * Write continues data to register
          *
          * @param reg register address
-         * @param *value pointer to the buffer
+         * @param value pointer to the buffer
          * @param len length of the buffer
          */
         void nrfWriteRegister (uint8_t reg, uint8_t * value, uint8_t len);
