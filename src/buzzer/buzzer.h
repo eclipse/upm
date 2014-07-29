@@ -49,7 +49,7 @@ class Buzzer {
         /**
          * Instanciates a Buzzer object
          *
-         * @param pin Buzzer pin number
+         * @param pinNumber Buzzer pin number
          */
         Buzzer (int pinNumber);
 

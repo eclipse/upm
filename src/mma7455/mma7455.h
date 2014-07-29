@@ -53,7 +53,7 @@
 #define MMA7455_YOFFH 0x13      // Read/Write, Offset Drift Y MSB
 #define MMA7455_ZOFFL 0x14      // Read/Write, Offset Drift Z LSB
 #define MMA7455_ZOFFH 0x15      // Read/Write, Offset Drift Z MSB
-#define MMA7455_MCTL 0x16       // Read/Write, Mode Control Register 
+#define MMA7455_MCTL 0x16       // Read/Write, Mode Control Register
 #define MMA7455_INTRST 0x17     // Read/Write, Interrupt Latch Reset
 #define MMA7455_CTL1 0x18       // Read/Write, Control 1 Register
 #define MMA7455_CTL2 0x19       // Read/Write, Control 2 Register
@@ -64,11 +64,11 @@
 #define MMA7455_TW 0x1E         // Read/Write, Time Window for Second Pulse Value
 #define MMA7455_RESERVED2 0x1F  // Reserved
 
-// Defines for the bits, to be able to change 
+// Defines for the bits, to be able to change
 // between bit number and binary definition.
-// By using the bit number, programming the MMA7455 
+// By using the bit number, programming the MMA7455
 // is like programming an AVR microcontroller.
-// But instead of using "(1<<X)", or "_BV(X)", 
+// But instead of using "(1<<X)", or "_BV(X)",
 // the Arduino "bit(X)" is used.
 #define MMA7455_D0 0
 #define MMA7455_D1 1
@@ -129,7 +129,7 @@
 #define LOW                0
 
 namespace upm {
-    
+
 union accelData {
     struct {
         unsigned char x_lsb;
@@ -139,7 +139,7 @@ union accelData {
         unsigned char z_lsb;
         unsigned char z_msb;
     } reg;
-    
+
     struct {
         short x;
         short y;
@@ -179,12 +179,12 @@ class MMA7455 {
         {
             return m_name;
         }
-        
+
         /**
          * Calibrate the sensor
          */
         mraa_result_t calibrate ();
-        
+
         /**
          * Read X, Y and Z acceleration data
          *
@@ -193,21 +193,21 @@ class MMA7455 {
          * @param ptrZ Z axis
          */
         mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
-        
+
         /**
-         * 
+         *
          *
          * @param reg register address
          * @param buf register data buffer
          * @param size buffer size
          */
         int ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
-        
+
         /**
-         * 
+         *
          *
          * @param reg register address
-         * @param buf register data buffer 
+         * @param buf register data buffer
          * @param size buffer size
          */
         mraa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);

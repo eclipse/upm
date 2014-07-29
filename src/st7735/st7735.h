@@ -552,7 +552,7 @@ class ST7735 : public GFX {
         /**
          * Execute set of commands and data
          *
-         * @param *addr pointer to start of the commands/data section
+         * @param addr pointer to start of the commands/data section
          */
         void executeCMDList (const uint8_t *addr);
 

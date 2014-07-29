@@ -46,7 +46,7 @@ MY9221::MY9221 (uint8_t di, uint8_t dcki) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
         exit(1);
     }
-    
+
     // set direction (out)
     error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
@@ -99,7 +99,7 @@ MY9221::lockData () {
     mraa_result_t error = MRAA_SUCCESS;
     error = mraa_gpio_write (m_dataPinCtx, LOW);
     usleep(100);
-    
+
     for(int idx = 0; idx < 4; idx++) {
         error = mraa_gpio_write (m_dataPinCtx, HIGH);
         error = mraa_gpio_write (m_dataPinCtx, LOW);

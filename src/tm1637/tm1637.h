@@ -87,7 +87,7 @@ class TM1637 {
         /**
          * Set the the segment screen data and number of segments
          *
-         * @param segments[] data to write on the segments, each elemnt
+         * @param segments data to write on the segments, each elemnt
          * in array is segment
          * @param length number of elements in segments array
          * @param pos data writing offset

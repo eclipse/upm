@@ -52,7 +52,7 @@ Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcd
     i2Cmd (m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
     clear ();
     usleep(4500);
-    
+
     i2Cmd (m_i2c_lcd_control, LCD_ENTRYMODESET |
                               LCD_ENTRYLEFT |
                               LCD_ENTRYSHIFTDECREMENT);
@@ -67,7 +67,7 @@ Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcd
 }
 
 Jhd1313m1::~Jhd1313m1() {
-    
+
 }
 
 mraa_result_t

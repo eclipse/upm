@@ -317,4 +317,3 @@ NRF24l01::nrfListenForChannel() {
         dataRecievedHandler(); /* let know that data arrived */
     }
 }
-

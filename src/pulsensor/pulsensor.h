@@ -63,7 +63,7 @@ struct pulsensor_context {
     uint8_t          pin;
     uint8_t          ret;
     mraa_aio_context  pin_ctx;
-    
+
     callback_handler callback;
 };
 

@@ -66,7 +66,7 @@ TM1637::TM1637 (uint8_t di, uint8_t dcki) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
         exit(1);
     }
-    
+
     // set direction (out)
     error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_IN);
     if (error != MRAA_SUCCESS) {

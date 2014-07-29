@@ -28,9 +28,9 @@
 
 void init_pulsensor (pulsensor_context * ctx, callback_handler handler) {
     ctx->callback = handler;
-    
+
     ctx->pin_ctx = mraa_aio_init(0);
-    
+
     ctx->sample_counter = 0;
     ctx->last_beat_time = 0;
     ctx->threshold      = 512;
@@ -66,51 +66,51 @@ void * do_sample (void * arg) {
         mraa_aio_context pin = ctx->pin_ctx;
         data_from_sensor = mraa_aio_read (pin);
         ctx->ret = FALSE;
-        
+
         ctx->sample_counter += 2;
         int N = ctx->sample_counter - ctx->last_beat_time;
-        
+
         if (data_from_sensor < ctx->threshold && N > ( ctx->ibi / 5)* 3) {
             if (data_from_sensor < ctx->trough) {
                 ctx->trough = data_from_sensor;
             }
         }
-        
+
         if (data_from_sensor > ctx->threshold && data_from_sensor > ctx->peak) {
             ctx->peak = data_from_sensor;
         }
-        
+
         if (N > 250) {
             // printf ("(NO_GDB) DEBUG\n");
-            if ( (data_from_sensor > ctx->threshold) && 
-                    (ctx->is_pulse == FALSE) && 
+            if ( (data_from_sensor > ctx->threshold) &&
+                    (ctx->is_pulse == FALSE) &&
                     (N > (ctx->ibi / 5)* 3) ) {
                 ctx->is_pulse = callback_data.is_heart_beat = TRUE;
                 ((pulsensor_context *) arg)->callback(callback_data);
-                
+
                 ctx->ibi = ctx->sample_counter - ctx->last_beat_time;
                 ctx->last_beat_time = ctx->sample_counter;
-                
+
                 // second beat
                 if (ctx->second_beat) {
                     ctx->second_beat = FALSE;
                     for (int i = 0; i <= 9; i++) {
-                        ctx->ibi_rate[i] = ctx->ibi;                      
+                        ctx->ibi_rate[i] = ctx->ibi;
                     }
                 }
-                
+
                 // first beat
                 if (ctx->first_beat) {
                     ctx->first_beat  = FALSE;
                     ctx->second_beat = TRUE;
                     ctx->ret = TRUE;
-                } else {                    
+                } else {
                     uint32_t running_total = 0;
                     for(int i = 0; i <= 8; i++){
                         ctx->ibi_rate[i] = ctx->ibi_rate[i+1];
                         running_total += ctx->ibi_rate[i];
                     }
-                    
+
                     ctx->ibi_rate[9] = ctx->ibi;
                     running_total += ctx->ibi_rate[9];
                     running_total /= 10;
@@ -119,12 +119,12 @@ void * do_sample (void * arg) {
                 }
             }
         }
-        
+
         if (ctx->ret == FALSE) {
             if (data_from_sensor < ctx->threshold && ctx->is_pulse == TRUE) {
                 ctx->is_pulse = callback_data.is_heart_beat = FALSE;
                 ((pulsensor_context *) arg)->callback(callback_data);
-                
+
                 ctx->is_pulse   = FALSE;
                 ctx->apmlitude  = ctx->peak - ctx->trough;
                 ctx->threshold  = ctx->apmlitude / 2 + ctx->trough;
@@ -136,12 +136,12 @@ void * do_sample (void * arg) {
                 ctx->threshold      = 512;
                 ctx->peak           = 512;
                 ctx->trough         = 512;
-                ctx->last_beat_time = ctx->sample_counter;    
+                ctx->last_beat_time = ctx->sample_counter;
                 ctx->first_beat     = TRUE;
                 ctx->second_beat    = FALSE;
             }
         }
-        
+
         usleep (2000);
     }
 }

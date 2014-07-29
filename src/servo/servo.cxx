@@ -41,9 +41,9 @@ Servo::Servo (int pin) {
     m_maxAngle        = 180.0;
     m_servoPin        = pin;
     m_pwmServoContext = mraa_pwm_init (m_servoPin);
-    
+
     m_currAngle = 180;
-    
+
     setAngle (0);
 }
 
@@ -67,13 +67,13 @@ mraa_result_t Servo::setAngle (int angle) {
         std::cout << "PWM context is NULL" << std::endl;
         return MRAA_ERROR_UNSPECIFIED;
     }
-    
+
     if (angle > m_maxAngle || angle < 0) {
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     int period = (m_maxPulseWidth - m_minPulseWidth) / m_maxAngle;
-    
+
     int cycles = (int)(100.0 * (abs (m_currAngle - angle) / m_maxAngle));
 
     // int cycles = (int)(100.0 * ((float)angle / (float)m_maxAngle));
@@ -86,7 +86,7 @@ mraa_result_t Servo::setAngle (int angle) {
     mraa_pwm_enable (m_pwmServoContext, 0);
 
     std::cout << "angle = " << angle << " ,pulse = " << calcPulseTraveling(angle) << ", cycles " << cycles << std::endl;
-    
+
     m_currAngle = angle;
 }
 
@@ -108,32 +108,32 @@ int Servo::calcPulseTraveling (int value) {
     return (int) ((float)m_minPulseWidth + ((float)value / m_maxAngle) * ((float)m_maxPulseWidth - (float)m_minPulseWidth));
 }
 
-void 
+void
 Servo::setMinPulseWidth (int width) {
     m_minPulseWidth = width;
 }
 
-void 
+void
 Servo::setMaxPulseWidth (int width) {
     m_maxPulseWidth = width;
 }
 
-void 
+void
 Servo::setMaxPeriod (int width) {
     m_maxPeriod = width;
 }
 
-int 
+int
 Servo::getMinPulseWidth () {
     return m_minPulseWidth;
 }
-    
-int 
+
+int
 Servo::getMaxPulseWidth () {
     return m_maxPulseWidth;
 }
 
-int 
+int
 Servo::getMaxPeriod () {
     return m_maxPeriod;
 }

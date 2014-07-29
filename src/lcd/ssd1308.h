@@ -29,7 +29,7 @@
 
 namespace upm {
 
-#define DISPLAY_CMD_OFF                0xAE
+#define DISPLAY_CMD_OFF             0xAE
 #define DISPLAY_CMD_ON              0xAF
 
 #define BASE_LOW_COLUMN_ADDR        0x00

@@ -29,19 +29,38 @@
 
 namespace upm {
 
+/**
+ * @brief C++ API for HMC5883l (3-axis digital compass)
+ *
+ * This file defines the HMC5883l C++ interface for libhmc5883l
+ *
+ * @snippet hmc5883l.cxx Interesting
+ *
+ */
+
 class Hmc5883l {
 public:
-    /// Creates a Hmc5883l object
+    /**
+     * Creates a Hmc5883l object
+     *
+     * @param bus number of used i2c bus
+     *
+     */
     Hmc5883l(int bus);
 
-    /// Returns the direction
+    /*
+     * Returns the direction
+     */
     float direction();
 
-    /// Returns the heading
+    /*
+     * Returns the heading
+     */
     float heading();
 
     /**
      * Returns a pointer to an int[3] that contains the coordinates as ints
+     *
      * @return *int to an int[3]
      */
     int* coordinates();

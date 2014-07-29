@@ -76,7 +76,7 @@ class I2CLcd {
     public:
         I2CLcd (int bus, int lcdAddress);
         mraa_result_t write (int x, int y, std::string msg);
-        
+
         virtual mraa_result_t write (std::string msg) = 0;
         virtual mraa_result_t setCursor (int row, int column) = 0;
         virtual mraa_result_t clear () = 0;
@@ -84,7 +84,7 @@ class I2CLcd {
         virtual mraa_result_t i2Cmd (mraa_i2c_context ctx, uint8_t value);
         virtual mraa_result_t i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
         virtual mraa_result_t i2cData (mraa_i2c_context ctx, uint8_t value);
-        
+
         mraa_result_t close();
         std::string name()
         {
