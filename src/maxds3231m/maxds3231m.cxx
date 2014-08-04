@@ -86,13 +86,18 @@ MAXDS3231M::getDate (Time3231 &time) {
 
 uint16_t
 MAXDS3231M::getTemperature () {
-    uint8_t buffer[2];
-    uint16_t tempRaw = 0;
+    uint8_t     buffer[2];
+    uint8_t     msb     = 0;
+    uint8_t     lsb     = 0;
 
     i2cReadReg_N (TEMPERATURE_ADDR, 2, buffer);
-    tempRaw = (((int16_t)buffer[0]) << 8) | buffer[1];
+    msb = buffer[0];
+    lsb = buffer[1] >> 6;
 
-    return tempRaw;
+    if ((msb & 0x80) != 0)
+        msb |= ~((1 << 8) - 1); // if negative get two's complement
+
+    return 0.25 * lsb + msb;
 }
 
 /*
