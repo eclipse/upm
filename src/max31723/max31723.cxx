@@ -51,12 +51,17 @@ MAX31723::MAX31723 (int csn) {
         throw MAX31723Exception ("GPIO failed to initilize");
     }
 
+    CSOff ();
+
     m_spi = mraa_spi_init (0);
     if (m_spi == NULL) {
         throw MAX31723Exception ("SPI failed to initilize");
     }
 
-    CSOff ();
+    // set spi mode to mode2 (CPOL = 1, CPHA = 0)
+    mraa_spi_mode (m_spi, MODE2);
+    // set ontinuously perform temperature conversions
+    writeRegister (R_STS_WRITE_CMD, B_CONT_READING);
 }
 
 MAX31723::~MAX31723() {
@@ -72,31 +77,24 @@ MAX31723::~MAX31723() {
     }
 }
 
-uint16_t
+short
 MAX31723::getTemperature () {
     uint8_t lsb = 0;
     uint8_t msb = 0;
-    uint8_t buf[2] = { 0x01, 0x00};
+    short temperature = 0;
 
-    CSOn ();
+    lsb = readRegister (R_TEMPERATURE_LSB);
+    msb = readRegister (R_TEMPERATURE_MSB);
 
-    uint8_t* x = mraa_spi_write_buf(m_spi, buf, 2);
+    if ((msb & 0x80) != 0) {
+        msb &= 0x7F;
+        temperature = 0 - msb;
 
-    printf ("%d\n", (uint16_t)*x);
+    } else {
+        temperature = msb;
+    }
 
-    /*mraa_spi_write (m_spi, R_TEMPERATURE_LSB);
-    lsb = mraa_spi_write (m_spi, lsb);
-    lsb >>= 4;*/
-
-    /*mraa_spi_write (m_spi, R_TEMPERATURE_MSB);
-    msb = mraa_spi_write (m_spi, msb);
-
-    if ((msb & 0x80) != 0)
-        msb |= ~((1 << 8) - 1);*/
-
-    CSOff ();
-
-    return msb;
+    return temperature;
 }
 
 /*
@@ -104,6 +102,31 @@ MAX31723::getTemperature () {
  *  private area
  * **************
  */
+
+uint8_t
+MAX31723::readRegister (uint8_t reg) {
+    uint8_t     data[2]     = { 0x00, 0x00 };
+    uint8_t*    sensorData  = NULL;
+
+    CSOn ();
+    data[0] = reg;
+    sensorData = mraa_spi_write_buf(m_spi, data, 2);
+    CSOff ();
+
+    return sensorData[1];
+}
+
+void
+MAX31723::writeRegister (uint8_t reg, uint8_t data) {
+    uint8_t     buffer[2]   = { 0x00, 0x00 };
+    uint8_t*    sensorData  = NULL;
+
+    CSOn ();
+    buffer[0] = reg;
+    buffer[1] = data;
+    sensorData = mraa_spi_write_buf(m_spi, buffer, 2);
+    CSOff ();
+}
 
 mraa_result_t
 MAX31723::CSOn () {

@@ -46,6 +46,8 @@ class MAX31723 {
         static const uint8_t R_TEMPERATURE_LSB  = 0x01;
         static const uint8_t R_TEMPERATURE_MSB  = 0x02;
 
+        static const uint8_t B_CONT_READING     = 0x00;
+
         /**
          * Instanciates a MAX31723 object
          *
@@ -62,7 +64,7 @@ class MAX31723 {
         /**
          * Get on board temperature.
          */
-        uint16_t getTemperature ();
+        short getTemperature ();
 
         /**
          * Return name of the component
@@ -75,6 +77,9 @@ class MAX31723 {
         std::string m_name;
         mraa_spi_context        m_spi;
         mraa_gpio_context       m_csnPinCtx;
+
+        uint8_t readRegister (uint8_t reg);
+        void writeRegister (uint8_t reg, uint8_t data);
 
         /**
          * Set chip select pin LOW

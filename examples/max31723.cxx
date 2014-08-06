@@ -45,11 +45,12 @@ main(int argc, char **argv)
 {
     //! [Interesting]
     sensor = new upm::MAX31723(7);
+    usleep (1000000);
 
-    // while (!doWork) {
+    while (!doWork) {
         std::cout << "Temperature " << sensor->getTemperature() << std::endl;
-        // usleep (3000000);
-    // }
+        usleep (1000000);
+    }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
