@@ -83,13 +83,16 @@ static uint8_t intel_logo[] = {
     63, 63, 63, 63, 63, 31, 31, 31, 31, 31, 15, 15, 15, 15, 7, 7, 7, 7, 3, 3,
     3, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0 };
+
 int
 main(int argc, char **argv)
 {
-    upm::SSD1308 *lcd = new upm::SSD1308 (BUS_NUMBER, DEVICE_ADDRESS);
+//! [Interesting]
+    upm::SSD1308 *lcd = new upm::SSD1308(BUS_NUMBER, DEVICE_ADDRESS);
 
-    lcd->clear ();
-    lcd->draw (intel_logo, 1024);
+    lcd->clear();
+    lcd->draw(intel_logo, 1024);
 
-    lcd->close ();
+    lcd->close();
+//! [Interesting]
 }

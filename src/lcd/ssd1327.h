@@ -147,21 +147,61 @@ typedef enum {
 
 class SSD1327 : public I2CLcd {
     public:
-        /** SSD1308 Constructor.
-         * Calls MRAA initialisation functions.
+        /**
+         * SSD1308 Constructor, calls libmraa initialisation functions
+         *
          * @param bus i2c bus to use
-         * @param address the slave address the lcd is registered on.
+         * @param address the slave address the lcd is registered on
          */
         SSD1327 (int bus, int address);
+       /**
+        * SSD1327 destructor
+        */
         ~SSD1327 ();
+       /**
+        * Draw an image, see examples/python/make_oled_pic.py for an
+        * explanation on how the pixels are mapped to bytes
+        *
+        * @param data the buffer to read
+        * @param bytes the amount of bytes to read from the pointer
+        * @return Result of operation
+        */
         mraa_result_t draw(uint8_t *data, int bytes);
-
-        // virtual methods
-        mraa_result_t write (std::string msg);
-        mraa_result_t setCursor (int row, int column);
-        mraa_result_t clear ();
-        mraa_result_t home ();
+       /**
+        * Set gray level for LCD panel
+        *
+        * @param gray level from 0-255
+        * @return Result of operation
+        */
         mraa_result_t setGrayLevel (uint8_t level);
+       /**
+        * Write a string to LCD
+        *
+        * @param msg The std::string to write to display, note only ascii
+        *     chars are supported
+        * @return Result of operation
+        */
+        mraa_result_t write(std::string msg);
+       /**
+        * Set cursor to a coordinate
+        *
+        * @param row The row to set cursor to
+        * @param column The column to set cursor to
+        * @return Result of operation
+        */
+        mraa_result_t setCursor(int row, int column);
+       /**
+        * Clear display from characters
+        *
+        * @return Result of operatio
+        */
+        mraa_result_t clear();
+       /**
+        * Return to coordinate 0,0
+        *
+        * @return Result of operation
+        */
+        mraa_result_t home();
 
     private:
         mraa_result_t writeChar (mraa_i2c_context ctx, uint8_t value);

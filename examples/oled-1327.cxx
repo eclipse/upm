@@ -106,21 +106,19 @@ static uint8_t SeeedLogo[] ={
 int
 main(int argc, char **argv)
 {
-    upm::SSD1327 *lcd = new upm::SSD1327 (BUS_NUMBER, 0x3C);
+//! [Interesting]
+    upm::SSD1327 *lcd = new upm::SSD1327(BUS_NUMBER, 0x3C);
 
-    /*
-     * Simple print hello world
-     */
-    for(uint8_t i = 0; i < 12 ; i++) {
-        lcd->setCursor (i, 0);
-        lcd->setGrayLevel (i);
-        lcd->write ("Hello World");
+    // Simple print hello world
+    for (uint8_t i = 0; i < 12; i++) {
+        lcd->setCursor(i, 0);
+        lcd->setGrayLevel(i);
+        lcd->write("Hello World");
     }
 
-   /*
-     * Simple print hello world
-     */
-    lcd->draw (SeeedLogo, 96 * 96 / 8);
+    // Simple print hello world
+    lcd->draw(SeeedLogo, 96 * 96 / 8);
 
-    lcd->close ();
+    lcd->close();
+//! [Interesting]
 }

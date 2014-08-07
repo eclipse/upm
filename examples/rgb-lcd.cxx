@@ -27,6 +27,7 @@
 int
 main(int argc, char **argv)
 {
+//! [Interesting]
     // 0x62 RGB_ADDRESS, 0x3E LCD_ADDRESS
     upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(0, 0x3E, 0x62);
     lcd->setCursor(0,0);
@@ -34,4 +35,5 @@ main(int argc, char **argv)
     lcd->setCursor(1,2);
     lcd->write("Hello World");
     lcd->close();
+//! [Interesting]
 }
