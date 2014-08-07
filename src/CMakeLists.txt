@@ -16,7 +16,7 @@ macro (upm_CREATE_INSTALL_PKGCONFIG generated_file install_location)
 endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 
 macro(upm_SWIG_PYTHON)
-  if(BUILDSWIGPYTHON)
+  if (BUILDSWIGPYTHON AND BUILDSIWG)
     set (CMAKE_C_FLAGS -DSWIGPYTHON=${SWIG_FOUND})
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
@@ -34,7 +34,7 @@ macro(upm_SWIG_PYTHON)
 endmacro()
 
 macro(upm_SWIG_NODE)
-  if(BUILDSWIGNODE)
+  if (BUILDSWIGNODE AND BUILDSWIG)
     set (CMAKE_CXX_FLAGS -DBUILDING_NODE_EXTENSION)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES SWIG_FLAGS "-node")
@@ -55,7 +55,7 @@ macro(upm_SWIG_NODE)
 endmacro()
 
 macro(upm_doxygen)
-  if (DOXYGEN_FOUND)
+  if (DOXYGEN_FOUND AND BUILDSWIG)
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
     add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doxy2swig.py -n
