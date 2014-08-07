@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <algorithm>
 
 #include "sm130.h"
 
@@ -150,7 +151,7 @@ SM130::available () {
             case CMD_RESET:
             case CMD_VERSION:
                 // RESET and VERSION commands produce the firmware version
-                len = std::min ((unsigned int) getPacketLength (), sizeof (this->m_Version)) - 1;
+                len = std::min ((unsigned int) getPacketLength(), (unsigned int) sizeof(this->m_Version)) - 1;
                 memcpy(this->m_Version, this->m_Data + 2, len);
                 this->m_Version[len] = 0;
                 break;
