@@ -59,7 +59,7 @@ MAX31723::MAX31723 (int csn) {
     }
 
     // set spi mode to mode2 (CPOL = 1, CPHA = 0)
-    mraa_spi_mode (m_spi, MODE2);
+    mraa_spi_mode (m_spi, MRAA_SPI_MODE2);
     // set ontinuously perform temperature conversions
     writeRegister (R_STS_WRITE_CMD, B_CONT_READING);
 }
