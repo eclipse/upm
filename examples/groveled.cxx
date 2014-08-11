@@ -29,7 +29,7 @@
 int
 main(int argc, char **argv)
 {
-    // Use i2c device 0 all the time
+//! [Interesting]
     upm::GroveLed* led = new upm::GroveLed(2);
     std::cout << led->name() << std::endl;
     for (int i=0; i < 10; i++) {
@@ -38,6 +38,7 @@ main(int argc, char **argv)
         led->off();
         sleep(1);
     }
+//! [Interesting]
 
     return 0;
 }

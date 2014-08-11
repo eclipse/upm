@@ -29,13 +29,14 @@
 int
 main(int argc, char **argv)
 {
-    // Use i2c device 0 all the time
+//! [Interesting]
     upm::GroveTemp* s = new upm::GroveTemp(0);
     std::cout << s->name() << std::endl;
     for (int i=0; i < 10; i++) {
         std::cout << s->value() << std::endl;
         sleep(1);
     }
+//! [Interesting]
 
     return 0;
 }

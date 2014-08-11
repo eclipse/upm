@@ -40,6 +40,13 @@ class Grove {
         std::string m_name;
 };
 
+/**
+ * @brief C++ API for Grove LED
+ *
+ * Very basic UPM module for grove LED, or any LED for that matter
+ *
+ * @snippet groveled.cxx Interesting
+ */
 class GroveLed: public Grove {
     public:
         GroveLed(int pin);
@@ -51,21 +58,55 @@ class GroveLed: public Grove {
         mraa_gpio_context m_gpio;
 };
 
+/**
+ * @brief C++ API for Grove Temperature sensor
+ *
+ * Very basic UPM module for grove temperature sensor on analog
+ *
+ * @snippet grovetemp.cxx Interesting
+ */
 class GroveTemp: public Grove {
     public:
         GroveTemp(unsigned int pin);
         ~GroveTemp();
+        /**
+         * Get raw value from AIO pin
+         *
+         * @return the raw value from the ADC
+         */
         float raw_value();
+        /**
+         * Get the temperature from the sensor
+         *
+         * @return the normalised temperature
+         */
         int value();
     private:
         mraa_aio_context m_aio;
 };
 
+/**
+ * @brief C++ API for Grove light sensor
+ *
+ * Very basic UPM module for grove Light sensor on analog
+ *
+ * @snippet grovelight.cxx Interesting
+ */
 class GroveLight: public Grove {
     public:
         GroveLight(unsigned int pin);
         ~GroveLight();
+        /**
+         * Get raw value from AIO pin
+         *
+         * @return the raw value from the ADC
+         */
         float raw_value();
+        /**
+         * Get the light value from the sensor
+         *
+         * @return the normalised light reading
+         */
         int value();
     private:
         mraa_aio_context m_aio;
