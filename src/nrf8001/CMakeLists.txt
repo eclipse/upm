@@ -1,0 +1,5 @@
+set (libname "nrf8001")
+set (libdescription "BLE module from NordicSemiconductor family")
+set (module_src hal_aci_tl.cpp aci_setup.cpp aci_queue.cpp acilib.cpp lib_aci.cpp ${libname}.cxx)
+set (module_h hal_aci_tl.h aci_setup.h aci_queue.h acilib.h lib_aci.h ${libname}.h)
+upm_module_init()
