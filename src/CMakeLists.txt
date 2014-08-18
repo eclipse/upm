@@ -17,7 +17,6 @@ endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 
 macro(upm_SWIG_PYTHON)
   if (BUILDSWIGPYTHON AND BUILDSWIG)
-    set (CMAKE_C_FLAGS -DSWIGPYTHON=${SWIG_FOUND})
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
     swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES})
@@ -35,7 +34,6 @@ endmacro()
 
 macro(upm_SWIG_NODE)
   if (BUILDSWIGNODE AND BUILDSWIG)
-    set (CMAKE_CXX_FLAGS -DBUILDING_NODE_EXTENSION)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (jsupm_${libname}.i PROPERTIES SWIG_FLAGS "-node")
     swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i ${module_src})
@@ -45,6 +43,7 @@ macro(upm_SWIG_NODE)
       "${NODE_INCLUDE_DIRS}"
      )
     set_target_properties (jsupm_${libname} PROPERTIES
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION"
       PREFIX ""
       SUFFIX ".node"
     )
