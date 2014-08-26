@@ -29,6 +29,7 @@ add_executable (nrf8001-helloworld-example nrf8001_helloworld.cxx)
 add_executable (lpd8806-example lpd8806-example.cxx)
 add_executable (mlx90614-example mlx90614-example.cxx)
 add_executable (ecs1030-example ecs1030-example.cxx)
+add_executable (mq2-example mq2-example.cxx)
 add_executable (mq9-example mq9-example.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
@@ -89,4 +90,5 @@ target_link_libraries (nrf8001-helloworld-example nrf8001 ${CMAKE_THREAD_LIBS_IN
 target_link_libraries (lpd8806-example lpd8806 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (mlx90614-example mlx90614 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (ecs1030-example ecs1030 ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (mq2-example gas ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (mq9-example gas ${CMAKE_THREAD_LIBS_INIT})

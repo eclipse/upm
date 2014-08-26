@@ -1,5 +1,5 @@
 set (libname "gas")
 set (libdescription "Gas sensors")
-set (module_src ${libname}.cxx mq9.cxx)
-set (module_h ${libname}.h mq9.h)
+set (module_src ${libname}.cxx mq2.cxx mq9.cxx)
+set (module_h ${libname}.h mq2.h mq9.h)
 upm_module_init()
