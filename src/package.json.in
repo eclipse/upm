@@ -1,7 +1,8 @@
 {
   "name" : "jsupm_@libname@",
   "main" : "./jsupm_@libname@.node",
-  "engines": {
+  "version" : "@upm_VERSION_STRING@",
+  "engines" : {
     "node": ">= 1.0.x"
   },
   "license": "MIT"
