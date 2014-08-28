@@ -36,7 +36,14 @@ namespace upm {
 /**
  * @brief C++ API for MAX31723 chip (Temperature sensor)
  *
- * This file defines the MAX31723 C++ interface for libmax31723
+ * The Maxim Integrated
+ * [MAX31723](http://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf)
+ * is a Low-Voltage 3-Wire/SPI Temperature Sensor controller. This module was
+ * tested on the Maxim Integrated [MAX31732PMB1 PMOD
+ * module](http://datasheets.maximintegrated.com/en/ds/MAX31723PMB1.pdf) from
+ * the analog PMOD kit.
+ *
+ * @image html max31723.jpeg
  *
  */
 class MAX31723 {
