@@ -9,13 +9,13 @@ example is explained in detail on @ref max31855
 ### Adding a new module to UPM
 
 1. Choose a name for your module (see @ref naming)
-2. Make a new folder in src/<modulename>
-3. Create a CMakeLists.txt file inside src/<modulename>
+2. Make a new folder in src/modulename
+3. Create a CMakeLists.txt file inside src/modulename
 
 ### CmakeLists.txt
 
-By default you need a header called <modulename>.h and a C++ file called
-<modulename>.cxx. You can have multiple headers and source files. Only public
+By default you need a header called modulename.h and a C++ file called
+modulename.cxx. You can have multiple headers and source files. Only public
 headers need to be added to module_h and all source files need to be in
 module_src.
 
@@ -60,6 +60,6 @@ The last step is when you're happy with your module and it works send us a pull
 request! We'd love to include your sensor in our repository.
 
 If you don't like github you can also send brendan.le.foll@intel.com a git
-formatted patch if your sensor. More details are on @ref contributing and on
+formatted patch if your sensor. More details are on @ref contributions and on
 https://help.github.com/articles/creating-a-pull-request
 
