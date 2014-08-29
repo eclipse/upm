@@ -37,18 +37,21 @@ struct MAX5487Exception : public std::exception {
     const char* what() const throw () { return message.c_str(); }
 };
 
-MAX5487::MAX5487 (int csn) {
+MAX5487::MAX5487 (int csn = -1) {
     mraa_result_t error = MRAA_SUCCESS;
     m_name = "MAX5487";
 
-    m_csnPinCtx = mraa_gpio_init (csn);
-    if (m_csnPinCtx == NULL) {
-        throw MAX5487Exception ("GPIO failed to initilize");
-    }
+    m_csnPinCtx = NULL;
+    if (csn != -1) {
+        m_csnPinCtx = mraa_gpio_init (csn);
+        if (m_csnPinCtx == NULL) {
+            throw MAX5487Exception ("GPIO failed to initilize");
+        }
 
-    error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        throw MAX5487Exception ("GPIO failed to initilize");
+        error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
+        if (error != MRAA_SUCCESS) {
+            throw MAX5487Exception ("GPIO failed to initilize");
+        }
     }
 
     m_spi = mraa_spi_init (0);
@@ -66,9 +69,11 @@ MAX5487::~MAX5487() {
     if (error != MRAA_SUCCESS) {
         mraa_result_print(error);
     }
-    error = mraa_gpio_close (m_csnPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
+    if (m_csnPinCtx != NULL) {
+        error = mraa_gpio_close (m_csnPinCtx);
+        if (error != MRAA_SUCCESS) {
+            mraa_result_print(error);
+        }
     }
 }
 
@@ -108,10 +113,14 @@ MAX5487::setWiperB (uint8_t wiper) {
 
 mraa_result_t
 MAX5487::CSOn () {
-    return mraa_gpio_write (m_csnPinCtx, LOW);
+    if (m_csnPinCtx != NULL)
+        return mraa_gpio_write (m_csnPinCtx, LOW);
+    return MRAA_SUCCESS;
 }
 
 mraa_result_t
 MAX5487::CSOff () {
-    return mraa_gpio_write (m_csnPinCtx, HIGH);
+    if (m_csnPinCtx != NULL)
+        return mraa_gpio_write (m_csnPinCtx, HIGH);
+    return MRAA_SUCCESS;
 }
