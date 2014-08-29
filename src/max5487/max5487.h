@@ -34,10 +34,16 @@
 namespace upm {
 
 /**
- * @brief C++ API for MAX5487 chip (Temperature sensor)
+ * @brief C++ API for MAX5487 chip (SPI digital potentionmeter)
  *
- * This file defines the MAX5487 C++ interface for libmax5487
+ * The Maxim Integrated
+ * [MAX5487](http://datasheets.maximintegrated.com/en/ds/MAX5487-MAX5489.pdf)
+ * is a Dual, 256-Tap, Nonvolatile, SPI-Interface, Linear-Taper Digital
+ * Potentiometer. This module was tested on the  Maxim Integrated [MAX5487PMB1
+ * PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX5487PMB1.pdf)
+ * from the analog PMOD kit.
  *
+ * @image html max5487.jpeg
  */
 class MAX5487 {
     public:
@@ -47,13 +53,12 @@ class MAX5487 {
         /**
          * Instanciates a MAX5487 object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param csn to use if any, by default will use ICSP CS (-1)
          */
         MAX5487 (int csn);
 
         /**
-         * MAX5487 object destructor, basicaly it close SPI connection and GPIO.
+         * MAX5487 object destructor, closes all IO connections
          */
         ~MAX5487 ();
 
