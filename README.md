@@ -21,6 +21,50 @@ However implementation and API design is compeltely up to the developer, some
 enumerable sensors for example may provide much clever instanciation. Displays
 may also create more complex structures in order to interface with them.
 
+### Supported Sensors
+
+Temperature Sensors:
+  * upm::MAX31723
+  * upm::TH02
+
+Compass/Gyro/Magnometer Sensors:
+  * upm::Hmc5883l
+  * upm::MPU9150
+
+Atmospheric Pressure Sensors:
+  * upm::GY65
+
+Proximity Sensors:
+  * upm::MAXDS3231M
+  * upm::MAX44000
+  * upm::HCSR04
+
+Gas Sensors:
+  * upm::MQ2
+  * upm::MQ3
+  * upm::MQ5
+  * upm::MQ9
+
+Displays:
+  * upm::Jhd1313m1
+  * upm::Lcm1602
+  * upm::ST7735
+  * upm::SSD1308
+  * upm::SSD1327
+  * upm::TM1637
+
+RFID:
+  * upm::SM130
+
+Wireless Communication:
+  * upm::NRF24l01
+
+Servo
+  * upm::ES08A
+
+Digital potentiometer
+  * upm::MAX5487
+
 ### Building UPM
 
 See @ref building
