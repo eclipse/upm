@@ -64,11 +64,10 @@ RFID:
 
 Wireless Communication:
   * upm::NRF24l01
-  * upm::NRF8001
 
 Servo/motors:
   * upm::ES08A
-  * upm::stepmotor
+  * upm::StepMotor
 
 Digital potentiometer
   * upm::MAX5487
