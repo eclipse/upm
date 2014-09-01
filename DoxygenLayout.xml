@@ -24,7 +24,7 @@
 
   <!-- Layout definition for a class page -->
   <class>
-    <briefdescription visible="no"/>
+    <briefdescription visible="yes"/>
     <detaileddescription title=""/>
     <includes visible="$SHOW_INCLUDE_FILES"/>
     <memberdecl>
