@@ -32,7 +32,14 @@ namespace upm {
  * @brief C++ API for Jhd1313m1 i2c controller for HD44780 based displays with
  * an RGB backlight such as the Grove RGB i2c LCD display
  *
+ * The Jhd1313m1 has two i2c addreses, one belongs to a controller very similar
+ * to the upm::Lcm1602 LCD driver which controls the HD44780 based display and the
+ * other controls solely the backlight. This module was tested with the Seed
+ * [Grove LCD RGB Backlight v2.0 display]
+ * (http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36)
+ *
  * @snippet rgb-lcd.cxx Interesting
+ * @image html grovergblcd.jpeg
  */
 class Jhd1313m1 : public I2CLcd {
     public:

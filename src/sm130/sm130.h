@@ -44,7 +44,6 @@ namespace upm {
  * @brief C++ API for SM130 RFID reader module
  *
  * This file defines the SM130 C++ interface for libsm130
- *
  */
 class SM130 {
     

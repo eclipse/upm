@@ -37,9 +37,13 @@ namespace upm {
  *
  * This supports all sizes of HD44780 displays from 16x2 to 4x20, the
  * controller has no idea of the actual display hardware so will let you write
- * further than you can see
+ * further than you can see. These displays with such controllers are available
+ * from various manufacturers with different i2c addresses. The adafruit
+ * [TC1602A-01T](https://www.adafruit.com/datasheets/TC1602A-01T.pdf) seems to
+ * the best documented example.
  *
  * @snippet lcm-lcd.cxx Interesting
+ * @image html lcm1602.jpeg
  */
 class Lcm1602 : public I2CLcd {
     public:

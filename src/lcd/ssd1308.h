@@ -148,7 +148,15 @@ typedef enum {
 /**
  * @brief C++ API for SSD1308 i2c controlled OLED displays
  *
- * @snippet lcm-lcd.cxx Interesting
+ * The [SSD1308](http://garden.seeedstudio.com/images/4/46/SSD1308_1.0.pdf) is
+ * a 128x64 Dot matrix OLED/PLED segment driver with controller. This
+ * implementation was tested using the
+ * [Grove LED 128×64 Display module]
+ * (http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_0.96%22)
+ * which is an OLED monochrome display
+ *
+ * @snippet oled-1308.cxx Interesting
+ * @image html ssd1308.jpeg
  */
 class SSD1308 : public I2CLcd {
     public:

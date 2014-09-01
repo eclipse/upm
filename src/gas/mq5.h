@@ -31,7 +31,13 @@ namespace upm {
     /**
      * @brief C++ API for MQ5 gas sensor
      *
+     * The Grove - Gas Sensor (MQ5) module is useful for gas leakage detecting
+     * (in home and industry). It can detect LPG, natural gas, town gas and so
+     * on. It is highly sensitive and has a detection concentration of
+     * 300-10000ppm.
+     *
      * @snippet mq5-example.cxx Interesting
+     * @image html grovegas.jpeg
      */
     class MQ5 : public Gas {
         public:

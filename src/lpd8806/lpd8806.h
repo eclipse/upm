@@ -36,8 +36,10 @@ namespace upm {
 /**
  * @brief C++ API for LPD8806 
  *
- * This file defines the LPD8806 C++ interface for liblpd8806
+ * The FastPixel lpd8806 is an RGB led strip controller.
  *
+ * @snippet lpd8806-example.cxx Interesting
+ * @image html lpd8806.jpeg
  */
 class LPD8806 {
     public:

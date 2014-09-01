@@ -31,7 +31,13 @@ namespace upm {
     /**
      * @brief C++ API for MQ3 gas sensor
      *
+     * The Grove MQ3 Gas Sensor module is useful for gas leakage detecting (in
+     * home and industry). It can detect Alcohol Vapour and Benzine. It's
+     * highly sensitive but has a long warmup time of about 1minute. It's
+     * detect rate is of 0.04-4mg/L Alcohol.
+     *
      * @snippet mq3-example.cxx Interesting
+     * @image html grovegas.jpeg
      */
     class MQ3 : public Gas {
         public:

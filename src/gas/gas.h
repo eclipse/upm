@@ -38,7 +38,7 @@ namespace upm {
 /**
  * @brief C++ API for Gas sensors
  *
- * This file defines the Gas Analog sensors
+ * This file defines the Gas Analog sensors virtual functions
  */
 class Gas {
     public:

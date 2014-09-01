@@ -32,12 +32,17 @@ namespace upm {
 /**
  * @brief C++ API for MAX31855
  *
- * This file defines the max31855 SPI sensor
+ * The Maxim Integrated
+ * [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf)
+ * is a Cold-Junction Compensated Thermocouple-to-Digital Converter. This
+ * module was * tested on the Maxim Integrated 
+ * [MAX31855PMB1 PMOD module]
+ * (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the
+ * analog PMOD kit.
  *
- * @snippet examples/max31855.cxx Interesting
- *
+ * @snippet max31855.cxx Interesting
+ * @image html max31855.jpeg
  */
- //! [Interesting]
 class MAX31855 {
     public:
         /**
@@ -64,6 +69,5 @@ class MAX31855 {
         mraa_spi_context m_sensor;
         mraa_gpio_context m_gpio;
 };
-//! [Interesting]
 
 }

@@ -55,20 +55,16 @@ namespace upm {
 /**
  * @brief C++ API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
  *
- * This file defines the MAX44000 C++ interface for libmax44000
+ * The Maxim Integrated
+ * [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf)
+ * is Ambient and Infrared Proximity Sensor. This module was tested on the
+ * Maxim Integrated 
+ * [MAX44000PMB1 PMOD module]
+ * (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the
+ * analog PMOD kit.
  *
- * @snippet proximity.cxx Interesting
- *
- * PMOD pins for MAX44000PMB1 board
- *
- * ( -= J1 =- )
- * (1) - NUL
- * (2) - IRQ
- * (3) - SCL
- * (4) - SDA
- * (5) - GND
- * (6) - VCC
- *
+ * @snippet max44000.cxx Interesting
+ * @image html max44000.jpeg
  */
 class MAX44000 {
     public:

@@ -25,7 +25,9 @@ may also create more complex structures in order to interface with them.
 
 Temperature Sensors:
   * upm::MAX31723
+  * upm::MAX31855
   * upm::TH02
+  * upm::GroveTemp
 
 Compass/Gyro/Magnometer Sensors:
   * upm::Hmc5883l
@@ -34,10 +36,11 @@ Compass/Gyro/Magnometer Sensors:
 Atmospheric Pressure Sensors:
   * upm::GY65
 
-Proximity Sensors:
+Light/Proximity Sensors:
   * upm::MAXDS3231M
   * upm::MAX44000
   * upm::HCSR04
+  * upm::GroveLight
 
 Gas Sensors:
   * upm::MQ2
@@ -51,16 +54,21 @@ Displays:
   * upm::ST7735
   * upm::SSD1308
   * upm::SSD1327
+
+LED controllers/segment displays:
   * upm::TM1637
+  * upm::MY9221
 
 RFID:
   * upm::SM130
 
 Wireless Communication:
   * upm::NRF24l01
+  * upm::NRF8001
 
-Servo
+Servo/motors:
   * upm::ES08A
+  * upm::stepmotor
 
 Digital potentiometer
   * upm::MAX5487
