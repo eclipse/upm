@@ -63,7 +63,9 @@ class MAX31855 {
          *
          * @return value in degrees celcius
          */
+//! [Interesting]
         double getTemp();
+//! [Interesting]
 
     private:
         mraa_spi_context m_sensor;
