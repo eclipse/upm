@@ -32,6 +32,7 @@ Temperature Sensors:
 Compass/Gyro/Magnometer Sensors:
   * upm::Hmc5883l
   * upm::MPU9150
+  * upm::LSM303
 
 Atmospheric Pressure Sensors:
   * upm::GY65
