@@ -73,6 +73,9 @@ Servo/motors:
 Digital potentiometer
   * upm::MAX5487
 
+Electricity sensor
+  * upm::ECS1030
+
 ### Building UPM
 
 See @ref building
