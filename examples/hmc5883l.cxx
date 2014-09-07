@@ -27,9 +27,10 @@
 int
 main(int argc, char **argv)
 {
-    // Use i2c device 0 all the time
+//! [Interesting]
     upm::Hmc5883l* compass = new upm::Hmc5883l(0);
     fprintf(stdout, "heading: %f\n", compass->heading());
+//! [Interesting]
 
     return 0;
 }

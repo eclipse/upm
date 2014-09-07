@@ -32,10 +32,14 @@ namespace upm {
 /**
  * @brief C++ API for HMC5883l (3-axis digital compass)
  *
- * This file defines the HMC5883l C++ interface for libhmc5883l
+ * The Honeywell [HMC5883L]
+ * (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)
+ * is a 3-axis digital compass. Communication with the HMC5883L is simple and
+ * all done through an I2C interface. Different breakout boards are available,
+ * typically a 3V supply is all that is needed to power the sensor.
  *
  * @snippet hmc5883l.cxx Interesting
- *
+ * @image html hmc5883l.jpeg
  */
 
 class Hmc5883l {
