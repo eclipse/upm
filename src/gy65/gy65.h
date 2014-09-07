@@ -61,11 +61,15 @@
 namespace upm {
 
 /**
- * @brief C++ API for GY65 chip (Atmospheric Pressure Sensor)
+ * @brief C++ API for GY65/BMP085 chip (Atmospheric Pressure Sensor)
  *
- * This file defines the gy65 C++ interface for libgy65
+ * The Bosch [BMP085]
+ * (https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf)
+ * is a high precision, ultra-low power consumption pressure sensor. It has a
+ * range of between 30,000 and 110,000 Pa.
  *
  * @snippet gy65.cxx Interesting
+ * @image html bmp085.jpeg
  */
 class GY65 {
     public:
@@ -76,7 +80,7 @@ class GY65 {
          * @param devAddr address of used i2c device
          * @param mode BMP085 mode
          */
-        GY65 (int bus, int devAddr, uint8_t mode = BMP085_ULTRAHIGHRES);
+        GY65 (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
 
         /**
          * GY65 object destructor, basicaly it close i2c connection.
