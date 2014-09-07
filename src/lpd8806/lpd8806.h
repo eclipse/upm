@@ -48,7 +48,7 @@ class LPD8806 {
          * Instanciates a LPD8806 object
          *
          * @param pixelCount number of pixels in the strip
-         * @param csn chip slect pin
+         * @param csn chip select pin
          */
         LPD8806 (uint16_t pixelCount, uint8_t csn);
 
