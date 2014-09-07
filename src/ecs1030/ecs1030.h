@@ -28,6 +28,8 @@
 #include <mraa/aio.h>
 #include <mraa/gpio.h>
 
+namespace upm {
+
 #define NUMBER_OF_SAMPLES  500
 #define ADC_RESOLUTION     1024
 #define SUPPLYVOLTAGE      5100
@@ -39,59 +41,64 @@
 #define TRUE               HIGH
 #define FALSE              LOW
 
-namespace upm {
-    class ECS1030 {
-        public:
-            static const uint8_t DELAY_MS  = 20000 / NUMBER_OF_SAMPLES; /* 1/50Hz is 20ms period */
-            static const uint8_t VOLT_M    = 5.1 / 1023;
-            static const uint8_t R_LOAD    = 2000.0 / CURRENT_RATIO;
+/**
+ * @brief C++ API for ECS1030 (electricity sensor)
+ *
+ * @snippet ecs1030.cxx Interesting
+ */
 
-            /**
-             * Instanciates a ECS1030 (current sensor) object
-             *
-             * @param pinNumber number of the data pin
-             */
-            ECS1030 (uint8_t pinNumber);
+class ECS1030 {
+    public:
+        static const uint8_t DELAY_MS  = 20000 / NUMBER_OF_SAMPLES; /* 1/50Hz is 20ms period */
+        static const uint8_t VOLT_M    = 5.1 / 1023;
+        static const uint8_t R_LOAD    = 2000.0 / CURRENT_RATIO;
 
-            /**
-             * ECS1030 object destructor, basicaly it close the GPIO.
-             */
-            ~ECS1030 ();
+        /**
+         * Instanciates a ECS1030 (current sensor) object
+         *
+         * @param pinNumber number of the data pin
+         */
+        ECS1030 (uint8_t pinNumber);
 
-            /**
-             * Return currency data for the sampled period
-             */
-            double getCurrency_A ();
+        /**
+         * ECS1030 object destructor, basicaly it close the GPIO.
+         */
+        ~ECS1030 ();
 
-            /**
-             * Return power data for the sampled period
-             */
-            double getPower_A ();
+        /**
+         * Return currency data for the sampled period
+         */
+        double getCurrency_A ();
 
-            /**
-             * Return currency data for the sampled period
-             */
-            double getCurrency_B ();
+        /**
+         * Return power data for the sampled period
+         */
+        double getPower_A ();
 
-            /**
-             * Return power data for the sampled period
-             */
-            double getPower_B ();
+        /**
+         * Return currency data for the sampled period
+         */
+        double getCurrency_B ();
 
-            /**
-             * Return name of the component
-             */
-            std::string name() {
-                return m_name;
-            }
-        private:
-            std::string         m_name;
-            mraa_aio_context    m_dataPinCtx;
+        /**
+         * Return power data for the sampled period
+         */
+        double getPower_B ();
 
-            double              m_calibration;
-            int                 m_lastSample;
-            double              m_lastFilter;
-            int                 m_sample;
-            double              m_filteredSample;
-    };
+        /**
+         * Return name of the component
+         */
+        std::string name() {
+            return m_name;
+        }
+    private:
+        std::string         m_name;
+        mraa_aio_context    m_dataPinCtx;
+
+        double              m_calibration;
+        int                 m_lastSample;
+        double              m_lastFilter;
+        int                 m_sample;
+        double              m_filteredSample;
+};
 }
