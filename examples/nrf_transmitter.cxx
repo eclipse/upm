@@ -31,8 +31,8 @@
 int running = 0;
 upm::NRF24L01 *comm = NULL;
 
-uint8_t destAddress[5]     = {0x01, 0x01, 0x01, 0x01, 0x02};
-uint8_t srcAddress[5]      = {0x01, 0x01, 0x01, 0x01, 0x01};
+uint8_t destAddress[5]     = {0x01, 0x01, 0x01, 0x01, 0x01};
+uint8_t srcAddress[5]      = {0x01, 0x01, 0x01, 0x01, 0x02};
 
 void
 sig_handler(int signo)
@@ -56,7 +56,7 @@ main(int argc, char **argv)
     comm->setSourceAddress ((uint8_t *) srcAddress);
     comm->setDestinationAddress ((uint8_t *) destAddress);
     comm->setPayload (MAX_BUFFER);
-    // comm->setChannel (99);
+    comm->setChannel (99);
     comm->configure ();
     comm->dataRecievedHandler = nrf_handler;
 
