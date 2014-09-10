@@ -1,6 +1,7 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
+ * BLE Beaconing based on http://dmitry.gr/index.php?r=05.Projects&proj=11.%20Bluetooth%20LE%20fakery
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,6 +28,7 @@
 #include <mraa/aio.h>
 #include <mraa/gpio.h>
 #include <mraa/spi.h>
+#include <cstring>
 
 /* Memory Map */
 #define CONFIG              0x00
@@ -53,6 +55,8 @@
 #define RX_PW_P4            0x15
 #define RX_PW_P5            0x16
 #define FIFO_STATUS         0x17
+#define DYNPD               0x1C
+#define FEATURE             0x1D
 
 /* Bit Mnemonics */
 #define MASK_RX_DR          6
@@ -105,18 +109,46 @@
 #define REUSE_TX_PL           0xE3
 #define NOP                   0xFF
 
+#define RF_DR_LOW   5
+#define RF_DR_HIGH  3
+#define RF_PWR_LOW  1
+#define RF_PWR_HIGH 2
+
 /* Nrf24l settings */
 #define ADDR_LEN        5
-#define NRF_CONFIG         ((1<<EN_CRC) | (0<<CRCO) )
+#define _CONFIG         ((1<<EN_CRC) | (0<<CRCO) )
 
 #define MAX_BUFFER            32
 
 #define HIGH                  1
 #define LOW                    0
 
+/* BLE beaconing */
+#define BLE_MAC_0           0xEF
+#define BLE_MAC_1           0xFF
+#define BLE_MAC_2           0xC0
+#define BLE_MAC_3           0xAA
+#define BLE_MAC_4           0x18
+#define BLE_MAC_5           0x00
+
+#define BLE_PAYLOAD_OFFSET  13
+
 namespace upm {
 
 typedef void (* funcPtrVoidVoid) ();
+
+typedef enum {
+    NRF_250KBPS = 0,
+    NRF_1MBPS   = 1,
+    NRF_2MBPS   = 2,
+} speed_rate_t;
+
+typedef enum {
+    NRF_0DBM    = 0,
+    NRF_6DBM    = 1,
+    NRF_12DBM   = 2,
+    NRF_18DBM   = 3,
+} power_t;
 
 /**
  * @brief C++ API for NRF24l01 transceiver module
@@ -126,19 +158,19 @@ typedef void (* funcPtrVoidVoid) ();
  * @snippet nrf_receiver.cxx Interesting
  * @snippet nrf_transmitter.cxx Interesting
  */
-class NRF24l01 {
+class NRF24L01 {
     public:
         /**
          * Instanciates a NRF24l01 object
          *
          * @param cs chip select pin
          */
-        NRF24l01 (uint8_t cs);
+        NRF24L01 (uint8_t cs, uint8_t ce);
 
         /**
          * NRF24l01 object destructor
          */
-        ~NRF24l01 ();
+        ~NRF24L01 ();
 
         /**
          * Return name of the component
@@ -154,32 +186,32 @@ class NRF24l01 {
          * @param chipSelect setting up the chip select pin
          * @param chipEnable setting up the chip enable pin
          */
-        void nrfInitModule (uint8_t chipSelect, uint8_t chipEnable);
+        void    init (uint8_t chipSelect, uint8_t chipEnable);
 
         /**
          * Configure NRF24l01 chip
          */
-        void nrfConfigModule ();
+        void    configure ();
 
         /**
          * Send the buffer data
          *
-         * @param value pointer to the buffer
+         * @param *value pointer to the buffer
          */
-        void nrfSend (uint8_t *value);
+        void    send (uint8_t * value);
 
         /**
          * Send the data located in inner bufer, user must fill the
          * m_txBuffer buffer
          */
-        void nrfSend ();
+        void    send ();
 
         /**
          * Set recieving address of the device
          *
          * @param addr 5 bytes addres
          */
-        void nrfSetRXaddr (uint8_t * addr);
+        void    setSourceAddress (uint8_t * addr);
 
         /**
          * Set recipient address. nrfSend method will send the data buffer
@@ -187,161 +219,171 @@ class NRF24l01 {
          *
          * @param addr 5 bytes addres
          */
-        void nrfSetTXaddr (uint8_t * addr);
+        void    setDestinationAddress (uint8_t * addr);
 
         /**
          * Set broadcasting address.
          *
          * @param addr 5 bytes addres
          */
-        void nrfSetBroadcastAddr (uint8_t * addr);
+        void    setBroadcastAddress (uint8_t * addr);
 
         /**
          * Set payload size.
          *
          * @param load size of the payload (MAX 32)
          */
-        void nrfSetPayload (uint8_t load);
+        void    setPayload (uint8_t load);
 
         /**
          * Check if data arrived
          */
-        bool nrfDataReady ();
+        bool    dataReady ();
 
         /**
          * Check if chip in sending mode
          */
-        bool nrfIsSending ();
-
-        /**
-         * Check if recieving stack is empty
-         */
-        bool nrfRXFifoEmpty ();
-
-        /**
-         * Check if transmitting stack is empty
-         */
-        bool nrfTXFifoEmpty ();
+        bool    dataSending ();
 
         /**
          * Sink all arrived data into the provided buffer
          *
-         * @param data pointer to buffer of data
+         * @param load size of the payload (MAX 32)
          */
-        void nrfGetData (uint8_t * data);
+        void    getData (uint8_t * data);
 
         /**
          * Check the chip state
          */
-        uint8_t nrfGetStatus ();
+        uint8_t getStatus ();
 
         /**
-         * Transmit provided data to the chip
-         *
-         * @param dataout pointer to the buffer with data
-         * @param len length of the buffer
+         * Check if recieving stack is empty
          */
-        void nrfTransmitSync (uint8_t *dataout, uint8_t len);
-
-        /**
-         * Recieve data from the chip
-         *
-         * @param dataout pointer to the buffer with data
-         * @param datain pointer to the buffer where the arrived data
-         * will be sinked
-         * @param len length of the buffer
-         */
-        void nrfTransferSync (uint8_t *dataout ,uint8_t *datain, uint8_t len);
-
-        /**
-         * Write byte value into a register
-         *
-         * @param reg register address
-         * @param value the value to write
-         */
-        void nrfConfigRegister (uint8_t reg, uint8_t value);
-
-        /**
-         * Read continues data from register
-         *
-         * @param reg register address
-         * @param value pointer to the buffer
-         * @param len length of the buffer
-         */
-        void nrfReadRegister (uint8_t reg, uint8_t * value, uint8_t len);
-
-        /**
-         * Write continues data to register
-         *
-         * @param reg register address
-         * @param value pointer to the buffer
-         * @param len length of the buffer
-         */
-        void nrfWriteRegister (uint8_t reg, uint8_t * value, uint8_t len);
+        bool    rxFifoEmpty ();
 
         /**
          * Power up reciever
          */
-        void nrfPowerUpRX ();
-
-        /**
-         * Power up transmitter
-         */
-        void nrfPowerUpTX ();
-
-        /**
-         * Power down all
-         */
-        void nrfPowerDown ();
-
-        /**
-         * Set chip enable pin HIGH
-         */
-        mraa_result_t nrfCEHigh ();
-
-        /**
-         * Set chip enable LOW
-         */
-        mraa_result_t nrfCELow ();
-
-        /**
-         * Set chip select pin LOW
-         */
-        mraa_result_t nrfCSOn ();
-
-        /**
-         * Set chip select pin HIGH
-         */
-        mraa_result_t nrfCSOff ();
+        void    rxPowerUp ();
 
         /**
          * Flush reciver stack
          */
-        void nrfFlushRX ();
+        void    rxFlushBuffer ();
+
+        /**
+         * Power up transmitter
+         */
+        void    txPowerUp ();
+
+        /**
+         * Power down all
+         */
+        void    powerDown ();
+
+        void    setChannel (uint8_t channel);
+
+        void    setPower (power_t power);
+
+        uint8_t setSpeedRate (speed_rate_t rate);
+
+        /**
+         * Flush transmit stack
+         */
+        void    txFlushBuffer ();
 
         /**
          * Pulling method which listenning for arrived data, if data
          * arrived dataRecievedHandler will be triggered
          */
-        void nrfListenForChannel();
+        void    pollListener ();
 
-        uint8_t                m_rxBuffer[MAX_BUFFER]; /**< Reciver buffer */
-        uint8_t                m_txBuffer[MAX_BUFFER]; /**< Transmit buffer */
+        /**
+         * Set chip enable pin HIGH
+         */
+        mraa_result_t ceHigh ();
+
+        /**
+         * Set chip enable LOW
+         */
+        mraa_result_t ceLow ();
+
+        /**
+         * Set chip select pin LOW
+         */
+        mraa_result_t csOn ();
+
+        /**
+         * Set chip select pin HIGH
+         */
+        mraa_result_t csOff ();
+
+        /**
+         * Configure nRF24l01 module to behave as BLE
+         * (Bluetooth Low Energy) beaconing devcie.
+         */
+        void setBeaconingMode ();
+
+        /**
+         * Beaconing the provided message to BLE scanners.
+         *
+         * @param msg beacon the provated message (max length is 16 bytes)
+         */
+        void sendBeaconingMsg (uint8_t * msg);
+
+        uint8_t     m_rxBuffer[MAX_BUFFER]; /**< Reciver buffer */
+        uint8_t     m_txBuffer[MAX_BUFFER]; /**< Transmit buffer */
+        uint8_t     m_bleBuffer [32];       /**< BLE buffer */
 
         funcPtrVoidVoid dataRecievedHandler; /**< Data arrived handler */
     private:
+        /**
+         * Write bytes to the SPI device.
+         */
+        void    writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len);
+        /**
+         * Set register value on SPI device. [one byte]
+         */
+        void    setRegister (uint8_t reg, uint8_t value);
+        /**
+         * Get register value from SPI device. [one byte]
+         */
+        uint8_t getRegister (uint8_t reg);
+        /**
+         * Reads an array of bytes from the given start position in the nrf24l01 registers.
+         */
+        void    readRegister (uint8_t reg, uint8_t * value, uint8_t len);
+        /**
+         * Writes an array of bytes into inte the nrf24l01 registers.
+         */
+        void    writeRegister (uint8_t reg, uint8_t * value, uint8_t len);
+        /**
+         * Send command to the nrf24l01.
+         */
+        void    sendCommand (uint8_t cmd);
+
+        void bleCrc (const uint8_t* data, uint8_t len, uint8_t* dst);
+
+        void bleWhiten (uint8_t* data, uint8_t len, uint8_t whitenCoeff);
+
+        void blePacketEncode(uint8_t* packet, uint8_t len, uint8_t chan);
+
+        uint8_t swapbits (uint8_t a);
+
         mraa_spi_context        m_spi;
-        uint8_t                m_ce;
-        uint8_t                m_csn;
-        uint8_t                m_channel;
-        uint8_t             m_ptx;
-        uint8_t                m_payload;
-        uint8_t                m_localAddress[5];
+        uint8_t                 m_ce;
+        uint8_t                 m_csn;
+        uint8_t                 m_channel;
+        uint8_t                 m_power;
+        uint8_t                 m_ptx;
+        uint8_t                 m_payload;
+        uint8_t                 m_localAddress[5];
 
-        mraa_gpio_context     m_csnPinCtx;
-        mraa_gpio_context     m_cePinCtx;
+        mraa_gpio_context       m_csnPinCtx;
+        mraa_gpio_context       m_cePinCtx;
 
-        std::string         m_name;
+        std::string             m_name;
 };
 
 }

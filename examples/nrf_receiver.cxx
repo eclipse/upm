@@ -29,7 +29,10 @@
 #include <signal.h>
 
 int running = 0;
-upm::NRF24l01 *comm = NULL;
+upm::NRF24L01 *comm = NULL;
+
+uint8_t local_address[5]     = {0x01, 0x01, 0x01, 0x01, 0x01};
+uint8_t broadcast_address[5] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 void
 sig_handler(int signo)
@@ -43,7 +46,7 @@ sig_handler(int signo)
 
 //! [Interesting]
 void nrf_handler () {
-    std::cout << "devi1 :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
+    std::cout << "Reciever :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
 }
 //! [Interesting]
 
@@ -51,17 +54,19 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    comm = new upm::NRF24l01(7);
-    comm->nrfSetRXaddr ((uint8_t *) "devi1");
-    comm->nrfSetTXaddr ((uint8_t *) "devi2");
-    comm->nrfSetPayload (MAX_BUFFER);
-    comm->nrfConfigModule ();
+    comm = new upm::NRF24L01(7, 8);
+    comm->setSourceAddress ((uint8_t *) local_address);
+    comm->setDestinationAddress ((uint8_t *) broadcast_address);
+    comm->setPayload (MAX_BUFFER);
+    comm->configure ();
+    comm->setSpeedRate (upm::NRF_250KBPS);
+    comm->setChannel (99);
     comm->dataRecievedHandler = nrf_handler;
 
     signal(SIGINT, sig_handler);
 
     while (!running) {
-        comm->nrfListenForChannel ();
+        comm->pollListener ();
     }
 
     std::cout << "exiting application" << std::endl;

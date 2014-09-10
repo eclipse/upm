@@ -27,12 +27,11 @@
 #include <iostream>
 #include "nrf24l01.h"
 #include <signal.h>
+#include <stdio.h>
+#include <vector>
 
 int running = 0;
-upm::NRF24L01 *comm = NULL;
-
-uint8_t destAddress[5]     = {0x01, 0x01, 0x01, 0x01, 0x02};
-uint8_t srcAddress[5]      = {0x01, 0x01, 0x01, 0x01, 0x01};
+upm::NRF24L01 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -50,29 +49,33 @@ void nrf_handler () {
 int
 main(int argc, char **argv)
 {
-//! [Interesting]
-    uint32_t dummyData = 0;
-    comm = new upm::NRF24L01(7, 8);
-    comm->setSourceAddress ((uint8_t *) srcAddress);
-    comm->setDestinationAddress ((uint8_t *) destAddress);
-    comm->setPayload (MAX_BUFFER);
-    // comm->setChannel (99);
-    comm->configure ();
-    comm->dataRecievedHandler = nrf_handler;
+    sensor = new upm::NRF24L01(7, 8);
+    sensor->setBeaconingMode ();
+
+    std::vector<std::string> msgs;
+
+    msgs.push_back ("Hello World 1!!!");
+    msgs.push_back ("Hello World 2!!!");
+    msgs.push_back ("Hello World 3!!!");
+    msgs.push_back ("Hello World 4!!!");
+    msgs.push_back ("Hello World 5!!!");
 
     signal(SIGINT, sig_handler);
 
     while (!running) {
-        memcpy (comm->m_txBuffer, &dummyData, sizeof (dummyData));
-        comm->send ();
-        std::cout << "devi2 :: sending data ...." << dummyData << std::endl;
-        usleep (3000000);
-        dummyData += 3000;
+        for (std::vector<std::string>::iterator item = msgs.begin(); item != msgs.end(); ++item) {
+            std::cout << "BROADCASTING " << (*item).c_str() << std::endl;
+
+            for (int i = 0; i < 3; i++) {
+                sensor->sendBeaconingMsg ((uint8_t*) (*item).c_str());
+                usleep (1000000);
+            }
+        }
     }
 
     std::cout << "exiting application" << std::endl;
 
-    delete comm;
-//! [Interesting]
+    msgs.clear();
+    delete sensor;
     return 0;
 }
