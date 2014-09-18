@@ -109,6 +109,24 @@ LSM303::getRawCoorData()
     return &coor[0];
 }
 
+uint8_t
+LSM303::getAccelY()
+{
+  return accel[2];
+}
+
+uint8_t
+LSM303::getAccelZ()
+{
+  return accel[0];
+}
+
+uint8_t
+LSM303::getAccelX()
+{
+  return accel[1];
+}
+
 mraa_result_t
 LSM303::getCoordinates()
 {

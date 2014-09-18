@@ -79,7 +79,7 @@ class LSM303 {
          *
          * @param i2c bus
          * @param addr magometer
-	 * @param addr accelerometer
+     * @param addr accelerometer
          */
         LSM303 (int bus, int addrMag=LSM303_MAG, int addrAcc=LSM303_ACC);
 
@@ -110,6 +110,12 @@ class LSM303 {
          */
         uint8_t* getRawCoorData();
 
+        uint8_t getAccelY();
+
+        uint8_t getAccelZ();
+
+        uint8_t getAccelX();
+
         /**
          * Get the raw accelerometer data, this will get updated when getAcceleration() is called
          */
@@ -120,7 +126,7 @@ class LSM303 {
 
         mraa_i2c_context m_i2c;
         int m_addrMag;
-	int m_addrAcc;
+    int m_addrAcc;
         uint8_t buf[6];
         uint8_t coor[3];
         uint8_t accel[3];
