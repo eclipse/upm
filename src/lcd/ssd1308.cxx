@@ -129,7 +129,7 @@ SSD1308::writeChar (mraa_i2c_context ctx, uint8_t value) {
 
 mraa_result_t
 SSD1308::setNormalDisplay () {
-    return i2Cmd (m_i2c_lcd_control, DISPLAY_CMD_SET_NORMAL);    // set to normal display '1' is ON
+    return i2Cmd (m_i2c_lcd_control, DISPLAY_CMD_SET_NORMAL_1308);    // set to normal display '1' is ON
 }
 
 mraa_result_t

@@ -3,6 +3,7 @@
 
 %feature("autodoc", "3");
 
+%include "ssd.h"
 %include "i2clcd.h"
 %{
     #include "i2clcd.h"
@@ -21,4 +22,9 @@
 %include "ssd1327.h"
 %{
     #include "ssd1327.h"
+%}
+
+%include "ssd1308.h"
+%{
+    #include "ssd1308.h"
 %}
