@@ -37,7 +37,7 @@ namespace upm {
      * 300-10000ppm.
      *
      * @ingroup gas
-     * @snippet mq5-example.cxx Interesting
+     * @snippet mq5.cxx Interesting
      * @image html grovegas.jpeg
      */
     class MQ5 : public Gas {

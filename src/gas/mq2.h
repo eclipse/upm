@@ -37,7 +37,7 @@ namespace upm {
      * sensor with a detect concentration of 300-10000ppm.
      *
      * @ingroup gas
-     * @snippet mq2-example.cxx Interesting
+     * @snippet mq2.cxx Interesting
      * @image html grovegas.jpeg
      */
     class MQ2 : public Gas {

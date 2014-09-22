@@ -36,7 +36,7 @@ namespace upm {
      * Liquefied Gas. It's sensitivty is 10-1000ppmCO 100-10000PPm Gas.
      *
      * @ingroup gas
-     * @snippet mq9-example.cxx Interesting
+     * @snippet mq9.cxx Interesting
      * @image html mq9.jpeg
      */
     class MQ9 : public Gas {

@@ -37,7 +37,7 @@ namespace upm {
      * detect rate is of 0.04-4mg/L Alcohol.
      *
      * @ingroup gas
-     * @snippet mq3-example.cxx Interesting
+     * @snippet mq3.cxx Interesting
      * @image html grovegas.jpeg
      */
     class MQ3 : public Gas {
