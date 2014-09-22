@@ -36,6 +36,7 @@ namespace upm {
      * on. It is highly sensitive and has a detection concentration of
      * 300-10000ppm.
      *
+     * @ingroup gas
      * @snippet mq5-example.cxx Interesting
      * @image html grovegas.jpeg
      */

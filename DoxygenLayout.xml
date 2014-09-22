@@ -4,8 +4,11 @@
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="pages" visible="yes" title="" intro=""/>
-    <tab type="modules" visible="yes" title="" intro=""/>
-    <tab type="namespaces" visible="yes" title="">
+    <tab type="modules" visible="yes" title="UPM libraries" intro="Here is a
+    list of UPM libraries that can be used. Note that each of the classes
+    listed in these libraries are completely seperate so you will need to link
+    against all those that you have used in your program"/> <tab
+    type="namespaces" visible="yes" title="">
     <tab type="namespacelist" visible="yes" title="" intro=""/>
     <tab type="namespacemembers" visible="yes" title="" intro=""/>
     </tab>

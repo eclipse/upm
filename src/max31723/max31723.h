@@ -34,6 +34,11 @@
 namespace upm {
 
 /**
+ * @brief max31723 temperature sensor library
+ * @defgroup max31723 libupm-max31723
+ */
+
+/**
  * @brief C++ API for MAX31723 chip (Temperature sensor)
  *
  * The Maxim Integrated
@@ -43,6 +48,7 @@ namespace upm {
  * module](http://datasheets.maximintegrated.com/en/ds/MAX31723PMB1.pdf) from
  * the analog PMOD kit.
  *
+ * @ingroup max31723
  * @snippet max31723.cxx Interesting
  * @image html max31723.jpeg
  */

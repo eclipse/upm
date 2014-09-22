@@ -35,6 +35,7 @@ namespace upm {
      * home and industry). It can detect Carbon Monoxide, Coal Gas and
      * Liquefied Gas. It's sensitivty is 10-1000ppmCO 100-10000PPm Gas.
      *
+     * @ingroup gas
      * @snippet mq9-example.cxx Interesting
      * @image html mq9.jpeg
      */

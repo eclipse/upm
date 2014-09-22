@@ -42,8 +42,14 @@ namespace upm {
 #define FALSE              LOW
 
 /**
+ * @brief ECS1030 electricity sensor library
+ * @defgroup ecs1030 libupm-ecs1030
+ */
+
+/**
  * @brief C++ API for ECS1030 (electricity sensor)
  *
+ * @ingroup ecs1030
  * @snippet ecs1030.cxx Interesting
  */
 

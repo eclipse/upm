@@ -36,10 +36,8 @@ namespace upm {
 #define LOW                   0
 
 /**
- * @brief Base class for other servo components
- *
- * PMOD pins for MAX44000PMB1 board
- *
+ * @brief servo libraries
+ * @defgroup servo libupm-servo
  */
 class Servo {
     public:

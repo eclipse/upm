@@ -32,14 +32,19 @@ namespace upm {
 
 #define LOL_X 14
 #define LOL_Y 9
+
+/**
+ * @brief Olimex LoL array library
+ * @defgroup lol libupm-lol
+ */
+
 /**
  * @brief C++ API for Olimex LoL array
  *
- * This file defines the LoL API and implemntation for 
- * a simple framebuffer
+ * This file defines the LoL API and implemntation for a simple framebuffer
  *
+ * @ingroup lol
  * @snippet lol-example.cxx Interesting
- *
  */
 class LoL {
     public:

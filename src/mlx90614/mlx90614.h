@@ -53,10 +53,17 @@
 namespace upm {
 
 /**
- * @brief C++ API for MLX90614 
+ * @brief mlx90614 temperature sensor library
+ * @defgroup mlx90614 libupm-mlx90614
+ */
+
+/**
+ * @brief C++ API for MLX90614
  *
  * This file defines the MLX90614 C++ interface for libmlx90614
  *
+ * @ingroup mlx90641
+ * @snippet mlx90641.cxx Interesting
  */
 class MLX90614 {
     public:

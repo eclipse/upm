@@ -34,6 +34,11 @@
 namespace upm {
 
 /**
+ * @brief max5847 digital potentiometer library
+ * @defgroup max5847 libupm-max5847
+ */
+
+/**
  * @brief C++ API for MAX5487 chip (SPI digital potentionmeter)
  *
  * The Maxim Integrated
@@ -43,6 +48,7 @@ namespace upm {
  * PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX5487PMB1.pdf)
  * from the analog PMOD kit.
  *
+ * @ingroup max5847
  * @snippet max5487.cxx Interesting
  * @image html max5487.jpeg
  */

@@ -30,6 +30,11 @@
 namespace upm {
 
 /**
+ * @brief HMC5883l magnometer library
+ * @defgroup hmc5883l libupm-hmc5883l
+ */
+
+/**
  * @brief C++ API for HMC5883l (3-axis digital compass)
  *
  * The Honeywell [HMC5883L]
@@ -38,10 +43,10 @@ namespace upm {
  * all done through an I2C interface. Different breakout boards are available,
  * typically a 3V supply is all that is needed to power the sensor.
  *
+ * @ingroup hmc5883l
  * @snippet hmc5883l.cxx Interesting
  * @image html hmc5883l.jpeg
  */
-
 class Hmc5883l {
 public:
     /**

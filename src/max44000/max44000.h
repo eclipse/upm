@@ -53,6 +53,11 @@
 namespace upm {
 
 /**
+ * @brief max44000 proxmity sensor library
+ * @defgroup max44000 libupm-max44000
+ */
+
+/**
  * @brief C++ API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
  *
  * The Maxim Integrated

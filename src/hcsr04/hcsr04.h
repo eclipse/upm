@@ -1,4 +1,4 @@
-/*
+ /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -38,12 +38,17 @@
 namespace upm {
 
 /**
+ * @brief HCSR04 ultrasonic sensor library
+ * @defgroup hcsr04 libupm-hcsr04
+ */
+
+/**
  * @brief C++ API for HCSR04 (ultrasonic ranging module) component
  *
  * This file defines the HCSR04 C++ interface for libhcsr04
  *
+ * @ingroup hcsr04
  * @snippet hcsr04.cxx Interesting
- *
  */
 class HCSR04 {
     public:

@@ -42,10 +42,16 @@
 namespace upm {
 
 /**
+ * @brief Stepper motor library
+ * @defgroup stepper libupm-stepper
+ */
+
+/**
  * @brief C++ API for StepMotor Drivers
  *
  * This file defines the stepmotor C++ interface for libstepmotor
  *
+ * @ingroup stepmotor
  * @snippet stepmotor.cxx Interesting
  */
 class StepMotor {

@@ -1,7 +1,7 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
- * 
+ *
  * Based on SM130 library developed by Marc Boon <http://www.marcboon.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -41,12 +41,19 @@
 namespace upm {
 
 /**
+ * @brief sm130 rfid module library
+ * @defgroup sm130 libupm-sm130
+ */
+
+/**
  * @brief C++ API for SM130 RFID reader module
  *
  * This file defines the SM130 C++ interface for libsm130
+ *
+ * @ingroup sm130
  */
 class SM130 {
-    
+
     uint8_t m_Data[SIZE_PACKET]; //!< packet data
 	char    m_Version[8];      //!< version string
 	uint8_t m_TagNumber[7];    //!< tag number as uint8_t array
@@ -56,7 +63,7 @@ class SM130 {
 	char    errorCode;         //!< error code from some commands
 	uint8_t antennaPower;      //!< antenna power level
 	uint8_t m_LastCMD;         //!< last sent command
-    
+
     public:
         static const uint8_t MIFARE_ULTRALIGHT = 1;
         static const uint8_t MIFARE_1K         = 2;
@@ -81,7 +88,7 @@ class SM130 {
         static const uint8_t CMD_HALT_TAG      = 0x93;
         static const uint8_t CMD_SET_BAUD      = 0x94;
         static const uint8_t CMD_SLEEP         = 0x96;
-    
+
          /**
          * Instanciates a SM130 object
          *
@@ -94,12 +101,12 @@ class SM130 {
          * SM130 object destructor
          */
         ~SM130 ();
-        
+
         /**
          * Get the firmware version string.
          */
         const char* getFirmwareVersion ();
-        
+
         /**
          * 	Checks for availability of a valid response packet.
          *
@@ -109,12 +116,12 @@ class SM130 {
          *	@returns	true if a valid response packet is available
          */
         uint8_t available ();
-        
+
         /**
          * Returns the packet length, excluding checksum
          */
         uint8_t getPacketLength () { return this->m_Data[0]; };
-        
+
         /**
          * Returns the last executed command
          */
@@ -131,14 +138,14 @@ class SM130 {
         std::string m_name;
         mraa_gpio_context m_resetPinCtx;
         mraa_gpio_context m_dataReadyPinCtx;
-        
+
         int m_i2cAddr;
         int m_bus;
         mraa_i2c_context m_i2Ctx;
-        
+
         void arrayToHex (char *s, uint8_t array[], uint8_t len);
         char toHex (uint8_t b);
-        
+
         uint16_t i2cRecievePacket (uint32_t len);
         mraa_result_t i2cTransmitPacket (uint32_t len);
         mraa_result_t sendCommand (uint8_t cmd);

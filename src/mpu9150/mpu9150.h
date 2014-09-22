@@ -109,10 +109,16 @@ struct AxisData {
 };
 
 /**
+ * @brief mpu9150 sensor library
+ * @defgroup mpu9150 libupm-mpu9150
+ */
+
+/**
  * @brief C++ API for MPU9150 chip (Accelrometer, Gyro and Magnometer Sensor)
  *
  * This file defines the MPU9150 C++ interface for libmpu9150
  *
+ * @ingroup mpu9150
  * @snippet mpu9150-example.cxx Interesting
  */
 class MPU9150 {

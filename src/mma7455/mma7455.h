@@ -150,12 +150,17 @@ union accelData {
 #define BIT(n) (1<<n)
 
 /**
+ * @brief mma7455 accelerometer library
+ * @defgroup mma7455 libupm-mma7455
+ */
+
+/**
  * @brief C++ API for MMA7455 chip (accelerometer)
  *
  * This file defines the MMA7455 C++ interface for libmma7455
  *
+ * @ingroup mma7455
  * @snippet mma7455.cxx Interesting
- *
  */
 class MMA7455 {
     public:

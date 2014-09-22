@@ -38,10 +38,16 @@
 namespace upm {
 
 /**
+ * @brief my9221 led bar library
+ * @defgroup my9221 libupm-9221
+ */
+
+/**
  * @brief C++ API for MY9221 led bar module
  *
  * This file defines the MY9221 C++ interface for libmy9221
  *
+ * @ingroup my9221
  * @snippet led-bar.cxx Interesting
  */
 class MY9221 {

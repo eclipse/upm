@@ -47,10 +47,16 @@
 namespace upm {
 
 /**
+ * @brief tm1637 7-segment screen library
+ * @defgroup tm1637 libupm-tm1637
+ */
+
+/**
  * @brief C++ API for Seven segments screen
  *
  * This file defines the TM1637 C++ interface for lib4digitdisplay
  *
+ * @ingroup tm1637
  * @snippet 4digitdisplay.cxx Interesting
  *
  *      A

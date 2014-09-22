@@ -33,8 +33,8 @@ namespace upm {
  *
  * This file defines the ES08A C++ interface for libes08a
  *
+ * @ingroup servo
  * @snippet es08a.cxx Interesting
- *
  */
 class ES08A : public Servo {
     public:

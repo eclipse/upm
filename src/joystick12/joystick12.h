@@ -30,14 +30,19 @@
 namespace upm {
 
 /**
+ * @brief Analog Joystick library
+ * @defgroup joystick libupm-joystick
+ */
+
+/**
  * @brief C++ API for Elecfreaks Joystick v 1.2-1.4 breakout
  *
  * This file defines the Joystick API and implemntation for X, Y
  * button could be treated as normal GPIO, this enables easier
  * interrupt support
  *
+ * @ingroup joystick
  * @snippet joystick12-example.cxx Interesting
- *
  */
 class Joystick12 {
     public:

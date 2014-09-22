@@ -42,6 +42,7 @@ namespace upm {
  * [TC1602A-01T](https://www.adafruit.com/datasheets/TC1602A-01T.pdf) seems to
  * the best documented example.
  *
+ * @ingroup i2clcd
  * @snippet lcm-lcd.cxx Interesting
  * @image html lcm1602.jpeg
  */

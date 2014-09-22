@@ -36,12 +36,17 @@ struct thresholdContext {
 namespace upm {
 
 /**
+ * @brief analog microphone library
+ * @defgroup mic libupm-mic
+ */
+
+/**
  * @brief C++ API for Microphone
  *
  * This file defines the Microphone Analog sensor
  *
+ * @ingroup mic
  * @snippet mic-example.cxx Interesting
- *
  */
 class Microphone {
     public:

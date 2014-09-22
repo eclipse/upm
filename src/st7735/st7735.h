@@ -494,10 +494,16 @@ const unsigned char font[] = {
 };
 
 /**
+ * @brief st7735 lcd display library
+ * @defgroup st7735 libupm-st7735
+ */
+
+/**
  * @brief C++ API for ST7735 SPI LCD module
  *
  * This file defines the ST7735 C++ interface for libst7735
  *
+ * @ingroup st7735
  * @snippet st7735.cxx Interesting
  */
 class ST7735 : public GFX {

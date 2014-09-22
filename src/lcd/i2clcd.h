@@ -72,6 +72,10 @@ namespace upm {
 #define LCD_RW 0x02 // Read/Write bit
 #define LCD_RS 0x01 // Register select bit
 
+/**
+ * @brief i2c LCD display library
+ * @defgroup i2clcd libupm-i2clcd
+ */
 class I2CLcd {
     public:
         I2CLcd (int bus, int lcdAddress);

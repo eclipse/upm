@@ -37,12 +37,17 @@
 namespace upm {
 
 /**
+ * @brief Buzzer library
+ * @defgroup buzzer libupm-buzzer
+ */
+
+/**
  * @brief C++ API for Buzzer component
  *
  * This file defines the Buzzer C++ interface for libbuzzer
  *
+ * @ingroup buzzer
  * @snippet buzzer-sound.cxx Interesting
- *
  */
 class Buzzer {
     public:

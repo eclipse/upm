@@ -105,10 +105,16 @@ typedef struct {
 } tcs3414sc_rgb_t;
 
 /**
+ * @brief tcs3414cs color sensor library
+ * @defgroup tcs3414cs libupm-tcs3414cs
+ */
+
+/**
  * @brief C++ API for TCS3414CS chip (Color sensor)
  *
  * This file defines the TCS3414CS C++ interface for libtcs3414cs
  *
+ * @snippet tcs3414cs-example.cxx Interesting
  */
 class TCS3414CS {
     public:

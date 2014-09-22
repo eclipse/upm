@@ -61,6 +61,11 @@
 namespace upm {
 
 /**
+ * @brief GY65 & BPM085 atmospheric pressure sensor library
+ * @defgroup gy65 libupm-gy65
+ */
+
+/**
  * @brief C++ API for GY65/BMP085 chip (Atmospheric Pressure Sensor)
  *
  * The Bosch [BMP085]
@@ -68,6 +73,7 @@ namespace upm {
  * is a high precision, ultra-low power consumption pressure sensor. It has a
  * range of between 30,000 and 110,000 Pa.
  *
+ * @ingroup gy65
  * @snippet gy65.cxx Interesting
  * @image html bmp085.jpeg
  */

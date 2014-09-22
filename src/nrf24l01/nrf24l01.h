@@ -151,10 +151,16 @@ typedef enum {
 } power_t;
 
 /**
+ * @brief nrf24l01 transceiver library
+ * @defgroup nrf24l01 libupm-nrf24l01
+ */
+
+/**
  * @brief C++ API for NRF24l01 transceiver module
  *
  * This file defines the NRF24l01 C++ interface for libnrf24l01
  *
+ * @ingroup nrf24l01
  * @snippet nrf_receiver.cxx Interesting
  * @snippet nrf_transmitter.cxx Interesting
  */

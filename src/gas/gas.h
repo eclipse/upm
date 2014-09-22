@@ -36,9 +36,8 @@ struct thresholdContext {
 namespace upm {
 
 /**
- * @brief C++ API for Gas sensors
- *
- * This file defines the Gas Analog sensors virtual functions
+ * @brief gas sensor library
+ * @defgroup gas libupm-gas
  */
 class Gas {
     public:

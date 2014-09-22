@@ -61,6 +61,11 @@ namespace upm {
 #define Y 2
 
 /**
+ * @brief LSM303 accelerometer/compass library
+ * @defgroup lsm303 libupm-lsm303
+ */
+
+/**
  * @brief C++ API for LSM303
  *
  * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
@@ -69,6 +74,7 @@ namespace upm {
  * module that is used over i2c. The magnometer and acceleromter are accessed
  * at two seperate i2c addresses.
  *
+ * @ingroup lsm303
  * @snippet lsm303.cxx Interesting
  * @image html lsm303.jpeg
  */

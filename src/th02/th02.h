@@ -50,12 +50,17 @@
 namespace upm {
 
 /**
+ * @brief th02 temperature & humidity sensor library
+ * @defgroup th02 libupm-th02
+ */
+
+/**
  * @brief C++ API for TH02 chip (Temperature and Humidity Sensor Pro)
  *
  * This file defines the TH02 C++ interface for libth02
  *
+ * @ingroup th02
  * @snippet th02-example.cxx Interesting
- *
  */
 class TH02 {
     public:

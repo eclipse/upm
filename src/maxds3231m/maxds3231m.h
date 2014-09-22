@@ -63,10 +63,14 @@ struct Time3231 {
 };
 
 /**
+ * @brief maxds3231m proximity sensor library
+ * @defgroup maxds3231m libupm-maxds3231m
+ */
+
+/**
  * @brief C++ API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
  *
- * This file defines the MAXDS3231M C++ interface for libmax44000
- *
+ * @ingroup maxds3231m
  */
 class MAXDS3231M {
     public:
