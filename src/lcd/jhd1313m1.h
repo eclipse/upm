@@ -51,7 +51,7 @@ class Jhd1313m1 : public I2CLcd {
         * @param address the slave address the lcd is registered on
         * @param address the slave address the rgb backlight is on
         */
-        Jhd1313m1(int bus, int lcdAddress, int rgbAddress);
+        Jhd1313m1(int bus, int lcdAddress=0x3E, int rgbAddress=0x62);
        /**
         * Jhd1313m1 destructor
         */
