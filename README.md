@@ -84,3 +84,7 @@ See @ref building
 
 @ref porting has more information on making new UPM modules
 
+C/C++ API Documentation
+===========
+
+The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/)
