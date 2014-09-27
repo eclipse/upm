@@ -79,7 +79,6 @@ GroveTemp::~GroveTemp()
 int GroveTemp::value ()
 {
     int a = mraa_aio_read(m_aio);
-    a = a >> 2;
     float r = (float)(1023-a)*10000/a;
     float t = 1/(log(r/10000)/3975 + 1/298.15)-273.15;
     return (int) t;
