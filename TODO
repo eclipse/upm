@@ -1,3 +1,10 @@
+** FIXES **
+- LPD8806 & MAX5487 SPI constructor needs bus number etc...
+- MAX44000 i2c bus number required...
+- TCS3414CS & TH-2 i2c params required
+
+** SENSORS **
+
 Easy:
 MAX7221 - SPI 8 digit LED
 - https://mbed.org/components/MAX7221/
