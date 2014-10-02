@@ -73,7 +73,15 @@ class GroveLed: public Grove {
  */
 class GroveTemp: public Grove {
     public:
+        /**
+         * Grove analog temperature sensor constructor
+         *
+         * @param analog pin to use
+         */
         GroveTemp(unsigned int pin);
+        /**
+         * GroveTemp destructor
+         */
         ~GroveTemp();
         /**
          * Get raw value from AIO pin
@@ -101,7 +109,15 @@ class GroveTemp: public Grove {
  */
 class GroveLight: public Grove {
     public:
+        /**
+         * Grove analog light sensor constructor
+         *
+         * @param analog pin to use
+         */
         GroveLight(unsigned int pin);
+        /**
+         * GroveLight Destructor
+         */
         ~GroveLight();
         /**
          * Get raw value from AIO pin
