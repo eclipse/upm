@@ -74,7 +74,7 @@ namespace upm {
  * module that is used over i2c. The magnometer and acceleromter are accessed
  * at two seperate i2c addresses.
  *
- * @ingroup lsm303
+ * @ingroup lsm303 i2c
  * @snippet lsm303.cxx Interesting
  * @image html lsm303.jpeg
  */

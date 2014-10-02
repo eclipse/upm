@@ -36,7 +36,7 @@ namespace upm {
      * Hydrogen, smoke and other combustible gases. It's a medium sensitivity
      * sensor with a detect concentration of 300-10000ppm.
      *
-     * @ingroup gas
+     * @ingroup gas analog
      * @snippet mq2.cxx Interesting
      * @image html grovegas.jpeg
      */

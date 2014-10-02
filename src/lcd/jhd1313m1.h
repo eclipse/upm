@@ -38,7 +38,7 @@ namespace upm {
  * [Grove LCD RGB Backlight v2.0 display]
  * (http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36)
  *
- * @ingroup i2clcd
+ * @ingroup i2clcd i2c
  * @snippet rgb-lcd.cxx Interesting
  * @image html grovergblcd.jpeg
  */

@@ -49,7 +49,7 @@ namespace upm {
 /**
  * @brief C++ API for ECS1030 (electricity sensor)
  *
- * @ingroup ecs1030
+ * @ingroup ecs1030 analog
  * @snippet ecs1030.cxx Interesting
  */
 

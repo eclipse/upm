@@ -48,7 +48,7 @@ namespace upm {
  * PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX5487PMB1.pdf)
  * from the analog PMOD kit.
  *
- * @ingroup max5847
+ * @ingroup max5847 spi
  * @snippet max5487.cxx Interesting
  * @image html max5487.jpeg
  */

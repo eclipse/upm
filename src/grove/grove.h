@@ -49,7 +49,7 @@ class Grove {
  *
  * Very basic UPM module for grove LED, or any LED for that matter
  *
- * @ingroup grove
+ * @ingroup grove gpio
  * @snippet groveled.cxx Interesting
  */
 class GroveLed: public Grove {
@@ -68,7 +68,7 @@ class GroveLed: public Grove {
  *
  * Very basic UPM module for grove temperature sensor on analog
  *
- * @ingroup grove
+ * @ingroup grove analog
  * @snippet grovetemp.cxx Interesting
  */
 class GroveTemp: public Grove {
@@ -104,7 +104,7 @@ class GroveTemp: public Grove {
  *
  * Very basic UPM module for grove Light sensor on analog
  *
- * @ingroup grove
+ * @ingroup grove analog
  * @snippet grovelight.cxx Interesting
  */
 class GroveLight: public Grove {

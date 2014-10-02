@@ -43,7 +43,7 @@ namespace upm {
  * all done through an I2C interface. Different breakout boards are available,
  * typically a 3V supply is all that is needed to power the sensor.
  *
- * @ingroup hmc5883l
+ * @ingroup hmc5883l i2c
  * @snippet hmc5883l.cxx Interesting
  * @image html hmc5883l.jpeg
  */
@@ -53,7 +53,6 @@ public:
      * Creates a Hmc5883l object
      *
      * @param bus number of used i2c bus
-     *
      */
     Hmc5883l(int bus);
 

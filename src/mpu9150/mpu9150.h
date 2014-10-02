@@ -118,7 +118,7 @@ struct AxisData {
  *
  * This file defines the MPU9150 C++ interface for libmpu9150
  *
- * @ingroup mpu9150
+ * @ingroup mpu9150 i2c
  * @snippet mpu9150-example.cxx Interesting
  */
 class MPU9150 {
@@ -129,7 +129,7 @@ class MPU9150 {
          * @param bus number of used bus
          * @param devAddr addres of used i2c device
          */
-        MPU9150 (int bus, int devAddr);
+        MPU9150 (int bus=0, int devAddr=0x68);
 
         /**
          * MPU9150 object destructor, basicaly it close i2c connection.

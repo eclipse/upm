@@ -41,7 +41,7 @@ namespace upm {
  * button could be treated as normal GPIO, this enables easier
  * interrupt support
  *
- * @ingroup joystick
+ * @ingroup joystick analog
  * @snippet joystick12-example.cxx Interesting
  */
 class Joystick12 {

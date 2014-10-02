@@ -503,7 +503,7 @@ const unsigned char font[] = {
  *
  * This file defines the ST7735 C++ interface for libst7735
  *
- * @ingroup st7735
+ * @ingroup st7735 spi
  * @snippet st7735.cxx Interesting
  */
 class ST7735 : public GFX {

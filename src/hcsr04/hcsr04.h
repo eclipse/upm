@@ -47,7 +47,7 @@ namespace upm {
  *
  * This file defines the HCSR04 C++ interface for libhcsr04
  *
- * @ingroup hcsr04
+ * @ingroup hcsr04 gpio
  * @snippet hcsr04.cxx Interesting
  */
 class HCSR04 {

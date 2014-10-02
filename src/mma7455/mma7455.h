@@ -159,7 +159,7 @@ union accelData {
  *
  * This file defines the MMA7455 C++ interface for libmma7455
  *
- * @ingroup mma7455
+ * @ingroup mma7455 i2c
  * @snippet mma7455.cxx Interesting
  */
 class MMA7455 {
@@ -170,7 +170,7 @@ class MMA7455 {
          * @param bus number of used bus
          * @param devAddr addres of used i2c device
          */
-        MMA7455 (int bus, int devAddr);
+        MMA7455 (int bus=0, int devAddr=0x1D);
 
         /**
          * MMA7455 object destructor, basicaly it close i2c connection.

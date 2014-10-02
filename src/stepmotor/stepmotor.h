@@ -51,7 +51,7 @@ namespace upm {
  *
  * This file defines the stepmotor C++ interface for libstepmotor
  *
- * @ingroup stepmotor
+ * @ingroup stepper pwm
  * @snippet stepmotor.cxx Interesting
  */
 class StepMotor {
@@ -59,8 +59,8 @@ class StepMotor {
         /**
          * Instanciates a StepMotor object
          *
-         * @param dirPin direction pin
-         * @param stePin steper pulse pin
+         * @param dirPin direction GPIO pin
+         * @param stePin steper pulse PWM pin
          */
         StepMotor (int dirPin, int stePin);
 

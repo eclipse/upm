@@ -62,7 +62,7 @@ namespace upm {
  *
  * This file defines the MLX90614 C++ interface for libmlx90614
  *
- * @ingroup mlx90641
+ * @ingroup mlx90641 i2c
  * @snippet mlx90641.cxx Interesting
  */
 class MLX90614 {
@@ -74,7 +74,7 @@ class MLX90614 {
          * @param bus number of used bus
          * @param devAddr addres of used i2c device
          */
-        MLX90614 (int bus, int devAddr);
+        MLX90614 (int bus=0, int devAddr=0x5A);
 
         /**
          * MLX90614 object destructor, basicaly it close i2c connection.

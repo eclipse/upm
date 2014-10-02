@@ -68,6 +68,7 @@ namespace upm {
  * (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the
  * analog PMOD kit.
  *
+ * @ingroup max44000 i2c
  * @snippet max44000.cxx Interesting
  * @image html max44000.jpeg
  */

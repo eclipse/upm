@@ -56,7 +56,7 @@ namespace upm {
  *
  * This file defines the TM1637 C++ interface for lib4digitdisplay
  *
- * @ingroup tm1637
+ * @ingroup tm1637 gpio
  * @snippet 4digitdisplay.cxx Interesting
  *
  *      A

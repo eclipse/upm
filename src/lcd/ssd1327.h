@@ -42,7 +42,7 @@ namespace upm {
  * (http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22)
  * which is an OLED monochrome display
  *
- * @ingroup i2clcd
+ * @ingroup i2clcd i2c
  * @snippet oled-1327.cxx Interesting
  * @image html ssd1327.jpeg
  */

@@ -73,7 +73,7 @@ namespace upm {
  * is a high precision, ultra-low power consumption pressure sensor. It has a
  * range of between 30,000 and 110,000 Pa.
  *
- * @ingroup gy65
+ * @ingroup gy65 i2c
  * @snippet gy65.cxx Interesting
  * @image html bmp085.jpeg
  */

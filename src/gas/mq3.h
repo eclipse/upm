@@ -36,7 +36,7 @@ namespace upm {
      * highly sensitive but has a long warmup time of about 1minute. It's
      * detect rate is of 0.04-4mg/L Alcohol.
      *
-     * @ingroup gas
+     * @ingroup gas analog
      * @snippet mq3.cxx Interesting
      * @image html grovegas.jpeg
      */

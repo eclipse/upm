@@ -70,7 +70,7 @@ struct Time3231 {
 /**
  * @brief C++ API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
  *
- * @ingroup maxds3231m
+ * @ingroup maxds3231m i2c
  */
 class MAXDS3231M {
     public:
@@ -80,7 +80,7 @@ class MAXDS3231M {
          * @param bus number of used bus
          * @param devAddr addres of used i2c device
          */
-        MAXDS3231M (int bus, int devAddr);
+        MAXDS3231M (int bus=0, int devAddr=0x68);
 
         /**
          * MAXDS3231M object destructor, basicaly it close i2c connection.

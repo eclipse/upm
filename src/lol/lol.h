@@ -43,7 +43,7 @@ namespace upm {
  *
  * This file defines the LoL API and implemntation for a simple framebuffer
  *
- * @ingroup lol
+ * @ingroup lol gpio
  * @snippet lol-example.cxx Interesting
  */
 class LoL {

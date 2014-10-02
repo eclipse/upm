@@ -23,59 +23,35 @@
  */
 #pragma once
 
-#include <string>
-#include <mraa/spi.h>
-#include <mraa/gpio.h>
-
-namespace upm {
+/// @cond DEV
+/**
+ * This file only serves to describe sensor groups based on libmraa groups.
+ * Sensors may belong to multiple groups. This is purely a documentation header
+ * and is not meant to be installed anywhere.
+ */
+/// @endcond DEV
 
 /**
- * @brief max31855 thermocouple library
- * @defgroup max31855 libupm-max31855
+ * @brief Sensors requiring an ADC value to be read
+ * @defgroup analog Analog Sensors
  */
 
 /**
- * @brief C++ API for MAX31855
- *
- * The Maxim Integrated
- * [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf)
- * is a Cold-Junction Compensated Thermocouple-to-Digital Converter. This
- * module was * tested on the Maxim Integrated 
- * [MAX31855PMB1 PMOD module]
- * (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the
- * analog PMOD kit.
- *
- * @ingroup max31855 spi
- * @snippet max31855.cxx Interesting
- * @image html max31855.jpeg
+ * @brief Modules using the i2c bus
+ * @defgroup i2c I2c
  */
-class MAX31855 {
-    public:
-        /**
-         * Instanciates a MAX31855 object
-         *
-         * @param bus The spi bus to use
-         * @param cs The chip select pin
-         */
-        MAX31855(int bus, int cs);
 
-        /**
-         * MAX31855 object destructor
-         */
-        ~MAX31855();
+/**
+ * @brief Modules using the SPI bus
+ * @defgroup spi SPI
+ */
 
-        /**
-         * Get the distance from the sensor
-         *
-         * @return value in degrees celcius
-         */
-//! [Interesting]
-        double getTemp();
-//! [Interesting]
+/**
+ * @brief Modules using GPIOs directly
+ * @defgroup gpio GPIO
+ */
 
-    private:
-        mraa_spi_context m_sensor;
-        mraa_gpio_context m_gpio;
-};
-
-}
+/**
+ * @brief Modules using a PWM capable GPIO pin
+ * @defgroup pwm PWM
+ */
