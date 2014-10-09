@@ -1,7 +1,10 @@
 %module pyupm_servo
 %include "../upm.i"
 
-%feature("autodoc", "3");
+%include "servo.h"
+%{
+    #include "servo.h"
+%}
 
 %include "es08a.h"
 %{
