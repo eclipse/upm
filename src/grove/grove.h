@@ -135,4 +135,103 @@ class GroveLight: public Grove {
         mraa_aio_context m_aio;
 };
 
+/**
+ * @brief C++ API for Grove slide potentiometer
+ *
+ * Very basic UPM module for Grove slide potentiometer on analog
+ *
+ * @ingroup grove analog
+ * @snippet groveslide.cxx Interesting
+ */
+class GroveSlide: public Grove {
+    public:
+        /**
+         * Grove analog slide potentiometer constructor
+         *
+         * @param analog pin to use
+         */
+        GroveSlide(unsigned int pin);
+        /**
+         * GroveSlide Destructor
+         */
+        ~GroveSlide();
+        /**
+         * Get raw value from AIO pin
+         *
+         * @return the raw value from the ADC
+         */
+        float raw_value();
+        /**
+         * Get the voltage value from the pin
+		 *
+		 * @param the reference voltage the board is set to as float (e.g. 3.3 or 5.0)
+         *
+         * @return the voltage reading based on the reference voltage passed as param
+         */
+        float voltage_value(float ref_vol);
+    private:
+        mraa_aio_context m_aio;
+};
+
+/**
+ * @brief C++ API for Grove rotary angle sensor (Knob)
+ *
+ * Very basic UPM module for Grove rotary angle sensor (Knob) on analog
+ *
+ * @ingroup grove analog
+ * @snippet groverotary.cxx Interesting
+ */
+class GroveRotary: public Grove {
+    public:
+        /**
+         * Grove rotary angle sensor constructor
+         *
+         * @param analog pin to use
+         */
+        GroveRotary(unsigned int pin);
+        /**
+         * GroveRotary Destructor
+         */
+        ~GroveRotary();
+        /**
+         * Get absolute raw value from AIO pin
+         *
+         * @return the unsigned value from the ADC
+         */
+        float abs_value();
+		/**
+         * Get absolute raw degrees from AIO pin
+         *
+         * @return the unsigned degrees from the ADC
+         */
+		float abs_deg();
+		/**
+         * Get absolute raw radians from AIO pin
+         *
+         * @return the unsigned radians from the ADC
+         */
+		float abs_rad();
+        /**
+         * Get the relative value from the pin
+         *
+         * @return the signed value from the ADC
+         */
+        float rel_value();
+		/**
+         * Get absolute raw degrees from AIO pin
+         *
+         * @return the unsigned degrees from the ADC
+         */
+		float rel_deg();
+		/**
+         * Get absolute radians from AIO pin
+         *
+         * @return the unsigned radians from the ADC
+         */
+		float rel_rad();
+    private:
+        mraa_aio_context m_aio;
+		const int max_angle = 300;
+};
+
 }
