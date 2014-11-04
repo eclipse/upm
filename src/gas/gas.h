@@ -86,7 +86,7 @@ class Gas {
          *
          * @param ctx threshold context
          */
-        virtual int getSample (thresholdContext* ctx);
+        virtual int getSample ();
 
         /**
          *

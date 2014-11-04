@@ -92,7 +92,7 @@ Gas::getSampledData (thresholdContext* ctx) {
 }
 
 int
-Gas::getSample (thresholdContext* ctx) {
+Gas::getSample () {
     return mraa_aio_read (m_gasCtx);
 }
 
