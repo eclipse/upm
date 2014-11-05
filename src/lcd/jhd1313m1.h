@@ -36,7 +36,8 @@ namespace upm {
  * to the upm::Lcm1602 LCD driver which controls the HD44780 based display and the
  * other controls solely the backlight. This module was tested with the Seed
  * [Grove LCD RGB Backlight v2.0 display]
- * (http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36)
+ * (http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36),
+ * which requires 5V to operate.
  *
  * @ingroup i2clcd i2c
  * @snippet rgb-lcd.cxx Interesting

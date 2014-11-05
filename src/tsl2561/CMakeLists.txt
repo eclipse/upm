@@ -1,0 +1,5 @@
+set (libname "tsl2561")
+set (libdescription "upm tsl2561")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
