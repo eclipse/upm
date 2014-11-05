@@ -115,3 +115,74 @@ float GroveLight::raw_value()
 {
     return (float) mraa_aio_read(m_aio);
 }
+
+//// GroveSlide ////
+
+GroveSlide::GroveSlide(unsigned int pin)
+{
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
+    m_name = "Slide Potentiometer";
+}
+
+GroveSlide::~GroveSlide()
+{
+    mraa_aio_close(m_aio);
+}
+
+float GroveSlide::voltage_value(float ref_vol)
+{
+    // conversion to Volts
+    float a = GroveSlide::raw_value();
+    a = ref_vol * a / 1023.0 ;
+    return a;
+}
+
+float GroveSlide::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
+}
+
+//// GroveRotary ////
+
+GroveRotary::GroveRotary(unsigned int pin)
+{
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
+    m_name = "Rotary Angle Sensor";
+}
+
+GroveRotary::~GroveRotary()
+{
+    mraa_aio_close(m_aio);
+}
+
+float GroveRotary::abs_value()
+{
+    return (float) mraa_aio_read(m_aio);
+}
+
+float GroveRotary::abs_deg()
+{
+    return GroveRotary::abs_value() * (float) max_angle / 1023.0;
+}
+
+float GroveRotary::abs_rad()
+{
+	return GroveRotary::abs_deg() * M_PI / 180.0;
+}
+
+float GroveRotary::rel_value()
+{
+	return GroveRotary::abs_value() - 512.0;
+}
+
+float GroveRotary::rel_deg()
+{
+	return GroveRotary::rel_value() * (float) max_angle / 1023.0;
+}
+
+float GroveRotary::rel_rad()
+{
+	return GroveRotary::rel_deg() * M_PI / 180.0;
+}
