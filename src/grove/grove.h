@@ -200,4 +200,51 @@ class GroveRotary: public Grove {
         static const int m_max_angle = 300;
 };
 
+/**
+ * @brief C++ API for Grove Slide Potentiometer
+ *
+ * Very basic UPM module for Grove slide potentiometer on analog,
+ * returns either raw value or scaled voltage value.
+ *
+ * @ingroup grove analog
+ * @snippet groveslide.cxx Interesting
+ * @image html groveslide.jpeg
+ */
+class GroveSlide: public Grove {
+    public:
+        /**
+         * Grove analog slide potentiometer constructor
+         *
+         * @param pin number of analog pin to use
+         *
+         * @param ref_voltage the reference voltage the board is set to as float, e.g. 3.3 or 5.0 (default)
+         */
+        GroveSlide(unsigned int pin, float ref_voltage = 5.0);
+        /**
+         * GroveSlide Destructor
+         */
+        ~GroveSlide();
+        /**
+         * Get raw value from AIO pin
+         *
+         * @return the raw value from the ADC
+         */
+        float raw_value();
+        /**
+         * Get the voltage value from the pin
+         *
+         * @return the voltage reading based on the reference voltage
+         */
+        float voltage_value();
+        /**
+         * Get the board's reference voltage passed on object initialization
+         *
+         * @return the reference voltage the class was set for
+         */
+        float ref_voltage();
+    private:
+        mraa_aio_context m_aio;
+        float m_ref_voltage;
+};
+
 }
