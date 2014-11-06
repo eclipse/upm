@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -133,6 +134,70 @@ class GroveLight: public Grove {
         int value();
     private:
         mraa_aio_context m_aio;
+};
+
+/**
+ * @brief C++ API for Grove Rotary Angle Sensor (Knob)
+ *
+ * Very basic UPM module for Grove rotary angle sensor (Knob) on analog. Provides
+ * a set of functions to read the absolute pin value, degrees or radians and another
+ * to do the same relative to the center of the knob's range.
+ *
+ * @ingroup grove analog
+ * @snippet groverotary.cxx Interesting
+ * @image html groverotary.jpeg
+ */
+class GroveRotary: public Grove {
+    public:
+        /**
+         * Grove rotary angle sensor constructor
+         *
+         * @param analog pin to use
+         */
+        GroveRotary(unsigned int pin);
+        /**
+         * GroveRotary Destructor
+         */
+        ~GroveRotary();
+        /**
+         * Get absolute raw value from AIO pin
+         *
+         * @return the unsigned value from the ADC
+         */
+        float abs_value();
+        /**
+         * Get absolute raw degrees from AIO pin
+         *
+         * @return the unsigned degrees from the ADC
+         */
+        float abs_deg();
+        /**
+         * Get absolute raw radians from AIO pin
+         *
+         * @return the unsigned radians from the ADC
+         */
+        float abs_rad();
+        /**
+         * Get the relative value from the pin
+         *
+         * @return the signed value from the ADC
+         */
+        float rel_value();
+        /**
+         * Get relative degrees from AIO pin
+         *
+         * @return the signed degrees from the ADC
+         */
+        float rel_deg();
+        /**
+         * Get relative radians from AIO pin
+         *
+         * @return the signed radians from the ADC
+         */
+        float rel_rad();
+    private:
+        mraa_aio_context m_aio;
+        static const int m_max_angle = 300;
 };
 
 }
