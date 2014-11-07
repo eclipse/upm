@@ -129,6 +129,7 @@ class LSM303 {
 
     private:
         int readThenWrite(uint8_t reg);
+        mraa_result_t setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data);
 
         mraa_i2c_context m_i2c;
         int m_addrMag;

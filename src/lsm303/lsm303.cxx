@@ -42,40 +42,22 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc)
 
     m_i2c = mraa_i2c_init(bus);
 
-    buf[0] = CTRL_REG1_A;
-    buf[1] = 0x27;
-    ret = mraa_i2c_address(m_i2c, m_addrAcc);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
-
-    // 0x27 = normal power mode, all accel axes on
-    buf[0] = CTRL_REG1_A;
-    buf[1] = 0x27;
-    ret = mraa_i2c_address(m_i2c, m_addrAcc);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
+    // 0x27 is the 'normal' mode with X/Y/Z enable
+    setRegisterSafe(m_addrAcc, CTRL_REG1_A, 0x27);
 
     // scale == 2, can be 4 or 8
-    buf[0] = CTRL_REG4_A;
-    buf[1] = 0x00;
-    ret = mraa_i2c_address(m_i2c, m_addrAcc);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
+    setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
 
-    // 0x14 = mag 30Hz output rate
-    buf[0] = CRA_REG_M;
-    buf[1] = 0x14;
-    ret = mraa_i2c_address(m_i2c, m_addrMag);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
+    // 0x10 = minimum datarate ~15Hz output rate
+    setRegisterSafe(m_addrMag, CRA_REG_M, 0x10);
 
-    // magnetic scale = +/-1.3Gaussmagnetic scale = +/-1.3Gauss
-    buf[0] = CRB_REG_M;
-    buf[1] = 0x20; // MAG_SCALE_1_3;
-    ret = mraa_i2c_address(m_i2c, m_addrMag);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
+    // magnetic scale = +/-1.3
+    // Gaussmagnetic scale = +/-1.3Gauss (0x20)
+    // +-8.1Gauss (0xe0)
+    setRegisterSafe(m_addrMag, CRB_REG_M, 0xe0);
 
     // 0x00 = continouous conversion mode
-    buf[0] = MR_REG_M;
-    buf[1] = 0x00;
-    ret = mraa_i2c_address(m_i2c, m_addrMag);
-    ret = mraa_i2c_write(m_i2c, buf, 2);
+    setRegisterSafe(m_addrMag, MR_REG_M, 0x00);
 }
 
 LSM303::~LSM303() {
@@ -142,7 +124,7 @@ LSM303::getCoordinates()
     }
     // convert to coordinates
     for (int i=0; i<3; i++) {
-        coor[i] = (buf[0*i] << 8) | buf[1*i];
+        coor[i] = (buf[2*i] << 8) | buf[(2*i)+1];
     }
     // note that coor array is in XZY order
     //printf("X=%x, Y=%x, Z=%x\n", coor[X], coor[Y], coor[Z]);
@@ -171,4 +153,26 @@ LSM303::getAcceleration()
     //printf("X=%x, Y=%x, Z=%x\n", accel[X], accel[Y], accel[Z]);
 
     return ret;
+}
+
+// helper function that sets a register and then checks the set was succesful
+mraa_result_t
+LSM303::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
+{
+    buf[0] = sregister;
+    buf[1] = data;
+    if (mraa_i2c_address(m_i2c, slave) != MRAA_SUCCESS) {
+        fprintf(stderr, "lsm303: Failed to connect to slave\n");
+        return MRAA_ERROR_INVALID_HANDLE;
+    }
+    if (mraa_i2c_write(m_i2c, buf, 2) != MRAA_SUCCESS) {
+        fprintf(stderr, "lsm303: Failed to write to register\n");
+        return MRAA_ERROR_INVALID_HANDLE;
+    }
+    uint8_t val = mraa_i2c_read_byte_data(m_i2c, sregister);
+    if (val != data) {
+        fprintf(stderr, "lsm303: Failed to set register correctly\n");
+        return MRAA_ERROR_UNSPECIFIED;
+    }
+    return MRAA_SUCCESS;
 }
