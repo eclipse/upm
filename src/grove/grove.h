@@ -136,9 +136,9 @@ class GroveLight: public Grove {
 };
 
 /**
- * @brief C++ API for Grove button sensor
+ * @brief C++ API for Grove button
  *
- * Very basic UPM module for Grove button sensor
+ * Very basic UPM module for Grove button
  *
  * @ingroup grove gpio
  * @snippet grovebutton.cxx Interesting
@@ -146,13 +146,13 @@ class GroveLight: public Grove {
 class GroveButton: public Grove {
     public:
         /**
-         * Grove button sensor constructor
+         * Grove button constructor
          *
          * @param gpio pin to use
          */
         GroveButton(unsigned int pin);
         /**
-         * Grove button sensor destructor
+         * Grove button destructor
          */
         ~GroveButton();
         /**
