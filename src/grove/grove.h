@@ -135,4 +135,41 @@ class GroveLight: public Grove {
         mraa_aio_context m_aio;
 };
 
+/**
+ * @brief C++ API for Grove button
+ *
+ * Very basic UPM module for Grove button
+ *
+ * @ingroup grove gpio
+ * @snippet grovebutton.cxx Interesting
+ */
+class GroveButton: public Grove {
+    public:
+        /**
+         * Grove button constructor
+         *
+         * @param gpio pin to use
+         */
+        GroveButton(unsigned int pin);
+        /**
+         * Grove button destructor
+         */
+        ~GroveButton();
+        /**
+         * Get name of sensor
+         *
+         * @return the name of this sensor
+         */
+        std::string name();
+        /**
+         * Get value from GPIO pin
+         *
+         * @return the value from the GPIO pin
+         */
+        int value();
+    private:
+        std::string m_name;
+        mraa_gpio_context m_gpio;
+};
+
 }

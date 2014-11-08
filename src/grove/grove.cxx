@@ -115,3 +115,27 @@ float GroveLight::raw_value()
 {
     return (float) mraa_aio_read(m_aio);
 }
+
+//// GroveButton ////
+
+GroveButton::GroveButton(unsigned int pin)
+{
+    mraa_init();
+    m_gpio = mraa_gpio_init(pin);
+    m_name = "Button Sensor";
+}
+
+GroveButton::~GroveButton()
+{
+    mraa_gpio_close(m_gpio);
+}
+
+std::string GroveButton::name()
+{
+    return m_name;
+}
+
+int GroveButton::value()
+{
+    return mraa_gpio_read(m_gpio);
+}
