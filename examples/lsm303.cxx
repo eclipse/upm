@@ -32,12 +32,31 @@ main(int argc, char **argv)
 {
     upm::LSM303 *sensor = new upm::LSM303(0);
 
-    std::cout << sensor->getHeading() << std::endl;
+    sensor->getCoordinates();
+    int16_t* coor = sensor->getRawCoorData(); // in XZY order
+    std::cout << "coor: rX " << (int)coor[0]
+              << " - rY " << (int)coor[2]  // note: index is 2
+              << " - rZ " << (int)coor[1]  // note: index is 1
+              << std::endl;
+    std::cout << "coor: gX " << sensor->getCoorX()
+              << " - gY " << sensor->getCoorY()
+              << " - gZ " << sensor->getCoorZ()
+              << std::endl;
+
+    std::cout << "heading: "
+              << sensor->getHeading()
+              << std::endl;
 
     sensor->getAcceleration();
-    uint8_t* accel = sensor->getRawAccelData();
-
-    std::cout << "X " << (int)accel[0] << " - Y " << (int)accel[1] << " - Z " << (int)accel[2] << std::endl;
+    int16_t* accel = sensor->getRawAccelData();
+    std::cout << "acc: rX " << (int)accel[0]
+              << " - rY " << (int)accel[1]
+              << " - Z " << (int)accel[2]
+              << std::endl;
+    std::cout << "acc: gX " << sensor->getAccelX()
+              << " - gY " << sensor->getAccelY()
+              << " - gZ " << sensor->getAccelZ()
+              << std::endl;
 
     return 0;
 }

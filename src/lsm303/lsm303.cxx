@@ -33,7 +33,7 @@
 
 using namespace upm;
 
-LSM303::LSM303(int bus, int addrMag, int addrAcc)
+LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale)
 {
     mraa_result_t ret = MRAA_SUCCESS;
 
@@ -45,8 +45,14 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc)
     // 0x27 is the 'normal' mode with X/Y/Z enable
     setRegisterSafe(m_addrAcc, CTRL_REG1_A, 0x27);
 
-    // scale == 2, can be 4 or 8
-    setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
+    // scale can be 2, 4 or 8
+    if (2 == accScale) {
+      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
+    } else if (4 == accScale) {
+      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x10);
+    } else { // default; equivalent to 8g
+      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x30);
+    }
 
     // 0x10 = minimum datarate ~15Hz output rate
     setRegisterSafe(m_addrMag, CRA_REG_M, 0x10);
@@ -71,42 +77,42 @@ LSM303::getHeading()
         return -1;
     }
 
-    float heading = 180 * atan2(coor[Y], coor[X])/M_PI;
+    float heading = 180.0 * atan2(double(coor[Y]), double(coor[X]))/M_PI;
 
-    if (heading < 0)
-        heading += 360;
+    if (heading < 0.0)
+        heading += 360.0;
 
     return heading;
 }
 
-uint8_t*
+int16_t*
 LSM303::getRawAccelData()
 {
     return &accel[0];
 }
 
-uint8_t*
+int16_t*
 LSM303::getRawCoorData()
 {
     return &coor[0];
 }
 
-uint8_t
-LSM303::getAccelY()
-{
-  return accel[2];
-}
-
-uint8_t
-LSM303::getAccelZ()
-{
-  return accel[0];
-}
-
-uint8_t
+int16_t
 LSM303::getAccelX()
 {
-  return accel[1];
+  return accel[X];
+}
+
+int16_t
+LSM303::getAccelY()
+{
+  return accel[Y];
+}
+
+int16_t
+LSM303::getAccelZ()
+{
+  return accel[Z];
 }
 
 mraa_result_t
@@ -124,15 +130,35 @@ LSM303::getCoordinates()
     }
     // convert to coordinates
     for (int i=0; i<3; i++) {
-        coor[i] = (buf[2*i] << 8) | buf[(2*i)+1];
+        coor[i] = (int16_t(buf[2*i] << 8))
+                |  int16_t(buf[(2*i)+1]);
     }
-    // note that coor array is in XZY order
+    // swap elements 1 and 2 to get things in natural XYZ order
+    int16_t t = coor[2];
+    coor[2] = coor[1];
+    coor[1] = t;
     //printf("X=%x, Y=%x, Z=%x\n", coor[X], coor[Y], coor[Z]);
 
     return ret;
 }
 
+int16_t
+LSM303::getCoorX() {
+  return coor[X];
+}
+
+int16_t
+LSM303::getCoorY() {
+  return coor[Y];
+}
+
+int16_t
+LSM303::getCoorZ() {
+  return coor[Z];
+}
+
 // helper function that writes a value to the acc and then reads
+// FIX: shouldn't this be write-then-read?
 int
 LSM303::readThenWrite(uint8_t reg)
 {
@@ -147,9 +173,12 @@ LSM303::getAcceleration()
 {
     mraa_result_t ret = MRAA_SUCCESS;
 
-    accel[2] = (readThenWrite(OUT_X_L_A) << 8) | (readThenWrite(OUT_X_H_A));
-    accel[0] = (readThenWrite(OUT_Y_L_A) << 8) | (readThenWrite(OUT_Y_H_A));
-    accel[1] = (readThenWrite(OUT_Z_L_A) << 8) | (readThenWrite(OUT_Z_H_A));
+    accel[X] = (int16_t(readThenWrite(OUT_X_H_A)) << 8)
+             |  int16_t(readThenWrite(OUT_X_L_A));
+    accel[Y] = (int16_t(readThenWrite(OUT_Y_H_A)) << 8)
+             |  int16_t(readThenWrite(OUT_Y_L_A));
+    accel[Z] = (int16_t(readThenWrite(OUT_Z_H_A)) << 8)
+             |  int16_t(readThenWrite(OUT_Z_L_A));
     //printf("X=%x, Y=%x, Z=%x\n", accel[X], accel[Y], accel[Z]);
 
     return ret;

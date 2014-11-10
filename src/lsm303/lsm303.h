@@ -57,8 +57,8 @@ namespace upm {
 #define OUT_Z_H_A 0x2D
 
 #define X 0
-#define Z 1
-#define Y 2
+#define Y 1
+#define Z 2
 
 /**
  * @brief LSM303 accelerometer/compass library
@@ -87,7 +87,10 @@ class LSM303 {
          * @param addr magometer
      * @param addr accelerometer
          */
-        LSM303 (int bus, int addrMag=LSM303_MAG, int addrAcc=LSM303_ACC);
+        LSM303 (int bus,
+                int addrMag=LSM303_MAG,
+                int addrAcc=LSM303_ACC,
+                int accScale=8);
 
         /**
          * LSM303 object destructor
@@ -108,24 +111,49 @@ class LSM303 {
 
         /**
          * Get accelerometer values
+         * Call before calling other "get" functions for acceleration
          */
         mraa_result_t getAcceleration();
 
         /**
          * Get the raw coordinate data, this will get updated when getCoordinates() is called
          */
-        uint8_t* getRawCoorData();
+        int16_t* getRawCoorData();
 
-        uint8_t getAccelY();
+        /**
+         * Just get the X component of the coordinate data
+         */
+        int16_t getCoorX();
 
-        uint8_t getAccelZ();
+        /**
+         * Just get the Y component of the coordinate data
+         */
+        int16_t getCoorY();
 
-        uint8_t getAccelX();
+        /**
+         * Just get the Z component of the coordinate data
+         */
+        int16_t getCoorZ();
 
         /**
          * Get the raw accelerometer data, this will get updated when getAcceleration() is called
          */
-        uint8_t* getRawAccelData();
+        int16_t* getRawAccelData();
+
+        /**
+         * Just get the X component of the acceleration
+         */
+        int16_t getAccelX();
+
+        /**
+         * Just get the Y component of the acceleration
+         */
+        int16_t getAccelY();
+
+        /**
+         * Just get the Z component of the acceleration
+         */
+        int16_t getAccelZ();
 
     private:
         int readThenWrite(uint8_t reg);
@@ -135,8 +163,8 @@ class LSM303 {
         int m_addrMag;
     int m_addrAcc;
         uint8_t buf[6];
-        uint8_t coor[3];
-        uint8_t accel[3];
+        int16_t coor[3];
+        int16_t accel[3];
 };
 
 }
