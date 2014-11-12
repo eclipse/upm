@@ -83,10 +83,11 @@ TSL2561::~TSL2561()
    mraa_i2c_stop(m_i2ControlCtx);
 }
 
-mraa_result_t
-TSL2561::getLux(int &lux)
+int
+TSL2561::getLux()
 {
     mraa_result_t error = MRAA_SUCCESS;
+    int lux;
     uint16_t rawLuxCh0;
     uint16_t rawLuxCh1;
     uint8_t ch0_low, ch0_high, ch1_low, ch1_high;
@@ -183,7 +184,7 @@ TSL2561::getLux(int &lux)
     // strip off fractional portion
     lux = tempLux >> LUX_SCALE;
 
-    return error;
+    return lux;
 }
 
 

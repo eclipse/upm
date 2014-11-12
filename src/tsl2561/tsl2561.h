@@ -128,11 +128,9 @@ class TSL2561{
        /**
         * Get calculated lux reading from TSL2561
         *
-        * @param lux - place holder to receive calculated lux value from TSL2561
-        *
-        * Return mraa_result_t
+        * @return the calculated lux value from the sensor
         */
-        mraa_result_t getLux(int &lux);
+        int getLux();
 
     private:
        /**
