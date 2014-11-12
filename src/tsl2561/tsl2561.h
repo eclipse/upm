@@ -2,7 +2,7 @@
  * Author: Nandkishor Sonar <Nandkishor.Sonar@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
- * * LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
+ * LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
  *   Inspiration and lux calculation formulas from data sheet
  *   URL: http://www.adafruit.com/datasheets/TSL2561.pdf
  *
@@ -31,6 +31,8 @@
 #include <string>
 #include <mraa/i2c.h>
 #include <math.h>
+
+namespace upm {
 
 #define TSL2561_Address          (0x29)  //Device address
 
@@ -89,9 +91,6 @@
 #define LUX_B8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
-
-namespace upm {
-
 /**
  * @brief TSL2561 Digital Light Sensor library
  * @defgroup tsl2561 libupm-tsl2561
@@ -111,20 +110,22 @@ namespace upm {
  */
 class TSL2561{
     public:
-        /**
-         * Instanciates a TSL2561 object
-         *
-         * @param bus number of used bus
-         * @param devAddr address of used i2c device
-         */
+       /**
+        * Instanciates a TSL2561 object
+        *
+        * @param bus number of used bus
+        * @param devAddr address of used i2c device
+        * @param gain the correct gain to use
+        * @param integration time to use
+        */
         TSL2561(int bus=0, uint8_t devAddr=TSL2561_Address, uint8_t gain=GAIN_0X, uint8_t integrationTime=INTEGRATION_TIME1_101MS);
 
-        /**
-         * GY65 object destructor to power down TSL2561 and close i2c connection.
-         */
+       /**
+        * GY65 object destructor to power down TSL2561 and close i2c connection.
+        */
         ~TSL2561();
 
-        /**
+       /**
         * Get calculated lux reading from TSL2561
         *
         * @param lux - place holder to receive calculated lux value from TSL2561
@@ -134,23 +135,21 @@ class TSL2561{
         mraa_result_t getLux(int &lux);
 
     private:
-        /**
+       /**
         * Write to TSL2561 register
         *
         * @param reg addess to write
         * @param value to write
-        *
-        * Return mraa_result_t
+        * @return mraa_result_t
         */
         mraa_result_t i2cWriteReg(uint8_t reg, uint8_t value);
 
-        /**
+       /**
         * Read from TSL2561 register
         *
         * @param reg addess to read
         * @param data byte read from the register
-        *
-        * Return mraa_result_t
+        * @return mraa_result_t
         */
         mraa_result_t i2cReadReg(uint8_t reg, uint8_t &data);
 

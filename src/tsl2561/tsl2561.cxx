@@ -33,7 +33,8 @@
 using namespace upm;
 
 
-TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime) {
+TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime)
+{
     m_controlAddr = devAddr;
     m_bus = bus;
     m_gain = gain ;
@@ -73,7 +74,8 @@ TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime
     }
 }
 
-TSL2561::~TSL2561() {
+TSL2561::~TSL2561()
+{
     // POWER DOWN
     i2cWriteReg(REGISTER_Control,CONTROL_POWEROFF);
 
@@ -186,7 +188,8 @@ TSL2561::getLux(int &lux)
 
 
 mraa_result_t
-TSL2561::i2cWriteReg (uint8_t reg, uint8_t value) {
+TSL2561::i2cWriteReg (uint8_t reg, uint8_t value)
+{
     mraa_result_t error = MRAA_SUCCESS;
 
     // Start transmission to device
@@ -215,7 +218,8 @@ TSL2561::i2cWriteReg (uint8_t reg, uint8_t value) {
 }
 
 mraa_result_t
-TSL2561::i2cReadReg(uint8_t reg, uint8_t &data) {
+TSL2561::i2cReadReg(uint8_t reg, uint8_t &data)
+{
     mraa_result_t error = MRAA_SUCCESS;
 
     // Start transmission to device
