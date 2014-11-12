@@ -30,21 +30,17 @@
 
 int main (int argc, char **argv)
 {
-	mraa_result_t error = MRAA_SUCCESS;
-	upm::TSL2561 *sensor = NULL;
-	int loopCount = 100;
+    mraa_result_t error = MRAA_SUCCESS;
+    upm::TSL2561 *sensor = NULL;
+    int loopCount = 100;
 
 //! [Interesting]
-	if (argc < 2) {
+    if (argc < 2) {
         printf("Provide loop count \n");
     } else {
         loopCount = atoi(argv[1]);
     }
     sensor = new upm::TSL2561();
-    //sensor = new upm::TSL2561(0,  TSL2561_Address,  GAIN_16X,  INTEGRATION_TIME2_402MS);
-    //sensor = new upm::TSL2561(0,  TSL2561_Address,  GAIN_16X,  INTEGRATION_TIME1_101MS);
-    //sensor = new upm::TSL2561(0,  TSL2561_Address,  GAIN_16X,  INTEGRATION_TIME0_13MS);
-    //sensor = new upm::TSL2561(0,  TSL2561_Address,  GAIN_0X,  INTEGRATION_TIME2_402MS);
 
     for(int i=0; i< loopCount; i++){
         fprintf(stdout, "Lux = %d\n", sensor->getLux());
