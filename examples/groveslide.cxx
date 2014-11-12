@@ -22,6 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
 #include <unistd.h>
 #include <iostream>
 #include <iomanip>
@@ -32,23 +33,18 @@ using namespace std;
 int main ()
 {
 //! [Interesting]
-    upm::GroveRotary* knob = new upm::GroveRotary(0);   // Instantiate a rotary sensor on analog pin A0
+    upm::GroveSlide* slide = new upm::GroveSlide(0);    // Instantiate new grove slide potentiometer on analog pin A0
 
-    cout << knob->name() << endl;   // Print sensor name to confirm it initialized properly
+    cout << slide->name() << endl;  
 
     while(true) {
-        float abs_value = knob->abs_value();    // Absolute raw value
-        float abs_deg = knob->abs_deg();        // Absolute degrees
-        float abs_rad = knob->abs_rad();        // Absolute radians
-        float rel_value = knob->rel_value();    // Relative raw value
-        float rel_deg = knob->rel_deg();        // Relative degrees
-        float rel_rad = knob->rel_rad();        // Relative radians
-
-        fprintf(stdout, "Absolute: %4d raw %5.2f deg = %3.2f rad   Relative: %4d raw %5.2f deg %3.2f rad\n", (int16_t)abs_value, abs_deg, abs_rad, (int16_t)rel_value, rel_deg, rel_rad);
+        float adc_value = slide->raw_value();       // Read raw value
+        float volts = slide->voltage_value();    // Read voltage, board reference set at 5.0V
+        fprintf(stdout, "%4d = %.2f V\n", (uint16_t)adc_value, volts);
 
         usleep(2500000);    // Sleep for 2.5s
     }
 //! [Interesting]
-    delete knob;
+    delete slide;
     return 0;
 }

@@ -22,29 +22,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//! [Interesting]
-#include <unistd.h>
-#include <iostream>
-#include <iomanip>
-#include "grove.h"
+// Setup/Initialization
 
-using namespace std;
+var upm_grove = require('jsupm_grove');
 
-int main ()
-{
-    upm::GroveSlide* slide = new upm::GroveSlide(0);    // Instantiate new grove slide potentiometer on analog pin A0
+var groveRotary = new upm_grove.GroveRotary(0); //setup access analog input Analog pin #0 (A0)
 
-    cout << slide->name() << endl;  
+loop();
 
-    while(true) {
-        float adc_value = slide->raw_value();       // Read raw value
-        float volts = slide->voltage_value(5.0);    // Read voltage, board reference set at 5.0V
-        fprintf(stdout, "%4d = %.2f V\n", (uint16_t)adc_value, volts);
-
-        usleep(2500000);    // Sleep for 2.5s
-    }
-
-    delete slide;
-    return 0;
+// Loop function
+function loop(){
+    var abs = groveRotary.abs_value();
+    var absdeg = groveRotary.abs_deg();
+    var absrad = groveRotary.abs_rad();
+    
+    var rel = groveRotary.rel_value();
+    var reldeg = groveRotary.rel_deg();
+    var relrad = groveRotary.rel_rad();
+    
+    console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3)); //write the knob value to the console in different formats
+    console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
+    
+    setTimeout(loop, 2000); //Wait 2 s and call function again
 }
-//! [Interesting]

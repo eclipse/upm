@@ -139,7 +139,7 @@ class GroveLight: public Grove {
 /**
  * @brief C++ API for Grove Rotary Angle Sensor (Knob)
  *
- * Very basic UPM module for Grove rotary angle sensor (Knob) on analog. Provides
+ * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
  * a set of functions to read the absolute pin value, degrees or radians and another
  * to do the same relative to the center of the knob's range.
  *
@@ -152,7 +152,7 @@ class GroveRotary: public Grove {
         /**
          * Grove rotary angle sensor constructor
          *
-         * @param analog pin to use
+         * @param pin number of analog pin to use
          */
         GroveRotary(unsigned int pin);
         /**
@@ -201,7 +201,7 @@ class GroveRotary: public Grove {
 };
 
 /**
- * @brief C++ API for Grove slide potentiometer
+ * @brief C++ API for Grove Slide Potentiometer
  *
  * Very basic UPM module for Grove slide potentiometer on analog,
  * returns either raw value or scaled voltage value.
@@ -215,9 +215,11 @@ class GroveSlide: public Grove {
         /**
          * Grove analog slide potentiometer constructor
          *
-         * @param analog pin to use
+         * @param pin number of analog pin to use
+         *
+         * @param ref_voltage the reference voltage the board is set to as float, e.g. 3.3 or 5.0 (default)
          */
-        GroveSlide(unsigned int pin);
+        GroveSlide(unsigned int pin, float ref_voltage = 5.0);
         /**
          * GroveSlide Destructor
          */
@@ -231,13 +233,18 @@ class GroveSlide: public Grove {
         /**
          * Get the voltage value from the pin
          *
-         * @param the reference voltage the board is set to as float (e.g. 3.3 or 5.0)
-         *
-         * @return the voltage reading based on the reference voltage passed as param
+         * @return the voltage reading based on the reference voltage
          */
-        float voltage_value(float ref_vol);
+        float voltage_value();
+        /**
+         * Get the board's reference voltage passed on object initialization
+         *
+         * @return the reference voltage the class was set for
+         */
+        float ref_voltage();
     private:
         mraa_aio_context m_aio;
+        float m_ref_voltage;
 };
 
 }
