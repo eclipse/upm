@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -114,4 +115,81 @@ int GroveLight::value ()
 float GroveLight::raw_value()
 {
     return (float) mraa_aio_read(m_aio);
+}
+
+//// GroveRotary ////
+
+GroveRotary::GroveRotary(unsigned int pin)
+{
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
+    m_name = "Rotary Angle Sensor";
+}
+
+GroveRotary::~GroveRotary()
+{
+    mraa_aio_close(m_aio);
+}
+
+float GroveRotary::abs_value()
+{
+    return (float) mraa_aio_read(m_aio);
+}
+
+float GroveRotary::abs_deg()
+{
+    return GroveRotary::abs_value() * (float) m_max_angle / 1023.0;
+}
+
+float GroveRotary::abs_rad()
+{
+    return GroveRotary::abs_deg() * M_PI / 180.0;
+}
+
+float GroveRotary::rel_value()
+{
+    return GroveRotary::abs_value() - 512.0;
+}
+
+float GroveRotary::rel_deg()
+{
+    return GroveRotary::rel_value() * (float) m_max_angle / 1023.0;
+}
+
+float GroveRotary::rel_rad()
+{
+    return GroveRotary::rel_deg() * M_PI / 180.0;
+}
+
+//// GroveSlide ////
+
+GroveSlide::GroveSlide(unsigned int pin, float ref_voltage)
+{
+    mraa_init();
+    m_aio = mraa_aio_init(pin);
+    m_ref_voltage = ref_voltage;
+    m_name = "Slide Potentiometer";
+}
+
+GroveSlide::~GroveSlide()
+{
+    mraa_aio_close(m_aio);
+}
+
+float GroveSlide::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
+}
+
+float GroveSlide::voltage_value()
+{
+    // conversion to Volts
+    float a = GroveSlide::raw_value();
+    a = m_ref_voltage * a / 1023.0 ;
+    return a;
+}
+
+float GroveSlide::ref_voltage()
+{
+    return m_ref_voltage;
 }

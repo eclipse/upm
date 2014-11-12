@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -133,6 +134,117 @@ class GroveLight: public Grove {
         int value();
     private:
         mraa_aio_context m_aio;
+};
+
+/**
+ * @brief C++ API for Grove Rotary Angle Sensor (Knob)
+ *
+ * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
+ * a set of functions to read the absolute pin value, degrees or radians and another
+ * to do the same relative to the center of the knob's range.
+ *
+ * @ingroup grove analog
+ * @snippet groverotary.cxx Interesting
+ * @image html groverotary.jpeg
+ */
+class GroveRotary: public Grove {
+    public:
+        /**
+         * Grove rotary angle sensor constructor
+         *
+         * @param pin number of analog pin to use
+         */
+        GroveRotary(unsigned int pin);
+        /**
+         * GroveRotary Destructor
+         */
+        ~GroveRotary();
+        /**
+         * Get absolute raw value from AIO pin
+         *
+         * @return the unsigned value from the ADC
+         */
+        float abs_value();
+        /**
+         * Get absolute raw degrees from AIO pin
+         *
+         * @return the unsigned degrees from the ADC
+         */
+        float abs_deg();
+        /**
+         * Get absolute raw radians from AIO pin
+         *
+         * @return the unsigned radians from the ADC
+         */
+        float abs_rad();
+        /**
+         * Get the relative value from the pin
+         *
+         * @return the signed value from the ADC
+         */
+        float rel_value();
+        /**
+         * Get relative degrees from AIO pin
+         *
+         * @return the signed degrees from the ADC
+         */
+        float rel_deg();
+        /**
+         * Get relative radians from AIO pin
+         *
+         * @return the signed radians from the ADC
+         */
+        float rel_rad();
+    private:
+        mraa_aio_context m_aio;
+        static const int m_max_angle = 300;
+};
+
+/**
+ * @brief C++ API for Grove Slide Potentiometer
+ *
+ * Very basic UPM module for Grove slide potentiometer on analog,
+ * returns either raw value or scaled voltage value.
+ *
+ * @ingroup grove analog
+ * @snippet groveslide.cxx Interesting
+ * @image html groveslide.jpeg
+ */
+class GroveSlide: public Grove {
+    public:
+        /**
+         * Grove analog slide potentiometer constructor
+         *
+         * @param pin number of analog pin to use
+         *
+         * @param ref_voltage the reference voltage the board is set to as float, e.g. 3.3 or 5.0 (default)
+         */
+        GroveSlide(unsigned int pin, float ref_voltage = 5.0);
+        /**
+         * GroveSlide Destructor
+         */
+        ~GroveSlide();
+        /**
+         * Get raw value from AIO pin
+         *
+         * @return the raw value from the ADC
+         */
+        float raw_value();
+        /**
+         * Get the voltage value from the pin
+         *
+         * @return the voltage reading based on the reference voltage
+         */
+        float voltage_value();
+        /**
+         * Get the board's reference voltage passed on object initialization
+         *
+         * @return the reference voltage the class was set for
+         */
+        float ref_voltage();
+    private:
+        mraa_aio_context m_aio;
+        float m_ref_voltage;
 };
 
 }
