@@ -32,7 +32,6 @@ int main (int argc, char **argv)
 {
 	mraa_result_t error = MRAA_SUCCESS;
 	upm::TSL2561 *sensor = NULL;
-	int calculatedLux = 0;
 	int loopCount = 100;
 
 //! [Interesting]
@@ -48,13 +47,7 @@ int main (int argc, char **argv)
     //sensor = new upm::TSL2561(0,  TSL2561_Address,  GAIN_0X,  INTEGRATION_TIME2_402MS);
 
     for(int i=0; i< loopCount; i++){
-        error = sensor->getLux(calculatedLux);
-        if (error != MRAA_SUCCESS) {
-            fprintf(stderr, "Error: on i2c bus address setup in i2cReadReg()\n");
-            return error;
-        }
-
-        fprintf(stdout, "Lux = %d\n", calculatedLux);
+        fprintf(stdout, "Lux = %d\n", sensor->getLux());
     }
 
 //! [Interesting]
