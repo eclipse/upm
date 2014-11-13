@@ -82,13 +82,6 @@ class LoL {
          */
         unsigned char setPixel(int x, int y, unsigned char pixel);
 
-        /**
-         * Get framebuffer pointer
-         * @return 1 if pixel is on, 0 if off, -1 on error
-         */
-        unsigned char getBit(int x, int y);
-
-
     private:
         mraa_gpio_context    m_LoLCtx[14];
         unsigned char framebuffer[LOL_X*LOL_Y];
