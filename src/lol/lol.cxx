@@ -51,79 +51,44 @@ static int charlie_pairs [12][22] = {
 {0,13,  1,11,  2,9,   3,119, 4,105,5,91, 6,77, 7,63, 8,49,   9,35,  10,21}
 };
 
-//static int gpios_map[] = {
-//14,15,28,17,24,27,26,19,16,25,38,39,
-//};
-
 void clear_gpio(int gpio)
 {
-/* FIXME AK hack around Galileo gen1 issue, to remove
-    if(gpio == 0)
-    {
-    mraa_gpio_mode(c1, MRAA_GPIO_HIZ);	
-    mraa_gpio_mode(c2, MRAA_GPIO_HIZ);
-    }
-    else if (gpio == 1) {
-    mraa_gpio_mode(c3, MRAA_GPIO_HIZ);	
-    mraa_gpio_mode(c4, MRAA_GPIO_HIZ);	
-    } else*/
-    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_HIZ);	
-
+    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_HIZ);
     mraa_gpio_dir(m_Ctx[gpio], MRAA_GPIO_IN);
 }
 
 void clear_prev_cycle(int cycle)
 {
-	int i;
+    int i;
 
-// What is prev cycle?
-	cycle--;
-	if (cycle == -1)
-		cycle = 11;
+    // What is prev cycle?
+    cycle--;
+    if (cycle == -1)
+        cycle = 11;
 
-// Disable all "1"'s
-	for (i = 0; i < 11; i++) {
-		if (charlie_pairs[cycle][i*2] == -1)
-			break;
-		if(buffer[charlie_pairs[cycle][i*2 + 1]])
-			clear_gpio(charlie_pairs[cycle][i*2]);
-	}
+    // Disable all "1"'s
+    for (i = 0; i < 11; i++) {
+        if (charlie_pairs[cycle][i*2] == -1)
+            break;
+        if(buffer[charlie_pairs[cycle][i*2 + 1]])
+            clear_gpio(charlie_pairs[cycle][i*2]);
+    }
 
 // Disable "0"
-	clear_gpio(cycle);
+    clear_gpio(cycle);
 }
 
 void set_strong_one(int gpio)
 {
     mraa_gpio_dir(m_Ctx[gpio], MRAA_GPIO_OUT);
-/* FIXME AK hack around Galileo gen1 issue, to remove
-    if(gpio == 0)
-    {
-    mraa_gpio_mode(c1, MRAA_GPIO_STRONG);	
-    mraa_gpio_mode(c2, MRAA_GPIO_STRONG);
-    }
-    else if (gpio == 1) {
-    mraa_gpio_mode(c3, MRAA_GPIO_STRONG);	
-    mraa_gpio_mode(c4, MRAA_GPIO_STRONG);	
-    } else*/
-    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_STRONG);	
+    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_STRONG);
     mraa_gpio_write(m_Ctx[gpio], 1);
 }
 
 void set_strong_zero(int gpio)
 {
     mraa_gpio_dir(m_Ctx[gpio], MRAA_GPIO_OUT);
-/* FIXME AK hack around Galileo gen1 issue, to remove
-    if(gpio == 0)
-    {
-    mraa_gpio_mode(c1, MRAA_GPIO_STRONG);	
-    mraa_gpio_mode(c2, MRAA_GPIO_STRONG);
-    }
-    else if (gpio == 1) {
-    mraa_gpio_mode(c3, MRAA_GPIO_STRONG);	
-    mraa_gpio_mode(c4, MRAA_GPIO_STRONG);	
-    } else*/
-    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_STRONG);	
+    mraa_gpio_mode(m_Ctx[gpio], MRAA_GPIO_STRONG);
     mraa_gpio_write(m_Ctx[gpio], 0);
 }
 
@@ -137,34 +102,28 @@ static void clear_gpios()
 
 void *do_draw(void *arg)
 {
-/*    c1 = mraa_gpio_init_raw(31);
-    c2 = mraa_gpio_init_raw(32);
-    c3 = mraa_gpio_init_raw(30);
-    c4 = mraa_gpio_init_raw(18);
-*/
-
     clear_gpios();
 
     while (1) {
         int i, cur;
         uint8_t cycle = 0;
-// 12 Cycles of Matrix
+        // 12 Cycles of Matrix
         for (cycle = 0; cycle < 12; cycle++)
         {
             if (cycle == 12) cycle = 0;
 
             clear_prev_cycle(cycle);
-// set strong/0 on current cycle line
+            // set strong/0 on current cycle line
             set_strong_zero(cycle);
 
-// draw ones from framebuffer
+            // draw ones from framebuffer
             for (i = 0; i < 11; i++) {
                 cur = charlie_pairs[cycle][i*2];
                 if (cur == -1) break;
 
                 if (buffer[charlie_pairs[cycle][i*2 + 1]]) {
                     set_strong_one(cur);
-//	printf("cycle %d %d %d %d\n", cycle, i, charlie_pairs[cycle][i*2 + 1],
+//  printf("cycle %d %d %d %d\n", cycle, i, charlie_pairs[cycle][i*2 + 1],
 //           buffer[charlie_pairs[cycle][i*2 + 1]]);
                 }
             }
@@ -181,7 +140,7 @@ LoL::LoL() {
 
     memset(framebuffer, 0, LOL_X*LOL_Y);
 
-    // I am optimistic and stupid - thread creation 
+    // I am optimistic and stupid - thread creation
     // always works in my world
     buffer = (unsigned char*)framebuffer;
     m_Ctx = m_LoLCtx;

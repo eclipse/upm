@@ -83,9 +83,9 @@ class LoL {
         unsigned char setPixel(int x, int y, unsigned char pixel);
 
     private:
-        mraa_gpio_context    m_LoLCtx[14];
+        mraa_gpio_context m_LoLCtx[14];
         unsigned char framebuffer[LOL_X*LOL_Y];
-        pthread_t        drawer_thread;
+        pthread_t drawer_thread;
 };
 };
 
