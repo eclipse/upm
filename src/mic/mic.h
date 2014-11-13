@@ -46,7 +46,7 @@ namespace upm {
  * This file defines the Microphone Analog sensor
  *
  * @ingroup mic pwm
- * @snippet mic-example.cxx Interesting
+ * @snippet mic.cxx Interesting
  */
 class Microphone {
     public:
