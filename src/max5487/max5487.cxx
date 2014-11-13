@@ -37,7 +37,7 @@ struct MAX5487Exception : public std::exception {
     const char* what() const throw () { return message.c_str(); }
 };
 
-MAX5487::MAX5487 (int csn = -1) {
+MAX5487::MAX5487 (int csn) {
     mraa_result_t error = MRAA_SUCCESS;
     m_name = "MAX5487";
 

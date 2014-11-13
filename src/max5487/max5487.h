@@ -62,7 +62,7 @@ class MAX5487 {
          *
          * @param csn to use if any, by default will use ICSP CS (-1)
          */
-        MAX5487 (int csn);
+        MAX5487 (int csn = -1);
 
         /**
          * MAX5487 object destructor, closes all IO connections
