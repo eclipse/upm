@@ -104,11 +104,11 @@ Hmc5883l::update(void)
     mraa_i2c_read(m_i2c, m_rx_tx_buf, DATA_REG_SIZE);
 
     // x
-    m_coor[0] = (m_rx_tx_buf[HMC5883L_X_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_X_LSB_REG];
+    m_coor[0] = (int16_t)((m_rx_tx_buf[HMC5883L_X_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_X_LSB_REG]);
     // z
-    m_coor[2] = (m_rx_tx_buf[HMC5883L_Z_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Z_LSB_REG];
+    m_coor[2] = (int16_t)((m_rx_tx_buf[HMC5883L_Z_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Z_LSB_REG]);
     // y
-    m_coor[1] = (m_rx_tx_buf[HMC5883L_Y_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Y_LSB_REG];
+    m_coor[1] = (int16_t)((m_rx_tx_buf[HMC5883L_Y_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Y_LSB_REG]);
 
     return MRAA_SUCCESS;
 }
