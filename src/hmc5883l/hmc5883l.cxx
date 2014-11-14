@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -94,7 +95,7 @@ Hmc5883l::Hmc5883l(int bus)
     Hmc5883l::update();
 }
 
-int
+mraa_result_t
 Hmc5883l::update(void)
 {
     mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
@@ -116,17 +117,33 @@ Hmc5883l::update(void)
 float
 Hmc5883l::direction(void)
 {
-    return atan2(m_coor[1] * SCALE_0_92_MG, m_coor[0] * SCALE_0_92_MG);
+    return atan2(m_coor[1] * SCALE_0_92_MG, m_coor[0] * SCALE_0_92_MG) + m_declination;
 }
 
 float
 Hmc5883l::heading(void)
 {
-    return Hmc5883l::direction() * 180/M_PI;
+    float dir = Hmc5883l::direction() * 180/M_PI;
+    if(dir < 0){
+        dir += 360.0;
+    }
+    return dir;
 }
 
 int*
 Hmc5883l::coordinates(void)
 {
     return &m_coor[0];
+}
+
+void
+Hmc5883l::set_declination(float dec)
+{
+    m_declination = dec;
+}
+
+float
+Hmc5883l::get_declination()
+{
+    return m_declination;
 }

@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,6 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include "hmc5883l.h"
 
 int
@@ -29,7 +31,17 @@ main(int argc, char **argv)
 {
 //! [Interesting]
     upm::Hmc5883l* compass = new upm::Hmc5883l(0);
-    fprintf(stdout, "heading: %f\n", compass->heading());
+    int *pos;
+
+    compass->set_declination(0.2749); // Set your declination from true north in radians
+
+    while(true){
+        compass->update(); // Update the coordinates
+        pos = compass->coordinates();
+        fprintf(stdout, "coor: %5d %5d %5d ", pos[0], pos[1], pos[2]);
+        fprintf(stdout, "heading: %5.2f direction: %3.2f\n", compass->heading(), compass->direction());
+        sleep(1);
+    }
 //! [Interesting]
 
     return 0;

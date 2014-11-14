@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -78,9 +79,22 @@ public:
      *
      * @return 0 for success
      */
-    int update();
+    mraa_result_t update();
+
+    /**
+     * Sets the magnetic declination for better calibration
+     */
+    void set_declination(float dec);
+
+    /**
+     * Gets the current magnetic declination value
+     *
+     * @return magnetic declination as a float
+     */
+    float get_declination();
 private:
     int m_coor[3];
+    float m_declination;
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
     mraa_i2c_context m_i2c;
 };
