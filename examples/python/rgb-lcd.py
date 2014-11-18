@@ -21,5 +21,6 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import pyupm_i2clcd as lcd
-x = lcd.Jhd1313m1(0, 0x3E, 0x62)
+# For Edison make sure you set bus 0 i.e., x = lcd.Jhd1313m1(6, 0x3E, 0x62)
+x = lcd.Jhd1313m1(0, 0x3E, 0x62) 
 x.write('hello')
