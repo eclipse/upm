@@ -72,7 +72,7 @@ public:
      *
      * @return *int to an int[3]
      */
-    int* coordinates();
+    int16_t* coordinates();
 
     /**
      * Updates the values by reading from i2c
@@ -93,7 +93,7 @@ public:
      */
     float get_declination();
 private:
-    int m_coor[3];
+    int16_t m_coor[3];
     float m_declination;
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
     mraa_i2c_context m_i2c;

@@ -31,7 +31,7 @@ main(int argc, char **argv)
 {
 //! [Interesting]
     upm::Hmc5883l* compass = new upm::Hmc5883l(0);
-    int *pos;
+    int16_t *pos;
 
     compass->set_declination(0.2749); // Set your declination from true north in radians
 
