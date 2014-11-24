@@ -25,13 +25,13 @@ import array
 import pyupm_ldt0028 as ldt0028
 
 NUMBER_OF_SECONDS = 10
-SAMPLES_PER_SECOND = 1000
+SAMPLES_PER_SECOND = 50
 THRESHOLD = 100
 
 # Create the LDT0-028 Piezo Vibration Sensor object using AIO pin 0
 sensor = ldt0028.LDT0028(0)
 
-# Read the signal every 1000 microseconds for 10 seconds
+# Read the signal every 20 milliseconds for 10 seconds
 print 'For the next', NUMBER_OF_SECONDS, 'seconds,', \
       SAMPLES_PER_SECOND, 'samples will be taken every second.\n'
 buffer = array.array('H')

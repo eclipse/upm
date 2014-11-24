@@ -34,13 +34,13 @@ main(int argc, char **argv)
 //! [Interesting]
     const int NUMBER_OF_SECONDS = 10;
     const int MICROSECONDS_PER_SECOND = 1000000;
-    const int SAMPLES_PER_SECOND = 1000;
+    const int SAMPLES_PER_SECOND = 50;
     const int THRESHOLD = 100;
 
     // Create the LDT0-028 Piezo Vibration Sensor object using AIO pin 0
     upm::LDT0028* sensor = new upm::LDT0028(0);
 
-    // Read the signal every 1000 microseconds for 10 seconds
+    // Read the signal every 20 milliseconds for 10 seconds
     std::cout << "For the next " << NUMBER_OF_SECONDS << " seconds, " 
               << SAMPLES_PER_SECOND << " samples will be taken every second." 
               << std::endl << std::endl;

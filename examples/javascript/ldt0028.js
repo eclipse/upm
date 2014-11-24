@@ -27,13 +27,13 @@ var sensorModule = require('jsupm_ldt0028');
 
 var NUMBER_OF_SECONDS = 10;
 var MILLISECONDS_PER_SECOND = 1000;
-var SAMPLES_PER_SECOND = 1000;
+var SAMPLES_PER_SECOND = 50;
 var THRESHOLD = 100;
 
 // Create the LDT0-028 Piezo Vibration Sensor object using AIO pin 0
 var sensor = new sensorModule.LDT0028(0);
 
-// Read the signal every 1 millisecond for 10 seconds
+// Read the signal every 20 milliseconds for 10 seconds
 console.log("For the next " + NUMBER_OF_SECONDS + " seconds, " +
             SAMPLES_PER_SECOND + " samples will be taken every second.");
 console.log("");
