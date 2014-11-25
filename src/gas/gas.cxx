@@ -55,7 +55,7 @@ Gas::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
         return 0;
     }
 
-    // too much samples
+    // too many samples
     if (numberOfSamples > 0xFFFFFF) {
         return 0;
     }
