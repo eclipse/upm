@@ -2,23 +2,23 @@
  * Author: William Penner <william.penner@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
- * This driver supports the HTU21D digital humidity and temperature
- * sensor. The datasheet is available from:
- * http://www.meas-spec.com/downloads/HTU21D.pdf
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 #include <iostream>
@@ -44,32 +44,38 @@ HTU21D::HTU21D(int bus, int devAddr) {
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Error accessing i2c bus\n");
     }
+    resetSensor();
 }
 
 HTU21D::~HTU21D() {
     mraa_i2c_stop(m_i2ControlCtx);
 }
 
-int32_t
-HTU21D::htu21_temp_ticks_to_millicelsius(int ticks)
+int
+HTU21D::resetSensor(void)
 {
-    ticks &= ~0x0003; /* clear status bits */
-    /*
-     * Formula T = -46.85 + 175.72 * ST / 2^16 from datasheet p14,
-     * optimized for integer fixed point (3 digits) arithmetic
-     */
-    return ((21965 * (int32_t)ticks) >> 13) - 46850;
+    uint8_t data;
+    mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_write (m_i2ControlCtx, &data, 1);
+    usleep(20000);
 }
 
+/*
+ * Convert register value to degC * 1000
+ */
 int32_t
-HTU21D::htu21_rh_ticks_to_per_cent_mille(int ticks)
+HTU21D::convertTemp(int32_t regval)
 {
-    ticks &= ~0x0003; /* clear status bits */
-    /*
-     * Formula RH = -6 + 125 * SRH / 2^16 from datasheet p14,
-     * optimized for integer fixed point (3 digits) arithmetic
-     */
-    return ((15625 * (int32_t)ticks) >> 13) - 6000;
+    return ((21965 * (regval & 0xFFFC)) >> 13) - 46850;
+}
+
+/*
+ * Convert register value to %RH * 1000
+ */
+int32_t
+HTU21D::convertRH(int regval)
+{
+    return ((15625 * (regval & 0xFFFC)) >> 13) - 6000;
 }
 
 int
@@ -77,40 +83,31 @@ HTU21D::sampleData(void)
 {
     uint32_t itemp;
 
-    itemp = i2cReadReg_16(HTU21D_T_MEASUREMENT_HM);
-    m_temperature = htu21_temp_ticks_to_millicelsius(itemp);
+    itemp = i2cReadReg_16(HTU21D_READ_TEMP_HOLD);
+    m_temperature = convertTemp(itemp);
 
-    itemp = i2cReadReg_16(HTU21D_RH_MEASUREMENT_HM);
-    m_humidity = htu21_rh_ticks_to_per_cent_mille(itemp);
+    itemp = i2cReadReg_16(HTU21D_READ_HUMIDITY_HOLD);
+    m_humidity = convertRH(itemp);
 
     return 0;
 }
 
-int32_t
-HTU21D::getTemperature(void)
+float
+HTU21D::getTemperature(int bSampleData)
 {
-    return m_temperature;
+    if (bSampleData) {
+        sampleData();
+    }
+    return (float)m_temperature / 1000;
 }
 
-int32_t
-HTU21D::getHumidity(void)
+float
+HTU21D::getHumidity(int bSampleData)
 {
-    return m_humidity;
-}
-
-/*
- * This is the primary function to read the data.  It will initiate
- * a measurement cycle and will then return both the humidity and
- * temperature values.  piTemperature can be NULL.
- */
-
-int32_t
-HTU21D::getRHumidity(int32_t* piTemperature)
-{
-    sampleData();
-    if (NULL != piTemperature)
-        *piTemperature = m_temperature;
-    return m_humidity;
+    if (bSampleData) {
+        sampleData();
+    }
+    return (float)m_humidity / 1000;
 }
 
 /*
@@ -119,12 +116,30 @@ HTU21D::getRHumidity(int32_t* piTemperature)
  * RHcomp = RHactualT + (25 - Tactual) * CoeffTemp
  * RHcomp is in units of %RH * 1000
  */
-int32_t
-HTU21D::getCompRH(void)
+float
+HTU21D::getCompRH(int bSampleData)
 {
-    return m_humidity + (25000 - m_temperature) * 3 / 20;
+	if (bSampleData) {
+		sampleData();
+	}
+	return (float)(m_humidity + (25000 - m_temperature) * 3 / 20) / 1000;
 }
 
+int
+HTU21D::setHeater(int bEnable)
+{
+	uint8_t userreg;
+
+	userreg = i2cReadReg_8(HTU21D_READ_USER_REG);
+	if (bEnable)
+		userreg |= HTU21D_HEATER_ENABLE;
+	else
+		userreg &= ~HTU21D_HEATER_ENABLE;
+	if (i2cWriteReg(HTU21D_WRITE_USER_REG, userreg) < 0)
+		return -1;
+
+	return 0;
+}
 
 /*
  * Test function: when reading the HTU21D many times rapidly should
@@ -135,43 +150,50 @@ HTU21D::getCompRH(void)
 int
 HTU21D::testSensor(void)
 {
+    int i;
     int iError = 0;
-    int i, j;
-    int32_t iTemp, iHum;
-    int32_t iTempMax, iTempMin;
-    int32_t iHumMax, iHumMin;
-    int32_t iHumFirst, iTempFirst;
+    float fTemp, fHum;
+    float fTempMax, fTempMin;
+    float fHumMax, fHumMin;
+    float fHumFirst, fTempFirst;
 
-    fprintf(stdout, "Executing Sensor Test.\n  Reading registers 100 times to look for operation\n" );
+    fprintf(stdout, "Executing Sensor Test\n" );
 
-    iHum = getRHumidity(&iTemp);
-    iTempFirst = iTempMax = iTempMin = iTemp;
-    iHumFirst  = iHumMax  = iHumMin  = iHum;
+    fHum  = getHumidity(true);
+    fTemp = getTemperature(false);
+    fTempFirst = fTempMax = fTempMin = fTemp;
+    fHumFirst  = fHumMax  = fHumMin  = fHum;
 
-    for (i=0; i < 100; i++) {
-        iHum = getRHumidity(&iTemp);
-        if (iHum  < iHumMin)  iHumMin  = iHum;
-        if (iHum  > iHumMax)  iHumMax  = iHum;
-        if (iTemp < iTempMin) iTempMin = iTemp;
-        if (iTemp > iTempMax) iTempMax = iTemp;
-//        fprintf(stdout, "Temp: %d  Humidity: %d\n", iTemp, iHum);
+    // Turn on the heater to make a sensor change
+    setHeater(true);
+
+    // Then sample the sensor a few times
+    for (i=0; i < 10; i++) {
+        fHum  = getHumidity(true);
+        fTemp = getTemperature(false);
+        if (fHum  < fHumMin)  fHumMin  = fHum;
+        if (fHum  > fHumMax)  fHumMax  = fHum;
+        if (fTemp < fTempMin) fTempMin = fTemp;
+        if (fTemp > fTempMax) fTempMax = fTemp;
+        usleep(50000);
     }
 
-    if ((iTemp - iTempFirst) <= 0) {
-        fprintf(stdout, "! Temperature should have increased, but didn't\n" );
+    // Turn off the heater
+    setHeater(false);
+
+    // Now check the results
+    if ((fTemp - fTempFirst) <= 0) {
+        fprintf(stdout, "  Temperature should have increased, but didn't\n" );
         iError++;
     }
-
-    if (iHumMin == iHumMax) {
-        fprintf(stdout, "! Humidity was unchanged - not working?\n" );
+    if (fHumMin == fHumMax) {
+        fprintf(stdout, "  Humidity reading was unchanged - warning\n" );
         iError++;
     }
-
-    if (iTempMin == iTempMax) {
-        fprintf(stdout, "! Temperature was unchanged - not working?\n" );
+    if (fTempMin == fTempMax) {
+        fprintf(stdout, "  Temperature reading was unchanged - warning\n" );
         iError++;
     }
-
     if (iError == 0) {
         fprintf(stdout, "  Device appears functional\n" );
     }
@@ -186,41 +208,16 @@ HTU21D::testSensor(void)
  */
 
 mraa_result_t
-HTU21D::i2cReadRegValue(int reg, uint32_t* puint32, int ibytes) {
-    uint32_t data = 0;
-
-    if (ibytes > 4)
-        ibytes = 4;
-
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte(m_i2ControlCtx, reg);
-
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_read(m_i2ControlCtx, (uint8_t *)&data, ibytes);
-
-    fprintf(stdout, "reg data = %08x\n", data);
-    *puint32 = be32toh(data) >> ((4-ibytes) * 8);
-    fprintf(stdout, "reg return = %08x\n", *puint32);
-
-    return MRAA_SUCCESS;
-}
-
-mraa_result_t
 HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
     error = mraa_i2c_write (m_i2ControlCtx, data, 2);
 
     return error;
 }
 
-/*
- * Function to read 16 bits starting at reg.  This function
- * was replaced due to functionality of using read() to
- * access i2c data.
- */
 uint16_t
 HTU21D::i2cReadReg_16 (int reg) {
     uint16_t data;
@@ -230,11 +227,6 @@ HTU21D::i2cReadReg_16 (int reg) {
     return data;
 }
 
-/*
- * Function to read 8 bits starting at reg.  This function
- * was replaced due to functionality of using read() to
- * access i2c data.
- */
 uint8_t
 HTU21D::i2cReadReg_8 (int reg) {
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);

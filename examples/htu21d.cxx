@@ -24,18 +24,19 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "htu21d.h"
 #include <signal.h>
 
-int doWork = 0;
+#include "htu21d.h"
+
+volatile int doWork = 0;
+
 upm::HTU21D *sensor = NULL;
 
 void
 sig_handler(int signo)
 {
-    printf("got signal\n");
     if (signo == SIGINT) {
-        printf("exiting application\n");
+        printf("\nCtrl-C received.\n");
         doWork = 1;
     }
 }
@@ -43,24 +44,30 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
+    // Register signal handler
+    signal(SIGINT, sig_handler);
+
     //! [Interesting]
-    int32_t humidity = 0;
-    int32_t temperature = 0;
-    int32_t compRH = 0;
+    float humidity    = 0.0;
+    float temperature = 0.0;
+    float compRH      = 0.0;
 
     sensor = new upm::HTU21D(0, HTU21D_I2C_ADDRESS);
 
+    sensor->testSensor();
+
     while (!doWork) {
-        humidity = sensor->getRHumidity(&temperature);
-        compRH = sensor->getCompRH();
+        compRH      = sensor->getCompRH(true);
+        humidity    = sensor->getHumidity(false);
+        temperature = sensor->getTemperature(false);
 
         std::cout << "humidity value = " <<
-                    (float)humidity / 1000.0 <<
+                    humidity <<
                     ", temperature value = " <<
-                    (float)temperature / 1000.0 <<
+                    temperature <<
                     ", compensated RH value = " <<
-                    (float)compRH / 1000.0 << std::endl;
-        usleep (100000);
+                    compRH << std::endl;
+        usleep (500000);
     }
     //! [Interesting]
 

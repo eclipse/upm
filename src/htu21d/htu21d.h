@@ -2,23 +2,23 @@
  * Author: William Penner <william.penner@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
- * Based on code adapted from the kernel HTU21 driver and
- * code by: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 #pragma once
@@ -27,12 +27,24 @@
 #include <mraa/i2c.h>
 #include <math.h>
 
-#define HTU21D_NAME     "htu21d"
-#define HTU21D_I2C_ADDRESS  0x40
+#define HTU21D_NAME "htu21d"
+#define HTU21D_I2C_ADDRESS 0x40
 
-/* HTU21 Commands */
-#define HTU21D_T_MEASUREMENT_HM   0xE3
-#define HTU21D_RH_MEASUREMENT_HM  0xE5
+/* HTU21D Commands */
+#define HTU21D_READ_TEMP_HOLD     0xE3
+#define HTU21D_READ_HUMIDITY_HOLD 0xE5
+#define HTU21D_WRITE_USER_REG     0xE6
+#define HTU21D_READ_USER_REG      0xE7
+#define HTU21D_SOFT_RESET         0xFE
+
+/* User Register Bit Definition */
+#define HTU21D_DISABLE_OTP        0x02
+#define HTU21D_HEATER_ENABLE      0x04
+#define HTU21D_END_OF_BATTERY     0x40
+#define HTU21D_RESO_RH12_T14      0x00
+#define HTU21D_RESO_RH8_T12       0x01
+#define HTU21D_RESO_RH10_T13      0x80
+#define HTU21D_RESO_RH11_T11      0x81
 
 namespace upm {
 
@@ -48,7 +60,13 @@ namespace upm {
  * (http://www.meas-spec.com/downloads/HTU21D.pdf)
  * is a digital humidity sensor with temperature output.
  * RH will report between 0 and 100% and temperature range is
- * -40 to +125 degC
+ * -40 to +125 degC.  Note that the getCompRH is the preferred
+ * function below (passing true to cause a measurement cycle).  If
+ * the actual values used for the compensated ready are necessary, use
+ * the getHumidity(false) and getTemperature(false) functions following
+ * the getCompRH call.
+ * Also note that the sensor should not perform more than a couple of
+ * measurements per second to limit the heating of the sensor.
  *
  * @ingroup htu21d i2c
  * @snippet htu21d.cxx Interesting
@@ -63,7 +81,7 @@ class HTU21D {
          * @param devAddr address of used i2c device
          * @param mode HTU21D oversampling
          */
-        HTU21D (int bus=0, int devAddr=HTU21D_I2C_ADDRESS);
+        HTU21D (int bus, int devAddr=HTU21D_I2C_ADDRESS);
 
         /**
          * HTU21D object destructor, basicaly it close i2c connection.
@@ -76,58 +94,47 @@ class HTU21D {
          * after this call.
          */
         int sampleData(void);
-        
-        /**
-         * Get the current measured humidity [RH * 1000]
-         * To convert to Relative Humidity, divide by 1000
-         *
-         */
-        int32_t getHumidity(void);
 
         /**
-         * Get the humidity cell temperature [degC * 1000]
-         * To convert to Temperature, divide by 1000
+         * Get the current measured humidity [RH]
          */
-        int32_t getTemperature(void);
-        
+        float getHumidity(int bSampleData = false);
+
         /**
-         * Reads both temperature and humidity together
-         * To convert to Relative Humidity, divide by 1000
-         * To convert to Temperature, divide by 1000
-         *
-         * @param pointer to int32_t buffer for temp
+         * Get the humidity cell temperature [degC]
          */
-        int32_t getRHumidity(int32_t* iTemperature);
-        
+        float getTemperature(int bSampleData = false);
+
         /**
          * Using the current humidity and temperature the function
          * will calculate the compensated RH using the equation from
          * the datasheet.
          */
-        int32_t getCompRH(void);
-        
+        float getCompRH(int bSampleData = true);
+
+        /**
+         * Set the heater state.  The heater is used to either test
+         * the sensor functionality since the temp should increase
+         * 0.5 to 1.5 degC and the humidity should decrease.  The
+         * testSensor() function below will use the heater.
+         *
+         * @param bEnable Set to non-zero to turn on heater
+         */
+         int setHeater(int bEnable = false);
+
+        /**
+         * Perform a soft RESET of the MPL3115A2 device to ensure
+         * it is in a known state.  This function can be used to reset
+         * the min/max temperature and pressure values.
+         */
+        int resetSensor(void);
+
         /**
          * Function intended to test the device and verify it
          * is correctly operating.
          *
          */
         int testSensor(void);
-        
-        /**
-         * Read 1 to 4 bytes from i2c registers
-         *
-         * @param reg address of a register
-         * @param puint32 pointer to buffer for register data
-         * @param ibytes number of bytes to be returned
-         */
-        mraa_result_t i2cReadRegValue (int reg, uint32_t* puint32, int ibytes);
-
-        /**
-         * Read two bytes register
-         *
-         * @param reg address of a register
-         */
-        uint16_t i2cReadReg_16 (int reg);
 
         /**
          * Write to one byte register
@@ -136,6 +143,13 @@ class HTU21D {
          * @param value byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+
+        /**
+         * Read two bytes register
+         *
+         * @param reg address of a register
+         */
+        uint16_t i2cReadReg_16 (int reg);
 
         /**
          * Read one byte register
@@ -147,21 +161,21 @@ class HTU21D {
     private:
 
         /**
-         * Convert temp register to value * 1000
+         * Convert temp register to degC * 1000
          */
-        int32_t htu21_temp_ticks_to_millicelsius(int ticks);
+        int32_t convertTemp(int32_t regval);
 
         /**
-         * Convert temp register to value * 1000
+         * Convert RH register to %RH * 1000
          */
-        int32_t htu21_rh_ticks_to_per_cent_mille(int ticks);
+        int32_t convertRH(int32_t regval);
 
         std::string m_name;
 
         int m_controlAddr;
         int m_bus;
         mraa_i2c_context m_i2ControlCtx;
-        
+
         int32_t m_temperature;
         int32_t m_humidity;
 };
