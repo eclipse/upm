@@ -36,13 +36,17 @@ struct thresholdContext {
 namespace upm {
 
 /**
- * @brief gas sensor library
+ * @brief Gas Sensor Library
+ *
+ * Sensor Library for air quality and gas detecting sensors. Base class Gas provides buffered
+ * sampling, threshold checking, a basic printing function and a standard read function.
+ *
  * @defgroup gas libupm-gas
  */
 class Gas {
     public:
         /**
-         * Instanciates a Gas object
+         * Instantiates a Gas object
          *
          * @param gasPin pin where gas is connected
          */
@@ -57,9 +61,9 @@ class Gas {
          * Get samples from gas sensor according to provided window and
          * number of samples
          *
-         * @param freqMS time between each sample (in microseconds)
+         * @param freqMS time between each sample (in milliseconds)
          * @param numberOfSamples number of sample to sample for this window
-         * @param buffer bufer with sampled data
+         * @param buffer buffer with sampled data
          */
         virtual int getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples, uint16_t * buffer);
 
@@ -70,12 +74,12 @@ class Gas {
          * @param ctx threshold context
          * @param threshold sample threshold
          * @param buffer buffer with samples
-         * @param len bufer len
+         * @param len buffer length
          */
         virtual int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, unsigned int len);
 
         /**
-         * Return avarage data for the sampled window
+         * Return average data for the sampled window
          *
          * @param ctx threshold context
          */

@@ -33,18 +33,18 @@ namespace upm {
      *
      * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
      * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivty is 10-1000ppmCO 100-10000PPm Gas.
+     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
      *
      * @ingroup gas analog
      * @snippet mq9.cxx Interesting
-     * @image html mq9.jpeg
+     * @image html mq3-9.jpeg
      */
     class MQ9 : public Gas {
         public:
             /**
              * Jhd1313m1 constructor
              *
-             * @param gasPin analog pin where sensor connected
+             * @param gasPin analog pin where sensor is connected
              */
             MQ9 (int gasPin);
 
