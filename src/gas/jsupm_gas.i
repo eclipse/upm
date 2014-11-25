@@ -26,3 +26,8 @@
 %{
     #include "mq9.h"
 %}
+
+%include "tp401.h"
+%{
+    #include "tp401.h"
+%}
