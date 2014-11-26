@@ -1,6 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,27 +22,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include "grove.h"
+// Load Grove module
+var groveSensor = require('jsupm_grove');
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
-    // Create the light sensor object using AIO pin 0
-    upm::GroveLight* light = new upm::GroveLight(0);
-    
-    // Read the input and print both the raw value and a rough lux value, 
-    // waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
-        sleep(1);
-    }
+// Create the light sensor object using AIO pin 0
+var light = new groveSensor.GroveLight(0);
 
-    // Delete the light sensor object
-    delete light;
-//! [Interesting]
-    return 0;
+// Read the input and print both the raw value and a rough lux value,
+// waiting one second between readings
+function readLightSensorValue() {
+    console.log(light.name() + " raw value is " + light.raw_value() +
+            ", which is roughly " + light.value() + " lux");
 }
+setInterval(readLightSensorValue, 1000);

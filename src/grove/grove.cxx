@@ -1,6 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -104,12 +105,12 @@ GroveLight::~GroveLight()
     mraa_aio_close(m_aio);
 }
 
-int GroveLight::value ()
+int GroveLight::value()
 {
-    // rough conversion to Lux
-    int a = mraa_aio_read(m_aio);
-    a = 10000/(((1023-a)*10/a)*15)^(4/3);
-    return a;
+    // rough conversion to lux, using formula from Grove Starter Kit booklet
+    float a = (float) mraa_aio_read(m_aio);
+    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
+    return (int) round(a);
 }
 
 float GroveLight::raw_value()
