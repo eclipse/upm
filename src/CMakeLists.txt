@@ -27,7 +27,7 @@ macro(upm_SWIG_PYTHON)
      )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/_pyupm_${libname}.so
          ${CMAKE_CURRENT_BINARY_DIR}/pyupm_${libname}.py
-		 DESTINATION ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
+         DESTINATION ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
   endif()
 endmacro()
