@@ -114,7 +114,7 @@ macro(upm_module_init)
   if (BUILDDOC)
     upm_doxygen()
   endif()
-  install(TARGETS ${libname} DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR} )
+  install(TARGETS ${libname} DESTINATION ${CMAKE_INSTALL_LIBDIR})
   install (FILES ${module_h} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
