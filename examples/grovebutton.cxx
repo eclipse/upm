@@ -1,5 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,46 +21,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
+#include <unistd.h>
 #include <iostream>
-#include <string>
-#include "gas.h"
+#include "grove.h"
 
-namespace upm {
-    /**
-     * @brief C++ API for MQ9 gas sensor
-     *
-     * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
-     * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
-     *
-     * @ingroup gas analog
-     * @snippet mq9.cxx Interesting
-     * @image html mq3-9.jpeg
-     */
-    class MQ9 : public Gas {
-        public:
-            /**
-             * Jhd1313m1 constructor
-             *
-             * @param gasPin analog pin where sensor is connected
-             */
-            MQ9 (int gasPin);
+int
+main(int argc, char **argv)
+{
+    // This example uses GPIO 0
+//! [Interesting]
 
-            /**
-             * MQ9 destructor
-             */
-            ~MQ9 ();
+    // Create the button object using GPIO pin 0
+    upm::GroveButton* button = new upm::GroveButton(0);
 
-            /**
-             * Return name of the component
-             */
-            std::string name()
-            {
-                return m_name;
-            }
-        private:
-            std::string m_name;
-    };
+    // Read the input and print, waiting one second between readings
+    while( 1 ) {
+        std::cout << button->name() << " value is " << button->value() << std::endl;
+        sleep(1);
+    }
+
+    // Delete the button object
+    delete button;
+//! [Interesting]
+
+    return 0;
 }

@@ -1,5 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,44 +23,56 @@
  */
 #pragma once
 
-#include <iostream>
 #include <string>
-#include "gas.h"
+#include <mraa/aio.h>
 
 namespace upm {
-    /**
-     * @brief C++ API for MQ9 gas sensor
-     *
-     * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
-     * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
-     *
-     * @ingroup gas analog
-     * @snippet mq9.cxx Interesting
-     * @image html mq3-9.jpeg
-     */
-    class MQ9 : public Gas {
-        public:
-            /**
-             * Jhd1313m1 constructor
-             *
-             * @param gasPin analog pin where sensor is connected
-             */
-            MQ9 (int gasPin);
 
-            /**
-             * MQ9 destructor
-             */
-            ~MQ9 ();
+/**
+ * @brief LDT0-028 Piezo Vibration sensor library
+ * @defgroup ldt0028 libupm-ldt0028
+ */
 
-            /**
-             * Return name of the component
-             */
-            std::string name()
-            {
-                return m_name;
-            }
-        private:
-            std::string m_name;
-    };
+/**
+ * @brief C++ API for LDT0-028 PZT film-based sensors,
+ * such as the Grove Piezo Vibration sensor
+ *
+ * This file defines the LDT0028 C++ interface for libupm-ldt0028
+ *
+ * @ingroup ldt0028 aio
+ * @snippet ldt0028.cxx Interesting
+ */
+class LDT0028 {
+    public:
+        /**
+         * LDT0028 Piezo Vibration sensor constructor
+         *
+         * @param pin AIO pin where sensor is connected
+         */
+        LDT0028(unsigned int pin);
+
+        /**
+         * LDT0028 destructor
+         */
+        ~LDT0028();
+
+        /**
+         * Return name of this sensor
+         *
+         * @return the name of this sensor
+         */
+        std::string name();
+
+        /**
+         * Return one sample from this sensor
+         *
+         * @return one value from this sensor
+         */
+        int getSample();
+
+    protected:
+        std::string         m_name; //!< name of this sensor
+        mraa_aio_context    m_pin;  //!< AIO pin
+};
+
 }

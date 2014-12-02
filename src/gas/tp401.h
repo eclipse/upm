@@ -1,5 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,37 +29,52 @@
 
 namespace upm {
     /**
-     * @brief C++ API for MQ9 gas sensor
+     * @brief C++ API for Grove TP401 Air Quality Sensor
      *
-     * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
-     * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
+     * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
+     * It can detect CO and a wide range of other harmful gases, but due to limited sensing
+     * range should be used only when qualitative results are needed. Example applications
+     * are air recirculation, ventilation systems, and refreshing sprayers.
+     * The sensor is linear and should be roughly sensitive to 0 ~ 20 ppm CO from 0 ~ 4V.
+     * Also note that the sensor requires 2-3 minutes to warm up initially and 48 hours of
+     * operation to stabilize completely.
      *
      * @ingroup gas analog
-     * @snippet mq9.cxx Interesting
-     * @image html mq3-9.jpeg
+     * @snippet tp401.cxx Interesting
+     * @image html tp401.jpeg
      */
-    class MQ9 : public Gas {
+    class TP401 : public Gas {
         public:
             /**
-             * Jhd1313m1 constructor
+             * TP401 constructor
              *
-             * @param gasPin analog pin where sensor is connected
+             * @param gasPin analog pin where sensor was connected
              */
-            MQ9 (int gasPin);
+            TP401 (int gasPin);
 
             /**
-             * MQ9 destructor
+             * TP401 destructor
              */
-            ~MQ9 ();
+            ~TP401 ();
 
             /**
              * Return name of the component
+             *
+             * @return a string with the name of the sensor
              */
             std::string name()
             {
                 return m_name;
             }
+
+            /**
+             * Returns one sample in parts per million (ppm) of CO in the air based on
+             * the following sensor calibration: 0 ~ 4V is roughly 0 ~ 20 ppm CO
+             *
+             * @return a new sample converted to ppm CO
+             */
+            float getPPM();
+
         private:
             std::string m_name;
     };

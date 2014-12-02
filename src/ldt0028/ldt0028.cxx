@@ -1,5 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,46 +21,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <iostream>
-#include <string>
-#include "gas.h"
+#include "ldt0028.h"
 
-namespace upm {
-    /**
-     * @brief C++ API for MQ9 gas sensor
-     *
-     * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
-     * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
-     *
-     * @ingroup gas analog
-     * @snippet mq9.cxx Interesting
-     * @image html mq3-9.jpeg
-     */
-    class MQ9 : public Gas {
-        public:
-            /**
-             * Jhd1313m1 constructor
-             *
-             * @param gasPin analog pin where sensor is connected
-             */
-            MQ9 (int gasPin);
+using namespace upm;
 
-            /**
-             * MQ9 destructor
-             */
-            ~MQ9 ();
+LDT0028::LDT0028(unsigned int pin) {
+    // initialize analog input
+    m_pin = mraa_aio_init(pin);
+    m_name = "ldt0-028";
+}
 
-            /**
-             * Return name of the component
-             */
-            std::string name()
-            {
-                return m_name;
-            }
-        private:
-            std::string m_name;
-    };
+LDT0028::~LDT0028() {
+    // close analog input
+    mraa_aio_close(m_pin);
+}
+
+std::string LDT0028::name() {
+    return m_name;
+}
+
+int LDT0028::getSample() {
+    return mraa_aio_read(m_pin);
 }

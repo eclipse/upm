@@ -1,0 +1,5 @@
+set (libname "mpl3115a2")
+set (libdescription "libupm Pressure/Temperature Sensor")
+set (module_src ${libname}.cpp)
+set (module_h ${libname}.h)
+upm_module_init()

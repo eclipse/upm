@@ -193,3 +193,28 @@ float GroveSlide::ref_voltage()
 {
     return m_ref_voltage;
 }
+
+//// GroveButton ////
+
+GroveButton::GroveButton(unsigned int pin)
+{
+    mraa_init();
+    m_gpio = mraa_gpio_init(pin);
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+    m_name = "Button Sensor";
+}
+
+GroveButton::~GroveButton()
+{
+    mraa_gpio_close(m_gpio);
+}
+
+std::string GroveButton::name()
+{
+    return m_name;
+}
+
+int GroveButton::value()
+{
+    return mraa_gpio_read(m_gpio);
+}
