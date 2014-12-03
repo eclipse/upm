@@ -1,6 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,33 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <iomanip>
-#include "grove.h"
+// Load Grove module
+var groveSensor = require('jsupm_grove');
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
+// Create the temperature sensor object using AIO pin 0
+var temp = new groveSensor.GroveTemp(0);
+console.log(temp.name());
 
-    // Create the temperature sensor object using AIO pin 0
-    upm::GroveTemp* temp = new upm::GroveTemp(0);
-    std::cout << temp->name() << std::endl;
-
-    // Read the temperature ten times, printing both the Celsius and
-    // equivalent Fahrenheit temperature, waiting one second between readings
-    for (int i=0; i < 10; i++) {
-        int celsius = temp->value();
-        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
-        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
-                celsius, fahrenheit);
-        sleep(1);
-    }
-
-    // Delete the temperature sensor object
-    delete temp;
-//! [Interesting]
-
-    return 0;
-}
+// Read the temperature ten times, printing both the Celsius and
+// equivalent Fahrenheit temperature, waiting one second between readings
+var i = 0;
+var waiting = setInterval(function() {
+        var celsius = temp.value();
+        var fahrenheit = celsius * 9.0/5.0 + 32.0;
+        console.log(celsius + " degrees Celsius, or " +
+            Math.round(fahrenheit) + " degrees Fahrenheit");
+        i++;
+        if (i == 10) clearInterval(waiting);
+        }, 1000);
