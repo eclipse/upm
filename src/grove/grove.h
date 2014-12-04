@@ -1,6 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -103,7 +104,7 @@ class GroveTemp: public Grove {
 /**
  * @brief C++ API for Grove light sensor
  *
- * Very basic UPM module for grove Light sensor on analog
+ * Very basic UPM module for Grove light sensor on analog
  *
  * @ingroup grove analog
  * @snippet grovelight.cxx Interesting
@@ -113,7 +114,7 @@ class GroveLight: public Grove {
         /**
          * Grove analog light sensor constructor
          *
-         * @param analog pin to use
+         * @param pin analog pin to use
          */
         GroveLight(unsigned int pin);
         /**
@@ -127,9 +128,9 @@ class GroveLight: public Grove {
          */
         float raw_value();
         /**
-         * Get the light value from the sensor
+         * Get the approximate light value, in lux, from the sensor
          *
-         * @return the normalised light reading
+         * @return the normalized light reading in lux
          */
         int value();
     private:

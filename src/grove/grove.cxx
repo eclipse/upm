@@ -105,7 +105,7 @@ GroveLight::~GroveLight()
     mraa_aio_close(m_aio);
 }
 
-int GroveLight::value ()
+int GroveLight::value()
 {
     // rough conversion to lux, using formula from Grove Starter Kit booklet
     float a = (float) mraa_aio_read(m_aio);
