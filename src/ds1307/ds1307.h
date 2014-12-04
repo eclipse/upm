@@ -137,17 +137,19 @@ namespace upm {
      * good idea call loadTime() to setup the current values before
      * calling setTime() to ensure RTC data is consistent
      */
-    unsigned int seconds;
-    unsigned int minutes;
-    unsigned int hours;
-    unsigned int dayOfWeek;
-    unsigned int dayOfMonth;
-    unsigned int month;
-    unsigned int year;
-    // True if in AM/PM mode, false if 24h format.
-    bool amPmMode;
-    // If in AmPmMode, the this is true if it's PM, clear if AM
-    bool pm;
+    struct {
+      unsigned int seconds;
+      unsigned int minutes;
+      unsigned int hours;
+      unsigned int dayOfWeek;
+      unsigned int dayOfMonth;
+      unsigned int month;
+      unsigned int year;
+      // True if in AM/PM mode, false if 24h format.
+      bool amPmMode;
+      // If in AmPmMode, the this is true if it's PM, clear if AM
+      bool pm;
+    };
 
   private:
     mraa_i2c_context m_i2c;
