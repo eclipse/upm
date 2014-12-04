@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,11 +30,19 @@
 int
 main(int argc, char **argv)
 {
-    // This example uses AIO 0
 //! [Interesting]
+    // Create the light sensor object using AIO pin 0
     upm::GroveLight* light = new upm::GroveLight(0);
-    int lightValue = light->value();
 
+    // Read the input and print both the raw value and a rough lux value,
+    // waiting one second between readings
+    while( 1 ) {
+        std::cout << light->name() << " raw value is " << light->raw_value() <<
+            ", which is roughly " << light->value() << " lux" << std::endl;
+        sleep(1);
+    }
+
+    // Delete the light sensor object
     delete light;
 //! [Interesting]
     return 0;
