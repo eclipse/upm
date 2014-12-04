@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,18 +25,30 @@
 
 #include <unistd.h>
 #include <iostream>
+#include <iomanip>
 #include "grove.h"
 
 int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    upm::GroveTemp* s = new upm::GroveTemp(0);
-    std::cout << s->name() << std::endl;
+
+    // Create the temperature sensor object using AIO pin 0
+    upm::GroveTemp* temp = new upm::GroveTemp(0);
+    std::cout << temp->name() << std::endl;
+
+    // Read the temperature ten times, printing both the Celsius and
+    // equivalent Fahrenheit temperature, waiting one second between readings
     for (int i=0; i < 10; i++) {
-        std::cout << s->value() << std::endl;
+        int celsius = temp->value();
+        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
+        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
+                celsius, fahrenheit);
         sleep(1);
     }
+
+    // Delete the temperature sensor object
+    delete temp;
 //! [Interesting]
 
     return 0;
