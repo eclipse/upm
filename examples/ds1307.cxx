@@ -50,6 +50,7 @@ main(int argc, char **argv)
   // Instantiate a DS1037 on I2C bus 0
   upm::DS1307 *rtc = new upm::DS1307(0);
   
+  // always do this first
   cout << "Loading the current time... " << endl;
   if (!rtc->loadTime())
     {

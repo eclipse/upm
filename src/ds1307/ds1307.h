@@ -83,6 +83,21 @@ namespace upm {
     bool setTime();
 
     /**
+     * enable the oscillator on the clock.  
+     *
+     * @return true if successful
+     */
+    mraa_result_t enableClock();
+
+    /**
+     * disable the oscillator on the clock.  This will prevent the clock
+     * from updating any time/date values
+     *
+     * @return true if successful
+     */
+    mraa_result_t disableClock();
+
+    /**
      * Write value(s) into registers
      *
      * @param reg register location to start writing into
