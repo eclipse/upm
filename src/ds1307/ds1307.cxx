@@ -169,12 +169,12 @@ bool DS1307::setTime()
 mraa_result_t DS1307::enableClock()
 {
   // the oscillator enable bit is the high bit of reg 0
-  // so read it, set it, and write it back.
+  // so read it, clear it, and write it back.
 
   uint8_t buf;
   readBytes(0, &buf, 1);
 
-  buf |= 0x80;
+  buf &= ~0x80;
 
   return writeBytes(0, &buf, 1);
 }
@@ -182,12 +182,12 @@ mraa_result_t DS1307::enableClock()
 mraa_result_t DS1307::disableClock()
 {
   // the oscillator enable bit is the high bit of reg 0
-  // so read it, clear it, and write it back.
+  // so read it, set it, and write it back.
 
   uint8_t buf;
   readBytes(0, &buf, 1);
 
-  buf &= ~0x80;
+  buf |= 0x80;
 
   return writeBytes(0, &buf, 1);
 }
