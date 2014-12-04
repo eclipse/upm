@@ -66,9 +66,9 @@ class GroveLed: public Grove {
 };
 
 /**
- * @brief C++ API for Grove Temperature sensor
+ * @brief C++ API for Grove temperature sensor
  *
- * Very basic UPM module for grove temperature sensor on analog
+ * Very basic UPM module for Grove temperature sensor on analog
  *
  * @ingroup grove analog
  * @snippet grovetemp.cxx Interesting
@@ -78,7 +78,7 @@ class GroveTemp: public Grove {
         /**
          * Grove analog temperature sensor constructor
          *
-         * @param analog pin to use
+         * @param pin analog pin to use
          */
         GroveTemp(unsigned int pin);
         /**
@@ -92,9 +92,9 @@ class GroveTemp: public Grove {
          */
         float raw_value();
         /**
-         * Get the temperature from the sensor
+         * Get the temperature in Celsius from the sensor
          *
-         * @return the normalised temperature
+         * @return the normalized temperature in Celsius
          */
         int value();
     private:
