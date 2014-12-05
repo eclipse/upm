@@ -4,4 +4,4 @@
 // So you can include this file and .i files for other C types
 %include "stdint.i"
 %include "carrays.i"
-%array_class(uint16_t, uint16Array);
+%array_class(int16_t, int16Array);
