@@ -132,7 +132,7 @@ bool DS1307::setTime()
   uint8_t buffer[7];
 
   // seconds
-  // we need to read in minutes first to preserve the osc enable bit
+  // we need to read in seconds first to preserve the osc enable bit
   uint8_t tmpbuf;
 
   readBytes(0, &tmpbuf, 1);
