@@ -22,8 +22,6 @@ myRTCClockObj.setTime();
 myRTCClockObj.loadTime();
 
 printTime(myRTCClockObj);
-for (var x in myRTCClockObj)
-	console.log(x);
 
 function printTime(RTCObj)
 {
