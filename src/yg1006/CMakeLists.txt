@@ -1,0 +1,5 @@
+set (libname "yg1006")
+set (libdescription "upm yg1006 flame sensor module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
