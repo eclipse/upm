@@ -1,9 +1,9 @@
-%module pyupm_grovemoisture
+%module pyupm_a110x
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "grovemoisture.h"
+%include "a110x.h"
 %{
-    #include "grovemoisture.h"
+    #include "a110x.h"
 %}
