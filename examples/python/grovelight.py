@@ -1,5 +1,4 @@
-# Author: Brendan Le Foll <brendan.le.foll@intel.com>
-# Contributions: Sarah Knepper <sarah.knepper@intel.com>
+# Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -24,18 +23,15 @@
 import time
 import pyupm_grove as grove
 
-# Create the temperature sensor object using AIO pin 0
-temp = grove.GroveTemp(0)
-print temp.name()
+# Create the light sensor object using AIO pin 0
+light = grove.GroveLight(0)
 
-# Read the temperature ten times, printing both the Celsius and
-# equivalent Fahrenheit temperature, waiting one second between readings
-for i in range(0, 10):
-    celsius = temp.value()
-    fahrenheit = celsius * 9.0/5.0 + 32.0;
-    print "%d degrees Celsius, or %d degrees Fahrenheit" \
-        % (celsius, fahrenheit)
+# Read the input and print both the raw value and a rough lux value,
+# waiting one second between readings
+while 1:
+    print light.name() + " raw value is %d" % light.raw_value() + \
+        ", which is roughly %d" % light.value() + " lux";
     time.sleep(1)
 
-# Delete the temperature sensor object
-del temp
+# Delete the light sensor object
+del light
