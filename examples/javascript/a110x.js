@@ -27,7 +27,7 @@
 
 var hallEffectSensor = require('jsupm_a110x');
 
-// Instantiate a Grove Dry Reed Relay on digital pin D2
+// Instantiate a Hall Effect magnet sensor on digital pin D2
 var myHallEffectSensor = new hallEffectSensor.A110X(2);
 
 setInterval(function()
