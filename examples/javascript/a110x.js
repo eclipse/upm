@@ -38,7 +38,7 @@ setInterval(function()
 		console.log("No magnet detected.");
 }, 1000);
 
-// Turn relay off when exiting
+// Print message when exiting
 process.on('SIGINT', function()
 {
 	console.log("Exiting...");
