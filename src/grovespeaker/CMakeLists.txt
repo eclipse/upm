@@ -1,0 +1,5 @@
+set (libname "grovespeaker")
+set (libdescription "upm grovespeaker speaker module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
