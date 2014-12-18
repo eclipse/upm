@@ -1,0 +1,5 @@
+set (libname "groveehr")
+set (libdescription "upm grove ear-clip heart rate sensor module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
