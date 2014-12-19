@@ -64,6 +64,17 @@ mraa_result_t GroveLed::off()
     return write(0);
 }
 
+//// GroveRelay ////
+
+GroveRelay::GroveRelay(int pin):GroveLed (pin)
+{
+    m_name = "Relay Socket";
+}
+
+GroveRelay::~GroveRelay()
+{
+}
+
 //// GroveTemp ////
 
 GroveTemp::GroveTemp(unsigned int pin)
