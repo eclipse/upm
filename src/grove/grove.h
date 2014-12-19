@@ -75,7 +75,7 @@ class GroveLed: public Grove {
  */
 class GroveRelay: public GroveLed {
     public:
-        GroveRelay(int pin):GroveLed(pin);
+        GroveRelay(int pin);
         ~GroveRelay();
 };
 
