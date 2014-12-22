@@ -45,6 +45,8 @@
 
 #define AM2315_SAMPLE   2
 
+#define HIGH_PRIORITY   99
+
 namespace upm {
 
 /**
@@ -173,9 +175,6 @@ class AM2315 {
         uint8_t i2cReadReg(int reg, uint8_t* data, int ilen);
         int i2cWriteReg(uint8_t reg, uint8_t* data, uint8_t ilen);
         uint16_t crc16(uint8_t* ptr, uint8_t len);
-        void initialize_priority(void);
-        void high_priority(void);
-        void normal_priority(void);
 
         int32_t   m_temperature;
         int32_t   m_humidity;
@@ -186,9 +185,7 @@ class AM2315 {
 
         time_t    m_last_time;
 
-        bool      m_use_priority;
-        struct    sched_param base_params;
-        int       base_policy;
+        int       m_base_priority;
         pthread_t this_thread;
 };
 
