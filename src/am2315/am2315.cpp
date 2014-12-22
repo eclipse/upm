@@ -44,7 +44,7 @@ AM2315::AM2315(int bus, int devAddr) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    initialize_priority();
+    m_base_priority = sched_getscheduler(0);
 
     m_i2ControlCtx = mraa_i2c_init(m_bus);
 
@@ -149,64 +149,6 @@ AM2315::testSensor(void)
     return iError;
 }
 
-/*
- * Functions to alter the thread priority while reading the sensor
- * to ensure we can get good data
- */
-
-void
-AM2315::initialize_priority(void)
-{
-    m_use_priority = true;
-    this_thread = pthread_self();
-
-    base_policy = 0;
-    int ret = pthread_getschedparam(this_thread, &base_policy, &base_params);
-    if (ret != 0) {
-        fprintf(stdout, "%s: Error accessing pthread scheduling.\n", m_name);
-        return;
-    }
-}
-
-void
-AM2315::high_priority(void)
-{
-    if (! m_use_priority)
-        return;
-
-    struct sched_param params;
-    params.sched_priority = sched_get_priority_max(SCHED_FIFO);
-    int ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
-    if (ret != 0) {
-        fprintf(stdout,"%s: Unable to set thread priority.\n", m_name);
-        m_use_priority = false;
-        return;
-    }
-    int policy = 0;
-    ret = pthread_getschedparam(this_thread, &policy, &params);
-    if (ret != 0) {
-        fprintf(stdout,"%s: Unable to get thread priority.\n", m_name);
-        m_use_priority = false;
-        return;
-    }
-    if(policy != SCHED_FIFO) {
-        fprintf(stdout,"%s: Unable to change thread priority.\n", m_name);
-        m_use_priority = false;
-    }
-}
-
-void
-AM2315::normal_priority(void)
-{
-    if (! m_use_priority)
-        return;
-
-    int ret = pthread_setschedparam(this_thread, base_policy, &base_params);
-    if (ret != 0) {
-        fprintf(stdout,"%s: Unable to set thread priority.\n", m_name);
-    }
-}
-
 uint16_t
 AM2315::crc16(uint8_t* ptr, uint8_t len)
 {
@@ -250,12 +192,12 @@ AM2315::i2cWriteReg(uint8_t reg, uint8_t* data, uint8_t ilen)
 
     mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     int iLoops = 5;
-    high_priority();
+    mraa_set_priority(HIGH_PRIORITY);
     do {
         error = mraa_i2c_write(m_i2ControlCtx, tdata, ilen+5);
         usleep(800);
     } while(error != MRAA_SUCCESS && --iLoops);
-    normal_priority();
+    mraa_set_priority(m_base_priority);
 
     if (error != MRAA_SUCCESS) {
         fprintf(stdout, "%s: Error, timeout writing sensor.\n", m_name);
@@ -286,19 +228,19 @@ AM2315::i2cReadReg(int reg, uint8_t* data, int ilen)
 
     mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     int iLoops = 5;
-    high_priority();
+    mraa_set_priority(HIGH_PRIORITY);
     do {
         ret = mraa_i2c_write(m_i2ControlCtx, tdata, 3);
         usleep(800);
     } while(ret != MRAA_SUCCESS && --iLoops);
     if (ret != MRAA_SUCCESS) {
         fprintf(stdout, "%s: Error, timeout reading sensor.\n", m_name);
-        normal_priority();
+        mraa_set_priority(m_base_priority);
         return -1;
     }
     usleep(5000);
     mraa_i2c_read(m_i2ControlCtx, tdata, ilen+4);
-    normal_priority();
+    mraa_set_priority(m_base_priority);
 
     uint16_t crc = crc16(tdata, ilen+2);
     if ((tdata[0] != AM2315_READ)  ||
