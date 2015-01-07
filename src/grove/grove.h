@@ -104,7 +104,11 @@ class GroveTemp: public Grove {
 /**
  * @brief C++ API for Grove light sensor
  *
- * Very basic UPM module for Grove light sensor on analog
+ * The Grove light sensor detects the intensity of the ambient light.
+ * As the light intensity of the environment increases, the resistance
+ * of the sensor decreases.  This means that the raw value from the
+ * analog pin will be larger in bright light and smaller in the dark.
+ * An approximate lux value can also be returned.
  *
  * @ingroup grove analog
  * @snippet grovelight.cxx Interesting
