@@ -1,6 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -80,9 +81,9 @@ GroveTemp::~GroveTemp()
 int GroveTemp::value ()
 {
     int a = mraa_aio_read(m_aio);
-    float r = (float)(1023-a)*10000/a;
-    float t = 1/(log(r/10000)/3975 + 1/298.15)-273.15;
-    return (int) t;
+    float r = (float)(1023.0-a)*10000.0/a;
+    float t = 1.0/(log(r/10000.0)/3975.0 + 1.0/298.15)-273.15;
+    return (int) round(t);
 }
 
 float GroveTemp::raw_value()
@@ -104,12 +105,12 @@ GroveLight::~GroveLight()
     mraa_aio_close(m_aio);
 }
 
-int GroveLight::value ()
+int GroveLight::value()
 {
-    // rough conversion to Lux
-    int a = mraa_aio_read(m_aio);
-    a = 10000/(((1023-a)*10/a)*15)^(4/3);
-    return a;
+    // rough conversion to lux, using formula from Grove Starter Kit booklet
+    float a = (float) mraa_aio_read(m_aio);
+    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
+    return (int) round(a);
 }
 
 float GroveLight::raw_value()

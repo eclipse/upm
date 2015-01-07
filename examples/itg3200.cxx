@@ -1,6 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Author: Mihai Tudor Panu <mihai.t.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,26 +23,29 @@
  */
 
 #include <unistd.h>
-#include <iostream>
-#include "grove.h"
+#include "itg3200.h"
 
 int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    // Create the light sensor object using AIO pin 0
-    upm::GroveLight* light = new upm::GroveLight(0);
+    int16_t *rot;
+    float *ang;
 
-    // Read the input and print both the raw value and a rough lux value,
-    // waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
+    // Note: Sensor not supported on Intel Edison with Arduino breakout
+    upm::Itg3200* gyro = new upm::Itg3200(0);
+
+    while(true){
+        gyro->update(); // Update the data
+        rot = gyro->getRawValues(); // Read raw sensor data
+        ang = gyro->getRotation(); // Read rotational speed (deg/sec)
+        fprintf(stdout, "Raw: %6d %6d %6d\n", rot[0], rot[1], rot[2]);
+        fprintf(stdout, "AngX: %5.2f\n", ang[0]);
+        fprintf(stdout, "AngY: %5.2f\n", ang[1]);
+        fprintf(stdout, "AngZ: %5.2f\n", ang[2]);
+        fprintf(stdout, "Temp: %5.2f Raw: %6d\n", gyro->getTemperature(), gyro->getRawTemp());
         sleep(1);
     }
-
-    // Delete the light sensor object
-    delete light;
 //! [Interesting]
     return 0;
 }

@@ -1,6 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,27 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include "grove.h"
+// Load Grove module
+var groveSensor = require('jsupm_grove');
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
-    // Create the light sensor object using AIO pin 0
-    upm::GroveLight* light = new upm::GroveLight(0);
+// Create the temperature sensor object using AIO pin 0
+var temp = new groveSensor.GroveTemp(0);
+console.log(temp.name());
 
-    // Read the input and print both the raw value and a rough lux value,
-    // waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
-        sleep(1);
-    }
-
-    // Delete the light sensor object
-    delete light;
-//! [Interesting]
-    return 0;
-}
+// Read the temperature ten times, printing both the Celsius and
+// equivalent Fahrenheit temperature, waiting one second between readings
+var i = 0;
+var waiting = setInterval(function() {
+        var celsius = temp.value();
+        var fahrenheit = celsius * 9.0/5.0 + 32.0;
+        console.log(celsius + " degrees Celsius, or " +
+            Math.round(fahrenheit) + " degrees Fahrenheit");
+        i++;
+        if (i == 10) clearInterval(waiting);
+        }, 1000);

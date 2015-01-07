@@ -1,6 +1,5 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Author: William Penner <william.penner@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,25 +24,52 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "grove.h"
+#include <signal.h>
+
+#include "am2315.h"
+
+volatile int doWork = 0;
+
+upm::AM2315 *sensor = NULL;
+
+void
+sig_handler(int signo)
+{
+    if (signo == SIGINT) {
+        printf("\nCtrl-C received.\n");
+        doWork = 1;
+    }
+}
 
 int
 main(int argc, char **argv)
 {
-//! [Interesting]
-    // Create the light sensor object using AIO pin 0
-    upm::GroveLight* light = new upm::GroveLight(0);
+    // Register signal handler
+    signal(SIGINT, sig_handler);
 
-    // Read the input and print both the raw value and a rough lux value,
-    // waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
-        sleep(1);
+    //! [Interesting]
+    float humidity    = 0.0;
+    float temperature = 0.0;
+
+    sensor = new upm::AM2315(0, AM2315_I2C_ADDRESS);
+
+    sensor->testSensor();
+
+    while (!doWork) {
+        humidity    = sensor->getHumidity();
+        temperature = sensor->getTemperature();
+
+        std::cout << "humidity value = " <<
+                    humidity <<
+                    ", temperature value = " <<
+                    temperature << std::endl;
+        usleep (500000);
     }
+    //! [Interesting]
 
-    // Delete the light sensor object
-    delete light;
-//! [Interesting]
+    std::cout << "exiting application" << std::endl;
+
+    delete sensor;
+
     return 0;
 }

@@ -3,7 +3,7 @@
   "main" : "./jsupm_@libname@.node",
   "version" : "@upm_VERSION_STRING@",
   "engines" : {
-    "node": ">= 1.0.x"
+    "node": ">= 0.10.x"
   },
   "license": "MIT"
 }
