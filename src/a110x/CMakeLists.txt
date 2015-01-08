@@ -1,0 +1,5 @@
+set (libname "a110x")
+set (libdescription "upm a110x sensor module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
