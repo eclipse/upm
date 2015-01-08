@@ -79,7 +79,6 @@ class GroveRelay: public GroveLed {
         ~GroveRelay();
 };
 
-
 /**
  * @brief C++ API for Grove temperature sensor
  *
