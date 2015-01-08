@@ -49,17 +49,51 @@ class Grove {
 /**
  * @brief C++ API for Grove LED
  *
- * Very basic UPM module for grove LED, or any LED for that matter
+ * UPM module for Grove LED (or other similar light-emitting diode).
+ * An LED is a small lightbulb that will emit light (turn on) in 
+ * response to a small curent.  The longer wire of an LED connects
+ * to the positive seat (anode); the shorter wire connects to the
+ * negative seat (cathode).  The flat side of the bulb corresponds
+ * to the cathode while the rounded side corresponds to the anode.
  *
  * @ingroup grove gpio
  * @snippet groveled.cxx Interesting
  */
 class GroveLed: public Grove {
     public:
+        /**
+         * Grove LED constructor
+         *
+         * @param gpio pin to use
+         */
         GroveLed(int pin);
+        /**
+         * Grove LED destructor
+         */
         ~GroveLed();
+        /**
+         * Turn the LED on or off, depending on the value.
+         * If the value is positive (greater than or equal
+         * to 1), the LED is turned on.  Otherwise, for 0
+         * or negative values, the LED is turned off.
+         *
+         * @param value tells the LED to turn on (for value >=1)
+         * or off (for value <1)
+         *
+         * @return 0 on success; non-zero otherwise
+         */
         mraa_result_t write(int value);
+        /**
+         * Turn the LED off
+         *
+         * @return 0 on success; non-zero otherwise
+         */
         mraa_result_t off();
+        /**
+         * Turn the LED on
+         *
+         * @return 0 on success; non-zero otherwise
+         */
         mraa_result_t on();
     private:
         mraa_gpio_context m_gpio;
