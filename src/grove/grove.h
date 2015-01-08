@@ -100,6 +100,59 @@ class GroveLed: public Grove {
 };
 
 /**
+ * @brief C++ API for Grove Relay
+ *
+ * UPM module for Grove relay switch.  The Grove relay is a
+ * digital normally-open switch that uses low voltage or current to 
+ * control a higher voltage and/or higher current.  When closed, 
+ * the indicator LED will light up and current is allowed to flow.
+ *
+ * @ingroup grove gpio
+ * @snippet groverelay.cxx Interesting
+ */
+class GroveRelay: public Grove {
+    public:
+        /**
+         * Grove relay constructor
+         *
+         * @param gpio pin to use
+         */
+        GroveRelay(unsigned int pin);
+        /**
+         * Grove relay destructor
+         */
+        ~GroveRelay();
+        /**
+         * Set the relay switch to on (close).  This allows current
+         * to flow and lights up the indicator LED.
+         *
+         * @return 0 on success; non-zero otherwise
+         */
+        mraa_result_t on();
+        /**
+         * Set the relay switch to off (open).  This stops current
+         * from flowing and the indicator LED will not be lit.
+         *
+         * @return 0 on success; non-zero otherwise
+         */
+        mraa_result_t off();
+        /**
+         * Returns whether or not the relay switch is closed.
+         *
+         * @return true if the switch is on (closed); false otherwise
+         */
+        bool isOn();
+        /**
+         * Returns whether or not the relay switch is open.
+         *
+         * @return true if the switch is off (open); false otherwise
+         */
+        bool isOff();
+    private:
+        mraa_gpio_context m_gpio;
+};
+
+/**
  * @brief C++ API for Grove temperature sensor
  *
  * Very basic UPM module for Grove temperature sensor on analog

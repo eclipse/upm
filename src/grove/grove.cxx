@@ -64,6 +64,41 @@ mraa_result_t GroveLed::off()
     return write(0);
 }
 
+//// GroveRelay ////
+
+GroveRelay::GroveRelay(unsigned int pin)
+{
+    mraa_init();
+    m_gpio = mraa_gpio_init(pin);
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
+    m_name = "Relay Switch";
+}
+
+GroveRelay::~GroveRelay()
+{
+    mraa_gpio_close(m_gpio);
+}
+
+mraa_result_t GroveRelay::on()
+{
+    return mraa_gpio_write(m_gpio, 1);
+}
+
+mraa_result_t GroveRelay::off()
+{
+    return mraa_gpio_write(m_gpio, 0);
+}
+
+bool GroveRelay::isOn()
+{
+    return mraa_gpio_read(m_gpio) == 1;
+}
+
+bool GroveRelay::isOff()
+{
+    return mraa_gpio_read(m_gpio) == 0;
+}
+
 //// GroveTemp ////
 
 GroveTemp::GroveTemp(unsigned int pin)
