@@ -1,5 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,14 +31,24 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
+
+    // Create the Grove LED object using GPIO pin 2
     upm::GroveLed* led = new upm::GroveLed(2);
+
+    // Print the name
     std::cout << led->name() << std::endl;
+
+    // Turn the LED on and off 10 times, pausing one second
+    // between transitions
     for (int i=0; i < 10; i++) {
         led->on();
         sleep(1);
         led->off();
         sleep(1);
     }
+
+    // Delete the Grove LED object
+    delete led;
 //! [Interesting]
 
     return 0;
