@@ -1,0 +1,5 @@
+set (libname "grovedryreedrelay")
+set (libdescription "upm grove dry reed relay module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
