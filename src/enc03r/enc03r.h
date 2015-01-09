@@ -43,8 +43,9 @@ namespace upm {
      * ENC03R sensor constructor
      *
      * @param pin analog pin to use
+     * @param vref the voltage reference to use, default 5.0
      */
-    ENC03R(int pin);
+    ENC03R(int pin, float vref=5.0);
 
     /**
      * ENC03R Destructor
@@ -85,6 +86,8 @@ namespace upm {
     // determined by calibrate();
     float m_calibrationValue;
 
+    // reference voltage
+    float m_vref;
     mraa_aio_context m_aio;
   };
 }

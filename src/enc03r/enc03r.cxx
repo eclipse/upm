@@ -29,7 +29,7 @@
 using namespace upm;
 using namespace std;
 
-ENC03R::ENC03R(int pin)
+ENC03R::ENC03R(int pin, float vref)
 {
   mraa_init();
 
@@ -39,6 +39,7 @@ ENC03R::ENC03R(int pin)
       return;
     }
 
+  m_vref = vref;
   m_calibrationValue = 0;
 }
 
@@ -70,5 +71,5 @@ void ENC03R::calibrate(unsigned int samples)
 double ENC03R::angularVelocity(unsigned int val)
 {
   // from seeed studio example
-  return (((double)(val-m_calibrationValue)*4950.0)/1023.0/0.67);
+  return (((double)(val-m_calibrationValue)*(m_vref*1000.0))/1023.0/0.67);
 }
