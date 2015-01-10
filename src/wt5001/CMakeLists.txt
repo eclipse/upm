@@ -1,0 +1,5 @@
+set (libname "wt5001")
+set (libdescription "upm grove serial mp3 (wt5001) module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
