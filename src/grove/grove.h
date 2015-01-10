@@ -100,6 +100,20 @@ class GroveLed: public Grove {
 };
 
 /**
+ * @brief C++ API for Grove Relay
+ *
+ * Very basic UPM module for grove Relay, or any Relay for that matter
+ *
+ * @ingroup grove gpio
+ * @snippet groverelay.cxx Interesting
+ */
+class GroveRelay: public GroveLed {
+    public:
+        GroveRelay(int pin);
+        ~GroveRelay();
+};
+
+/**
  * @brief C++ API for Grove temperature sensor
  *
  * Very basic UPM module for Grove temperature sensor on analog
