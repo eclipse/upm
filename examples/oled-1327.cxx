@@ -107,18 +107,20 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    upm::SSD1327 *lcd = new upm::SSD1327(BUS_NUMBER, 0x3C);
+	upm::SSD1327 *lcd = new upm::SSD1327(BUS_NUMBER, 0x3C);
 
-    // Simple print hello world
-    for (uint8_t i = 0; i < 12; i++) {
-        lcd->setCursor(i, 0);
-        lcd->setGrayLevel(i);
-        lcd->write("Hello World");
-    }
+	// If you don't set the display to be white, the seeed logo will appear jagged
+	lcd->setGrayLevel(12);
+	lcd->draw(SeeedLogo, 96 * 96 / 8);
 
-    // Simple print hello world
-    lcd->draw(SeeedLogo, 96 * 96 / 8);
+	// Simple print hello world
+	for (uint8_t i = 0; i < 12; i++)
+	{
+		lcd->setCursor(i, 0);
+		lcd->setGrayLevel(i);
+		lcd->write("Hello World");
+	}
 
-    lcd->close();
+	lcd->close();
 //! [Interesting]
 }
