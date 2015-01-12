@@ -30,13 +30,14 @@
 int
 main(int argc, char **argv)
 {
+	// Instantiate LSM303 compass on I2C
     upm::LSM303 *sensor = new upm::LSM303(0);
 
     sensor->getCoordinates();
-    int16_t* coor = sensor->getRawCoorData(); // in XZY order
+    int16_t* coor = sensor->getRawCoorData(); // in XYZ order. The sensor returns XZY, but the driver compensates and makes it XYZ
     std::cout << "coor: rX " << (int)coor[0]
-              << " - rY " << (int)coor[2]  // note: index is 2
-              << " - rZ " << (int)coor[1]  // note: index is 1
+              << " - rY " << (int)coor[1]
+              << " - rZ " << (int)coor[2]
               << std::endl;
     std::cout << "coor: gX " << sensor->getCoorX()
               << " - gY " << sensor->getCoorY()
