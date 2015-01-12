@@ -131,22 +131,46 @@ namespace upm {
      */
     uint8_t decToBcd(unsigned int val);
 
+    // These variables store the time data loaded with loadTime(), and
+    // will be the source of data when setTime() is called.  It is a
+    // good idea call loadTime() to setup the current values before
+    // calling setTime() to ensure RTC data is consistent
+
     /**
-     * These variables store the time data loaded with loadTime(), and
-     * will be the source of data when setTime() is called.  It is a
-     * good idea call loadTime() to setup the current values before
-     * calling setTime() to ensure RTC data is consistent
+     * holds the seconds
      */
     unsigned int seconds;
+    /**
+     * holds the minutes
+     */
     unsigned int minutes;
+    /**
+     * holds the hours, 1-12 in am/pm mode, 0-23 otherwise
+     */
     unsigned int hours;
+    /**
+     * holds the day of the week, 1-7 where 1 is Sunday
+     */
     unsigned int dayOfWeek;
+    /**
+     * holds the day of the month, 1-31
+     */
     unsigned int dayOfMonth;
+    /**
+     * holds the month, 1-12
+     */
     unsigned int month;
+    /**
+     * holds the year, 0-99
+     */
     unsigned int year;
-    // True if in AM/PM mode, false if 24h format.
+    /**
+     * True if in AM/PM mode, false if 24h format.
+     */
     bool amPmMode;
-    // If in AmPmMode, then this is true if it's PM, clear if AM
+    /**
+     * If in AmPmMode (12-hr), then this is true if it's PM, clear if AM
+     */
     bool pm;
 
   private:
