@@ -75,6 +75,7 @@ add_executable (grovespeaker-example grovespeaker.cxx)
 add_executable (rfr359f-example rfr359f.cxx)
 add_executable (biss0001-example biss0001.cxx)
 add_executable (my9221-example my9221.cxx)
+add_executable (grove_mcfled-example grove_mcfled.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
@@ -215,3 +216,4 @@ target_link_libraries (grovespeaker-example grovespeaker ${CMAKE_THREAD_LIBS_INI
 target_link_libraries (rfr359f-example rfr359f ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (biss0001-example biss0001 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (my9221-example my9221 ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (grove_mcfled-example grove ${CMAKE_THREAD_LIBS_INIT})
