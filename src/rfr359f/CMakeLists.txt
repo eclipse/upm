@@ -1,0 +1,5 @@
+set (libname "rfr359f")
+set (libdescription "upm rfr359f grove distance interrupter")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
