@@ -49,8 +49,11 @@ main(int argc, char **argv)
     float altitude = 0;
     uint32_t sealevel = 0;
 
+    // Instantiate a GY65 sensor on I2C
     sensor = new upm::GY65(0, ADDR);
 
+    // Print the pressure, altitude, sea level, and
+    // temperature values every 0.1 seconds
     while (!doWork) {
         presure = sensor->getPressure ();
         temperature = sensor->getTemperature ();
@@ -59,7 +62,7 @@ main(int argc, char **argv)
 
         std::cout << "pressure value = " <<
                     presure <<
-                    ", atitude value = " <<
+                    ", altitude value = " <<
                     altitude <<
                     ", sealevel value = " <<
                     sealevel <<
