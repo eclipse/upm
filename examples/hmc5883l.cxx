@@ -30,11 +30,13 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
+    // Instantiate on I2C
     upm::Hmc5883l* compass = new upm::Hmc5883l(0);
     int16_t *pos;
 
     compass->set_declination(0.2749); // Set your declination from true north in radians
 
+    // Print out the coordinates, heading, and direction every second
     while(true){
         compass->update(); // Update the coordinates
         pos = compass->coordinates();
