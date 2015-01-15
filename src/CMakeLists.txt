@@ -125,5 +125,7 @@ endmacro(upm_module_init)
 
 subdirlist(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
 foreach(subdir ${SUBDIRS})
-    add_subdirectory(${subdir})
+    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/CMakeLists.txt)
+        add_subdirectory(${subdir})
+    endif()
 endforeach()
