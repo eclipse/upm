@@ -45,9 +45,11 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
+    // Instantiate a joystick on analog pins A0 and A1
     sensor = new upm::Joystick12(0,1);
     signal(SIGINT, sig_handler);
 
+    // Print the X and Y input values every second
     while (!is_running) {
         float x = sensor->getXInput();
         float y = sensor->getYInput();
