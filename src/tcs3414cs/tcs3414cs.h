@@ -115,7 +115,7 @@ typedef struct {
  * This file defines the TCS3414CS C++ interface for libtcs3414cs
  *
  * @ingroup tcs3414cs i2c
- * @snippet tcs3414cs-example.cxx Interesting
+ * @snippet tcs3414cs.cxx Interesting
  */
 class TCS3414CS {
     public:
