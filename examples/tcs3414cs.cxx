@@ -45,8 +45,11 @@ main(int argc, char **argv)
 {
     //! [Interesting]
     upm::tcs3414sc_rgb_t rgb;
+
+    // Instantiate the color sensor on I2C
     sensor = new upm::TCS3414CS ();
 
+    // Print out the r, g, b, and clr value every 0.5 seconds
     while (!doWork) {
         sensor->readRGB (&rgb);
         std::cout << (int)rgb.r << ", " << (int)rgb.g << ", " << (int)rgb.b << ", " << rgb.clr << std::endl;
