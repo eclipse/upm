@@ -98,6 +98,9 @@ endif()
 
 macro(upm_module_init)
   add_library (${libname} SHARED ${module_src})
+  foreach (linkflag ${ARGN})
+    target_link_libraries (${libname} ${linkflag})
+  endforeach ()
   include_directories (${MRAA_INCLUDE_DIR} .)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
