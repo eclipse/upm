@@ -27,6 +27,8 @@
 #include <time.h>
 #include <mraa/aio.h>
 
+namespace upm {
+
 typedef struct
 {
 	int lowPulseOccupancy;
@@ -34,7 +36,6 @@ typedef struct
 	double concentration;
 } dustData;
 
-namespace upm {
 
   /**
    * @brief C++ API for the Dust Sensor

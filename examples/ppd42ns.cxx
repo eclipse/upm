@@ -45,7 +45,7 @@ int main ()
 //! [Interesting]
 	// Instantiate a dust sensor on GPIO pin D8
 	upm::PPD42NS* dust = new upm::PPD42NS(8);
-	dustData data;
+	upm::dustData data;
 	cout << "This program will give readings every 30 seconds until you stop it" << endl;
 	while (shouldRun)
 	{
