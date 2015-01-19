@@ -46,6 +46,7 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
+    // Attach gas sensor to A0
     sensor = new upm::MQ3(0);
     signal(SIGINT, sig_handler);
 
@@ -54,6 +55,10 @@ main(int argc, char **argv)
     ctx.runningAverage = 0;
     ctx.averagedOver   = 2;
 
+    // Infinite loop, ends when script is cancelled
+    // Repeatedly, take a sample every 2 milliseconds;
+    // find the average of 128 samples; and
+    // print a running graph of the averages using a resolution of 5
     while (!is_running) {
         int len = sensor->getSampledWindow (2, 128, buffer);
         if (len) {
