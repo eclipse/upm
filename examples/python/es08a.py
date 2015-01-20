@@ -23,7 +23,7 @@
 import time
 import pyupm_servo as servo 
 
-# Create the servo object using D3
+# Create the servo object using D5
 gServo = servo.ES08A(5)
 
 for i in range(0,10): 
