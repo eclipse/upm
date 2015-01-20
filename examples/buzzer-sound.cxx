@@ -30,17 +30,17 @@
 
 int
 main(int argc, char **argv) {
+    //! [Interesting]
     int chord[] = { DO, RE, MI, FA, SOL, LA, SI, DO, SI };
 
-    //! [Interesting]
     // create Buzzer instance
     upm::Buzzer* sound = new upm::Buzzer(5);
     // print sensor name
     std::cout << sound->name() << std::endl;
-    // play sound (DO, RE, ME, etc...)
 
+    // play sound (DO, RE, MI, etc...), pausing for 0.1 seconds between notes
     for (int chord_ind = 0; chord_ind < 7; chord_ind++) {
-        // play one second for each chord
+        // play each note for one second
         std::cout << sound->playSound(chord[chord_ind], 1000000) << std::endl;
         usleep(100000);
     }
