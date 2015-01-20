@@ -44,15 +44,17 @@ namespace upm {
 /**
  * @brief C++ API for Buzzer component
  *
- * This file defines the Buzzer C++ interface for libbuzzer
+ * This file defines the Buzzer C++ interface for libbuzzer.
+ * This sensor can make different tones when connected to
+ * a pin capable of analog pulse-width modulation.
  *
- * @ingroup buzzer
+ * @ingroup buzzer pwm
  * @snippet buzzer-sound.cxx Interesting
  */
 class Buzzer {
     public:
         /**
-         * Instanciates a Buzzer object
+         * Instantiates a Buzzer object
          *
          * @param pinNumber Buzzer pin number
          */
@@ -64,15 +66,19 @@ class Buzzer {
         ~Buzzer ();
 
         /**
-         * Play chords.
+         * Play a tone for a certain amount of time.
          *
-         * @param note chords (DO, RE, ME, etc...)
+         * @param note the note to be played (DO, RE, MI, etc...)
          * @param delay time in microsec for playing the sound
+         *
+         * @return the note played
          */
         int playSound (int note, int delay);
 
         /**
          * Return name of the component
+         *
+         * @return name of the sensor
          */
         std::string name()
         {
