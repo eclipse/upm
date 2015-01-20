@@ -46,6 +46,5 @@ int Buzzer::playSound (int note, int delay) {
 
 Buzzer::~Buzzer() {
     mraa_pwm_close(m_pwm_context);
-    std::cout << "executed mraa_pwm_close" << std::endl;
 }
 
