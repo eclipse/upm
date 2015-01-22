@@ -39,32 +39,40 @@
 #define TRUE               HIGH
 #define FALSE              LOW
 
+/*!
+ * @struct clbk_data
+ * @brief callback data 
+ */
 struct clbk_data {
-    int is_heart_beat;
+    int is_heart_beat; /**< heart beat check */
 };
 
 typedef void (* callback_handler) (clbk_data);
 
+/*!
+ * @struct pulsensor_context 
+ * @brief The context for the heartbeat pulse sensor
+ */
 struct pulsensor_context {
-    pthread_t        sample_thread;
-    uint32_t         sample_counter;
-    uint32_t         last_beat_time;
-    int              threshold;
-    int              ibi_rate[10];
-    int              ibi;
-    int              trough;
-    int              peak;
-    int              bpm;
-    int              apmlitude;
-    uint8_t          qs;
-    uint8_t          is_pulse;
-    uint8_t          first_beat;
-    uint8_t          second_beat;
-    uint8_t          pin;
-    uint8_t          ret;
-    mraa_aio_context  pin_ctx;
+    pthread_t        sample_thread; /**< Thread for the code sample */
+    uint32_t         sample_counter; /**< Counter for the code sample */
+    uint32_t         last_beat_time; /**< Last heart beat time */
+    int              threshold; /**< Threshold */
+    int              ibi_rate[10]; /**< ibi rate */
+    int              ibi; /**< ibi */
+    int              trough; /**< Trough */
+    int              peak; /**< Peak */
+    int              bpm; /**< Bits per minute */
+    int              apmlitude; /**< Amplitude */
+    uint8_t          qs; /**< qs */
+    uint8_t          is_pulse; /**< Is pulse check */
+    uint8_t          first_beat; /**< First heart beat */
+    uint8_t          second_beat; /**< Second heart beat */
+    uint8_t          pin; /**< Pin */
+    uint8_t          ret; /**< Return value */
+    mraa_aio_context  pin_ctx; /**< The pin context */
 
-    callback_handler callback;
+    callback_handler callback; /**< The callback function */
 };
 
 static volatile uint16_t ctx_counter = 0;
