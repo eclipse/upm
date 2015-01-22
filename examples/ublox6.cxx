@@ -44,18 +44,8 @@ int main (int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate a Ublox6 GPS device on uart 0 (/dev/ttyS0).  This
-  // works for the galileo G2.  
-
-  // The Edison uses a different serial port, /dev/ttyMFD1, so if you
-  // are using this example on an Edison board, specify the proper
-  // port on the command line, eg: './ublox6-example /dev/ttyMFD1' 
-
-  const char *defaultPort = "/dev/ttyS0";
-  if (argc > 1)
-    defaultPort = argv[1];
-
-  upm::Ublox6* nmea = new upm::Ublox6(0, defaultPort);
+  // Instantiate a Ublox6 GPS device on uart 0.
+  upm::Ublox6* nmea = new upm::Ublox6(0);
 
   // make sure port is initialized properly.  9600 baud is the default.
   if (!nmea->setupTty(B9600))

@@ -27,23 +27,8 @@
 
 var GPSSensor = require('jsupm_ublox6');
 
-// Instantiate a Ublox6 GPS device on uart 0 (/dev/ttyS0).  This
-// works for the galileo G2.  
-
-// The Edison uses a different serial port, /dev/ttyMFD1, so if you
-// are using this example on an Edison board, specify the proper
-// port on the command line, eg: 'node ublox6.js /dev/ttyMFD1'
-// process.argv.length contains all command-line strings
-// argument 0 is "node"
-// argument 1 is "ublox6.js"
-// argument 2, if it exists, will be the override port,
-//    such as /dev/ttyMFD1 on Edison
-
-var defaultPort = "/dev/ttyS0";
-if (process.argv.length > 2)
-	defaultPort = process.argv[2];
-
-var myGPSSensor = new GPSSensor.Ublox6(0, defaultPort);
+// Instantiate a Ublox6 GPS device on uart 0.
+var myGPSSensor = new GPSSensor.Ublox6(0);
 
 if (!myGPSSensor.setupTty(GPSSensor.int_B9600))
 {
