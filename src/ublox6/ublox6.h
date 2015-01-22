@@ -58,9 +58,8 @@ namespace upm {
      * U-BLOX 6 GPS module constructor
      *
      * @param uart defualt uart to use (0 or 1)
-     * @param tty tty device to use
      */
-    Ublox6(int uart, const char *tty);
+    Ublox6(int uart);
 
     /**
      * U-BLOX 6 GPS module Destructor
