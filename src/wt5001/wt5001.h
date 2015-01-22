@@ -110,9 +110,8 @@ namespace upm {
      * WT5001 Serial MP3 module constructor
      *
      * @param uart default uart to use (0 or 1)
-     * @param tty tty device to use
      */
-    WT5001(int uart, const char *tty);
+    WT5001(int uart);
 
     /**
      * WT5001 Serial MP3 module Destructor

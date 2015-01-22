@@ -31,10 +31,9 @@ using namespace std;
 
 static const int defaultDelay = 100;     // max wait time for read
 
-WT5001::WT5001(int uart, const char *tty) :
-  m_ttyFd(-1)
+WT5001::WT5001(int uart)
 {
-  mraa_init();
+  m_ttyFd = -1;
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
@@ -42,10 +41,19 @@ WT5001::WT5001(int uart, const char *tty) :
       return;
     }
 
-  // now open the tty
-  if ( (m_ttyFd = open(tty, O_RDWR)) == -1)
+  // This requires a recent MRAA (1/2015)
+  char *devPath = mraa_uart_get_dev_path(m_uart);
+
+  if (!devPath)
     {
-      cerr << __FUNCTION__ << ": open of " << tty << " failed: " 
+      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      return;
+    }
+
+  // now open the tty
+  if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
+    {
+      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
            << strerror(errno) << endl;
       return;
     }
