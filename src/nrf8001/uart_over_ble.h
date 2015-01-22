@@ -60,10 +60,14 @@
  */
 #define UART_OVER_BLE_TRANSMIT_OK     (0x04)
 
+/**
+ * @struct uart_over_ble_t
+ * @brief State of the UART RTS over Bluetooth Low Energy(BLE)
+ */
 typedef struct
 {
-    uint8_t uart_rts_local;  /* State of the local UART RTS  */
-    uint8_t uart_rts_remote; /* State of the remote UART RTS */
+    uint8_t uart_rts_local;  /**< State of the local UART RTS  */
+    uint8_t uart_rts_remote; /**< State of the remote UART RTS */
 } uart_over_ble_t;
 
 /**
