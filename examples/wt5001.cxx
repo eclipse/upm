@@ -43,24 +43,10 @@ void printUsage(char *progname)
 int main (int argc, char **argv)
 {
 //! [Interesting]
-  // Instantiate a WT5001 serial MP3 player on uart 0 (/dev/ttyS0).  This
-  // works for the galileo G2.  
-
-  // The Edison uses a different serial port, /dev/ttyMFD1, so if you
-  // are using this example on an Edison board, set the environment
-  // variable WT5001_SERIAL_PORT to specify the proper port before
-  // running this example, 
-  // eg: 'WT5001_SERIAL_PORT=/dev/ttyMFD1 ./wt5001-example'
-
+  // Instantiate a WT5001 serial MP3 player on uart 0.
   // This example was tested on the Grove Serial MP3 module.
 
-  const char *defaultPort = "/dev/ttyS0";
-  char *port = getenv("WT5001_SERIAL_PORT");
-
-  if (port)
-    defaultPort = port;
-
-  upm::WT5001* mp3 = new upm::WT5001(0, defaultPort);
+  upm::WT5001* mp3 = new upm::WT5001(0);
   
   int cmd = -1;
   if (argc > 1)
