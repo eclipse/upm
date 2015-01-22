@@ -3,7 +3,7 @@
 /*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
-* Copyright (c) 2014 Intel Corporation.
+* Copyright (c) 2015 Intel Corporation.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -38,23 +38,10 @@ function printUsage(progname)
 	console.log("4  - previous track");
 }
 
-// Instantiate a WT5001 serial MP3 player on uart 0 (/dev/ttyS0).  This
-// works for the galileo G2.  
-
-// The Edison uses a different serial port, /dev/ttyMFD1, so if you
-// are using this example on an Edison board, set the environment
-// variable WT5001_SERIAL_PORT to specify the proper port before
-// running this example, 
-// eg: 'WT5001_SERIAL_PORT=/dev/ttyMFD1 node w5001.js'
-
+// Instantiate a WT5001 serial MP3 player on uart 0.
 // This example was tested on the Grove Serial MP3 module.
 
-var defaultPort = "/dev/ttyS0";
-var port = process.env.WT5001_SERIAL_PORT;
-if (port)
-	defaultPort = port;
-
-var myMP3Player = new MP3Player.WT5001(0, defaultPort);
+var myMP3Player = new MP3Player.WT5001(0);
 
 var cmd = -1;
 if (process.argv.length > 2)
@@ -110,6 +97,26 @@ console.log("The number of files on the SD card is: " + numf.getitem(0));
 var curf = new MP3Player.uint16Array(0);
 myMP3Player.getCurrentFile(curf);
 console.log("The current file is: " + curf.getitem(0));
+
+/*
+// Example: set the date
+var year = new MP3Player.uint16Array(0);
+year.setitem(2015);
+var month = new MP3Player.uint8Array(0);
+month.setitem(1);
+var day = new MP3Player.uint8Array(0);
+day.setitem(1);
+myMP3Player.setDate(year, month, day);
+
+// Example: set the date
+var hour = new MP3Player.uint8Array(0);
+hour.setitem(12);
+var minute = new MP3Player.uint8Array(0);
+minute.setitem(30);
+var second = new MP3Player.uint8Array(0);
+second.setitem(30);
+myMP3Player.setTime(hour, minute, second);
+*/
 
 var year = new MP3Player.uint16Array(0);
 var month = new MP3Player.uint8Array(0);
