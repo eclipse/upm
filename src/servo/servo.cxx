@@ -85,8 +85,6 @@ mraa_result_t Servo::setAngle (int angle) {
     }
     mraa_pwm_enable (m_pwmServoContext, 0);
 
-    std::cout << "angle = " << angle << " ,pulse = " << calcPulseTraveling(angle) << ", cycles " << cycles << std::endl;
-
     m_currAngle = angle;
 }
 
