@@ -36,13 +36,18 @@ namespace upm {
 #define LOW                   0
 
 /**
- * @brief servo libraries
+ * @brief C++ API for servo libraries 
+ *
+ * The base class Servo provides routines for setting the angle of the shaft
+ * as well as setting and getting the minimum and maximum pulse width and 
+ * the maximum period.
+ *
  * @defgroup servo libupm-servo
  */
 class Servo {
     public:
         /**
-         * Instanciates a servo object
+         * Instantiates a servo object
          *
          * @param pin servo pin number
          */
@@ -54,24 +59,17 @@ class Servo {
         ~Servo();
 
         /**
-         * Set the of the servo engine.
-         *
-         * X = between (MIN_PULSE_WIDTH , MAX_PULSE_WIDTH)
-         *
-         * X usec
-         * _______
-         *        |_______________________________________
-         *                      20000 usec
-         *
-         * Max period can be only 7968750(nses) which is ~8(msec)
-         * so the servo will not work as expected.
+         * Set the angle of the servo engine.
          *
          * @param angle number between 0 and 180
+         * @return 0 on success; non-zero otherwise
          */
         mraa_result_t setAngle (int angle);
 
         /**
          * Return name of the component
+         *
+         * @return name of the component
          */
         std::string name()
         {
@@ -79,38 +77,44 @@ class Servo {
         }
 
         /**
-         * Set min pulse width
+         * Set minimum pulse width
          *
-         * @param width HIGH signal width
+         * @param width minimum HIGH signal width
          */
         void setMinPulseWidth (int width);
 
         /**
-         * Set max pulse width
+         * Set maximum pulse width
          *
-         * @param width HIGH signal width
+         * @param width maximum HIGH signal width
          */
         void setMaxPulseWidth (int width);
 
         /**
-         * Set max period width
+         * Set maximum period width
          *
-         * @param width PWM period width
+         * @param width maximum PWM period width
          */
         void setMaxPeriod (int width);
 
         /**
-         * Return min pulse width
+         * Return minimum pulse width
+         *
+         * @return minimum pulse width
          */
         int getMinPulseWidth ();
 
         /**
-         * Return max pulse width
+         * Return maximum pulse width
+         *
+         * @return maximum pulse width
          */
         int getMaxPulseWidth ();
 
         /**
-         * Return max PWM period width
+         * Return maximum PWM period width
+         *
+         * @return maximum PWM period width
          */
         int getMaxPeriod ();
 
@@ -120,7 +124,7 @@ class Servo {
         std::string         m_name;
         int                 m_servoPin;
         float               m_maxAngle;
-        mraa_pwm_context     m_pwmServoContext;
+        mraa_pwm_context    m_pwmServoContext;
         int                 m_currAngle;
 
         int                 m_minPulseWidth;
