@@ -43,11 +43,11 @@ function startServo(timeOffset, timeInterval, angle)
     // Start running this instance after timeOffset milliseconds
     setTimeout(function()
     {
-        console.log("Starting angle is " + angle);
         // run this instance every timeInterval milliseconds
         setInterval(function()
         {
             servo.setAngle(angle);
+            console.log("Set angle to " + angle);
         }, timeInterval);
     }, timeOffset);
     // timeOffset tells setTimeout when
