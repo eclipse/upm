@@ -31,7 +31,11 @@ namespace upm {
 /**
  * @brief C++ API for ES08A servo component
  *
- * This file defines the ES08A C++ interface for libes08a
+ * This file defines the ES08A C++ interface for ES08A servos.
+ * Like other servos, the ES08A servo has a shaft that can be controlled
+ * by setting the desired angle.  There are also routines for setting
+ * and getting the minimum and maximum pulse width as well as the
+ * maximum period.
  *
  * @ingroup servo pwm
  * @snippet es08a.cxx Interesting
@@ -39,7 +43,7 @@ namespace upm {
 class ES08A : public Servo {
     public:
         /**
-         * Instanciates a ES08A object
+         * Instantiates an ES08A object
          *
          * @param pin servo pin number
          */
