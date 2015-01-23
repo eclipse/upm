@@ -33,13 +33,25 @@ main(int argc, char **argv)
 {
     //! [Interesting]
     upm::ES08A *servo = new upm::ES08A(5);    
-    servo->setAngle (180);
-    //! [Interesting]
 
-    servo->setAngle (90);
-    servo->setAngle (0);
-    servo->setAngle (90);
+    // Sets the shaft to 180, then to 90, then to 0,
+    // then back to 90, and finally back to 180,
+    // pausing for a second in between each angle
     servo->setAngle (180);
+    std::cout << "Set angle to 180" << std::endl;
+    sleep(1);
+    servo->setAngle (90);
+    std::cout << "Set angle to 90" << std::endl;
+    sleep(1);
+    servo->setAngle (0);
+    std::cout << "Set angle to 0" << std::endl;
+    sleep(1);
+    servo->setAngle (90);
+    std::cout << "Set angle to 90" << std::endl;
+    sleep(1);
+    servo->setAngle (180);
+    std::cout << "Set angle to 180" << std::endl;
+    //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
 
