@@ -28,10 +28,8 @@
 //Load servo module.
 var servoModule = require("jsupm_servo");
 
-//Instantiate Servo module on GPIO 5
-var servo = new servoModule.Servo(5);
-servo.setMinPulseWidth(600);
-servo.setMaxPulseWidth(2200);
+//Instantiate ES08A Servo module on GPIO 5
+var servo = new servoModule.ES08A(5);
 
 // function to initialize servo
     // timeOffset: how long after hitting "run"
