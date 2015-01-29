@@ -21,11 +21,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_mic as mic
+import pyupm_mic as upmMicrophone 
 
-# Create the mic object on analog A0
-myMic = mic.Microphone(0)
-threshContext = mic.thresholdContext
+# Attach microphone to analog port A0
+myMic = upmMicrophone.Microphone(0)
+threshContext = upmMicrophone.thresholdContext()
 threshContext.averageReading = 0
 threshContext.runningAverage = 0
 threshContext.averagedOver = 2
@@ -35,7 +35,7 @@ threshContext.averagedOver = 2
 # find the average of 128 samples; and
 # print a running graph of dots as averages
 while(1):
-    buffer = mic.uint16Array(128)
+    buffer = upmMicrophone.uint16Array(128)
     len = myMic.getSampledWindow(2, 128, buffer);
     if len:
         thresh = myMic.findThreshold(threshContext, 30, buffer, len)
@@ -43,5 +43,5 @@ while(1):
         if(thresh):
             print "Threshold is ", thresh
 
-# Delete the mic object
+# Delete the upmMicrophone object
 del myMic
