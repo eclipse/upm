@@ -1,6 +1,10 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
+if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+message("WARNING: building into sources dir can be risky, prefer other directory")
+endif ()
+
 find_package (SWIG)
 if (SWIG_FOUND)
   include (${SWIG_USE_FILE})
