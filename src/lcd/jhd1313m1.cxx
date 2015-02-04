@@ -120,7 +120,11 @@ Jhd1313m1::setCursor (int row, int column) {
 
 mraa_result_t
 Jhd1313m1::clear () {
-    return i2Cmd (m_i2c_lcd_control, LCD_CLEARDISPLAY);
+    mraa_result_t error = MRAA_SUCCESS;
+    error = i2Cmd (m_i2c_lcd_control, LCD_CLEARDISPLAY);
+    usleep(4500);
+    
+    return error;
 }
 
 mraa_result_t
