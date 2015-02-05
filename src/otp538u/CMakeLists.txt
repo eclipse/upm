@@ -1,0 +1,5 @@
+set (libname "otp538u")
+set (libdescription "upm otp538u IR temperature sensor")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
