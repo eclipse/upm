@@ -1,6 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Mihai Tudor Panu <mihai.t.panu@intel.com>
+ * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Contributions: Sarah Knepper <sarah.knepper@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *

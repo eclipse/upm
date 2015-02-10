@@ -1,5 +1,5 @@
 /*
- * Author: Mihai Tudor Panu <mihai.t.panu@intel.com>
+ * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
