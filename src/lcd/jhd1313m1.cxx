@@ -99,6 +99,7 @@ Jhd1313m1::scroll(bool direction)
  */
 mraa_result_t
 Jhd1313m1::write (std::string msg) {
+    usleep(1000);
     mraa_result_t error = MRAA_SUCCESS;
     uint8_t data[2] = {0x40, 0};
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
