@@ -13,7 +13,7 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 # force the libmraa version to be the required version
-pkg_check_modules (MRAA REQUIRED mraa>=0.5.2)
+pkg_check_modules (MRAA REQUIRED mraa>=0.5.4)
 message (INFO " found libmraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
@@ -28,7 +28,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
   message (WARNING " - Install git to compile a production libmraa!")
-  set (VERSION "v0.1.8-dirty")
+  set (VERSION "v0.1.9-dirty")
 endif ()
 
 message (INFO " - UPM Version ${VERSION}")
