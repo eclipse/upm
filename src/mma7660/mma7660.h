@@ -45,6 +45,7 @@ namespace upm {
    * Accelerometer (1.5g)
    *
    * @ingroup i2c gpio mma7660
+   * @defgroup mma7660 libupm-mma7660
    * @snippet mma7660.cxx Interesting
    */
   class MMA7660 {
