@@ -64,6 +64,7 @@ namespace upm {
    * configuration mode by grounding the CONFIG pin on the module.
    *
    * @ingroup grove uart radio
+   * @defgroup hmtrp libupm-hmtrp
    * @snippet hmtrp.cxx Interesting
    */
   class HMTRP {
