@@ -39,6 +39,7 @@ namespace upm {
    * the capabilities of your device.
    *
    * @ingroup gpio pwm
+   * @defgroup cjq4435 libupm-cjq4435
    * @snippet cjq4435.cxx Interesting
    */
   class CJQ4435 {
