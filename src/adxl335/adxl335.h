@@ -42,6 +42,7 @@ namespace upm {
    * analog pins, one each for X, Y, and Z axis.
    *
    * @ingroup grove analog
+   * @defgroup adxl335 libupm-adxl335
    * @snippet adxl335.cxx Interesting
    */
   class ADXL335 {
