@@ -32,22 +32,19 @@
 using namespace upm;
 
 Servo::Servo (int pin) {
-    mraa_result_t error = MRAA_SUCCESS;
+    init(pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, DEFAULT_WAIT_DISABLE_PWM);
+}
 
-    m_minPulseWidth   = MIN_PULSE_WIDTH;
-    m_maxPulseWidth   = MAX_PULSE_WIDTH;
-    m_maxPeriod       = MAX_PERIOD;
+Servo::Servo (int pin, int minPulseWidth, int maxPulseWidth) {
+    init(pin, minPulseWidth, maxPulseWidth, DEFAULT_WAIT_DISABLE_PWM);
+}
 
-    m_maxAngle        = 180.0;
-    m_servoPin        = pin;
-    m_pwmServoContext = mraa_pwm_init (m_servoPin);
-
-    m_currAngle = 180;
-
-    setAngle (0);
+Servo::Servo (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePwm) {
+    init(pin, minPulseWidth, maxPulseWidth, waitAndDisablePwm);
 }
 
 Servo::~Servo () {
+    haltPwm();
     mraa_pwm_close (m_pwmServoContext);
 }
 
@@ -57,10 +54,8 @@ Servo::~Servo () {
  * X usec
  * _______
  *        |_______________________________________
- *                      20000 usec
+ *                      m_period usec
  *
- * Max period can be only 7968750(nses) which is ~8(msec)
- * so the servo wil not work as expected.
  * */
 mraa_result_t Servo::setAngle (int angle) {
     if (m_pwmServoContext == NULL) {
@@ -72,20 +67,25 @@ mraa_result_t Servo::setAngle (int angle) {
         return MRAA_ERROR_UNSPECIFIED;
     }
 
-    int period = (m_maxPulseWidth - m_minPulseWidth) / m_maxAngle;
-
-    int cycles = (int)(100.0 * (abs (m_currAngle - angle) / m_maxAngle));
-
-    // int cycles = (int)(100.0 * ((float)angle / (float)m_maxAngle));
-
     mraa_pwm_enable (m_pwmServoContext, 1);
-    for (int cycle = 0; cycle < cycles; cycle++) {
-        mraa_pwm_period_us (m_pwmServoContext, m_maxPeriod);
-        mraa_pwm_pulsewidth_us (m_pwmServoContext, calcPulseTraveling(angle));
+    mraa_pwm_period_us (m_pwmServoContext, m_period);
+    mraa_pwm_pulsewidth_us (m_pwmServoContext, calcPulseTraveling(angle));
+
+    if (m_waitAndDisablePwm) {
+        sleep(1); // we must make sure that we don't turn off PWM before the servo is done moving.
+        haltPwm();
     }
-    mraa_pwm_enable (m_pwmServoContext, 0);
 
     m_currAngle = angle;
+}
+
+mraa_result_t Servo::haltPwm () {
+    if (m_pwmServoContext == NULL) {
+        std::cout << "PWM context is NULL" << std::endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
+
+    return mraa_pwm_enable (m_pwmServoContext, 0);
 }
 
 /*
@@ -117,8 +117,8 @@ Servo::setMaxPulseWidth (int width) {
 }
 
 void
-Servo::setMaxPeriod (int width) {
-    m_maxPeriod = width;
+Servo::setPeriod (int period) {
+    m_period = period;
 }
 
 int
@@ -132,6 +132,26 @@ Servo::getMaxPulseWidth () {
 }
 
 int
-Servo::getMaxPeriod () {
-    return m_maxPeriod;
+Servo::getPeriod () {
+    return m_period;
+}
+
+/**
+ *  private mathod:  would like to use delegating constructors instead but that requires C++11
+ */
+void
+Servo::init (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePwm) {
+    m_minPulseWidth   = minPulseWidth;
+    m_maxPulseWidth   = maxPulseWidth;
+    m_period          = PERIOD;
+
+    m_waitAndDisablePwm = waitAndDisablePwm;
+
+    m_maxAngle        = 180.0;
+    m_servoPin        = pin;
+    m_pwmServoContext = mraa_pwm_init (m_servoPin);
+
+    m_currAngle = 180;
+
+    setAngle (0);
 }
