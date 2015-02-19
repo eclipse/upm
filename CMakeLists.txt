@@ -13,7 +13,7 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 # force the libmraa version to be the required version
-pkg_check_modules (MRAA REQUIRED mraa>=0.5.4)
+pkg_check_modules (MRAA REQUIRED mraa>=0.6.0)
 message (INFO " found libmraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
