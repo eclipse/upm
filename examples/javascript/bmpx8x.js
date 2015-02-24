@@ -26,9 +26,9 @@
 */
 
 //Load Barometer module
-var gy65 = require('jsupm_gy65');
+var bmpx8x = require('jsupm_bmpx8x');
 // load this on i2c
-var myBarometerObj = new gy65.GY65(0, gy65.ADDR);
+var myBarometerObj = new bmpx8x.BMPX8X(0, bmpx8x.ADDR);
 var pressure, temperature, altitude, sealevel;
 
 // Print the pressure, altitude, sea level, and
@@ -40,11 +40,11 @@ setInterval(function()
 	var altitude = myBarometerObj.getAltitude();
 	var sealevel = myBarometerObj.getSealevelPressure();
 
-	var GY65results = "pressure value = " + pressure;
-	GY65results += ", altitude value = " + altitude;
-	GY65results += ", sealevel value = " + sealevel;
-	GY65results += ", temperature = " + temperature;
-	console.log(GY65results);
+	var BMPX8Xresults = "pressure value = " + pressure;
+	BMPX8Xresults += ", altitude value = " + altitude;
+	BMPX8Xresults += ", sealevel value = " + sealevel;
+	BMPX8Xresults += ", temperature = " + temperature;
+	console.log(BMPX8Xresults);
 }, 100);
 
 // Print message when exiting
