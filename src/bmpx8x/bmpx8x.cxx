@@ -26,12 +26,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "gy65.h"
+#include "bmpx8x.h"
 
 using namespace upm;
 
-GY65::GY65 (int bus, int devAddr, uint8_t mode) {
-    m_name = "GY65";
+BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
+    m_name = "BMPX8X";
 
     m_controlAddr = devAddr;
     m_bus = bus;
@@ -69,12 +69,12 @@ GY65::GY65 (int bus, int devAddr, uint8_t mode) {
     md = i2cReadReg_16 (BMP085_CAL_MD);
 }
 
-GY65::~GY65() {
+BMPX8X::~BMPX8X() {
     mraa_i2c_stop(m_i2ControlCtx);
 }
 
 int32_t
-GY65::getPressure () {
+BMPX8X::getPressure () {
     int32_t UT, UP, B3, B5, B6, X1, X2, X3, p;
     uint32_t B4, B7;
 
@@ -110,7 +110,7 @@ GY65::getPressure () {
 }
 
 int32_t
-GY65::getPressureRaw () {
+BMPX8X::getPressureRaw () {
     uint32_t raw;
 
     i2cWriteReg (BMP085_CONTROL, BMP085_READPRESSURECMD + (oversampling << 6));
@@ -135,14 +135,14 @@ GY65::getPressureRaw () {
 }
 
 int16_t
-GY65::getTemperatureRaw () {
+BMPX8X::getTemperatureRaw () {
     i2cWriteReg (BMP085_CONTROL, BMP085_READTEMPCMD);
     usleep(5000);
     return i2cReadReg_16 (BMP085_TEMPDATA);
 }
 
 float
-GY65::getTemperature () {
+BMPX8X::getTemperature () {
     int32_t UT, B5;     // following ds convention
     float temp;
 
@@ -156,13 +156,13 @@ GY65::getTemperature () {
 }
 
 int32_t
-GY65::getSealevelPressure(float altitudeMeters) {
+BMPX8X::getSealevelPressure(float altitudeMeters) {
     float pressure = getPressure ();
     return (int32_t)(pressure / pow(1.0-altitudeMeters/44330, 5.255));
 }
 
 float
-GY65::getAltitude (float sealevelPressure) {
+BMPX8X::getAltitude (float sealevelPressure) {
     float altitude;
 
     float pressure = getPressure ();
@@ -173,7 +173,7 @@ GY65::getAltitude (float sealevelPressure) {
 }
 
 int32_t
-GY65::computeB5(int32_t UT) {
+BMPX8X::computeB5(int32_t UT) {
     int32_t X1 = (UT - (int32_t)ac6) * ((int32_t)ac5) >> 15;
     int32_t X2 = ((int32_t)mc << 11) / (X1+(int32_t)md);
 
@@ -181,7 +181,7 @@ GY65::computeB5(int32_t UT) {
 }
 
 mraa_result_t
-GY65::i2cWriteReg (uint8_t reg, uint8_t value) {
+BMPX8X::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[2] = { reg, value };
@@ -192,7 +192,7 @@ GY65::i2cWriteReg (uint8_t reg, uint8_t value) {
 }
 
 uint16_t
-GY65::i2cReadReg_16 (int reg) {
+BMPX8X::i2cReadReg_16 (int reg) {
     uint16_t data;
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
@@ -209,7 +209,7 @@ GY65::i2cReadReg_16 (int reg) {
 }
 
 uint8_t
-GY65::i2cReadReg_8 (int reg) {
+BMPX8X::i2cReadReg_8 (int reg) {
     uint8_t data;
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
