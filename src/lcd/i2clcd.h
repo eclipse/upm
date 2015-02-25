@@ -68,6 +68,9 @@ namespace upm {
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
+// flags for CGRAM
+#define LCD_SETCGRAMADDR 0x40
+
 #define LCD_EN 0x04 // Enable bit
 #define LCD_RW 0x02 // Read/Write bit
 #define LCD_RS 0x01 // Register select bit
@@ -85,6 +88,7 @@ class I2CLcd {
         virtual mraa_result_t setCursor (int row, int column) = 0;
         virtual mraa_result_t clear () = 0;
         virtual mraa_result_t home () = 0;
+        virtual mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
         virtual mraa_result_t i2Cmd (mraa_i2c_context ctx, uint8_t value);
         virtual mraa_result_t i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
         virtual mraa_result_t i2cData (mraa_i2c_context ctx, uint8_t value);

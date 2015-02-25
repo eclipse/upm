@@ -48,6 +48,20 @@ I2CLcd::write (int row, int column, std::string msg) {
 }
 
 mraa_result_t
+I2CLcd::createChar(uint8_t charSlot, uint8_t charData[]) {
+    mraa_result_t error = MRAA_SUCCESS;
+    charSlot &= 0x07; // only have 8 positions we can set
+    error = i2Cmd(m_i2c_lcd_control, LCD_SETCGRAMADDR | (charSlot << 3));
+    if (error == MRAA_SUCCESS) {
+        for (int i = 0; i < 8; i++) {
+            error = i2cData(m_i2c_lcd_control, charData[i]);
+        }
+    }
+
+    return error;
+}
+
+mraa_result_t
 I2CLcd::close() {
     return mraa_i2c_stop(m_i2c_lcd_control);
 }
