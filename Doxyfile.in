@@ -755,7 +755,8 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/src \
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/src/upm.h \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src \
                          @CMAKE_CURRENT_SOURCE_DIR@/docs \
                          @CMAKE_CURRENT_SOURCE_DIR@/README.md
 
