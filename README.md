@@ -45,6 +45,8 @@ Before you begin development, take a look at our @ref naming [conventions](docs/
 
 Also, please read the guidelines for @ref contributions [to UPM](docs/contributions.md).
 
+Don't forget to check the @ref documentation [section](docs/documentation.md).
+
 Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
 as a contributor. Signing-off your commits is mandatory.
