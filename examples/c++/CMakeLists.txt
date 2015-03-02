@@ -1,3 +1,5 @@
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/examples)
+
 add_executable (hmc5883l-example hmc5883l.cxx)
 add_executable (groveled-example groveled.cxx)
 add_executable (groverelay-example groverelay.cxx)
