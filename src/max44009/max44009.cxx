@@ -25,6 +25,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "max44009.h"
 
@@ -49,11 +50,23 @@ MAX44009::~MAX44009() {
 }
 
 uint16_t
-MAX44009::getLux () {
-    uint16_t data = 0;
+MAX44009::getLuxValue () {
+    uint8_t data = 0;
+    uint8_t exponent = 0;
+    uint8_t mantissa = 0;
 
-    data = (i2cReadReg_8 (LUXDATA_HIGH) & 0x7F) << 8;
-    data = data | i2cReadReg_8 (LUXDATA_LOW);
+    data = i2cReadReg_8 (LUXDATA_HIGH);
+    exponent = data >> 4;
+    mantissa = data & 0xF;
+
+    return pow(2, exponent) * mantissa * 0.72;
+}
+
+uint8_t
+MAX44009::getLuxData () {
+    uint8_t data = 0;
+
+    data = i2cReadReg_8 (LUXDATA_HIGH);
 
     return data;
 }
