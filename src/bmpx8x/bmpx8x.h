@@ -60,6 +60,10 @@
 #define LOW                0
 
 namespace upm {
+/**
+ * @brief GY65/BPM085, and BMP180 atmospheric pressure sensor library
+ * @defgroup bmpx8x libupm-bmpx8x
+ */
 
 /**
  * @brief C++ API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
@@ -70,8 +74,7 @@ namespace upm {
  *
  * This module has been tested on the GY65/BMP085 and BMP180 sensors.
  *
- * @ingroup bmpx8x i2c
- * @defgroup bmpx8x libupm-bmpx8x
+ * @ingroup i2c bmpx8x
  * @snippet bmpx8x.cxx Interesting
  * @image html bmp085.jpeg
  */
