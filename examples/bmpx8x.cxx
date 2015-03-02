@@ -24,11 +24,11 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "gy65.h"
+#include "bmpx8x.h"
 #include <signal.h>
 
 int doWork = 0;
-upm::GY65 *sensor = NULL;
+upm::BMPX8X *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -49,8 +49,8 @@ main(int argc, char **argv)
     float altitude = 0;
     uint32_t sealevel = 0;
 
-    // Instantiate a GY65 sensor on I2C
-    sensor = new upm::GY65(0, ADDR);
+    // Instantiate a BMPX8X sensor on I2C
+    sensor = new upm::BMPX8X(0, ADDR);
 
     // Print the pressure, altitude, sea level, and
     // temperature values every 0.1 seconds

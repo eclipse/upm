@@ -1,5 +1,5 @@
-set (libname "gy65")
-set (libdescription "upm GY65")
+set (libname "bmpx8x")
+set (libdescription "upm BMPX8X")
 set (module_src ${libname}.cxx)
 set (module_h ${libname}.h)
 upm_module_init()

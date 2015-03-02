@@ -1,5 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Credits to Adafruit.
@@ -59,39 +60,39 @@
 #define LOW                0
 
 namespace upm {
-
 /**
- * @brief GY65 & BPM085 atmospheric pressure sensor library
- * @defgroup gy65 libupm-gy65
+ * @brief GY65/BPM085, and BMP180 atmospheric pressure sensor library
+ * @defgroup bmpx8x libupm-bmpx8x
  */
 
 /**
- * @brief C++ API for GY65/BMP085 chip (Atmospheric Pressure Sensor)
+ * @brief C++ API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
  *
- * The Bosch [BMP085]
- * (https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf)
- * is a high precision, ultra-low power consumption pressure sensor. It has a
- * range of between 30,000 and 110,000 Pa.
+ * The Bosch GY65/BMP085 and BMP180 are high precision, ultra-low
+ * power consumption pressure sensors. They have a range of between
+ * 30,000 and 110,000 Pa.
  *
- * @ingroup gy65 i2c
- * @snippet gy65.cxx Interesting
+ * This module has been tested on the GY65/BMP085 and BMP180 sensors.
+ *
+ * @ingroup i2c bmpx8x
+ * @snippet bmpx8x.cxx Interesting
  * @image html bmp085.jpeg
  */
-class GY65 {
+class BMPX8X {
     public:
         /**
-         * Instanciates a GY65 object
+         * Instanciates a BMPX8X object
          *
          * @param bus number of used bus
          * @param devAddr address of used i2c device
          * @param mode BMP085 mode
          */
-        GY65 (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
+        BMPX8X (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
 
         /**
-         * GY65 object destructor, basicaly it close i2c connection.
+         * BMPX8X object destructor, basicaly it close i2c connection.
          */
-        ~GY65 ();
+        ~BMPX8X ();
 
         /**
          * Return calculated pressure
