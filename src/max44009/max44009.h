@@ -35,8 +35,8 @@
 #define LUXDATA_HIGH       0x03 // Lux Reading High Byte
 #define LUXDATA_LOW        0x04 // Lux Reading Low Byte
 
-#define UP_THRESH_HIGH     0x05 // Upper Threshold Registers High
-#define UP_THRESH_HIGH     0x06 // Lower Threshold Registers High
+#define UP_THRESH_HIGH     0x05 // Upper Threshold Register High Byte
+#define LOW_THRESH_HIGH    0x06 // Lower Threshold Register High Byte
 #define THRESH_TIMER       0x07 // Threshold Timer Register
 
 #define HIGH               1
