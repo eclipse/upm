@@ -82,7 +82,7 @@ class MAX44009 {
 	/**
          * Read the lux register data from the chip.
          */
-        uint16_t getLuxData ();
+        uint8_t getLuxData ();
 
         /**
          * Return name of the component
