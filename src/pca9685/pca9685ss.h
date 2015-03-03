@@ -56,27 +56,27 @@
 namespace upm {
 
  /**
- * @brief pca9685 servo controller
+ * @brief pca9685 based servo controller
  * @defgroup pca9685 libupm-pca9685
  */
  
  /**
   * @brief
-  * UPM library for pca9685 Adafruit 16-channel servo controller. When 3 or more GWS servos attached results unpredictable.
+  * UPM library for pca9685 Adafruit 16-channel servo shield/controller. When 3 or more GWS servos attached results unpredictable.
   * Adafruit do recommend a capacitor be installed on the board which should alleviate the issue. Sizing depends on servos and count.
   *
   * @ingroup i2c
-  * @snippet pca9685.cxx Interesting
+  * @snippet pca9685ss.cxx Interesting
   */
-  class pca9685 {
+  class pca9685ss {
   public:
     /**
-     * Creates a pca9685 object
+     * Creates a pca9685ss object
      *
      * @param bus number of used i2c bus
      * @param i2c_address address of servo controller on i2c bus
      */
-    pca9685(int bus, int i2c_address);
+    pca9685ss(int bus, int i2c_address);
     int update(void);
     /**
      * Sets the frequency for your servos

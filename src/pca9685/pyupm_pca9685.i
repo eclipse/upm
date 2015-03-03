@@ -3,7 +3,7 @@
 
 %feature("autodoc", "3");
 
-%include "pca9685.h"
+%include "pca9685ss.h"
 %{
-    #include "pca9685.h"
+    #include "pca9685ss.h"
 %}
