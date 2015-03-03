@@ -54,7 +54,7 @@ namespace upm {
 class Buzzer {
     public:
         /**
-         * Instantiates a Buzzer object
+         * Instantiates a Buzzer object.
          *
          * @param pinNumber Buzzer pin number
          */
@@ -66,17 +66,40 @@ class Buzzer {
         ~Buzzer ();
 
         /**
-         * Play a tone for a certain amount of time.
+         * Play a tone for a certain amount of time or indefinitely. When delay
+         * is not used, the sound can be stopped by calling stopSound().
          *
-         * @param note the note to be played (DO, RE, MI, etc...)
-         * @param delay time in microsec for playing the sound
+         * @param note the note to be played (DO, RE, MI, etc...) or frequency
+         * @param delay time in microseconds for playing the sound, a value of
+         * 0 plays the sound indefinitely
          *
          * @return the note played
          */
         int playSound (int note, int delay);
 
         /**
-         * Return name of the component
+         * Stops the sound currently playing. Has to be called when playSound()
+         * does not set a delay value.
+         */
+        void stopSound();
+
+        /**
+         * Sets the volume for the buzzer, but may affect the sound timbre.
+         * Works best with halved values, e.g. 1.0, 0.5, 0.25, ...
+         *
+         * @param vol the value to set the volume to from 0.0 to 1.0
+         */
+        void setVolume(float vol);
+
+        /**
+         * Gets the buzzer volume.
+         *
+         * @return the value the volume was set to
+         */
+        float getVolume();
+
+        /**
+         * Return name of the component.
          *
          * @return name of the sensor
          */
@@ -88,5 +111,6 @@ class Buzzer {
         std::string m_name;
     private:
         mraa_pwm_context m_pwm_context;
+        float m_volume;
 };
 }
