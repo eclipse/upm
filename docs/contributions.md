@@ -11,8 +11,8 @@ Here are the rules of contribution:
   avoid GPL. (LGPL is fine). If your license is not MIT please include a
   LICENSE file in src/mymodule/.
 - Please test your module builds before contributing and make sure it works on
-  the latest version of mraa. If you tested on a specific board/platform please
-  tell us what this was in your PR.
+  the latest version of libmraa. If you tested on a specific board/platform
+  please tell us what this was in your PR.
 - Try not to break master. In any commit.
 - Attempt to have some decent API documentation as described in the the @ref
   documentation [guide](documentation.md).

@@ -338,6 +338,6 @@
 
 /**
  * @brief Grove Starter Kit
- * @defgroup grovesk Grove Starter Kit
+ * @defgroup gsk Grove Starter Kit
  * @ingroup bykit
  */

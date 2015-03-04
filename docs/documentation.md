@@ -15,7 +15,7 @@ New libraries must have the "@brief", "@defgroup" and "@ingroup" tags in one
 block. This usually follows the namespace and it is common to have one sensor
 per library.
 
-Here's how this looks:
+Here's how this looks (disregard the "@verbatim" tags in your actual code):
 
 ```
 @verbatim
@@ -50,8 +50,9 @@ this example:
 ```
 
 Libraries with multiple sensors can add specific "@ingroup" tags here, but make
-sure that the first one is the "<name>" specified in the library "@defgroup"
-tag. An example of such a library for reference is our libupm-i2clcd.
+sure that the first one is the name specified in the library "@defgroup" tag.
+Also, add this block to every sensor. An example of such a library for
+reference is our libupm-i2clcd, which acts as a driver for multiple I2C LCDs.
 
 Optionally, a small representative image can be placed in the "docs/images"
 subfolder. **Please do not use existing, copyrighted images with your sensors!**
