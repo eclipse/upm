@@ -35,14 +35,18 @@
  * ADS1015 registers
  */
 
-#define ADS1015_REG_RESULT          0x00
-#define ADS1015_REG_ALERT_STATUS    0x01
-#define ADS1015_REG_CONFIG          0x02
-#define ADS1015_REG_ALERT_LIM_UNDER 0x03
-#define ADS1015_REG_ALERT_LIM_OVER  0x04
-#define ADS1015_REG_ALERT_HYS       0x05
-#define ADS1015_REG_LOWEST_CONV     0x06
-#define ADS1015_REG_HIGHEST_CONV    0x07
+#define ADS1015_REG_CONVERSION      0x00
+#define ADS1015_REG_CONFIG          0x01
+#define ADS1015_REG_LO_THRESH       0x02
+#define ADS1015_REG_HI_THRESH       0x03
+
+#define ADS1015_CONV_START          0x8000
+
+#define ADS1015_MODE_CONT           0xFEFF
+#define ADS1015_MODE_SINGLE         0xFFFF
+
+
+#define ADS1015_CONFIG_DEFAULT      0x583
 
 #define ADS1015_DEFAULT_VREF        3.0
 
