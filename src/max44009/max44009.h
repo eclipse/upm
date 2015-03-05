@@ -25,8 +25,10 @@
 
 #include <string>
 #include <mraa/i2c.h>
+#include "../iSensors/iLightSensor.h"
 
 #define ADDR               0x4A // device address
+#define BUS                1    // device address
 
 // registers address
 #define ISR                0x00 // Interrupt Status Register
@@ -59,52 +61,41 @@ namespace upm {
  * @ingroup max44009 i2c
  * @snippet max44009.cxx Interesting
  */
-class MAX44009 {
+class MAX44009 : public ILightSensor {
     public:
         /**
          * Instanciates a MAX44009 object
          *
          * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param devAddr address of used i2c device
          */
-        MAX44009 (int bus, int devAddr);
+        MAX44009 (int bus = BUS, int devAddr = ADDR);
 
         /**
          * MAX44009 object destructor, basicaly it close i2c connection.
          */
         ~MAX44009 ();
 
+    protected:
         /**
          * Read the lux value from the chip.
          */
-        uint16_t getLuxValue ();
+        mraa_result_t getLuxValue (uint16_t* value);
 
-	/**
-         * Read the lux register data from the chip.
-         */
-        uint8_t getLuxData ();
-
-        /**
-         * Return name of the component
-         */
-        std::string name()
-        {
-            return m_name;
-        }
-
+    private:
         /**
          * Read one byte register
          *
          * @param reg address of a register
          */
-        uint8_t i2cReadReg_8 (int reg);
+        mraa_result_t i2cReadReg_8 (int reg, uint8_t* data);
 
         /**
          * Read two bytes register
          *
          * @param reg address of a register
          */
-        uint16_t i2cReadReg_16 (int reg);
+        mraa_result_t i2cReadReg_16 (int reg, uint16_t* data);
 
         /**
          * Write to one byte register
@@ -113,9 +104,6 @@ class MAX44009 {
          * @param value byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
-
-    private:
-        std::string m_name;
 
         int m_maxControlAddr;
         int m_bus;

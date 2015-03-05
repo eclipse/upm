@@ -49,26 +49,25 @@ MAX44009::~MAX44009() {
     mraa_i2c_stop(m_i2cMaxControlCtx);
 }
 
-uint16_t
-MAX44009::getLuxValue () {
+mraa_result_t
+MAX44009::getLuxValue (uint16_t* value) {
     uint8_t data = 0;
     uint8_t exponent = 0;
     uint8_t mantissa = 0;
+    mraa_result_t status = MRAA_SUCCESS;
 
-    data = i2cReadReg_8 (LUXDATA_HIGH);
+    status = i2cReadReg_8 (LUXDATA_HIGH, &data);
+    if(status != MRAA_SUCCESS) { return status; }
+
     exponent = data >> 4;
     mantissa = data & 0xF;
 
-    return pow(2, exponent) * mantissa * 0.72;
-}
+    // Check for overrange condition
+    if(exponent == 0x457) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-uint8_t
-MAX44009::getLuxData () {
-    uint8_t data = 0;
+    *value = pow(2, exponent) * mantissa * 0.72;
 
-    data = i2cReadReg_8 (LUXDATA_HIGH);
-
-    return data;
+    return status;
 }
 
 /*
@@ -76,39 +75,34 @@ MAX44009::getLuxData () {
  *  private area
  * **************
  */
-uint8_t
-MAX44009::i2cReadReg_8 (int reg) {
-    uint8_t data;
-
+mraa_result_t
+MAX44009::i2cReadReg_8 (int reg, uint8_t* data) {
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
     mraa_i2c_write_byte(m_i2cMaxControlCtx, reg);
-
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    mraa_i2c_read(m_i2cMaxControlCtx, &data, 0x1);
+    mraa_i2c_read(m_i2cMaxControlCtx, data, 0x1);
 
-    return data;
+    if(*data == -1) {return MRAA_ERROR_INVALID_RESOURCE; }
+
+    return MRAA_SUCCESS;
 }
 
-uint16_t
-MAX44009::i2cReadReg_16 (int reg) {
-    uint16_t data;
-
+mraa_result_t
+MAX44009::i2cReadReg_16 (int reg, uint16_t* data) {
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
     mraa_i2c_write_byte(m_i2cMaxControlCtx, reg);
 
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    mraa_i2c_read(m_i2cMaxControlCtx, (uint8_t *)&data, 0x2);
+    mraa_i2c_read(m_i2cMaxControlCtx, (uint8_t *)data, 0x2);
 
-    return data;
+    if(*data == -1) {return MRAA_ERROR_INVALID_RESOURCE; }
+
+    return MRAA_SUCCESS;
 }
 
 mraa_result_t
 MAX44009::i2cWriteReg (uint8_t reg, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
-
     uint8_t data[2] = { reg, value };
-    error = mraa_i2c_address (m_i2cMaxControlCtx, m_maxControlAddr);
-    error = mraa_i2c_write (m_i2cMaxControlCtx, data, 2);
-
-    return error;
+    mraa_i2c_address (m_i2cMaxControlCtx, m_maxControlAddr);
+    return mraa_i2c_write (m_i2cMaxControlCtx, data, 2);
 }
