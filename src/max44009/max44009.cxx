@@ -32,7 +32,6 @@
 using namespace upm;
 
 MAX44009::MAX44009 (int bus, int devAddr) {
-    m_name = "MAX44009";
 
     m_maxControlAddr = devAddr;
     m_bus = bus;
