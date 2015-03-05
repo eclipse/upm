@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/i2c.h>
 
-#define ADS1015_I2C_BUS 1
+#define ADS1015_DEFAULT_I2C_BUS 1
 #define ADS1015_DEFAULT_I2C_ADDR 0x48
 
 #define ADS1015_RESOLUTION  4096 // 12 bits
@@ -83,7 +83,7 @@ namespace upm {
      * @param address the address for this sensor; default is 0x48
      * @param vref reference voltage for this sensor; default is 3.0
      */
-    ADS1015(int bus, uint8_t address = ADS1015_DEFAULT_I2C_ADDR,
+    ADS1015(int bus = ADS1015_DEFAULT_I2C_BUS, uint8_t address = ADS1015_DEFAULT_I2C_ADDR,
                float vref = ADS1015_DEFAULT_VREF);
 
     /**
@@ -139,150 +139,6 @@ namespace upm {
      * @return conversion value in volts
      */
     float valueToVolts(uint16_t val);
-
-    /**
-     * Read current status of the alert flag.  If the flag is set, the
-     * lower or upper alert indicators will be set as appropriate, and
-     * you can access these values with alertLowTriggered() or
-     * alertHighTriggered().
-     *
-     * @return true if the alert flag is set
-     */
-    bool getAlertStatus();
-
-    /**
-     * Return the current value of m_alertLow.  You must call
-     * getAlertStatus() to update this value. 
-     *
-     * @return current alert low status
-     */
-    bool alertLowTriggered() { return m_alertLow; };
-
-    /**
-     * Return the current value of m_alertHigh.  You must call
-     * getAlertStatus() to update this value. 
-     *
-     * @return current alert high status
-     */
-    bool alertHighTriggered() { return m_alertHigh; };
-
-    /**
-     * Clear the alert low and high flags.  This will also clear the
-     * last stored alert values.
-     */
-    void clearAlertStatus();
-
-    /**
-     * Enable or disable the Alert Flag functionality.  If enabled,
-     * then when the measured value exceeds the low or high limits
-     * configured, the alert flag will be set.  Use getAlertStatus()
-     * to access these values.
-     *
-     * @param enable if true, enables Alert Flag; otherwise, disables Alert Flag
-     */
-    void enableAlertFlag(bool enable);
-
-    /**
-     * Enable or disable the Alert Pin functionality.
-     *
-     * @param enable if true, enables Alert Pin; otherwise, disables Alert Pin
-     */
-    void enableAlertPin(bool enable);
-
-    /**
-     * Enable or disable the Alert Hold functionality.  When Alert
-     * Hold is enabled, the alert status remains until manually
-     * cleared via clearAlertStatus().  Otherwise, the alert will self
-     * clear when the value moves into the defined limits if alerts
-     * are enabled via enableAlertFlag().
-     *
-     * @param enable if true, enables Alert Hold; otherwise, disables Alert Hold
-     */
-    void enableAlertHold(bool enable);
-
-    /**
-     * If the Alert Pin fnctionality is enabled, define the active
-     * polarity of the pin in an alert condition.  Enabling this sets
-     * the pin to active high in an alert condition, otherwise an
-     * active low is used.
-     *
-     * @param enable if true, Alert Pin is active high, else active low
-     */
-    void enableAlertPinPolarityHigh(bool enable);
-
-    /**
-     * Enable or disable Automatic Conversion mode.  When enabled, the
-     * ADC will sample and update the conversion value independently.
-     * This is disabled by default, and a conversion is only done by
-     * calling value(). 
-     *
-     * @param cycleTime set the Cycle Time for automatic conversion
-     */
-    void setAutomaticConversion(ADS1015_CYCLE_TIME_T cycleTime);
-
-    /**
-     * Set the Alert Low Limit.  If Alerts are enabled and the
-     * measured conversion value is lower than this, an alert will be
-     * triggered.
-     *
-     * @param limit the Low Alert Limit
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t setAlertLowLimit(uint16_t limit);
-
-    /**
-     * Set the Alert High Limit.  If Alerts are enabled and the
-     * measured conversion value is higher than this, an alert will be
-     * triggered.
-     *
-     * @param limit the High Alert Limit
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t setAlertHighLimit(uint16_t limit);
-
-    /**
-     * Set the Hysteresis value.  If a high or low alert condition is
-     * triggered, the conversion result must move within the high or
-     * low limit by more than this value to clear the alert condition.
-     * If the Alert Hold bit is set, then the alert will not self
-     * clear regardless of this value.
-     *
-     * @param limit Hysteresis Limit
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t setHysteresis(uint16_t limit);
-
-    /**
-     * Return the Highest Conversion value sampled so far.  This value
-     * is only updated by the converter when automatic conversion mode
-     * is enabled.
-     *
-     * @return the highest conversion value recorded
-     */
-    uint16_t getHighestConversion();
-
-    /**
-     * Return the Lowest Conversion value sampled so far.  This value
-     * is only updated by the converter when automatic conversion mode
-     * is enabled.
-     *
-     * @return the lowest conversion value recorded
-     */
-    uint16_t getLowestConversion();
-
-    /**
-     * Clear the Highest Conversion value sampled so far.
-     *
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t clearHighestConversion();
-
-    /**
-     * Clear the Lowest Conversion value sampled so far.
-     *
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t clearLowestConversion();
 
   private:
     mraa_i2c_context m_i2c;
