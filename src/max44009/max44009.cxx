@@ -35,11 +35,15 @@ MAX44009::MAX44009 (int bus, int devAddr) {
 
     m_maxControlAddr = devAddr;
     m_bus = bus;
+    configured = false;
 
     m_i2cMaxControlCtx = mraa_i2c_init(m_bus);
 
     mraa_result_t ret = mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    if (ret != MRAA_SUCCESS) {
+    if (ret == MRAA_SUCCESS) {
+        configured = true;
+    }
+    else {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 }
@@ -67,6 +71,11 @@ MAX44009::getLuxValue (uint16_t* value) {
     *value = pow(2, exponent) * mantissa * 0.72;
 
     return status;
+}
+
+bool
+MAX44009::isConfigured() {
+    return configured;
 }
 
 /*

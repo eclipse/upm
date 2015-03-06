@@ -81,6 +81,11 @@ class MAX44009 : public ILightSensor {
          * Read the lux value from the chip.
          */
         mraa_result_t getLuxValue (uint16_t* value);
+	
+	/**
+         * Returns whether the sensor is configured.
+         */
+	bool isConfigured();
 
     private:
         /**
@@ -108,6 +113,7 @@ class MAX44009 : public ILightSensor {
         int m_maxControlAddr;
         int m_bus;
         mraa_i2c_context m_i2cMaxControlCtx;
+	bool configured;
 };
 
 }
