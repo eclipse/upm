@@ -1,33 +1,48 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // March 2015
 // By: Juan Jose Chong
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ADIS16448.h
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+// adis16448.h
+//////////////////////////////////////////////////////////////////////////////////////
 //
-// This file interfaces the ADIS16448 IMU with an Intel Edison.
+// This library runs on an Intel Edison and uses mraa to acquire data
+// from an ADIS16448. This data is then scaled and printed onto the terminal.
+// 
+// This software has been tested to connect to an ADIS16448 through a level shifter
+// such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
+// the level shifter and the ADIS16448 is also being powered by the Intel Edison.
 //
 // This example is free software. You can redistribute it and/or modify it
 // under the terms of the GNU Lesser Public License as published by the Free Software
 // Foundation, either version 3 of the License, or any later version.
 //
-// This example is distributed in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU Lesser Public License for more details.
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
 //
-// You should have received a copy of the GNU Lesser Public License along with
-// this example. If not, see <http://www.gnu.org/licenses/>.
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
-// This library is based on the ADIS16480 library written by Daniel Tatum.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 #include <string>
 #include <mraa/spi.h>
 #include <mraa/gpio.h>
 
 // User Register Memory Map from Table 6 of the Datasheet
 #define FLASH_CNT 0x00 //Flash memory write count
-#define XGYRO_OUT 0x04
+#define XGYRO_OUT 0x04 //X-axis gyroscope output
 #define YGYRO_OUT 0x06 //Y-axis gyroscope output
 #define ZGYRO_OUT 0x08 //Z-axis gyroscope output
 #define XACCL_OUT 0x0A //X-axis accelerometer output
@@ -74,25 +89,25 @@ namespace upm {
 
 		public:
 
-		// Constructor with configurable CS, data ready, and HW reset pins
+		// Constructor with configurable HW Reset
 		ADIS16448(int bus, int rst);
 
 		//Destructor
 		~ADIS16448();
 
-		//Performs hardware reset by sending pin 8 low on the DUT for 2 seconds
+		//Performs hardware reset by sending the specified pin low for 2 seconds
 		void resetDUT();
 
-		//Sets SPI bit order, clock divider, and data mode
+		//Sets SPI frequency, mode, and bits/word
 		void configSPI();
 
-		//Read sensor
+		//Read specified register and return data
 		int16_t regRead(uint8_t regAddr);
 
-		//Write register
+		//Write to specified register
 		void regWrite(uint8_t regAddr, uint16_t regData);
 
-		//Scale accelerator data
+		//Scale accelerometer data
 		float accelScale(int16_t sensorData);
 
 		//Scale gyro data

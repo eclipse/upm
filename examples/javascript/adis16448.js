@@ -1,26 +1,41 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // March 2015
 // By: Juan Jose Chong
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // adis16448.js
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 //
-// This example interfaces the ADIS16448 IMU with an Intel Edison. 
+// This example code runs on an Intel Edison and uses mraa to acquire data
+// from an ADIS16448. This data is then scaled and printed onto the terminal.
+// 
+// This software has been tested to connect to an ADIS16448 through a level shifter
+// such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
+// the level shifter and the ADIS16448 is also being powered by the Intel Edison.
 //
 // This example is free software. You can redistribute it and/or modify it
 // under the terms of the GNU Lesser Public License as published by the Free Software
 // Foundation, either version 3 of the License, or any later version.
 //
-// This example is distributed in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU Lesser Public License for more details.
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
 //
-// You should have received a copy of the GNU Lesser Public License along with
-// this example. If not, see <http://www.gnu.org/licenses/>.
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
-// This library is based on the ADIS16480 library written by Daniel Tatum.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 //Call the ADIS16448 library
 var adis16448 = require('jsupm_adis16448');
@@ -28,9 +43,9 @@ var adis16448 = require('jsupm_adis16448');
 //Instantiate SPI and Reset
 var imu = new adis16448.ADIS16448(0,3);
 
-periodicActivity(); //call the periodicActivity function
+periodicActivity(); //Call the periodicActivity function
 
-function periodicActivity() //
+function periodicActivity()
 {   
     //Read & Scale Gyro/Accel Data
     var xgyro = imu.gyroScale(imu.regRead(0x04));
