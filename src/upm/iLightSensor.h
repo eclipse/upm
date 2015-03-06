@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mraa/common.h"
+
 class ILightSensor
 {
 public:

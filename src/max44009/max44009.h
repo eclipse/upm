@@ -25,7 +25,8 @@
 
 #include <string>
 #include <mraa/i2c.h>
-#include "../iSensors/iLightSensor.h"
+
+#include "upm/iLightSensor.h"
 
 #define ADDR               0x4A // device address
 #define BUS                1    // device address
@@ -76,7 +77,6 @@ class MAX44009 : public ILightSensor {
          */
         ~MAX44009 ();
 
-    protected:
         /**
          * Read the lux value from the chip.
          */
