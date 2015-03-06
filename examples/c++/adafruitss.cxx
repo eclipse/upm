@@ -33,7 +33,7 @@
  */
 
 #include <iostream>
-#include "pca9685ss.h"
+#include "adafruitss.h"
 #include <unistd.h>
 
 using namespace std;
@@ -43,7 +43,7 @@ int main() {
 int n;
 
 //! [Interesting]
-  upm::pca9685ss* servos = new upm::pca9685ss(6,0x40);
+  upm::adafruitss* servos = new upm::adafruitss(6,0x40);
 
   for (;;)
   {

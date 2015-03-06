@@ -22,13 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "pca9685ss.h"
+#include "adafruitss.h"
 #include <unistd.h>
 #include <math.h>
 
 using namespace upm;
 
-pca9685ss::pca9685ss(int bus,int i2c_address)
+adafruitss::adafruitss(int bus,int i2c_address)
 {
     int n;
     int result;
@@ -44,13 +44,13 @@ pca9685ss::pca9685ss(int bus,int i2c_address)
     m_rx_tx_buf[1]=0;
     result=mraa_i2c_write(m_i2c,m_rx_tx_buf,2);
 
-    pca9685ss::setPWMFreq(60);
+    adafruitss::setPWMFreq(60);
 
 
-    pca9685ss::update();
+    adafruitss::update();
 }
 
-void pca9685ss::setPWMFreq(float freq) {
+void adafruitss::setPWMFreq(float freq) {
     int result;
     freq *= 0.88;  // Correct for overshoot in the frequency setting (see issue #11).
     float prescaleval = 25000000;
@@ -101,13 +101,13 @@ void pca9685ss::setPWMFreq(float freq) {
     result=mraa_i2c_write(m_i2c,m_rx_tx_buf,2);
 }
 
-int pca9685ss::update(void)
+int adafruitss::update(void)
 {
     return MRAA_SUCCESS;
 }
 
 
-void pca9685ss::servo(uint8_t port, uint8_t servo_type, uint16_t degrees) {
+void adafruitss::servo(uint8_t port, uint8_t servo_type, uint16_t degrees) {
     // Set Servo values
     // Degrees is from 0 to 180
     // servo_type: 0 = standard 1ms to 2ms
