@@ -1,5 +1,0 @@
-set (libname "pca9685")
-set (libdescription "upm pca9685 16-channel pwm controller")
-set (module_src ${libname}ss.cxx)
-set (module_h ${libname}ss.h)
-upm_module_init()

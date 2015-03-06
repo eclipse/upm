@@ -25,7 +25,7 @@
 
 /**
  * Description
- * Demo program for Adafruit 16 channel servo controller
+ * Demo program for Adafruit 16 channel servo shield/controller
  * Physical setup for tests is a single servo attached to one channel.
  * Note - when 3 or more GWS servos attached results unpredictable.
  * Adafruit do recommend a Cap be installed on the board which should alleviate the issue.
@@ -33,7 +33,7 @@
  */
 
 #include <iostream>
-#include "pca9685.h"
+#include "adafruitss.h"
 #include <unistd.h>
 
 using namespace std;
@@ -43,7 +43,7 @@ int main() {
 int n;
 
 //! [Interesting]
-  upm::pca9685* servos = new upm::pca9685(6,0x40);
+  upm::adafruitss* servos = new upm::adafruitss(6,0x40);
 
   for (;;)
   {

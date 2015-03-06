@@ -56,8 +56,8 @@
 namespace upm {
 
  /**
- * @brief pca9685 based servo controller
- * @defgroup pca9685 libupm-pca9685
+ * @brief Adafruit PCA9685 based servo controller
+ * @defgroup adafruitss libupm-adafruitss
  */
  
  /**
@@ -66,17 +66,17 @@ namespace upm {
   * Adafruit do recommend a capacitor be installed on the board which should alleviate the issue. Sizing depends on servos and count.
   *
   * @ingroup i2c
-  * @snippet pca9685ss.cxx Interesting
+  * @snippet adafruitss.cxx Interesting
   */
-  class pca9685ss {
+  class adafruitss {
   public:
     /**
-     * Creates a pca9685ss object
+     * Creates a adafruitss object
      *
      * @param bus number of used i2c bus
      * @param i2c_address address of servo controller on i2c bus
      */
-    pca9685ss(int bus, int i2c_address);
+    adafruitss(int bus, int i2c_address);
     int update(void);
     /**
      * Sets the frequency for your servos
