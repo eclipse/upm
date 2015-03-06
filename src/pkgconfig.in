@@ -9,3 +9,6 @@ Version: @upm_VERSION_STRING@
 
 Libs: -L${libdir} -lupm-@libname@
 Cflags: -I${includedir}/upm
+
+Requires: @reqlibname@
+Requires.private: @reqplibname@
