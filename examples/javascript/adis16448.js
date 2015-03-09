@@ -12,10 +12,6 @@
 // such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
 // the level shifter and the ADIS16448 is also being powered by the Intel Edison.
 //
-// This example is free software. You can redistribute it and/or modify it
-// under the terms of the GNU Lesser Public License as published by the Free Software
-// Foundation, either version 3 of the License, or any later version.
-//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
