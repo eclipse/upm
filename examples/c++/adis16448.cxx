@@ -2,7 +2,7 @@
 // The MIT License (MIT)
 //
 // Submit Date: 03/09/2015
-// Author: Juan Jose Chong <juchong>
+// Author: Juan Jose Chong <juanjchong@gmail.com>
 // Copyright (c) 2015 Juan Jose Chong
 //
 //////////////////////////////////////////////////////////////////////////////////////
