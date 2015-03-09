@@ -2,7 +2,7 @@
 // The MIT License (MIT)
 //
 // Submit Date: 03/09/2015
-// Author: Juan Jose Chong <juchong>
+// Author: Juan Jose Chong <juanjchong@gmail.com>
 // Copyright (c) 2015 Juan Jose Chong
 //
 //////////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 //Call the ADIS16448 library
 var adis16448 = require('jsupm_adis16448');
