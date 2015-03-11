@@ -23,13 +23,14 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 ```
 @verbatim
 /**
- * @sensor <chip-id>
  * @library <lib-name>
- * @name <component-name>
- * @category <component-category>
- * @manufacturer <component-man>
+ * @sensor <chip-id>
+ * @comname <component-name>
+ * @altname <alt-name>
+ * @type <component-category>
+ * @man <component-manufacturer>
+ * @con <connection-type>
  * @kit <component-kit>
- * @connection <connection-type>
  *
  * @brief Short class/sensor description
  * 
@@ -42,19 +43,21 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 @endverbatim
 ```
 
+- `<lib-name>` When adding to an existing library this needs to match that
+  library's "@defgroup", otherwise this is a new library name, generally the
+  same as chip id. *Mandatory*
 - `<chip-id>` Usually the chip number used by the sensor. When this is not
   available or relevant, use a unique descriptor that makes sense. *Mandatory*
-- `<lib-name>` When adding to an existing library this needs to match that
-  library's "@defgroup", otherwise this is generally the same as chip id.
-  *Mandatory*
 - `<component-name>` A short name for your sensor, can include manufacturer
   name. *Mandatory*
+- `<alt-name>` Alternative names or chip-ids that your sensor driver might
+  have or support respectively. *Optional*
 - `<component-category>` Mention one or more categories the sensor fits in. Can
   be 'other'. *Mandatory*
-- `<component-man>` Sensor manufacturer. Can be 'generic'. *Mandatory*
-- `<component-kit>` Specifies if the sensor is part of a kit. *Optional*
+- `<component-manufacturer>` Sensor manufacturer. Can be 'generic'. *Mandatory*
 - `<connection-type>` Specifies how does the sensor connect to the board
   *Mandatory*
+- `<component-kit>` Specifies if the sensor is part of a kit. *Optional*
 
 Existing groups that can be used for the manufacturer, connection, category and
 kit tags are found in the src/upm.h file.
