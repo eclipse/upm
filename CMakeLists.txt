@@ -51,7 +51,10 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 
 set (CMAKE_SWIG_FLAGS "")
 
-option (IPK "Generate IPK using CPack" OFF)
+include (TargetArch)
+target_architecture (DETECTED_ARCH)
+
+option (IPK "Generate IPK using CPack" ON)
 option (BUILDDOC "Build all doc." OFF)
 option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
