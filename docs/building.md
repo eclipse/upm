@@ -23,8 +23,8 @@ cmake ..
 make
 ~~~~~~~~~~~~~
 
-Our cmake configure has a number of options, cmake-gui or ccmake can show you
-all the options. The interesting ones are detailed below:
+Our cmake configure has a number of options, *cmake-gui* or *ccmake* can show
+you all the options. The interesting ones are detailed below:
 
 Changing install path from /usr/local to /usr
 ~~~~~~~~~~~~~
@@ -59,6 +59,13 @@ Building doxygen doc
 ~~~~~~~~~~~~~
 -BUILDDOC=ON
 ~~~~~~~~~~~~~
+
+If you intend to turn on all the options and build everything at once (C++,
+Node, Python and Documentation) you will have to edit the src/doxy2swig.py file
+and change the line endings from Windows style to Linux format. This has to be
+repeated every time to sync with the master branch since our Github repository
+stores files using CR LF line breaks.
+
 You can also generate the include and lib directories containing all the sensor
 headers and library files respectively with *make install*. Further, you may
 choose to generate these only for a specific sensor you modified, and this can
