@@ -32,9 +32,17 @@ namespace upm {
 /**
  * @brief Itg3200 gyroscope library
  * @defgroup itg3200 libupm-itg3200
+ * @ingroup seeed i2c compass
  */
 
 /**
+ * @library itg3200
+ * @sensor itg3200
+ * @comname Itg3200 3-Axis Digital Gyroscope
+ * @type compass
+ * @man seeed
+ * @con i2c
+ *
  * @brief C++ API for Itg3200 (3-axis digital gyroscope)
  *
  * The InvenSense Itg3200 is a 3-axis digital gyroscope.
@@ -43,9 +51,8 @@ namespace upm {
  * <strong>However</strong>, it is incompatible and will not be detected on the I2C bus
  * by the Intel Edison using the Arduino breakout board.
  *
- * @ingroup itg3200 i2c
- * @snippet itg3200.cxx Interesting
  * @image html itg3200.jpeg
+ * @snippet itg3200.cxx Interesting
  */
 class Itg3200 {
 public:

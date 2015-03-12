@@ -35,14 +35,25 @@
 namespace upm {
 
   /**
-   * @brief C++ API for the ADXL335 3-axis analog acclerometer
+   * @brief ADXL335 accelerometer library
+   * @defgroup adxl335 libupm-adxl335
+   * @ingroup seeed analog accelerometer
+   */
+
+  /**
+   * @library adxl335
+   * @sensor adxl335
+   * @comname ADXL335 3-Axis Analog Accelerometer
+   * @type accelerometer
+   * @man seeed
+   * @con analog
+   *
+   * @brief C++ API for the ADXL335 3-axis Analog Accelerometer
    *
    * UPM module for the ADXL335 3-axis analog accelerometer.  This
    * was tested on a Grove 3-axis Analog Accelerometer.  It uses 3
    * analog pins, one each for X, Y, and Z axis.
    *
-   * @ingroup grove analog
-   * @defgroup adxl335 libupm-adxl335
    * @snippet adxl335.cxx Interesting
    */
   class ADXL335 {
