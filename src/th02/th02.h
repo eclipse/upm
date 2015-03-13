@@ -60,7 +60,7 @@ namespace upm {
  * This file defines the TH02 C++ interface for libth02
  *
  * @ingroup th02
- * @snippet th02-example.cxx Interesting
+ * @snippet th02.cxx Interesting
  */
 class TH02 {
     public:

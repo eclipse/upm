@@ -62,8 +62,8 @@ namespace upm {
  *
  * This file defines the MLX90614 C++ interface for libmlx90614
  *
- * @ingroup mlx90641 i2c
- * @snippet mlx90641.cxx Interesting
+ * @ingroup mlx90614 i2c
+ * @snippet mlx90614.cxx Interesting
  */
 class MLX90614 {
     public:
