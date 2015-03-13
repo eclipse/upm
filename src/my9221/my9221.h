@@ -48,7 +48,7 @@ namespace upm {
  * This file defines the MY9221 C++ interface for libmy9221
  *
  * @ingroup my9221 gpio
- * @snippet led-bar.cxx Interesting
+ * @snippet my9221-ledbar.cxx Interesting
  */
 class MY9221 {
     public:

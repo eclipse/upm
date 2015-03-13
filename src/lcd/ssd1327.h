@@ -43,7 +43,7 @@ namespace upm {
  * which is an OLED monochrome display
  *
  * @ingroup i2clcd i2c
- * @snippet oled-1327.cxx Interesting
+ * @snippet ssd1327-oled.cxx Interesting
  * @image html ssd1327.jpeg
  */
 class SSD1327 : public I2CLcd {

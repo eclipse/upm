@@ -43,7 +43,7 @@ namespace upm {
  * the best documented example.
  *
  * @ingroup i2clcd i2c
- * @snippet lcm-lcd.cxx Interesting
+ * @snippet lcm1602-lcd.cxx Interesting
  * @image html lcm1602.jpeg
  */
 class Lcm1602 : public I2CLcd {

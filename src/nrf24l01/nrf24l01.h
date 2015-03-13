@@ -161,8 +161,8 @@ typedef enum {
  * This file defines the NRF24l01 C++ interface for libnrf24l01
  *
  * @ingroup nrf24l01
- * @snippet nrf_receiver.cxx Interesting
- * @snippet nrf_transmitter.cxx Interesting
+ * @snippet nrf24l01-receiver.cxx Interesting
+ * @snippet nrf24l01-transmitter.cxx Interesting
  */
 class NRF24L01 {
     public:

@@ -40,7 +40,7 @@ namespace upm {
  * which requires 5V to operate.
  *
  * @ingroup i2clcd i2c
- * @snippet rgb-lcd.cxx Interesting
+ * @snippet jhd1313m1-lcd.cxx Interesting
  * @image html grovergblcd.jpeg
  */
 class Jhd1313m1 : public I2CLcd {
