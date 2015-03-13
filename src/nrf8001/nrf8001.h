@@ -31,5 +31,23 @@
 #include <lib_aci.h>
 #include <aci_setup.h>
 
+/**
+ * @brief nrf8001 Bluetooth Low Energy library
+ * @defgroup nrf8001 libupm-nrf8001
+ */
+
+/**
+ * @brief C++ API for the Nordic Semiconductor NRF8001 Bluetooth Low Energy
+ *
+ * This file defines the NRF8001 C++ interface for lib-nrf8001.
+ * Most of the interaction with this device is done using the ACI classes
+ * provided by Nordic Semiconductor. Please see our examples for further
+ * details.
+ *
+ * @ingroup nrf8001 spi
+ * @snippet nrf8001-helloworld.cxx Interesting
+ * @snippet nrf8001-broadcast.cxx Interesting
+ */
+
 void init_local_interfaces (aci_state_t* aci, uint8_t reqn, uint8_t rdyn, uint8_t rst);
 void close_local_interfaces (aci_state_t* aci);

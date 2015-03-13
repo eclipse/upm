@@ -163,6 +163,7 @@ typedef enum {
  * @ingroup nrf24l01
  * @snippet nrf24l01-receiver.cxx Interesting
  * @snippet nrf24l01-transmitter.cxx Interesting
+ * @snippet nrf24l01-broadcast.cxx Interesting
  */
 class NRF24L01 {
     public:

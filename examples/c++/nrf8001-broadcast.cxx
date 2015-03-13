@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include "nrf8001.h"
-#include "nrf8001_broadcast.h"
+#include "nrf8001-broadcast.h"
 #include <lib_aci.h>
 #include <aci_setup.h>
 #include <signal.h>

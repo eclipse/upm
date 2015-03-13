@@ -49,6 +49,7 @@ namespace upm {
  *
  * @ingroup my9221 gpio
  * @snippet my9221-ledbar.cxx Interesting
+ * @snippet my9221-updown.cxx Interesting
  */
 class MY9221 {
     public:

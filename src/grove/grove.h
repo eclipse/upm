@@ -58,6 +58,7 @@ class Grove {
  *
  * @ingroup grove gpio
  * @snippet groveled.cxx Interesting
+ * @snippet groveled-multi.cxx Interesting
  */
 class GroveLed: public Grove {
     public:

@@ -49,6 +49,8 @@ void nrf_handler () {
 int
 main(int argc, char **argv)
 {
+    //! [Interesting]
+
     sensor = new upm::NRF24L01(7, 8);
     sensor->setBeaconingMode ();
 
@@ -77,5 +79,8 @@ main(int argc, char **argv)
 
     msgs.clear();
     delete sensor;
+
+    //! [Interesting]
+
     return 0;
 }
