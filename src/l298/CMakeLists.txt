@@ -1,0 +1,5 @@
+set (libname "l298")
+set (libdescription "upm l298 dual h-bridge")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
