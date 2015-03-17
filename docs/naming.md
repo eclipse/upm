@@ -21,6 +21,7 @@ jsupm_grove.
 Other times this does not. Try to pick a generic name so people with a similar
 sensor can inherit your class if they only have minor changes.
 3. Avoid brand names, often your module can be very generic with little effort
+4. Use only lowercase characters in your file names and folder names.
 
 ### Doubt
 
