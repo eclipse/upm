@@ -79,10 +79,15 @@ namespace upm {
                    STEPPER_NUM_STEPS   = 0x1c
     } REG_T;
 
-    // legal directions
-    typedef enum { DIR_CCW    = 0x0a,
-                   DIR_CW     = 0x05
-    } DIRECTION_T;
+    // legal directions for the stepper
+    typedef enum { STEP_DIR_CCW    = 0x0a,
+                   STEP_DIR_CW     = 0x05
+    } STEP_DIRECTION_T;
+    
+    // legal directions for individual DC motors
+    typedef enum { DIR_CCW    = 0x02,
+                   DIR_CW     = 0x01
+    } DC_DIRECTION_T;
     
     /**
      * grovemd constructor
@@ -130,22 +135,23 @@ namespace upm {
     bool setPWMFrequencyPrescale(uint8_t freq=0x03);
 
     /**
-     * For controlling DC motors, set the direction
+     * For controlling DC motors, set the directions of motors A & B
      *
-     * @param dir direction, CW or CCW
+     * @param dirA direction for motor A, DIR_CW or DIR_CCW
+     * @param dirB direction for motor B, DIR_CW or DIR_CCW
      * @return true if command successful
      */
-    bool setDirection(DIRECTION_T dir);
+    bool setMotorDirections(DC_DIRECTION_T dirA, DC_DIRECTION_T dirB);
 
     /**
      * For controlling a stepper motor, set a direction, speed and
      * then enable.
      *
-     * @param dir direction, CW or CCW
+     * @param dir direction, STEP_DIR_CW or STEP_DIR_CCW
      * @param speed motor speed. Valid range is 1-255, higher is slower.
      * @return true if command successful
      */
-    bool enableStepper(DIRECTION_T dir, uint8_t speed);
+    bool enableStepper(STEP_DIRECTION_T dir, uint8_t speed);
 
     /**
      * For controlling a stepper motor, stop the stepper motor.

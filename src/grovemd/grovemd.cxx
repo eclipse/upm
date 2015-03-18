@@ -108,12 +108,13 @@ bool GroveMD::setPWMFrequencyPrescale(uint8_t freq)
   return writePacket(SET_PWM_FREQ, freq, GROVEMD_NOOP);
 }
 
-bool GroveMD::setDirection(DIRECTION_T dir)
+bool GroveMD::setMotorDirections(DC_DIRECTION_T dirA, DC_DIRECTION_T dirB)
 {
+  uint8_t dir = ((dirB & 0x03) << 2) | (dirA & 0x03);
   return writePacket(SET_DIRECTION, dir, GROVEMD_NOOP);
 }
 
-bool GroveMD::enableStepper(DIRECTION_T dir, uint8_t speed)
+bool GroveMD::enableStepper(STEP_DIRECTION_T dir, uint8_t speed)
 {
   return writePacket(STEPPER_ENABLE, dir, speed);
 }
