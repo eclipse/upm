@@ -33,7 +33,8 @@ function start()
 	{
 		// set direction to CW and set speed to 50%
 		console.log("Spin M1 and M2 at half speed for 3 seconds");
-		my_MotorDriver_obj.setDirection(groveMotorDriver_lib.GroveMD.DIR_CW);
+		my_MotorDriver_obj.setMotorDirections(groveMotorDriver_lib.GroveMD.DIR_CW,
+                                                     groveMotorDriver_lib.GroveMD.DIR_CW);
 		my_MotorDriver_obj.setMotorSpeeds(127, 127);
 	}
 }
@@ -44,7 +45,8 @@ function reverse()
 	{
 		// counter clockwise
 		console.log("Reversing M1 and M2 for 3 seconds");
-		my_MotorDriver_obj.setDirection(groveMotorDriver_lib.GroveMD.DIR_CCW);	
+		my_MotorDriver_obj.setMotorDirections(groveMotorDriver_lib.GroveMD.DIR_CCW,
+                                                     groveMotorDriver_lib.GroveMD.DIR_CCW);	
 	}
 }
 

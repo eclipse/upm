@@ -39,13 +39,13 @@ int main(int argc, char **argv)
 
   // set direction to CW and set speed to 50%
   cout << "Spin M1 and M2 at half speed for 3 seconds" << endl;
-  motors->setDirection(upm::GroveMD::DIR_CW);
+  motors->setMotorDirections(upm::GroveMD::DIR_CW, upm::GroveMD::DIR_CW);
   motors->setMotorSpeeds(127, 127);
   
   sleep(3);
   // counter clockwise
   cout << "Reversing M1 and M2 for 3 seconds" << endl;
-  motors->setDirection(upm::GroveMD::DIR_CCW);
+  motors->setMotorDirections(upm::GroveMD::DIR_CCW, upm::GroveMD::DIR_CCW);
   sleep(3);
 
   //! [Interesting]
