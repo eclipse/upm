@@ -29,6 +29,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
  * @altname <alt-name>
  * @type <component-category>
  * @man <component-manufacturer>
+ * @web <component-weblinks>
  * @con <connection-type>
  * @kit <component-kit>
  *
@@ -55,6 +56,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 - `<component-category>` Mention one or more categories the sensor fits in. Can
   be 'other'. *Mandatory*
 - `<component-manufacturer>` Sensor manufacturer. Can be 'generic'. *Mandatory*
+- `<component-weblinks>` Links to vendors or data-sheets. *Optional*
 - `<connection-type>` Specifies how does the sensor connect to the board
   *Mandatory*
 - `<component-kit>` Specifies if the sensor is part of a kit. *Optional*
