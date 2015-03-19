@@ -19,8 +19,10 @@
  * SOFTWARE.
  */
 
-/** @file
+/** 
+ * @file
  * @brief Defines for the different Bluetooth low energy boards
+ * @ingroup nrf8001
  */
 
 #ifndef _BLE_BOARDS_H_

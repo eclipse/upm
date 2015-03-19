@@ -19,12 +19,14 @@
  * SOFTWARE.
  */
 
+/**
+ * @file
+ * @brief HAL specific macros
+ * @ingroup nrf8001
+ */
+ 
 #ifndef PLATFORM_H__
 #define PLATFORM_H__
-
-/** @file
-* @brief
-*/
 
 //Board dependent defines
 #if defined (__AVR__)

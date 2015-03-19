@@ -19,13 +19,14 @@
  * SOFTWARE.
  */
 
-/** @file
+/** 
+ * @file
  * @brief Interface for hal_aci_tl.
+ * @ingroup nrf8001
  */
 
-/** @defgroup hal_aci_tl hal_aci_tl
+/**
 @{
-@ingroup hal
 
 @brief Module for the ACI Transport Layer interface
 @details This module is responsible for sending and receiving messages over the ACI interface of the nRF8001 chip.

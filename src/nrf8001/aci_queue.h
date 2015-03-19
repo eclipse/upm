@@ -19,14 +19,14 @@
  * SOFTWARE.
  */
 
-/** @file
+/** 
+ * @file
  * @brief Interface for buffer.
+ * @ingroup aci
  */
 
-/** @defgroup aci_queue aci_queue
+/**
 @{
-@ingroup aci_queue
-
 */
 
 #ifndef ACI_QUEUE_H__

@@ -21,9 +21,7 @@
 
 /**
  * @file
- *
  * @ingroup aci
- *
  * @brief Definitions for the ACI (Application Control Interface) commands
  * @remarks
  *

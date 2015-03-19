@@ -19,8 +19,12 @@
  * SOFTWARE.
  */
 
-/*
- * This file contents defines for the position of all the fields of ACI
+/**
+ * @file
+ *
+ * @ingroup aci
+ *
+ * @brief This file contents defines for the position of all the fields of ACI
  * command or event messages
  */
 

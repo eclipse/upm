@@ -33,7 +33,7 @@
 
 /*
  * You can use the nRF UART app in the Apple iOS app store and Google Play for Android 4.3 for Samsung Galaxy S4
-*  with this helloworld application
+ * with this helloworld application
  */
 
 #ifdef SERVICES_PIPE_TYPE_MAPPING_CONTENT
