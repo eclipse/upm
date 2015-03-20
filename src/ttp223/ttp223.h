@@ -27,22 +27,33 @@
 #include <mraa/gpio.h>
 
 namespace upm {
-
 /**
  * @brief TTP223 Touch Detector sensor library
+ *
+ *   This touch sensor detects when a finger is near the metallic pad
+ *   by a change in capacitance.  It can replace a more traditional push
+ *   button.  The touch sensor can still function when placed under a 
+ *   non-metallic surface like glass or plastic.
+ *
  * @defgroup ttp223 libupm-ttp223
+ * @ingroup seeed gpio touch
  */
-
 /**
- * @brief C++ API for TTP223 touch detector-based sensors,
- * such as the Grove Touch sensor
+ * @library ttp223
+ * @sensor ttp223
+ * @comname Touch sensor
+ * @type touch
+ * @man seeed
+ * @web http://www.seeedstudio.com/depot/Grove-Touch-Sensor-p-747.html
+ * @con gpio
  *
- * This touch sensor detects when a finger is near the metallic pad
- * by a change in capacitance.  It can replace a more traditional push
- * button.  The touch sensor can still function when placed under a 
- * non-metallic surface like glass or plastic.
+ * @brief TTP223 Touch Detector sensor library
+ * 
+ *   This touch sensor detects when a finger is near the metallic pad
+ *   by a change in capacitance.  It can replace a more traditional push
+ *   button.  The touch sensor can still function when placed under a 
+ *   non-metallic surface like glass or plastic.
  *
- * @ingroup ttp223 gpio
  * @snippet ttp223.cxx Interesting
  */
 class TTP223 {
