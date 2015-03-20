@@ -27,16 +27,31 @@
 #include <mraa/gpio.h>
 
 namespace upm {
-
-  /**
-   * @brief C++ API for the YG1006 flame sensor
-   *
-   * UPM module for the YG1006 flame sensor.  It detects flame or any
-   * other light in the 760nm - 1100nm wavelength range.
-   *
-   * @ingroup gpio
-   * @snippet yg1006.cxx Interesting
-   */
+    /**
+     * @brief Library for the YG1006 flame sensor
+     *
+     *   UPM module for the YG1006 flame sensor.  It detects flame or any
+     *   other light in the 760nm - 1100nm wavelength range.
+     *
+     * @defgroup yg1006 libupm-yg1006
+     * @ingroup seeed gpio light
+     */
+    /**
+     * @library yg1006
+     * @sensor yg1006
+     * @comname flame sensor
+     * @type light
+     * @man seeed
+     * @web http://www.seeedstudio.com/wiki/Grove_-_Flame_Sensor
+     * @con gpio
+     *
+     * @brief C++ API for the YG1006 flame sensor
+     * 
+     *   UPM module for the YG1006 flame sensor.  It detects flame or any
+     *   other light in the 760nm - 1100nm wavelength range.
+     *
+     * @snippet yg1006.cxx Interesting
+     */
   class YG1006 {
   public:
     /**
