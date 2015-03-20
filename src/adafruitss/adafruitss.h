@@ -56,16 +56,27 @@
 namespace upm {
 
  /**
- * @brief Adafruit PCA9685 based servo controller
- * @defgroup adafruitss libupm-adafruitss
- */
+  * @brief Adafruit PCA9685 based servo controller library
+  * @defgroup adafruitss libupm-adafruitss
+  * @ingroup adafruit i2c motor
+  */
  
  /**
-  * @brief
-  * UPM library for pca9685 Adafruit 16-channel servo shield/controller. When 3 or more GWS servos attached results unpredictable.
-  * Adafruit do recommend a capacitor be installed on the board which should alleviate the issue. Sizing depends on servos and count.
+  * @library adafruitss
+  * @sensor adafruitss
+  * @comname Adafruit Servo Shield
+  * @type motor
+  * @man adafruit
+  * @web http://www.adafruit.com/product/1411
+  * @con i2c
   *
-  * @ingroup i2c
+  * @brief C++ API for Adafruit Servo Shield 
+  *
+  *	UPM library for the PCA9685 based Adafruit 16-channel servo shield. When 3
+  * or more GWS servos attached results unpredictable. Adafruit do recommend a
+  * capacitor be installed on the board which should alleviate the issue.
+  * Sizing depends on servos and count.
+  *
   * @snippet adafruitss.cxx Interesting
   */
   class adafruitss {
