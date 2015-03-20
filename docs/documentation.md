@@ -15,9 +15,10 @@ sensors that you want to add to UPM:
 
 ####The sensor block
 
-This is added just before your class definition and has mandatory fields. For
-single sensor libraries, this block will actually follow immediately after the
-library block. If you have multiple physical sensors, add this to every one.
+This is added just before the class declaration in your header(.h) file and has 
+mandatory fields. For single sensor libraries, this block will actually
+follow immediately after the library block. If you have multiple physical
+sensors, add this to every one.
 Here's an example (disregard the "@verbatim" tags in your actual code):
 
 ```
