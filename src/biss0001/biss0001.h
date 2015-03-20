@@ -27,13 +27,25 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief BISS0001 motion sensor library
+   * @defgroup biss0001 libupm-biss0001
+   * @ingroup seeed gpio light
+   */
 
   /**
+   * @library biss0001
+   * @sensor biss0001
+   * @comname PIR Motion Sensor
+   * @type light
+   * @man seeed
+   * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
+   * @con gpio
+   *
    * @brief C++ API for the BISS0001 Motion Sensor
    *
    * UPM module for the BISS0001 Motion Sensor
    *
-   * @ingroup gpio
    * @snippet biss0001.cxx Interesting
    */
   class BISS0001 {
