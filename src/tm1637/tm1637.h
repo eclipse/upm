@@ -45,20 +45,26 @@
 #define LOW                 0
 
 namespace upm {
-
-/**
- * @brief tm1637 7-segment screen library
- * @defgroup tm1637 libupm-tm1637
- */
-
-/**
+ /**
  * @brief C++ API for Seven segments screen
  *
- * This file defines the TM1637 C++ interface for lib4digitdisplay
+ *   This file defines the TM1637 C++ interface for lib4digitdisplay
  *
- * @ingroup tm1637 gpio
- * @snippet tm1637.cxx Interesting
+ * @defgroup tm1637 libupm-tm1637
+ * @ingroup seeed gpio display
+ */
+/**
+ * @library tm1637
+ * @sensor tm1637
+ * @comname Seven segment screen display
+ * @type display
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_4-Digit_Display
+ * @con gpio
  *
+ * @brief C++ API for Seven segments screen
+ * 
+ *   This file defines the TM1637 C++ interface for lib4digitdisplay
  *      A
  *     ---
  *  F |   | B
@@ -67,6 +73,7 @@ namespace upm {
  *     ---
  *      D
  *
+ * @snippet tm1637.cxx Interesting
  */
 class TM1637 {
     public:
