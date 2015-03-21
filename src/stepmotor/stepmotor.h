@@ -40,18 +40,27 @@
 #define LOW                0
 
 namespace upm {
-
 /**
- * @brief Stepper motor library
+ * @brief C++ API for the Stepper motor library
+ *
+ *   This file defines the stepmotor C++ interface
+ *
  * @defgroup stepper libupm-stepper
+ * @ingroup seeed pwm gpio motor
  */
-
 /**
- * @brief C++ API for StepMotor Drivers
+ * @library stepper
+ * @sensor stepper
+ * @comname Stepper motor
+ * @type motor
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Motor_Driver_V1.3
+ * @con pwm gpio
  *
- * This file defines the stepmotor C++ interface for libstepmotor
+ * @brief C++ API for the Stepper motor library
+ * 
+ *   This file defines the stepmotor C++ interface
  *
- * @ingroup stepper pwm
  * @snippet stepmotor.cxx Interesting
  */
 class StepMotor {

@@ -50,12 +50,21 @@
 namespace upm {
 
 /**
- * @brief AM2315 humidity sensor library
- * @defgroup htu21d libupm-htu21
+ * @brief AM2315 temperature & humidity sensor library
+ * @defgroup am2315 libupm-am2315
+ * @ingroup adafruit i2c temp
  */
 
 /**
- * @brief C++ API for AM2315 chip (Atmospheric Pressure Sensor)
+ * @library am2315
+ * @sensor am2315
+ * @comname AM2315 Temperature & Humidity Sensor
+ * @type temp
+ * @man adafruit
+ * @web http://www.adafruit.com/products/1293
+ * @con i2c
+ *
+ * @brief C++ API for AM2315 chip (Temperature & Humidity Sensor)
  *
  * Measurement Specialties [AM2315]
  * (http://www.aosong.com/asp_bin/Products/en/AM2315.pdf)
@@ -65,9 +74,8 @@ namespace upm {
  * The sampling period of this sensor is 2 seconds.  Reads occurring
  * more often than that will return cached data.
  *
- * @ingroup am2315 i2c
- * @snippet am2315.cxx Interesting
  * @image html am2315.jpeg
+ * @snippet am2315.cxx Interesting
  */
 class AM2315 {
     public:

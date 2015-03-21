@@ -11,7 +11,7 @@
 //
 // This example code runs on an Intel Edison and uses mraa to acquire data
 // from an ADIS16448. This data is then scaled and printed onto the terminal.
-// 
+//
 // This software has been tested to connect to an ADIS16448 through a level shifter
 // such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
 // the level shifter and the ADIS16448 is also being powered by the Intel Edison.
@@ -45,21 +45,22 @@
 int
 main(int argc, char **argv)
 {
-	while(true)
-	{
-		upm::ADIS16448* imu = new upm::ADIS16448(0,3); //upm::ADIS16448(SPI,RST)
+    while(true)
+    {
+    //! [Interesting]
+        upm::ADIS16448* imu = new upm::ADIS16448(0,3); //upm::ADIS16448(SPI,RST)
 
-		//Read the specified register, scale it, and display it on the screen
-		std::cout << "XGYRO_OUT:" << imu->gyroScale(imu->regRead(XGYRO_OUT)) << std::endl;
-		std::cout << "YGYRO_OUT:" << imu->gyroScale(imu->regRead(YGYRO_OUT)) << std::endl;
-		std::cout << "ZGYRO_OUT:" << imu->gyroScale(imu->regRead(ZGYRO_OUT)) << std::endl;
-		std::cout << " " << std::endl;
-		std::cout << "XACCL_OUT:" << imu->accelScale(imu->regRead(XACCL_OUT)) << std::endl;
-		std::cout << "YACCL_OUT:" << imu->accelScale(imu->regRead(YACCL_OUT)) << std::endl;
-		std::cout << "ZACCL_OUT:" << imu->accelScale(imu->regRead(ZACCL_OUT)) << std::endl;
-		std::cout << " " << std::endl;
-
-		sleep(1);
-	}
-	return (0);
+        //Read the specified register, scale it, and display it on the screen
+        std::cout << "XGYRO_OUT:" << imu->gyroScale(imu->regRead(XGYRO_OUT)) << std::endl;
+        std::cout << "YGYRO_OUT:" << imu->gyroScale(imu->regRead(YGYRO_OUT)) << std::endl;
+        std::cout << "ZGYRO_OUT:" << imu->gyroScale(imu->regRead(ZGYRO_OUT)) << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << "XACCL_OUT:" << imu->accelScale(imu->regRead(XACCL_OUT)) << std::endl;
+        std::cout << "YACCL_OUT:" << imu->accelScale(imu->regRead(YACCL_OUT)) << std::endl;
+        std::cout << "ZACCL_OUT:" << imu->accelScale(imu->regRead(ZACCL_OUT)) << std::endl;
+        std::cout << " " << std::endl;
+    //! [Interesting]
+        sleep(1);
+    }
+    return (0);
 }

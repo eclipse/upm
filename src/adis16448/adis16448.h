@@ -83,8 +83,27 @@
 #define SERIAL_NUM 0x58 //Lot-specific serial number
 
 namespace upm {
-
-	// ADIS16448 class definition
+ /**
+  * @brief Adis16448
+  * @defgroup adis16448 libupm-adis16488
+  * @ingroup generic spi accelerometer
+  */
+ 
+ /**
+  * @library adis16448
+  * @sensor adis16448
+  * @comname ADIS16448 Accelerometer
+  * @type accelerometer
+  * @man generic
+  * @web http://www.analog.com/en/products/sensors/isensor-mems-inertial-measurement-units/adis16448.html
+  * @con spi
+  *
+  * @brief C++ API for Analog Devices ADIS16448
+  *
+  *	This is an industrial grade accelerometer by Analog Devices.
+  *
+  * @snippet adis16448.cxx Interesting
+  */
 	class ADIS16448{
 
 		public:

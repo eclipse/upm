@@ -21,6 +21,35 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+/**
+ * @file
+ * @brief C++ API for the Nordic Semiconductor NRF8001 Bluetooth Low Energy
+ * @ingroup nrf8001
+ */
+
+/**
+ * @defgroup nrf8001 libupm-nrf8001
+ * @ingroup wifi
+ *
+ * @sensor nrf8001
+ * @comname NRF8001 Bluetooth Low Energy
+ * @type wifi
+ * @man adafruit
+ * @con spi
+ *
+ * @brief nrf8001 Bluetooth Low Energy library
+ *
+ * These files define the NRF8001 C++ interface for lib-nrf8001. Interaction
+ * with this device is done through the ACI routines included with the library.
+ * You can use the nRF UART app in the Apple iOS app store and Google Play for
+ * Android 4.3 for Samsung Galaxy S4 to interact with a microcontroller running
+ * the 'hello world' example.
+ *
+ * @snippet nrf8001-helloworld.cxx Interesting
+ * @snippet nrf8001-broadcast.cxx Interesting
+ */
+ 
 #pragma once
 
 #include <string>
@@ -30,24 +59,6 @@
 
 #include <lib_aci.h>
 #include <aci_setup.h>
-
-/**
- * @brief nrf8001 Bluetooth Low Energy library
- * @defgroup nrf8001 libupm-nrf8001
- */
-
-/**
- * @brief C++ API for the Nordic Semiconductor NRF8001 Bluetooth Low Energy
- *
- * This file defines the NRF8001 C++ interface for lib-nrf8001.
- * Most of the interaction with this device is done using the ACI classes
- * provided by Nordic Semiconductor. Please see our examples for further
- * details.
- *
- * @ingroup nrf8001 spi
- * @snippet nrf8001-helloworld.cxx Interesting
- * @snippet nrf8001-broadcast.cxx Interesting
- */
 
 void init_local_interfaces (aci_state_t* aci, uint8_t reqn, uint8_t rdyn, uint8_t rst);
 void close_local_interfaces (aci_state_t* aci);

@@ -22,7 +22,7 @@
 /**
  * @file
  *
- * @ingroup group_acilib
+ * @ingroup aci-lib
  *
  * @brief Internal prototype for acilib module.
  */

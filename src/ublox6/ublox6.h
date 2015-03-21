@@ -43,15 +43,29 @@
 const int  UBLOX6_DEFAULT_UART = 0;
 
 namespace upm {
-
-  /**
-   * @brief C++ API for the U-BLOX 6 GPS module
-   *
-   * UPM support for the U-BLOX 6 GPS Module
-   *
-   * @ingroup grove uart
-   * @snippet ublox6.cxx Interesting
-   */
+    /**
+     * @brief C++ API for the U-BLOX 6 GPS module
+     *
+     *   UPM support for the U-BLOX 6 GPS Module
+     *
+     * @defgroup ublox6 libupm-ublox6
+     * @ingroup seeed uart gps
+     */
+    /**
+     * @library ublox6
+     * @sensor ublox6
+     * @comname GPS module
+     * @type gps
+     * @man seeed
+     * @web http://www.seeedstudio.com/depot/Grove-GPS-p-959.html
+     * @con uart
+     *
+     * @brief C++ API for the U-BLOX 6 GPS module
+     * 
+     *   UPM support for the U-BLOX 6 GPS Module
+     *
+     * @snippet ublox6.cxx Interesting
+     */
   class Ublox6 {
   public:
     /**

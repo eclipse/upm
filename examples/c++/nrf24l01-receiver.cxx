@@ -48,12 +48,11 @@ sig_handler(int signo)
 void nrf_handler () {
     std::cout << "Reciever :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
 }
-//! [Interesting]
 
 int
 main(int argc, char **argv)
 {
-//! [Interesting]
+
     comm = new upm::NRF24L01(7, 8);
     comm->setSourceAddress ((uint8_t *) local_address);
     comm->setDestinationAddress ((uint8_t *) broadcast_address);
@@ -72,6 +71,6 @@ main(int argc, char **argv)
     std::cout << "exiting application" << std::endl;
 
     delete comm;
-//! [Interesting]
     return 0;
 }
+//! [Interesting]

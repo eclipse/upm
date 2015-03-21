@@ -1,0 +1,5 @@
+set (libname "adafruitss")
+set (libdescription "upm Adafruit pca9685 based 16-channel servo shield")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
