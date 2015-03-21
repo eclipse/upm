@@ -103,6 +103,7 @@ add_executable (groveeldriver-example groveeldriver.cxx)
 add_executable (adafruitss-example adafruitss.cxx)
 add_executable (adafruitms1438-example adafruitms1438.cxx)
 add_executable (adafruitms1438-stepper-example adafruitms1438-stepper.cxx)
+add_executable (hx711-example hx711.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
@@ -186,6 +187,7 @@ include_directories (${PROJECT_SOURCE_DIR}/src/pca9685)
 include_directories (${PROJECT_SOURCE_DIR}/src/groveeldriver)
 include_directories (${PROJECT_SOURCE_DIR}/src/adafruitss)
 include_directories (${PROJECT_SOURCE_DIR}/src/adafruitms1438)
+include_directories (${PROJECT_SOURCE_DIR}/src/hx711)
 
 target_link_libraries (hmc5883l-example hmc5883l ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (groveled-example grove ${CMAKE_THREAD_LIBS_INIT})
@@ -290,4 +292,4 @@ target_link_libraries (groveeldriver-example groveeldriver ${CMAKE_THREAD_LIBS_I
 target_link_libraries (adafruitss-example adafruitss ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (adafruitms1438-example adafruitms1438 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (adafruitms1438-stepper-example adafruitms1438 ${CMAKE_THREAD_LIBS_INIT})
-
+target_link_libraries (hx711-example hx711 ${CMAKE_THREAD_LIBS_INIT})
