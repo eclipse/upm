@@ -1,6 +1,5 @@
 %module pyupm_hx711
 %include "../upm.i"
-
 %include "stdint.i"
 
 %feature("autodoc", "3");

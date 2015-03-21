@@ -128,6 +128,6 @@ namespace upm {
           * @param scale value obtained via calibration
           */
           void setOffset(long offset = 0);
-     }
+     };
 
 }
