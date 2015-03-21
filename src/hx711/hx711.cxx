@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include "HX711.h"
+#include "hx711.h"
 
 using namespace upm;
 using namespace std;
