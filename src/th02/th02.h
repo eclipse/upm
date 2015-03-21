@@ -62,6 +62,34 @@ namespace upm {
  * @ingroup th02
  * @snippet th02.cxx Interesting
  */
+
+
+
+
+
+/**
+ * @brief C++ API for th02 temperature & humidity sensor library
+ *
+ *   This file defines the TH02 C++ interface for libth02
+ *
+ * @defgroup th02 libupm-th02
+ * @ingroup seeed i2c temp
+ */
+/**
+ * @library th02
+ * @sensor th02
+ * @comname temperature and humidity sensor
+ * @type temp
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Tempture%26Humidity_Sensor_(High-Accuracy_%26Mini)_v1.0
+ * @con i2c
+ *
+ * @brief C++ API for th02 temperature & humidity sensor library
+ * 
+ *   This file defines the TH02 C++ interface for libth02
+ *
+ * @snippet th02.cxx Interesting
+ */
 class TH02 {
     public:
         /**
