@@ -43,7 +43,7 @@ var myInterval = setInterval(function()
 		console.log("Collision!");
 		collisionState = true;
 	}
-	else if (collisionState)
+	else if (!collision_obj.isColliding() && collisionState)
 	{
 		console.log("No collision");
 		collisionState = false;
