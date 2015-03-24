@@ -1,6 +1,6 @@
 /*
 *
-* Author: Rafael da Mata Neri
+* Author: Rafael da Mata Neri <rafael.neri@gmail.com>
 * Copyright (c) 2015 Intel Corporation.
 *
 *
