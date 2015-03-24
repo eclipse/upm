@@ -1,5 +1,5 @@
 /*
- * Author: Jun Kato and Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -66,12 +66,26 @@ class GroveCircularLED {
         ~GroveCircularLED ();
 
         /**
-         * Set the lighting status
+         * Set the spinner (light up one but all the other LEDs)
          *
-         * @param level selected level for the circular led (0 - 24)
+         * @param position selected position for the spinner (0 - 23)
+         */
+        mraa_result_t setSpinner (uint8_t position);
+
+        /**
+         * Set the level bar
+         *
+         * @param level selected level for the bar (0 - 24)
          * @param direction up or down, true is up and is the default
          */
         mraa_result_t setLevel (uint8_t level, bool direction=true);
+
+        /**
+         * Set the lighting status
+         *
+         * @param status boolean array (24 elements)
+         */
+        mraa_result_t setStatus (bool status[24]);
 
         /**
          * Return name of the component

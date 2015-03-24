@@ -1,5 +1,5 @@
 /*
- * Author: Jun Kato and Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -40,12 +40,14 @@ GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
         exit(1);
     }
+    mraa_gpio_use_mmaped(m_clkPinCtx, 1);
     // init data context
     m_dataPinCtx = mraa_gpio_init(di);
     if (m_dataPinCtx == NULL) {
         fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
         exit(1);
     }
+    mraa_gpio_use_mmaped(m_dataPinCtx, 1);
 
     // set direction (out)
     error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
@@ -73,28 +75,52 @@ GroveCircularLED::~GroveCircularLED() {
 }
 
 mraa_result_t
-GroveCircularLED::setLevel (uint8_t level, bool direction) {
-    if (level > 24) {
+GroveCircularLED::setSpinner (uint8_t position) {
+    if (position < 0 || position >= 24) {
         return MRAA_ERROR_INVALID_PARAMETER;
     }
+    for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
+        if (block_idx % 12 == 0) {
+            send16bitBlock (CMDMODE);
+        }
+        uint32_t state = (block_idx == position) ? BIT_HIGH : BIT_LOW;
+        send16bitBlock (state);
+    }
+    return lockData ();
+}
 
-    // show data
+mraa_result_t
+GroveCircularLED::setLevel (uint8_t level, bool direction) {
+    if (level < 0 || level > 24) {
+        return MRAA_ERROR_INVALID_PARAMETER;
+    }
     if (direction) {
         for(uint8_t block_idx = 24; block_idx > 0; block_idx--) {
-            if (block_idx % 12 == 0) {
+			if (block_idx % 12 == 0) {
                 send16bitBlock (CMDMODE);
-            }
+			}
             uint32_t state = (block_idx <= level) ? BIT_HIGH : BIT_LOW;
             send16bitBlock (state);
         }
     } else {
         for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
-            if (block_idx % 12 == 0) {
+			if (block_idx % 12 == 0) {
                 send16bitBlock (CMDMODE);
-            }
+			}
             uint32_t state = (block_idx <= level - 1) ? BIT_HIGH : BIT_LOW;
             send16bitBlock (state);
         }
+    }
+    return lockData ();
+}
+
+mraa_result_t
+GroveCircularLED::setStatus (bool status[24]) {
+    for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
+        if (block_idx % 12 == 0) {
+            send16bitBlock (CMDMODE);
+        }
+        send16bitBlock (status[block_idx] ? BIT_HIGH : BIT_LOW);
     }
     return lockData ();
 }
