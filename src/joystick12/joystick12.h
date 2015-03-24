@@ -1,5 +1,5 @@
 /*
- * Author: Alexander Komarov <alexander.komarov@intel.com>
+ * Author: Alexander Komarov <alexander.komarov@intel.com> and Jun Kato <i@junkato.jp>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -72,16 +72,19 @@ class Joystick12 {
          */
         float getYInput();
 
+        void setXRange(int left, int center, int right);
+        void setYRange(int left, int center, int right);
+
     private:
         mraa_aio_context    m_joystickCtxX;
         mraa_aio_context    m_joystickCtxY;
 
-        static const int X_left;
-        static const int X_center;
-        static const int X_right;
-        static const int Y_left;
-        static const int Y_center;
-        static const int Y_right;
+        int X_left;
+        int X_center;
+        int X_right;
+        int Y_left;
+        int Y_center;
+        int Y_right;
 };
 };
 

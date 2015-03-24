@@ -1,5 +1,5 @@
 /*
- * Author: Alexander Komarov <alexander.komarov@intel.com>
+ * Author: Alexander Komarov <alexander.komarov@intel.com> and Jun Kato <i@junkato.jp>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,20 +31,19 @@
 
 using namespace upm;
 
-// FIXME AK: to make configurable if needed
-const int Joystick12::X_left = 100;
-const int Joystick12::X_center = 1610;
-const int Joystick12::X_right= 4070;
-
-const int Joystick12::Y_left = 2;
-const int Joystick12::Y_center = 1610;
-const int Joystick12::Y_right= 4070;
-
 
 Joystick12::Joystick12(int pinX, int pinY) {
     mraa_result_t error;
     m_joystickCtxX = mraa_aio_init(pinX);
     m_joystickCtxY = mraa_aio_init(pinY);
+
+    // set default values
+    X_left = 100;
+    X_center = 1610;
+    X_right= 4070;
+    Y_left = 2;
+    Y_center = 1610;
+    Y_right= 4070;
 }
 
 Joystick12::~Joystick12() {
@@ -58,6 +57,18 @@ Joystick12::~Joystick12() {
     if (error != MRAA_SUCCESS) {
         mraa_result_print(error);
     }
+}
+
+void Joystick12::setXRange(int left, int center, int right) {
+    X_left = left;
+    X_center = center;
+    X_right = right;
+}
+
+void Joystick12::setYRange(int left, int center, int right) {
+    Y_left = left;
+    Y_center = center;
+    Y_right = right;
 }
 
 float Joystick12::getXInput() {
