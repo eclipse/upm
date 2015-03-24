@@ -29,7 +29,7 @@ var MP3Player = require('jsupm_wt5001');
 
 function printUsage(progname)
 {
-	console.log("Usage:" + progname + " <command>");
+	console.log("Usage: node " + progname + " <command>");
 	console.log("Commands:");
 	console.log("0  - stop playing");
 	console.log("1  - start playing track 1");
@@ -98,25 +98,11 @@ var curf = new MP3Player.uint16Array(0);
 myMP3Player.getCurrentFile(curf);
 console.log("The current file is: " + curf.getitem(0));
 
-/*
-// Example: set the date
-var year = new MP3Player.uint16Array(0);
-year.setitem(2015);
-var month = new MP3Player.uint8Array(0);
-month.setitem(1);
-var day = new MP3Player.uint8Array(0);
-day.setitem(1);
-myMP3Player.setDate(year, month, day);
+// set the date
+myMP3Player.setDate(2015, 3, 14);
 
-// Example: set the date
-var hour = new MP3Player.uint8Array(0);
-hour.setitem(12);
-var minute = new MP3Player.uint8Array(0);
-minute.setitem(30);
-var second = new MP3Player.uint8Array(0);
-second.setitem(30);
-myMP3Player.setTime(hour, minute, second);
-*/
+// set the time
+myMP3Player.setTime(9, 26, 53);
 
 var year = new MP3Player.uint16Array(0);
 var month = new MP3Player.uint8Array(0);
