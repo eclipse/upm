@@ -103,6 +103,7 @@ add_executable (adafruitss-example adafruitss.cxx)
 add_executable (adafruitms1438-example adafruitms1438.cxx)
 add_executable (adafruitms1438-stepper-example adafruitms1438-stepper.cxx)
 add_executable (hx711-example hx711.cxx)
+add_executable (a110x-intr-example a110x-intr.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
@@ -290,3 +291,5 @@ target_link_libraries (adafruitss-example adafruitss ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (adafruitms1438-example adafruitms1438 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (adafruitms1438-stepper-example adafruitms1438 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (hx711-example hx711 ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (a110x-intr-example a110x ${CMAKE_THREAD_LIBS_INIT})
+
