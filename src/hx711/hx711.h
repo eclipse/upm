@@ -1,28 +1,25 @@
 /*
-*
-* Author: Rafael da Mata Neri <rafael.neri@gmail.com>
-* Copyright (c) 2015 Intel Corporation.
-*
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ * Author: Rafael da Mata Neri <rafael.neri@gmail.com>
+ * Copyright (c) 2015 Intel Corporation.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 #pragma once
-
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -35,17 +32,25 @@ namespace upm {
      /**
       * @brief HX711 24bit ADC library
       * @defgroup hx711 libupm-hx711
+      * @ingroup generic gpio electric
       */
 
      /**
+      * @library hx711
+      * @sensor hx711
+      * @comname HX711 24bit Analog-to-Digital Converter
+      * @type electric
+      * @man generic
+      * @web http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf
+      * @con gpio
+      *
       * @brief C++ API for HX711
       *
-      * [HX711](http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf) is 
-      * a precision 24-bit analog- to-digital converter (ADC) designed for weigh
-      * scales and industrial control applications to interface directly with a 
-      * bridge sensor. This module was tested on the Intel Galileo Gen2.
+      * The HX711 is a precision 24-bit analog-to-digital converter (ADC)
+      * designed for weigh scales and industrial control applications to
+      * interface directly with a bridge sensor. This module was tested on
+      * the Intel Galileo Gen2.
       *
-      * @ingroup hx711 hx711
       * @snippet hx711.cxx Interesting
       * @image html hx711.jpeg
       */
@@ -65,7 +70,6 @@ namespace upm {
             * HX711 module Destructor
             */
             ~HX711();
-
 
             /**
             * Waits for the chip to be ready and returns a reading
@@ -110,7 +114,7 @@ namespace upm {
             void tare(uint8_t times = 10);
 
             /**
-            * Set the SCALE value 
+            * Set the SCALE value
             * This value is used to convert the raw data to "human readable" data (measure units)
             * @param scale value obtained via calibration
             */
@@ -118,14 +122,14 @@ namespace upm {
        private:
             mraa_gpio_context m_sckPinCtx; // Power Down and Serial Clock Input Pin
             mraa_gpio_context m_dataPinCtx; // Serial Data Output Pin
-            
+
             uint8_t GAIN; // amplification factor
             unsigned long OFFSET; // used for tare weight
             float SCALE; // used to return weight in grams, kg, ounces, whatever
 
-            
+
             /**
-            * Set the OFFSET value 
+            * Set the OFFSET value
             * The value that's subtracted from the actual reading (tare weight)
             * @param scale value obtained via calibration
             */
