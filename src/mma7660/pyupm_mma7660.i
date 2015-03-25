@@ -1,5 +1,10 @@
 %module pyupm_mma7660
 %include "../upm.i"
+%include "cpointer.i"
+
+/* Send "int *" and "float *" to python as intp and floatp */
+%pointer_functions(int, intp);
+%pointer_functions(float, floatp);
 
 %feature("autodoc", "3");
 
