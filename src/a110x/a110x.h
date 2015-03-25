@@ -50,7 +50,10 @@ namespace upm {
    * whether it is detecting a magnetic field with south polarity
    * perpendicular to the sensor element.
    *
+   * An example showing a simple test for the presence of a field
    * @snippet a110x.cxx Interesting
+   * An example demonstrating the use of an interrupt handler to count pulses
+   * @snippet a110x-intr.cxx Interesting
    */
   class A110X {
   public:
@@ -71,7 +74,24 @@ namespace upm {
      */
     bool magnetDetected();
 
+    /**
+     * Install an Interrupt Service Routine (ISR) to be called when
+     * the appropriate magnetic field is detected.
+     *
+     * @param fptr function pointer to function to be called on interrupt
+     * @param arg pointer to an object that will be supplied as an
+     * arguement to the ISR.
+     */
+    void installISR(void (*isr)(void *), void *arg);
+
+    /**
+     * Uninstall the previously installed Interrupt Service Routine (ISR)
+     *
+     */
+    void uninstallISR();
+
   private:
+    bool m_isrInstalled;
     mraa_gpio_context m_gpio;
   };
 }
