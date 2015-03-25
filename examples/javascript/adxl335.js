@@ -47,30 +47,34 @@ setTimeout(function()
 	g_myInterval = setInterval(runAccelerometer, 200);
 }, 2000);
 
-var x = new analogGyro3Axis.intPointer(0);
-var y = new analogGyro3Axis.intPointer(0);
-var z = new analogGyro3Axis.intPointer(0);
 
-var aX = new analogGyro3Axis.floatPointer(0);
-var aY = new analogGyro3Axis.floatPointer(0);
-var aZ = new analogGyro3Axis.floatPointer(0);
+var x = new analogGyro3Axis.new_intPointer();
+var y = new analogGyro3Axis.new_intPointer();
+var z = new analogGyro3Axis.new_intPointer();
+
+var aX = new analogGyro3Axis.new_floatPointer();
+var aY = new analogGyro3Axis.new_floatPointer();
+var aZ = new analogGyro3Axis.new_floatPointer();
 
 var outputStr;
 
 function runAccelerometer()
 {
-
 	myAnalogGyro3Axis.values(x, y, z);
-	outputStr = "Raw Values: X: " + x.getitem(0) +
-		" Y: " + y.getitem(0) + 
-		" Z: " + z.getitem(0);
+	outputStr = "Raw Values: X: " +
+		analogGyro3Axis.intPointer_value(x) +
+		" Y: " + analogGyro3Axis.intPointer_value(y) + 
+		" Z: " + analogGyro3Axis.intPointer_value(z);
 	console.log(outputStr);
 
-
 	myAnalogGyro3Axis.acceleration(aX, aY, aZ);
-	console.log("Acceleration: X: " + aX.getitem(0) + "g");
-	console.log("Acceleration: Y: " + aY.getitem(0) + "g");
-	console.log("Acceleration: Z: " + aZ.getitem(0) + "g");
+	outputStr = "Acceleration: X: " +
+	analogGyro3Axis.floatPointer_value(aX) + "g\n" +
+	"Acceleration: Y: " +
+	analogGyro3Axis.floatPointer_value(aY) + "g\n" +
+	"Acceleration: Z: " +
+	analogGyro3Axis.floatPointer_value(aZ) + "g";
+	console.log(outputStr);
 
 	console.log(" ");
 }
