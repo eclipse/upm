@@ -1,6 +1,5 @@
 /*jslint node:true, vars:true, bitwise:true, unparam:true */
 /*jshint unused:true */
-/*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
 * Copyright (c) 2014 Intel Corporation.
@@ -30,16 +29,17 @@ var accelrCompassSensor = require('jsupm_lsm303');
 // Instantiate LSM303 compass on I2C
 var myAccelrCompass = new accelrCompassSensor.LSM303(0);
 
-setInterval(function()
+var successFail, coords, outputStr, accel;
+var myInterval = setInterval(function()
 {
 	// Load coordinates into LSM303 object
-	var successFail = myAccelrCompass.getCoordinates();
+	successFail = myAccelrCompass.getCoordinates();
 	// in XYZ order. The sensor returns XZY,
 	// but the driver compensates and makes it XYZ
-	var coords = myAccelrCompass.getRawCoorData();
+	coords = myAccelrCompass.getRawCoorData();
 
     // Print out the X, Y, and Z coordinate data using two different methods
-	var outputStr = "coor: rX " + coords.getitem(0)
+	outputStr = "coor: rX " + coords.getitem(0)
 					+ " - rY " + coords.getitem(1)
 					+ " - rZ " + coords.getitem(2);
 	console.log(outputStr);
@@ -53,7 +53,7 @@ setInterval(function()
 
     // Get the acceleration
 	myAccelrCompass.getAcceleration();
-	var accel = myAccelrCompass.getRawAccelData();
+	accel = myAccelrCompass.getRawAccelData();
     // Print out the X, Y, and Z acceleration data using two different methods
 	outputStr = "acc: rX " + accel.getitem(0)
 				+ " - rY " + accel.getitem(1)
@@ -65,3 +65,14 @@ setInterval(function()
 	console.log(outputStr);
 	console.log(" ");
 }, 1000);
+
+// Print message when exiting
+process.on('SIGINT', function()
+{
+	clearInterval(myInterval);
+	myAccelrCompass = null;
+	accelrCompassSensor.cleanUp();
+	accelrCompassSensor = null;
+	console.log("Exiting");
+	process.exit(0);
+});
