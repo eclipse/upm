@@ -79,7 +79,9 @@ function setDutyCycle()
 process.on('SIGINT', function()
 {
 	clearInterval(myInterval);
-	myMOSFETsensor.off();
+	myMOSFETsensor = null;
+	MOSFETsensor.cleanUp();
+	MOSFETsensor = null;
 	console.log("Exiting...");
 	process.exit(0);
 });
