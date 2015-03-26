@@ -91,11 +91,11 @@ make _pyupm_i2clcd
 
 Sometimes you want to build a small C++ example against an installed library.
 This is fairly easy if installed system-wide. Just link against the correct
-library (in this case libupm-tm1637) and then add /usr/include/upm to the
+library (in this case libupm-i2clcd) and then add /usr/include/upm to the
 loader path:
 
 ~~~~~~~~~~~~
-g++ test.cxx -lupm_tm1637 -I/usr/include/upm
+g++ test.cxx -lupm-i2clcd -I/usr/include/upm
 ~~~~~~~~~~~~
 
 You can also use pkg-config to return the information to you, which is
@@ -103,5 +103,5 @@ considered the correct way if including UPM in a build system like cmake or
 autotools on linux.
 
 ~~~~~~~~~~~
-pkg-config --cflags --libs upm-tm1637
+pkg-config --cflags --libs upm-i2clcd
 ~~~~~~~~~~~
