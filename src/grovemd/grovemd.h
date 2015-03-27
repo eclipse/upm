@@ -40,6 +40,7 @@ namespace upm {
    */
 
   /**
+   * @library grovemd
    * @sensor grovemd
    * @library grovemd
    * @comname Grove I2C Motor Driver
