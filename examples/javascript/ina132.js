@@ -25,7 +25,7 @@
 */
 var differential_amplifier_lib = require("jsupm_ina132");
 
-// The was tested with the INA132 Differential Amplifier Sensor module.
+// Tested with the INA132 Differential Amplifier Sensor module.
 // Instantiate an INA132 on analog pin A0
 var differential_amplifier_obj = new differential_amplifier_lib.INA132(0);
 
