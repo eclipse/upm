@@ -20,7 +20,7 @@ var fileName = "/home/root/test.jpg";
 // OV528 protocol commands
 var cmd = {
   sync: [0xaa, 0x0d, 0x00, 0x00, 0x00, 0x00],
-  init: [0xaa, 0x01, 0x00, 0x07, 0x00, 0x03],
+  init: [0xaa, 0x01, 0x00, 0x07, 0x00, 0x07],
   pkg:  [0xaa, 0x06, 0x08, 0x00, 0x00, 0x00],
   snap: [0xaa, 0x05, 0x00, 0x00, 0x00, 0x00],
   get:  [0xaa, 0x04, 0x01, 0x00, 0x00, 0x00],
@@ -44,22 +44,21 @@ async.series([
 function writeResults(err, results) {
   var fd = results[0];
   var ws = fs.createWriteStream(fileName, { fd: fd });
-  var size = results[results.length - 1], packageId = 0;
+  var size = results[results.length - 1], read = 0, packageId = 0;
   var dataAckBuf = new Buffer(cmd.dataAck);
 
   var checkResp = function(resp) {
     var pid = resp[0] | (resp[1] << 8);
     if (pid != packageId) return;
-    var dataResp = resp.slice(4, resp.length - 2);
-    ws.write(dataResp);
+    ws.write(resp.slice(4, resp.length - 2));
     packageId ++;
 
-    var read = resp.length + packageId * packageSize;
+    read += resp.length - 6;
     if (read >= size) {
       dataAckBuf[4] = dataAckBuf[5] = 0xf0;
       serial.write(dataAckBuf);
       serial.removeListener('data', checkResp);
-      ws.close();
+      ws.end();
       serial.close();
       return;
     }
