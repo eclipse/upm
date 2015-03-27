@@ -10,6 +10,9 @@ var serial = new SerialPort(port, {
   baudrate: 115200
 }, false);
 
+// require async
+var async = require("async");
+
 // require file system library
 var fs = require("fs");
 var fileName = "/home/root/test.jpg";
@@ -17,114 +20,86 @@ var fileName = "/home/root/test.jpg";
 // OV528 protocol commands
 var cmd = {
   sync: [0xaa, 0x0d, 0x00, 0x00, 0x00, 0x00],
-  init: [0xaa, 0x01, 0x00, 0x07, 0x00, 0x03], /* JPEG, no preview, 640x480 */
-  pkg:  [0xaa, 0x06, 0x08, 0x00, 0x00, 0x00], /* low byte, high byte, don't care */
-  snap: [0xaa, 0x05, 0x00, 0x00, 0x00, 0x00], /* compressed, no skip frame, don't care */
+  init: [0xaa, 0x01, 0x00, 0x07, 0x00, 0x03],
+  pkg:  [0xaa, 0x06, 0x08, 0x00, 0x00, 0x00],
+  snap: [0xaa, 0x05, 0x00, 0x00, 0x00, 0x00],
   get:  [0xaa, 0x04, 0x01, 0x00, 0x00, 0x00],
-  data: [0xaa, 0x08, 0x00, 0x00, 0x00, 0x00],
-  ackEnd: [0xaa, 0x0e, 0x00, 0x00, 0xf0, 0xf0]
+  data: [0xaa, 0x0a, 0x00, 0x00, 0x00, 0x00],
+  dataAck: [0xaa, 0x0e, 0x00, 0x00, 0xf0, 0xf0]
 };
 
-//--------------------------------------------------------------
-// open the specified port
-serial.open(function (error) {
-  if (error) {
-    console.log('Failed to open: '+error);
-  } else {
-    console.log('Opened port: '+port);
+// main routine: open the specified port and take a picture
+var packageSize = 256;
+async.series([
+    function(c) { fs.open(fileName, 'w', c); },
+    function(c) { serial.open(c); },
+    sync,
+    initialize,
+    function(c){ setPackageSize(packageSize, c); },
+    snapshot,
+    getPicture
+  ], writeResults);
 
-    //fs.open(fileName, 'w', function(error, fd) {
-      /*
-      var ws = fs.createWriteStream(fileName, {
-        fd: fd
-      });
-      */
+// check results
+function writeResults(err, results) {
+  var fd = results[0];
+  var ws = fs.createWriteStream(fileName, { fd: fd });
+  var size = results[results.length - 1], packageId = 0;
+  var dataAckBuf = new Buffer(cmd.dataAck);
 
-      // discard existing responses
-      // and initialize the connected module
-      serial.flush(function() {
-        sync(function(result) {
-          console.log('SYNC:', result);
-          if (!result) {
-            serial.close();
-            //ws.end(); fd.close();
-            return;
-          }
+  var checkResp = function(resp) {
+    var pid = resp[0] | (resp[1] << 8);
+    if (pid != packageId) return;
+    var dataResp = resp.slice(4, resp.length - 2);
+    ws.write(dataResp);
+    packageId ++;
 
-          initialize(function(result) {
-            console.log('INIT:', result);
-            if (!result) {
-              serial.close();
-              //ws.end(); fd.close();
-              return;
-            }
+    var read = resp.length + packageId * packageSize;
+    if (read >= size) {
+      dataAckBuf[4] = dataAckBuf[5] = 0xf0;
+      serial.write(dataAckBuf);
+      serial.removeListener('data', checkResp);
+      ws.close();
+      serial.close();
+      return;
+    }
+    sendDataAck();
+  };
+  serial.addListener('data', checkResp);
 
-            setPackageSize(512, function(result) {
-              console.log('PKG:', result);
-              if (!result) {
-                serial.close();
-                //ws.end(); fd.close();
-                return;
-              }
-
-              snapshot(function(result) {
-                console.log('SNAP:', result);
-                if (!result) {
-                  serial.close();
-                  //ws.end(); fd.close();
-                  return;
-                }
-
-                var read = 0;
-                var len = 0;
-                getPicture(
-                  /* init */
-                  function(length) {
-                    console.log('GET:', length);
-                    if (length < 0) {
-                      serial.close();
-                      //ws.end(); fd.close();
-                      return;
-                    }
-                    len = length;
-                  },
-                  /* write */
-                  function(buf) {
-                    read += buf.length;
-                    //ws.write(buf);
-                  },
-                  /* end */
-                  function() {
-                    //ws.end(); fd.close();
-                  });
-              });
-            });
-          });
-        });
-      });
-    //});
+  // send Ack for the received package
+  var sendDataAck = function() {
+    dataAckBuf[4] = packageId & 0xff;
+    dataAckBuf[5] = (packageId >> 8) & 0xff;
+    //console.log("Req", dataAckBuf);
+    serial.write(dataAckBuf);
+    var pId = packageId;
+    setTimeout(function() {
+      if (packageId > pId) return;
+      sendDataAck();
+    }, 100);
   }
-});
+  sendDataAck();
+}
 
-//--------------------------------------------------------------
-// synchronize the connection
-var numTrials = 0, maxTrials = 100;
+// sync connection
 function sync(callback) {
+  var numTrials = 0, maxTrials = 100;
 
   // check response
   var ack = false;
   var sync = false;
+  var t;
   var checkResp = function(resp) {
 
-    // wait for an ACK response
+    // wait for ACK
     if (checkAck(resp, cmd.sync[1])) {
       ack = true;
       console.log('Got ACK response.');
-      setTimeout(function() {
+      t = setTimeout(function() {
         if (sync) return;
         serial.removeListener('data', checkResp);
-        callback(false);
-        console.log('No SYNC response.');
+        callback('No SYNC response.', false);
       }, 500);
       return;
     }
@@ -134,8 +109,9 @@ function sync(callback) {
       serial.removeListener('data', checkResp);
       sendAck(resp);
       serial.flush(function() {
-        callback(true);
+        callback(null, true);
       });
+      clearTimeout(t);
       console.log('Got SYNC response.');
     }
   };
@@ -148,8 +124,7 @@ function sync(callback) {
       return;
     }
     if (numTrials >= maxTrials) {
-      console.log('Reached maximum SYNC trials.');
-      callback(false);
+      callback('Reached maximum SYNC trials.', false);
       return;
     }
     numTrials++;
@@ -159,19 +134,19 @@ function sync(callback) {
   sync();
 }
 
-//--------------------------------------------------------------
-// initialize camera configuration
+// setup camera
 function initialize(callback) {
 
   // check response
-  var resp = false;
+  var recv = false;
   var checkResp = function(resp) {
     if (checkAck(resp, cmd.init[1])) {
       serial.removeListener('data', checkResp);
-      resp = true;
+      recv = true;
       serial.flush(function() {
-        callback(true);
+        callback(null, true);
       });
+      clearTimeout(t);
       console.log('Got Initial response.');
     }
   };
@@ -181,27 +156,26 @@ function initialize(callback) {
   serial.write(new Buffer(cmd.init));
 
   // set timeout for this request
-  setTimeout(function() {
-    if (resp) return;
+  var t = setTimeout(function() {
+    if (recv) return;
     serial.removeListener('data', checkResp);
-    console.log('No Initial response.');
-    callback(false);
-  }, 500);
+    callback('No Initial response.', false);
+  }, 1000);
 }
 
-//--------------------------------------------------------------
 // set JPEG package size
 function setPackageSize(packageSize, callback) {
 
   // check response
-  var resp = false;
+  var recv = false;
   var checkResp = function(resp) {
     if (checkAck(resp, cmd.pkg[1])) {
       serial.removeListener('data', checkResp);
-      resp = true;
+      recv = true;
       serial.flush(function() {
-        callback(true);
+        callback(null, true);
       });
+      clearTimeout(t);
       console.log('Got Set Package Size response.');
     }
   };
@@ -214,27 +188,26 @@ function setPackageSize(packageSize, callback) {
   serial.write(new Buffer(c));
 
   // set timeout for this request
-  setTimeout(function() {
-    if (resp) return;
+  var t = setTimeout(function() {
+    if (recv) return;
     serial.removeListener('data', checkResp);
-    console.log('No Set Package Size response.');
-    callback(false);
-  }, 500);
+    callback('No Set Package Size response.', false);
+  }, 1000);
 }
 
-//--------------------------------------------------------------
 // take a snapshot
 function snapshot(callback) {
 
   // check response
-  var resp = false;
+  var recv = false;
   var checkResp = function(resp) {
     if (checkAck(resp, cmd.snap[1])) {
       serial.removeListener('data', checkResp);
-      resp = true;
+      recv = true;
       serial.flush(function() {
-        callback(true);
+        callback(null, true);
       });
+      clearTimeout(t);
       console.log('Got Snapshot response.');
     }
   };
@@ -244,73 +217,78 @@ function snapshot(callback) {
   serial.write(new Buffer(cmd.snap));
 
   // set timeout for this request
-  setTimeout(function() {
-    if (resp) return;
+  var t = setTimeout(function() {
+    if (recv) return;
     serial.removeListener('data', checkResp);
-    console.log('No Snapshot response.');
-    callback(false);
-  }, 500);
+    callback('No Snapshot response.', false);
+  }, 1000);
 }
 
-//--------------------------------------------------------------
 // get JPEG data
-function getPicture(callback, onDataRead, onDataFinished) {
+function getPicture(callback) {
+  var numGetPictureTrials = 0, maxGetPictureTrials = 1000;
 
   // check response
-  var resp = false;
+  var recv = false;
   var data = false;
-  var length = 0;
-  var read = 0;
+  var t = -1;
   var checkResp = function(resp) {
 
-    // wait for an ACK response
-    if (!resp) {
-      if (checkAck(resp, cmd.get[1])) {
-        resp = true;
-        console.log('Got Get Picture response.');
+    // wait for an ACK recvonse
+    if (checkAck(resp, cmd.get[1])) {
+      recv = true;
+      console.log('Got Get Picture response.');
+      if (t < 0) {
+        t = setTimeout(function() {
+          if (data) return;
+          console.log('No Data response after the Get Picture response.');
+          forceGet();
+          t = -1;
+        }, 1000);
       }
       return;
     }
 
     // then, wait for the following Data response
-    if (!data) {
-      if (checkAck(resp, cmd.data[1])) {
+    for (var i = 0; i + 5 < resp.length; i ++)
+      if (resp[i] == 0xaa && resp[i + 1] == cmd.data[1]) {
         serial.removeListener('data', checkResp);
-        var data = true;
+        data = true;
         console.log('Got Data response.');
-        length = resp[3] | (resp[4] << 8) | (resp[5] << 16);
-        callback(length);
+        length = resp[i+3] | (resp[i+4] << 8) | (resp[i+5] << 16);
+        clearTimeout(t);
+        callback(null, length);
+        return;
       }
-    }
-
-    read += resp.length;
-    onDataRead(resp);
-    if (read >= length) {
-      serial.write(cmd.ackEnd);
-      onDataFinished();
-    }
   };
   serial.addListener('data', checkResp);
 
-  // send Snapshot
-  serial.write(new Buffer(cmd.get));
-
-  // set timeout for this request
-  setTimeout(function() {
-    if (resp && data) return;
-    serial.removeListener('data', checkResp);
-    if (!resp) console.log('No Get Picture response.');
-    else console.log('No Data response after the Get Picture response.');
-    callback(-1);
-  }, 500);
+  // send Get Picture
+  var getBuf = new Buffer(cmd.get);
+  var forceGet = function() {
+    if (numGetPictureTrials >= maxGetPictureTrials) {
+      callback('Reached maximum Get Picture trials.', false);
+      return;
+    }
+    numGetPictureTrials++;
+    serial.write(getBuf);
+  };
+  var get = function() {
+    if (recv) {
+      return;
+    }
+    forceGet();
+    setTimeout(get, 10); // retry
+  };
+  get();
 }
 
-//--------------------------------------------------------------
 // utility methods
 function checkAck(resp, cmd) {
   for (var i = 0; i + 5 < resp.length; i ++)
-    if (resp[i] == 0xaa && resp[i + 1] == 0x0e && resp[i + 2] == cmd)
+    if (resp[i] == 0xaa && resp[i + 1] == 0x0e && resp[i + 2] == cmd) {
       return true;
+    }
   return false;
 }
 
