@@ -1,5 +1,0 @@
-set (libname "tm1637")
-set (libdescription "upm 4 digit display tm1637")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
