@@ -33,7 +33,7 @@
 #define AT42QT1070_DEFAULT_I2C_ADDR 0x1b
 
 namespace upm {
-  
+
   /**
    * @brief UPM module for the Atmel AT42QT1070 QTouch sensor
    * @defgroup at42qt1070 libupm-at42qt1070
@@ -41,8 +41,8 @@ namespace upm {
    */
 
   /**
-   * @sensor at42qt1070
    * @library at42qt1070
+   * @sensor at42qt1070
    * @comname Atmel AT42QT1070 QTouch Sensor
    * @category touch
    * @manufacturer seeed
