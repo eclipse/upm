@@ -44,9 +44,9 @@ namespace upm {
    * @library at42qt1070
    * @sensor at42qt1070
    * @comname Atmel AT42QT1070 QTouch Sensor
-   * @category touch
-   * @manufacturer seeed
-   * @connection i2c
+   * @type touch
+   * @man seeed
+   * @con i2c
    *
    * @brief C++ API for the Atmel AT42QT1070 QTouch sensor
    *

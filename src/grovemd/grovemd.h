@@ -43,9 +43,9 @@ namespace upm {
    * @library grovemd
    * @sensor grovemd
    * @comname Grove I2C Motor Driver
-   * @category motor
-   * @manufacturer seeed
-   * @connection i2c
+   * @type motor
+   * @man seeed
+   * @con i2c
    *
    * @brief C++ API for the Grove I2C Motor Driver 
    *
@@ -62,7 +62,6 @@ namespace upm {
    * This module was tested with version 1.3 of the Grove I2C Motor
    * Driver
    *
-   * @ingroup i2c grove
    * @snippet grovemd.cxx Interesting
    */
   class GroveMD {
