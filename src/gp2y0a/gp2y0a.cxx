@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,23 +24,29 @@
 
 #include <iostream>
 
-#include "gp2y0a21yk.h"
+#include "gp2y0a.h"
 
+using namespace std;
 using namespace upm;
 
-GP2Y0A21YK::GP2Y0A21YK(int pin)
+GP2Y0A::GP2Y0A(int pin)
 {
-  mraa_init();
+  if (!(m_aio = mraa_aio_init(pin)))
+    {
+      cerr << __FUNCTION__ << "mraa_aio_init() failed." << endl;
+      return;
+    }
 
-  m_aio = mraa_aio_init(pin);
+  // get the ADC resolution
+  m_aRes = (1 << mraa_aio_get_bit(m_aio));
 }
 
-GP2Y0A21YK::~GP2Y0A21YK()
+GP2Y0A::~GP2Y0A()
 {
   mraa_aio_close(m_aio);
 }
 
-float GP2Y0A21YK::value(float aref, uint8_t samples)
+float GP2Y0A::value(float aref, uint8_t samples)
 {
   int val;
   int sum = 0;
@@ -52,7 +58,7 @@ float GP2Y0A21YK::value(float aref, uint8_t samples)
     }
 
   val = sum / samples;
-  float volts = (float)val * aref / 1024.0;
+  float volts = float(val) * aref / float(m_aRes);
 
   return volts;
 }

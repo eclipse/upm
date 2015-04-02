@@ -1,5 +1,0 @@
-set (libname "gp2y0a21yk")
-set (libdescription "upm gp2y0a21yk 80cm IR proximity sensor module")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()

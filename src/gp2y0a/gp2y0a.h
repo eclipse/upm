@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,36 +23,49 @@
  */
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief UPM library for the GP2Y0A family of IR Proximity Sensors
+   * @defgroup gp2y0a libupm-gp2y0a
+   * @ingroup seeed analog light
+   */
 
   /**
-   * @brief C++ API for the GP2Y0A21YK 80cm IR Proximity Sensor
+   * @sensor gp2y0a
+   * @library gp2y0a
+   * @name GP2Y0A family of IR Proximity Sensors
+   * @category light
+   * @manufacturer seeed
+   * @connection analog
    *
-   * UPM module for the GP2Y0A21YK 80cm IR Proximity Sensor.
-   * This sensor returns an analog voltage corresponding to the distance 
-   * of an object from the sensor.  The object may be 10 cm (4 inches)
-   * to 80 cm (30 inches) away.  The voltage is low when objects
+   * @brief C++ API for the GP2Y0A family of IR Proximity Sensors
+   *
+   * This sensor family returns an analog voltage corresponding to the distance 
+   * of an object from the sensor.  The voltage is lower when objects
    * are far away; the voltage increases as objects get closer
-   * to the sensor.
+   * to the sensor.  
    *
-   * @ingroup analog
-   * @snippet gp2y0a21yk.cxx Interesting
+   * @snippet gp2y0a.cxx Interesting
    */
-  class GP2Y0A21YK {
+  class GP2Y0A {
   public:
+
     /**
-     * GP2Y0A21YK sensor constructor
+     * GP2Y0A sensor constructor
      *
      * @param pin analog pin to use
      */
-    GP2Y0A21YK(int pin);
+    GP2Y0A(int pin);
+
     /**
-     * GP2Y0A21YK Destructor
+     * GP2Y0A Destructor
      */
-    ~GP2Y0A21YK();
+    ~GP2Y0A();
+
     /**
      * Get the averaged voltage value from the sensor
      *
@@ -64,6 +77,8 @@ namespace upm {
 
   private:
     mraa_aio_context m_aio;
+    // ADC resolution
+    int m_aRes;
   };
 }
 
