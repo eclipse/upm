@@ -39,12 +39,12 @@ MAX44009::MAX44009 (int bus, int devAddr) {
 
     m_i2cMaxControlCtx = mraa_i2c_init(m_bus);
 
-    mraa_result_t ret = mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    if (ret == MRAA_SUCCESS) {
+    mraa_result_t status = mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    if (status == MRAA_SUCCESS) {
         configured = true;
     }
     else {
-        fprintf(stderr, "Messed up i2c bus\n");
+        fprintf(stderr, "i2c bus failed to initialise.\n");
     }
 }
 
@@ -53,13 +53,57 @@ MAX44009::~MAX44009() {
 }
 
 mraa_result_t
-MAX44009::getLuxValue (uint16_t* value) {
+MAX44009::reset() {
+    uint8_t address[5] = {MAX44009_INT_ENABLE_ADDR, MAX44009_CONFIG_ADDR, \
+                                   MAX44009_THR_HIGH_ADDR, MAX44009_THR_LOW_ADDR, \
+                                   MAX44009_THR_TIMER_ADDR};
+    uint8_t value[5]   = {MAX44009_INT_DISABLED, MAX44009_DEFAULT_CONFIGURATION, \
+                                   0xFF, 0x00, 0xFF};
+    uint8_t data[2];
+
+    uint8_t i;
+    mraa_result_t status = MRAA_SUCCESS;
+
+    for (i = 0; i < sizeof(address); i++) {
+        data[0] = address[i];
+        data[1] = value[i];
+        mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+        status = mraa_i2c_write (m_i2cMaxControlCtx, data, sizeof(data));
+    }
+
+    return status;
+}
+
+mraa_result_t
+MAX44009::getValue(uint16_t* value) {
+    uint8_t exponent, mantissa;
+    uint8_t data[2];
+
+    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
+    data[0] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_HIGH_ADDR);
+    data[1] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_LOW_ADDR);
+
+    if(*data[0] == -1 || *data[1] == -1) {
+        return MRAA_ERROR_INVALID_RESOURCE;
+    }
+
+    exponent = (( data[0] >> 4 )  & 0x0F);
+    mantissa = (( data[0] & 0x0F ) << 4) | ((data[1] & 0x0F));
+
+    *value = ( (uint16_t) exponent << 8 ) | ( (uint16_t) mantissa << 0);
+
+    return MRAA_SUCCESS;
+}
+
+float
+MAX44009::convertToLux(uint16_t* value) {
+    /*
     uint8_t data = 0;
     uint8_t exponent = 0;
     uint8_t mantissa = 0;
     mraa_result_t status = MRAA_SUCCESS;
 
-    status = i2cReadReg_8 (LUXDATA_HIGH, &data);
+    status = i2cReadReg_8 (MAX44009_LUX_HIGH_ADDR, &data);
     if(status != MRAA_SUCCESS) { return status; }
 
     exponent = data >> 4;
@@ -71,6 +115,18 @@ MAX44009::getLuxValue (uint16_t* value) {
     *value = pow(2, exponent) * mantissa * 0.72;
 
     return status;
+    */
+    uint8_t exponent, mantissa;
+    float result = 0.045;
+
+    exponent = (value >> 8) & 0xFF;
+    exponent = (exponent == 0x0F ? exponent & 0x0E : exponent);
+
+    mantissa = (value >> 0) & 0xFF;
+
+    result *= 2^exponent * mantissa;
+
+    return result;
 }
 
 bool

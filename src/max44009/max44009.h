@@ -28,22 +28,50 @@
 
 #include "upm/iLightSensor.h"
 
-#define ADDR               0x4A // device address
-#define BUS                1    // device address
+/* ADDRESS AND NOT_FOUND VALUE */
+#define MAX44009_ADDRESS                    ( 0x4A )
+#define MAX44009_NOT_FOUND                  ( 0x00 )
 
-// registers address
-#define ISR                0x00 // Interrupt Status Register
-#define IE                 0x01 // Interrupt Enable Register
-#define CONF               0x02 // Configuration Register
-#define LUXDATA_HIGH       0x03 // Lux Reading High Byte
-#define LUXDATA_LOW        0x04 // Lux Reading Low Byte
+/* I2C BUS */
+#define MAX44009_I2C_BUS                    ( 1 )
 
-#define UP_THRESH_HIGH     0x05 // Upper Threshold Register High Byte
-#define LOW_THRESH_HIGH    0x06 // Lower Threshold Register High Byte
-#define THRESH_TIMER       0x07 // Threshold Timer Register
+/* REGISTER ADDRESSES */
+#define MAX44009_INT_STATUS_ADDR            ( 0x00 )    // R
+#define MAX44009_INT_ENABLE_ADDR            ( 0x01 )    // R/W
+#define MAX44009_CONFIG_ADDR                ( 0x02 )    // R/W
+#define MAX44009_LUX_HIGH_ADDR              ( 0x03 )    // R
+#define MAX44009_LUX_LOW_ADDR               ( 0x04 )    // R
+#define MAX44009_THR_HIGH_ADDR              ( 0x05 )    // R/W
+#define MAX44009_THR_LOW_ADDR               ( 0x06 )    // R/W
+#define MAX44009_THR_TIMER_ADDR             ( 0x07 )    // R/W
 
-#define HIGH               1
-#define LOW                0
+/* INTERRUPT VALUES */
+#define MAX44009_INT_STATUS_OFF             ( 0x00 )
+#define MAX44009_INT_STATUS_ON              ( 0x01 )
+#define MAX44009_INT_DISABLED               ( 0x00 )
+#define MAX44009_INT_ENABLED                ( 0x01 )
+
+/* CONFIGURATION VALUES */
+#define MAX44009_CONFIG_DEFAULT             ( 0 << 7 )
+#define MAX44009_CONFIG_CONTINUOUS          ( 1 << 7 )
+#define MAX44009_CONFIG_AUTO                ( 0 << 6 )
+#define MAX44009_CONFIG_MANUAL              ( 1 << 6 )
+#define MAX44009_CONFIG_CDR_NORMAL          ( 0 << 3 )
+#define MAX44009_CONFIG_CDR_DIVIDED         ( 1 << 3 )
+#define MAX44009_CONFIG_INTEGRATION_800ms   ( 0 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_400ms   ( 1 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_200ms   ( 2 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_100ms   ( 3 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_50ms    ( 4 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_25ms    ( 5 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_12ms    ( 6 << 0 )
+#define MAX44009_CONFIG_INTEGRATION_6ms     ( 7 << 0 )
+
+/* DEFAULT CONFIGURATION */
+#define MAX44009_DEFAULT_CONFIGURATION      ( MAX44009_CONFIG_DEFAULT | \
+                                              MAX44009_CONFIG_AUTO | \
+                                              MAX44009_CONFIG_CDR_NORMAL | \
+                                              MAX44009_CONFIG_INTEGRATION_100ms )
 
 namespace upm {
 
@@ -70,7 +98,7 @@ class MAX44009 : public ILightSensor {
          * @param bus number of used bus
          * @param devAddr address of used i2c device
          */
-        MAX44009 (int bus = BUS, int devAddr = ADDR);
+        MAX44009 (int bus = MAX44009_I2C_BUS, int devAddr = MAX44009_ADDRESS);
 
         /**
          * MAX44009 object destructor, basicaly it close i2c connection.
@@ -78,9 +106,19 @@ class MAX44009 : public ILightSensor {
         ~MAX44009 ();
 
         /**
-         * Read the lux value from the chip.
+          * Reset sensor to default configuration
+          */
+        mraa_result_t reset();
+
+        /**
+         * Read the raw value from the chip.
          */
-        mraa_result_t getLuxValue (uint16_t* value);
+        mraa_result_t getValue (uint16_t* value);
+
+        /**
+         * Convert raw value to lux.
+         */
+        float convertToLux (uint16_t* value);
 	
 	/**
          * Returns whether the sensor is configured.
@@ -113,7 +151,7 @@ class MAX44009 : public ILightSensor {
         int m_maxControlAddr;
         int m_bus;
         mraa_i2c_context m_i2cMaxControlCtx;
-	bool configured;
+        bool configured;
 };
 
 }
