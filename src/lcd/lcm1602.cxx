@@ -32,7 +32,8 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in) : I2CLcd (bus_in, addr_in) {
+Lcm1602::Lcm1602(int bus_in, int addr_in) : I2CLcd(bus_in, addr_in)
+{
     mraa_result_t error = MRAA_SUCCESS;
 
     usleep(50000);
@@ -60,8 +61,8 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) : I2CLcd (bus_in, addr_in) {
     home();
 }
 
-Lcm1602::~Lcm1602 () {
-
+Lcm1602::~Lcm1602()
+{
 }
 
 /*
@@ -70,31 +71,35 @@ Lcm1602::~Lcm1602 () {
  * **************
  */
 mraa_result_t
-Lcm1602::write (std::string msg) {
+Lcm1602::write(std::string msg)
+{
     mraa_result_t error = MRAA_SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        error = send (msg[i], LCD_RS);
+        error = send(msg[i], LCD_RS);
     }
     return error;
 }
 
 mraa_result_t
-Lcm1602::setCursor (int row, int column) {
+Lcm1602::setCursor(int row, int column)
+{
     mraa_result_t error = MRAA_SUCCESS;
 
-    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
+    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
 
-    return send (LCD_CMD | offset, 0);
+    return send(LCD_CMD | offset, 0);
 }
 
 mraa_result_t
-Lcm1602::clear () {
+Lcm1602::clear()
+{
     return send(LCD_CLEARDISPLAY, 0);
 }
 
 mraa_result_t
-Lcm1602::home () {
+Lcm1602::home()
+{
     return send(LCD_RETURNHOME, 0);
 }
 
@@ -104,7 +109,8 @@ Lcm1602::home () {
  * **************
  */
 mraa_result_t
-Lcm1602::send (uint8_t value, int mode) {
+Lcm1602::send(uint8_t value, int mode)
+{
     mraa_result_t ret = MRAA_SUCCESS;
     uint8_t h = value & 0xf0;
     uint8_t l = (value << 4) & 0xf0;
