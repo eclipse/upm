@@ -29,7 +29,8 @@
 
 using namespace upm;
 
-Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdAddress) {
+Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdAddress)
+{
     mraa_result_t error = MRAA_SUCCESS;
 
     m_rgb_address = rgbAddress;
@@ -41,45 +42,43 @@ Jhd1313m1::Jhd1313m1 (int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcd
     }
 
     usleep(50000);
-    i2Cmd (m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
+    i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
     usleep(4500);
-    i2Cmd (m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
+    i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
     usleep(4500);
-    i2Cmd (m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
+    i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
     usleep(4500);
-    i2Cmd (m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
+    i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
 
-    i2Cmd (m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
-    clear ();
+    i2Cmd(m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
+    clear();
     usleep(4500);
 
-    i2Cmd (m_i2c_lcd_control, LCD_ENTRYMODESET |
-                              LCD_ENTRYLEFT |
-                              LCD_ENTRYSHIFTDECREMENT);
+    i2Cmd(m_i2c_lcd_control, LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
 
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0, 0);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 1, 0);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0, 0);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 1, 0);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
 
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x04, 255);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x03, 255);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x02, 255);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x04, 255);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x03, 255);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x02, 255);
 }
 
-Jhd1313m1::~Jhd1313m1() {
-
+Jhd1313m1::~Jhd1313m1()
+{
 }
 
 mraa_result_t
 Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
 {
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0, 0);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 1, 0);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0, 0);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 1, 0);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
 
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x04, r);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x03, g);
-    i2cReg (m_i2c_lcd_rgb, m_rgb_address, 0x02, b);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x04, r);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x03, g);
+    i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x02, b);
 
     return MRAA_SUCCESS;
 }
@@ -88,8 +87,8 @@ mraa_result_t
 Jhd1313m1::scroll(bool direction)
 {
     if (direction)
-        return i2Cmd (m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT));
-    return i2Cmd (m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT));
+        return i2Cmd(m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT));
+    return i2Cmd(m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT));
 }
 
 /*
@@ -98,32 +97,36 @@ Jhd1313m1::scroll(bool direction)
  * **************
  */
 mraa_result_t
-Jhd1313m1::write (std::string msg) {
+Jhd1313m1::write(std::string msg)
+{
     usleep(1000);
     mraa_result_t error = MRAA_SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        error = i2cData (m_i2c_lcd_control, msg[i]);
+        error = i2cData(m_i2c_lcd_control, msg[i]);
     }
 
     return error;
 }
 
 mraa_result_t
-Jhd1313m1::setCursor (int row, int column) {
+Jhd1313m1::setCursor(int row, int column)
+{
     mraa_result_t error = MRAA_SUCCESS;
-    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54};
+    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
-    error =  i2Cmd (m_i2c_lcd_control, offset);
+    error = i2Cmd(m_i2c_lcd_control, offset);
 
     return error;
 }
 
 mraa_result_t
-Jhd1313m1::clear () {
-    return i2Cmd (m_i2c_lcd_control, LCD_CLEARDISPLAY);
+Jhd1313m1::clear()
+{
+    return i2Cmd(m_i2c_lcd_control, LCD_CLEARDISPLAY);
 }
 
 mraa_result_t
-Jhd1313m1::home () {
-    return i2Cmd (m_i2c_lcd_control, LCD_RETURNHOME);
+Jhd1313m1::home()
+{
+    return i2Cmd(m_i2c_lcd_control, LCD_RETURNHOME);
 }

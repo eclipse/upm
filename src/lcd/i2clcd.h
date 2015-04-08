@@ -26,8 +26,8 @@
 #include <string>
 #include <mraa/i2c.h>
 
-namespace upm {
-
+namespace upm
+{
 // commands
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -80,30 +80,28 @@ namespace upm {
  * @defgroup i2clcd libupm-i2clcd
  * @ingroup seeed sparkfun adafruit i2c display gsk
  */
-class I2CLcd {
-    public:
-        I2CLcd (int bus, int lcdAddress);
-        mraa_result_t write (int x, int y, std::string msg);
+class I2CLcd
+{
+  public:
+    I2CLcd(int bus, int lcdAddress);
+    mraa_result_t write(int x, int y, std::string msg);
 
-        virtual mraa_result_t write (std::string msg) = 0;
-        virtual mraa_result_t setCursor (int row, int column) = 0;
-        virtual mraa_result_t clear () = 0;
-        virtual mraa_result_t home () = 0;
-        virtual mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
-        virtual mraa_result_t i2Cmd (mraa_i2c_context ctx, uint8_t value);
-        virtual mraa_result_t i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
-        virtual mraa_result_t i2cData (mraa_i2c_context ctx, uint8_t value);
+    virtual mraa_result_t write(std::string msg) = 0;
+    virtual mraa_result_t setCursor(int row, int column) = 0;
+    virtual mraa_result_t clear() = 0;
+    virtual mraa_result_t home() = 0;
+    virtual mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+    virtual mraa_result_t i2Cmd(mraa_i2c_context ctx, uint8_t value);
+    virtual mraa_result_t i2cReg(mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t data);
+    virtual mraa_result_t i2cData(mraa_i2c_context ctx, uint8_t value);
 
-        mraa_result_t close();
-        std::string name()
-        {
-            return m_name;
-        }
-    protected:
-        std::string m_name;
-        int m_lcd_control_address;
-        int m_bus;
-        mraa_i2c_context m_i2c_lcd_control;
+    mraa_result_t close();
+    std::string name();
+
+  protected:
+    std::string m_name;
+    int m_lcd_control_address;
+    int m_bus;
+    mraa_i2c_context m_i2c_lcd_control;
 };
-
 }

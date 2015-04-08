@@ -30,7 +30,8 @@
 #include <string>
 #include "i2clcd.h"
 
-namespace upm {
+namespace upm
+{
 /**
  * @library i2clcd
  * @sensor lcm1602
@@ -39,7 +40,7 @@ namespace upm {
  * @man adafruit sparkfun
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf
  * @con i2c
- * 
+ *
  * @brief C++ API for LCM1602 i2c controller for HD44780 based displays
  *
  * This supports all sizes of HD44780 displays from 16x2 to 4x20, the
@@ -51,52 +52,53 @@ namespace upm {
  * @image html lcm1602.jpeg
  * @snippet lcm1602-lcd.cxx Interesting
  */
-class Lcm1602 : public I2CLcd {
-    public:
-       /**
-        * Lcm1602 Constructor, calls libmraa initialisation functions
-        *
-        * @param bus i2c bus to use
-        * @param address the slave address the lcd is registered on
-        */
-        Lcm1602(int bus, int address);
-       /**
-        * Lcm1602 Destructor
-        */
-        ~Lcm1602();
-       /**
-        * Write a string to LCD
-        *
-        * @param msg The std::string to write to display, note only ascii
-        *     chars are supported
-        * @return Result of operation
-        */
-        mraa_result_t write(std::string msg);
-       /**
-        * Set cursor to a coordinate
-        *
-        * @param row The row to set cursor to
-        * @param column The column to set cursor to
-        * @return Result of operation
-        */
-        mraa_result_t setCursor(int row, int column);
-       /**
-        * Clear display from characters
-        *
-        * @return Result of operatio
-        */
-        mraa_result_t clear();
-       /**
-        * Return to coordinate 0,0
-        *
-        * @return Result of operation
-        */
-        mraa_result_t home();
+class Lcm1602 : public I2CLcd
+{
+  public:
+    /**
+     * Lcm1602 Constructor, calls libmraa initialisation functions
+     *
+     * @param bus i2c bus to use
+     * @param address the slave address the lcd is registered on
+     */
+    Lcm1602(int bus, int address);
+    /**
+     * Lcm1602 Destructor
+     */
+    ~Lcm1602();
+    /**
+     * Write a string to LCD
+     *
+     * @param msg The std::string to write to display, note only ascii
+     *     chars are supported
+     * @return Result of operation
+     */
+    mraa_result_t write(std::string msg);
+    /**
+     * Set cursor to a coordinate
+     *
+     * @param row The row to set cursor to
+     * @param column The column to set cursor to
+     * @return Result of operation
+     */
+    mraa_result_t setCursor(int row, int column);
+    /**
+     * Clear display from characters
+     *
+     * @return Result of operatio
+     */
+    mraa_result_t clear();
+    /**
+     * Return to coordinate 0,0
+     *
+     * @return Result of operation
+     */
+    mraa_result_t home();
 
-    private :
-        mraa_result_t send(uint8_t value, int mode);
-        mraa_result_t write4bits(uint8_t value);
-        mraa_result_t expandWrite(uint8_t value);
-        mraa_result_t pulseEnable(uint8_t value);
-    };
+  private:
+    mraa_result_t send(uint8_t value, int mode);
+    mraa_result_t write4bits(uint8_t value);
+    mraa_result_t expandWrite(uint8_t value);
+    mraa_result_t pulseEnable(uint8_t value);
+};
 }
