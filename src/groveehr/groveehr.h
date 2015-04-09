@@ -29,14 +29,25 @@
 #include <mraa/gpio.h>
 
 namespace upm {
+  /**
+   * @brief Grove Ear-clip Heart Rate sensor library
+   * @defgroup groveehr libupm-groveehr
+   * @ingroup seeed gpio medical
+   */
 
   /**
+   * @library groveehr
+   * @sensor groveehr
+   * @comname Grove Ear-clip Heart Rate Sensor
+   * @type medical
+   * @man seeed
+   * @con gpio
+   *
    * @brief C++ API for the Grove Ear-clip Heart Rate sensor
    *
    * UPM module for the GroveEHR sensor.  It is used to measure your
-   * heartbeat.
+   * heartbeat. 
    *
-   * @ingroup gpio
    * @snippet groveehr.cxx Interesting
    */
   class GroveEHR {
