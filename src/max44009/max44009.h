@@ -118,7 +118,7 @@ class MAX44009 : public ILightSensor {
         /**
          * Convert raw value to lux.
          */
-        float convertToLux (uint16_t* value);
+        float convertToLux (uint16_t value);
 	
         /**
          * Returns whether the sensor is configured.

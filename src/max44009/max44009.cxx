@@ -84,7 +84,7 @@ MAX44009::getValue(uint16_t* value) {
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
     data[1] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_LOW_ADDR);
 
-    if(*data[0] == -1 || *data[1] == -1) {
+    if(data[0] == -1 || data[1] == -1) {
         return MRAA_ERROR_INVALID_RESOURCE;
     }
 
@@ -97,7 +97,7 @@ MAX44009::getValue(uint16_t* value) {
 }
 
 float
-MAX44009::convertToLux(uint16_t* value) {
+MAX44009::convertToLux(uint16_t value) {
     uint8_t exponent, mantissa;
     float result = 0.045;
 
