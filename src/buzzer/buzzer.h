@@ -39,16 +39,25 @@ namespace upm {
 /**
  * @brief Buzzer library
  * @defgroup buzzer libupm-buzzer
+ * @ingroup seeed pwm sound
  */
 
 /**
+ * @library buzzer
+ * @sensor buzzer
+ * @comname Grove Buzzer
+ * @type sound
+ * @man seeed
+ * @con pwm
+ *
  * @brief C++ API for Buzzer component
  *
  * This file defines the Buzzer C++ interface for libbuzzer.
  * This sensor can make different tones when connected to
- * a pin capable of analog pulse-width modulation.
+ * a pin capable of analog pulse-width modulation. It emits 
+ * sound using a piezoelectric material that vibrates at different
+ * frequencies based on the input voltage.
  *
- * @ingroup buzzer pwm
  * @snippet buzzer-sound.cxx Interesting
  */
 class Buzzer {
