@@ -41,18 +41,31 @@ namespace upm {
 #define TRUE               HIGH
 #define FALSE              LOW
 
-/**
- * @brief ECS1030 electricity sensor library
- * @defgroup ecs1030 libupm-ecs1030
- */
+  /**
+   * @brief ECS1030 Electricity Sensor library
+   * @defgroup ecs1030 libupm-ecs1030
+   * @ingroup sparkfun analog electric
+   */
 
-/**
- * @brief C++ API for ECS1030 (electricity sensor)
- *
- * @ingroup ecs1030 analog
- * @snippet ecs1030.cxx Interesting
- */
-
+  /**
+   * @library ecs1030
+   * @sensor ecs1030
+   * @comname ECS1030 Non-Invasive Current Sensor
+   * @type electric
+   * @man sparkfun
+   * @con analog
+   *
+   * @brief C++ API for the ECS1030 Non-Invasive Current/Electricity Sensor
+   *
+   * This non-invasive current sensor can be clamped around the supply line of
+   * an electrical load to tell you how much current is passing through it. It
+   * does this by acting as an inductor and responding to the magnetic field
+   * around a current-carrying conductor. This particular current sensor will
+   * measure a load up to 30 Amps which makes it great for building your own
+   * energy monitors.
+   *
+   * @snippet ecs1030.cxx Interesting
+   */
 class ECS1030 {
     public:
         static const uint8_t DELAY_MS  = 20000 / NUMBER_OF_SAMPLES; /* 1/50Hz is 20ms period */
