@@ -29,6 +29,20 @@
 namespace upm {
 
   /**
+   * @brief ENC03R Single Axis Gyro library
+   * @defgroup enc03r libupm-enc03r
+   * @ingroup seeed analog compass
+   */
+
+  /**
+   * @library enc03r
+   * @sensor enc03r
+   * @comname Grove Single Axis Analog Gyro
+   * @altname ENC03R
+   * @type compass
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the ENC03R Single Axis Analog Gyro
    *
    * UPM module for the ENC03R Single Axis Analog Gyro.
@@ -36,7 +50,6 @@ namespace upm {
    * how fast the sensor is rotating around the x-axis.
    * Calibration of the sensor is necessary for accurate readings.
    *
-   * @ingroup grove analog
    * @snippet enc03r.cxx Interesting
    */
   class ENC03R {
