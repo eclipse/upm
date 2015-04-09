@@ -34,7 +34,6 @@ struct thresholdContext {
 };
 
 namespace upm {
-
 /**
  * @brief Gas Sensor Library
  *
@@ -42,6 +41,7 @@ namespace upm {
  * sampling, threshold checking, a basic printing function and a standard read function.
  *
  * @defgroup gas libupm-gas
+ * @ingroup seeed analog gaseous
  */
 class Gas {
     public:
