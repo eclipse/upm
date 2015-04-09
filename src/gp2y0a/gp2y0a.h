@@ -35,12 +35,12 @@ namespace upm {
    */
 
   /**
-   * @sensor gp2y0a
    * @library gp2y0a
-   * @name GP2Y0A family of IR Proximity Sensors
-   * @category light
-   * @manufacturer seeed
-   * @connection analog
+   * @sensor gp2y0a
+   * @comname GP2Y0A family of IR Proximity Sensors
+   * @type light
+   * @man seeed
+   * @con analog
    *
    * @brief C++ API for the GP2Y0A family of IR Proximity Sensors
    *
