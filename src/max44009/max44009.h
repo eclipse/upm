@@ -120,34 +120,12 @@ class MAX44009 : public ILightSensor {
          */
         float convertToLux (uint16_t* value);
 	
-	/**
+        /**
          * Returns whether the sensor is configured.
          */
-	bool isConfigured();
+        bool isConfigured();
 
     private:
-        /**
-         * Read one byte register
-         *
-         * @param reg address of a register
-         */
-        mraa_result_t i2cReadReg_8 (int reg, uint8_t* data);
-
-        /**
-         * Read two bytes register
-         *
-         * @param reg address of a register
-         */
-        mraa_result_t i2cReadReg_16 (int reg, uint16_t* data);
-
-        /**
-         * Write to one byte register
-         *
-         * @param reg address of a register
-         * @param value byte to be written
-         */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
-
         int m_maxControlAddr;
         int m_bus;
         mraa_i2c_context m_i2cMaxControlCtx;
