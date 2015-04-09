@@ -26,6 +26,7 @@
 #include <unistd.h>
 
 #include "i2clcd.h"
+#include "i2clcd_private.h"
 
 using namespace upm;
 
@@ -79,25 +80,29 @@ I2CLcd::name()
 mraa_result_t
 I2CLcd::i2cReg(mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t value)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa_result_t ret;
 
     uint8_t data[2] = { addr, value };
-    error = mraa_i2c_address(ctx, deviceAdress);
-    error = mraa_i2c_write(ctx, data, 2);
+    ret = mraa_i2c_address(ctx, deviceAdress);
+    UPM_GOTO_ON_MRAA_FAIL(ret, beach);
+    ret = mraa_i2c_write(ctx, data, 2);
 
-    return error;
+beach:
+    return ret;
 }
 
 mraa_result_t
 I2CLcd::i2Cmd(mraa_i2c_context ctx, uint8_t value)
 {
-    mraa_result_t error = MRAA_SUCCESS;
-
+    mraa_result_t ret;
     uint8_t data[2] = { LCD_CMD, value };
-    error = mraa_i2c_address(ctx, m_lcd_control_address);
-    error = mraa_i2c_write(ctx, data, 2);
 
-    return error;
+    ret = mraa_i2c_address(ctx, m_lcd_control_address);
+    UPM_GOTO_ON_MRAA_FAIL(ret, beach);
+    ret = mraa_i2c_write(ctx, data, 2);
+
+beach:
+    return ret;
 }
 
 mraa_result_t
