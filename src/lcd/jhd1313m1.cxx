@@ -45,14 +45,15 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdA
     ret = i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
-    usleep(4500);
+    usleep(100);
     ret = i2Cmd(m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
+    usleep(100);
     ret = clear();
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
-    usleep(4500);
+    usleep(2000);
     ret = i2Cmd(m_i2c_lcd_control, LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
