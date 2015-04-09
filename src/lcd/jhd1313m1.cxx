@@ -115,6 +115,7 @@ Jhd1313m1::write(std::string msg)
 {
     mraa_result_t ret = MRAA_SUCCESS;
 
+    // This usleep fixes an odd bug where the clear function doesn't always work properly
     usleep(1000);
 
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
