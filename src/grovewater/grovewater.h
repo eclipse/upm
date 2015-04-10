@@ -27,13 +27,24 @@
 #include <mraa/gpio.h>
 
 namespace upm {
+  /**
+   * @brief UPM library for the Grove Water Sensor
+   * @defgroup grovewater libupm-grovewater
+   * @ingroup seeed gpio liquid
+   */
 
   /**
+   * @library grovewater
+   * @sensor grovewater
+   * @comname Grove Water Sensor
+   * @type liquid
+   * @man seeed
+   * @con gpio
+   *
    * @brief C++ API for the Grove Water Sensor
    *
    * UPM module for the Grove Water Sensor
    *
-   * @ingroup grove gpio
    * @snippet grovewater.cxx Interesting
    */
   class GroveWater {
@@ -59,5 +70,3 @@ namespace upm {
     mraa_gpio_context m_gpio;
   };
 }
-
-
