@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,37 +22,55 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
+#include <signal.h>
+#include "a110x.h"
 
-#include "gp2y0a21yk.h"
+using namespace std;
 
-using namespace upm;
+int shouldRun = true;
 
-GP2Y0A21YK::GP2Y0A21YK(int pin)
+void sig_handler(int signo)
 {
-  mraa_init();
-
-  m_aio = mraa_aio_init(pin);
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-GP2Y0A21YK::~GP2Y0A21YK()
+// Our pulse counter
+volatile unsigned int counter = 0;
+
+// Our interrupt handler
+void hallISR(void *arg)
 {
-  mraa_aio_close(m_aio);
+  counter++;
 }
 
-float GP2Y0A21YK::value(float aref, uint8_t samples)
+int main ()
 {
-  int val;
-  int sum = 0;
+  signal(SIGINT, sig_handler);
 
-  for (int i=0; i<samples; i++)
+//! [Interesting]
+  // Instantiate an A110X sensor on digital pin D2
+  upm::A110X* hall = new upm::A110X(2);
+  
+  // This example uses a user-supplied interrupt handler to count
+  // pulses that occur when a magnetic field of the correct polarity
+  // is detected.  This could be used to measure the rotations per
+  // minute (RPM) of a rotor for example.
+
+  hall->installISR(hallISR, NULL);
+
+  while (shouldRun)
     {
-      val = mraa_aio_read(m_aio);
-      sum += val;
+      cout << "Pulses detected: " << counter << endl;
+
+      sleep(1);
     }
+//! [Interesting]
 
-  val = sum / samples;
-  float volts = (float)val * aref / 1024.0;
+  cout << "Exiting..." << endl;
 
-  return volts;
+  delete hall;
+  return 0;
 }

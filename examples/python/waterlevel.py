@@ -1,5 +1,6 @@
-# Author: Brendan Le Foll <brendan.le.foll@intel.com>
-# Copyright (c) 2014 Intel Corporation.
+#!/usr/bin/python
+# Author: Zion Orent <zorent@ics.com>
+# Copyright (c) 2015 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -20,6 +21,34 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import pyupm_tm1637 as d
-x = d.TM1637(8, 9)
-x.write("1337")
+import time, sys, signal, atexit
+import pyupm_waterlevel as upmWaterlevel
+
+# The was tested with the Water Level Sensor
+# Instantiate a Water Level Sensor on digital pin D2
+myWaterLevel = upmWaterlevel.WaterLevel(2)
+
+
+## Exit handlers ##
+# This stops python from printing a stacktrace when you hit control-C
+def SIGINTHandler(signum, frame):
+	raise SystemExit
+
+# This function lets you run code on exit,
+# including functions from myWaterLevel
+def exitHandler():
+	print "Exiting"
+	sys.exit(0)
+
+# Register exit handlers
+atexit.register(exitHandler)
+signal.signal(signal.SIGINT, SIGINTHandler)
+
+
+while(1):
+	if (myWaterLevel.isSubmerged()):
+		print "Sensor is submerged in liquid"
+	else:
+		print "Liquid is below water level sensor"
+
+	time.sleep(1)

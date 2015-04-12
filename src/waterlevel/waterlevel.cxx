@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Zion Orent <sorent@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,51 +22,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-
-#include "a110x.h"
+#include "waterlevel.h"
 
 using namespace upm;
-using namespace std;
 
-A110X::A110X(int pin)
+WaterLevel::WaterLevel(int pin)
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-  m_isrInstalled = false;
+    m_gpio = mraa_gpio_init(pin);
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
 }
 
-A110X::~A110X()
+WaterLevel::~WaterLevel()
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  mraa_gpio_close(m_gpio);
+    mraa_gpio_close(m_gpio);
 }
 
-bool A110X::magnetDetected()
+bool WaterLevel::isSubmerged()
 {
-  return (!mraa_gpio_read(m_gpio) ? true : false);
-}
-
-void A110X::installISR(void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_FALLING, 
-                isr, arg);
-  m_isrInstalled = true;
-}
-
-void A110X::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+	// Submerged causes 0; being above water is 1
+	return (!(bool)mraa_gpio_read(m_gpio));
 }

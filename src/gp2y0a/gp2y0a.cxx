@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,49 +24,41 @@
 
 #include <iostream>
 
-#include "a110x.h"
+#include "gp2y0a.h"
 
-using namespace upm;
 using namespace std;
+using namespace upm;
 
-A110X::A110X(int pin)
+GP2Y0A::GP2Y0A(int pin)
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
+  if (!(m_aio = mraa_aio_init(pin)))
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      cerr << __FUNCTION__ << "mraa_aio_init() failed." << endl;
       return;
     }
 
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-  m_isrInstalled = false;
+  // get the ADC resolution
+  m_aRes = (1 << mraa_aio_get_bit(m_aio));
 }
 
-A110X::~A110X()
+GP2Y0A::~GP2Y0A()
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  mraa_gpio_close(m_gpio);
+  mraa_aio_close(m_aio);
 }
 
-bool A110X::magnetDetected()
+float GP2Y0A::value(float aref, uint8_t samples)
 {
-  return (!mraa_gpio_read(m_gpio) ? true : false);
-}
+  int val;
+  int sum = 0;
 
-void A110X::installISR(void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
+  for (int i=0; i<samples; i++)
+    {
+      val = mraa_aio_read(m_aio);
+      sum += val;
+    }
 
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_FALLING, 
-                isr, arg);
-  m_isrInstalled = true;
-}
+  val = sum / samples;
+  float volts = float(val) * aref / float(m_aRes);
 
-void A110X::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+  return volts;
 }

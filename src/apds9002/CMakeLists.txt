@@ -1,0 +1,5 @@
+set (libname "apds9002")
+set (libdescription "upm apds9002 luminance module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()

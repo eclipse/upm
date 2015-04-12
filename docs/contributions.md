@@ -3,14 +3,16 @@ Contributing a module                         {#contributions}
 
 Here are the rules of contribution:
 - Your new module must have an example that builds against your UPM library.
-- Each commit must have a sign-off line by everyone who reviewed them.
-- **Commits must be named <file/module>: Some decent description.**
+- Each commit must have a sign-off line by everyone who authored or reviewed
+  them.
+- Commits must be named `<file/module>: Some decent description`.
 - You must license your module under a FOSS license. The recommended license
   is MIT but any permissive license is fine. Please consider that people using
   UPM may want to write proprietary programs with your sensors so we like to
-  avoid GPL. (LGPL is fine). If your license is not MIT please include a
-  LICENSE file in src/mymodule/.
-- The top of each source file must contain a comment block containing the license information.
+  avoid GPL. If your license is not MIT please include a LICENSE file in
+  src/mymodule/.
+- The top of each source file must contain a comment block containing the
+  license information.
 - Please test your module builds before contributing and make sure it works on
   the latest version of libmraa. If you tested on a specific board/platform
   please tell us what this was in your PR.

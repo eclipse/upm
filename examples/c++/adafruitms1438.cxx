@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,51 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
+#include <signal.h>
 #include <iostream>
+#include "adafruitms1438.h"
 
-#include "a110x.h"
-
-using namespace upm;
 using namespace std;
+using namespace upm;
 
-A110X::A110X(int pin)
+int main(int argc, char **argv)
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
-      return;
-    }
+//! [Interesting]
+  // Instantiate an Adafruit MS 1438 on I2C bus 0
 
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-  m_isrInstalled = false;
-}
+  upm::AdafruitMS1438 *ms = 
+    new upm::AdafruitMS1438(ADAFRUITMS1438_I2C_BUS, 
+                            ADAFRUITMS1438_DEFAULT_I2C_ADDR);
 
-A110X::~A110X()
-{
-  if (m_isrInstalled)
-    uninstallISR();
+  // Setup for use with a DC motor connected to the M3 port
 
-  mraa_gpio_close(m_gpio);
-}
+  // set a PWM period of 50Hz
+  ms->setPWMPeriod(50);
 
-bool A110X::magnetDetected()
-{
-  return (!mraa_gpio_read(m_gpio) ? true : false);
-}
+  // disable first, to be safe
+  ms->disableMotor(AdafruitMS1438::MOTOR_M3);
 
-void A110X::installISR(void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
+  // set speed at 50%
+  ms->setMotorSpeed(AdafruitMS1438::MOTOR_M3, 50);
+  ms->setMotorDirection(AdafruitMS1438::MOTOR_M3, AdafruitMS1438::DIR_CW);
 
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_FALLING, 
-                isr, arg);
-  m_isrInstalled = true;
-}
+  cout << "Spin M3 at half speed for 3 seconds, then reverse for 3 seconds."
+       << endl;
 
-void A110X::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+  ms->enableMotor(AdafruitMS1438::MOTOR_M3);
+
+  sleep(3);
+
+  cout << "Reversing M3" << endl;
+  ms->setMotorDirection(AdafruitMS1438::MOTOR_M3, AdafruitMS1438::DIR_CCW);
+
+  sleep(3);
+
+  cout << "Stopping M3" << endl;
+  ms->disableMotor(AdafruitMS1438::MOTOR_M3);
+
+  cout << "Exiting" << endl;
+
+//! [Interesting]
+
+  delete ms;
+  return 0;
 }
