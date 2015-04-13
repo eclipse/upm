@@ -28,7 +28,6 @@
 #include <mraa/gpio.h>
 
 namespace upm {
-
      /**
       * @brief HX711 24bit ADC library
       * @defgroup hx711 libupm-hx711
@@ -51,8 +50,8 @@ namespace upm {
       * interface directly with a bridge sensor. This module was tested on
       * the Intel Galileo Gen2.
       *
-      * @snippet hx711.cxx Interesting
       * @image html hx711.jpeg
+      * @snippet hx711.cxx Interesting
       */
       class HX711 {
       public:
