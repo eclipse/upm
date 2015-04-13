@@ -32,8 +32,9 @@
 namespace upm {
 
 /**
- * @brief library for basic grove sensors
+ * @brief generic library for basic grove sensors
  * @defgroup grove libupm-grove
+ * @ingroup seeed gpio pwm ainput button led light relay temp touch gsk
  */
 class Grove {
     public:
