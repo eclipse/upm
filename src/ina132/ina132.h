@@ -28,10 +28,19 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the INA132 Differential Amplifier Sensor
+   * @brief UPM library for the INA132 Differential Amplifier Sensor
    * @defgroup ina132 libupm-ina132
+   * @ingroup seeed analog electric
    */
   /**
+   * @library ina132
+   * @sensor ina132
+   * @comname Grove Differential Amplifier
+   * @altname INA132 
+   * @type electric
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the INA132 Differential Amplifier Sensor
    * 
    * The INA132 Differential Amplifier Sensor is designed
@@ -40,7 +49,6 @@ namespace upm {
    * This sensor was tested amplifying the signal
    * from a Weight Sensor (Load Cell)0-500g
    *
-   * @ingroup analog ina132
    * @snippet ina132.cxx Interesting
    */
   class INA132 {
