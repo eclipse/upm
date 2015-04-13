@@ -42,11 +42,11 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdA
     }
 
     usleep(50000);
-    ret = i2Cmd(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_FUNCTIONSET | LCD_2LINE, LCD_CMD);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(100);
-    ret = i2Cmd(m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_DISPLAYCONTROL | LCD_DISPLAYON, LCD_CMD);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(100);
@@ -54,21 +54,23 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress) : I2CLcd(bus, lcdA
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(2000);
-    ret = i2Cmd(m_i2c_lcd_control, LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                   LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT,
+                                   LCD_CMD);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0, 0);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0, 0);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 1, 0);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0, 1);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0xAA, 0x08);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
 
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x04, 255);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0xFF, 0x04);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x03, 255);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0xFF, 0x03);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x02, 255);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0xFF, 0x02);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
 }
 
@@ -81,18 +83,18 @@ Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
 {
     mraa_result_t ret;
 
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0, 0);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0, 0);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 1, 0);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0, 1);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x08, 0xAA);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, 0xAA, 0x08);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
 
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x04, r);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, r, 0x04);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x03, g);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, g, 0x03);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = i2cReg(m_i2c_lcd_rgb, m_rgb_address, 0x02, b);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_rgb, b, 0x02);
 
 beach:
     return ret;
@@ -101,9 +103,15 @@ beach:
 mraa_result_t
 Jhd1313m1::scroll(bool direction)
 {
-    if (direction)
-        return i2Cmd(m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT));
-    return i2Cmd(m_i2c_lcd_control, (LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT));
+    if (direction) {
+        return mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                        LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT,
+                                        LCD_CMD);
+    } else {
+        return mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                        LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT,
+                                        LCD_CMD);
+    }
 }
 
 /*
@@ -120,7 +128,7 @@ Jhd1313m1::write(std::string msg)
     usleep(1000);
 
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        ret = i2cData(m_i2c_lcd_control, msg[i]);
+        ret = mraa_i2c_write_byte_data(m_i2c_lcd_control, msg[i], LCD_DATA);
         UPM_GOTO_ON_MRAA_FAIL(ret, beach);
     }
 
@@ -136,7 +144,7 @@ Jhd1313m1::setCursor(int row, int column)
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
 
-    ret = i2Cmd(m_i2c_lcd_control, offset);
+    ret = mraa_i2c_write_byte_data(m_i2c_lcd_control, offset, LCD_CMD);
 
     return ret;
 }
@@ -144,11 +152,11 @@ Jhd1313m1::setCursor(int row, int column)
 mraa_result_t
 Jhd1313m1::clear()
 {
-    return i2Cmd(m_i2c_lcd_control, LCD_CLEARDISPLAY);
+    return mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_CLEARDISPLAY, LCD_CMD);
 }
 
 mraa_result_t
 Jhd1313m1::home()
 {
-    return i2Cmd(m_i2c_lcd_control, LCD_RETURNHOME);
+    return mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_RETURNHOME, LCD_CMD);
 }

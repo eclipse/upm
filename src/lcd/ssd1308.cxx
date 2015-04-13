@@ -31,9 +31,9 @@ using namespace upm;
 
 SSD1308::SSD1308(int bus_in, int addr_in) : I2CLcd(bus_in, addr_in)
 {
-    i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_OFF); // display off
+    mraa_i2c_write_byte_data(m_i2c_lcd_control, DISPLAY_CMD_OFF, LCD_CMD); // display off
     usleep(4500);
-    i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_ON); // display on
+    mraa_i2c_write_byte_data(m_i2c_lcd_control, DISPLAY_CMD_ON, LCD_CMD); // display on
     usleep(4500);
     setNormalDisplay(); // set to normal display '1' is ON
 
@@ -52,7 +52,7 @@ SSD1308::draw(uint8_t* data, int bytes)
 
     setAddressingMode(HORIZONTAL);
     for (int idx = 0; idx < bytes; idx++) {
-        i2cData(m_i2c_lcd_control, data[idx]);
+        mraa_i2c_write_byte_data(m_i2c_lcd_control, data[idx], LCD_DATA);
     }
 
     return error;
@@ -82,11 +82,15 @@ SSD1308::setCursor(int row, int column)
 {
     mraa_result_t error = MRAA_SUCCESS;
 
-    error = i2Cmd(m_i2c_lcd_control, BASE_PAGE_START_ADDR + row); // set page address
-    error = i2Cmd(m_i2c_lcd_control,
-                  BASE_LOW_COLUMN_ADDR + (8 * column & 0x0F)); // set column lower address
-    error = i2Cmd(m_i2c_lcd_control,
-                  BASE_HIGH_COLUMN_ADDR + ((8 * column >> 4) & 0x0F)); // set column higher address
+    error = mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                     BASE_PAGE_START_ADDR + row,
+                                     LCD_CMD); // set page address
+    error = mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                     BASE_LOW_COLUMN_ADDR + (8 * column & 0x0F),
+                                     LCD_CMD); // set column lower address
+    error = mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                     BASE_HIGH_COLUMN_ADDR + ((8 * column >> 4) & 0x0F),
+                                     LCD_CMD); // set column higher address
 
     return error;
 }
@@ -97,7 +101,7 @@ SSD1308::clear()
     mraa_result_t error = MRAA_SUCCESS;
     uint8_t columnIdx, rowIdx;
 
-    i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_OFF); // display off
+    mraa_i2c_write_byte_data(m_i2c_lcd_control, DISPLAY_CMD_OFF, LCD_CMD); // display off
     for (rowIdx = 0; rowIdx < 8; rowIdx++) {
         setCursor(rowIdx, 0);
 
@@ -106,7 +110,7 @@ SSD1308::clear()
             writeChar(m_i2c_lcd_control, ' ');
         }
     }
-    i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_ON); // display on
+    mraa_i2c_write_byte_data(m_i2c_lcd_control, DISPLAY_CMD_ON, LCD_CMD); // display on
     home();
 
     return MRAA_SUCCESS;
@@ -131,19 +135,23 @@ SSD1308::writeChar(mraa_i2c_context ctx, uint8_t value)
     }
 
     for (uint8_t idx = 0; idx < 8; idx++) {
-        i2cData(m_i2c_lcd_control, BasicFont[value - 32][idx]);
+        mraa_i2c_write_byte_data(m_i2c_lcd_control, BasicFont[value - 32][idx], LCD_DATA);
     }
 }
 
 mraa_result_t
 SSD1308::setNormalDisplay()
 {
-    return i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_SET_NORMAL_1308); // set to normal display '1' is ON
+    return mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                                    DISPLAY_CMD_SET_NORMAL_1308,
+                                    LCD_CMD); // set to normal display '1' is ON
 }
 
 mraa_result_t
 SSD1308::setAddressingMode(displayAddressingMode mode)
 {
-    i2Cmd(m_i2c_lcd_control, DISPLAY_CMD_MEM_ADDR_MODE); // set addressing mode
-    i2Cmd(m_i2c_lcd_control, mode);                      // set page addressing mode
+    mraa_i2c_write_byte_data(m_i2c_lcd_control,
+                             DISPLAY_CMD_MEM_ADDR_MODE,
+                             LCD_CMD);                          // set addressing mode
+    mraa_i2c_write_byte_data(m_i2c_lcd_control, mode, LCD_CMD); // set page addressing mode
 }

@@ -55,10 +55,10 @@ I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
 {
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
-    error = i2Cmd(m_i2c_lcd_control, LCD_SETCGRAMADDR | (charSlot << 3));
+    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_SETCGRAMADDR | (charSlot << 3), LCD_CMD);
     if (error == MRAA_SUCCESS) {
         for (int i = 0; i < 8; i++) {
-            error = i2cData(m_i2c_lcd_control, charData[i]);
+            error = mraa_i2c_write_byte_data(m_i2c_lcd_control, charData[i], LCD_DATA);
         }
     }
 
@@ -75,44 +75,4 @@ std::string
 I2CLcd::name()
 {
     return m_name;
-}
-
-mraa_result_t
-I2CLcd::i2cReg(mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t value)
-{
-    mraa_result_t ret;
-
-    uint8_t data[2] = { addr, value };
-    ret = mraa_i2c_address(ctx, deviceAdress);
-    UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = mraa_i2c_write(ctx, data, 2);
-
-beach:
-    return ret;
-}
-
-mraa_result_t
-I2CLcd::i2Cmd(mraa_i2c_context ctx, uint8_t value)
-{
-    mraa_result_t ret;
-    uint8_t data[2] = { LCD_CMD, value };
-
-    ret = mraa_i2c_address(ctx, m_lcd_control_address);
-    UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = mraa_i2c_write(ctx, data, 2);
-
-beach:
-    return ret;
-}
-
-mraa_result_t
-I2CLcd::i2cData(mraa_i2c_context ctx, uint8_t value)
-{
-    mraa_result_t error = MRAA_SUCCESS;
-
-    uint8_t data[2] = { LCD_DATA, value };
-    error = mraa_i2c_address(ctx, m_lcd_control_address);
-    error = mraa_i2c_write(ctx, data, 2);
-
-    return error;
 }
