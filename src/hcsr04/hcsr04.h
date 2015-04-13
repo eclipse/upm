@@ -36,18 +36,24 @@
 #define TRIGGER_PULSE          10
 
 namespace upm {
-
 /**
- * @brief HCSR04 ultrasonic sensor library
+ * @brief HC-SR04 ultrasonic sensor library
  * @defgroup hcsr04 libupm-hcsr04
+ * @ingroup generic gpio sound
  */
 
 /**
+ * @library hcsr04
+ * @sensor hcsr04
+ * @comname HCSR04 Ultrasonic Sensor
+ * @type sound
+ * @man generic
+ * @con gpio
+ *
  * @brief C++ API for HCSR04 (ultrasonic ranging module) component
  *
  * This file defines the HCSR04 C++ interface for libhcsr04
  *
- * @ingroup hcsr04 gpio
  * @snippet hcsr04.cxx Interesting
  */
 class HCSR04 {
