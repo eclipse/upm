@@ -36,14 +36,21 @@ namespace upm {
 /**
  * @brief Olimex LoL array library
  * @defgroup lol libupm-lol
+ * @ingroup adafruit gpio display
  */
 
 /**
+ * @library lol
+ * @sensor lol
+ * @comname Olimex LoL LED Array
+ * @type display
+ * @man adafruit
+ * @con gpio
+ *
  * @brief C++ API for Olimex LoL array
  *
  * This file defines the LoL API and implemntation for a simple framebuffer
  *
- * @ingroup lol gpio
  * @snippet lol-example.cxx Interesting
  */
 class LoL {
