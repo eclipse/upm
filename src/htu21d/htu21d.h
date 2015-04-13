@@ -50,15 +50,24 @@ namespace upm {
 
 /**
  * @brief HTU21D humidity sensor library
- * @defgroup htu21d libupm-htu21
+ * @defgroup htu21d libupm-htu21d
+ * @ingourp seeed adafruit sparkfun i2c temp
  */
 
 /**
+ * @library htu21d
+ * @sensor htu21d
+ * @comname HTU21D Temperature & Humidity Sensor
+ * @altname Grove - Temperature&Humidity Sensor (High-Accuracy & Mini) 
+ * @type temp
+ * @man seeed adafruit sparkfun
+ * @web http://www.meas-spec.com/downloads/HTU21D.pdf
+ * @con i2c
+ *
  * @brief C++ API for HTU21D chip (Atmospheric Pressure Sensor)
  *
- * Measurement Specialties [HTU21D]
- * (http://www.meas-spec.com/downloads/HTU21D.pdf)
- * is a digital humidity sensor with temperature output.
+ * Measurement Specialties [HTU21D] is a digital humidity sensor with
+ * temperature output.
  * RH will report between 0 and 100% and temperature range is
  * -40 to +125 degC.  Note that the getCompRH is the preferred
  * function below (passing true to cause a measurement cycle).  If
@@ -68,9 +77,8 @@ namespace upm {
  * Also note that the sensor should not perform more than a couple of
  * measurements per second to limit the heating of the sensor.
  *
- * @ingroup htu21d i2c
- * @snippet htu21d.cxx Interesting
  * @image html htu21d.jpeg
+ * @snippet htu21d.cxx Interesting
  */
 class HTU21D {
     public:
