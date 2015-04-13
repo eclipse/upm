@@ -33,14 +33,21 @@
 #define L298_DEFAULT_PWM_PERIOD 4
 
 namespace upm {
-
   /**
-   * @brief C++ API for the L298 Dual H-Bridge module
+   * @brief UPM library for the L298 Dual H-Bridge Motor Driver
    * @defgroup l298 libupm-l298
+   * @ingroup seeed sparkfun gpio pwm motor
    */
 
   /**
-   * @brief UPM module for the L298 Dual H-Bridge
+   * @library l298
+   * @sensor l298
+   * @comname L298 Dual H-Bridge Motor Driver
+   * @type motor
+   * @man seeed sparkfun
+   * @con gpio pwm
+   *
+   * @brief C++ API for the L298 Dual H-Bridge module
    *
    * It was developed using the RobotBase Dual H-Bridge module.
    *
@@ -48,14 +55,11 @@ namespace upm {
    * It requires 3 pins per DC motor (or h-bridge), or 4 pins for
    * the stepper (uses both h-bridges).  
    *
-   * @ingroup l298 pwm gpio
    * Example driving a DC motor
    * @snippet l298.cxx Interesting
    * Example driving a stepper motor
    * @snippet l298-stepper.cxx Interesting
    */
-
-
   class L298 {
   public:
 
