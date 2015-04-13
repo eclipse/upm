@@ -33,18 +33,24 @@ namespace upm {
 #define DISPLAY_CMD_SET_NORMAL_1308      0xA6
 
 /**
+ * @library i2clcd
+ * @sensor ssd1308
+ * @comname SSD1308 OLED Display
+ * @altname Grove OLED Display 0.96"
+ * @type display
+ * @man seeed adafruit
+ * @web http://garden.seeedstudio.com/images/4/46/SSD1308_1.0.pdf
+ * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_0.96%22
+ * @con i2c
+ * 
  * @brief C++ API for SSD1308 i2c controlled OLED displays
  *
- * The [SSD1308](http://garden.seeedstudio.com/images/4/46/SSD1308_1.0.pdf) is
- * a 128x64 Dot matrix OLED/PLED segment driver with controller. This
- * implementation was tested using the
- * [Grove LED 128×64 Display module]
- * (http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_0.96%22)
- * which is an OLED monochrome display
+ * The SSD1308 is a 128x64 Dot matrix OLED/PLED segment driver with
+ * controller. This implementation was tested using the Grove LED 128×64
+ * Display module which is an OLED monochrome display.
  *
- * @ingroup i2clcd i2c
- * @snippet ssd1308-oled.cxx Interesting
  * @image html ssd1308.jpeg
+ * @snippet ssd1308-oled.cxx Interesting
  */
 class SSD1308 : public I2CLcd {
     public:

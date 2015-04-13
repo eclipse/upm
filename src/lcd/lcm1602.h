@@ -31,20 +31,25 @@
 #include "i2clcd.h"
 
 namespace upm {
-
 /**
+ * @library i2clcd
+ * @sensor lcm1602
+ * @comname LCM1602 Display
+ * @type display
+ * @man adafruit sparkfun
+ * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf
+ * @con i2c
+ * 
  * @brief C++ API for LCM1602 i2c controller for HD44780 based displays
  *
  * This supports all sizes of HD44780 displays from 16x2 to 4x20, the
  * controller has no idea of the actual display hardware so will let you write
  * further than you can see. These displays with such controllers are available
  * from various manufacturers with different i2c addresses. The adafruit
- * [TC1602A-01T](https://www.adafruit.com/datasheets/TC1602A-01T.pdf) seems to
- * the best documented example.
+ * TC1602A-01T seems to be a well documented example.
  *
- * @ingroup i2clcd i2c
- * @snippet lcm1602-lcd.cxx Interesting
  * @image html lcm1602.jpeg
+ * @snippet lcm1602-lcd.cxx Interesting
  */
 class Lcm1602 : public I2CLcd {
     public:

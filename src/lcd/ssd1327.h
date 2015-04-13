@@ -33,18 +33,24 @@ namespace upm {
 #define DISPLAY_CMD_SET_NORMAL      0xA4
 
 /**
+ * @library i2clcd
+ * @sensor ssd1327
+ * @comname SSD1327 OLED Display
+ * @altname Grove OLED Display 1.12"
+ * @type display
+ * @man seeed adafruit
+ * @web http://garden.seeedstudio.com/images/8/82/SSD1327_datasheet.pdf
+ * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22
+ * @con i2c
+ * 
  * @brief C++ API for SSD1327 i2c controlled OLED displays
  *
- * The [SSD1327](http://garden.seeedstudio.com/images/8/82/SSD1327_datasheet.pdf)
- * is a 96x96 Dot matrix OLED/PLED segment driver with controller. This
- * implementation was tested using the
- * [Grove LED 96×96 Display module]
- * (http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22)
- * which is an OLED monochrome display
+ * The SSD1327 is a 96x96 Dot matrix OLED/PLED segment driver with controller.
+ * This implementation was tested using the Grove LED 96×96 Display module
+ * which is an OLED monochrome display.
  *
- * @ingroup i2clcd i2c
- * @snippet ssd1327-oled.cxx Interesting
  * @image html ssd1327.jpeg
+ * @snippet ssd1327-oled.cxx Interesting
  */
 class SSD1327 : public I2CLcd {
     public:
