@@ -31,15 +31,23 @@ namespace upm {
 /**
  * @brief LDT0-028 Piezo Vibration sensor library
  * @defgroup ldt0028 libupm-ldt0028
+ * @ingroup seeed analog flex
  */
 
 /**
+ * @library ldt0028
+ * @sensor ldt0028
+ * @comname LDT0-028 Piezo Vibration Sensor
+ * @altname Grove Piezo Vibration Sensor
+ * @type flex
+ * @man seeed
+ * @con analog
+ *
  * @brief C++ API for LDT0-028 PZT film-based sensors,
  * such as the Grove Piezo Vibration sensor
  *
  * This file defines the LDT0028 C++ interface for libupm-ldt0028
  *
- * @ingroup ldt0028 aio
  * @snippet ldt0028.cxx Interesting
  */
 class LDT0028 {
