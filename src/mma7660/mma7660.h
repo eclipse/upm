@@ -33,19 +33,29 @@
 namespace upm {
 
   /**
+   * @brief MMA7660 I2C 3-axis digital accelerometer library
+   * @defgroup mma7660 libupm-mma7660
+   * @ingroup generic i2c gpio accelerometer
+   */
+  /**
+   * @library libupm-mma7660
+   * @sensor mma7660
+   * @comname mma7660 I2C 3-axis digital accelerometer
+   * @type accelerometer
+   * @man generic
+   * @con i2c gpio
+   *
    * @brief C++ API for the MMA7660 I2C 3-axis digital accelerometer
    *
    * UPM module for the MMA7660 I2C 3-axis digital accelerometer.
    * This device supports a variety of capabilities, including the
    * generation of interrupts for various conditions, tilt and basic
    * gesture detection, and of course X/Y/Z measurements of g-forces
-   * being applied (up to 1.5g).
+   * being applied (up to 1.5g)
    *
    * This module was tested with the Grove 3-Axis Digital
    * Accelerometer (1.5g)
    *
-   * @ingroup i2c gpio mma7660
-   * @defgroup mma7660 libupm-mma7660
    * @snippet mma7660.cxx Interesting
    */
   class MMA7660 {
