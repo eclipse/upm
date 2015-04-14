@@ -47,7 +47,7 @@ namespace upm {
  * other controls solely the backlight. This module was tested with the Seed
  * Grove LCD RGB Backlight v2.0 display which requires 5V to operate.
  *
- * @image html grovergblcd.jpeg
+ * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
  */
 class Jhd1313m1 : public I2CLcd {
