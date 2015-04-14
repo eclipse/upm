@@ -29,6 +29,18 @@
 namespace upm {
 
   /**
+   * @brief otp538u IR Temperature Sensor library
+   * @defgroup otp538u libupm-otp538u
+   * @ingroup seeed analog light
+   */
+  /**
+   * @library libupm-otp538u
+   * @sensor otp538u
+   * @comname IR Temperature Sensor
+   * @type light
+   * @man generic
+   * @con analog
+   *
    * @brief C++ API for the OTP538U IR Temperature Sensor
    *
    * UPM module for the OTP538U IR Temperature Sensor
@@ -51,8 +63,6 @@ namespace upm {
    * These tables assume the object to be measured is 9cm (3.54
    * inches) from the sensor.
    *
-   * @ingroup grove analog
-   * @defgroup otp538u libupm-otp538u
    * @snippet otp538u.cxx Interesting
    */
   class OTP538U {
