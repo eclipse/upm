@@ -56,11 +56,19 @@
 namespace upm {
 
 /**
- * @brief MPL3115A2 atmospheric pressure sensor library
- * @defgroup mpl3115 libupm-mpl3115
+ * @brief mpl3115a2 Atmospheric Pressure library
+ * @defgroup mpl3115a2 libupm-mpl3115a2
+ * @ingroup freescale i2c pressure
  */
-
 /**
+ * @library libupm-mpl3115a2
+ * @sensor mpl3115a2
+ * @comname mpl3115a2 Atmospheric Pressure
+ * @type pressure
+ * @man freescale
+ * @web http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MPL3115A2
+ * @con i2c
+ *
  * @brief C++ API for MPL3115A2 chip (Atmospheric Pressure Sensor)
  *
  * Freescale [MPL3115A2]
@@ -68,9 +76,7 @@ namespace upm {
  * is a high precision, ultra-low power consumption pressure sensor. It has a
  * range of between 50 and 110 kPa.
  *
- * @ingroup mpl3115a2 i2c
  * @snippet mpl3115a2.cxx Interesting
- * @image html mpl3115a2.jpeg
  */
 class MPL3115A2 {
     public:

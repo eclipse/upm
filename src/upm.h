@@ -297,6 +297,12 @@
  */
 
 /**
+ * @brief Freescale
+ * @defgroup freescale Freescale
+ * @ingroup byman
+ */
+ 
+/**
  * @brief Generic brands
  * @defgroup generic Generic
  * @ingroup byman
