@@ -285,6 +285,12 @@
  */
 
 /**
+ * @brief EMax
+ * @defgroup emax EMax
+ * @ingroup byman
+ */
+
+/**
  * @brief EpicTinker
  * @defgroup epict EpicTinker
  * @ingroup byman
