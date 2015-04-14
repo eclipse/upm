@@ -39,23 +39,29 @@
 #define TRUE               HIGH
 #define FALSE              LOW
 
-
 /**
  * @brief pulsensor pulse sensor library
  * @defgroup pulsensor libupm-pulsensor
+ * @ingroup seeed analog medical
  */
-
 /**
+ * @library libupm-pulsensor
+ * @sensor pulsensor
+ * @comname Pulse Sensor
+ * @type medical
+ * @man seeed
+ * @web http://www.adafruit.com/products/1093
+ * @con analog
+ *
  * @brief C++ API for 3-wire pulse sensor
  *
  * This is a library for the 3-wire pulse sensor sold by several manufacturers.
  * Usually, you can identify the sensor based on the round breakout and the
- * distinctive heart symbol. 
+ * distinctive heart symbol.
  *
- * @ingroup pulsensor analog
+ * @image html pulsensor.jpg
  * @snippet pulsensor.cxx Interesting
  */
-
 
 /*!
  * @struct clbk_data
