@@ -29,19 +29,26 @@
 namespace upm {
 
 /**
+ * @library i2clcd
+ * @sensor jhd1313m1
+ * @comname JHD1313M1 Display
+ * @altname Grove RGB LCD
+ * @type display
+ * @man seeed adafruit sparkfun
+ * @web http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36
+ * @con i2c
+ * @kit gsk
+ *
  * @brief C++ API for Jhd1313m1 i2c controller for HD44780 based displays with
  * an RGB backlight such as the Grove RGB i2c LCD display
  *
  * The Jhd1313m1 has two i2c addreses, one belongs to a controller very similar
  * to the upm::Lcm1602 LCD driver which controls the HD44780 based display and the
  * other controls solely the backlight. This module was tested with the Seed
- * [Grove LCD RGB Backlight v2.0 display]
- * (http://www.seeedstudio.com/depot/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36),
- * which requires 5V to operate.
+ * Grove LCD RGB Backlight v2.0 display which requires 5V to operate.
  *
- * @ingroup i2clcd i2c
- * @snippet rgb-lcd.cxx Interesting
  * @image html grovergblcd.jpeg
+ * @snippet jhd1313m1-lcd.cxx Interesting
  */
 class Jhd1313m1 : public I2CLcd {
     public:

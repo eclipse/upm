@@ -32,9 +32,17 @@ namespace upm {
 /**
  * @brief Adxl345 accelerometer library
  * @defgroup adxl345 libupm-adxl345
+ * @ingroup seeed i2c accelerometer
  */
 
 /**
+ * @library adxl345
+ * @sensor adxl345
+ * @comname Adxl345 3-Axis Digital Accelerometer
+ * @type accelerometer
+ * @man seeed
+ * @con i2c
+ *
  * @brief C++ API for Adxl345 (3-axis digital accelerometer)
  *
  * The Adxl345 is a 3-axis digital accelerometer.
@@ -43,9 +51,8 @@ namespace upm {
  * Note that the sensor it is incompatible and will not be detected on the I2C bus
  * by the Intel Edison using the Arduino breakout board at 5V (3V3 will work fine).
  *
- * @ingroup adxl345 i2c
- * @snippet adxl345.cxx Interesting
  * @image html adxl345.jpeg
+ * @snippet adxl345.cxx Interesting
  */
 class Adxl345 {
 public:

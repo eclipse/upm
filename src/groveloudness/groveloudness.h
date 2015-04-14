@@ -27,15 +27,26 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief UPM library for the Grove Loudness Sensor
+   * @defgroup groveloudness libupm-groveloudness
+   * @ingroup seeed analog sound
+   */
 
   /**
+   * @library groveloudness
+   * @sensor groveloudness
+   * @comname Grove Loudness Sensor
+   * @type sound
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the Grove Loudness Sensor
    *
    * UPM module for the Grove Loudness Sensor.  This sensor
    * detects how loud the surrounding environment is.
    * The higher the output analog value, the louder the sound.
    *
-   * @ingroup grove analog
    * @snippet groveloudness.cxx Interesting
    */
   class GroveLoudness {

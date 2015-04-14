@@ -27,8 +27,20 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief UPM library for the Grove Moisture Sensor
+   * @defgroup grovemoisture libupm-grovemoisture
+   * @ingroup seeed analog liquid
+   */
 
   /**
+   * @library grovemoisture
+   * @sensor grovemoisture
+   * @comname Grove Moisture Sensor
+   * @type liquid
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the Grove Moisture Sensor
    *
    * UPM module for the Grove Moisture Sensor.
@@ -38,7 +50,6 @@ namespace upm {
    * Note that this sensor is not designed to be left in soil
    * nor to be used outdoors.
    *
-   * @ingroup grove analog
    * @snippet grovemoisture.cxx Interesting
    */
   class GroveMoisture {

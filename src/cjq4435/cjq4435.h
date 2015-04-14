@@ -26,20 +26,30 @@
 #include <mraa/pwm.h>
 
 namespace upm {
+  /**
+   * @brief CJQ4435 MOSFET library
+   * @defgroup cjq4435 libupm-cjq4435
+   * @ingroup seeed gpio pwm electric
+   */
 
   /**
+   * @library cjq4435
+   * @sensor cjq4435
+   * @comname Grove MOSFET
+   * @altname CJQ4435
+   * @type electric
+   * @man seeed
+   * @con gpio pwm
+   *
    * @brief C++ API for the CJQ4435 MOSFET
    *
    * UPM module for the CJQ4435 MOSFET.  It was developed using the
    * Grove MOSFET module.  A MOSFET is like a switch, but it can
    * switch much faster than a mechanical relay.  Here, we implement
    * support via MRAA's PWM (Pulse Width Modulation) functions.
-   *
    * Please note, that the available periods will vary depending on
    * the capabilities of your device.
    *
-   * @ingroup gpio pwm
-   * @defgroup cjq4435 libupm-cjq4435
    * @snippet cjq4435.cxx Interesting
    */
   class CJQ4435 {

@@ -43,30 +43,41 @@
 #define HMTRP_DEFAULT_UART 0
 
 namespace upm {
+/**
+ * @brief HMTRP Serial RF Pro library
+ * @defgroup hmtrp libupm-hmtrp
+ * @ingroup seeed uart wifi
+ */
 
-  /**
-   * @brief C++ API for the HMTRP Serial RF Pro
-   *
-   * UPM support for the HMTRP Serial RF Pro.  This was tested
-   * specifically with the Grove Serial RF Pro module.  In theory,
-   * this class should work with the following devices:
-   *
-   * HM-TRP-433: 414000000-454000000Hz
-   * HM-TRP-470: 450000000-490000000Hz
-   * HM-TRP-868: 849000000-889000000Hz
-   * HM-TRP-915: 895000000-935000000Hz 
-   *
-   * The only difference being the transmit and receive frequencies
-   * supported.
-   *
-   * By default, the device will simply send and receive any data
-   * presented on it's UART interface.  It can be placed into a
-   * configuration mode by grounding the CONFIG pin on the module.
-   *
-   * @ingroup grove uart radio
-   * @defgroup hmtrp libupm-hmtrp
-   * @snippet hmtrp.cxx Interesting
-   */
+/**
+ * @library hmtrp
+ * @sensor hmtrp
+ * @comname Grove Serial RF Pro
+ * @altname HMTRP-433 HMTRP-470 HMTRP-868 HMTRP-915
+ * @type wifi
+ * @man seeed
+ * @con uart
+ *
+ * @brief C++ API for the HMTRP Serial RF Pro
+ *
+ * UPM support for the HMTRP Serial RF Pro.  This was tested
+ * specifically with the Grove Serial RF Pro module.  In theory,
+ * this class should work with the following devices:
+ *
+ * HM-TRP-433: 414000000-454000000Hz
+ * HM-TRP-470: 450000000-490000000Hz
+ * HM-TRP-868: 849000000-889000000Hz
+ * HM-TRP-915: 895000000-935000000Hz 
+ *
+ * The only difference being the transmit and receive frequencies
+ * supported.
+ *
+ * By default, the device will simply send and receive any data
+ * presented on it's UART interface.  It can be placed into a
+ * configuration mode by grounding the CONFIG pin on the module.
+ *
+ * @snippet hmtrp.cxx Interesting
+ */
   class HMTRP {
   public:
 

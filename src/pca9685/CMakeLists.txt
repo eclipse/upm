@@ -1,0 +1,5 @@
+set (libname "pca9685")
+set (libdescription "upm pca9685 I2C 16ch, 12b pwm, LED controller")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()

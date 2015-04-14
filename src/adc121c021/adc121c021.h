@@ -48,6 +48,12 @@
 #define ADC121C021_DEFAULT_VREF        3.0
 
 namespace upm {
+  /**
+   * @brief ADC121C021 I2C Analog Digital Converter library
+   * @defgroup adc121c021 libupm-adc121c021
+   * @ingroup seeed i2c electric
+   */
+
 
   /**
    * valid cycle times for automatic conversion mode
@@ -64,13 +70,20 @@ namespace upm {
   } ADC121C021_CYCLE_TIME_T;
 
   /**
+   * @library adc121c021
+   * @sensor adc121c021
+   * @comname ADC121C021 Analog Digital Converter
+   * @type electric
+   * @man seeed
+   * @web http://www.seeedstudio.com/depot/Grove-I2C-ADC-p-1580.html
+   * @con i2c
+   *
    * @brief C++ API for the ADC121C021 I2C ADC
    *
    * UPM module for the ADC121C021 12 bit Analog to Digital (ADC) converter.
    * By providing a constant reference voltage, this sensor helps
    * to increase the accuracy of a value collected from an analog sensor.
    *
-   * @ingroup i2c adc121c021
    * @snippet adc121c021.cxx Interesting
    */
   class ADC121C021 {

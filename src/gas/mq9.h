@@ -28,17 +28,23 @@
 #include "gas.h"
 
 namespace upm {
-    /**
-     * @brief C++ API for MQ9 gas sensor
-     *
-     * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
-     * home and industry). It can detect Carbon Monoxide, Coal Gas and
-     * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
-     *
-     * @ingroup gas analog
-     * @snippet mq9.cxx Interesting
-     * @image html mq3-9.jpeg
-     */
+  /**
+   * @library gas
+   * @sensor mq9
+   * @comname Grove MQ9 gas sensor
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   *
+   * @brief C++ API for MQ9 gas sensor
+   *
+   * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
+   * home and industry). It can detect Carbon Monoxide, Coal Gas and
+   * Liquefied Gas. It's sensitivity is 10-1000 ppm CO, 100-10000 ppm Gas.
+   *
+   * @image html mq3-9.jpeg
+   * @snippet mq9.cxx Interesting
+   */
     class MQ9 : public Gas {
         public:
             /**

@@ -22,7 +22,7 @@
 /**
  * @file
  *
- * @ingroup group_acilib
+ * @ingroup aci-lib
  *
  * @brief Prototypes for the acilib interfaces.
  */

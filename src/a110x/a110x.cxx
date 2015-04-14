@@ -31,8 +31,6 @@ using namespace std;
 
 A110X::A110X(int pin)
 {
-  mraa_init();
-
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     {
       cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
@@ -40,10 +38,14 @@ A110X::A110X(int pin)
     }
 
   mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+  m_isrInstalled = false;
 }
 
 A110X::~A110X()
 {
+  if (m_isrInstalled)
+    uninstallISR();
+
   mraa_gpio_close(m_gpio);
 }
 
@@ -52,3 +54,19 @@ bool A110X::magnetDetected()
   return (!mraa_gpio_read(m_gpio) ? true : false);
 }
 
+void A110X::installISR(void (*isr)(void *), void *arg)
+{
+  if (m_isrInstalled)
+    uninstallISR();
+
+  // install our interrupt handler
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_FALLING, 
+                isr, arg);
+  m_isrInstalled = true;
+}
+
+void A110X::uninstallISR()
+{
+  mraa_gpio_isr_exit(m_gpio);
+  m_isrInstalled = false;
+}

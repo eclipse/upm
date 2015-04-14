@@ -28,23 +28,47 @@
 #include "buzzer.h"
 
 using namespace upm;
+using namespace std;
 
-Buzzer::Buzzer (int pinNumber) {
-    m_pwm_context = mraa_pwm_init (pinNumber);
+Buzzer::Buzzer(int pinNumber) {
+    m_pwm_context = mraa_pwm_init(pinNumber);
+    if(m_pwm_context == 0)
+    {
+        cerr << __FUNCTION__ << ": Error initializing PWM on pin " << pinNumber << endl;
+        return;
+    }
     m_name = "Buzzer";
+    mraa_pwm_enable (m_pwm_context, 1);
+    Buzzer::setVolume(1.0);
 }
 
-int Buzzer::playSound (int note, int delay) {
-    mraa_pwm_enable (m_pwm_context, 1);
-    mraa_pwm_period_us (m_pwm_context, note);
-    mraa_pwm_pulsewidth_us (m_pwm_context, note / 2);
-    usleep (delay);
-    mraa_pwm_enable (m_pwm_context, 0);
+void Buzzer::setVolume(float vol){
+    m_volume = vol;
+}
 
+float Buzzer::getVolume(){
+    return m_volume;
+}
+
+int Buzzer::playSound(int note, int delay) {
+    mraa_pwm_period_us(m_pwm_context, note);
+    mraa_pwm_write(m_pwm_context, m_volume * 0.5);
+    if(delay){
+        usleep(delay);
+        Buzzer::stopSound();
+    }
     return note;
 }
 
+void Buzzer::stopSound(){
+    // Has to be checked out on a scope and make sure it's flat 0
+    mraa_pwm_period_us(m_pwm_context, 1);
+    mraa_pwm_write(m_pwm_context, 0);
+}
+
 Buzzer::~Buzzer() {
+    Buzzer::stopSound();
+    mraa_pwm_enable(m_pwm_context, 0);
     mraa_pwm_close(m_pwm_context);
 }
 

@@ -63,20 +63,28 @@ namespace upm {
 /**
  * @brief LSM303 accelerometer/compass library
  * @defgroup lsm303 libupm-lsm303
+ * @ingroup seeed adafruit i2c accelerometer compass
  */
 
 /**
+ * @library lsm303
+ * @sensor lsm303
+ * @comname LSM303 Accelerometer & Compass
+ * @altname Grove 6-Axis Accelerometer & Compass
+ * @type accelerometer compass
+ * @man seeed adafruit
+ * @web http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass
+ * @con i2c
+ *
  * @brief C++ API for LSM303
  *
  * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
  * This module was tested with the SeedStudio Grove [6-Axis Accelerometer&Compass]
- * (http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass)
  * module that is used over i2c. The magnometer and acceleromter are accessed
  * at two seperate i2c addresses.
  *
- * @ingroup lsm303 i2c
- * @snippet lsm303.cxx Interesting
  * @image html lsm303.jpeg
+ * @snippet lsm303.cxx Interesting
  */
 class LSM303 {
     public:

@@ -101,7 +101,6 @@ mraa_result_t
 Jhd1313m1::write (std::string msg) {
     usleep(1000);
     mraa_result_t error = MRAA_SUCCESS;
-    uint8_t data[2] = {0x40, 0};
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
         error = i2cData (m_i2c_lcd_control, msg[i]);
     }

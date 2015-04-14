@@ -27,6 +27,12 @@
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/**
+ * @file
+ * @brief BLE specific macros
+ * @ingroup nrf8001
+ */
+
 #ifndef UART_OVER_BLE_H__
 #define UART_OVER_BLE_H__
 
@@ -69,9 +75,5 @@ typedef struct
     uint8_t uart_rts_local;  /**< State of the local UART RTS  */
     uint8_t uart_rts_remote; /**< State of the remote UART RTS */
 } uart_over_ble_t;
-
-/**
- * @}
- */
 
 #endif // UART_OVER_BLE_H__

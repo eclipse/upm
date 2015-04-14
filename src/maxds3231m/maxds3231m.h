@@ -71,6 +71,7 @@ struct Time3231 {
  * @brief C++ API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
  *
  * @ingroup maxds3231m i2c
+ * @snippet maxds3231m.cxx Interesting
  */
 class MAXDS3231M {
     public:

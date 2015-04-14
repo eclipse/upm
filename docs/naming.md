@@ -1,7 +1,7 @@
 Naming a module                         {#naming}
 ===============
 
-UPM attemps to follow a clear naming pattern. Modules should be sensibly named
+UPM attempts to follow a clear naming pattern. Modules should be sensibly named
 and then placed in ${libdir}/upm and headers in ${includedir}/upm, all modules
 should be prefixed with libupm-<modulename>. The upm_module_init will
 automatically name python UPM modules as pyupm_<modulename> and javascript
@@ -21,9 +21,13 @@ jsupm_grove.
 Other times this does not. Try to pick a generic name so people with a similar
 sensor can inherit your class if they only have minor changes.
 3. Avoid brand names, often your module can be very generic with little effort
+4. Use only lowercase characters in your file names and folder names.
 
 ### Doubt
 
-If ever, give me a ping via email: brendan.le.foll@intel.com and I'll try
-suggest decent names for your module.
+If ever, give either of us a ping via email:
+ mihai.tudor.panu@intel.com
+ john.r.van.drasek@intel.com
+ brendan.le.foll@intel.com
+and we'll try suggest decent names for your module.
 

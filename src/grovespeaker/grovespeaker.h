@@ -32,25 +32,34 @@
 #define LOW       0
 
 namespace upm {
-
+  /**
+   * @brief UPM library for the Grove Speaker
+   * @defgroup grovespeaker libupm-grovespeaker
+   * @ingroup seeed gpio sound
+   */
 typedef struct
 {
-	int delayTimeLow;
-	int delayTimeLowSharp;
-	int delayTimeMed;
-	int delayTimeMedSharp;
-	int delayTimeHigh;
-	int delayTimeHighSharp;
+    int delayTimeLow;
+    int delayTimeLowSharp;
+    int delayTimeMed;
+    int delayTimeMedSharp;
+    int delayTimeHigh;
+    int delayTimeHighSharp;
 } NoteData;
-
   /**
+   * @library grovespeaker
+   * @sensor grovespeaker
+   * @comname Grove Speaker
+   * @type sound
+   * @man seeed
+   * @con gpio
+   *
    * @brief C++ API for the GroveSpeaker speaker
    *
    * UPM module for the GroveSpeaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
    *
-   * @ingroup gpio
    * @snippet grovespeaker.cxx Interesting
    */
   class GroveSpeaker {
@@ -69,26 +78,24 @@ typedef struct
      * Play all alto notes (lowest notes)
      *
      */
-	void playAll();
+    void playAll();
     /**
      * Play a sound and note whether it's sharp or not
      *
-     * @param letter character name of note 
+     * @param letter character name of note
      * ('a', 'b', 'c', 'd', 'e', 'f', or 'g')
      * @param sharp if true, play sharp version of note; otherwise, do not
-     * @param vocalWeight string to determine whether to play low ("low"), 
+     * @param vocalWeight string to determine whether to play low ("low"),
      * medium ("med"), or high ("high") note
      */
-	void playSound(char letter, bool sharp, std::string vocalWeight);
+    void playSound(char letter, bool sharp, std::string vocalWeight);
 
   private:
         mraa_gpio_context m_gpio;
         std::map <char, NoteData> m_note_list;
         void sound(int note_delay);
-        NoteData storeNote(int noteDelayLow, int noteDelayLowSharp, 
-                           int noteDelayMed, int noteDelayMedSharp, 
+        NoteData storeNote(int noteDelayLow, int noteDelayLowSharp,
+                           int noteDelayMed, int noteDelayMedSharp,
                            int noteDelayHigh, int noteDelayHighSharp);
   };
 }
-
-

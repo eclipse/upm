@@ -119,7 +119,7 @@ struct AxisData {
  * This file defines the MPU9150 C++ interface for libmpu9150
  *
  * @ingroup mpu9150 i2c
- * @snippet mpu9150-example.cxx Interesting
+ * @snippet mpu9150.cxx Interesting
  */
 class MPU9150 {
     public:

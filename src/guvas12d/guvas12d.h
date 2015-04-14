@@ -27,13 +27,25 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief UPM library for the GUVA-S12D Sensor
+   * @defgroup guvas12d libupm-guvas12d
+   * @ingroup seeed analog light
+   */
 
   /**
+   * @library guvas12d
+   * @sensor guvas12d
+   * @comname Grove UV Sensor
+   * @altname GUVA-S12D
+   * @type light
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the GUVAS12D UV sensor module
    *
    * UPM module for the GUVAS12D UV Sensor
    *
-   * @ingroup grove analog
    * @snippet guvas12d.cxx Interesting
    */
   class GUVAS12D {
@@ -61,5 +73,3 @@ namespace upm {
     mraa_aio_context m_aio;
   };
 }
-
-

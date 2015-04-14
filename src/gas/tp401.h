@@ -28,21 +28,28 @@
 #include "gas.h"
 
 namespace upm {
-    /**
-     * @brief C++ API for Grove TP401 Air Quality Sensor
-     *
-     * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
-     * It can detect CO and a wide range of other harmful gases, but due to limited sensing
-     * range should be used only when qualitative results are needed. Example applications
-     * are air recirculation, ventilation systems, and refreshing sprayers.
-     * The sensor is linear and should be roughly sensitive to 0 ~ 20 ppm CO from 0 ~ 4V.
-     * Also note that the sensor requires 2-3 minutes to warm up initially and 48 hours of
-     * operation to stabilize completely.
-     *
-     * @ingroup gas analog
-     * @snippet tp401.cxx Interesting
-     * @image html tp401.jpeg
-     */
+  /**
+   * @library gas
+   * @sensor tp401
+   * @comname Grove Air Quality Sensor
+   * @altname TP401
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   *
+   * @brief C++ API for Grove TP401 Air Quality Sensor
+   *
+   * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
+   * It can detect CO and a wide range of other harmful gases, but due to limited sensing
+   * range should be used only when qualitative results are needed. Example applications
+   * are air recirculation, ventilation systems, and refreshing sprayers.
+   * The sensor is linear and should be roughly sensitive to 0 ~ 20 ppm CO from 0 ~ 4V.
+   * Also note that the sensor requires 2-3 minutes to warm up initially and 48 hours of
+   * operation to stabilize completely.
+   *
+   * @image html tp401.jpeg
+   * @snippet tp401.cxx Interesting
+   */
     class TP401 : public Gas {
         public:
             /**

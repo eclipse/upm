@@ -36,16 +36,23 @@ namespace upm {
 /**
  * @brief FastPixel lpd8806 library
  * @defgroup lpd8806 libupm-lpd8806
+ * @ingroup adafruit spi led
  */
 
 /**
+ * @library lpd8806
+ * @sensor lpd8806
+ * @comname LPD8806 RGB LED Strip Controller
+ * @type led
+ * @man adafruit
+ * @con spi
+ *
  * @brief C++ API for LPD8806 
  *
  * The FastPixel lpd8806 is an RGB led strip controller.
  *
- * @ingroup lpd8806 spi
- * @snippet lpd8806.cxx Interesting
  * @image html lpd8806.jpeg
+ * @snippet lpd8806.cxx Interesting
  */
 class LPD8806 {
     public:

@@ -31,17 +31,28 @@
 // ref voltage in millivolts
 #define GROVEVDIV_VREF  4980
 
-// default ADC resolution. 
+// default ADC resolution.
 #define GROVEVDIV_ADC_RES 1024
 
 namespace upm {
+  /**
+   * @brief UPM library for the Grove Voltage Divider
+   * @defgroup grovevdiv libupm-grovevdiv
+   * @ingroup seeed analog electric
+   */
 
   /**
+   * @library grovevdiv
+   * @sensor grovevdiv
+   * @comname Grove Voltage Divider
+   * @type electric
+   * @man seeed
+   * @con analog
+   *
    * @brief C++ API for the Grove Voltage Divider Sensor
    *
    * UPM module for the Grove Voltage Divider Sensor
    *
-   * @ingroup grove analog
    * @snippet grovevdiv.cxx Interesting
    */
   class GroveVDiv {
@@ -76,12 +87,10 @@ namespace upm {
      *
      * @return the measured voltage
      */
-    float computedValue(uint8_t gain, uint16_t val, int vref=GROVEVDIV_VREF, 
+    float computedValue(uint8_t gain, uint16_t val, int vref=GROVEVDIV_VREF,
                         int res=GROVEVDIV_ADC_RES);
 
   private:
     mraa_aio_context m_aio;
   };
 }
-
-

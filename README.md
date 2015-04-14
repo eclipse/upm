@@ -1,12 +1,12 @@
-UPM - Sensor/Actuator repository for Mraa
+UPM - Sensor/Actuator repository for libmraa
 ==============
 
-UPM is a high level repository for sensors that use mraa. Each sensor links to
-libmraa and are not meant to be interlinked although some groups of sensors may
-be. Each sensor contains a header which allows to interface with it. Typically
-a sensor is represented as a class and instanciated.
+UPM is a high level repository for sensors that use libmraa. Each sensor links
+to libmraa and are not meant to be interlinked although some groups of sensors
+may be. Each sensor contains a header which allows to interface with it.
+Typically a sensor is represented as a class and instantiated.
 
-The constructor is expected to initialise the sensor and paramters may be used
+The constructor is expected to initialise the sensor and parameters may be used
 to provide identification/pin location on the board.
 
 Typically an update() function will be called in order to get new data from the
@@ -14,77 +14,44 @@ sensor in order to reduce load when doing multiple reads to sensor data.
 
 ### Example
 
-A sensor/acturo is expected to work as such (here is the servo ES08A api):
+A sensor/actuator is expected to work as such (here is the servo ES08A API):
 @snippet es08a.cxx Interesting
 
-However implementation and API design is compeltely up to the developer, some
-enumerable sensors for example may provide much clever instanciation. Displays
+However implementation and API design is completely up to the developer, some
+enumerable sensors for example may provide much clever instantiation. Displays
 may also create more complex structures in order to interface with them.
+
+Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples).
 
 ### Supported Sensors
 
-Temperature Sensors:
-  * upm::MAX31723
-  * upm::MAX31855
-  * upm::TH02
-  * upm::GroveTemp
+Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) from API documentation.
 
-Compass/Gyro/Magnometer Sensors:
-  * upm::Hmc5883l
-  * upm::MPU9150
-  * upm::LSM303
-
-Atmospheric Pressure Sensors:
-  * upm::GY65
-
-Light/Proximity Sensors:
-  * upm::MAXDS3231M
-  * upm::MAX44000
-  * upm::HCSR04
-  * upm::GroveLight
-
-Gas Sensors:
-  * upm::MQ2
-  * upm::MQ3
-  * upm::MQ5
-  * upm::MQ9
-
-Displays:
-  * upm::Jhd1313m1
-  * upm::Lcm1602
-  * upm::ST7735
-  * upm::SSD1308
-  * upm::SSD1327
-
-LED controllers/segment displays:
-  * upm::TM1637
-  * upm::MY9221
-
-RFID:
-  * upm::SM130
-
-Wireless Communication:
-  * upm::NRF24l01
-
-Servo/motors:
-  * upm::ES08A
-  * upm::StepMotor
-
-Digital potentiometer
-  * upm::MAX5487
-
-Electricity sensor
-  * upm::ECS1030
+You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
 
 ### Building UPM
 
-See @ref building
+See @ref building [here](docs/building.md).
 
 ### Making your own UPM module
 
-@ref porting has more information on making new UPM modules
+@ref porting [link](docs/porting.md) has more information on making new UPM modules.
+
+There is also an example available for @ref max31855 [sensor](docs/max31855.md).
+
+### Naming conventions and rules for new UPM contributions
+
+Before you begin development, take a look at our @ref naming [conventions](docs/naming.md).
+
+Also, please read the guidelines for @ref contributions [to UPM](docs/contributions.md).
+
+Don't forget to check the @ref documentation [section](docs/documentation.md).
+
+Make sure you add yourself as an author on every new code file submitted.
+If you are providing a fix with significant changes, feel free to add yourself
+as a contributor. Signing-off your commits is mandatory.
 
 C/C++ API Documentation
-===========
+==============
 
-The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/)
+The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/).
