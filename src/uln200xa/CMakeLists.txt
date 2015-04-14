@@ -1,0 +1,5 @@
+set (libname "uln200xa")
+set (libdescription "upm uln200xa darlington stepper driver")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
