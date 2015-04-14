@@ -28,25 +28,38 @@
 
 namespace upm {
 
-  /**
-   * @brief C++ API for the RPR220 based Grove IR Reflective Sensor. 
-   *
-   * UPM module for the Grove IR Reflective Sensor.  The sensitivity
-   * can be adjusted with the potentiometer on the sensor module.  It
-   * has a range of approximately 15mm, and a fast response time.
-   *
-   * It detects high contrast dark areas on a light background.
-   *
-   * This module allows the user to determine the current status
-   * (black detected or not).  Additionally, if desired, an Interrupt
-   * Service Routine (ISR) can be installed that will be called when
-   * black is detected.  Either method can be used, depending on your
-   * use case.
-
-   * @ingroup grove gpio
-   * @snippet rpr220.cxx Interesting
-   * @snippet rpr220-intr.cxx Interesting
-   */
+/**
+ * @brief RPR220 IR Reflective Sensor library
+ * @defgroup rpr220 libupm-rpr220
+ * @ingroup seeed gpio light
+ */
+/**
+ * @library libupm-rpr220
+ * @sensor rpr220
+ * @comname rpr220 IR reflective sensor
+ * @type light
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor
+ * @con gpio
+ *
+ * @brief C++ API for the RPR220 based Grove IR Reflective Sensor
+ * 
+ * UPM module for the Grove IR Reflective Sensor.  The sensitivity
+ * can be adjusted with the potentiometer on the sensor module.  It
+ * has a range of approximately 15mm, and a fast response time.
+ *
+ * It detects high contrast dark areas on a light background.
+ *
+ * This module allows the user to determine the current status
+ * (black detected or not).  Additionally, if desired, an Interrupt
+ * Service Routine (ISR) can be installed that will be called when
+ * black is detected.  Either method can be used, depending on your
+ * use case.
+ *
+ * @image html rpr220.jpeg
+ * @snippet rpr220.cxx Interesting
+ * @snippet rpr220-intr.cxx Interesting
+ */
   class RPR220 {
   public:
     /**
