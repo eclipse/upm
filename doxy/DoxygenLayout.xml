@@ -4,7 +4,7 @@
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="pages" visible="yes" title="" intro=""/>
-    <tab type="modules" visible="yes" title="UPM libraries" intro="Here is a
+    <tab type="modules" visible="yes" title="UPM Libraries" intro="Here is a
     list of UPM libraries that can be used. Note that each of the classes
     listed in these libraries are completely separate so you will need to link
     against all those that you have used in your program. Use the hierarchical
@@ -144,7 +144,7 @@
     <briefdescription visible="yes"/>
     <groupgraph visible="$GROUP_GRAPHS"/>
     <memberdecl>
-      <nestedgroups visible="yes" title=""/>
+      <nestedgroups visible="yes" title="Libraries"/>
       <dirs visible="yes" title=""/>
       <files visible="yes" title=""/>
       <namespaces visible="yes" title=""/>
