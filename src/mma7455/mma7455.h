@@ -152,14 +152,14 @@ union accelData {
 /**
  * @brief mma7455 accelerometer library
  * @defgroup mma7455 libupm-mma7455
- * @ingroup seeed i2c accelerometer
+ * @ingroup generic i2c accelerometer
  */
 /**
  * @library libupm-mma7455
  * @sensor mma7455
  * @comname mma7455 accelerometer library
  * @type accelerometer
- * @man seeed
+ * @man generic
  * @con i2c
  *
  * @brief C++ API for MMA7455 chip (accelerometer)
