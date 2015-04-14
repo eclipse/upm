@@ -25,7 +25,7 @@
 /**
  * @brief nrf8001 Bluetooth Low Energy library
  * @defgroup nrf8001 libupm-nrf8001
- * @ingroup adafruit wifi aio gpio spi
+ * @ingroup adafruit wifi analog gpio spi
  */
 /**
  * @library libupm-nrf8001
@@ -34,7 +34,7 @@
  * @type wifi
  * @man adafruit
  * @web https://learn.adafruit.com/getting-started-with-the-nrf8001-bluefruit-le-breakout/introduction
- * @con spi gpio aio
+ * @con spi gpio analog
  *
  * @brief nrf8001 Bluetooth Low Energy library
  *
