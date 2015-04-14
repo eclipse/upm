@@ -56,7 +56,7 @@ namespace upm {
  * black is detected.  Either method can be used, depending on your
  * use case.
  *
- * @image html rpr220.jpeg
+ * @image html rpr220.jpg
  * @snippet rpr220.cxx Interesting
  * @snippet rpr220-intr.cxx Interesting
  */
