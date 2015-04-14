@@ -39,6 +39,28 @@ namespace upm {
    * @ingroup i2c mpr121
    * @snippet mpr121.cxx Interesting
    */
+
+  /**
+   * @brief mpr121 Touch Sensor library
+   * @defgroup mpr121 libupm-mpr121
+   * @ingroup seeed i2c touch
+   */
+  /**
+   * @library libupm-mpr121
+   * @sensor mpr121
+   * @comname mpr121 touch sensor
+   * @type touch
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Touch_Sensor
+   * @con i2c
+   *
+   * @brief C++ API for the MPR121 I2C touch sensor
+   *
+   * UPM module for the MPR121 touch sensor
+   *
+   * @image html mpr121.jpg
+   * @snippet mpr121.cxx Interesting
+   */
   class MPR121 {
   public:
     /**
