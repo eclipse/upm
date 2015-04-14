@@ -65,12 +65,12 @@ namespace upm {
      */
 
     /**
-     * @sensor zfm20
-     * @library zfm20
+     * @library libupm-zfm20
+	 * @sensor zfm20
      * @comname ZFM-20 Fingerprint Sensor Module
-     * @category other
-     * @manufacturer seeed
-     * @connection uart
+	 * @type other
+     * @man seeed
+     * @con uart
      *
      * @brief C++ API for the ZFM-20 fingerprint sensor module
      *
