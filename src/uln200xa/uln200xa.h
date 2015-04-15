@@ -38,14 +38,14 @@ namespace upm {
    */
 
   /**
+   * @library libupm-uln200xa
    * @sensor uln200xa
-   * @library uln200xa
    * @comname ULN200XA Stepper Driver
    * @altname uln2001a uln2002a uln2003a uln2004a
    * @type motor
    * @man seeed
-   * @con gpio
    * @web http://www.seeedstudio.com/depot/Gear-Stepper-Motor-with-Driver-p-1685.html?cPath=39_40
+   * @con gpio
    *
    * @brief UPM module for the ULN200XA Darlington Stepper driver
    *
