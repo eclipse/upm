@@ -43,7 +43,7 @@ namespace upm {
  * @ingroup seeed display gpio
  */
 /**
- * @library libupm-my9221
+ * @library my9221
  * @sensor my9221
  * @comname LED bar
  * @type display
