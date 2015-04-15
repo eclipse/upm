@@ -34,7 +34,7 @@ namespace upm {
    * @ingroup seeed analog light
    */
   /**
-   * @library libupm-otp538u
+   * @library otp538u
    * @sensor otp538u
    * @comname IR Temperature Sensor
    * @type light
