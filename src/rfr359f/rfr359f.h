@@ -34,7 +34,7 @@ namespace upm {
    * @ingroup seeed gpio light
    */
   /**
-   * @library libupm-rfr359f
+   * @library rfr359f
    * @sensor rfr359f
    * @comname Grove Distance Interrupter
    * @type light
