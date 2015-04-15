@@ -36,7 +36,7 @@ namespace upm {
  * @ingroup seeed gpio other
  */
 /**
- * @library libupm-rotaryencoder
+ * @library rotaryencoder
  * @sensor rotaryencoder
  * @comname Grove Rotary Encoder
  * @type other
