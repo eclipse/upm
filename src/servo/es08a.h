@@ -29,7 +29,7 @@
 namespace upm {
 
 /**
- * @library libupm-servo
+ * @library servo
  * @sensor es08a
  * @comname es0a servo
  * @type servos
