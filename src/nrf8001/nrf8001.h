@@ -28,7 +28,7 @@
  * @ingroup adafruit wifi analog gpio spi
  */
 /**
- * @library libupm-nrf8001
+ * @library nrf8001
  * @sensor nrf8001
  * @comname Bluetooth Low Energy
  * @type wifi
