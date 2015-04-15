@@ -44,7 +44,7 @@ namespace upm {
    * @ingroup adafruit i2c led motor
    */
   /**
-   * @library libupm-pca9685
+   * @library pca9685
    * @sensor pca9685
    * @comname 16 Channel, 12 bit pwm LED controller
    * @type led motor
