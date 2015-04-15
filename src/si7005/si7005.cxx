@@ -93,23 +93,23 @@ SI7005::getHumidity (float* value) {
 
 int SI7005::getMeasurement(uint8_t configValue) {
 
-    int rawData;
+    uint16_t rawData;
     uint8_t data[2];
     uint8_t measurementStatus;
 
     // Enable the sensor
-    if(MraaUtils::setGpio(m_pin, 1) != MRAA_SUCCESS) { return -1; }
+    if(MraaUtils::setGpio(m_pin, 0) != MRAA_SUCCESS) { return -1; }
 
     // Wait for sensor to wake up
     usleep(SI7005_WAKE_UP_TIME);
 
     // Setup config register
     mraa_i2c_address(m_i2cControlCtx, m_controlAddr);
-    mraa_i2c_write_byte_data(m_i2cControlCtx, SI7005_CONFIG_START | configValue | config_reg, SI7005_REG_CONFIG);
+    mraa_i2c_write_byte_data(m_i2cControlCtx, (SI7005_CONFIG_START | configValue | config_reg), SI7005_REG_CONFIG);
 
     // Wait for the measurement to finish
     measurementStatus = SI7005_STATUS_NOT_READY;
-    while ( measurementStatus & SI7005_STATUS_NOT_READY ) {
+    while ( measurementStatus == SI7005_STATUS_NOT_READY ) {
         mraa_i2c_address(m_i2cControlCtx, m_controlAddr);
         measurementStatus = mraa_i2c_read_byte_data(m_i2cControlCtx, SI7005_REG_STATUS);
     }
@@ -123,12 +123,12 @@ int SI7005::getMeasurement(uint8_t configValue) {
     data[1] = mraa_i2c_read_byte_data(m_i2cControlCtx, SI7005_REG_DATA_LOW);
 
     // Disable the sensor
-    MraaUtils::setGpio(m_pin, 0);
+    MraaUtils::setGpio(m_pin, 1);
 
     if(data[0] == -1 || data[1] == -1) { return -1; }
 
     // Merge MSB and LSB
-    rawData  = (  data[0] << 8 );
+    rawData  = ( data[0] << 8 );
     rawData |= data[1];
 
     return rawData;
@@ -145,7 +145,7 @@ SI7005::isAvailable( )
     uint8_t deviceID;
 
     // Enable the sensor
-    if(MraaUtils::setGpio(m_pin, 1) != MRAA_SUCCESS) { return -1; }
+    if(MraaUtils::setGpio(m_pin, 0) != MRAA_SUCCESS) { return -1; }
 
     // Wait for sensor to wake up
     usleep(SI7005_WAKE_UP_TIME);
@@ -155,7 +155,7 @@ SI7005::isAvailable( )
     deviceID = mraa_i2c_read_byte_data(m_i2cControlCtx, SI7005_REG_ID);
 
     // Disable the sensor
-    MraaUtils::setGpio(m_pin, 0);
+    MraaUtils::setGpio(m_pin, 1);
 
     if(deviceID == -1) { return false; }
 

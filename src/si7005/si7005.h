@@ -152,7 +152,7 @@ class SI7005 : public ITemperatureHumiditySensor {
         int m_pin;
         mraa_i2c_context m_i2cControlCtx;
         bool configured;
-        int config_reg;
+        uint8_t config_reg;
         float last_temperature;
 
         int getMeasurement(uint8_t configValue);
