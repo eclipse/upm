@@ -36,7 +36,7 @@ namespace upm {
    * @ingroup generic i2c accelerometer
    */
   /**
-   * @library libupm-nunchuck
+   * @library nunchuck
    * @sensor nunchuck
    * @comname Wii Nunchuck
    * @type accelerometer
