@@ -155,7 +155,7 @@ union accelData {
  * @ingroup generic i2c accelerometer
  */
 /**
- * @library libupm-mma7455
+ * @library mma7455
  * @sensor mma7455
  * @comname mma7455 accelerometer library
  * @type accelerometer
