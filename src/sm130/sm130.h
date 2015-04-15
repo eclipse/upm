@@ -46,7 +46,7 @@ namespace upm {
  * @ingroup sparkfun gpio rfid
  */
 /**
- * @library libupm-sm130
+ * @library sm130
  * @sensor sm130
  * @comname SM130 RFID reader module sensor
  * @type rfid
