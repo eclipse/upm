@@ -38,7 +38,7 @@ namespace upm {
    */
 
   /**
-   * @library libupm-uln200xa
+   * @library uln200xa
    * @sensor uln200xa
    * @comname ULN200XA Stepper Driver
    * @altname uln2001a uln2002a uln2003a uln2004a
