@@ -58,7 +58,7 @@ namespace upm {
  * @ingroup generic i2c temperature
  */
 /**
- * @library libupm-mlx90614
+ * @library mlx90614
  * @sensor mlx90614
  * @comname mlx90614 temperature sensor
  * @type temperature
