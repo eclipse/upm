@@ -114,7 +114,7 @@ struct AxisData {
  * @ingroup seeed i2c accelerometer compass
  */
 /**
- * @library libupm-mpu9150
+ * @library mpu9150
  * @sensor mpu9150
  * @comname mpu9150 accelerometer library
  * @type accelerometer compass
