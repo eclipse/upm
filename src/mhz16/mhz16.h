@@ -54,7 +54,7 @@ namespace upm {
      */
 
     /**
-     * @library libupm-mhz16
+     * @library mhz16
 	 * @sensor mhz16
      * @comname Grove CO2 sensor
      * @type gaseous
