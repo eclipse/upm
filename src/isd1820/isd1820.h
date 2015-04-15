@@ -35,8 +35,8 @@ namespace upm {
      */
 
     /**
+     * @library libupm-isd1820
      * @sensor isd1820
-     * @library isd1820
      * @comname Grove Recorder v1.0
      * @type sound
      * @man seeed
