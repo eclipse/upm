@@ -42,7 +42,7 @@ typedef struct
    * @ingroup seeed gpio other
    */
   /**
-   * @library libupm-ppd42ns
+   * @library ppd42ns
    * @sensor ppd42ns
    * @comname Dust Sensor
    * @type other
