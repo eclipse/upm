@@ -38,7 +38,7 @@ namespace upm {
    * @ingroup generic i2c gpio accelerometer
    */
   /**
-   * @library libupm-mma7660
+   * @library mma7660
    * @sensor mma7660
    * @comname mma7660 I2C 3-axis digital accelerometer
    * @type accelerometer
