@@ -58,7 +58,7 @@ namespace upm {
  * @ingroup maxim i2c light
  */
 /**
- * @library libupm-max44000
+ * @library max44000
  * @sensor max44000
  * @comname max44000 proximity sensor
  * @type light
