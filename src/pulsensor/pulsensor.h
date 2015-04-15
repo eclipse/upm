@@ -45,7 +45,7 @@
  * @ingroup seeed analog medical
  */
 /**
- * @library libupm-pulsensor
+ * @library pulsensor
  * @sensor pulsensor
  * @comname Pulse Sensor
  * @type medical
