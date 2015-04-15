@@ -156,7 +156,7 @@ typedef enum {
  * @ingroup seeed spi wifi
  */
 /**
- * @library libupm-nrf24l01
+ * @library nrf24l01
  * @sensor nrf24l01
  * @comname nrf24l01 transceiver library
  * @type wifi
