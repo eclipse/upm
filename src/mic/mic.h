@@ -41,7 +41,7 @@ namespace upm {
  * @ingroup seeed pwm sound
  */
 /**
- * @library libupm-mic
+ * @library mic
  * @sensor mic
  * @comname Analog Microphone
  * @type sound
