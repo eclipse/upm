@@ -39,7 +39,7 @@ namespace upm {
  * @ingroup maxim spi digipot
  */
 /**
- * @library libupm-max5847
+ * @library max5847
  * @sensor max5847
  * @comname max5847 potentiometer sensor
  * @type digipot
