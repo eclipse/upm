@@ -35,7 +35,7 @@ namespace upm {
  * @ingroup maxim spi other
  */
 /**
- * @library libupm-max31855
+ * @library max31855
  * @sensor max31855
  * @comname max31855 thermocouple library
  * @type other
