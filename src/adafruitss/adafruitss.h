@@ -58,14 +58,14 @@ namespace upm {
  /**
   * @brief Adafruit PCA9685 based servo controller library
   * @defgroup adafruitss libupm-adafruitss
-  * @ingroup adafruit i2c motor
+  * @ingroup adafruit i2c servo
   */
  
  /**
   * @library adafruitss
   * @sensor adafruitss
   * @comname Adafruit Servo Shield
-  * @type motor
+  * @type servo
   * @man adafruit
   * @web http://www.adafruit.com/product/1411
   * @con i2c
