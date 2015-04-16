@@ -61,14 +61,15 @@ namespace upm {
     /**
      * @brief UPM library for the ZFM-20 fingerprint sensor module
      * @defgroup zfm20 libupm-zfm20
-     * @ingroup seeed serial gas
+     * @ingroup seeed uart touch
      */
 
     /**
      * @library zfm20
-	 * @sensor zfm20
+     * @sensor zfm20
      * @comname ZFM-20 Fingerprint Sensor Module
-	 * @type other
+     * @altname Grove Fingerprint Sensor
+     * @type touch
      * @man seeed
      * @con uart
      *
@@ -78,7 +79,7 @@ namespace upm {
      * Module. It can store up to 163 fingerprints.
      *
      * It is connected via a UART at 57600 baud.
-     * 
+     *
      * This example demonstrates how to register and store a new fingerprint
      * @snippet zfm20-register.cxx Interesting
      * This example demonstrates reading a fingerprint and locating it in the DB
@@ -139,7 +140,7 @@ namespace upm {
       // end of module specific errors
       ERR_INTERNAL_ERR                  = 0xff  // API internal error
     } ZFM20_ERRORS_T;
-    
+
     typedef enum {
       PKT_COMMAND                       = 0x01,
       PKT_DATA                          = 0x02,
@@ -192,7 +193,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 57600 (B57600) for this device.
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B57600);
@@ -246,7 +247,7 @@ namespace upm {
      * get the returned data from a request
      *
      * @param pkt the buffer to store the returned data into
-     * @param len the expected response length.  pkt should be at least this 
+     * @param len the expected response length.  pkt should be at least this
      * big.
      * @return true if successful
      */
