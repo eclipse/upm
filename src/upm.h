@@ -97,7 +97,7 @@
  */
 
 /**
- * @brief Resistive digital to analog converters
+ * @brief Resistive digital to analog converters (DAC)
  * @defgroup digipot Digital Potentiometer
  * @ingroup bycat
  */
@@ -109,14 +109,14 @@
  */
 
 /**
- * @brief Measure electric current
+ * @brief Measure electric current and ADC converters
  * @defgroup electric Electricity
  * @ingroup bycat
  */
 
 /**
  * @brief Measure bending or detect vibration
- * @defgroup flex Flex/Force
+ * @defgroup flexfor Flex/Force
  * @ingroup bycat
  */
 
@@ -257,7 +257,7 @@
  */
 
 /**
- * @brief Modules using a PWM capable GPIO pin
+ * @brief Modules using a serial connection (RX/TX)
  * @defgroup uart UART
  * @ingroup bycon
  */
@@ -269,18 +269,6 @@
 /**
  * @brief Adafruit Industries
  * @defgroup adafruit Adafruit
- * @ingroup byman
- */
-
-/**
- * @brief Amazon.com
- * @defgroup amazon Amazon
- * @ingroup byman
- */
-
-/**
- * @brief Banggood.com
- * @defgroup banggood Banggood
  * @ingroup byman
  */
 
@@ -303,7 +291,7 @@
  */
  
 /**
- * @brief Generic brands
+ * @brief Generic Brands
  * @defgroup generic Generic
  * @ingroup byman
  */
@@ -321,13 +309,7 @@
  */
 
 /**
- * @brief Newegg.com
- * @defgroup newegg Newegg
- * @ingroup byman
- */
-
-/**
- * @brief SeeedStudio - Grove
+ * @brief SeeedStudio - Grove Sensors
  * @defgroup seeed SeeedStudio
  * @ingroup byman
  */
@@ -349,7 +331,31 @@
 ////////////////////////////////////////////////////////////////// @endcond KIT
 
 /**
- * @brief Grove Starter Kit
+ * @brief Grove Starter Kit - Contains basic sensors
  * @defgroup gsk Grove Starter Kit
+ * @ingroup bykit
+ */
+ 
+/**
+ * @brief Home Automation Kit - For projects around the house
+ * @defgroup hak Home Automation Kit
+ * @ingroup bykit
+ */ 
+
+/**
+ * @brief Environment & Agriculture Kit - For outdoor projects
+ * @defgroup eak Environment & Agriculture Kit
+ * @ingroup bykit
+ */
+ 
+/**
+ * @brief Transportation & Safety Kit - Used mostly on vehicles 
+ * @defgroup tsk Transportation & Safety Kit
+ * @ingroup bykit
+ */
+ 
+/**
+ * @brief Robotics Kit - Sensors for your robot
+ * @defgroup robok Robotics Kit
  * @ingroup bykit
  */
