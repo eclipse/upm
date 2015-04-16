@@ -51,14 +51,13 @@ namespace upm {
 /**
  * @brief HTU21D humidity sensor library
  * @defgroup htu21d libupm-htu21d
- * @ingourp seeed adafruit sparkfun i2c temp
+ * @ingroup seeed adafruit sparkfun i2c temp
  */
 
 /**
  * @library htu21d
  * @sensor htu21d
  * @comname HTU21D Temperature & Humidity Sensor
- * @altname Grove - Temperature&Humidity Sensor (High-Accuracy & Mini) 
  * @type temp
  * @man seeed adafruit sparkfun
  * @web http://www.meas-spec.com/downloads/HTU21D.pdf
