@@ -78,6 +78,7 @@ mraa_result_t
 MAX44009::getValue(uint16_t* value) {
     uint8_t exponent, mantissa;
     uint8_t data[2];
+    uint16_t result;
 
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
     data[0] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_HIGH_ADDR);
@@ -88,10 +89,16 @@ MAX44009::getValue(uint16_t* value) {
         return MRAA_ERROR_INVALID_RESOURCE;
     }
 
-    exponent = (( data[0] >> 4 )  & 0x0F);
-    mantissa = (( data[0] & 0x0F ) << 4) | ((data[1] & 0x0F));
+    exponent = ( data[0] >> 4 );
+    mantissa = ( data[0] << 4 );
+    mantissa |= data[1];
 
-    *value = ( (uint16_t) exponent << 8 ) | ( (uint16_t) mantissa << 0);
+    // Check for overrange condition
+    if(exponent == MAX44009_OVERRANGE_CONDITION) { return MRAA_ERROR_INVALID_RESOURCE; }
+
+    result = ( exponent << 8 );
+    result |= mantissa;
+    *value = result;
 
     return MRAA_SUCCESS;
 }
@@ -101,10 +108,8 @@ MAX44009::convertToLux(uint16_t value) {
     uint8_t exponent, mantissa;
     float result = 0.045;
 
-    exponent = (value >> 8) & 0xFF;
-    exponent = (exponent == 0x0F ? exponent & 0x0E : exponent);
-
-    mantissa = (value >> 0) & 0xFF;
+    exponent = ( value >> 8 );
+    mantissa = value;
 
     result *= 2^exponent * mantissa;
 

@@ -73,6 +73,9 @@
                                               MAX44009_CONFIG_CDR_NORMAL | \
                                               MAX44009_CONFIG_INTEGRATION_100ms )
 
+/* MISCELLANEOUS */
+#define MAX44009_OVERRANGE_CONDITION        ( 0x0F )
+
 namespace upm {
 
 /**
