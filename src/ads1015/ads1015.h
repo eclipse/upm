@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/i2c.h>
+#include "upm/iADC.h"
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -131,7 +132,7 @@ namespace upm {
    * @ingroup i2c ads1015
    * @snippet ads1015.cxx Interesting
    */
-  class ADS1015 {
+class ADS1015 : public IADC {
   public:
     /**
      * ads1015 ADC constructor
