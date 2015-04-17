@@ -59,7 +59,7 @@ ADS1015::~ADS1015()
 }
 
 mraa_result_t
-ADS1015::getValue(uint8_t input, uint16_t *value) {
+ADS1015::getValue(int input, uint16_t *value) {
 
     mraa_result_t status;
     uint16_t result;

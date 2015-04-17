@@ -152,7 +152,7 @@ namespace upm {
      *
      * @return current conversion value
      */
-     mraa_result_t getValue(uint8_t input, uint16_t *value);
+     mraa_result_t getValue(int input, uint16_t *value);
 
     /**
      * Convert a supplied value to voltage based on set VREF
