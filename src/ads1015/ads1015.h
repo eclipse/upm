@@ -26,45 +26,102 @@
 #include <string>
 #include <mraa/i2c.h>
 
-#define ADS1015_DEFAULT_I2C_BUS 1
-#define ADS1015_DEFAULT_I2C_ADDR 0x48
+/*=========================================================================
+    I2C ADDRESS/BITS
+    -----------------------------------------------------------------------*/
+    #define ADS1015_I2C_ADDRESS                 (0x48)    // 1001 000 (ADDR = GND)
+    #define ADS1015_I2C_BUS                     (1)
+/*=========================================================================*/
 
-#define ADS1015_RESOLUTION  4096 // 12 bits
+/*=========================================================================
+    POINTER REGISTER
+    -----------------------------------------------------------------------*/
+    #define ADS1015_REG_POINTER_MASK        (0x03)
+    #define ADS1015_REG_POINTER_CONVERT     (0x00)
+    #define ADS1015_REG_POINTER_CONFIG      (0x01)
+    #define ADS1015_REG_POINTER_LOWTHRESH   (0x02)
+    #define ADS1015_REG_POINTER_HITHRESH    (0x03)
+/*=========================================================================*/
 
-/**
- * ADS1015 registers
- */
+/*=========================================================================
+    CONFIG REGISTER
+    -----------------------------------------------------------------------*/
+    #define ADS1015_REG_CONFIG_OS_MASK      (0x8000)
+    #define ADS1015_REG_CONFIG_OS_SINGLE    (0x8000)  // Write: Set to start a single-conversion
+    #define ADS1015_REG_CONFIG_OS_BUSY      (0x0000)  // Read: Bit = 0 when conversion is in progress
+    #define ADS1015_REG_CONFIG_OS_NOTBUSY   (0x8000)  // Read: Bit = 1 when device is not performing a conversion
 
-#define ADS1015_REG_CONVERSION      0x00
-#define ADS1015_REG_CONFIG          0x01
-#define ADS1015_REG_LO_THRESH       0x02
-#define ADS1015_REG_HI_THRESH       0x03
+    #define ADS1015_REG_CONFIG_MUX_MASK     (0x7000)
+    #define ADS1015_REG_CONFIG_MUX_DIFF_0_1 (0x0000)  // Differential P = AIN0, N = AIN1 (default)
+    #define ADS1015_REG_CONFIG_MUX_DIFF_0_3 (0x1000)  // Differential P = AIN0, N = AIN3
+    #define ADS1015_REG_CONFIG_MUX_DIFF_1_3 (0x2000)  // Differential P = AIN1, N = AIN3
+    #define ADS1015_REG_CONFIG_MUX_DIFF_2_3 (0x3000)  // Differential P = AIN2, N = AIN3
+    #define ADS1015_REG_CONFIG_MUX_SINGLE_0 (0x4000)  // Single-ended AIN0
+    #define ADS1015_REG_CONFIG_MUX_SINGLE_1 (0x5000)  // Single-ended AIN1
+    #define ADS1015_REG_CONFIG_MUX_SINGLE_2 (0x6000)  // Single-ended AIN2
+    #define ADS1015_REG_CONFIG_MUX_SINGLE_3 (0x7000)  // Single-ended AIN3
 
-#define ADS1015_CONV_START          0x8000
+    #define ADS1015_REG_CONFIG_PGA_MASK     (0x0E00)
+    #define ADS1015_REG_CONFIG_PGA_6_144V   (0x0000)  // +/-6.144V range = Gain 2/3
+    #define ADS1015_REG_CONFIG_PGA_4_096V   (0x0200)  // +/-4.096V range = Gain 1
+    #define ADS1015_REG_CONFIG_PGA_2_048V   (0x0400)  // +/-2.048V range = Gain 2 (default)
+    #define ADS1015_REG_CONFIG_PGA_1_024V   (0x0600)  // +/-1.024V range = Gain 4
+    #define ADS1015_REG_CONFIG_PGA_0_512V   (0x0800)  // +/-0.512V range = Gain 8
+    #define ADS1015_REG_CONFIG_PGA_0_256V   (0x0A00)  // +/-0.256V range = Gain 16
 
-#define ADS1015_MODE_CONT           0xFEFF
-#define ADS1015_MODE_SINGLE         0xFFFF
+    #define ADS1015_REG_CONFIG_MODE_MASK    (0x0100)
+    #define ADS1015_REG_CONFIG_MODE_CONTIN  (0x0000)  // Continuous conversion mode
+    #define ADS1015_REG_CONFIG_MODE_SINGLE  (0x0100)  // Power-down single-shot mode (default)
 
+    #define ADS1015_REG_CONFIG_DR_MASK      (0x00E0)
+    #define ADS1015_REG_CONFIG_DR_128SPS    (0x0000)  // 128 samples per second
+    #define ADS1015_REG_CONFIG_DR_250SPS    (0x0020)  // 250 samples per second
+    #define ADS1015_REG_CONFIG_DR_490SPS    (0x0040)  // 490 samples per second
+    #define ADS1015_REG_CONFIG_DR_920SPS    (0x0060)  // 920 samples per second
+    #define ADS1015_REG_CONFIG_DR_1600SPS   (0x0080)  // 1600 samples per second (default)
+    #define ADS1015_REG_CONFIG_DR_2400SPS   (0x00A0)  // 2400 samples per second
+    #define ADS1015_REG_CONFIG_DR_3300SPS   (0x00C0)  // 3300 samples per second
 
-#define ADS1015_CONFIG_DEFAULT      0x583
+    #define ADS1015_REG_CONFIG_CMODE_MASK   (0x0010)
+    #define ADS1015_REG_CONFIG_CMODE_TRAD   (0x0000)  // Traditional comparator with hysteresis (default)
+    #define ADS1015_REG_CONFIG_CMODE_WINDOW (0x0010)  // Window comparator
 
-#define ADS1015_DEFAULT_VREF        3.0
+    #define ADS1015_REG_CONFIG_CPOL_MASK    (0x0008)
+    #define ADS1015_REG_CONFIG_CPOL_ACTVLOW (0x0000)  // ALERT/RDY pin is low when active (default)
+    #define ADS1015_REG_CONFIG_CPOL_ACTVHI  (0x0008)  // ALERT/RDY pin is high when active
+
+    #define ADS1015_REG_CONFIG_CLAT_MASK    (0x0004)  // Determines if ALERT/RDY pin latches once asserted
+    #define ADS1015_REG_CONFIG_CLAT_NONLAT  (0x0000)  // Non-latching comparator (default)
+    #define ADS1015_REG_CONFIG_CLAT_LATCH   (0x0004)  // Latching comparator
+
+    #define ADS1015_REG_CONFIG_CQUE_MASK    (0x0003)
+    #define ADS1015_REG_CONFIG_CQUE_1CONV   (0x0000)  // Assert ALERT/RDY after one conversions
+    #define ADS1015_REG_CONFIG_CQUE_2CONV   (0x0001)  // Assert ALERT/RDY after two conversions
+    #define ADS1015_REG_CONFIG_CQUE_4CONV   (0x0002)  // Assert ALERT/RDY after four conversions
+    #define ADS1015_REG_CONFIG_CQUE_NONE    (0x0003)  // Disable the comparator and put ALERT/RDY in high state (default)
+
+    #define ADS1015_REG_CONFIG_DEFAULT      (0x583)
+/*=========================================================================*/
+
+/*=========================================================================
+    ADC PARAMETERS
+    -----------------------------------------------------------------------*/
+    #define ADS1015_RESOLUTION              (4096) // 12 bits
+    #define ADS1015_VREF                    (3.0)
+    #define ADS1015_BITSHIFT                (4)
+/*=========================================================================*/
+
+typedef enum
+{
+  GAIN_TWOTHIRDS    = ADS1015_REG_CONFIG_PGA_6_144V,
+  GAIN_ONE          = ADS1015_REG_CONFIG_PGA_4_096V,
+  GAIN_TWO          = ADS1015_REG_CONFIG_PGA_2_048V,
+  GAIN_FOUR         = ADS1015_REG_CONFIG_PGA_1_024V,
+  GAIN_EIGHT        = ADS1015_REG_CONFIG_PGA_0_512V,
+  GAIN_SIXTEEN      = ADS1015_REG_CONFIG_PGA_0_256V
+} adsGain_t;
 
 namespace upm {
-
-  /**
-   * valid cycle times for automatic conversion mode
-   */
-
-  typedef enum { ADS1015_CYCLE_NONE = 0,  // disabled
-                 ADS1015_CYCLE_32   = 1,  // 27 ksps
-                 ADS1015_CYCLE_64   = 2,  // 13.5
-                 ADS1015_CYCLE_128  = 3,  // 6.7
-                 ADS1015_CYCLE_256  = 4,  // 3.4
-                 ADS1015_CYCLE_512  = 5,  // 1.7
-                 ADS1015_CYCLE_1024 = 6,  // 0.9
-                 ADS1015_CYCLE_2048 = 7   // 0.4
-  } ADS1015_CYCLE_TIME_T;
 
   /**
    * @brief C++ API for the ADS1015 I2C ADC
@@ -83,8 +140,7 @@ namespace upm {
      * @param address the address for this sensor; default is 0x48
      * @param vref reference voltage for this sensor; default is 3.0
      */
-    ADS1015(int bus = ADS1015_DEFAULT_I2C_BUS, uint8_t address = ADS1015_DEFAULT_I2C_ADDR,
-               float vref = ADS1015_DEFAULT_VREF);
+    ADS1015(int bus = ADS1015_I2C_BUS, uint8_t address = ADS1015_I2C_ADDRESS, float vref = ADS1015_VREF);
 
     /**
      * ADS1015 Destructor
@@ -92,45 +148,11 @@ namespace upm {
     ~ADS1015();
 
     /**
-     * Write byte value into register
-     *
-     * @param reg register location to write into
-     * @param byte byte to write
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t writeByte(uint8_t reg, uint8_t byte);
-
-    /**
-     * Write word value into register
-     *
-     * @param reg register location to write into
-     * @param word word to write
-     * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
-     */
-    mraa_result_t writeWord(uint8_t reg, uint16_t word);
-
-    /**
-     * Read byte value from register
-     *
-     * @param reg register location to read from
-     * @return value at specified register
-     */
-    uint8_t readByte(uint8_t reg);
-
-    /**
-     * Read word value from register
-     *
-     * @param reg register location to read from
-     * @return value at specified register
-     */
-    uint16_t readWord(uint8_t reg);
-
-    /**
-     * Read current value of conversion
+     * Read current value for a given analogue input (single ended)
      *
      * @return current conversion value
      */
-    uint16_t value();
+     mraa_result_t getValue(uint8_t input, uint16_t *value);
 
     /**
      * Convert a supplied value to voltage based on set VREF
@@ -138,15 +160,31 @@ namespace upm {
      * @param val value of conversion (from value())
      * @return conversion value in volts
      */
-    float valueToVolts(uint16_t val);
+    float convertToVolts(uint16_t value);
+
+    /**
+     * Sets the gain and input voltage range
+     */
+    void setGain(adsGain_t gain);
+
+    /**
+     * Sets the gain and input voltage range
+
+     * @return current gain value
+     */
+    adsGain_t getGain(void);
+
+    /**
+     * Returns whether the sensor is configured.
+     */
+    bool isConfigured();
 
   private:
     mraa_i2c_context m_i2c;
     uint8_t m_addr;
+    int m_bus;
     float m_vref;
-    bool m_alertLow;
-    bool m_alertHigh;
-  };
+    adsGain_t m_gain;
+    bool configured;
+};
 }
-
-

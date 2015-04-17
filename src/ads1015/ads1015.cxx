@@ -33,64 +33,98 @@ using namespace std;
 
 ADS1015::ADS1015(int bus, uint8_t address, float vref)
 {
-  // Setup i2c
-  m_i2c = mraa_i2c_init(bus);
+    // Setup i2c
+    m_bus = bus;
+    m_addr = address;
+    m_vref = vref;
+    configured = false;
 
-  m_addr = address;
+    m_i2c = mraa_i2c_init(m_bus);
 
-  mraa_result_t ret = mraa_i2c_address(m_i2c, m_addr);
+    mraa_result_t status = mraa_i2c_address(m_i2c, m_addr);
+    if (status == MRAA_SUCCESS) {
+        configured = true;
+    }
+    else {
+        fprintf(stderr, "ADS1015: I2C bus failed to initialise.\n");
+    }
 
-  if (ret != MRAA_SUCCESS) 
-    cerr << "ADS1015: Could not initialize i2c bus. " << endl;
-
-  m_vref = vref;
+    // Set parameters
+    m_gain = GAIN_TWO;
 }
 
 ADS1015::~ADS1015()
 {
-  mraa_i2c_stop(m_i2c);
+    mraa_i2c_stop(m_i2c);
 }
 
-mraa_result_t ADS1015::writeByte(uint8_t reg, uint8_t byte)
-{
-  return mraa_i2c_write_byte_data(m_i2c, byte, reg);
+mraa_result_t
+ADS1015::getValue(uint8_t input, uint16_t *value) {
+
+    mraa_result_t status;
+    uint16_t result;
+
+    // Check input is in range
+    if (input > 3) { return MRAA_ERROR_INVALID_PARAMETER; }
+
+    // Start with default values
+    uint16_t config = ADS1015_REG_CONFIG_CQUE_NONE    | // Disable the comparator (default val)
+                      ADS1015_REG_CONFIG_CLAT_NONLAT  | // Non-latching (default val)
+                      ADS1015_REG_CONFIG_CPOL_ACTVLOW | // Alert/Rdy active low   (default val)
+                      ADS1015_REG_CONFIG_CMODE_TRAD   | // Traditional comparator (default val)
+                      ADS1015_REG_CONFIG_DR_1600SPS   | // 1600 samples per second (default)
+                      ADS1015_REG_CONFIG_MODE_SINGLE;   // Single-shot mode (default)
+
+    // Set PGA/voltage range
+    config |= m_gain;
+
+    // Set single-ended input channel
+    switch (input)
+    {
+    case (0):
+        config |= ADS1015_REG_CONFIG_MUX_SINGLE_0;
+        break;
+    case (1):
+        config |= ADS1015_REG_CONFIG_MUX_SINGLE_1;
+        break;
+    case (2):
+        config |= ADS1015_REG_CONFIG_MUX_SINGLE_2;
+        break;
+    case (3):
+        config |= ADS1015_REG_CONFIG_MUX_SINGLE_3;
+        break;
+    }
+
+    // Set 'start single-conversion' bit
+    config |= ADS1015_REG_CONFIG_OS_SINGLE;
+
+    // Write config register to the ADC
+    mraa_i2c_address(m_i2c, m_addr);
+    status = mraa_i2c_write_word_data(m_i2c, config, ADS1015_REG_POINTER_CONFIG);
+
+    if(status != MRAA_SUCCESS) { return status; }
+
+    // Write to pointer register to point to the conversion register
+    status = mraa_i2c_write(m_i2c, ADS1015_REG_POINTER_CONVERT, 2);
+
+    if(status != MRAA_SUCCESS) { return status; }
+
+    // Read conversion result
+    result = mraa_i2c_read_word_data(m_i2c, ADS1015_REG_POINTER_CONVERT) >> ADS1015_BITSHIFT;
+
+    if(result == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
+
+    *value = result;
 }
 
-mraa_result_t ADS1015::writeWord(uint8_t reg, uint16_t word)
-{
-  // We need to swap the bytes
-  uint8_t b1 = (word & 0xff00) >> 8;
-  word <<= 8;
-  word |= b1;
+void
+ADS1015::setGain(adsGain_t gain) { m_gain = gain; }
 
-  return mraa_i2c_write_word_data(m_i2c, word, reg);
-}
+adsGain_t
+ADS1015::getGain() { return m_gain; }
 
-uint8_t ADS1015::readByte(uint8_t reg)
-{
-  return mraa_i2c_read_byte_data(m_i2c, reg);
-}
+float
+ADS1015::convertToVolts(uint16_t value) { return (value * m_vref / ADS1015_RESOLUTION); }
 
-uint16_t ADS1015::readWord(uint8_t reg)
-{
-  uint16_t val = mraa_i2c_read_word_data(m_i2c, reg);
-  uint8_t b1;
-
-  // The value returned is in the wrong byte order, so we need to swap them
-  b1 = (val & 0xff00) >> 8;
-  val <<= 8;
-  val |= b1;
-
-  return val;
-}
-
-uint16_t ADS1015::value()
-{
-  // mask off alert flag and reserved bits
-  return (readWord(ADS1015_REG_CONVERSION) & 0x0fff);
-}
-
-float ADS1015::valueToVolts(uint16_t val)
-{
-  return (val * m_vref / ADS1015_RESOLUTION);
-}
+bool
+ADS1015::isConfigured() { return configured; }

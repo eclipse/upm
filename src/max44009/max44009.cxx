@@ -44,7 +44,7 @@ MAX44009::MAX44009 (int bus, int devAddr) {
         configured = true;
     }
     else {
-        fprintf(stderr, "i2c bus failed to initialise.\n");
+        fprintf(stderr, "MAX44009: I2C bus failed to initialise.\n");
     }
 }
 
