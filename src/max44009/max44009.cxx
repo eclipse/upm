@@ -89,15 +89,15 @@ MAX44009::getValue(uint16_t* value) {
         return MRAA_ERROR_INVALID_RESOURCE;
     }
 
-    exponent = ( data[0] >> 4 );
-    mantissa = ( data[0] << 4 );
-    mantissa |= data[1];
+    exponent = (( data[0] >> 4 ) & 0x0F);
+    mantissa = (( data[0] & 0x0F ) << 4 );
+    mantissa |= ( data[1] & 0x0F );
 
     // Check for overrange condition
     if(exponent == MAX44009_OVERRANGE_CONDITION) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    result = ( exponent << 8 );
-    result |= mantissa;
+    result = ( (uint16_t) exponent << 8 );
+    result |= ( (uint16_t) mantissa << 0);
     *value = result;
 
     return MRAA_SUCCESS;
@@ -108,8 +108,8 @@ MAX44009::convertToLux(uint16_t value) {
     uint8_t exponent, mantissa;
     float result = 0.045;
 
-    exponent = ( value >> 8 );
-    mantissa = value;
+    exponent = ( value >> 8 ) & 0xFF;
+    mantissa = (value >> 0) & 0xFF;
 
     result *= 2^exponent * mantissa;
 
