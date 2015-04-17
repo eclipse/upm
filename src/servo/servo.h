@@ -45,7 +45,7 @@ namespace upm {
  * the maximum period.
  *
  * @defgroup servo libupm-servo
- * @ingroup seeed emax pwm servos
+ * @ingroup seeed emax pwm servos gsk
  */
 class Servo {
     public:

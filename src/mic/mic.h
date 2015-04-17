@@ -38,7 +38,7 @@ namespace upm {
 /**
  * @brief Analog Microphone library
  * @defgroup mic libupm-mic
- * @ingroup seeed pwm sound
+ * @ingroup seeed pwm sound gsk
  */
 /**
  * @library mic
@@ -48,6 +48,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensors
  * @con pwm
+ * @kit gsk
  *
  * @brief C++ API for Microphone
  *
