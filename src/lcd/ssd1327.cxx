@@ -173,7 +173,7 @@ SSD1327::write(std::string msg)
 
     setVerticalMode();
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        writeChar(m_i2c_lcd_control, msg[i]);
+        writeChar(msg[i]);
     }
 
     return error;
@@ -212,7 +212,7 @@ SSD1327::clear()
     for (rowIdx = 0; rowIdx < 12; rowIdx++) {
         // clear all columns
         for (columnIdx = 0; columnIdx < 12; columnIdx++) {
-            writeChar(m_i2c_lcd_control, ' ');
+            writeChar(' ');
         }
     }
 
@@ -238,7 +238,7 @@ SSD1327::setGrayLevel(uint8_t level)
  * **************
  */
 mraa_result_t
-SSD1327::writeChar(mraa_i2c_context ctx, uint8_t value)
+SSD1327::writeChar(uint8_t value)
 {
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
