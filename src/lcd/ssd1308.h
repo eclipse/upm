@@ -30,7 +30,7 @@
 
 namespace upm
 {
-#define DISPLAY_CMD_SET_NORMAL_1308 0xA6
+const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
 
 /**
  * @library i2clcd
