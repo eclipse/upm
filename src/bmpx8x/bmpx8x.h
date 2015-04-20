@@ -31,6 +31,8 @@
 #include <mraa/i2c.h>
 #include <math.h>
 
+#include "upm/iPressureSensor.h"
+
 #define BMPX8X_ADDR               0x77 // device address
 
 // REGISTERS
@@ -88,7 +90,7 @@ namespace upm {
  * @snippet bmpx8x.cxx Interesting
  */
 
-class BMPX8X {
+class BMPX8X : public IPressureSensor {
     public:
         /**
          * Instanciates a BMPX8X object
@@ -107,7 +109,7 @@ class BMPX8X {
         /**
          * Return calculated pressure
          */
-        int32_t getPressure ();
+        mraa_result_t getPressure (int32_t *value);
 
         /**
          *
@@ -123,21 +125,21 @@ class BMPX8X {
         /**
          * Return calculated temperature
          */
-        float getTemperature ();
+        mraa_result_t getTemperature (float *value);
 
         /**
          * With given absolute altitude sea level can be calculated
          *
          * @param altitudeMeters altitude
          */
-        int32_t getSealevelPressure(float altitudeMeters = 0);
+        int32_t getSealevelPressure(float altitudeMeters = 0, float pressure = 0);
 
         /**
          * With given sea level altitude in meters can be calculated
          *
          * @param sealevelPressure Sea level
          */
-        float getAltitude (float sealevelPressure = 101325);
+        float getAltitude (float sealevelPressure = 101325, float pressure = 0);
 
         /**
          * Returns whether the sensor is configured.

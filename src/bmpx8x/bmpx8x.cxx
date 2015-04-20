@@ -71,13 +71,16 @@ BMPX8X::~BMPX8X() {
     mraa_i2c_stop(m_i2ControlCtx);
 }
 
-int32_t
-BMPX8X::getPressure () {
+mraa_result_t
+BMPX8X::getPressure (int32_t *value) {
     int32_t UT, UP, B3, B5, B6, X1, X2, X3, p;
     uint32_t B4, B7;
 
     UT = getTemperatureRaw();
     UP = getPressureRaw();
+
+    if(UT == -1 || UP == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
+
     B5 = computeB5(UT);
 
     // Pressure Calculations
@@ -102,17 +105,18 @@ BMPX8X::getPressure () {
     X1 = (X1 * 3038) >> 16;
     X2 = (-7357 * p) >> 16;
 
-    p = p + ((X1 + X2 + (int32_t)3791)>>4);
+    *value = p + ((X1 + X2 + (int32_t)3791)>>4);
 
-    return p;
+    return MRAA_SUCCESS;
 }
 
 int32_t
 BMPX8X::getPressureRaw () {
+    uint16_t lsb, msb;
     uint32_t raw;
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READPRESSURECMD + (oversampling << 6), BMPX8X_CONTROL);
+    if(mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READPRESSURECMD + (oversampling << 6), BMPX8X_CONTROL) != MRAA_SUCCESS) { return -1; }
 
     if (oversampling == BMPX8X_ULTRALOWPOWER) {
         usleep(5000);
@@ -125,10 +129,15 @@ BMPX8X::getPressureRaw () {
     }
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    raw = mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA);
+    msb = mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA);
+    if(msb == -1) { return -1; }
 
-    raw <<= 8;
-    raw |= mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA + 2);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    lsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA + 2);
+    if(lsb == -1) { return -1; }
+
+    raw = msb << 8;
+    raw |= lsb;
     raw >>= (8 - oversampling);
 
     return raw;
@@ -143,31 +152,30 @@ BMPX8X::getTemperatureRaw () {
     return mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_TEMPDATA);
 }
 
-float
-BMPX8X::getTemperature () {
+mraa_result_t
+BMPX8X::getTemperature (float *value) {
     int32_t UT, B5;
     float temp;
 
     UT = getTemperatureRaw ();
 
+    if(UT == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
+
     B5 = computeB5 (UT);
     temp = (B5 + 8) >> 4;
-    temp /= 10;
+    *value /= 10;
 
-    return temp;
+    return MRAA_SUCCESS;
 }
 
 int32_t
-BMPX8X::getSealevelPressure(float altitudeMeters) {
-    float pressure = getPressure ();
+BMPX8X::getSealevelPressure(float altitudeMeters, float pressure) {
     return (int32_t)(pressure / pow(1.0-altitudeMeters/44330, 5.255));
 }
 
 float
-BMPX8X::getAltitude (float sealevelPressure) {
+BMPX8X::getAltitude (float sealevelPressure, float pressure) {
     float altitude;
-
-    float pressure = getPressure ();
 
     altitude = 44330 * (1.0 - pow(pressure /sealevelPressure,0.1903));
 

@@ -1,3 +1,4 @@
+include_directories(..)
 set (libname "bmpx8x")
 set (libdescription "upm BMPX8X")
 set (module_src ${libname}.cxx)
