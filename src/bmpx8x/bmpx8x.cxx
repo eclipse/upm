@@ -169,12 +169,12 @@ BMPX8X::getTemperature (float *value) {
 }
 
 int32_t
-BMPX8X::getSealevelPressure(float altitudeMeters, float pressure) {
+BMPX8X::getSealevelPressure(float pressure, float altitudeMeters) {
     return (int32_t)(pressure / pow(1.0-altitudeMeters/44330, 5.255));
 }
 
 float
-BMPX8X::getAltitude (float sealevelPressure, float pressure) {
+BMPX8X::getAltitude (float pressure, float sealevelPressure) {
     float altitude;
 
     altitude = 44330 * (1.0 - pow(pressure /sealevelPressure,0.1903));

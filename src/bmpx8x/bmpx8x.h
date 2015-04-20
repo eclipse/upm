@@ -132,14 +132,14 @@ class BMPX8X : public IPressureSensor {
          *
          * @param altitudeMeters altitude
          */
-        int32_t getSealevelPressure(float altitudeMeters = 0, float pressure = 0);
+        int32_t getSealevelPressure(float pressure, float altitudeMeters = 0);
 
         /**
          * With given sea level altitude in meters can be calculated
          *
          * @param sealevelPressure Sea level
          */
-        float getAltitude (float sealevelPressure = 101325, float pressure = 0);
+        float getAltitude (float pressure, float sealevelPressure = 101325);
 
         /**
          * Returns whether the sensor is configured.
