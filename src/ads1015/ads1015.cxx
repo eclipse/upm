@@ -105,16 +105,18 @@ ADS1015::getValue(int input, uint16_t *value) {
     if(status != MRAA_SUCCESS) { return status; }
 
     // Write to pointer register to point to the conversion register
-    status = mraa_i2c_write(m_i2c, ADS1015_REG_POINTER_CONVERT, 2);
+    mraa_i2c_address(m_i2c, m_addr);
+    status = mraa_i2c_write_byte(m_i2c, ADS1015_REG_POINTER_CONVERT);
 
     if(status != MRAA_SUCCESS) { return status; }
 
     // Read conversion result
-    result = mraa_i2c_read_word_data(m_i2c, ADS1015_REG_POINTER_CONVERT) >> ADS1015_BITSHIFT;
+    mraa_i2c_address(m_i2c, m_addr);
+    result = mraa_i2c_read_word_data(m_i2c, ADS1015_REG_POINTER_CONVERT);
 
     if(result == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    *value = result;
+    *value = result >> ADS1015_BITSHIFT;
 }
 
 void
