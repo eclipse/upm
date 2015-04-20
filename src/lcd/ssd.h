@@ -26,13 +26,13 @@
 
 namespace upm
 {
-#define DISPLAY_CMD_OFF 0xAE
-#define DISPLAY_CMD_ON 0xAF
+const uint8_t DISPLAY_CMD_OFF = 0xAE;
+const uint8_t DISPLAY_CMD_ON = 0xAF;
 
-#define BASE_LOW_COLUMN_ADDR 0x00
-#define BASE_HIGH_COLUMN_ADDR 0x10
-#define BASE_PAGE_START_ADDR 0xB0
-#define DISPLAY_CMD_MEM_ADDR_MODE 0x20
+const uint8_t BASE_LOW_COLUMN_ADDR = 0x00;
+const uint8_t BASE_HIGH_COLUMN_ADDR = 0x10;
+const uint8_t BASE_PAGE_START_ADDR = 0xB0;
+const uint8_t DISPLAY_CMD_MEM_ADDR_MODE = 0x20;
 
 const uint8_t BasicFont[][8] = { { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
                                  { 0x00, 0x00, 0x5F, 0x00, 0x00, 0x00, 0x00, 0x00 },
