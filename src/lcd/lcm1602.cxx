@@ -132,7 +132,7 @@ mraa_result_t
 Lcm1602::expandWrite(uint8_t value)
 {
     uint8_t buffer = value | LCD_BACKLIGHT;
-    return mraa_i2c_write_byte(m_i2c_lcd_control, buffer);
+    return m_i2c_lcd_control.writeByte(buffer);
 }
 
 mraa_result_t

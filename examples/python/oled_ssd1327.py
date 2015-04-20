@@ -186,6 +186,4 @@ for i in range(12):
 	myLCD.setGrayLevel(i)
 	myLCD.write('Hello World')
 
-myLCD.close()
-
 print "Exiting"

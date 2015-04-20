@@ -30,14 +30,12 @@
 
 using namespace upm;
 
-I2CLcd::I2CLcd(int bus, int lcdAddress)
+I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
 {
     m_lcd_control_address = lcdAddress;
     m_bus = bus;
 
-    m_i2c_lcd_control = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
+    mraa_result_t ret = m_i2c_lcd_control.address(m_lcd_control_address);
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
@@ -55,20 +53,14 @@ I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
 {
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, LCD_SETCGRAMADDR | (charSlot << 3), LCD_CMD);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
     if (error == MRAA_SUCCESS) {
         for (int i = 0; i < 8; i++) {
-            error = mraa_i2c_write_byte_data(m_i2c_lcd_control, charData[i], LCD_DATA);
+            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
         }
     }
 
     return error;
-}
-
-mraa_result_t
-I2CLcd::close()
-{
-    return mraa_i2c_stop(m_i2c_lcd_control);
 }
 
 std::string

@@ -191,5 +191,4 @@ for (var i = 0; i < 12; i++)
 	myLcd.write('Hello World');
 }
 
-myLcd.close();
 
