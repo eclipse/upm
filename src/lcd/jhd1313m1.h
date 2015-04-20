@@ -112,6 +112,6 @@ class Jhd1313m1 : public I2CLcd
 
   private:
     int m_rgb_address;
-    mraa_i2c_context m_i2c_lcd_rgb;
+    mraa::I2c m_i2c_lcd_rgb;
 };
 }

@@ -93,7 +93,6 @@ for (var x = 0; x < logoArr.length; x++)
 myLcd.clear();
 myLcd.draw(intelLogo, 1024);
 
-myLcd.close();
 intelLogo = null;
 myLcd = null;
 LCD.cleanUp();

@@ -36,96 +36,92 @@ SSD1327::SSD1327(int bus_in, int addr_in) : I2CLcd(bus_in, addr_in)
 {
     mraa_result_t error = MRAA_SUCCESS;
     usleep(INIT_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xFD, LCD_CMD); // Unlock OLED driver IC MCU
-                                                                // interface from entering command.
-                                                                // i.e: Accept commands
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0xFD); // Unlock OLED driver IC MCU
+                                               // interface from entering command.
+                                               // i.e: Accept commands
     usleep(INIT_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x12, LCD_CMD);
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x12);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xAE, LCD_CMD); // Set display off
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xAE); // Set display off
     usleep(INIT_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA8, LCD_CMD); // set multiplex ratio
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0xA8); // set multiplex ratio
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x5F, LCD_CMD); // 96
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x5F); // 96
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA1, LCD_CMD); // set display start line
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA1); // set display start line
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x00, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x00); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA2, LCD_CMD); // set display offset
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA2); // set display offset
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x60, LCD_CMD);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x60);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA0, LCD_CMD); // set remap
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // set remap
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x46, LCD_CMD);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x46);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xAB, LCD_CMD); // set vdd internal
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xAB); // set vdd internal
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x01, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x01); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x81, LCD_CMD); // set contrasr
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x81); // set contrasr
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x53, LCD_CMD); // 100 nit
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x53); // 100 nit
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xB1, LCD_CMD); // Set Phase Length
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xB1); // Set Phase Length
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0X51, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0X51); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control,
-                                     0xB3,
-                                     LCD_CMD); // Set Display Clock Divide Ratio/Oscillator
-                                               // Frequency
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xB3); // Set Display Clock Divide Ratio/Oscillator
+                                                       // Frequency
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x01, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x01); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xB9, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xB9); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xBC, LCD_CMD); // set pre_charge
-                                                                        // voltage/VCOMH
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xBC); // set pre_charge
+                                                       // voltage/VCOMH
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x08, LCD_CMD); // (0x08);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x08); // (0x08);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xBE, LCD_CMD); // set VCOMH
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xBE); // set VCOMH
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0X07, LCD_CMD); // (0x07);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0X07); // (0x07);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xB6, LCD_CMD); // Set second pre-charge
-                                                                        // period
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xB6); // Set second pre-charge
+                                                       // period
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x01, LCD_CMD); //
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x01); //
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control,
-                                     0xD5,
-                                     LCD_CMD); // enable second precharge and enternal vsl
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xD5); // enable second precharge and enternal vsl
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0X62, LCD_CMD); // (0x62);
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0X62); // (0x62);
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA4, LCD_CMD); // Set Normal Display Mode
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA4); // Set Normal Display Mode
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x2E, LCD_CMD); // Deactivate Scroll
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x2E); // Deactivate Scroll
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xAF, LCD_CMD); // Switch on display
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0xAF); // Switch on display
     usleep(INIT_SLEEP);
 
     // Row Address
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x75, LCD_CMD); // Set Row Address
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x75); // Set Row Address
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x00, LCD_CMD); // Start 0
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x00); // Start 0
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x5f, LCD_CMD); // End 95
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x5f); // End 95
     usleep(INIT_SLEEP);
 
     // Column Address
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x15, LCD_CMD); // Set Column Address
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x15); // Set Column Address
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x08, LCD_CMD); // Start from 8th Column of
-                                                                        // driver IC. This is 0th
-                                                                        // Column for OLED
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x08); // Start from 8th Column of
+                                                       // driver IC. This is 0th
+                                                       // Column for OLED
     usleep(INIT_SLEEP);
-    error = mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x37, LCD_CMD); // End at  (8 + 47)th
-                                                                        // column. Each Column has 2
-                                                                        // pixels(segments)
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, 0x37); // End at  (8 + 47)th
+                                                       // column. Each Column has 2
+                                                       // pixels(segments)
     usleep(INIT_SLEEP);
 
     clear();
@@ -153,7 +149,7 @@ SSD1327::draw(uint8_t* data, int bytes)
             value |= (bitOne) ? grayHigh : 0x00;
             value |= (bitTwo) ? grayLow : 0x00;
 
-            mraa_i2c_write_byte_data(m_i2c_lcd_control, value, LCD_DATA);
+            m_i2c_lcd_control.writeReg(LCD_DATA, value);
             usleep(CMD_SLEEP - 2000);
         }
     }
@@ -185,19 +181,19 @@ SSD1327::setCursor(int row, int column)
     mraa_result_t error = MRAA_SUCCESS;
 
     // Column Address
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x15, LCD_CMD); /* Set Column Address */
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x15); /* Set Column Address */
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x08 + (column * 4), LCD_CMD); /* Start Column:
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x08 + (column * 4)); /* Start Column:
                                                                                   Start from 8 */
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x37, LCD_CMD); /* End Column */
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x37); /* End Column */
     usleep(CMD_SLEEP);
     // Row Address
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x75, LCD_CMD); /* Set Row Address */
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x75); /* Set Row Address */
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x00 + (row * 8), LCD_CMD); /* Start Row*/
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x00 + (row * 8)); /* Start Row*/
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x07 + (row * 8), LCD_CMD); /* End Row*/
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x07 + (row * 8)); /* End Row*/
     usleep(CMD_SLEEP);
 
     return error;
@@ -254,7 +250,7 @@ SSD1327::writeChar(uint8_t value)
             data |= (bitOne) ? grayHigh : 0x00;
             data |= (bitTwo) ? grayLow : 0x00;
 
-            mraa_i2c_write_byte_data(m_i2c_lcd_control, data, LCD_DATA);
+            m_i2c_lcd_control.writeReg(LCD_DATA, data);
             usleep(CMD_SLEEP - 2000);
         }
     }
@@ -263,43 +259,42 @@ SSD1327::writeChar(uint8_t value)
 mraa_result_t
 SSD1327::setNormalDisplay()
 {
-    return mraa_i2c_write_byte_data(m_i2c_lcd_control,
-                                    DISPLAY_CMD_SET_NORMAL,
-                                    LCD_CMD); // set to normal display '1' is ON
+    return m_i2c_lcd_control.writeReg(LCD_CMD,
+                                      DISPLAY_CMD_SET_NORMAL); // set to normal display '1' is ON
 }
 
 mraa_result_t
 SSD1327::setHorizontalMode()
 {
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA0, LCD_CMD); // remap to
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x42, LCD_CMD); // horizontal mode
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x42); // horizontal mode
     usleep(CMD_SLEEP);
 
     // Row Address
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x75, LCD_CMD); // Set Row Address
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x75); // Set Row Address
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x00, LCD_CMD); // Start 0
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x00); // Start 0
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x5f, LCD_CMD); // End 95
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x5f); // End 95
     usleep(CMD_SLEEP);
 
     // Column Address
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x15, LCD_CMD); // Set Column Address
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x15); // Set Column Address
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x08, LCD_CMD); // Start from 8th Column of driver
-                                                                // IC. This is 0th Column for OLED
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x08); // Start from 8th Column of driver
+                                               // IC. This is 0th Column for OLED
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x37, LCD_CMD); // End at  (8 + 47)th column. Each
-                                                                // Column has 2 pixels(or segments)
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x37); // End at  (8 + 47)th column. Each
+                                               // Column has 2 pixels(or segments)
     usleep(CMD_SLEEP);
 }
 
 mraa_result_t
 SSD1327::setVerticalMode()
 {
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0xA0, LCD_CMD); // remap to
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
     usleep(CMD_SLEEP);
-    mraa_i2c_write_byte_data(m_i2c_lcd_control, 0x46, LCD_CMD); // Vertical mode
+    m_i2c_lcd_control.writeReg(LCD_CMD, 0x46); // Vertical mode
     usleep(CMD_SLEEP);
 }

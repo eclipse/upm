@@ -89,7 +89,6 @@ for x in range(len(logoArr)):
 	intelLogo.__setitem__(x, logoArr[x])
 myLCD.clear()
 myLCD.draw(intelLogo, 1024)
-myLCD.close()
 
 del intelLogo
 del myLCD

@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 namespace upm
 {
@@ -92,13 +92,13 @@ class I2CLcd
     virtual mraa_result_t home() = 0;
     virtual mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
 
-    mraa_result_t close();
     std::string name();
 
   protected:
     std::string m_name;
     int m_lcd_control_address;
     int m_bus;
-    mraa_i2c_context m_i2c_lcd_control;
+
+    mraa::I2c m_i2c_lcd_control;
 };
 }
