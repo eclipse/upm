@@ -35,38 +35,36 @@ BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
 
     m_controlAddr = devAddr;
     m_bus = bus;
+    configured = false;
 
     m_i2ControlCtx = mraa_i2c_init(m_bus);
 
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-    }
-
-    if (i2cReadReg_8 (0xD0) != 0x55)  {
-        std::cout << "Error :: Cannot continue" << std::endl;
+    mraa_result_t status = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    if (status != MRAA_SUCCESS) {
+        configured = false;
+        fprintf(stderr, "BMPX8X: I2C bus failed to initialise.\n");
         return;
     }
 
-    if (mode > BMP085_ULTRAHIGHRES) {
-        mode = BMP085_ULTRAHIGHRES;
+    // Set mode
+    if (mode > BMPX8X_ULTRAHIGHRES) {
+        mode = BMPX8X_ULTRAHIGHRES;
     }
     oversampling = mode;
 
-    /* read calibration data */
-    ac1 = i2cReadReg_16 (BMP085_CAL_AC1);
-    ac2 = i2cReadReg_16 (BMP085_CAL_AC2);
-    ac3 = i2cReadReg_16 (BMP085_CAL_AC3);
-    ac4 = i2cReadReg_16 (BMP085_CAL_AC4);
-    ac5 = i2cReadReg_16 (BMP085_CAL_AC5);
-    ac6 = i2cReadReg_16 (BMP085_CAL_AC6);
+    // Check this is a BMPX8X chip
+    if(!isAvailable()) {
+        configured = false;
+        return;
+    }
 
-    b1 = i2cReadReg_16 (BMP085_CAL_B1);
-    b2 = i2cReadReg_16 (BMP085_CAL_B2);
+    // Get calibration data
+    if(!getCalibrationData()) {
+        configured = false;
+        return;
+    }
 
-    mb = i2cReadReg_16 (BMP085_CAL_MB);
-    mc = i2cReadReg_16 (BMP085_CAL_MC);
-    md = i2cReadReg_16 (BMP085_CAL_MD);
+    configured = true;
 }
 
 BMPX8X::~BMPX8X() {
@@ -82,7 +80,7 @@ BMPX8X::getPressure () {
     UP = getPressureRaw();
     B5 = computeB5(UT);
 
-    // do pressure calcs
+    // Pressure Calculations
     B6 = B5 - 4000;
     X1 = ((int32_t)b2 * ( (B6 * B6)>>12 )) >> 11;
     X2 = ((int32_t)ac2 * B6) >> 11;
@@ -113,22 +111,24 @@ int32_t
 BMPX8X::getPressureRaw () {
     uint32_t raw;
 
-    i2cWriteReg (BMP085_CONTROL, BMP085_READPRESSURECMD + (oversampling << 6));
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READPRESSURECMD + (oversampling << 6), BMPX8X_CONTROL);
 
-    if (oversampling == BMP085_ULTRALOWPOWER) {
+    if (oversampling == BMPX8X_ULTRALOWPOWER) {
         usleep(5000);
-    } else if (oversampling == BMP085_STANDARD) {
+    } else if (oversampling == BMPX8X_STANDARD) {
         usleep(8000);
-    } else if (oversampling == BMP085_HIGHRES) {
+    } else if (oversampling == BMPX8X_HIGHRES) {
         usleep(14000);
     } else {
         usleep(26000);
     }
 
-    raw = i2cReadReg_16 (BMP085_PRESSUREDATA);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    raw = mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA);
 
     raw <<= 8;
-    raw |= i2cReadReg_8 (BMP085_PRESSUREDATA + 2);
+    raw |= mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA + 2);
     raw >>= (8 - oversampling);
 
     return raw;
@@ -136,14 +136,16 @@ BMPX8X::getPressureRaw () {
 
 int16_t
 BMPX8X::getTemperatureRaw () {
-    i2cWriteReg (BMP085_CONTROL, BMP085_READTEMPCMD);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READTEMPCMD, BMPX8X_CONTROL);
     usleep(5000);
-    return i2cReadReg_16 (BMP085_TEMPDATA);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    return mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_TEMPDATA);
 }
 
 float
 BMPX8X::getTemperature () {
-    int32_t UT, B5;     // following ds convention
+    int32_t UT, B5;
     float temp;
 
     UT = getTemperatureRaw ();
@@ -180,43 +182,50 @@ BMPX8X::computeB5(int32_t UT) {
     return X1 + X2;
 }
 
-mraa_result_t
-BMPX8X::i2cWriteReg (uint8_t reg, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
+bool
+BMPX8X::getCalibrationData() {
+    /* Read calibration data */
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac1 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC1);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac2 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC2);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac3 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC3);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac4 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC4);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac5 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC5);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    ac6 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_AC6);
 
-    uint8_t data[2] = { reg, value };
-    error = mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    b1 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_B1);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    b2 = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_B2);
 
-    return error;
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mb = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_MB);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mc = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_MC);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    md = mraa_i2c_read_word_data (m_i2ControlCtx, BMPX8X_CAL_MD);
+
+    if(ac1 == -1 || ac2 == -1 || ac3 == -1 || ac4 == -1 || ac5 == -1 || ac6 == -1 || b1 == -1 || b2 == -1 || mb == -1 || mc == -1 || md == -1) { return false; }
+
+    return true;
 }
 
-uint16_t
-BMPX8X::i2cReadReg_16 (int reg) {
-    uint16_t data;
-
+bool
+BMPX8X::isAvailable() {
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte(m_i2ControlCtx, reg);
+    if (mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_CHIP_ID) != BMPX8X_ID)  {
+        return false;
+    }
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_read(m_i2ControlCtx, (uint8_t *)&data, 0x2);
-
-    uint8_t high = (data & 0xFF00) >> 8;
-    data = (data << 8) & 0xFF00;
-    data |= high;
-
-    return data;
+    return true;
 }
 
-uint8_t
-BMPX8X::i2cReadReg_8 (int reg) {
-    uint8_t data;
-
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte(m_i2ControlCtx, reg);
-
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_read(m_i2ControlCtx, &data, 0x1);
-
-    return data;
+bool
+BMPX8X::isConfigured() {
+    return configured;
 }

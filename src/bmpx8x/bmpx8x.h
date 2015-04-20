@@ -4,7 +4,7 @@
  * Copyright (c) 2014 Intel Corporation.
  *
  * Credits to Adafruit.
- * Based on Adafruit BMP085 library.
+ * Based on Adafruit BMPX8X library.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,38 +31,38 @@
 #include <mraa/i2c.h>
 #include <math.h>
 
-#define ADDR               0x77 // device address
+#define BMPX8X_ADDR               0x77 // device address
 
-// registers address
-#define BMP085_ULTRALOWPOWER 0
-#define BMP085_STANDARD      1
-#define BMP085_HIGHRES       2
-#define BMP085_ULTRAHIGHRES  3
-#define BMP085_CAL_AC1           0xAA  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC2           0xAC  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC3           0xAE  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC4           0xB0  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC5           0xB2  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC6           0xB4  // R   Calibration data (16 bits)
-#define BMP085_CAL_B1            0xB6  // R   Calibration data (16 bits)
-#define BMP085_CAL_B2            0xB8  // R   Calibration data (16 bits)
-#define BMP085_CAL_MB            0xBA  // R   Calibration data (16 bits)
-#define BMP085_CAL_MC            0xBC  // R   Calibration data (16 bits)
-#define BMP085_CAL_MD            0xBE  // R   Calibration data (16 bits)
+// REGISTERS
+#define BMPX8X_ULTRALOWPOWER 0
+#define BMPX8X_STANDARD      1
+#define BMPX8X_HIGHRES       2
+#define BMPX8X_ULTRAHIGHRES  3
+#define BMPX8X_CAL_AC1           0xAA  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_AC2           0xAC  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_AC3           0xAE  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_AC4           0xB0  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_AC5           0xB2  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_AC6           0xB4  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_B1            0xB6  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_B2            0xB8  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_MB            0xBA  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_MC            0xBC  // R   Calibration data (16 bits)
+#define BMPX8X_CAL_MD            0xBE  // R   Calibration data (16 bits)
 
-#define BMP085_CONTROL           0xF4
-#define BMP085_TEMPDATA          0xF6
-#define BMP085_PRESSUREDATA      0xF6
-#define BMP085_READTEMPCMD       0x2E
-#define BMP085_READPRESSURECMD   0x34
+#define BMPX8X_CHIP_ID           0xD0
+#define BMPX8X_CONTROL           0xF4
+#define BMPX8X_TEMPDATA          0xF6
+#define BMPX8X_PRESSUREDATA      0xF6
+#define BMPX8X_READTEMPCMD       0x2E
+#define BMPX8X_READPRESSURECMD   0x34
 
-#define HIGH               1
-#define LOW                0
+#define BMPX8X_ID                0x55
 
 namespace upm {
 
 /**
- * @brief GY65/BPM085, and BMP180 atmospheric pressure sensor library
+ * @brief GY65/BPMX8X atmospheric pressure sensor library
  * @defgroup bmpx8x libupm-bmpx8x
  * @ingroup seeed adafruit sparkfun i2c pressure
  */
@@ -76,15 +76,15 @@ namespace upm {
  * @man seeed adafruit sparkfun
  * @con i2c
  *
- * @brief C++ API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
+ * @brief C++ API for GY65/BMPX8X chips (Atmospheric Pressure Sensor)
  *
- * The Bosch GY65/BMP085 and BMP180 are high precision, ultra-low
+ * The Bosch GY65/BMPX8X are high precision, ultra-low
  * power consumption pressure sensors. They have a range of between
  * 30,000 and 110,000 Pa.
  *
- * This module has been tested on the GY65/BMP085 and BMP180 sensors.
+ * This module has been tested on the GY65/BMPX8X sensors.
  *
- * @image html bmp085.jpeg
+ * @image html bmpX8X.jpeg
  * @snippet bmpx8x.cxx Interesting
  */
 
@@ -95,9 +95,9 @@ class BMPX8X {
          *
          * @param bus number of used bus
          * @param devAddr address of used i2c device
-         * @param mode BMP085 mode
+         * @param mode BMPX8X mode
          */
-        BMPX8X (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
+        BMPX8X (int bus, int devAddr=BMPX8X_ADDR, uint8_t mode=BMPX8X_ULTRAHIGHRES);
 
         /**
          * BMPX8X object destructor, basicaly it close i2c connection.
@@ -140,33 +140,14 @@ class BMPX8X {
         float getAltitude (float sealevelPressure = 101325);
 
         /**
-         * Calculation of B5 (check spec for more information)
-         *
-         * @param UT
+         * Returns whether the sensor is configured.
          */
-        int32_t computeB5 (int32_t UT);
+        bool isConfigured();
 
         /**
-         * Read two bytes register
-         *
-         * @param reg address of a register
+         * Returns whether the correct chip is present at the given address.
          */
-        uint16_t i2cReadReg_16 (int reg);
-
-        /**
-         * Write to one byte register
-         *
-         * @param reg address of a register
-         * @param value byte to be written
-         */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
-
-        /**
-         * Read one byte register
-         *
-         * @param reg address of a register
-         */
-        uint8_t i2cReadReg_8 (int reg);
+        bool isAvailable();
 
     private:
         std::string m_name;
@@ -178,6 +159,11 @@ class BMPX8X {
         uint8_t oversampling;
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
         uint16_t ac4, ac5, ac6;
+
+        bool configured;
+
+        bool getCalibrationData();
+        int32_t computeB5 (int32_t UT);
 };
 
 }
