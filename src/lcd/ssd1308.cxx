@@ -71,7 +71,7 @@ SSD1308::write(std::string msg)
 
     setAddressingMode(PAGE);
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        writeChar(m_i2c_lcd_control, msg[i]);
+        writeChar(msg[i]);
     }
 
     return error;
@@ -107,7 +107,7 @@ SSD1308::clear()
 
         // clear all columns
         for (columnIdx = 0; columnIdx < 16; columnIdx++) {
-            writeChar(m_i2c_lcd_control, ' ');
+            writeChar(' ');
         }
     }
     mraa_i2c_write_byte_data(m_i2c_lcd_control, DISPLAY_CMD_ON, LCD_CMD); // display on
@@ -128,7 +128,7 @@ SSD1308::home()
  * **************
  */
 mraa_result_t
-SSD1308::writeChar(mraa_i2c_context ctx, uint8_t value)
+SSD1308::writeChar(uint8_t value)
 {
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space

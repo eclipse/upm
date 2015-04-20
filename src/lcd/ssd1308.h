@@ -105,7 +105,7 @@ class SSD1308 : public I2CLcd
     mraa_result_t home();
 
   private:
-    mraa_result_t writeChar(mraa_i2c_context ctx, uint8_t value);
+    mraa_result_t writeChar(uint8_t value);
     mraa_result_t setNormalDisplay();
     mraa_result_t setAddressingMode(displayAddressingMode mode);
 };
