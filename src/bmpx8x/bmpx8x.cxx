@@ -82,22 +82,22 @@ BMPX8X::getPressure (int32_t *value) {
     if(UT == -1 || UP == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
     // Temperature
-    X1 = (UT - (int32_t)ac6) * (int32_t)ac5 / 2^15;
-    X2 = (int32_t)mc * 2^11 / (X1 + (int32_t)md);
+    X1 = (UT - ac6) * ac5 / 2^15;
+    X2 = mc * 2^11 / (X1 + md);
     B5 = X1 + X2;
 
     // Pressure
     B6 = B5 - 4000;
-    X1 = ((int32_t)b2 * ( (B6 * B6) / 2^12 )) / 2^11;
-    X2 = ((int32_t)ac2 * B6) / 2^11;
+    X1 = (b2 * ( (B6 * B6) / 2^12 )) / 2^11;
+    X2 = (ac2 * B6) / 2^11;
     X3 = X1 + X2;
-    B3 = ((((int32_t)ac1 * 4 + X3) << oversampling) + 2) / 4;
+    B3 = (((ac1 * 4 + X3) << oversampling) + 2) / 4;
 
-    X1 = ((int32_t)ac3 * B6) / 2^13;
-    X2 = ((int32_t)b1 * ((B6 * B6) / 2^12)) / 2^16;
+    X1 = (ac3 * B6) / 2^13;
+    X2 = (b1 * ((B6 * B6) / 2^12)) / 2^16;
     X3 = ((X1 + X2) + 2) / 2^2;
-    B4 = ((uint32_t)ac4 * (uint32_t)(X3 + 32768)) / 2^15;
-    B7 = ((uint32_t)UP - B3) * (uint32_t)( 50000 >> oversampling );
+    B4 = (ac4 * (uint32_t)(X3 + 32768)) / 2^15;
+    B7 = ((uint32_t)UP - B3) * ( 50000 >> oversampling );
 
     if (B7 < 0x80000000) {
         p = (B7 * 2) / B4;
@@ -109,7 +109,7 @@ BMPX8X::getPressure (int32_t *value) {
     X1 = (X1 * 3038) / 2^16;
     X2 = (-7357 * p) / 2^16;
 
-    *value = p + ((X1 + X2 + (int32_t)3791) / 2^4);
+    *value = (int32_t)(p + (X1 + X2 + 3791) / 2^4);
 
     return MRAA_SUCCESS;
 }
@@ -140,12 +140,12 @@ BMPX8X::getPressureRaw () {
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     xlsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_XLSB);
 
-    if(msb == -1 || lsb == -1 || xlsb == -1) { return -1; }
+    if(msb == -1 || lsb == -1) { return -1; }
 
     return ((msb << 16) | (lsb << 8) | xlsb) >> (8 - oversampling);
 }
 
-int16_t
+int32_t
 BMPX8X::getTemperatureRaw () {
     int8_t msb, lsb;
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
@@ -161,34 +161,29 @@ BMPX8X::getTemperatureRaw () {
 }
 
 mraa_result_t
-BMPX8X::getTemperature (float *value) {
+BMPX8X::getTemperature (int32_t *value) {
     int32_t UT, X1, X2, B5;
-    float temp;
 
     UT = getTemperatureRaw ();
 
     if(UT == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    X1 = (UT - (int32_t)ac6) * (int32_t)ac5 / 2^15;
-    X2 = (int32_t)mc * 2^11 / (X1 + (int32_t)md);
+    X1 = (UT - ac6) * ac5 / 2^15;
+    X2 = mc * 2^11 / (X1 + md);
     B5 = X1 + X2;
-    *value = (B5 + 8) / 2^4;
+    *value = (int32_t)((B5 + 8) / 2^4);
 
     return MRAA_SUCCESS;
 }
 
 int32_t
-BMPX8X::getSealevelPressure(float pressure, float altitudeMeters) {
-    return (int32_t)(pressure / pow(1.0-altitudeMeters/44330, 5.255));
+BMPX8X::getSealevelPressure(int32_t pressure, int32_t altitudeMeters) {
+    return (int32_t)(pressure / pow((1.0 - altitudeMeters) / 44330, 5.255));
 }
 
-float
-BMPX8X::getAltitude (float pressure, float sealevelPressure) {
-    float altitude;
-
-    altitude = 44330 * (1.0 - pow(pressure /sealevelPressure,0.1903));
-
-    return altitude;
+int32_t
+BMPX8X::getAltitude (int32_t pressure, int32_t sealevelPressure) {
+    return (int32_t)(44330 * (1.0 - pow(pressure / sealevelPressure, 0.1903)));
 }
 
 bool

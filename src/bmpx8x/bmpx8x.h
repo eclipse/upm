@@ -123,26 +123,26 @@ class BMPX8X : public IPressureSensor {
         /**
          * Get raw temperature data from chip
          */
-        int16_t getTemperatureRaw ();
+        int32_t getTemperatureRaw ();
 
         /**
          * Return calculated temperature
          */
-        mraa_result_t getTemperature (float *value);
+        mraa_result_t getTemperature (int32_t *value);
 
         /**
          * With given absolute altitude sea level can be calculated
          *
          * @param altitudeMeters altitude
          */
-        int32_t getSealevelPressure(float pressure, float altitudeMeters = 0);
+        int32_t getSealevelPressure(int32_t pressure, int32_t altitudeMeters = 0);
 
         /**
          * With given sea level altitude in meters can be calculated
          *
          * @param sealevelPressure Sea level
          */
-        float getAltitude (float pressure, float sealevelPressure = 101325);
+        int32_t getAltitude (int32_t pressure, int32_t sealevelPressure = 101325);
 
         /**
          * Returns whether the sensor is configured.
