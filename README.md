@@ -55,3 +55,5 @@ C/C++ API Documentation
 ==============
 
 The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/).
+
+Version @ref changelog [here](docs/changelog.md).
