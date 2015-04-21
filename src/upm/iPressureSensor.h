@@ -9,7 +9,7 @@ namespace upm
    {
    public:
        virtual mraa_result_t getPressure (int32_t *value) = 0;
-       virtual int32_t getTemperature () = 0;
+       virtual float getTemperature () = 0;
        virtual bool isConfigured() = 0;
        virtual bool isAvailable() = 0;
        virtual ~IPressureSensor() {}

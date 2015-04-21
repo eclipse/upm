@@ -162,19 +162,19 @@ BMPX8X::getTemperatureRaw () {
     return msb << 8 + lsb;
 }
 
-int32_t
+float
 BMPX8X::getTemperature () {
     return lastTemperature;
 }
 
-int32_t
+float
 BMPX8X::getSealevelPressure(int32_t pressure, int32_t altitudeMeters) {
-    return (int32_t)(pressure / pow((1.0 - altitudeMeters) / 44330, 5.255));
+    return pressure / pow((1.0 - altitudeMeters) / 44330, 5.255);
 }
 
-int32_t
+float
 BMPX8X::getAltitude (int32_t pressure, int32_t sealevelPressure) {
-    return (int32_t)(44330 * (1.0 - pow(pressure / sealevelPressure, 0.1903)));
+    return 44330 * (1.0 - pow(pressure / sealevelPressure, 0.1903));
 }
 
 bool

@@ -117,21 +117,21 @@ class BMPX8X : public IPressureSensor {
         /**
          * Return latest calculated temperature value (0.1C)
          */
-        int32_t getTemperature ();
+        float getTemperature ();
 
         /**
          * With given absolute altitude sea level can be calculated
          *
          * @param altitudeMeters altitude
          */
-        int32_t getSealevelPressure(int32_t pressure, int32_t altitudeMeters = 0);
+        float getSealevelPressure(int32_t pressure, int32_t altitudeMeters = 0);
 
         /**
          * With given sea level altitude in meters can be calculated
          *
          * @param sealevelPressure Sea level
          */
-        int32_t getAltitude (int32_t pressure, int32_t sealevelPressure = 101325);
+        float getAltitude (int32_t pressure, int32_t sealevelPressure = 101325);
 
         /**
          * Returns whether the sensor is configured.
@@ -154,7 +154,7 @@ class BMPX8X : public IPressureSensor {
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
         uint16_t ac4, ac5, ac6;
 
-        int32_t lastTemperature;
+        float lastTemperature;
 
         bool configured;
 
