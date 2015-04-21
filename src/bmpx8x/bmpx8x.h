@@ -110,25 +110,14 @@ class BMPX8X : public IPressureSensor {
         ~BMPX8X ();
 
         /**
-         * Return calculated pressure
+         * Return calculated pressure (Pa)
          */
         mraa_result_t getPressure (int32_t *value);
 
         /**
-         *
-         * Get raw pressure data
+         * Return latest calculated temperature value (0.1C)
          */
-        int32_t getPressureRaw ();
-
-        /**
-         * Get raw temperature data from chip
-         */
-        int32_t getTemperatureRaw ();
-
-        /**
-         * Return calculated temperature
-         */
-        mraa_result_t getTemperature (int32_t *value);
+        int32_t getTemperature ();
 
         /**
          * With given absolute altitude sea level can be calculated
@@ -165,9 +154,13 @@ class BMPX8X : public IPressureSensor {
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
         uint16_t ac4, ac5, ac6;
 
+        int32_t lastTemperature;
+
         bool configured;
 
         bool getCalibrationData();
+        int32_t getPressureRaw ();
+        int32_t getTemperatureRaw ();
 };
 
 }

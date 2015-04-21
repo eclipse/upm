@@ -64,6 +64,7 @@ BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
         return;
     }
 
+    lastTemperature = 0;
     configured = true;
 }
 
@@ -85,6 +86,7 @@ BMPX8X::getPressure (int32_t *value) {
     X1 = (UT - ac6) * ac5 / 2^15;
     X2 = mc * 2^11 / (X1 + md);
     B5 = X1 + X2;
+    lastTemperature = (B5 + 8) / 2^4;
 
     // Pressure
     B6 = B5 - 4000;
@@ -109,7 +111,7 @@ BMPX8X::getPressure (int32_t *value) {
     X1 = (X1 * 3038) / 2^16;
     X2 = (-7357 * p) / 2^16;
 
-    *value = (int32_t)(p + (X1 + X2 + 3791) / 2^4);
+    *value = p + (X1 + X2 + 3791) / 2^4;
 
     return MRAA_SUCCESS;
 }
@@ -142,7 +144,7 @@ BMPX8X::getPressureRaw () {
 
     if(msb == -1 || lsb == -1) { return -1; }
 
-    return ((msb << 16) | (lsb << 8) | xlsb) >> (8 - oversampling);
+    return (msb << 16 + lsb << 8 + xlsb) >> (8 - oversampling);
 }
 
 int32_t
@@ -157,23 +159,12 @@ BMPX8X::getTemperatureRaw () {
 
     if(msb == -1 || lsb == -1) { return -1; }
 
-    return (msb << 8) | lsb;
+    return msb << 8 + lsb;
 }
 
-mraa_result_t
-BMPX8X::getTemperature (int32_t *value) {
-    int32_t UT, X1, X2, B5;
-
-    UT = getTemperatureRaw ();
-
-    if(UT == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
-
-    X1 = (UT - ac6) * ac5 / 2^15;
-    X2 = mc * 2^11 / (X1 + md);
-    B5 = X1 + X2;
-    *value = (int32_t)((B5 + 8) / 2^4);
-
-    return MRAA_SUCCESS;
+int32_t
+BMPX8X::getTemperature () {
+    return lastTemperature;
 }
 
 int32_t
