@@ -54,8 +54,11 @@
 
 #define BMPX8X_CHIP_ID           0xD0
 #define BMPX8X_CONTROL           0xF4
-#define BMPX8X_TEMPDATA          0xF6
-#define BMPX8X_PRESSUREDATA      0xF6
+
+#define BMPX8X_DATA_MSB          0xF6
+#define BMPX8X_DATA_LSB          0xF7
+#define BMPX8X_DATA_XLSB         0xF8
+
 #define BMPX8X_READTEMPCMD       0x2E
 #define BMPX8X_READPRESSURECMD   0x34
 
@@ -165,7 +168,6 @@ class BMPX8X : public IPressureSensor {
         bool configured;
 
         bool getCalibrationData();
-        int32_t computeB5 (int32_t UT);
 };
 
 }

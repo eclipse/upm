@@ -81,39 +81,42 @@ BMPX8X::getPressure (int32_t *value) {
 
     if(UT == -1 || UP == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    B5 = computeB5(UT);
+    // Temperature
+    X1 = (UT - (int32_t)ac6) * (int32_t)ac5 / 2^15;
+    X2 = (int32_t)mc * 2^11 / (X1 + (int32_t)md);
+    B5 = X1 + X2;
 
-    // Pressure Calculations
+    // Pressure
     B6 = B5 - 4000;
-    X1 = ((int32_t)b2 * ( (B6 * B6)>>12 )) >> 11;
-    X2 = ((int32_t)ac2 * B6) >> 11;
+    X1 = ((int32_t)b2 * ( (B6 * B6) / 2^12 )) / 2^11;
+    X2 = ((int32_t)ac2 * B6) / 2^11;
     X3 = X1 + X2;
-    B3 = ((((int32_t)ac1*4 + X3) << oversampling) + 2) / 4;
+    B3 = ((((int32_t)ac1 * 4 + X3) << oversampling) + 2) / 4;
 
-    X1 = ((int32_t)ac3 * B6) >> 13;
-    X2 = ((int32_t)b1 * ((B6 * B6) >> 12)) >> 16;
-    X3 = ((X1 + X2) + 2) >> 2;
-    B4 = ((uint32_t)ac4 * (uint32_t)(X3 + 32768)) >> 15;
-    B7 = ((uint32_t)UP - B3) * (uint32_t)( 50000UL >> oversampling );
+    X1 = ((int32_t)ac3 * B6) / 2^13;
+    X2 = ((int32_t)b1 * ((B6 * B6) / 2^12)) / 2^16;
+    X3 = ((X1 + X2) + 2) / 2^2;
+    B4 = ((uint32_t)ac4 * (uint32_t)(X3 + 32768)) / 2^15;
+    B7 = ((uint32_t)UP - B3) * (uint32_t)( 50000 >> oversampling );
 
     if (B7 < 0x80000000) {
         p = (B7 * 2) / B4;
     } else {
         p = (B7 / B4) * 2;
     }
-    X1 = (p >> 8) * (p >> 8);
-    X1 = (X1 * 3038) >> 16;
-    X2 = (-7357 * p) >> 16;
 
-    *value = p + ((X1 + X2 + (int32_t)3791)>>4);
+    X1 = (p / 2^8) * (p / 2^8);
+    X1 = (X1 * 3038) / 2^16;
+    X2 = (-7357 * p) / 2^16;
+
+    *value = p + ((X1 + X2 + (int32_t)3791) / 2^4);
 
     return MRAA_SUCCESS;
 }
 
 int32_t
 BMPX8X::getPressureRaw () {
-    uint16_t lsb, msb;
-    uint32_t raw;
+    int8_t msb, lsb, xlsb;
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if(mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READPRESSURECMD + (oversampling << 6), BMPX8X_CONTROL) != MRAA_SUCCESS) { return -1; }
@@ -129,41 +132,47 @@ BMPX8X::getPressureRaw () {
     }
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    msb = mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA);
-    if(msb == -1) { return -1; }
+    msb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_MSB);
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    lsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_PRESSUREDATA + 2);
-    if(lsb == -1) { return -1; }
+    lsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_LSB);
 
-    raw = msb << 8;
-    raw |= lsb;
-    raw >>= (8 - oversampling);
+    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    xlsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_XLSB);
 
-    return raw;
+    if(msb == -1 || lsb == -1 || xlsb == -1) { return -1; }
+
+    return ((msb << 16) | (lsb << 8) | xlsb) >> (8 - oversampling);
 }
 
 int16_t
 BMPX8X::getTemperatureRaw () {
+    int8_t msb, lsb;
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     mraa_i2c_write_byte_data(m_i2ControlCtx, BMPX8X_READTEMPCMD, BMPX8X_CONTROL);
     usleep(5000);
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    return mraa_i2c_read_word_data(m_i2ControlCtx, BMPX8X_TEMPDATA);
+    msb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_MSB);
+    lsb = mraa_i2c_read_byte_data(m_i2ControlCtx, BMPX8X_DATA_LSB);
+
+    if(msb == -1 || lsb == -1) { return -1; }
+
+    return (msb << 8) | lsb;
 }
 
 mraa_result_t
 BMPX8X::getTemperature (float *value) {
-    int32_t UT, B5;
+    int32_t UT, X1, X2, B5;
     float temp;
 
     UT = getTemperatureRaw ();
 
     if(UT == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    B5 = computeB5 (UT);
-    temp = (B5 + 8) >> 4;
-    *value /= 10;
+    X1 = (UT - (int32_t)ac6) * (int32_t)ac5 / 2^15;
+    X2 = (int32_t)mc * 2^11 / (X1 + (int32_t)md);
+    B5 = X1 + X2;
+    *value = (B5 + 8) / 2^4;
 
     return MRAA_SUCCESS;
 }
@@ -180,14 +189,6 @@ BMPX8X::getAltitude (float pressure, float sealevelPressure) {
     altitude = 44330 * (1.0 - pow(pressure /sealevelPressure,0.1903));
 
     return altitude;
-}
-
-int32_t
-BMPX8X::computeB5(int32_t UT) {
-    int32_t X1 = (UT - (int32_t)ac6) * ((int32_t)ac5) >> 15;
-    int32_t X2 = ((int32_t)mc << 11) / (X1+(int32_t)md);
-
-    return X1 + X2;
 }
 
 bool
