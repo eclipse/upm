@@ -153,7 +153,7 @@ BMP180::getTemperature (int16_t* value) {
 
 uint32_t
 BMP180::getPressureRaw () {
-    uint8_t* data;
+    uint8_t data[BMP180_PRESSURE_DATA_BYTES];
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if(mraa_i2c_write_byte_data(m_i2ControlCtx, BMP180_P_MEASURE + (oversampling << 6), BMP180_CTRL_MEAS_REG) != MRAA_SUCCESS) { return -1; }
@@ -180,7 +180,7 @@ BMP180::getPressureRaw () {
 
 uint16_t
 BMP180::getTemperatureRaw () {
-    uint8_t* data;
+    uint8_t data[BMP180_TEMPERATURE_DATA_BYTES];
 
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     mraa_i2c_write_byte_data(m_i2ControlCtx, BMP180_T_MEASURE, BMP180_CTRL_MEAS_REG);
@@ -200,7 +200,7 @@ bool
 BMP180::getCalibrationData() {
 
     // Holds calibration data
-    uint8_t* calibration_data;
+    uint8_t calibration_data[BMP180_CALIB_DATA_SIZE];
 
     /* Read calibration data */
     mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
