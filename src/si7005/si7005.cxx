@@ -49,12 +49,19 @@ SI7005::SI7005 (int bus, int devAddr, int pin) {
     m_i2cControlCtx = mraa_i2c_init(m_bus);
 
     mraa_result_t status = mraa_i2c_address(m_i2cControlCtx, m_controlAddr);
-    if (status == MRAA_SUCCESS) {
-        configured = true;
+    if (status != MRAA_SUCCESS) {
+        fprintf(stderr, "SI7005: I2C bus failed to initialise.\n");
+        configured = false;
+        return;
     }
-    else {
-        fprintf(stderr, "I2C bus failed to initialise.\n");
+
+    if (!isAvailable()) {
+        fprintf(stderr, "SI7005: Device at this address is not an Si7005.\n");
+        configured = false;
+        return;
     }
+
+    configured = true;
 }
 
 SI7005::~SI7005() {

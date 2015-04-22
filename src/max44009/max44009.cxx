@@ -40,12 +40,19 @@ MAX44009::MAX44009 (int bus, int devAddr) {
     m_i2cMaxControlCtx = mraa_i2c_init(m_bus);
 
     mraa_result_t status = mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    if (status == MRAA_SUCCESS) {
-        configured = true;
-    }
-    else {
+    if (status != MRAA_SUCCESS) {
         fprintf(stderr, "MAX44009: I2C bus failed to initialise.\n");
+        configured = false;
+        return;
     }
+
+    // Reset chip to defaults
+    if (reset() != MRAA_SUCCESS) {
+        configured = false;
+        return;
+    }
+
+    configured = true;
 }
 
 MAX44009::~MAX44009() {
@@ -75,45 +82,24 @@ MAX44009::reset() {
 }
 
 mraa_result_t
-MAX44009::getValue(uint16_t* value) {
+MAX44009::getValue(float* value) {
     uint8_t exponent, mantissa;
-    uint8_t data[2];
-    uint16_t result;
+    uint8_t data[MAX44009_LUX_LENGTH];
 
     mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    data[0] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_HIGH_ADDR);
-    mraa_i2c_address(m_i2cMaxControlCtx, m_maxControlAddr);
-    data[1] = mraa_i2c_read_byte_data(m_i2cMaxControlCtx, MAX44009_LUX_LOW_ADDR);
+    int length = mraa_i2c_read_bytes_data(m_i2cMaxControlCtx, MAX44009_LUX_START_ADDR, data, MAX44009_LUX_LENGTH);
 
-    if(data[0] == -1 || data[1] == -1) {
-        return MRAA_ERROR_INVALID_RESOURCE;
-    }
+    if(length != MAX44009_LUX_LENGTH) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    exponent = (( data[0] >> 4 ) & 0x0F);
-    mantissa = (( data[0] & 0x0F ) << 4 );
-    mantissa |= ( data[1] & 0x0F );
+    exponent = (( data[MAX44009_LUX_HIGH] & 0xF0 ) >> 4);
+    mantissa = (( data[MAX44009_LUX_HIGH] & 0x0F ) << 4 ) | ( data[MAX44009_LUX_LOW] & 0x0F );
 
     // Check for overrange condition
     if(exponent == MAX44009_OVERRANGE_CONDITION) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    result = ( (uint16_t) exponent << 8 );
-    result |= ( (uint16_t) mantissa << 0);
-    *value = result;
+    *value = pow((double)2,(double)exponent) * mantissa * 0.045;
 
     return MRAA_SUCCESS;
-}
-
-float
-MAX44009::convertToLux(uint16_t value) {
-    uint8_t exponent, mantissa;
-    float result = 0.045;
-
-    exponent = ( value >> 8 ) & 0xFF;
-    mantissa = (value >> 0) & 0xFF;
-
-    result *= 2^exponent * mantissa;
-
-    return result;
 }
 
 bool
