@@ -98,21 +98,13 @@ ADS1015::getValue(int input, uint16_t *value) {
     // Set 'start single-conversion' bit
     config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
-    // Write config register to the ADC
-    uint8_t configData[3];
-    configData[0] = ADS1015_REG_POINTER_CONFIG;
-    configData[1] = (uint8_t)(config >> 8);
-    configData[2] = (uint8_t)(config & 0xFF);
-
     mraa_i2c_address(m_i2c, m_addr);
-    mraa_result_t status = mraa_i2c_write(m_i2c, configData, 3);
+    mraa_result_t status = mraa_i2c_write_word_data(m_i2c, config, ADS1015_REG_POINTER_CONFIG);
 
     if(status != MRAA_SUCCESS) { fprintf(stderr, "ADS1015: Failed to write config.\n"); return status; }
 
     // Wait 1ms
     usleep(1000);
-
-    if(status != MRAA_SUCCESS) { return status; }
 
     // Read conversion result
     mraa_i2c_address(m_i2c, m_addr);
