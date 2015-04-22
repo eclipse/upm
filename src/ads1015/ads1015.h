@@ -107,8 +107,8 @@
 /*=========================================================================
     ADC PARAMETERS
     -----------------------------------------------------------------------*/
-    #define ADS1015_RESOLUTION              (4096) // 12 bits
-    #define ADS1015_VREF                    (3.0)
+    #define ADS1015_RESOLUTION              (4095) // 12 bits
+    #define ADS1015_VREF                    (5.0)
     #define ADS1015_BITSHIFT                (4)
     #define ADS1015_CONVERSION_REG_LENGTH   (2)
     #define ADS1015_CONVERSION_MSB          (0)
