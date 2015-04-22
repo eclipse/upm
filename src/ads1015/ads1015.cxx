@@ -112,6 +112,8 @@ ADS1015::getValue(int input, uint16_t *value) {
     if(result == -1) { fprintf(stderr, "ADS1015: Failed to read conversion register.\n"); return MRAA_ERROR_INVALID_RESOURCE; }
 
     *value = result >> ADS1015_BITSHIFT;
+
+    return MRAA_SUCCESS;
 }
 
 void
