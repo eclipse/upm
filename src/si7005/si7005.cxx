@@ -70,13 +70,11 @@ SI7005::~SI7005() {
 
 mraa_result_t
 SI7005::getTemperature (float* value) {
-    float rawTemperature;
-
-    rawTemperature = getMeasurement( SI7005_CONFIG_TEMPERATURE ) >> 2;
+    uint16_t rawTemperature = getMeasurement( SI7005_CONFIG_TEMPERATURE );
 
     if(rawTemperature == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    last_temperature = ( rawTemperature / SI7005_TEMPERATURE_SLOPE ) - SI7005_TEMPERATURE_OFFSET;
+    last_temperature = ((float)rawTemperature) / SI7005_TEMPERATURE_SLOPE - SI7005_TEMPERATURE_OFFSET;
     *value = last_temperature;
 
     return MRAA_SUCCESS;
@@ -84,24 +82,23 @@ SI7005::getTemperature (float* value) {
 
 mraa_result_t
 SI7005::getHumidity (float* value) {
-    float rawHumidity, curve, linearHumidity;
-
-    rawHumidity = getMeasurement( SI7005_CONFIG_HUMIDITY ) >> 4;
+    float linearHumidity;
+    uint16_t rawHumidity = getMeasurement( SI7005_CONFIG_HUMIDITY );
 
     if(rawHumidity == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    curve = ( rawHumidity / SI7005_HUMIDITY_SLOPE ) - SI7005_HUMIDITY_OFFSET;
-    linearHumidity = curve - ( (curve * curve) * A2 + curve * A1 + A0);
-    linearHumidity = linearHumidity + ( last_temperature - 30 ) * ( linearHumidity * Q1 + Q0 );
+    linearHumidity = ((float)rawHumidity) / SI7005_HUMIDITY_SLOPE - SI7005_HUMIDITY_OFFSET;
+    linearHumidity -= A2 * linearHumidity * linearHumidity + A1 * linearHumidity + A0;
+    linearHumidity += ( last_temperature - 30 ) * ( Q1 * linearHumidity + Q0 );
     *value = linearHumidity;
 
     return MRAA_SUCCESS;
 }
 
-int SI7005::getMeasurement(uint8_t configValue) {
+uint16_t SI7005::getMeasurement(uint8_t configValue) {
 
     uint16_t rawData;
-    uint8_t data[2];
+    uint8_t data[SI7005_REG_DATA_LENGTH];
     uint8_t measurementStatus;
 
     // Enable the sensor
@@ -125,18 +122,16 @@ int SI7005::getMeasurement(uint8_t configValue) {
 
     // Read data registers
     mraa_i2c_address(m_i2cControlCtx, m_controlAddr);
-    data[0] = mraa_i2c_read_byte_data(m_i2cControlCtx, SI7005_REG_DATA_HIGH);
-    mraa_i2c_address(m_i2cControlCtx, m_controlAddr);
-    data[1] = mraa_i2c_read_byte_data(m_i2cControlCtx, SI7005_REG_DATA_LOW);
+    int length = mraa_i2c_read_bytes_data(m_i2cControlCtx, SI7005_REG_DATA_START, data, SI7005_REG_DATA_LENGTH);
 
     // Disable the sensor
     MraaUtils::setGpio(m_pin, 1);
 
-    if(data[0] == -1 || data[1] == -1) { return -1; }
+    // Check we got the data we need
+    if(length != SI7005_REG_DATA_LENGTH)  { return -1; }
 
     // Merge MSB and LSB
-    rawData  = ( data[0] << 8 );
-    rawData |= data[1];
+    rawData  = ((uint16_t)( data[SI7005_REG_DATA_LOW] & 0xFFFF )) + ( (uint16_t)(( data[SI7005_REG_DATA_HIGH] & 0xFFFF ) << 8 ));
 
     return rawData;
 }
