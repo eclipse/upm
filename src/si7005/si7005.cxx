@@ -74,6 +74,8 @@ SI7005::getTemperature (float* value) {
 
     if(rawTemperature == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
 
+    rawTemperature = ((rawTemperature >> 2) & 0xFFFF);
+
     last_temperature = ((float)rawTemperature) / SI7005_TEMPERATURE_SLOPE - SI7005_TEMPERATURE_OFFSET;
     *value = last_temperature;
 
@@ -86,6 +88,8 @@ SI7005::getHumidity (float* value) {
     uint16_t rawHumidity = getMeasurement( SI7005_CONFIG_HUMIDITY );
 
     if(rawHumidity == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
+
+    rawHumidity = ((rawHumidity >> 4) & 0xFFFF);
 
     linearHumidity = ((float)rawHumidity) / SI7005_HUMIDITY_SLOPE - SI7005_HUMIDITY_OFFSET;
     linearHumidity -= A2 * linearHumidity * linearHumidity + A1 * linearHumidity + A0;
