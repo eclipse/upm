@@ -23,6 +23,7 @@
  */
 
 #include <iostream>
+#include <unistd.h>
 #include <string>
 
 #include "ads1015.h"
@@ -50,7 +51,7 @@ ADS1015::ADS1015(int bus, uint8_t address, float vref)
     }
 
     // Set parameters
-    m_gain = GAIN_TWO;
+    m_gain = GAIN_TWOTHIRDS;
 }
 
 ADS1015::~ADS1015()
@@ -61,8 +62,7 @@ ADS1015::~ADS1015()
 mraa_result_t
 ADS1015::getValue(int input, uint16_t *value) {
 
-    mraa_result_t status;
-    uint16_t result;
+    uint8_t result[ADS1015_CONVERSION_REG_LENGTH];
 
     // Check input is in range
     if (input > 3) { return MRAA_ERROR_INVALID_PARAMETER; }
@@ -99,18 +99,30 @@ ADS1015::getValue(int input, uint16_t *value) {
     config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
     // Write config register to the ADC
+    uint8_t configData[3] = { ADS1015_REG_POINTER_CONFIG,
+                              (uint8_t)(config >> 8),
+                              (uint8_t)(config & 0xFF) };
+
     mraa_i2c_address(m_i2c, m_addr);
-    status = mraa_i2c_write_word_data(m_i2c, config, ADS1015_REG_POINTER_CONFIG);
+    mraa_result_t status = mraa_i2c_write(m_i2c, configData, sizeof(configData));
 
     if(status != MRAA_SUCCESS) { return status; }
 
+    // Wait 1ms
+    usleep(1000);
+
+    // Write to pointer register
+    mraa_i2c_address(m_i2c, m_addr);
+    mraa_i2c_write_byte(m_i2c, ADS1015_REG_POINTER_CONVERT);
+
     // Read conversion result
     mraa_i2c_address(m_i2c, m_addr);
-    result = mraa_i2c_read_word_data(m_i2c, ADS1015_REG_POINTER_CONVERT);
+    int length = mraa_i2c_read(m_i2c, result, ADS1015_CONVERSION_REG_LENGTH);
 
-    if(result == -1) { return MRAA_ERROR_INVALID_RESOURCE; }
+    if(length != ADS1015_CONVERSION_REG_LENGTH) { return MRAA_ERROR_INVALID_RESOURCE; }
 
-    *value = result >> ADS1015_BITSHIFT;
+    *value = (uint16_t)(result[ADS1015_CONVERSION_MSB] << 8) | (uint16_t)(result[ADS1015_CONVERSION_LSB]);
+    *value = *value >> ADS1015_BITSHIFT;
 }
 
 void
@@ -120,7 +132,7 @@ adsGain_t
 ADS1015::getGain() { return m_gain; }
 
 float
-ADS1015::convertToVolts(uint16_t value) { return (value * m_vref / ADS1015_RESOLUTION); }
+ADS1015::convertToVolts(uint16_t value) { return ((float)value * m_vref / ADS1015_RESOLUTION); }
 
 bool
 ADS1015::isConfigured() { return configured; }
