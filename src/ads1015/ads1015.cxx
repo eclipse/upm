@@ -62,7 +62,7 @@ ADS1015::~ADS1015()
 mraa_result_t
 ADS1015::getValue(int input, uint16_t *value) {
 
-    uint8_t result[ADS1015_CONVERSION_REG_LENGTH];
+    uint16_t result;
 
     // Check input is in range
     if (input > 3) { return MRAA_ERROR_INVALID_PARAMETER; }
@@ -108,12 +108,11 @@ ADS1015::getValue(int input, uint16_t *value) {
 
     // Read conversion result
     mraa_i2c_address(m_i2c, m_addr);
-    int length = mraa_i2c_read_bytes_data(m_i2c, ADS1015_REG_POINTER_CONVERT, result, ADS1015_CONVERSION_REG_LENGTH);
+    result = mraa_i2c_read_word_data(m_i2c, ADS1015_REG_POINTER_CONVERT);
 
-    if(length != ADS1015_CONVERSION_REG_LENGTH) { fprintf(stderr, "ADS1015: Failed to read conversion register.\n"); return MRAA_ERROR_INVALID_RESOURCE; }
+    if(result == -1) { fprintf(stderr, "ADS1015: Failed to read conversion register.\n"); return MRAA_ERROR_INVALID_RESOURCE; }
 
-    *value = (uint16_t)(result[ADS1015_CONVERSION_MSB] << 8) | (uint16_t)(result[ADS1015_CONVERSION_LSB]);
-    *value = *value >> ADS1015_BITSHIFT;
+    *value = result >> ADS1015_BITSHIFT;
 }
 
 void
