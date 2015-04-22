@@ -190,5 +190,8 @@ class ADS1015 : public IADC {
     float m_vref;
     adsGain_t m_gain;
     bool configured;
+
+    uint16_t readRegister(uint8_t reg);
+    mraa_result_t writeRegister(uint8_t reg, uint16_t word);
 };
 }
