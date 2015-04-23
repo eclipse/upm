@@ -64,6 +64,7 @@ private:
    bool i2cReadBuffer(int reg, uint8_t* buf, int length);
    bool loadEEPROM();
    bool allowMaxCurrent();
+   bool isAvailable();
 
    mraa_result_t status;
    mraa_i2c_context i2c;

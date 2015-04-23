@@ -97,23 +97,23 @@
 #define LP8860_EEPROM_CODE_3		0xef
 
 #define LP8860_CLEAR_FAULTS		0x01
+#define LP8860_INVALID_ID       0x00
 
 using namespace upm;
 
 LP8860::LP8860(int gpioPower, int i2cBus)
 {
-   status = MRAA_ERROR_INVALID_RESOURCE;
-   mraa_set_log_level(7);
-   pinPower = gpioPower;
-   i2c = mraa_i2c_init(i2cBus);
-   if (i2c == NULL)
-   {
-      status = MRAA_ERROR_INVALID_RESOURCE;
-      printf("i2c_init failed\n");
-      return;
-   }
-   mraa_i2c_address(i2c, LP8860_I2C_ADDR);
-   status = MRAA_SUCCESS;
+    status = MRAA_ERROR_INVALID_RESOURCE;
+    mraa_set_log_level(7);
+    pinPower = gpioPower;
+    i2c = mraa_i2c_init(i2cBus);
+    status = mraa_i2c_address(i2c, LP8860_I2C_ADDR);
+
+    if (status != MRAA_SUCCESS) { printf("LP8860: I2C initialisation failed.\n"); return; }
+
+    if(!isAvailable()) { status = MRAA_ERROR_INVALID_RESOURCE; return; }
+
+    status = MRAA_SUCCESS;
 }
 
 LP8860::~LP8860()
@@ -123,174 +123,187 @@ LP8860::~LP8860()
 
 bool LP8860::isOK()
 {
-   return status == MRAA_SUCCESS;
+    return status == MRAA_SUCCESS;
+}
+
+bool LP8860::isAvailable()
+{
+    uint8_t id;
+
+    // Read ID register
+    mraa_i2c_address(i2c, LP8860_I2C_ADDR);
+    id = mraa_i2c_read_byte_data(i2c, LP8860_ID);
+
+    if(id == -1 || id == LP8860_INVALID_ID ) { return false; }
+
+    return true;
 }
 
 bool LP8860::getBrightnessRange(int* percentMin, int* percentMax)
 {
-   *percentMin = 0;
-   *percentMax = 100;
-   return true;
+    *percentMin = 0;
+    *percentMax = 100;
+    return true;
 }
 
 bool LP8860::isPowered()
 {
-   int level;
-   if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS)
-      return level == 1;
-   else
-      return false;
+    int level;
+    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS)
+        return level == 1;
+    else
+        return false;
 }
 
 bool LP8860::setPowerOn()
 {
-   if (!isPowered())
-   {
-      if (MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS)
-      {
-         printf("setPowerOn failed\n");
-         status = MRAA_ERROR_INVALID_RESOURCE;
-         return false;
-      }
-      if (!setBrightness(0))
-         printf("setBrightness failed\n");
-      if (!loadEEPROM())
-         printf("loadEEPROM failed\n");
-      allowMaxCurrent();
-   }
-   return isOK();
+    if (!isPowered())
+    {
+        if (MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS)
+        {
+            printf("setPowerOn failed\n");
+            status = MRAA_ERROR_INVALID_RESOURCE;
+            return false;
+        }
+        if (!setBrightness(0))
+            printf("setBrightness failed\n");
+        if (!loadEEPROM())
+            printf("loadEEPROM failed\n");
+        allowMaxCurrent();
+    }
+    return isOK();
 }
 
 bool LP8860::setPowerOff()
 {
-   return MraaUtils::setGpio(pinPower, 0) == MRAA_SUCCESS;
+    return MraaUtils::setGpio(pinPower, 0) == MRAA_SUCCESS;
 }
 
 
 bool LP8860::getBrightness(int* percent)
 {
-   uint8_t msb;
-   uint8_t lsb; 
-   if (i2cReadByte(LP8860_DISP_CL1_BRT_MSB, &msb) && i2cReadByte(LP8860_DISP_CL1_BRT_LSB, &lsb))
-   {
-      *percent = (100 * 0xFFFF) / ((int)msb << 8 | lsb);
-      return true;
-   }
-   else
-      return false;
+    uint8_t msb;
+    uint8_t lsb;
+    if (i2cReadByte(LP8860_DISP_CL1_BRT_MSB, &msb) && i2cReadByte(LP8860_DISP_CL1_BRT_LSB, &lsb))
+    {
+        *percent = (100 * 0xFFFF) / ((int)msb << 8 | lsb);
+        return true;
+    }
+    else
+        return false;
 }
-   
+
 
 bool LP8860::setBrightness(int dutyPercent)
 {
-   int value = (0xFFFF * dutyPercent) / 100;
-   int msb = value >> 8;
-   int lsb = value & 0xFF; 
-   i2cWriteByte(LP8860_DISP_CL1_BRT_MSB, msb);
-   i2cWriteByte(LP8860_DISP_CL1_BRT_LSB, lsb);
-   value = (0x1FFF * dutyPercent) / 100;
-   msb = value >> 8;
-   lsb = value & 0xFF; 
-   i2cWriteByte(LP8860_CL2_BRT_MSB, msb);
-   i2cWriteByte(LP8860_CL2_BRT_LSB, lsb);
-   i2cWriteByte(LP8860_CL3_BRT_MSB, msb);
-   i2cWriteByte(LP8860_CL3_BRT_LSB, lsb);
-   i2cWriteByte(LP8860_CL4_BRT_MSB, msb);
-   i2cWriteByte(LP8860_CL4_BRT_LSB, lsb);
-   return isOK();
+    int value = (0xFFFF * dutyPercent) / 100;
+    int msb = value >> 8;
+    int lsb = value & 0xFF;
+    i2cWriteByte(LP8860_DISP_CL1_BRT_MSB, msb);
+    i2cWriteByte(LP8860_DISP_CL1_BRT_LSB, lsb);
+    value = (0x1FFF * dutyPercent) / 100;
+    msb = value >> 8;
+    lsb = value & 0xFF;
+    i2cWriteByte(LP8860_CL2_BRT_MSB, msb);
+    i2cWriteByte(LP8860_CL2_BRT_LSB, lsb);
+    i2cWriteByte(LP8860_CL3_BRT_MSB, msb);
+    i2cWriteByte(LP8860_CL3_BRT_LSB, lsb);
+    i2cWriteByte(LP8860_CL4_BRT_MSB, msb);
+    i2cWriteByte(LP8860_CL4_BRT_LSB, lsb);
+    return isOK();
 }
 
 
 bool LP8860::loadEEPROM()
 {
-   const int eepromTableSize = 0x19;
-   uint8_t eepromInitTable[] = { 
-          0xEF, 0xFF, 0xDC, 0xAE, 0x5F, 0xE5, 0xF2, 0x77,
-          0x77, 0x71, 0x3F, 0xB7, 0x17, 0xEF, 0xB0, 0x87,
-          0xCF, 0x72, 0xC5, 0xDE, 0x35, 0x06, 0xDE, 0xFF,
-          0x3E 
-   }; 
+    const int eepromTableSize = 0x19;
+    uint8_t eepromInitTable[] = {
+        0xEF, 0xFF, 0xDC, 0xAE, 0x5F, 0xE5, 0xF2, 0x77,
+        0x77, 0x71, 0x3F, 0xB7, 0x17, 0xEF, 0xB0, 0x87,
+        0xCF, 0x72, 0xC5, 0xDE, 0x35, 0x06, 0xDE, 0xFF,
+        0x3E
+    };
 
-   uint8_t* buf = new unsigned char[eepromTableSize + 1];
+    uint8_t* buf = new unsigned char[eepromTableSize + 1];
 
-   // Load EEPROM
-   // printf("Loading LP8860 EEPROM\n");
-   i2cWriteByte(LP8860_EEPROM_CNTRL, LP8860_LOAD_EEPROM);
-   usleep(100000);
+    // Load EEPROM
+    // printf("Loading LP8860 EEPROM\n");
+    i2cWriteByte(LP8860_EEPROM_CNTRL, LP8860_LOAD_EEPROM);
+    usleep(100000);
 
 
-   // Check contents and program if not already done
-   i2cReadBuffer(LP8860_EEPROM_REG_0, buf, eepromTableSize);
-   if (!isOK()) printf("Read eeprom error\n");
-   if (memcmp(eepromInitTable, buf, eepromTableSize) != 0)
-   {
-      printf("LP8860 EEPROM not initialized - programming...\n");
-      // Unlock EEPROM
-      i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_1);
-      i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_2);
-      i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_3);
-      i2cWriteBuffer(LP8860_EEPROM_REG_0, eepromInitTable, eepromTableSize);
-      i2cWriteByte(LP8860_EEPROM_CNTRL, LP8860_PROGRAM_EEPROM);
-      usleep(200000);
-      i2cWriteByte(LP8860_EEPROM_CNTRL, 0);
-      i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_LOCK_EEPROM);
-   }
+    // Check contents and program if not already done
+    i2cReadBuffer(LP8860_EEPROM_REG_0, buf, eepromTableSize);
+    if (!isOK()) printf("Read eeprom error\n");
+    if (memcmp(eepromInitTable, buf, eepromTableSize) != 0)
+    {
+        printf("LP8860 EEPROM not initialized - programming...\n");
+        // Unlock EEPROM
+        i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_1);
+        i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_2);
+        i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_EEPROM_CODE_3);
+        i2cWriteBuffer(LP8860_EEPROM_REG_0, eepromInitTable, eepromTableSize);
+        i2cWriteByte(LP8860_EEPROM_CNTRL, LP8860_PROGRAM_EEPROM);
+        usleep(200000);
+        i2cWriteByte(LP8860_EEPROM_CNTRL, 0);
+        i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_LOCK_EEPROM);
+    }
 
-   return isOK();
+    return isOK();
 }
 
 
 bool LP8860::allowMaxCurrent()
 {
-   i2cWriteByte(LP8860_DISP_CL1_CURR_MSB, 0x0F);
-   i2cWriteByte(LP8860_DISP_CL1_CURR_LSB, 0xFF);
-   i2cWriteByte(LP8860_CL2_CURRENT, 0xFF);
-   i2cWriteByte(LP8860_CL3_CURRENT, 0xFF);
-   i2cWriteByte(LP8860_CL4_CURRENT, 0xFF);
-   return isOK();
+    i2cWriteByte(LP8860_DISP_CL1_CURR_MSB, 0x0F);
+    i2cWriteByte(LP8860_DISP_CL1_CURR_LSB, 0xFF);
+    i2cWriteByte(LP8860_CL2_CURRENT, 0xFF);
+    i2cWriteByte(LP8860_CL3_CURRENT, 0xFF);
+    i2cWriteByte(LP8860_CL4_CURRENT, 0xFF);
+    return isOK();
 }
 
 
 bool LP8860::i2cWriteByte(int reg, int value)
 {
-   if (isOK())
-      status = mraa_i2c_write_byte_data(i2c, static_cast<uint8_t>(value), static_cast<uint8_t>(reg));
-   return isOK();
+    if (isOK())
+        status = mraa_i2c_write_byte_data(i2c, static_cast<uint8_t>(value), static_cast<uint8_t>(reg));
+    return isOK();
 }
 
 
 bool LP8860::i2cReadByte(uint8_t reg, uint8_t* value)
 {
-   mraa_i2c_write_byte(i2c, LP8860_I2C_ADDR);
-   mraa_i2c_write_byte(i2c, reg);
-   return mraa_i2c_read(i2c, value, 1) == 1;
+    mraa_i2c_write_byte(i2c, LP8860_I2C_ADDR);
+    mraa_i2c_write_byte(i2c, reg);
+    return mraa_i2c_read(i2c, value, 1) == 1;
 }
 
 
 bool LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
 {
-   if (length <= MAX_I2C_WRITE_SIZE)
-   {
-      uint8_t* writeBuf = new unsigned char[length + 1];
-      writeBuf[0] = reg;
-      memcpy(&writeBuf[1], buf, length);
-      status = mraa_i2c_write(i2c, writeBuf, length + 1);
-   }
-   else
-      status = MRAA_ERROR_INVALID_PARAMETER;
-   return isOK();
+    if (length <= MAX_I2C_WRITE_SIZE)
+    {
+        uint8_t* writeBuf = new unsigned char[length + 1];
+        writeBuf[0] = reg;
+        memcpy(&writeBuf[1], buf, length);
+        status = mraa_i2c_write(i2c, writeBuf, length + 1);
+    }
+    else
+        status = MRAA_ERROR_INVALID_PARAMETER;
+    return isOK();
 }
 
 
 bool LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
 {
-   status = mraa_i2c_write_byte(i2c, reg);
-   if (isOK())
-   {
-      if (mraa_i2c_read(i2c, buf, length) != length)
-         status = MRAA_ERROR_NO_DATA_AVAILABLE;
-   }
-   return isOK();
+    status = mraa_i2c_write_byte(i2c, reg);
+    if (isOK())
+    {
+        if (mraa_i2c_read(i2c, buf, length) != length)
+            status = MRAA_ERROR_NO_DATA_AVAILABLE;
+    }
+    return isOK();
 }
 
 
