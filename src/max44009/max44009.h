@@ -39,8 +39,10 @@
 #define MAX44009_INT_STATUS_ADDR            ( 0x00 )    // R
 #define MAX44009_INT_ENABLE_ADDR            ( 0x01 )    // R/W
 #define MAX44009_CONFIG_ADDR                ( 0x02 )    // R/W
-#define MAX44009_LUX_HIGH_ADDR              ( 0x03 )    // R
-#define MAX44009_LUX_LOW_ADDR               ( 0x04 )    // R
+#define MAX44009_LUX_START_ADDR             ( 0x03 )
+#define MAX44009_LUX_LENGTH                 ( 2 )
+#define MAX44009_LUX_HIGH                   ( 0 )
+#define MAX44009_LUX_LOW                    ( 1 )
 #define MAX44009_THR_HIGH_ADDR              ( 0x05 )    // R/W
 #define MAX44009_THR_LOW_ADDR               ( 0x06 )    // R/W
 #define MAX44009_THR_TIMER_ADDR             ( 0x07 )    // R/W
@@ -114,14 +116,9 @@ class MAX44009 : public ILightSensor {
         mraa_result_t reset();
 
         /**
-         * Read the raw value from the chip.
+         * Read the lux value from the chip.
          */
-        mraa_result_t getValue (uint16_t* value);
-
-        /**
-         * Convert raw value to lux.
-         */
-        float convertToLux (uint16_t value);
+        mraa_result_t getValue (float* value);
 	
         /**
          * Returns whether the sensor is configured.

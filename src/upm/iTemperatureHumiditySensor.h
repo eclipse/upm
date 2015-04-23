@@ -10,7 +10,6 @@ namespace upm
        virtual mraa_result_t getTemperature (float* value) = 0;
        virtual mraa_result_t getHumidity (float* value) = 0;
        virtual bool isConfigured() = 0;
-       virtual bool isAvailable() = 0;
        virtual ~ITemperatureHumiditySensor() {}
    };
 

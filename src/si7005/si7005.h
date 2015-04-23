@@ -40,8 +40,10 @@
 
 /* REGISTER ADDRESSES */
 #define SI7005_REG_STATUS                  ( 0x00 )
-#define SI7005_REG_DATA_HIGH               ( 0x01 )
-#define SI7005_REG_DATA_LOW                ( 0x02 )
+#define SI7005_REG_DATA_LENGTH             ( 2 )
+#define SI7005_REG_DATA_START              ( 0x01 )
+#define SI7005_REG_DATA_HIGH               ( 0 )
+#define SI7005_REG_DATA_LOW                ( 1 )
 #define SI7005_REG_CONFIG                  ( 0x03 )
 #define SI7005_REG_ID                      ( 0x11 )
 
@@ -155,7 +157,7 @@ class SI7005 : public ITemperatureHumiditySensor {
         uint8_t config_reg;
         float last_temperature;
 
-        int getMeasurement(uint8_t configValue);
+        uint16_t getMeasurement(uint8_t configValue);
 };
 
 }
