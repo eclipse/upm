@@ -12,7 +12,9 @@ endif ()
 
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
-# force the libmraa version to be the required version
+
+# force a libmraa search and minimum required version every time a config is generated 
+unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=0.6.0)
 message (INFO " found libmraa version: ${MRAA_VERSION}")
 
