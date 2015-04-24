@@ -129,12 +129,20 @@ bool LP8860::isOK()
 bool LP8860::isAvailable()
 {
     uint8_t id;
+    bool wasPowered = true;
+
+    // Check power state
+    if(!isPowered()) {
+        if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { return false; }
+        wasPowered = false;
+    }
 
     // Read ID register
-    if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { return false; }
     mraa_i2c_address(i2c, LP8860_I2C_ADDR);
     id = mraa_i2c_read_byte_data(i2c, LP8860_ID);
-    MraaUtils::setGpio(pinPower, 0);
+
+    // Turn off to save power if not required
+    if(!wasPowered) { MraaUtils::setGpio(pinPower, 0); }
 
     if(id == -1 || id == LP8860_INVALID_ID ) { return false; }
 
