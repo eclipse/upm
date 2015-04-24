@@ -131,8 +131,10 @@ bool LP8860::isAvailable()
     uint8_t id;
 
     // Read ID register
+    if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { return false; }
     mraa_i2c_address(i2c, LP8860_I2C_ADDR);
     id = mraa_i2c_read_byte_data(i2c, LP8860_ID);
+    MraaUtils::setGpio(pinPower, 0);
 
     if(id == -1 || id == LP8860_INVALID_ID ) { return false; }
 
@@ -149,10 +151,9 @@ bool LP8860::getBrightnessRange(int* percentMin, int* percentMax)
 bool LP8860::isPowered()
 {
     int level;
-    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS)
-        return level == 1;
-    else
-        return false;
+
+    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS) { return level == 1; }
+    else { return false; }
 }
 
 bool LP8860::setPowerOn()
