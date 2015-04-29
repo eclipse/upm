@@ -38,8 +38,8 @@ namespace upm {
    */   
    
   /**
-   * @sensor APDS-9002
    * @library libupm-apds9002
+   * @sensor APDS-9002
    * @comname APDS9002
    * @type light ainput
    * @man seeed
