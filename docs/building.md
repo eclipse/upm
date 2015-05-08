@@ -21,7 +21,11 @@ mkdir build
 cd build
 cmake ..
 make
+make install
 ~~~~~~~~~~~~~
+
+The last command will create the include/ and lib/ directories with a copy of
+the headers and library objects respectively in your build location.
 
 Our cmake configure has a number of options, *cmake-gui* or *ccmake* can show
 you all the options. The interesting ones are detailed below:
