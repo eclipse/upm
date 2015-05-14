@@ -1,10 +1,9 @@
-Known Issues                        {#knownissues}
+Known Limitations                       {#knownlimitations}
 ===============
 
-Every once in a while we come across sensors that will not pair well with
-a specific board. This means their are either incompatible or will work only
-under specific settings. This is a list of such sensors and known workarounds
-if they exist.
+Some sensors do not work seamlessly with a specific board. This means that they
+are either incompatible or work only under specific settings. This is a list of
+such sensors and known workarounds if they exist.
 
 #### Grove Sensors
 
@@ -35,16 +34,18 @@ if they exist.
 
 #### Adafruit Sensors
 
- * **Adafruit Motor Shield** (1438) will not get detected on the I2C bus when
+ * **Adafruit Motor Shield** (1438) is not detected on the I2C bus when
  connected to the Intel Edison with an Arduino breakout.
 
 #### Other Sensors
 
  * **MPU9150** might return inaccurate data.
 
-Some I2C sensors seem to add too much capacitance to the SDA line of the Intel
-Edison Arduino breakout board, thus the signal essentially becomes stuck to a
-logic 1. When this happens, any other sensors connected to the I2C bus will be
-rendered useless too. There is no universal solution for this issue, but under
-most cases the same sensor will work just fine on the Intel Edison Mini. Using
-the same sensor but from a different vendor can also work in some cases.
+#### General
+
+Some I2C sensors add too much capacitance to the SDA line of the Intel Edison
+Arduino breakout board, thus the signal sticks to a logic 1. When this happens,
+other sensors connected to the I2C bus are unusable. While there is no generic
+solution for this limitation, in most cases the sensor works on the Intel
+Edison Mini-breakout. When this board is not an option, the sensor can be
+sometimes replaced with the same model from a different vendor.

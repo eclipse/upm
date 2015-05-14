@@ -64,4 +64,4 @@ The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/u
 
 Version @ref changelog [here](docs/changelog.md).
 
-List of @ref knownissues [here](docs/knownissues.md).
+List of @ref knownlimitations [here](docs/knownlimitations.md).
