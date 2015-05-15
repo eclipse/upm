@@ -28,25 +28,25 @@
 
 namespace upm { 
   /**
-   * @brief C++ API for the Grove Luminance Sensor
-   *
-   * This sensor transforms luminous intensity to output analog values.
-   * It uses the APDS-9002 ambient light sensor.
-   *
+   * @brief APDS-9002 luminance sensor library
    * @defgroup apds9002 libupm-apds9002
    * @ingroup seeed analog light
    */   
    
   /**
-   * @sensor APDS-9002
-   * @library libupm-apds9002
-   * @comname APDS9002
-   * @type light ainput
+   * @library apds9002
+   * @sensor apds9002
+   * @comname APDS-9002
+   * @altname Grove Luminance Sensor
+   * @type light
    * @man seeed
    * @con analog
    * 
    * @brief UPM module for the Grove Luminance Sensor
-   * 
+   *
+   * This sensor transforms luminous intensity to output analog values.
+   * It uses the APDS-9002 ambient light sensor.
+   *
    * @snippet apds9002.cxx Interesting
    */
    

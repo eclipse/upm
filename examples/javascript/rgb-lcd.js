@@ -39,4 +39,3 @@ myLcd.setColor(255, 0, 0);
 myLcd.write('Hello World');  
 myLcd.setCursor(1,2);
 myLcd.write('Hello World');
-myLcd.close();

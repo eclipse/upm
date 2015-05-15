@@ -39,15 +39,23 @@ namespace upm {
 
 /**
  * @brief my9221 led bar library
- * @defgroup my9221 libupm-9221
+ * @defgroup my9221 libupm-my9221
+ * @ingroup seeed display gpio
  */
-
 /**
+ * @library my9221
+ * @sensor my9221
+ * @comname LED bar
+ * @type display
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
+ * @con gpio
+ *
  * @brief C++ API for MY9221 led bar module
  *
  * This file defines the MY9221 C++ interface for libmy9221
  *
- * @ingroup my9221 gpio
+ * @image html my9221.jpg
  * @snippet my9221-ledbar.cxx Interesting
  * @snippet my9221-updown.cxx Interesting
  */

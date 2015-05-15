@@ -32,9 +32,16 @@ namespace upm {
 /**
  * @brief max31855 thermocouple library
  * @defgroup max31855 libupm-max31855
+ * @ingroup maxim spi other
  */
-
 /**
+ * @library max31855
+ * @sensor max31855
+ * @comname max31855 thermocouple library
+ * @type other
+ * @man maxim
+ * @con spi
+ *
  * @brief C++ API for MAX31855
  *
  * The Maxim Integrated
@@ -45,9 +52,7 @@ namespace upm {
  * (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the
  * analog PMOD kit.
  *
- * @ingroup max31855 spi
  * @snippet max31855.cxx Interesting
- * @image html max31855.jpeg
  */
 class MAX31855 {
     public:

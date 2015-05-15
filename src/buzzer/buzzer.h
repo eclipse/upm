@@ -39,7 +39,7 @@ namespace upm {
 /**
  * @brief Buzzer library
  * @defgroup buzzer libupm-buzzer
- * @ingroup seeed pwm sound
+ * @ingroup seeed pwm sound gsk
  */
 
 /**
@@ -49,6 +49,7 @@ namespace upm {
  * @type sound
  * @man seeed
  * @con pwm
+ * @kit gsk
  *
  * @brief C++ API for Buzzer component
  *

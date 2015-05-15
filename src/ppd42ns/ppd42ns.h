@@ -36,13 +36,25 @@ typedef struct
 	double concentration;
 } dustData;
 
-
   /**
+   * @brief Dust Sensor library
+   * @defgroup ppd42ns libupm-ppd42ns
+   * @ingroup seeed gpio other
+   */
+  /**
+   * @library ppd42ns
+   * @sensor ppd42ns
+   * @comname Dust Sensor
+   * @type other
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
+   * @con gpio
+   *
    * @brief C++ API for the Dust Sensor
    *
    * UPM module for the Dust Sensor
    *
-   * @ingroup gpio
+   * @image html ppd42ns.jpg
    * @snippet ppd42ns.cxx Interesting
    */
   class PPD42NS {

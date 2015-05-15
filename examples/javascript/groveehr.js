@@ -1,6 +1,5 @@
 /*jslint node:true, vars:true, bitwise:true, unparam:true */
 /*jshint unused:true */
-/*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
 * Copyright (c) 2014 Intel Corporation.
@@ -35,26 +34,31 @@ myHeartRateSensor.clearBeatCounter();
 myHeartRateSensor.initClock();
 myHeartRateSensor.startBeatCounter();
 
-setInterval(readHeartRate, 1000);
-
-function readHeartRate()
+var millis, beats, hr;
+var myInterval = setInterval(function()
 {
 	// we grab these just for display purposes in this example
-	var millis = myHeartRateSensor.getMillis();
-	var beats = myHeartRateSensor.beatCounter();
+	millis = myHeartRateSensor.getMillis();
+	beats = myHeartRateSensor.beatCounter();
 
 	// heartRate() requires that at least 5 seconds pass before
 	// returning anything other than 0
-	var hr = myHeartRateSensor.heartRate();
+	hr = myHeartRateSensor.heartRate();
 
 	// output milliseconds passed, beat count, and computed heart rate
 	console.log("Millis: " + millis + " Beats: " + beats +
 	            " Heart Rate: " + hr);
-}
+}, 1000);
 
 // Print message when exiting
 process.on('SIGINT', function()
 {
-	console.log("Exiting...");
+	clearInterval(myInterval);
+	myHeartRateSensor.stopBeatCounter();
+	myHeartRateSensor = null
+	heartRateSensor.cleanUp();
+	heartRateSensor = null;
+
+	console.log("Exiting");
 	process.exit(0);
 });

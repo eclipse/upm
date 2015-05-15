@@ -30,23 +30,37 @@
 
 namespace upm {
 
-  /**
-   * @brief C++ API for the Grove Rotary Encoder
-   *
-   * UPM module for the Grove Rotary Encoder.  A Rotary Encoder
-   * encodes a rotation signal into electronic pulses that can be used
-   * to measure rotation and direction.  It is useful in cases where a
-   * rotary knob is required, but using a potentiometer is not
-   * desireable.  A rotary encoder can turn a full 360 degrees+
-   * without a stop and does not place a resistive load on the
-   * circuit, as is the case with a potentiometer.
-   *
-   * This module maintains a position that is incremented or
-   * decremented according to the rotation on the encoder.
-   *
-   * @ingroup gpio 
-   * @snippet rotaryencoder.cxx Interesting
-   */
+/**
+ * @brief Grove Rotary Encoder library
+ * @defgroup rotaryencoder libupm-rotaryencoder
+ * @ingroup seeed gpio other
+ */
+/**
+ * @library rotaryencoder
+ * @sensor rotaryencoder
+ * @comname Grove Rotary Encoder
+ * @type other
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder
+ * @con gpio
+ * @kit gsk
+ *
+ * @brief C++ API for the Grove Rotary Encoder
+ * 
+ * UPM module for the Grove Rotary Encoder.  A Rotary Encoder
+ * encodes a rotation signal into electronic pulses that can be used
+ * to measure rotation and direction.  It is useful in cases where a
+ * rotary knob is required, but using a potentiometer is not
+ * desirable.  A rotary encoder can turn a full 360 degrees+
+ * without a stop and does not place a resistive load on the
+ * circuit, as is the case with a potentiometer.
+ *
+ * This module maintains a position that is incremented or
+ * decremented according to the rotation on the encoder.
+ *
+ * @image html rotaryencoder.jpg
+ * @snippet rotaryencoder.cxx Interesting
+ */
   class RotaryEncoder {
   public:
     /**

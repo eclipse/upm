@@ -39,18 +39,16 @@
 #define LOW                   0
 
 namespace upm {
+
 /**
- * @brief C++ API for SM130 RFID reader module
- *
- *   This file defines the C++ interface for sm130 RFID library
- *
+ * @brief SM130 RFID reader module sensor library
  * @defgroup sm130 libupm-sm130
  * @ingroup sparkfun gpio rfid
  */
 /**
  * @library sm130
  * @sensor sm130
- * @comname RFID module
+ * @comname SM130 RFID reader module sensor
  * @type rfid
  * @man sparkfun
  * @web https://www.sparkfun.com/products/10126

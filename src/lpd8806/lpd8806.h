@@ -51,7 +51,6 @@ namespace upm {
  *
  * The FastPixel lpd8806 is an RGB led strip controller.
  *
- * @image html lpd8806.jpeg
  * @snippet lpd8806.cxx Interesting
  */
 class LPD8806 {

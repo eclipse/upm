@@ -33,7 +33,7 @@ var I2CAddr = I2C_ADC.ADC121C021_DEFAULT_I2C_ADDR;
 var myI2C_ADC = new I2C_ADC.ADC121C021(busID, I2CAddr);
 
 // get the data every 50 milliseconds
-setInterval(function()
+var myInterval = setInterval(function()
 {
 	var val = myI2C_ADC.value();
 	var voltsVal = myI2C_ADC.valueToVolts(val);
@@ -44,6 +44,10 @@ setInterval(function()
 // Print message when exiting
 process.on('SIGINT', function()
 {
+	clearInterval(myInterval);
+	myI2C_ADC = null;
+	I2C_ADC.cleanUp();
+	I2C_ADC = null;
 	console.log("Exiting...");
 	process.exit(0);
 });

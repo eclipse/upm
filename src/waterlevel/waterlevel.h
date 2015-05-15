@@ -37,7 +37,7 @@ namespace upm {
    * @ingroup gpio waterlevel
    */
   /**
-   * @library libupm-waterlevel
+   * @library waterlevel
    * @sensor waterlevel
    * @comname waterlevel
    * @type liquid

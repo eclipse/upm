@@ -23,20 +23,18 @@
  */
 
 /**
- * @file
- * @brief C++ API for the Nordic Semiconductor NRF8001 Bluetooth Low Energy
- * @ingroup nrf8001
- */
-
-/**
+ * @brief nrf8001 Bluetooth Low Energy library
  * @defgroup nrf8001 libupm-nrf8001
- * @ingroup wifi
- *
+ * @ingroup adafruit wifi analog gpio spi
+ */
+/**
+ * @library nrf8001
  * @sensor nrf8001
- * @comname NRF8001 Bluetooth Low Energy
+ * @comname Bluetooth Low Energy
  * @type wifi
  * @man adafruit
- * @con spi
+ * @web https://learn.adafruit.com/getting-started-with-the-nrf8001-bluefruit-le-breakout/introduction
+ * @con spi gpio analog
  *
  * @brief nrf8001 Bluetooth Low Energy library
  *
@@ -46,10 +44,10 @@
  * Android 4.3 for Samsung Galaxy S4 to interact with a microcontroller running
  * the 'hello world' example.
  *
+ * @image html nrf8001.jpg
  * @snippet nrf8001-helloworld.cxx Interesting
  * @snippet nrf8001-broadcast.cxx Interesting
  */
- 
 #pragma once
 
 #include <string>

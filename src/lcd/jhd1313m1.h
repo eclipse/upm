@@ -26,8 +26,8 @@
 #include <string>
 #include "i2clcd.h"
 
-namespace upm {
-
+namespace upm
+{
 /**
  * @library i2clcd
  * @sensor jhd1313m1
@@ -47,71 +47,71 @@ namespace upm {
  * other controls solely the backlight. This module was tested with the Seed
  * Grove LCD RGB Backlight v2.0 display which requires 5V to operate.
  *
- * @image html grovergblcd.jpeg
+ * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
  */
-class Jhd1313m1 : public I2CLcd {
-    public:
-       /**
-        * Jhd1313m1 constructor
-        *
-        * @param bus i2c bus to use
-        * @param address the slave address the lcd is registered on
-        * @param address the slave address the rgb backlight is on
-        */
-        Jhd1313m1(int bus, int lcdAddress=0x3E, int rgbAddress=0x62);
-       /**
-        * Jhd1313m1 destructor
-        */
-        ~Jhd1313m1();
-       /**
-        * Make the LCD scroll text
-        *
-        * @param direction, true is typical scrolling to the right
-        * @return Result of operation
-        */
-        mraa_result_t scroll (bool direction);
-       /**
-        * Set the color of the backlight
-        *
-        * @param r 0-255 value for red
-        * @param g 0-255 value for green
-        * @param b 0-255 value for blue
-        * @return Result of operation
-        */
-        mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
-       /**
-        * Write a string to LCD
-        *
-        * @param msg The std::string to write to display, note only ascii
-        *     chars are supported
-        * @return Result of operation
-        */
-        mraa_result_t write(std::string msg);
-       /**
-        * Set cursor to a coordinate
-        *
-        * @param row The row to set cursor to
-        * @param column The column to set cursor to
-        * @return Result of operation
-        */
-        mraa_result_t setCursor(int row, int column);
-       /**
-        * Clear display from characters
-        *
-        * @return Result of operatio
-        */
-        mraa_result_t clear();
-       /**
-        * Return to coordinate 0,0
-        *
-        * @return Result of operation
-        */
-        mraa_result_t home();
+class Jhd1313m1 : public I2CLcd
+{
+  public:
+    /**
+     * Jhd1313m1 constructor
+     *
+     * @param bus i2c bus to use
+     * @param address the slave address the lcd is registered on
+     * @param address the slave address the rgb backlight is on
+     */
+    Jhd1313m1(int bus, int lcdAddress = 0x3E, int rgbAddress = 0x62);
+    /**
+     * Jhd1313m1 destructor
+     */
+    ~Jhd1313m1();
+    /**
+     * Make the LCD scroll text
+     *
+     * @param direction, true is typical scrolling to the right
+     * @return Result of operation
+     */
+    mraa_result_t scroll(bool direction);
+    /**
+     * Set the color of the backlight
+     *
+     * @param r 0-255 value for red
+     * @param g 0-255 value for green
+     * @param b 0-255 value for blue
+     * @return Result of operation
+     */
+    mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
+    /**
+     * Write a string to LCD
+     *
+     * @param msg The std::string to write to display, note only ascii
+     *     chars are supported
+     * @return Result of operation
+     */
+    mraa_result_t write(std::string msg);
+    /**
+     * Set cursor to a coordinate
+     *
+     * @param row The row to set cursor to
+     * @param column The column to set cursor to
+     * @return Result of operation
+     */
+    mraa_result_t setCursor(int row, int column);
+    /**
+     * Clear display from characters
+     *
+     * @return Result of operatio
+     */
+    mraa_result_t clear();
+    /**
+     * Return to coordinate 0,0
+     *
+     * @return Result of operation
+     */
+    mraa_result_t home();
 
-    private:
-        int m_rgb_address;
-        mraa_i2c_context m_i2c_lcd_rgb;
+  private:
+    int m_rgb_address;
+    mraa::I2c m_i2c_lcd_rgb;
 };
-
 }

@@ -29,18 +29,27 @@
 namespace upm {
 
 /**
- * @brief C++ API for ES08A servo component
+ * @library servo
+ * @sensor es08a
+ * @comname es0a servo
+ * @type servos
+ * @man emax
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
+ * @con pwm
+ * @kit gsk
  *
+ * @brief C++ API for ES08A servo component
+ * 
  * This file defines the ES08A C++ interface for ES08A servos.
  * Like other servos, the ES08A servo has a shaft that can be controlled
  * by setting the desired angle.  There are also routines for setting
  * and getting the minimum and maximum pulse width as well as the
  * maximum period.
  *
- * @ingroup servo pwm
+ * @image html es0a.jpeg
  * @snippet es08a.cxx Interesting
  */
-class ES08A : public Servo {
+ class ES08A : public Servo {
     public:
         /**
          * Instantiates an ES08A object

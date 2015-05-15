@@ -31,6 +31,19 @@
 namespace upm {
 
   /**
+   * @brief Wii Nunchuck library
+   * @defgroup nunchuck libupm-nunchuck
+   * @ingroup generic i2c accelerometer
+   */
+  /**
+   * @library nunchuck
+   * @sensor nunchuck
+   * @comname Wii Nunchuck
+   * @type accelerometer
+   * @man generic
+   * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
+   * @con i2c
+   *
    * @brief C++ API for the Wii Nunchuck
    *
    * UPM module for the Wii Nunchuck.  This module was tested with the
@@ -46,8 +59,6 @@ namespace upm {
    * should be on the same side as the grove interface socket on the
    * adapter.
    *
-   * @ingroup nunchuck 
-   * @defgroup nunchuck libupm-nunchuck
    * @snippet nunchuck.cxx Interesting
    */
   class NUNCHUCK {

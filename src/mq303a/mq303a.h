@@ -29,6 +29,19 @@
 namespace upm {
 
   /**
+   * @brief mq303a Alcohol Sensor library
+   * @defgroup mq303a libupm-mq303a
+   * @ingroup seeed analog gpio gaseous
+   */
+  /**
+   * @library mq303a
+   * @sensor mq303a
+   * @comname mq303a Alcohol Sensor
+   * @type gaseous
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
+   * @con analog gpio
+   *
    * @brief C++ API for the MQ303A Alcohol Sensor
    *
    * UPM module for the MQ303A Alcohol Sensor.
@@ -36,7 +49,7 @@ namespace upm {
    * obtained.  The higher the value returned from value(),
    * the higher the amount of alcohol that was detected.
    *
-   * @ingroup analog gas alcohol
+   * @image html mq303a.jpg
    * @snippet mq303a.cxx Interesting
    */
   class MQ303A {

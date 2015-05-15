@@ -48,18 +48,18 @@ const uint8_t MHZ16_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief UPM support for the MHZ16 Serial CO2 sensor
+     * @brief MHZ16 Serial CO2 sensor library
      * @defgroup mhz16 libupm-mhz16
-     * @ingroup seeed serial gas
+     * @ingroup seeed serial gaseous
      */
 
     /**
-     * @sensor mhz16
      * @library mhz16
-     * @name Grove CO2 sensor
-     * @category gaseous
-     * @manufacturer seeed
-     * @connection uart
+	 * @sensor mhz16
+     * @comname Grove CO2 sensor
+     * @type gaseous
+     * @man seeed
+     * @con uart
      *
      * @brief C++ API support for the Grove CO2 sensor
      *

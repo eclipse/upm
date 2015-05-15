@@ -29,6 +29,12 @@ Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) fro
 
 You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
 
+### IDE Integration
+
+If you would like to create Eclipse IDE projects using the UPM C++ samples,
+please follow the instructions posted [here](https://software.intel.com/en-us/node/551014).
+This will show you how to import the code and configure your project.
+
 ### Building UPM
 
 See @ref building [here](docs/building.md).
@@ -55,3 +61,7 @@ C/C++ API Documentation
 ==============
 
 The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/).
+
+Version @ref changelog [here](docs/changelog.md).
+
+List of @ref knownlimitations [here](docs/knownlimitations.md).

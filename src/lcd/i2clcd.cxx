@@ -26,75 +26,45 @@
 #include <unistd.h>
 
 #include "i2clcd.h"
+#include "i2clcd_private.h"
 
 using namespace upm;
 
-I2CLcd::I2CLcd (int bus, int lcdAddress) {
+I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
+{
     m_lcd_control_address = lcdAddress;
     m_bus = bus;
 
-    m_i2c_lcd_control = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
+    mraa_result_t ret = m_i2c_lcd_control.address(m_lcd_control_address);
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 }
 
 mraa_result_t
-I2CLcd::write (int row, int column, std::string msg) {
-    setCursor (row, column);
-    write (msg);
+I2CLcd::write(int row, int column, std::string msg)
+{
+    setCursor(row, column);
+    write(msg);
 }
 
 mraa_result_t
-I2CLcd::createChar(uint8_t charSlot, uint8_t charData[]) {
+I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
+{
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
-    error = i2Cmd(m_i2c_lcd_control, LCD_SETCGRAMADDR | (charSlot << 3));
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
     if (error == MRAA_SUCCESS) {
         for (int i = 0; i < 8; i++) {
-            error = i2cData(m_i2c_lcd_control, charData[i]);
+            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
         }
     }
 
     return error;
 }
 
-mraa_result_t
-I2CLcd::close() {
-    return mraa_i2c_stop(m_i2c_lcd_control);
-}
-
-mraa_result_t
-I2CLcd::i2cReg (mraa_i2c_context ctx, int deviceAdress, int addr, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    uint8_t data[2] = { addr, value };
-    error = mraa_i2c_address (ctx, deviceAdress);
-    error = mraa_i2c_write (ctx, data, 2);
-
-    return error;
-}
-
-mraa_result_t
-I2CLcd::i2Cmd (mraa_i2c_context ctx, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    uint8_t data[2] = { LCD_CMD, value };
-    error = mraa_i2c_address (ctx, m_lcd_control_address);
-    error = mraa_i2c_write (ctx, data, 2);
-
-    return error;
-}
-
-mraa_result_t
-I2CLcd::i2cData (mraa_i2c_context ctx, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    uint8_t data[2] = { LCD_DATA, value };
-    error = mraa_i2c_address (ctx, m_lcd_control_address);
-    error = mraa_i2c_write (ctx, data, 2);
-
-    return error;
+std::string
+I2CLcd::name()
+{
+    return m_name;
 }

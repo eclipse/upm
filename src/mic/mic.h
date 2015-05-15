@@ -36,16 +36,25 @@ struct thresholdContext {
 namespace upm {
 
 /**
- * @brief analog microphone library
+ * @brief Analog Microphone library
  * @defgroup mic libupm-mic
+ * @ingroup seeed pwm sound gsk
  */
-
 /**
+ * @library mic
+ * @sensor mic
+ * @comname Analog Microphone
+ * @type sound
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensors
+ * @con pwm
+ * @kit gsk
+ *
  * @brief C++ API for Microphone
  *
  * This file defines the Microphone Analog sensor
  *
- * @ingroup mic pwm
+ * @image html mic.jpg
  * @snippet mic.cxx Interesting
  */
 class Microphone {
