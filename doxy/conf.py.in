@@ -22,7 +22,7 @@ import shlex
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, "@CMAKE_INSTALL_LIBDIR@/python@PYTHON_VERSION_MAJOR@.@PYTHON_VERSION_MINOR@/site-packages/")
 sys.path.insert(0, "@CMAKE_INSTALL_LIBDIR@")
-sys.path.insert(0, "@MRAA_LIBDIR@")
+sys.path.insert(0, "@MRAA_LIBDIR@@LIB_SUFFIX@")
 
 # -- General configuration ------------------------------------------------
 
