@@ -19,14 +19,14 @@ For building UPM, please follow this `link <https://github.com/intel-iot-devkit/
 ``Making your own UPM Module``
 ##############################
 
-This `link  <https://github.com/intel-iot-devkit/upm/blob/master/docs/porting.md>`_ has more information on making new UPM module.
+This `link  <https://github.com/intel-iot-devkit/upm/blob/master/docs/porting.md>`_ has more information on making a new UPM module.
 
 There is also an example available for max31855 `sensor <https://github.com/intel-iot-devkit/upm/blob/master/docs/max31855.md>`_.
 
 ``Naming Conventions and rules for new UPM Contributions``
 ##########################################################
 
-Before you begin development, take a look at our naming `conventions <https://github.com/intel-iot-devkit/upm/blob/master/docs/naming.md>`_.
+Before you begin development, please take a look at our naming `conventions <https://github.com/intel-iot-devkit/upm/blob/master/docs/naming.md>`_.
 
 Also, please read the guidelines for contributions to `UPM <https://github.com/intel-iot-devkit/upm/blob/master/docs/contributions.md>`_.
 
@@ -59,7 +59,7 @@ For Version Changelog, please see `here <https://github.com/intel-iot-devkit/upm
 ``Limitations and List of Changes``
 ###################################
 
-For List of Known Limitations, Please see `here <https://github.com/intel-iot-devkit/upm/blob/master/docs/knownlimitations.md>`_.
+For List of Known Limitations, please see `here <https://github.com/intel-iot-devkit/upm/blob/master/docs/knownlimitations.md>`_.
 
 ``Indices and tables``
 ######################
