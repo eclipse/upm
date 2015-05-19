@@ -15,7 +15,6 @@
 
 For building UPM, please follow this `link <https://github.com/intel-iot-devkit/upm/blob/master/docs/building.md>`_.
    
-
 ``Making your own UPM Module``
 ##############################
 
@@ -59,7 +58,7 @@ For Version Changelog, please see `here <https://github.com/intel-iot-devkit/upm
 ``Limitations and List of Changes``
 ###################################
 
-For List of Known Limitations, please see `here <https://github.com/intel-iot-devkit/upm/blob/master/docs/knownlimitations.md>`_.
+For List of Known Limitations, please click `here <https://github.com/intel-iot-devkit/upm/blob/master/docs/knownlimitations.md>`_.
 
 ``Indices and tables``
 ######################
