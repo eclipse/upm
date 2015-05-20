@@ -1,0 +1,5 @@
+set (libname "ad8232")
+set (libdescription "upm ad8232 heart rate monitor")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
