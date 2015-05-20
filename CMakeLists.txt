@@ -21,6 +21,7 @@ message (INFO " found libmraa version: ${MRAA_VERSION}")
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 set (LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "Installation path for libraries")
+set (NODE_PATH "/usr/local/lib/node_modules" CACHE PATH "Path to node modules")
 
 # Set CMAKE_LIB_INSTALL_DIR if not defined
 include(GNUInstallDirs)
@@ -104,17 +105,17 @@ if (BUILDDOC)
   find_package(Yuidoc)
   if(YUIDOC_FOUND)
     # node required for Yuidoc documentation
-	find_package(node)
-    set(NODE_PATH "/usr/local/lib/node_modules" CACHE PATH "Path to node modules")
-	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node ${CMAKE_CURRENT_BINARY_DIR})
+	find_package(Node)
+	file(GLOB JSDOC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/*)
+	file(COPY ${JSDOC_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 	add_custom_target(jsdoc
-	  ${NODE_EXECUTABLE} docgen -m upm -i xml
+	  NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} docgen -m upm -i xml
 	  COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --config generators/yuidoc/conf.json -o html/node jsdoc/yuidoc/upm
-	  COMMAND ${NODE_EXECUTABLE} tolower -i html/node
+	  COMMAND NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} tolower -i html/node
+	  DEPENDS doc
 	  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Yuidoc" VERBATIM
 	)
-	add_dependencies(jsdoc doc)
   endif()
 endif()
 
