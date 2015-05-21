@@ -36,9 +36,9 @@ Promise.promisifyAll(fs);
 
 
 var xml2js = {
-
+  
   // js-format specs
-  // MODULES: <module name>
+  // MODULE: <module name>
   // ENUMS: {
   //   <enum name>: {
   //     type: <enum type>,
@@ -47,7 +47,7 @@ var xml2js = {
   // }
   // ENUMS_BY_GROUP: {
   //   <enum type>: {
-  //     description: <enum group description>
+  //     description: <enum group description> 
   //     members: [ <enum name>, ... ]
   //   }, ...
   // }
@@ -58,7 +58,7 @@ var xml2js = {
   //       <param name>: {
   //         type: <param type>,
   //         description: <param description >
-  //       }, ...
+  //       }, ... 
   //     },
   //     return: {
   //       type: <return type>,
@@ -79,32 +79,57 @@ var xml2js = {
   //     enums: { ... },
   //     enums_by_group: { ... }
   //   }, ...
+  // }  
+  // CLASSGROUPS: {
+  //   <group name>: {
+  //     description: <group description>,
+  //     classes: [ <class name>, ... ]
+  //   }, ...
   // }
   MODULE: '',
   ENUMS: {},
   ENUMS_BY_GROUP: {},
   METHODS: {},
   CLASSES: {},
-
-
-  // c -> js type mapping
+  CLASSGROUPS: {},
+  
+  
+  // baseline c -> js type mapping
   TYPEMAPS: {
     '^(const)?\\s*(unsigned|signed)?\\s*(int|short|long|float|double|size_t|u?int\\d{1,2}_t)?$': 'Number',
     '^bool$': 'Boolean',
-    '^(const)?\\s*(unsigned|signed)?\\s*(char|char\\s*\\*|std::string)$': 'String'  // TODO: verify that String mappings work
+    '^(const)?\\s*(unsigned|signed)?\\s*(char|char\\s*\\*|std::string)$': 'String'  // TODO: verify that swig does this mapping
   },
-
-
+  
+  
+  // custom c -> js type mapping for pointers
+  // ARRAY_TYPEMAPS: { 
+  //    <pointer data type>: {
+  //      arrayType: <swig generated array type that will replace pointers of data type>,
+  //      classes: [ <class that contains arrayType>, ... ]
+  //    }, ...
+  // }  
+  // POINTER_TYPEMAPS: {
+  //    <class that contains pointerType>: {
+  //      <c pointer data type>: <js swig generated pointer type that will replace pointers of data type>, ...
+  //    }, ...
+  // }
+  ARRAY_TYPEMAPS: {},
+  POINTER_TYPEMAPS: {},
+    
+  
   // add command line options for this module
   addOptions: function(opts) {
     xml2js.opts = opts;
     return opts
       .option('-i, --inputdir [directory]', 'directory for xml files', __dirname + '/xml/mraa')
-      .option('-c, --custom [file]', 'json for customizations', __dirname + '/custom.json')
+      .option('-c, --custom [file]', 'json for customizations')
+      .option('-t, --typemaps [directory]', 'directory for custom pointer type maps')
+      .option('-g, --imagedir [directory]', 'directory to link to where the images will be kept', '')
       .option('-s, --strict', 'leave out methods/variables if unknown type')
   },
-
-
+  
+  
   // parse doxygen xml -> js-format specs
   // TODO: figure out whether we need to document any protected methods/variables
   parse: function() {
@@ -113,10 +138,11 @@ var xml2js = {
     var CLASS_SPEC = function(c) { return xml2js.opts.inputdir + '/' + c + '.xml'; }
     var TYPES_SPEC = xml2js.opts.inputdir + '/types_8h.xml';
     xml2js.MODULE = xml2js.opts.module;
-    return Promise.join(createXmlParser(XML_GRAMMAR_SPEC),
-                        fs.readFileAsync(NAMESPACE_SPEC, 'utf8'),
+    return Promise.join(createXmlParser(XML_GRAMMAR_SPEC), 
+                        xml2js.opts.typemaps ? initCustomPointerTypemaps(xml2js.opts.typemaps) : Promise.resolve(),
+                        fs.readFileAsync(NAMESPACE_SPEC, 'utf8'), 
                         fs.existsSync(TYPES_SPEC) ? fs.readFileAsync(TYPES_SPEC, 'utf8') : Promise.resolve(null),
-                        function(xmlparser, xml, xml_types) {
+                        function(xmlparser, ignore, xml, xml_types) {
       if (xml_types != null) {
         _.extend(xml2js.ENUMS, getEnums(xmlparser.parse(xml_types)[0], false));
         _.extend(xml2js.ENUMS_BY_GROUP, getEnums(xmlparser.parse(xml_types)[0], true));
@@ -125,42 +151,60 @@ var xml2js = {
       _.extend(xml2js.ENUMS, getEnums(spec_c, false));
       _.extend(xml2js.ENUMS_BY_GROUP, getEnums(spec_c, true));
       _.extend(xml2js.METHODS, getMethods(spec_c));
-      return Promise.all(_.map(getClasses(spec_c), function(c) {
+      _.each(getSubclassNames(spec_c), function(className) { xml2js.CLASSES[className] = {} });
+      var parseClasses = _.map(getSubclasses(spec_c), function(c) {
         return fs.readFileAsync(CLASS_SPEC(c), 'utf8').then(function(xml) {
           try {
             var spec_c = xmlparser.parse(xml)[0];
-            var className = getClassName(spec_c);
+            var className = getName(spec_c);
             xml2js.CLASSES[className] = {
-              description: getClassDescription(spec_c),
+              description: getDescription(spec_c),
               enums: getEnums(spec_c, false, className),
               enums_by_group: getEnums(spec_c, true, className),
               variables: getVariables(spec_c, className),
-              methods: getMethods(spec_c, className),
+              methods: getMethods(spec_c, className)
             };
           } catch(e) {
-            console.log(e.toString() + ': ' + c + ' was not parsed correctly.');
+            console.log(e.toString() + ': class ' + className + ' was not parsed correctly.');
           }
         });
-      })).then(function() {
-        if (fs.existsSync(xml2js.opts.custom)) {
-          return fs.readFileAsync(xml2js.opts.custom, 'utf8').then(function(custom) {
-            try {
-              customizeMethods(JSON.parse(custom));
-            } catch(e) {
-              console.log('invalid custom.json, ignored. ' + e.toString());
+      });
+      var parseGroups = fs.readdirAsync(xml2js.opts.inputdir).then(function(files) {
+        var groupxmlfiles = _.filter(files, function(fn) {
+          return ((path.extname(fn) == '.xml') && (path.basename(fn).search(/^group/) != -1));
+        });
+        return Promise.all(_.map(groupxmlfiles, function(fn) {
+          return fs.readFileAsync(xml2js.opts.inputdir + '/' + fn, 'utf8').then(function(xml) {
+            var spec_c = xmlparser.parse(xml)[0];
+            if (_.isEmpty(getSubmodules(spec_c))) {
+              xml2js.CLASSGROUPS[getName(spec_c)] = {
+                description: getDescription(spec_c),
+                classes: getSubclassNames(spec_c)
+              }
             }
           });
-        } else {
-          console.log((xml2js.opts.custom == __dirname + '/custom.json') ? 'No customizations given.' : 'Error: No such customization file exists: ' + xml2js.opts.custom);
-        }
-      }).then(function() {
-        validateMethods();
-        validateVars();
-        return _.pick(xml2js, 'MODULE', 'ENUMS', 'ENUMS_BY_GROUP', 'METHODS', 'CLASSES');
+        }));
       });
+      return Promise.all(parseClasses.concat(parseGroups));
+    }).then(function() {
+      if (xml2js.opts.custom && fs.existsSync(xml2js.opts.custom)) {
+        return fs.readFileAsync(xml2js.opts.custom, 'utf8').then(function(custom) {
+          try {
+            customizeMethods(JSON.parse(custom));
+          } catch(e) {
+            console.log('invalid custom.json, ignored. ' + e.toString());
+          }
+        });
+      } else {
+        console.log(xml2js.opts.custom ? ('Error: No such customization file exists: ' + xml2js.opts.custom) : 'No customizations given.');
+      }
+    }).then(function() {
+      validateMethods();
+      validateVars();
+      generateCustomPointerClasses();
+      return _.pick(xml2js, 'MODULE', 'ENUMS', 'ENUMS_BY_GROUP', 'METHODS', 'CLASSES', 'CLASSGROUPS');           
     });
   }
-
 };
 
 
@@ -172,7 +216,182 @@ function createXmlParser(XML_GRAMMAR_SPEC) {
 }
 
 
-// override autogenerated methods with custom configuration
+// configure c->js typemaps from custom swig directives 
+// TODO: many built in assumptions based on current upm file structures & .i customizations
+function initCustomPointerTypemaps(typemapsdir) {
+  return fs.readdirAsync(typemapsdir).then(function(dirs) {
+    return Promise.all(_.map(dirs, function(dir) {
+      // get all js*.i directives from class-specific subdirectories, to be parsed below for %typemaps directives
+      return fs.readdirAsync(typemapsdir + '/' + dir).then(function(files) {
+        var directive = _.find(files, function(fn) {
+          return ((path.extname(fn) == '.i') && (path.basename(fn).search(/^js/) != -1));
+        });
+        var data = {};
+        if (directive) {
+          data[dir] = typemapsdir + '/' + dir + '/' + directive;
+        }
+        return data;
+      }).catch(function(e) {
+        // get all .i directives from top level directory, and parse for %array_class directives
+        if (e.code == 'ENOTDIR') {
+          var fn = dir;
+          if (path.extname(fn) == '.i') {
+            return fs.readFileAsync(typemapsdir + '/' + fn, 'utf8').then(function(directives) {
+              var arraytypes = _.filter(directives.split(/\n/), function(line) {
+                return (line.search(/^%array_class/) != -1);
+              });
+              _.each(arraytypes, function(arraytype) {
+                var parsed = arraytype.match(/%array_class\(([A-Za-z0-9_]+)[\s]*,[\s]*([A-Za-z0-9_]+)\)/);
+                if (parsed) {
+                  var from = parsed[1];
+                  var to = parsed[2];
+                  xml2js.ARRAY_TYPEMAPS[from] = { arrayType: to, classes: [] };
+                } else {
+                  console.log('Incorrectly parsed array_class from ' + fn + ': ' + arraytype);
+                }
+              });
+            });
+          }
+        } else {
+          throw e;
+        }
+      });
+    }));
+  }).then(function(__directivesFiles) {
+    // parse for %typemaps & %pointer_functions directives
+    var _directivesFiles = _.filter(__directivesFiles, function(data) { return !_.isEmpty(data); });
+    var directivesFiles = _.object(_.map(_directivesFiles, _.keys), _.flatten(_.map(_directivesFiles, _.values)));
+    return Promise.all(_.map(directivesFiles, function(directivesFn, className) {
+      return fs.readFileAsync(directivesFn, 'utf8').then(function(directives) {
+        var typemaps = _.filter(directives.split(/\n/), function(line) {
+          return (line.search(/^%typemap/) != -1);
+        });
+        _.each(typemaps, function(typemap) {
+          var parsed = typemap.match(/%typemap\((in|out)\)[\s]+([A-Za-z0-9_]+[\s]*[\*])/);
+          if (parsed) {
+            var dir = parsed[1]; // TODO: ignored for now
+            var type = normalizePointer(parsed[2]);
+            var datatype = getPointerDataType(type);
+            if (_.has(xml2js.ARRAY_TYPEMAPS, datatype)) {
+              xml2js.ARRAY_TYPEMAPS[datatype].classes.push(className);
+            } else {
+              console.log('Ignored typemap from ' + directivesFn + ': ' + typemap.replace('{', '') + ' (no %array_class directive found for ' + datatype + ')');
+            }
+          } else {
+            console.log('Ignored typemap from ' + directivesFn + ': ' + typemap.replace('{', '') + ' (only considering in/out typemaps of pointer types)');
+          }
+        });
+        var ptrfns = _.filter(directives.split(/\n/), function(line) {
+          return (line.search(/^%pointer_functions/) != -1);
+        });
+        _.each(ptrfns, function(ptrfn) {
+          var parsed = ptrfn.match(/%pointer_functions\(([A-Za-z0-9_]+)[\s]*,[\s]*([A-Za-z0-9_]+)\)/);
+          if (parsed) {
+            var from = parsed[1];
+            var to = parsed[2];
+            if (!_.has(xml2js.POINTER_TYPEMAPS, className)) {
+              xml2js.POINTER_TYPEMAPS[className] = {};
+            }
+            xml2js.POINTER_TYPEMAPS[className][from] = to;
+          }
+        });
+      });
+    }));
+  });
+}
+
+
+// generate class specs for custom pointer types
+function generateCustomPointerClasses() {
+  var arrayTypes = _.pluck(_.values(xml2js.ARRAY_TYPEMAPS), 'arrayType');
+  var pointerTypes = _.uniq(_.flatten(_.map(_.values(xml2js.POINTER_TYPEMAPS), _.values)));
+  _.each(arrayTypes, function(arrayType) {
+    var dataType = _.findKey(xml2js.ARRAY_TYPEMAPS, function(to) { return to.arrayType == arrayType; });
+    xml2js.CLASSES[arrayType] = {
+      description: 'Array of type ' + dataType + '.',
+      enums: {},
+      enums_by_group: {},
+      variables: {},
+      methods: {}
+    };
+    xml2js.CLASSES[arrayType].methods[arrayType] = {
+      description: 'Instantiates the array.',
+      params: {
+        nelements: {
+          type: 'Number',
+          description: 'number of elements in the array'
+        }
+      },
+      return: {}
+    };
+    xml2js.CLASSES[arrayType].methods.getitem = {
+      description: 'Access a particular element in the array.',
+      params: {
+        index: {
+          type: 'Number',
+          description: 'index of array to read from'
+        },
+      },
+      return: {
+        type: getType(dataType),
+        description: 'the value of the element found at the given index of the array'
+      }
+    };
+    xml2js.CLASSES[arrayType].methods.setitem = {
+      description: 'Modify a particular element in the array.',
+      params: {
+        index: {
+          type: 'Number',
+          description: 'index of array to write to'
+        },
+        value: {
+          type: getType(dataType),
+          description: 'the value to set the element found at the given index of the array'
+        }
+      },
+      return: {}
+    };
+  });
+  var pointerDataTypeMap = _.reduce(_.map(_.values(xml2js.POINTER_TYPEMAPS), _.invert), function(memo, typemap) {
+    return _.extend(memo, typemap);
+  }, {});
+  _.each(pointerTypes, function(pointerType) {
+    var dataType = pointerDataTypeMap[pointerType];
+    xml2js.CLASSES[pointerType] = {
+      description: 'Proxy object to data of type ' + dataType + '.',
+      enums: {},
+      enums_by_group: {},
+      variables: {},
+      methods: {}
+    };
+    xml2js.CLASSES[pointerType].methods[pointerType] = {
+      description: 'Instantiates the proxy object.',
+      params: {},
+      return: {}
+    };
+    xml2js.CLASSES[pointerType].methods.value = {
+      description: 'Get the value of the object.',
+      params: {},
+      return: {
+        type: getType(dataType),
+        description: 'the value of the object'
+      }
+    };
+    xml2js.CLASSES[pointerType].methods.assign = {
+      description: 'Set the value of the object.',
+      params: {
+        value: {
+          type: getType(dataType),
+          description: 'the value to set the object to'
+        }
+      },
+      return: {}
+    };
+  });
+}
+
+
+// override autogenerated methods with custom configuration 
 function customizeMethods(custom) {
   _.each(custom, function(classMethods, className) {
     _.extend(xml2js.CLASSES[className].methods, _.pick(classMethods, function(methodSpec, methodName) {
@@ -181,10 +400,11 @@ function customizeMethods(custom) {
   });
 }
 
-// make sure methods have valid types, otherwise warn (& don't include if strict)
+
+// make sure methods have valid types, otherwise warn (& don't include if strict) 
 function validateMethods() {
   xml2js.METHODS = _.pick(xml2js.METHODS, function(methodSpec, methodName) {
-    hasValidTypes(methodSpec, methodName);
+    return hasValidTypes(methodSpec, methodName);
   });
   _.each(xml2js.CLASSES, function(classSpec, className) {
     var valid = _.pick(classSpec.methods, function(methodSpec, methodName) {
@@ -208,18 +428,18 @@ function validateVars() {
     }
   });
 }
-
+  
 
 // verify that the json spec is well formatted
 function isValidMethodSpec(methodSpec, methodName) {
   var valid = true;
   var printIgnoredMethodOnce = _.once(function() { console.log(methodName + ' from ' + path.basename(xml2js.opts.custom) + ' is omitted from JS documentation.'); });
-  function checkRule(rule, errMsg) {
+  function checkRule(rule, errMsg) { 
     if (!rule) {
       printIgnoredMethodOnce();
       console.log('  ' + errMsg);
       valid = false;
-    }
+    }  
   }
   checkRule(_.has(methodSpec, 'description'), 'no description given');
   checkRule(_.has(methodSpec, 'params'), 'no params given (specify "params": {} for no params)');
@@ -232,17 +452,17 @@ function isValidMethodSpec(methodSpec, methodName) {
   checkRule(_.has(methodSpec.return, 'description'), 'no description given for return value');
   return valid;
 }
-
+  
 
 // get enum specifications
 function getEnums(spec_c, bygroup, parent) {
   var spec_js = {};
-  var enumGroups = _.find(getChildren(spec_c, 'sectiondef'), function(section) {
+  var enumGroups = _.find(getChildren(spec_c, 'sectiondef'), function(section) { 
     var kind = getAttr(section, 'kind');
-    return ((kind == 'enum') || (kind == 'public-type'));
+    return ((kind == 'enum') || (kind == 'public-type')); 
   });
   if (enumGroups) {
-    _.each(enumGroups.children, function(enumGroup) {
+    _.each(enumGroups.children, function(enumGroup) { 
       var enumGroupName = getText(getChild(enumGroup, 'name'), 'name');
       var enumGroupDescription = getText(getChild(enumGroup, 'detaileddescription'), 'description');
       var enumGroupVals = getChildren(enumGroup, 'enumvalue');
@@ -271,22 +491,44 @@ function getEnums(spec_c, bygroup, parent) {
 }
 
 
-// get the classes (xml file names) for the given module
-function getClasses(spec_c) {
+// get the name for the module/group/class
+function getName(spec_c) {
+  return getText(getChild(spec_c, 'compoundname'), 'name').replace(xml2js.opts.module + '::', '');
+}
+
+
+// get the description for the module/group/class
+function getDescription(spec_c) {
+  return getText(getChild(spec_c, 'detaileddescription'), 'description');
+}
+
+
+// get the classes (xml file names) for the given module 
+function getSubclasses(spec_c) {
   return _.map(getChildren(spec_c, 'innerclass'), function(innerclass) {
     return getAttr(innerclass, 'refid');
   });
 }
 
 
-// get the description of the class
-function getClassDescription(spec_c) {
-  return getText(getChild(spec_c, 'detaileddescription'), 'description');
+// get the classes (class names) for the given module 
+function getSubclassNames(spec_c) {
+  return _.map(getChildren(spec_c, 'innerclass'), function(innerclass) {
+    return getText(innerclass).replace(xml2js.opts.module + '::', '');
+  });
+}
+
+
+// get the submodules (xml file names) for the given module
+function getSubmodules(spec_c) {
+  return _.map(getChildren(spec_c, 'innergroup'), function(innergroup) {
+    return getAttr(innergroup, 'refid');
+  });
 }
 
 
 function hasParams(paramsSpec) {
-  return !(_.isEmpty(paramsSpec) ||
+  return !(_.isEmpty(paramsSpec) || 
            ((_.size(paramsSpec) == 1) && getText(getChild(paramsSpec[0], 'type')) == 'void'));
 }
 
@@ -303,19 +545,19 @@ function getMethods(spec_c, parent) {
   if (methods) {
     _.each(methods.children, function(method) {
       var methodName = getText(getChild(method, 'name'), 'name');
-      if (methodName[0] != '~') { // filter out destructors
+      if (methodName[0] != '~') { // filter out destructors 
         try {
           var description = getChild(method, 'detaileddescription');
           var methodDescription = getText(description, 'description');
           var paramsSpec = getChildren(method, 'param');
           var params = {};
           if (hasParams(paramsSpec)) {
-              params = getParams(paramsSpec, getParamsDetails(description), (parent ? (parent + '.') : '') + methodName);
+              params = getParams(paramsSpec, getParamsDetails(description), methodName, parent);
           }
           var returnSpec = getChild(method, 'type');
           var retval = {};
           if (!_.isEmpty(returnSpec)) {
-            retval = getReturn(returnSpec, getReturnDetails(description));
+            retval = getReturn(returnSpec, getReturnDetails(description), methodName, parent);
           }
           spec_js[methodName] = {
             description: methodDescription,
@@ -345,7 +587,7 @@ function getVariables(spec_c, parent) {
       return (getAttr(variable, 'kind') == 'variable');
     }), function(variable) {
       var varName = getText(getChild(variable, 'name'), 'name');
-      var varType = getType(getText(getChild(variable, 'type')));
+      var varType = getType(getText(getChild(variable, 'type')), parent);
       var varDescription = getText(getChild(variable, 'detaileddescription'));
       spec_js[varName] = {
         type: varType,
@@ -358,8 +600,8 @@ function getVariables(spec_c, parent) {
 
 
 // get return value specs of a method
-function getReturn(spec_c, details) {
-  var retType = getType(getText(spec_c, 'type'));
+function getReturn(spec_c, details, method, parent) {
+  var retType = getType(getText(spec_c, 'type'), parent);
   var retDescription = (details ? getText(details, 'description') : '');
   return ((retType == 'void') ? {} : {
     type: retType,
@@ -369,12 +611,12 @@ function getReturn(spec_c, details) {
 
 
 // get paramater specs of a method
-function getParams(spec_c, details, method) {
+function getParams(spec_c, details, method, parent) {
   var spec_js = {};
   _.each(spec_c, function(param) {
     try {
-      var paramType = getType(getText(getChild(param, 'type'), 'type'));
-      var paramName = getText(getChild(param, 'declname'), 'name');
+      var paramType = getType(getText(getChild(param, 'type'), 'type'), parent);
+      var paramName = getText(getChild(param, 'declname'), 'name'); 
       spec_js[paramName] = { type: paramType };
     } catch(e) {
       if (paramType == '...') {
@@ -394,7 +636,7 @@ function getParams(spec_c, details, method) {
       var msg = ' has documentation for an unknown parameter: ' + paramName + '. ';
       var suggestions = _.difference(_.keys(spec_js), _.map(details, getParamName));
       var msgAddendum = (!_.isEmpty(suggestions) ? ('Did you mean ' + suggestions.join(', or ') + '?') : '');
-      console.log('Warning: ' + method + msg + msgAddendum);
+      console.log('Warning: ' + (parent ? (parent + '.') : '') + method + msg + msgAddendum);
     }
   });
   return spec_js;
@@ -402,19 +644,27 @@ function getParams(spec_c, details, method) {
 
 
 // get the equivalent javascript type from the given c type
-function getType(type_c) {
+function getType(type_c, parent) {
   var type_js = type_c;
   _.find(xml2js.TYPEMAPS, function(to, from) {
     var pattern = new RegExp(from, 'i');
     if (type_c.search(pattern) == 0) {
       type_js = to;
+      return true;
     }
   });
-  // TODO: temporary solution
-  // remove extra whitespace from pointers
-  // permanent solution would be to get rid of pointers all together
-  if (type_js.search(/\S+\s*\*$/) != -1) {
-    type_js = type_js.replace(/\s*\*$/, '*');
+  if (isPointer(type_js)) {
+    var dataType = getPointerDataType(type_js);
+    var className = parent.toLowerCase();
+    if (_.has(xml2js.ARRAY_TYPEMAPS, dataType) && _.contains(xml2js.ARRAY_TYPEMAPS[dataType].classes, className)) {
+      type_js = xml2js.ARRAY_TYPEMAPS[dataType].arrayType;
+    } else if (_.has(xml2js.POINTER_TYPEMAPS, className) && _.has(xml2js.POINTER_TYPEMAPS[className], dataType)) {
+      type_js = xml2js.POINTER_TYPEMAPS[className][dataType];
+    } else if (_.has(xml2js.CLASSES, dataType)) { // TODO: verify that swig does this mapping
+      type_js = dataType;
+    } else {
+      type_js = dataType + ' &#42;'
+    }
   }
   return type_js;
 }
@@ -422,20 +672,20 @@ function getType(type_c) {
 
 // verify that all types associated with the method are valid
 function hasValidTypes(methodSpec, methodName, parent) {
-  var valid = true;
+  var valid = true; 
   var msg = (xml2js.opts.strict ? ' is omitted from JS documentation.' : ' has invalid type(s).');
   var printIgnoredMethodOnce = _.once(function() { console.log(methodName + msg); });
   _.each(methodSpec.params, function(paramSpec, paramName) {
     if (!isValidType(paramSpec.type, parent)) {
       valid = false;
       printIgnoredMethodOnce();
-      console.log('  Error: parameter ' + paramName + ' has invalid type ' + paramSpec.type);
+      console.log('  Error: parameter ' + paramName + ' has invalid type ' + typeToString(paramSpec.type));
     }
   });
   if (!_.isEmpty(methodSpec.return) && !isValidType(methodSpec.return.type, parent)) {
     valid = false;
     printIgnoredMethodOnce();
-    console.log('  Error: returns invalid type ' + methodSpec.return.type);
+    console.log('  Error: returns invalid type ' + typeToString(methodSpec.return.type));
   }
   return valid;
 }
@@ -447,26 +697,53 @@ function ofValidType(varSpec, varName, parent) {
     return true;
   } else {
     var msgAddendum = (xml2js.opts.strict ? ' Omitted from JS documentation.' : '');
-    console.log('Error: ' + varName + ' is of invalid type ' + varSpec.type + '.' + msgAddendum);
+    console.log('Error: ' + varName + ' is of invalid type ' + typeToString(varSpec.type) + '.' + msgAddendum);
     return false;
   }
 }
 
 
 // verify whether the given type is valid JS
-// TODO: check class-specific types
 function isValidType(type, parent) {
   return (_.contains(_.values(xml2js.TYPEMAPS), type) ||
           _.has(xml2js.CLASSES, type) ||
           _.has(xml2js.ENUMS_BY_GROUP, type) ||
           _.contains(['Buffer', 'Function', 'mraa_result_t'], type) ||
-          _.has((parent ? xml2js.CLASSES[parent].enums_by_group : []), type));
+          _.has((parent ? xml2js.CLASSES[parent].enums_by_group : []), type) ||
+          isValidPointerType(type, parent));
+}
+
+
+function isValidPointerType(type, parent) {
+  var className = parent.toLowerCase();
+  var arrayTypemap = _.find(xml2js.ARRAY_TYPEMAPS, function(to) { return to.arrayType == type; });
+  var valid = ((arrayTypemap && _.contains(arrayTypemap.classes, className)) ||
+          (_.has(xml2js.POINTER_TYPEMAPS, className) && (_.contains(_.values(xml2js.POINTER_TYPEMAPS[className]), type))));
+  return valid;
 }
 
 
 // determines whether a type looks like a c pointer
 function isPointer(type) {
-  return (type.search(/\w+\s*\*/) != -1);
+  return (type.search(/\w+\s*(\*|&amp;)$/) != -1);
+}
+
+
+// remove extraneous whitespace from pointer types as canonical representation
+function normalizePointer(ptr) {
+  return ptr.replace(/\s*$/, '');
+}
+
+
+// get the data type of a pointer (e.g. int is the data type of int*)
+function getPointerDataType(ptr) {
+  return ptr.replace(/\s*(\*|&amp;)$/, '');
+}
+
+
+// print more human friendly type for error messages
+function typeToString(type) {
+  return type.replace('&#42;', '*');
 }
 
 
@@ -491,7 +768,7 @@ function  getReturnDetails(spec_c) {
 
 // get (and flatten) the text of the given object
 function getText(obj, why) {
-  // TODO: links ignored for now, patched for types for
+  // TODO: links ignored for now, patched for types for 
   var GENERATE_LINK = function(x) { return x + ' '; }
   return _.reduce(obj.children, function(text, elem) {
     if (_.isString(elem)) {
@@ -508,9 +785,9 @@ function getText(obj, why) {
         case 'programlisting':
         case 'htmlonly':
           return text; // ignored
-        // TODO: html doesn't seem to work, using markdown for now
+        // TODO: html doesn't seem to work for yuidoc, using markdown for now
         case 'itemizedlist':
-          return text += '\n' + getText(elem, why) + '\n';
+          return text += '\n' + getText(elem, why) + '  \n  \n';
         case 'listitem':
           return text += '+ ' + getText(elem, why) + '\n';
         case 'bold':
@@ -520,7 +797,7 @@ function getText(obj, why) {
         case 'image':
           // TODO: copy images over; hard coded for now
           var fn = getAttr(elem, 'name');
-          return text += '  \n  \n![' + fn + '](' + '../../../../docs/images/' + fn + ') ';
+          return text += '  \n  \n![' + fn + '](' + xml2js.opts.imagedir + '/' + fn + ') ';
         case 'linebreak':
           return text += '  \n';
         case 'ndash':
@@ -560,16 +837,10 @@ function getChildren(obj, name) {
 }
 
 
-// get the class name from its xml spec
-function getClassName(spec_c) {
-  return getText(getChild(spec_c, 'compoundname'), 'name').replace(xml2js.opts.module + '::', '');
-}
-
-
 // debug helper: print untruncated object
 function printObj(obj) {
   console.log(util.inspect(obj, false, null));
 }
 
-
+   
 module.exports = xml2js;

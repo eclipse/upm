@@ -35,7 +35,7 @@ var xml2js  = require('./xml2js')
 _.extend(opts, { addOptions: function(module) { return module.addOptions(opts); } });
 opts
   .option('-m, --module [module]', 'module name for which to build documentation', 'mraa')
-  .option('-f, --formats [formats]', 'format for js comments', 'jsdoc,yuidoc,ternjs')
+  .option('-f, --formats [formats]', 'format for js comments', 'yuidoc,ternjs')
   .option('-o, --outdir [directory]', 'top directory to build documentation', __dirname + '/jsdoc')
   .addOptions(xml2js)
   .parse(process.argv);
@@ -44,11 +44,13 @@ opts
 // use promise-style programming rather than spaghetti callbacks
 Promise.promisifyAll(fs);
 
+
 // TODO: create directory structure if doesn't exist
 var formats = opts.formats.split(',');
 formats.forEach(function(format){
   mkdirp('jsdoc/' + format + '/' + opts.module);
 });
+
 
 // main
 xml2js.parse().then(function(specjs) {
