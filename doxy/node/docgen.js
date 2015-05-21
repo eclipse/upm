@@ -43,13 +43,14 @@ opts
 
 // use promise-style programming rather than spaghetti callbacks
 Promise.promisifyAll(fs);
- 
+
 
 // TODO: create directory structure if doesn't exist
 var formats = opts.formats.split(',');
 formats.forEach(function(format){
   mkdirp('jsdoc/' + format + '/' + opts.module);
 });
+
 
 // main
 xml2js.parse().then(function(specjs) {
