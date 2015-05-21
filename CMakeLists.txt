@@ -87,7 +87,7 @@ if (BUILDDOC)
     endif()
 
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
-    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst)
+    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
     add_custom_target (pydoc
       ${SPHINX_API_EXECUTABLE} -f -o pydoc ${SITE_PACKAGES}
       # todo: use a separate cmake FILE module for string replacement instead
@@ -106,8 +106,10 @@ if (BUILDDOC)
   if(YUIDOC_FOUND)
     # node required for Yuidoc documentation
 	find_package(Node)
-	file(GLOB JSDOC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/*)
-	file(COPY ${JSDOC_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+	file(GLOB_RECURSE JSDOC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node doxy/node/*)
+	foreach(JSDOC_FILE ${JSDOC_FILES})
+	  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
+	endforeach()
 	add_custom_target(jsdoc
 	  NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} docgen -m upm -i xml
 	  COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --config generators/yuidoc/conf.json -o html/node jsdoc/yuidoc/upm
