@@ -28,10 +28,10 @@ var _ = require('lodash');
 
 // generate YuiDocs-style documentation
 function generateDocs(specjs) {
-  var docs = GENERATE_MODULE(specjs.MODULE);
-  GENERATE_TYPE = (function(enums) {
+  var docs = GENERATE_MODULE(specjs.MODULE, '');
+  GENERATE_TYPE = (function(enums) { 
     return function(type) {
-      return (_.contains(enums, type) ? ('Enum ' + type) : type);
+      return (_.contains(enums, type) ? ('Enum ' + type) : type);  
     }
   })(_.keys(specjs.ENUMS_BY_GROUP));
   docs = _.reduce(specjs.METHODS, function(memo, methodSpec, methodName) {
@@ -40,22 +40,23 @@ function generateDocs(specjs) {
   docs = _.reduce(specjs.ENUMS, function(memo, enumSpec, enumName) {
     return memo += GENERATE_ENUM(enumName, enumSpec);
   }, docs);
-  docs = _.reduce(specjs.CLASSES, function(memo, classSpec, parentClass) {
-    return memo
-      + GENERATE_CLASS(parentClass, classSpec.description)
-      + _.reduce(classSpec.methods, function(memo, methodSpec, methodName) {
-        return memo += GENERATE_METHOD(methodName, methodSpec, parentClass);
-      }, '')
-      + _.reduce(classSpec.variables, function(memo, variableSpec, variableName) {
-        return memo += GENERATE_VAR(variableName, variableSpec, parentClass);
-      }, '')
-      + _.reduce(classSpec.enums, function(memo, enumSpec, enumName) {
-        return memo += GENERATE_ENUM(enumName, enumSpec, parentClass);
-      }, '');
-  }, docs);
+  if (_.isEmpty(specjs.CLASSGROUPS)) {
+      docs += GENERATE_CLASSES(specjs.CLASSES);
+  } else {
+    docs += GENERATE_MODULE('common', '');
+    var grouped = _.flatten(_.pluck(_.values(specjs.CLASSGROUPS), 'classes'));
+    var ungrouped = _.difference(_.keys(specjs.CLASSES), grouped);
+    docs += GENERATE_CLASSES(_.pick(specjs.CLASSES, ungrouped), 'common');
+    _.each(specjs.CLASSGROUPS, function(groupSpec, groupName) {
+      docs += GENERATE_CLASSES(_.pick(specjs.CLASSES, groupSpec.classes), groupName);
+    });
+    // TODO: figure out why yuidoc won't associate the class with the right module if module definitions are interspersed
+    _.each(specjs.CLASSGROUPS, function(groupSpec, groupName) {
+        docs += GENERATE_MODULE(groupName, groupSpec.description);
+    });
+  }
   return docs;
 }
-
 
 
 // comment wrapper around entire spec
@@ -65,15 +66,35 @@ function GENERATE_DOC(text) {
 
 
 // generate module spec
-function GENERATE_MODULE(module) {
-  return GENERATE_DOC('@module ' + module + '\n');
+function GENERATE_MODULE(name, description) {
+  return GENERATE_DOC(description + '\n' 
+    + '@module ' + name + '\n');
+}
+
+
+// generate spec for the given list of classes
+function GENERATE_CLASSES(classes, parent) {
+  return _.reduce(classes, function(memo, classSpec, className) {
+    return memo
+      + GENERATE_CLASS(className, classSpec.description, parent)
+      + _.reduce(classSpec.methods, function(memo, methodSpec, methodName) {
+        return memo += GENERATE_METHOD(methodName, methodSpec, className);
+      }, '') 
+      + _.reduce(classSpec.variables, function(memo, variableSpec, variableName) {
+        return memo += GENERATE_VAR(variableName, variableSpec, className);
+      }, '')
+      + _.reduce(classSpec.enums, function(memo, enumSpec, enumName) {
+        return memo += GENERATE_ENUM(enumName, enumSpec, className);
+      }, '');
+  }, '');
 }
 
 
 // generate class spec
-function GENERATE_CLASS(name, description) {
-  return GENERATE_DOC(description + '\n'
-    + '@class ' + name + '\n');
+function GENERATE_CLASS(name, description, parent) {
+  return GENERATE_DOC(description + '\n' 
+    + '@class ' + name + '\n'
+    + (parent ? ('@module ' + parent + '\n') : ''));
 }
 
 
@@ -83,7 +104,7 @@ function GENERATE_METHOD(name, spec, parent) {
     + '@method ' + name + '\n'
     + (parent ? ('@for ' + parent + '\n') : '@for common\n')
     + _.reduce(spec.params, function(memo, paramSpec, paramName) {
-        return memo + '@param {' + GENERATE_TYPE(paramSpec.type) + '} ' + paramName + ' ' + paramSpec.description + '\n';
+        return memo + '@param {' + GENERATE_TYPE(paramSpec.type) + '} ' + paramName + ' ' + paramSpec.description + '\n'; 
       }, '')
     + ( !_.isEmpty(spec.return) ? ('@return {' + GENERATE_TYPE(spec.return.type) + '} ' + spec.return.description + '\n') : ''));
 }
@@ -105,10 +126,10 @@ function GENERATE_VAR(name, spec, parent) {
     + '@type ' + spec.type + '\n'
     + '@for ' + parent + '\n');
 }
-
+  
 
 // TODO
-// generate link spec
+// generate link spec 
 function GENERATE_LINK(text) {
   return '{{#crossLink "' + text + '"}}{{/crossLink}}';
 }

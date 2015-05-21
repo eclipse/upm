@@ -111,8 +111,8 @@ if (BUILDDOC)
 	  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
 	endforeach()
 	add_custom_target(jsdoc
-	  NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} docgen -m upm -i xml
-	  COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --config generators/yuidoc/conf.json -o html/node jsdoc/yuidoc/upm
+	  NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
+	  COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers generators/yuidoc/helper.js --themedir generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
 	  COMMAND NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} tolower -i html/node
 	  DEPENDS doc
 	  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
