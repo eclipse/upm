@@ -70,6 +70,7 @@ namespace upm {
  * 
  *   This file defines the TH02 C++ interface for libth02
  *
+ * @image html th02.jpg
  * @snippet th02.cxx Interesting
  */
 class TH02 {

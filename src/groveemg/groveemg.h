@@ -46,6 +46,7 @@ namespace upm {
    * GroveEMG Muscle Signal reader gathers small muscle signals,
    * then processes and returns the result
    *
+   * @image html groveemg.jpg 
    * @snippet groveemg.cxx Interesting
    */
   class GroveEMG {

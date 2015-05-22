@@ -52,6 +52,7 @@ namespace upm {
  * (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the
  * analog PMOD kit.
  *
+ * @image html max31855.jpg
  * @snippet max31855.cxx Interesting
  */
 class MAX31855 {

@@ -59,7 +59,8 @@ typedef struct
    * UPM module for the GroveSpeaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
-   *
+   * 
+   * @image html grovespeaker.jpg 
    * @snippet grovespeaker.cxx Interesting
    */
   class GroveSpeaker {

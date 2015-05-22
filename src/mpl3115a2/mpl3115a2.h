@@ -76,6 +76,7 @@ namespace upm {
  * is a high precision, ultra-low power consumption pressure sensor. It has a
  * range of between 50 and 110 kPa.
  *
+ * @image html mpl3115a2.jpg
  * @snippet mpl3115a2.cxx Interesting
  */
 class MPL3115A2 {

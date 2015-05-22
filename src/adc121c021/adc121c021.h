@@ -84,6 +84,7 @@ namespace upm {
    * By providing a constant reference voltage, this sensor helps
    * to increase the accuracy of a value collected from an analog sensor.
    *
+   * @image html adc121c021.jpg
    * @snippet adc121c021.cxx Interesting
    */
   class ADC121C021 {

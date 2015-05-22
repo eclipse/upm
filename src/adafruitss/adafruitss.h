@@ -77,6 +77,7 @@ namespace upm {
   * capacitor be installed on the board which should alleviate the issue.
   * Sizing depends on servos and count.
   *
+  * @image html adafruitss.jpg 
   * @snippet adafruitss.cxx Interesting
   */
   class adafruitss {

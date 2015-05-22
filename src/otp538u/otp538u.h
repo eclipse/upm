@@ -63,6 +63,7 @@ namespace upm {
    * These tables assume the object to be measured is 9cm (3.54
    * inches) from the sensor.
    *
+   * @image html otp538u.jpg
    * @snippet otp538u.cxx Interesting
    */
   class OTP538U {

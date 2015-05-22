@@ -48,6 +48,7 @@ namespace upm {
    * In other words, it measures sweat on your fingers
    * as an indicator of strong emotional reactions.
    *
+   * @image html grovegsr.jpg
    * @snippet grovegsr.cxx Interesting
    */
   class GroveGSR {

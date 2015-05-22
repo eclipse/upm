@@ -49,6 +49,7 @@ namespace upm {
  * button could be treated as normal GPIO, this enables easier
  * interrupt support
  *
+ * @image html joystick12.h
  * @snippet joystick12-example.cxx Interesting
  */
 class Joystick12 {

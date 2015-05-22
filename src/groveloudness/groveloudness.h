@@ -47,6 +47,7 @@ namespace upm {
    * detects how loud the surrounding environment is.
    * The higher the output analog value, the louder the sound.
    *
+   * @image html groveloudness.jpg
    * @snippet groveloudness.cxx Interesting
    */
   class GroveLoudness {

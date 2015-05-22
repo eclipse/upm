@@ -47,6 +47,7 @@ namespace upm {
    * digital signal indicating whether it is detecting black on a
    * white background, or white on a black background.
    *
+   * @image html grovelinefinder.jpg
    * @snippet grovelinefinder.cxx Interesting
    */
   class GroveLineFinder {

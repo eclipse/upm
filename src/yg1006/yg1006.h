@@ -50,6 +50,7 @@ namespace upm {
      *   UPM module for the YG1006 flame sensor.  It detects flame or any
      *   other light in the 760nm - 1100nm wavelength range.
      *
+     * @image html yg1006.jpg
      * @snippet yg1006.cxx Interesting
      */
   class YG1006 {

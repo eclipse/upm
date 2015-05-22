@@ -72,7 +72,8 @@ namespace upm {
      * http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf
      *
      * It is connected via a UART at 9600 baud.
-     * 
+     *
+     * @image html hm11.jpg 
      * @snippet hm11.cxx Interesting
      */
 

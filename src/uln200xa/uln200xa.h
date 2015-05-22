@@ -54,6 +54,8 @@ namespace upm {
    * use in driving a unipolar stepper motor, the 28BYJ-48.
    *
    * Example driving a stepper motor
+   *
+   * @image html uln200xa.jpg
    * @snippet uln200xa.cxx Interesting
    */
 

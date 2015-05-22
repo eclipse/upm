@@ -46,6 +46,7 @@ namespace upm {
    *
    * UPM module for the BISS0001 Motion Sensor
    *
+   * @image html biss0001.jpg
    * @snippet biss0001.cxx Interesting
    */
   class BISS0001 {
