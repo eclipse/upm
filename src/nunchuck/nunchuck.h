@@ -59,6 +59,7 @@ namespace upm {
    * should be on the same side as the grove interface socket on the
    * adapter.
    *
+   * @image html nunchuck.jpg
    * @snippet nunchuck.cxx Interesting
    */
   class NUNCHUCK {

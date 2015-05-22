@@ -48,6 +48,7 @@ namespace upm {
    * UPM module for the GroveEHR sensor.  It is used to measure your
    * heartbeat. 
    *
+   * @image html groveehr.jpg 
    * @snippet groveehr.cxx Interesting
    */
   class GroveEHR {

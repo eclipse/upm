@@ -63,6 +63,8 @@ namespace upm {
    * An example using a DC motor conected to M3
    * @snippet adafruitms1438.cxx Interesting
    * An example using a stepper motor connected to M1 & M2
+   *
+   * @image html adafruitms1438.jpg 
    * @snippet adafruitms1438-stepper.cxx Interesting
    */
   class AdafruitMS1438 {

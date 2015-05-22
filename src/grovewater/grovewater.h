@@ -45,6 +45,7 @@ namespace upm {
    *
    * UPM module for the Grove Water Sensor
    *
+   * @image html grovewater.jpg
    * @snippet grovewater.cxx Interesting
    */
   class GroveWater {

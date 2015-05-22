@@ -48,6 +48,7 @@ namespace upm {
  *
  * This file defines the LDT0028 C++ interface for libupm-ldt0028
  *
+ * @image html ldt0028.jpg
  * @snippet ldt0028.cxx Interesting
  */
 class LDT0028 {

@@ -50,6 +50,7 @@ namespace upm {
    * Note that this sensor is not designed to be left in soil
    * nor to be used outdoors.
    *
+   * @image html grovemoisture.jpg
    * @snippet grovemoisture.cxx Interesting
    */
   class GroveMoisture {

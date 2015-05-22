@@ -59,6 +59,7 @@ namespace upm {
  * sound using a piezoelectric material that vibrates at different
  * frequencies based on the input voltage.
  *
+ * @image html buzzer.jpg
  * @snippet buzzer-sound.cxx Interesting
  */
 class Buzzer {

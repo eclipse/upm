@@ -47,6 +47,7 @@ namespace upm {
    * 
    * The Grove Electromagnet can hold up to 1 KG (approximately 2.2 lbs)
    *
+   * @image html groveelectromagnet.jpg
    * @snippet groveelectromagnet.cxx Interesting
    */
   class GroveElectromagnet {

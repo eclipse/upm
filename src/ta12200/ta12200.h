@@ -60,6 +60,7 @@ namespace upm {
  *   This module can measure AC current moving through a wire at up 
  *   to 5A.
  *
+ * @image html ta12200.jpg
  * @snippet ta12200.cxx Interesting
  */
   class TA12200 {

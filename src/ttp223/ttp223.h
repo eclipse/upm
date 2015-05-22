@@ -54,6 +54,7 @@ namespace upm {
  *   button.  The touch sensor can still function when placed under a 
  *   non-metallic surface like glass or plastic.
  *
+ * @image html ttp223.jpg
  * @snippet ttp223.cxx Interesting
  */
 class TTP223 {

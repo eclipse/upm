@@ -45,7 +45,8 @@ namespace upm {
    * @con gpio
    * 
    * @brief UPM module for the Grove Luminance Sensor
-   * 
+   *
+   * @image html waterlevel.jpg 
    * @snippet apds9002.cxx Interesting
    */  class WaterLevel {
   public:

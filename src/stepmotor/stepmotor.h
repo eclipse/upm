@@ -61,6 +61,7 @@ namespace upm {
  * 
  *   This file defines the stepmotor C++ interface
  *
+ * @image html stepmotor.jpg
  * @snippet stepmotor.cxx Interesting
  */
 class StepMotor {

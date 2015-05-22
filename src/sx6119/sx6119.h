@@ -48,6 +48,7 @@ namespace upm {
      * two digital pins, one that toggles power on/off, and one that
      * does a seek to the next station.
      *
+     * @image html sx6119.jpg
      * @snippet sx6119.cxx Interesting
      */
   class SX6119 {

@@ -48,6 +48,7 @@ namespace upm {
    * bent. Patented technology by Spectra Symbol, these sensors were used in
    * the original Nintendo Power Glove.
    *
+   * @image html flex.jpg
    * @snippet flex.cxx Interesting
    */
   class Flex {

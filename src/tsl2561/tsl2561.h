@@ -118,7 +118,7 @@ namespace upm {
  *   The TSL2560 and TSL2561 are light-to-digital converters that transform
  *   light intensity to a digital signal output capable of direct I2C (TSL2561)
  *
- * @image html grovetsl2561.jpeg
+ * @image html tsl2561.jpg
  * @snippet tsl2561.cxx Interesting
  */
 class TSL2561{

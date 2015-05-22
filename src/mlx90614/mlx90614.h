@@ -69,6 +69,7 @@ namespace upm {
  *
  * This file defines the MLX90614 C++ interface for libmlx90614
  *
+ * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting
  */
 class MLX90614 {
