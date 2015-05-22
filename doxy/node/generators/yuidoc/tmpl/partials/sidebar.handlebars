@@ -1,0 +1,27 @@
+<div id="api-list">
+    <h2 class="off-left">APIs</h2> 
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-categories">By Category</a></li>
+            <li><a href="#api-connections">By Connection Type</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs" hidden>
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-categories" class="apis modules">
+              {{{listByCategory}}}
+            </ul>
+
+            <ul id="api-connections" class="apis modules">
+              {{{listByConnection}}}
+            </ul>
+      
+        </div>
+    </div>
+    
+    {{{javascripts}}}
+  
+</div>
