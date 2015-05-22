@@ -65,6 +65,7 @@ namespace upm {
    * This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz.
    * However, this capability is not implemented in this module.
    *
+   * @image html ds1307.jpg
    * @snippet ds1307.cxx Interesting
    */
   class DS1307 {

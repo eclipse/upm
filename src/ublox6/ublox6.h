@@ -64,6 +64,7 @@ namespace upm {
      * 
      *   UPM support for the U-BLOX 6 GPS Module
      *
+     * @image html ublox6.jpg
      * @snippet ublox6.cxx Interesting
      */
   class Ublox6 {

@@ -48,7 +48,8 @@ namespace upm {
    * 
    * This sensor was tested amplifying the signal
    * from a Weight Sensor (Load Cell)0-500g
-   *
+   * 
+   * @image html ina132.jpg 
    * @snippet ina132.cxx Interesting
    */
   class INA132 {

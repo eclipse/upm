@@ -50,6 +50,7 @@ namespace upm {
    * how fast the sensor is rotating around the x-axis.
    * Calibration of the sensor is necessary for accurate readings.
    *
+   * @image html enc03r.jpg 
    * @snippet enc03r.cxx Interesting
    */
   class ENC03R {

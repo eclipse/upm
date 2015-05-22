@@ -60,7 +60,7 @@ namespace upm {
    * (yellow) to Vcc (red) should not be there.  The sensor may work
    * with this connection, but probably not for very long.
    *
-   *
+   * @image html grovewfs.jpg
    * @snippet grovewfs.cxx Interesting
    */
   class GroveWFS {

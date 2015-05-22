@@ -68,6 +68,7 @@ namespace upm {
      * It's CO2 detection ranges from 0PPM to 2000PPM.  It requires a
      * 2-3 minute warm up time before reporting valid data.
      * 
+     * @image html mhz16.jpg
      * @snippet mhz16.cxx Interesting
      */
   class MHZ16 {

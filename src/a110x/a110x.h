@@ -51,6 +51,8 @@ namespace upm {
    * perpendicular to the sensor element.
    *
    * An example showing a simple test for the presence of a field
+   *
+   * @image html a110x.jpg
    * @snippet a110x.cxx Interesting
    * An example demonstrating the use of an interrupt handler to count pulses
    * @snippet a110x-intr.cxx Interesting

@@ -76,6 +76,7 @@ namespace upm {
  * presented on it's UART interface.  It can be placed into a
  * configuration mode by grounding the CONFIG pin on the module.
  *
+ * @image html hmtrp.jpg
  * @snippet hmtrp.cxx Interesting
  */
   class HMTRP {

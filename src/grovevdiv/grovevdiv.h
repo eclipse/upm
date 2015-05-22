@@ -53,6 +53,7 @@ namespace upm {
    *
    * UPM module for the Grove Voltage Divider Sensor
    *
+   * @image html grovevdiv.jpg
    * @snippet grovevdiv.cxx Interesting
    */
   class GroveVDiv {

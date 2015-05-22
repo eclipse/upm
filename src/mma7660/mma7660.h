@@ -56,6 +56,7 @@ namespace upm {
    * This module was tested with the Grove 3-Axis Digital
    * Accelerometer (1.5g)
    *
+   * @image html mma7660.jpg
    * @snippet mma7660.cxx Interesting
    */
   class MMA7660 {

@@ -514,6 +514,7 @@ const unsigned char font[] = {
  * 
  *   This file defines the C++ interface for ST7735 display library
  *
+ * @image html st7735.jpg
  * @snippet st7735.cxx Interesting
  */
 class ST7735 : public GFX {

@@ -125,6 +125,7 @@ typedef struct {
  * 
  *   This file defines the TCS3414CS C++ interface for the color sensor
  *
+ * @image html tcs3414cs.jpg
  * @snippet tcs3414cs.cxx Interesting
  */
 class TCS3414CS {

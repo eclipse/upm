@@ -67,6 +67,7 @@ namespace upm {
    * in the future to support additional capabilities, including
    * interrupt support.
    *
+   * @image html si114x.jpg
    * @snippet si114x.cxx Interesting
    */
   class SI114X {

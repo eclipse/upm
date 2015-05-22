@@ -166,6 +166,7 @@ union accelData {
  *
  * This file defines the MMA7455 C++ interface for libmma7455
  *
+ * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting
  */
 class MMA7455 {

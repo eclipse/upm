@@ -48,6 +48,7 @@ namespace upm {
      * are two digital pins, one that enables recording, and the other
      * that plays back what was previously recorded.
      *
+     * @image html isd1820.jpg
      * @snippet isd1820.cxx Interesting
      */
   class ISD1820 {

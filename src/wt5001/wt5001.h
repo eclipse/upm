@@ -71,6 +71,7 @@ namespace upm {
      *   UPM support for the WT5001 Serial MP3 Module.  This was tested
      *   specifically with the Grove Serial MP3 module.
      *
+     * @image html wt5001.jpg
      * @snippet wt5001.cxx Interesting
      */
   class WT5001 {

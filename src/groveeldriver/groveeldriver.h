@@ -48,6 +48,7 @@ namespace upm {
    * The Grove EL Driver allows you to easily light up an
    * EL Wire with just one single Grove cable.
    *
+   * @image html groveeldriver.jpg 
    * @snippet groveeldriver.cxx Interesting
    */
   class GroveElDriver {
