@@ -46,7 +46,7 @@ namespace upm {
  * and getting the minimum and maximum pulse width as well as the
  * maximum period.
  *
- * @image html es0a.jpeg
+ * @image html es08a.jpg
  * @snippet es08a.cxx Interesting
  */
  class ES08A : public Servo {

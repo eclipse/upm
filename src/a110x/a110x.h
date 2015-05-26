@@ -50,9 +50,8 @@ namespace upm {
    * whether it is detecting a magnetic field with south polarity
    * perpendicular to the sensor element.
    *
-   * An example showing a simple test for the presence of a field
-   *
    * @image html a110x.jpg
+   * An example showing a simple test for the presence of a field
    * @snippet a110x.cxx Interesting
    * An example demonstrating the use of an interrupt handler to count pulses
    * @snippet a110x-intr.cxx Interesting

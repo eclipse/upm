@@ -53,9 +53,8 @@ namespace upm {
    * should support the uln2001a, 2002a, 2003a, and 2004a devices, for
    * use in driving a unipolar stepper motor, the 28BYJ-48.
    *
-   * Example driving a stepper motor
-   *
    * @image html uln200xa.jpg
+   * Example driving a stepper motor
    * @snippet uln200xa.cxx Interesting
    */
 

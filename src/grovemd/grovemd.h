@@ -62,6 +62,7 @@ namespace upm {
    * This module was tested with version 1.3 of the Grove I2C Motor
    * Driver
    *
+   * @image html grovemd.jpg
    * @snippet grovemd.cxx Interesting
    */
   class GroveMD {

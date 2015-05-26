@@ -49,7 +49,7 @@ namespace upm {
    * are far away; the voltage increases as objects get closer
    * to the sensor.  
    *
-   * @image html gp2y0a.h
+   * @image html gp2y0a.jpg
    * @snippet gp2y0a.cxx Interesting
    */
   class GP2Y0A {

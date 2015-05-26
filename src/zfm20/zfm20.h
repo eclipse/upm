@@ -80,12 +80,10 @@ namespace upm {
      *
      * It is connected via a UART at 57600 baud.
      *
+	 * @image html zfm20.jpg
      * This example demonstrates how to register and store a new fingerprint
      * @snippet zfm20-register.cxx Interesting
      * This example demonstrates reading a fingerprint and locating it in the DB
-     *
-     * @image html zfm20.jpg
-     *
      * @snippet zfm20.cxx Interesting
      */
   class ZFM20 {
