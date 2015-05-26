@@ -1,5 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtlulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Credits to Seeed Studeo.
@@ -26,26 +27,20 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
-#define ADDR                0x40 // device address
+#define TH02_ADDR                0x40 // device address
 
-#define REG_STATUS          0x00
-#define REG_DATA_H          0x01
-#define REG_DATA_L          0x02
-#define REG_CONFIG          0x03
-#define REG_ID              0x11
+#define TH02_REG_STATUS          0x00
+#define TH02_REG_DATA_H          0x01
+#define TH02_REG_DATA_L          0x02
+#define TH02_REG_CONFIG          0x03
+#define TH02_REG_ID              0x11
 
-#define STATUS_RDY_MASK     0x01
+#define TH02_STATUS_RDY_MASK     0x01
 
-#define CMD_MEASURE_HUMI    0x01
-#define CMD_MEASURE_TEMP    0x11
-
-#define TH02_WR_REG_MODE    0xC0
-#define TH02_RD_REG_MODE    0x80
-
-#define HIGH                1
-#define LOW                 0
+#define TH02_CMD_MEASURE_HUMI    0x01
+#define TH02_CMD_MEASURE_TEMP    0x11
 
 namespace upm {
 
@@ -68,7 +63,10 @@ namespace upm {
  *
  * @brief C++ API for th02 temperature & humidity sensor library
  * 
- *   This file defines the TH02 C++ interface for libth02
+ *   This file defines the TH02 C++ interface for libth02 
+ *
+ *   NOTE: For use on the Edison with the arduino breakout board, the
+ *   Edison must be set to 3v rather than 5v.
  *
  * @image html th02.jpg
  * @snippet th02.cxx Interesting
@@ -78,7 +76,7 @@ class TH02 {
         /**
          * Instanciates a TH02 object
          */
-        TH02 ();
+        TH02 (int bus=0, uint8_t addr=TH02_ADDR);
 
         /**
          * TH02 object destructor, basicaly it close i2c connection.
@@ -107,13 +105,11 @@ class TH02 {
         {
             return m_name;
         }
+
     private:
         std::string m_name;
-        mraa_i2c_context m_i2Ctx;
-
-        uint16_t i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t data);
+        mraa::I2c m_i2c;
+        uint8_t m_addr;
 };
 
 }
