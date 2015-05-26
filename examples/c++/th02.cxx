@@ -50,7 +50,7 @@ main(int argc, char **argv)
 
     while (!doWork) {
         temperature = sensor->getTemperature ();
-        // humidity = sensor->getHumidity ();
+        humidity = sensor->getHumidity ();
         std::cout << "Temperature = " << temperature << ", Humidity = " << humidity << std::endl;
         usleep (500000);
     }
