@@ -79,7 +79,7 @@ if (BUILDDOC)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
     list (GET PYTHON_VERSION_LIST 0 PYTHON_VERSION_MAJOR)
     list (GET PYTHON_VERSION_LIST 1 PYTHON_VERSION_MINOR)
-    set (SITE_PACKAGES ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages)
+    set (SITE_PACKAGES ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages)
 
     # throw a warning if site-packages doesn't exist, might need a more robust way on adding make install dependency and paths
     if (NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${SITE_PACKAGES})
@@ -89,18 +89,19 @@ if (BUILDDOC)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
     add_custom_target (pydoc
-      ${SPHINX_API_EXECUTABLE} -f -o pydoc ${SITE_PACKAGES}
+      COMMAND rm -r ${CMAKE_BINARY_DIR}/python-staging && mkdir -p ${CMAKE_BINARY_DIR}/python-staging
+      COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/python-staging \;
+      COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/python-staging \;
+      COMMAND ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/python-staging
       # todo: use a separate cmake FILE module for string replacement instead
-      COMMAND sed -i.bak s|site-packages|sensor-drivers|g pydoc/modules.rst
       COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
       COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
       COMMAND sed -i.bak s|[[:space:]]module</a>|</a>|g html/python/index.html html/python/modules.html
-      # cleanup .pyc files
-      COMMAND find ${SITE_PACKAGES} -name *.pyc -exec rm {} \;
+      DEPENDS doc
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Sphinx" VERBATIM
     )
-  endif()
+  endif ()
   # check if Yuidoc is installed and add target for API documentation
   find_package(Yuidoc)
   if(YUIDOC_FOUND)
