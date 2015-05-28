@@ -21,8 +21,10 @@ find_package_handle_standard_args (Sphinx DEFAULT_MSG
 if (SPHINX_EXECUTABLE)
     execute_process(COMMAND ${SPHINX_EXECUTABLE} --version
                     OUTPUT_VARIABLE SPHINX_VERSION)
-    string(REGEX MATCH "([0-9]\\.[0-9]\\.[0-9])" SPHINX_VERSION_STR ${SPHINX_VERSION})
-    message ("INFO - Sphinx version is " ${SPHINX_VERSION_STR})
+    if(SPHINX_VERSION)
+      string(REGEX MATCH "([0-9]\\.[0-9]\\.[0-9])" SPHINX_VERSION_STR ${SPHINX_VERSION})
+      message ("INFO - Sphinx version is " ${SPHINX_VERSION_STR})
+    endif()
 endif ()
 
 mark_as_advanced (SPHINX_EXECUTABLE)
