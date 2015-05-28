@@ -29,14 +29,14 @@ namespace upm {
   /**
    * @brief UPM library for the Grove Collision Sensor
    * @defgroup grovecollision libupm-grovecollision
-   * @ingroup seeed gpio acceleration
+   * @ingroup seeed gpio accelerometer
    */
 
   /**
    * @library grovecollision
    * @sensor grovecollision
    * @comname Grove Collision Sensor
-   * @type acceleration
+   * @type accelerometer
    * @man seeed
    * @con gpio
    *
