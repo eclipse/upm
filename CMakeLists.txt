@@ -73,7 +73,7 @@ if (BUILDDOC)
   endif (DOXYGEN_FOUND)
   # check if Sphinx is installed and add target to generate API documentation
   find_package (Sphinx)
-  if(SPHINX_FOUND)
+  if(SPHINX_FOUND AND BUILDSWIGPYTHON)
     # python required for Sphinx build
     find_package (PythonLibs)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
@@ -82,7 +82,7 @@ if (BUILDDOC)
     set (SITE_PACKAGES ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
-    add_custom_target (pydoc
+    add_custom_target (pydoc ALL
       COMMAND rm -r -f ${CMAKE_BINARY_DIR}/pyupm && mkdir -p ${CMAKE_BINARY_DIR}/pyupm
       COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
       COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
@@ -98,14 +98,14 @@ if (BUILDDOC)
   endif ()
   # check if Yuidoc is installed and add target for API documentation
   find_package(Yuidoc)
-  if(YUIDOC_FOUND)
+  if(YUIDOC_FOUND AND BUILDSWIGNODE)
     # node required for Yuidoc documentation
     find_package(Node)
     file(GLOB_RECURSE JSDOC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node doxy/node/*)
     foreach(JSDOC_FILE ${JSDOC_FILES})
       configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
     endforeach()
-    add_custom_target(jsdoc
+    add_custom_target(jsdoc ALL
       NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../../../docs/images/
       COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers generators/yuidoc/helper.js --themedir generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
       COMMAND NODE_PATH=${NODE_PATH} ${NODE_EXECUTABLE} tolower -i html/node
