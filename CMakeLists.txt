@@ -59,6 +59,7 @@ option (BUILDDOC "Build all doc." OFF)
 option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
 option (BUILDSWIGNODE "Build swig node modules." ON)
+option (BUILDEXAMPLES "Build C++ example binaries" OFF)
 
 if (BUILDDOC)
   # add a target to generate API documentation with Doxygen
@@ -144,4 +145,7 @@ if (IPK)
 endif()
 
 add_subdirectory (src)
-add_subdirectory (examples/c++)
+
+if(BUILDEXAMPLES)
+  add_subdirectory (examples/c++)
+endif()
