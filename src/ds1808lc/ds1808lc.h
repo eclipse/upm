@@ -28,25 +28,25 @@
 namespace upm
 {
 /**
- * @brief TUBELIGHT LED lighting controller library
- * @defgroup TUBELIGHT libupm-tubelight
+ * @brief DS1808LC lighting controller library
+ * @defgroup DS1808LC libupm-ds1808lc
  */
 
 /**
- * @brief C++ API for LP8860 chip (Ambient Light Sensor)
+ * @brief C++ API for DS1808 Dual Log Digital Potentiometer as a Light Controller
  *
- * The Texas Instrumements
- * [LP8860-Q1](http://www.ti.com/product/lp8860-q1)
- * Automotive Catalog Low-EMI, High-Performance 4-Channel LED Driver
+ * The Dallas Semiconductor
+ * [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html)
+ * Dual Log Digital Potentiometer
  *
- * @ingroup lp8860 i2c
- * @snippet lp8860.cxx Interesting
+ * @ingroup ds1808lc i2c
+ * @snippet ds1808lc.cxx Interesting
  */
-class TUBELIGHT : public upm::ILightController
+class DS1808LC : public upm::ILightController
 {
 public:
-   TUBELIGHT(int gpioPower, int i2cBus);
-   ~TUBELIGHT();
+   DS1808LC(int gpioPower, int i2cBus);
+   ~DS1808LC();
 
 protected:
    bool isOK();

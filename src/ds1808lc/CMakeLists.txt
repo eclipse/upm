@@ -1,6 +1,6 @@
 include_directories(..)
-set (libname "tubelight")
-set (libdescription “Tube lighting controller”)
+set (libname "ds1808lc")
+set (libdescription “DS1808 lighting controller”)
 set (module_src ${libname}.cxx mraa-utils.cxx)
 set (module_h ${libname}.h)
 upm_module_init()
