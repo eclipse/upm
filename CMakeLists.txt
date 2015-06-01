@@ -73,7 +73,7 @@ if (BUILDDOC)
   endif (DOXYGEN_FOUND)
   # check if Sphinx is installed and add target to generate API documentation
   find_package (Sphinx)
-  if(SPHINX_FOUND AND BUILDSWIGPYTHON)
+  if(SPHINX_FOUND AND BUILDSWIG AND BUILDSWIGPYTHON)
     # python required for Sphinx build
     find_package (PythonLibs)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
