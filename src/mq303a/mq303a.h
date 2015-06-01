@@ -42,7 +42,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
    * @con analog gpio
    *
-   * @brief C++ API for the MQ303A Alcohol Sensor
+   * @brief API for the MQ303A Alcohol Sensor
    *
    * UPM module for the MQ303A Alcohol Sensor.
    * This sensor needs to be warmed up before stable results are

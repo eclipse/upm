@@ -76,7 +76,7 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass
  * @con i2c
  *
- * @brief C++ API for LSM303
+ * @brief API for LSM303
  *
  * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
  * This module was tested with the SeedStudio Grove [6-Axis Accelerometer&Compass]

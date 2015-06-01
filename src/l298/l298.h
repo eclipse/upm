@@ -47,7 +47,7 @@ namespace upm {
    * @man seeed sparkfun
    * @con gpio pwm
    *
-   * @brief C++ API for the L298 Dual H-Bridge module
+   * @brief API for the L298 Dual H-Bridge module
    *
    * It was developed using the RobotBase Dual H-Bridge module.
    *

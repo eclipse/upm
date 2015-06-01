@@ -45,7 +45,7 @@ namespace upm {
    * @man generic
    * @con i2c gpio
    *
-   * @brief C++ API for the MMA7660 I2C 3-axis digital accelerometer
+   * @brief API for the MMA7660 I2C 3-axis digital accelerometer
    *
    * UPM module for the MMA7660 I2C 3-axis digital accelerometer.
    * This device supports a variety of capabilities, including the

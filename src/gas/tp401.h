@@ -37,7 +37,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for Grove TP401 Air Quality Sensor
+   * @brief API for Grove TP401 Air Quality Sensor
    *
    * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
    * It can detect CO and a wide range of other harmful gases, but due to limited sensing

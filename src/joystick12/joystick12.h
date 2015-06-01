@@ -43,7 +43,7 @@ namespace upm {
  * @man generic
  * @con analog
  *
- * @brief C++ API for Elecfreaks Joystick v 1.2-1.4 breakout
+ * @brief API for Elecfreaks Joystick v 1.2-1.4 breakout
  *
  * This file defines the Joystick API and implemntation for X, Y
  * button could be treated as normal GPIO, this enables easier

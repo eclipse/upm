@@ -57,7 +57,7 @@ namespace upm {
    * @man seeed
    * @con i2c
    *
-   * @brief C++ API for the DS1307 Real Time CLock
+   * @brief API for the DS1307 Real Time CLock
    *
    * UPM module for the DS1307 based RTC.  The clock can provide information
    * about the seconds, minutes, hours, day of the week, day of the month,

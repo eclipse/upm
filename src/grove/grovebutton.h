@@ -33,7 +33,7 @@
  * @con gpio
  * @kit gsk
  *
- * @brief C++ API for Grove button
+ * @brief API for Grove button
  *
  * Very basic UPM module for Grove button
  *

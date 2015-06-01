@@ -52,7 +52,7 @@ namespace upm {
    * @web https://www.adafruit.com/products/1777
    * @con i2c
    *
-   * @brief C++ API for the SI1145 UV light sensor
+   * @brief API for the SI1145 UV light sensor
    *
    * This module was tested with the Adafruit UV Sensor
    *

@@ -50,7 +50,7 @@ namespace upm {
  * @con pwm
  * @kit gsk
  *
- * @brief C++ API for Microphone
+ * @brief API for Microphone
  *
  * This file defines the Microphone Analog sensor
  *

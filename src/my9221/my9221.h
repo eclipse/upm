@@ -51,9 +51,9 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
  * @con gpio
  *
- * @brief C++ API for MY9221 led bar module
+ * @brief API for MY9221 led bar module
  *
- * This file defines the MY9221 C++ interface for libmy9221
+ * This file defines the MY9221 interface for libmy9221
  *
  * @image html my9221.jpg
  * @snippet my9221-ledbar.cxx Interesting

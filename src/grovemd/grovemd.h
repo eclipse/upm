@@ -47,7 +47,7 @@ namespace upm {
    * @man seeed
    * @con i2c
    *
-   * @brief C++ API for the Grove I2C Motor Driver 
+   * @brief API for the Grove I2C Motor Driver 
    *
    * This class implements support for the Grove I2C Motor Driver.
    * This device can support a single 4-wire stepper motor, OR two

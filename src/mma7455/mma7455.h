@@ -162,9 +162,9 @@ union accelData {
  * @man generic
  * @con i2c
  *
- * @brief C++ API for MMA7455 chip (accelerometer)
+ * @brief API for MMA7455 chip (accelerometer)
  *
- * This file defines the MMA7455 C++ interface for libmma7455
+ * This file defines the MMA7455 interface for libmma7455
  *
  * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting

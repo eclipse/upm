@@ -43,7 +43,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Electromagnet
+   * @brief API for the Grove Electromagnet
    * 
    * The Grove Electromagnet can hold up to 1 KG (approximately 2.2 lbs)
    *

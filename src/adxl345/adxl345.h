@@ -43,7 +43,7 @@ namespace upm {
  * @man seeed
  * @con i2c
  *
- * @brief C++ API for Adxl345 (3-axis digital accelerometer)
+ * @brief API for Adxl345 (3-axis digital accelerometer)
  *
  * The Adxl345 is a 3-axis digital accelerometer.
  * (http://www.seeedstudio.com/wiki/images/2/2c/ADXL345_datasheet.pdf)

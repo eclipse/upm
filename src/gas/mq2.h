@@ -36,7 +36,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for MQ2 gas sensor
+   * @brief API for MQ2 gas sensor
    *
    * The Grove - Gas Sensor (MQ2) module is useful for gas leakage detecting
    * (in home and industry). It can detect LPG, i-butane, methane, alcohol,

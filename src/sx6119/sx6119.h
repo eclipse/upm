@@ -42,7 +42,7 @@ namespace upm {
      * @man seeed
      * @con gpio
      *
-     * @brief C++ API support for the SX6119 based Grove FM Receiver
+     * @brief API support for the SX6119 based Grove FM Receiver
      *
      * This class implements support for the FM Receiver.  There are
      * two digital pins, one that toggles power on/off, and one that

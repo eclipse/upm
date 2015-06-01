@@ -54,9 +54,9 @@ namespace upm {
  * @web https://www.sparkfun.com/products/10126
  * @con gpio
  *
- * @brief C++ API for SM130 RFID reader module
+ * @brief API for SM130 RFID reader module
  * 
- *   This file defines the C++ interface for sm130 RFID library
+ *   This file defines the interface for sm130 RFID library
  *
  * @snippet sm130.cxx Interesting
  */

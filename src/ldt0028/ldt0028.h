@@ -43,10 +43,10 @@ namespace upm {
  * @man seeed
  * @con analog
  *
- * @brief C++ API for LDT0-028 PZT film-based sensors,
+ * @brief API for LDT0-028 PZT film-based sensors,
  * such as the Grove Piezo Vibration sensor
  *
- * This file defines the LDT0028 C++ interface for libupm-ldt0028
+ * This file defines the LDT0028 interface for libupm-ldt0028
  *
  * @image html ldt0028.jpg
  * @snippet ldt0028.cxx Interesting

@@ -44,7 +44,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/depot/DTMFDual-Tone-Multi-Frequency-Shield-p-1839.html
    * @con gpio
    *
-   * @brief C++ API for the HT9170 DTMF Decoder
+   * @brief API for the HT9170 DTMF Decoder
    *
    * This driver was developed using the Seeed DTMF (Dual Tone
    * Multi-Frequency) Shield.  It can decode DTMF signals presented at

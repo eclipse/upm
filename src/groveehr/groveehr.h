@@ -43,7 +43,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Ear-clip Heart Rate sensor
+   * @brief API for the Grove Ear-clip Heart Rate sensor
    *
    * UPM module for the GroveEHR sensor.  It is used to measure your
    * heartbeat. 

@@ -45,7 +45,7 @@ namespace upm {
      * @web http://www.seeedstudio.com/wiki/Grove_-_Flame_Sensor
      * @con gpio
      *
-     * @brief C++ API for the YG1006 flame sensor
+     * @brief API for the YG1006 flame sensor
      * 
      *   UPM module for the YG1006 flame sensor.  It detects flame or any
      *   other light in the 760nm - 1100nm wavelength range.

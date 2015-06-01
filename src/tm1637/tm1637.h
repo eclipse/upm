@@ -57,7 +57,7 @@ namespace upm
  * @man seeed
  * @con gpio
  *
- * @brief C++ API for TM1637 (7-segment display)
+ * @brief API for TM1637 (7-segment display)
  *
  * The TM1637 is a display controller for LED based 7-segment displays.
  * It can be used to address and write data to multiple display digits. This

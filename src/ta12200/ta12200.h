@@ -34,7 +34,7 @@
 
 namespace upm {
 /**
- * @brief C++ API for the TA12-200 current transformer
+ * @brief API for the TA12-200 current transformer
  *
  *   UPM module for the TA12-200 current transformer, which is found,
  *   for instance, in the Grove Electricity Sensor. 
@@ -53,7 +53,7 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_Electricity_Sensor
  * @con analog
  *
- * @brief C++ API for the TA12-200 current transformer
+ * @brief API for the TA12-200 current transformer
  * 
  *   UPM module for the TA12-200 current transformer, which is found,
  *   for instance, in the Grove Electricity Sensor. 

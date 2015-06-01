@@ -46,7 +46,7 @@ namespace upm {
  * @man maxim
  * @con spi
  *
- * @brief C++ API for MAX5487 chip (SPI digital potentionmeter)
+ * @brief API for MAX5487 chip (SPI digital potentionmeter)
  *
  * The Maxim Integrated
  * [MAX5487](http://datasheets.maximintegrated.com/en/ds/MAX5487-MAX5489.pdf)

@@ -76,7 +76,7 @@ namespace upm {
  * @man seeed adafruit sparkfun
  * @con i2c
  *
- * @brief C++ API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
+ * @brief API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
  *
  * The Bosch GY65/BMP085 and BMP180 are high precision, ultra-low
  * power consumption pressure sensors. They have a range of between

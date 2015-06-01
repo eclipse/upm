@@ -41,9 +41,9 @@
 
 namespace upm {
 /**
- * @brief C++ API for the Stepper motor library
+ * @brief API for the Stepper motor library
  *
- *   This file defines the stepmotor C++ interface
+ *   This file defines the stepmotor interface
  *
  * @defgroup stepper libupm-stepper
  * @ingroup seeed pwm gpio motor
@@ -57,9 +57,9 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Motor_Driver_V1.3
  * @con pwm gpio
  *
- * @brief C++ API for the Stepper motor library
+ * @brief API for the Stepper motor library
  * 
- *   This file defines the stepmotor C++ interface
+ *   This file defines the stepmotor interface
  *
  * @image html stepmotor.jpg
  * @snippet stepmotor.cxx Interesting

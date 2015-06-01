@@ -65,7 +65,7 @@ namespace upm {
  * @man maxim
  * @con i2c
  *
- * @brief C++ API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
+ * @brief API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
  *
  * The Maxim Integrated
  * [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf)

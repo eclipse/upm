@@ -40,7 +40,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Collision Sensor
+   * @brief API for the Grove Collision Sensor
    * 
    * The Grove Collision Sensor can detect whether any
    * collision movement or vibration happens.

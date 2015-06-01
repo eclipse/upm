@@ -32,7 +32,7 @@
 namespace upm {
 
   /**
-   * @brief C++ API for the MPR121 I2C touch sensor
+   * @brief API for the MPR121 I2C touch sensor
    *
    * UPM module for the MPR121 touch sensor
    *
@@ -54,7 +54,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Touch_Sensor
    * @con i2c
    *
-   * @brief C++ API for the MPR121 I2C touch sensor
+   * @brief API for the MPR121 I2C touch sensor
    *
    * UPM module for the MPR121 touch sensor
    *

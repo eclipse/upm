@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the Grove Loudness Sensor
+   * @brief API for the Grove Loudness Sensor
    *
    * UPM module for the Grove Loudness Sensor.  This sensor
    * detects how loud the surrounding environment is.

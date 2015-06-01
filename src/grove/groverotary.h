@@ -31,7 +31,7 @@
  * @man seeed
  * @con analog
  *
- * @brief C++ API for Grove Rotary Angle Sensor (Knob)
+ * @brief API for Grove Rotary Angle Sensor (Knob)
  *
  * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
  * a set of functions to read the absolute pin value, degrees or radians and another

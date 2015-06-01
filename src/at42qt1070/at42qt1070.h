@@ -48,7 +48,7 @@ namespace upm {
    * @man seeed
    * @con i2c
    *
-   * @brief C++ API for the Atmel AT42QT1070 QTouch sensor
+   * @brief API for the Atmel AT42QT1070 QTouch sensor
    *
    * This class implements support for the Atmel AT42QT1070 QTouch
    * sensor, which supports 7 capacitive buttons.

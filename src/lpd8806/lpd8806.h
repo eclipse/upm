@@ -47,7 +47,7 @@ namespace upm {
  * @man adafruit
  * @con spi
  *
- * @brief C++ API for LPD8806 
+ * @brief API for LPD8806 
  *
  * The FastPixel lpd8806 is an RGB led strip controller.
  *

@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the Grove Moisture Sensor
+   * @brief API for the Grove Moisture Sensor
    *
    * UPM module for the Grove Moisture Sensor.
    * This sensor can be used to detect the moisture content

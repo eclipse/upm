@@ -39,7 +39,7 @@ namespace upm
  * @con i2c
  * @kit gsk
  *
- * @brief C++ API for Jhd1313m1 i2c controller for HD44780 based displays with
+ * @brief API for Jhd1313m1 i2c controller for HD44780 based displays with
  * an RGB backlight such as the Grove RGB i2c LCD display
  *
  * The Jhd1313m1 has two i2c addreses, one belongs to a controller very similar

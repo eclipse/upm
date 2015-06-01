@@ -69,7 +69,7 @@ namespace upm {
  * @web http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MPL3115A2
  * @con i2c
  *
- * @brief C++ API for MPL3115A2 chip (Atmospheric Pressure Sensor)
+ * @brief API for MPL3115A2 chip (Atmospheric Pressure Sensor)
  *
  * Freescale [MPL3115A2]
  * (http://cache.freescale.com/files/sensors/doc/data_sheet/MPL3115A2.pdf)

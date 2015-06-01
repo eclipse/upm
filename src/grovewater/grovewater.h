@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Water Sensor
+   * @brief API for the Grove Water Sensor
    *
    * UPM module for the Grove Water Sensor
    *

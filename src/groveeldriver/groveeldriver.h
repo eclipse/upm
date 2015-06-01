@@ -43,7 +43,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove El Driver Module
+   * @brief API for the Grove El Driver Module
    * 
    * The Grove EL Driver allows you to easily light up an
    * EL Wire with just one single Grove cable.

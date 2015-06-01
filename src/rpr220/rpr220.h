@@ -42,7 +42,7 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor
  * @con gpio
  *
- * @brief C++ API for the RPR220 based Grove IR Reflective Sensor
+ * @brief API for the RPR220 based Grove IR Reflective Sensor
  * 
  * UPM module for the Grove IR Reflective Sensor.  The sensitivity
  * can be adjusted with the potentiometer on the sensor module.  It

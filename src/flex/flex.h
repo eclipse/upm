@@ -42,7 +42,7 @@ namespace upm {
    * @man sparkfun
    * @con analog
    *
-   * @brief C++ API for the Spectra Symbol Flex sensor
+   * @brief API for the Spectra Symbol Flex sensor
    *
    * A simple flex sensor, the resistance across the sensor increases when
    * bent. Patented technology by Spectra Symbol, these sensors were used in

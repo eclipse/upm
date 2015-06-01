@@ -32,7 +32,7 @@
  * @con gpio
  * @kit gsk
  *
- * @brief C++ API for Grove LED
+ * @brief API for Grove LED
  *
  * UPM module for Grove LED (or other similar light-emitting diode).
  * An LED is a small lightbulb that will emit light (turn on) in 

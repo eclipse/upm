@@ -41,7 +41,7 @@ namespace upm {
    * @man generic
    * @con analog
    *
-   * @brief C++ API for the OTP538U IR Temperature Sensor
+   * @brief API for the OTP538U IR Temperature Sensor
    *
    * UPM module for the OTP538U IR Temperature Sensor
    *

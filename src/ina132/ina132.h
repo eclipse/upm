@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the INA132 Differential Amplifier Sensor
+   * @brief API for the INA132 Differential Amplifier Sensor
    * 
    * The INA132 Differential Amplifier Sensor is designed
    * for precise differential-input amplification.

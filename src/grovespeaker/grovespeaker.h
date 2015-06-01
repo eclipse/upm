@@ -54,7 +54,7 @@ typedef struct
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the GroveSpeaker speaker
+   * @brief API for the GroveSpeaker speaker
    *
    * UPM module for the GroveSpeaker.
    * This sensor can generate different tones and sounds depending on the

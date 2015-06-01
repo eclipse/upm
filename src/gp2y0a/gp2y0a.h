@@ -42,7 +42,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GP2Y0A family of IR Proximity Sensors
+   * @brief API for the GP2Y0A family of IR Proximity Sensors
    *
    * This sensor family returns an analog voltage corresponding to the distance 
    * of an object from the sensor.  The voltage is lower when objects

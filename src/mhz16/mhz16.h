@@ -61,7 +61,7 @@ namespace upm {
      * @man seeed
      * @con uart
      *
-     * @brief C++ API support for the Grove CO2 sensor
+     * @brief API support for the Grove CO2 sensor
      *
      * This class implements support for the Grove CO2 sensor.
      *

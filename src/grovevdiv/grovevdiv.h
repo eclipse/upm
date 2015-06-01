@@ -49,7 +49,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the Grove Voltage Divider Sensor
+   * @brief API for the Grove Voltage Divider Sensor
    *
    * UPM module for the Grove Voltage Divider Sensor
    *

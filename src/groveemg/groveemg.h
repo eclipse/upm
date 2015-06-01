@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GroveEMG Muscle Signal Reader Sensor
+   * @brief API for the GroveEMG Muscle Signal Reader Sensor
    * 
    * GroveEMG Muscle Signal reader gathers small muscle signals,
    * then processes and returns the result

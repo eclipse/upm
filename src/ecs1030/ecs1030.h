@@ -55,7 +55,7 @@ namespace upm {
    * @man sparkfun
    * @con analog
    *
-   * @brief C++ API for the ECS1030 Non-Invasive Current/Electricity Sensor
+   * @brief API for the ECS1030 Non-Invasive Current/Electricity Sensor
    *
    * This non-invasive current sensor can be clamped around the supply line of
    * an electrical load to tell you how much current is passing through it. It

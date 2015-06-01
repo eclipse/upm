@@ -38,7 +38,7 @@
  *
  * @brief nrf8001 Bluetooth Low Energy library
  *
- * These files define the NRF8001 C++ interface for lib-nrf8001. Interaction
+ * These files define the NRF8001 interface for lib-nrf8001. Interaction
  * with this device is done through the ACI routines included with the library.
  * You can use the nRF UART app in the Apple iOS app store and Google Play for
  * Android 4.3 for Samsung Galaxy S4 to interact with a microcontroller running

@@ -42,7 +42,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_IR_Distance_Interrupt
    * @con gpio
    *
-   * @brief C++ API for the RFR359F based Grove Distance Interrupter. 
+   * @brief API for the RFR359F based Grove Distance Interrupter. 
    *
    * UPM module for the Grove Distance Interrupter.  The sensitivity
    * can be adjusted with the potentiometer on the sensor module.  It

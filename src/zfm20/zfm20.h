@@ -73,7 +73,7 @@ namespace upm {
      * @man seeed
      * @con uart
      *
-     * @brief C++ API for the ZFM-20 fingerprint sensor module
+     * @brief API for the ZFM-20 fingerprint sensor module
      *
      * This class was tested on the Grove Fingerprint Sensor
      * Module. It can store up to 163 fingerprints.

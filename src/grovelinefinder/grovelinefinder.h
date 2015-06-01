@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Line Finder sensor
+   * @brief API for the Grove Line Finder sensor
    *
    * UPM module for the Grove Line Finder sensor.  It outputs a
    * digital signal indicating whether it is detecting black on a

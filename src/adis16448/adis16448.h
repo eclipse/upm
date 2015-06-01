@@ -98,7 +98,7 @@ namespace upm {
   * @web http://www.analog.com/en/products/sensors/isensor-mems-inertial-measurement-units/adis16448.html
   * @con spi
   *
-  * @brief C++ API for Analog Devices ADIS16448
+  * @brief API for Analog Devices ADIS16448
   *
   *	This is an industrial grade accelerometer by Analog Devices.
   *

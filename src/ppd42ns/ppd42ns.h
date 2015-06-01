@@ -50,7 +50,7 @@ typedef struct
    * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
    * @con gpio
    *
-   * @brief C++ API for the Dust Sensor
+   * @brief API for the Dust Sensor
    *
    * UPM module for the Dust Sensor
    *

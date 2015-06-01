@@ -42,7 +42,7 @@ namespace upm {
  * @man maxim
  * @con spi
  *
- * @brief C++ API for MAX31855
+ * @brief API for MAX31855
  *
  * The Maxim Integrated
  * [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf)

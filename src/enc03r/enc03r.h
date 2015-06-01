@@ -43,7 +43,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the ENC03R Single Axis Analog Gyro
+   * @brief API for the ENC03R Single Axis Analog Gyro
    *
    * UPM module for the ENC03R Single Axis Analog Gyro.
    * This gyroscope measures the x-axis angular velocity; that is,

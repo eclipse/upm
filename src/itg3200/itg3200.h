@@ -43,7 +43,7 @@ namespace upm {
  * @man seeed
  * @con i2c
  *
- * @brief C++ API for Itg3200 (3-axis digital gyroscope)
+ * @brief API for Itg3200 (3-axis digital gyroscope)
  *
  * The InvenSense Itg3200 is a 3-axis digital gyroscope.
  * (https://www.sparkfun.com/datasheets/Sensors/Gyro/PS-ITG-3200-00-01.4.pdf)

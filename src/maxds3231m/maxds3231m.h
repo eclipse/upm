@@ -75,9 +75,9 @@ struct Time3231 {
  * @man maxim
  * @con i2c
  *
- * @brief C++ API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
+ * @brief API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
  *
- * This file defines the maxds3231m C++ interface for maxds3231m
+ * This file defines the maxds3231m interface for maxds3231m
  *
  * @snippet maxds3231m.cxx Interesting
  */

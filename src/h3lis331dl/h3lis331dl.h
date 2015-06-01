@@ -46,7 +46,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/depot/Grove-3Axis-Digital-Accelerometer400g-p-1897.html
    * @con i2c
    *
-   * @brief C++ API for the H3LIS331DL based Grove 3-axis I2C Accelerometer 
+   * @brief API for the H3LIS331DL based Grove 3-axis I2C Accelerometer 
    * (400G)
    *
    * @image html h3lis331dl.jpg

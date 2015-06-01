@@ -62,7 +62,7 @@ namespace upm {
      * @connection uart
      * @web http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf
      *
-     * @brief C++ API HM-11 4.0 Bluetooth Low Energy Module
+     * @brief API HM-11 4.0 Bluetooth Low Energy Module
      *
      * The driver was tested with the Grove BLE module.  Its an HM-11
      * BLE 4.0 module based on a TI CC2541 chip.  It operates using a

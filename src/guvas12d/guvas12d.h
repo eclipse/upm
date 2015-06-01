@@ -42,7 +42,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GUVAS12D UV sensor module
+   * @brief API for the GUVAS12D UV sensor module
    *
    * UPM module for the GUVAS12D UV Sensor
    *

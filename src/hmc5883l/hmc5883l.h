@@ -44,7 +44,7 @@ namespace upm {
  * @man seeed
  * @con i2c
  *
- * @brief C++ API for Hmc5883l (3-axis digital compass)
+ * @brief API for Hmc5883l (3-axis digital compass)
  *
  * The Honeywell [HMC5883L]
  * (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)

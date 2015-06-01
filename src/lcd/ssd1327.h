@@ -43,7 +43,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL = 0xA4;
  * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22
  * @con i2c
  *
- * @brief C++ API for SSD1327 i2c controlled OLED displays
+ * @brief API for SSD1327 i2c controlled OLED displays
  *
  * The SSD1327 is a 96x96 Dot matrix OLED/PLED segment driver with controller.
  * This implementation was tested using the Grove LED 96×96 Display module

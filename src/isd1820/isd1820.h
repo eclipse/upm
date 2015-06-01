@@ -42,7 +42,7 @@ namespace upm {
      * @man seeed
      * @con gpio
      *
-     * @brief C++ API support for the ISD1820 based Grove Recorder
+     * @brief API support for the ISD1820 based Grove Recorder
      *
      * This class implements support for the Grove Recorder.  There
      * are two digital pins, one that enables recording, and the other

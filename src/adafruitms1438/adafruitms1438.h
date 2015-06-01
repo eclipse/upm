@@ -52,7 +52,7 @@ namespace upm {
    * @web http://www.adafruit.com/products/1438
    * @con i2c
    *
-   * @brief C++ API for the ADAFRUITMS1438 motor shield
+   * @brief API for the ADAFRUITMS1438 motor shield
    *
    * This class implements support for the stepper and DC motors that
    * can be connected to this Motor Shield.

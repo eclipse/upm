@@ -45,7 +45,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor
    * @con gpio
 
-   * @brief C++ API for the Grove Water Flow Sensor
+   * @brief API for the Grove Water Flow Sensor
    *
    * This sensor is used to measure water flow, in LPM (Liters Per
    * Minute).  It incorporates a Hall Effect Sensor.  The UPM module

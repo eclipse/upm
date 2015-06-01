@@ -49,7 +49,7 @@ const uint8_t WT5001_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief C++ API for the WT5001 Serial MP3 module
+     * @brief API for the WT5001 Serial MP3 module
      *
      *   UPM support for the WT5001 Serial MP3 Module.  This was tested
      *   specifically with the Grove Serial MP3 module.
@@ -66,7 +66,7 @@ namespace upm {
      * @web http://www.seeedstudio.com/wiki/Grove_%E2%80%93_Serial_MP3_Player
      * @con uart
      *
-     * @brief C++ API for the WT5001 Serial MP3 module
+     * @brief API for the WT5001 Serial MP3 module
      * 
      *   UPM support for the WT5001 Serial MP3 Module.  This was tested
      *   specifically with the Grove Serial MP3 module.

@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GroveGSR Galvanic Skin Response Sensor
+   * @brief API for the GroveGSR Galvanic Skin Response Sensor
    * 
    * Measure the electrical conductance of skin in order
    * to measure strong emotional reaction.

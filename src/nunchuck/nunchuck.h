@@ -44,7 +44,7 @@ namespace upm {
    * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
    * @con i2c
    *
-   * @brief C++ API for the Wii Nunchuck
+   * @brief API for the Wii Nunchuck
    *
    * UPM module for the Wii Nunchuck.  This module was tested with the
    * Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter.

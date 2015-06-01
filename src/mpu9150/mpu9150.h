@@ -122,9 +122,9 @@ struct AxisData {
  * @web http://www.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v1.0
  * @con i2c
  *
- * @brief C++ API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
+ * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
  *
- * This file defines the MPU9150 C++ interface for libmpu9150
+ * This file defines the MPU9150 interface for libmpu9150
  *
  * @image html mpu9150.jpg
  * @snippet mpu9150.cxx Interesting

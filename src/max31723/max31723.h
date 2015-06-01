@@ -46,7 +46,7 @@ namespace upm {
  * @man maxim
  * @con spi
  *
- * @brief C++ API for MAX31723 chip (Temperature sensor)
+ * @brief API for MAX31723 chip (Temperature sensor)
  *
  * The Maxim Integrated
  * [MAX31723](http://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf)

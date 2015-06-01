@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GroveO2 Oxygen Gas Sensor
+   * @brief API for the GroveO2 Oxygen Gas Sensor
    *
    * The Grove O2 sensor measures the oxygen concentration in the air
    *

@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief C++ API for the Water Level Sensor
+   * @brief API for the Water Level Sensor
    *
    * The Water Level Sensor senses the water level.
    * When the level rises, a ball with a magnet floats up and causes a switch to open.

@@ -65,9 +65,9 @@ namespace upm {
  * @man generic
  * @con i2c
  *
- * @brief C++ API for MLX90614
+ * @brief API for MLX90614
  *
- * This file defines the MLX90614 C++ interface for libmlx90614
+ * This file defines the MLX90614 interface for libmlx90614
  *
  * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting

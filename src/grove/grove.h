@@ -48,7 +48,7 @@ class Grove {
 };
 
 /**
- * @brief C++ API for Grove LED
+ * @brief API for Grove LED
  *
  * UPM module for Grove LED (or other similar light-emitting diode).
  * An LED is a small lightbulb that will emit light (turn on) in 
@@ -102,7 +102,7 @@ class GroveLed: public Grove {
 };
 
 /**
- * @brief C++ API for Grove Relay
+ * @brief API for Grove Relay
  *
  * UPM module for Grove relay switch.  The Grove relay is a
  * digital normally-open switch that uses low voltage or current to 
@@ -155,7 +155,7 @@ class GroveRelay: public Grove {
 };
 
 /**
- * @brief C++ API for Grove temperature sensor
+ * @brief API for Grove temperature sensor
  *
  * Very basic UPM module for Grove temperature sensor on analog
  *
@@ -191,7 +191,7 @@ class GroveTemp: public Grove {
 };
 
 /**
- * @brief C++ API for Grove light sensor
+ * @brief API for Grove light sensor
  *
  * The Grove light sensor detects the intensity of the ambient light.
  * As the light intensity of the environment increases, the resistance
@@ -231,7 +231,7 @@ class GroveLight: public Grove {
 };
 
 /**
- * @brief C++ API for Grove Rotary Angle Sensor (Knob)
+ * @brief API for Grove Rotary Angle Sensor (Knob)
  *
  * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
  * a set of functions to read the absolute pin value, degrees or radians and another
@@ -295,7 +295,7 @@ class GroveRotary: public Grove {
 };
 
 /**
- * @brief C++ API for Grove Slide Potentiometer
+ * @brief API for Grove Slide Potentiometer
  *
  * Very basic UPM module for Grove slide potentiometer on analog,
  * returns either raw value or scaled voltage value.
@@ -342,7 +342,7 @@ class GroveSlide: public Grove {
 };
 
 /**
- * @brief C++ API for Grove button
+ * @brief API for Grove button
  *
  * Very basic UPM module for Grove button
  *

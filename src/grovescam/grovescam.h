@@ -62,7 +62,7 @@ namespace upm {
      * @connection uart
      * @web http://www.seeedstudio.com/wiki/Grove_-_Serial_Camera_Kit
      *
-     * @brief C++ API for the Grove Serial Camera
+     * @brief API for the Grove Serial Camera
      *
      * The driver was tested with the Grove Serial Camera.  There is
      * no protocol documentation currently available, so this module

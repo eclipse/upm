@@ -46,7 +46,7 @@ namespace upm {
    * @man sparkfun
    * @con analog
    *
-   * @brief C++ API for the LV-MaxSonar-EZ family of ultrasonic rangers
+   * @brief API for the LV-MaxSonar-EZ family of ultrasonic rangers
    *
    * This sensor family returns an analog voltage corresponding to the
    * distance of an object from the sensor in inches.  It has a

@@ -52,7 +52,7 @@ namespace upm {
    * @web http://www.adafruit.com/products/815
    * @con i2c
    *
-   * @brief C++ API for the PCA9685 16 channel, 12 bit pwm LED controller
+   * @brief API for the PCA9685 16 channel, 12 bit pwm LED controller
    *
    * This controller is also used on the Adafruit Motor Shield v2.3
    * board to control up to 4 DC motors, 2 step motors and 2 servo

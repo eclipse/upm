@@ -164,9 +164,9 @@ typedef enum {
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html
  * @con spi
  *
- * @brief C++ API for NRF24l01 transceiver module
+ * @brief API for NRF24l01 transceiver module
  *
- * This file defines the NRF24l01 C++ interface for libnrf24l01
+ * This file defines the NRF24l01 interface for libnrf24l01
  *
  * @image html nrf24l01.jpg
  * @snippet nrf24l01-receiver.cxx Interesting
