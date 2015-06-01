@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief Itg3200 gyroscope library
+ * @brief ITG3200 gyroscope library
  * @defgroup itg3200 libupm-itg3200
  * @ingroup seeed i2c compass
  */
@@ -38,12 +38,13 @@ namespace upm {
 /**
  * @library itg3200
  * @sensor itg3200
- * @comname Itg3200 3-Axis Digital Gyroscope
+ * @comname ITG3200 3-Axis Digital Gyroscope
+ * @altname Grove 3-Axis Digital Gyroscope
  * @type compass
  * @man seeed
  * @con i2c
  *
- * @brief API for Itg3200 (3-axis digital gyroscope)
+ * @brief API for Itg3200 (3-Axis Digital Gyroscope)
  *
  * The InvenSense Itg3200 is a 3-axis digital gyroscope.
  * (https://www.sparkfun.com/datasheets/Sensors/Gyro/PS-ITG-3200-00-01.4.pdf)

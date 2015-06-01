@@ -34,7 +34,7 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the Grove I2C Motor Driver
+   * @brief Grove I2C motor driver library
    * @defgroup grovemd libupm-grovemd
    * @ingroup seeed i2c motor
    */

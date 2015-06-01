@@ -45,17 +45,15 @@
 namespace upm {
 
 /**
- * @brief API for th02 temperature & humidity sensor library
- *
- *   This file defines the TH02 interface for libth02
- *
+ * @brief TH02 temperature & humidity sensor library
  * @defgroup th02 libupm-th02
  * @ingroup seeed i2c temp
  */
 /**
  * @library th02
  * @sensor th02
- * @comname temperature and humidity sensor
+ * @comname TH02 Temperature & Humidity Sensor
+ * @altname Grove Temperature & Humidity Sensor (High Accuracy & Mini)
  * @type temp
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Tempture%26Humidity_Sensor_(High-Accuracy_%26Mini)_v1.0
@@ -65,7 +63,7 @@ namespace upm {
  * 
  *   This file defines the TH02 interface for libth02 
  *
- *   NOTE: For use on the Edison with the arduino breakout board, the
+ *   NOTE: For use on the Edison with the Arduino breakout board, the
  *   Edison must be set to 3v rather than 5v.
  *
  * @image html th02.jpg

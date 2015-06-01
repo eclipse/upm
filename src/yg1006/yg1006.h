@@ -28,25 +28,22 @@
 
 namespace upm {
     /**
-     * @brief Library for the YG1006 flame sensor
-     *
-     *   UPM module for the YG1006 flame sensor.  It detects flame or any
-     *   other light in the 760nm - 1100nm wavelength range.
-     *
+     * @brief YG1006 flame sensor library
      * @defgroup yg1006 libupm-yg1006
      * @ingroup seeed gpio light
      */
     /**
      * @library yg1006
      * @sensor yg1006
-     * @comname flame sensor
+     * @comname YG1006 Flame Sensor
+     * @altname Grove Flame Sensor
      * @type light
      * @man seeed
      * @web http://www.seeedstudio.com/wiki/Grove_-_Flame_Sensor
      * @con gpio
      *
      * @brief API for the YG1006 flame sensor
-     * 
+     *
      *   UPM module for the YG1006 flame sensor.  It detects flame or any
      *   other light in the 760nm - 1100nm wavelength range.
      *

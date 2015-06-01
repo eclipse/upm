@@ -105,17 +105,15 @@ typedef struct {
 } tcs3414sc_rgb_t;
 
 /**
- * @brief API for TCS3414CS chip (Color sensor)
- *
- *   his file defines the TCS3414CS interface for the color sensor
- *
+ * @brief TCS3414CS color sensor library
  * @defgroup tcs3414cs libupm-tcs3414cs
  * @ingroup seeed i2c color
  */
 /**
  * @library tcs3414cs
  * @sensor tcs3414cs
- * @comname Color sensor
+ * @comname TCS3414CS Color Sensor
+ * @altname Grove Color Sensor
  * @type color
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Color_Sensor

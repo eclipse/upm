@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Line Finder
+   * @brief Grove Line Finder sensor library
    * @defgroup grovelinefinder libupm-grovelinefinder
    * @ingroup seeed gpio color
    */

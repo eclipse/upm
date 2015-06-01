@@ -39,7 +39,8 @@ namespace upm {
 /**
  * @library hmc5883l
  * @sensor hmc5883l
- * @comname Hmc5883l 3-Axis Digital Compass
+ * @comname HMC5883L 3-Axis Digital Compass
+ * @altname Grove 3-Axis Digital Compass
  * @type compass
  * @man seeed
  * @con i2c

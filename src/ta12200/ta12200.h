@@ -34,20 +34,15 @@
 
 namespace upm {
 /**
- * @brief API for the TA12-200 current transformer
- *
- *   UPM module for the TA12-200 current transformer, which is found,
- *   for instance, in the Grove Electricity Sensor. 
- *   This module can measure AC current moving through a wire at up 
- *   to 5A.
- *
+ * @brief TA12-200 current transformer library
  * @defgroup ta12200 libupm-ta12200
  * @ingroup seeed analog electric
  */
 /**
  * @library ta12200
  * @sensor ta12200
- * @comname Current transformer
+ * @comname TA12-200 Current transformer
+ * @altname Grove Electricity Sensor
  * @type electric
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Electricity_Sensor

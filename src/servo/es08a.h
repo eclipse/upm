@@ -31,7 +31,8 @@ namespace upm {
 /**
  * @library servo
  * @sensor es08a
- * @comname es0a servo
+ * @comname ES08A Servo
+ * @altname Grove Servo
  * @type servos
  * @man emax
  * @web http://www.seeedstudio.com/wiki/Grove_-_Servo

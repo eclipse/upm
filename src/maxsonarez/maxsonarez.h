@@ -32,7 +32,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the MaxSonar-EZ family of ultrasonic rangers
+   * @brief MaxSonar-EZ family of ultrasonic rangers library
    * @defgroup maxsonarez libupm-maxsonarez
    * @ingroup seeed analog sound
    */
@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library maxsonarez
    * @sensor maxsonarez
-   * @comname LV-MaxSonar-EZ family of ultrasonic rangers
+   * @comname LV-MaxSonar-EZ Ultrasonic Ranger
    * @altname EZ1, EZ2, EZ3, EZ4
    * @type sound
    * @man sparkfun

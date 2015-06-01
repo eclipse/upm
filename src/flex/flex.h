@@ -29,7 +29,7 @@
 namespace upm {
 
   /**
-   * @brief UPM module for the Spectra Symbol Flex sensor
+   * @brief Spectra Symbol Flex sensor library
    * @defgroup flex libupm-flex
    * @ingroup sparkfun analog flexfor
    */
@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library flex
    * @sensor flex
-   * @comname Spectra Symbol Flex sensor
+   * @comname Flex Sensor
    * @type flexfor
    * @man sparkfun
    * @con analog

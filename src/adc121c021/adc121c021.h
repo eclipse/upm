@@ -49,7 +49,7 @@
 
 namespace upm {
   /**
-   * @brief ADC121C021 I2C Analog Digital Converter library
+   * @brief ADC121C021 I2C analog digital converter library
    * @defgroup adc121c021 libupm-adc121c021
    * @ingroup seeed i2c electric
    */
@@ -73,6 +73,7 @@ namespace upm {
    * @library adc121c021
    * @sensor adc121c021
    * @comname ADC121C021 Analog Digital Converter
+   * @altname Grove I2C ADC
    * @type electric
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-I2C-ADC-p-1580.html

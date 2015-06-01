@@ -37,7 +37,7 @@ namespace upm {
      /**
       * @library hx711
       * @sensor hx711
-      * @comname HX711 24bit Analog-to-Digital Converter
+      * @comname HX711 Analog-to-Digital Converter
       * @type electric
       * @man generic
       * @web http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf

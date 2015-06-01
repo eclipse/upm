@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Collision Sensor
+   * @brief Grove Collision sensor library
    * @defgroup grovecollision libupm-grovecollision
    * @ingroup seeed gpio accelerometer
    */

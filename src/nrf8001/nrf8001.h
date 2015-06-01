@@ -23,14 +23,14 @@
  */
 
 /**
- * @brief nrf8001 Bluetooth Low Energy library
+ * @brief NRF8001 bluetooth low energy library
  * @defgroup nrf8001 libupm-nrf8001
  * @ingroup adafruit wifi analog gpio spi
  */
 /**
  * @library nrf8001
  * @sensor nrf8001
- * @comname Bluetooth Low Energy
+ * @comname NRF8001 Bluetooth Low Energy
  * @type wifi
  * @man adafruit
  * @web https://learn.adafruit.com/getting-started-with-the-nrf8001-bluefruit-le-breakout/introduction

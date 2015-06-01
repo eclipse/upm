@@ -151,20 +151,20 @@ typedef enum {
 } power_t;
 
 /**
- * @brief nrf24l01 transceiver library
+ * @brief NRF24L01 transceiver library
  * @defgroup nrf24l01 libupm-nrf24l01
- * @ingroup seeed spi wifi
+ * @ingroup seeed sparkfun spi wifi
  */
 /**
  * @library nrf24l01
  * @sensor nrf24l01
- * @comname nrf24l01 transceiver library
+ * @comname NRF24L01 Transceiver
  * @type wifi
- * @man seeed
+ * @man seeed sparkfun
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html
  * @con spi
  *
- * @brief API for NRF24l01 transceiver module
+ * @brief API for NRF24L01 transceiver module
  *
  * This file defines the NRF24l01 interface for libnrf24l01
  *

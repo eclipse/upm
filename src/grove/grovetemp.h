@@ -32,7 +32,7 @@
  * @con analog
  * @kit gsk
  *
- * @brief API for Grove temperature sensor
+ * @brief API for Grove Temperature Sensor
  *
  * Very basic UPM module for Grove temperature sensor on analog
  *

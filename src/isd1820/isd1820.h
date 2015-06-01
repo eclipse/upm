@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief UPM support for the ISD1820 based Grove Recorder
+     * @brief ISD1820 recorder module library
      * @defgroup isd1820 libupm-isd1820
      * @ingroup seeed gpio sound
      */
@@ -37,7 +37,8 @@ namespace upm {
     /**
      * @library libupm-isd1820
      * @sensor isd1820
-     * @comname Grove Recorder v1.0
+     * @comname Grove Recorder
+     * @altname ISD1820 Recorder
      * @type sound
      * @man seeed
      * @con gpio

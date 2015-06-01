@@ -44,25 +44,24 @@ const int  UBLOX6_DEFAULT_UART = 0;
 
 namespace upm {
     /**
-     * @brief API for the U-BLOX 6 GPS module
-     *
-     *   UPM support for the U-BLOX 6 GPS Module
-     *
+     * @brief UBLOX6 & SIM28 GPS module library
      * @defgroup ublox6 libupm-ublox6
      * @ingroup seeed uart gps
      */
     /**
      * @library ublox6
      * @sensor ublox6
-     * @comname GPS module
+     * @comname Grove GPS
+     * @altname U-BLOX6 SIM28
      * @type gps
      * @man seeed
      * @web http://www.seeedstudio.com/depot/Grove-GPS-p-959.html
      * @con uart
      *
-     * @brief API for the U-BLOX 6 GPS module
-     * 
-     *   UPM support for the U-BLOX 6 GPS Module
+     * @brief API for the U-BLOX 6 and SIM28 GPS modules
+     *
+     * UPM support for the U-BLOX 6 GPS Module. It is also compatible with
+     * the SIM28 GPS Module.
      *
      * @image html ublox6.jpg
      * @snippet ublox6.cxx Interesting
@@ -113,7 +112,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 9600 (B9600).
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B9600);

@@ -34,7 +34,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the L298 Dual H-Bridge Motor Driver
+   * @brief L298 dual H-bridge motor driver library
    * @defgroup l298 libupm-l298
    * @ingroup seeed sparkfun gpio pwm motor
    */

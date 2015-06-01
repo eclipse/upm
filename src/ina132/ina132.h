@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the INA132 Differential Amplifier Sensor
+   * @brief INA132 differential amplifier sensor library
    * @defgroup ina132 libupm-ina132
    * @ingroup seeed analog electric
    */
@@ -36,7 +36,7 @@ namespace upm {
    * @library ina132
    * @sensor ina132
    * @comname Grove Differential Amplifier
-   * @altname INA132 
+   * @altname INA132
    * @type electric
    * @man seeed
    * @con analog

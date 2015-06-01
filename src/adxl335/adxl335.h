@@ -44,6 +44,7 @@ namespace upm {
    * @library adxl335
    * @sensor adxl335
    * @comname ADXL335 3-Axis Analog Accelerometer
+   * @altname Grove 3-Axis Analog Accelerometer
    * @type accelerometer
    * @man seeed
    * @con analog

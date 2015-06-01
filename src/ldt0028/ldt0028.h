@@ -29,7 +29,7 @@
 namespace upm {
 
 /**
- * @brief LDT0-028 Piezo Vibration sensor library
+ * @brief LDT0-028 piezo vibration sensor library
  * @defgroup ldt0028 libupm-ldt0028
  * @ingroup seeed analog flexfor
  */

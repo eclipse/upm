@@ -43,7 +43,7 @@
 
 namespace upm {
   /**
-   * @brief DS1307 Real Time CLock library
+   * @brief DS1307 real-time clock library
    * @defgroup ds1307 libupm-ds1307
    * @ingroup seeed i2c time
    */
@@ -51,8 +51,8 @@ namespace upm {
   /**
    * @library ds1307
    * @sensor ds1307
-   * @comname Grove RTC (Real Time Clock)
-   * @altname DS1307
+   * @comname Grove RTC (Real-Time Clock)
+   * @altname DS1307 RTC
    * @type time
    * @man seeed
    * @con i2c

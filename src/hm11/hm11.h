@@ -47,7 +47,7 @@
 
 namespace upm {
     /**
-     * @brief UPM library for the HM-11 Bluetooth 4.0 Low Energy Module
+     * @brief HM-11 Bluetooth 4.0 Low Energy module library
      * @defgroup hm11 libupm-hm11
      * @ingroup seeed serial wifi
      */
@@ -55,8 +55,9 @@ namespace upm {
     /**
      * @library hm11
      * @sensor hm11
-     * @comname HM-11 Bluetooth 4.0 Low Energy Module
+     * @comname HM-11 Bluetooth Low Energy
      * @altname HM-10, HM-12
+     * @altname Grove BLE
      * @category wifi
      * @manufacturer seeed
      * @connection uart
@@ -73,7 +74,7 @@ namespace upm {
      *
      * It is connected via a UART at 9600 baud.
      *
-     * @image html hm11.jpg 
+     * @image html hm11.jpg
      * @snippet hm11.cxx Interesting
      */
 
@@ -125,7 +126,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 9600 (B9600) for this device.
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B9600);

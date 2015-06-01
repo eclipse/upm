@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief Adxl345 accelerometer library
+ * @brief ADXL345 accelerometer library
  * @defgroup adxl345 libupm-adxl345
  * @ingroup seeed i2c accelerometer
  */
@@ -38,7 +38,8 @@ namespace upm {
 /**
  * @library adxl345
  * @sensor adxl345
- * @comname Adxl345 3-Axis Digital Accelerometer
+ * @comname ADXL345 3-Axis Digital Accelerometer
+ * @altname Grove 3-Axis Digital Accelerometer (16g)
  * @type accelerometer
  * @man seeed
  * @con i2c

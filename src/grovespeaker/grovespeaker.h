@@ -33,7 +33,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Speaker
+   * @brief Grove Speaker library
    * @defgroup grovespeaker libupm-grovespeaker
    * @ingroup seeed gpio sound
    */

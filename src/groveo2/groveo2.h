@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the GroveO2 Oxygen Gas Sensor
+   * @brief GroveO2 Oxygen Gas Sensor library
    * @defgroup groveo2 libupm-groveo2
    * @ingroup seeed analog gaseous
    */

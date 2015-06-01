@@ -27,6 +27,7 @@
  * @library grove
  * @sensor groverotary
  * @comname Grove Rotary Angle Sensor
+ * @altname Rotary Potentiometer
  * @type ainput
  * @man seeed
  * @con analog

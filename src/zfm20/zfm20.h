@@ -59,7 +59,7 @@
 
 namespace upm {
     /**
-     * @brief UPM library for the ZFM-20 fingerprint sensor module
+     * @brief ZFM-20 fingerprint sensor module library
      * @defgroup zfm20 libupm-zfm20
      * @ingroup seeed uart touch
      */
@@ -67,7 +67,7 @@ namespace upm {
     /**
      * @library zfm20
      * @sensor zfm20
-     * @comname ZFM-20 Fingerprint Sensor Module
+     * @comname ZFM-20 Fingerprint Sensor
      * @altname Grove Fingerprint Sensor
      * @type touch
      * @man seeed

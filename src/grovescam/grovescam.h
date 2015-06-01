@@ -48,9 +48,9 @@
 
 namespace upm {
     /**
-     * @brief UPM library for the Grove Serial Camera
+     * @brief Grove Serial Camera library
      * @defgroup grovescam libupm-grovescam
-     * @ingroup seeed serial 
+     * @ingroup seeed serial
      */
 
     /**
@@ -131,7 +131,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 9600 (B9600) for this device.
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B115200);

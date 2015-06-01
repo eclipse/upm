@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Loudness Sensor
+   * @brief Grove Loudness sensor library
    * @defgroup groveloudness libupm-groveloudness
    * @ingroup seeed analog sound
    */

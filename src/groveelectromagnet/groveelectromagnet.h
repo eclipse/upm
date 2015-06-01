@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Electromagnet
+   * @brief Grove Electromagnet library
    * @defgroup groveelectromagnet libupm-groveelectromagnet
    * @ingroup seeed gpio electric
    */

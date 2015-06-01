@@ -32,7 +32,7 @@
 namespace upm {
   
   /**
-   * @brief Grove 3-axis I2C Accelerometer (400G)
+   * @brief H3LIS331DL I2C accelerometer (400g) library
    * @defgroup h3lis331dl libupm-h3lis331dl
    * @ingroup seeed i2c accelerometer
    */
@@ -40,14 +40,16 @@ namespace upm {
   /**
    * @library h3lis331dl
    * @sensor h3lis331dl
-   * @comname Grove 3-axis I2C Accelerometer (400G)
+   * @comname H3LIS331DL 3-Axis Digital Accelerometer
+   * @altname Grove 3-Axis Digital Accelerometer (400g)
    * @type accelerometer
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-3Axis-Digital-Accelerometer400g-p-1897.html
    * @con i2c
    *
-   * @brief API for the H3LIS331DL based Grove 3-axis I2C Accelerometer 
-   * (400G)
+   * @brief API for the H3LIS331DL based Grove 3-axis I2C (400G)
+   *
+   * This is a high performance, high range accelerometer for extreme applications.
    *
    * @image html h3lis331dl.jpg
    * @snippet h3lis331dl.cxx Interesting

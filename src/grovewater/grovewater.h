@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Water Sensor
+   * @brief Grove Water sensor library
    * @defgroup grovewater libupm-grovewater
    * @ingroup seeed gpio liquid
    */

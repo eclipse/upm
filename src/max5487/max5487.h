@@ -34,19 +34,19 @@
 namespace upm {
 
 /**
- * @brief max5847 digital potentiometer library
- * @defgroup max5847 libupm-max5847
+ * @brief MAX5487 digital potentiometer library
+ * @defgroup max5487 libupm-max5487
  * @ingroup maxim spi digipot
  */
 /**
- * @library max5847
- * @sensor max5847
- * @comname max5847 potentiometer sensor
+ * @library max5487
+ * @sensor max5487
+ * @comname MAX5487 Digital Potentiometer
  * @type digipot
  * @man maxim
  * @con spi
  *
- * @brief API for MAX5487 chip (SPI digital potentionmeter)
+ * @brief API for MAX5487 chip (SPI digital potentiometer)
  *
  * The Maxim Integrated
  * [MAX5487](http://datasheets.maximintegrated.com/en/ds/MAX5487-MAX5489.pdf)
@@ -55,7 +55,7 @@ namespace upm {
  * PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX5487PMB1.pdf)
  * from the analog PMOD kit.
  *
- * @snippet max5847.cxx Interesting
+ * @snippet max5487.cxx Interesting
  */
 class MAX5487 {
     public:

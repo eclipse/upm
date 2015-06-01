@@ -48,7 +48,7 @@ namespace upm {
 /**
  * @library sm130
  * @sensor sm130
- * @comname SM130 RFID reader module sensor
+ * @comname SM130 RFID Reader
  * @type rfid
  * @man sparkfun
  * @web https://www.sparkfun.com/products/10126

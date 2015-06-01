@@ -34,7 +34,7 @@
 namespace upm {
 
   /**
-   * @brief UPM support for the AD8232 Heart Rate Monitor
+   * @brief AD8232 heart rate monitor library
    * @defgroup ad8232 libupm-ad8232
    * @ingroup sparkfun gpio medical
    */

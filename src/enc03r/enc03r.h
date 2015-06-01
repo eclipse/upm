@@ -37,8 +37,8 @@ namespace upm {
   /**
    * @library enc03r
    * @sensor enc03r
-   * @comname Grove Single Axis Analog Gyro
-   * @altname ENC03R
+   * @comname ENC03R Single Axis Gyro
+   * @altname Grove Single Axis Analog Gyro
    * @type compass
    * @man seeed
    * @con analog

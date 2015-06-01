@@ -31,12 +31,12 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq5
-   * @comname Grove MQ5 gas sensor
+   * @comname Grove MQ5 Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog
    *
-   * @brief API for MQ5 gas sensor
+   * @brief API for MQ5 Gas Sensor
    *
    * The Grove - Gas Sensor (MQ5) module is useful for gas leakage detecting
    * (in home and industry). It can detect LPG, natural gas, town gas and so

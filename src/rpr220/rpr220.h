@@ -29,14 +29,15 @@
 namespace upm {
 
 /**
- * @brief RPR220 IR Reflective Sensor library
+ * @brief RPR220 IR reflective sensor library
  * @defgroup rpr220 libupm-rpr220
  * @ingroup seeed gpio light
  */
 /**
  * @library rpr220
  * @sensor rpr220
- * @comname rpr220 IR reflective sensor
+ * @comname RPR220 IR Reflective Sensor
+ * @altname Grove IR Reflective Sensor
  * @type light
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor

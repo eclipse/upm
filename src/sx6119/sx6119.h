@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief UPM support for the SX6119 based FM Receiver
+     * @brief SX6119 based FM receiver library
      * @defgroup sx6119 libupm-sx6119
      * @ingroup seeed gpio sound
      */
@@ -37,7 +37,8 @@ namespace upm {
     /**
      * @sensor sx6119
      * @library sx6119
-     * @comname Grove FM Receiver v1.0
+     * @comname Grove FM Receiver
+     * @altname SX6119 FM Receiver
      * @type sound
      * @man seeed
      * @con gpio

@@ -27,19 +27,14 @@
 
 namespace upm {
   /**
-   * @brief API for the Water Level Sensor
-   *
-   * The Water Level Sensor senses the water level.
-   * When the level rises, a ball with a magnet floats up and causes a switch to open.
-   * When the level falls, the magnet also falls and the switch closes.
-   *
+   * @brief Water Level sensor library
    * @defgroup waterlevel libupm-waterlevel
-   * @ingroup gpio waterlevel
+   * @ingroup seeed gpio liquid
    */
   /**
    * @library waterlevel
    * @sensor waterlevel
-   * @comname waterlevel
+   * @comname Grove Water Level Sensor
    * @type liquid
    * @man seeed
    * @con gpio

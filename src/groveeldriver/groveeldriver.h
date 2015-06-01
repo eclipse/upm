@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove El Driver Module
+   * @brief Grove El Driver module library
    * @defgroup groveeldriver libupm-groveeldriver
    * @ingroup seeed gpio electric
    */

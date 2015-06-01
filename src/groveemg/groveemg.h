@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the GroveEMG Muscle Signal reader sensor
+   * @brief GroveEMG Muscle Signal reader sensor library
    * @defgroup groveemg libupm-groveemg
    * @ingroup seeed analog electric
    */

@@ -32,7 +32,7 @@ namespace upm {
    * @library gas
    * @sensor tp401
    * @comname Grove Air Quality Sensor
-   * @altname TP401
+   * @altname TP401 Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog

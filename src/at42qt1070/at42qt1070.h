@@ -35,7 +35,7 @@
 namespace upm {
 
   /**
-   * @brief UPM module for the Atmel AT42QT1070 QTouch sensor
+   * @brief Atmel AT42QT1070 QTouch sensor library
    * @defgroup at42qt1070 libupm-at42qt1070
    * @ingroup seeed i2c touch
    */
@@ -43,7 +43,8 @@ namespace upm {
   /**
    * @library at42qt1070
    * @sensor at42qt1070
-   * @comname Atmel AT42QT1070 QTouch Sensor
+   * @comname AT42QT1070 QTouch Sensor
+   * @altname Grove QTouch Sensor
    * @type touch
    * @man seeed
    * @con i2c

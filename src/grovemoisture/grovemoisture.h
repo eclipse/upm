@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Moisture Sensor
+   * @brief Grove Moisture sensor library
    * @defgroup grovemoisture libupm-grovemoisture
    * @ingroup seeed analog liquid
    */

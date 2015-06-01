@@ -30,19 +30,19 @@
 namespace upm {
 
 /**
- * @brief max31855 thermocouple library
+ * @brief MAX31855 thermocouple library
  * @defgroup max31855 libupm-max31855
- * @ingroup maxim spi other
+ * @ingroup maxim adafruit spi other
  */
 /**
  * @library max31855
  * @sensor max31855
- * @comname max31855 thermocouple library
+ * @comname MAX31855 Thermocouple Amplifier
  * @type other
- * @man maxim
+ * @man maxim adafruit
  * @con spi
  *
- * @brief API for MAX31855
+ * @brief API for MAX31855 Thermocouple Amplifier
  *
  * The Maxim Integrated
  * [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf)

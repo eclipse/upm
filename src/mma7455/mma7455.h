@@ -150,14 +150,14 @@ union accelData {
 #define BIT(n) (1<<n)
 
 /**
- * @brief mma7455 accelerometer library
+ * @brief MMA7455 accelerometer library
  * @defgroup mma7455 libupm-mma7455
  * @ingroup generic i2c accelerometer
  */
 /**
  * @library mma7455
  * @sensor mma7455
- * @comname mma7455 accelerometer library
+ * @comname MMA7455 Accelerometer Sensor
  * @type accelerometer
  * @man generic
  * @con i2c
