@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.3.0
+
+ * New CMake targets to build python and node documentation with Sphinx and
+ Yuidoc
+ * Edited sensor names, library descriptions and doxygen tags for consistency
+ * Added support for several new sensors
+ * Fixed the TH02 sensor driver and made major improvements to i2clcd driver
+ * Updated and added new images for a lot of the existing sensors
+ * Added this changelog
+
 ### v0.2.0
 
  * Passed 100 supported sensor drivers
