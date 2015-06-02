@@ -90,7 +90,7 @@ if (BUILDDOC)
       # todo: use a separate cmake FILE module for string replacement instead
       COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
       COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
-      COMMAND sed -i.bak s|[[:space:]]module</a>|</a>|g html/python/index.html html/python/modules.html
+      COMMAND sed -i.bak s|[[:space:]][mM]odule</a>|</a>|g html/python/index.html html/python/modules.html
       DEPENDS doc
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Sphinx" VERBATIM
