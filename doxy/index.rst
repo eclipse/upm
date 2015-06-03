@@ -48,8 +48,12 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ``Other API Documentation``
 ###########################
 
-The C/C++ API documentation is available `here <http://iotdk.intel.com/docs/master/upm/>`_.
-The Node.JS API documentation is available `here <http://iotdk.intel.com/docs/master/upm/node>`_.
+.. image:: ../docs/c++.png
+   :target: http://iotdk.intel.com/docs/master/upm/
+.. image:: ../docs/python.png
+   :target: http://iotdk.intel.com/docs/master/upm/python
+.. image:: ../docs/node.png
+   :target: http://iotdk.intel.com/docs/master/upm/node
 
 ``Version Changelog``
 #####################
