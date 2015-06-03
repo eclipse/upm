@@ -57,10 +57,16 @@ Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
 as a contributor. Signing-off your commits is mandatory.
 
-C/C++ API Documentation
+API Documentation
 ==============
 
-The C/C++ documentation is available [here](http://iotdk.intel.com/docs/master/upm/).
+@htmlonly
+
+<a href="http://iotdk.intel.com/docs/master/upm/"><img src="docs/c++.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/python.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/node.png"/></a>
+
+@endhtmlonly
 
 Version @ref changelog [here](docs/changelog.md).
 
