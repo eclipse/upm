@@ -65,9 +65,10 @@ if (BUILDDOC)
   find_package (Doxygen)
   if (DOXYGEN_FOUND)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-	configure_file (${CMAKE_CURRENT_SOURCE_DIR}/docs/c++.png ${CMAKE_CURRENT_BINARY_DIR}/html/docs/c++.png COPYONLY)
-	configure_file (${CMAKE_CURRENT_SOURCE_DIR}/docs/python.png ${CMAKE_CURRENT_BINARY_DIR}/html/docs/python.png COPYONLY)
-	configure_file (${CMAKE_CURRENT_SOURCE_DIR}/docs/node.png ${CMAKE_CURRENT_BINARY_DIR}/html/docs/node.png COPYONLY)
+    file(GLOB PNG_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/docs docs/*.png)
+    foreach(PNG_FILE ${PNG_FILES})
+      configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/${PNG_FILE} ${CMAKE_CURRENT_BINARY_DIR}/html/docs/${PNG_FILE} COPYONLY)
+    endforeach()
     add_custom_target (doc
       ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
