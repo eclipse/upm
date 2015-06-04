@@ -23,6 +23,9 @@ may also create more complex structures in order to interface with them.
 
 Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples).
 
+Multi-sensor samples for the starter and specialized kits can be found in the
+[iot-devkit-samples](https://github.com/intel-iot-devkit/iot-devkit-samples) repository.
+
 ### Supported Sensors
 
 Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) from API documentation.

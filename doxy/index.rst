@@ -15,6 +15,14 @@
 
 For building UPM, please follow this `link <https://github.com/intel-iot-devkit/upm/blob/master/docs/building.md>`_.
 
+``Examples``
+############
+
+Multi-sensor samples for the starter and specialized kits can be found in the `iot-devkit-samples <https://github.com/intel-iot-devkit/iot-devkit-samples>`_
+repository.
+
+Individual sensor usage examples for python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
+
 ``Making your own UPM Module``
 ##############################
 
