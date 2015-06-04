@@ -40,6 +40,7 @@ namespace upm {
    * @comname Flex Sensor
    * @type flexfor
    * @man sparkfun
+   * @web https://www.sparkfun.com/products/8606
    * @con analog
    *
    * @brief API for the Spectra Symbol Flex sensor
@@ -49,6 +50,10 @@ namespace upm {
    * the original Nintendo Power Glove.
    *
    * @image html flex.jpg
+   * <br><em>Flex Sensor image provided by SparkFun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
+   *
    * @snippet flex.cxx Interesting
    */
   class Flex {
