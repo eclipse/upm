@@ -43,20 +43,17 @@ opts
 
 // use promise-style programming rather than spaghetti callbacks
 Promise.promisifyAll(fs);
-
-
-// TODO: create directory structure if doesn't exist
-var formats = opts.formats.split(',');
-formats.forEach(function(format){
-  mkdirp('jsdoc/' + format + '/' + opts.module);
-});
+Promise.promisifyAll(mkdirp);
 
 
 // main
 xml2js.parse().then(function(specjs) {
+  var formats = opts.formats.split(',');
   Promise.all(_.map(formats, function(format) {
     var generateDocs = require(__dirname + '/generators/' + format + '/generator');
-    var outFile = opts.outdir + '/' + format + '/' + specjs.MODULE + '/doc.js';
-    return fs.writeFileAsync(outFile, generateDocs(specjs));
+    var dir = opts.outdir + '/' + format + '/' + specjs.MODULE;
+    return mkdirp.mkdirpAsync(dir).then(function() {
+      return fs.writeFileAsync(dir + '/doc.js', generateDocs(specjs));
+    });
   }));
 });

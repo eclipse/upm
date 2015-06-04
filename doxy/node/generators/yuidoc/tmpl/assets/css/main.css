@@ -787,3 +787,28 @@ kbd .cmd { font-family: Monaco, Helvetica; }
     font-weight: bold;
 }
 
+div.right-arrow {                                      
+    width: 0;                                            
+    height: 0;                                           
+    border-bottom: 5px solid transparent;                
+    border-top: 5px solid transparent;                   
+    border-left: 5px solid #356de4;                      
+    font-size: 0;                                        
+    margin-right: 5px;                                                            
+    float: left                                          
+  }                                                      
+
+div.down-arrow {                                       
+    width: 0;                                            
+    height: 0;                                           
+    border-left: 5px solid transparent;                  
+    border-right: 5px solid transparent;                 
+    border-top: 5px solid #356de4;                       
+    font-size: 0;                                        
+    margin-right: 5px;                                                                 
+    float: left                                          
+}                                                      
+
+div.upmGroup {                                         
+    font-weight: bold;                                   
+}                                                      

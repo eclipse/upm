@@ -46,7 +46,7 @@ function generateDocs(specjs) {
     docs += GENERATE_MODULE('common', '');
     var grouped = _.flatten(_.pluck(_.values(specjs.CLASSGROUPS), 'classes'));
     var ungrouped = _.difference(_.keys(specjs.CLASSES), grouped);
-    docs += GENERATE_CLASSES(_.pick(specjs.CLASSES, ungrouped), 'common');
+    docs += GENERATE_CLASSES(_.pick(specjs.CLASSES, ungrouped), 'common'); 
     _.each(specjs.CLASSGROUPS, function(groupSpec, groupName) {
       docs += GENERATE_CLASSES(_.pick(specjs.CLASSES, groupSpec.classes), groupName);
     });
@@ -76,7 +76,7 @@ function GENERATE_MODULE(name, description) {
 function GENERATE_CLASSES(classes, parent) {
   return _.reduce(classes, function(memo, classSpec, className) {
     return memo
-      + GENERATE_CLASS(className, classSpec.description, parent)
+      + GENERATE_CLASS(className, classSpec.description, parent, classSpec.parent)
       + _.reduce(classSpec.methods, function(memo, methodSpec, methodName) {
         return memo += GENERATE_METHOD(methodName, methodSpec, className);
       }, '') 
@@ -91,15 +91,21 @@ function GENERATE_CLASSES(classes, parent) {
 
 
 // generate class spec
-function GENERATE_CLASS(name, description, parent) {
+function GENERATE_CLASS(name, description, namespace, parent) {
   return GENERATE_DOC(description + '\n' 
     + '@class ' + name + '\n'
-    + (parent ? ('@module ' + parent + '\n') : ''));
+    + (namespace ? ('@module ' + namespace + '\n') : '')
+    /*
+    TODO: leave out until figure out what swig does with inheritance
+    + (parent ? ('@extends ' + parent + '\n') : '')
+    */
+  );
 }
 
 
 // generate method spec with parent module/class
 function GENERATE_METHOD(name, spec, parent) {
+  name = name.replace(/!+$/, '');
   return GENERATE_DOC(spec.description + '\n'
     + '@method ' + name + '\n'
     + (parent ? ('@for ' + parent + '\n') : '@for common\n')

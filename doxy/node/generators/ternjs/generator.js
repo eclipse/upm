@@ -28,40 +28,62 @@ var _ = require('lodash');
 
 // generate json for ternjs input
 function generateDocs(specjs) {
-  var docs = GENERATE_MODULE(specjs.MODULE);
   GENERATE_TYPE = (function(enums) {
     return function(type) {
       return (_.contains(enums, type) ? ('Enum ' + type) : type);
     }
   })(_.keys(specjs.ENUMS_BY_GROUP));
+  var docs = { '!name': specjs.MODULE + 'library' };
+  _.extend(docs, GENERATE_MODULE(specjs.MODULE));
   _.each(specjs.ENUMS, function(enumSpec, enumName) {
     _.extend(docs[specjs.MODULE], GENERATE_ENUM(enumName, enumSpec));
   });
   _.each(specjs.METHODS, function(methodSpec, methodName) {
     _.extend(docs[specjs.MODULE], GENERATE_METHOD(methodName, methodSpec));
   });
-  _.each(specjs.CLASSES, function(classSpec, parentClass) {
-    var constructor =  classSpec.methods[parentClass];
-    _.extend(docs[specjs.MODULE], GENERATE_METHOD(parentClass, constructor ? constructor : { params: {}, return: {}, description: '' } ));
-    _.each(classSpec.enums, function(enumSpec, enumName) {
-      _.extend(docs[specjs.MODULE][parentClass], GENERATE_ENUM(enumName, enumSpec));
+  
+  if (_.isEmpty(specjs.CLASSGROUPS)) {
+    _.extend(docs[specjs.MODULE], GENERATE_CLASSES(specjs.CLASSES));
+  } else {
+    var grouped = _.flatten(_.pluck(_.values(specjs.CLASSGROUPS), 'classes'));
+    var ungrouped = _.difference(_.keys(specjs.CLASSES), grouped);
+    _.extend(docs[specjs.MODULE], GENERATE_CLASSES(_.pick(specjs.CLASSES, ungrouped)));
+    _.each(specjs.CLASSGROUPS, function(groupSpec, groupName) {
+      _.extend(docs, GENERATE_MODULE(groupName));
+      _.extend(docs[groupName], GENERATE_CLASSES(_.pick(specjs.CLASSES, groupSpec.classes), groupName));
     });
-    docs[specjs.MODULE][parentClass].prototype = {};
-    _.each(_.omit(classSpec.methods, parentClass), function(methodSpec, methodName) {
-      _.extend(docs[specjs.MODULE][parentClass].prototype, GENERATE_METHOD(methodName, methodSpec));
-    });
-    _.each(classSpec.variables, function(variableSpec, variableName) {
-      _.extend(docs[specjs.MODULE][parentClass].prototype, GENERATE_VARIABLE(variableName, variableSpec));
-    });
-  });
+  }
   return JSON.stringify(docs, null, 2);
 }
 
 
 // generate module spec
 function GENERATE_MODULE(module) {
-  var docs = { '!name': module + 'library' };
+  var docs = {};
   docs[module] = {};
+  return docs;
+}
+
+
+// generate the spec for the given list of classes
+function GENERATE_CLASSES(classes) {
+  var docs = {};
+  _.each(classes, function(classSpec, parentClass) {
+    var constructor =  classSpec.methods[parentClass];
+    _.extend(docs, GENERATE_METHOD(parentClass, constructor ? constructor : { params: {}, return: {}, description: '' } ));
+    if (_.has(docs, parentClass)) {
+      _.each(classSpec.enums, function(enumSpec, enumName) {
+        _.extend(docs[parentClass], GENERATE_ENUM(enumName, enumSpec));
+      });
+      docs[parentClass].prototype = {};
+      _.each(_.omit(classSpec.methods, parentClass), function(methodSpec, methodName) {
+        _.extend(docs[parentClass].prototype, GENERATE_METHOD(methodName, methodSpec));
+      });
+      _.each(classSpec.variables, function(variableSpec, variableName) {
+        _.extend(docs[parentClass].prototype, GENERATE_VARIABLE(variableName, variableSpec));
+      });
+    }
+  });
   return docs;
 }
 

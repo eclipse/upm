@@ -77,17 +77,15 @@ function listByGroup(modules, classes, field, projectRoot) {
   var groups = Object.keys(modulesByGroup).sort();
   var html = '';
   var pfx = projectRoot + 'modules/';
-  var first = true;
   for (i = 0; i < groups.length; i++) {
     var group = groups[i];
-    html += (first ? '' : '</span>');
     html += '<div class="upmGroup"><div class="right-arrow"></div>' + group + '</div><span class="upmModules" style="display:none">';
     var moduleNames = modulesByGroup[group];
     for (j = 0; j < moduleNames.length; j++) {
       var moduleName = moduleNames[j];
       html += '<a href="' + pfx + moduleName + '.html">' + moduleName + '</a>';
     }
-    first = false;
+    html += '</span>';
   }
   return html;
 }
@@ -117,7 +115,7 @@ var insertStyles = "Y.one(document.head).append('<style> \
     font-size: 0;                                        \
     margin-right: 5px;                                   \
     vertical-align: 5px;                                 \
-    display: inline;                                     \
+    float: left                                          \
   }                                                      \
   div.down-arrow {                                       \
     width: 0;                                            \
@@ -127,7 +125,7 @@ var insertStyles = "Y.one(document.head).append('<style> \
     border-top: 5px solid #356de4;                       \
     font-size: 0;                                        \
     margin-right: 5px;                                   \
-    display: inline;                                     \
+    float: left                                          \
   }                                                      \
   div.upmGroup {                                         \
     font-weight: bold;                                   \
@@ -137,7 +135,7 @@ var insertStyles = "Y.one(document.head).append('<style> \
 
 var scripts = "YUI().use('node', 'event', function (Y) {"
   + onClickHandler  
-  + insertStyles
+//  + insertStyles
   + "});";
 
 

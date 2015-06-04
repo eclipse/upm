@@ -58,6 +58,7 @@ function GENERATE_MODULE(module) {
 
 // generate method spec with parent module/class
 function GENERATE_METHOD(name, spec, parent) {
+  name = name.replace(/!+$/, '');
   return GENERATE_DOC(spec.description + '\n'
     + '@method ' + name + '\n'
     + '@instance\n'
