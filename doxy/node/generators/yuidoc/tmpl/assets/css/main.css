@@ -311,13 +311,13 @@ abbr {
     cursor: help;
 }
 
-.prettyprint li.L0, 
-.prettyprint li.L1, 
-.prettyprint li.L2, 
-.prettyprint li.L3, 
-.prettyprint li.L5, 
-.prettyprint li.L6, 
-.prettyprint li.L7, 
+.prettyprint li.L0,
+.prettyprint li.L1,
+.prettyprint li.L2,
+.prettyprint li.L3,
+.prettyprint li.L5,
+.prettyprint li.L6,
+.prettyprint li.L7,
 .prettyprint li.L8 {
     list-style: decimal;
 }
@@ -357,7 +357,7 @@ ul li p {
 #hd img {
     margin-right: 10px;
     vertical-align: middle;
-  
+
 }
 
 
@@ -787,28 +787,28 @@ kbd .cmd { font-family: Monaco, Helvetica; }
     font-weight: bold;
 }
 
-div.right-arrow {                                      
-    width: 0;                                            
-    height: 0;                                           
-    border-bottom: 5px solid transparent;                
-    border-top: 5px solid transparent;                   
-    border-left: 5px solid #356de4;                      
-    font-size: 0;                                        
-    margin-right: 5px;                                                            
-    float: left                                          
-  }                                                      
+div.right-arrow {
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-left: 5px solid #356de4;
+    font-size: 0;
+    margin-right: 5px;
+    float: left;
+  }
 
-div.down-arrow {                                       
-    width: 0;                                            
-    height: 0;                                           
-    border-left: 5px solid transparent;                  
-    border-right: 5px solid transparent;                 
-    border-top: 5px solid #356de4;                       
-    font-size: 0;                                        
-    margin-right: 5px;                                                                 
-    float: left                                          
-}                                                      
+div.down-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #356de4;
+    font-size: 0;
+    margin-right: 5px;
+    float: left;
+}
 
-div.upmGroup {                                         
-    font-weight: bold;                                   
-}                                                      
+div.upmGroup {
+    font-weight: bold;
+}

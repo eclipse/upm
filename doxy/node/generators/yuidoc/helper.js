@@ -115,7 +115,7 @@ var insertStyles = "Y.one(document.head).append('<style> \
     font-size: 0;                                        \
     margin-right: 5px;                                   \
     vertical-align: 5px;                                 \
-    float: left                                          \
+    float: left;                                         \
   }                                                      \
   div.down-arrow {                                       \
     width: 0;                                            \
@@ -125,7 +125,7 @@ var insertStyles = "Y.one(document.head).append('<style> \
     border-top: 5px solid #356de4;                       \
     font-size: 0;                                        \
     margin-right: 5px;                                   \
-    float: left                                          \
+    float: left;                                         \
   }                                                      \
   div.upmGroup {                                         \
     font-weight: bold;                                   \
