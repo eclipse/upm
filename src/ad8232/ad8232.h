@@ -61,9 +61,14 @@ namespace upm {
    * that should work, using information from the Sparkfun website.
    *
    * This example just dumps the raw data.
+   *
+   * @image html ad8232.jpg
+   * <br><em>AD8232 Heart Rate Monitor image provided by SparkFun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
+   *
    * @snippet ad8232.cxx Interesting
    */
-
 
   class AD8232 {
   public:

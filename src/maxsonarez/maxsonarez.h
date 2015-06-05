@@ -44,6 +44,7 @@ namespace upm {
    * @altname EZ1, EZ2, EZ3, EZ4
    * @type sound
    * @man sparkfun
+   * @web https://www.sparkfun.com/products/8502
    * @con analog
    *
    * @brief API for the LV-MaxSonar-EZ family of ultrasonic rangers
@@ -57,6 +58,11 @@ namespace upm {
    * This class supports these sensors with an analog input only.
    *
    * This driver was developed using an LV-MaxSonar-EZ3.
+   *
+   * @image html maxsonarez.jpg
+   * <br><em>LV-MaxSonar-EZ Ultrasonic Ranger image provided by SparkFun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
    *
    * @snippet maxsonarez.cxx Interesting
    */

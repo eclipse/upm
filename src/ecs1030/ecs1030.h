@@ -53,6 +53,7 @@ namespace upm {
    * @comname ECS1030 Non-Invasive Current Sensor
    * @type electric
    * @man sparkfun
+   * @web https://www.sparkfun.com/products/11005
    * @con analog
    *
    * @brief API for the ECS1030 Non-Invasive Current/Electricity Sensor
@@ -63,6 +64,11 @@ namespace upm {
    * around a current-carrying conductor. This particular current sensor will
    * measure a load up to 30 Amps which makes it great for building your own
    * energy monitors.
+   *
+   * @image html ecs1030.jpg
+   * <br><em>ECS1030 Sensor image provided by Sparkfun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
    *
    * @snippet ecs1030.cxx Interesting
    */

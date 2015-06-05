@@ -45,6 +45,7 @@ namespace upm {
    * @comname L298 Dual H-Bridge Motor Driver
    * @type motor
    * @man seeed sparkfun
+   * @web https://www.sparkfun.com/products/9670
    * @con gpio pwm
    *
    * @brief API for the L298 Dual H-Bridge module
@@ -53,7 +54,12 @@ namespace upm {
    *
    * This module can support 2 DC motors, or 1 2-phase stepper motor.
    * It requires 3 pins per DC motor (or h-bridge), or 4 pins for
-   * the stepper (uses both h-bridges).  
+   * the stepper (uses both h-bridges). 
+   *
+   * @image html l298.jpg
+   * <br><em>L298 Dual H-Bridge Motor Driver image provided by SparkFun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em> 
    *
    * Example driving a DC motor
    * @snippet l298.cxx Interesting
