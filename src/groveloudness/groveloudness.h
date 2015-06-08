@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Loudness Sensor
+   * @brief Grove Loudness sensor library
    * @defgroup groveloudness libupm-groveloudness
    * @ingroup seeed analog sound
    */
@@ -41,12 +41,13 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the Grove Loudness Sensor
+   * @brief API for the Grove Loudness Sensor
    *
    * UPM module for the Grove Loudness Sensor.  This sensor
    * detects how loud the surrounding environment is.
    * The higher the output analog value, the louder the sound.
    *
+   * @image html groveloudness.jpg
    * @snippet groveloudness.cxx Interesting
    */
   class GroveLoudness {

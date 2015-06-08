@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Electromagnet
+   * @brief Grove Electromagnet library
    * @defgroup groveelectromagnet libupm-groveelectromagnet
    * @ingroup seeed gpio electric
    */
@@ -43,10 +43,11 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Electromagnet
+   * @brief API for the Grove Electromagnet
    * 
    * The Grove Electromagnet can hold up to 1 KG (approximately 2.2 lbs)
    *
+   * @image html groveelectromagnet.jpg
    * @snippet groveelectromagnet.cxx Interesting
    */
   class GroveElectromagnet {

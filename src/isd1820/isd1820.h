@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief UPM support for the ISD1820 based Grove Recorder
+     * @brief ISD1820 recorder module library
      * @defgroup isd1820 libupm-isd1820
      * @ingroup seeed gpio sound
      */
@@ -37,17 +37,19 @@ namespace upm {
     /**
      * @library libupm-isd1820
      * @sensor isd1820
-     * @comname Grove Recorder v1.0
+     * @comname Grove Recorder
+     * @altname ISD1820 Recorder
      * @type sound
      * @man seeed
      * @con gpio
      *
-     * @brief C++ API support for the ISD1820 based Grove Recorder
+     * @brief API support for the ISD1820 based Grove Recorder
      *
      * This class implements support for the Grove Recorder.  There
      * are two digital pins, one that enables recording, and the other
      * that plays back what was previously recorded.
      *
+     * @image html isd1820.jpg
      * @snippet isd1820.cxx Interesting
      */
   class ISD1820 {

@@ -28,7 +28,7 @@
 
 namespace upm {
 /**
- * @brief TTP223 Touch Detector sensor library
+ * @brief TTP223 touch detector sensor library
  *
  *   This touch sensor detects when a finger is near the metallic pad
  *   by a change in capacitance.  It can replace a more traditional push
@@ -41,7 +41,8 @@ namespace upm {
 /**
  * @library ttp223
  * @sensor ttp223
- * @comname Touch sensor
+ * @comname TTP223 Touch Sensor
+ * @altname Grove Touch Sensor
  * @type touch
  * @man seeed
  * @web http://www.seeedstudio.com/depot/Grove-Touch-Sensor-p-747.html
@@ -54,6 +55,7 @@ namespace upm {
  *   button.  The touch sensor can still function when placed under a 
  *   non-metallic surface like glass or plastic.
  *
+ * @image html ttp223.jpg
  * @snippet ttp223.cxx Interesting
  */
 class TTP223 {

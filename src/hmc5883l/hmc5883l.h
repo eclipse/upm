@@ -39,12 +39,13 @@ namespace upm {
 /**
  * @library hmc5883l
  * @sensor hmc5883l
- * @comname Hmc5883l 3-Axis Digital Compass
+ * @comname HMC5883L 3-Axis Digital Compass
+ * @altname Grove 3-Axis Digital Compass
  * @type compass
  * @man seeed
  * @con i2c
  *
- * @brief C++ API for Hmc5883l (3-axis digital compass)
+ * @brief API for Hmc5883l (3-axis digital compass)
  *
  * The Honeywell [HMC5883L]
  * (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)

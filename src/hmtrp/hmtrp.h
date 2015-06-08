@@ -58,7 +58,7 @@ namespace upm {
  * @man seeed
  * @con uart
  *
- * @brief C++ API for the HMTRP Serial RF Pro
+ * @brief API for the HMTRP Serial RF Pro
  *
  * UPM support for the HMTRP Serial RF Pro.  This was tested
  * specifically with the Grove Serial RF Pro module.  In theory,
@@ -76,6 +76,7 @@ namespace upm {
  * presented on it's UART interface.  It can be placed into a
  * configuration mode by grounding the CONFIG pin on the module.
  *
+ * @image html hmtrp.jpg
  * @snippet hmtrp.cxx Interesting
  */
   class HMTRP {

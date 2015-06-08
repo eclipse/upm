@@ -31,7 +31,7 @@
 namespace upm {
 
   /**
-   * @brief UPM module for the Grove Water Flow sensor
+   * @brief Grove Water Flow sensor library
    * @defgroup grovewfs libupm-grovewfs
    * @ingroup seeed gpio liquid
    */
@@ -45,7 +45,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor
    * @con gpio
 
-   * @brief C++ API for the Grove Water Flow Sensor
+   * @brief API for the Grove Water Flow Sensor
    *
    * This sensor is used to measure water flow, in LPM (Liters Per
    * Minute).  It incorporates a Hall Effect Sensor.  The UPM module
@@ -60,7 +60,7 @@ namespace upm {
    * (yellow) to Vcc (red) should not be there.  The sensor may work
    * with this connection, but probably not for very long.
    *
-   *
+   * @image html grovewfs.jpg
    * @snippet grovewfs.cxx Interesting
    */
   class GroveWFS {

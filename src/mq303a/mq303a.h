@@ -29,20 +29,21 @@
 namespace upm {
 
   /**
-   * @brief mq303a Alcohol Sensor library
+   * @brief MQ303A alcohol sensor library
    * @defgroup mq303a libupm-mq303a
    * @ingroup seeed analog gpio gaseous
    */
   /**
    * @library mq303a
    * @sensor mq303a
-   * @comname mq303a Alcohol Sensor
+   * @comname MQ303A Alcohol Sensor
+   * @altname Grove Alcohol Sensor
    * @type gaseous
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
    * @con analog gpio
    *
-   * @brief C++ API for the MQ303A Alcohol Sensor
+   * @brief API for the MQ303A Alcohol Sensor
    *
    * UPM module for the MQ303A Alcohol Sensor.
    * This sensor needs to be warmed up before stable results are

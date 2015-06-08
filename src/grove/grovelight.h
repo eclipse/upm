@@ -32,7 +32,7 @@
  * @con analog
  * @kit gsk
  *
- * @brief C++ API for Grove light sensor
+ * @brief API for Grove Light Sensor
  *
  * The Grove light sensor detects the intensity of the ambient light.
  * As the light intensity of the environment increases, the resistance

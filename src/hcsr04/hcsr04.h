@@ -50,9 +50,9 @@ namespace upm {
  * @man generic
  * @con gpio
  *
- * @brief C++ API for HCSR04 (ultrasonic ranging module) component
+ * @brief API for HCSR04 (ultrasonic ranging module) component
  *
- * This file defines the HCSR04 C++ interface for libhcsr04
+ * This file defines the HCSR04 interface for libhcsr04
  *
  * @snippet hcsr04.cxx Interesting
  */

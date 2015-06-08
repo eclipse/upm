@@ -37,13 +37,13 @@ namespace upm {
      /**
       * @library hx711
       * @sensor hx711
-      * @comname HX711 24bit Analog-to-Digital Converter
+      * @comname HX711 Analog-to-Digital Converter
       * @type electric
       * @man generic
       * @web http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf
       * @con gpio
       *
-      * @brief C++ API for HX711
+      * @brief API for HX711
       *
       * The HX711 is a precision 24-bit analog-to-digital converter (ADC)
       * designed for weigh scales and industrial control applications to

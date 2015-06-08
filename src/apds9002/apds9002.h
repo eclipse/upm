@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library apds9002
    * @sensor apds9002
-   * @comname APDS-9002
+   * @comname APDS-9002 Luminance Sensor
    * @altname Grove Luminance Sensor
    * @type light
    * @man seeed

@@ -41,7 +41,7 @@ namespace upm
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf
  * @con i2c
  *
- * @brief C++ API for LCM1602 i2c controller for HD44780 based displays
+ * @brief API for LCM1602 i2c controller for HD44780 based displays
  *
  * This supports all sizes of HD44780 displays from 16x2 to 4x20, the
  * controller has no idea of the actual display hardware so will let you write

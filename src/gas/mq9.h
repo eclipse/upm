@@ -31,12 +31,12 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq9
-   * @comname Grove MQ9 gas sensor
+   * @comname Grove MQ9 Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for MQ9 gas sensor
+   * @brief API for MQ9 Gas Sensor
    *
    * The Grove MQ9 Gas Sensor module is useful for gas leakage detecting (in
    * home and industry). It can detect Carbon Monoxide, Coal Gas and

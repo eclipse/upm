@@ -34,7 +34,7 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the Grove I2C Motor Driver
+   * @brief Grove I2C motor driver library
    * @defgroup grovemd libupm-grovemd
    * @ingroup seeed i2c motor
    */
@@ -47,7 +47,7 @@ namespace upm {
    * @man seeed
    * @con i2c
    *
-   * @brief C++ API for the Grove I2C Motor Driver 
+   * @brief API for the Grove I2C Motor Driver 
    *
    * This class implements support for the Grove I2C Motor Driver.
    * This device can support a single 4-wire stepper motor, OR two
@@ -62,6 +62,7 @@ namespace upm {
    * This module was tested with version 1.3 of the Grove I2C Motor
    * Driver
    *
+   * @image html grovemd.jpg
    * @snippet grovemd.cxx Interesting
    */
   class GroveMD {

@@ -59,7 +59,7 @@
 
 namespace upm {
     /**
-     * @brief UPM library for the ZFM-20 fingerprint sensor module
+     * @brief ZFM-20 fingerprint sensor module library
      * @defgroup zfm20 libupm-zfm20
      * @ingroup seeed uart touch
      */
@@ -67,19 +67,20 @@ namespace upm {
     /**
      * @library zfm20
      * @sensor zfm20
-     * @comname ZFM-20 Fingerprint Sensor Module
+     * @comname ZFM-20 Fingerprint Sensor
      * @altname Grove Fingerprint Sensor
      * @type touch
      * @man seeed
      * @con uart
      *
-     * @brief C++ API for the ZFM-20 fingerprint sensor module
+     * @brief API for the ZFM-20 fingerprint sensor module
      *
      * This class was tested on the Grove Fingerprint Sensor
      * Module. It can store up to 163 fingerprints.
      *
      * It is connected via a UART at 57600 baud.
      *
+	 * @image html zfm20.jpg
      * This example demonstrates how to register and store a new fingerprint
      * @snippet zfm20-register.cxx Interesting
      * This example demonstrates reading a fingerprint and locating it in the DB

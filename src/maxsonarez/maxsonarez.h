@@ -32,7 +32,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the MaxSonar-EZ family of ultrasonic rangers
+   * @brief MaxSonar-EZ family of ultrasonic rangers library
    * @defgroup maxsonarez libupm-maxsonarez
    * @ingroup seeed analog sound
    */
@@ -40,13 +40,14 @@ namespace upm {
   /**
    * @library maxsonarez
    * @sensor maxsonarez
-   * @comname LV-MaxSonar-EZ family of ultrasonic rangers
+   * @comname LV-MaxSonar-EZ Ultrasonic Ranger
    * @altname EZ1, EZ2, EZ3, EZ4
    * @type sound
    * @man sparkfun
+   * @web https://www.sparkfun.com/products/8502
    * @con analog
    *
-   * @brief C++ API for the LV-MaxSonar-EZ family of ultrasonic rangers
+   * @brief API for the LV-MaxSonar-EZ family of ultrasonic rangers
    *
    * This sensor family returns an analog voltage corresponding to the
    * distance of an object from the sensor in inches.  It has a
@@ -57,6 +58,11 @@ namespace upm {
    * This class supports these sensors with an analog input only.
    *
    * This driver was developed using an LV-MaxSonar-EZ3.
+   *
+   * @image html maxsonarez.jpg
+   * <br><em>LV-MaxSonar-EZ Ultrasonic Ranger image provided by SparkFun under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
    *
    * @snippet maxsonarez.cxx Interesting
    */

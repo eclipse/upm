@@ -43,7 +43,7 @@ macro(upm_SWIG_NODE)
       "${NODE_INCLUDE_DIRS}"
      )
     set_target_properties (jsupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION"
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=0x0${V8_DEFINE_STRING}"
       PREFIX ""
       SUFFIX ".node"
     )
@@ -66,6 +66,7 @@ macro(upm_doxygen)
     add_dependencies (${libname}doc_i doc)
     if (BUILDSWIG)
       add_dependencies (_pyupm_${libname} ${libname}doc_i)
+      add_dependencies (pydoc _pyupm_${libname})
     else ()
       add_dependencies (${libname} doc)
     endif ()
@@ -80,6 +81,12 @@ if (SWIG_FOUND)
     list (GET PYTHON_VERSION_LIST 1 PYTHON_VERSION_MINOR)
   endif(BUILDSWIGPYTHON)
   if(BUILDSWIGNODE)
+    if(NOT NODE_FOUND)
+      find_package(Node)
+    endif()
+    if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
+      message("WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
+    endif()
     find_path (NODE_ROOT_DIR "node/node.h")
     set (NODE_INCLUDE_DIRS
       ${NODE_ROOT_DIR}/src

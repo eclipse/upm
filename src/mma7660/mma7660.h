@@ -35,17 +35,18 @@ namespace upm {
   /**
    * @brief MMA7660 I2C 3-axis digital accelerometer library
    * @defgroup mma7660 libupm-mma7660
-   * @ingroup generic i2c gpio accelerometer
+   * @ingroup seeed i2c gpio accelerometer
    */
   /**
    * @library mma7660
    * @sensor mma7660
-   * @comname mma7660 I2C 3-axis digital accelerometer
+   * @comname MMA7660 3-Axis Digital Accelerometer
+   * @altname Grove 3-Axis Digital Accelerometer (1.5g)
    * @type accelerometer
-   * @man generic
+   * @man seeed
    * @con i2c gpio
    *
-   * @brief C++ API for the MMA7660 I2C 3-axis digital accelerometer
+   * @brief API for the MMA7660 I2C 3-axis digital accelerometer
    *
    * UPM module for the MMA7660 I2C 3-axis digital accelerometer.
    * This device supports a variety of capabilities, including the
@@ -56,6 +57,7 @@ namespace upm {
    * This module was tested with the Grove 3-Axis Digital
    * Accelerometer (1.5g)
    *
+   * @image html mma7660.jpg
    * @snippet mma7660.cxx Interesting
    */
   class MMA7660 {

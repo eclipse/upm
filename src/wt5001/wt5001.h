@@ -49,28 +49,26 @@ const uint8_t WT5001_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief C++ API for the WT5001 Serial MP3 module
-     *
-     *   UPM support for the WT5001 Serial MP3 Module.  This was tested
-     *   specifically with the Grove Serial MP3 module.
-     *
+     * @brief WT5001 Serial MP3 module library
      * @defgroup wt5001 libupm-wt5001
      * @ingroup seeed uart sound
      */
     /**
      * @library wt5001
      * @sensor wt5001
-     * @comname Serial MP3 Module
+     * @comname WT5001 Serial MP3 Module
+     * @altname Grove Serial MP3 Player
      * @type sound
      * @man seeed
      * @web http://www.seeedstudio.com/wiki/Grove_%E2%80%93_Serial_MP3_Player
      * @con uart
      *
-     * @brief C++ API for the WT5001 Serial MP3 module
-     * 
+     * @brief API for the WT5001 Serial MP3 module
+     *
      *   UPM support for the WT5001 Serial MP3 Module.  This was tested
      *   specifically with the Grove Serial MP3 module.
      *
+     * @image html wt5001.jpg
      * @snippet wt5001.cxx Interesting
      */
   class WT5001 {
@@ -107,20 +105,20 @@ namespace upm {
                    READ_DATE        = 0xd1,
                    READ_TIME        = 0xd2
     } WT5001_OPCODE_T;
-    
+
     // play modes
     typedef enum { NORMAL           = 0x00,
                    SINGLE_REPEAT    = 0x01,
                    ALL_REPEAT       = 0x02,
                    RANDOM           = 0x03
     } WT5001_PLAYMODE_T;
-    
+
     // music source
     typedef enum { SD,
                    SPI,
                    UDISK
     } WT5001_PLAYSOURCE_T;
-    
+
     /**
      * WT5001 Serial MP3 module constructor
      *
@@ -166,7 +164,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 9600 (B9600).
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B9600);
@@ -178,7 +176,7 @@ namespace upm {
      * @return true if successful
      */
     bool checkResponse(WT5001_OPCODE_T opcode);
-    
+
     /**
      * play a file, from a source
      *

@@ -34,19 +34,19 @@
 namespace upm {
 
 /**
- * @brief max31723 temperature sensor library
+ * @brief MAX31723 temperature sensor library
  * @defgroup max31723 libupm-max31723
  * @ingroup maxim spi temperature
  */
 /**
  * @library max31723
  * @sensor max31723
- * @comname max31723 temperature sensor
+ * @comname MAX31723 Temperature Sensor
  * @type temperature
  * @man maxim
  * @con spi
  *
- * @brief C++ API for MAX31723 chip (Temperature sensor)
+ * @brief API for MAX31723 chip (Temperature Sensor)
  *
  * The Maxim Integrated
  * [MAX31723](http://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf)

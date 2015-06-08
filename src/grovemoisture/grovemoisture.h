@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Moisture Sensor
+   * @brief Grove Moisture sensor library
    * @defgroup grovemoisture libupm-grovemoisture
    * @ingroup seeed analog liquid
    */
@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the Grove Moisture Sensor
+   * @brief API for the Grove Moisture Sensor
    *
    * UPM module for the Grove Moisture Sensor.
    * This sensor can be used to detect the moisture content
@@ -50,6 +50,7 @@ namespace upm {
    * Note that this sensor is not designed to be left in soil
    * nor to be used outdoors.
    *
+   * @image html grovemoisture.jpg
    * @snippet grovemoisture.cxx Interesting
    */
   class GroveMoisture {

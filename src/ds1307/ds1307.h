@@ -43,7 +43,7 @@
 
 namespace upm {
   /**
-   * @brief DS1307 Real Time CLock library
+   * @brief DS1307 real-time clock library
    * @defgroup ds1307 libupm-ds1307
    * @ingroup seeed i2c time
    */
@@ -51,13 +51,13 @@ namespace upm {
   /**
    * @library ds1307
    * @sensor ds1307
-   * @comname Grove RTC (Real Time Clock)
-   * @altname DS1307
+   * @comname Grove RTC (Real-Time Clock)
+   * @altname DS1307 RTC
    * @type time
    * @man seeed
    * @con i2c
    *
-   * @brief C++ API for the DS1307 Real Time CLock
+   * @brief API for the DS1307 Real Time CLock
    *
    * UPM module for the DS1307 based RTC.  The clock can provide information
    * about the seconds, minutes, hours, day of the week, day of the month,
@@ -65,6 +65,7 @@ namespace upm {
    * This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz.
    * However, this capability is not implemented in this module.
    *
+   * @image html ds1307.jpg
    * @snippet ds1307.cxx Interesting
    */
   class DS1307 {

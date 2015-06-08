@@ -109,22 +109,23 @@ struct AxisData {
 };
 
 /**
- * @brief mpu9150 accelerometer library
+ * @brief MPU9150 accelerometer library
  * @defgroup mpu9150 libupm-mpu9150
  * @ingroup seeed i2c accelerometer compass
  */
 /**
  * @library mpu9150
  * @sensor mpu9150
- * @comname mpu9150 accelerometer library
+ * @comname MPU9150 Inertial Measurement Unit
+ * @altname Grove IMU 9DOF
  * @type accelerometer compass
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v1.0
  * @con i2c
  *
- * @brief C++ API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
+ * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
  *
- * This file defines the MPU9150 C++ interface for libmpu9150
+ * This file defines the MPU9150 interface for libmpu9150
  *
  * @image html mpu9150.jpg
  * @snippet mpu9150.cxx Interesting

@@ -45,7 +45,7 @@ namespace upm {
  * @con gpio
  * @kit gsk
  *
- * @brief C++ API for the Grove Rotary Encoder
+ * @brief API for the Grove Rotary Encoder
  * 
  * UPM module for the Grove Rotary Encoder.  A Rotary Encoder
  * encodes a rotation signal into electronic pulses that can be used

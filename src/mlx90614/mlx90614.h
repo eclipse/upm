@@ -53,22 +53,23 @@
 namespace upm {
 
 /**
- * @brief mlx90614 temperature sensor library
+ * @brief MLX90614 temperature sensor library
  * @defgroup mlx90614 libupm-mlx90614
  * @ingroup generic i2c temperature
  */
 /**
  * @library mlx90614
  * @sensor mlx90614
- * @comname mlx90614 temperature sensor
+ * @comname MLX90614 Temperature Sensor
  * @type temperature
  * @man generic
  * @con i2c
  *
- * @brief C++ API for MLX90614
+ * @brief API for MLX90614
  *
- * This file defines the MLX90614 C++ interface for libmlx90614
+ * This file defines the MLX90614 interface for libmlx90614
  *
+ * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting
  */
 class MLX90614 {

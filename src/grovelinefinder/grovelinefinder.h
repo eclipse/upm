@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Line Finder
+   * @brief Grove Line Finder sensor library
    * @defgroup grovelinefinder libupm-grovelinefinder
    * @ingroup seeed gpio color
    */
@@ -41,12 +41,13 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Line Finder sensor
+   * @brief API for the Grove Line Finder sensor
    *
    * UPM module for the Grove Line Finder sensor.  It outputs a
    * digital signal indicating whether it is detecting black on a
    * white background, or white on a black background.
    *
+   * @image html grovelinefinder.jpg
    * @snippet grovelinefinder.cxx Interesting
    */
   class GroveLineFinder {

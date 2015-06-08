@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the GUVA-S12D Sensor
+   * @brief GUVA-S12D UV sensor library
    * @defgroup guvas12d libupm-guvas12d
    * @ingroup seeed analog light
    */
@@ -37,12 +37,12 @@ namespace upm {
    * @library guvas12d
    * @sensor guvas12d
    * @comname Grove UV Sensor
-   * @altname GUVA-S12D
+   * @altname GUVA-S12D UV Sensor
    * @type light
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GUVAS12D UV sensor module
+   * @brief API for the GUVAS12D UV sensor module
    *
    * UPM module for the GUVAS12D UV Sensor
    *

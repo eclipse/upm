@@ -30,31 +30,22 @@
 #define MPR121_DEFAULT_I2C_ADDR    0x5a
 
 namespace upm {
-
   /**
-   * @brief C++ API for the MPR121 I2C touch sensor
-   *
-   * UPM module for the MPR121 touch sensor
-   *
-   * @ingroup i2c mpr121
-   * @snippet mpr121.cxx Interesting
-   */
-
-  /**
-   * @brief mpr121 Touch Sensor library
+   * @brief MPR121 touch sensor library
    * @defgroup mpr121 libupm-mpr121
    * @ingroup seeed i2c touch
    */
   /**
    * @library mpr121
    * @sensor mpr121
-   * @comname mpr121 touch sensor
+   * @comname MPR121 Touch Sensor
+   * @altname Grove I2C Touch Sensor
    * @type touch
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Touch_Sensor
    * @con i2c
    *
-   * @brief C++ API for the MPR121 I2C touch sensor
+   * @brief API for the MPR121 I2C touch sensor
    *
    * UPM module for the MPR121 touch sensor
    *

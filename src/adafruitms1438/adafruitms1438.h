@@ -38,7 +38,7 @@
 namespace upm {
   
   /**
-   * @brief UPM module for the Adafruit Motor Shield 1438
+   * @brief Adafruit Motor Shield 1438 library
    * @defgroup adafruitms1438 libupm-adafruitms1438
    * @ingroup adafruit i2c motor
    */
@@ -52,7 +52,7 @@ namespace upm {
    * @web http://www.adafruit.com/products/1438
    * @con i2c
    *
-   * @brief C++ API for the ADAFRUITMS1438 motor shield
+   * @brief API for the ADAFRUITMS1438 motor shield
    *
    * This class implements support for the stepper and DC motors that
    * can be connected to this Motor Shield.
@@ -60,6 +60,7 @@ namespace upm {
    * the pca9685 controller (or this class), rather they are connected
    * directly to digital PWM pins 9 and 10 on the arduino breakout.
    *
+   * @image html adafruitms1438.jpg
    * An example using a DC motor conected to M3
    * @snippet adafruitms1438.cxx Interesting
    * An example using a stepper motor connected to M1 & M2

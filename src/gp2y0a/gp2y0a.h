@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the GP2Y0A family of IR Proximity Sensors
+   * @brief GP2Y0A based IR proximity sensor library
    * @defgroup gp2y0a libupm-gp2y0a
    * @ingroup seeed analog light
    */
@@ -37,18 +37,20 @@ namespace upm {
   /**
    * @library gp2y0a
    * @sensor gp2y0a
-   * @comname GP2Y0A family of IR Proximity Sensors
+   * @comname GP2Y0A IR Proximity Sensor
+   * @altname Grove 80cm IR Proximity Sensor
    * @type light
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GP2Y0A family of IR Proximity Sensors
+   * @brief API for the GP2Y0A family of IR Proximity Sensors
    *
    * This sensor family returns an analog voltage corresponding to the distance 
    * of an object from the sensor.  The voltage is lower when objects
    * are far away; the voltage increases as objects get closer
    * to the sensor.  
    *
+   * @image html gp2y0a.jpg
    * @snippet gp2y0a.cxx Interesting
    */
   class GP2Y0A {

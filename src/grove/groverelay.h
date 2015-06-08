@@ -32,7 +32,7 @@
  * @con gpio
  * @kit gsk
  *
- * @brief C++ API for Grove Relay
+ * @brief API for Grove Relay
  *
  * UPM module for Grove relay switch.  The Grove relay is a
  * digital normally-open switch that uses low voltage or current to 

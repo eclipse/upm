@@ -41,7 +41,7 @@ namespace upm {
    * @man seeed
    * @con gpio pwm
    *
-   * @brief C++ API for the CJQ4435 MOSFET
+   * @brief API for the CJQ4435 MOSFET
    *
    * UPM module for the CJQ4435 MOSFET.  It was developed using the
    * Grove MOSFET module.  A MOSFET is like a switch, but it can
@@ -50,6 +50,7 @@ namespace upm {
    * Please note, that the available periods will vary depending on
    * the capabilities of your device.
    *
+   * @image html cjq4435.jpg
    * @snippet cjq4435.cxx Interesting
    */
   class CJQ4435 {

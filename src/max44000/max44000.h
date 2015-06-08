@@ -53,19 +53,19 @@
 namespace upm {
 
 /**
- * @brief max44000 proxmity sensor library
+ * @brief MAX44000 proximity sensor library
  * @defgroup max44000 libupm-max44000
  * @ingroup maxim i2c light
  */
 /**
  * @library max44000
  * @sensor max44000
- * @comname max44000 proximity sensor
+ * @comname MAX44000 Proximity Sensor
  * @type light
  * @man maxim
  * @con i2c
  *
- * @brief C++ API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
+ * @brief API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
  *
  * The Maxim Integrated
  * [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf)

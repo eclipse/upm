@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief UPM support for the SX6119 based FM Receiver
+     * @brief SX6119 based FM receiver library
      * @defgroup sx6119 libupm-sx6119
      * @ingroup seeed gpio sound
      */
@@ -37,17 +37,19 @@ namespace upm {
     /**
      * @sensor sx6119
      * @library sx6119
-     * @comname Grove FM Receiver v1.0
+     * @comname Grove FM Receiver
+     * @altname SX6119 FM Receiver
      * @type sound
      * @man seeed
      * @con gpio
      *
-     * @brief C++ API support for the SX6119 based Grove FM Receiver
+     * @brief API support for the SX6119 based Grove FM Receiver
      *
      * This class implements support for the FM Receiver.  There are
      * two digital pins, one that toggles power on/off, and one that
      * does a seek to the next station.
      *
+     * @image html sx6119.jpg
      * @snippet sx6119.cxx Interesting
      */
   class SX6119 {

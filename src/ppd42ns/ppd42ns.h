@@ -37,20 +37,21 @@ typedef struct
 } dustData;
 
   /**
-   * @brief Dust Sensor library
+   * @brief PPD42NS dust sensor library
    * @defgroup ppd42ns libupm-ppd42ns
    * @ingroup seeed gpio other
    */
   /**
    * @library ppd42ns
    * @sensor ppd42ns
-   * @comname Dust Sensor
+   * @comname PPD42NS Dust Sensor
+   * @altname Grove Dust Sensor
    * @type other
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
    * @con gpio
    *
-   * @brief C++ API for the Dust Sensor
+   * @brief API for the Dust Sensor
    *
    * UPM module for the Dust Sensor
    *

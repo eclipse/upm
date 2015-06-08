@@ -31,7 +31,7 @@
  * @man seeed
  * @con analog
  *
- * @brief C++ API for Grove Slide Potentiometer
+ * @brief API for Grove Slide Potentiometer
  *
  * Very basic UPM module for Grove slide potentiometer on analog,
  * returns either raw value or scaled voltage value.

@@ -494,32 +494,30 @@ const unsigned char font[] = {
 };
 
 /**
- * @brief C++ API for the st7735 lcd display library
- *
- *   This file defines the C++ interface for ST7735 display library
- *
+ * @brief ST7735 LCD display library
  * @defgroup st7735 libupm-st7735
  * @ingroup adafruit spi display
  */
 /**
  * @library st7735
  * @sensor st7735
- * @comname LCD display
+ * @comname ST7735 LCD display
  * @type display
  * @man adafruit
  * @web http://www.adafruit.com/product/358
  * @con spi
  *
- * @brief C++ API for the st7735 lcd display library
+ * @brief API for the st7735 lcd display library
  * 
- *   This file defines the C++ interface for ST7735 display library
+ *   This file defines the interface for ST7735 display library
  *
+ * @image html st7735.jpg
  * @snippet st7735.cxx Interesting
  */
 class ST7735 : public GFX {
     public:
         /**
-         * Instanciates a ST7735 object
+         * Instantiates a ST7735 object
          *
          * @param csLCD LCD chip select pin
          * @param cSD SD card chip select pin

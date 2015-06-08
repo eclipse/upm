@@ -44,11 +44,12 @@ namespace upm {
    * @library adxl335
    * @sensor adxl335
    * @comname ADXL335 3-Axis Analog Accelerometer
+   * @altname Grove 3-Axis Analog Accelerometer
    * @type accelerometer
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the ADXL335 3-axis Analog Accelerometer
+   * @brief API for the ADXL335 3-axis Analog Accelerometer
    *
    * UPM module for the ADXL335 3-axis analog accelerometer.  This
    * was tested on a Grove 3-axis Analog Accelerometer.  It uses 3

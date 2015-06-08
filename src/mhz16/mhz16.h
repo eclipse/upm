@@ -55,25 +55,27 @@ namespace upm {
 
     /**
      * @library mhz16
-	 * @sensor mhz16
-     * @comname Grove CO2 sensor
+     * @sensor mhz16
+     * @comname Grove CO2 Sensor
+     * @altname MHZ16 Serial CO2 Sensor
      * @type gaseous
      * @man seeed
      * @con uart
      *
-     * @brief C++ API support for the Grove CO2 sensor
+     * @brief API support for the Grove CO2 sensor
      *
      * This class implements support for the Grove CO2 sensor.
      *
      * It's CO2 detection ranges from 0PPM to 2000PPM.  It requires a
      * 2-3 minute warm up time before reporting valid data.
-     * 
+     *
+     * @image html mhz16.jpg
      * @snippet mhz16.cxx Interesting
      */
   class MHZ16 {
   public:
 
-    
+
     /**
      * MHZ16 module constructor
      *
@@ -119,7 +121,7 @@ namespace upm {
      * setup the proper tty i/o modes and the baudrate.  The default
      * baud rate is 9600 (B9600).
      *
-     * @param baud the desired baud rate.  
+     * @param baud the desired baud rate.
      * @return true if successful
      */
     bool setupTty(speed_t baud=B9600);

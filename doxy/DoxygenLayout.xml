@@ -142,7 +142,6 @@
   <!-- Layout definition for a group page -->
   <group>
     <briefdescription visible="yes"/>
-    <groupgraph visible="$GROUP_GRAPHS"/>
     <memberdecl>
       <nestedgroups visible="yes" title="Libraries"/>
       <dirs visible="yes" title=""/>
@@ -182,6 +181,7 @@
       <properties title=""/>
       <friends title=""/>
     </memberdef>
+	<groupgraph visible="$GROUP_GRAPHS"/>
     <authorsection visible="yes"/>
   </group>
 

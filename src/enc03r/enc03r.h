@@ -37,19 +37,20 @@ namespace upm {
   /**
    * @library enc03r
    * @sensor enc03r
-   * @comname Grove Single Axis Analog Gyro
-   * @altname ENC03R
+   * @comname ENC03R Single Axis Gyro
+   * @altname Grove Single Axis Analog Gyro
    * @type compass
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the ENC03R Single Axis Analog Gyro
+   * @brief API for the ENC03R Single Axis Analog Gyro
    *
    * UPM module for the ENC03R Single Axis Analog Gyro.
    * This gyroscope measures the x-axis angular velocity; that is,
    * how fast the sensor is rotating around the x-axis.
    * Calibration of the sensor is necessary for accurate readings.
    *
+   * @image html enc03r.jpg 
    * @snippet enc03r.cxx Interesting
    */
   class ENC03R {

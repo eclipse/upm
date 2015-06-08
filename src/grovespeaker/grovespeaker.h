@@ -33,7 +33,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Speaker
+   * @brief Grove Speaker library
    * @defgroup grovespeaker libupm-grovespeaker
    * @ingroup seeed gpio sound
    */
@@ -54,12 +54,13 @@ typedef struct
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the GroveSpeaker speaker
+   * @brief API for the GroveSpeaker speaker
    *
    * UPM module for the GroveSpeaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
-   *
+   * 
+   * @image html grovespeaker.jpg 
    * @snippet grovespeaker.cxx Interesting
    */
   class GroveSpeaker {

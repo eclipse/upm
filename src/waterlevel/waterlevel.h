@@ -27,25 +27,21 @@
 
 namespace upm {
   /**
-   * @brief C++ API for the Water Level Sensor
-   *
-   * The Water Level Sensor senses the water level.
-   * When the level rises, a ball with a magnet floats up and causes a switch to open.
-   * When the level falls, the magnet also falls and the switch closes.
-   *
+   * @brief Water Level sensor library
    * @defgroup waterlevel libupm-waterlevel
-   * @ingroup gpio waterlevel
+   * @ingroup seeed gpio liquid
    */
   /**
    * @library waterlevel
    * @sensor waterlevel
-   * @comname waterlevel
+   * @comname Grove Water Level Sensor
    * @type liquid
    * @man seeed
    * @con gpio
    * 
    * @brief UPM module for the Grove Luminance Sensor
-   * 
+   *
+   * @image html waterlevel.jpg 
    * @snippet apds9002.cxx Interesting
    */  class WaterLevel {
   public:

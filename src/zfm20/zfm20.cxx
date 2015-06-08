@@ -42,7 +42,7 @@ ZFM20::ZFM20(int uart)
     }
 
   // This requires a recent MRAA (1/2015)
-  char *devPath = mraa_uart_get_dev_path(m_uart);
+  const char *devPath = mraa_uart_get_dev_path(m_uart);
 
   if (!devPath)
     {

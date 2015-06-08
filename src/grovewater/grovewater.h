@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the Grove Water Sensor
+   * @brief Grove Water sensor library
    * @defgroup grovewater libupm-grovewater
    * @ingroup seeed gpio liquid
    */
@@ -41,10 +41,11 @@ namespace upm {
    * @man seeed
    * @con gpio
    *
-   * @brief C++ API for the Grove Water Sensor
+   * @brief API for the Grove Water Sensor
    *
    * UPM module for the Grove Water Sensor
    *
+   * @image html grovewater.jpg
    * @snippet grovewater.cxx Interesting
    */
   class GroveWater {

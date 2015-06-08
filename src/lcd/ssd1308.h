@@ -43,7 +43,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_0.96%22
  * @con i2c
  *
- * @brief C++ API for SSD1308 i2c controlled OLED displays
+ * @brief API for SSD1308 i2c controlled OLED displays
  *
  * The SSD1308 is a 128x64 Dot matrix OLED/PLED segment driver with
  * controller. This implementation was tested using the Grove LED 128×64

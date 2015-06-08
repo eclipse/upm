@@ -64,7 +64,7 @@ namespace upm {
  * @web http://www.adafruit.com/products/1293
  * @con i2c
  *
- * @brief C++ API for AM2315 chip (Temperature & Humidity Sensor)
+ * @brief API for AM2315 chip (Temperature & Humidity Sensor)
  *
  * Measurement Specialties [AM2315]
  * (http://www.aosong.com/asp_bin/Products/en/AM2315.pdf)

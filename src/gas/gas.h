@@ -35,7 +35,7 @@ struct thresholdContext {
 
 namespace upm {
 /**
- * @brief Gas Sensor Library
+ * @brief Gas sensor library
  *
  * Sensor Library for air quality and gas detecting sensors. Base class Gas provides buffered
  * sampling, threshold checking, a basic printing function and a standard read function.

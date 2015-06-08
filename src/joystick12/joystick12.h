@@ -43,12 +43,14 @@ namespace upm {
  * @man generic
  * @con analog
  *
- * @brief C++ API for Elecfreaks Joystick v 1.2-1.4 breakout
+ * @brief API for Elecfreaks Joystick v 1.2-1.4 breakout
  *
- * This file defines the Joystick API and implemntation for X, Y
+ * This file defines the Joystick API and implementation for X, Y
  * button could be treated as normal GPIO, this enables easier
- * interrupt support
+ * interrupt support. This driver should be compatible with any
+ * 2 axis analog joystick.
  *
+ * @image html joystick12.jpg
  * @snippet joystick12-example.cxx Interesting
  */
 class Joystick12 {

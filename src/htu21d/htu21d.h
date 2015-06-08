@@ -63,7 +63,7 @@ namespace upm {
  * @web http://www.meas-spec.com/downloads/HTU21D.pdf
  * @con i2c
  *
- * @brief C++ API for HTU21D chip (Atmospheric Pressure Sensor)
+ * @brief API for HTU21D chip (Atmospheric Pressure Sensor)
  *
  * Measurement Specialties [HTU21D] is a digital humidity sensor with
  * temperature output.

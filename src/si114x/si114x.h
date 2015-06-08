@@ -37,7 +37,7 @@
 namespace upm {
   
   /**
-   * @brief SI1145 UV light sensor
+   * @brief SI1145 UV light sensor library
    * @defgroup si114x libupm-si114x
    * @ingroup adafruit i2c light
    */
@@ -52,7 +52,7 @@ namespace upm {
    * @web https://www.adafruit.com/products/1777
    * @con i2c
    *
-   * @brief C++ API for the SI1145 UV light sensor
+   * @brief API for the SI1145 UV light sensor
    *
    * This module was tested with the Adafruit UV Sensor
    *
@@ -67,6 +67,7 @@ namespace upm {
    * in the future to support additional capabilities, including
    * interrupt support.
    *
+   * @image html si114x.jpg
    * @snippet si114x.cxx Interesting
    */
   class SI114X {

@@ -92,20 +92,15 @@ namespace upm {
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
  /**
- * @brief TSL2561 Digital Light Sensor library
- *
- *   The LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
- *   (http://www.adafruit.com/datasheets/TSL2561.pdf)
- *   The TSL2560 and TSL2561 are light-to-digital converters that transform
- *   light intensity to a digital signal output capable of direct I2C (TSL2561)
- *
+ * @brief TSL2561 digital light sensor library
  * @defgroup tsl2561 libupm-tsl2561
  * @ingroup seeed i2c light
  */
 /**
  * @library tsl2561
  * @sensor tsl2561
- * @comname Light sensor
+ * @comname TSL2561 Light Sensor
+ * @altname Grove Digital Light Sensor
  * @type light
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Digital_Light_Sensor
@@ -118,7 +113,7 @@ namespace upm {
  *   The TSL2560 and TSL2561 are light-to-digital converters that transform
  *   light intensity to a digital signal output capable of direct I2C (TSL2561)
  *
- * @image html grovetsl2561.jpeg
+ * @image html tsl2561.jpg
  * @snippet tsl2561.cxx Interesting
  */
 class TSL2561{

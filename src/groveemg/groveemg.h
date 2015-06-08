@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief UPM library for the GroveEMG Muscle Signal reader sensor
+   * @brief GroveEMG Muscle Signal reader sensor library
    * @defgroup groveemg libupm-groveemg
    * @ingroup seeed analog electric
    */
@@ -41,11 +41,12 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the GroveEMG Muscle Signal Reader Sensor
+   * @brief API for the GroveEMG Muscle Signal Reader Sensor
    * 
    * GroveEMG Muscle Signal reader gathers small muscle signals,
    * then processes and returns the result
    *
+   * @image html groveemg.jpg 
    * @snippet groveemg.cxx Interesting
    */
   class GroveEMG {

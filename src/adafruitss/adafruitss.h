@@ -70,13 +70,14 @@ namespace upm {
   * @web http://www.adafruit.com/product/1411
   * @con i2c
   *
-  * @brief C++ API for Adafruit Servo Shield 
+  * @brief API for Adafruit Servo Shield 
   *
   *	UPM library for the PCA9685 based Adafruit 16-channel servo shield. When 3
   * or more GWS servos attached results unpredictable. Adafruit do recommend a
   * capacitor be installed on the board which should alleviate the issue.
   * Sizing depends on servos and count.
   *
+  * @image html adafruitss.jpg 
   * @snippet adafruitss.cxx Interesting
   */
   class adafruitss {

@@ -53,11 +53,12 @@ namespace upm
  * @library tm1637
  * @sensor tm1637
  * @comname TM1637 7-Segment Display
+ * @altname Grove 4-Digit Display
  * @type display
  * @man seeed
  * @con gpio
  *
- * @brief C++ API for TM1637 (7-segment display)
+ * @brief API for TM1637 (7-segment display)
  *
  * The TM1637 is a display controller for LED based 7-segment displays.
  * It can be used to address and write data to multiple display digits. This
