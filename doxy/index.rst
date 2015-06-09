@@ -57,7 +57,7 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ###########################
 
 .. image:: ../docs/c++.png
-   :target: http://iotdk.intel.com/docs/master/upm/
+   :target: http://iotdk.intel.com/docs/master/upm/modules.html
 .. image:: ../docs/python.png
    :target: http://iotdk.intel.com/docs/master/upm/python
 .. image:: ../docs/node.png
