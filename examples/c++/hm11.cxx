@@ -58,7 +58,7 @@ void sendCommand(upm::HM11* ble, char *cmd)
     {
       memset(buffer, 0, BUFSIZ);
       
-      ble->readData(buffer, BUFSIZ);
+      ble->readData(buffer, BUFSIZ - 1);
       cout << "Returned: " << buffer << endl;
     }
   else
