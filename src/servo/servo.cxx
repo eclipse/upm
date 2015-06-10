@@ -77,6 +77,7 @@ mraa_result_t Servo::setAngle (int angle) {
     }
 
     m_currAngle = angle;
+    return MRAA_SUCCESS;
 }
 
 mraa_result_t Servo::haltPwm () {
