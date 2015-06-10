@@ -81,7 +81,7 @@ class SSD1327 : public I2CLcd
      * @param gray level from 0-255
      * @return Result of operation
      */
-    mraa_result_t setGrayLevel(uint8_t level);
+    void setGrayLevel(uint8_t level);
     /**
      * Write a string to LCD
      *
