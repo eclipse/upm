@@ -23,6 +23,7 @@
  */
 
 #include <unistd.h>
+#include <string.h>
 #include <iostream>
 #include <signal.h>
 #include "hmtrp.h"
@@ -128,7 +129,8 @@ int main (int argc, char **argv)
           // check to see if data is available first.
           if (radio->dataAvailable())
             {
-              int rv = radio->readData(radioBuffer, bufferLength);
+              memset(radioBuffer, 0, bufferLength);
+              int rv = radio->readData(radioBuffer, bufferLength - 1);
               
               if (rv > 0)
                 cout << "Received: " << radioBuffer << endl;
