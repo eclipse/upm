@@ -47,7 +47,7 @@ main(int argc, char** argv)
 	int timezone = -7; // Your UTC offset
 	time_t rawtime;
 	struct tm * gmt;
-	char myTime[4];
+	char myTime[5];
 
     fprintf(stdout, "TM1637 Display Example\n");
     signal(SIGINT, sig_handler);
@@ -62,8 +62,10 @@ main(int argc, char** argv)
     	time(&rawtime); // Update raw time
         gmt = gmtime(&rawtime); // Get current time
 
+        int hour = (gmt) ? gmt->tm_hour : 0;
+        int min = (gmt) ? gmt->tm_min : 0;
         // Format and store the time in 24 hour format
-        sprintf(myTime, "%2d%02d", (gmt->tm_hour + timezone + 24) % 24, gmt->tm_min);
+        snprintf(myTime, 5, "%2d%02d", (hour + timezone + 24) % 24, min);
 
         myDisplay.write(myTime); // Write to display as string
     	myDisplay.setColon(point ^= true); // Toggle the dots on the display
