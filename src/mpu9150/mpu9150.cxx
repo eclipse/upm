@@ -81,7 +81,7 @@ MPU9150::getDeviceID () {
     return regData;
 }
 
-mraa_result_t
+void
 MPU9150::getData () {
     uint8_t buffer[14];
 

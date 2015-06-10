@@ -159,7 +159,7 @@ class MPU9150 {
          * Get the Accelerometer, Gyro and Compass data from the chip and
          * save it in private section.
          */
-        mraa_result_t getData ();
+        void getData ();
 
         /**
          * @param data structure with 3 axis (x,y,z)
