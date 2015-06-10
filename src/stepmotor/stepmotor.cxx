@@ -79,13 +79,13 @@ StepMotor::setSpeed (int speed) {
 mraa_result_t
 StepMotor::stepForward (int ticks) {
     dirForward ();
-    move (ticks);
+    return move (ticks);
 }
 
 mraa_result_t
 StepMotor::stepBackwards (int ticks) {
     dirBackwards ();
-    move (ticks);
+    return move (ticks);
 }
 
 mraa_result_t
