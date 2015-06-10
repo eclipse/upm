@@ -39,4 +39,6 @@ main(int argc, char **argv)
     lcd->setCursor(3,6);
     lcd->write("Hello World");
     delete lcd;
+
+    return 0;
 }
