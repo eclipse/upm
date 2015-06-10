@@ -134,7 +134,7 @@ class HTU21D {
          * it is in a known state.  This function can be used to reset
          * the min/max temperature and pressure values.
          */
-        int resetSensor(void);
+        void resetSensor(void);
 
         /**
          * Function intended to test the device and verify it
