@@ -81,7 +81,7 @@ Itg3200::~Itg3200()
     mraa_i2c_stop(m_i2c);
 }
 
-mraa_result_t
+void
 Itg3200::calibrate(void)
 {
     int reads = 600;
