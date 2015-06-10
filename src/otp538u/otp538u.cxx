@@ -163,7 +163,7 @@ float OTP538U::objectTemperature()
   // add +2 to compensate for the -20C and -10C slots below zero
   int voltOffset = int(ambTemp / 10) + 1 + 2;
   float voltage = sensorVolts * 10.0;
-  for (slot=0; slot<otp538u_vt_table_max; slot++)		
+  for (slot=0; slot<(otp538u_vt_table_max - 1); slot++)		
     {
       if ( (voltage > otp538u_vt_table[slot][voltOffset]) &&
            (voltage < otp538u_vt_table[slot+1][voltOffset]) )
