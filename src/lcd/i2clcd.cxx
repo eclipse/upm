@@ -45,7 +45,7 @@ mraa_result_t
 I2CLcd::write(int row, int column, std::string msg)
 {
     setCursor(row, column);
-    write(msg);
+    return write(msg);
 }
 
 mraa_result_t
