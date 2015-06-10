@@ -48,7 +48,7 @@ void start_sampler (pulsensor_context * ctx) {
     int error;
     ctx_counter++;
     usleep (100000);
-    error = pthread_create (&(ctx->sample_thread), NULL, do_sample, (void *) ctx);
+    error = pthread_create (&(ctx->sample_thread), NULL, &do_sample, (void *) ctx);
     if (error != 0) {
         printf ("ERROR : Cannot created sampler thread.\n");
     }
@@ -144,4 +144,5 @@ void * do_sample (void * arg) {
 
         usleep (2000);
     }
+    return NULL;
 }
