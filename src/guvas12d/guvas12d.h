@@ -46,6 +46,7 @@ namespace upm {
    *
    * UPM module for the GUVAS12D UV Sensor
    *
+   * @image html guvas12d.jpg
    * @snippet guvas12d.cxx Interesting
    */
   class GUVAS12D {

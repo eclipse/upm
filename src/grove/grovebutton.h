@@ -36,6 +36,6 @@
  * @brief API for Grove Button
  *
  * Very basic UPM module for Grove button
- *
+ * @image html grovebutton.jpg
  * @snippet grovebutton.cxx Interesting
  */

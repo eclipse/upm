@@ -56,6 +56,7 @@ namespace upm {
    *
    * It was developed using the Grove Q Touch Sensor board.
    *
+   * @image html at42qt1070.jpg
    * @snippet at42qt1070.cxx Interesting
    */
   class AT42QT1070 {

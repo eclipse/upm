@@ -47,6 +47,7 @@ namespace upm {
    * This sensor transforms luminous intensity to output analog values.
    * It uses the APDS-9002 ambient light sensor.
    *
+   * @image html apds9002.jpg
    * @snippet apds9002.cxx Interesting
    */
    

@@ -73,6 +73,7 @@ namespace upm {
    * device via NFC, as well as set the NFC passwords, which cannot be
    * done via I2C.
    *
+   * @image html m24lr64e.jpg
    * @snippet m24lr64e.cxx Interesting
    */
   class M24LR64E {

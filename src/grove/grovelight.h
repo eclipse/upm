@@ -40,6 +40,7 @@
  * analog pin will be larger in bright light and smaller in the dark.
  * An approximate lux value can also be returned.
  *
+ * @image html grovelight.jpg
  * @snippet grovelight.cxx Interesting
  */
  
