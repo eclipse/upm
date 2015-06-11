@@ -4,6 +4,15 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.3.1
+
+ * Updated index pages for API documentation and cross-linked them
+ * More images were added for Grove, Adafruit and Sparkfun sensors along with
+ licensing information
+ * Addressed several issues reported by static code analysis tools
+ * Added support for Grove NFC Tag sensor
+ * Fixed several typos in library and sensor names
+
 ### v0.3.0
 
  * New CMake targets to build python and node documentation with Sphinx and
