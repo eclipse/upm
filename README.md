@@ -65,9 +65,9 @@ API Documentation
 
 @htmlonly
 
-<a href="http://iotdk.intel.com/docs/master/upm/modules.html"><img src="docs/c++.png"/></a>
-<a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/python.png"/></a>
-<a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/node.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm/modules.html"><img src="docs/icons/c++.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/icons/python.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/icons/node.png"/></a>
 
 @endhtmlonly
 
