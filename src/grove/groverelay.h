@@ -39,6 +39,7 @@
  * control a higher voltage and/or higher current.  When closed, 
  * the indicator LED will light up and current is allowed to flow.
  *
+ * @image html groverelay.jpg
  * @snippet groverelay.cxx Interesting
  */
  

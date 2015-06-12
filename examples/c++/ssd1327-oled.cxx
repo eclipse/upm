@@ -123,4 +123,5 @@ main(int argc, char **argv)
 
 	delete lcd;
 //! [Interesting]
+        return 0;
 }

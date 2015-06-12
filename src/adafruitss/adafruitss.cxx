@@ -114,7 +114,7 @@ void adafruitss::servo(uint8_t port, uint8_t servo_type, uint16_t degrees) {
     //             1 = extended 0.6ms to 2.4ms
     //             2 = extended 0.8ms to 2.2ms
 
-    uint16_t duration;
+    uint16_t duration = 0;
     int result;
     int r2;
 

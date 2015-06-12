@@ -31,13 +31,13 @@ namespace upm {
 
 /**
  * @brief Analog Joystick library
- * @defgroup joystick libupm-joystick
+ * @defgroup joystick12 libupm-joystick12
  * @ingroup generic analog ainput
  */
 
 /**
- * @library joystick
- * @sensor joystick
+ * @library joystick12
+ * @sensor joystick12
  * @comname Analog Joystick
  * @type ainput
  * @man generic

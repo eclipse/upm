@@ -73,9 +73,8 @@ public:
      * Calibrates the sensor to 0 on all axes. Sensor needs to be resting for accurate calibration.
      * Takes about 3 seconds and is also called by constructor on object creation.
      *
-     * @return 0 for successful calibration
      */
-    mraa_result_t calibrate();
+    void calibrate();
 
     /**
      * Returns the temperature reading from the integrated temperature sensor in Celsius degrees

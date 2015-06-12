@@ -128,13 +128,16 @@ SSD1308::home()
 mraa_result_t
 SSD1308::writeChar(uint8_t value)
 {
+    mraa_result_t rv;
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
     }
 
     for (uint8_t idx = 0; idx < 8; idx++) {
-        m_i2c_lcd_control.writeReg(LCD_DATA, BasicFont[value - 32][idx]);
+        rv = m_i2c_lcd_control.writeReg(LCD_DATA, BasicFont[value - 32][idx]);
     }
+
+    return rv;
 }
 
 mraa_result_t
@@ -148,6 +151,8 @@ SSD1308::setNormalDisplay()
 mraa_result_t
 SSD1308::setAddressingMode(displayAddressingMode mode)
 {
-    m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_MEM_ADDR_MODE); // set addressing mode
-    m_i2c_lcd_control.writeReg(LCD_CMD, mode);                      // set page addressing mode
+    mraa_result_t rv;
+    rv =m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_MEM_ADDR_MODE); // set addressing mode
+    rv =m_i2c_lcd_control.writeReg(LCD_CMD, mode);                      // set page addressing mode
+    return rv;
 }

@@ -221,7 +221,7 @@ SSD1327::home()
     return setCursor(0, 0);
 }
 
-mraa_result_t
+void
 SSD1327::setGrayLevel(uint8_t level)
 {
     grayHigh = (level << 4) & 0xF0;
@@ -236,6 +236,7 @@ SSD1327::setGrayLevel(uint8_t level)
 mraa_result_t
 SSD1327::writeChar(uint8_t value)
 {
+    mraa_result_t rv = MRAA_SUCCESS;
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
     }
@@ -250,10 +251,11 @@ SSD1327::writeChar(uint8_t value)
             data |= (bitOne) ? grayHigh : 0x00;
             data |= (bitTwo) ? grayLow : 0x00;
 
-            m_i2c_lcd_control.writeReg(LCD_DATA, data);
+            rv = m_i2c_lcd_control.writeReg(LCD_DATA, data);
             usleep(CMD_SLEEP - 2000);
         }
     }
+    return rv;
 }
 
 mraa_result_t
@@ -266,35 +268,39 @@ SSD1327::setNormalDisplay()
 mraa_result_t
 SSD1327::setHorizontalMode()
 {
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
+    mraa_result_t rv = MRAA_SUCCESS;
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x42); // horizontal mode
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x42); // horizontal mode
     usleep(CMD_SLEEP);
 
     // Row Address
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x75); // Set Row Address
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x75); // Set Row Address
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x00); // Start 0
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x00); // Start 0
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x5f); // End 95
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x5f); // End 95
     usleep(CMD_SLEEP);
 
     // Column Address
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x15); // Set Column Address
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x15); // Set Column Address
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x08); // Start from 8th Column of driver
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x08); // Start from 8th Column of driver
                                                // IC. This is 0th Column for OLED
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x37); // End at  (8 + 47)th column. Each
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x37); // End at  (8 + 47)th column. Each
                                                // Column has 2 pixels(or segments)
     usleep(CMD_SLEEP);
+    return rv;
 }
 
 mraa_result_t
 SSD1327::setVerticalMode()
 {
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
+    mraa_result_t rv = MRAA_SUCCESS;
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0xA0); // remap to
     usleep(CMD_SLEEP);
-    m_i2c_lcd_control.writeReg(LCD_CMD, 0x46); // Vertical mode
+    rv = m_i2c_lcd_control.writeReg(LCD_CMD, 0x46); // Vertical mode
     usleep(CMD_SLEEP);
+    return rv;
 }

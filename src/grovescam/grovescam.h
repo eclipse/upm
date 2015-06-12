@@ -70,7 +70,8 @@ namespace upm {
      * sketch.
      *
      * It is connected via a UART at 115200 baud.
-     *
+     * 
+     * @image html grovescam.jpg
      * @snippet grovescam.cxx Interesting
      */
 

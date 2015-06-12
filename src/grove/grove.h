@@ -60,6 +60,7 @@ class Grove {
  * @ingroup grove gpio
  * @snippet groveled.cxx Interesting
  * @snippet groveled-multi.cxx Interesting
+ * @image html groveled.jpg
  */
 class GroveLed: public Grove {
     public:
@@ -111,6 +112,7 @@ class GroveLed: public Grove {
  *
  * @ingroup grove gpio
  * @snippet groverelay.cxx Interesting
+ * @image html groverelay.jpg
  */
 class GroveRelay: public Grove {
     public:
@@ -161,6 +163,7 @@ class GroveRelay: public Grove {
  *
  * @ingroup grove analog
  * @snippet grovetemp.cxx Interesting
+ * @image html grovetemp.jpg
  */
 class GroveTemp: public Grove {
     public:
@@ -201,6 +204,7 @@ class GroveTemp: public Grove {
  *
  * @ingroup grove analog
  * @snippet grovelight.cxx Interesting
+ * @image html grovelight.jpg
  */
 class GroveLight: public Grove {
     public:
@@ -348,6 +352,7 @@ class GroveSlide: public Grove {
  *
  * @ingroup grove gpio
  * @snippet grovebutton.cxx Interesting
+ * @image html grovebutton.jpg
  */
 class GroveButton: public Grove {
     public:

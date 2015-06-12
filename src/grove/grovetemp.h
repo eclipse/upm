@@ -36,6 +36,7 @@
  *
  * Very basic UPM module for Grove temperature sensor on analog
  *
+ * @image html grovetemp.h
  * @snippet grovetemp.cxx Interesting
  */
  

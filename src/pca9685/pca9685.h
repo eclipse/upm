@@ -299,10 +299,8 @@ namespace upm {
      *
      * @param enabled true to enable restart, false to disable.
      * Default is enabled.
-     *
-     * @return true if successful
      */
-    bool enableRestart(bool enabled) { m_restartEnabled = enabled; };
+    void enableRestart(bool enabled) { m_restartEnabled = enabled; };
 
   private:
     /**
