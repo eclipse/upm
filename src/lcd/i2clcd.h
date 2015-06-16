@@ -84,6 +84,7 @@ class I2CLcd
 {
   public:
     I2CLcd(int bus, int lcdAddress);
+    virtual ~I2CLcd();
     mraa_result_t write(int x, int y, std::string msg);
 
     virtual mraa_result_t write(std::string msg) = 0;

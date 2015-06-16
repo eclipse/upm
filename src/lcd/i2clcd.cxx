@@ -41,6 +41,10 @@ I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
     }
 }
 
+I2CLcd::~I2CLcd()
+{
+}
+
 mraa_result_t
 I2CLcd::write(int row, int column, std::string msg)
 {
