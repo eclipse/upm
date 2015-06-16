@@ -189,12 +189,71 @@ class AT42QT1070
      */
     uint16_t readWord(uint8_t reg);
 
+
+    /**
+     * Read the Chip ID register on the sensor
+     *
+     * @return the value of the Chip ID register
+     */
+    uint8_t readChipID(void);
+
     /**
      * Read the current touch status and detection state
      *
      * @return key status bits for all keys (0-6)
      */
     void updateState();
+
+
+    /**
+     * Read the current low-power mode setting
+     *
+     * @return return low-power mode setting from sensor
+     */
+    uint8_t getLPMode(void);
+
+    /**
+     * Change the low-pomer mode setting on the sensor
+     *
+     * @param mode desired new mode
+     * @return new setting on sensor
+     */
+    uint8_t setLPMode(uint8_t mode);
+
+
+    /**
+     * Read the current averaging factor setting for a key
+     *
+     * @param key the key being read
+     * @return the averaging factor
+     */
+    uint8_t getAVE(uint8_t key);
+
+    /**
+     * Change the averaging factor setting for a key
+     *
+     * @param key the key being changed
+     * @param ave the new averaging factor
+     * @return the new averaging factor as read from the device
+     */
+    uint8_t setAVE(uint8_t key, uint8_t ave);
+
+    /**
+     * Read the AKS group a key is part of
+     *
+     * @param key the key (0-6) being queried
+     * @return AKS group the key is part of
+     */
+    uint8_t getAKSGroup(uint8_t key);
+
+    /**
+     * Change the AKS group that a key is part of
+     *
+     * @param key the key (0-6) being changed
+     * @param group the new group for the key
+     * @return return the new value on the sensor
+     */
+    uint8_t setAKSGroup(uint8_t key, uint8_t group);
 
     /**
      * return the overflow indicator
