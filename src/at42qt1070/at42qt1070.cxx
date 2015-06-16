@@ -56,7 +56,7 @@ AT42QT1070::AT42QT1070(int bus, uint8_t address)
         throw std::runtime_error("Chip ID does not match the expected value (2Eh)");
     }
 
-    m_buttonStates = false;
+    m_buttonStates = 0;
     m_calibrating = false;
     m_overflow = false;
 }
