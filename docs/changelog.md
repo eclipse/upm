@@ -9,7 +9,7 @@ from earlier versions:
  * Updated index pages for API documentation and cross-linked them
  * More images were added for Grove, Adafruit and Sparkfun sensors along with
  licensing information
- * Addressed several issues regarding code robustness
+ * Applied a set of patches to improve code robustness
  * Added support for Grove NFC Tag sensor
  * Fixed several typos in library and sensor names
 
