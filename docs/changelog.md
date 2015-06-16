@@ -9,19 +9,19 @@ from earlier versions:
  * Updated index pages for API documentation and cross-linked them
  * More images were added for Grove, Adafruit and Sparkfun sensors along with
  licensing information
- * Addressed several issues reported by static code analysis tools
+ * Addressed several issues regarding code robustness
  * Added support for Grove NFC Tag sensor
  * Fixed several typos in library and sensor names
 
 ### v0.3.0
 
- * New CMake targets to build python and node documentation with Sphinx and
- Yuidoc
+ * Provided automated, updated and comprehensive sensor API documentation for
+ C++, Python and JavaScript
  * Edited sensor names, library descriptions and doxygen tags for consistency
  * Added support for several new sensors
  * Fixed the TH02 sensor driver and made major improvements to i2clcd driver
- * Updated and added new images for a lot of the existing sensors
- * Added this changelog
+ * Added new and updated images for numerous new and existing sensors
+ * Started this changelog
 
 ### v0.2.0
 
