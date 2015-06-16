@@ -32,109 +32,111 @@
 #define AT42QT1070_I2C_BUS 0
 #define AT42QT1070_DEFAULT_I2C_ADDR 0x1b
 
-namespace upm {
+namespace upm
+{
+/**
+ * @brief Atmel AT42QT1070 QTouch sensor library
+ * @defgroup at42qt1070 libupm-at42qt1070
+ * @ingroup seeed i2c touch
+ */
 
-  /**
-   * @brief Atmel AT42QT1070 QTouch sensor library
-   * @defgroup at42qt1070 libupm-at42qt1070
-   * @ingroup seeed i2c touch
-   */
-
-  /**
-   * @library at42qt1070
-   * @sensor at42qt1070
-   * @comname AT42QT1070 QTouch Sensor
-   * @altname Grove QTouch Sensor
-   * @type touch
-   * @man seeed
-   * @con i2c
-   *
-   * @brief API for the Atmel AT42QT1070 QTouch sensor
-   *
-   * This class implements support for the Atmel AT42QT1070 QTouch
-   * sensor, which supports 7 capacitive buttons.
-   *
-   * It was developed using the Grove Q Touch Sensor board.
-   *
-   * @image html at42qt1070.jpg
-   * @snippet at42qt1070.cxx Interesting
-   */
-  class AT42QT1070 {
+/**
+ * @library at42qt1070
+ * @sensor at42qt1070
+ * @comname AT42QT1070 QTouch Sensor
+ * @altname Grove QTouch Sensor
+ * @type touch
+ * @man seeed
+ * @con i2c
+ *
+ * @brief API for the Atmel AT42QT1070 QTouch sensor
+ *
+ * This class implements support for the Atmel AT42QT1070 QTouch
+ * sensor, which supports 7 capacitive buttons.
+ *
+ * It was developed using the Grove Q Touch Sensor board.
+ *
+ * @image html at42qt1070.jpg
+ * @snippet at42qt1070.cxx Interesting
+ */
+class AT42QT1070
+{
   public:
-
     // registers
-    typedef enum { REG_CHIPID      = 0,
-                   REG_FWVERS      = 1,
+    typedef enum {
+        REG_CHIPID = 0,
+        REG_FWVERS = 1,
 
-                   REG_DETSTATUS   = 2, // detection status
-                   REG_KEYSTATUS   = 3, // key status
+        REG_DETSTATUS = 2, // detection status
+        REG_KEYSTATUS = 3, // key status
 
-                   REG_KEYSIG0_H   = 4, // key signal
-                   REG_KEYSIG0_L   = 5,
-                   REG_KEYSIG1_H   = 6,
-                   REG_KEYSIG1_L   = 7,
-                   REG_KEYSIG2_H   = 8,
-                   REG_KEYSIG2_L   = 9,
-                   REG_KEYSIG3_H   = 10,
-                   REG_KEYSIG3_L   = 11,
-                   REG_KEYSIG4_H   = 12,
-                   REG_KEYSIG4_L   = 13,
-                   REG_KEYSIG5_H   = 14,
-                   REG_KEYSIG5_L   = 15,
-                   REG_KEYSIG6_H   = 16,
-                   REG_KEYSIG6_L   = 17,
+        REG_KEYSIG0_H = 4, // key signal
+        REG_KEYSIG0_L = 5,
+        REG_KEYSIG1_H = 6,
+        REG_KEYSIG1_L = 7,
+        REG_KEYSIG2_H = 8,
+        REG_KEYSIG2_L = 9,
+        REG_KEYSIG3_H = 10,
+        REG_KEYSIG3_L = 11,
+        REG_KEYSIG4_H = 12,
+        REG_KEYSIG4_L = 13,
+        REG_KEYSIG5_H = 14,
+        REG_KEYSIG5_L = 15,
+        REG_KEYSIG6_H = 16,
+        REG_KEYSIG6_L = 17,
 
-                   REG_REFDATA0_H  = 18, // key reference data
-                   REG_REFDATA0_L  = 19,
-                   REG_REFDATA1_H  = 20,
-                   REG_REFDATA1_L  = 21,
-                   REG_REFDATA2_H  = 22,
-                   REG_REFDATA2_L  = 23,
-                   REG_REFDATA3_H  = 24,
-                   REG_REFDATA3_L  = 25,
-                   REG_REFDATA4_H  = 26,
-                   REG_REFDATA4_L  = 27,
-                   REG_REFDATA5_H  = 28,
-                   REG_REFDATA5_L  = 29,
-                   REG_REFDATA6_H  = 30,
-                   REG_REFDATA6_L  = 31,
+        REG_REFDATA0_H = 18, // key reference data
+        REG_REFDATA0_L = 19,
+        REG_REFDATA1_H = 20,
+        REG_REFDATA1_L = 21,
+        REG_REFDATA2_H = 22,
+        REG_REFDATA2_L = 23,
+        REG_REFDATA3_H = 24,
+        REG_REFDATA3_L = 25,
+        REG_REFDATA4_H = 26,
+        REG_REFDATA4_L = 27,
+        REG_REFDATA5_H = 28,
+        REG_REFDATA5_L = 29,
+        REG_REFDATA6_H = 30,
+        REG_REFDATA6_L = 31,
 
-                   REG_NTHR0       = 32, // negative threshold level
-                   REG_NTHR1       = 33,
-                   REG_NTHR2       = 34,
-                   REG_NTHR3       = 35,
-                   REG_NTHR4       = 36,
-                   REG_NTHR5       = 37,
-                   REG_NTHR6       = 38,
+        REG_NTHR0 = 32, // negative threshold level
+        REG_NTHR1 = 33,
+        REG_NTHR2 = 34,
+        REG_NTHR3 = 35,
+        REG_NTHR4 = 36,
+        REG_NTHR5 = 37,
+        REG_NTHR6 = 38,
 
-                   REG_AVE0        = 39, // key suppression
-                   REG_AVE1        = 40,
-                   REG_AVE2        = 41,
-                   REG_AVE3        = 42,
-                   REG_AVE4        = 43,
-                   REG_AVE5        = 44,
-                   REG_AVE6        = 45,
+        REG_AVE0 = 39, // key suppression
+        REG_AVE1 = 40,
+        REG_AVE2 = 41,
+        REG_AVE3 = 42,
+        REG_AVE4 = 43,
+        REG_AVE5 = 44,
+        REG_AVE6 = 45,
 
-                   REG_DI0         = 46, // detection integrator
-                   REG_DI1         = 47,
-                   REG_DI2         = 48,
-                   REG_DI3         = 49,
-                   REG_DI4         = 50,
-                   REG_DI5         = 51,
-                   REG_DI6         = 52,
+        REG_DI0 = 46, // detection integrator
+        REG_DI1 = 47,
+        REG_DI2 = 48,
+        REG_DI3 = 49,
+        REG_DI4 = 50,
+        REG_DI5 = 51,
+        REG_DI6 = 52,
 
-                   REG_GUARD       = 53, // FastOutDI/Max Cal/Guard channel
-                   REG_LP          = 54, // low power
-                   REG_MAXON       = 55, // max on duration
-                   REG_CALIBRATE   = 56,
-                   REG_RESET       = 57
+        REG_GUARD = 53, // FastOutDI/Max Cal/Guard channel
+        REG_LP = 54,    // low power
+        REG_MAXON = 55, // max on duration
+        REG_CALIBRATE = 56,
+        REG_RESET = 57
     } AT42QT1070_REG_T;
 
     // detection register bits
-    typedef enum { DET_TOUCH       = 0x01,
-                   // 0x02-0x20 reserved
-                   DET_OVERFLOW    = 0x40,
-                   DET_CALIBRATE   = 0x80
+    typedef enum {
+        DET_TOUCH = 0x01,
+        // 0x02-0x20 reserved
+        DET_OVERFLOW = 0x40,
+        DET_CALIBRATE = 0x80
     } AT42QT1070_DET_T;
 
 
@@ -199,14 +201,22 @@ namespace upm {
      *
      * @return true if overflow indicated
      */
-    bool isOverflowed() { return m_overflow; };
+    bool
+    isOverflowed()
+    {
+        return m_overflow;
+    };
 
     /**
      * return the calibrating indicator
      *
      * @return true if calibration is in progress
      */
-    bool isCalibrating() { return m_calibrating; };
+    bool
+    isCalibrating()
+    {
+        return m_calibrating;
+    };
 
     /**
      * Issue a reset command
@@ -227,7 +237,11 @@ namespace upm {
      *
      * @returns the button states
      */
-    uint8_t getButtons() { return m_buttonStates; };
+    uint8_t
+    getButtons()
+    {
+        return m_buttonStates;
+    };
 
   private:
     uint8_t m_buttonStates;
@@ -236,7 +250,5 @@ namespace upm {
 
     mraa_i2c_context m_i2c;
     uint8_t m_addr;
-  };
+};
 }
-
-
