@@ -26,6 +26,7 @@
 #include <math.h>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "at42qt1070.h"
 
@@ -49,6 +50,10 @@ AT42QT1070::AT42QT1070(int bus, uint8_t address)
         cerr << __FUNCTION__ << ": Could not initialize i2c bus. " << endl;
         mraa_result_print(rv);
         return;
+    }
+
+    if (readChipID() != 0x2E) {
+        throw std::runtime_error("Chip ID does not match the expected value (2Eh)");
     }
 
     m_buttonStates = false;
@@ -101,6 +106,12 @@ AT42QT1070::readWord(uint8_t reg)
     return mraa_i2c_read_word_data(m_i2c, reg);
 }
 
+uint8_t
+AT42QT1070::readChipID(void)
+{
+    return readByte(REG_CHIPID);
+}
+
 void
 AT42QT1070::updateState()
 {
@@ -127,6 +138,102 @@ AT42QT1070::updateState()
     } else {
         m_buttonStates = 0;
     }
+}
+
+uint8_t
+AT42QT1070::getLPMode(void)
+{
+    return readByte(REG_LP);
+}
+
+uint8_t
+AT42QT1070::setLPMode(uint8_t mode)
+{
+    writeByte(REG_LP, mode);
+
+    return getLPMode();
+}
+
+uint8_t
+AT42QT1070::getAVE(uint8_t key)
+{
+    uint8_t value, ave;
+
+    if (key > 6) {
+        throw std::invalid_argument("Only keys 0-6 are allowed");
+    }
+
+    value = readByte(REG_AVE0 + key);
+    ave = (value & 0xFC) >> 2;
+
+    return ave;
+}
+
+uint8_t
+AT42QT1070::setAVE(uint8_t key, uint8_t ave)
+{
+    uint8_t value;
+
+    if (key > 6) {
+        throw std::invalid_argument("Only keys 0-6 are allowed");
+    }
+
+    switch (ave) {
+        case 1:
+        case 2:
+        case 4:
+        case 8:
+        case 16:
+        case 32:
+            break;
+
+        default:
+            throw std::invalid_argument("Invalid averaging factor");
+    }
+
+    value = readByte(REG_AVE0 + key);
+    value = value & 0x03;
+    value = value | (ave << 2);
+    writeByte(REG_AVE0 + key, value);
+
+    return getAVE(key);
+}
+
+uint8_t
+AT42QT1070::getAKSGroup(uint8_t key)
+{
+    uint8_t value, aks;
+
+    if (key > 6) {
+        throw std::invalid_argument("Only keys 0-6 are allowed");
+    }
+
+    value = readByte(REG_AVE0 + key);
+    aks = value & 0x03;
+
+    return aks;
+}
+
+uint8_t
+AT42QT1070::setAKSGroup(uint8_t key, uint8_t group)
+{
+    uint8_t value;
+
+    if (key > 6) {
+        throw std::invalid_argument("Only keys 0-6 are allowed");
+    }
+
+    if (group > 3) {
+        throw std::invalid_argument("Only groups 0-3 are allowed");
+    }
+
+    value = readByte(REG_AVE0 + key);
+    value = value & 0xFC;
+    value = value | group;
+
+    writeByte(REG_AVE0 + key, value);
+
+    return getAKSGroup(key);
 }
 
 bool
