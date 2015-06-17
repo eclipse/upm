@@ -79,6 +79,8 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
 
 Jhd1313m1::~Jhd1313m1()
 {
+    clear();
+    setColor(0x00, 0x00, 0x00);
 }
 
 mraa_result_t
