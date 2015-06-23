@@ -50,7 +50,7 @@ namespace upm {
     /**
      * @brief MHZ16 Serial CO2 sensor library
      * @defgroup mhz16 libupm-mhz16
-     * @ingroup seeed serial gaseous
+     * @ingroup seeed uart gaseous
      */
 
     /**
