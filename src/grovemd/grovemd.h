@@ -46,6 +46,7 @@ namespace upm {
    * @type motor
    * @man seeed
    * @con i2c
+   * @kit robok
    *
    * @brief API for the Grove I2C Motor Driver 
    *

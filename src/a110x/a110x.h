@@ -43,6 +43,7 @@ namespace upm {
    * @man seeed
    * @web http://www.allegromicro.com/en/Products/Magnetic-Digital-Position-Sensor-ICs/Hall-Effect-Unipolar-Switches/A1101-2-3-4-6.aspx
    * @con gpio
+   * @kit robok
    *
    * @brief API for the A110X Hall Effect sensors
    *

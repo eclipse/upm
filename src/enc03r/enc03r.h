@@ -42,6 +42,7 @@ namespace upm {
    * @type compass
    * @man seeed
    * @con analog
+   * @kit robok
    *
    * @brief API for the ENC03R Single Axis Analog Gyro
    *

@@ -40,6 +40,7 @@ namespace upm {
    * @type electric
    * @man seeed
    * @con gpio pwm
+   * @kit robok
    *
    * @brief API for the CJQ4435 MOSFET
    *

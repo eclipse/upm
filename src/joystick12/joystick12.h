@@ -42,6 +42,7 @@ namespace upm {
  * @type ainput
  * @man generic
  * @con analog
+ * @kit robok
  *
  * @brief API for Elecfreaks Joystick v 1.2-1.4 breakout
  *

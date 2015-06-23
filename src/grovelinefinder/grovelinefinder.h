@@ -40,6 +40,7 @@ namespace upm {
    * @type color
    * @man seeed
    * @con gpio
+   * @kit robok
    *
    * @brief API for the Grove Line Finder sensor
    *

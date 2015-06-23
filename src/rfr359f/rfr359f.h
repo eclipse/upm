@@ -42,6 +42,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_IR_Distance_Interrupt
    * @con gpio
+   * @kit robok
    *
    * @brief API for the RFR359F based Grove Distance Interrupter. 
    *

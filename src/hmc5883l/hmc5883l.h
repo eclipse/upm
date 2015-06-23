@@ -44,6 +44,7 @@ namespace upm {
  * @type compass
  * @man seeed
  * @con i2c
+ * @kit robok
  *
  * @brief API for Hmc5883l (3-axis digital compass)
  *

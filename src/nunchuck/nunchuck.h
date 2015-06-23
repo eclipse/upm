@@ -43,6 +43,7 @@ namespace upm {
    * @man generic
    * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
    * @con i2c
+   * @kit robok
    *
    * @brief API for the Wii Nunchuck
    *

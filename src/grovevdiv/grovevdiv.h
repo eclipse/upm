@@ -48,6 +48,7 @@ namespace upm {
    * @type electric
    * @man seeed
    * @con analog
+   * @kit robok
    *
    * @brief API for the Grove Voltage Divider Sensor
    *
