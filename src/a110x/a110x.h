@@ -37,8 +37,8 @@ namespace upm {
    * @library a110x
    * @sensor a110x
    * @comname A110X Hall Effect Sensor
-   * @altname A1101, A1102, A1103, A1004, A1106
    * @altname Grove Hall Sensor
+   * @altid A1101, A1102, A1103, A1004, A1106
    * @type electric
    * @man seeed
    * @web http://www.allegromicro.com/en/Products/Magnetic-Digital-Position-Sensor-ICs/Hall-Effect-Unipolar-Switches/A1101-2-3-4-6.aspx
