@@ -236,6 +236,7 @@ ALIASES                = library="@ingroup " \
                          sensor="@li **ID:** " \
                          comname="@li **Name:** " \
                          altname="@li **Other Names:** " \
+                         altid="@li **Other Chips:** " \
                          type="@li **Category:** " \
                          man="@li **Manufacturer:** " \
                          web="@li **Link:** " \
