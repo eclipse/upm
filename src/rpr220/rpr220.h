@@ -42,6 +42,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor
  * @con gpio
+ * @kit tsk
  *
  * @brief API for the RPR220 based Grove IR Reflective Sensor
  * 

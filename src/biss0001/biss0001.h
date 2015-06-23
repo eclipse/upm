@@ -42,6 +42,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
    * @con gpio
+   * @kit tsk
    *
    * @brief API for the BISS0001 Motion Sensor
    *

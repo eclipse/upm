@@ -42,6 +42,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
    * @con analog gpio
+   * @kit tsk
    *
    * @brief API for the MQ303A Alcohol Sensor
    *
