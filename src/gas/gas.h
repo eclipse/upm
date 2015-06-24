@@ -41,7 +41,7 @@ namespace upm {
  * sampling, threshold checking, a basic printing function and a standard read function.
  *
  * @defgroup gas libupm-gas
- * @ingroup seeed analog gaseous eak
+ * @ingroup seeed analog gaseous eak hak
  */
 class Gas {
     public:

@@ -31,6 +31,7 @@
  * @type ainput
  * @man seeed
  * @con analog
+ * @kit gsk
  *
  * @brief API for Grove Rotary Angle Sensor (Knob)
  *

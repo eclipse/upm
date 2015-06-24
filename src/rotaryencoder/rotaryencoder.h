@@ -33,7 +33,7 @@ namespace upm {
 /**
  * @brief Grove Rotary Encoder library
  * @defgroup rotaryencoder libupm-rotaryencoder
- * @ingroup seeed gpio other
+ * @ingroup seeed gpio other hak
  */
 /**
  * @library rotaryencoder
@@ -43,7 +43,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder
  * @con gpio
- * @kit gsk
+ * @kit hak
  *
  * @brief API for the Grove Rotary Encoder
  * 

@@ -31,7 +31,7 @@ namespace upm {
 /**
  * @brief RPR220 IR reflective sensor library
  * @defgroup rpr220 libupm-rpr220
- * @ingroup seeed gpio light tsk
+ * @ingroup seeed gpio light tsk hak
  */
 /**
  * @library rpr220
@@ -42,7 +42,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor
  * @con gpio
- * @kit tsk
+ * @kit tsk hak
  *
  * @brief API for the RPR220 based Grove IR Reflective Sensor
  * 
