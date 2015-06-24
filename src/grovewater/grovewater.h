@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief Grove Water sensor library
    * @defgroup grovewater libupm-grovewater
-   * @ingroup seeed gpio liquid
+   * @ingroup seeed gpio liquid eak
    */
 
   /**
@@ -40,6 +40,7 @@ namespace upm {
    * @type liquid
    * @man seeed
    * @con gpio
+   * @kit eak
    *
    * @brief API for the Grove Water Sensor
    *

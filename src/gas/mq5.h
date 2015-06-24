@@ -35,6 +35,7 @@ namespace upm {
    * @type gaseous
    * @man seeed
    * @con analog
+   * @kit eak
    *
    * @brief API for MQ5 Gas Sensor
    *

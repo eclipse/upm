@@ -40,7 +40,7 @@ namespace upm {
 /**
  * @brief MY9221 led bar library
  * @defgroup my9221 libupm-my9221
- * @ingroup seeed display gpio
+ * @ingroup seeed display gpio eak
  */
 /**
  * @library my9221
@@ -51,6 +51,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
  * @con gpio
+ * @kit eak
  *
  * @brief API for MY9221 based LED bars
  *

@@ -94,7 +94,7 @@ namespace upm {
  /**
  * @brief TSL2561 digital light sensor library
  * @defgroup tsl2561 libupm-tsl2561
- * @ingroup seeed i2c light
+ * @ingroup seeed i2c light eak
  */
 /**
  * @library tsl2561
@@ -105,6 +105,7 @@ namespace upm {
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Digital_Light_Sensor
  * @con i2c
+ * @kit eak
  *
  * @brief TSL2561 Digital Light Sensor library
  * 

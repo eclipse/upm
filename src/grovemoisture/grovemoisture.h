@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief Grove Moisture sensor library
    * @defgroup grovemoisture libupm-grovemoisture
-   * @ingroup seeed analog liquid
+   * @ingroup seeed analog liquid eak
    */
 
   /**
@@ -40,6 +40,7 @@ namespace upm {
    * @type liquid
    * @man seeed
    * @con analog
+   * @kit eak
    *
    * @brief API for the Grove Moisture Sensor
    *
