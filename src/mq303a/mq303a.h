@@ -31,7 +31,7 @@ namespace upm {
   /**
    * @brief MQ303A alcohol sensor library
    * @defgroup mq303a libupm-mq303a
-   * @ingroup seeed analog gpio gaseous
+   * @ingroup seeed analog gpio gaseous tsk
    */
   /**
    * @library mq303a

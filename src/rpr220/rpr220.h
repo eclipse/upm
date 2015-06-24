@@ -31,7 +31,7 @@ namespace upm {
 /**
  * @brief RPR220 IR reflective sensor library
  * @defgroup rpr220 libupm-rpr220
- * @ingroup seeed gpio light
+ * @ingroup seeed gpio light tsk
  */
 /**
  * @library rpr220

@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief BISS0001 motion sensor library
    * @defgroup biss0001 libupm-biss0001
-   * @ingroup seeed gpio light
+   * @ingroup seeed gpio light tsk
    */
 
   /**

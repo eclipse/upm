@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @brief Grove Voltage Divider sensor library
    * @defgroup grovevdiv libupm-grovevdiv
-   * @ingroup seeed analog electric
+   * @ingroup seeed analog electric robok
    */
 
   /**

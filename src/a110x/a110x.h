@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief A110X Hall Effect library
    * @defgroup a110x libupm-a110x
-   * @ingroup seeed gpio electric
+   * @ingroup seeed gpio electric robok
    */
 
   /**

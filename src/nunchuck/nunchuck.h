@@ -33,7 +33,7 @@ namespace upm {
   /**
    * @brief Wii Nunchuck library
    * @defgroup nunchuck libupm-nunchuck
-   * @ingroup generic i2c accelerometer
+   * @ingroup generic i2c accelerometer robok
    */
   /**
    * @library nunchuck

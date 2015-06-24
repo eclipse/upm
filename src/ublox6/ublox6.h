@@ -46,7 +46,7 @@ namespace upm {
     /**
      * @brief UBLOX6 & SIM28 GPS module library
      * @defgroup ublox6 libupm-ublox6
-     * @ingroup seeed uart gps
+     * @ingroup seeed uart gps tsk
      */
     /**
      * @library ublox6
