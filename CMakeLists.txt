@@ -29,7 +29,7 @@ include(GNUInstallDirs)
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
-  message (WARNING " - Install git to compile a production libmraa!")
+  message (WARNING " - Install git to compile a production UPM!")
   set (VERSION "v0.3.1-dirty")
 endif ()
 
