@@ -57,6 +57,7 @@ namespace upm {
    * This module was developed using a Grove Barometer (High Accuracy)
    * based on an HP206C chip.
    *
+   * @image html hp20x.jpg
    * @snippet hp20x.cxx Interesting
    */
   class HP20X {

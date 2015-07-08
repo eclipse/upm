@@ -57,6 +57,7 @@ namespace upm {
    *
    * @brief API for Grove Circular LED module
    *
+   * @image html grovecircularled.jpg
    * @snippet grovecircularled.cxx Interesting
    */
   class GroveCircularLED {

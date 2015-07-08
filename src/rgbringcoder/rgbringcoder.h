@@ -55,7 +55,8 @@ namespace upm {
    *
    * The device will require 11 pins, 3 of which must be PWM capable
    * (for the RGB LEDs).
-   *
+   * 
+   * @image html rgbringcoder.jpg
    * @snippet rgbringcoder.cxx Interesting
    */
 
