@@ -25,8 +25,8 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "i2clcd.h"
-#include "i2clcd_private.h"
+#include "lcd.h"
+#include "lcd_private.h"
 
 using namespace upm;
 

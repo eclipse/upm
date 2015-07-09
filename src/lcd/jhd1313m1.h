@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include "i2clcd.h"
+#include "lcd.h"
 
 namespace upm
 {
