@@ -26,7 +26,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "i2clcd_private.h"
+#include "lcd_private.h"
 #include "jhd1313m1.h"
 
 using namespace upm;
