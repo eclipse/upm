@@ -25,6 +25,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/i2c.hpp>
 #include "lcd.h"
 #include "ssd.h"
 
@@ -108,5 +109,8 @@ class SSD1308 : public LCD
     mraa_result_t writeChar(uint8_t value);
     mraa_result_t setNormalDisplay();
     mraa_result_t setAddressingMode(displayAddressingMode mode);
+
+    int m_lcd_control_address;
+    mraa::I2c m_i2c_lcd_control;
 };
 }

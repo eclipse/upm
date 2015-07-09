@@ -26,20 +26,12 @@
 #include <unistd.h>
 
 #include "lcd.h"
-#include "hd44780_bits.h"
-#include "lcd_private.h"
 
 using namespace upm;
 
-LCD::LCD(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
+LCD::LCD()
 {
-    m_lcd_control_address = lcdAddress;
-    m_bus = bus;
-
-    mraa_result_t ret = m_i2c_lcd_control.address(m_lcd_control_address);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-    }
+  m_name = "LCD";
 }
 
 LCD::~LCD()
@@ -51,21 +43,6 @@ LCD::write(int row, int column, std::string msg)
 {
     setCursor(row, column);
     return write(msg);
-}
-
-mraa_result_t
-LCD::createChar(uint8_t charSlot, uint8_t charData[])
-{
-    mraa_result_t error = MRAA_SUCCESS;
-    charSlot &= 0x07; // only have 8 positions we can set
-    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
-    if (error == MRAA_SUCCESS) {
-        for (int i = 0; i < 8; i++) {
-            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
-        }
-    }
-
-    return error;
 }
 
 std::string

@@ -30,8 +30,17 @@
 
 using namespace upm;
 
-SSD1308::SSD1308(int bus_in, int addr_in) : LCD(bus_in, addr_in)
+SSD1308::SSD1308(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
 {
+    m_lcd_control_address = addr_in;
+    m_name = "SSD1308";
+
+    mraa_result_t error = m_i2c_lcd_control.address(m_lcd_control_address);
+    if (error != MRAA_SUCCESS) {
+        fprintf(stderr, "Failed to initialize i2c bus\n");
+        return;
+    }
+
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off
     usleep(4500);
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_ON); // display on

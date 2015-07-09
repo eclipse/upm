@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/i2c.hpp>
 #include "lcd.h"
 
 namespace upm
@@ -113,5 +114,7 @@ class Jhd1313m1 : public LCD
   private:
     int m_rgb_address;
     mraa::I2c m_i2c_lcd_rgb;
+    int m_lcd_control_address;
+    mraa::I2c m_i2c_lcd_control;
 };
 }

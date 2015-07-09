@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.hpp>
+#include <mraa.h>
 
 namespace upm
 {
@@ -36,7 +36,7 @@ namespace upm
 class LCD
 {
   public:
-    LCD(int bus, int lcdAddress);
+    LCD();
     virtual ~LCD();
     mraa_result_t write(int x, int y, std::string msg);
 
@@ -44,15 +44,10 @@ class LCD
     virtual mraa_result_t setCursor(int row, int column) = 0;
     virtual mraa_result_t clear() = 0;
     virtual mraa_result_t home() = 0;
-    virtual mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
 
     std::string name();
 
   protected:
     std::string m_name;
-    int m_lcd_control_address;
-    int m_bus;
-
-    mraa::I2c m_i2c_lcd_control;
 };
 }

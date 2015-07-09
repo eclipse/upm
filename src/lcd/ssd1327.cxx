@@ -33,9 +33,19 @@ using namespace upm;
 #define INIT_SLEEP 50000
 #define CMD_SLEEP 10000
 
-SSD1327::SSD1327(int bus_in, int addr_in) : LCD(bus_in, addr_in)
+SSD1327::SSD1327(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
 {
     mraa_result_t error = MRAA_SUCCESS;
+
+    m_lcd_control_address = addr_in;
+    m_name = "SSD1327";
+
+    error = m_i2c_lcd_control.address(m_lcd_control_address);
+    if (error != MRAA_SUCCESS) {
+        fprintf(stderr, "Failed to initialize i2c bus\n");
+        return;
+    }
+
     usleep(INIT_SLEEP);
     m_i2c_lcd_control.writeReg(LCD_CMD, 0xFD); // Unlock OLED driver IC MCU
                                                // interface from entering command.
