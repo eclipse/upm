@@ -36,3 +36,8 @@
 %{
     #include "ssd1308.h"
 %}
+
+%include "sainsmartks.h"
+%{
+    #include "sainsmartks.h"
+%}
