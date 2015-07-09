@@ -125,6 +125,21 @@ Jhd1313m1::scroll(bool direction)
     }
 }
 
+mraa_result_t
+Jhd1313m1::createChar(uint8_t charSlot, uint8_t charData[])
+{
+    mraa_result_t error = MRAA_SUCCESS;
+    charSlot &= 0x07; // only have 8 positions we can set
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
+    if (error == MRAA_SUCCESS) {
+        for (int i = 0; i < 8; i++) {
+            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
+        }
+    }
+
+    return error;
+}
+
 /*
  * **************
  *  virtual area
