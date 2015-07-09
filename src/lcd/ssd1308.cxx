@@ -29,7 +29,7 @@
 
 using namespace upm;
 
-SSD1308::SSD1308(int bus_in, int addr_in) : I2CLcd(bus_in, addr_in)
+SSD1308::SSD1308(int bus_in, int addr_in) : LCD(bus_in, addr_in)
 {
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off
     usleep(4500);

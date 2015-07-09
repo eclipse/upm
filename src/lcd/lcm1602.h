@@ -52,7 +52,7 @@ namespace upm
  * @image html lcm1602.jpeg
  * @snippet lcm1602-lcd.cxx Interesting
  */
-class Lcm1602 : public I2CLcd
+class Lcm1602 : public LCD
 {
   public:
     /**

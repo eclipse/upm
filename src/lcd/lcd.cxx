@@ -30,7 +30,7 @@
 
 using namespace upm;
 
-I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
+LCD::LCD(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
 {
     m_lcd_control_address = lcdAddress;
     m_bus = bus;
@@ -41,19 +41,19 @@ I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
     }
 }
 
-I2CLcd::~I2CLcd()
+LCD::~LCD()
 {
 }
 
 mraa_result_t
-I2CLcd::write(int row, int column, std::string msg)
+LCD::write(int row, int column, std::string msg)
 {
     setCursor(row, column);
     return write(msg);
 }
 
 mraa_result_t
-I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
+LCD::createChar(uint8_t charSlot, uint8_t charData[])
 {
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
@@ -68,7 +68,7 @@ I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
 }
 
 std::string
-I2CLcd::name()
+LCD::name()
 {
     return m_name;
 }

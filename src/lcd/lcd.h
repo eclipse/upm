@@ -80,11 +80,11 @@ const uint8_t LCD_RS = 0x01; // Register select bit
  * @defgroup i2clcd libupm-i2clcd
  * @ingroup seeed sparkfun adafruit i2c display gsk
  */
-class I2CLcd
+class LCD
 {
   public:
-    I2CLcd(int bus, int lcdAddress);
-    virtual ~I2CLcd();
+    LCD(int bus, int lcdAddress);
+    virtual ~LCD();
     mraa_result_t write(int x, int y, std::string msg);
 
     virtual mraa_result_t write(std::string msg) = 0;
