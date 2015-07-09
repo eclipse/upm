@@ -32,7 +32,7 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in) : I2CLcd(bus_in, addr_in)
+Lcm1602::Lcm1602(int bus_in, int addr_in) : LCD(bus_in, addr_in)
 {
     mraa_result_t error = MRAA_SUCCESS;
 

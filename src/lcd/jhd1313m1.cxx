@@ -32,7 +32,7 @@
 using namespace upm;
 
 Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
-        : I2CLcd(bus, lcdAddress), m_i2c_lcd_rgb(bus)
+        : LCD(bus, lcdAddress), m_i2c_lcd_rgb(bus)
 {
     m_rgb_address = rgbAddress;
 

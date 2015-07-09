@@ -50,7 +50,7 @@ namespace upm
  * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
  */
-class Jhd1313m1 : public I2CLcd
+class Jhd1313m1 : public LCD
 {
   public:
     /**

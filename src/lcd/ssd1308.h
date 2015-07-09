@@ -52,7 +52,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * @image html ssd1308.jpeg
  * @snippet ssd1308-oled.cxx Interesting
  */
-class SSD1308 : public I2CLcd
+class SSD1308 : public LCD
 {
   public:
     /**
