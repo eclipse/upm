@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 #include "lcd_private.h"
+#include "hd44780_bits.h"
 #include "jhd1313m1.h"
 
 using namespace upm;
