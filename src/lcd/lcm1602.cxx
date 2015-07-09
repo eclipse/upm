@@ -28,6 +28,7 @@
 #include <string>
 #include <unistd.h>
 
+#include "hd44780_bits.h"
 #include "lcm1602.h"
 
 using namespace upm;
