@@ -128,6 +128,7 @@ add_executable (rgbringcoder-example rgbringcoder.cxx)
 add_executable (hp20x-example hp20x.cxx)
 add_executable (pn532-example pn532.cxx)
 add_executable (pn532-writeurl-example pn532-writeurl.cxx)
+add_executable (sainsmartks-example sainsmartks.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
@@ -362,3 +363,4 @@ target_link_libraries (rgbringcoder-example rgbringcoder ${CMAKE_THREAD_LIBS_INI
 target_link_libraries (hp20x-example hp20x ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (pn532-example pn532 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (pn532-writeurl-example pn532 ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (sainsmartks-example i2clcd ${CMAKE_THREAD_LIBS_INIT})
