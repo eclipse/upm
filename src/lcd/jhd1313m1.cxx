@@ -33,11 +33,19 @@
 using namespace upm;
 
 Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
-        : LCD(bus, lcdAddress), m_i2c_lcd_rgb(bus)
+  : m_i2c_lcd_rgb(bus), m_i2c_lcd_control(bus)
 {
     m_rgb_address = rgbAddress;
+    m_name = "Jhd1313m1";
+
+    m_lcd_control_address = lcdAddress;
 
     mraa_result_t ret = m_i2c_lcd_rgb.address(m_rgb_address);
+    if (ret != MRAA_SUCCESS) {
+        fprintf(stderr, "Messed up i2c bus\n");
+    }
+
+    ret = m_i2c_lcd_control.address(m_lcd_control_address);
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }

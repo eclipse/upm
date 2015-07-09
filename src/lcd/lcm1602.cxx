@@ -33,9 +33,18 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in) : LCD(bus_in, addr_in)
+Lcm1602::Lcm1602(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
 {
     mraa_result_t error = MRAA_SUCCESS;
+    m_name = "Lcm1602 (I2C)";
+
+    m_lcd_control_address = addr_in;
+
+    error = m_i2c_lcd_control.address(m_lcd_control_address);
+    if (error != MRAA_SUCCESS) {
+        fprintf(stderr, "Failed to initialize i2c bus\n");
+        return;
+    }
 
     usleep(50000);
     expandWrite(LCD_BACKLIGHT);
@@ -102,6 +111,21 @@ mraa_result_t
 Lcm1602::home()
 {
     return send(LCD_RETURNHOME, 0);
+}
+
+mraa_result_t
+Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
+{
+    mraa_result_t error = MRAA_SUCCESS;
+    charSlot &= 0x07; // only have 8 positions we can set
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
+    if (error == MRAA_SUCCESS) {
+        for (int i = 0; i < 8; i++) {
+            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
+        }
+    }
+
+    return error;
 }
 
 /*

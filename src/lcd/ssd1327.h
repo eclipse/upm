@@ -25,6 +25,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/i2c.hpp>
 #include "lcd.h"
 #include "ssd.h"
 
@@ -119,5 +120,8 @@ class SSD1327 : public LCD
 
     uint8_t grayHigh;
     uint8_t grayLow;
+
+    int m_lcd_control_address;
+    mraa::I2c m_i2c_lcd_control;
 };
 }

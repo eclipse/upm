@@ -28,6 +28,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/i2c.hpp>
 #include "lcd.h"
 
 namespace upm
@@ -95,10 +96,23 @@ class Lcm1602 : public LCD
      */
     mraa_result_t home();
 
+    /**
+     * Create a custom character
+     *
+     * @param charSlot the character slot to write, only 8 are available
+     * @param charData The character data (8 bytes) making up the character
+     * @return Result of operation
+     */
+    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+
   private:
     mraa_result_t send(uint8_t value, int mode);
     mraa_result_t write4bits(uint8_t value);
     mraa_result_t expandWrite(uint8_t value);
     mraa_result_t pulseEnable(uint8_t value);
+
+    int m_lcd_control_address;
+    mraa::I2c m_i2c_lcd_control;
+
 };
 }
