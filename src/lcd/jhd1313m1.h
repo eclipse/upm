@@ -111,6 +111,15 @@ class Jhd1313m1 : public LCD
      */
     mraa_result_t home();
 
+    /**
+     * Create a custom character
+     *
+     * @param charSlot the character slot to write, only 8 are available
+     * @param charData The character data (8 bytes) making up the character
+     * @return Result of operation
+     */
+    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+
   private:
     int m_rgb_address;
     mraa::I2c m_i2c_lcd_rgb;
