@@ -57,6 +57,9 @@ namespace upm {
    *
    * @brief API for Grove Circular LED module
    *
+   * This is a circular LED ring based on the MY9221 chip. It is often used
+   * with a rotary encoder and has 24 controllable LEDs.
+   *
    * @image html grovecircularled.jpg
    * @snippet grovecircularled.cxx Interesting
    */
