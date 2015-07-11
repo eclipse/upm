@@ -55,6 +55,7 @@ namespace upm {
    * was tested on a Grove 3-axis Analog Accelerometer.  It uses 3
    * analog pins, one each for X, Y, and Z axis.
    *
+   * @image html adxl335.jpg
    * @snippet adxl335.cxx Interesting
    */
   class ADXL335 {
