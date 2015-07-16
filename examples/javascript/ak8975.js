@@ -1,3 +1,6 @@
+/*jslint node:true, vars:true, bitwise:true, unparam:true */
+/*jshint unused:true */
+
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
@@ -22,60 +25,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "mpu9150.h"
 
-using namespace std;
+var sensorObj = require('jsupm_mpu9150');
 
-int shouldRun = true;
+// Instantiate an AK8975 on default I2C bus and address
+var sensor = new sensorObj.AK8975();
 
-void sig_handler(int signo)
+// Initialize the device with default values
+sensor.init();
+
+var x = new sensorObj.new_floatp();
+var y = new sensorObj.new_floatp();
+var z = new sensorObj.new_floatp();
+
+// Output data every half second until interrupted
+setInterval(function()
 {
-  if (signo == SIGINT)
-    shouldRun = false;
-}
+    sensor.update();
+    
+    sensor.getMagnetometer(x, y, z);
+    console.log("Magnetometer:  MX: " + sensorObj.floatp_value(x) + 
+                " MY: " + sensorObj.floatp_value(y) + 
+                " MZ: " + sensorObj.floatp_value(z));
 
+    console.log();
 
-int main(int argc, char **argv)
+}, 500);
+
+// exit on ^C
+process.on('SIGINT', function()
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    sensor = null;
+    sensorObj.cleanUp();
+    sensorObj = null;
+    console.log("Exiting.");
+    process.exit(0);
+});
 
-  upm::MPU9150 *sensor = new upm::MPU9150();
-
-  sensor->init();
-
-  while (shouldRun)
-    {
-      sensor->update();
-      
-      float x, y, z;
-      
-      sensor->getAccelerometer(&x, &y, &z);
-      cout << "Accelerometer: ";
-      cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
-
-      sensor->getGyroscope(&x, &y, &z);
-      cout << "Gryoscope:     ";
-      cout << "GX: " << x << " GY: " << y << " GZ: " << z << endl;
-      
-      sensor->getMagnetometer(&x, &y, &z);
-      cout << "Magnetometer:  ";
-      cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
-
-      cout << "Temperature:   " << sensor->getTemperature() << endl;
-      cout << endl;
-
-      usleep(500000);
-    }
-
-//! [Interesting]
-
-  cout << "Exiting..." << endl;
-  
-  delete sensor;
-  
-  return 0;
-}
