@@ -43,7 +43,7 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 //! [Interesting]
 
-  upm::MPU9150 *sensor = new upm::MPU9150();
+  upm::MPU60X0 *sensor = new upm::MPU60X0();
 
   sensor->init();
 
@@ -61,10 +61,6 @@ int main(int argc, char **argv)
       cout << "Gryoscope:     ";
       cout << "GX: " << x << " GY: " << y << " GZ: " << z << endl;
       
-      sensor->getMagnetometer(&x, &y, &z);
-      cout << "Magnetometer:  ";
-      cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
-
       cout << "Temperature:   " << sensor->getTemperature() << endl;
       cout << endl;
 
