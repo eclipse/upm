@@ -53,12 +53,13 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 
 set (CMAKE_SWIG_FLAGS "")
 
-option (IPK "Generate IPK using CPack" OFF)
 option (BUILDDOC "Build all doc." OFF)
 option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
 option (BUILDSWIGNODE "Build swig node modules." ON)
 option (BUILDEXAMPLES "Build C++ example binaries" OFF)
+option (IPK "Generate IPK using CPack" OFF)
+option (RPM "Generate RPM using CPack" OFF)
 
 if (BUILDDOC)
   # add a target to generate API documentation with Doxygen
@@ -145,6 +146,28 @@ if (IPK)
   set(CPACK_DEBIAN_PACKAGE_CONFLICTS ${CPACK_DEBIAN_PACKAGE_PROVIDES})
   set(WDIR "${CPACK_TOPLEVEL_DIRECTORY}/${CPACK_PACKAGE_FILE_NAME}")
   include (CPack)
+endif()
+
+if (RPM)
+  message (INFO " - Enabled RPM packaging for ${DETECTED_ARCH}")
+  set(CPACK_PACKAGE_VERSION ${VERSION})
+  set(CPACK_GENERATOR "RPM")
+  set(CPACK_PACKAGE_NAME "libupm${upm_VERSION_MAJOR}")
+  set(CPACK_PACKAGE_RELEASE 1)
+  set(CPACK_PACKAGE_VERSION
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+  set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
+  set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
+  set(CPACK_RPM_PACKAGE_REQUIRES "libmraa0 (>= ${MRAA_VERSION})")
+  set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
+  EXECUTE_PROCESS(COMMAND rpm --showrc
+    COMMAND grep -E "dist[[:space:]]*\\."
+    COMMAND sed -e "s/^.*dist\\s*\\.//"
+    COMMAND tr \\n \\t
+    COMMAND sed  -e s/\\t//
+    OUTPUT_VARIABLE DIST_TAG)
+  set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_PACKAGE_RELEASE}.${DIST_TAG}.${DETECTED_ARCH}")
+  include(CPack)
 endif()
 
 add_subdirectory (src)
