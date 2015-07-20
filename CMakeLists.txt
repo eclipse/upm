@@ -61,6 +61,11 @@ option (BUILDEXAMPLES "Build C++ example binaries" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 
+# detect arch
+include (TargetArch)
+target_architecture (DETECTED_ARCH)
+message( INFO " - Target arch is ${DETECTED_ARCH}")
+
 if (BUILDDOC)
   # add a target to generate API documentation with Doxygen
   find_package (Doxygen)
@@ -122,10 +127,7 @@ if (BUILDDOC)
 endif()
 
 if (IPK)
-  include (TargetArch)
-  target_architecture (DETECTED_ARCH)
-  message( INFO " - Target arch is ${DETECTED_ARCH}")
-
+  message (INFO " - IPK packaging enabled for ${DETECTED_ARCH}")
   set(CPACK_GENERATOR "DEB" "TGZ")
   set(OPKG_ARCH ${DETECTED_ARCH})
   set(CPACK_BINARY_DIR ${CMAKE_BINARY_DIR})
@@ -135,7 +137,7 @@ if (IPK)
     set(upm_PACKAGE_ON_TAG "")
   endif()
   set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}-${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_NAME "upm")
   set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
   set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${DETECTED_ARCH})
@@ -149,16 +151,16 @@ if (IPK)
 endif()
 
 if (RPM)
-  message (INFO " - Enabled RPM packaging for ${DETECTED_ARCH}")
+  message (INFO " - RPM packaging enabled for ${DETECTED_ARCH}")
   set(CPACK_PACKAGE_VERSION ${VERSION})
   set(CPACK_GENERATOR "RPM")
   set(CPACK_PACKAGE_NAME "libupm${upm_VERSION_MAJOR}")
   set(CPACK_PACKAGE_RELEASE 1)
   set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}-${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
   set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
-  set(CPACK_RPM_PACKAGE_REQUIRES "libmraa0 (>= ${MRAA_VERSION})")
+  set(CPACK_RPM_PACKAGE_REQUIRES "libmraa0 >= ${MRAA_VERSION}")
   set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
   EXECUTE_PROCESS(COMMAND rpm --showrc
     COMMAND grep -E "dist[[:space:]]*\\."
