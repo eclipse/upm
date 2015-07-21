@@ -1,6 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,53 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
 #include <unistd.h>
+#include <signal.h>
+#include <iostream>
 
-#include "i2clcd.h"
-#include "i2clcd_private.h"
+#include "sainsmartks.h"
 
-using namespace upm;
+using namespace std;
 
-I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
+int shouldRun = true;
+
+void sig_handler(int signo)
 {
-    m_lcd_control_address = lcdAddress;
-    m_bus = bus;
-
-    mraa_result_t ret = m_i2c_lcd_control.address(m_lcd_control_address);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-    }
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-I2CLcd::~I2CLcd()
-{
-}
 
-mraa_result_t
-I2CLcd::write(int row, int column, std::string msg)
+int main(int argc, char **argv)
 {
-    setCursor(row, column);
-    return write(msg);
-}
+  signal(SIGINT, sig_handler);
 
-mraa_result_t
-I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
-{
-    mraa_result_t error = MRAA_SUCCESS;
-    charSlot &= 0x07; // only have 8 positions we can set
-    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
-    if (error == MRAA_SUCCESS) {
-        for (int i = 0; i < 8; i++) {
-            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
-        }
-    }
+//! [Interesting]
+  // use default pins
+  upm::SAINSMARTKS* lcd = new upm::SAINSMARTKS();
+  lcd->setCursor(0,0);
+  lcd->write("Sainsmart KS");
+  lcd->setCursor(1,2);
+  lcd->write("Hello World");
 
-    return error;
-}
+  // output current key value every second.
+   while (shouldRun)
+     {
+       cout << "Button value: " << lcd->getRawKeyValue() << endl;
+       sleep(1);
+     }
 
-std::string
-I2CLcd::name()
-{
-    return m_name;
+//! [Interesting]
+
+  delete lcd;
+  
+  return 0;
 }
