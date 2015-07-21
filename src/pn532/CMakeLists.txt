@@ -1,0 +1,5 @@
+set (libname "pn532")
+set (libdescription "upm pn532 NFC/RFID reader/writer")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
