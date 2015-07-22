@@ -1,4 +1,5 @@
 set (libname "i2clcd")
+set (classname "lcd")
 set (libdescription "upm lcd/oled displays")
 set (module_src lcd.cxx lcm1602.cxx jhd1313m1.cxx ssd1308.cxx ssd1327.cxx sainsmartks.cxx)
 set (module_h lcd.h lcm1602.h jhd1313m1.h ssd1308.h ssd1327.h ssd.h sainsmartks.h)
