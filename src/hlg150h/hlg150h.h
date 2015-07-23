@@ -52,7 +52,7 @@ public:
    ~HLG150H();
 
 protected:
-   bool isOK();
+   bool isConfigured();
    bool setPowerOn();
    bool setPowerOff();
    bool isPowered();

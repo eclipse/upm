@@ -13,6 +13,10 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
+
+# Make sure pkg-config searches /usr/lib/pkgconfig as mraa.pc will be in this directory
+set (ENV{PKG_CONFIG_PATH} "/usr/lib/pkgconfig")
+
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=0.6.2)
@@ -54,6 +58,7 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 set (CMAKE_SWIG_FLAGS "")
 
 option (IPK "Generate IPK using CPack" OFF)
+option (RPM "Generate RPM using CPack" OFF)
 option (BUILDDOC "Build all doc." OFF)
 option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
@@ -120,11 +125,11 @@ if (BUILDDOC)
   endif()
 endif()
 
-if (IPK)
-  include (TargetArch)
-  target_architecture (DETECTED_ARCH)
-  message( INFO " - Target arch is ${DETECTED_ARCH}")
+include (TargetArch)
+target_architecture (DETECTED_ARCH)
+message( INFO " - Target arch is ${DETECTED_ARCH}")
 
+if (IPK)
   set(CPACK_GENERATOR "DEB" "TGZ")
   set(OPKG_ARCH ${DETECTED_ARCH})
   set(CPACK_BINARY_DIR ${CMAKE_BINARY_DIR})
@@ -146,6 +151,33 @@ if (IPK)
   set(WDIR "${CPACK_TOPLEVEL_DIRECTORY}/${CPACK_PACKAGE_FILE_NAME}")
   include (CPack)
 endif()
+
+if (RPM)
+  message (INFO " - Enabled RPM packaging for ${DETECTED_ARCH}")
+  set(CPACK_PACKAGE_VERSION ${VERSION})
+  set(CPACK_GENERATOR "RPM")
+  set(CPACK_PACKAGE_NAME "upm")
+  set(CPACK_PACKAGE_RELEASE 1)
+  set(CPACK_PACKAGE_VERSION
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+  set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
+  set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
+  set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
+  # Get distro tag (e.g. 'fc20') by parsing output of rpm --showrc
+  EXECUTE_PROCESS(
+    COMMAND rpm --showrc
+    COMMAND grep -w dist
+    COMMAND sed -e "s/\\t./ /"
+    COMMAND awk "{printf \"%s\", \$NF}"
+    OUTPUT_VARIABLE DIST_TAG
+  )
+
+  set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_PACKAGE_RELEASE}.${DIST_TAG}.${DETECTED_ARCH}")
+#  message (INFO " - DIST_TAG is -${DIST_TAG}-")
+  message (INFO " - RPM filename will be ${CPACK_PACKAGE_FILE_NAME}.rpm")
+  include(CPack)
+endif()
+
 
 add_subdirectory (src)
 

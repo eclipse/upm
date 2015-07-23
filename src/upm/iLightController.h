@@ -24,20 +24,21 @@
 
 #pragma once
 
+#include "iModuleStatus.h"
+
 namespace upm
 {
 
-class ILightController 
-{
-public:
-   virtual bool isOK() = 0;
-   virtual bool setPowerOn() = 0;
-   virtual bool setPowerOff() = 0;
-   virtual bool isPowered() = 0;
-   virtual bool setBrightness(int percent) = 0;
-   virtual bool getBrightness(int* percent) = 0;
-   virtual ~ILightController() {}
-};
+    class ILightController : public IModuleStatus
+    {
+    public:
+       virtual bool setPowerOn() = 0;
+       virtual bool setPowerOff() = 0;
+       virtual bool isPowered() = 0;
+       virtual bool setBrightness(int percent) = 0;
+       virtual bool getBrightness(int* percent) = 0;
+       virtual ~ILightController() {}
+    };
 
 }
 

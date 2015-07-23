@@ -49,7 +49,7 @@ public:
    ~LP8860();
 
 protected:
-   bool isOK();
+   bool isConfigured();
    bool isPowered();
    bool setPowerOn();
    bool setPowerOff();

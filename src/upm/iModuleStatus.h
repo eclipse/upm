@@ -22,23 +22,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 #pragma once
-
-#include <stdint.h>
-#include "mraa/common.h"
-#include "iModuleStatus.h"
 
 namespace upm
 {
 
-   class IPressureSensor : public IModuleStatus
-   {
-   public:
-       virtual mraa_result_t getPressure (int32_t *value) = 0;
-       virtual mraa_result_t getTemperature (int16_t *value) = 0;
-       virtual ~IPressureSensor() {}
-   };
+class IModuleStatus 
+{
+public:
+   virtual bool isConfigured() = 0;
+   virtual ~IModuleStatus() {}
+};
 
 }
+
+
 

@@ -42,7 +42,7 @@ DS1808LC::~DS1808LC()
 }
 
 
-bool DS1808LC::isOK()
+bool DS1808LC::isConfigured()
 {
    return status == MRAA_SUCCESS;
 }
@@ -73,8 +73,8 @@ bool DS1808LC::setPowerOn()
       if (!setBrightness(0))
          printf("DS1808LC: Failed to set brightness.\n");
    }
-   m_isPowered = isOK();
-   return isOK();
+   m_isPowered = isConfigured();
+   return isConfigured();
 }
 
 bool DS1808LC::setPowerOff()
@@ -106,7 +106,7 @@ bool DS1808LC::setBrightness(int dutyPercent)
    values[1] = getPot2Value(dutyPercent);
    mraa_i2c_write(i2c, values, 2);
 
-   bool retval =  isOK();
+   bool retval =  isConfigured();
 
    return retval;
 }
