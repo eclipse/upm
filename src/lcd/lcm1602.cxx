@@ -38,7 +38,7 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in) : 
+Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) : 
   m_i2c_lcd_control(new mraa::I2c(bus_in)),
   m_gpioRS(0), m_gpioEnable(0), m_gpioD0(0),
   m_gpioD1(0), m_gpioD2(0), m_gpioD3(0)
@@ -54,6 +54,15 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) :
         fprintf(stderr, "Failed to initialize i2c bus\n");
         return;
     }
+
+    // if we are not dealing with an expander (say via a derived class
+    // like Jhd1313m1), then we do not want to execute the rest of the
+    // code below.  Rather, the derived class's constructor should
+    // follow up with any setup required -- we will only initialize
+    // the I2C context and bail.
+
+    if (!isExpander)
+      return;
 
     usleep(50000);
     expandWrite(LCD_BACKLIGHT);
@@ -71,13 +80,13 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) :
 
     m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
     // Set numeber of lines
-    send(LCD_FUNCTIONSET | 0x0f, 0);
-    send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+    command(LCD_FUNCTIONSET | 0x0f);
+    command(LCD_DISPLAYCONTROL | m_displayControl);
     clear();
 
     // Set entry mode.
     m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
-    send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+    command(LCD_ENTRYMODESET | m_entryDisplayMode);
 
     home();
 }
@@ -131,15 +140,15 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
     write4bits(0x02);
 
     // Set number of lines
-    send(LCD_FUNCTIONSET | LCD_2LINE | LCD_4BITMODE | LCD_5x8DOTS, 0);
+    command(LCD_FUNCTIONSET | LCD_2LINE | LCD_4BITMODE | LCD_5x8DOTS);
     m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
-    send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+    command(LCD_DISPLAYCONTROL | m_displayControl);
     usleep(2000);
     clear();
 
     // Set entry mode.
     m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
-    send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+    command(LCD_ENTRYMODESET | m_entryDisplayMode);
 
     home();
 }
@@ -173,7 +182,7 @@ Lcm1602::write(std::string msg)
 {
     mraa_result_t error = MRAA_SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        error = send(msg[i], LCD_RS);
+        error = data(msg[i]);
     }
     return error;
 }
@@ -186,14 +195,14 @@ Lcm1602::setCursor(int row, int column)
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
 
-    return send(LCD_CMD | offset, 0);
+    return command(LCD_CMD | offset);
 }
 
 mraa_result_t
 Lcm1602::clear()
 {
     mraa_result_t ret;
-    ret = send(LCD_CLEARDISPLAY, 0);
+    ret = command(LCD_CLEARDISPLAY);
     usleep(2000); // this command takes awhile
     return ret;
 }
@@ -202,7 +211,7 @@ mraa_result_t
 Lcm1602::home()
 {
     mraa_result_t ret;
-    ret = send(LCD_RETURNHOME, 0);
+    ret = command(LCD_RETURNHOME);
     usleep(2000); // this command takes awhile
     return ret;
 }
@@ -212,84 +221,94 @@ Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
 {
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
-    error = send(LCD_SETCGRAMADDR | (charSlot << 3), 0);
+    error = command(LCD_SETCGRAMADDR | (charSlot << 3));
     if (error == MRAA_SUCCESS) {
         for (int i = 0; i < 8; i++) {
-          error = send(charData[i], LCD_RS);
+          error = data(charData[i]);
         }
     }
 
     return error;
 }
 
-void Lcm1602::displayOn()
+mraa_result_t Lcm1602::displayOn()
 {
   m_displayControl |= LCD_DISPLAYON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::displayOff()
+mraa_result_t Lcm1602::displayOff()
 {
   m_displayControl &= ~LCD_DISPLAYON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::cursorOn()
+mraa_result_t Lcm1602::cursorOn()
 {
   m_displayControl |= LCD_CURSORON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::cursorOff()
+mraa_result_t Lcm1602::cursorOff()
 {
   m_displayControl &= ~LCD_CURSORON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::cursorBlinkOn()
+mraa_result_t Lcm1602::cursorBlinkOn()
 {
   m_displayControl |= LCD_BLINKON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::cursorBlinkOff()
+mraa_result_t Lcm1602::cursorBlinkOff()
 {
   m_displayControl &= ~LCD_BLINKON;
-  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-void Lcm1602::scrollDisplayLeft()
+mraa_result_t Lcm1602::scrollDisplayLeft()
 {
-  send(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT, 0);
+  return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
 }
 
-void Lcm1602::scrollDisplayRight()
+mraa_result_t Lcm1602::scrollDisplayRight()
 {
-  send(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT, 0);
+  return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
 }
 
-void Lcm1602::entryLeftToRight()
+mraa_result_t Lcm1602::entryLeftToRight()
 {
   m_entryDisplayMode |= LCD_ENTRYLEFT;
-  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-void Lcm1602::entryRightToLeft()
+mraa_result_t Lcm1602::entryRightToLeft()
 {
   m_entryDisplayMode &= ~LCD_ENTRYLEFT;
-  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-void Lcm1602::autoscrollOn()
+mraa_result_t Lcm1602::autoscrollOn()
 {
   m_entryDisplayMode |= LCD_ENTRYSHIFTINCREMENT;
-  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-void Lcm1602::autoscrollOff()
+mraa_result_t Lcm1602::autoscrollOff()
 {
   m_entryDisplayMode &= ~LCD_ENTRYSHIFTINCREMENT;
-  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
+}
+
+mraa_result_t Lcm1602::command(uint8_t cmd)
+{
+  return send(cmd, 0);
+}
+
+mraa_result_t Lcm1602::data(uint8_t cmd)
+{
+  return send(cmd, LCD_RS); // 1
 }
 
 
