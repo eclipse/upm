@@ -67,8 +67,10 @@ class Lcm1602 : public LCD
      *
      * @param bus i2c bus to use
      * @param address the slave address the lcd is registered on
+     * @param isExpander true if we are dealing with an I2C expander,
+     * false otherwise.  Default is true.
      */
-    Lcm1602(int bus, int address);
+  Lcm1602(int bus, int address, bool isExpander=true);
 
     /**
      * Lcm1602 alternate constructor, used for GPIO based hd44780
@@ -108,7 +110,7 @@ class Lcm1602 : public LCD
     /**
      * Clear display from characters
      *
-     * @return Result of operatio
+     * @return Result of operation
      */
     mraa_result_t clear();
     /**
@@ -130,74 +132,86 @@ class Lcm1602 : public LCD
     /**
      * Turn the display on
      *
+     * @return Result of operation
      */
-    void displayOn();
+    mraa_result_t displayOn();
 
     /**
      * Turn the display off
      *
+     * @return Result of operation
      */
-    void displayOff();
+    mraa_result_t displayOff();
 
     /**
      * Turn the cursor on
      *
+     * @return Result of operation
      */
-    void cursorOn();
+    mraa_result_t cursorOn();
 
     /**
      * Turn the cursor off
      *
+     * @return Result of operation
      */
-    void cursorOff();
+    mraa_result_t cursorOff();
 
     /**
      * Turn cursor blink on
      *
+     * @return Result of operation
      */
-    void cursorBlinkOn();
+    mraa_result_t cursorBlinkOn();
 
     /**
      * Turn cursor blink off
      *
+     * @return Result of operation
      */
-    void cursorBlinkOff();
+    mraa_result_t cursorBlinkOff();
 
     /**
      * Scroll the display left, without changing the character RAM
      *
+     * @return Result of operation
      */
-    void scrollDisplayLeft();
+    mraa_result_t scrollDisplayLeft();
 
     /**
      * Scroll the display right, without changing the character RAM
      *
+     * @return Result of operation
      */
-    void scrollDisplayRight();
+    mraa_result_t scrollDisplayRight();
 
     /**
      * set the entry mode so that characters are added left to right
      *
+     * @return Result of operation
      */
-    void entryLeftToRight();
+    mraa_result_t entryLeftToRight();
 
     /**
      * set the entry mode so that characters are added right to left
      *
+     * @return Result of operation
      */
-    void entryRightToLeft();
+    mraa_result_t entryRightToLeft();
 
     /**
      * Right justify text entered from the cursor
      *
+     * @return Result of operation
      */
-    void autoscrollOn();
+    mraa_result_t autoscrollOn();
 
     /**
      * Left justify text entered from the cursor
      *
+     * @return Result of operation
      */
-    void autoscrollOff();
+    mraa_result_t autoscrollOff();
 
 
   protected:
@@ -205,6 +219,16 @@ class Lcm1602 : public LCD
     mraa_result_t write4bits(uint8_t value);
     mraa_result_t expandWrite(uint8_t value);
     mraa_result_t pulseEnable(uint8_t value);
+
+    uint8_t m_displayControl;
+    uint8_t m_entryDisplayMode;
+
+    // Add a command() and data() virtual member functions, with a
+    // default implementation in lcm1602.  This is expected to be
+    // implemented by derived classes with different needs (Jhd1313m1,
+    // for example).
+    virtual mraa_result_t command(uint8_t cmd);
+    virtual mraa_result_t data(uint8_t data);
 
   private:
     int m_lcd_control_address;
@@ -220,9 +244,5 @@ class Lcm1602 : public LCD
     mraa::Gpio* m_gpioD1;
     mraa::Gpio* m_gpioD2;
     mraa::Gpio* m_gpioD3;
-
-    uint8_t m_displayControl;
-    uint8_t m_entryDisplayMode;
-
 };
 }
