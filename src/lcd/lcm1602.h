@@ -230,9 +230,10 @@ class Lcm1602 : public LCD
     virtual mraa_result_t command(uint8_t cmd);
     virtual mraa_result_t data(uint8_t data);
 
-  private:
     int m_lcd_control_address;
     mraa::I2c* m_i2c_lcd_control;
+
+  private:
 
     // true if using i2c, false otherwise (gpio)
     bool m_isI2C;

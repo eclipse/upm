@@ -2,6 +2,8 @@
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Contributions: Jon Trulson <jtrulson@ics.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -24,8 +26,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.hpp>
-#include "lcd.h"
+#include "lcm1602.h"
 
 namespace upm
 {
@@ -51,7 +52,7 @@ namespace upm
  * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
  */
-class Jhd1313m1 : public LCD
+class Jhd1313m1 : public Lcm1602
 {
   public:
     /**
@@ -82,48 +83,13 @@ class Jhd1313m1 : public LCD
      * @return Result of operation
      */
     mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
-    /**
-     * Write a string to LCD
-     *
-     * @param msg The std::string to write to display, note only ascii
-     *     chars are supported
-     * @return Result of operation
-     */
-    mraa_result_t write(std::string msg);
-    /**
-     * Set cursor to a coordinate
-     *
-     * @param row The row to set cursor to
-     * @param column The column to set cursor to
-     * @return Result of operation
-     */
-    mraa_result_t setCursor(int row, int column);
-    /**
-     * Clear display from characters
-     *
-     * @return Result of operatio
-     */
-    mraa_result_t clear();
-    /**
-     * Return to coordinate 0,0
-     *
-     * @return Result of operation
-     */
-    mraa_result_t home();
 
-    /**
-     * Create a custom character
-     *
-     * @param charSlot the character slot to write, only 8 are available
-     * @param charData The character data (8 bytes) making up the character
-     * @return Result of operation
-     */
-    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+ protected:
+    virtual mraa_result_t command(uint8_t cmd);
+    virtual mraa_result_t data(uint8_t data);
 
   private:
     int m_rgb_address;
     mraa::I2c m_i2c_lcd_rgb;
-    int m_lcd_control_address;
-    mraa::I2c m_i2c_lcd_control;
 };
 }

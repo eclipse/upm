@@ -55,6 +55,9 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) :
         return;
     }
 
+    // default display control
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+
     // if we are not dealing with an expander (say via a derived class
     // like Jhd1313m1), then we do not want to execute the rest of the
     // code below.  Rather, the derived class's constructor should
