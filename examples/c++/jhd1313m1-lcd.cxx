@@ -34,6 +34,9 @@ main(int argc, char **argv)
     lcd->write("Hello World");
     lcd->setCursor(1,2);
     lcd->write("Hello World");
+
+    printf("Sleeping for 5 seconds\n");
+    sleep(5);
     delete lcd;
 //! [Interesting]
     return 0;
