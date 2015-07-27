@@ -9,22 +9,25 @@
  *
  * Contributions: Jon Trulson <jtrulson@ics.com>
  *
- * Permission is hereby granted, free of uint8_tge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of uint8_tge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 #pragma once
@@ -124,6 +127,79 @@ class Lcm1602 : public LCD
      */
     mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
 
+    /**
+     * Turn the display on
+     *
+     */
+    void displayOn();
+
+    /**
+     * Turn the display off
+     *
+     */
+    void displayOff();
+
+    /**
+     * Turn the cursor on
+     *
+     */
+    void cursorOn();
+
+    /**
+     * Turn the cursor off
+     *
+     */
+    void cursorOff();
+
+    /**
+     * Turn cursor blink on
+     *
+     */
+    void cursorBlinkOn();
+
+    /**
+     * Turn cursor blink off
+     *
+     */
+    void cursorBlinkOff();
+
+    /**
+     * Scroll the display left, without changing the character RAM
+     *
+     */
+    void scrollDisplayLeft();
+
+    /**
+     * Scroll the display right, without changing the character RAM
+     *
+     */
+    void scrollDisplayRight();
+
+    /**
+     * set the entry mode so that characters are added left to right
+     *
+     */
+    void entryLeftToRight();
+
+    /**
+     * set the entry mode so that characters are added right to left
+     *
+     */
+    void entryRightToLeft();
+
+    /**
+     * Right justify text entered from the cursor
+     *
+     */
+    void autoscrollOn();
+
+    /**
+     * Left justify text entered from the cursor
+     *
+     */
+    void autoscrollOff();
+
+
   protected:
     mraa_result_t send(uint8_t value, int mode);
     mraa_result_t write4bits(uint8_t value);
@@ -144,5 +220,9 @@ class Lcm1602 : public LCD
     mraa::Gpio* m_gpioD1;
     mraa::Gpio* m_gpioD2;
     mraa::Gpio* m_gpioD3;
+
+    uint8_t m_displayControl;
+    uint8_t m_entryDisplayMode;
+
 };
 }
