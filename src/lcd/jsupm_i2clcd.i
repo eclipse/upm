@@ -14,14 +14,14 @@
     #include "lcd.h"
 %}
 
-%include "jhd1313m1.h"
-%{
-    #include "jhd1313m1.h"
-%}
-
 %include "lcm1602.h"
 %{
     #include "lcm1602.h"
+%}
+
+%include "jhd1313m1.h"
+%{
+    #include "jhd1313m1.h"
 %}
 
 %include "ssd1327.h"
