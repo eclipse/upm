@@ -9,22 +9,25 @@
  *
  * Contributions: Jon Trulson <jtrulson@ics.com>
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 #include <string>
@@ -66,13 +69,15 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) :
     // Put into 4 bit mode
     write4bits(0x20);
 
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
     // Set numeber of lines
     send(LCD_FUNCTIONSET | 0x0f, 0);
-    send(LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF, 0);
+    send(LCD_DISPLAYCONTROL | m_displayControl, 0);
     clear();
 
     // Set entry mode.
-    send(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT, 0);
+    m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+    send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
 
     home();
 }
@@ -127,12 +132,14 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
 
     // Set number of lines
     send(LCD_FUNCTIONSET | LCD_2LINE | LCD_4BITMODE | LCD_5x8DOTS, 0);
-    send(LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF, 0);
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+    send(LCD_DISPLAYCONTROL | m_displayControl, 0);
     usleep(2000);
     clear();
 
     // Set entry mode.
-    send(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT, 0);
+    m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+    send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
 
     home();
 }
@@ -214,6 +221,77 @@ Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
 
     return error;
 }
+
+void Lcm1602::displayOn()
+{
+  m_displayControl |= LCD_DISPLAYON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::displayOff()
+{
+  m_displayControl &= ~LCD_DISPLAYON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::cursorOn()
+{
+  m_displayControl |= LCD_CURSORON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::cursorOff()
+{
+  m_displayControl &= ~LCD_CURSORON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::cursorBlinkOn()
+{
+  m_displayControl |= LCD_BLINKON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::cursorBlinkOff()
+{
+  m_displayControl &= ~LCD_BLINKON;
+  send(LCD_DISPLAYCONTROL | m_displayControl, 0);
+}
+
+void Lcm1602::scrollDisplayLeft()
+{
+  send(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT, 0);
+}
+
+void Lcm1602::scrollDisplayRight()
+{
+  send(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT, 0);
+}
+
+void Lcm1602::entryLeftToRight()
+{
+  m_entryDisplayMode |= LCD_ENTRYLEFT;
+  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+}
+
+void Lcm1602::entryRightToLeft()
+{
+  m_entryDisplayMode &= ~LCD_ENTRYLEFT;
+  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+}
+
+void Lcm1602::autoscrollOn()
+{
+  m_entryDisplayMode |= LCD_ENTRYSHIFTINCREMENT;
+  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+}
+
+void Lcm1602::autoscrollOff()
+{
+  m_entryDisplayMode &= ~LCD_ENTRYSHIFTINCREMENT;
+  send(LCD_ENTRYMODESET | m_entryDisplayMode, 0);
+}
+
 
 /*
  * **************
