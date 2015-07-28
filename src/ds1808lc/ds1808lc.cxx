@@ -31,10 +31,13 @@ DS1808LC::DS1808LC(int gpioPower, int i2cBus)
       return;
    }
    mraa_i2c_address(i2c, DS1808_I2C_ADDR);
-   status = MRAA_SUCCESS;
 
    // There is a bug in the hardware that prevents us from reading the power GPIO pin
    m_isPowered = false;     // Assume it's off
+
+   int brightness;
+   if (getBrightness(brightness))
+	   status = MRAA_SUCCESS;
 }
 
 DS1808LC::~DS1808LC()
