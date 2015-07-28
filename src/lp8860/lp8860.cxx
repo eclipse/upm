@@ -195,7 +195,7 @@ bool LP8860::getBrightness(int* percent)
     uint8_t lsb;
     if (i2cReadByte(LP8860_DISP_CL1_BRT_MSB, &msb) && i2cReadByte(LP8860_DISP_CL1_BRT_LSB, &lsb))
     {
-        *percent = (100 * 0xFFFF) / ((int)msb << 8 | lsb);
+        *percent = (100 * ((int)msb << 8 | lsb)) / 0xFFFF;		
         return true;
     }
     else
