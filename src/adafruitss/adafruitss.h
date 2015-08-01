@@ -52,7 +52,6 @@
 #define PCA9685_PRESCALE_REG    0xFE
 #define LED0_REG                0x06
 
-
 namespace upm {
 
  /**
@@ -60,7 +59,7 @@ namespace upm {
   * @defgroup adafruitss libupm-adafruitss
   * @ingroup adafruit i2c servos
   */
- 
+
  /**
   * @library adafruitss
   * @sensor adafruitss
@@ -70,16 +69,18 @@ namespace upm {
   * @web http://www.adafruit.com/product/1411
   * @con i2c
   *
-  * @brief API for Adafruit Servo Shield 
+  *
+  * @brief API for Adafruit Servo Shield
   *
   *	UPM library for the PCA9685 based Adafruit 16-channel servo shield. When 3
   * or more GWS servos attached results unpredictable. Adafruit do recommend a
   * capacitor be installed on the board which should alleviate the issue.
   * Sizing depends on servos and count.
   *
-  * @image html adafruitss.jpg 
+  * @image html adafruitss.jpg
   * @snippet adafruitss.cxx Interesting
   */
+
   class adafruitss {
   public:
     /**
@@ -103,14 +104,14 @@ namespace upm {
      * @param servo_type can be 0 = standard 1ms to 2ms, 1 = extended 0.6ms to 2.4ms, or 2 = extended 0.8ms to 2.2ms
      * @param degrees angle to set the servo to
      */
-    void servo(uint8_t port, uint8_t servo_type, uint16_t degrees);
+    void servo(uint8_t port, uint8_t servo_type, float degrees);
+    void servo(uint8_t port, uint8_t servo_type, uint16_t degrees) { servo(port, servo_type, (float)degrees); }
 
   private:
 
     int pca9685_addr;
     mraa_i2c_context m_i2c;
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    float _pwm_frequency;
     float _duration_1ms;
 };
 
