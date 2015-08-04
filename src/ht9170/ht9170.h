@@ -50,6 +50,7 @@ namespace upm {
    * Multi-Frequency) Shield.  It can decode DTMF signals presented at
    * it's audio input.  It does not generate DTMF signals.
    *
+   * @image html ht9170.jpg
    * @snippet ht9170.cxx Interesting
    */
   class HT9170 {

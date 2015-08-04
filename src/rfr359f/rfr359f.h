@@ -31,7 +31,7 @@ namespace upm {
   /**
    * @brief RFR359 Distance Interrupter library
    * @defgroup rfr359f libupm-rfr359f
-   * @ingroup seeed gpio light
+   * @ingroup seeed gpio light robok tsk
    */
   /**
    * @library rfr359f
@@ -42,6 +42,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_IR_Distance_Interrupt
    * @con gpio
+   * @kit robok tsk
    *
    * @brief API for the RFR359F based Grove Distance Interrupter. 
    *

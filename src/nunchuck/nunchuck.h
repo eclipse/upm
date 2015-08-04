@@ -33,7 +33,7 @@ namespace upm {
   /**
    * @brief Wii Nunchuck library
    * @defgroup nunchuck libupm-nunchuck
-   * @ingroup generic i2c accelerometer
+   * @ingroup generic i2c accelerometer robok
    */
   /**
    * @library nunchuck
@@ -43,6 +43,7 @@ namespace upm {
    * @man generic
    * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
    * @con i2c
+   * @kit robok
    *
    * @brief API for the Wii Nunchuck
    *

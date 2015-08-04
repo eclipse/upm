@@ -12,9 +12,9 @@
 %feature("autodoc", "3");
 
 %include "ssd.h"
-%include "i2clcd.h"
+%include "lcd.h"
 %{
-    #include "i2clcd.h"
+    #include "lcd.h"
 %}
 
 %include "jhd1313m1.h"
@@ -35,4 +35,9 @@
 %include "ssd1308.h"
 %{
     #include "ssd1308.h"
+%}
+
+%include "sainsmartks.h"
+%{
+    #include "sainsmartks.h"
 %}

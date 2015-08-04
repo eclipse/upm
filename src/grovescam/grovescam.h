@@ -50,16 +50,16 @@ namespace upm {
     /**
      * @brief Grove Serial Camera library
      * @defgroup grovescam libupm-grovescam
-     * @ingroup seeed serial
+     * @ingroup seeed uart other
      */
 
     /**
      * @library grovescam
      * @sensor grovescam
      * @comname Grove Serial Camera
-     * @category other
-     * @manufacturer seeed
-     * @connection uart
+     * @type other
+     * @man seeed
+     * @con uart
      * @web http://www.seeedstudio.com/wiki/Grove_-_Serial_Camera_Kit
      *
      * @brief API for the Grove Serial Camera

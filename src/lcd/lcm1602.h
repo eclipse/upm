@@ -7,6 +7,8 @@
  * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Contributions: Jon Trulson <jtrulson@ics.com>
+ *
  * Permission is hereby granted, free of uint8_tge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -28,7 +30,9 @@
 #pragma once
 
 #include <string>
-#include "i2clcd.h"
+#include <mraa/i2c.hpp>
+#include <mraa/gpio.hpp>
+#include "lcd.h"
 
 namespace upm
 {
@@ -52,7 +56,7 @@ namespace upm
  * @image html lcm1602.jpeg
  * @snippet lcm1602-lcd.cxx Interesting
  */
-class Lcm1602 : public I2CLcd
+class Lcm1602 : public LCD
 {
   public:
     /**
@@ -62,6 +66,22 @@ class Lcm1602 : public I2CLcd
      * @param address the slave address the lcd is registered on
      */
     Lcm1602(int bus, int address);
+
+    /**
+     * Lcm1602 alternate constructor, used for GPIO based hd44780
+     * controllers supporting RS, Enable, and 4 data pins in 4-bit
+     * mode.
+     *
+     * @param rs register select pin
+     * @param enable enable pin
+     * @param d0 data 0 pin
+     * @param d1 data 1 pin
+     * @param d2 data 2 pin
+     * @param d3 data 3 pin
+     */
+    Lcm1602(uint8_t rs,  uint8_t enable,
+            uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3);
+
     /**
      * Lcm1602 Destructor
      */
@@ -95,10 +115,34 @@ class Lcm1602 : public I2CLcd
      */
     mraa_result_t home();
 
-  private:
+    /**
+     * Create a custom character
+     *
+     * @param charSlot the character slot to write, only 8 are available
+     * @param charData The character data (8 bytes) making up the character
+     * @return Result of operation
+     */
+    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+
+  protected:
     mraa_result_t send(uint8_t value, int mode);
     mraa_result_t write4bits(uint8_t value);
     mraa_result_t expandWrite(uint8_t value);
     mraa_result_t pulseEnable(uint8_t value);
+
+  private:
+    int m_lcd_control_address;
+    mraa::I2c* m_i2c_lcd_control;
+
+    // true if using i2c, false otherwise (gpio)
+    bool m_isI2C;
+
+    // gpio operation
+    mraa::Gpio* m_gpioRS;
+    mraa::Gpio* m_gpioEnable;
+    mraa::Gpio* m_gpioD0;
+    mraa::Gpio* m_gpioD1;
+    mraa::Gpio* m_gpioD2;
+    mraa::Gpio* m_gpioD3;
 };
 }

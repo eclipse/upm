@@ -46,7 +46,7 @@ namespace upm {
     /**
      * @brief UBLOX6 & SIM28 GPS module library
      * @defgroup ublox6 libupm-ublox6
-     * @ingroup seeed uart gps
+     * @ingroup seeed uart gps tsk
      */
     /**
      * @library ublox6
@@ -57,6 +57,7 @@ namespace upm {
      * @man seeed
      * @web http://www.seeedstudio.com/depot/Grove-GPS-p-959.html
      * @con uart
+     * @kit tsk
      *
      * @brief API for the U-BLOX 6 and SIM28 GPS modules
      *

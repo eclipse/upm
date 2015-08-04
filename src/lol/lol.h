@@ -51,6 +51,7 @@ namespace upm {
  *
  * This file defines the LoL API and implementation for a simple frame buffer.
  *
+ * @image html lolshield.jpg
  * @snippet lol-example.cxx Interesting
  */
 class LoL {

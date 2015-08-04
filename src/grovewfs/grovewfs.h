@@ -33,7 +33,7 @@ namespace upm {
   /**
    * @brief Grove Water Flow sensor library
    * @defgroup grovewfs libupm-grovewfs
-   * @ingroup seeed gpio liquid
+   * @ingroup seeed gpio liquid eak
    */
 
   /**
@@ -44,6 +44,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor
    * @con gpio
+   * @kit eak
 
    * @brief API for the Grove Water Flow Sensor
    *

@@ -31,7 +31,7 @@ namespace upm {
   /**
    * @brief ENC03R Single Axis Gyro library
    * @defgroup enc03r libupm-enc03r
-   * @ingroup seeed analog compass
+   * @ingroup seeed analog compass robok
    */
 
   /**
@@ -42,6 +42,7 @@ namespace upm {
    * @type compass
    * @man seeed
    * @con analog
+   * @kit robok
    *
    * @brief API for the ENC03R Single Axis Analog Gyro
    *

@@ -56,11 +56,11 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ``Other API Documentation``
 ###########################
 
-.. image:: ../docs/c++.png
+.. image:: ../docs/icons/c++.png
    :target: http://iotdk.intel.com/docs/master/upm/modules.html
-.. image:: ../docs/python.png
+.. image:: ../docs/icons/python.png
    :target: http://iotdk.intel.com/docs/master/upm/python
-.. image:: ../docs/node.png
+.. image:: ../docs/icons/node.png
    :target: http://iotdk.intel.com/docs/master/upm/node
 
 ``Version Changelog``

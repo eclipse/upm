@@ -26,17 +26,26 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "i2clcd_private.h"
+#include "lcd_private.h"
+#include "hd44780_bits.h"
 #include "jhd1313m1.h"
 
 using namespace upm;
 
 Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
-        : I2CLcd(bus, lcdAddress), m_i2c_lcd_rgb(bus)
+  : m_i2c_lcd_rgb(bus), m_i2c_lcd_control(bus)
 {
     m_rgb_address = rgbAddress;
+    m_name = "Jhd1313m1";
+
+    m_lcd_control_address = lcdAddress;
 
     mraa_result_t ret = m_i2c_lcd_rgb.address(m_rgb_address);
+    if (ret != MRAA_SUCCESS) {
+        fprintf(stderr, "Messed up i2c bus\n");
+    }
+
+    ret = m_i2c_lcd_control.address(m_lcd_control_address);
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
@@ -79,6 +88,8 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
 
 Jhd1313m1::~Jhd1313m1()
 {
+    clear();
+    setColor(0x00, 0x00, 0x00);
 }
 
 mraa_result_t
@@ -112,6 +123,21 @@ Jhd1313m1::scroll(bool direction)
         return m_i2c_lcd_control.writeReg(LCD_CMD,
                                           LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
     }
+}
+
+mraa_result_t
+Jhd1313m1::createChar(uint8_t charSlot, uint8_t charData[])
+{
+    mraa_result_t error = MRAA_SUCCESS;
+    charSlot &= 0x07; // only have 8 positions we can set
+    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
+    if (error == MRAA_SUCCESS) {
+        for (int i = 0; i < 8; i++) {
+            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
+        }
+    }
+
+    return error;
 }
 
 /*
