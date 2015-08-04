@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief BISS0001 motion sensor library
    * @defgroup biss0001 libupm-biss0001
-   * @ingroup seeed gpio light
+   * @ingroup seeed gpio light tsk
    */
 
   /**
@@ -42,6 +42,7 @@ namespace upm {
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
    * @con gpio
+   * @kit tsk
    *
    * @brief API for the BISS0001 Motion Sensor
    *

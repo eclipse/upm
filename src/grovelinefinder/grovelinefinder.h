@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief Grove Line Finder sensor library
    * @defgroup grovelinefinder libupm-grovelinefinder
-   * @ingroup seeed gpio color
+   * @ingroup seeed gpio color robok
    */
 
   /**
@@ -40,6 +40,7 @@ namespace upm {
    * @type color
    * @man seeed
    * @con gpio
+   * @kit robok
    *
    * @brief API for the Grove Line Finder sensor
    *

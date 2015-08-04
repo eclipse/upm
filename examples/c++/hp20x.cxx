@@ -1,6 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,49 +22,49 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
 #include <unistd.h>
+#include <signal.h>
+#include <iostream>
+#include "hp20x.h"
 
-#include "i2clcd.h"
-#include "i2clcd_private.h"
-
+using namespace std;
 using namespace upm;
 
-I2CLcd::I2CLcd(int bus, int lcdAddress) : m_i2c_lcd_control(bus)
-{
-    m_lcd_control_address = lcdAddress;
-    m_bus = bus;
+int shouldRun = true;
 
-    mraa_result_t ret = m_i2c_lcd_control.address(m_lcd_control_address);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
+void sig_handler(int signo)
+{
+  if (signo == SIGINT)
+    shouldRun = false;
+}
+
+int main(int argc, char **argv)
+{
+  signal(SIGINT, sig_handler);
+
+//! [Interesting]
+  // Instantiate an HP20X on default I2C bus and address
+
+  upm::HP20X *bar = new upm::HP20X();
+
+  // Initialize the device with default values
+  bar->init();
+
+  // Output data every second until interrupted
+  while (shouldRun)
+    {
+      printf("Temperature: %f Celcius\n", bar->getTemperature());
+      printf("Pressure:    %f Millibars\n", bar->getPressure());
+      printf("Altitude:    %f Meters\n", bar->getAltitude());
+
+      printf("\n");
+
+      sleep(1);
     }
-}
+//! [Interesting]
 
-mraa_result_t
-I2CLcd::write(int row, int column, std::string msg)
-{
-    setCursor(row, column);
-    return write(msg);
-}
+  cout << "Exiting..." << endl;
 
-mraa_result_t
-I2CLcd::createChar(uint8_t charSlot, uint8_t charData[])
-{
-    mraa_result_t error = MRAA_SUCCESS;
-    charSlot &= 0x07; // only have 8 positions we can set
-    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
-    if (error == MRAA_SUCCESS) {
-        for (int i = 0; i < 8; i++) {
-            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
-        }
-    }
-
-    return error;
-}
-
-std::string
-I2CLcd::name()
-{
-    return m_name;
+  delete bar;
+  return 0;
 }

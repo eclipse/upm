@@ -9,19 +9,21 @@ from earlier versions:
  * Updated index pages for API documentation and cross-linked them
  * More images were added for Grove, Adafruit and Sparkfun sensors along with
  licensing information
- * Addressed several issues reported by static code analysis tools
+ * Applied a set of patches to improve code robustness
  * Added support for Grove NFC Tag sensor
  * Fixed several typos in library and sensor names
+ * New sensor: m24lr64e
 
 ### v0.3.0
 
- * New CMake targets to build python and node documentation with Sphinx and
- Yuidoc
+ * Provided automated, updated and comprehensive sensor API documentation for
+ C++, Python and JavaScript
  * Edited sensor names, library descriptions and doxygen tags for consistency
- * Added support for several new sensors
  * Fixed the TH02 sensor driver and made major improvements to i2clcd driver
- * Updated and added new images for a lot of the existing sensors
- * Added this changelog
+ * Added new and updated images for numerous new and existing sensors
+ * Started this changelog
+ * New sensors: sx6119, si114x, maxsonarez, hm11, ht9170, h3lis331dl, ad8232,
+ grovescam
 
 ### v0.2.0
 
@@ -32,6 +34,10 @@ from earlier versions:
  * Fixed the buzzer and servo drivers for the Intel Edison
  * Renamed bmp and gp2y sensor classes to be more generic
  * Completely revamped implementation for tm1637
+ * New sensors: mma7660, cjq4435, adxl335, hmtrp, nunchuck, otp538u, l298,
+ groveelectromagnet, grovecollision, adis16448, at42qt1070, grovemd, ina132,
+ grovegsr, groveo2, groveemg, pca9685, pca9685ss, adafruitms1438, hx711, flex,
+ groveeldriver, mhz16, apds9002, waterlevel, zfm20, uln200xa, grovewfs, isd1820
 
 ### v0.1.9
 
@@ -40,6 +46,12 @@ from earlier versions:
  * Several examples and documentation updates submitted
  * Wrote new proper SWIG typemaps for arrays
  * Fixed the i2clcd write function, improved several other sensors
+ * New sensors: rpr220, rotaryencoder, biss0001, rfr359f, grovespeaker, mq303a,
+ ppd42ns, wt5001, yg1006, ublox6, mpr121, groveloudness, guvas12d, grovewater,
+ grovevdiv, grovelinefinder, ta12200, groveehr, grovemoisture, gp2y0a, a110x,
+ ds1307, adc121c021, enc03r, ttp223, itg3200, am2315, tp401, ldt0028, htu21d,
+ mpl3115a2, lsm303, joystick12, tsl2561, groverotary, groveslider, adxl345,
+ grovebutton, lol, groverelay
 
 ### v0.1.8
 

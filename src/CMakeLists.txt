@@ -55,12 +55,15 @@ endmacro()
 
 macro(upm_doxygen)
   if (DOXYGEN_FOUND)
+    if(NOT DEFINED classname)
+      set (classname ${libname})
+    endif()
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
     add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doxy2swig.py -n
-        ${CMAKE_BINARY_DIR}/xml/${libname}_8h.xml
+        ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
         ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
-        DEPENDS ${CMAKE_BINARY_DIR}/xml/${libname}_8h.xml
+        DEPENDS ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
     )
     add_custom_target (${libname}doc_i DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i)
     add_dependencies (${libname}doc_i doc)

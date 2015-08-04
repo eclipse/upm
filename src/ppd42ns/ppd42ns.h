@@ -39,7 +39,7 @@ typedef struct
   /**
    * @brief PPD42NS dust sensor library
    * @defgroup ppd42ns libupm-ppd42ns
-   * @ingroup seeed gpio other
+   * @ingroup seeed gpio other eak
    */
   /**
    * @library ppd42ns
@@ -50,6 +50,7 @@ typedef struct
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
    * @con gpio
+   * @kit eak
    *
    * @brief API for the Dust Sensor
    *

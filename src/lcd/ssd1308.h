@@ -25,7 +25,8 @@
 #pragma once
 
 #include <string>
-#include "i2clcd.h"
+#include <mraa/i2c.hpp>
+#include "lcd.h"
 #include "ssd.h"
 
 namespace upm
@@ -52,7 +53,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * @image html ssd1308.jpeg
  * @snippet ssd1308-oled.cxx Interesting
  */
-class SSD1308 : public I2CLcd
+class SSD1308 : public LCD
 {
   public:
     /**
@@ -108,5 +109,8 @@ class SSD1308 : public I2CLcd
     mraa_result_t writeChar(uint8_t value);
     mraa_result_t setNormalDisplay();
     mraa_result_t setAddressingMode(displayAddressingMode mode);
+
+    int m_lcd_control_address;
+    mraa::I2c m_i2c_lcd_control;
 };
 }

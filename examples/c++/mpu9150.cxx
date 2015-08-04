@@ -1,6 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,36 +24,58 @@
 
 #include <unistd.h>
 #include <iostream>
+#include <signal.h>
 #include "mpu9150.h"
 
-int
-main(int argc, char **argv)
+using namespace std;
+
+int shouldRun = true;
+
+void sig_handler(int signo)
 {
-    //! [Interesting]
-    upm::Vector3D data;
-    upm::MPU9150 *sensor = new upm::MPU9150(0, ADDR);
-    sensor->getData ();
-    sensor->getAcceleromter (&data);
-    std::cout << "*************************************************" << std::endl;
-    std::cout << "DEVICE ID (" << (int) sensor->getDeviceID () << ")" << std::endl;
-    std::cout << "*************************************************" << std::endl;
-    std::cout << "ACCELEROMETER :: X (" << data.axisX << ")" << " Y (" << data.axisY << ")"
-                << " Z (" << data.axisZ << ")" << std::endl;
+  if (signo == SIGINT)
+    shouldRun = false;
+}
 
-    sensor->getGyro (&data);
-    std::cout << "GYRO :: X (" << data.axisX << ")" << " Y (" << data.axisY << ")"
-                << " Z (" << data.axisZ << ")" << std::endl;
 
-    sensor->getMagnometer (&data);
-    std::cout << "MAGNOMETER :: X (" << data.axisX << ")" << " Y (" << data.axisY << ")"
-                << " Z (" << data.axisZ << ")" << std::endl;
-    std::cout << "TEMPERATURE (" << sensor->getTemperature () << ")" << std::endl;
-    std::cout << "*************************************************" << std::endl;
-    //! [Interesting]
+int main(int argc, char **argv)
+{
+  signal(SIGINT, sig_handler);
+//! [Interesting]
 
-    std::cout << "exiting application" << std::endl;
+  upm::MPU9150 *sensor = new upm::MPU9150();
 
-    delete sensor;
+  sensor->init();
 
-    return 0;
+  while (shouldRun)
+    {
+      sensor->update();
+      
+      float x, y, z;
+      
+      sensor->getAccelerometer(&x, &y, &z);
+      cout << "Accelerometer: ";
+      cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
+
+      sensor->getGyroscope(&x, &y, &z);
+      cout << "Gryoscope:     ";
+      cout << "GX: " << x << " GY: " << y << " GZ: " << z << endl;
+      
+      sensor->getMagnetometer(&x, &y, &z);
+      cout << "Magnetometer:  ";
+      cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
+
+      cout << "Temperature:   " << sensor->getTemperature() << endl;
+      cout << endl;
+
+      usleep(500000);
+    }
+
+//! [Interesting]
+
+  cout << "Exiting..." << endl;
+  
+  delete sensor;
+  
+  return 0;
 }

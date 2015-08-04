@@ -30,7 +30,7 @@ namespace upm {
     /**
      * @brief YG1006 flame sensor library
      * @defgroup yg1006 libupm-yg1006
-     * @ingroup seeed gpio light
+     * @ingroup seeed gpio light hak
      */
     /**
      * @library yg1006
@@ -41,6 +41,7 @@ namespace upm {
      * @man seeed
      * @web http://www.seeedstudio.com/wiki/Grove_-_Flame_Sensor
      * @con gpio
+     * @kit hak
      *
      * @brief API for the YG1006 flame sensor
      *

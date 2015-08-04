@@ -36,6 +36,7 @@ namespace upm {
    * @type gaseous
    * @man seeed
    * @con analog
+   * @kit hak
    *
    * @brief API for Grove TP401 Air Quality Sensor
    *

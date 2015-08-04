@@ -16,6 +16,9 @@ such sensors and known workarounds if they exist.
  Intel Edison Arduino board but will work with the Mini-breakout.
  * **Grove 3-Axis Digital Accelerometer** (ADXL345) only works with the Intel
  Edison Arduino board when powered from the 3.3V line.
+ * **Grove 3-Axis Digital Compass (HMC5883L) reports inaccurate values at 5V
+ on the Intel Edison Arduino board and newer revisions might not work at all.
+ Use 3.3V or the Mini-breakout.
  * **Grove 96x96 OLED Display** will not work on the Intel Edison with Arduino
  breakout.
  * **Grove 128x64 OLED Display** will not work on the Intel Edison with Arduino
@@ -40,6 +43,9 @@ such sensors and known workarounds if they exist.
 #### Other Sensors
 
  * **MPU9150** might return inaccurate data.
+ * **SM130** driver might not be fully functional.
+ * **NRF24L01** might not handle data packets as expected.
+ * **NRF8001** based devices do not initialize properly with provided examples.
 
 #### General
 

@@ -29,7 +29,7 @@ namespace upm {
   /**
    * @brief CJQ4435 MOSFET library
    * @defgroup cjq4435 libupm-cjq4435
-   * @ingroup seeed gpio pwm electric
+   * @ingroup seeed gpio pwm electric robok
    */
 
   /**
@@ -40,6 +40,7 @@ namespace upm {
    * @type electric
    * @man seeed
    * @con gpio pwm
+   * @kit robok
    *
    * @brief API for the CJQ4435 MOSFET
    *

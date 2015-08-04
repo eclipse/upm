@@ -30,7 +30,7 @@ namespace upm {
   /**
    * @brief GUVA-S12D UV sensor library
    * @defgroup guvas12d libupm-guvas12d
-   * @ingroup seeed analog light
+   * @ingroup seeed analog light eak
    */
 
   /**
@@ -41,6 +41,7 @@ namespace upm {
    * @type light
    * @man seeed
    * @con analog
+   * @kit eak
    *
    * @brief API for the GUVAS12D UV sensor module
    *

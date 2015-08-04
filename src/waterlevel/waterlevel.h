@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief Water Level sensor library
+   * @brief Water Level switch library
    * @defgroup waterlevel libupm-waterlevel
    * @ingroup seeed gpio liquid
    */
@@ -39,11 +39,15 @@ namespace upm {
    * @man seeed
    * @con gpio
    * 
-   * @brief UPM module for the Grove Luminance Sensor
+   * @brief UPM module for the Grove Water Level Switch
+   *
+   * This switch is a device used to sense the level of liquid within a tank,
+   * it may actuate a pump, an indicator, an alarm, or other devices.
    *
    * @image html waterlevel.jpg 
    * @snippet apds9002.cxx Interesting
-   */  class WaterLevel {
+   */
+  class WaterLevel {
   public:
     /**
      * Water Level Constructor
@@ -56,7 +60,7 @@ namespace upm {
      */
     ~WaterLevel();
     /**
-     * @return bool  returns whether liquid has gone above sensor
+     * @return bool returns whether liquid has gone above sensor
      */
      bool isSubmerged();
 

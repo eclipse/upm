@@ -35,7 +35,7 @@ namespace upm {
   /**
    * @brief Grove Speaker library
    * @defgroup grovespeaker libupm-grovespeaker
-   * @ingroup seeed gpio sound
+   * @ingroup seeed gpio sound hak
    */
 typedef struct
 {
@@ -53,6 +53,7 @@ typedef struct
    * @type sound
    * @man seeed
    * @con gpio
+   * @kit hak
    *
    * @brief API for the GroveSpeaker speaker
    *

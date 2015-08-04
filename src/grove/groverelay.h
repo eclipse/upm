@@ -30,7 +30,7 @@
  * @type relay
  * @man seeed
  * @con gpio
- * @kit gsk
+ * @kit gsk eak hak
  *
  * @brief API for Grove Relay
  *
