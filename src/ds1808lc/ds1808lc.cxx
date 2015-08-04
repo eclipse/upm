@@ -36,7 +36,7 @@ DS1808LC::DS1808LC(int gpioPower, int i2cBus)
    m_isPowered = false;     // Assume it's off
 
    int brightness;
-   if (getBrightness(brightness))
+   if (getBrightness(&brightness))
 	   status = MRAA_SUCCESS;
 }
 
