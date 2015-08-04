@@ -109,9 +109,15 @@ LP8860::LP8860(int gpioPower, int i2cBus)
     i2c = mraa_i2c_init(i2cBus);
     status = mraa_i2c_address(i2c, LP8860_I2C_ADDR);
 
-    if (status != MRAA_SUCCESS) { printf("LP8860: I2C initialisation failed.\n"); return; }
+    if (status != MRAA_SUCCESS) { 
+        printf("LP8860: I2C initialisation failed.\n"); 
+        return; 
+    }
 
-    if(!isAvailable()) { status = MRAA_ERROR_INVALID_RESOURCE; return; }
+    if(!isAvailable()) { 
+        status = MRAA_ERROR_INVALID_RESOURCE; 
+        return; 
+    }
 
     status = MRAA_SUCCESS;
 }
@@ -133,7 +139,9 @@ bool LP8860::isAvailable()
 
     // Check power state
     if(!isPowered()) {
-        if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { return false; }
+        if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { 
+            return false; 
+        }
         wasPowered = false;
     }
 
@@ -142,9 +150,13 @@ bool LP8860::isAvailable()
     id = mraa_i2c_read_byte_data(i2c, LP8860_ID);
 
     // Turn off to save power if not required
-    if(!wasPowered) { MraaUtils::setGpio(pinPower, 0); }
+    if(!wasPowered) { 
+        MraaUtils::setGpio(pinPower, 0); 
+    }
 
-    if(id == -1 || id == LP8860_INVALID_ID ) { return false; }
+    if(id == -1 || id == LP8860_INVALID_ID ) { 
+        return false; 
+    }
 
     return true;
 }
@@ -160,8 +172,12 @@ bool LP8860::isPowered()
 {
     int level;
 
-    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS) { return level == 1; }
-    else { return false; }
+    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS) { 
+        return level == 1; 
+    }
+    else { 
+        return false; 
+    }
 }
 
 bool LP8860::setPowerOn()
