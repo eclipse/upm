@@ -14,12 +14,13 @@ find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
 
+# This is required for Fedora builds
 # Make sure pkg-config searches /usr/lib/pkgconfig as mraa.pc will be in this directory
 set (ENV{PKG_CONFIG_PATH} "/usr/lib/pkgconfig")
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-pkg_check_modules (MRAA REQUIRED mraa>=0.6.2)
+pkg_check_modules (MRAA REQUIRED mraa>=0.7.2)
 message (INFO " found libmraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
