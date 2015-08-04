@@ -32,12 +32,6 @@
 #define SI7005_ADDRESS                     ( 0x40 )
 #define SI7005_NOT_FOUND                   ( 0x00 )
 
-/* I2C BUS */
-#define SI7005_I2C_BUS                     ( 1 )
-
-/* CS PIN */
-#define SI7005_CS_PIN                      ( 20 )
-
 /* REGISTER ADDRESSES */
 #define SI7005_REG_STATUS                  ( 0x00 )
 #define SI7005_REG_DATA_LENGTH             ( 2 )
@@ -101,7 +95,7 @@ class SI7005 : public ITemperatureHumiditySensor {
          * @param devAddr address of used i2c device
          * @param pin mraa gpio number for chip select pin
          */
-        SI7005 (int bus = SI7005_I2C_BUS, int devAddr = SI7005_ADDRESS, int pin = SI7005_CS_PIN);
+        SI7005 (int bus, int pin);
 
         /**
          * SI7005 object destructor.

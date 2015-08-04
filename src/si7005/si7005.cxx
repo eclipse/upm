@@ -32,9 +32,9 @@
 
 using namespace upm;
 
-SI7005::SI7005 (int bus, int devAddr, int pin) {
+SI7005::SI7005 (int bus, int pin) {
 
-    m_controlAddr = devAddr;
+    m_controlAddr = SI7005_ADDRESS;
     m_bus = bus;
     m_pin = pin;
 
