@@ -105,7 +105,6 @@ namespace upm {
      * @param degrees angle to set the servo to
      */
     void servo(uint8_t port, uint8_t servo_type, float degrees);
-    void servo(uint8_t port, uint8_t servo_type, uint16_t degrees) { servo(port, servo_type, (float)degrees); }
 
   private:
 
