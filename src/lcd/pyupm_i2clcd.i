@@ -37,6 +37,11 @@
     #include "ssd1308.h"
 %}
 
+%include "eboled.h"
+%{
+    #include "eboled.h"
+%}
+
 %include "sainsmartks.h"
 %{
     #include "sainsmartks.h"
