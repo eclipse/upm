@@ -25,17 +25,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "max5487.h"
 
 using namespace upm;
-
-struct MAX5487Exception : public std::exception {
-    std::string message;
-    MAX5487Exception (std::string msg) : message (msg) { }
-    ~MAX5487Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 MAX5487::MAX5487 (int csn) {
     mraa_result_t error = MRAA_SUCCESS;
@@ -45,18 +39,21 @@ MAX5487::MAX5487 (int csn) {
     if (csn != -1) {
         m_csnPinCtx = mraa_gpio_init (csn);
         if (m_csnPinCtx == NULL) {
-            throw MAX5487Exception ("GPIO failed to initilize");
+            throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                      ": mraa_gpio_init() failed");
         }
 
         error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
         if (error != MRAA_SUCCESS) {
-            throw MAX5487Exception ("GPIO failed to initilize");
+            throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                        ": mraa_gpio_dir() failed");
         }
     }
 
     m_spi = mraa_spi_init (0);
     if (m_spi == NULL) {
-        throw MAX5487Exception ("SPI failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_spi_init() failed");
     }
 
     CSOff ();
