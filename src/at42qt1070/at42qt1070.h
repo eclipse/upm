@@ -35,7 +35,7 @@
 namespace upm
 {
 /**
- * @brief Atmel AT42QT1070 QTouch sensor library
+ * @brief Atmel AT42QT1070 QTouch* Sensor library
  * @defgroup at42qt1070 libupm-at42qt1070
  * @ingroup seeed i2c touch
  */
@@ -49,12 +49,12 @@ namespace upm
  * @man seeed
  * @con i2c
  *
- * @brief API for the Atmel AT42QT1070 QTouch sensor
+ * @brief API for the Atmel AT42QT1070 QTouch Sensor
  *
  * This class implements support for the Atmel AT42QT1070 QTouch
  * sensor, which supports 7 capacitive buttons.
  *
- * It was developed using the Grove Q Touch Sensor board.
+ * It was developed using a Grove-Q Touch Sensor board.
  *
  * @image html at42qt1070.jpg
  * @snippet at42qt1070.cxx Interesting
@@ -143,122 +143,122 @@ class AT42QT1070
     /**
      * AT42QT1070 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this sensor
+     * @param bus I2C bus to use
+     * @param address Address for this sensor
      */
     AT42QT1070(int bus, uint8_t address = AT42QT1070_DEFAULT_I2C_ADDR);
 
     /**
-     * AT42QT1070 Destructor
+     * AT42QT1070 destructor
      */
     ~AT42QT1070();
 
     /**
-     * Write byte value into register
+     * Writes a byte value into the register
      *
-     * @param reg register location to write into
-     * @param byte byte to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param byte Byte to write
+     * @return True if successful
      */
     bool writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Write word value at register.  Note, the device must have the
+     * Writes a word value into the register.  Note: the device must have the
      * auto-increment bit set in the MODE1 register to work.
      *
-     * @param reg register location to write into
-     * @param word word to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param word Word to write
+     * @return True if successful
      */
     bool writeWord(uint8_t reg, uint16_t word);
 
     /**
-     * Read byte value from register
+     * Read a byte value from the register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in the specified register
      */
     uint8_t readByte(uint8_t reg);
 
     /**
-     * Read word value from register.  Note, the device must have the
+     * Read a word value from the register.  Note: the device must have the
      * auto-increment bit set in the MODE1 register to work.
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in the specified register
      */
     uint16_t readWord(uint8_t reg);
 
 
     /**
-     * Read the Chip ID register on the sensor
+     * Reads the Chip ID register on the sensor
      *
-     * @return the value of the Chip ID register
+     * @return Value of the Chip ID register
      */
     uint8_t readChipID(void);
 
     /**
-     * Read the current touch status and detection state
+     * Reads the current touch status and detection state
      *
-     * @return key status bits for all keys (0-6)
+     * @return Key status bits for all keys (0-6)
      */
     void updateState();
 
 
     /**
-     * Read the current low-power mode setting
+     * Reads the current low-power mode setting
      *
-     * @return return low-power mode setting from sensor
+     * @return Low-power mode setting from the sensor
      */
     uint8_t getLPMode(void);
 
     /**
-     * Change the low-pomer mode setting on the sensor
+     * Changes the low-pomer mode setting on the sensor
      *
-     * @param mode desired new mode
-     * @return new setting on sensor
+     * @param mode dDsired new mode
+     * @return New setting on the sensor
      */
     uint8_t setLPMode(uint8_t mode);
 
 
     /**
-     * Read the current averaging factor setting for a key
+     * Reads the current averaging factor setting for a key
      *
-     * @param key the key being read
-     * @return the averaging factor
+     * @param key Key being read
+     * @return Averaging factor
      */
     uint8_t getAVE(uint8_t key);
 
     /**
-     * Change the averaging factor setting for a key
+     * Changes the averaging factor setting for a key
      *
-     * @param key the key being changed
-     * @param ave the new averaging factor
-     * @return the new averaging factor as read from the device
+     * @param key Key being changed
+     * @param ave New averaging factor
+     * @return New averaging factor as read from the device
      */
     uint8_t setAVE(uint8_t key, uint8_t ave);
 
     /**
-     * Read the AKS group a key is part of
+     * Reads the AKS group of which a key is part
      *
-     * @param key the key (0-6) being queried
-     * @return AKS group the key is part of
+     * @param key Key (0-6) being queried
+     * @return AKS group of which the key is part
      */
     uint8_t getAKSGroup(uint8_t key);
 
     /**
-     * Change the AKS group that a key is part of
+     * Changes the AKS group of which a key is part
      *
-     * @param key the key (0-6) being changed
-     * @param group the new group for the key
-     * @return return the new value on the sensor
+     * @param key Key (0-6) being changed
+     * @param group New group for the key
+     * @return New value on the sensor
      */
     uint8_t setAKSGroup(uint8_t key, uint8_t group);
 
     /**
-     * return the overflow indicator
+     * Returns the overflow indicator
      *
-     * @return true if overflow indicated
+     * @return True if overflow is indicated
      */
     bool
     isOverflowed()
@@ -267,9 +267,9 @@ class AT42QT1070
     };
 
     /**
-     * return the calibrating indicator
+     * Returns the calibrating indicator
      *
-     * @return true if calibration is in progress
+     * @return True if calibration is in progress
      */
     bool
     isCalibrating()
@@ -278,23 +278,23 @@ class AT42QT1070
     };
 
     /**
-     * Issue a reset command
+     * Issues a reset command
      *
-     * @return true if reset successful
+     * @return True if successful
      */
     bool reset();
 
     /**
-     * Issue a calibrate command
+     * Issues a calibrate command
      *
-     * @return true if calibrate successful
+     * @return True if successful
      */
     bool calibrate();
 
     /**
-     * Get the current button states
+     * Gets the current button states
      *
-     * @returns the button states
+     * @returns Button states
      */
     uint8_t
     getButtons()

@@ -63,32 +63,32 @@ namespace upm {
     /**
      * A110x digital sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     A110X(int pin);
     /**
-     * A110X Destructor
+     * A110X destructor
      */
     ~A110X();
     /**
-     * Determine whether a magnetic field of south polarity has been detected
+     * Determines whether a magnetic field of south polarity has been detected
      *
      * @return True if magnetic field detected
      */
     bool magnetDetected();
 
     /**
-     * Install an Interrupt Service Routine (ISR) to be called when
-     * the appropriate magnetic field is detected.
+     * Installs an interrupt service routine (ISR) to be called when
+     * the appropriate magnetic field is detected
      *
-     * @param fptr function pointer to function to be called on interrupt
-     * @param arg pointer to an object that will be supplied as an
-     * arguement to the ISR.
+     * @param fptr Pointer to a function to be called on interrupt
+     * @param arg Pointer to an object to be supplied as an
+     * argument to the ISR.
      */
     void installISR(void (*isr)(void *), void *arg);
 
     /**
-     * Uninstall the previously installed Interrupt Service Routine (ISR)
+     * Uninstalls the previously installed ISR
      *
      */
     void uninstallISR();

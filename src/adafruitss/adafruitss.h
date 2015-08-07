@@ -55,7 +55,7 @@
 namespace upm {
 
  /**
-  * @brief Adafruit PCA9685 based servo controller library
+  * @brief Adafruit PCA9685-based Servo Shield library
   * @defgroup adafruitss libupm-adafruitss
   * @ingroup adafruit i2c servos
   */
@@ -69,13 +69,12 @@ namespace upm {
   * @web http://www.adafruit.com/product/1411
   * @con i2c
   *
+  * @brief API for the Adafruit Servo Shield 
   *
-  * @brief API for Adafruit Servo Shield
-  *
-  *	UPM library for the PCA9685 based Adafruit 16-channel servo shield. When 3
-  * or more GWS servos attached results unpredictable. Adafruit do recommend a
-  * capacitor be installed on the board which should alleviate the issue.
-  * Sizing depends on servos and count.
+  * UPM library for the PCA9685-based Adafruit 16-channel servo shield. If 3
+  * or more GWS servos are attached, results could be unpredictable. Adafruit
+  * Industries recommend installing a capacitor on the board, which should
+  * alleviate the issue. Sizing depends on servos and their number.
   *
   * @image html adafruitss.jpg
   * @snippet adafruitss.cxx Interesting
@@ -84,25 +83,26 @@ namespace upm {
   class adafruitss {
   public:
     /**
-     * Creates a adafruitss object
+     * Creates an adafruitss object
      *
-     * @param bus number of used i2c bus
-     * @param i2c_address address of servo controller on i2c bus
+     * @param bus Number of the used I2C bus
+     * @param i2c_address Address of the servo shield on the I2C bus
      */
     adafruitss(int bus, int i2c_address);
     int update(void);
     /**
-     * Sets the frequency for your servos
+     * Sets the frequency of the servos
      *
-     * @param freq the frequency at which the servos operate
+     * @param freq Frequency at which the servos operate
      */
     void setPWMFreq(float freq);
     /**
-     * Moves the one of the servos to the specified angle
+     * Moves one of the servos to a specified angle
      *
-     * @param port port of the servo on the controller (servo number)
-     * @param servo_type can be 0 = standard 1ms to 2ms, 1 = extended 0.6ms to 2.4ms, or 2 = extended 0.8ms to 2.2ms
-     * @param degrees angle to set the servo to
+     * @param port Port of the servo on the shield (servo number)
+     * @param servo_type Can be 0 = standard (1ms to 2ms), 1 = extended
+     * (0.6ms to 2.4ms), or 2 = extended (0.8ms to 2.2ms)
+     * @param degrees Angle to set the servo to
      */
     void servo(uint8_t port, uint8_t servo_type, float degrees);
 
