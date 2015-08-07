@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include <exception>
+#include <stdexcept>
 #include <string.h>
 
 #include "lsm9ds0.h"
@@ -61,9 +61,6 @@ LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
   mraa_result_t rv;
   if ( (rv = m_i2cG.address(m_gAddr)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": Could not initialize Gyro i2c address." 
-           << endl;
-      mraa_result_print(rv);
       throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize Gyro i2c address");
       return;
@@ -71,8 +68,6 @@ LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
 
   if ( (rv = m_i2cXM.address(m_xmAddr)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": Could not initialize XM i2c address. " << endl;
-      mraa_result_print(rv);
       throw std::runtime_error(string(__FUNCTION__) + 
                                ": Could not initialize XM i2c address");
       return;
@@ -745,7 +740,7 @@ mraa::Gpio*& LSM9DS0::getPin(INTERRUPT_PINS_T intr)
       return m_gpioXM_GEN2;
       break;
     default:
-      throw std::logic_error(string(__FUNCTION__) +
-                             ": Invalid interrupt enum passed");
+      throw std::out_of_range(string(__FUNCTION__) +
+                              ": Invalid interrupt enum passed");
     }
 }
