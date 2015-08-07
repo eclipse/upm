@@ -27,17 +27,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <algorithm>
+#include <stdexcept>
 
 #include "sm130.h"
 
 using namespace upm;
-
-struct SM130Exception : public std::exception {
-    std::string message;
-    SM130Exception (std::string msg) : message (msg) { }
-    ~SM130Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 SM130::SM130 (int bus, int devAddr, int rst, int dready) {
     mraa_result_t error = MRAA_SUCCESS;
@@ -47,31 +41,40 @@ SM130::SM130 (int bus, int devAddr, int rst, int dready) {
     this->m_i2cAddr = devAddr;
     this->m_bus = bus;
 
-    this->m_i2Ctx = mraa_i2c_init(this->m_bus);
+    if (!(m_i2Ctx = mraa_i2c_init(m_bus)))
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_init() failed");
+      }
 
     mraa_result_t ret = mraa_i2c_address(this->m_i2Ctx, this->m_i2cAddr);
     if (ret != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't initilize I2C.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_address() failed");
     }
 
     this->m_resetPinCtx = mraa_gpio_init (rst);
     if (m_resetPinCtx == NULL) {
-        throw SM130Exception ("Couldn't initilize RESET pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_init(RESET) failed");
     }
 
     this->m_dataReadyPinCtx = mraa_gpio_init (dready);
     if (m_dataReadyPinCtx == NULL) {
-        throw SM130Exception ("Couldn't initilize DATA READY pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_init(DATA READY) failed");
     }
 
     error = mraa_gpio_dir (this->m_resetPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't set direction for RESET pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir(RESET) failed");
     }
 
     error = mraa_gpio_dir (this->m_dataReadyPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't set direction for DATA READY pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir(DATA READY) failed");
     }
 }
 
