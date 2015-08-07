@@ -25,17 +25,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "max31723.h"
 
 using namespace upm;
-
-struct MAX31723Exception : public std::exception {
-    std::string message;
-    MAX31723Exception (std::string msg) : message (msg) { }
-    ~MAX31723Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 MAX31723::MAX31723 (int csn) {
     mraa_result_t error = MRAA_SUCCESS;
@@ -43,19 +37,22 @@ MAX31723::MAX31723 (int csn) {
 
     m_csnPinCtx = mraa_gpio_init (csn);
     if (m_csnPinCtx == NULL) {
-        throw MAX31723Exception ("GPIO failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_init() failed");
     }
 
     error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw MAX31723Exception ("GPIO failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir() failed");
     }
 
     CSOff ();
 
     m_spi = mraa_spi_init (0);
     if (m_spi == NULL) {
-        throw MAX31723Exception ("SPI failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_spi_init() failed");
     }
 
     // set spi mode to mode2 (CPOL = 1, CPHA = 0)
