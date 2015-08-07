@@ -1,5 +1,6 @@
 %include "std_string.i"
 %include "stdint.i"
+%include "upm_exception.i"
 
 %typemap(out) mraa_result_t = int;
 
