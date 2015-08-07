@@ -26,17 +26,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <cstring>
+#include <stdexcept>
 
 #include "lpd8806.h"
 
 using namespace upm;
-
-struct LPD8806Exception : public std::exception {
-    std::string message;
-    LPD8806Exception (std::string msg) : message (msg) { }
-    ~LPD8806Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) {
     mraa_result_t error = MRAA_SUCCESS;
@@ -46,19 +40,22 @@ LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) {
 
     m_csnPinCtx = mraa_gpio_init (csn);
     if (m_csnPinCtx == NULL) {
-        throw LPD8806Exception ("GPIO failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": GPIO failed to initialize");
     }
 
     error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw LPD8806Exception ("GPIO failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": GPIO failed to set direction");
     }
 
     CSOff ();
 
     m_spi = mraa_spi_init (0);
     if (m_spi == NULL) {
-        throw LPD8806Exception ("SPI failed to initilize");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": SPI failed to initialize");
     }
 
     // set spi mode to mode2 (CPOL = 0, CPHA = 0)
