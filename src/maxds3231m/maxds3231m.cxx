@@ -25,17 +25,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "maxds3231m.h"
 
 using namespace upm;
-
-struct DS3231Exception : public std::exception {
-    std::string message;
-    DS3231Exception (std::string msg) : message (msg) { }
-    ~DS3231Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 MAXDS3231M::MAXDS3231M (int bus, int devAddr) {
     m_name = "MAXDS3231M";
@@ -43,11 +37,16 @@ MAXDS3231M::MAXDS3231M (int bus, int devAddr) {
     m_i2cAddr = devAddr;
     m_bus = bus;
 
-    m_i2Ctx = mraa_i2c_init(m_bus);
+    if (!(m_i2Ctx = mraa_i2c_init(m_bus)))
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_init() failed");
+      }
 
     mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
     if (ret != MRAA_SUCCESS) {
-        throw DS3231Exception ("Couldn't initilize I2C.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_address() failed");
     }
 }
 
@@ -109,10 +108,6 @@ uint16_t
 MAXDS3231M::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    if (m_i2Ctx == NULL) {
-        throw DS3231Exception ("Couldn't find initilized I2C.");
-    }
-
     mraa_i2c_address(m_i2Ctx, m_i2cAddr);
     mraa_i2c_write_byte(m_i2Ctx, reg);
 
@@ -124,10 +119,6 @@ MAXDS3231M::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
 mraa_result_t
 MAXDS3231M::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
     mraa_result_t error = MRAA_SUCCESS;
-
-    if (m_i2Ctx == NULL) {
-        throw DS3231Exception ("Couldn't find initilized I2C.");
-    }
 
     error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
     error = mraa_i2c_write (m_i2Ctx, buffer, len);
