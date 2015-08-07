@@ -25,22 +25,18 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string>
+#include <stdexcept>
 
 #include "ecs1030.h"
 
 using namespace upm;
 
-struct ECS1030Exception : public std::exception {
-    std::string message;
-    ECS1030Exception (std::string msg) : message (msg) { }
-    ~ECS1030Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
 ECS1030::ECS1030 (uint8_t pinNumber) {
     m_dataPinCtx = mraa_aio_init(pinNumber);
     if (m_dataPinCtx == NULL) {
-        throw ECS1030Exception ("GPIO failed to initilize");
+      throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                  ": mraa_aio_init() failed");
     }
 
     m_calibration = 111.1;
