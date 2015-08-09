@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief GP2Y0A based IR proximity sensor library
+   * @brief GP2Y0A-based IR Proximity Sensor library
    * @defgroup gp2y0a libupm-gp2y0a
    * @ingroup seeed analog light
    */
@@ -45,8 +45,8 @@ namespace upm {
    *
    * @brief API for the GP2Y0A family of IR Proximity Sensors
    *
-   * This sensor family returns an analog voltage corresponding to the distance 
-   * of an object from the sensor.  The voltage is lower when objects
+   * Sensors of this family return an analog voltage corresponding to the distance 
+   * of an object from the sensor. The voltage is lower when objects
    * are far away; the voltage increases as objects get closer
    * to the sensor.  
    *
@@ -59,21 +59,21 @@ namespace upm {
     /**
      * GP2Y0A sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GP2Y0A(int pin);
 
     /**
-     * GP2Y0A Destructor
+     * GP2Y0A destructor
      */
     ~GP2Y0A();
 
     /**
-     * Get the averaged voltage value from the sensor
+     * Gets an average voltage value from the sensor
      *
-     * @param aref the reference voltage in use (5.0 or 3.3 usually)
-     * @param samples number of samples to average over
-     * @return the averaged voltage reading
+     * @param aref Reference voltage in use (usually 5.0V or 3.3V)
+     * @param samples Number of samples to average over
+     * @return Average voltage reading
      */
     float value(float aref, uint8_t samples);
 

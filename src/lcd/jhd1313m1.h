@@ -41,13 +41,13 @@ namespace upm
  * @con i2c
  * @kit gsk
  *
- * @brief API for Jhd1313m1 i2c controller for HD44780 based displays with
- * an RGB backlight such as the Grove RGB i2c LCD display
+ * @brief API for the JHD1313M1 I2C controller for HD44780-based displays with
+ * an RGB backlight, such as a Grove RGB I2C LCD display
  *
- * The Jhd1313m1 has two i2c addreses, one belongs to a controller very similar
- * to the upm::Lcm1602 LCD driver which controls the HD44780 based display and the
- * other controls solely the backlight. This module was tested with the Seed
- * Grove LCD RGB Backlight v2.0 display which requires 5V to operate.
+ * JHD1313M1 has two I2C addreses: one belongs to a controller, very similar
+ * to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the
+ * other controls only the backlight. This module was tested with the Seeed
+ * Grove LCD RGB Backlight v2.0 display that requires 5V to operate.
  *
  * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
@@ -58,9 +58,9 @@ class Jhd1313m1 : public Lcm1602
     /**
      * Jhd1313m1 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the slave address the lcd is registered on
-     * @param address the slave address the rgb backlight is on
+     * @param bus I2C bus to use
+     * @param address Slave address the LCD is registered on
+     * @param address Slave address the RGB backlight is registered on
      */
     Jhd1313m1(int bus, int lcdAddress = 0x3E, int rgbAddress = 0x62);
     /**
@@ -68,19 +68,19 @@ class Jhd1313m1 : public Lcm1602
      */
     ~Jhd1313m1();
     /**
-     * Make the LCD scroll text
+     * Makes the LCD scroll text
      *
-     * @param direction, true is typical scrolling to the right
-     * @return Result of operation
+     * @param direction True if scrolling to the right
+     * @return Result of the operation
      */
     mraa_result_t scroll(bool direction);
     /**
-     * Set the color of the backlight
+     * Sets the color of the backlight
      *
      * @param r 0-255 value for red
      * @param g 0-255 value for green
      * @param b 0-255 value for blue
-     * @return Result of operation
+     * @return Result of the operation
      */
     mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
 

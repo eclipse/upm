@@ -31,7 +31,7 @@
 namespace upm {
 
   /**
-   * @brief Grove Water Flow sensor library
+   * @brief Grove Water Flow Sensor library
    * @defgroup grovewfs libupm-grovewfs
    * @ingroup seeed gpio liquid eak
    */
@@ -48,17 +48,17 @@ namespace upm {
 
    * @brief API for the Grove Water Flow Sensor
    *
-   * This sensor is used to measure water flow, in LPM (Liters Per
-   * Minute).  It incorporates a Hall Effect Sensor.  The UPM module
+   * This sensor is used to measure water flow in liters per
+   * minute (LPM). It incorporates a Hall Effect sensor. The UPM module
    * defines an interrupt routine to be triggered on each low pulse,
-   * keeping count.  This device requires a 10K pullup resistor for
-   * the signal line (yellow wire).  There is a schematic diagram on
-   * the seeedstudio site (3/2015):
+   * keeping count. This device requires a 10K pull-up resistor for
+   * the signal line (yellow wire). There is a schematic diagram on
+   * the SeeedStudio site (3/2015):
    * http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor
    *
-   * However, be careful in wiring this up - the schematic appears to
+   * However, be careful when wiring this up - the schematic appears to
    * have a bug in it: the lower left connection of the signal line
-   * (yellow) to Vcc (red) should not be there.  The sensor may work
+   * (yellow) to Vcc (red) should not be there. The sensor can work
    * with this connection, but probably not for very long.
    *
    * @image html grovewfs.jpg
@@ -67,65 +67,65 @@ namespace upm {
   class GroveWFS {
   public:
     /**
-     * GroveWFS constructor
+     * Grove Water Flow sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveWFS(int pin);
     /**
-     * GroveWFS Destructor
+     * GroveWFS destructor
      */
     ~GroveWFS();
     /**
-     * Return the number of milliseconds elapsed since initClock()
+     * Returns the number of milliseconds elapsed since initClock()
      * was last called.
      *
-     * @return elapsed milliseconds
+     * @return Elapsed milliseconds
      */
     uint32_t getMillis();
 
     /**
-     * Reset the Clock
+     * Resets the clock
      *
      */
     void initClock();
 
     /**
-     * Reset the flow counter to 0.  The flow Counter should be
+     * Resets the flow counter to 0. The flow counter should be
      * stopped via stopFlowCounter() prior to calling this function.
      *
      */
     void clearFlowCounter() { m_flowCounter = 0; };
 
     /**
-     * Start the flow counter
+     * Starts the flow counter
      *
      */
     void startFlowCounter();
 
     /**
-     * Stop the flow counter
+     * Stops the flow counter
      *
      */
     void stopFlowCounter();
 
     /**
-     * Get the flow Counter
+     * Gets the flow counter
      *
-     * @return the flow counter
+     * @return Flow counter
      */
     uint32_t flowCounter() { return m_flowCounter; };
 
     /**
-     * Flow Interrupt Service Routine
+     * Flow interrupt service routine (ISR)
      *
      */
     static void flowISR(void *ctx);
 
     /**
-     * Compute the flow rate in liters per minute (LPM)
+     * Computes the flow rate in liters per minute (LPM)
      *
-     * @return the computed flow rate
+     * @return Computed flow rate
      */
     float flowRate();
 

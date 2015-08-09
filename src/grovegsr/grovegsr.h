@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief GroveGSR Galvanic Skin Response sensor library
+   * @brief Grove GSR Galvanic Skin Response Sensor library
    * @defgroup grovegsr libupm-grovegsr
    * @ingroup seeed analog electric
    */
@@ -41,10 +41,10 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief API for the GroveGSR Galvanic Skin Response Sensor
+   * @brief API for the Grove GSR Galvanic Skin Response Sensor
    * 
-   * Measure the electrical conductance of skin in order
-   * to measure strong emotional reaction.
+   * Measures the electrical conductance of skin
+   * to measure strong emotional reactions.
    * In other words, it measures sweat on your fingers
    * as an indicator of strong emotional reactions.
    *
@@ -54,25 +54,25 @@ namespace upm {
   class GroveGSR {
   public:
     /**
-     * GroveGSR sensor constructor
+     * Grove GSR sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveGSR(int pin);
     /**
-     * GroveGSR Destructor
+     * GroveGSR destructor
      */
     ~GroveGSR();
 
     /**
-     * Calibrate the GroveGSR Sensor
+     * Calibrates the Grove GSR sensor
      */
     void calibrate();
 
     /**
-     * Measure the electrical conductance of the skin from the sensor
+     * Gets the electrical conductance of the skin from the sensor
      *
-     * @return the electrical conductance of the skin
+     * @return Electrical conductance of the skin
      */
     int value();
 

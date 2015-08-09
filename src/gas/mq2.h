@@ -37,12 +37,12 @@ namespace upm {
    * @con analog
    * @kit hak
    *
-   * @brief API for MQ2 Gas Sensor
+   * @brief API for the Grove MQ2 Gas Sensor
    *
-   * The Grove - Gas Sensor (MQ2) module is useful for gas leakage detecting
+   * The Grove MQ2 Gas Sensor module is useful for gas leakage detection
    * (in home and industry). It can detect LPG, i-butane, methane, alcohol,
-   * Hydrogen, smoke and other combustible gases. It's a medium sensitivity
-   * sensor with a detect concentration of 300-10000 ppm.
+   * hydrogen, smoke, and other combustible gases. It's a medium-sensitivity
+   * sensor with a detection range of 300-10,000 ppm.
    *
    * @image html mq2-5.jpeg
    * @snippet mq2.cxx Interesting
@@ -52,7 +52,7 @@ namespace upm {
             /**
              * MQ2 constructor
              *
-             * @param gasPin analog pin where sensor is connected
+             * @param gasPin Analog pin where the sensor is connected
              */
             MQ2 (int gasPin);
 
@@ -62,7 +62,7 @@ namespace upm {
             ~MQ2 ();
 
             /**
-             * Return name of the component
+             * Returns the name of the sensor
              */
             std::string name()
             {

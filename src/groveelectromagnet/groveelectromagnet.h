@@ -45,7 +45,7 @@ namespace upm {
    *
    * @brief API for the Grove Electromagnet
    * 
-   * The Grove Electromagnet can hold up to 1 KG (approximately 2.2 lbs)
+   * The Grove Electromagnet can hold up to 1 kg (approximately 2.2 lbs)
    *
    * @image html groveelectromagnet.jpg
    * @snippet groveelectromagnet.cxx Interesting
@@ -53,21 +53,21 @@ namespace upm {
   class GroveElectromagnet {
   public:
     /**
-     * Grove Electromagnet Constructor
+     * Grove Electromagnet constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveElectromagnet(int pin);
     /**
-     * Grove Electromagnet Destructor
+     * Grove Electromagnet destructor
      */
     ~GroveElectromagnet();
     /**
-     * Turn magnet on
+     * Turns the magnet on
      */
      void on();
     /**
-     * Turn magnet off
+     * Turns the magnet off
      */
      void off();
 

@@ -38,14 +38,14 @@ namespace upm {
    * @con analog
    * @kit hak
    *
-   * @brief API for Grove TP401 Air Quality Sensor
+   * @brief API for the Grove TP401 Air Quality Sensor
    *
    * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
-   * It can detect CO and a wide range of other harmful gases, but due to limited sensing
-   * range should be used only when qualitative results are needed. Example applications
+   * It can detect CO and a wide range of other harmful gases, but, due to a limited detection
+   * range, it should be used only when qualitative results are needed. Example applications
    * are air recirculation, ventilation systems, and refreshing sprayers.
-   * The sensor is linear and should be roughly sensitive to 0 ~ 20 ppm CO from 0 ~ 4V.
-   * Also note that the sensor requires 2-3 minutes to warm up initially and 48 hours of
+   * The sensor is linear and should be roughly sensitive to 0-20 ppm CO from 0-4 V.
+   * Note: the sensor requires 2-3 minutes to warm up initially and 48 hours of
    * operation to stabilize completely.
    *
    * @image html tp401.jpeg
@@ -56,7 +56,7 @@ namespace upm {
             /**
              * TP401 constructor
              *
-             * @param gasPin analog pin where sensor was connected
+             * @param gasPin Analog pin where the sensor is connected
              */
             TP401 (int gasPin);
 
@@ -66,9 +66,9 @@ namespace upm {
             ~TP401 ();
 
             /**
-             * Return name of the component
+             * Returns the name of the sensor
              *
-             * @return a string with the name of the sensor
+             * @return Name of the sensor
              */
             std::string name()
             {
@@ -77,9 +77,9 @@ namespace upm {
 
             /**
              * Returns one sample in parts per million (ppm) of CO in the air based on
-             * the following sensor calibration: 0 ~ 4V is roughly 0 ~ 20 ppm CO
+             * the following sensor calibration: 0-4 V is roughly 0-20 ppm CO
              *
-             * @return a new sample converted to ppm CO
+             * @return  New sample converted to ppm CO
              */
             float getPPM();
 

@@ -32,14 +32,14 @@
  * @con gpio
  * @kit gsk
  *
- * @brief API for Grove LED
+ * @brief API for the Grove LED
  *
- * UPM module for Grove LED (or other similar light-emitting diode).
- * An LED is a small lightbulb that will emit light (turn on) in 
- * response to a small curent.  The longer wire of an LED connects
+ * UPM module for the Grove LED (or other similar light-emitting diodes).
+ * An LED is a small lightbulb that emits light in 
+ * response to a small current. The longer wire of an LED connects
  * to the positive seat (anode); the shorter wire connects to the
- * negative seat (cathode).  The flat side of the bulb corresponds
- * to the cathode while the rounded side corresponds to the anode.
+ * negative seat (cathode). The flat side of the bulb corresponds
+ * to the cathode, while the rounded side corresponds to the anode.
  *
  * @image html groveled.jpg
  * @snippet groveled.cxx Interesting

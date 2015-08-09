@@ -62,7 +62,7 @@
 namespace upm {
 
 /**
- * @brief Bosch BMP & GY65 atmospheric pressure sensor library
+ * @brief Bosch BMP & GY65 Atmospheric Pressure Sensor library
  * @defgroup bmpx8x libupm-bmpx8x
  * @ingroup seeed adafruit sparkfun i2c pressure
  */
@@ -76,11 +76,11 @@ namespace upm {
  * @man seeed adafruit sparkfun
  * @con i2c
  *
- * @brief API for GY65/BMP085 and BMP180 chips (Atmospheric Pressure Sensor)
+ * @brief API for the GY65/BMP085 and BMP180 Atmospheric Pressure Sensors
  *
- * The Bosch GY65/BMP085 and BMP180 are high precision, ultra-low
- * power consumption pressure sensors. They have a range of between
- * 30,000 and 110,000 Pa.
+ * Bosch GY65/BMP085 and BMP180 are high-precision, ultra-low
+ * power consumption pressure sensors. They operate in the range of
+ * 30,000-110,000 Pa.
  *
  * This module has been tested on the GY65/BMP085 and BMP180 sensors.
  *
@@ -91,80 +91,80 @@ namespace upm {
 class BMPX8X {
     public:
         /**
-         * Instanciates a BMPX8X object
+         * Instantiates a BMPX8X object
          *
-         * @param bus number of used bus
-         * @param devAddr address of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          * @param mode BMP085 mode
          */
         BMPX8X (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
 
         /**
-         * BMPX8X object destructor, basicaly it close i2c connection.
+         * BMPX8X object destructor; basically, it closes the I2C connection.
          */
         ~BMPX8X ();
 
         /**
-         * Return calculated pressure
+         * Returns the calculated pressure
          */
         int32_t getPressure ();
 
         /**
          *
-         * Get raw pressure data
+         * Gets raw pressure data
          */
         int32_t getPressureRaw ();
 
         /**
-         * Get raw temperature data from chip
+         * Gets raw temperature data from the sensor
          */
         int16_t getTemperatureRaw ();
 
         /**
-         * Return calculated temperature
+         * Returns the calculated temperature
          */
         float getTemperature ();
 
         /**
-         * With given absolute altitude sea level can be calculated
+         * With a given absolute altitude, sea level can be calculated
          *
-         * @param altitudeMeters altitude
+         * @param altitudeMeters Altitude
          */
         int32_t getSealevelPressure(float altitudeMeters = 0);
 
         /**
-         * With given sea level altitude in meters can be calculated
+         * With a given sea level, altitude in meters can be calculated
          *
          * @param sealevelPressure Sea level
          */
         float getAltitude (float sealevelPressure = 101325);
 
         /**
-         * Calculation of B5 (check spec for more information)
+         * Calculates B5 (check the spec for more information)
          *
          * @param UT
          */
         int32_t computeB5 (int32_t UT);
 
         /**
-         * Read two bytes register
+         * Reads a two-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint16_t i2cReadReg_16 (int reg);
 
         /**
-         * Write to one byte register
+         * Writes to a one-byte register
          *
-         * @param reg address of a register
-         * @param value byte to be written
+         * @param reg Address of the register
+         * @param value Byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
-         * Read one byte register
+         * Reads a one-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint8_t i2cReadReg_8 (int reg);
 

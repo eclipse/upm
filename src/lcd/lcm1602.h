@@ -48,13 +48,13 @@ namespace upm
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf
  * @con i2c
  *
- * @brief API for LCM1602 i2c controller for HD44780 based displays
+ * @brief API for the LCM1602 I2C controller for HD44780-based displays
  *
- * This supports all sizes of HD44780 displays from 16x2 to 4x20, the
- * controller has no idea of the actual display hardware so will let you write
- * further than you can see. These displays with such controllers are available
- * from various manufacturers with different i2c addresses. The adafruit
- * TC1602A-01T seems to be a well documented example.
+ * This supports all sizes of HD44780 displays, from 16x2 to 4x20. The
+ * controller has no idea of the actual display hardware, so it lets you write
+ * farther than you can see. These displays with such controllers are available
+ * from various manufacturers with different I2C addresses. Adafruit*
+ * TC1602A-01T seems to be a well-documented example.
  *
  * @image html lcm1602.jpeg
  * @snippet lcm1602-lcd.cxx Interesting
@@ -63,11 +63,11 @@ class Lcm1602 : public LCD
 {
   public:
     /**
-     * Lcm1602 Constructor, calls libmraa initialisation functions
+     * Lcm1602 constructor; calls libmraa initialisation functions
      *
-     * @param bus i2c bus to use
-     * @param address the slave address the lcd is registered on
-     * @param isExpander true if we are dealing with an I2C expander,
+     * @param bus I2C bus to use
+     * @param address Slave address the LCD is registered on
+     * @param isExpander True if we are dealing with an I2C expander,
      * false otherwise.  Default is true.
      */
   Lcm1602(int bus, int address, bool isExpander=true);
@@ -77,46 +77,46 @@ class Lcm1602 : public LCD
      * controllers supporting RS, Enable, and 4 data pins in 4-bit
      * mode.
      *
-     * @param rs register select pin
-     * @param enable enable pin
-     * @param d0 data 0 pin
-     * @param d1 data 1 pin
-     * @param d2 data 2 pin
-     * @param d3 data 3 pin
+     * @param rs Register select pin
+     * @param enable Enable pin
+     * @param d0 Data 0 pin
+     * @param d1 Data 1 pin
+     * @param d2 Data 2 pin
+     * @param d3 Data 3 pin
      */
     Lcm1602(uint8_t rs,  uint8_t enable,
             uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3);
 
     /**
-     * Lcm1602 Destructor
+     * Lcm1602 destructor
      */
     ~Lcm1602();
     /**
-     * Write a string to LCD
+     * Writes a string to the LCD
      *
-     * @param msg The std::string to write to display, note only ascii
-     *     chars are supported
-     * @return Result of operation
+     * @param msg std::string to write to the display; note: only ASCII
+     * characters are supported
+     * @return Result of the operation
      */
     mraa_result_t write(std::string msg);
     /**
-     * Set cursor to a coordinate
+     * Sets the cursor to specified coordinates
      *
-     * @param row The row to set cursor to
-     * @param column The column to set cursor to
-     * @return Result of operation
+     * @param row Row to set the cursor to
+     * @param column Column to set the cursor to
+     * @return Result of the operation
      */
     mraa_result_t setCursor(int row, int column);
     /**
-     * Clear display from characters
+     * Clears the display of all characters
      *
-     * @return Result of operation
+     * @return Result of the operation
      */
     mraa_result_t clear();
     /**
-     * Return to coordinate 0,0
+     * Returns to the original coordinates (0,0)
      *
-     * @return Result of operation
+     * @return Result of the operation
      */
     mraa_result_t home();
 

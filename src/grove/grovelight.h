@@ -32,12 +32,12 @@
  * @con analog
  * @kit gsk
  *
- * @brief API for Grove Light Sensor
+ * @brief API for the Grove Light Sensor
  *
  * The Grove light sensor detects the intensity of the ambient light.
  * As the light intensity of the environment increases, the resistance
- * of the sensor decreases.  This means that the raw value from the
- * analog pin will be larger in bright light and smaller in the dark.
+ * of the sensor decreases. This means the raw value from the
+ * analog pin is larger in bright light and smaller in the dark.
  * An approximate lux value can also be returned.
  *
  * @image html grovelight.jpg

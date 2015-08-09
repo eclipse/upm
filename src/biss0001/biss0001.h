@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief BISS0001 motion sensor library
+   * @brief BISS0001 Motion Sensor library
    * @defgroup biss0001 libupm-biss0001
    * @ingroup seeed gpio light tsk
    */
@@ -56,17 +56,17 @@ namespace upm {
     /**
      * BISS0001 motion sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     BISS0001(int pin);
     /**
-     * BISS0001 Destructor
+     * BISS0001 destructor
      */
     ~BISS0001();
     /**
-     * Get the motion value from the sensor
+     * Gets the motion value from the sensor
      *
-     * @return the motion reading
+     * @return Motion reading
      */
     bool value();
 

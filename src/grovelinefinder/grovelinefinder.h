@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief Grove Line Finder sensor library
+   * @brief Grove Line Finder Sensor library
    * @defgroup grovelinefinder libupm-grovelinefinder
    * @ingroup seeed gpio color robok
    */
@@ -42,7 +42,7 @@ namespace upm {
    * @con gpio
    * @kit robok
    *
-   * @brief API for the Grove Line Finder sensor
+   * @brief API for the Grove Line Finder Sensor
    *
    * UPM module for the Grove Line Finder sensor.  It outputs a
    * digital signal indicating whether it is detecting black on a
@@ -56,23 +56,23 @@ namespace upm {
     /**
      * Grove Line Finder digital sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveLineFinder(int pin);
     /**
-     * GroveLineFinder Destructor
+     * GroveLineFinder destructor
      */
     ~GroveLineFinder();
     /**
-     * Determine whether white has been detected
+     * Determines whether white has been detected
      *
-     * @return True if white is being detected
+     * @return True if white is detected
      */
     bool whiteDetected();
     /**
-     * Determine whether black has been detected
+     * Determines whether black has been detected
      *
-     * @return True if black is being detected
+     * @return True if black is detected
      */
     bool blackDetected();
 

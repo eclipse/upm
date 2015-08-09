@@ -35,7 +35,7 @@
 namespace upm
 {
 /**
- * @brief Atmel AT42QT1070 QTouch* Sensor library
+ * @brief Atmel* AT42QT1070 QTouch* Sensor library
  * @defgroup at42qt1070 libupm-at42qt1070
  * @ingroup seeed i2c touch
  */

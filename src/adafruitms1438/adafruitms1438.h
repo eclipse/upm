@@ -58,7 +58,7 @@ namespace upm {
    * can be connected to this Motor Shield.
    * Note: the two servo connections are not controlled by the PCA9685
    * controller (or this class). They are connected directly to digital
-   * PWM pins 9 and 10 on the Arduino breakout board.
+   * PWM pins 9 and 10 on the Arduino* breakout board.
    *
    * @image html adafruitms1438.jpg
    * An example using a DC motor connected to M3

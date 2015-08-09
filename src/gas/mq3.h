@@ -36,12 +36,12 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief API for MQ3 Gas Sensor
+   * @brief API for the MQ3 Gas Sensor
    *
-   * The Grove MQ3 Gas Sensor module is useful for gas leakage detecting (in
-   * home and industry). It can detect Alcohol Vapour and Benzine. It's
+   * The Grove MQ3 Gas Sensor module is useful for gas leakage detection (in
+   * home and industry). It can detect alcohol vapors and benzine. It's
    * highly sensitive but has a long warm-up time of about 1 minute. It's
-   * detect rate is of 0.04-4 mg/L Alcohol.
+   * detection range is 0.04-4 mg/L Alcohol.
    *
    * @image html mq3-9.jpeg
    * @snippet mq3.cxx Interesting
@@ -51,7 +51,7 @@ namespace upm {
             /**
              * MQ3 constructor
              *
-             * @param gasPin analog pin where sensor is connected
+             * @param gasPin Analog pin where the sensor is connected
              */
             MQ3 (int gasPin);
 
@@ -61,7 +61,7 @@ namespace upm {
             ~MQ3 ();
 
             /**
-             * Return name of the component
+             * Returns the name of the sensor
              */
             std::string name()
             {

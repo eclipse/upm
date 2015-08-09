@@ -29,7 +29,7 @@
 namespace upm {
 
   /**
-   * @brief Spectra Symbol Flex sensor library
+   * @brief Spectra Symbol Flex Sensor library
    * @defgroup flex libupm-flex
    * @ingroup sparkfun analog flexfor
    */
@@ -43,14 +43,14 @@ namespace upm {
    * @web https://www.sparkfun.com/products/8606
    * @con analog
    *
-   * @brief API for the Spectra Symbol Flex sensor
+   * @brief API for the Spectra Symbol Flex Sensor
    *
-   * A simple flex sensor, the resistance across the sensor increases when
-   * bent. Patented technology by Spectra Symbol, these sensors were used in
-   * the original Nintendo Power Glove.
+   * A simple flex sensor. The resistance across the sensor increases when
+   * flexed. Patented technology by Spectra Symbol, these sensors were used in
+   * the original Nintendo* Power Glove.
    *
    * @image html flex.jpg
-   * <br><em>Flex Sensor image provided by SparkFun under
+   * <br><em>Flex Sensor image provided by SparkFun* under
    * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
    * CC BY-NC-SA-3.0</a>.</em>
    *
@@ -61,15 +61,15 @@ namespace upm {
     /**
      * Flex sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     Flex(int pin);
     /**
-     * Flex Destructor
+     * Flex sensor destructor
      */
     ~Flex();
     /**
-     * @return the analog flex value
+     * @return Analog flex value
      */
     int value();
 

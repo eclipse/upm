@@ -31,7 +31,7 @@
 namespace upm {
 
 /**
- * @brief Hmc5883l magnometer library
+ * @brief HMC5883L Magnometer library
  * @defgroup hmc5883l libupm-hmc5883l
  * @ingroup seeed i2c compass robok
  */
@@ -46,13 +46,13 @@ namespace upm {
  * @con i2c
  * @kit robok
  *
- * @brief API for Hmc5883l (3-axis digital compass)
+ * @brief API for the HMC5883L 3-Axis Digital Compass
  *
- * The Honeywell [HMC5883L]
+ * Honeywell [HMC5883L]
  * (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)
- * is a 3-axis digital compass. Communication with the HMC5883L is simple and
- * all done through an I2C interface. Different breakout boards are available,
- * typically a 3V supply is all that is needed to power the sensor.
+ * is a 3-axis digital compass. Communication with HMC5883L is simple and
+ * all done through an I2C interface. Different breakout boards are available.
+ * Typically, a 3V supply is all that is needed to power the sensor.
  *
  * @image html hmc5883l.jpeg
  * @snippet hmc5883l.cxx Interesting
@@ -60,9 +60,9 @@ namespace upm {
 class Hmc5883l {
 public:
     /**
-     * Creates a Hmc5883l object
+     * Creates an Hmc5883l object
      *
-     * @param bus number of used i2c bus
+     * @param bus Number of the used I2C bus
      */
     Hmc5883l(int bus);
 
@@ -84,9 +84,9 @@ public:
     int16_t* coordinates();
 
     /**
-     * Updates the values by reading from i2c
+     * Updates the values by reading from I2C
      *
-     * @return 0 for success
+     * @return 0 if successful
      */
     mraa_result_t update();
 
@@ -98,7 +98,7 @@ public:
     /**
      * Gets the current magnetic declination value
      *
-     * @return magnetic declination as a float
+     * @return Magnetic declination as a floating-point value
      */
     float get_declination();
 private:

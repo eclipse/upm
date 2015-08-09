@@ -50,7 +50,7 @@ namespace upm {
    *
    * @brief UPM module for the AD8232 Heart Rate Monitor
    *
-   * Note: this sensor must be driven at 3.3v only.
+   * Note: this sensor must be driven at 3.3V only.
    *
    * This module simply spits out the ADC values reported by the sensor, with
    * the intent to send that data, via serial or network port, somewhere to
@@ -58,7 +58,7 @@ namespace upm {
    * you, like an EKG.
    * 
    * Processing (https://www.processing.org/) is software
-   * that should work, using information from the SparkFun website.
+   * that should work, using information from the SparkFun* website.
    *
    * This example just dumps the raw data:
    *

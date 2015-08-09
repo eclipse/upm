@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief GroveO2 Oxygen Gas Sensor library
+   * @brief Grove O2 Oxygen Gas Sensor library
    * @defgroup groveo2 libupm-groveo2
    * @ingroup seeed analog gaseous
    */
@@ -41,9 +41,9 @@ namespace upm {
    * @man seeed
    * @con analog
    *
-   * @brief API for the GroveO2 Oxygen Gas Sensor
+   * @brief API for the Grove O2 Oxygen Gas Sensor
    *
-   * The Grove O2 sensor measures the oxygen concentration in the air
+   * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
    *
    * @image html groveo2.jpg    
    * @snippet groveo2.cxx Interesting
@@ -51,19 +51,19 @@ namespace upm {
   class GroveO2 {
   public:
     /**
-     * GroveO2 sensor constructor
+     * Grove O2 Oxygen Gas sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveO2(int pin);
     /**
-     * GroveO2 Destructor
+     * GroveO2 destructor
      */
     ~GroveO2();
     /**
      * Measures O2 from the sensor
      *
-     * @return the Oxygen concentration as voltage
+     * @return Oxygen concentration as voltage
      */
     float voltageValue();
 
