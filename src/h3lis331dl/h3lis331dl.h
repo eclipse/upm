@@ -337,7 +337,7 @@ namespace upm {
     bool setPowerMode(PM_BITS_T pm);
 
     /**
-     * Enables one or more of the 3 axes. The arguement is a bitmask
+     * Enables one or more of the 3 axes. The argument is a bitmask
      * composed of REG1_XEN, REG1_YEN, and/or REG1_ZEN corresponding to
      * the axes you want enabled.
      *

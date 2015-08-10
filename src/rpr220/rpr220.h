@@ -29,7 +29,7 @@
 namespace upm {
 
 /**
- * @brief RPR220 IR reflective sensor library
+ * @brief RPR220 IR Reflective Sensor library
  * @defgroup rpr220 libupm-rpr220
  * @ingroup seeed gpio light tsk hak
  */
@@ -44,18 +44,18 @@ namespace upm {
  * @con gpio
  * @kit tsk hak
  *
- * @brief API for the RPR220 based Grove IR Reflective Sensor
+ * @brief API for the RPR220-based Grove IR Reflective Sensor
  * 
- * UPM module for the Grove IR Reflective Sensor.  The sensitivity
- * can be adjusted with the potentiometer on the sensor module.  It
- * has a range of approximately 15mm, and a fast response time.
+ * UPM module for the Grove IR reflective sensor. The sensitivity
+ * can be adjusted with the potentiometer on the sensor module. It
+ * has a range of approximately 15 mm, and a quick response time.
  *
- * It detects high contrast dark areas on a light background.
+ * It detects high-contrast dark areas on a light background.
  *
  * This module allows the user to determine the current status
- * (black detected or not).  Additionally, if desired, an Interrupt
- * Service Routine (ISR) can be installed that will be called when
- * black is detected.  Either method can be used, depending on your
+ * (black detected or not). Additionally, if desired, an interrupt
+ * service routine (ISR) can be installed that is called when
+ * black is detected. Either method can be used, depending on your
  * use case.
  *
  * @image html rpr220.jpg
@@ -65,36 +65,36 @@ namespace upm {
   class RPR220 {
   public:
     /**
-     * Grove IR Reflective Sensor constructor
+     * RPR220 constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     RPR220(int pin);
 
     /**
-     * RPR220 Destructor
+     * RPR220 destructor
      */
     ~RPR220();
 
     /**
-     * Get the status of the pin, true means black detected
+     * Gets the status of the pin; true means black has been detected
      *
-     * @return true if the sensor is detecting black
+     * @return True if the sensor has detected black
      */
     bool blackDetected();
 
     /**
-     * Install an Interrupt Service Routine (ISR) to be called when
+     * Installs an ISR to be called when
      * black is detected
      *
-     * @param fptr function pointer to function to be called on interrupt
-     * @param arg pointer to an object that will be supplied as an
-     * arguement to the ISR.
+     * @param fptr Pointer to a function to be called on interrupt
+     * @param arg Pointer to an object to be supplied as an
+     * argument to the ISR.
      */
     void installISR(void (*isr)(void *), void *arg);
 
     /**
-     * Uninstall the previously installed Interrupt Service Routine (ISR)
+     * Uninstalls the previously installed ISR
      *
      */
     void uninstallISR();

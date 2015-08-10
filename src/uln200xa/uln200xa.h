@@ -32,7 +32,7 @@
 namespace upm {
 
   /**
-   * @brief ULN200XA stepper driver library
+   * @brief ULN200XA Stepper Driver library
    * @defgroup uln200xa libupm-uln200xa
    * @ingroup seeed gpio motor
    */
@@ -47,11 +47,11 @@ namespace upm {
    * @web http://www.seeedstudio.com/depot/Gear-Stepper-Motor-with-Driver-p-1685.html?cPath=39_40
    * @con gpio
    *
-   * @brief UPM module for the ULN200XA Darlington Stepper driver
+   * @brief UPM module for the ULN200XA Darlington Stepper Driver
    *
-   * This module was developed on a ULBN2003A Stepper Driver.  It
-   * should support the uln2001a, 2002a, 2003a, and 2004a devices, for
-   * use in driving a unipolar stepper motor, the 28BYJ-48.
+   * This module was developed on a ULN2003A Stepper Driver. It
+   * should also support the ULN2001A, ULN2002A, and ULN2004A devices, when
+   * using to drive the 28BYJ-48 unipolar stepper motor.
    *
    * @image html uln200xa.jpg
    * Example driving a stepper motor
@@ -73,56 +73,56 @@ namespace upm {
     /**
      * ULN200XA constructor
      *
-     * @param stepsPerRev number of steps per full revolution
-     * @param i1 digital pin to use for stepper input 1
-     * @param i2 digital pin to use for stepper input 2
-     * @param i3 digital pin to use for stepper input 3
-     * @param i4 digital pin to use for stepper input 4
+     * @param stepsPerRev Number of steps per full revolution
+     * @param i1 Digital pin to use for stepper input 1
+     * @param i2 Digital pin to use for stepper input 2
+     * @param i3 Digital pin to use for stepper input 3
+     * @param i4 Digital pin to use for stepper input 4
      */
     ULN200XA(int stepsPerRev, int i1, int i2, int i3, int i4);
 
     /**
-     * ULN200XA Destructor
+     * ULN200XA destructor
      */
     ~ULN200XA();
 
     /**
-     * Return the number of milliseconds elapsed since initClock()
+     * Returns the number of milliseconds elapsed since initClock()
      * was last called.
      *
-     * @return elapsed milliseconds
+     * @return Elapsed milliseconds
      */
     uint32_t getMillis();
 
     /**
-     * Reset the Clock
+     * Resets the clock
      *
      */
     void initClock();
 
     /**
-     * set the speed of the stepper in RPM (Rotation Per Minute
+     * Sets the speed of the stepper motor in revolutions per minute (RPM)
      *
-     * @param speed speed to set the motor to in RPM's
+     * @param speed Speed to set the motor to, in RPM
      */
     void setSpeed(int speed);
 
     /**
-     * set the direction of the motor, clockwise or counter clockwise
+     * Sets the direction of the motor, clockwise or counterclockwise
      *
-     * @param dir direction to set the motor to
+     * @param dir Direction to set the motor to
      */
     void setDirection(ULN200XA_DIRECTION_T dir);
 
     /**
-     * step the stepper motor a specified number of steps
+     * Steps the stepper motor a specified number of steps
      *
-     * @param steps number of steps to move the stepper motor
+     * @param steps Number of steps to move the stepper motor
      */
     void stepperSteps(unsigned int steps);
 
     /**
-     * release the stepper, by removing power
+     * Releases the stepper motor by removing power
      *
      */
     void release();
@@ -142,13 +142,13 @@ namespace upm {
     uint32_t m_stepDelay;
 
     /**
-     * step the motor one tick
+     * Steps the stepper motor one tick
      *
      */
     void stepperStep();
 
     /**
-     * step direction - 1 = forward, -1 = backward
+     * Defines the step direction: 1 = forward, -1 = backward
      *
      */
     int m_stepDirection;

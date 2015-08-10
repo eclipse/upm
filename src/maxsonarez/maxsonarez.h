@@ -32,7 +32,7 @@
 
 namespace upm {
   /**
-   * @brief MaxSonar-EZ family of ultrasonic rangers library
+   * @brief MaxSonar-EZ Family of Ultrasonic Rangers library
    * @defgroup maxsonarez libupm-maxsonarez
    * @ingroup seeed analog sound
    */
@@ -47,20 +47,20 @@ namespace upm {
    * @web https://www.sparkfun.com/products/8502
    * @con analog
    *
-   * @brief API for the LV-MaxSonar-EZ family of ultrasonic rangers
+   * @brief API for the LV-MaxSonar-EZ Family of Ultrasonic Rangers
    *
-   * This sensor family returns an analog voltage corresponding to the
-   * distance of an object from the sensor in inches.  It has a
-   * resolution of about 9.7 millivolts per inch with a 5.0 AREF.  The
-   * differences between the various versions (EZ1, EZ2, etc) are
+   * Sensors of this family return an analog voltage corresponding to the
+   * distance of an object from the sensor in inches. They have a
+   * resolution of about 9.7 millivolts per inch with an analog reference voltage of 5.0 V. The
+   * differences between various versions (EZ1, EZ2, etc.) are
    * related to the narrowness of the beam angle.
    *
    * This class supports these sensors with an analog input only.
    *
-   * This driver was developed using an LV-MaxSonar-EZ3.
+   * This driver was developed using an LV-MaxSonar-EZ3 ultrasonic ranger.
    *
    * @image html maxsonarez.jpg
-   * <br><em>LV-MaxSonar-EZ Ultrasonic Ranger image provided by SparkFun under
+   * <br><em>LV-MaxSonar-EZ Ultrasonic Ranger image provided by SparkFun* under
    * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
    * CC BY-NC-SA-3.0</a>.</em>
    *
@@ -71,22 +71,22 @@ namespace upm {
   public:
 
     /**
-     * MAXSONAREZ sensor constructor
+     * MAXSONAREZ constructor
      *
-     * @param pin analog pin to use
-     * @param aref the analog reference voltage, default: 5.0
+     * @param pin Analog pin to use
+     * @param aref Analog reference voltage; default is 5.0 V
      */
     MAXSONAREZ(int pin, float aref=5.0);
 
     /**
-     * MAXSONAREZ Destructor
+     * MAXSONAREZ destructor
      */
     ~MAXSONAREZ();
 
     /**
-     * get the distance to the object in inches
+     * Gets the distance to the object in inches
      *
-     * @return the distance to the object in inches
+     * @return Distance to the object in inches
      */
     int inches();
 
@@ -95,7 +95,7 @@ namespace upm {
     float m_aref;
     // ADC resolution
     int m_aRes;
-    // computed Volts per Inch
+    // computed volts per inch
     float m_vI;
   };
 }

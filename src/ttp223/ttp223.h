@@ -28,13 +28,7 @@
 
 namespace upm {
 /**
- * @brief TTP223 touch detector sensor library
- *
- *   This touch sensor detects when a finger is near the metallic pad
- *   by a change in capacitance.  It can replace a more traditional push
- *   button.  The touch sensor can still function when placed under a 
- *   non-metallic surface like glass or plastic.
- *
+ * @brief TTP223 Touch Detector Sensor library
  * @defgroup ttp223 libupm-ttp223
  * @ingroup seeed gpio touch
  */
@@ -48,11 +42,11 @@ namespace upm {
  * @web http://www.seeedstudio.com/depot/Grove-Touch-Sensor-p-747.html
  * @con gpio
  *
- * @brief TTP223 Touch Detector sensor library
+ * @brief API for the TTP223 Touch Sensor
  * 
  *   This touch sensor detects when a finger is near the metallic pad
- *   by a change in capacitance.  It can replace a more traditional push
- *   button.  The touch sensor can still function when placed under a 
+ *   by the change in capacitance. It can replace a more traditional push
+ *   button. The touch sensor can still function when placed under a 
  *   non-metallic surface like glass or plastic.
  *
  * @image html ttp223.jpg
@@ -61,9 +55,9 @@ namespace upm {
 class TTP223 {
     public:
         /**
-         * TTP223 touch sensor constructor
+         * TTP223 constructor
          *
-         * @param pin GPIO pin where sensor is connected
+         * @param pin GPIO pin where the sensor is connected
          */
         TTP223(unsigned int pin);
 
@@ -73,23 +67,23 @@ class TTP223 {
         ~TTP223();
 
         /**
-         * Return name of this sensor
+         * Returns the name of this sensor
          *
-         * @return the name of this sensor
+         * @return Name of this sensor
          */
         std::string name();
 
         /**
-         * Get value from GPIO pin
+         * Gets the value from the GPIO pin
          *
-         * @return the value from the GPIO pin
+         * @return Value from the GPIO pin
          */
         int value();
 
         /**
-         * Returns whether or not the touch sensor is being touched
+         * Determines whether the touch sensor is being touched
          *
-         * @return true if the touch sensor is being touched; false otherwise
+         * @return True if touched, false otherwise
          */
         bool isPressed();
 

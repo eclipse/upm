@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief Water Level switch library
+   * @brief Water Level Switch Library
    * @defgroup waterlevel libupm-waterlevel
    * @ingroup seeed gpio liquid
    */
@@ -50,17 +50,17 @@ namespace upm {
   class WaterLevel {
   public:
     /**
-     * Water Level Constructor
+     * WaterLevel constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     WaterLevel(int pin);
     /**
-     * Water Level Destructor
+     * WaterLevel destructor
      */
     ~WaterLevel();
     /**
-     * @return bool returns whether liquid has gone above sensor
+     * @return bool Determines whether liquid has risen above the sensor
      */
      bool isSubmerged();
 

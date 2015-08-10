@@ -105,7 +105,7 @@ typedef struct {
 } tcs3414sc_rgb_t;
 
 /**
- * @brief TCS3414CS color sensor library
+ * @brief TCS3414CS Color Sensor library
  * @defgroup tcs3414cs libupm-tcs3414cs
  * @ingroup seeed i2c color
  */
@@ -119,9 +119,9 @@ typedef struct {
  * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Color_Sensor
  * @con i2c
  *
- * @brief API for TCS3414CS chip (Color sensor)
+ * @brief API for the TCS3414CS Color Sensor
  * 
- *   This file defines the TCS3414CS interface for the color sensor
+ * This file defines the TCS3414CS interface for the color sensor
  *
  * @image html tcs3414cs.jpg
  * @snippet tcs3414cs.cxx Interesting
@@ -129,31 +129,31 @@ typedef struct {
 class TCS3414CS {
     public:
         /**
-         * Instanciates a TCS3414CS object
+         * Instantiates a TCS3414CS object
          *
-         * @param bus number of used bus
+         * @param bus Number of the used bus
          */
         TCS3414CS ();
 
         /**
-         * TCS3414CS object destructor, basicaly it close i2c connection.
+         * TCS3414CS object destructor; basically, it closes the I2C connection.
          */
         ~TCS3414CS ();
 
         /**
-         * Get the RGB value from sensor.
+         * Gets the RGB value from the sensor.
          *
-         * @param rgb color values
+         * @param rgb Color values
          */
         void readRGB (tcs3414sc_rgb_t * rgb);
 
         /**
-         * Clear interrupts.
+         * Clears interrupts.
          */
         void clearInterrupt ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

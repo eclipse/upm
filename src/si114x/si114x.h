@@ -37,7 +37,7 @@
 namespace upm {
   
   /**
-   * @brief SI1145 UV light sensor library
+   * @brief SI1145 UV Light Sensor library
    * @defgroup si114x libupm-si114x
    * @ingroup adafruit i2c light
    */
@@ -45,23 +45,23 @@ namespace upm {
   /**
    * @library si114x
    * @sensor si114x
-   * @comname SI1145 UV light sensor
+   * @comname SI1145 UV Light Sensor
    * @altname SI1146, SI1147
    * @type light
    * @man adafruit
    * @web https://www.adafruit.com/products/1777
    * @con i2c
    *
-   * @brief API for the SI1145 UV light sensor
+   * @brief API for the SI1145 UV Light Sensor
    *
-   * This module was tested with the Adafruit UV Sensor
+   * This module was tested with the Adafruit* UV Light Sensor
    *
-   * This device is also capable of measuring IR and visible ambient
-   * light as well.  It also supports the ability to use externally
-   * attached LED's to perform proximity detection on 3 separate
+   * This device is capable of measuring IR and visible ambient
+   * light as well. It also supports the ability to use externally
+   * attached LEDs to perform proximity detection on 3 separate
    * channels.
    *
-   * This class currently only supports the retriving of the
+   * Currently, this class only supports the retrieving of the
    * calculated UV index measured by the device, but enough
    * infrastructure is provided to make it easy to enhance this driver
    * in the future to support additional capabilities, including
@@ -175,13 +175,13 @@ namespace upm {
                    CMD_ALS_AUTO      = 0x0e,
                    CMD_PSALS_AUTO    = 0x0f,
 
-                   CMD_PARAM_QUERY   = 0x80, // or'd with PARAM_T value
-                   CMD_PARAM_SET     = 0xa0  // or'd with PARAM_T value
+                   CMD_PARAM_QUERY   = 0x80, // OR'd with PARAM_T value
+                   CMD_PARAM_SET     = 0xa0  // OR'd with PARAM_T value
     } SI114X_CMD_T;
 
 
     /**
-     * Channel List enable bits
+     * Channel list enable bits
      */
     typedef enum { CHLIST_EN_PS1     = 0x01, // proximity sense 1-3
                    CHLIST_EN_PS2     = 0x02,
@@ -218,95 +218,95 @@ namespace upm {
     } SI114X_IRQEN_BITS_T;
 
     /**
-     * si114x constructor
+     * SI114X constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
+     * @param bus I2C bus to use
+     * @param address Address for this device
      */
     SI114X(int bus, uint8_t address = SI114X_DEFAULT_I2C_ADDR);
 
     /**
-     * SI114X Destructor
+     * SI114X destructor
      */
     ~SI114X();
 
     /**
-     * Write byte value into register
+     * Writes a byte value into a register
      *
-     * @param reg register location to write into
-     * @param byte byte to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param byte Byte to write
+     * @return True if successful
      */
     bool writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Read byte value from register
+     * Reads a byte value from a register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in a specified register
      */
     uint8_t readByte(uint8_t reg);
 
     /**
-     * Read word value from register.
+     * Reads a word value from a register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in a specified register
      */
     uint16_t readWord(uint8_t reg);
 
     /**
-     * disable interrupts and auto measuring, issue a device reset,
-     * and then set the hardware key.
+     * Disables interrupts and auto-measuring, issues a device reset,
+     * and then sets the hardware key.
      */
     void reset();
 
     /**
-     * set the UV calibration values.  The constructor sets default
+     * Sets UV calibration values. The constructor sets default
      * values for you, so you only need this function if you need
-     * different values for your device and situation.  If you set new
+     * different values for your device and situation. If you set new
      * values here, be sure to do so before calling initialize().
      *
-     * @param uvcoeff0 coefficient for REG_UCOEF0
-     * @param uvcoeff1 coefficient for REG_UCOEF1
-     * @param uvcoeff2 coefficient for REG_UCOEF2
-     * @param uvcoeff3 coefficient for REG_UCOEF3
+     * @param uvcoeff0 Coefficient for REG_UCOEF0
+     * @param uvcoeff1 Coefficient for REG_UCOEF1
+     * @param uvcoeff2 Coefficient for REG_UCOEF2
+     * @param uvcoeff3 Coefficient for REG_UCOEF3
      *
      */
     void setUVCalibration(uint8_t uvcoeff0, uint8_t uvcoeff1, uint8_t uvcoeff2,
                           uint8_t uvcoeff3);
 
     /**
-     * write a value to parameter memory.
+     * Writes a value to the parameter memory.
      *
-     * @param param the SI114X_PARAM_T register to write
-     * @param value the value to write
+     * @param param SI114X_PARAM_T register to write
+     * @param value Value to write
      */
     void writeParam(SI114X_PARAM_T param, uint8_t value);
     
     /**
-     * read a value from parameter memory
+     * Reads a value from the parameter memory
      *
-     * @param param the SI114X_PARAM_T register to read
-     * @return the value
+     * @param param SI114X_PARAM_T register to read
+     * @return Value
      */
     uint8_t readParam(SI114X_PARAM_T param);
 
     /**
-     * Reset and initialize device, start auto sampling
+     * Resets and initializes the device and starts auto-sampling
      */
     void initialize();
 
     /**
-     * update stored values.  You should call this before calling
+     * Updates stored values. You should call this before calling
      * getUVIndex()
      */
     void update();
 
     /**
-     * Read the currently measured UV Index value
+     * Reads the currently measured UV index value
      *
-     * @return UV Index value
+     * @return UV index value
      */
     float getUVIndex() { return m_uvIndex; };
 

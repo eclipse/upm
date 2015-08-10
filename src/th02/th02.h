@@ -45,7 +45,7 @@
 namespace upm {
 
 /**
- * @brief TH02 temperature & humidity sensor library
+ * @brief TH02 Temperature & Humidity Sensor library
  * @defgroup th02 libupm-th02
  * @ingroup seeed i2c temp
  */
@@ -53,18 +53,18 @@ namespace upm {
  * @library th02
  * @sensor th02
  * @comname TH02 Temperature & Humidity Sensor
- * @altname Grove Temperature & Humidity Sensor (High Accuracy & Mini)
+ * @altname Grove Temperature & Humidity Sensor (High-Accuracy & Mini)
  * @type temp
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Tempture%26Humidity_Sensor_(High-Accuracy_%26Mini)_v1.0
  * @con i2c
  *
- * @brief API for th02 temperature & humidity sensor library
+ * @brief API for the TH02 Temperature & Humidity Sensor
  * 
  *   This file defines the TH02 interface for libth02 
  *
- *   NOTE: For use on the Edison with the Arduino breakout board, the
- *   Edison must be set to 3v rather than 5v.
+ *   Note: For use on Intel(R) Edison with an Arduino* breakout board, Intel
+ *   Edison must be set to 3 V rather than 5 V.
  *
  * @image html th02.jpg
  * @snippet th02.cxx Interesting
@@ -72,32 +72,32 @@ namespace upm {
 class TH02 {
     public:
         /**
-         * Instanciates a TH02 object
+         * Instantiates a TH02 object
          */
         TH02 (int bus=0, uint8_t addr=TH02_ADDR);
 
         /**
-         * TH02 object destructor, basicaly it close i2c connection.
+         * TH02 object destructor; basically, it closes the I2C connection.
          */
         ~TH02 ();
 
         /**
-         * Get the temperature value from sensor.
+         * Gets the temperature value from the sensor.
          */
         float getTemperature ();
 
         /**
-         * Get the humidity value from sensor.
+         * Gets the humidity value from the sensor.
          */
         float getHumidity ();
 
         /**
-         * Get the sensor's status.
+         * Gets the sensor status.
          */
         bool getStatus ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

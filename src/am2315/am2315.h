@@ -89,7 +89,7 @@ class AM2315 {
         AM2315 (int bus, int devAddr=AM2315_I2C_ADDRESS);
 
         /**
-         * AM2315 object destructor; basicaly, it closes the I2C connection.
+         * AM2315 object destructor; basically, it closes the I2C connection.
          */
         ~AM2315 ();
 

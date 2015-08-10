@@ -63,27 +63,27 @@ namespace upm {
     /**
      * MPU9150 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
-     * @param magAddress the address of the connected magnetometer
+     * @param bus I2C bus to use
+     * @param address The address for this device
+     * @param magAddress The address of the connected magnetometer
      */
     MPU9150 (int bus=MPU9150_I2C_BUS, int address=MPU9150_DEFAULT_I2C_ADDR,
              int magAddress=AK8975_DEFAULT_I2C_ADDR);
 
     /**
-     * MPU9150 Destructor
+     * MPU9150 destructor
      */
     ~MPU9150 ();
 
     /**
-     * set up initial values and start operation
+     * Set up initial values and start operation
      *
      * @return true if successful
      */
     bool init();
 
     /**
-     * take a measurement and store the current sensor values
+     * Take a measurement and store the current sensor values
      * internally.  Note, these user facing registers are only updated
      * from the internal device sensor values when the i2c serial
      * traffic is 'idle'.  So, if you are reading the values too fast,
@@ -97,12 +97,12 @@ namespace upm {
     void update();
 
     /**
-     * return the compensated values for the x, y, and z axes.  The
+     * Return the compensated values for the x, y, and z axes.  The
      * unit of measurement is in micro-teslas (uT).
      *
-     * @param x pointer to returned X axis value
-     * @param y pointer to returned Y axis value
-     * @param z pointer to returned Z axis value
+     * @param x Pointer to returned X axis value
+     * @param y Pointer to returned Y axis value
+     * @param z Pointer to returned Z axis value
      */
     void getMagnetometer(float *x, float *y, float *z);
 

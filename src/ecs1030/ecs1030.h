@@ -86,7 +86,7 @@ class ECS1030 {
         ECS1030 (uint8_t pinNumber);
 
         /**
-         * ECS1030 object destructor; basicaly, it closes the GPIO.
+         * ECS1030 object destructor; basically, it closes the GPIO.
          */
         ~ECS1030 ();
 

@@ -40,7 +40,7 @@ namespace upm {
 /**
  * @brief Servo library 
  *
- * The base class Servo provides routines for setting the angle of the shaft
+ * The base Servo class provides routines for setting the angle of the shaft
  * as well as setting and getting the minimum and maximum pulse width and 
  * the maximum period.
  *
@@ -50,42 +50,42 @@ namespace upm {
 class Servo {
     public:
         /**
-         * Instantiates a servo object
+         * Instantiates a Servo object
          *
-         * @param pin servo pin number
+         * @param pin Servo pin number
          */
         Servo (int pin);
 
         /**
-         * Instantiates a servo object
+         * Instantiates a Servo object
          *
-         * @param pin servo pin number
-         * @param minPulseWidth minimum pulse width, in microseconds
-         * @param maxPulseWidth maximum pulse width, in microseconds
+         * @param pin Servo pin number
+         * @param minPulseWidth Minimum pulse width, in microseconds
+         * @param maxPulseWidth Maximum pulse width, in microseconds
          */
         Servo (int pin, int minPulseWidth, int maxPulseWidth);
 
         /**
-         * Instantiates a servo object
+         * Instantiates a Servo object
          *
-         * @param pin servo pin number
-         * @param minPulseWidth minimum pulse width, in microseconds
-         * @param maxPulseWidth maximum pulse width, in microseconds
-         * @param waitAndDisablePwm if 1, PWM will be enabled only during setAngle() execution
-         *      for a period of 1 second, and then turned back off. If 0, PWM will remain on afterward.
+         * @param pin Servo pin number
+         * @param minPulseWidth Minimum pulse width, in microseconds
+         * @param maxPulseWidth Maximum pulse width, in microseconds
+         * @param waitAndDisablePwm If 1, PWM is enabled only during the setAngle() execution
+         * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
          */
         Servo (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePwm);
 
         /**
-         * Servo object destructor.
+         * Servo object destructor
          */
         ~Servo();
 
         /**
-         * Set the angle of the servo engine.
+         * Sets the angle of the servo engine.
          *
-         * @param angle number between 0 and 180
-         * @return 0 on success; non-zero otherwise
+         * @param angle Number between 0 and 180
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t setAngle (int angle);
 
@@ -95,9 +95,9 @@ class Servo {
         mraa_result_t haltPwm ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          *
-         * @return name of the component
+         * @return Name of the component
          */
         std::string name()
         {
@@ -105,44 +105,44 @@ class Servo {
         }
 
         /**
-         * Set minimum pulse width
+         * Sets the minimum pulse width
          *
-         * @param width minimum HIGH signal width
+         * @param width Minimum HIGH signal width
          */
         void setMinPulseWidth (int width);
 
         /**
-         * Set maximum pulse width
+         * Sets the maximum pulse width
          *
-         * @param width maximum HIGH signal width
+         * @param width Maximum HIGH signal width
          */
         void setMaxPulseWidth (int width);
 
         /**
-         * Set maximum period width
+         * Sets the maximum period width
          *
          * @param period PWM period width
          */
         void setPeriod (int period);
 
         /**
-         * Return minimum pulse width
+         * Returns the minimum pulse width
          *
-         * @return minimum pulse width
+         * @return Minimum pulse width
          */
         int getMinPulseWidth ();
 
         /**
-         * Return maximum pulse width
+         * Returns the maximum pulse width
          *
-         * @return maximum pulse width
+         * @return Maximum pulse width
          */
         int getMaxPulseWidth ();
 
         /**
-         * Return maximum PWM period width
+         * Returns the maximum PWM period width
          *
-         * @return maximum PWM period width
+         * @return Maximum PWM period width
          */
         int getPeriod ();
 

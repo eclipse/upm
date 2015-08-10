@@ -32,19 +32,19 @@
 #include <mraa/gpio.h>
 
 
-// TM1637 specific register addresses for writing all digits at a time
+// TM1637-specific register addresses for writing all digits at a time
 #define TM1637_ADDR    0x40
 #define TM1637_REG     0xC0
 #define TM1637_CMD     0x88
 
-// Display specific values
+// Display-specific values
 #define M_DISPLAY_DIGITS  4
 
 namespace upm
 {
 
 /**
- * @brief TM1637 7-segment display library
+ * @brief TM1637 7-Segment Display library
  * @defgroup tm1637 libupm-tm1637
  * @ingroup seeed gpio display
  */
@@ -58,13 +58,13 @@ namespace upm
  * @man seeed
  * @con gpio
  *
- * @brief API for TM1637 (7-segment display)
+ * @brief API for the TM1637 7-Segment Display
  *
- * The TM1637 is a display controller for LED based 7-segment displays.
+ * TM1637 is a display controller for LED-based 7-segment displays.
  * It can be used to address and write data to multiple display digits. This
- * driver is based on the Grove version of the TM1637 display which uses 4
- * digits thus making it ideal for clock displays, timers, counters or even
- * score display in a two player arcade game.
+ * driver is based on the Grove version of the TM1637 display that uses 4
+ * digits, thus making it ideal for clock displays, timers, counters, or even
+ * score displays in a two-player arcade game.
  *
  * @image html tm1637.jpeg
  * @snippet tm1637.cxx Interesting
@@ -74,7 +74,7 @@ namespace upm
   {
   public:
       /**
-       * Enum for memory mapped GPIO
+       * Enum for the memory-mapped GPIO
        */
       typedef enum {
         NO  = 0,
@@ -83,10 +83,10 @@ namespace upm
       /**
        * TM1637 constructor
        *
-       * @param clk_pin the clock pin the sensor is connected to
-       * @param dio_pin the data pin the sensor is connected to
-       * @param bright initial brightness from 0 to 7 dark to bright (default 3)
-       * @param mmio fast memory mapped gpio writes, default is yes
+       * @param clk_pin Clock pin the sensor is connected to
+       * @param dio_pin Data pin the sensor is connected to
+       * @param bright Initial brightness, from 0 (dark) to 7 (bright) (default is 3)
+       * @param mmio Fast memory-mapped GPIO writes; default is yes
        */
       TM1637(int clk_pin, int dio_pin, int bright = 3, M_FAST_GPIO mmio = YES);
       /**
@@ -94,44 +94,44 @@ namespace upm
        */
       ~TM1637();
       /**
-       * Write digits to the display in 7 segment encoding
+       * Writes digits to the display in a 7-segment encoding
        *
-       * @param digits an array of digits to send to the display
-       * @return 0 if the write was successful, error code otherwise
+       * @param digits Array of digits to send to the display
+       * @return 0 if successful, error code otherwise
        */
       mraa_result_t write(uint8_t *digits);
       /**
-       * Write digits to the display in 7 segment encoding
+       * Writes digits to the display in a 7-segment encoding
        *
-       * @param d list of multiple arguments to send to the display
-       * @return 0 if the write was successful, error code otherwise
+       * @param d List of multiple arguments to send to the display
+       * @return 0 if successful, error code otherwise
        */
       mraa_result_t write(int d, ...);
       /**
-       * Write a symbol (digit or letter) to the display at a specified index
+       * Writes a symbol (digit or letter) to the display in a specified index
        *
        * @param index 0-based index of the digit to change from the left
-       * @param symbol the digit or letter to display
-       * @return 0 if the write was successful, error code otherwise
+       * @param symbol Digit or letter to display
+       * @return 0 if successful, error code otherwise
        */
       mraa_result_t writeAt(int index, char symbol);
       /**
-       * Write all the digits or letters to the display as a string
+       * Writes all the digits or letters to the display as a string
        *
-       * @param digits a string of symbols to display
-       * @return 0 if the write was successful, error code otherwise
+       * @param digits String of symbols to display
+       * @return 0 if successful, error code otherwise
        */
       mraa_result_t write(std::string digits);
       /**
        * Toggles the colon between digits on the display
        *
-       * @param value pass true to turn on the colon, false to turn it off
+       * @param value True to turn the colon on, false to turn it off
        */
       void setColon(bool value);
       /**
-       * Use to control the brightness of the display
+       * Controls the brightness of the display
        *
-       * @param value between 0 and 7, darkest to brightest
+       * @param value Brightness, from 0 (darkest) to 7 (brightest)
        */
       void setBrightness(int value);
 
