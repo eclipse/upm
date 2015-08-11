@@ -183,7 +183,7 @@ namespace upm {
      * @param bus i2c bus to use
      * @param address the address for this device
      */
-    PCA9685(int bus, uint8_t address = PCA9685_DEFAULT_I2C_ADDR);
+    PCA9685(int bus, uint8_t address = PCA9685_DEFAULT_I2C_ADDR, bool raw = false);
 
     /**
      * PCA9685 Destructor
