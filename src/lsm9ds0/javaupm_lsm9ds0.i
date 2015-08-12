@@ -8,4 +8,4 @@
 %{
     #include "lsm9ds0.h"
 %}
-
+%include "lsm9ds0.h"
