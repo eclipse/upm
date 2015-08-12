@@ -78,9 +78,11 @@ macro(upm_SWIG_JAVA)
       PREFIX ""
       SUFFIX ".so"
     )
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.jar
-	${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.so
-	DESTINATION lib
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.so
+	DESTINATION lib/java
+    )
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
+	DESTINATION lib/java
     )
 
     set (JAVAC $ENV{JAVA_HOME}/bin/javac)
