@@ -75,10 +75,10 @@ macro(upm_SWIG_JAVA)
      )
     set_target_properties (javaupm_${libname} PROPERTIES
       COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive"
-      PREFIX ""
+      PREFIX "lib"
       SUFFIX ".so"
     )
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.so
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/libjavaupm_${libname}.so
 	DESTINATION lib/java
     )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
