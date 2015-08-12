@@ -1,4 +1,4 @@
-%module jacaupm_wt5001
+%module javaupm_wt5001
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"

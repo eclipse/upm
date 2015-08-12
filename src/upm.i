@@ -3,6 +3,7 @@
 %include "upm_exception.i"
 
 %typemap(out) mraa_result_t = int;
+%apply int { speed_t };
 
 #if (SWIG_JAVASCRIPT_V8)
 %{
