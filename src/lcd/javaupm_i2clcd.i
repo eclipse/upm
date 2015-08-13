@@ -40,8 +40,8 @@
     #include "sainsmartks.h"
 %}
 
-%include "hd44780_bits.h"
+%include "eboled.h"
 %{
-        #include "hd44780_bits.h"
+    #include "eboled.h"
 %}
 
