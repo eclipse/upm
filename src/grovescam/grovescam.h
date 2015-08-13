@@ -169,7 +169,7 @@ namespace upm {
      * @param fname Name of the file to write
      * @return True if successful
      */
-    bool storeImage(char *fname);
+    bool storeImage(const char *fname);
 
     /**
      * Returns the picture length. Note: this is only valid after

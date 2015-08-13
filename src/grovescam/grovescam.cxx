@@ -369,7 +369,7 @@ bool GROVESCAM::doCapture()
   return true;
 }
 
-bool GROVESCAM::storeImage(char *fname)
+bool GROVESCAM::storeImage(const char *fname)
 {
   if (!fname)
     {
