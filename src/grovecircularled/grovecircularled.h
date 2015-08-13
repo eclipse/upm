@@ -55,7 +55,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_Circular_LED
    * @con gpio
    *
-   * @brief API for Grove Circular LED module
+   * @brief API for the Grove Circular LED module
    *
    * This is a circular LED ring based on the MY9221 chip. It is often used
    * with a rotary encoder and has 24 controllable LEDs.
@@ -66,10 +66,10 @@ namespace upm {
   class GroveCircularLED {
   public:
     /**
-     * Instantiates a MY9221 object
+     * Instantiates an MY9221 object
      *
-     * @param di data pin
-     * @param dcki clock pin
+     * @param di Data pin
+     * @param dcki Clock pin
      */
     GroveCircularLED (uint8_t di, uint8_t dcki);
   
@@ -79,29 +79,29 @@ namespace upm {
     ~GroveCircularLED ();
   
     /**
-     * Set the lighting status
+     * Sets the lighting status
      *
-     * @param level selected level for the circular led (0 - 24)
-     * @param direction up or down, true is up and is the default
+     * @param level Selected level for the circular LED (0-24)
+     * @param direction Up or down; up is true and default
      */
     mraa_result_t setLevel (uint8_t level, bool direction=true);
   
     /**
-     * Set the spinner (light up one but all the other LEDs)
+     * Sets the spinner (lights up all the other LEDs but one)
      *
-     * @param position selected position for the spinner (0 - 23)
+     * @param position Selected position for the spinner (0-23)
      */
     mraa_result_t setSpinner (uint8_t position);
 
     /**
-     * Set the lighting status
+     * Sets the lighting status
      *
-     * @param status boolean array (24 elements)
+     * @param status Boolean array (24 elements)
      */
     mraa_result_t setStatus (bool status[24]);
 
     /**
-     * Return name of the component
+     * Returns the name of the component
      */
     std::string name()
       {

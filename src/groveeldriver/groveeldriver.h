@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief Grove El Driver module library
+   * @brief Grove EL Driver Module library
    * @defgroup groveeldriver libupm-groveeldriver
    * @ingroup seeed gpio electric
    */
@@ -38,15 +38,15 @@ namespace upm {
   /**
    * @library groveeldriver
    * @sensor groveeldriver
-   * @comname Grove El Driver
+   * @comname Grove EL Driver
    * @type electric
    * @man seeed
    * @con gpio
    *
-   * @brief API for the Grove El Driver Module
+   * @brief API for the Grove EL Driver Module
    * 
    * The Grove EL Driver allows you to easily light up an
-   * EL Wire with just one single Grove cable.
+   * EL wire with just one single Grove cable.
    *
    * @image html groveeldriver.jpg 
    * @snippet groveeldriver.cxx Interesting
@@ -54,21 +54,21 @@ namespace upm {
   class GroveElDriver {
   public:
     /**
-     * Grove El Driver Constructor
+     * Grove EL Driver constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveElDriver(int pin);
     /**
-     * Grove El Driver Destructor
+     * Grove EL Driver destructor
      */
     ~GroveElDriver();
     /**
-     * Turn el wire on
+     * Turns the EL wire on
      */
      void on();
     /**
-     * Turn el wire off
+     * Turns the EL wire off
      */
      void off();
 

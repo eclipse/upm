@@ -38,7 +38,7 @@
 namespace upm {
 
 /**
- * @brief MY9221 led bar library
+ * @brief MY9221 LED Bar library
  * @defgroup my9221 libupm-my9221
  * @ingroup seeed display gpio eak
  */
@@ -53,7 +53,7 @@ namespace upm {
  * @con gpio
  * @kit eak
  *
- * @brief API for MY9221 based LED bars
+ * @brief API for MY9221-based LED Bars
  *
  * This file defines the MY9221 interface for libmy9221
  *
@@ -64,10 +64,10 @@ namespace upm {
 class MY9221 {
     public:
          /**
-         * Instanciates a MY9221 object
+         * Instantiates an MY9221 object
          *
-         * @param di data pin
-         * @param dcki clock pin
+         * @param di Data pin
+         * @param dcki Clock pin
          */
         MY9221 (uint8_t di, uint8_t dcki);
 
@@ -77,15 +77,15 @@ class MY9221 {
         ~MY9221 ();
 
         /**
-         * Set the level bar
+         * Sets the bar level 
          *
-         * @param level selected level for the bar (1 - 10)
-         * @param direction up or down, true is up and is the default
+         * @param level Selected level for the bar (1 - 10)
+         * @param direction Up or down; up is true and default
          */
         mraa_result_t setBarLevel (uint8_t level, bool direction=true);
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

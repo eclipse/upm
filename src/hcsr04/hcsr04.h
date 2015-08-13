@@ -37,7 +37,7 @@
 
 namespace upm {
 /**
- * @brief HC-SR04 ultrasonic sensor library
+ * @brief HC-SR04 Ultrasonic Sensor library
  * @defgroup hcsr04 libupm-hcsr04
  * @ingroup generic gpio sound
  */
@@ -45,50 +45,50 @@ namespace upm {
 /**
  * @library hcsr04
  * @sensor hcsr04
- * @comname HCSR04 Ultrasonic Sensor
+ * @comname HC-SR04 Ultrasonic Sensor
  * @type sound
  * @man generic
  * @con gpio
  *
- * @brief API for HCSR04 (ultrasonic ranging module) component
+ * @brief API for the HC-SR04 Ultrasonic Sensor
  *
- * This file defines the HCSR04 interface for libhcsr04
+ * This file defines the HC-SR04 interface for libhcsr04
  *
  * @snippet hcsr04.cxx Interesting
  */
 class HCSR04 {
     public:
         /**
-         * Instanciates a HCSR04 object
+         * Instantiates an HCSR04 object
          *
-         * @param triggerPin pin for triggering the sensor for distance
-         * @param echoPin pulse response to triggering
-         * @param fptr function pointer for handling raising and
-         * falling interrupts
+         * @param triggerPin Pin to trigger the sensor for distance
+         * @param echoPin Pulse response to triggering
+         * @param fptr Function pointer to handle rising-edge and
+         * falling-edge interrupts
          */
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
 
         /**
-         * HCSR04 object destructor.
+         * HCSR04 object destructor
          */
         ~HCSR04 ();
 
         /**
-         * Get the distance from the sensor.
+         * Gets the distance from the sensor
          */
         int getDistance ();
 
         /**
-         * On each interrupt this function will detect if the interrupt
-         * was falling edge or rising.
+         * On each interrupt, this function detects if the interrupt
+         * was falling-edge or rising-edge.
          * Should be called from the interrupt handler.
          */
         void ackEdgeDetected ();
 
-        uint8_t m_doWork; /**< Flag to controll blocking function while waiting for falling edge interrupt */
+        uint8_t m_doWork; /**< Flag to control blocking function while waiting for a falling-edge interrupt */
 
         /**
-         * Return name of the component
+         * Returns the name of the sensor
          */
         std::string name()
         {

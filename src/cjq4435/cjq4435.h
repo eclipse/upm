@@ -44,11 +44,11 @@ namespace upm {
    *
    * @brief API for the CJQ4435 MOSFET
    *
-   * UPM module for the CJQ4435 MOSFET.  It was developed using the
+   * UPM module for the CJQ4435 MOSFET. It was developed using the
    * Grove MOSFET module.  A MOSFET is like a switch, but it can
    * switch much faster than a mechanical relay.  Here, we implement
-   * support via MRAA's PWM (Pulse Width Modulation) functions.
-   * Please note, that the available periods will vary depending on
+   * support via MRAA pulse width modulation (PWM) functions.
+   * Note: available periods vary depending on
    * the capabilities of your device.
    *
    * @image html cjq4435.jpg
@@ -59,60 +59,60 @@ namespace upm {
     /**
      * CJQ4435 constructor
      *
-     * @param pin digital pin to use - this pin must be PWM capable
+     * @param pin Digital pin to use; this pin must be PWM-capable
      */
     CJQ4435(int pin);
 
     /**
-     * CJQ4435 Destructor
+     * CJQ4435 destructor
      */
     ~CJQ4435();
 
     /**
-     * set the period in microseconds
+     * Sets a period in microseconds
      *
-     * @param us period in microseconds
+     * @param us Period in microseconds
      */
     void setPeriodUS(int us);
 
     /**
-     * set the period in milliseconds
+     * Sets a period in milliseconds
      *
-     * @param ms period in milliseconds
+     * @param ms Period in milliseconds
      */
     void setPeriodMS(int ms);
 
     /**
-     * set the period in seconds
+     * Sets a period in seconds
      *
-     * @param seconds period in seconds
+     * @param seconds Period in seconds
      */
     void setPeriodSeconds(float seconds);
 
     /**
-     * enable output
+     * Enables output
      *
-     * @param enable enable PWM output if true, disable if false
+     * @param enable Enables PWM output if true, disables otherwise
      */
     void enable(bool enable);
 
     /**
-     * set the duty cycle.  The duty cycle is a floating point number
-     * between 0.0 (always off) to 1.0 (always on).  It represents how
-     * much time as a percentage, per period, that the output will be
+     * Sets a duty cycle. Duty cycle is a floating-point number
+     * between 0.0 (always off) and 1.0 (always on). It represents a
+     * proportion of time, per period, during which the output is
      * driven high.
      *
-     * @param dutyCycle the duty cycle to use
+     * @param dutyCycle Duty cycle to use
      */
     void setDutyCycle(float dutyCycle);
 
     /**
-     * a shortcut for turning the output to continuous on (high)
+     * Shortcut to turn the output to continuous on (high)
      */
     void on();
 
     /**
-     * a shortcut for turning the output to continuous off (low)
+     * Shortcut to turn the output to continuous off (low)
      */
     void off();
 

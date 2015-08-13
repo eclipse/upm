@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief ADXL345 accelerometer library
+ * @brief ADXL345 Accelerometer library
  * @defgroup adxl345 libupm-adxl345
  * @ingroup seeed i2c accelerometer
  */
@@ -44,13 +44,14 @@ namespace upm {
  * @man seeed
  * @con i2c
  *
- * @brief API for Adxl345 (3-axis digital accelerometer)
+ * @brief API for the ADXL345 3-Axis Digital Accelerometer
  *
- * The Adxl345 is a 3-axis digital accelerometer.
+ * ADXL345 is a 3-axis digital accelerometer.
  * (http://www.seeedstudio.com/wiki/images/2/2c/ADXL345_datasheet.pdf)
- * The sensor has configurable resolutions for measuring ±2g, ±4g, ±8g or ±16g.
- * Note that the sensor it is incompatible and will not be detected on the I2C bus
- * by the Intel Edison using the Arduino breakout board at 5V (3V3 will work fine).
+ * The sensor has configurable resolutions to measure ±2g, ±4g, ±8g, or ±16g.
+ * Note: The Grove* version of the sensor is incompatible with and not detected
+ * on the I2C bus by the Intel(R) Edison using an Arduino* breakout board at 5V
+ * (3V works fine).
  *
  * @image html adxl345.jpeg
  * @snippet adxl345.cxx Interesting
@@ -58,14 +59,14 @@ namespace upm {
 class Adxl345 {
 public:
     /**
-     * Creates an Adxl345 object
+     * Creates an ADXL345 object
      *
-     * @param bus number of used i2c bus
+     * @param bus Number of the used I2C bus
      */
     Adxl345(int bus);
 
     /**
-     * Adxl345 object destructor
+     * ADXL345 object destructor
      */
     ~Adxl345();
 
@@ -77,23 +78,25 @@ public:
     float* getAcceleration();
 
     /**
-     * Returns a pointer to an int[3] that contains the raw register values for X, Y and Z
+     * Returns a pointer to an int[3] that contains the raw register values
+     * for X, Y, and Z
      *
      * @return int* to an int[3]
      */
     int16_t* getRawValues();
 
     /**
-     * Returns the scale the accelerometer is currently set up to: 2, 4, 8 or 16
+     * Returns the scale the accelerometer is currently set up to: 2, 4, 8,
+     * or 16
      *
-     * @return uint with current scale value
+     * @return uint with the current scale value
      */
     uint8_t getScale();
 
     /**
-     * Updates the acceleration values from i2c bus
+     * Updates the acceleration values from the I2C bus
      *
-     * @return 0 for success
+     * @return 0 if successful
      */
     mraa_result_t update();
 private:

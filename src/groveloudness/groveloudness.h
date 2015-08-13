@@ -43,7 +43,7 @@ namespace upm {
    *
    * @brief API for the Grove Loudness Sensor
    *
-   * UPM module for the Grove Loudness Sensor.  This sensor
+   * UPM module for the Grove Loudness Sensor. This sensor
    * detects how loud the surrounding environment is.
    * The higher the output analog value, the louder the sound.
    *
@@ -55,17 +55,17 @@ namespace upm {
     /**
      * Grove analog loudness sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveLoudness(int pin);
     /**
-     * GroveLoudness Destructor
+     * GroveLoudness destructor
      */
     ~GroveLoudness();
     /**
-     * Get the loudness value from the sensor
+     * Gets the loudness value from the sensor
      *
-     * @return the loudness reading
+     * @return Loudness reading
      */
     int value();
 

@@ -92,7 +92,7 @@ namespace upm {
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
  /**
- * @brief TSL2561 digital light sensor library
+ * @brief TSL2561 Digital Light Sensor library
  * @defgroup tsl2561 libupm-tsl2561
  * @ingroup seeed i2c light eak
  */
@@ -107,12 +107,10 @@ namespace upm {
  * @con i2c
  * @kit eak
  *
- * @brief TSL2561 Digital Light Sensor library
+ * @brief API for the TSL2561 Digital Light Sensor
  * 
- *   The LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
- *   (http://www.adafruit.com/datasheets/TSL2561.pdf)
- *   The TSL2560 and TSL2561 are light-to-digital converters that transform
- *   light intensity to a digital signal output capable of direct I2C (TSL2561)
+ *   TSL2560 and TSL2561 are light-to-digital converters that transform
+ *   light intensity to a digital signal output capable of a direct I2C (TSL2561) interface
  *
  * @image html tsl2561.jpg
  * @snippet tsl2561.cxx Interesting
@@ -120,42 +118,42 @@ namespace upm {
 class TSL2561{
     public:
        /**
-        * Instanciates a TSL2561 object
+        * Instantiates a TSL2561 object
         *
-        * @param bus number of used bus
-        * @param devAddr address of used i2c device
-        * @param gain the correct gain to use
-        * @param integration time to use
+        * @param bus Number of the used bus
+        * @param devAddr Address of the used I2C device
+        * @param gain Correct gain to use
+        * @param integration Time to use
         */
         TSL2561(int bus=0, uint8_t devAddr=TSL2561_Address, uint8_t gain=GAIN_0X, uint8_t integrationTime=INTEGRATION_TIME1_101MS);
 
        /**
-        * GY65 object destructor to power down TSL2561 and close i2c connection.
+        * GY65 object destructor; powers down TSL2561 and closes the I2C connection.
         */
         ~TSL2561();
 
        /**
-        * Get calculated lux reading from TSL2561
+        * Gets the calculated lux reading from TSL2561
         *
-        * @return the calculated lux value from the sensor
+        * @return Calculated lux value from the sensor
         */
         int getLux();
 
     private:
        /**
-        * Write to TSL2561 register
+        * Writes to a TSL2561 register
         *
-        * @param reg addess to write
-        * @param value to write
+        * @param reg Addess to write
+        * @param Value to write
         * @return mraa_result_t
         */
         mraa_result_t i2cWriteReg(uint8_t reg, uint8_t value);
 
        /**
-        * Read from TSL2561 register
+        * Reads from a TSL2561 register
         *
-        * @param reg addess to read
-        * @param data byte read from the register
+        * @param reg Addess to read
+        * @param data Byte read from the register
         * @return mraa_result_t
         */
         mraa_result_t i2cReadReg(uint8_t reg, uint8_t &data);

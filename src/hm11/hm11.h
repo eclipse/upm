@@ -47,7 +47,7 @@
 
 namespace upm {
     /**
-     * @brief HM-11 Bluetooth 4.0 Low Energy module library
+     * @brief HM-11 Bluetooth 4.0 Low Energy Module library
      * @defgroup hm11 libupm-hm11
      * @ingroup seeed uart wifi
      */
@@ -63,16 +63,16 @@ namespace upm {
      * @con uart
      * @web http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf
      *
-     * @brief API HM-11 4.0 Bluetooth Low Energy Module
+     * @brief API for the HM-11 4.0 Bluetooth Low Energy Module
      *
-     * The driver was tested with the Grove BLE module.  Its an HM-11
+     * The driver was tested with the Grove BLE module.  It's an HM-11
      * BLE 4.0 module based on a TI CC2541 chip.  It operates using a
      * standard 'AT' command set.  See the datasheet for a full list
-     * of available commands and their possible responses.
+     * of available commands and their possible responses:
      *
      * http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf
      *
-     * It is connected via a UART at 9600 baud.
+     * It is connected via a UART at 9,600 baud.
      *
      * @image html hm11.jpg
      * @snippet hm11.cxx Interesting
@@ -82,52 +82,52 @@ namespace upm {
   public:
 
     /**
-     * HM11 module constructor
+     * HM11 object constructor
      *
-     * @param uart default uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     HM11(int uart);
 
     /**
-     * HM11 module Destructor
+     * HM11 object destructor
      */
     ~HM11();
 
     /**
-     * check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait.
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting
+     * @return True if there is data available for reading
      */
     bool dataAvailable(unsigned int millis);
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data into a user-supplied buffer. Note: the
+     * call blocks until data is available for reading. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes read
      */
     int readData(char *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600) for this device.
+     * Sets up proper tty I/O modes and the baud rate. For this device, the default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.
-     * @return true if successful
+     * @param baud Desired baud rate.
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B9600);
 

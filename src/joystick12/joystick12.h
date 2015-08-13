@@ -44,12 +44,12 @@ namespace upm {
  * @con analog
  * @kit robok
  *
- * @brief API for Elecfreaks Joystick v 1.2-1.4 breakout
+ * @brief API for the ElecFreaks* Joystick v 1.2-1.4 Breakout
  *
- * This file defines the Joystick API and implementation for X, Y
- * button could be treated as normal GPIO, this enables easier
+ * This file defines the Joystick API, and implementation for the X and Y
+ * buttons could be treated as normal GPIO - this enables easier
  * interrupt support. This driver should be compatible with any
- * 2 axis analog joystick.
+ * 2-axis analog joystick.
  *
  * @image html joystick12.jpg
  * @snippet joystick12-example.cxx Interesting
@@ -59,8 +59,8 @@ class Joystick12 {
         /**
          * Instantiates a Joystick object
          *
-         * @param pinX analog pin where X input is connected
-         * @param pinY analog pin where Y input is connected
+         * @param pinX Analog pin where the X input is connected
+         * @param pinY Analog pin where the Y input is connected
          */
         Joystick12(int pinX, int pinY);
 
@@ -70,15 +70,15 @@ class Joystick12 {
         ~Joystick12();
 
         /**
-         * Get X input
-         * @return float X value, range from -1 to 1. 0 is mid
+         * Gets the X input
+         * @return float X value, ranging from -1 to 1; 0 is mid
          */
         float getXInput();
 
         /**
-         * Get Y input
+         * Gets the Y input
          *
-         * @return float Y value, range from -1 to 1. 0 is mid
+         * @return float Y value, ranging from -1 to 1; 0 is mid
          */
         float getYInput();
 

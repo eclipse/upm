@@ -56,7 +56,7 @@
 namespace upm {
 
 /**
- * @brief MPL3115A2 atmospheric pressure library
+ * @brief MPL3115A2 Atmospheric Pressure Sensor library
  * @defgroup mpl3115a2 libupm-mpl3115a2
  * @ingroup freescale i2c pressure
  */
@@ -69,12 +69,12 @@ namespace upm {
  * @web http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MPL3115A2
  * @con i2c
  *
- * @brief API for MPL3115A2 chip (Atmospheric Pressure Sensor)
+ * @brief API for the MPL3115A2 Atmospheric Pressure Sensor
  *
- * Freescale [MPL3115A2]
+ * Freescale Semiconductor* [MPL3115A2]
  * (http://cache.freescale.com/files/sensors/doc/data_sheet/MPL3115A2.pdf)
- * is a high precision, ultra-low power consumption pressure sensor. It has a
- * range of between 50 and 110 kPa.
+ * is a high-precision, ultra-low power consumption pressure sensor. Its operating
+ * range is 50-110 kPa.
  *
  * @image html mpl3115a2.jpg
  * @snippet mpl3115a2.cxx Interesting
@@ -84,92 +84,92 @@ class MPL3115A2 {
         /**
          * Instantiates an MPL3115A2 object
          *
-         * @param bus number of used bus
-         * @param devAddr address of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          * @param mode MPL3115A2 oversampling (6 = 64x)
          */
         MPL3115A2(int bus, int devAddr=MPL3115A2_I2C_ADDRESS, uint8_t mode=6);
 
         /**
-         * MPL3115A2 object destructor, basicaly it close i2c connection.
+         * MPL3115A2 object destructor; basically, it closes the I2C connection.
          */
         ~MPL3115A2();
 
         /**
-         * Test the sensor and try to determine if operating by looking
+         * Tests the sensor and tries to determine if the sensor is operating by looking
          * for small variations in the value
          */
         int testSensor(void);
 
         /**
-         * Perform a soft RESET of the MPL3115A2 device to ensure
-         * it is in a known state.  This function can be used to reset
+         * Performs a soft reset of the MPL3115A2 device to ensure
+         * it is in a known state. This function can be used to reset
          * the min/max temperature and pressure values.
          */
         int resetSensor(void);
 
         /**
-         * Dump out the i2c register block to stdout
+         * Dumps out the I2C register block to stdout
          */
         void dumpSensor(void);
 
         /**
-         * Initiate a temp/pressure mesasurement and wait for function
-         * to complete.  The temp and pressure registers can be read
+         * Initiates a temperature/pressure mesasurement and waits for the function
+         * to complete. Temperature and pressure registers can be read
          * after this call.
          */
         int sampleData(void);
 
         /**
-         * Read a pressure value from the mpl3115a2 [Pa * 100]
+         * Reads the pressure value from MPL3115A2 [Pa * 100]
          *
-         * @param reg base address of pressure register
+         * @param reg Base address of the pressure register
          */
         int32_t getPressureReg(int reg);
 
         /**
-         * Read a temperature value from the mpl3115a2 [degC * 1000]
+         * Reads the temperature value from MPL3115A2 [degC * 1000]
          *
-         * @param reg base address of temperature register
+         * @param reg Base address of the temperature register
          */
         int32_t getTempReg(int reg);
 
         /**
-         * Read the current pressure value from the mpl3115a2 [Pa]
+         * Reads the current pressure value from MPL3115A2 [Pa]
          *
-         * @param bSampleData Set non-zero to sample reading
+         * @param bSampleData Sets non-zero to a sample reading
          */
         float getPressure(int bSampleData = true);
 
         /**
-         * Read the current temperature value from the mpl3115a2 [degC]
+         * Reads the current temperature value from MPL3115A2 [degC]
          *
-         * @param bSampleData Set non-zero to sample reading
+         * @param bSampleData Sets non-zero to a sample reading
          */
         float getTemperature(int bSampleData = true);
 
         /**
-         * Read the current pressure and using a known altitude calculate
+         * Reads the current pressure and, using a known altitude, calculates
          * the sea level pressure value [Pa]
-         * This function should be preceeded by the sampleData() call
+         * This function should be preceded by the sampleData() call
          *
          * @param altitudeMeters Altitude in meters
          */
         float getSealevelPressure(float altitudeMeters = 0.0);
 
         /**
-         * Read the current pressure and using a known sea level pressure
-         * calculate the altitude value [m]
-         * This function should be preceeded by the sampleData() call
+         * Reads the current pressure and, using a known sea level pressure,
+         * calculates the altitude value [m]
+         * This function should be preceded by the sampleData() call
          *
          * @param sealevelPressure Current sea level pressure
          */
         float getAltitude (float sealevelPressure = 101325.0);
 
         /**
-         * Set the oversampling setting (ranges from 0 to 7).  The
-         * value represents 2^n samples (ranging from 1 to 128).  The
-         * time to calculate the sample is approximately (2^n * 4 + 2) mS
+         * Defines the oversampling setting (ranges from 0 to 7). The
+         * value represents 2^n samples (ranging from 1 to 128). The
+         * time to calculate a sample is approximately (2^n * 4 + 2) ms
          *
          * @param oversampling New oversampling value
          */
@@ -181,60 +181,60 @@ class MPL3115A2 {
         uint8_t getOversampling(void);
 
         /**
-         * Read the maximum measured temperature [degC]
+         * Reads the maximum measured temperature [degC]
          */
         float getTemperatureMax(void);
 
         /**
-         * Read the minimum measured temperature [degC]
+         * Reads the minimum measured temperature [degC]
          */
         float getTemperatureMin(void);
 
         /**
-         * Read the maximum measured pressure [Pa]
+         * Reads the maximum measured pressure [Pa]
          */
         float getPressureMax (void);
 
         /**
-         * Read the minimum measured pressure [Pa]
+         * Reads the minimum measured pressure [Pa]
          */
         float getPressureMin (void);
 
         /**
-         * Convert temperature from degC*1000 to degF*1000
+         * Converts temperature from degC*1000 to degF*1000
          *
          * @param iTemp Temperature in degC
          */
         float convertTempCtoF(float fTemp);
 
         /**
-         * Convert pressure from Pa*100 to inHg*10000
+         * Converts pressure from Pa*100 to inHg*10000
          * This is set for 15degC (Pa = 0.0002961 in Hg)
-         * TODO: Change function to add temp calibration
+         * TODO: Change the function to add temperature calibration
          *
          * @param iPressure Pressure in Pa
          */
         float convertPaToinHg(float fPressure);
 
         /**
-         * Write to one byte to i2c register
+         * Writes one byte to an I2C register
          *
-         * @param reg address of a register
-         * @param value byte to be written
+         * @param reg Address of the register
+         * @param value Byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
-         * Read two bytes from i2c registers
+         * Reads two bytes from an I2C register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint16_t i2cReadReg_16 (int reg);
 
         /**
-         * Read one byte register
+         * Reads a one-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint8_t i2cReadReg_8 (int reg);
 

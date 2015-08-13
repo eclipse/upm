@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
@@ -64,12 +64,12 @@ namespace upm {
      *
      * @brief API for the Grove Serial Camera
      *
-     * The driver was tested with the Grove Serial Camera.  There is
+     * The driver was tested with the Grove Serial Camera. There is
      * no protocol documentation currently available, so this module
-     * was developed based completely on the Seeed Studio Arduino
+     * was developed based completely on the Seeed Studio* Arduino*
      * sketch.
      *
-     * It is connected via a UART at 115200 baud.
+     * It is connected via a UART at 115,200 baud.
      * 
      * @image html grovescam.jpg
      * @snippet grovescam.cxx Interesting
@@ -87,95 +87,95 @@ namespace upm {
     } PIC_FORMATS_T;
 
     /**
-     * GROVESCAM module constructor
+     * Grove Serial Camera constructor
      *
-     * @param uart default uart to use (0 or 1)
-     * @param camAddr the 3-bit address identifier of the camera, default 0
+     * @param uart Default UART to use (0 or 1)
+     * @param camAddr 3-bit address identifier of the camera; default is 0
      */
     GROVESCAM(int uart, uint8_t camAddr=GROVESCAM_DEFAULT_CAMERA_ADDR);
 
     /**
-     * GROVESCAM module Destructor
+     * GROVESCAM destructor
      */
     ~GROVESCAM();
 
     /**
-     * check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait.
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting.
+     * @return True if there is data available for reading
      */
     bool dataAvailable(unsigned int millis);
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data into a user-supplied buffer. Note: the
+     * call blocks until data is available to be read. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes read
      */
     int readData(uint8_t *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(uint8_t *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600) for this device.
+     * Sets up proper tty I/O modes and the baud rate. For this device, the default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.
-     * @return true if successful
+     * @param baud Desired baud rate
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B115200);
 
     /**
-     * read serial input and discard until no more characters are available
+     * Reads serial input and discards until no more characters are available
      *
      */
     void drainInput();
 
     /**
-     * initialize the camera
+     * Initializes the camera
      *
      */
     bool init();
 
     /**
-     * tell camera to prepare for a capture
+     * Tells the camera to prepare for a capture
      *
-     * @param fmt one of the PIC_FORMATS_T values
+     * @param fmt One of the PIC_FORMATS_T values
      */
     bool preCapture(PIC_FORMATS_T fmt=FORMAT_VGA);
 
     /**
-     * start the capture
+     * Starts the capture
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool doCapture();
 
     /**
-     * store the captured image in a file
+     * Stores the captured image in a file
      *
-     * @param fname the name of the file to write
-     * @return true if successful
+     * @param fname Name of the file to write
+     * @return True if successful
      */
     bool storeImage(char *fname);
 
     /**
-     * return the picture length.  Note, this is only valid after
+     * Returns the picture length. Note: this is only valid after
      * doCapture() has run successfully.
      *
-     * @return the image length
+     * @return Image length
      */
     int getImageSize() { return m_picTotalLen; };
 

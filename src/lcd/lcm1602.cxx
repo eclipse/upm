@@ -9,22 +9,25 @@
  *
  * Contributions: Jon Trulson <jtrulson@ics.com>
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 #include <string>
@@ -35,7 +38,7 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in) : 
+Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) : 
   m_i2c_lcd_control(new mraa::I2c(bus_in)),
   m_gpioRS(0), m_gpioEnable(0), m_gpioD0(0),
   m_gpioD1(0), m_gpioD2(0), m_gpioD3(0)
@@ -52,6 +55,18 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) :
         return;
     }
 
+    // default display control
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+
+    // if we are not dealing with an expander (say via a derived class
+    // like Jhd1313m1), then we do not want to execute the rest of the
+    // code below.  Rather, the derived class's constructor should
+    // follow up with any setup required -- we will only initialize
+    // the I2C context and bail.
+
+    if (!isExpander)
+      return;
+
     usleep(50000);
     expandWrite(LCD_BACKLIGHT);
     usleep(100000);
@@ -66,13 +81,15 @@ Lcm1602::Lcm1602(int bus_in, int addr_in) :
     // Put into 4 bit mode
     write4bits(0x20);
 
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
     // Set numeber of lines
-    send(LCD_FUNCTIONSET | 0x0f, 0);
-    send(LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF, 0);
+    command(LCD_FUNCTIONSET | 0x0f);
+    command(LCD_DISPLAYCONTROL | m_displayControl);
     clear();
 
     // Set entry mode.
-    send(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT, 0);
+    m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+    command(LCD_ENTRYMODESET | m_entryDisplayMode);
 
     home();
 }
@@ -126,13 +143,15 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
     write4bits(0x02);
 
     // Set number of lines
-    send(LCD_FUNCTIONSET | LCD_2LINE | LCD_4BITMODE | LCD_5x8DOTS, 0);
-    send(LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF, 0);
+    command(LCD_FUNCTIONSET | LCD_2LINE | LCD_4BITMODE | LCD_5x8DOTS);
+    m_displayControl = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+    command(LCD_DISPLAYCONTROL | m_displayControl);
     usleep(2000);
     clear();
 
     // Set entry mode.
-    send(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT, 0);
+    m_entryDisplayMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+    command(LCD_ENTRYMODESET | m_entryDisplayMode);
 
     home();
 }
@@ -166,7 +185,7 @@ Lcm1602::write(std::string msg)
 {
     mraa_result_t error = MRAA_SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        error = send(msg[i], LCD_RS);
+        error = data(msg[i]);
     }
     return error;
 }
@@ -179,14 +198,14 @@ Lcm1602::setCursor(int row, int column)
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
 
-    return send(LCD_CMD | offset, 0);
+    return command(LCD_CMD | offset);
 }
 
 mraa_result_t
 Lcm1602::clear()
 {
     mraa_result_t ret;
-    ret = send(LCD_CLEARDISPLAY, 0);
+    ret = command(LCD_CLEARDISPLAY);
     usleep(2000); // this command takes awhile
     return ret;
 }
@@ -195,7 +214,7 @@ mraa_result_t
 Lcm1602::home()
 {
     mraa_result_t ret;
-    ret = send(LCD_RETURNHOME, 0);
+    ret = command(LCD_RETURNHOME);
     usleep(2000); // this command takes awhile
     return ret;
 }
@@ -205,15 +224,96 @@ Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
 {
     mraa_result_t error = MRAA_SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
-    error = send(LCD_SETCGRAMADDR | (charSlot << 3), 0);
+    error = command(LCD_SETCGRAMADDR | (charSlot << 3));
     if (error == MRAA_SUCCESS) {
         for (int i = 0; i < 8; i++) {
-          error = send(charData[i], LCD_RS);
+          error = data(charData[i]);
         }
     }
 
     return error;
 }
+
+mraa_result_t Lcm1602::displayOn()
+{
+  m_displayControl |= LCD_DISPLAYON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::displayOff()
+{
+  m_displayControl &= ~LCD_DISPLAYON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::cursorOn()
+{
+  m_displayControl |= LCD_CURSORON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::cursorOff()
+{
+  m_displayControl &= ~LCD_CURSORON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::cursorBlinkOn()
+{
+  m_displayControl |= LCD_BLINKON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::cursorBlinkOff()
+{
+  m_displayControl &= ~LCD_BLINKON;
+  return command(LCD_DISPLAYCONTROL | m_displayControl);
+}
+
+mraa_result_t Lcm1602::scrollDisplayLeft()
+{
+  return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
+}
+
+mraa_result_t Lcm1602::scrollDisplayRight()
+{
+  return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
+}
+
+mraa_result_t Lcm1602::entryLeftToRight()
+{
+  m_entryDisplayMode |= LCD_ENTRYLEFT;
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
+}
+
+mraa_result_t Lcm1602::entryRightToLeft()
+{
+  m_entryDisplayMode &= ~LCD_ENTRYLEFT;
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
+}
+
+mraa_result_t Lcm1602::autoscrollOn()
+{
+  m_entryDisplayMode |= LCD_ENTRYSHIFTINCREMENT;
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
+}
+
+mraa_result_t Lcm1602::autoscrollOff()
+{
+  m_entryDisplayMode &= ~LCD_ENTRYSHIFTINCREMENT;
+  return command(LCD_ENTRYMODESET | m_entryDisplayMode);
+}
+
+mraa_result_t Lcm1602::command(uint8_t cmd)
+{
+  return send(cmd, 0);
+}
+
+mraa_result_t Lcm1602::data(uint8_t cmd)
+{
+  return send(cmd, LCD_RS); // 1
+}
+
 
 /*
  * **************

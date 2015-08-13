@@ -48,7 +48,7 @@ const uint8_t MHZ16_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief MHZ16 Serial CO2 sensor library
+     * @brief MHZ16 Serial CO2 Sensor library
      * @defgroup mhz16 libupm-mhz16
      * @ingroup seeed uart gaseous
      */
@@ -66,8 +66,8 @@ namespace upm {
      *
      * This class implements support for the Grove CO2 sensor.
      *
-     * It's CO2 detection ranges from 0PPM to 2000PPM.  It requires a
-     * 2-3 minute warm up time before reporting valid data.
+     * Its CO2 detection range is 0-2,000 ppm. It requires a
+     * 2-3 minute warm-up time before reporting valid data.
      *
      * @image html mhz16.jpg
      * @snippet mhz16.cxx Interesting
@@ -77,75 +77,75 @@ namespace upm {
 
 
     /**
-     * MHZ16 module constructor
+     * MHZ16 constructor
      *
-     * @param uart default uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     MHZ16(int uart);
 
     /**
-     * MHZ16 module Destructor
+     * MHZ16 destructor
      */
     ~MHZ16();
 
     /**
-     * Check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait.
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting.
+     * @return True if there is data available for reading
      */
     bool dataAvailable(unsigned int millis);
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data in a user-supplied buffer. Note: the
+     * call blocks until data is available to be read. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes read
      */
     int readData(char *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600).
+     * Sets up proper tty I/O modes and the baud rate. The default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.
-     * @return true if successful
+     * @param baud Desired baud rate.
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B9600);
 
     /**
-     * verify the packet header and indicate it's validity
+     * Verifies the packet header and indicates its validity
      *
-     * @param pkt the packet to check
-     * @return true if valid checksum, false otherwise
+     * @param pkt Packet to check
+     * @return True if the checksum is valid, false otherwise
      */
     bool verifyPacket(unsigned char *pkt);
 
     /**
-     * Query the sensor and return gas (CO2) concentration and
+     * Queries the sensor and returns gas (CO2) concentration and
      * temperature data.
      *
-     * @param gas the returned gas concentration
-     * @param temp the returned temperature in celsius
-     * @return true if successful
+     * @param gas Returned gas concentration
+     * @param temp Returned temperature in Celsius
+     * @return True if successful
      */
     bool getData(int *gas, int *temp);
 
     /**
-     * Set the zero point of the sensor
+     * Sets the zero point of the sensor
      *
      */
     void calibrateZeroPoint();

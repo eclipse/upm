@@ -34,7 +34,7 @@
 namespace upm {
 
   /**
-   * @brief AD8232 heart rate monitor library
+   * @brief AD8232 Heart Rate Monitor library
    * @defgroup ad8232 libupm-ad8232
    * @ingroup sparkfun gpio medical
    */
@@ -50,17 +50,17 @@ namespace upm {
    *
    * @brief UPM module for the AD8232 Heart Rate Monitor
    *
-   * Note, this sensor must be driven at 3.3v only.
+   * Note: this sensor must be driven at 3.3V only.
    *
-   * This module will simply spit out the ADC values reported by the
-   * sensor, with the intent being to send that data somewhere (via
-   * serial or network port) to another piece of software running on a
-   * computer that will plot the data for you, like an EKG.
+   * This module simply spits out the ADC values reported by the sensor, with
+   * the intent to send that data, via serial or network port, somewhere to
+   * another piece of software running on a computer that plots the data for
+   * you, like an EKG.
    * 
-   * Processing (https://www.processing.org/), is a piece of software
-   * that should work, using information from the Sparkfun website.
+   * Processing (https://www.processing.org/) is software
+   * that should work, using information from the SparkFun* website.
    *
-   * This example just dumps the raw data.
+   * This example just dumps the raw data:
    *
    * @image html ad8232.jpg
    * <br><em>AD8232 Heart Rate Monitor image provided by SparkFun under
@@ -76,20 +76,20 @@ namespace upm {
     /**
      * AD8232 constructor
      *
-     * @param loPlus digital pin to use for LO+
-     * @param loMinus digital pin to use LO-
-     * @param output analog pin to use for reading the data
+     * @param loPlus Digital pin to use for LO+
+     * @param loMinus Digital pin to use for LO-
+     * @param output Analog pin to read the data
      */
     AD8232(int loPlus, int loMinus, int output, float aref=AD8232_DEFAULT_AREF);
 
     /**
-     * AD8232 Destructor
+     * AD8232 destructor
      */
     ~AD8232();
 
     /**
-     * return the current ADC value for the device output pin.  If an
-     * LO (Leads Off) event is detected, 0 will be returned.
+     * Returns the current ADC value for the device output pin.  If an
+     * LO (leads off) event is detected, 0 is returned.
      *
      * @return ADC value
      */

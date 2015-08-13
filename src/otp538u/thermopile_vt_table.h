@@ -22,12 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// This table was taken from the 538U VT Table__20_200(v1.3).pdf
+// This table was taken from the '538U VT Table__20_200(v1.3).pdf'
 // datasheet, but the 25C column has been removed for consistency.
 
 static const int otp538u_vt_table_max = 23;
 
-// Thermister temperature (C)
+// Thermistor temperature (C)
 // { -20 -10 0 10 20 30 40 50 60 70 80 90 100 }
 
 static float otp538u_vt_table[otp538u_vt_table_max][13] = {

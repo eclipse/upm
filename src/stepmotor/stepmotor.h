@@ -41,7 +41,7 @@
 
 namespace upm {
 /**
- * @brief Stepper motor library
+ * @brief Stepper Motor library
  * @defgroup stepper libupm-stepper
  * @ingroup seeed sparkfun pwm gpio motor
  */
@@ -55,10 +55,10 @@ namespace upm {
  * @web http://www.schmalzhaus.com/EasyDriver/index.html
  * @con pwm gpio
  *
- * @brief API for the Stepper motor library
+ * @brief API for the Stepper Motor
  * 
- * This file defines the StepMotor interface. It is compatible with Stepper
- * Motor Drivers that use 2 pins to control the motor, like the EasyDriver
+ * This file defines the Stepper Motor interface. It is compatible with stepper
+ * motor drivers that use 2 pins to control the motor, like an Easy Driver
  * from Brian Schmalz.
  *
  * @image html stepmotor.jpg
@@ -69,34 +69,34 @@ class StepMotor {
         /**
          * Instantiates a StepMotor object
          *
-         * @param dirPin direction GPIO pin
-         * @param stePin stepper pulse PWM pin
+         * @param dirPin Direction GPIO pin
+         * @param stePin Stepper pulse PWM pin
          */
         StepMotor (int dirPin, int stePin);
 
         /**
-         * StepMotor object destructor.
+         * StepMotor object destructor
          */
         ~StepMotor ();
 
         /**
-         * Set the speed of rotation
+         * Sets the rotation speed
          *
-         * @param speed rotation speed
+         * @param speed Rotation speed
          */
         void setSpeed (int speed);
 
         /**
-         * Rotate motor forward
+         * Rotates the motor forward
          *
-         * @param ticks number of ticks the motor will move
+         * @param ticks Number of ticks the motor moves
          */
         mraa_result_t stepForward (int ticks);
 
         /**
-         * Rotate motor backward
+         * Rotates the motor backward
          *
-         * @param ticks number of ticks the motor will move
+         * @param ticks Number of ticks the motor moves
          */
         mraa_result_t stepBackwards (int ticks);
 

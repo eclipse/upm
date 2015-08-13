@@ -58,10 +58,10 @@ namespace upm {
  * @man seeed
  * @con uart
  *
- * @brief API for the HMTRP Serial RF Pro
+ * @brief API for the HM-TRP Serial RF Pro transceiver
  *
- * UPM support for the HMTRP Serial RF Pro.  This was tested
- * specifically with the Grove Serial RF Pro module.  In theory,
+ * UPM support for the HM-TRP Serial RF Pro transceiver. This was tested
+ * specifically with the Grove Serial RF Pro transceiver. In theory,
  * this class should work with the following devices:
  *
  * HM-TRP-433: 414000000-454000000Hz
@@ -69,12 +69,12 @@ namespace upm {
  * HM-TRP-868: 849000000-889000000Hz
  * HM-TRP-915: 895000000-935000000Hz 
  *
- * The only difference being the transmit and receive frequencies
+ * The only difference is the transmit and receive frequencies
  * supported.
  *
- * By default, the device will simply send and receive any data
- * presented on it's UART interface.  It can be placed into a
- * configuration mode by grounding the CONFIG pin on the module.
+ * By default, the device simply sends and receives any data
+ * presented on its UART interface. It can be put into a
+ * configuration mode by grounding the CONFIG pin on the transceiver.
  *
  * @image html hmtrp.jpg
  * @snippet hmtrp.cxx Interesting
@@ -96,150 +96,150 @@ namespace upm {
     } HMTRP_OPCODE_T;
     
     /**
-     * HMTRP Serial RF Pro module constructor
+     * HMTRP Serial RF Pro transceiver constructor
      *
-     * @param uart default uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     HMTRP(int uart=HMTRP_DEFAULT_UART);
 
     /**
-     * HMTRP Serial RF Pro module Destructor
+     * HMTRP destructor
      */
     ~HMTRP();
 
     /**
-     * Check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait (default).
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting (default).
+     * @return True if there is data available for reading
      */
     bool dataAvailable(unsigned int millis=0);
 
     /**
-     * read any available data into a user-supplied buffer.
+     * Reads any available data in a user-supplied buffer
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @param millis maxim time in milliseconds to wait for input. -1 means 
-     * wait forever (default).
-     * @return the number of bytes read, 0 if timed out and millis >= 0
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @param millis Maximum time in milliseconds to wait for input. -1 means 
+     * waiting forever (default).
+     * @return Number of bytes read; 0 if timed out and millis is >= 0
      */
     int readData(char *buffer, size_t len, int millis=-1);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600).
+     * Sets up proper tty I/O modes and the baud rate. The default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.  
-     * @return true if successful
+     * @param baud Desired baud rate.  
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B9600);
 
     /**
-     * Look for and verify an OK response. This will look like "OK\r\n"
+     * Looks for and verifies an OK response. This looks like "OK\r\n"
      *
-     * @return true if OK received
+     * @return True if OK received
      */
     bool checkOK();
     
     /**
-     * reset the device to default parameters, except for UART baud rate
+     * Resets the device to default parameters, except for the UART baud rate
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool reset();
 
     /**
-     * Query the radio to determine it's configuration
+     * Queries the radio to determine its configuration
      *
-     * @param freq operating frequency
-     * @param dataRate tx/rx bit rate
-     * @param rxBandwidth receiving bandwidth in Khz
-     * @param modulation modulation frequency in Khz
-     * @param txPower transmission power (1-7)
+     * @param freq Operating frequency
+     * @param dataRate TX/RX bit rate
+     * @param rxBandwidth Receiving bandwidth in Khz
+     * @param modulation Modulation frequency in Khz
+     * @param txPower Transmission power (1-7)
      * @param uartBaud UART baud rate
-     * @return true if successful
+     * @return True if successful
      */
     bool getConfig(uint32_t *freq, uint32_t *dataRate, uint16_t *rxBandwidth,
                    uint8_t *modulation, uint8_t *txPower, uint32_t *uartBaud);
 
     /**
-     * set the frequency.  Note, this is limited depending on which
-     * HM-TRP device you are using.  Consult the datasheet.
+     * Sets the frequency. Note: this is limited depending on which
+     * HM-TRP device you are using. Consult the datasheet.
      *
-     * @param freq operating frequency
-     * @return true if successful
+     * @param freq Operating frequency
+     * @return True if successful
      */
     bool setFrequency(uint32_t freq);
 
     /**
-     * set the RF data transmission rate.  Valid values are between
-     * 1200-115200.
+     * Sets the RF data transmission rate. Valid values are between
+     * 1,200 and 115,200.
      *
-     * @param rate radio transmission rate in baud (1200-115200)
-     * @return true if successful
+     * @param rate Radio transmission rate in baud (1,200-115,200)
+     * @return True if successful
      */
     bool setRFDataRate(uint32_t rate);
 
     /**
-     * set the RX bandwidth.  Valid values are between 30-620 (in Khz)
+     * Sets the RX bandwidth. Valid values are between 30 and 620 (in Khz)
      *
-     * @param rxBand set receive bandwidth (30-620) Khz
-     * @return true if successful
+     * @param rxBand RX bandwidth in Khz (30-620)
+     * @return True if successful
      */
     bool setRXBandwidth(uint16_t rxBand);
 
     /**
-     * set the frequency modulation.  Valid values are between 10-160 (in Khz)
+     * Sets the frequency modulation. Valid values are between 10 and 160 (in Khz)
      *
-     * @param modulation frequency modulation to use (10-160) Khz
-     * @return true if successful
+     * @param modulation Frequency modulation to use, in Khz (10-160)
+     * @return True if successful
      */
     bool setFrequencyModulation(uint8_t modulation);
 
     /**
-     * set the transmit power level.  Valid values are between 0-7,
-     * with 7 being maximum power.
+     * Sets the transmit power level. Valid values are between 0 and 7,
+     * 7 being the maximum power.
      *
-     * @param power power level to use during transmit.  Vaild values
-     * are between 0-7.
-     * @return true if successful
+     * @param power Power level to use during transmission. Valid values
+     * are between 0 and 7.
+     * @return True if successful
      */
     bool setTransmitPower(uint8_t power);
 
     /**
-     * set the configured baud rate of the UART.  It is strongly
-     * recommended that you do not change this or you may lose the
-     * ability to communicate with the module.  Valid values are 1200-115200.
+     * Sets the configured baud rate of the UART. It is strongly
+     * recommended you do not change this, or you may lose the
+     * ability to communicate with the transceiver. Valid values are 1,200-115,200.
      *
-     * @param speed desired baud rate to configure the device to use.
-     * Valid values are between 1200-115200.
-     * @return true if successful
+     * @param speed Desired baud rate to configure the device to use
+     * Valid values are between 1,200 and 115,200.
+     * @return True if successful
      */
     bool setUARTSpeed(uint32_t speed);
 
     /**
-     * get the RF signal strength.
+     * Gets the RF signal strength
      *
-     * @param strength the returned strength
-     * @return true if successful
+     * @param strength Returned strength
+     * @return True if successful
      */
     bool getRFSignalStrength(uint8_t *strength);
 
     /**
-     * get the Modulation signal strength.
+     * Gets the modulation signal strength.
      *
-     * @param strength the returned strength
-     * @return true if successful
+     * @param strength Returned strength
+     * @return True if successful
      */
     bool getModSignalStrength(uint8_t *strength);
 

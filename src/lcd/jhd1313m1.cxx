@@ -2,6 +2,8 @@
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Contributions: Jon Trulson <jtrulson@ics.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -33,33 +35,27 @@
 using namespace upm;
 
 Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
-  : m_i2c_lcd_rgb(bus), m_i2c_lcd_control(bus)
+  : m_i2c_lcd_rgb(bus), Lcm1602(bus, lcdAddress, false)
 {
     m_rgb_address = rgbAddress;
     m_name = "Jhd1313m1";
-
-    m_lcd_control_address = lcdAddress;
 
     mraa_result_t ret = m_i2c_lcd_rgb.address(m_rgb_address);
     if (ret != MRAA_SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
-    ret = m_i2c_lcd_control.address(m_lcd_control_address);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-    }
-
     usleep(50000);
-    ret = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_FUNCTIONSET | LCD_2LINE);
+    ret = command(LCD_FUNCTIONSET | LCD_2LINE);
 
     if (!ret) {
-        ret = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_FUNCTIONSET | LCD_2LINE);
+        ret = command(LCD_FUNCTIONSET | LCD_2LINE);
         UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
     }
 
     usleep(100);
-    ret = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_DISPLAYCONTROL | LCD_DISPLAYON);
+    ret = displayOn();
+
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(100);
@@ -67,8 +63,7 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(2000);
-    ret =
-    m_i2c_lcd_control.writeReg(LCD_CMD, LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
+    ret = command(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     ret = m_i2c_lcd_rgb.writeReg(0, 0);
@@ -118,71 +113,18 @@ mraa_result_t
 Jhd1313m1::scroll(bool direction)
 {
     if (direction) {
-        return m_i2c_lcd_control.writeReg(LCD_CMD, LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
+        return scrollDisplayLeft();
     } else {
-        return m_i2c_lcd_control.writeReg(LCD_CMD,
-                                          LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
+        return scrollDisplayRight();
     }
 }
 
-mraa_result_t
-Jhd1313m1::createChar(uint8_t charSlot, uint8_t charData[])
+mraa_result_t Jhd1313m1::command(uint8_t cmd)
 {
-    mraa_result_t error = MRAA_SUCCESS;
-    charSlot &= 0x07; // only have 8 positions we can set
-    error = m_i2c_lcd_control.writeReg(LCD_CMD, LCD_SETCGRAMADDR | (charSlot << 3));
-    if (error == MRAA_SUCCESS) {
-        for (int i = 0; i < 8; i++) {
-            error = m_i2c_lcd_control.writeReg(LCD_DATA, charData[i]);
-        }
-    }
+  return m_i2c_lcd_control->writeReg(LCD_CMD, cmd);
 
-    return error;
 }
-
-/*
- * **************
- *  virtual area
- * **************
- */
-mraa_result_t
-Jhd1313m1::write(std::string msg)
+mraa_result_t Jhd1313m1::data(uint8_t cmd)
 {
-    mraa_result_t ret = MRAA_SUCCESS;
-
-    // This usleep fixes an odd bug where the clear function doesn't always work properly
-    usleep(1000);
-
-    for (std::string::size_type i = 0; i < msg.size(); ++i) {
-        ret = m_i2c_lcd_control.writeReg(LCD_DATA, msg[i]);
-        UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    }
-
-beach:
-    return ret;
-}
-
-mraa_result_t
-Jhd1313m1::setCursor(int row, int column)
-{
-    mraa_result_t ret;
-
-    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
-    uint8_t offset = ((column % 16) + row_addr[row]);
-
-    ret = m_i2c_lcd_control.writeReg(LCD_CMD, offset);
-
-    return ret;
-}
-
-mraa_result_t
-Jhd1313m1::clear()
-{
-    return m_i2c_lcd_control.writeReg(LCD_CMD, LCD_CLEARDISPLAY);
-}
-
-mraa_result_t
-Jhd1313m1::home()
-{
-    return m_i2c_lcd_control.writeReg(LCD_CMD, LCD_RETURNHOME);
+  return m_i2c_lcd_control->writeReg(LCD_DATA, cmd);
 }

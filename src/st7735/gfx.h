@@ -36,17 +36,17 @@ namespace upm {
 /**
  * @brief GFX helper class
  *
- * This file used by the screen.
+ * This file is used by the screen.
  */
 class GFX {
     public:
         /**
-         * Instanciates a GFX object
+         * Instantiates a GFX object
          *
-         * @param width screen width
-         * @param height screen height
-         * @param screenBuffer pointer to screen buffer
-         * @param font pointer to font map
+         * @param width Screen width
+         * @param height Screen height
+         * @param screenBuffer Pointer to the screen buffer
+         * @param font Pointer to the font map
          */
         GFX (int width, int height, uint8_t * screenBuffer, const unsigned char * font);
 
@@ -56,147 +56,147 @@ class GFX {
         ~GFX ();
 
         /**
-         * Set the window address
+         * Sets the window address
          *
-         * @param x0 first coordinate
-         * @param y0 first coordinate
-         * @param x1 second coordinate
-         * @param y1 second coordinate
+         * @param x0 First coordinate
+         * @param y0 First coordinate
+         * @param x1 Second coordinate
+         * @param y1 Second coordinate
          */
         virtual void setAddrWindow (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) = 0;
 
         /**
-         * Send pixel collor (RGB) to the chip. Must be implemented by
+         * Sends a pixel color (RGB) to the chip. Must be implemented by the
          * inherited class.
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
-         * @param color rgb value
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
+         * @param color RGB value
          */
         virtual void drawPixel (int16_t x, int16_t y, uint16_t color) = 0;
 
         /**
-         * Copy the buffer to the chip via SPI interface.
+         * Copies the buffer to the chip via the SPI.
          */
         virtual void refresh () = 0;
 
         /**
          *
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
-         * @param data character to write
-         * @param color character's color
-         * @param bg character's background color
-         * @param size size of the font
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
+         * @param data Character to write
+         * @param color Character color
+         * @param bg Character background color
+         * @param size Size of the font
          */
         void drawChar (int16_t x, int16_t y, uint8_t data, uint16_t color, uint16_t bg, uint8_t size);
 
         /**
-         * Print the message to the screen
+         * Prints a message on the screen
          *
-         * @param msg message which will be printed
+         * @param msg Message to print
          */
         void print (std::string msg);
 
         /**
-         * Print the message to the screen
+         * Prints a message on the screen
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
-         * @param color pixel's color
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
+         * @param color Pixel color
          */
         mraa_result_t setPixel (int x, int y, uint16_t color);
 
         /**
-         * Fill screen with selected color
+         * Fills the screen with a selected color
          *
-         * @param color selected's color
+         * @param color Selected color
          */
         void fillScreen (uint16_t color);
 
         /**
-         * Fill rectangle with selected color
+         * Fills a rectangle with a selected color
          *
-         * @param x axis on horizontal scale (top left corner)
-         * @param y axis on vertical scale (top left corner)
-         * @param w distanse from x
-         * @param h distanse from y
-         * @param color selected color
+         * @param x Axis on the horizontal scale (top-left corner)
+         * @param y Axis on the vertical scale (top-left corner)
+         * @param w Distanse from x
+         * @param h Distanse from y
+         * @param color Selected color
          */
         void fillRect (int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 
         /**
-         * Draw line in vertical scale.
+         * Draws a line on the vertical scale
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
-         * @param h distanse from y
-         * @param color selected color
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
+         * @param h Distanse from y
+         * @param color Selected color
          */
         void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 
         /**
-         * Draw line from coordinate C0 to coordinate C1
+         * Draws a line from coordinate C0 to coordinate C1
          *
-         * @param x0 first coordinate
-         * @param y0 first coordinate
-         * @param x1 second coordinate
-         * @param y1 second coordinate
+         * @param x0 First coordinate
+         * @param y0 First coordinate
+         * @param x1 Second coordinate
+         * @param y1 Second coordinate
          * @param color selected color
          */
         void drawLine (int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 
         /**
-         * Draw a triangle
+         * Draws a triangle
          *
-         * @param x0 first coordinate
-         * @param y0 first coordinate
-         * @param x1 second coordinate
-         * @param y1 second coordinate
-         * @param x2 third coordinate
-         * @param y2 third coordinate
-         * @param color selected color
+         * @param x0 First coordinate
+         * @param y0 First coordinate
+         * @param x1 Second coordinate
+         * @param y1 Second coordinate
+         * @param x2 Third coordinate
+         * @param y2 Third coordinate
+         * @param color Selected color
          */
         void drawTriangle (int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 
         /**
-         * Draw a circle
+         * Draws a circle
          *
-         * @param x center of circle on X scale
-         * @param y center of circle on Y scale
-         * @param r radius of circle
-         * @param color color of circle
+         * @param x Center of the circle on the horizontal scale
+         * @param y Center of the circle on the vertical scale
+         * @param r Radius of the circle
+         * @param color Color of the circle
          */
         void drawCircle (int16_t x, int16_t y, int16_t r, uint16_t color);
 
         /**
-         * Set cursor for text message
+         * Sets the cursor for a text message
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
          */
         void setCursor (int16_t x, int16_t y);
 
         /**
-         * Set text color for the message
+         * Sets a text color for a message
          *
-         * @param textColor font color
-         * @param textBGColor background color
+         * @param textColor Font color
+         * @param textBGColor Background color
          */
         void setTextColor (uint16_t textColor, uint16_t textBGColor);
 
         /**
-         * Set the size of the font
+         * Sets the size of the font
          *
-         * @param size font size
+         * @param size Font size
          */
         void setTextSize (uint8_t size);
 
         /**
-         * Wrap printed message.
+         * Wraps a printed message
          *
-         * @param wrap true (0x1) or false (0x0)
+         * @param wrap True (0x1) or false (0x0)
          */
         void setTextWrap (uint8_t wrap);
 

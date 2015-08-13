@@ -59,7 +59,7 @@
 
 namespace upm {
     /**
-     * @brief ZFM-20 fingerprint sensor module library
+     * @brief ZFM-20 Fingerprint Sensor Module library
      * @defgroup zfm20 libupm-zfm20
      * @ingroup seeed uart touch
      */
@@ -73,14 +73,14 @@ namespace upm {
      * @man seeed
      * @con uart
      *
-     * @brief API for the ZFM-20 fingerprint sensor module
+     * @brief API for the ZFM-20 Fingerprint Sensor Module
      *
      * This class was tested on the Grove Fingerprint Sensor
      * Module. It can store up to 163 fingerprints.
      *
-     * It is connected via a UART at 57600 baud.
+     * It is connected via a UART at 57,600 baud.
      *
-	 * @image html zfm20.jpg
+     * @image html zfm20.jpg
      * This example demonstrates how to register and store a new fingerprint
      * @snippet zfm20-register.cxx Interesting
      * This example demonstrates reading a fingerprint and locating it in the DB
@@ -138,7 +138,7 @@ namespace upm {
       ERR_INVALID_REG                   = 0x1a,
       ERR_INVALID_ADDR                  = 0x20,
       ERR_NEEDS_PWD                     = 0x21,
-      // end of module specific errors
+      // end of module-specific errors
       ERR_INTERNAL_ERR                  = 0xff  // API internal error
     } ZFM20_ERRORS_T;
 
@@ -150,215 +150,215 @@ namespace upm {
     } ZFM20_PKTCODES_T;
 
     /**
-     * ZFM20 module constructor
+     * ZFM20 constructor
      *
-     * @param uart default uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     ZFM20(int uart);
 
     /**
-     * ZFM20 module Destructor
+     * ZFM20 destructor
      */
     ~ZFM20();
 
     /**
-     * check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait.
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting
+     * @return true if there is data available for reading
      */
     bool dataAvailable(unsigned int millis);
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data in a user-supplied buffer. Note: the
+     * call blocks until data is available to be read. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes read
      */
     int readData(char *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 57600 (B57600) for this device.
+     * Sets up proper tty I/O modes and the baud rate. For this device,
+     * the default baud rate is 57,600 (B57600).
      *
-     * @param baud the desired baud rate.
-     * @return true if successful
+     * @param baud Desired baud rate.
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B57600);
 
     /**
-     * compose and write a command packet
+     * Composes and writes a command packet
      *
-     * @param pkt the packet
-     * @param len length of packet
-     * @return the number of bytes written
+     * @param pkt Packet
+     * @param len Length of packet
+     * @return Number of bytes written
      */
     int writeCmdPacket(unsigned char *pkt, int len);
 
     /**
-     * verify the packet header and indicate it's validity
+     * Verifies the packet header and indicates its validity
      *
-     * @param pkt the packet to check
-     * @return true if valid checksum, false otherwise
+     * @param pkt Packet to check
+     * @return True if the checksum is valid, false otherwise
      */
     bool verifyPacket(unsigned char *pkt);
 
     /**
-     * Return the number of milliseconds elapsed since initClock()
-     * was last called.
+     * Returns the number of milliseconds elapsed since initClock()
+     * was last called
      *
-     * @return elapsed milliseconds
+     * @return Elapsed milliseconds
      */
     uint32_t getMillis();
 
     /**
-     * Reset the Clock
+     * Resets the clock
      *
      */
     void initClock();
 
     /**
-     * set the address that should be used to access the module
+     * Sets the address that should be used to access the module
      *
-     * @param addr the address to use
+     * @param addr Address to use
      */
     void setAddress(uint32_t addr) { m_address = addr; };
 
     /**
-     * set the password that should be used to access the module
+     * Sets the password that should be used to access the module
      *
-     * @param pw password to use
+     * @param pw Password to use
      */
     void setPassword(uint32_t pw) { m_password = pw; };
 
     /**
-     * get the returned data from a request
+     * Gets the returned data from a request
      *
-     * @param pkt the buffer to store the returned data into
-     * @param len the expected response length.  pkt should be at least this
-     * big.
-     * @return true if successful
+     * @param pkt Buffer to store the returned data
+     * @param len Expected response length; pkt should be at least this
+     * large
+     * @return True if successful
      */
     bool getResponse(unsigned char *pkt, int len);
 
     /**
-     * verify and authenticate to the module.  The password used is
-     * the one last set by setPassword().
+     * Verifies and authenticates to the module. The password used is
+     * the last one set by setPassword().
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool verifyPassword();
 
     /**
-     * query the module for the number of stored templates
+     * Queries the module for the number of stored templates
      * (fingerprints).
      *
-     * @return the number of currently stored templates
+     * @return Number of currently stored templates
      */
     int getNumTemplates();
 
     /**
-     * set a new password for the module.  This passowrd will be
-     * stored on the module, and will be required in order to access
+     * Sets a new password for the module. This passowrd is
+     * stored in the module, and is required to access
      * the module in the future.
      *
-     * @param pwd the new password to set on the module
-     * @return true if successful
+     * @param pwd New password to set on the module
+     * @return True if successful
      */
     bool setNewPassword(uint32_t pwd);
 
     /**
-     * set a new address for the module.  This address will be
-     * stored on the module, and will be required in order to access
+     * Sets a new address for the module. This address is
+     * stored in the module, and is required to access
      * the module in the future.
      *
-     * @param addr the new address to set on the module
-     * @return true if successful
+     * @param addr New address to set on the module
+     * @return True if successful
      */
     bool setNewAddress(uint32_t addr);
 
     /**
-     * generate a new fingerprint image (scan a fingerprint)
+     * Generates a new fingerprint image (scans a fingerprint)
      *
-     * @return one of the ZFM20_ERRORS_T values
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t generateImage();
 
     /**
-     * convert the image in the image buffer (generated by
-     * generateImage()) and store it in one of the two characteristics
+     * Converts the image in the image buffer (generated by
+     * generateImage()) and stores it in one of the two characteristics
      * buffers, 1 or 2
      *
-     * @param slot the characteristics buffer to use.  Must be 1 or 2.
-     * @return one of the ZFM20_ERRORS_T values
+     * @param slot Characteristics buffer to use; must be 1 or 2
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t image2Tz(int slot);
 
     /**
-     * based on the two characteristics bufferes (1 & 2), create a
-     * fingerprint model.  Once a model has been successfully created,
+     * Based on the two characteristics buffers (1 & 2), creates a
+     * fingerprint model. Once a model is successfully created,
      * it can be stored in the module with storeModel().
      *
-     * @return one of the ZFM20_ERRORS_T values
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t createModel();
 
     /**
-     * once a fingerprint model has been created, this method can be
+     * Once a fingerprint model is created, this method can be
      * used to store it (via one of the characteristics buffers) in a
      * given location.
      *
-     * @param slot the characteristics buffer to store (1 or 2)
-     * @param id the location in which to store the model
-     * @return one of the ZFM20_ERRORS_T values
+     * @param slot Characteristics buffer to store the model, 1 or 2
+     * @param id Location to store the model
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t storeModel(int slot, uint16_t id);
 
     /**
-     * delete a stored model.
+     * Deletes a stored model
      *
-     * @param id the location containing the model to delete
-     * @return one of the ZFM20_ERRORS_T values
+     * @param id Location containing the model to delete
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t deleteModel(uint16_t id);
 
     /**
-     * delete the model database
+     * Deletes the model database (DB)
      *
-     * @return one of the ZFM20_ERRORS_T values
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t deleteDB();
 
     /**
-     * search the fingerprint DB and return the id and score, if found
+     * Searches the fingerprint DB and returns an ID and score, if found
      *
      *
-     * @param slot the slot containing a converted image to search for
-     * @param id the returned id if found, 0 otherwise
-     * @param score the returned score if found, 0 otherwise
-     * @return one of the ZFM20_ERRORS_T values
+     * @param slot Slot containing a converted image to search for
+     * @param id ID if found, 0 otherwise
+     * @param score Score if found, 0 otherwise
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t search(int slot, uint16_t *id, uint16_t *score);
 
     /**
-     * compares the features in characteristic buffers 1 and 2 and
+     * Compares the features in characteristics buffers 1 and 2 and
      * returns a score if they match
      *
-     * @param score the returned score
-     * @return one of the ZFM20_ERRORS_T values
+     * @param score Score
+     * @return One of the ZFM20_ERRORS_T values
      */
     uint8_t match(uint16_t *score);
 

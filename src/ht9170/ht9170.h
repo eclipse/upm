@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief HT9170 DTMF decoder library
+   * @brief HT9170 DTMF Decoder library
    * @defgroup ht9170 libupm-ht9170
    * @ingroup seeed gpio other
    */
@@ -46,9 +46,9 @@ namespace upm {
    *
    * @brief API for the HT9170 DTMF Decoder
    *
-   * This driver was developed using the Seeed DTMF (Dual Tone
-   * Multi-Frequency) Shield.  It can decode DTMF signals presented at
-   * it's audio input.  It does not generate DTMF signals.
+   * This driver was developed using the DTMF (Dual-Tone
+   * Multi-Frequency) Shield by Seeed Studio*. It can decode DTMF signals presented at
+   * its audio input. It does not generate DTMF signals.
    *
    * @image html ht9170.jpg
    * @snippet ht9170.cxx Interesting
@@ -59,28 +59,28 @@ namespace upm {
     /**
      * HT9170 constructor
      *
-     * @param dr data ready pin
-     * @param o1 digital pin for data output 1
-     * @param o2 digital pin for data output 2
-     * @param o3 digital pin for data output 3
-     * @param o4 digital pin for data output 4
+     * @param dr Data ready pin
+     * @param o1 Digital pin for data output 1
+     * @param o2 Digital pin for data output 2
+     * @param o3 Digital pin for data output 3
+     * @param o4 Digital pin for data output 4
      */
     HT9170(int dr, int o1, int o2, int o3, int o4);
 
     /**
-     * HT9170 Destructor
+     * HT9170 destructor
      */
     ~HT9170();
 
     /**
-     * check to see if a DTMF number is ready to be read
+     * Checks to see if a DTMF number is ready to be read
      *
-     * @return true if there is a digit available to decode
+     * @return True if there is a digit available to decode
      */
     bool digitReady();
 
     /**
-     * decode a digit and return it
+     * Decodes a digit and returns it
      *
      */
     char decodeDigit();
