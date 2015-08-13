@@ -58,6 +58,7 @@ option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
 option (BUILDSWIGNODE "Build swig node modules." ON)
 option (BUILDEXAMPLES "Build C++ example binaries" OFF)
+option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 
