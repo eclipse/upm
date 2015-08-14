@@ -1,8 +1,9 @@
 %module javaupm_lsm9ds0
 %include "../upm.i"
 %include "cpointer.i"
+%include "typemaps.i"
 
-%pointer_functions(float, floatp);
+%apply float *INOUT { float *x, float *y, float *z };
 
 %include "lsm9ds0.h"
 %{

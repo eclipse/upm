@@ -1,10 +1,11 @@
 %module javaupm_h3lis331dl
 %include "../upm.i"
 %include "cpointer.i"
+%include "typemaps.i"
 
-/* Send "int *" and "float *" to JavaScript as intp and floatp */
-%pointer_functions(int, intp);
-%pointer_functions(float, floatp);
+%apply int *OUTPUT { int *x, int *y, int*z };
+%apply float *OUTPUT { float *aX, float *aY, float *aZ  };
+
 
 %{
     #include "h3lis331dl.h"
