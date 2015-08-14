@@ -10,3 +10,8 @@
 %{
     #include "es08a.h"
 %}
+
+%include "es9257.h"
+%{
+    #include "es9257.h"
+%}
