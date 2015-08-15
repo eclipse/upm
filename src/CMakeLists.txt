@@ -89,10 +89,10 @@ macro(upm_SWIG_JAVA)
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD
         COMMAND cmake -E echo "Compiling java.."
-        COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
+        COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}
         COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND cmake -E echo "Creating jar"
-        COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
+        COMMAND ${JAR} cvf javaupm_${libname}.jar javaupm_${libname}
     )
 
   endif()
