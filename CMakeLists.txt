@@ -16,7 +16,9 @@ find_package (PkgConfig REQUIRED)
 
 # This is required for Fedora builds
 # Make sure pkg-config searches /usr/lib/pkgconfig as mraa.pc will be in this directory
-set (ENV{PKG_CONFIG_PATH} "/usr/lib/pkgconfig")
+if (NOT DEFINED ENV{PKG_CONFIG_PATH})
+   set (ENV{PKG_CONFIG_PATH} "/usr/lib/pkgconfig")
+endif()
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
