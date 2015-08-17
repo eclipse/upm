@@ -28,23 +28,6 @@
 
 #include "upm/iLightSensor.h"
 
-#define SI1132_ADDRESS                  0x60
-
-/* REGISTER ADDRESSES */
-#define SI1132_REG_PART_ID              0x00
-#define SI1132_REG_HW_KEY               0x07
-#define SI1132_REG_MEAS_RATE0           0x08
-#define SI1132_REG_MEAS_RATE1           0x09
-#define SI1132_REG_COMMAND              0x18
-#define SI1132_REG_RESPONSE             0x20
-#define SI1132_REG_ALS_VIS_DATA0        0x22
-#define SI1132_REG_ALS_VIS_DATA1        0x23
-
-
- 
-/* REGISTER VALUES */
-#define SI1132_PART_ID                  0x32
-#define SI1132_HW_KEY_INIT              0x17 
 
 namespace upm {
 
@@ -97,7 +80,14 @@ class SI1132 : public ILightSensor {
     private:
         mraa_result_t i2cReadRegister(uint8_t reg, uint8_t* value);
         mraa_result_t i2cReadRegister(uint8_t reg, uint16_t* value);
+        mraa_result_t writeRegister8(uint8_t reg, uint8_t value);
+        mraa_result_t writeRegister16(uint8_t reg, uint16_t value);        
         mraa_result_t clearResponseRegister();
+        mraa_result_t runCommand(uint8_t command);
+        mraa_result_t readParam(uint8_t param, uint8_t* value);
+        mraa_result_t writeParam(uint8_t param, uint8_t value);
+        void sleepMs(int mseconds);
+
         mraa_i2c_context i2c;
         mraa_result_t status;
 };
