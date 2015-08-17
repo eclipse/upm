@@ -2,7 +2,9 @@
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
-
+%include "arrays_java.i";
+        
+%apply unsigned char[] {uint8_t *};
 %apply uint8_t *OUTPUT { uint8_t *data };
 
 %include "ssd.h"

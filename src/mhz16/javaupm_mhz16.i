@@ -2,8 +2,10 @@
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
+%include "arrays_java.i";
+        
+%apply unsigned char[] {unsigned char *};
 
-/* Send "int *" to JavaScript as intp */
 %apply int *OUTPUT { int *gas, int *temp };
 
 %{

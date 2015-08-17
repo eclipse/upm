@@ -4,6 +4,9 @@
 
 
 #if (SWIGJAVA)
+    /*    %include "arrays_java.i";*/
+    /*    %apply unsigned char[] {uint8_t *mama}; */
+ 
         %apply int { speed_t };
         %apply int { mraa_result_t };
 #endif
