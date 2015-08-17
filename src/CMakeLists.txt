@@ -111,7 +111,7 @@ macro(upm_module_init)
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIR} .)
+  include_directories (${MRAA_INCLUDE_DIR} . ..)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
