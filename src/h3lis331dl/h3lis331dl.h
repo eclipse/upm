@@ -32,7 +32,7 @@
 namespace upm {
   
   /**
-   * @brief H3LIS331DL I2C accelerometer (400g) library
+   * @brief H3LIS331DL I2C Accelerometer (400g) library
    * @defgroup h3lis331dl libupm-h3lis331dl
    * @ingroup seeed i2c accelerometer
    */
@@ -47,9 +47,9 @@ namespace upm {
    * @web http://www.seeedstudio.com/depot/Grove-3Axis-Digital-Accelerometer400g-p-1897.html
    * @con i2c
    *
-   * @brief API for the H3LIS331DL based Grove 3-axis I2C (400G)
+   * @brief API for the H3LIS331DL-based Grove 3-Axis Digital Accelerometer (400g)
    *
-   * This is a high performance, high range accelerometer for extreme applications.
+   * This is a high-performance, high-range accelerometer for extreme applications.
    *
    * @image html h3lis331dl.jpg
    * @snippet h3lis331dl.cxx Interesting
@@ -62,7 +62,7 @@ namespace upm {
      */
     typedef enum {
       // Reserved bytes must not be written into as they contain
-      // factory calibration data.  Changing those values may lead to
+      // factory calibration data. Changing those values may lead to
       // improper functioning of the device.
 
       // 0x00-0x0E reserved 
@@ -108,7 +108,7 @@ namespace upm {
      * REG1 bits
      */
     typedef enum {
-      REG1_XEN                  = 0x01, // X axis enable
+      REG1_XEN                  = 0x01, // X-axis enable
       REG1_YEN                  = 0x02,
       REG1_ZEN                  = 0x04,
 
@@ -133,7 +133,7 @@ namespace upm {
     } DR_BITS_T;
 
     /**
-     * REG1 PM (Power mode) bits
+     * REG1 PM (power mode) bits
      */
     typedef enum {
       PM_POWERDWN               = 0x0,
@@ -165,7 +165,7 @@ namespace upm {
     } REG2_BITS_T;
 
     /**
-     * REG2 HPCF (High Pass Cutoff Frequency) bits
+     * REG2 HPCF (high-pass cutoff frequency) bits
      */
     typedef enum {
       HPCF_8                    = 0x0,
@@ -175,7 +175,7 @@ namespace upm {
     } HPCF_BITS_T;
 
     /**
-     * REG2 HPM (High Pass Filter Mode) bits
+     * REG2 HPM (high-pass filter mode) bits
      */
     typedef enum {
       HPM_NORMAL0               = 0x0,
@@ -224,12 +224,12 @@ namespace upm {
       REG4_FS1                  = 0x20,
       REG4_FS_SHIFT             = 4,
 
-      REG4_BLE                  = 0x40, // big/little endian
+      REG4_BLE                  = 0x40, // big/little-endian
       REG4_BDU                  = 0x80  // Block data update
     } REG4_BITS_T;
 
     /**
-     * REG4 FS (Full Scale) bits
+     * REG4 FS (full scale) bits
      */
     typedef enum {
       FS_100                    = 0x0, // 100g scale
@@ -241,7 +241,7 @@ namespace upm {
      * REG5 TURNON (sleep to wake) bits
      */
     typedef enum {
-      REG5_TURNON0              = 0x01, // turnon mode for sleep-to-wake
+      REG5_TURNON0              = 0x01, // turn-on mode for sleep-to-wake
       REG5_TURNON1              = 0x02
  
       // bits 04-80 reserved
@@ -290,314 +290,314 @@ namespace upm {
     } INT_SRC_BITS_T;
     
     /**
-     * h3lis331dl constructor
+     * H3LIS331DL constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
+     * @param bus I2C bus to use
+     * @param address Address for this device
      */
     H3LIS331DL(int bus, uint8_t address = H3LIS331DL_DEFAULT_I2C_ADDR);
 
     /**
-     * H3LIS331DL Destructor
+     * H3LIS331DL destructor
      */
     ~H3LIS331DL();
     
     /**
-     * set up initial values and start operation
+     * Sets up initial values and starts operation
      *
-     * @param odr the data rate: one of the DR_BITS_T values
-     * @param pm the power mode: one of the PM_BITS_T values
-     * @param fs the FullScale: one of the FS_BITS_T values
-     * @return true if successful
+     * @param odr Data rate: one of the DR_BITS_T values
+     * @param pm Power mode: one of the PM_BITS_T values
+     * @param fs FullScale: one of the FS_BITS_T values
+     * @return True if successful
      */
     bool init(DR_BITS_T odr=DR_50_37, PM_BITS_T pm=PM_NORMAL, 
               FS_BITS_T fs=FS_100);
 
     /**
-     * read and return the Chip ID (WHO_AM_I register)
+     * Reads and returns the chip ID (WHO_AM_I register)
      *
-     * @return true if successful
+     * @return True if successful
      */
     uint8_t getChipID();
 
     /**
-     * set the output data rate
+     * Sets the output data rate
      *
-     * @param one of the DR_BITS_T values
-     * @return true if successful
+     * @param One of the DR_BITS_T values
+     * @return True if successful
      */
     bool setDataRate(DR_BITS_T odr);
 
     /**
-     * set the power mode
+     * Sets the power mode
      *
-     * @param one of the PM_BITS_T values
-     * @return true if successful
+     * @param One of the PM_BITS_T values
+     * @return True if successful
      */
     bool setPowerMode(PM_BITS_T pm);
 
     /**
-     * enable one or more of the 3 axes.  The arguement is a bitmsk
-     * composed of REG1_XEN, REG1_YEN and/or REG1_ZEN corresponding
+     * Enables one or more of the 3 axes. The argument is a bitmask
+     * composed of REG1_XEN, REG1_YEN, and/or REG1_ZEN corresponding to
      * the axes you want enabled.
      *
-     * @param axisEnable bitmask of axes to enable 
+     * @param axisEnable Bitmask of axes to enable 
      * (REG1_XEN | REG1_YEN | REG1_ZEN)
-     * @return true if successful
+     * @return True if successful
      */
     bool enableAxis(uint8_t axisEnable);
 
     /**
-     * set the scaling factor to 100, 200, or 400G's
+     * Sets the scaling factor to 100g, 200g, or 400g
      *
-     * @param fs one of the FS_BITS_T values
-     * @return true if successful
+     * @param fs One of the FS_BITS_T values
+     * @return True if successful
      */
     bool setFullScale(FS_BITS_T fs);
 
     /**
-     * set high pass cutoff filter
+     * Sets a high-pass cutoff filter
      *
-     * @param val one of the HPCF_BITS_T values
-     * @return true if successful
+     * @param val One of the HPCF_BITS_T values
+     * @return True if successful
      */
     bool setHPCF(HPCF_BITS_T val);
 
     /**
-     * set high pass filter mode
+     * Sets a high-pass filter mode
      *
-     * @param val one of the HPM_BITS_T values
-     * @return true if successful
+     * @param val One of the HPM_BITS_T values
+     * @return True if successful
      */
     bool setHPM(HPM_BITS_T val);
 
     /**
-     * boot the device.  Booting the device causes internal flash
-     * calibration values to be reloaded into the visible registers,
-     * in the event they have been corrupted.  This function will
-     * return when boot is complete.
+     * Boots the device. Booting the device causes internal flash
+     * calibration values to be reloaded into the visible registers
+     * in case they have been corrupted. This function
+     * returns when the booting is complete.
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool boot();
 
     /**
-     * enable high pass filter for interrupt 1 source
+     * Enables a high-pass filter for interrupt 1 source
      *
-     * @param enable true to enable the filter, false otherwise
-     * @return true if successful
+     * @param enable True to enable the filter, false otherwise
+     * @return True if successful
      */
     bool enableHPF1(bool enable);
 
     /**
-     * enable high pass filter for interrupt 2 source
+     * Enables a high-pass filter for interrupt 2 source
      *
-     * @param enable true to enable the filter, false otherwise
-     * @return true if successful
+     * @param enable True to enable the filter, false otherwise
+     * @return True if successful
      */
     bool enableHPF2(bool enable);
 
     /**
-     * enable filtered data selection
+     * Enables filtered data selection
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool enableFDS(bool enable);
 
     /**
-     * set interrupts to be active low instead of high
+     * Sets interrupts to be active low instead of high
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool setInterruptActiveLow(bool enable);
 
     /**
-     * set interrupt output mode to open drain rather than push/pull
+     * Sets an interrupt output mode to open drain rather than push/pull
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool setInterruptOpenDrain(bool enable);
 
     /**
-     * set interrupt 1 latch enable
+     * Enables interrupt 1 latch
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool setInterrupt1Latch(bool enable);
 
     /**
-     * set interrupt 2 latch enable
+     * Enables interrupt 2 latch
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool setInterrupt2Latch(bool enable);
 
     /**
-     * set the interrupt 1 pad configuration
+     * Sets the interrupt 1 pad configuration
      *
-     * @param val one fo the I_CFG_BITS_T values
-     * @return true if successful
+     * @param val One fo the I_CFG_BITS_T values
+     * @return True if successful
      */
     bool setInterrupt1PadConfig(I_CFG_BITS_T val);
 
     /**
-     * set the interrupt 2 pad configuration
+     * Sets the interrupt 2 pad configuration
      *
-     * @param val one fo the I_CFG_BITS_T values
-     * @return true if successful
+     * @param val One fo the I_CFG_BITS_T values
+     * @return True if successful
      */
     bool setInterrupt2PadConfig(I_CFG_BITS_T val);
     
     /**
-     * enable block data update.  When enabled, low/high output
-     * registers are not update until both low and high values have
+     * Enables block data update. When enabled, low/high output
+     * registers are not updated until both low and high values have
      * been read.
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool enableBDU(bool enable);
 
     /**
-     * enable big endian output for 16b reads
+     * Enables big-endian output for 16b reads
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool enableBLE(bool enable);
 
     /**
-     * enable sleep to wake functionality.  
+     * Enables sleep-to-wake functionality  
      *
-     * @param enable true to enable, false otherwise
-     * @return true if successful
+     * @param enable True to enable, false otherwise
+     * @return True if successful
      */
     bool enableSleepToWake(bool enable);
 
     /**
-     * return the contents of the REG_STATUS register
+     * Returns the contents of the REG_STATUS register
      *
-     * @return the contents of the REG_STATUS register
+     * @return Contents of the REG_STATUS register
      */
     uint8_t getStatus();
 
     /**
-     * setup the interrupt 1 config register
+     * Sets up the interrupt 1 config register
      *
-     * @param val a bitmask of desired INT_CFG_BITS_T bits
-     * @return true if successful
+     * @param val Bitmask of desired INT_CFG_BITS_T bits
+     * @return True if successful
      */
     bool setInterrupt1Config(uint8_t val);
 
     /**
-     * setup the interrupt 2 config register
+     * Sets up the interrupt 2 config register
      *
-     * @param val a bitmask of desired INT_CFG_BITS_T bits
-     * @return true if successful
+     * @param val Bitmask of desired INT_CFG_BITS_T bits
+     * @return True if successful
      */
     bool setInterrupt2Config(uint8_t val);
 
     /**
-     * setup the interrupt 1 source register
+     * Sets up the interrupt 1 source register
      *
-     * @param val a bitmask of desired INT_SRC_BITS_T bits
-     * @return true if successful
+     * @param val Bitmask of desired INT_SRC_BITS_T bits
+     * @return True if successful
      */
     bool setInterrupt1Source(uint8_t val);
 
     /**
-     * setup the interrupt 2 source register
+     * Sets up the interrupt 2 source register
      *
-     * @param val a bitmask of desired INT_SRC_BITS_T bits
-     * @return true if successful
+     * @param val Bitmask of desired INT_SRC_BITS_T bits
+     * @return True if successful
      */
     bool setInterrupt2Source(uint8_t val);
 
     /**
-     * setup the interrupt 1 threshold register
+     * Sets up the interrupt 1 threshold register
      *
-     * @param val the threshhold to set
-     * @return true if successful
+     * @param val Threshhold to set
+     * @return True if successful
      */
     bool setInterrupt1Threshold(uint8_t val);
 
     /**
-     * setup the interrupt 2 threshold register
+     * Sets up the interrupt 2 threshold register
      *
-     * @param val the threshhold to set
-     * @return true if successful
+     * @param val Threshhold to set
+     * @return True if successful
      */
     bool setInterrupt2Threshold(uint8_t val);
 
     /**
-     * setup the interrupt 1 duration register
+     * Sets up the interrupt 1 duration register
      *
-     * @param val the duration to set
-     * @return true if successful
+     * @param val Duration to set
+     * @return True if successful
      */
     bool setInterrupt1Duration(uint8_t val);
 
     /**
-     * setup the interrupt 2 duration register
+     * Sets up the interrupt 2 duration register
      *
-     * @param val the duration to set
-     * @return true if successful
+     * @param val Duration to set
+     * @return True if successful
      */
     bool setInterrupt2Duration(uint8_t val);
 
     /**
-     * read the sensor and store current values internally
+     * Reads the sensor and stores current values internally
      */
     void update();
 
     /**
-     * set adjustment offsets for each of the axes.  This can be used
-     * for calibration.  The values supplied here will be subtracted
+     * Sets adjustment offsets for each of the axes. This can be used
+     * for calibration. The values supplied here are subtracted
      * from the axis data read from the device.
      *
-     * @param adjX the amount by which to correct the X axis measurement
-     * @param adjY the amount by which to correct the Y axis measurement
-     * @param adjZ the amount by which to correct the Z axis measurement
+     * @param adjX Amount by which to correct the X-axis measurement
+     * @param adjY Amount by which to correct the Y-axis measurement
+     * @param adjZ Amount by which to correct the Z-axis measurement
      */
     void setAdjustmentOffsets(int adjX, int adjY, int adjZ);
 
     /**
-     * get the acceleration values for each of the axes
+     * Gets acceleration values for each of the axes
      *
-     * @param aX the returned X acceleration
-     * @param aY the returned Y acceleration
-     * @param aZ the returned Z acceleration
+     * @param aX Returned X-axis acceleration
+     * @param aY Returned Y-axis acceleration
+     * @param aZ Returned Z-axis acceleration
      */
     void getAcceleration(float *aX, float *aY, float *aZ);
 
     /**
-     * get the raw axis values
+     * Gets raw axis values
      *
-     * @param x the returned raw X value
-     * @param y the returned raw Y value
-     * @param z the returned raw Z value
+     * @param x Returned raw X-axis value
+     * @param y Returned raw Y-axis value
+     * @param z Returned raw Z-axis value
      */
     void getRawXYZ(int *x, int *y, int *z);
 
     /**
-     * get the adjusted axis values
+     * Gets adjusted axis values
      *
-     * @param x the returned X value
-     * @param y the returned Y value
-     * @param z the returned Z value
+     * @param x Returned X-axis value
+     * @param y Returned Y-axis value
+     * @param z Returned Z-axis value
      */
     void getXYZ(int *x, int *y, int *z);
 
     /**
-     * provide public access to the class's MRAA i2C context for
+     * Provides public access to the MRAA I2C context of the class for
      * direct user access
      *
-     * @return a reference to the class i2c context
+     * @return Reference to the class I2C context
      */
     mraa::I2c& i2cContext() { return m_i2c; };
 

@@ -39,11 +39,11 @@ namespace upm {
  * @con pwm
  * @kit gsk
  *
- * @brief API for ES08A servo component
+ * @brief API for the ES08A Servo
  * 
  * This file defines the ES08A interface for ES08A servos.
  * Like other servos, the ES08A servo has a shaft that can be controlled
- * by setting the desired angle.  There are also routines for setting
+ * by setting the desired angle. There are also routines for setting
  * and getting the minimum and maximum pulse width as well as the
  * maximum period.
  *
@@ -55,12 +55,12 @@ namespace upm {
         /**
          * Instantiates an ES08A object
          *
-         * @param pin servo pin number
+         * @param pin Servo pin number
          */
         ES08A (int pin);
 
         /**
-         * ES08A object destructor.
+         * ES08A object destructor
          */
         ~ES08A ();
 };

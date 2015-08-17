@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief MAX31855 thermocouple library
+ * @brief MAX31855 Thermocouple library
  * @defgroup max31855 libupm-max31855
  * @ingroup maxim adafruit spi other
  */
@@ -42,12 +42,12 @@ namespace upm {
  * @man maxim adafruit
  * @con spi
  *
- * @brief API for MAX31855 Thermocouple Amplifier
+ * @brief API for the MAX31855 Thermocouple Amplifier
  *
- * The Maxim Integrated
+ * Maxim Integrated*
  * [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf)
- * is a Cold-Junction Compensated Thermocouple-to-Digital Converter. This
- * module was * tested on the Maxim Integrated 
+ * is a cold-junction compensated thermocouple-to-digital converter. This
+ * module was tested on the Maxim Integrated 
  * [MAX31855PMB1 PMOD module]
  * (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the
  * analog PMOD kit.
@@ -58,10 +58,10 @@ namespace upm {
 class MAX31855 {
     public:
         /**
-         * Instanciates a MAX31855 object
+         * Instantiates an MAX31855 object
          *
-         * @param bus The spi bus to use
-         * @param cs The chip select pin
+         * @param bus SPI bus to use
+         * @param cs Chip select pin
          */
         MAX31855(int bus, int cs);
 
@@ -71,9 +71,9 @@ class MAX31855 {
         ~MAX31855();
 
         /**
-         * Get the distance from the sensor
+         * Gets the distance from the sensor
          *
-         * @return value in degrees celcius
+         * @return Value in Celsius
          */
 //! [Interesting]
         double getTemp();

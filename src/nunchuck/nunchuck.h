@@ -31,33 +31,33 @@
 namespace upm {
 
   /**
-   * @brief Wii Nunchuck library
+   * @brief Wii Nunchuk library
    * @defgroup nunchuck libupm-nunchuck
    * @ingroup generic i2c accelerometer robok
    */
   /**
    * @library nunchuck
    * @sensor nunchuck
-   * @comname Wii Nunchuck
+   * @comname Wii Nunchuk
    * @type accelerometer
    * @man generic
    * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
    * @con i2c
    * @kit robok
    *
-   * @brief API for the Wii Nunchuck
+   * @brief API for the Wii* Nunchuk controller
    *
-   * UPM module for the Wii Nunchuck.  This module was tested with the
-   * Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter.
+   * UPM module for the Wii Nunchuk controller. This module was tested with
+   * Wii Nunchuk connected to I2C via a Grove Wii Nunchuk adapter.
    *
    * See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and
    * http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck
-   * for more detailed information on the controller and it's protocol.
+   * for more details on the controller and its protocol.
    *
-   * A warning for the Grove nunchuck adapter: It has 2 traces on one
+   * A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one
    * side, and 3 traces on the other.  Do not match these up with the
-   * nunchuck connector's traces.  The nunchuck connector 'groove'
-   * should be on the same side as the grove interface socket on the
+   * Nunchuk connector's traces. The connector's 'Grove'
+   * should be on the same side as the Grove interface socket on the
    * adapter.
    *
    * @image html nunchuck.jpg
@@ -68,8 +68,8 @@ namespace upm {
     /**
      * NUNCHUCK constructor
      *
-     * @param bus i2c bus to use
-     * @param addr i2c address to use
+     * @param bus I2C bus to use
+     * @param addr I2C address to use
      */
     NUNCHUCK(int bus, uint8_t addr=NUNCHUCK_I2C_ADDR);
 
@@ -79,34 +79,34 @@ namespace upm {
     ~NUNCHUCK();
 
     /**
-     * Write value(s) into registers
+     * Writes value(s) into registers
      *
-     * @param reg register location to start writing into
-     * @param byte byte to write
-     * @return true if successful
+     * @param reg Register location to start writing into
+     * @param byte Byte to write
+     * @return True if successful
      */
     bool writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Read value(s) from registers
+     * Reads value(s) from registers
      *
-     * @param reg register location to start reading from
-     * @param buffer buffer for data storage
-     * @param len number of bytes to read
-     * @return number of bytes read
+     * @param reg Register location to start reading from
+     * @param buffer Buffer for data storage
+     * @param len Number of bytes to read
+     * @return Number of bytes read
      */
     uint8_t readBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
 
     /**
-     * Initialize the controller.  Here, we disable encryption after
+     * Initializes the controller. Here, we disable encryption after
      * delaying for a time to ensure the controller is ready.
      *
-     * @return true if initialized successfully
+     * @return True if initialization is successful
      */
     bool init();
 
     /**
-     * Read and update the current state of the controller.
+     * Reads and updates the current state of the controller.
      *
      */
     void update();

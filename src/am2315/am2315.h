@@ -50,7 +50,7 @@
 namespace upm {
 
 /**
- * @brief AM2315 temperature & humidity sensor library
+ * @brief AM2315 Temperature & Humidity Sensor library
  * @defgroup am2315 libupm-am2315
  * @ingroup adafruit i2c temp
  */
@@ -64,15 +64,15 @@ namespace upm {
  * @web http://www.adafruit.com/products/1293
  * @con i2c
  *
- * @brief API for AM2315 chip (Temperature & Humidity Sensor)
+ * @brief API for the AM2315 Temperature & Humidity Sensor
  *
- * Measurement Specialties [AM2315]
+ * AM2315 by Measurement Specialties
  * (http://www.aosong.com/asp_bin/Products/en/AM2315.pdf)
  * is a digital humidity sensor with temperature output.
- * RH will report between 0 and 100% and temperature range is
+ * RH reports between 0 and 100%, and the temperature range is
  * -40 to +125 degC.
- * The sampling period of this sensor is 2 seconds.  Reads occurring
- * more often than that will return cached data.
+ * The sampling period of this sensor is 2 seconds. Reads occurring
+ * more often than that return cached data.
  *
  * @image html am2315.jpeg
  * @snippet am2315.cxx Interesting
@@ -80,94 +80,97 @@ namespace upm {
 class AM2315 {
     public:
         /**
-         * Instanciates a AM2315 object
+         * Instantiates an AM2315 object
          *
-         * @param bus number of used bus
-         * @param devAddr address of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          * @param mode AM2315 oversampling
          */
         AM2315 (int bus, int devAddr=AM2315_I2C_ADDRESS);
 
         /**
-         * AM2315 object destructor, basicaly it close i2c connection.
+         * AM2315 object destructor; basically, it closes the I2C connection.
          */
         ~AM2315 ();
 
         /**
-         * Get the current measured humidity [RH]
-         * Data is updated every 2 seconds - accesses more often than
-         * that will return cached data
+         * Gets the current measured humidity [RH]
+         *
+         * Data is updated every 2 seconds - accesses occurring more often than
+         * that return cached data
          */
         float getHumidity(void);
 
         /**
-         * Get the humidity cell temperature [degC]
-         * Data is updated every 2 seconds - accesses more often than
-         * that will return cached data
+         * Gets the humidity cell temperature [degC]
+         *
+         * Data is updated every 2 seconds - accesses occurring more often than
+         * that return cached data
          */
         float getTemperature(void);
 
         /**
-         * Get the humidity cell temperature [degF]
-         * Data is updated every 2 seconds - accesses more often than
-         * that will return cached data
+         * Gets the humidity cell temperature [degF]
+         *
+         * Data is updated every 2 seconds - accesses occurring more often than
+         * that return cached data
          */
         float getTemperatureF(void);
 
         /**
          * Function intended to test the device and verify it
-         * is correctly operating.
+         * is operating correctly.
          *
          */
         int testSensor(void);
 
         /**
-         * Write four byte (32b) register
+         * Writes a four-byte (32b) register
          *
-         * Note: These access routines are not the normal accesses to an i2c
-         * device.  The AM2315 contains a microcontroller that manages the
-         * actual readings.  These handlers then make requests over i2c using
-         * a protocol defined by the AM2315.
+         * Note: these access routines are not the normal accesses to an I2C
+         * device. AM2315 contains a microcontroller that manages the
+         * actual readings. These handlers then make requests over I2C using
+         * a protocol defined by AM2315.
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          * @param ival 32b value
          */
         int i2cWriteReg_32(int reg, uint32_t ival);
 
         /**
-         * Write two byte (16b) register
+         * Writes a two-byte (16b) register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          * @param ival 16b value
          */
         int i2cWriteReg_16(int reg, uint16_t ival);
 
         /**
-         * Write one byte (8b) register
+         * Writes a one-byte (8b) register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          * @param ival 8b value
          */
         int i2cWriteReg_8(int reg, uint8_t ival);
 
         /**
-         * Read four bytes register
+         * Reads a four-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint32_t i2cReadReg_32 (int reg);
 
         /**
-         * Read two bytes register
+         * Reads a two-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint16_t i2cReadReg_16 (int reg);
 
         /**
-         * Read one byte register
+         * Reads a one-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint8_t i2cReadReg_8 (int reg);
 

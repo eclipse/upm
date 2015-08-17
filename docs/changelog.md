@@ -4,6 +4,18 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.3.2
+
+ * Introduced RPM package generation feature from cmake via cpack
+ * Performed a thorough documentation review and merged resulting changes,
+ includes last remaining images and grouping sensors by kits
+ * Added support for Sparkfun Sensor Blocks (OLED & IMU)
+ * Fully reworked API for at42qt1070, mpu9150 and lcd classes, while
+ maintaining backwards compatibility for existing lcd displays.
+ * Extended doxygen tags for better integration with automated documentation
+ generators
+ * New sensors: rgbringcoder, hp20x, pn532, sainsmartks, lsm9ds0, eboled
+
 ### v0.3.1
 
  * Updated index pages for API documentation and cross-linked them

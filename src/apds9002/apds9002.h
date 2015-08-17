@@ -28,7 +28,7 @@
 
 namespace upm { 
   /**
-   * @brief APDS-9002 luminance sensor library
+   * @brief APDS-9002 Luminance Sensor library
    * @defgroup apds9002 libupm-apds9002
    * @ingroup seeed analog light
    */   
@@ -42,10 +42,10 @@ namespace upm {
    * @man seeed
    * @con analog
    * 
-   * @brief UPM module for the Grove Luminance Sensor
+   * @brief UPM module for the APDS-9002 Luminance Sensor
    *
    * This sensor transforms luminous intensity to output analog values.
-   * It uses the APDS-9002 ambient light sensor.
+   * It uses an APDS-9002 ambient light sensor.
    *
    * @image html apds9002.jpg
    * @snippet apds9002.cxx Interesting
@@ -54,19 +54,19 @@ namespace upm {
   class APDS9002 {
   public:
     /**
-     * Grove luminance sensor constructor
+     * APDS-9002 luminance sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     APDS9002(int pin);
     /**
-     * APDS9002 Destructor
+     * APDS9002 destructor
      */
     ~APDS9002();
     /**
-     * Get the luminance value from the sensor
+     * Gets the luminance value from the sensor
      *
-     * @return the luminance reading
+     * @return Luminance value
      */
     int value();
 

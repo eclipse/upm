@@ -44,11 +44,11 @@ namespace upm {
    * @con gpio
    * @kit robok tsk
    *
-   * @brief API for the RFR359F based Grove Distance Interrupter. 
+   * @brief API for the RFR359F-based Grove Distance Interrupter. 
    *
-   * UPM module for the Grove Distance Interrupter.  The sensitivity
-   * can be adjusted with the potentiometer on the sensor module.  It
-   * has a range of approximately 4 inches and a fast response time.
+   * UPM module for the Grove distance interrupter. The sensitivity
+   * can be adjusted with the potentiometer on the sensor module. It
+   * has a range of approximately 4 inches and a quick response time.
    *
    * @image html rfr359f.jpg
    * @snippet rfr359f.cxx Interesting
@@ -56,21 +56,21 @@ namespace upm {
   class RFR359F {
   public:
     /**
-     * Grove Distance Interrupter constructor
+     * RFR359F constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     RFR359F(int pin);
 
     /**
-     * RFR359F Destructor
+     * RFR359F destructor
      */
     ~RFR359F();
 
     /**
-     * Get the status of the pin, true means object detected
+     * Gets the status of the pin; true means an object has been detected
      *
-     * @return true if the sensor detected an object
+     * @return True if the sensor has detected an object
      */
     bool objectDetected();
 

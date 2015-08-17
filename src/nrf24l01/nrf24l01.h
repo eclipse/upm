@@ -151,7 +151,7 @@ typedef enum {
 } power_t;
 
 /**
- * @brief NRF24L01 transceiver library
+ * @brief NRF24L01 Transceiver library
  * @defgroup nrf24l01 libupm-nrf24l01
  * @ingroup seeed sparkfun spi wifi
  */
@@ -164,9 +164,9 @@ typedef enum {
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html
  * @con spi
  *
- * @brief API for NRF24L01 transceiver module
+ * @brief API for the NRF24L01 Transceiver Module
  *
- * This file defines the NRF24l01 interface for libnrf24l01
+ * This file defines the NRF24L01 interface for libnrf24l01
  *
  * @image html nrf24l01.jpg
  * @snippet nrf24l01-receiver.cxx Interesting
@@ -176,9 +176,9 @@ typedef enum {
 class NRF24L01 {
     public:
         /**
-         * Instanciates a NRF24l01 object
+         * Instantiates an NRF24l01 object
          *
-         * @param cs chip select pin
+         * @param cs Chip select pin
          */
         NRF24L01 (uint8_t cs, uint8_t ce);
 
@@ -188,7 +188,7 @@ class NRF24L01 {
         ~NRF24L01 ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -196,104 +196,104 @@ class NRF24L01 {
         }
 
         /**
-         * Initialize needed Gpio pins and SPI interface
+         * Initializes needed GPIO pins and SPI
          *
-         * @param chipSelect setting up the chip select pin
-         * @param chipEnable setting up the chip enable pin
+         * @param chipSelect Sets up the chip select pin
+         * @param chipEnable Sets up the chip enable pin
          */
         void    init (uint8_t chipSelect, uint8_t chipEnable);
 
         /**
-         * Configure NRF24l01 chip
+         * Configures the NRF24L01 transceiver
          */
         void    configure ();
 
         /**
-         * Send the buffer data
+         * Sends the buffer data
          *
-         * @param *value pointer to the buffer
+         * @param *value Pointer to the buffer
          */
         void    send (uint8_t * value);
 
         /**
-         * Send the data located in inner bufer, user must fill the
+         * Sends the data located in an inner bufer; the user must fill the
          * m_txBuffer buffer
          */
         void    send ();
 
         /**
-         * Set recieving address of the device
+         * Sets a receiving address of the device
          *
-         * @param addr 5 bytes addres
+         * @param addr 5-byte address
          */
         void    setSourceAddress (uint8_t * addr);
 
         /**
-         * Set recipient address. nrfSend method will send the data buffer
+         * Sets a recipient address. The nrfSend method sends the data buffer
          * to this address
          *
-         * @param addr 5 bytes addres
+         * @param addr 5-byte address
          */
         void    setDestinationAddress (uint8_t * addr);
 
         /**
-         * Set broadcasting address.
+         * Sets a broadcasting address
          *
-         * @param addr 5 bytes addres
+         * @param addr 5-byte address
          */
         void    setBroadcastAddress (uint8_t * addr);
 
         /**
-         * Set payload size.
+         * Sets the payload size
          *
-         * @param load size of the payload (MAX 32)
+         * @param load Size of the payload (MAX 32)
          */
         void    setPayload (uint8_t load);
 
         /**
-         * Check if data arrived
+         * Checks if the data has arrived
          */
         bool    dataReady ();
 
         /**
-         * Check if chip in sending mode
+         * Checks if the transceiver is in the sending mode
          */
         bool    dataSending ();
 
         /**
-         * Sink all arrived data into the provided buffer
+         * Sinks all the arrived data into a provided buffer
          *
-         * @param load size of the payload (MAX 32)
+         * @param load Size of the payload (MAX 32)
          */
         void    getData (uint8_t * data);
 
         /**
-         * Check the chip state
+         * Checks the transceiver state
          */
         uint8_t getStatus ();
 
         /**
-         * Check if recieving stack is empty
+         * Checks if the receive stack is empty
          */
         bool    rxFifoEmpty ();
 
         /**
-         * Power up reciever
+         * Powers the receiver up
          */
         void    rxPowerUp ();
 
         /**
-         * Flush reciver stack
+         * Flushes the receive stack
          */
         void    rxFlushBuffer ();
 
         /**
-         * Power up transmitter
+         * Powers the transmitter up
          */
         void    txPowerUp ();
 
         /**
-         * Power down all
+         * Powers everything down
          */
         void    powerDown ();
 
@@ -304,77 +304,77 @@ class NRF24L01 {
         uint8_t setSpeedRate (speed_rate_t rate);
 
         /**
-         * Flush transmit stack
+         * Flushes the transmit stack
          */
         void    txFlushBuffer ();
 
         /**
-         * Pulling method which listenning for arrived data, if data
-         * arrived dataRecievedHandler will be triggered
+         * Pulling the method listening for the arrived data,
+         * dataRecievedHandler is triggered if data arrives
          */
         void    pollListener ();
 
         /**
-         * Set chip enable pin HIGH
+         * Sets the chip enable pin to HIGH
          */
         mraa_result_t ceHigh ();
 
         /**
-         * Set chip enable LOW
+         * Sets the chip enable pin to LOW
          */
         mraa_result_t ceLow ();
 
         /**
-         * Set chip select pin LOW
+         * Sets the chip select pin to LOW
          */
         mraa_result_t csOn ();
 
         /**
-         * Set chip select pin HIGH
+         * Sets the chip select pin to HIGH
          */
         mraa_result_t csOff ();
 
         /**
-         * Configure nRF24l01 module to behave as BLE
+         * Configures the NRF24L01 transceiver to behave as a BLE
          * (Bluetooth Low Energy) beaconing devcie.
          */
         void setBeaconingMode ();
 
         /**
-         * Beaconing the provided message to BLE scanners.
+         * Beacons the provided message to BLE scanners.
          *
-         * @param msg beacon the provated message (max length is 16 bytes)
+         * @param msg Beacons the provided message (max length is 16 bytes)
          */
         void sendBeaconingMsg (uint8_t * msg);
 
-        uint8_t     m_rxBuffer[MAX_BUFFER]; /**< Reciver buffer */
+        uint8_t     m_rxBuffer[MAX_BUFFER]; /**< Receive buffer */
         uint8_t     m_txBuffer[MAX_BUFFER]; /**< Transmit buffer */
         uint8_t     m_bleBuffer [32];       /**< BLE buffer */
 
         funcPtrVoidVoid dataRecievedHandler; /**< Data arrived handler */
     private:
         /**
-         * Write bytes to the SPI device.
+         * Writes bytes to an SPI device
          */
         void    writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len);
         /**
-         * Set register value on SPI device. [one byte]
+         * Sets the register value on an SPI device [one byte]
          */
         void    setRegister (uint8_t reg, uint8_t value);
         /**
-         * Get register value from SPI device. [one byte]
+         * Gets the register value from an SPI device [one byte]
          */
         uint8_t getRegister (uint8_t reg);
         /**
-         * Reads an array of bytes from the given start position in the nrf24l01 registers.
+         * Reads an array of bytes from the given starting position in NRF24L01 registers
          */
         void    readRegister (uint8_t reg, uint8_t * value, uint8_t len);
         /**
-         * Writes an array of bytes into inte the nrf24l01 registers.
+         * Writes an array of bytes into NRF24L01 registers
          */
         void    writeRegister (uint8_t reg, uint8_t * value, uint8_t len);
         /**
-         * Send command to the nrf24l01.
+         * Sends a command to NRF24L01
          */
         void    sendCommand (uint8_t cmd);
 

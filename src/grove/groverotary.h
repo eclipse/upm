@@ -33,10 +33,10 @@
  * @con analog
  * @kit gsk
  *
- * @brief API for Grove Rotary Angle Sensor (Knob)
+ * @brief API for the Grove Rotary Angle Sensor (Knob)
  *
- * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
- * a set of functions to read the absolute pin value, degrees or radians and another
+ * Basic UPM module for the Grove rotary angle sensor (knob) on analog. Provides
+ * a set of functions to read the absolute pin value, degrees or radians, and another set
  * to do the same relative to the center of the knob's range.
  *
  * @image html groverotary.jpeg

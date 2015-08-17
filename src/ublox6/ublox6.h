@@ -44,7 +44,7 @@ const int  UBLOX6_DEFAULT_UART = 0;
 
 namespace upm {
     /**
-     * @brief UBLOX6 & SIM28 GPS module library
+     * @brief UBLOX6 & SIM28 GPS Module library
      * @defgroup ublox6 libupm-ublox6
      * @ingroup seeed uart gps tsk
      */
@@ -52,17 +52,17 @@ namespace upm {
      * @library ublox6
      * @sensor ublox6
      * @comname Grove GPS
-     * @altname U-BLOX6 SIM28
+     * @altname U-BLOX 6 SIM28
      * @type gps
      * @man seeed
      * @web http://www.seeedstudio.com/depot/Grove-GPS-p-959.html
      * @con uart
      * @kit tsk
      *
-     * @brief API for the U-BLOX 6 and SIM28 GPS modules
+     * @brief API for the U-BLOX 6 and SIM28 GPS Modules
      *
-     * UPM support for the U-BLOX 6 GPS Module. It is also compatible with
-     * the SIM28 GPS Module.
+     * UPM support for the U-BLOX 6 GPS module. It is also compatible with
+     * the SIM28 GPS module.
      *
      * @image html ublox6.jpg
      * @snippet ublox6.cxx Interesting
@@ -70,51 +70,51 @@ namespace upm {
   class Ublox6 {
   public:
     /**
-     * U-BLOX 6 GPS module constructor
+     * Ublox6 object constructor
      *
-     * @param uart defualt uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     Ublox6(int uart);
 
     /**
-     * U-BLOX 6 GPS module Destructor
+     * Ublox6 object destructor
      */
     ~Ublox6();
 
     /**
-     * Check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @return true if there is data available to be read
+     * @return True if there is data available for reading
      */
     bool dataAvailable();
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data in a user-supplied buffer. Note: the
+     * call blocks until data is available to be read. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return the Number of bytes read
      */
     int readData(char *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600).
+     * Sets up proper tty I/O modes and the baud rate. The default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.
-     * @return true if successful
+     * @param baud Desired baud rate
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B9600);
 

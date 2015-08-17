@@ -56,21 +56,21 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_NFC_Tag
    * @con i2c
    *
-   * @brief C++ API for the M24LR64E based Grove NFC Tag
+   * @brief C++ API for the M24LR64E-based Grove NFC Tag
    *
-   * The Grove NFC tag is, in essence, an 8KB EEPROM that can be written
-   * to or read from using I2C and NFC equipped devices.
+   * Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM)
+   * that can be written to or read from using I2C and NFC-equipped devices.
    *
-   * The USER mode (default) allows read and write access to all 8KB
+   * The user mode (default) allows read and write access to all 8KB
    * of space, provided the sector security status (SSS) allows it.
-   * The ROOT mode allows modification of the SSS data and other
+   * The root mode allows modification of the SSS data and other
    * information, provided the proper password is submitted.  The
-   * default password for a new tag is 0x00000000.  See the data sheet
-   * for much more detailed information.
+   * default password for a new tag is 0x00000000. See the datasheet
+   * for more details.
    *
-   * The Seeed Studio wiki page for this device includes a link to an
-   * Android application that can be used to also read and write the
-   * device via NFC, as well as set the NFC passwords, which cannot be
+   * The Seeed Studio* wiki page for this device includes a link to an
+   * Android* application that can be used to also read and write the
+   * device via NFC, as well as set NFC passwords, which cannot be
    * done via I2C.
    *
    * @image html m24lr64e.jpg
@@ -92,12 +92,12 @@ namespace upm {
     static const unsigned int I2C_WRITE_TIME    = 5; // 5ms
 
     /**
-     * M24LR64E addresses, accessable only in root mode
+     * M24LR64E addresses, accessible only in the root mode
      */
     typedef enum {
       I2C_PASSWORD_ADDR                  = 2304,
       RF_PASSWORD_1_ADDR                 = 2308, // RF pwds not available in
-      RF_PASSWORD_2_ADDR                 = 2312, // i2c access modes
+      RF_PASSWORD_2_ADDR                 = 2312, // I2C access modes
       RF_PASSWORD_3_ADDR                 = 2316,
       DSFID_ADDR                         = 2320, // 1 byte
       AFI_ADDR                           = 2321, // 1 byte
@@ -110,8 +110,8 @@ namespace upm {
     } M24LR64E_ADDR_T;
 
     enum AccessMode {
-      USER_MODE = 0x0,   // offer simple read/write access right
-      ROOT_MODE = 0x1    // offer password change access right
+      USER_MODE = 0x0,   // offers simple read/write access right
+      ROOT_MODE = 0x1    // offers password change access right
     };
 
     enum SectorAccessRight {
@@ -141,39 +141,39 @@ namespace upm {
     };
 
     /**
-     * m24lr64e constructor
+     * M24LR64E constructor
      *
-     * @param bus i2c bus to use
-     * @param mode the access mode (user or root) to use
+     * @param bus I2C bus to use
+     * @param mode Access mode (user or root) to use
      */
     M24LR64E(int bus, AccessMode mode = USER_MODE);
 
     /**
-     * M24LR64E Destructor
+     * M24LR64E destructor
      */
     ~M24LR64E();
     
     /**
-     * submit an i2c access password
+     * Submits an I2C access password
      *
-     * @param passwd the 4-byte access password
+     * @param passwd 4-byte access password
      */
     bool submitPasswd(uint32_t passwd);
 
     /**
-     * write a new i2c password
+     * Writes a new I2C password
      *
-     * @param passwd the 4-byte access password
+     * @param passwd 4-byte access password
      */
     bool writePasswd(uint32_t passwd);
 
     /**
-     * Set the protection bit for a sector. Must be in ROOT mode
+     * Sets a protection bit for a sector. Must be in the root mode
      *
-     * @param sectorNumber the sector whose protection you are modifying
-     * @param protectEnable true if you are enabling protection
-     * @param accessRight the access rights to set
-     * @param passwd the password number to enable, if any
+     * @param sectorNumber Sector whose protection you are modifying
+     * @param protectEnable True if you are enabling protection
+     * @param accessRight Access rights to set
+     * @param passwd Password number to enable, if any
      */
     void sectorProtectConfig(unsigned int sectorNumber, 
                              bool protectEnable, 
@@ -181,88 +181,88 @@ namespace upm {
                              SectorSelectPassWd passwd);
 
     /**
-     * Clear the sector protection bits.  Must be in ROOT mode.
+     * Clears sector protection bits. Must be in the root mode.
      */
     void clearSectorProtect(void);
 
     /**
-     * Set or clear the Sector Security Status Lock bit for a sector.  
-     * Must be in ROOT mode.
+     * Sets or clears a sector security status lock bit for a sector.  
+     * Must be in the root mode.
      *
-     * @param sectorNumber the sector who's SSS you want to modify
-     * @param sockEnable true r false to set or clear the bit
+     * @param sectorNumber Sector whose SSS you want to modify
+     * @param sockEnable True to set the bit, false to clear it
      */
     void sectorWriteLockBit(unsigned int sectorNumber, 
                             bool sockEnable);
 
     /**
-     * return the Data Storage Familiy Identifier
-     * Must be in ROOT mode.
+     * Returns a data storage family identifier (DSFID)
+     * Must be in the root mode.
      *
-     * @return the DSFID
+     * @return DSFID
      */
     uint8_t getDSFID();
 
     /**
-     * return the Application Family Identifier
-     * Must be in ROOT mode.
+     * Returns an application family identifier (AFI)
+     * Must be in the root mode.
      *
-     * @return the AFI
+     * @return AFI
      */
     uint8_t getAFI();
 
     /**
-     * return the Unique ID.
-     * Must be in ROOT mode.
+     * Returns a unique ID.
+     * Must be in the root mode.
      *
-     * @param buf buffer to hold returned UID.  Must be UID_LENGTH bytes.
+     * @param buf Buffer to hold the returned UID. Must be UID_LENGTH bytes.
      */
     void getUID(uint8_t* buf);
 
     /**
-     * return the memory size
-     * Must be in ROOT mode.
+     * Returns the memory size
+     * Must be in the root mode.
      *
-     * @return the amount of memory present
+     * @return Amount of memory present
      */
     uint32_t getMemorySize();
 
     /**
-     * set all memory to 0, if permissions allow
+     * Sets all memory to 0, if permissions allow
      */
     void clearMemory();
 
     /**
-     * write a byte to EEPROM
+     * Writes a byte to the EEPROM
      *
-     * @param address address to write to
-     * @param data data to write
+     * @param address Address to write to
+     * @param data Data to write
      */
     void writeByte(unsigned int address, uint8_t data);
 
     /**
-     * write bytes to EEPROM
+     * Writes bytes to the EEPROM
      *
-     * @param address address to write to
-     * @param data data to write
-     * @param data length of data buffer
+     * @param address Address to write to
+     * @param data Data to write
+     * @param data Length of the data buffer
      */
     void writeBytes(unsigned int address, uint8_t* buf, unsigned int len);
 
     /**
-     * read a byte from EEPROM
+     * Reads a byte from the EEPROM
      *
-     * @param address address to read from
-     * @return data value read
+     * @param address Address to read from
+     * @return data Value read
      */
     uint8_t readByte(unsigned int address);
 
     /**
-     * read multiple bytes from EEPROM
+     * Reads multiple bytes from the EEPROM
      *
-     * @param address address to read from
-     * @param buffer buffer to store data
-     * @param len number of bytes to read
+     * @param address Address to read from
+     * @param buffer Buffer to store data
+     * @param len Number of bytes to read
      */
     void readBytes(unsigned int address, uint8_t* buf, unsigned int len);
 

@@ -55,9 +55,9 @@ typedef struct
    * @con gpio
    * @kit hak
    *
-   * @brief API for the GroveSpeaker speaker
+   * @brief API for the Grove Speaker
    *
-   * UPM module for the GroveSpeaker.
+   * UPM module for the Grove Speaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
    * 
@@ -67,28 +67,28 @@ typedef struct
   class GroveSpeaker {
   public:
     /**
-     * GroveSpeaker Constructor
+     * Grove Speaker constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveSpeaker(int pin);
     /**
-     * GroveSpeaker Destructor
+     * GroveSpeaker destructor
      */
     ~GroveSpeaker();
     /**
-     * Play all alto notes (lowest notes)
+     * Plays all alto notes (lowest notes)
      *
      */
     void playAll();
     /**
-     * Play a sound and note whether it's sharp or not
+     * Plays a sound and a note whether it's sharp or not
      *
-     * @param letter character name of note
+     * @param letter Character name of the note
      * ('a', 'b', 'c', 'd', 'e', 'f', or 'g')
-     * @param sharp if true, play sharp version of note; otherwise, do not
-     * @param vocalWeight string to determine whether to play low ("low"),
-     * medium ("med"), or high ("high") note
+     * @param sharp If true, plays a sharp version of the note; otherwise, does not play the note
+     * @param vocalWeight String to determine whether to play a low ("low"),
+     * a medium ("med"), or a high ("high") note
      */
     void playSound(char letter, bool sharp, std::string vocalWeight);
 

@@ -32,7 +32,7 @@
 namespace upm {
 
 /**
- * @brief generic library for basic grove sensors
+ * @brief Generic library for basic Grove sensors
  * @defgroup grove libupm-grove
  * @ingroup seeed gpio pwm ainput button led light relay temp touch gsk eak hak
  */
@@ -48,14 +48,14 @@ class Grove {
 };
 
 /**
- * @brief API for Grove LED
+ * @brief API for the Grove LED
  *
- * UPM module for Grove LED (or other similar light-emitting diode).
- * An LED is a small lightbulb that will emit light (turn on) in 
- * response to a small curent.  The longer wire of an LED connects
+ * UPM module for the Grove LED (or other similar light-emitting diodes).
+ * An LED is a small lightbulb that emits light in 
+ * response to a small current. The longer wire of an LED connects
  * to the positive seat (anode); the shorter wire connects to the
- * negative seat (cathode).  The flat side of the bulb corresponds
- * to the cathode while the rounded side corresponds to the anode.
+ * negative seat (cathode). The flat side of the bulb corresponds
+ * to the cathode, while the rounded side corresponds to the anode.
  *
  * @ingroup grove gpio
  * @snippet groveled.cxx Interesting
@@ -67,7 +67,7 @@ class GroveLed: public Grove {
         /**
          * Grove LED constructor
          *
-         * @param gpio pin to use
+         * @param gpio Pin to use
          */
         GroveLed(int pin);
         /**
@@ -75,27 +75,27 @@ class GroveLed: public Grove {
          */
         ~GroveLed();
         /**
-         * Turn the LED on or off, depending on the value.
+         * Turns the LED on or off, depending on the value.
          * If the value is positive (greater than or equal
          * to 1), the LED is turned on.  Otherwise, for 0
          * or negative values, the LED is turned off.
          *
-         * @param value tells the LED to turn on (for value >=1)
-         * or off (for value <1)
+         * @param value Tells the LED to turn on (for values >=1)
+         * or off (for values <1)
          *
-         * @return 0 on success; non-zero otherwise
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t write(int value);
         /**
-         * Turn the LED off
+         * Turns the LED off
          *
-         * @return 0 on success; non-zero otherwise
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t off();
         /**
-         * Turn the LED on
+         * Turns the LED on
          *
-         * @return 0 on success; non-zero otherwise
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t on();
     private:
@@ -103,12 +103,12 @@ class GroveLed: public Grove {
 };
 
 /**
- * @brief API for Grove Relay
+ * @brief API for the Grove Relay
  *
- * UPM module for Grove relay switch.  The Grove relay is a
+ * UPM module for the Grove relay switch. Grove relay is a
  * digital normally-open switch that uses low voltage or current to 
  * control a higher voltage and/or higher current.  When closed, 
- * the indicator LED will light up and current is allowed to flow.
+ * the indicator LED lights up and current is allowed to flow.
  *
  * @ingroup grove gpio
  * @snippet groverelay.cxx Interesting
@@ -119,7 +119,7 @@ class GroveRelay: public Grove {
         /**
          * Grove relay constructor
          *
-         * @param gpio pin to use
+         * @param gpio Pin to use
          */
         GroveRelay(unsigned int pin);
         /**
@@ -127,29 +127,29 @@ class GroveRelay: public Grove {
          */
         ~GroveRelay();
         /**
-         * Set the relay switch to on (close).  This allows current
+         * Sets the relay switch to on (closed). This allows current
          * to flow and lights up the indicator LED.
          *
-         * @return 0 on success; non-zero otherwise
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t on();
         /**
-         * Set the relay switch to off (open).  This stops current
-         * from flowing and the indicator LED will not be lit.
+         * Sets the relay switch to off (open). This stops current
+         * from flowing and the indicator LED is not lit.
          *
-         * @return 0 on success; non-zero otherwise
+         * @return 0 if successful, non-zero otherwise
          */
         mraa_result_t off();
         /**
-         * Returns whether or not the relay switch is closed.
+         * Defines whether the relay switch is closed.
          *
-         * @return true if the switch is on (closed); false otherwise
+         * @return True if the switch is on (closed), false otherwise
          */
         bool isOn();
         /**
-         * Returns whether or not the relay switch is open.
+         * Defines whether the relay switch is open.
          *
-         * @return true if the switch is off (open); false otherwise
+         * @return True if the switch is off (open), false otherwise
          */
         bool isOff();
     private:
@@ -157,9 +157,9 @@ class GroveRelay: public Grove {
 };
 
 /**
- * @brief API for Grove temperature sensor
+ * @brief API for the Grove Temperature Sensor
  *
- * Very basic UPM module for Grove temperature sensor on analog
+ * Basic UPM module for the Grove temperature sensor on analog
  *
  * @ingroup grove analog
  * @snippet grovetemp.cxx Interesting
@@ -170,7 +170,7 @@ class GroveTemp: public Grove {
         /**
          * Grove analog temperature sensor constructor
          *
-         * @param pin analog pin to use
+         * @param pin Analog pin to use
          */
         GroveTemp(unsigned int pin);
         /**
@@ -178,15 +178,15 @@ class GroveTemp: public Grove {
          */
         ~GroveTemp();
         /**
-         * Get raw value from AIO pin
+         * Gets the raw value from the AIO pin
          *
-         * @return the raw value from the ADC
+         * @return Raw value from the ADC
          */
         float raw_value();
         /**
-         * Get the temperature in Celsius from the sensor
+         * Gets the temperature in Celsius from the sensor
          *
-         * @return the normalized temperature in Celsius
+         * @return Normalized temperature in Celsius
          */
         int value();
     private:
@@ -194,12 +194,12 @@ class GroveTemp: public Grove {
 };
 
 /**
- * @brief API for Grove light sensor
+ * @brief API for the Grove Light Sensor
  *
  * The Grove light sensor detects the intensity of the ambient light.
  * As the light intensity of the environment increases, the resistance
- * of the sensor decreases.  This means that the raw value from the
- * analog pin will be larger in bright light and smaller in the dark.
+ * of the sensor decreases. This means the raw value from the
+ * analog pin is greater in bright light and smaller in the dark.
  * An approximate lux value can also be returned.
  *
  * @ingroup grove analog
@@ -211,23 +211,23 @@ class GroveLight: public Grove {
         /**
          * Grove analog light sensor constructor
          *
-         * @param pin analog pin to use
+         * @param pin Analog pin to use
          */
         GroveLight(unsigned int pin);
         /**
-         * GroveLight Destructor
+         * GroveLight destructor
          */
         ~GroveLight();
         /**
-         * Get raw value from AIO pin
+         * Gets the raw value from the AIO pin
          *
-         * @return the raw value from the ADC
+         * @return Raw value from the ADC
          */
         float raw_value();
         /**
-         * Get the approximate light value, in lux, from the sensor
+         * Gets an approximate light value, in lux, from the sensor
          *
-         * @return the normalized light reading in lux
+         * @return Normalized light reading in lux
          */
         int value();
     private:
@@ -235,11 +235,11 @@ class GroveLight: public Grove {
 };
 
 /**
- * @brief API for Grove Rotary Angle Sensor (Knob)
+ * @brief API for the Grove Rotary Angle Sensor (Knob)
  *
- * Very basic UPM module for Grove rotary angle sensor (knob) on analog. Provides
- * a set of functions to read the absolute pin value, degrees or radians and another
- * to do the same relative to the center of the knob's range.
+ * Basic UPM module for the Grove rotary angle sensor (knob) on analog. Provides
+ * a set of functions to read the absolute pin value, degrees or radians, and another set
+ * to do the same relative to the center of the knob range.
  *
  * @ingroup grove analog
  * @snippet groverotary.cxx Interesting
@@ -250,47 +250,47 @@ class GroveRotary: public Grove {
         /**
          * Grove rotary angle sensor constructor
          *
-         * @param pin number of analog pin to use
+         * @param pin Number of the analog pin to use
          */
         GroveRotary(unsigned int pin);
         /**
-         * GroveRotary Destructor
+         * GroveRotary destructor
          */
         ~GroveRotary();
         /**
-         * Get absolute raw value from AIO pin
+         * Gets the absolute raw value from the AIO pin
          *
-         * @return the unsigned value from the ADC
+         * @return Unsigned value from the ADC
          */
         float abs_value();
         /**
-         * Get absolute raw degrees from AIO pin
+         * Gets absolute raw degrees from the AIO pin
          *
-         * @return the unsigned degrees from the ADC
+         * @return Unsigned degrees from the ADC
          */
         float abs_deg();
         /**
-         * Get absolute raw radians from AIO pin
+         * Gets absolute raw radians from the AIO pin
          *
-         * @return the unsigned radians from the ADC
+         * @return Unsigned radians from the ADC
          */
         float abs_rad();
         /**
-         * Get the relative value from the pin
+         * Gets the relative value from the AIO pin
          *
-         * @return the signed value from the ADC
+         * @return Signed value from the ADC
          */
         float rel_value();
         /**
-         * Get relative degrees from AIO pin
+         * Gets relative degrees from the AIO pin
          *
-         * @return the signed degrees from the ADC
+         * @return Signed degrees from the ADC
          */
         float rel_deg();
         /**
-         * Get relative radians from AIO pin
+         * Gets relative radians from the AIO pin
          *
-         * @return the signed radians from the ADC
+         * @return Signed radians from the ADC
          */
         float rel_rad();
     private:
@@ -299,10 +299,10 @@ class GroveRotary: public Grove {
 };
 
 /**
- * @brief API for Grove Slide Potentiometer
+ * @brief API for the Grove Slide Potentiometer
  *
- * Very basic UPM module for Grove slide potentiometer on analog,
- * returns either raw value or scaled voltage value.
+ * Basic UPM module for the Grove slide potentiometer on analog that
+ * returns either a raw value or a scaled voltage value.
  *
  * @ingroup grove analog
  * @snippet groveslide.cxx Interesting
@@ -313,31 +313,31 @@ class GroveSlide: public Grove {
         /**
          * Grove analog slide potentiometer constructor
          *
-         * @param pin number of analog pin to use
+         * @param pin Number of the analog pin to use
          *
-         * @param ref_voltage the reference voltage the board is set to as float, e.g. 3.3 or 5.0 (default)
+         * @param ref_voltage Reference voltage the board is set to, as a floating-point value; default is 5.0V
          */
         GroveSlide(unsigned int pin, float ref_voltage = 5.0);
         /**
-         * GroveSlide Destructor
+         * GroveSlide destructor
          */
         ~GroveSlide();
         /**
-         * Get raw value from AIO pin
+         * Gets the raw value from the AIO pin
          *
-         * @return the raw value from the ADC
+         * @return Raw value from the ADC
          */
         float raw_value();
         /**
-         * Get the voltage value from the pin
+         * Gets the voltage value from the pin
          *
-         * @return the voltage reading based on the reference voltage
+         * @return Voltage reading based on the reference voltage
          */
         float voltage_value();
         /**
-         * Get the board's reference voltage passed on object initialization
+         * Gets the board's reference voltage passed on object initialization
          *
-         * @return the reference voltage the class was set for
+         * @return Reference voltage the class was set for
          */
         float ref_voltage();
     private:
@@ -346,9 +346,9 @@ class GroveSlide: public Grove {
 };
 
 /**
- * @brief API for Grove button
+ * @brief API for the Grove Button
  *
- * Very basic UPM module for Grove button
+ * Basic UPM module for the Grove button
  *
  * @ingroup grove gpio
  * @snippet grovebutton.cxx Interesting
@@ -359,7 +359,7 @@ class GroveButton: public Grove {
         /**
          * Grove button constructor
          *
-         * @param gpio pin to use
+         * @param gpio Pin to use
          */
         GroveButton(unsigned int pin);
         /**
@@ -367,15 +367,15 @@ class GroveButton: public Grove {
          */
         ~GroveButton();
         /**
-         * Get name of sensor
+         * Gets the name of the sensor
          *
-         * @return the name of this sensor
+         * @return Name of this sensor
          */
         std::string name();
         /**
-         * Get value from GPIO pin
+         * Gets the value from the GPIO pin
          *
-         * @return the value from the GPIO pin
+         * @return Value from the GPIO pin
          */
         int value();
     private:

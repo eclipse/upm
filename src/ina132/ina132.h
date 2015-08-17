@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief INA132 differential amplifier sensor library
+   * @brief INA132 Differential Amplifier Sensor library
    * @defgroup ina132 libupm-ina132
    * @ingroup seeed analog electric
    */
@@ -47,7 +47,7 @@ namespace upm {
    * for precise differential-input amplification.
    * 
    * This sensor was tested amplifying the signal
-   * from a Weight Sensor (Load Cell)0-500g
+   * from a Weight Sensor (Load Cell) 0-500g
    * 
    * @image html ina132.jpg 
    * @snippet ina132.cxx Interesting
@@ -55,20 +55,20 @@ namespace upm {
   class INA132 {
   public:
     /**
-     * INA132 sensor constructor
+     * INA132 constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     INA132(int pin);
     /**
-     * INA132 Destructor
+     * INA132 destructor
      */
     ~INA132();
 
     /**
-     * Measure precise differential-input amplification from the sensor
+     * Measures precise differential-input amplification from the sensor
      *
-     * @return precise differential-input amplification
+     * @return Precise differential-input amplification
      */
     float value();
 

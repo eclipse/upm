@@ -30,7 +30,7 @@
 
 // Register names according to the datasheet.
 // Register 0x1C is sometimes called 'PW', and sometimes 'PD'.
-// The two reserved registers can not be used.
+// The two reserved registers cannot be used.
 #define MMA7455_XOUTL 0x00      // Read only, Output Value X LSB
 #define MMA7455_XOUTH 0x01      // Read only, Output Value X MSB
 #define MMA7455_YOUTL 0x02      // Read only, Output Value Y LSB
@@ -64,9 +64,9 @@
 #define MMA7455_TW 0x1E         // Read/Write, Time Window for Second Pulse Value
 #define MMA7455_RESERVED2 0x1F  // Reserved
 
-// Defines for the bits, to be able to change
-// between bit number and binary definition.
-// By using the bit number, programming the MMA7455
+// Defines for the bits to be able to change
+// between the bit number and the binary definition.
+// By using the bit number, programming MMA7455
 // is like programming an AVR microcontroller.
 // But instead of using "(1<<X)", or "_BV(X)",
 // the Arduino "bit(X)" is used.
@@ -150,7 +150,7 @@ union accelData {
 #define BIT(n) (1<<n)
 
 /**
- * @brief MMA7455 accelerometer library
+ * @brief MMA7455 Accelerometer library
  * @defgroup mma7455 libupm-mma7455
  * @ingroup generic i2c accelerometer
  */
@@ -162,7 +162,7 @@ union accelData {
  * @man generic
  * @con i2c
  *
- * @brief API for MMA7455 chip (accelerometer)
+ * @brief API for the MMA7455 Accelerometer
  *
  * This file defines the MMA7455 interface for libmma7455
  *
@@ -172,20 +172,20 @@ union accelData {
 class MMA7455 {
     public:
         /**
-         * Instanciates a MMA7455 object
+         * Instantiates an MMA7455 object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          */
         MMA7455 (int bus=0, int devAddr=0x1D);
 
         /**
-         * MMA7455 object destructor, basicaly it close i2c connection.
+         * MMA7455 object destructor; basically, it closes the I2C connection.
          */
         ~MMA7455 ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -193,34 +193,34 @@ class MMA7455 {
         }
 
         /**
-         * Calibrate the sensor
+         * Calibrates the sensor
          */
         mraa_result_t calibrate ();
 
         /**
-         * Read X, Y and Z acceleration data
+         * Reads X-axis, Y-axis, and Z-axis acceleration data
          *
-         * @param ptrX X axis
-         * @param ptrY Y axis
-         * @param ptrZ Z axis
+         * @param ptrX X-axis
+         * @param ptrY Y-axis
+         * @param ptrZ Z-axis
          */
         mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
 
         /**
          *
          *
-         * @param reg register address
-         * @param buf register data buffer
-         * @param size buffer size
+         * @param reg Register address
+         * @param buf Register data buffer
+         * @param size Buffer size
          */
         int ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
 
         /**
          *
          *
-         * @param reg register address
-         * @param buf register data buffer
-         * @param size buffer size
+         * @param reg Register address
+         * @param buf Register data buffer
+         * @param size Buffer size
          */
         mraa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
 

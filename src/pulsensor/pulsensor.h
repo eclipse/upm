@@ -40,7 +40,7 @@
 #define FALSE              LOW
 
 /**
- * @brief pulsensor pulse sensor library
+ * @brief Pulsensor Pulse Sensor library
  * @defgroup pulsensor libupm-pulsensor
  * @ingroup seeed analog medical
  */
@@ -53,9 +53,9 @@
  * @web http://www.adafruit.com/products/1093
  * @con analog
  *
- * @brief C++ API for 3-wire pulse sensor
+ * @brief C++ API for the 3-Wire Pulse Sensor
  *
- * This is a library for the 3-wire pulse sensor sold by several manufacturers.
+ * This is a library for a 3-wire pulse sensor sold by several manufacturers.
  * Usually, you can identify the sensor based on the round breakout and the
  * distinctive heart symbol.
  *
@@ -68,7 +68,7 @@
  * @brief callback data 
  */
 struct clbk_data {
-    int is_heart_beat; /**< heart beat check */
+    int is_heart_beat; /**< heartbeat check */
 };
 
 typedef void (* callback_handler) (clbk_data);
@@ -80,7 +80,7 @@ typedef void (* callback_handler) (clbk_data);
 struct pulsensor_context {
     pthread_t        sample_thread; /**< Thread for the code sample */
     uint32_t         sample_counter; /**< Counter for the code sample */
-    uint32_t         last_beat_time; /**< Last heart beat time */
+    uint32_t         last_beat_time; /**< Last heartbeat time */
     int              threshold; /**< Threshold */
     int              ibi_rate[10]; /**< ibi rate */
     int              ibi; /**< ibi */
@@ -90,8 +90,8 @@ struct pulsensor_context {
     int              apmlitude; /**< Amplitude */
     uint8_t          qs; /**< qs */
     uint8_t          is_pulse; /**< Is pulse check */
-    uint8_t          first_beat; /**< First heart beat */
-    uint8_t          second_beat; /**< Second heart beat */
+    uint8_t          first_beat; /**< First heartbeat */
+    uint8_t          second_beat; /**< Second heartbeat */
     uint8_t          pin; /**< Pin */
     uint8_t          ret; /**< Return value */
     mraa_aio_context  pin_ctx; /**< The pin context */

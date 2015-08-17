@@ -32,12 +32,12 @@
  * @con gpio
  * @kit gsk eak hak
  *
- * @brief API for Grove Relay
+ * @brief API for the Grove Relay
  *
- * UPM module for Grove relay switch.  The Grove relay is a
+ * UPM module for the Grove relay switch. The Grove relay is a
  * digital normally-open switch that uses low voltage or current to 
  * control a higher voltage and/or higher current.  When closed, 
- * the indicator LED will light up and current is allowed to flow.
+ * the indicator LED lights up and current is allowed to flow.
  *
  * @image html groverelay.jpg
  * @snippet groverelay.cxx Interesting

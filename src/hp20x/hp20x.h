@@ -32,7 +32,7 @@
 namespace upm {
   
   /**
-   * @brief HP20X I2C Barometer (high accuracy) library
+   * @brief HP20X I2C Barometer (High-Accuracy) library
    * @defgroup hp20x libupm-hp20x
    * @ingroup seeed i2c pressure
    */
@@ -40,21 +40,21 @@ namespace upm {
   /**
    * @library hp20x
    * @sensor hp20x
-   * @comname Grove Barometer (high accuracy)
-   * @altname HP20X Barometer (high accuracy)
+   * @comname Grove Barometer (High-Accuracy)
+   * @altname HP20X Barometer (High-Accuracy)
    * @type pressure
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-Barometer-HighAccuracy-p-1865.html
    * @con i2c
    *
-   * @brief API for the HP20X based Grove Barometer (high accuracy)
+   * @brief API for the HP20X-based Grove Barometer (High-Accuracy)
    *
-   * This is a high accuracy barometer providing pressure, altitude
-   * and temperature data.  It can be calabrated for a given altitude
+   * This is a high-accuracy barometer providing pressure, altitude,
+   * and temperature data. It can be calibrated for a given altitude
    * offset, and a wide range of interrupt generating capabilities are
-   * supported.  As usual, see the HP20x datasheet for more detail.
+   * supported. As usual, see the HP20X datasheet for more details.
    *
-   * This module was developed using a Grove Barometer (High Accuracy)
+   * This module was developed using a Grove Barometer (High-Accuracy)
    * based on an HP206C chip.
    *
    * @image html hp20x.jpg
@@ -183,7 +183,7 @@ namespace upm {
 
       INT_SRC_DEV_RDY            = 0x40, // device is ready
 
-      INT_SRC_TH_ERR             = 0x80 // threshhold error
+      INT_SRC_TH_ERR             = 0x80 // threshold error
     } INT_SRC_BITS_T;
 
     /**
@@ -195,178 +195,178 @@ namespace upm {
     } PARA_BITS_T;
 
     /**
-     * hp20x constructor
+     * HP20X constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
+     * @param bus I2C bus to use
+     * @param address Address for this device
      */
     HP20X(int bus=HP20X_I2C_BUS, uint8_t address=HP20X_DEFAULT_I2C_ADDR);
 
     /**
-     * HP20X Destructor
+     * HP20X destructor
      */
     ~HP20X();
     
     /**
-     * set up initial values and start operation
+     * Sets up initial values and starts operation
      *
-     * @param dsr the data sampling rate: one of the DSR_BITS_T values
-     * @return true if successful
+     * @param dsr Data sampling rate; one of the DSR_BITS_T values
+     * @return True if successful
      */
     bool init(DSR_BITS_T dsr=DSR_4096);
 
     /**
-     * send a command to the device
+     * Sends a command to the device
      *
-     * @param cmd command to send, one of the HP20X_CMD_T values, usually
-     * @return true if successful
+     * @param cmd Command to send; usually, one of the HP20X_CMD_T values
+     * @return True if successful
      */
     bool writeCmd(uint8_t cmd);
 
     /**
-     * write a value to a register
+     * Writes a value to a register
      *
-     * @param reg register to write, one of the HP20X_REG_T values
-     * @param data value to write
-     * @return true if successful
+     * @param reg Register to write to; one of the HP20X_REG_T values
+     * @param data Value to write
+     * @return True if successful
      */
     bool writeReg(HP20X_REG_T reg, uint8_t data);
 
     /**
-     * read a register and return it's value
+     * Reads a register and returns its value
      *
-     * @param reg register to read, one of the HP20X_REG_T values
-     * @return value of specified register
+     * @param reg Register to read; one of the HP20X_REG_T values
+     * @return Value of a specified register
      */
     uint8_t readReg(HP20X_REG_T reg);
 
     /**
-     * read 3 bytes of data in response to a conversion request, and
-     * convert to an integer
+     * Reads 3 bytes of data in response to a conversion request, and
+     * converts it to an integer
      *
-     * @return value read back (temperature, pressure, etc)
+     * @return Value read back (temperature, pressure, etc.)
      */
     int readData();
 
     /**
-     * check to see if the DR_RDY bit is set, indicating the device
+     * Checks to see if the DR_RDY bit is set, indicating the device
      * can accept commands
      *
-     * @return true if device is ready, false otherwise
+     * @return True if the device is ready, false otherwise
      */
     bool isReady();
 
     /**
-     * check to see if device is ready and sleep/retry if not.
-     * Returns once device indicates it's ready.
+     * Checks to see if the device is ready, and sleeps/retries if not.
+     * Returns once the device indicates it's ready.
      *
-     * @return true if device is ready, false if retries exhausted
+     * @return True if the device is ready; false if retries are exhausted
      */
     bool waitforDeviceReady();
 
     /**
-     * return the temperature in celcius
+     * Returns the temperature in Celsius
      *
-     * @return the temperature
+     * @return Temperature
      */
     float getTemperature();
 
     /**
-     * return the pressure in millibars
+     * Returns the pressure in millibars
      *
-     * @return the pressure
+     * @return Pressure
      */
     float getPressure();
 
     /**
-     * return the computed altitude in meters
+     * Returns the computed altitude in meters
      *
-     * @return the altitude
+     * @return Altitude
      */
     float getAltitude();
 
     /**
-     * enable or disable the on-chip compensator.  This allows the
+     * Enables or disables the on-chip compensator. This allows the
      * chip to filter and clean up the output data.
      *
-     * @param enable true to enable, false otherwise
+     * @param enable True to enable, false otherwise
      */
     void compensationEnable(bool enable);
 
     /**
-     * setup the interrupt enable register.  This register defines
+     * Sets up the interrupt enable register. This register defines
      * which events can cause a hardware interrupt pin to be pulled high
      * (active).
      *
-     * @param bits one or more of the INT_EN_BITS_T bits
-     * @return true if successful, false otherwise
+     * @param bits One or more of the INT_EN_BITS_T bits
+     * @return True if successful, false otherwise
      */
     bool setInterruptEnable(uint8_t bits);
 
     /**
-     * setup the interrupt configuration register.  This register
+     * Sets up the interrupt configuration register. This register
      * defines which events can cause an interrupt to be indicated.
      *
-     * @param bits one or more of the INT_EN_BITS_T bits
-     * @return true if successful, false otherwise
+     * @param bits One or more of the INT_EN_BITS_T bits
+     * @return True if successful, false otherwise
      */
     bool setInterruptConfig(uint8_t bits);
 
     /**
-     * get the interrupt source register.  This register indicates
-     * which interrupts have been triggered.  In addition, it
+     * Gets the interrupt source register. This register indicates
+     * which interrupts have been triggered. In addition, it
      * indicates when certain operations have been completed.
      *
-     * @return one of more of the INT_SRC_BITS_T values
+     * @return One of more of the INT_SRC_BITS_T values
      */
     uint8_t getInterruptSource();
 
     /**
-     * set the data sampling rate.  Higher rates are more precise, but
+     * Sets the data sampling rate. Higher rates are more precise, but
      * take more time per measurement.
      *
-     * @param dsr one of the DSR_BITS_T values
+     * @param dsr One of the DSR_BITS_T values
      */
     void setDSR(DSR_BITS_T dsr);
 
 
     /**
-     * start an internal recalibration of the analog blocks.  This is
+     * Starts an internal recalibration of analog blocks. This is
      * faster than a soft reset.
      */
     void recalibrateInternal();
 
     /**
-     * execute a soft reset.  All register values are reset to power
-     * on defaults.  This function will return when the reset is
-     * complete and the device reports that it is ready.
+     * Executes a soft reset. All register values are reset to power-on
+     * defaults. This function returns when the reset is
+     * complete and the device reports it is ready.
      */
     void softReset();
 
     /**
-     * Set the altitude offset for your region.  See the datasheet for
-     * more details.  Setting this correctly for your region is
+     * Sets the altitude offset for your region. See the datasheet for
+     * more details. Setting this correctly for your region is
      * required for accurate altitude data.
      *
-     * @param off the offset
+     * @param off Offset
      */
     void setAltitudeOffset(int16_t off);
 
     /**
-     * set the pressure/altitude thresholds for interrupt generation.
+     * Sets pressure/altitude thresholds for interrupt generation
      *
-     * @param low the low threshold for generating an interrupt
-     * @param med the medium threshold for generating an interrupt
-     * @param high the high threshold for generating an interrupt
+     * @param low Low threshold to generate an interrupt
+     * @param med Medium threshold to generate an interrupt
+     * @param high High threshold to generate an interrupt
      */
     void setPAThreshholds(int16_t low, int16_t med, int16_t high);
 
     /**
-     * set the temperature thresholds for interrupt generation.
+     * Sets temperature thresholds for interrupt generation
      *
-     * @param low the low threshold for generating an interrupt
-     * @param med the medium threshold for generating an interrupt
-     * @param high the high threshold for generating an interrupt
+     * @param low Low threshold to generate an interrupt
+     * @param med Medium threshold to generate an interrupt
+     * @param high High threshold to generate an interrupt
      */
     void setTemperatureThreshholds(int8_t low, int8_t med, int8_t high);
 

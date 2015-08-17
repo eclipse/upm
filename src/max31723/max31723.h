@@ -34,7 +34,7 @@
 namespace upm {
 
 /**
- * @brief MAX31723 temperature sensor library
+ * @brief MAX31723 Temperature Sensor library
  * @defgroup max31723 libupm-max31723
  * @ingroup maxim spi temperature
  */
@@ -46,11 +46,11 @@ namespace upm {
  * @man maxim
  * @con spi
  *
- * @brief API for MAX31723 chip (Temperature Sensor)
+ * @brief API for the MAX31723 Temperature Sensor
  *
- * The Maxim Integrated
+ * Maxim Integrated*
  * [MAX31723](http://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf)
- * is a Low-Voltage 3-Wire/SPI Temperature Sensor controller. This module was
+ * is a low-voltage 3-wire/SPI temperature sensor controller. This module was
  * tested on the Maxim Integrated [MAX31732PMB1 PMOD
  * module](http://datasheets.maximintegrated.com/en/ds/MAX31723PMB1.pdf) from
  * the analog PMOD kit.
@@ -67,25 +67,25 @@ class MAX31723 {
         static const uint8_t B_CONT_READING     = 0x00;
 
         /**
-         * Instanciates a MAX31723 object
+         * Instantiates an MAX31723 object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          */
         MAX31723 (int csn);
 
         /**
-         * MAXDS3231M object destructor, basicaly it close i2c connection.
+         * MAXDS3231M object destructor; basically, it closes the I2C connection.
          */
         ~MAX31723 ();
 
         /**
-         * Get on board temperature.
+         * Gets the on-board temperature.
          */
         short getTemperature ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -100,12 +100,12 @@ class MAX31723 {
         void writeRegister (uint8_t reg, uint8_t data);
 
         /**
-         * Set chip select pin LOW
+         * Sets the chip select pin to LOW
          */
         mraa_result_t CSOn ();
 
         /**
-         * Set chip select pin HIGH
+         * Sets the chip select pin to HIGH
          */
         mraa_result_t CSOff ();
 };

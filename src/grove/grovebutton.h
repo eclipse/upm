@@ -33,9 +33,9 @@
  * @con gpio
  * @kit gsk
  *
- * @brief API for Grove Button
+ * @brief API for the Grove Button
  *
- * Very basic UPM module for Grove button
+ * Basic UPM module for the Grove button
  *
  * @image html grovebutton.jpg
  * @snippet grovebutton.cxx Interesting

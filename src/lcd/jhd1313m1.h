@@ -2,6 +2,8 @@
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Contributions: Jon Trulson <jtrulson@ics.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -24,8 +26,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.hpp>
-#include "lcd.h"
+#include "lcm1602.h"
 
 namespace upm
 {
@@ -40,26 +41,26 @@ namespace upm
  * @con i2c
  * @kit gsk
  *
- * @brief API for Jhd1313m1 i2c controller for HD44780 based displays with
- * an RGB backlight such as the Grove RGB i2c LCD display
+ * @brief API for the JHD1313M1 I2C controller for HD44780-based displays with
+ * an RGB backlight, such as a Grove RGB I2C LCD display
  *
- * The Jhd1313m1 has two i2c addreses, one belongs to a controller very similar
- * to the upm::Lcm1602 LCD driver which controls the HD44780 based display and the
- * other controls solely the backlight. This module was tested with the Seed
- * Grove LCD RGB Backlight v2.0 display which requires 5V to operate.
+ * JHD1313M1 has two I2C addreses: one belongs to a controller, very similar
+ * to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the
+ * other controls only the backlight. This module was tested with the Seeed
+ * Grove LCD RGB Backlight v2.0 display that requires 5V to operate.
  *
  * @image html grovergblcd.jpg
  * @snippet jhd1313m1-lcd.cxx Interesting
  */
-class Jhd1313m1 : public LCD
+class Jhd1313m1 : public Lcm1602
 {
   public:
     /**
      * Jhd1313m1 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the slave address the lcd is registered on
-     * @param address the slave address the rgb backlight is on
+     * @param bus I2C bus to use
+     * @param address Slave address the LCD is registered on
+     * @param address Slave address the RGB backlight is registered on
      */
     Jhd1313m1(int bus, int lcdAddress = 0x3E, int rgbAddress = 0x62);
     /**
@@ -67,63 +68,28 @@ class Jhd1313m1 : public LCD
      */
     ~Jhd1313m1();
     /**
-     * Make the LCD scroll text
+     * Makes the LCD scroll text
      *
-     * @param direction, true is typical scrolling to the right
-     * @return Result of operation
+     * @param direction True if scrolling to the right
+     * @return Result of the operation
      */
     mraa_result_t scroll(bool direction);
     /**
-     * Set the color of the backlight
+     * Sets the color of the backlight
      *
      * @param r 0-255 value for red
      * @param g 0-255 value for green
      * @param b 0-255 value for blue
-     * @return Result of operation
+     * @return Result of the operation
      */
     mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
-    /**
-     * Write a string to LCD
-     *
-     * @param msg The std::string to write to display, note only ascii
-     *     chars are supported
-     * @return Result of operation
-     */
-    mraa_result_t write(std::string msg);
-    /**
-     * Set cursor to a coordinate
-     *
-     * @param row The row to set cursor to
-     * @param column The column to set cursor to
-     * @return Result of operation
-     */
-    mraa_result_t setCursor(int row, int column);
-    /**
-     * Clear display from characters
-     *
-     * @return Result of operatio
-     */
-    mraa_result_t clear();
-    /**
-     * Return to coordinate 0,0
-     *
-     * @return Result of operation
-     */
-    mraa_result_t home();
 
-    /**
-     * Create a custom character
-     *
-     * @param charSlot the character slot to write, only 8 are available
-     * @param charData The character data (8 bytes) making up the character
-     * @return Result of operation
-     */
-    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+ protected:
+    virtual mraa_result_t command(uint8_t cmd);
+    virtual mraa_result_t data(uint8_t data);
 
   private:
     int m_rgb_address;
     mraa::I2c m_i2c_lcd_rgb;
-    int m_lcd_control_address;
-    mraa::I2c m_i2c_lcd_control;
 };
 }

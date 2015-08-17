@@ -29,7 +29,7 @@
 
 namespace upm {
      /**
-      * @brief HX711 24bit ADC library
+      * @brief HX711 24-bit ADC library
       * @defgroup hx711 libupm-hx711
       * @ingroup generic gpio electric
       */
@@ -43,12 +43,12 @@ namespace upm {
       * @web http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf
       * @con gpio
       *
-      * @brief API for HX711
+      * @brief API for the HX711 Analog-to-Digital Converter
       *
-      * The HX711 is a precision 24-bit analog-to-digital converter (ADC)
-      * designed for weigh scales and industrial control applications to
+      * HX711 is a precision 24-bit analog-to-digital converter (ADC)
+      * designed for weight scales and industrial control applications to
       * interface directly with a bridge sensor. This module was tested on
-      * the Intel Galileo Gen2.
+      * the Intel(R) Galileo Gen 2 board.
       *
       * @image html hx711.jpeg
       * @snippet hx711.cxx Interesting
@@ -56,66 +56,66 @@ namespace upm {
       class HX711 {
       public:
             /**
-            * HX711 module constructor
+            * HX711 constructor
             *
-            * @param data define the data pin
-            * @param sck define the clock pin
-            * @param gain define the gain factor
-            * Valid values are 128 or 64 for channel A; channel B works with 32 gain factor only
+            * @param data Defines the data pin
+            * @param sck Defines the clock pin
+            * @param gain Defines the gain factor
+            * Valid values are 128 or 64 for channel A; channel B works with a 32-gain factor only
             */
             HX711(uint8_t data, uint8_t sck, uint8_t gain = 128);
 
             /**
-            * HX711 module Destructor
+            * HX711 destructor
             */
             ~HX711();
 
             /**
             * Waits for the chip to be ready and returns a reading
             *
-            * @return raw adc read
+            * @return Raw ADC reading
             */
             unsigned long read();
 
             /**
-            * Set the gain factor; takes effect only after a call to read()
-            * channel A can be set for a 128 or 64 gain; channel B has a fixed 32 gain
-            * depending on the parameter, the channel is also set to either A or B
-            * @param gain define the gain factor
+            * Sets the gain factor; takes effect only after a call to read()
+            * channel A can be set for a 128 or 64 gain; channel B has a fixed 32-gain
+            * factor depending on the parameter; the channel is also set to either A or B
+            * @param gain Defines the gain factor
             */
             void setGain(uint8_t gain = 128);
 
             /**
             * Returns an average reading
-            * @param times define how many times to read
-            * @return the avarage reading
+            * @param times Defines how many reading to do
+            * @return Average reading
             */
             unsigned long readAverage(uint8_t times = 10);
 
             /**
             * Returns (readAverage() - OFFSET)
-            * @param times define how many readings to do
-            * @return the current value without the tare weight
+            * @param times Defines how many readings to do
+            * @return Current value without the tare weight
             */
             double getValue(uint8_t times = 10);
 
             /**
             * Returns getValue() divided by SCALE
-            * @param times define how many readings to do
-            * @return the raw value divided by a value obtained via calibration
+            * @param times Defines how many readings to do
+            * @return Raw value divided by a value obtained via calibration
             */
             float getUnits(uint8_t times = 1);
 
             /**
-            * Set the OFFSET value for tare weight
-            * @param times define how many times to read the tare value
+            * Sets the OFFSET value for the tare weight
+            * @param times Defines how many times to read the tare value
             */
             void tare(uint8_t times = 10);
 
             /**
-            * Set the SCALE value
-            * This value is used to convert the raw data to "human readable" data (measure units)
-            * @param scale value obtained via calibration
+            * Sets the SCALE value
+            * This value is used to convert the raw data to human-readable data (measurement units)
+            * @param scale Value obtained via calibration
             */
             void setScale(float scale = 1.f);
        private:
@@ -128,9 +128,9 @@ namespace upm {
 
 
             /**
-            * Set the OFFSET value
-            * The value that's subtracted from the actual reading (tare weight)
-            * @param scale value obtained via calibration
+            * Sets the OFFSET value
+            * This value is subtracted from the actual reading (tare weight)
+            * @param scale Value obtained via calibration
             */
             void setOffset(long offset = 0);
      };

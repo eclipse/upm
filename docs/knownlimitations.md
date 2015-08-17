@@ -24,7 +24,8 @@ such sensors and known workarounds if they exist.
  * **Grove 128x64 OLED Display** will not work on the Intel Edison with Arduino
  breakout.
  * **Grove Barometer** (BMP085) has an unstable connection on the Intel Edison
- using the Arduino breakout and does not run properly.
+ using the Arduino breakout and may drop read data. The Xadow version of this
+ sensor (BMP180) is also dropping data packets occasionally.
  * **Grove 6-Axis Accelerometer & Compass** (LSM303) fails to write to the
  configuration register properly and returns invalid data.
  * **Grove I2C ADC Converter** does not show up on the I2C bus on the Intel
@@ -42,7 +43,6 @@ such sensors and known workarounds if they exist.
 
 #### Other Sensors
 
- * **MPU9150** might return inaccurate data.
  * **SM130** driver might not be fully functional.
  * **NRF24L01** might not handle data packets as expected.
  * **NRF8001** based devices do not initialize properly with provided examples.

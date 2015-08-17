@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief ISD1820 recorder module library
+     * @brief ISD1820 Voice Recorder Module library
      * @defgroup isd1820 libupm-isd1820
      * @ingroup seeed gpio sound
      */
@@ -43,10 +43,10 @@ namespace upm {
      * @man seeed
      * @con gpio
      *
-     * @brief API support for the ISD1820 based Grove Recorder
+     * @brief API support for the ISD1820-based Grove Voice Recorder
      *
-     * This class implements support for the Grove Recorder.  There
-     * are two digital pins, one that enables recording, and the other
+     * This class implements support for the Grove Voice Recorder. There
+     * are two digital pins: one that enables recording, and the other
      * that plays back what was previously recorded.
      *
      * @image html isd1820.jpg
@@ -56,29 +56,29 @@ namespace upm {
   public:
 
     /**
-     * ISD1820 module constructor
+     * ISD1820 constructor
      *
-     * @param recPin the pin to use for recording
-     * @param playPin the pin to use for playback
+     * @param recPin Pin to use for recording
+     * @param playPin Pin to use for playback
      */
     ISD1820(int playPin, int recPin);
 
     /**
-     * ISD1820 module Destructor
+     * ISD1820 destructor
      */
     ~ISD1820();
 
     /**
-     * Start or stop playback
+     * Starts or stops playback
      *
-     * @param enable start playback if true, stop if false
+     * @param enable Starts playback if true, stops if false
      */
     void play(bool enable);
 
     /**
-     * Start or stop recording
+     * Starts or stops recording
      *
-     * @param enable start recording if true, stop if false
+     * @param enable Starts recording if true, stops if false
      */
     void record(bool enable);
 

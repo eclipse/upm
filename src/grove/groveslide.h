@@ -31,10 +31,10 @@
  * @man seeed
  * @con analog
  *
- * @brief API for Grove Slide Potentiometer
+ * @brief API for the Grove Slide Potentiometer
  *
- * Very basic UPM module for Grove slide potentiometer on analog,
- * returns either raw value or scaled voltage value.
+ * Basic UPM module for the Grove slide potentiometer on analog that
+ * returns either a raw value or a scaled voltage value.
  *
  * @image html groveslide.jpeg
  * @snippet groveslide.cxx Interesting

@@ -43,9 +43,9 @@ namespace upm {
    * @con analog
    * @kit eak
    *
-   * @brief API for the GUVAS12D UV sensor module
+   * @brief API for the GUVA-S12D UV Sensor
    *
-   * UPM module for the GUVAS12D UV Sensor
+   * UPM module for the GUVA-S12D UV sensor
    *
    * @image html guvas12d.jpg
    * @snippet guvas12d.cxx Interesting
@@ -53,21 +53,21 @@ namespace upm {
   class GUVAS12D {
   public:
     /**
-     * GUVAS12D sensor constructor
+     * GUVA-S12D UV sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GUVAS12D(int pin);
     /**
-     * GUVAS12D Destructor
+     * GUVAS12D destructor
      */
     ~GUVAS12D();
     /**
-     * Get the averaged voltage value from the sensor
+     * Gets the average voltage value from the sensor
      *
-     * @param aref the reference voltage in use (5.0 or 3.3 usually)
-     * @param samples number of samples to average over
-     * @return the averaged voltage reading
+     * @param aref Reference voltage in use (usually 5.0 V or 3.3 V)
+     * @param samples Number of samples to average over
+     * @return Average voltage reading
      */
     float value(float aref, unsigned int samples);
 
