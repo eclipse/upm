@@ -32,7 +32,15 @@
 #include <string.h>
 #include <string>
 #include <mraa/i2c.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
 #include <mraa/gpio.hpp>
+#define SWIGJAVA
+#else
+#include <mraa/gpio.hpp>
+#endif
+
 
 #define PN532_I2C_BUS 0
 #define PN532_DEFAULT_I2C_ADDR (0x48 >> 1)

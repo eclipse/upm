@@ -25,7 +25,15 @@
 
 #include <string>
 #include <mraa/spi.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
 #include <mraa/gpio.hpp>
+#define SWIGJAVA
+#else
+#include <mraa/gpio.hpp>
+#endif
+
 #include "lcd.h"
 #include "ssd.h"
 

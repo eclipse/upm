@@ -26,6 +26,10 @@
 #include <string>
 #include <mraa/gpio.h>
 
+#ifdef SWIGJAVA
+#include "../IsrCallback.h"
+#endif
+
 namespace upm {
 
 /**
@@ -83,6 +87,9 @@ namespace upm {
      */
     bool blackDetected();
 
+#ifdef SWIGJAVA
+    void installISR(IsrCallback *cb);
+#else
     /**
      * Installs an ISR to be called when
      * black is detected
@@ -92,6 +99,7 @@ namespace upm {
      * argument to the ISR.
      */
     void installISR(void (*isr)(void *), void *arg);
+#endif
 
     /**
      * Uninstalls the previously installed ISR
@@ -100,6 +108,9 @@ namespace upm {
     void uninstallISR();
 
   private:
+#ifdef SWIGJAVA
+    void installISR(void (*isr)(void *), void *arg);
+#endif	
     bool m_isrInstalled;
     mraa_gpio_context m_gpio;
   };

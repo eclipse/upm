@@ -25,7 +25,19 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
 #include <mraa/gpio.hpp>
+#define SWIGJAVA
+#else
+#include <mraa/gpio.hpp>
+#endif
+
+#ifdef SWIGJAVA
+#include "../IsrCallback.h"
+#endif
+
 
 #define LSM9DS0_I2C_BUS 1
 #define LSM9DS0_DEFAULT_XM_ADDR 0x1d
@@ -1382,6 +1394,10 @@ namespace upm {
      */
     uint8_t getInterruptGen2Src();
 
+#ifdef SWIGJAVA
+    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+		    IsrCallback *cb);
+#else
     /**
      * install an interrupt handler.
      *
@@ -1396,7 +1412,7 @@ namespace upm {
      */
     void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                     void (*isr)(void *), void *arg);
-
+#endif
     /**
      * uninstall a previously installed interrupt handler
      *
@@ -1431,6 +1447,11 @@ namespace upm {
   private:
     // OR'd with a register, this enables register autoincrement mode,
     // which we need.
+#ifdef SWIGJAVA
+    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+                    void (*isr)(void *), void *arg);
+#endif
+
     static const uint8_t m_autoIncrementMode = 0x80;
 
     mraa::I2c m_i2cG;

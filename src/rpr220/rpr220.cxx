@@ -26,6 +26,7 @@
 
 #include "rpr220.h"
 
+
 using namespace upm;
 using namespace std;
 
@@ -54,6 +55,13 @@ bool RPR220::blackDetected()
 {
   return (mraa_gpio_read(m_gpio) ? true : false);
 }
+
+#ifdef SWIGJAVA
+void RPR220::installISR(IsrCallback *cb)
+{
+	installISR(generic_callback_isr, cb);
+}
+#endif
 
 void RPR220::installISR(void (*isr)(void *), void *arg)
 {

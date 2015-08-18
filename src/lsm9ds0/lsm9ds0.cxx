@@ -699,6 +699,15 @@ uint8_t LSM9DS0::getInterruptGen2Src()
   return readReg(DEV_XM, REG_INT_GEN_2_SRC);
 }
 
+#ifdef SWIGJAVA
+void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+			 IsrCallback *cb)
+{
+        installISR(intr, gpio, level, generic_callback_isr, cb);
+}
+#endif
+
+
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {

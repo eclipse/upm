@@ -25,7 +25,14 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
 #include <mraa/gpio.hpp>
+#define SWIGJAVA
+#else
+#include <mraa/gpio.hpp>
+#endif
 
 #define MPU60X0_I2C_BUS 0
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68

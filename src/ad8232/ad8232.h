@@ -26,7 +26,14 @@
 #include <stdint.h>
 #include <sys/time.h>
 
+#ifdef SWIGJAVA
+#undef SWIGJAVA
 #include <mraa/gpio.hpp>
+#define SWIGJAVA
+#else
+#include <mraa/gpio.hpp>
+#endif
+
 #include <mraa/aio.hpp>
 
 #define AD8232_DEFAULT_AREF  3.3
