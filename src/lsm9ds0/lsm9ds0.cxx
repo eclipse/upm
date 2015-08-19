@@ -707,7 +707,6 @@ void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
 }
 #endif
 
-
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {

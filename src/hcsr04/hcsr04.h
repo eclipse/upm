@@ -29,6 +29,10 @@
 #include <mraa/pwm.h>
 #include <sys/time.h>
 
+#ifdef SWIGJAVA
+#include "../IsrCallback.h"
+#endif
+
 #define HIGH                   1
 #define LOW                    0
 
@@ -58,6 +62,9 @@ namespace upm {
  */
 class HCSR04 {
     public:
+#ifdef SWIGJAVA
+	HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
+#else 
         /**
          * Instantiates an HCSR04 object
          *
@@ -67,7 +74,7 @@ class HCSR04 {
          * falling-edge interrupts
          */
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
-
+#endif
         /**
          * HCSR04 object destructor
          */
@@ -96,6 +103,9 @@ class HCSR04 {
         }
 
     private:
+#ifdef SWIGJAVA
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
+#endif
         mraa_pwm_context     m_pwmTriggerCtx;
         mraa_gpio_context    m_echoPinCtx;
 

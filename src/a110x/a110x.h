@@ -26,6 +26,10 @@
 #include <string>
 #include <mraa/gpio.h>
 
+#ifdef SWIGJAVA
+#include "../IsrCallback.h"
+#endif
+
 namespace upm {
   /**
    * @brief A110X Hall Effect library
@@ -85,8 +89,11 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
+#ifdef SWIGJAVA
+    void installISR(IsrCallback *cb);
+#else
     void installISR(void (*isr)(void *), void *arg);
-
+#endif
     /**
      * Uninstalls the previously installed ISR
      *
@@ -94,6 +101,10 @@ namespace upm {
     void uninstallISR();
 
   private:
+#ifdef SWIGJAVA
+    void installISR(void (*isr)(void *), void *arg);
+#endif
+
     bool m_isrInstalled;
     mraa_gpio_context m_gpio;
   };

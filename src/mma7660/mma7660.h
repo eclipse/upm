@@ -27,6 +27,10 @@
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
+#ifdef SWIGJAVA
+#include "../IsrCallback.h"
+#endif
+
 #define MMA7660_I2C_BUS 0
 #define MMA7660_DEFAULT_I2C_ADDR 0x4c
 
@@ -248,8 +252,11 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
+#ifdef SWIGJAVA
+    void installISR(int pin, IsrCallback *cb);
+#else
     void installISR(int pin, void (*isr)(void *), void *arg);
-
+#endif
     /**
      * Uninstalls the previously installed ISR
      *
@@ -276,6 +283,10 @@ namespace upm {
     bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
 
   private:
+#ifdef SWIGJAVA
+    void installISR(int pin, void (*isr)(void *), void *arg);
+#endif
+
     bool m_isrInstalled;
     mraa_i2c_context m_i2c;
     mraa_gpio_context m_gpio;

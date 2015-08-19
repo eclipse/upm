@@ -195,6 +195,13 @@ bool MMA7660::tiltShake()
     return false;
 }
 
+#ifdef SWIGJAVA
+void MMA7660::installISR(int pin, IsrCallback *cb)
+{
+        installISR(pin, generic_callback_isr, cb);
+}
+#endif
+
 void MMA7660::installISR(int pin, void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)
