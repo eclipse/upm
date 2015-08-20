@@ -33,12 +33,21 @@ using namespace upm;
 using namespace std;
 
 
-PCA9685::PCA9685(int bus, uint8_t address)
+PCA9685::PCA9685(int bus, uint8_t address, bool raw)
 {
   m_addr = address;
 
   // setup our i2c link
-  if ( !(m_i2c = mraa_i2c_init(bus)) )
+  if ( raw )
+    {
+      m_i2c = mraa_i2c_init_raw(bus);
+    }
+  else
+    {
+      m_i2c = mraa_i2c_init(bus);
+    }
+
+  if ( !m_i2c)
     {
       cerr << "PCA9685: mraa_i2c_init() failed." << endl;
       return;
