@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *

@@ -130,7 +130,7 @@
 
 namespace upm {
 
-union accelData {
+typedef union {
     struct {
         unsigned char x_lsb;
         unsigned char x_msb;
@@ -145,7 +145,7 @@ union accelData {
         short y;
         short z;
     } value;
-};
+} accelData;
 
 #define BIT(n) (1<<n)
 

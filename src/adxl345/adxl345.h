@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
