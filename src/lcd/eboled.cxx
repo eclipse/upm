@@ -23,6 +23,7 @@
  */
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 
 #include "eboled.h"
 
@@ -33,12 +34,14 @@ EBOLED::EBOLED(int spi, int CD, int reset) :
   m_spi(spi), m_gpioCD(CD), m_gpioRST(reset)
 {
   m_name = "EBOLED";
-  
+
   m_gpioCD.dir(mraa::DIR_OUT);
   m_gpioRST.dir(mraa::DIR_OUT);
 
-  m_spi.frequency(1000000);
-
+  //lowering SPI frequency to prevent Kernel crashes
+  //10000000 is standard.
+  m_spi.frequency(500000);
+  
   // reset the device
   m_gpioRST.write(1);
   usleep(5000);
@@ -82,10 +85,10 @@ EBOLED::EBOLED(int spi, int CD, int reset) :
   
   command(CMD_DISPLAYON);
   
-
   usleep(4500);
   
   clear();
+  home();
   setAddressingMode(PAGE);
 }
 
@@ -96,21 +99,24 @@ EBOLED::~EBOLED()
 
 mraa_result_t EBOLED::draw(uint8_t* bdata, int bytes)
 {
-  mraa_result_t error = MRAA_SUCCESS;
-
-  setAddressingMode(HORIZONTAL);
-
-  command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
-  command(0x20); // this display has a horizontal offset of 20 columns
-  command(0x20 + 0x40); // 64 columns wide
-
-  for (int idx = 0; idx < bytes; idx++)
-    error = data(bdata[idx]);
-
-  // reset addressing mode
-  setAddressingMode(PAGE);
-
-  return error;
+    mraa_result_t error = MRAA_SUCCESS;
+    
+    setAddressingMode(HORIZONTAL);
+    
+    //Set Page Address range, required for horizontal addressing mode.
+    command(CMD_SETPAGEADDRESS); // triple-byte cmd
+    command(0x00); //Initial page address
+    command(0x07); //Final page address
+    
+    //Set Column Address range, required for horizontal addressing mode.
+    command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
+    command(0x20); // this display has a horizontal offset of 20 columns
+    command(0x5f); // 64 columns wide - 0 based 63 offset
+    
+    m_gpioCD.write(1);            // data mode
+    m_spi.write(screenBuffer, 384);
+    
+    return error;
 }
 
 mraa_result_t EBOLED::write(std::string msg)
@@ -121,6 +127,7 @@ mraa_result_t EBOLED::write(std::string msg)
   for (std::string::size_type i = 0; i < msg.size(); ++i)
     error = writeChar(msg[i]);
 
+  writeChar('L');
   return error;
 }
 
@@ -142,25 +149,166 @@ mraa_result_t EBOLED::setCursor(int row, int column)
 mraa_result_t EBOLED::clear()
 {
   mraa_result_t error = MRAA_SUCCESS;
-  uint8_t columnIdx, rowIdx;
   
-  for (rowIdx = 0; rowIdx < 8; rowIdx++)
-    {
-      setCursor(rowIdx, 0);
-      
-      // clear all columns (8 * 8 pixels per char)
-      for (columnIdx = 0; columnIdx < 8; columnIdx++)
-        error = writeChar(' ');
-    }
-  
-  home();
-  
+  clearScreenBuffer();
+  error = refresh();
+ 
   return MRAA_SUCCESS;
 }
 
 mraa_result_t EBOLED::home()
 {
   return setCursor(0, 0);
+}
+
+mraa_result_t EBOLED::refresh()
+{
+    mraa_result_t error = MRAA_SUCCESS;
+    
+    error = draw(screenBuffer, sizeof(screenBuffer));
+    
+    return error;
+}
+
+void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color) 
+{    
+    if(x>=OLED_WIDTH)
+        x = OLED_WIDTH - 1;
+    if(y>=OLED_HEIGHT)
+        y = OLED_HEIGHT - 1;
+    
+    int index = x + ((y/8) * OLED_WIDTH);
+    
+    switch(color)
+    {
+        case COLOR_XOR:  
+            screenBuffer[index] ^= (1<<(y%8));
+            return;
+        case COLOR_WHITE:
+            screenBuffer[index] |= (1<<(y%8));
+            return;
+        case COLOR_BLACK:
+            screenBuffer[index] &= ~(1<<(y%8));
+            return;
+    }
+}
+
+void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
+{
+        
+    int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+        
+    if (steep) {
+        swap(x0, y0);
+        swap(x1, y1);
+    }
+
+    if (x0 > x1) {
+        swap(x0, x1);
+        swap(y0, y1);
+    }
+
+    int16_t dx, dy;
+    dx = x1 - x0;
+    dy = abs (y1 - y0);
+
+    int16_t err = dx / 2;
+    int16_t ystep;
+
+    if (y0 < y1) {
+        ystep = 1;
+    } else {
+        ystep = -1;
+    }
+
+    for (; x0 <= x1; x0++) {
+        if (steep) {
+            drawPixel(y0, x0, color);
+        } else {
+            drawPixel(x0, y0, color);
+        }
+        err -= dy;
+        if (err < 0) {
+            y0 += ystep;
+            err += dx;
+        }
+    }
+}
+
+void EBOLED::drawLineHorizontal(uint8_t x, uint8_t y, uint8_t width, uint8_t color)
+{
+    drawLine(x, y, x+width-1, y, color);
+}
+
+void EBOLED::drawLineVertical(uint8_t x, uint8_t y, uint8_t height, uint8_t color)
+{
+    drawLine(x, y, x, y+height-1, color);
+}
+
+void EBOLED::drawRectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+{
+    drawLineHorizontal(x, y, width, color);
+    drawLineHorizontal(x, y+height-1, color);
+    
+    uint8_t innerHeight = height - 2;
+    if(innerHeight > 0) 
+    {
+        drawLineVertical(x, y+1, innerHeight, color);
+        drawLineVertical(x+width-1, y+1, innerHeight, color);
+    }
+}
+
+void EBOLED::drawRectangleFilled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+{    
+    for (uint8_t i=x; i<x+width; i++) {
+        drawLineVertical(i, y, height, color);
+    }
+}
+
+void EBOLED::drawTriangle(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color) {
+    
+    drawLine(x0, y0, x1, y1, color);
+    drawLine(x1, y1, x2, y2, color);
+    drawLine(x2, y2, x0, y0, color);
+}
+
+void EBOLED::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, uint8_t color) {
+    uint8_t f = 1 - r;
+    uint8_t ddF_x = 1;
+    uint8_t ddF_y = -2 * r;
+    uint8_t x = 0;
+    uint8_t y = r;
+
+    drawPixel(x0  , y0+r, color);
+    drawPixel(x0  , y0-r, color);
+    drawPixel(x0+r, y0  , color);
+    drawPixel(x0-r, y0  , color);
+
+    while (x<y) {
+        if (f >= 0) {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+
+        ddF_x += 2;
+        f += ddF_x;
+
+        drawPixel(x0 + x, y0 + y, color);
+        drawPixel(x0 - x, y0 + y, color);
+        drawPixel(x0 + x, y0 - y, color);
+        drawPixel(x0 - x, y0 - y, color);
+        drawPixel(x0 + y, y0 + x, color);
+        drawPixel(x0 - y, y0 + x, color);
+        drawPixel(x0 + y, y0 - x, color);
+        drawPixel(x0 - y, y0 - x, color);
+    }
+}
+
+void EBOLED::fillScreen(uint8_t color) 
+{
+    drawRectangleFilled(0, 0, OLED_WIDTH-1, OLED_HEIGHT-1, color);
 }
 
 mraa_result_t EBOLED::writeChar(uint8_t value)
@@ -200,4 +348,10 @@ mraa_result_t EBOLED::data(uint8_t data)
   m_gpioCD.write(1);            // data mode
   m_spi.writeByte(data);
   return MRAA_SUCCESS;
+}
+
+void EBOLED::clearScreenBuffer() 
+{
+    for(int i=0; i<sizeof(screenBuffer);i++)
+       screenBuffer[i] = 0x00; 
 }

@@ -33,6 +33,8 @@
 #define EBOLED_DEFAULT_CD      36
 #define EBOLED_DEFAULT_RESET   48
 
+#define swap(a, b) { uint8_t t = a; a = b; b = t; }
+
 namespace upm
 {
   /**
@@ -58,6 +60,13 @@ namespace upm
    *
    * @snippet eboled.cxx Interesting
    */
+   
+  const uint8_t COLOR_WHITE     = 0x01;
+  const uint8_t COLOR_BLACK     = 0x00;
+  const uint8_t COLOR_XOR       = 0x02;
+  const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
+  const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
+  
   class EBOLED : public LCD
   {
     // SSD commands
@@ -89,7 +98,7 @@ namespace upm
       CMD_SETCOMPINS            = 0xda,
       CMD_SETVCOMDESELECT       = 0xdb
     } SSD_CMDS_T;
-
+       
   public:
     /**
      * EBOLED Constructor.  Note that you will not have any choice as
@@ -107,17 +116,52 @@ namespace upm
      * EBOLED Destructor
      */
     ~EBOLED();
-
+    
     /**
-     * Draw an image, see examples/python/make_oled_pic.py for an
-     * explanation on how the pixels are mapped to bytes
+     * Draw the buffer to screen, see examples/python/make_oled_pic.py for an
+     * explanation on how the pixels are mapped to bytes.
      *
      * @param data the buffer to write
      * @param bytes the number of bytes to write
      * @return result of operation
      */
     mraa_result_t draw(uint8_t* data, int bytes);
-
+    
+    /**
+     * Draw the screenBuffer to the display
+     *
+     * @return result of operation
+     */
+    mraa_result_t refresh();
+    
+    /**
+     * Write a single pixel to the screen buffer.
+     * Can do an absolutel write or toggle (xor) a pixel.
+     *
+     * @param x the x position of the pixel
+     * @param y the y position of the pixel
+     * @param color pixel is COLOR_WHITE or COLOR_BLACK
+     * @param mode the draw mode DRAWMODE_NORMAL or DRAWMODE_XOR
+     * @return result of operation
+     */    
+    void drawPixel (uint8_t x, uint8_t y, uint8_t color=COLOR_WHITE);
+    
+    void drawLine (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color = COLOR_WHITE); 
+    
+    void drawLineHorizontal (uint8_t x, uint8_t y, uint8_t width, uint8_t color = COLOR_WHITE);  
+                                         
+    void drawLineVertical (uint8_t x, uint8_t y, uint8_t height, uint8_t color = COLOR_WHITE); 
+                          
+    void drawRectangle (uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);  
+    
+    void drawRectangleFilled (uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);   
+                  
+    void drawTriangle (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color = COLOR_WHITE);       
+                                  
+    void drawCircle (uint8_t x0, uint8_t y0, uint8_t r, uint8_t color = COLOR_WHITE);    
+                        
+    void fillScreen (uint8_t color=COLOR_WHITE);
+                                                
     /**
      * Write a string to LCD
      *
@@ -150,7 +194,10 @@ namespace upm
      * @return result of operation
      */
     mraa_result_t home();
-
+    
+    uint8_t screenBuffer[384]; //64 pixels by 6x8bit pages;
+    uint8_t columnStart;
+    uint8_t numColumns;
   protected:
     mraa_result_t command(uint8_t cmd);
     mraa_result_t data(uint8_t data);
@@ -158,6 +205,8 @@ namespace upm
     mraa_result_t setAddressingMode(displayAddressingMode mode);
 
   private:
+    void clearScreenBuffer();
+    
     mraa::Gpio m_gpioCD;        // command(0)/data(1)
     mraa::Gpio m_gpioRST;       // reset pin
 
