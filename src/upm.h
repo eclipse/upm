@@ -279,6 +279,12 @@
  */
 
 /**
+ * @brief DFRobot
+ * @defgroup dfrobot DFRobot
+ * @ingroup byman
+ */
+
+/**
  * @brief EpicTinker
  * @defgroup epict EpicTinker
  * @ingroup byman
