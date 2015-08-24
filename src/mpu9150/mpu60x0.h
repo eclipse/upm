@@ -802,7 +802,7 @@ namespace upm {
      *
      * @return the temperature value in degrees Celcius
      */
-    float getTemperature();
+    virtual float getTemperature();
 
     /**
      * enable onboard temperature measurement sensor
