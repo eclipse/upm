@@ -23,3 +23,8 @@
     #include "mpu9150.h"
 %}
 
+%include "mpu9250.h"
+%{
+    #include "mpu9250.h"
+%}
+
