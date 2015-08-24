@@ -1,4 +1,4 @@
-public class GroveSlide_ex {
+public class GroveSlideSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grove");

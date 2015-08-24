@@ -1,4 +1,4 @@
-public class GroveTemp_ex {
+public class GroveTempSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grove");

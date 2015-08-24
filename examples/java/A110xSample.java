@@ -1,4 +1,4 @@
-public class A110x_ex {
+public class A110xSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_a110x");

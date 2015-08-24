@@ -1,4 +1,4 @@
-public class GroveSpeaker_ex {
+public class GroveSpeakerSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grovespeaker");

@@ -1,4 +1,4 @@
-public class GroveLED_ex {
+public class GroveLightSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grove");
@@ -9,14 +9,16 @@ public class GroveLED_ex {
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		upm_grove.GroveLed led = new upm_grove.GroveLed(2);
+		upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
 		
-		for (int i = 0; i < 10; ++i) {
-			led.on();
-			Thread.sleep(1000);
-			led.off();
+		while (true) {
+			float raw_value = gl.raw_value();
+			float value = gl.value();
+
+			System.out.println("raw value: " + raw_value);
+			System.out.println("value: " + value);
+			
 			Thread.sleep(1000);
 		}
-		led.delete();
 	}
 }
