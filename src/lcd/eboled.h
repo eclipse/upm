@@ -66,6 +66,7 @@ namespace upm
   const uint8_t COLOR_XOR       = 0x02;
   const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
   const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
+  const int     BUFFER_SIZE     = 384;
   
   class EBOLED : public LCD
   {
@@ -125,13 +126,6 @@ namespace upm
      * @param bytes the number of bytes to write
      * @return result of operation
      */
-    mraa_result_t draw(uint8_t* data, int bytes);
-    
-    /**
-     * Draw the screenBuffer to the display
-     *
-     * @return result of operation
-     */
     mraa_result_t refresh();
     
     /**
@@ -187,6 +181,8 @@ namespace upm
      * @return result of operation
      */
     mraa_result_t clear();
+    
+    void clearScreenBuffer();
 
     /**
      * Return to coordinate 0,0
@@ -195,18 +191,16 @@ namespace upm
      */
     mraa_result_t home();
     
-    uint8_t screenBuffer[384]; //64 pixels by 6x8bit pages;
+    uint16_t screenBuffer[192]; //64 pixels by 6x8bit pages;
     uint8_t columnStart;
     uint8_t numColumns;
   protected:
     mraa_result_t command(uint8_t cmd);
-    mraa_result_t data(uint8_t data);
+    mraa_result_t data(uint16_t data);
     mraa_result_t writeChar(uint8_t value);
     mraa_result_t setAddressingMode(displayAddressingMode mode);
 
-  private:
-    void clearScreenBuffer();
-    
+  private:    
     mraa::Gpio m_gpioCD;        // command(0)/data(1)
     mraa::Gpio m_gpioRST;       // reset pin
 

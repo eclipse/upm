@@ -38,9 +38,8 @@ EBOLED::EBOLED(int spi, int CD, int reset) :
   m_gpioCD.dir(mraa::DIR_OUT);
   m_gpioRST.dir(mraa::DIR_OUT);
 
-  //lowering SPI frequency to prevent Kernel crashes
-  //10000000 is standard.
-  m_spi.frequency(500000);
+  //1000000 is standard.
+  m_spi.frequency(1000000);
   
   // reset the device
   m_gpioRST.write(1);
@@ -87,9 +86,22 @@ EBOLED::EBOLED(int spi, int CD, int reset) :
   
   usleep(4500);
   
-  clear();
-  home();
-  setAddressingMode(PAGE);
+  //clear();
+  
+  //setAddressingMode(PAGE);
+  //home();
+      setAddressingMode(HORIZONTAL);
+    
+    //Set Page Address range, required for horizontal addressing mode.
+    command(CMD_SETPAGEADDRESS); // triple-byte cmd
+    command(0x00); //Initial page address
+    command(0x05); //Final page address
+    
+    //Set Column Address range, required for horizontal addressing mode.
+    command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
+    command(0x20); // this display has a horizontal offset of 20 columns
+    command(0x5f); // 64 columns wide - 0 based 63 offset
+    
 }
 
 EBOLED::~EBOLED()
@@ -97,24 +109,19 @@ EBOLED::~EBOLED()
   clear();
 }
 
-mraa_result_t EBOLED::draw(uint8_t* bdata, int bytes)
+mraa_result_t EBOLED::refresh()
 {
     mraa_result_t error = MRAA_SUCCESS;
     
-    setAddressingMode(HORIZONTAL);
-    
-    //Set Page Address range, required for horizontal addressing mode.
-    command(CMD_SETPAGEADDRESS); // triple-byte cmd
-    command(0x00); //Initial page address
-    command(0x07); //Final page address
-    
-    //Set Column Address range, required for horizontal addressing mode.
-    command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
-    command(0x20); // this display has a horizontal offset of 20 columns
-    command(0x5f); // 64 columns wide - 0 based 63 offset
     
     m_gpioCD.write(1);            // data mode
-    m_spi.write(screenBuffer, 384);
+    for(int i=0; i<192; i++) {
+        error = data(screenBuffer[i]);
+        if(error != MRAA_SUCCESS)
+            return error;    
+    }
+    //m_gpioCD.write(1);            // data mode
+    //m_spi.write(screenBuffer, 384);
     
     return error;
 }
@@ -123,7 +130,7 @@ mraa_result_t EBOLED::write(std::string msg)
 {
   mraa_result_t error = MRAA_SUCCESS;
 
-  setAddressingMode(PAGE);
+  //setAddressingMode(PAGE);
   for (std::string::size_type i = 0; i < msg.size(); ++i)
     error = writeChar(msg[i]);
 
@@ -161,15 +168,6 @@ mraa_result_t EBOLED::home()
   return setCursor(0, 0);
 }
 
-mraa_result_t EBOLED::refresh()
-{
-    mraa_result_t error = MRAA_SUCCESS;
-    
-    error = draw(screenBuffer, sizeof(screenBuffer));
-    
-    return error;
-}
-
 void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color) 
 {    
     if(x>=OLED_WIDTH)
@@ -177,18 +175,18 @@ void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color)
     if(y>=OLED_HEIGHT)
         y = OLED_HEIGHT - 1;
     
-    int index = x + ((y/8) * OLED_WIDTH);
+    int index = (x/2) + ((y/8) * (OLED_WIDTH/2));
     
     switch(color)
     {
         case COLOR_XOR:  
-            screenBuffer[index] ^= (1<<(y%8));
+            screenBuffer[index] ^= (1<<(y%8+(x%2 * 8)));
             return;
         case COLOR_WHITE:
-            screenBuffer[index] |= (1<<(y%8));
+            screenBuffer[index] |= (1<<(y%8+(x%2 * 8)));
             return;
         case COLOR_BLACK:
-            screenBuffer[index] &= ~(1<<(y%8));
+            screenBuffer[index] &= ~(1<<(y%8+(x%2 * 8)));
             return;
     }
 }
@@ -318,7 +316,8 @@ mraa_result_t EBOLED::writeChar(uint8_t value)
   if (value < 0x20 || value > 0x7F) {
     value = 0x20; // space
   }
-
+  
+  m_gpioCD.write(1);            // data mode
   for (uint8_t idx = 0; idx < 8; idx++) {
     rv = data(BasicFont[value - 32][idx]);
   }
@@ -343,15 +342,14 @@ mraa_result_t EBOLED::command(uint8_t cmd)
   return MRAA_SUCCESS;
 }
 
-mraa_result_t EBOLED::data(uint8_t data)
+mraa_result_t EBOLED::data(uint16_t data)
 {
-  m_gpioCD.write(1);            // data mode
-  m_spi.writeByte(data);
+  m_spi.write_word(data);
   return MRAA_SUCCESS;
 }
 
 void EBOLED::clearScreenBuffer() 
 {
-    for(int i=0; i<sizeof(screenBuffer);i++)
-       screenBuffer[i] = 0x00; 
+    for(int i=0; i<192;i++)
+       screenBuffer[i] = 0x0000; 
 }
