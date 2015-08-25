@@ -30,6 +30,8 @@
 using namespace upm;
 using namespace std;
 
+static uint8_t screenBuffer[384];
+
 EBOLED::EBOLED(int spi, int CD, int reset) : 
   m_spi(spi), m_gpioCD(CD), m_gpioRST(reset)
 {
@@ -86,22 +88,17 @@ EBOLED::EBOLED(int spi, int CD, int reset) :
   
   usleep(4500);
   
-  //clear();
-  
-  //setAddressingMode(PAGE);
-  //home();
-      setAddressingMode(HORIZONTAL);
+  setAddressingMode(HORIZONTAL);
     
-    //Set Page Address range, required for horizontal addressing mode.
-    command(CMD_SETPAGEADDRESS); // triple-byte cmd
-    command(0x00); //Initial page address
-    command(0x05); //Final page address
+  //Set Page Address range, required for horizontal addressing mode.
+  command(CMD_SETPAGEADDRESS); // triple-byte cmd
+  command(0x00); //Initial page address
+  command(0x05); //Final page address
     
-    //Set Column Address range, required for horizontal addressing mode.
-    command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
-    command(0x20); // this display has a horizontal offset of 20 columns
-    command(0x5f); // 64 columns wide - 0 based 63 offset
-    
+  //Set Column Address range, required for horizontal addressing mode.
+  command(CMD_SETCOLUMNADDRESS); // triple-byte cmd
+  command(0x20); // this display has a horizontal offset of 20 columns
+  command(0x5f); // 64 columns wide - 0 based 63 offset
 }
 
 EBOLED::~EBOLED()
@@ -111,19 +108,17 @@ EBOLED::~EBOLED()
 
 mraa_result_t EBOLED::refresh()
 {
-    mraa_result_t error = MRAA_SUCCESS;
+  mraa_result_t error = MRAA_SUCCESS;
     
     
-    m_gpioCD.write(1);            // data mode
-    for(int i=0; i<192; i++) {
-        error = data(screenBuffer[i]);
-        if(error != MRAA_SUCCESS)
-            return error;    
-    }
-    //m_gpioCD.write(1);            // data mode
-    //m_spi.write(screenBuffer, 384);
+  m_gpioCD.write(1);            // data mode
+  for(int i=0; i<BUFFER_SIZE; i++) {
+    error = data(screenBuffer[i]);
+    if(error != MRAA_SUCCESS)
+      return error;    
+  }
     
-    return error;
+  return error;
 }
 
 mraa_result_t EBOLED::write(std::string msg)
@@ -170,25 +165,25 @@ mraa_result_t EBOLED::home()
 
 void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color) 
 {    
-    if(x>=OLED_WIDTH)
-        x = OLED_WIDTH - 1;
-    if(y>=OLED_HEIGHT)
-        y = OLED_HEIGHT - 1;
-    
-    int index = (x/2) + ((y/8) * (OLED_WIDTH/2));
-    
-    switch(color)
-    {
-        case COLOR_XOR:  
-            screenBuffer[index] ^= (1<<(y%8+(x%2 * 8)));
-            return;
-        case COLOR_WHITE:
-            screenBuffer[index] |= (1<<(y%8+(x%2 * 8)));
-            return;
-        case COLOR_BLACK:
-            screenBuffer[index] &= ~(1<<(y%8+(x%2 * 8)));
-            return;
-    }
+  if(x>=OLED_WIDTH)
+    x = OLED_WIDTH - 1;
+  if(y>=OLED_HEIGHT)
+    y = OLED_HEIGHT - 1;
+  
+  int index = (x/2) + ((y/8) * (OLED_WIDTH/2));
+  
+  switch(color)
+  {
+    case COLOR_XOR:  
+      screenBuffer[index] ^= (1<<(y%8+(x%2 * 8)));
+      return;
+    case COLOR_WHITE:
+      screenBuffer[index] |= (1<<(y%8+(x%2 * 8)));
+      return;
+    case COLOR_BLACK:
+      screenBuffer[index] &= ~(1<<(y%8+(x%2 * 8)));
+      return;
+  }
 }
 
 void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
@@ -233,80 +228,124 @@ void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t co
     }
 }
 
+void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
+{  
+  int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+      
+  if (steep) {
+    swap(x0, y0);
+    swap(x1, y1);
+  }
+
+  if (x0 > x1) {
+    swap(x0, x1);
+    swap(y0, y1);
+  }
+
+  int16_t dx, dy;
+  dx = x1 - x0;
+  dy = abs (y1 - y0);
+
+  int16_t err = dx / 2;
+  int16_t ystep;
+
+  if (y0 < y1) {
+    ystep = 1;
+  } else {
+    ystep = -1;
+  }
+
+  for (; x0 <= x1; x0++) {
+    if (steep) {
+      drawPixel(y0, x0, color);
+    } else {
+      drawPixel(x0, y0, color);
+    }
+    err -= dy;
+    if (err < 0) {
+      y0 += ystep;
+      err += dx;
+    }
+  }
+}
+
 void EBOLED::drawLineHorizontal(uint8_t x, uint8_t y, uint8_t width, uint8_t color)
 {
-    drawLine(x, y, x+width-1, y, color);
+  drawLine(x, y, x+width-1, y, color);
 }
 
 void EBOLED::drawLineVertical(uint8_t x, uint8_t y, uint8_t height, uint8_t color)
 {
-    drawLine(x, y, x, y+height-1, color);
+  drawLine(x, y, x, y+height-1, color);
 }
 
 void EBOLED::drawRectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
 {
-    drawLineHorizontal(x, y, width, color);
-    drawLineHorizontal(x, y+height-1, color);
+  drawLineHorizontal(x, y, width, color);
+  drawLineHorizontal(x, y+height-1, color);
     
-    uint8_t innerHeight = height - 2;
-    if(innerHeight > 0) 
-    {
-        drawLineVertical(x, y+1, innerHeight, color);
-        drawLineVertical(x+width-1, y+1, innerHeight, color);
-    }
+  uint8_t innerHeight = height - 2;
+  if(innerHeight > 0) 
+  {
+    drawLineVertical(x, y+1, innerHeight, color);
+    drawLineVertical(x+width-1, y+1, innerHeight, color);
+  }
 }
 
 void EBOLED::drawRectangleFilled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
 {    
-    for (uint8_t i=x; i<x+width; i++) {
-        drawLineVertical(i, y, height, color);
-    }
+  for (uint8_t i=x; i<x+width; i++) {
+    drawLineVertical(i, y, height, color);
+  }
 }
 
-void EBOLED::drawTriangle(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color) {
-    
-    drawLine(x0, y0, x1, y1, color);
-    drawLine(x1, y1, x2, y2, color);
-    drawLine(x2, y2, x0, y0, color);
+void EBOLED::drawTriangle(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color) 
+{    
+  drawLine(x0, y0, x1, y1, color);
+  drawLine(x1, y1, x2, y2, color);
+  drawLine(x2, y2, x0, y0, color);
 }
 
-void EBOLED::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, uint8_t color) {
-    uint8_t f = 1 - r;
-    uint8_t ddF_x = 1;
-    uint8_t ddF_y = -2 * r;
-    uint8_t x = 0;
-    uint8_t y = r;
+void EBOLED::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, uint8_t color) 
+{
+  uint8_t f = 1 - r;
+  uint8_t ddF_x = 1;
+  uint8_t ddF_y = -2 * r;
+  uint8_t x = 0;
+  uint8_t y = r;
 
-    drawPixel(x0  , y0+r, color);
-    drawPixel(x0  , y0-r, color);
-    drawPixel(x0+r, y0  , color);
-    drawPixel(x0-r, y0  , color);
+  drawPixel(x0  , y0+r, color);
+  drawPixel(x0  , y0-r, color);
+  drawPixel(x0+r, y0  , color);
+  drawPixel(x0-r, y0  , color);
 
-    while (x<y) {
-        if (f >= 0) {
-            y--;
-            ddF_y += 2;
-            f += ddF_y;
-        }
-        x++;
-
-        ddF_x += 2;
-        f += ddF_x;
-
-        drawPixel(x0 + x, y0 + y, color);
-        drawPixel(x0 - x, y0 + y, color);
-        drawPixel(x0 + x, y0 - y, color);
-        drawPixel(x0 - x, y0 - y, color);
-        drawPixel(x0 + y, y0 + x, color);
-        drawPixel(x0 - y, y0 + x, color);
-        drawPixel(x0 + y, y0 - x, color);
-        drawPixel(x0 - y, y0 - x, color);
+  while (x<y) 
+  {
+    if (f >= 0) 
+    {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
     }
+    x++;
+
+    ddF_x += 2;
+    f += ddF_x;
+
+    drawPixel(x0 + x, y0 + y, color);
+    drawPixel(x0 - x, y0 + y, color);
+    drawPixel(x0 + x, y0 - y, color);
+    drawPixel(x0 - x, y0 - y, color);
+    drawPixel(x0 + y, y0 + x, color);
+    drawPixel(x0 - y, y0 + x, color);
+    drawPixel(x0 + y, y0 - x, color);
+    drawPixel(x0 - y, y0 - x, color);
+  }
 }
 
 void EBOLED::fillScreen(uint8_t color) 
 {
-    drawRectangleFilled(0, 0, OLED_WIDTH-1, OLED_HEIGHT-1, color);
+  drawRectangleFilled(0, 0, OLED_WIDTH-1, OLED_HEIGHT-1, color);
 }
 
 mraa_result_t EBOLED::writeChar(uint8_t value)
@@ -316,8 +355,7 @@ mraa_result_t EBOLED::writeChar(uint8_t value)
   if (value < 0x20 || value > 0x7F) {
     value = 0x20; // space
   }
-  
-  m_gpioCD.write(1);            // data mode
+
   for (uint8_t idx = 0; idx < 8; idx++) {
     rv = data(BasicFont[value - 32][idx]);
   }
@@ -350,6 +388,6 @@ mraa_result_t EBOLED::data(uint16_t data)
 
 void EBOLED::clearScreenBuffer() 
 {
-    for(int i=0; i<192;i++)
-       screenBuffer[i] = 0x0000; 
+  for(int i=0; i<BUFFER_SIZE;i++)
+    screenBuffer[i] = 0x0000; 
 }

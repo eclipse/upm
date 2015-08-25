@@ -66,7 +66,7 @@ namespace upm
   const uint8_t COLOR_XOR       = 0x02;
   const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
   const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
-  const int     BUFFER_SIZE     = 384;
+  const int     BUFFER_SIZE     = 192;
   
   class EBOLED : public LCD
   {
@@ -191,9 +191,6 @@ namespace upm
      */
     mraa_result_t home();
     
-    uint16_t screenBuffer[192]; //64 pixels by 6x8bit pages;
-    uint8_t columnStart;
-    uint8_t numColumns;
   protected:
     mraa_result_t command(uint8_t cmd);
     mraa_result_t data(uint16_t data);
