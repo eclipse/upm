@@ -23,25 +23,29 @@
  */
 #include <unistd.h>
 #include <iostream>
-#include <sstream>
 
 #include "eboled.h"
 
 using namespace upm;
 using namespace std;
 
-static uint8_t screenBuffer[384];
+static uint16_t screenBuffer[BUFFER_SIZE];
 
 EBOLED::EBOLED(int spi, int CD, int reset) : 
   m_spi(spi), m_gpioCD(CD), m_gpioRST(reset)
 {
   m_name = "EBOLED";
+  m_textColor = COLOR_WHITE;
+  m_textWrap = 0;
+  m_textSize = 1;
+  m_cursorX = 0;
+  m_cursorY = 0;
 
   m_gpioCD.dir(mraa::DIR_OUT);
   m_gpioRST.dir(mraa::DIR_OUT);
 
   //1000000 is standard.
-  m_spi.frequency(1000000);
+  m_spi.frequency(10000000);
   
   // reset the device
   m_gpioRST.write(1);
@@ -110,9 +114,9 @@ mraa_result_t EBOLED::refresh()
 {
   mraa_result_t error = MRAA_SUCCESS;
     
-    
   m_gpioCD.write(1);            // data mode
-  for(int i=0; i<BUFFER_SIZE; i++) {
+  for(int i=0; i<BUFFER_SIZE; i++) 
+  {
     error = data(screenBuffer[i]);
     if(error != MRAA_SUCCESS)
       return error;    
@@ -121,31 +125,84 @@ mraa_result_t EBOLED::refresh()
   return error;
 }
 
-mraa_result_t EBOLED::write(std::string msg)
-{
-  mraa_result_t error = MRAA_SUCCESS;
-
-  //setAddressingMode(PAGE);
-  for (std::string::size_type i = 0; i < msg.size(); ++i)
-    error = writeChar(msg[i]);
-
-  writeChar('L');
-  return error;
+mraa_result_t EBOLED::write (std::string msg) {
+  int len = msg.length();
+  uint8_t temp_cursorX = m_cursorX;
+  for (int idx = 0; idx < len; idx++) 
+  {
+    if (msg[idx] == '\n') 
+    {
+      m_cursorY += m_textSize * 7;
+      temp_cursorX = m_cursorX;
+    } 
+    else if (msg[idx] == '\r') 
+    {
+      // skip em
+    } 
+    else 
+    {
+      drawChar(temp_cursorX, m_cursorY, msg[idx], m_textColor, m_textSize);
+      temp_cursorX += m_textSize * 6;
+      if (m_textWrap && (m_textColor > OLED_WIDTH - temp_cursorX - 6)) 
+      {
+        m_cursorY += m_textSize * 7;
+        temp_cursorX = m_cursorX;
+      }
+    }
+  }
+  return MRAA_SUCCESS;
 }
 
-mraa_result_t EBOLED::setCursor(int row, int column)
-{
-  mraa_result_t error = MRAA_SUCCESS;
+mraa_result_t EBOLED::setCursor (int y, int x) {
+  m_cursorX = x;
+  m_cursorY = y;
+  return MRAA_SUCCESS;
+}
 
-  // set page address
-  error = command(CMD_SETPAGESTARTADDR | (row & 0x07));
+void EBOLED::setTextColor (uint8_t textColor) {
+  m_textColor   = textColor;
+}
 
-  // set column address
-  error = command(CMD_SETLOWCOLUMN | (column & 0x0f));
-  // ediblock oled starts at col 20 apparently...
-  error = command(CMD_SETHIGHCOLUMN | ((column >> 4) & 0x0f) + 0x02);
+void EBOLED::setTextSize (uint8_t size) {
+  m_textSize = (size > 0) ? size : 1;
+}
 
-  return error;
+void EBOLED::setTextWrap (uint8_t wrap) {
+  m_textWrap = wrap;
+}
+
+void EBOLED::drawChar (uint8_t x, uint8_t y, uint8_t data, uint8_t color, uint8_t size) {
+  if( (x >= OLED_WIDTH)            || // Clip right
+      (y >= OLED_HEIGHT)           || // Clip bottom
+      ((x + 6 * size - 1) < 0)  || // Clip left
+      ((y + 8 * size - 1) < 0))    // Clip top
+  return;
+  
+  if (data < 0x20 || data > 0x7F) {
+    data = 0x20; // space
+  }
+
+  for (int8_t i=0; i<6; i++ ) {
+    uint8_t line;
+    if (i == 6) 
+      line = 0x0;
+    else 
+    {
+      //line = *(font+(data * 5)+i);
+      line = BasicFont[data - 32][i+1];
+      for (int8_t j = 0; j<8; j++) 
+      {
+        if (line & 0x1) 
+        {
+          if (size == 1) // default size
+            drawPixel(x+i, y+j, color);
+          else 
+            drawRectangleFilled(x+(i*size), y+(j*size), size, size, color); // big size
+        } 
+        line >>= 1;
+      }
+    }
+  }
 }
 
 mraa_result_t EBOLED::clear()
@@ -165,23 +222,19 @@ mraa_result_t EBOLED::home()
 
 void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color) 
 {    
-  if(x>=OLED_WIDTH)
-    x = OLED_WIDTH - 1;
-  if(y>=OLED_HEIGHT)
-    y = OLED_HEIGHT - 1;
-  
-  int index = (x/2) + ((y/8) * (OLED_WIDTH/2));
+  if(x<0 || x>=OLED_WIDTH || y<0 || y>=OLED_HEIGHT)
+    return;
   
   switch(color)
   {
     case COLOR_XOR:  
-      screenBuffer[index] ^= (1<<(y%8+(x%2 * 8)));
+      screenBuffer[(x/2) + ((y/8) * VERT_COLUMNS)] ^= (1<<(y%8+(x%2 * 8)));
       return;
     case COLOR_WHITE:
-      screenBuffer[index] |= (1<<(y%8+(x%2 * 8)));
+      screenBuffer[(x/2) + ((y/8) * VERT_COLUMNS)] |= (1<<(y%8+(x%2 * 8)));
       return;
     case COLOR_BLACK:
-      screenBuffer[index] &= ~(1<<(y%8+(x%2 * 8)));
+      screenBuffer[(x/2) + ((y/8) * VERT_COLUMNS)] &= ~(1<<(y%8+(x%2 * 8)));
       return;
   }
 }
@@ -264,13 +317,13 @@ void EBOLED::drawTriangle(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_
   drawLine(x2, y2, x0, y0, color);
 }
 
-void EBOLED::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, uint8_t color) 
+void EBOLED::drawCircle(int16_t x0, int16_t y0, int16_t r, uint8_t color) 
 {
-  uint8_t f = 1 - r;
-  uint8_t ddF_x = 1;
-  uint8_t ddF_y = -2 * r;
-  uint8_t x = 0;
-  uint8_t y = r;
+  int16_t f = 1 - r;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * r;
+  int16_t x = 0;
+  int16_t y = r;
 
   drawPixel(x0  , y0+r, color);
   drawPixel(x0  , y0-r, color);
@@ -304,21 +357,6 @@ void EBOLED::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, uint8_t color)
 void EBOLED::fillScreen(uint8_t color) 
 {
   drawRectangleFilled(0, 0, OLED_WIDTH-1, OLED_HEIGHT-1, color);
-}
-
-mraa_result_t EBOLED::writeChar(uint8_t value)
-{
-  mraa_result_t rv;
-
-  if (value < 0x20 || value > 0x7F) {
-    value = 0x20; // space
-  }
-
-  for (uint8_t idx = 0; idx < 8; idx++) {
-    rv = data(BasicFont[value - 32][idx]);
-  }
-
-  return rv;
 }
 
 mraa_result_t EBOLED::setAddressingMode(displayAddressingMode mode)

@@ -65,9 +65,10 @@ namespace upm
   const uint8_t COLOR_BLACK     = 0x00;
   const uint8_t COLOR_XOR       = 0x02;
   const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
+  const uint8_t VERT_COLUMNS    = 0x20; // half width for hi/lo 16bit writes.
   const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
   const int     BUFFER_SIZE     = 192;
-  
+
   class EBOLED : public LCD
   {
     // SSD commands
@@ -129,6 +130,75 @@ namespace upm
     mraa_result_t refresh();
     
     /**
+     * Write a string to LCD
+     *
+     * @param msg the std::string to write to display, note only ascii 
+     * chars are supported
+     * @return result of operation
+     */
+    mraa_result_t write(std::string msg);
+
+    /**
+     * Set cursor to a coordinate
+     *
+     * @param y Axis on the vertical scale. This device supports 6 rows.
+     * @param x Axis on the horizontal scale This device supports 64 columns
+     *
+     * @return result of operation
+     */
+    mraa_result_t setCursor (int y, int x);
+
+    /**
+      * Sets a text color for a message
+      *
+      * @param textColor Font color
+      * @param textBGColor Background color
+      */
+    void setTextColor (uint8_t textColor);
+
+    /**
+      * Sets the size of the font
+      *
+      * @param size Font size
+      */
+    void setTextSize (uint8_t size);
+
+    /**
+      * Wraps a printed message
+      *
+      * @param wrap True (0x1) or false (0x0)
+      */
+    void setTextWrap (uint8_t wrap);
+
+    /**
+      * Write a single character to the screen. 
+      *
+      * @param x Axis on the horizontal scale
+      * @param y Axis on the vertical scale
+      * @param data Character to write
+      * @param color Character color
+      * @param bg Character background color
+      * @param size Size of the font
+      */
+    void drawChar (uint8_t x, uint8_t y, uint8_t data, uint8_t color, uint8_t size);
+                                                
+    /**
+     * Clear display
+     *
+     * @return result of operation
+     */
+    mraa_result_t clear();
+    
+    void clearScreenBuffer();
+
+    /**
+     * Return to coordinate 0,0
+     *
+     * @return result of operation
+     */
+    mraa_result_t home();
+    
+    /**
      * Write a single pixel to the screen buffer.
      * Can do an absolutel write or toggle (xor) a pixel.
      *
@@ -152,44 +222,9 @@ namespace upm
                   
     void drawTriangle (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color = COLOR_WHITE);       
                                   
-    void drawCircle (uint8_t x0, uint8_t y0, uint8_t r, uint8_t color = COLOR_WHITE);    
+    void drawCircle (int16_t x0, int16_t y0, int16_t r, uint8_t color = COLOR_WHITE);    
                         
     void fillScreen (uint8_t color=COLOR_WHITE);
-                                                
-    /**
-     * Write a string to LCD
-     *
-     * @param msg the std::string to write to display, note only ascii 
-     * chars are supported
-     * @return result of operation
-     */
-    mraa_result_t write(std::string msg);
-
-    /**
-     * Set cursor to a coordinate
-     *
-     * @param row the row to set cursor to.  This device supports 6 rows.
-     * @param column the column to set cursor to. This device support
-     * 64 columns
-     * @return result of operation
-     */
-    mraa_result_t setCursor(int row, int column);
-
-    /**
-     * Clear display
-     *
-     * @return result of operation
-     */
-    mraa_result_t clear();
-    
-    void clearScreenBuffer();
-
-    /**
-     * Return to coordinate 0,0
-     *
-     * @return result of operation
-     */
-    mraa_result_t home();
     
   protected:
     mraa_result_t command(uint8_t cmd);
@@ -202,5 +237,11 @@ namespace upm
     mraa::Gpio m_gpioRST;       // reset pin
 
     mraa::Spi m_spi;
+    
+    uint8_t m_cursorX;
+    uint8_t m_cursorY;
+    uint8_t m_textSize;
+    uint8_t m_textColor;
+    uint8_t m_textWrap;
   };
 }
