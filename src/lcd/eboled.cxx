@@ -132,7 +132,7 @@ mraa_result_t EBOLED::write (std::string msg) {
   {
     if (msg[idx] == '\n') 
     {
-      m_cursorY += m_textSize * 7;
+      m_cursorY += m_textSize * 9;
       temp_cursorX = m_cursorX;
     } 
     else if (msg[idx] == '\r') 
@@ -145,7 +145,7 @@ mraa_result_t EBOLED::write (std::string msg) {
       temp_cursorX += m_textSize * 6;
       if (m_textWrap && (m_textColor > OLED_WIDTH - temp_cursorX - 6)) 
       {
-        m_cursorY += m_textSize * 7;
+        m_cursorY += m_textSize * 9;
         temp_cursorX = m_cursorX;
       }
     }
