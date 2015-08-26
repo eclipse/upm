@@ -206,6 +206,15 @@ class MMA7455 {
          */
         mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
 
+#ifdef SWIGJAVA
+        /**
+         * Reads X-axis, Y-axis, and Z-axis acceleration data
+         *
+         * @return Array containing X, Y, Z acceleration data
+         */
+        short *readData ();
+#endif
+
         /**
          *
          *

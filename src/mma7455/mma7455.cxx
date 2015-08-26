@@ -137,6 +137,14 @@ MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     return MRAA_SUCCESS;
 }
 
+#ifdef SWIGJAVA
+short *MMA7455::readData() {
+    short *v = new short[3];
+    readData(&v[0], &v[1], &v[2]);
+    return v;
+}
+#endif
+
 int
 MMA7455::ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size) {
     if (MRAA_SUCCESS != mraa_i2c_address(m_i2ControlCtx, m_controlAddr)) {
