@@ -1,6 +1,9 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
+ * 
+ * Author: Tyler Gibson <tgibson@microsoft.com>
+ * Copyright (c) 2015 Microsoft Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -143,6 +146,8 @@ mraa_result_t EBOLED::write (std::string msg) {
     {
       drawChar(temp_cursorX, m_cursorY, msg[idx], m_textColor, m_textSize);
       temp_cursorX += m_textSize * 6;
+      
+      //textColor used to avoid wrapping if COLOR_BLACK is set.
       if (m_textWrap && (m_textColor > OLED_WIDTH - temp_cursorX - 6)) 
       {
         m_cursorY += m_textSize * 9;
@@ -188,7 +193,7 @@ void EBOLED::drawChar (uint8_t x, uint8_t y, uint8_t data, uint8_t color, uint8_
       line = 0x0;
     else 
     {
-      //line = *(font+(data * 5)+i);
+      //32 offset to align standard ASCII range to index
       line = BasicFont[data - 32][i+1];
       for (int8_t j = 0; j<8; j++) 
       {
@@ -209,8 +214,13 @@ mraa_result_t EBOLED::clear()
 {
   mraa_result_t error = MRAA_SUCCESS;
   
-  clearScreenBuffer();
-  error = refresh();
+  m_gpioCD.write(1);            // data mode
+  for(int i=0; i<BUFFER_SIZE; i++) 
+  {
+    error = data(0x0000);
+    if(error != MRAA_SUCCESS)
+      return error;    
+  }
  
   return MRAA_SUCCESS;
 }
@@ -220,10 +230,19 @@ mraa_result_t EBOLED::home()
   return setCursor(0, 0);
 }
 
-void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color) 
+void EBOLED::drawPixel(int8_t x, int8_t y, uint8_t color) 
 {    
   if(x<0 || x>=OLED_WIDTH || y<0 || y>=OLED_HEIGHT)
     return;
+  
+  /* Screenbuffer is uint16 array, but pages are 8bit high so each buffer
+   * index is two columns.  This means the index is based on x/2 and 
+   * OLED_WIDTH/2 = VERT_COLUMNS.
+   *
+   * Then to set the appropriate bit, we need to shift based on the y
+   * offset in relation to the page and then adjust for high/low based
+   * on the x position.
+  */
   
   switch(color)
   {
@@ -239,7 +258,7 @@ void EBOLED::drawPixel(uint8_t x, uint8_t y, uint8_t color)
   }
 }
 
-void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
+void EBOLED::drawLine(int8_t x0, int8_t y0, int8_t x1, int8_t y1, uint8_t color)
 {  
   int16_t steep = abs(y1 - y0) > abs(x1 - x0);
       
@@ -280,17 +299,17 @@ void EBOLED::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t co
   }
 }
 
-void EBOLED::drawLineHorizontal(uint8_t x, uint8_t y, uint8_t width, uint8_t color)
+void EBOLED::drawLineHorizontal(int8_t x, int8_t y, uint8_t width, uint8_t color)
 {
   drawLine(x, y, x+width-1, y, color);
 }
 
-void EBOLED::drawLineVertical(uint8_t x, uint8_t y, uint8_t height, uint8_t color)
+void EBOLED::drawLineVertical(int8_t x, int8_t y, uint8_t height, uint8_t color)
 {
   drawLine(x, y, x, y+height-1, color);
 }
 
-void EBOLED::drawRectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+void EBOLED::drawRectangle(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t color)
 {
   drawLineHorizontal(x, y, width, color);
   drawLineHorizontal(x, y+height-1, color);
@@ -303,32 +322,121 @@ void EBOLED::drawRectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t height, 
   }
 }
 
-void EBOLED::drawRectangleFilled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+void EBOLED::drawRoundedRectangle(int8_t x, int8_t y, int8_t width, int8_t height, int16_t radius, uint8_t color) {
+  // smarter version
+  drawLineHorizontal(x+radius  , y         , width-2*radius,  color); // Top
+  drawLineHorizontal(x+radius  , y+height-1, width-2*radius,  color); // Bottom
+  drawLineVertical(  x         , y+radius  , height-2*radius, color); // Left
+  drawLineVertical(  x+width-1 , y+radius  , height-2*radius, color); // Right
+  // draw four corners
+  drawRoundCorners(x+radius        , y+radius         , radius, 1, color);
+  drawRoundCorners(x+width-radius-1, y+radius         , radius, 2, color);
+  drawRoundCorners(x+width-radius-1, y+height-radius-1, radius, 4, color);
+  drawRoundCorners(x+radius        , y+height-radius-1, radius, 8, color);
+}
+
+void EBOLED::drawRectangleFilled(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t color)
 {    
   for (uint8_t i=x; i<x+width; i++) {
     drawLineVertical(i, y, height, color);
   }
 }
 
-void EBOLED::drawTriangle(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color) 
+void EBOLED::drawTriangle(int8_t x0, int8_t y0, int8_t x1, int8_t y1, int8_t x2, int8_t y2, uint8_t color) 
 {    
   drawLine(x0, y0, x1, y1, color);
   drawLine(x1, y1, x2, y2, color);
   drawLine(x2, y2, x0, y0, color);
 }
 
-void EBOLED::drawCircle(int16_t x0, int16_t y0, int16_t r, uint8_t color) 
-{
-  int16_t f = 1 - r;
-  int16_t ddF_x = 1;
-  int16_t ddF_y = -2 * r;
-  int16_t x = 0;
-  int16_t y = r;
+void EBOLED::drawTriangleFilled ( int8_t x0, int8_t y0, int8_t x1, int8_t y1, int8_t x2, int8_t y2, uint8_t color) {
 
-  drawPixel(x0  , y0+r, color);
-  drawPixel(x0  , y0-r, color);
-  drawPixel(x0+r, y0  , color);
-  drawPixel(x0-r, y0  , color);
+  int16_t a, b, y, last;
+
+  // Sort coordinates by Y order (y2 >= y1 >= y0)
+  if (y0 > y1) {
+    swap(y0, y1); swap(x0, x1);
+  }
+  if (y1 > y2) {
+    swap(y2, y1); swap(x2, x1);
+  }
+  if (y0 > y1) {
+    swap(y0, y1); swap(x0, x1);
+  }
+
+  if(y0 == y2) { // Handle awkward all-on-same-line case as its own thing
+    a = b = x0;
+    if(x1 < a)      a = x1;
+    else if(x1 > b) b = x1;
+    if(x2 < a)      a = x2;
+    else if(x2 > b) b = x2;
+    drawLineHorizontal(a, y0, b-a+1, color);
+    return;
+  }
+
+  int16_t
+    dx01 = x1 - x0,
+    dy01 = y1 - y0,
+    dx02 = x2 - x0,
+    dy02 = y2 - y0,
+    dx12 = x2 - x1,
+    dy12 = y2 - y1;
+  int32_t
+    sa   = 0,
+    sb   = 0;
+
+  // For upper part of triangle, find scanline crossings for segments
+  // 0-1 and 0-2.  If y1=y2 (flat-bottomed triangle), the scanline y1
+  // is included here (and second loop will be skipped, avoiding a /0
+  // error there), otherwise scanline y1 is skipped here and handled
+  // in the second loop...which also avoids a /0 error here if y0=y1
+  // (flat-topped triangle).
+  if(y1 == y2) last = y1;   // Include y1 scanline
+  else         last = y1-1; // Skip it
+
+  for(y=y0; y<=last; y++) {
+    a   = x0 + sa / dy01;
+    b   = x0 + sb / dy02;
+    sa += dx01;
+    sb += dx02;
+    /* longhand:
+    a = x0 + (x1 - x0) * (y - y0) / (y1 - y0);
+    b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
+    */
+    if(a > b) swap(a,b);
+    drawLineHorizontal(a, y, b-a+1, color);
+  }
+
+  // For lower part of triangle, find scanline crossings for segments
+  // 0-2 and 1-2.  This loop is skipped if y1=y2.
+  sa = dx12 * (y - y1);
+  sb = dx02 * (y - y0);
+  for(; y<=y2; y++) {
+    a   = x1 + sa / dy12;
+    b   = x0 + sb / dy02;
+    sa += dx12;
+    sb += dx02;
+    /* longhand:
+    a = x1 + (x2 - x1) * (y - y1) / (y2 - y1);
+    b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
+    */
+    if(a > b) swap(a,b);
+    drawLineHorizontal(a, y, b-a+1, color);
+  }
+}
+
+void EBOLED::drawCircle(int16_t x0, int16_t y0, int16_t radius, uint8_t color) 
+{
+  int16_t f = 1 - radius;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * radius;
+  int16_t x = 0;
+  int16_t y = radius;
+
+  drawPixel(x0  , y0+radius, color);
+  drawPixel(x0  , y0-radius, color);
+  drawPixel(x0+radius, y0  , color);
+  drawPixel(x0-radius, y0  , color);
 
   while (x<y) 
   {
@@ -351,6 +459,75 @@ void EBOLED::drawCircle(int16_t x0, int16_t y0, int16_t r, uint8_t color)
     drawPixel(x0 - y, y0 + x, color);
     drawPixel(x0 + y, y0 - x, color);
     drawPixel(x0 - y, y0 - x, color);
+  }
+}
+
+void EBOLED::drawRoundCorners( int8_t x0, int8_t y0, int16_t radius, uint8_t cornername, uint8_t color) {
+  int16_t f     = 1 - radius;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * radius;
+  int16_t x     = 0;
+  int16_t y     = radius;
+
+  while (x<y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f     += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f     += ddF_x;
+    if (cornername & 0x4) {
+      drawPixel(x0 + x, y0 + y, color);
+      drawPixel(x0 + y, y0 + x, color);
+    } 
+    if (cornername & 0x2) {
+      drawPixel(x0 + x, y0 - y, color);
+      drawPixel(x0 + y, y0 - x, color);
+    }
+    if (cornername & 0x8) {
+      drawPixel(x0 - y, y0 + x, color);
+      drawPixel(x0 - x, y0 + y, color);
+    }
+    if (cornername & 0x1) {
+      drawPixel(x0 - y, y0 - x, color);
+      drawPixel(x0 - x, y0 - y, color);
+    }
+  }
+}
+
+void EBOLED::drawCircleFilled(int8_t x0, int8_t y0, int16_t radius, uint8_t color) {
+  drawLineVertical(x0, y0-radius, 2*radius+1, color);
+  drawRoundedCornersFilled(x0, y0, radius, 3, 0, color);
+}
+
+void EBOLED::drawRoundedCornersFilled(int8_t x0, int8_t y0, int16_t radius, uint8_t cornername, int16_t delta, uint8_t color) {
+
+  int16_t f     = 1 - radius;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * radius;
+  int16_t x     = 0;
+  int16_t y     = radius;
+
+  while (x<y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f     += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f     += ddF_x;
+
+    if (cornername & 0x1) {
+      drawLineVertical(x0+x, y0-y, 2*y+1+delta, color);
+      drawLineVertical(x0+y, y0-x, 2*x+1+delta, color);
+    }
+    if (cornername & 0x2) {
+      drawLineVertical(x0-x, y0-y, 2*y+1+delta, color);
+      drawLineVertical(x0-y, y0-x, 2*x+1+delta, color);
+    }
   }
 }
 

@@ -2,6 +2,9 @@
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
+ * Author: Tyler Gibson <tgibson@microsoft.com>
+ * Copyright (c) 2015 Microsoft Corporation.
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -68,7 +71,7 @@ namespace upm
   const uint8_t VERT_COLUMNS    = 0x20; // half width for hi/lo 16bit writes.
   const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
   const int     BUFFER_SIZE     = 192;
-
+  
   class EBOLED : public LCD
   {
     // SSD commands
@@ -151,8 +154,7 @@ namespace upm
     /**
       * Sets a text color for a message
       *
-      * @param textColor Font color
-      * @param textBGColor Background color
+      * @param textColor Font color: COLOR_WHITE, COLOR_BLACK or COLOR_XOR
       */
     void setTextColor (uint8_t textColor);
 
@@ -166,7 +168,7 @@ namespace upm
     /**
       * Wraps a printed message
       *
-      * @param wrap True (0x1) or false (0x0)
+      * @param wrap True (1) or false (0)
       */
     void setTextWrap (uint8_t wrap);
 
@@ -200,31 +202,154 @@ namespace upm
     
     /**
      * Write a single pixel to the screen buffer.
-     * Can do an absolutel write or toggle (xor) a pixel.
+     * Can do an specific color write or toggle (xor) a pixel.
      *
      * @param x the x position of the pixel
      * @param y the y position of the pixel
-     * @param color pixel is COLOR_WHITE or COLOR_BLACK
-     * @param mode the draw mode DRAWMODE_NORMAL or DRAWMODE_XOR
-     * @return result of operation
+     * @param color pixel is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
      */    
-    void drawPixel (uint8_t x, uint8_t y, uint8_t color=COLOR_WHITE);
+    void drawPixel (int8_t x, int8_t y, uint8_t color=COLOR_WHITE);
     
-    void drawLine (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color = COLOR_WHITE); 
+    /**
+     * Draw a line to the screen buffer.
+     *
+     * @param x0 the x position of the beginning of the line
+     * @param y0 the y position of the beginning of the line
+     * @param x1 the x position of the end of the line
+     * @param y1 the y position of the end of the line
+     * @param color line is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */ 
+    void drawLine (int8_t x0, int8_t y0, int8_t x1, int8_t y1, uint8_t color = COLOR_WHITE); 
     
-    void drawLineHorizontal (uint8_t x, uint8_t y, uint8_t width, uint8_t color = COLOR_WHITE);  
-                                         
-    void drawLineVertical (uint8_t x, uint8_t y, uint8_t height, uint8_t color = COLOR_WHITE); 
-                          
-    void drawRectangle (uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);  
+    /**
+     * Draw a horizontal line to the screen buffer.
+     *
+     * @param x the x position of the beginning of the line
+     * @param y the y position of the beginning of the line
+     * @param width is the horizontal length of the line
+     * @param color line is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */ 
+    void drawLineHorizontal (int8_t x, int8_t y, uint8_t width, uint8_t color = COLOR_WHITE);  
+                              
+    /**
+     * Draw a vertical line to the screen buffer.
+     *
+     * @param x the x position of the beginning of the line
+     * @param y the y position of the beginning of the line
+     * @param width is the vertical length of the line
+     * @param color line is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */                                      
+    void drawLineVertical (int8_t x, int8_t y, uint8_t height, uint8_t color = COLOR_WHITE); 
+
+    /**
+     * Draw a rectangle to the screen buffer.
+     *
+     * @param x the left edge
+     * @param y the top edge
+     * @param width sets the right edge
+     * @param height bottom edge
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */                       
+    void drawRectangle (int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);
     
-    void drawRectangleFilled (uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);   
-                  
-    void drawTriangle (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color = COLOR_WHITE);       
-                                  
-    void drawCircle (int16_t x0, int16_t y0, int16_t r, uint8_t color = COLOR_WHITE);    
-                        
+    /**
+     * Draw a rectangle with rounded corners to the screen buffer.
+     *
+     * @param x the left edge
+     * @param y the top edge
+     * @param width sets the right edge
+     * @param height bottom edge
+     * @param radius of the rounded corners
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */   
+    void drawRoundedRectangle(int8_t x, int8_t y, int8_t width, int8_t height, int16_t radius, uint8_t color);  
+    
+    /**
+     * Draw a filled rectangle to the screen buffer.
+     *
+     * @param x the left edge
+     * @param y the top edge
+     * @param width sets the right edge
+     * @param height bottom edge
+     * @param color fill color is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */   
+    void drawRectangleFilled (int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t color = COLOR_WHITE);   
+    
+    /**
+     * Draw a triangle to the screen buffer.
+     *
+     * @param x0 the x coordinate of the first corner
+     * @param y0 the y coordinate of the first corner
+     * @param x1 the x coordinate of the second corner
+     * @param y1 the y coordinate of the second corner
+     * @param x2 the x coordinate of the third corner
+     * @param y2 the y coordinate of the third corner
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */                 
+    void drawTriangle (int8_t x0, int8_t y0, int8_t x1, int8_t y1, int8_t x2, int8_t y2, uint8_t color = COLOR_WHITE);       
+    
+    /**
+     * Draw a filled triangle to the screen buffer.
+     *
+     * @param x0 the x coordinate of the first corner
+     * @param y0 the y coordinate of the first corner
+     * @param x1 the x coordinate of the second corner
+     * @param y1 the y coordinate of the second corner
+     * @param x2 the x coordinate of the third corner
+     * @param y2 the y coordinate of the third corner
+     * @param color fill color is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */   
+    void drawTriangleFilled ( int8_t x0, int8_t y0, int8_t x1, int8_t y1, int8_t x2, int8_t y2, uint8_t color);                              
+    
+    /**
+     * Draw a circle to the screen buffer.
+     *
+     * @param x0 the x coordinate of the circle's center
+     * @param y0 the y coordinate of the circle's center
+     * @param radius the radius of the circle
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */   
+    void drawCircle (int16_t x0, int16_t y0, int16_t radius, uint8_t color = COLOR_WHITE);    
+    
+    /**
+     * Draw a quarter circle arc to the screen buffer.
+     *
+     * @param x0 the x coordinate of the arc's center
+     * @param y0 the y coordinate of the arc's center
+     * @param radius the radius of the arc
+     * @param cornername denotes which of the 4 quarters to draw - 1,2,4,8
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */  
+    void drawRoundCorners( int8_t x0, int8_t y0, int16_t radius, uint8_t cornername, uint8_t color);
+    
+    /**
+     * Draw a filled circle to the screen buffer.
+     *
+     * @param x0 the x coordinate of the circle's center
+     * @param y0 the y coordinate of the circle's center
+     * @param radius the radius of the circle
+     * @param color outline is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */ 
+    void drawCircleFilled(int8_t x0, int8_t y0, int16_t radius, uint8_t color);
+    
+    /**
+     * Draw a quarter pie to the screen buffer.
+     *
+     * @param x0 the x coordinate of the arc's center
+     * @param y0 the y coordinate of the arc's center
+     * @param radius the radius of the arc
+     * @param cornername denotes which of the 4 quarters to draw - 1,2,4,8
+     * @param color fill color is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */     
+    void drawRoundedCornersFilled(int8_t x0, int8_t y0, int16_t radius, uint8_t cornername, int16_t delta, uint8_t color);
+         
+    /**
+     * Fill the screen buffer with specified color.
+     *
+     * @param color fill color is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
+     */                          
     void fillScreen (uint8_t color=COLOR_WHITE);
+    
     
   protected:
     mraa_result_t command(uint8_t cmd);
