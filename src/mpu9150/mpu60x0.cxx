@@ -384,7 +384,7 @@ uint8_t MPU60X0::getInterruptPinConfig()
 void MPU60X0::installISR(int gpio, mraa::Edge level,
                          IsrCallback *cb)
 {
-        installISR(intr, gpio, level, generic_callback_isr, cb);
+        installISR(gpio, level, generic_callback_isr, cb);
 }
 #endif
 
