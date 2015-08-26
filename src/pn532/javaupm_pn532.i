@@ -3,6 +3,7 @@
 %include "arrays_java.i"
 
 %apply unsigned char[] {uint8_t *};
+%ignore i2cContext;
 
 %{
     #include "pn532.h"

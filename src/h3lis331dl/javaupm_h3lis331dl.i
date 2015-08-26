@@ -6,6 +6,7 @@
 %apply int *OUTPUT { int *x, int *y, int*z };
 %apply float *OUTPUT { float *aX, float *aY, float *aZ  };
 
+%ignore i2cContext;
 
 %{
     #include "h3lis331dl.h"
