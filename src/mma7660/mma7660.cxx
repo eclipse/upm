@@ -88,6 +88,15 @@ void MMA7660::getRawValues(int *x, int *y, int *z)
   *z = getVerifiedAxis(REG_ZOUT);
 }
 
+#ifdef SWIGJAVA
+int *MMA7660::getRawValues()
+{
+  int *values = new int[3];
+  getRawValues(&values[0], &values[1], &values[2]);
+  return values;
+}
+#endif
+
 void MMA7660::setModeActive()
 {
   uint8_t modeReg = readByte(REG_MODE);
@@ -253,4 +262,13 @@ void MMA7660::getAcceleration(float *ax, float *ay, float *az)
   *ay = y/21.33;
   *az = z/21.33;
 }
+
+#ifdef SWIGJAVA
+float *MMA7660::getAcceleration()
+{
+  float *values = new float[3];
+  getAcceleration(&values[0], &values[1], &values[2]);
+  return values;
+}
+#endif
 

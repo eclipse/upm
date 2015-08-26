@@ -169,6 +169,15 @@ namespace upm {
      */
     void getRawValues(int *x, int *y, int *z);
 
+#ifdef SWIGJAVA
+    /**
+     * Reads the current value of conversion
+     *
+     * @return Array containing x, y, z. Free using delete.
+     */
+    int *getRawValues();
+#endif
+
     /**
      * Gets the computed acceleration
      *
@@ -177,6 +186,15 @@ namespace upm {
      * @param az Returned computed acceleration of the Z-axis
      */
     void getAcceleration(float *ax, float *ay, float *az);
+
+#ifdef SWIGJAVA
+    /**
+     * Gets the computed acceleration
+     *
+     * @return Array containing x, y, z. Free using delete.
+     */
+    float *getAcceleration();
+#endif
 
     /**
      * Reads an axis, verifying its validity. The value passed must
