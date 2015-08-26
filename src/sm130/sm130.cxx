@@ -27,66 +27,69 @@
 #include <stdlib.h>
 #include <string.h>
 #include <algorithm>
+#include <stdexcept>
 
 #include "sm130.h"
 
 using namespace upm;
 
-struct SM130Exception : public std::exception {
-    std::string message;
-    SM130Exception (std::string msg) : message (msg) { }
-    ~SM130Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
 SM130::SM130 (int bus, int devAddr, int rst, int dready) {
     mraa_result_t error = MRAA_SUCCESS;
 
-    this->m_name = "SM130";
+    m_name = "SM130";
 
-    this->m_i2cAddr = devAddr;
-    this->m_bus = bus;
+    m_i2cAddr = devAddr;
+    m_bus = bus;
 
-    this->m_i2Ctx = mraa_i2c_init(this->m_bus);
+    if (!(m_i2Ctx = mraa_i2c_init(m_bus)))
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_init() failed");
+      }
 
-    mraa_result_t ret = mraa_i2c_address(this->m_i2Ctx, this->m_i2cAddr);
+    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
     if (ret != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't initilize I2C.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_address() failed");
     }
 
-    this->m_resetPinCtx = mraa_gpio_init (rst);
+    m_resetPinCtx = mraa_gpio_init (rst);
     if (m_resetPinCtx == NULL) {
-        throw SM130Exception ("Couldn't initilize RESET pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_init(RESET) failed");
     }
 
-    this->m_dataReadyPinCtx = mraa_gpio_init (dready);
+    m_dataReadyPinCtx = mraa_gpio_init (dready);
     if (m_dataReadyPinCtx == NULL) {
-        throw SM130Exception ("Couldn't initilize DATA READY pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_init(DATA READY) failed");
     }
 
-    error = mraa_gpio_dir (this->m_resetPinCtx, MRAA_GPIO_OUT);
+    error = mraa_gpio_dir (m_resetPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't set direction for RESET pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir(RESET) failed");
     }
 
-    error = mraa_gpio_dir (this->m_dataReadyPinCtx, MRAA_GPIO_OUT);
+    error = mraa_gpio_dir (m_dataReadyPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw SM130Exception ("Couldn't set direction for DATA READY pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir(DATA READY) failed");
     }
 }
 
 SM130::~SM130 () {
     mraa_result_t error = MRAA_SUCCESS;
 
-    error = mraa_i2c_stop(this->m_i2Ctx);
+    error = mraa_i2c_stop(m_i2Ctx);
     if (error != MRAA_SUCCESS) {
         mraa_result_print(error);
     }
-    error = mraa_gpio_close (this->m_resetPinCtx);
+    error = mraa_gpio_close (m_resetPinCtx);
     if (error != MRAA_SUCCESS) {
         mraa_result_print(error);
     }
-    error = mraa_gpio_close (this->m_dataReadyPinCtx);
+    error = mraa_gpio_close (m_dataReadyPinCtx);
     if (error != MRAA_SUCCESS) {
         mraa_result_print(error);
     }
@@ -108,15 +111,15 @@ SM130::getFirmwareVersion () {
 uint8_t
 SM130::available () {
     // If in SEEK mode and using DREADY pin, check the status
-    if (this->m_LastCMD == CMD_SEEK_TAG) {
-        if (!mraa_gpio_read(this->m_dataReadyPinCtx)) {
+    if (m_LastCMD == CMD_SEEK_TAG) {
+        if (!mraa_gpio_read(m_dataReadyPinCtx)) {
             return false;
         }
     }
 
     // Set the maximum length of the expected response packet
     uint8_t len;
-    switch(this->m_LastCMD) {
+    switch(m_LastCMD) {
         case CMD_ANTENNA_POWER:
         case CMD_AUTHENTICATE:
         case CMD_DEC_VALUE:
@@ -139,32 +142,32 @@ SM130::available () {
     }
 
     // If valid data received, process the response packet
-    if (this->i2cRecievePacket(len) > 0) {
+    if (i2cRecievePacket(len) > 0) {
         // Init response variables
-        this->m_TagType = this->m_TagLength = *this->m_TagString = 0;
+        m_TagType = m_TagLength = *m_TagString = 0;
 
         // If packet length is 2, the command failed. Set error code.
-        errorCode = this->getPacketLength () < 3 ? this->m_Data[2] : 0;
+        errorCode = getPacketLength () < 3 ? m_Data[2] : 0;
 
         // Process command response
-        switch (this->getCommand ()) {
+        switch (getCommand ()) {
             case CMD_RESET:
             case CMD_VERSION:
                 // RESET and VERSION commands produce the firmware version
-                len = std::min ((unsigned int) getPacketLength(), (unsigned int) sizeof(this->m_Version)) - 1;
-                memcpy(this->m_Version, this->m_Data + 2, len);
-                this->m_Version[len] = 0;
+                len = std::min ((unsigned int) getPacketLength(), (unsigned int) sizeof(m_Version)) - 1;
+                memcpy(m_Version, m_Data + 2, len);
+                m_Version[len] = 0;
                 break;
 
             case CMD_SEEK_TAG:
             case CMD_SELECT_TAG:
                 // If no error, get tag number
-                if(errorCode == 0 && this->getPacketLength () >= 6)
+                if(errorCode == 0 && getPacketLength () >= 6)
                 {
-                    this->m_TagLength = this->getPacketLength () - 2;
-                    this->m_TagType = this->m_Data[2];
-                    memcpy(this->m_TagNumber, this->m_Data + 3, this->m_TagLength);
-                    this->arrayToHex (this->m_TagString, this->m_TagNumber, this->m_TagLength);
+                    m_TagLength = getPacketLength () - 2;
+                    m_TagType = m_Data[2];
+                    memcpy(m_TagNumber, m_Data + 3, m_TagLength);
+                    arrayToHex (m_TagString, m_TagNumber, m_TagLength);
                 }
                 break;
 
@@ -180,7 +183,7 @@ SM130::available () {
 
             case CMD_ANTENNA_POWER:
                 errorCode = 0;
-                antennaPower = this->m_Data[2];
+                antennaPower = m_Data[2];
                 break;
 
             case CMD_SLEEP:
@@ -199,19 +202,19 @@ uint16_t
 SM130::i2cRecievePacket (uint32_t len) {
     int readByte = 0;
 
-    mraa_i2c_address(this->m_i2Ctx, this->m_i2cAddr);
-    readByte = mraa_i2c_read(this->m_i2Ctx, this->m_Data, len);
+    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
+    readByte = mraa_i2c_read(m_i2Ctx, m_Data, len);
 
     if (readByte > 0) {
         // verify checksum if length > 0 and <= SIZE_PAYLOAD
-        if (this->m_Data[0] > 0 && this->m_Data[0] <= SIZE_PAYLOAD)
+        if (m_Data[0] > 0 && m_Data[0] <= SIZE_PAYLOAD)
         {
             uint8_t i, sum;
-            for (i = 0, sum = 0; i <= this->m_Data[0]; i++) {
-                sum += this->m_Data[i];
+            for (i = 0, sum = 0; i <= m_Data[0]; i++) {
+                sum += m_Data[i];
             }
             // return with length of response, or -1 if invalid checksum
-            return sum == this->m_Data[i] ? this->m_Data[0] : -1;
+            return sum == m_Data[i] ? m_Data[0] : -1;
         }
     }
 
@@ -241,26 +244,26 @@ SM130::i2cTransmitPacket (uint32_t len) {
     uint8_t sum = 0;
 
     // Save last command
-    this->m_LastCMD = this->m_Data[0];
+    m_LastCMD = m_Data[0];
 
     // calculate the sum check
     for (int i = 0; i < len; i++) {
-        sum += this->m_Data[i];
+        sum += m_Data[i];
     }
 
     // placing the sum check to the last byte of the packet
-    this->m_Data[len + 1] = sum;
+    m_Data[len + 1] = sum;
 
-    error = mraa_i2c_address (this->m_i2Ctx, this->m_i2cAddr);
-    error = mraa_i2c_write (this->m_i2Ctx, this->m_Data, len + 1);
+    error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
+    error = mraa_i2c_write (m_i2Ctx, m_Data, len + 1);
 
     return error;
 }
 
 mraa_result_t
 SM130::sendCommand (uint8_t cmd) {
-    this->m_Data[0] = 1;
-    this->m_Data[1] = cmd;
-    this->i2cTransmitPacket(2);
+    m_Data[0] = 1;
+    m_Data[1] = cmd;
+    i2cTransmitPacket(2);
 }
 

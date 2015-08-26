@@ -27,18 +27,31 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief Grove Moisture Sensor library
+   * @defgroup grovemoisture libupm-grovemoisture
+   * @ingroup seeed analog liquid eak hak
+   */
 
   /**
-   * @brief C++ API for the Grove Moisture Sensor
+   * @library grovemoisture
+   * @sensor grovemoisture
+   * @comname Grove Moisture Sensor
+   * @type liquid
+   * @man seeed
+   * @con analog
+   * @kit eak hak
+   *
+   * @brief API for the Grove Moisture Sensor
    *
    * UPM module for the Grove Moisture Sensor.
    * This sensor can be used to detect the moisture content
    * of soil or whether there is water around the sensor.
    * As the moisture content increases, so does the value that is read.
-   * Note that this sensor is not designed to be left in soil
+   * Note: this sensor is not designed to be left in soil
    * nor to be used outdoors.
    *
-   * @ingroup grove analog
+   * @image html grovemoisture.jpg
    * @snippet grovemoisture.cxx Interesting
    */
   class GroveMoisture {
@@ -46,17 +59,17 @@ namespace upm {
     /**
      * Grove analog moisture sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveMoisture(int pin);
     /**
-     * GroveMoisture Destructor
+     * GroveMoisture destructor
      */
     ~GroveMoisture();
     /**
-     * Get the moisture value from the sensor
+     * Gets the moisture value from the sensor
      *
-     * @return the moisture reading
+     * @return Moisture reading
      */
     int value();
 

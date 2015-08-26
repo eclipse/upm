@@ -93,6 +93,7 @@ main(int argc, char **argv)
     lcd->clear();
     lcd->draw(intel_logo, 1024);
 
-    lcd->close();
+    delete lcd;
 //! [Interesting]
+    return 0;
 }

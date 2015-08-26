@@ -29,14 +29,26 @@
 #include <mraa/gpio.h>
 
 namespace upm {
+  /**
+   * @brief Grove Ear-clip Heart Rate Sensor library
+   * @defgroup groveehr libupm-groveehr
+   * @ingroup seeed gpio medical
+   */
 
   /**
-   * @brief C++ API for the Grove Ear-clip Heart Rate sensor
+   * @library groveehr
+   * @sensor groveehr
+   * @comname Grove Ear-clip Heart Rate Sensor
+   * @type medical
+   * @man seeed
+   * @con gpio
    *
-   * UPM module for the GroveEHR sensor.  It is used to measure your
-   * heartbeat.
+   * @brief API for the Grove Ear-clip Heart Rate Sensor
    *
-   * @ingroup gpio
+   * UPM module for the Grove ear-clip heart rate sensor. It is used to measure your
+   * heart rate. 
+   *
+   * @image html groveehr.jpg 
    * @snippet groveehr.cxx Interesting
    */
   class GroveEHR {
@@ -44,63 +56,63 @@ namespace upm {
     /**
      * GroveEHR constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveEHR(int pin);
     /**
-     * GroveEHR Destructor
+     * GroveEHR destructor
      */
     ~GroveEHR();
     /**
-     * Return the number of milliseconds elapsed since initClock()
+     * Returns the time of milliseconds elapsed since initClock()
      * was last called.
      *
-     * @return elapsed milliseconds
+     * @return Elapsed milliseconds
      */
     uint32_t getMillis();
 
     /**
-     * Reset the Clock
+     * Resets the clock
      *
      */
     void initClock();
 
     /**
-     * Reset the beat counter to 0.  The beat Counter should be
+     * Resets the beat counter to 0. The beat counter should be
      * stopped via stopBeatCounter() prior to calling this function.
      *
      */
     void clearBeatCounter();
 
     /**
-     * Start the beat counter
+     * Starts the beat counter
      *
      */
     void startBeatCounter();
 
     /**
-     * Stop the beat counter
+     * Stops the beat counter
      *
      */
     void stopBeatCounter();
 
     /**
-     * Get the beat Counter
+     * Gets the beat Counter
      *
-     * @return the beat counter
+     * @return Beat counter
      */
     uint32_t beatCounter();
 
     /**
-     * Beat Interrupt Service Routine
+     * Beat interrupt service routine (ISR)
      *
      */
     static void beatISR(void *ctx);
 
     /**
-     * Compute the heart rate
+     * Computes the heart rate
      *
-     * @return the computed heart rate
+     * @return Computed heart rate
      */
     int heartRate();
 

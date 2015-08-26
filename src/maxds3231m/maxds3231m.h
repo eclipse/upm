@@ -63,52 +63,60 @@ struct Time3231 {
 };
 
 /**
- * @brief maxds3231m proximity sensor library
+ * @brief MAXDS3231M Proximity Sensor library
  * @defgroup maxds3231m libupm-maxds3231m
+ * @ingroup maxim i2c light
  */
-
 /**
- * @brief C++ API for MAXDS3231M chip (Ambient and Infrared Proximity Sensor)
+ * @library maxds3231m
+ * @sensor maxds3231m
+ * @comname MAXDS3231M Real-Time Clock
+ * @type light
+ * @man maxim
+ * @con i2c
  *
- * @ingroup maxds3231m i2c
+ * @brief API for the MAXDS3231M I2C Real-Time Clock
+ *
+ * This file defines the API for MAXDS3231M
+ *
  * @snippet maxds3231m.cxx Interesting
  */
 class MAXDS3231M {
     public:
         /**
-         * Instanciates a MAXDS3231M object
+         * Instantiates an MAXDS3231M object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          */
         MAXDS3231M (int bus=0, int devAddr=0x68);
 
         /**
-         * MAXDS3231M object destructor, basicaly it close i2c connection.
+         * MAXDS3231M object destructor; basically, it closes the I2C connection.
          */
         ~MAXDS3231M ();
 
         /**
-         * Set date and time on the chip.
+         * Sets the date and time on the chip.
          *
-         * @param time staracture
+         * @param time Time structure
          */
         void setDate (Time3231 &time);
 
         /**
-         * Get date and time located on the chip.
+         * Gets the date and time from the chip.
          *
-         * @param time staracture
+         * @param time Time structure
          */
         bool getDate (Time3231 &time);
 
         /**
-         * Get on board temperature.
+         * Gets the on-board temperature.
          */
         uint16_t getTemperature ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

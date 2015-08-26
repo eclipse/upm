@@ -53,55 +53,62 @@
 namespace upm {
 
 /**
- * @brief mlx90614 temperature sensor library
+ * @brief MLX90614 Temperature Sensor library
  * @defgroup mlx90614 libupm-mlx90614
+ * @ingroup generic i2c temperature
  */
-
 /**
- * @brief C++ API for MLX90614
+ * @library mlx90614
+ * @sensor mlx90614
+ * @comname MLX90614 Temperature Sensor
+ * @type temperature
+ * @man generic
+ * @con i2c
  *
- * This file defines the MLX90614 C++ interface for libmlx90614
+ * @brief API for the MLX90614 Temperature Sensor
  *
- * @ingroup mlx90614 i2c
+ * This file defines the MLX90614 interface for libmlx90614
+ *
+ * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting
  */
 class MLX90614 {
     public:
 
         /**
-         * Instanciates a MLX90614 object
+         * Instantiates an MLX90614 object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          */
         MLX90614 (int bus=0, int devAddr=0x5A);
 
         /**
-         * MLX90614 object destructor, basicaly it close i2c connection.
+         * MLX90614 object destructor; basically, it closes the I2C connection.
          */
         ~MLX90614 ();
 
         /**
-         * Read object temperature in Fahrenheit
+         * Reads the object temperature in Fahrenheit
          */
         float readObjectTempF(void);
 
         /**
-         * Read ambient temperature in Fahrenheit
+         * Reads the ambient temperature in Fahrenheit
          */
         float readAmbientTempF(void);
         /**
-         * Read object temperature in Celsius
+         * Reads the object temperature in Celsius
          */
         float readObjectTempC(void);
 
         /**
-         * Read ambient temperature in Celsius
+         * Reads the ambient temperature in Celsius
          */
         float readAmbientTempC(void);
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

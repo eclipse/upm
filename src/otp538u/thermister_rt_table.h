@@ -22,9 +22,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// This table was taken from the 538RT_table.pdf datasheet. It maps
+// This table was taken from the '538RT_table.pdf' datasheet. It maps
 // resistance values to ambient temperatures starting at -20C and
-// going to 200C in increments of 1C
+// going up to 200C in increments of 1C
 
 static const int otp538u_rt_table_max = 121;
 

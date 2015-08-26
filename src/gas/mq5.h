@@ -28,24 +28,31 @@
 #include "gas.h"
 
 namespace upm {
-    /**
-     * @brief C++ API for MQ5 gas sensor
-     *
-     * The Grove - Gas Sensor (MQ5) module is useful for gas leakage detecting
-     * (in home and industry). It can detect LPG, natural gas, town gas and so
-     * on. It is highly sensitive and has a detection concentration of
-     * 300-10000 ppm.
-     *
-     * @ingroup gas analog
-     * @snippet mq5.cxx Interesting
-     * @image html mq2-5.jpeg
-     */
+  /**
+   * @library gas
+   * @sensor mq5
+   * @comname Grove MQ5 Gas Sensor
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   * @kit eak
+   *
+   * @brief API for the MQ5 Gas Sensor
+   *
+   * The Grove MQ5 Gas Sensor module is useful for gas leakage detection
+   * (in home and industry). It can detect LPG, natural gas, town gas, and so
+   * on. It is highly sensitive and has a detection range of
+   * 300-10,000 ppm.
+   *
+   * @image html mq2-5.jpeg
+   * @snippet mq5.cxx Interesting
+   */
     class MQ5 : public Gas {
         public:
             /**
              * MQ5 constructor
              *
-             * @param gasPin analog pin where sensor is connected
+             * @param gasPin Analog pin where the sensor is connected
              */
             MQ5 (int gasPin);
 
@@ -55,7 +62,7 @@ namespace upm {
             ~MQ5 ();
 
             /**
-             * Return name of the component
+             * Returns the name of the sensor
              */
             std::string name()
             {

@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief Itg3200 gyroscope library
+ * @brief ITG-3200 Gyroscope library
  * @defgroup itg3200 libupm-itg3200
  * @ingroup seeed i2c compass
  */
@@ -38,18 +38,19 @@ namespace upm {
 /**
  * @library itg3200
  * @sensor itg3200
- * @comname Itg3200 3-Axis Digital Gyroscope
+ * @comname ITG-3200 3-Axis Digital Gyroscope
+ * @altname Grove 3-Axis Digital Gyroscope
  * @type compass
  * @man seeed
  * @con i2c
  *
- * @brief C++ API for Itg3200 (3-axis digital gyroscope)
+ * @brief API for the ITG-3200 3-Axis Digital Gyroscope
  *
- * The InvenSense Itg3200 is a 3-axis digital gyroscope.
+ * InvenSense* ITG-3200 is a 3-axis digital gyroscope.
  * (https://www.sparkfun.com/datasheets/Sensors/Gyro/PS-ITG-3200-00-01.4.pdf)
- * This sensor has been tested and can run at either 3V3 or 5V on the Intel Galileo.<br>
- * <strong>However</strong>, it is incompatible and will not be detected on the I2C bus
- * by the Intel Edison using the Arduino breakout board.
+ * This sensor has been tested and can run at either 3.3V or 5V on Intel(R) Galileo.<br>
+ * <strong>However</strong>, it is incompatible with and not detected on the I2C bus
+ * by Intel(R) Edison using the Arduino* breakout board.
  *
  * @image html itg3200.jpeg
  * @snippet itg3200.cxx Interesting
@@ -59,7 +60,7 @@ public:
     /**
      * Creates an Itg3200 object
      *
-     * @param bus number of used i2c bus
+     * @param bus Number of the used I2C bus
      */
     Itg3200(int bus);
 
@@ -69,29 +70,28 @@ public:
     ~Itg3200();
 
     /**
-     * Calibrates the sensor to 0 on all axes. Sensor needs to be resting for accurate calibration.
-     * Takes about 3 seconds and is also called by constructor on object creation.
+     * Calibrates the sensor to 0 on all axes. The sensor needs to be resting for accurate calibration.
+     * It takes about 3 seconds and is also called by the constructor on object creation.
      *
-     * @return 0 for successful calibration
      */
-    mraa_result_t calibrate();
+    void calibrate();
 
     /**
-     * Returns the temperature reading from the integrated temperature sensor in Celsius degrees
+     * Returns the temperature reading, in Celsius, from the integrated temperature sensor
      *
-     * @return float temperature in Celsius degrees
+     * @return float Temperature in Celsius
      */
     float getTemperature();
 
     /**
-     * Returns a pointer to an float[3] that contains computed rotational speeds (angular velocities)
+     * Returns a pointer to a float[3] that contains computed rotational speeds (angular velocities)
      *
-     * @return float* to an float[3]
+     * @return float* to a float[3]
      */
     float* getRotation();
 
     /**
-     * Returns a pointer to an int[3] that contains the raw register values for X, Y and Z
+     * Returns a pointer to an int[3] that contains raw register values for X, Y, and Z
      *
      * @return int* to an int[3]
      */
@@ -100,14 +100,14 @@ public:
     /**
      * Returns an int that contains the raw register value for the temperature
      *
-     * @return int raw temperature
+     * @return int Raw temperature
      */
     int16_t getRawTemp();
 
     /**
-     * Updates the rotational values and temperature by reading from i2c bus
+     * Updates the rotational values and temperature by reading from the I2C bus
      *
-     * @return 0 for success
+     * @return 0 if successful
      */
     mraa_result_t update();
 private:

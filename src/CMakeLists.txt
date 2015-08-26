@@ -43,7 +43,7 @@ macro(upm_SWIG_NODE)
       "${NODE_INCLUDE_DIRS}"
      )
     set_target_properties (jsupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION"
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=0x0${V8_DEFINE_STRING}"
       PREFIX ""
       SUFFIX ".node"
     )
@@ -53,19 +53,68 @@ macro(upm_SWIG_NODE)
   endif()
 endmacro()
 
+macro(upm_SWIG_JAVA)
+  if (BUILDSWIGJAVA AND BUILDSWIG)
+
+    FIND_PACKAGE (JNI REQUIRED)
+
+    include_directories (
+      ${JAVA_INCLUDE_PATH}
+      ${JAVA_INCLUDE_PATH2}
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
+
+    set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
+    set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
+    swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+    swig_link_libraries (javaupm_${libname} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES})
+    target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
+      PUBLIC
+      "${JAVA_INCLUDE_DIRS}"
+      "${JAVA_INCLUDE_PATH}"
+     )
+    set_target_properties (javaupm_${libname} PROPERTIES
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive"
+      PREFIX ""
+      SUFFIX ".so"
+    )
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.jar
+	${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}.so
+	DESTINATION lib
+    )
+
+    set (JAVAC $ENV{JAVA_HOME}/bin/javac)
+    set (JAR $ENV{JAVA_HOME}/bin/jar)
+
+    add_custom_command (TARGET javaupm_${libname}
+        POST_BUILD
+        COMMAND cmake -E echo "Compiling java.."
+        COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/javaupm_${libname}
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cmake -E echo "Creating jar"
+        COMMAND ${JAR} cvf javaupm_${libname}.jar javaupm_${libname}
+    )
+
+  endif()
+endmacro()
+
 macro(upm_doxygen)
   if (DOXYGEN_FOUND)
+    if(NOT DEFINED classname)
+      set (classname ${libname})
+    endif()
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
     add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doxy2swig.py -n
-        ${CMAKE_BINARY_DIR}/xml/${libname}_8h.xml
+        ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
         ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
-        DEPENDS ${CMAKE_BINARY_DIR}/xml/${libname}_8h.xml
+        DEPENDS ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
     )
     add_custom_target (${libname}doc_i DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i)
     add_dependencies (${libname}doc_i doc)
     if (BUILDSWIG)
       add_dependencies (_pyupm_${libname} ${libname}doc_i)
+      add_dependencies (pydoc _pyupm_${libname})
     else ()
       add_dependencies (${libname} doc)
     endif ()
@@ -80,6 +129,12 @@ if (SWIG_FOUND)
     list (GET PYTHON_VERSION_LIST 1 PYTHON_VERSION_MINOR)
   endif(BUILDSWIGPYTHON)
   if(BUILDSWIGNODE)
+    if(NOT NODE_FOUND)
+      find_package(Node)
+    endif()
+    if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
+      message("WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
+    endif()
     find_path (NODE_ROOT_DIR "node/node.h")
     set (NODE_INCLUDE_DIRS
       ${NODE_ROOT_DIR}/src
@@ -94,6 +149,10 @@ if (SWIG_FOUND)
     endmacro()
 
   endif(BUILDSWIGNODE)
+#  if(BUILDSWIGJAVA)
+#    add_subdirectory (java)
+#  endif(BUILDSWIGJAVA)
+    
 endif()
 
 macro(upm_module_init)
@@ -113,6 +172,7 @@ macro(upm_module_init)
   if (SWIG_FOUND)
     upm_swig_python()
     upm_swig_node()
+    upm_swig_java()
   endif()
   if (BUILDDOC)
     upm_doxygen()

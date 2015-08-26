@@ -39,26 +39,29 @@
 #define LOW                   0
 
 namespace upm {
+
 /**
- * @brief C++ API for SM130 RFID reader module
- *
- *   This file defines the C++ interface for sm130 RFID library
- *
+ * @brief SM130 RFID Reader Module library
  * @defgroup sm130 libupm-sm130
  * @ingroup sparkfun gpio rfid
  */
 /**
  * @library sm130
  * @sensor sm130
- * @comname RFID module
+ * @comname SM130 RFID Reader
  * @type rfid
  * @man sparkfun
  * @web https://www.sparkfun.com/products/10126
  * @con gpio
  *
- * @brief C++ API for SM130 RFID reader module
+ * @brief API for the SM130 RFID Reader Module
  * 
- *   This file defines the C++ interface for sm130 RFID library
+ * This file defines the SM130 interface for the sm130 RFID library
+ *
+ * @image html sm130.jpg
+ * <br><em>SM130 RFID Reader image provided by SparkFun* under
+ * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * CC BY-NC-SA-3.0</a>.</em>
  *
  * @snippet sm130.cxx Interesting
  */
@@ -100,10 +103,10 @@ class SM130 {
         static const uint8_t CMD_SLEEP         = 0x96;
 
          /**
-         * Instanciates a SM130 object
+         * Instantiates an SM130 object
          *
-         * @param di data pin
-         * @param dcki clock pin
+         * @param di Data pin
+         * @param dcki Clock pin
          */
         SM130 (int bus, int devAddr, int rst, int dready);
 
@@ -113,22 +116,22 @@ class SM130 {
         ~SM130 ();
 
         /**
-         * Get the firmware version string.
+         * Gets the firmware version string.
          */
         const char* getFirmwareVersion ();
 
         /**
          * 	Checks for availability of a valid response packet.
          *
-         *	This function should always be called and return true prior to using results
+         *	This function should always be called and return true prior to using the results
          *	of a command.
          *
-         *	@returns	true if a valid response packet is available
+         *	@returns	True if a valid response packet is available
          */
         uint8_t available ();
 
         /**
-         * Returns the packet length, excluding checksum
+         * Returns the packet length, excluding the checksum
          */
         uint8_t getPacketLength () { return this->m_Data[0]; };
 
@@ -138,7 +141,7 @@ class SM130 {
         uint8_t getCommand () { return this->m_Data[1]; };
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {

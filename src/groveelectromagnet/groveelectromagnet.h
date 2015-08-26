@@ -30,35 +30,44 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the Grove Electromagnet
+   * @brief Grove Electromagnet library
    * @defgroup groveelectromagnet libupm-groveelectromagnet
+   * @ingroup seeed gpio electric
    */
+
   /**
-   * @brief C++ API for the Grove Electromagnet
-   * 
-   * The Grove Electromagnet can hold up to 1 KG
+   * @library groveelectromagnet
+   * @sensor groveelectromagnet
+   * @comname Grove Electromagnet
+   * @type electric
+   * @man seeed
+   * @con gpio
    *
-   * @ingroup gpio groveelectromagnet
+   * @brief API for the Grove Electromagnet
+   * 
+   * The Grove Electromagnet can hold up to 1 kg (approximately 2.2 lbs)
+   *
+   * @image html groveelectromagnet.jpg
    * @snippet groveelectromagnet.cxx Interesting
    */
   class GroveElectromagnet {
   public:
     /**
-     * Grove Electromagnet Constructor
+     * Grove Electromagnet constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveElectromagnet(int pin);
     /**
-     * Grove Electromagnet Destructor
+     * Grove Electromagnet destructor
      */
     ~GroveElectromagnet();
     /**
-     * Turn magnet on
+     * Turns the magnet on
      */
      void on();
     /**
-     * Turn magnet off
+     * Turns the magnet off
      */
      void off();
 

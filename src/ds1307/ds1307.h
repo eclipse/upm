@@ -42,58 +42,70 @@
 #define DS1307_DAY_SUN 7
 
 namespace upm {
+  /**
+   * @brief DS1307 Real-Time Clock library
+   * @defgroup ds1307 libupm-ds1307
+   * @ingroup seeed i2c time
+   */
 
   /**
-   * @brief C++ API for the DS1307 Real Time CLock
+   * @library ds1307
+   * @sensor ds1307
+   * @comname Grove RTC (Real-Time Clock)
+   * @altname DS1307 RTC
+   * @type time
+   * @man seeed
+   * @con i2c
    *
-   * UPM module for the DS1307 based RTC.  The clock can provide information
-   * about the seconds, minutes, hours, day of the week, day of the month,
-   * month, and year.  It can operate in either 24-hour or 12-hour format.
+   * @brief API for the DS1307 Real-Time CLock
    *
-   * This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz.  
+   * UPM module for the DS1307-based real-time clock. The clock can provide information
+   * about seconds, minutes, hours, day of the week, day of the month,
+   * month, and year. It can operate in either a 24-hour or a 12-hour format.
+   * This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz.
    * However, this capability is not implemented in this module.
    *
-   * @ingroup i2c ds1307 RTC
+   * @image html ds1307.jpg
    * @snippet ds1307.cxx Interesting
    */
   class DS1307 {
   public:
     /**
-     * ds1307 Real Time Clock constructor
+     * DS1307 constructor
      *
-     * @param bus i2c bus to use
+     * @param bus I2C bus to use
      */
     DS1307(int bus);
 
     /**
-     * DS1307 Destructor
+     * DS1307 destructor
      */
     ~DS1307();
 
     /**
-     * Load all of the time values
+     * Loads all the time values
      *
      * @return True if time data loaded successfully
      */
     bool loadTime();
 
     /**
-     * Set the time.  You should call loadTime() beforehand to
+     * Sets the time. You should call loadTime() beforehand to
      * maintain consistency
      *
-     * @return True if time saved successfully
+     * @return True if time is set successfully
      */
     bool setTime();
 
     /**
-     * Enable the oscillator on the clock.  
+     * Enables an oscillator on the clock.
      *
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t enableClock();
 
     /**
-     * Disable the oscillator on the clock.  This will prevent the clock
+     * Disables the oscillator on the clock. This prevents the clock
      * from updating any time/date values
      *
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
@@ -101,80 +113,80 @@ namespace upm {
     mraa_result_t disableClock();
 
     /**
-     * Write value(s) into registers
+     * Writes value(s) into registers
      *
-     * @param reg register location to start writing into
-     * @param buffer buffer for data storage
-     * @param len number of bytes to write
+     * @param reg Register location to start writing into
+     * @param buffer Buffer for data storage
+     * @param len Number of bytes to write
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
 
     /**
-     * Read value(s) from registers
+     * Reads value(s) from registers
      *
-     * @param reg register location to start reading from
-     * @param buffer buffer for data storage
-     * @param len number of bytes to read
-     * @return number of bytes read
+     * @param reg Register location to start reading from
+     * @param buffer Buffer for data storage
+     * @param len Number of bytes to read
+     * @return Number of bytes read
      */
     uint8_t readBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
 
     /**
-     * Convert a BCD value into decimal
+     * Converts a BCD value into decimal
      *
      * @param val BCD value to convert
-     * @return the converted value in decimal
+     * @return Converted decimal value 
      */
     unsigned int bcdToDec(uint8_t val);
 
     /**
-     * Convert a decimal value into BCD
+     * Converts a decimal value into BCD
      *
-     * @param val decimal value to convert
-     * @return the converted value in BCD
+     * @param val Decimal value to convert
+     * @return Converted BCD value
      */
     uint8_t decToBcd(unsigned int val);
 
     // These variables store the time data loaded with loadTime(), and
-    // will be the source of data when setTime() is called.  It is a
-    // good idea call loadTime() to setup the current values before
+    // are the source of data when setTime() is called.  It is a
+    // good idea to call loadTime() to set up the current values before
     // calling setTime() to ensure RTC data is consistent
 
     /**
-     * holds the seconds
+     * Holds seconds
      */
     unsigned int seconds;
     /**
-     * holds the minutes
+     * Holds minutes
      */
     unsigned int minutes;
     /**
-     * holds the hours, 1-12 in am/pm mode, 0-23 otherwise
+     * Holds hours; 1-12 in the am/pm format, 0-23 otherwise
      */
     unsigned int hours;
     /**
-     * holds the day of the week, 1-7 where 1 is Sunday
+     * Holds a day of the week; 1-7, where 1 is Sunday
      */
     unsigned int dayOfWeek;
     /**
-     * holds the day of the month, 1-31
+     * Holds a day of the month, 1-31
      */
     unsigned int dayOfMonth;
     /**
-     * holds the month, 1-12
+     * Holds a month, 1-12
      */
     unsigned int month;
     /**
-     * holds the year, 0-99
+     * Holds a year, 0-99
      */
     unsigned int year;
     /**
-     * True if in AM/PM mode, false if 24h format.
+     * True if the am/pm format is used, false otherwise
      */
     bool amPmMode;
     /**
-     * If in AmPmMode (12-hr), then this is true if it's PM, clear if AM
+     * For the am/pm format, it is true if it's pm, false otherwise
      */
     bool pm;
 

@@ -28,6 +28,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
  * @sensor <chip-id>
  * @comname <component-name>
  * @altname <alt-name>
+ * @altid <alt-id>
  * @type <component-category>
  * @man <component-manufacturer>
  * @web <component-weblinks>
@@ -52,8 +53,8 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
   available or relevant, use a unique descriptor that makes sense. *Mandatory*
 - `<component-name>` A short name for your sensor, can include manufacturer
   name. *Mandatory*
-- `<alt-name>` Alternative names or chip-ids that your sensor driver might
-  have or support respectively. *Optional*
+- `<alt-name>` Alternative names that your sensor driver might have. *Optional*
+- `<alt-id>` Alternative chip-ids that your sensor driver supports. *Optional*
 - `<component-category>` Mention one or more categories the sensor fits in. Can
   be 'other'. *Mandatory*
 - `<component-manufacturer>` Sensor manufacturer. Can be 'generic'. *Mandatory*

@@ -27,33 +27,42 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the Grove Collision
+   * @brief Grove Collision Sensor library
    * @defgroup grovecollision libupm-grovecollision
+   * @ingroup seeed gpio accelerometer
    */
+
   /**
-   * @brief C++ API for the Grove Collision
+   * @library grovecollision
+   * @sensor grovecollision
+   * @comname Grove Collision Sensor
+   * @type accelerometer
+   * @man seeed
+   * @con gpio
+   *
+   * @brief API for the Grove Collision Sensor
    * 
    * The Grove Collision Sensor can detect whether any
    * collision movement or vibration happens.
-   * It will output a low pulse signal when vibration is detected. 
+   * It outputs a low pulse signal when vibration is detected. 
    *
-   * @ingroup gpio grovecollision
+   * @image html grovecollision.jpg
    * @snippet grovecollision.cxx Interesting
    */
   class GroveCollision {
   public:
     /**
-     * Grove Collision Constructor
+     * Grove collision sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveCollision(int pin);
     /**
-     * Grove Collision Destructor
+     * GroveCollision destructor
      */
     ~GroveCollision();
     /**
-     * @return bool  returns whether something is colliding with sensor
+     * @return bool  Defines whether something is colliding with sensor
      */
      bool isColliding();
 

@@ -28,24 +28,27 @@
 
 namespace upm {
   /**
-   * @brief BISS0001 motion sensor library
+   * @brief BISS0001 Motion Sensor library
    * @defgroup biss0001 libupm-biss0001
-   * @ingroup seeed gpio light
+   * @ingroup seeed gpio light tsk
    */
 
   /**
    * @library biss0001
    * @sensor biss0001
-   * @comname PIR Motion Sensor
+   * @comname BISS0001 Motion Sensor
+   * @altname Grove PIR Motion Sensor
    * @type light
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
    * @con gpio
+   * @kit tsk
    *
-   * @brief C++ API for the BISS0001 Motion Sensor
+   * @brief API for the BISS0001 Motion Sensor
    *
    * UPM module for the BISS0001 Motion Sensor
    *
+   * @image html biss0001.jpg
    * @snippet biss0001.cxx Interesting
    */
   class BISS0001 {
@@ -53,17 +56,17 @@ namespace upm {
     /**
      * BISS0001 motion sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     BISS0001(int pin);
     /**
-     * BISS0001 Destructor
+     * BISS0001 destructor
      */
     ~BISS0001();
     /**
-     * Get the motion value from the sensor
+     * Gets the motion value from the sensor
      *
-     * @return the motion reading
+     * @return Motion reading
      */
     bool value();
 

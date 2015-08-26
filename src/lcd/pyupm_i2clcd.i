@@ -12,19 +12,19 @@
 %feature("autodoc", "3");
 
 %include "ssd.h"
-%include "i2clcd.h"
+%include "lcd.h"
 %{
-    #include "i2clcd.h"
-%}
-
-%include "jhd1313m1.h"
-%{
-    #include "jhd1313m1.h"
+    #include "lcd.h"
 %}
 
 %include "lcm1602.h"
 %{
     #include "lcm1602.h"
+%}
+
+%include "jhd1313m1.h"
+%{
+    #include "jhd1313m1.h"
 %}
 
 %include "ssd1327.h"
@@ -35,4 +35,14 @@
 %include "ssd1308.h"
 %{
     #include "ssd1308.h"
+%}
+
+%include "eboled.h"
+%{
+    #include "eboled.h"
+%}
+
+%include "sainsmartks.h"
+%{
+    #include "sainsmartks.h"
 %}

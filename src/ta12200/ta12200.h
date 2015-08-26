@@ -34,76 +34,72 @@
 
 namespace upm {
 /**
- * @brief C++ API for the TA12-200 current transformer
- *
- *   UPM module for the TA12-200 current transformer, which is found,
- *   for instance, in the Grove Electricity Sensor. 
- *   This module can measure AC current moving through a wire at up 
- *   to 5A.
- *
+ * @brief TA12-200 Current Transformer library
  * @defgroup ta12200 libupm-ta12200
  * @ingroup seeed analog electric
  */
 /**
  * @library ta12200
  * @sensor ta12200
- * @comname Current transformer
+ * @comname TA12-200 Current Transformer
+ * @altname Grove Electricity Sensor
  * @type electric
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Electricity_Sensor
  * @con analog
  *
- * @brief C++ API for the TA12-200 current transformer
+ * @brief API for the TA12-200 Current Transformer
  * 
- *   UPM module for the TA12-200 current transformer, which is found,
+ *   UPM module for the TA12-200 current transformer found,
  *   for instance, in the Grove Electricity Sensor. 
- *   This module can measure AC current moving through a wire at up 
- *   to 5A.
+ *   This module can measure AC moving through a wire at up 
+ *   to 5 A.
  *
+ * @image html ta12200.jpg
  * @snippet ta12200.cxx Interesting
  */
   class TA12200 {
   public:
     /**
-     * TA12200 sensor constructor
+     * TA12200 constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     TA12200(int pin);
 
     /**
-     * TA12200 Destructor
+     * TA12200 destructor
      */
     ~TA12200();
 
     /**
-     * Return the number of milliseconds elapsed since initClock()
+     * Returns the number of milliseconds elapsed since initClock()
      * was last called.
      *
-     * @return elapsed milliseconds
+     * @return Elapsed milliseconds
      */
     uint32_t getMillis();
 
     /**
-     * Reset the Clock
+     * Resets the clock
      *
      */
     void initClock();
 
     /**
-     * Get the conversion value from the sensor
+     * Gets the conversion value from the sensor
      *
-     * @return the highest value obtained over 1 second of measuring
+     * @return Highest value obtained over 1 second of measuring
      */
     unsigned int highestValue();
 
     /**
-     * Compute the measured voltage
+     * Computes the measured voltage
      *
-     * @param val value measured by highestValue()
+     * @param val Value measured by highestValue()
      * @param res ADC resolution
      *
-     * @return the measured current in milliamps
+     * @return Measured current in mA
      */
     float milliAmps(unsigned int val, int res=TA12200_ADC_RES);
 

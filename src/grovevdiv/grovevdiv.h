@@ -28,20 +28,33 @@
 #include <stdint.h>
 #include <mraa/aio.h>
 
-// ref voltage in millivolts
+// reference voltage in millivolts
 #define GROVEVDIV_VREF  4980
 
-// default ADC resolution. 
+// default ADC resolution
 #define GROVEVDIV_ADC_RES 1024
 
 namespace upm {
+  /**
+   * @brief Grove Voltage Divider Sensor library
+   * @defgroup grovevdiv libupm-grovevdiv
+   * @ingroup seeed analog electric robok
+   */
 
   /**
-   * @brief C++ API for the Grove Voltage Divider Sensor
+   * @library grovevdiv
+   * @sensor grovevdiv
+   * @comname Grove Voltage Divider
+   * @type electric
+   * @man seeed
+   * @con analog
+   * @kit robok
    *
-   * UPM module for the Grove Voltage Divider Sensor
+   * @brief API for the Grove Voltage Divider Sensor
    *
-   * @ingroup grove analog
+   * UPM module for the Grove Voltage Divider sensor
+   *
+   * @image html grovevdiv.jpg
    * @snippet grovevdiv.cxx Interesting
    */
   class GroveVDiv {
@@ -49,39 +62,37 @@ namespace upm {
     /**
      * Grove Voltage Divider sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveVDiv(int pin);
 
     /**
-     * Grove Voltage Divider Destructor
+     * Grove Voltage Divider destructor
      */
     ~GroveVDiv();
 
     /**
-     * Get the conversion value from the sensor
+     * Gets the conversion value from the sensor
      *
-     * @param samples specifies how many samples to average over
-     * @return the averaged ADC conversion value
+     * @param samples Specifies how many samples to average over
+     * @return Average ADC conversion value
      */
     unsigned int value(unsigned int samples);
 
     /**
-     * Compute the measured voltage
+     * Computes the measured voltage
      *
-     * @param gain gain switch, either 3 or 10 for grove
-     * @param val measured voltage (from value())
-     * @param vref reference voltage in millivolts
+     * @param gain Gain switch, either 3 or 10 for Grove
+     * @param val Measured voltage (from value())
+     * @param vref Reference voltage in millivolts
      * @param res ADC resolution
      *
-     * @return the measured voltage
+     * @return Measured voltage
      */
-    float computedValue(uint8_t gain, uint16_t val, int vref=GROVEVDIV_VREF, 
+    float computedValue(uint8_t gain, uint16_t val, int vref=GROVEVDIV_VREF,
                         int res=GROVEVDIV_ADC_RES);
 
   private:
     mraa_aio_context m_aio;
   };
 }
-
-

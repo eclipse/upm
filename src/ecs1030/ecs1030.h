@@ -41,18 +41,37 @@ namespace upm {
 #define TRUE               HIGH
 #define FALSE              LOW
 
-/**
- * @brief ECS1030 electricity sensor library
- * @defgroup ecs1030 libupm-ecs1030
- */
+  /**
+   * @brief ECS1030 Electricity Sensor library
+   * @defgroup ecs1030 libupm-ecs1030
+   * @ingroup sparkfun analog electric
+   */
 
-/**
- * @brief C++ API for ECS1030 (electricity sensor)
- *
- * @ingroup ecs1030 analog
- * @snippet ecs1030.cxx Interesting
- */
-
+  /**
+   * @library ecs1030
+   * @sensor ecs1030
+   * @comname ECS1030 Non-Invasive Current Sensor
+   * @type electric
+   * @man sparkfun
+   * @web https://www.sparkfun.com/products/11005
+   * @con analog
+   *
+   * @brief API for the ECS1030 Non-Invasive Current/Electricity Sensor
+   *
+   * This non-invasive current sensor can be clamped around the supply line of
+   * an electrical load to tell you how much current is passing through it. It
+   * does this by acting as an inductor and responding to the magnetic field
+   * around a current-carrying conductor. This particular current sensor
+   * measures a load up to 30 A, which makes it great for building your own
+   * energy monitors.
+   *
+   * @image html ecs1030.jpg
+   * <br><em>ECS1030 Sensor image provided by SparkFun* under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
+   *
+   * @snippet ecs1030.cxx Interesting
+   */
 class ECS1030 {
     public:
         static const uint8_t DELAY_MS  = 20000 / NUMBER_OF_SAMPLES; /* 1/50Hz is 20ms period */
@@ -60,39 +79,39 @@ class ECS1030 {
         static const uint8_t R_LOAD    = 2000.0 / CURRENT_RATIO;
 
         /**
-         * Instanciates a ECS1030 (current sensor) object
+         * Instantiates an ECS1030 object
          *
-         * @param pinNumber number of the data pin
+         * @param pinNumber Number of the data pin
          */
         ECS1030 (uint8_t pinNumber);
 
         /**
-         * ECS1030 object destructor, basicaly it close the GPIO.
+         * ECS1030 object destructor; basically, it closes the GPIO.
          */
         ~ECS1030 ();
 
         /**
-         * Return currency data for the sampled period
+         * Returns electric current data for a sampled period
          */
         double getCurrency_A ();
 
         /**
-         * Return power data for the sampled period
+         * Returns power data for a sampled period
          */
         double getPower_A ();
 
         /**
-         * Return currency data for the sampled period
+         * Returns electric current data for a sampled period
          */
         double getCurrency_B ();
 
         /**
-         * Return power data for the sampled period
+         * Returns power data for a sampled period
          */
         double getPower_B ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name() {
             return m_name;

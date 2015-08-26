@@ -34,55 +34,62 @@
 namespace upm {
 
 /**
- * @brief FastPixel lpd8806 library
+ * @brief FastPixel LPD8806 library
  * @defgroup lpd8806 libupm-lpd8806
+ * @ingroup adafruit spi led
  */
 
 /**
- * @brief C++ API for LPD8806 
+ * @library lpd8806
+ * @sensor lpd8806
+ * @comname LPD8806 RGB LED Strip Controller
+ * @type led
+ * @man adafruit
+ * @con spi
  *
- * The FastPixel lpd8806 is an RGB led strip controller.
+ * @brief API for the LPD8806 RGB LED Strip Controller
  *
- * @ingroup lpd8806 spi
+ * FastPixel* LPD8806 is an RGB LED strip controller.
+ *
+ * @image html lpd8806.jpg
  * @snippet lpd8806.cxx Interesting
- * @image html lpd8806.jpeg
  */
 class LPD8806 {
     public:
 
         /**
-         * Instanciates a LPD8806 object
+         * Instantiates an LPD8806 object
          *
-         * @param pixelCount number of pixels in the strip
-         * @param csn chip select pin
+         * @param pixelCount Number of pixels in the strip
+         * @param csn Chip select pin
          */
         LPD8806 (uint16_t pixelCount, uint8_t csn);
 
         /**
-         * LPD8806 object destructor, basicaly it close SPI and the GPIO.
+         * LPD8806 object destructor; basically, it closes the SPI and the GPIO.
          */
         ~LPD8806 ();
 
         /**
-         * @param pixelOffset pixel offset in the strip of pixel
-         * @param r red led
-         * @param g green led
-         * @param b blue led
+         * @param pixelOffset Pixel offset in the strip of the pixel
+         * @param r Red LED
+         * @param g Green LED
+         * @param b Blue LED
          */
         void setPixelColor (uint16_t pixelOffset, uint8_t r, uint8_t g, uint8_t b);
 
         /**
-         * Write the data stored in array of pixels to the chip
+         * Writes the data stored in the array of pixels to the chip
          */
         void show (void);
 
         /**
-         * Return length of the led strip
+         * Returns the length of the LED strip
          */
         uint16_t getStripLength (void);
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -100,12 +107,12 @@ class LPD8806 {
         void writeRegister (uint8_t reg, uint8_t data);
 
         /**
-         * Set chip select pin LOW
+         * Sets the chip select pin to LOW
          */
         mraa_result_t CSOn ();
 
         /**
-         * Set chip select pin HIGH
+         * Sets the chip select pin to HIGH
          */
         mraa_result_t CSOff ();
 };

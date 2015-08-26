@@ -49,28 +49,26 @@ const uint8_t WT5001_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief C++ API for the WT5001 Serial MP3 module
-     *
-     *   UPM support for the WT5001 Serial MP3 Module.  This was tested
-     *   specifically with the Grove Serial MP3 module.
-     *
+     * @brief WT5001 Serial MP3 module library
      * @defgroup wt5001 libupm-wt5001
      * @ingroup seeed uart sound
      */
     /**
      * @library wt5001
      * @sensor wt5001
-     * @comname Serial MP3 Module
+     * @comname WT5001 Serial MP3 Module
+     * @altname Grove Serial MP3 Player
      * @type sound
      * @man seeed
      * @web http://www.seeedstudio.com/wiki/Grove_%E2%80%93_Serial_MP3_Player
      * @con uart
      *
-     * @brief C++ API for the WT5001 Serial MP3 module
-     * 
-     *   UPM support for the WT5001 Serial MP3 Module.  This was tested
+     * @brief API for the WT5001 Serial MP3 Module
+     *
+     *   UPM support for the WT5001 Serial MP3 module. This was tested
      *   specifically with the Grove Serial MP3 module.
      *
+     * @image html wt5001.jpg
      * @snippet wt5001.cxx Interesting
      */
   class WT5001 {
@@ -107,235 +105,235 @@ namespace upm {
                    READ_DATE        = 0xd1,
                    READ_TIME        = 0xd2
     } WT5001_OPCODE_T;
-    
+
     // play modes
     typedef enum { NORMAL           = 0x00,
                    SINGLE_REPEAT    = 0x01,
                    ALL_REPEAT       = 0x02,
                    RANDOM           = 0x03
     } WT5001_PLAYMODE_T;
-    
+
     // music source
     typedef enum { SD,
                    SPI,
                    UDISK
     } WT5001_PLAYSOURCE_T;
-    
+
     /**
-     * WT5001 Serial MP3 module constructor
+     * WT5001 constructor
      *
-     * @param uart default uart to use (0 or 1)
+     * @param uart Default UART to use (0 or 1)
      */
     WT5001(int uart);
 
     /**
-     * WT5001 Serial MP3 module Destructor
+     * WT5001 destructor
      */
     ~WT5001();
 
     /**
-     * Check to see if there is data available for reading
+     * Checks to see if there is data available for reading
      *
-     * @param millis number of milliseconds to wait, 0 means no wait.
-     * @return true if there is data available to be read
+     * @param millis Number of milliseconds to wait; 0 means no waiting
+     * @return True if there is data available for reading
      */
     bool dataAvailable(unsigned int millis);
 
     /**
-     * read any available data into a user-supplied buffer.  Note, the
-     * call will block until data is available to be read.  Use
+     * Reads any available data in a user-supplied buffer. Note: the
+     * call blocks until data is available to be read. Use
      * dataAvailable() to determine whether there is data available
      * beforehand, to avoid blocking.
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes read
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes read
      */
     int readData(char *buffer, size_t len);
 
     /**
-     * write the data in buffer to the device
+     * Writes the data in the buffer to the device
      *
-     * @param buffer the buffer to hold the data read
-     * @param len the length of the buffer
-     * @return the number of bytes written
+     * @param buffer Buffer to hold the data read
+     * @param len Length of the buffer
+     * @return Number of bytes written
      */
     int writeData(char *buffer, size_t len);
 
     /**
-     * setup the proper tty i/o modes and the baudrate.  The default
-     * baud rate is 9600 (B9600).
+     * Sets up proper tty I/O modes and the baud rate. The default
+     * baud rate is 9,600 (B9600).
      *
-     * @param baud the desired baud rate.  
-     * @return true if successful
+     * @param baud Desired baud rate.
+     * @return True if successful
      */
     bool setupTty(speed_t baud=B9600);
 
     /**
-     * Get a command response and return it's validity
+     * Gets a command response and returns its validity
      *
-     * @param index opcode to verify
-     * @return true if successful
+     * @param index Opcode to verify
+     * @return True if successful
      */
     bool checkResponse(WT5001_OPCODE_T opcode);
-    
+
     /**
-     * play a file, from a source
+     * Plays a file from a source
      *
-     * @param psrc the play source (SD, UDISK, SPI)
-     * @param index file number to play
-     * @return true if successful
+     * @param psrc Play source (SD, UDISK, SPI)
+     * @param index File number to play
+     * @return True if successful
      */
     bool play(WT5001_PLAYSOURCE_T psrc, uint16_t index);
 
     /**
-     * stop playing
+     * Stops playing
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool stop();
 
     /**
-     * pause playback, or resume playback if already paused
+     * Pauses the playback or resumes it if already paused
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool pause();
 
     /**
-     * go to next track
+     * Moves to the next track
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool next();
 
     /**
-     * go to previous track
+     * Moves to the previous track
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool previous();
 
     /**
-     * set the volume. Range is between 0-31.  0 means mute.
+     * Sets the volume. Valid range is 0-31. 0 means mute.
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool setVolume(uint8_t vol);
 
     /**
-     * queue a track to play next, when current song is finished
+     * Queues a track to play next, when the current song is finished
      *
-     * @param index file number to queue
-     * @return true if successful
+     * @param index File number to queue
+     * @return True if successful
      */
     bool queue(uint16_t index);
 
     /**
-     * set the playback mode
+     * Sets the playback mode
      *
-     * @param pm play mode to enable
-     * @return true if successful
+     * @param pm Play mode to enable
+     * @return True if successful
      */
     bool setPlayMode(WT5001_PLAYMODE_T pm);
 
     /**
-     * insert a track to play immediately, interrupting the current
-     * track.  When the inserted track is finished playing, the
-     * interrupted track will resume where it was interrupted.
+     * Inserts a track to play immediately, interrupting the current
+     * track. When the inserted track is finished, the
+     * interrupted track resumes where it was interrupted.
      *
-     * @param index file number to insert
-     * @return true if successful
+     * @param index File number to insert
+     * @return True if successful
      */
     bool insert(uint16_t index);
 
     /**
-     * set the date of the internal clock
+     * Sets the date of the internal clock
      *
-     * @param year 4 digit year
-     * @param month the month
-     * @param day the day
-     * @return true if successful
+     * @param year 4-digit year
+     * @param month Month
+     * @param day Day
+     * @return True if successful
      */
     bool setDate(uint16_t year, uint8_t month, uint8_t day);
 
     /**
-     * set the time of the internal clock
+     * Sets the time of the internal clock
      *
-     * @param hour hour
-     * @param minute minute
-     * @param second second
-     * @return true if successful
+     * @param hour Hour
+     * @param minute Minute
+     * @param second Second
+     * @return True if successful
      */
     bool setTime(uint8_t hour, uint8_t minute, uint8_t second);
 
     /**
-     * set the alarm
+     * Sets the alarm
      *
-     * @param hour hour
-     * @param minute minute
-     * @param second second
-     * @return true if successful
+     * @param hour Hour
+     * @param minute Minute
+     * @param second Second
+     * @return True if successful
      */
     bool setAlarm(uint8_t hour, uint8_t minute, uint8_t second);
 
     /**
-     * clear any alarm that has been set
+     * Clears any alarm that has been set
      *
-     * @return true if successful
+     * @return True if successful
      */
     bool clearAlarm();
 
     /**
-     * get the current volume
+     * Gets the current volume
      *
-     * @param vol the returned volume
-     * @return true if successful
+     * @param vol Volume
+     * @return True if successful
      */
     bool getVolume(uint8_t *vol);
 
     /**
-     * get the current play state. 1 = playing, 2 = stopped, 3 = paused
+     * Gets the current play state: 1 = playing, 2 = stopped, 3 = paused
      *
-     * @param ps the returned play state
-     * @return true if successful
+     * @param ps Play state
+     * @return True if successful
      */
     bool getPlayState(uint8_t *ps);
 
     /**
-     * get the number of files present on the source device
+     * Gets the number of files present on the source device
      *
-     * @param psrc the storage source
-     * @param numf the returned number of files
-     * @return true if successful
+     * @param psrc Storage source
+     * @param numf Number of files
+     * @return True if successful
      */
     bool getNumFiles(WT5001_PLAYSOURCE_T psrc, uint16_t *numf);
 
     /**
-     * get the index of the current file
+     * Gets the index of the current file
      *
-     * @param curf the index of the current file
-     * @return true if successful
+     * @param curf Index of the current file
+     * @return True if successful
      */
     bool getCurrentFile(uint16_t *curf);
 
     /**
-     * get the device date
+     * Gets the device date
      *
-     * @param year returned 4 digit year
-     * @param month returned month
-     * @param day returned day
-     * @return true if successful
+     * @param year 4-digit year
+     * @param month Month
+     * @param day Day
+     * @return True if successful
      */
     bool getDate(uint16_t *year, uint8_t *month, uint8_t *day);
 
     /**
-     * get the device time
+     * Gets the device time
      *
-     * @param hour returned hour
-     * @param minute returned minute
-     * @param second returned second
-     * @return true if successful
+     * @param hour Hour
+     * @param minute Minute
+     * @param second Second
+     * @return True if successful
      */
     bool getTime(uint8_t *hour, uint8_t *minute, uint8_t *second);
 

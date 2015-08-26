@@ -49,14 +49,14 @@
 
 namespace upm {
   /**
-   * @brief ADC121C021 I2C Analog Digital Converter library
+   * @brief ADC121C021 I2C Analog-to-Digital Converter library
    * @defgroup adc121c021 libupm-adc121c021
    * @ingroup seeed i2c electric
    */
 
 
   /**
-   * valid cycle times for automatic conversion mode
+   * Valid cycle times for the automatic conversion mode
    */
 
   typedef enum { ADC121C021_CYCLE_NONE = 0,  // disabled
@@ -72,225 +72,231 @@ namespace upm {
   /**
    * @library adc121c021
    * @sensor adc121c021
-   * @comname ADC121C021 Analog Digital Converter
+   * @comname ADC121C021 Analog-to-Digital Converter
+   * @altname Grove I2C ADC
    * @type electric
    * @man seeed
    * @web http://www.seeedstudio.com/depot/Grove-I2C-ADC-p-1580.html
    * @con i2c
    *
-   * @brief C++ API for the ADC121C021 I2C ADC
+   * @brief API for the ADC121C021 I2C Analog-to-Digital Converter
    *
-   * UPM module for the ADC121C021 12 bit Analog to Digital (ADC) converter.
-   * By providing a constant reference voltage, this sensor helps
-   * to increase the accuracy of a value collected from an analog sensor.
+   * UPM module for the ADC121C021 12-bit analog-to-digital converter (ADC).
+   * By constantly providing a reference voltage, this sensor helps
+   * increase the accuracy of a value collected from an analog sensor.
    *
+   * @image html adc121c021.jpg
    * @snippet adc121c021.cxx Interesting
    */
   class ADC121C021 {
   public:
     /**
-     * adc121c021 ADC constructor
+     * ADC121C021 ADC constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this sensor; default is 0x55
-     * @param vref reference voltage for this sensor; default is 3.0
+     * @param bus I2C bus to use
+     * @param address Address for this sensor; default is 0x55
+     * @param vref Reference voltage for this sensor; default is 3.0v
      */
     ADC121C021(int bus, uint8_t address = ADC121C021_DEFAULT_I2C_ADDR,
                float vref = ADC121C021_DEFAULT_VREF);
 
     /**
-     * ADC121C021 Destructor
+     * ADC121C021 destructor
      */
     ~ADC121C021();
 
     /**
-     * Write byte value into register
+     * Writes a byte value into the register
      *
-     * @param reg register location to write into
-     * @param byte byte to write
+     * @param reg Register location to write into
+     * @param byte Byte to write
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Write word value into register
+     * Writes a word value into the register
      *
-     * @param reg register location to write into
-     * @param word word to write
+     * @param reg Register location to write into
+     * @param word Word to write
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t writeWord(uint8_t reg, uint16_t word);
 
     /**
-     * Read byte value from register
+     * Reads the byte value from the register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in the specified register
      */
     uint8_t readByte(uint8_t reg);
 
     /**
-     * Read word value from register
+     * Reads the word value from the register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in the specified register
      */
     uint16_t readWord(uint8_t reg);
 
     /**
-     * Read current value of conversion
+     * Reads the current value of conversion 
      *
-     * @return current conversion value
+     * @return Current value of conversion
      */
     uint16_t value();
 
     /**
-     * Convert a supplied value to voltage based on set VREF
+     * Converts a supplied value to voltage based on the set vref
      *
-     * @param val value of conversion (from value())
-     * @return conversion value in volts
+     * @param val Value of conversion (from value())
+     * @return Value of conversion in volts
      */
     float valueToVolts(uint16_t val);
 
     /**
-     * Read current status of the alert flag.  If the flag is set, the
-     * lower or upper alert indicators will be set as appropriate, and
+     * Reads the current status of the alert flag.  If the flag is set, the
+     * low or high alert indicators are set as appropriate, and
      * you can access these values with alertLowTriggered() or
      * alertHighTriggered().
      *
-     * @return true if the alert flag is set
+     * @return True if the alert flag is set
      */
     bool getAlertStatus();
 
     /**
-     * Return the current value of m_alertLow.  You must call
+     * Returns the current value of m_alertLow.  You must call
      * getAlertStatus() to update this value. 
      *
-     * @return current alert low status
+     * @return Current status of the alert low flag 
      */
     bool alertLowTriggered() { return m_alertLow; };
 
     /**
-     * Return the current value of m_alertHigh.  You must call
+     * Returns the current value of m_alertHigh.  You must call
      * getAlertStatus() to update this value. 
      *
-     * @return current alert high status
+     * @return Current status of the alert high flag
      */
     bool alertHighTriggered() { return m_alertHigh; };
 
     /**
-     * Clear the alert low and high flags.  This will also clear the
+     * Clears the alert low and alert high flags. This also clears the
      * last stored alert values.
      */
     void clearAlertStatus();
 
     /**
-     * Enable or disable the Alert Flag functionality.  If enabled,
-     * then when the measured value exceeds the low or high limits
-     * configured, the alert flag will be set.  Use getAlertStatus()
+     * Enables or disables the alert flag functionality.  If enabled,
+     * when the measured value exceeds the low or high limits
+     * configured, the alert flag is set. Use getAlertStatus()
      * to access these values.
      *
-     * @param enable if true, enables Alert Flag; otherwise, disables Alert Flag
+     * @param enable If true, enables the alert flag; otherwise, disables the
+     * alert flag
      */
     void enableAlertFlag(bool enable);
 
     /**
-     * Enable or disable the Alert Pin functionality.
+     * Enables or disables the alert pin functionality.
      *
-     * @param enable if true, enables Alert Pin; otherwise, disables Alert Pin
+     * @param enable If true, enables the alert pin; otherwise, disables the
+     * alert pin
      */
     void enableAlertPin(bool enable);
 
     /**
-     * Enable or disable the Alert Hold functionality.  When Alert
-     * Hold is enabled, the alert status remains until manually
-     * cleared via clearAlertStatus().  Otherwise, the alert will self
-     * clear when the value moves into the defined limits if alerts
+     * Enables or disables the alert hold functionality.  When the alert
+     * hold is enabled, the alert status remains until manually
+     * cleared via clearAlertStatus().  Otherwise, the alert self-clears
+     * when the value moves into the defined limits if alerts
      * are enabled via enableAlertFlag().
      *
-     * @param enable if true, enables Alert Hold; otherwise, disables Alert Hold
+     * @param enable If true, enables the alert hold; otherwise, disables the
+     * alert hold
      */
     void enableAlertHold(bool enable);
 
     /**
-     * If the Alert Pin fnctionality is enabled, define the active
-     * polarity of the pin in an alert condition.  Enabling this sets
-     * the pin to active high in an alert condition, otherwise an
+     * If the alert pin is enabled, defines the active
+     * polarity of the pin in an alert condition. Enabling this sets
+     * the pin to active high in an alert condition; otherwise,
      * active low is used.
      *
-     * @param enable if true, Alert Pin is active high, else active low
+     * @param enable If true, the alert pin is active high; otherwise, active
+     * low
      */
     void enableAlertPinPolarityHigh(bool enable);
 
     /**
-     * Enable or disable Automatic Conversion mode.  When enabled, the
-     * ADC will sample and update the conversion value independently.
-     * This is disabled by default, and a conversion is only done by
+     * Enables or disables the automatic conversion mode. When enabled, the
+     * ADC samples and updates the conversion value independently.
+     * It is disabled by default, so conversion is only done by
      * calling value(). 
      *
-     * @param cycleTime set the Cycle Time for automatic conversion
+     * @param cycleTime Sets the cycle time for automatic conversion
      */
     void setAutomaticConversion(ADC121C021_CYCLE_TIME_T cycleTime);
 
     /**
-     * Set the Alert Low Limit.  If Alerts are enabled and the
-     * measured conversion value is lower than this, an alert will be
+     * Sets the alert low limit.  If alerts are enabled and the
+     * measured conversion value is lower than the low limit, an alert is
      * triggered.
      *
-     * @param limit the Low Alert Limit
+     * @param limit Alert low limit
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t setAlertLowLimit(uint16_t limit);
 
     /**
-     * Set the Alert High Limit.  If Alerts are enabled and the
-     * measured conversion value is higher than this, an alert will be
+     * Sets the alert high limit.  If alerts are enabled and the
+     * measured conversion value is higher than the high limit, an alert is
      * triggered.
      *
-     * @param limit the High Alert Limit
+     * @param limit Alert high limit
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t setAlertHighLimit(uint16_t limit);
 
     /**
-     * Set the Hysteresis value.  If a high or low alert condition is
+     * Sets the hysteresis value.  If a high or low alert condition is
      * triggered, the conversion result must move within the high or
      * low limit by more than this value to clear the alert condition.
-     * If the Alert Hold bit is set, then the alert will not self
-     * clear regardless of this value.
+     * If the alert hold is set, the alert doesn't self-clear
+     * regardless of this value.
      *
-     * @param limit Hysteresis Limit
+     * @param limit Hysteresis limit
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t setHysteresis(uint16_t limit);
 
     /**
-     * Return the Highest Conversion value sampled so far.  This value
-     * is only updated by the converter when automatic conversion mode
+     * Returns the highest conversion value recorded so far. This value
+     * is only updated by the converter when the automatic conversion mode
      * is enabled.
      *
-     * @return the highest conversion value recorded
+     * @return Highest conversion value
      */
     uint16_t getHighestConversion();
 
     /**
-     * Return the Lowest Conversion value sampled so far.  This value
-     * is only updated by the converter when automatic conversion mode
+     * Returns the lowest conversion value recorded so far. This value
+     * is only updated by the converter when the automatic conversion mode
      * is enabled.
      *
-     * @return the lowest conversion value recorded
+     * @return Lowest conversion value
      */
     uint16_t getLowestConversion();
 
     /**
-     * Clear the Highest Conversion value sampled so far.
+     * Clears the highest conversion value recorded so far.
      *
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */
     mraa_result_t clearHighestConversion();
 
     /**
-     * Clear the Lowest Conversion value sampled so far.
+     * Clears the lowest conversion value recorded so far.
      *
      * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
      */

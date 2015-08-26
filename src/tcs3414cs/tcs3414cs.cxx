@@ -29,25 +29,25 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "tcs3414cs.h"
 
 using namespace upm;
 
-struct TCS3414CSException : public std::exception {
-    std::string message;
-    TCS3414CSException (std::string msg) : message (msg) { }
-    ~TCS3414CSException () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
 TCS3414CS::TCS3414CS () {
     m_name = "TCS3414CS";
-    m_i2Ctx = mraa_i2c_init(0);
+
+    if (!(m_i2Ctx = mraa_i2c_init(0)))
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_init() failed");
+      }
 
     mraa_result_t ret = mraa_i2c_address(m_i2Ctx, ADDR);
     if (ret != MRAA_SUCCESS) {
-        throw TCS3414CSException ("Couldn't initilize I2C.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_address() failed");
     }
 
     // Set timing register
@@ -92,15 +92,12 @@ void
 TCS3414CS::clearInterrupt () {
     mraa_result_t error = MRAA_SUCCESS;
 
-    if (m_i2Ctx == NULL) {
-        throw TCS3414CSException ("Couldn't find initilized I2C.");
-    }
-
     error = mraa_i2c_address (m_i2Ctx, ADDR);
     error = mraa_i2c_write_byte (m_i2Ctx, CLR_INT);
 
     if (error != MRAA_SUCCESS) {
-        throw TCS3414CSException ("Couldn't clear interrupt.");
+        throw std::runtime_error(std::string(__FUNCTION__) + 
+                                 ": Couldn't clear interrupt");
     }
 }
 
@@ -112,10 +109,6 @@ TCS3414CS::clearInterrupt () {
 uint16_t
 TCS3414CS::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
-
-    if (m_i2Ctx == NULL) {
-        throw TCS3414CSException ("Couldn't find initilized I2C.");
-    }
 
     mraa_i2c_address(m_i2Ctx, ADDR);
     mraa_i2c_write_byte(m_i2Ctx, reg);
@@ -129,10 +122,6 @@ mraa_result_t
 TCS3414CS::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
     mraa_result_t error = MRAA_SUCCESS;
 
-    if (m_i2Ctx == NULL) {
-        throw TCS3414CSException ("Couldn't find initilized I2C.");
-    }
-
     error = mraa_i2c_address (m_i2Ctx, ADDR);
     error = mraa_i2c_write_byte (m_i2Ctx, reg);
     error = mraa_i2c_write (m_i2Ctx, buffer, len);
@@ -143,10 +132,6 @@ TCS3414CS::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
 mraa_result_t
 TCS3414CS::i2cWriteReg (uint8_t reg, uint8_t data) {
     mraa_result_t error = MRAA_SUCCESS;
-
-    if (m_i2Ctx == NULL) {
-        throw TCS3414CSException ("Couldn't find initilized I2C.");
-    }
 
     error = mraa_i2c_address (m_i2Ctx, ADDR);
     error = mraa_i2c_write_byte (m_i2Ctx, reg);

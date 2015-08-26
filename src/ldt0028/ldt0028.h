@@ -29,25 +29,34 @@
 namespace upm {
 
 /**
- * @brief LDT0-028 Piezo Vibration sensor library
+ * @brief LDT0-028 Piezo Vibration Sensor library
  * @defgroup ldt0028 libupm-ldt0028
+ * @ingroup seeed analog flexfor
  */
 
 /**
- * @brief C++ API for LDT0-028 PZT film-based sensors,
- * such as the Grove Piezo Vibration sensor
+ * @library ldt0028
+ * @sensor ldt0028
+ * @comname LDT0-028 Piezo Vibration Sensor
+ * @altname Grove Piezo Vibration Sensor
+ * @type flexfor
+ * @man seeed
+ * @con analog
  *
- * This file defines the LDT0028 C++ interface for libupm-ldt0028
+ * @brief API for LDT0-028 PZT film-based sensors,
+ * such as a Grove Piezo Vibration sensor
  *
- * @ingroup ldt0028 aio
+ * This file defines the LDT0-028 interface for libupm-ldt0028
+ *
+ * @image html ldt0028.jpg
  * @snippet ldt0028.cxx Interesting
  */
 class LDT0028 {
     public:
         /**
-         * LDT0028 Piezo Vibration sensor constructor
+         * LDT0028 constructor
          *
-         * @param pin AIO pin where sensor is connected
+         * @param pin AIO pin where the sensor is connected
          */
         LDT0028(unsigned int pin);
 
@@ -57,16 +66,16 @@ class LDT0028 {
         ~LDT0028();
 
         /**
-         * Return name of this sensor
+         * Returns the name of this sensor
          *
-         * @return the name of this sensor
+         * @return Name of this sensor
          */
         std::string name();
 
         /**
-         * Return one sample from this sensor
+         * Returns one sample from this sensor
          *
-         * @return one value from this sensor
+         * @return One value from this sensor
          */
         int getSample();
 

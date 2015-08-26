@@ -34,22 +34,30 @@ namespace upm {
 #define LOL_Y 9
 
 /**
- * @brief Olimex LoL array library
+ * @brief Olimex LoL Array library
  * @defgroup lol libupm-lol
+ * @ingroup adafruit gpio display
  */
 
 /**
- * @brief C++ API for Olimex LoL array
+ * @library lol
+ * @sensor lol
+ * @comname Olimex LoL Array
+ * @type display
+ * @man adafruit
+ * @con gpio
  *
- * This file defines the LoL API and implemntation for a simple framebuffer
+ * @brief API for the Olimex LoL array
  *
- * @ingroup lol gpio
+ * This file defines the LoL API and implementation for a simple framebuffer.
+ *
+ * @image html lolshield.jpg
  * @snippet lol-example.cxx Interesting
  */
 class LoL {
     public:
         /**
-         * Instantiates a LoL object
+         * Instantiates an LoL object
          * singleton
          */
         LoL();
@@ -60,25 +68,25 @@ class LoL {
         ~LoL();
 
         /**
-         * Get framebuffer pointer
-         * @return 0 on success
+         * Gets a framebuffer pointer
+         * @return 0 if successful
          */
         unsigned char *getFramebuffer();
 
         /**
-         * Gets pixel at coordinates
-         * @param x coordinate x
-         * @param y coordinate y
-         * @return 1 if pixel is on, 0 if off, -1 on error
+         * Gets a pixel at specified coordinates
+         * @param x Coordinate x
+         * @param y Coordinate y
+         * @return 1 if the pixel is on, 0 if off, -1 on error
          */
         unsigned char getPixel(int x, int y);
 
         /**
-         * sets pixel at coordinates
-         * @param x coordinate x
-         * @param y coordinate y
+         * Sets a pixel at specified coordinates
+         * @param x Coordinate x
+         * @param y Coordinate y
          * @param pixel 0 is off, 1 is on
-         * @return 0 on success, -1 on error
+         * @return 0 if successful, -1 on error
          */
         unsigned char setPixel(int x, int y, unsigned char pixel);
 

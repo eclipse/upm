@@ -39,20 +39,28 @@
 namespace upm {
   
   /**
-   * @brief UPM module for the PCA9685 16 channel, 12 bit pwm LED controller.
+   * @brief PCA9685 PWM Controller library
    * @defgroup pca9685 libupm-pca9685
+   * @ingroup adafruit i2c led motor
    */
-
   /**
-   * @brief C++ API for the PCA9685 16 channel, 12 bit pwm LED controller
+   * @library pca9685
+   * @sensor pca9685
+   * @comname PCA9685 PWM Controller
+   * @type led motor
+   * @man adafruit
+   * @web http://www.adafruit.com/products/815
+   * @con i2c
    *
-   * This controller is also used on the Adafruit Motor Shield v2.3
-   * board to control up to 4 DC motors, 2 step motors and 2 servo
+   * @brief API for the PCA9685 16-channel, 12-bit PWM LED Controller
+   *
+   * This controller is also used on the Adafruit* Motor Shield v2.3
+   * board to control up to 4 DC motors, 2 stepper motors, and 2 servo
    * motors.
    *
    * This module was tested with the Adafruit Motor Shield v2.3
    *
-   * @ingroup i2c pca9685
+   * @image html pca9685.jpg
    * @snippet pca9685.cxx Interesting
    */
   class PCA9685 {
@@ -170,139 +178,136 @@ namespace upm {
     } PCA9685_MODE2_T;
     
     /**
-     * pca9685 constructor
+     * PCA9685 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
+     * @param bus I2C bus to use
+     * @param address Address for this device
      */
-    PCA9685(int bus, uint8_t address = PCA9685_DEFAULT_I2C_ADDR);
+    PCA9685(int bus, uint8_t address = PCA9685_DEFAULT_I2C_ADDR, bool raw = false);
 
     /**
-     * PCA9685 Destructor
+     * PCA9685 destructor
      */
     ~PCA9685();
 
     /**
-     * Write byte value into register
+     * Writes a byte value into a register
      *
-     * @param reg register location to write into
-     * @param byte byte to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param byte Byte to write
+     * @return True if successful
      */
     bool writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Write word value at register.  Note, the device must have the
+     * Writes a word value into a register. Note: the device must have the
      * auto-increment bit set in the MODE1 register to work.
      *
-     * @param reg register location to write into
-     * @param word word to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param word Word to write
+     * @return True if successful
      */
     bool writeWord(uint8_t reg, uint16_t word);
 
     /**
-     * Read byte value from register
+     * Reads a byte value from a register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in a specified register
      */
     uint8_t readByte(uint8_t reg);
 
     /**
-     * Read word value from register.  Note, the device must have the
+     * Reads a word value from a register. Note: the device must have the
      * auto-increment bit set in the MODE1 register to work.
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in a specified register
      */
     uint16_t readWord(uint8_t reg);
 
     /**
-     * Put the device into or out of Sleep mode.  The device is always
-     * in sleep mode upon power up.
+     * Puts the device in or out of the sleep mode. The device is always
+     * in the sleep mode upon power-up.
      *
-     * @param sleep true to put into sleep mode, false to take out of
-     * sleep mode.  
-     * @return true if successful
+     * @param sleep True to put the device in the sleep mode, false to put out  
+     * @return True if successful
      */
     bool setModeSleep(bool sleep);
 
     /**
-     * set or clear the FULL ON bit for a given LED
+     * Sets or clears the FULL ON bit for a given LED
      *
-     * @param led led number, valid values: 0-15, PCA9685_ALL_LED
-     * @param val true to set the bit, false to clear it
-     * @return true if successful
+     * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
+     * @param val True to set the bit, false to clear it
+     * @return True if successful
      */
     bool ledFullOn(uint8_t led, bool val);
 
     /**
-     * set or clear the FULL OFF bit for a given LED.  If the FULL ON
-     * bit is also set, then FULL OFF has precendence.
+     * Sets or clears the FULL OFF bit for a given LED. If the FULL ON
+     * bit is also set, FULL OFF has precedence.
      *
-     * @param led led number, valid values: 0-15, PCA9685_ALL_LED
-     * @param val true to set the bit, false to clear it
-     * @return true if successful
+     * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
+     * @param val True to set the bit, false to clear it
+     * @return True if successful
      */
     bool ledFullOff(uint8_t led, bool val);
 
     /**
-     * set the LED on time (0-4095).  See the pca9685 datasheet for details. 
+     * Sets the 'LED on' time (0-4,095). See the PCA9685 datasheet for details. 
      *
-     * @param led led number, valid values: 0-15, PCA9685_ALL_LED
-     * @param time the 12 bit value at which point the LED will turn on
-     * @return true if successful
+     * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
+     * @param time 12-bit value at which point the LED turns on
+     * @return True if successful
      */
     bool ledOnTime(uint8_t led, uint16_t time);
 
     /**
-     * set the LED off time (0-4095).  See the pca9685 datasheet for details. 
+     * Sets the 'LED off' time (0-4,095). See the PCA9685 datasheet for details. 
      *
-     * @param led led number, valid values: 0-15, PCA9685_ALL_LED
-     * @param time the 12 bit value at which point the LED will turn off
-     * @return true if successful
+     * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
+     * @param time 12-bit value at which point the LED turns off
+     * @return True if successful
      */
     bool ledOffTime(uint8_t led, uint16_t time);
 
     /**
-     * set the prescale value.  See the pca9685 datasheet for
+     * Sets the prescale value. See the PCA9685 datasheet for
      * details. The prescale can only be set when the device is in
-     * sleep mode.
+     * the sleep mode.
      *
-     * @param prescale the prescale value
-     * @return true if successful
+     * @param prescale Prescale value
+     * @return True if successful
      */
     bool setPrescale(uint8_t prescale);
 
     /**
-     * set the prescale value based on a desired frequency in hz.  The
-     * prescale can only be set when the device is in sleep mode.
+     * Sets the prescale value based on a desired frequency in Hz. The
+     * prescale can only be set when the device is in the sleep mode.
      *
-     * @param hz the desired frequency in hz
-     * @param oscFreq the oscillator frequency, defaul 25Mhz 
-     * @return true if successful
+     * @param hz Desired frequency in Hz
+     * @param oscFreq Oscillator frequency; default is 25 MHz 
+     * @return True if successful
      */
     bool setPrescaleFromHz(float hz, 
                            float oscFreq=PCA9685_INTERNAL_OSC);
 
     /**
-     * enable or disable the RESTART capability of the controller
+     * Enables or disables the restart capability of the controller
      *
-     * @param enabled true to enable restart, false to disable.
-     * Default is enabled.
-     *
-     * @return true if successful
+     * @param enabled True to enable, false to disable
+     * It is enabled by default.
      */
-    bool enableRestart(bool enabled) { m_restartEnabled = enabled; };
+    void enableRestart(bool enabled) { m_restartEnabled = enabled; };
 
   private:
     /**
-     * Enable I2C register auto-increment.  This needs to be enabled
-     * for write/readWord() to work.  The contructor enables this by
+     * Enables the I2C register auto-increment. This needs to be enabled
+     * for write/readWord() to work. The contructor enables this by
      * default.
      *
-     * @param ai true to enable auto-increment of i2c regs, false otherwise
+     * @param ai True to enable, false otherwise
      */
     bool enableAutoIncrement(bool ai);
 

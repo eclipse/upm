@@ -49,124 +49,131 @@
 namespace upm {
 
 /**
- * @brief HTU21D humidity sensor library
- * @defgroup htu21d libupm-htu21
+ * @brief HTU21D Humidity Sensor library
+ * @defgroup htu21d libupm-htu21d
+ * @ingroup seeed adafruit sparkfun i2c temp
  */
 
 /**
- * @brief C++ API for HTU21D chip (Atmospheric Pressure Sensor)
+ * @library htu21d
+ * @sensor htu21d
+ * @comname HTU21D Temperature & Humidity Sensor
+ * @type temp
+ * @man seeed adafruit sparkfun
+ * @web http://www.meas-spec.com/downloads/HTU21D.pdf
+ * @con i2c
  *
- * Measurement Specialties [HTU21D]
- * (http://www.meas-spec.com/downloads/HTU21D.pdf)
- * is a digital humidity sensor with temperature output.
- * RH will report between 0 and 100% and temperature range is
- * -40 to +125 degC.  Note that the getCompRH is the preferred
- * function below (passing true to cause a measurement cycle).  If
- * the actual values used for the compensated ready are necessary, use
+ * @brief API for the HTU21D Temperature & Humidity Sensor
+ *
+ * HTU21D by Measurement Specialties is a digital humidity sensor with
+ * temperature output.
+ * RH reports between 0 and 100%, and the temperature range is
+ * -40 to +125 degC. Note: getCompRH is the preferred
+ * function below (passing true to cause a measurement cycle). If
+ * actual values used for the compensated ready are necessary, use
  * the getHumidity(false) and getTemperature(false) functions following
  * the getCompRH call.
- * Also note that the sensor should not perform more than a couple of
+ * Also note the sensor should not perform more than a couple of
  * measurements per second to limit the heating of the sensor.
  *
- * @ingroup htu21d i2c
- * @snippet htu21d.cxx Interesting
  * @image html htu21d.jpeg
+ * @snippet htu21d.cxx Interesting
  */
 class HTU21D {
     public:
         /**
-         * Instanciates a HTU21D object
+         * Instantiates an HTU21D object
          *
-         * @param bus number of used bus
-         * @param devAddr address of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          * @param mode HTU21D oversampling
          */
         HTU21D (int bus, int devAddr=HTU21D_I2C_ADDRESS);
 
         /**
-         * HTU21D object destructor, basicaly it close i2c connection.
+         * HTU21D object destructor; basically, it closes the I2C connection.
          */
         ~HTU21D ();
 
         /**
-         * Initiate a temp/pressure mesasurement and wait for function
-         * to complete.  The humidity and temp registers can be read
+         * Initiates a temperature/pressure mesasurement and waits for the function
+         * to complete. The humidity and temperature registers can be read
          * after this call.
          */
         int sampleData(void);
 
         /**
-         * Get the current measured humidity [RH]
+         * Gets the current measured humidity [RH]
          */
         float getHumidity(int bSampleData = false);
 
         /**
-         * Get the humidity cell temperature [degC]
+         * Gets the humidity cell temperature [degC]
          */
         float getTemperature(int bSampleData = false);
 
         /**
-         * Using the current humidity and temperature the function
-         * will calculate the compensated RH using the equation from
+         * Using the current humidity and temperature, the function
+         * calculates the compensated RH using the equation from
          * the datasheet.
          */
         float getCompRH(int bSampleData = true);
 
         /**
-         * Set the heater state.  The heater is used to either test
-         * the sensor functionality since the temp should increase
-         * 0.5 to 1.5 degC and the humidity should decrease.  The
-         * testSensor() function below will use the heater.
+         * Sets the heater state. The heater is used to test
+         * the sensor functionality since the temperature should increase
+         * 0.5 to 1.5 degC, and the humidity should decrease. The
+         * testSensor() function below uses the heater.
          *
-         * @param bEnable Set to non-zero to turn on heater
+         * @param bEnable Sets to non-zero to turn the heater on 
          */
          int setHeater(int bEnable = false);
 
         /**
-         * Perform a soft RESET of the MPL3115A2 device to ensure
-         * it is in a known state.  This function can be used to reset
+         * Performs a soft reset of the MPL3115A2 device to ensure
+         * it is in a known state. This function can be used to reset
          * the min/max temperature and pressure values.
          */
-        int resetSensor(void);
+        void resetSensor(void);
 
         /**
-         * Function intended to test the device and verify it
-         * is correctly operating.
+         * Tests the device and verifies it
+         * is operating correctly.
          *
          */
         int testSensor(void);
 
         /**
-         * Write to one byte register
+         * Writes to a one-byte register
          *
-         * @param reg address of a register
-         * @param value byte to be written
+         * @param reg Address of the register
+         * @param value Byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
-         * Read two bytes register
+         * Reads a two-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint16_t i2cReadReg_16 (int reg);
 
         /**
-         * Read one byte register
+         * Reads a one-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint8_t i2cReadReg_8 (int reg);
 
     private:
 
         /**
-         * Convert temp register to degC * 1000
+         * Converts the temperature register to degC * 1000
          */
         int32_t convertTemp(int32_t regval);
 
         /**
-         * Convert RH register to %RH * 1000
+         * Converts the RH register to %RH * 1000
          */
         int32_t convertRH(int32_t regval);
 

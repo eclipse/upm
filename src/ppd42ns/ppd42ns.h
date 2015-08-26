@@ -36,40 +36,54 @@ typedef struct
 	double concentration;
 } dustData;
 
-
   /**
-   * @brief C++ API for the Dust Sensor
+   * @brief PPD42NS Dust Sensor library
+   * @defgroup ppd42ns libupm-ppd42ns
+   * @ingroup seeed gpio other eak
+   */
+  /**
+   * @library ppd42ns
+   * @sensor ppd42ns
+   * @comname PPD42NS Dust Sensor
+   * @altname Grove Dust Sensor
+   * @type other
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
+   * @con gpio
+   * @kit eak
    *
-   * UPM module for the Dust Sensor
+   * @brief API for the PPD42NS Dust Sensor
    *
-   * @ingroup gpio
+   * UPM module for the PPD42NS dust sensor
+   *
+   * @image html ppd42ns.jpg
    * @snippet ppd42ns.cxx Interesting
    */
   class PPD42NS {
   public:
     /**
-     * Dust Sensor Constructor
+     * PPD42NS constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     PPD42NS(int pin);
     /**
-     * Dust Sensor Destructor
+     * PPD42NS destructor
      */
     ~PPD42NS();
     /**
-     * Print dust concentration
+     * Prints dust concentration
      *
-     * @return struct dustData  contains data from dust sensor
+     * @return struct dustData  Contains data from the dust sensor
      */
      dustData getData();
 
   private:
         mraa_gpio_context m_gpio;
 		/**
-		 * Return the amount of time it takes a pin to go from HIGH to LOW or LOW to HIGH
+		 * Returns the amount of time it takes a pin to go from HIGH to LOW or from LOW to HIGH
 		 *
-		 * @param highLowValue int do we measure from HIGH to LOW or LOW to HIGH. highLowValue is "from" value
+		 * @param highLowValue int Do we measure movements from HIGH to LOW or from LOW to HIGH? highLowValue is the "from" value
 		 */
 		double pulseIn_polyfill(bool highLowValue, double endTime);
 		double m_timediff(timespec time1, timespec time2);

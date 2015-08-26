@@ -41,61 +41,62 @@
 
 namespace upm {
 /**
- * @brief C++ API for the Stepper motor library
- *
- *   This file defines the stepmotor C++ interface
- *
+ * @brief Stepper Motor library
  * @defgroup stepper libupm-stepper
- * @ingroup seeed pwm gpio motor
+ * @ingroup seeed sparkfun pwm gpio motor
  */
 /**
  * @library stepper
  * @sensor stepper
- * @comname Stepper motor
+ * @comname Stepper Motor
+ * @altname EasyDriver Stepper Motor Driver
  * @type motor
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Motor_Driver_V1.3
+ * @man seeed sparkfun
+ * @web http://www.schmalzhaus.com/EasyDriver/index.html
  * @con pwm gpio
  *
- * @brief C++ API for the Stepper motor library
+ * @brief API for the Stepper Motor
  * 
- *   This file defines the stepmotor C++ interface
+ * This file defines the Stepper Motor interface. It is compatible with stepper
+ * motor drivers that use 2 pins to control the motor, like an Easy Driver
+ * from Brian Schmalz.
  *
+ * @image html stepmotor.jpg
  * @snippet stepmotor.cxx Interesting
  */
 class StepMotor {
     public:
         /**
-         * Instanciates a StepMotor object
+         * Instantiates a StepMotor object
          *
-         * @param dirPin direction GPIO pin
-         * @param stePin steper pulse PWM pin
+         * @param dirPin Direction GPIO pin
+         * @param stePin Stepper pulse PWM pin
          */
         StepMotor (int dirPin, int stePin);
 
         /**
-         * StepMotor object destructor.
+         * StepMotor object destructor
          */
         ~StepMotor ();
 
         /**
-         * Set the speed of rotation
+         * Sets the rotation speed
          *
-         * @param speed rotation speed
+         * @param speed Rotation speed
          */
         void setSpeed (int speed);
 
         /**
-         * Rotate motor forward
+         * Rotates the motor forward
          *
-         * @param ticks number of tickes the motor will move
+         * @param ticks Number of ticks the motor moves
          */
         mraa_result_t stepForward (int ticks);
 
         /**
-         * Rotate motor backward
+         * Rotates the motor backward
          *
-         * @param ticks number of tickes the motor will move
+         * @param ticks Number of ticks the motor moves
          */
         mraa_result_t stepBackwards (int ticks);
 

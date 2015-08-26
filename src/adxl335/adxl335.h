@@ -35,7 +35,7 @@
 namespace upm {
 
   /**
-   * @brief ADXL335 accelerometer library
+   * @brief ADXL335 Accelerometer library
    * @defgroup adxl335 libupm-adxl335
    * @ingroup seeed analog accelerometer
    */
@@ -44,16 +44,18 @@ namespace upm {
    * @library adxl335
    * @sensor adxl335
    * @comname ADXL335 3-Axis Analog Accelerometer
+   * @altname Grove 3-Axis Analog Accelerometer
    * @type accelerometer
    * @man seeed
    * @con analog
    *
-   * @brief C++ API for the ADXL335 3-axis Analog Accelerometer
+   * @brief API for the ADXL335 3-Axis Analog Accelerometer
    *
-   * UPM module for the ADXL335 3-axis analog accelerometer.  This
-   * was tested on a Grove 3-axis Analog Accelerometer.  It uses 3
-   * analog pins, one each for X, Y, and Z axis.
+   * UPM module for the ADXL335 3-axis analog accelerometer. This
+   * was tested on a Grove 3-axis Analog Accelerometer. It uses 3
+   * analog pins, one for each axis: X, Y, and Z.
    *
+   * @image html adxl335.jpg
    * @snippet adxl335.cxx Interesting
    */
   class ADXL335 {
@@ -61,61 +63,60 @@ namespace upm {
     /**
      * ADXL335 constructor
      *
-     * @param pinX analog pin to use for axis X
-     * @param pinY analog pin to use for axis Y
-     * @param pinZ analog pin to use for axis Z
-     * @param aref analog voltage reference, default 5.0
+     * @param pinX Analog pin to use for X-axis
+     * @param pinY Analog pin to use for Y-axis
+     * @param pinZ Analog pin to use for Z-axis
+     * @param aref Analog reference voltage; default is 5.0v
      */
     ADXL335(int pinX, int pinY, int pinZ, float aref=ADXL335_DEFAULT_AREF);
 
     /**
-     * ADXL335 Destructor
+     * ADXL335 destructor
      */
     ~ADXL335();
 
     /**
-     * Set the "zero" value of the X axis, determined through calibration
+     * Sets the "zero" value of the X-axis, determined through calibration
      *
-     * @param zeroX  The "zero" value of the X axis
+     * @param zeroX  "Zero" value of the X-axis
      */
     void setZeroX(float zeroX) { m_zeroX = zeroX; };
 
     /**
-     * Set the "zero" value of the Y axis, determined through calibration
+     * Sets the "zero" value of the Y-axis, determined through calibration
      *
-     * @param zeroX  The "zero" value of the Y axis
+     * @param zeroY  "Zero" value of the Y-axis
      */
     void setZeroY(float zeroY) { m_zeroY = zeroY; };
 
     /**
-     * Set the "zero" value of the Z axis, determined through calibration
+     * Sets the "zero" value of the Z-axis, determined through calibration
      *
-     * @param zeroX  The "zero" value of the Z axis
+     * @param zeroZ  "Zero" value of the Z-axis
      */
     void setZeroZ(float zeroZ) { m_zeroZ = zeroZ; };
 
     /**
-     * Get the analog values for the 3 axes
+     * Gets the analog values for the 3 axes
      *
-     * @param xVal pointer to returned X value
-     * @param yVal pointer to returned Y value
-     * @param zVal pointer to returned Z value
+     * @param xVal Pointer to the returned X-axis value
+     * @param yVal Pointer to the returned Y-axis value
+     * @param zVal Pointer to the returned Z-axis value
      */
     void values(int *xVal, int *yVal, int *zVal);
 
     /**
-     * Get the acceleration along all 3 axes
+     * Gets the acceleration along all 3 axes
      *
-     * @param xAccel pointer to returned X value
-     * @param yAccel pointer to returned Y value
-     * @param zAccel pointer to returned Z value
+     * @param xAccel Pointer to returned X-axis value
+     * @param yAccel Pointer to returned Y-axis value
+     * @param zAccel Pointer to returned Z-axis value
      */
     void acceleration(float *xAccel, float *yAccel, float *zAccel);
 
     /**
-     * While the sensor is still, measure the X, Y, and Z values and
-     * use those values as our zero values.
-     *
+     * While the sensor is still, measures the X-axis, Y-axis, and Z-axis
+     * values and uses those values as the zero values.
      */
     void calibrate();
 

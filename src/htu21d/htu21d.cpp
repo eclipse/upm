@@ -51,7 +51,7 @@ HTU21D::~HTU21D() {
     mraa_i2c_stop(m_i2ControlCtx);
 }
 
-int
+void
 HTU21D::resetSensor(void)
 {
     uint8_t data;

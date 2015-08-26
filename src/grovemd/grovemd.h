@@ -34,35 +34,36 @@
 
 namespace upm {
   /**
-   * @brief UPM module for the Grove I2C Motor Driver
+   * @brief Grove I2C Motor Driver library
    * @defgroup grovemd libupm-grovemd
-   * @ingroup seeed i2c motor
+   * @ingroup seeed i2c motor robok
    */
 
   /**
-   * @sensor grovemd
    * @library grovemd
+   * @sensor grovemd
    * @comname Grove I2C Motor Driver
-   * @category motor
-   * @manufacturer seeed
-   * @connection i2c
+   * @type motor
+   * @man seeed
+   * @con i2c
+   * @kit robok
    *
-   * @brief C++ API for the Grove I2C Motor Driver 
+   * @brief API for the Grove I2C Motor Driver 
    *
    * This class implements support for the Grove I2C Motor Driver.
-   * This device can support a single 4-wire stepper motor, OR two
-   * 2-wire DC motors.  The device contains an Atmel ATmega8L
+   * This device can support a single 4-wire stepper motor, or two
+   * 2-wire DC motors. The device contains an Atmel* ATmega8L
    * microcontroller that manages an L298N H-bridge driver chip.
    *
-   * This device supports an i2c bus speed of 100Khz only.
+   * This device supports an I2C bus speed of 100Khz only.
    *
-   * The module does not provide any telemetry or status -- it only
+   * The module does not provide any telemetry or status - it only
    * accepts I2C commands for its various operations.
    *
    * This module was tested with version 1.3 of the Grove I2C Motor
    * Driver
    *
-   * @ingroup i2c grove
+   * @image html grovemd.jpg
    * @snippet grovemd.cxx Interesting
    */
   class GroveMD {
@@ -90,82 +91,82 @@ namespace upm {
     } DC_DIRECTION_T;
     
     /**
-     * grovemd constructor
+     * GroveMD constructor
      *
-     * @param bus i2c bus to use
-     * @param address i2c address to use
+     * @param bus I2C bus to use
+     * @param address I2C address to use
      */
     GroveMD(int bus=GROVEMD_I2C_BUS, 
             uint8_t address=GROVEMD_DEFAULT_I2C_ADDR);
 
     /**
-     * GroveMD Destructor
+     * GroveMD destructor
      */
     ~GroveMD();
 
     /**
-     * Compose and write a 3-byte packet to the controller
+     * Composes and writes a 3-byte packet to the controller
      *
-     * @param reg register location
-     * @param data1 first byte of data
-     * @param data2 second byte of data
-     * @return true if write successful
+     * @param reg Register location
+     * @param data1 First byte of data
+     * @param data2 Second byte of data
+     * @return True if successful
      */
     bool writePacket(REG_T reg, uint8_t data1, uint8_t data2);
 
     /**
-     * For controlling DC motors, set the speeds of motors A & B.
+     * To control DC motors, sets the speed of motors A & B.
      * Valid values are 0-255.
      *
-     * @param speedA speed of motor A
-     * @param speedB speed of motor B
-     * @return true if command successful
+     * @param speedA Speed of motor A
+     * @param speedB Speed of motor B
+     * @return True if successful
      */
     bool setMotorSpeeds(uint8_t speedA, uint8_t speedB);
 
     /**
-     * For controlling DC motors, set the PWM frequency prescale
-     * factor.  Note this register is not ducumented other than to say
-     * that the default value is 0x03.  Presumably this is the timer
-     * pre-scale factor used on the ATMega MCU timer driving the PWM.
+     * To control DC motors, sets the PWM frequency prescale
+     * factor. Note: this register is not ducumented other than to say
+     * the default value is 0x03. Presumably, this is the timer
+     * prescale factor used on the ATMega MCU timer driving the PWM.
      *
-     * @param freq PWM prescale frequency, default 0x03
-     * @return true if command successful
+     * @param freq PWM prescale frequency; default is 0x03
+     * @return True if successful
      */
     bool setPWMFrequencyPrescale(uint8_t freq=0x03);
 
     /**
-     * For controlling DC motors, set the directions of motors A & B
+     * To control DC motors, sets the directions of motors A & B
      *
-     * @param dirA direction for motor A, DIR_CW or DIR_CCW
-     * @param dirB direction for motor B, DIR_CW or DIR_CCW
-     * @return true if command successful
+     * @param dirA Direction for motor A, DIR_CW or DIR_CCW
+     * @param dirB Direction for motor B, DIR_CW or DIR_CCW
+     * @return True if successful
      */
     bool setMotorDirections(DC_DIRECTION_T dirA, DC_DIRECTION_T dirB);
 
     /**
-     * For controlling a stepper motor, set a direction, speed and
-     * then enable.
+     * To control a stepper motor, sets its direction and speed, and
+     * then enables it.
      *
-     * @param dir direction, STEP_DIR_CW or STEP_DIR_CCW
-     * @param speed motor speed. Valid range is 1-255, higher is slower.
-     * @return true if command successful
+     * @param dir Direction, STEP_DIR_CW or STEP_DIR_CCW
+     * @param speed Motor speed. Valid range is 1-255, higher is slower.
+     * @return True if successful
      */
     bool enableStepper(STEP_DIRECTION_T dir, uint8_t speed);
 
     /**
-     * For controlling a stepper motor, stop the stepper motor.
+     * To control a stepper motor, stops the stepper motor.
      *
-     * @return true if command successful
+     * @return True if successful
      */
     bool disableStepper();
 
     /**
-     * For controlling a stepper motor, specify the number of steps to
-     * execute.  Valid values are 1-255, 255 means to rotate continuously.
+     * To control a stepper motor, specifies the number of steps to
+     * execute. Valid values are 1-255, 255 means continuous rotation.
      *
-     * @param steps number of steps to execute.  255 means rotate continously.
-     * @return true if command successful
+     * @param steps Number of steps to execute. 255 means continuous rotation.
+     * @return True if successful
      */
     bool setStepperSteps(uint8_t steps);
 

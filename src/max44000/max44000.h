@@ -38,7 +38,7 @@
 #define PRXDATA            0x15 // proximity sensor data
 
 #define ALS_UP_THRESH_HIGH 0x06 // ALS Interrupt Threshold Registers High
-#define ALS_UP_THRESH_LOW  0x07 // ALS Interrupt Threshold Registers LOW
+#define ALS_UP_THRESH_LOW  0x07 // ALS Interrupt Threshold Registers Low
 #define ALS_LO_THRESH_HIGH 0x08 // ALS Interrupt Threshold Registers High
 #define ALS_LO_THRESH_LOW  0x09 // ALS Interrupt Threshold Registers Low
 #define TPTR               0x0A // ALS/PROX Threshold Persist Timer Register
@@ -53,51 +53,56 @@
 namespace upm {
 
 /**
- * @brief max44000 proxmity sensor library
+ * @brief MAX44000 Proximity Sensor library
  * @defgroup max44000 libupm-max44000
+ * @ingroup maxim i2c light
  */
-
 /**
- * @brief C++ API for MAX44000 chip (Ambient and Infrared Proximity Sensor)
+ * @library max44000
+ * @sensor max44000
+ * @comname MAX44000 Proximity Sensor
+ * @type light
+ * @man maxim
+ * @con i2c
  *
- * The Maxim Integrated
+ * @brief API for the MAX44000 Ambient and Infrared Proximity Sensor
+ *
+ * Maxim Integrated*
  * [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf)
- * is Ambient and Infrared Proximity Sensor. This module was tested on the
+ * is an ambient and infrared proximity sensor. This module was tested on the
  * Maxim Integrated 
  * [MAX44000PMB1 PMOD module]
  * (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the
  * analog PMOD kit.
  *
- * @ingroup max44000 i2c
  * @snippet max44000.cxx Interesting
- * @image html max44000.jpeg
  */
 class MAX44000 {
     public:
         /**
-         * Instanciates a MAX44000 object
+         * Instantiates an MAX44000 object
          *
-         * @param bus number of used bus
-         * @param devAddr addres of used i2c device
+         * @param bus Number of the used bus
+         * @param devAddr Address of the used I2C device
          */
         MAX44000 (int bus, int devAddr);
 
         /**
-         * MAX44000 object destructor, basicaly it close i2c connection.
+         * MAX44000 object destructor; basically, it closes the I2C connection.
          */
         ~MAX44000 ();
 
         /**
-         * Read the proximity value from the chip (based on ambient data).
+         * Reads the proximity value from the sensor (based on ambient data).
          */
         uint16_t getProximity ();
         /**
-         * Read the ambient value from the chip (based on ambient data).
+         * Reads the ambient value from the sensor (based on ambient data).
          */
         uint16_t getAmbient ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -105,24 +110,24 @@ class MAX44000 {
         }
 
         /**
-         * Read one byte register
+         * Reads a one-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint8_t i2cReadReg_8 (int reg);
 
         /**
-         * Read two bytes register
+         * Reads a two-byte register
          *
-         * @param reg address of a register
+         * @param reg Address of the register
          */
         uint16_t i2cReadReg_16 (int reg);
 
         /**
-         * Write to one byte register
+         * Writes to a one-byte register
          *
-         * @param reg address of a register
-         * @param value byte to be written
+         * @param reg Address of the register
+         * @param value Byte to be written
          */
         mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
 

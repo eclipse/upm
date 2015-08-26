@@ -33,19 +33,31 @@
 namespace upm {
 
   /**
-   * @brief C++ API for the MMA7660 I2C 3-axis digital accelerometer
+   * @brief MMA7660 I2C 3-Axis Digital Accelerometer library
+   * @defgroup mma7660 libupm-mma7660
+   * @ingroup seeed i2c gpio accelerometer
+   */
+  /**
+   * @library mma7660
+   * @sensor mma7660
+   * @comname MMA7660 3-Axis Digital Accelerometer
+   * @altname Grove 3-Axis Digital Accelerometer (1.5g)
+   * @type accelerometer
+   * @man seeed
+   * @con i2c gpio
+   *
+   * @brief API for the MMA7660 I2C 3-Axis Digital Accelerometer
    *
    * UPM module for the MMA7660 I2C 3-axis digital accelerometer.
    * This device supports a variety of capabilities, including the
    * generation of interrupts for various conditions, tilt and basic
-   * gesture detection, and of course X/Y/Z measurements of g-forces
-   * being applied (up to 1.5g).
+   * gesture detection, and X/Y/Z-axis measurements of g-forces
+   * being applied (up to 1.5g)
    *
    * This module was tested with the Grove 3-Axis Digital
    * Accelerometer (1.5g)
    *
-   * @ingroup i2c gpio mma7660
-   * @defgroup mma7660 libupm-mma7660
+   * @image html mma7660.jpg
    * @snippet mma7660.cxx Interesting
    */
   class MMA7660 {
@@ -60,7 +72,7 @@ namespace upm {
                    REG_SPCNT      = 0x05, // sleep count
                    REG_INTSU      = 0x06, // Interrupt setup
                    REG_MODE       = 0x07, // operating mode
-                   REG_SR         = 0x08, // auto wake/sleep, SPS and debounce
+                   REG_SR         = 0x08, // auto-wake/sleep, SPS, and debounce
                    REG_PDET       = 0x09, // tap detection
                    REG_PD         = 0x0a  // tap debounce count
                    // 0x0b-0x1f reserved
@@ -71,7 +83,7 @@ namespace upm {
                    INTR_FBINT         = 0x01, // front/back
                    INTR_PLINT         = 0x02, // up/down/right/left
                    INTR_PDINT         = 0x04, // tap detection
-                   INTR_ASINT         = 0x08, // exit autosleep
+                   INTR_ASINT         = 0x08, // exit auto-sleep
                    INTR_GINT          = 0x10, // measurement intr
                    INTR_SHINTZ        = 0x20, // shake on Z
                    INTR_SHINTY        = 0x40, // shake on Y
@@ -84,7 +96,7 @@ namespace upm {
                    MODE_TON           = 0x04, // determines mode with MODE_MODE
                    MODE_AWE           = 0x08, // auto-wake
                    MODE_ASE           = 0x10, // auto-sleep
-                   MODE_SCPS          = 0x20, // sleep count pre-scale
+                   MODE_SCPS          = 0x20, // sleep count prescale
                    MODE_IPP           = 0x40, // intr out push-pull/open drain
                    MODE_IAH           = 0x80  // intr active low/high
     } MMA7660_MODE_T;
@@ -103,7 +115,7 @@ namespace upm {
                    LP_VERT_UP          = 0x06
     } MMA7660_TILT_LP_T;    
 
-    // sample rate (auto sleep) values
+    // sample rate (auto-sleep) values
     typedef enum { AUTOSLEEP_120   = 0x00,
                    AUTOSLEEP_64    = 0x01,
                    AUTOSLEEP_32    = 0x02,
@@ -115,151 +127,151 @@ namespace upm {
     } MMA7660_AUTOSLEEP_T;    
 
     /**
-     * mma7660 constructor
+     * MMA7660 constructor
      *
-     * @param bus i2c bus to use
-     * @param address the address for this sensor; default is 0x55
+     * @param bus I2C bus to use
+     * @param address Address for this sensor; default is 0x55
      */
     MMA7660(int bus, uint8_t address = MMA7660_DEFAULT_I2C_ADDR);
 
     /**
-     * MMA7660 Destructor
+     * MMA7660 destructor
      */
     ~MMA7660();
 
     /**
-     * Write byte value into register
+     * Writes a byte value into a register
      *
-     * @param reg register location to write into
-     * @param byte byte to write
-     * @return true if successful
+     * @param reg Register location to write into
+     * @param byte Byte to write
+     * @return True if successful
      */
     bool writeByte(uint8_t reg, uint8_t byte);
 
     /**
-     * Read byte value from register
+     * Reads a byte value from a register
      *
-     * @param reg register location to read from
-     * @return value at specified register
+     * @param reg Register location to read from
+     * @return Value in a specified register
      */
     uint8_t readByte(uint8_t reg);
 
     /**
-     * Read current value of conversion
+     * Reads the current value of conversion
      *
-     * @param x returned x value
-     * @param y returned y value
-     * @param z returned z value
+     * @param x Returned x value
+     * @param y Returned y value
+     * @param z Returned z value
      */
     void getRawValues(int *x, int *y, int *z);
 
     /**
-     * Get the computed acceleration
+     * Gets the computed acceleration
      *
-     * @param ax returned computed acceleration of X axis
-     * @param ay returned computed acceleration of Y axis
-     * @param az returned computed acceleration of Z axis
+     * @param ax Returned computed acceleration of the X-axis
+     * @param ay Returned computed acceleration of the Y-axis
+     * @param az Returned computed acceleration of the Z-axis
      */
     void getAcceleration(float *ax, float *ay, float *az);
 
     /**
-     * Read an axis, verifying it's validity.  The value passed must
+     * Reads an axis, verifying its validity. The value passed must
      * be one of REG_XOUT, REG_YOUT, or REG_ZOUT.
      *
-     * @param axis axis to read
-     * @return axis value
+     * @param axis Axis to read
+     * @return Axis value
      */
     int getVerifiedAxis(MMA7660_REG_T axis);
 
     /**
-     * Read the tilt register, verifying it's validity.
+     * Reads the tilt register, verifying its validity
      *
-     * @return tilt value
+     * @return Tilt value
      */
     uint8_t getVerifiedTilt();
 
     /**
-     * Put the device into active mode.  In active mode, register
-     * write are not allowed.  Place the device in Standby mode before
+     * Puts the device in the active mode. In this mode, register
+     * writes are not allowed. Place the device in the standby mode before
      * attempting to write registers.
      *
      */
     void setModeActive();
 
     /**
-     * Put the device into Standby (power saving) mode.  Note, when in
-     * standby mode, there will be no valid data in the registers.  In
-     * addition, the only way to write a register is to place the
-     * device in standby mode.
+     * Puts the device in the standby (power saving) mode. Note: when in
+     * the standby mode, there is no valid data in the registers. In
+     * addition, the only way to write a register is to put the
+     * device in the standby mode.
      *
      */
     void setModeStandby();
 
     /**
-     * Read tilt BackFront bits
+     * Reads tiltBackFront bits
      *
-     * The value returned will be one of the MMA7660_TILT_BF_T values
+     * The value returned is one of the MMA7660_TILT_BF_T values
      *
-     * @return the bits corresponding to the BackFront tilt status
+     * @return Bits corresponding to the BackFront tilt status
      */
     uint8_t tiltBackFront();
     
     /**
-     * Read tilt LandscapePortrait bits
+     * Reads tiltLandscapePortrait bits
      *
-     * The value returned will be one of the MMA7660_TILT_LP_T values
+     * The value returned is one of the MMA7660_TILT_LP_T values
      *
-     * @return the bits corresponding to the LandscapePortrait tilt status
+     * @return Bits corresponding to the LandscapePortrait tilt status
      */
     uint8_t tiltLandscapePortrait();
     
     /**
-     * read the tilt Tap status
+     * Reads the tiltTap status
      *
-     * @return true if a tap was detected
+     * @return True if a tap is detected
      */
     bool tiltTap();
     
     /**
-     * read the tilt Shake status
+     * Reads the tiltShake status
      *
-     * @return true if a Shake was detected
+     * @return True if a shake is detected
      */
     bool tiltShake();
     
     /**
-     * Install an Interrupt Service Routine (ISR) to be called when
+     * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs
      *
-     * @param pin gpio pin to use as interrupt pin
-     * @param fptr function pointer to function to be called on interrupt
-     * @param arg pointer to an object that will be supplied as an
+     * @param pin GPIO pin to use as the interrupt pin
+     * @param fptr Pointer to a function to be called on interrupt
+     * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
     void installISR(int pin, void (*isr)(void *), void *arg);
 
     /**
-     * Uninstall the previously installed Interrupt Service Routine (ISR)
+     * Uninstalls the previously installed ISR
      *
      */
     void uninstallISR();
 
     /**
-     * Enable interrupt generation based on the passed interrupt bits.
-     * The bits are a bit mask of the requested MMA7660_INTR_T values.
-     * Note: The device must be in standby mode to set this register.
+     * Enables interrupt generation based on passed interrupt bits.
+     * The bits are a bitmask of the requested MMA7660_INTR_T values.
+     * Note: the device must be in the standby mode to set this register.
      *
-     * @param ibits set the requested interrupt bits
-     * @return true if successful
+     * @param ibits Sets the requested interrupt bits
+     * @return True if successful
      */
     bool setInterruptBits(uint8_t ibits);
 
     /**
-     * Set the sampling rate of the sensor.  The value supplied must
+     * Sets the sampling rate of the sensor. The value supplied must
      * be one of the MMA7660_AUTOSLEEP_T values.
      *
-     * @param sr one of the MMA7660_AUTOSLEEP_T values
-     * @return true if successful
+     * @param sr One of the MMA7660_AUTOSLEEP_T values
+     * @return True if successful
      */
     bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
 

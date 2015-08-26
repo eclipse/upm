@@ -61,31 +61,39 @@ namespace upm {
 #define Z 2
 
 /**
- * @brief LSM303 accelerometer/compass library
+ * @brief LSM303 Accelerometer/Compass library
  * @defgroup lsm303 libupm-lsm303
+ * @ingroup seeed adafruit i2c accelerometer compass
  */
 
 /**
- * @brief C++ API for LSM303
+ * @library lsm303
+ * @sensor lsm303
+ * @comname LSM303 Accelerometer & Compass
+ * @altname Grove 6-Axis Accelerometer & Compass
+ * @type accelerometer compass
+ * @man seeed adafruit
+ * @web http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass
+ * @con i2c
+ *
+ * @brief API for the LSM303 Accelerometer & Compass
  *
  * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
- * This module was tested with the SeedStudio Grove [6-Axis Accelerometer&Compass]
- * (http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass)
- * module that is used over i2c. The magnometer and acceleromter are accessed
- * at two seperate i2c addresses.
+ * This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass
+ * module used over I2C. The magnometer and acceleromter are accessed
+ * at two seperate I2C addresses.
  *
- * @ingroup lsm303 i2c
- * @snippet lsm303.cxx Interesting
  * @image html lsm303.jpeg
+ * @snippet lsm303.cxx Interesting
  */
 class LSM303 {
     public:
          /**
-         * Instanciates a LSM303 object
+         * Instantiates an LSM303 object
          *
          * @param i2c bus
-         * @param addr magometer
-     * @param addr accelerometer
+         * @param addr Magnetometer
+         * @param addr Accelerometer
          */
         LSM303 (int bus,
                 int addrMag=LSM303_MAG,
@@ -98,60 +106,60 @@ class LSM303 {
         ~LSM303 ();
 
         /**
-         * Get Current Heading, headings <0 indicate an error occured
+         * Gets the current heading; headings <0 indicate an error has occurred
          *
          * @return float
          */
         float getHeading();
 
         /**
-         * Get the coordinates in XYZ order
+         * Gets the coordinates in the XYZ order
          */
         mraa_result_t getCoordinates();
 
         /**
-         * Get accelerometer values
-         * Call before calling other "get" functions for acceleration
+         * Gets accelerometer values
+         * Should be called before other "get" functions for acceleration
          */
         mraa_result_t getAcceleration();
 
         /**
-         * Get the raw coordinate data, this will get updated when getCoordinates() is called
+         * Gets raw coordinate data; it is updated when getCoordinates() is called
          */
         int16_t* getRawCoorData();
 
         /**
-         * Just get the X component of the coordinate data
+         * Gets the X component of the coordinates data
          */
         int16_t getCoorX();
 
         /**
-         * Just get the Y component of the coordinate data
+         * Gets the Y component of the coordinates data
          */
         int16_t getCoorY();
 
         /**
-         * Just get the Z component of the coordinate data
+         * Gets the Z component of the coordinates data
          */
         int16_t getCoorZ();
 
         /**
-         * Get the raw accelerometer data, this will get updated when getAcceleration() is called
+         * Gets raw accelerometer data; it is updated when getAcceleration() is called
          */
         int16_t* getRawAccelData();
 
         /**
-         * Just get the X component of the acceleration
+         * Gets the X component of the acceleration data
          */
         int16_t getAccelX();
 
         /**
-         * Just get the Y component of the acceleration
+         * Gets the Y component of the acceleration data
          */
         int16_t getAccelY();
 
         /**
-         * Just get the Z component of the acceleration
+         * Gets the Z component of the acceleration data
          */
         int16_t getAccelZ();
 

@@ -1,5 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtlulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Credits to Seeed Studeo.
@@ -26,93 +27,87 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
-#define ADDR                0x40 // device address
+#define TH02_ADDR                0x40 // device address
 
-#define REG_STATUS          0x00
-#define REG_DATA_H          0x01
-#define REG_DATA_L          0x02
-#define REG_CONFIG          0x03
-#define REG_ID              0x11
+#define TH02_REG_STATUS          0x00
+#define TH02_REG_DATA_H          0x01
+#define TH02_REG_DATA_L          0x02
+#define TH02_REG_CONFIG          0x03
+#define TH02_REG_ID              0x11
 
-#define STATUS_RDY_MASK     0x01
+#define TH02_STATUS_RDY_MASK     0x01
 
-#define CMD_MEASURE_HUMI    0x01
-#define CMD_MEASURE_TEMP    0x11
-
-#define TH02_WR_REG_MODE    0xC0
-#define TH02_RD_REG_MODE    0x80
-
-#define HIGH                1
-#define LOW                 0
+#define TH02_CMD_MEASURE_HUMI    0x01
+#define TH02_CMD_MEASURE_TEMP    0x11
 
 namespace upm {
 
 /**
- * @brief C++ API for th02 temperature & humidity sensor library
- *
- *   This file defines the TH02 C++ interface for libth02
- *
+ * @brief TH02 Temperature & Humidity Sensor library
  * @defgroup th02 libupm-th02
  * @ingroup seeed i2c temp
  */
 /**
  * @library th02
  * @sensor th02
- * @comname temperature and humidity sensor
+ * @comname TH02 Temperature & Humidity Sensor
+ * @altname Grove Temperature & Humidity Sensor (High-Accuracy & Mini)
  * @type temp
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Tempture%26Humidity_Sensor_(High-Accuracy_%26Mini)_v1.0
  * @con i2c
  *
- * @brief C++ API for th02 temperature & humidity sensor library
+ * @brief API for the TH02 Temperature & Humidity Sensor
  * 
- *   This file defines the TH02 C++ interface for libth02
+ *   This file defines the TH02 interface for libth02 
  *
+ *   Note: For use on Intel(R) Edison with an Arduino* breakout board, Intel
+ *   Edison must be set to 3 V rather than 5 V.
+ *
+ * @image html th02.jpg
  * @snippet th02.cxx Interesting
  */
 class TH02 {
     public:
         /**
-         * Instanciates a TH02 object
+         * Instantiates a TH02 object
          */
-        TH02 ();
+        TH02 (int bus=0, uint8_t addr=TH02_ADDR);
 
         /**
-         * TH02 object destructor, basicaly it close i2c connection.
+         * TH02 object destructor; basically, it closes the I2C connection.
          */
         ~TH02 ();
 
         /**
-         * Get the temperature value from sensor.
+         * Gets the temperature value from the sensor.
          */
         float getTemperature ();
 
         /**
-         * Get the humidity value from sensor.
+         * Gets the humidity value from the sensor.
          */
         float getHumidity ();
 
         /**
-         * Get the sensor's status.
+         * Gets the sensor status.
          */
         bool getStatus ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
             return m_name;
         }
+
     private:
         std::string m_name;
-        mraa_i2c_context m_i2Ctx;
-
-        uint16_t i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t data);
+        mraa::I2c m_i2c;
+        uint8_t m_addr;
 };
 
 }

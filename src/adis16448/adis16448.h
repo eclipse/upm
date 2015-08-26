@@ -11,7 +11,7 @@
 //
 // This library runs on an Intel Edison and uses mraa to acquire data
 // from an ADIS16448. This data is then scaled and printed onto the terminal.
-// 
+//
 // This software has been tested to connect to an ADIS16448 through a level shifter
 // such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
 // the level shifter and the ADIS16448 is also being powered by the Intel Edison.
@@ -84,11 +84,11 @@
 
 namespace upm {
  /**
-  * @brief Adis16448
-  * @defgroup adis16448 libupm-adis16488
+  * @brief ADIS16448 Accelerometer library
+  * @defgroup adis16448 libupm-adis16448
   * @ingroup generic spi accelerometer
   */
- 
+
  /**
   * @library adis16448
   * @sensor adis16448
@@ -98,54 +98,76 @@ namespace upm {
   * @web http://www.analog.com/en/products/sensors/isensor-mems-inertial-measurement-units/adis16448.html
   * @con spi
   *
-  * @brief C++ API for Analog Devices ADIS16448
+  * @brief API for the Analog Devices ADIS16448 Accelerometer
   *
-  *	This is an industrial grade accelerometer by Analog Devices.
+  * This is an industrial-grade accelerometer by Analog Devices.
   *
   * @snippet adis16448.cxx Interesting
   */
-	class ADIS16448{
+    class ADIS16448{
 
-		public:
+        public:
 
-		// Constructor with configurable HW Reset
-		ADIS16448(int bus, int rst);
+        /**
+         * Constructor with configurable HW Reset
+         */
+        ADIS16448(int bus, int rst);
 
-		//Destructor
-		~ADIS16448();
+        /**
+         * Destructor
+         */
+        ~ADIS16448();
 
-		//Performs hardware reset by sending the specified pin low for 2 seconds
-		void resetDUT();
+        /**
+         * Performs hardware reset by sending the specified pin low for 2 seconds
+         */
+        void resetDUT();
 
-		//Sets SPI frequency, mode, and bits/word
-		void configSPI();
+        /**
+         * Sets SPI frequency, mode, and bits/word
+         */
+        void configSPI();
 
-		//Read specified register and return data
-		int16_t regRead(uint8_t regAddr);
+        /**
+         * Reads a specified register and returns data
+         */
+        int16_t regRead(uint8_t regAddr);
 
-		//Write to specified register
-		void regWrite(uint8_t regAddr, uint16_t regData);
+        /**
+         * Writes to a specified register
+         */
+        void regWrite(uint8_t regAddr, uint16_t regData);
 
-		//Scale accelerometer data
-		float accelScale(int16_t sensorData);
+        /**
+         * Scales accelerometer data
+         */
+        float accelScale(int16_t sensorData);
 
-		//Scale gyro data
-		float gyroScale(int16_t sensorData);
+        /**
+         * Scales gyro data
+         */
+        float gyroScale(int16_t sensorData);
 
-		//Scale temperature data
-		float tempScale(int16_t sensorData);
+        /**
+         * Scales temperature data
+         */
+        float tempScale(int16_t sensorData);
 
-		//Scale pressure data
-		float pressureScale(int16_t sensorData);
+        /**
+         * Scales pressure data
+         */
+        float pressureScale(int16_t sensorData);
 
-		//Scale magnetometer data
-		float magnetometerScale(int16_t sensorData);
+        /**
+         * Scales magnetometer data
+         */
+        float magnetometerScale(int16_t sensorData);
 
-		private:
+        private:
 
-		mraa_spi_context _spi;
-		mraa_gpio_context _rst;
+        mraa_spi_context _spi;
+        mraa_gpio_context _rst;
 
-	};
+    };
 }
 

@@ -34,23 +34,28 @@
 namespace upm {
 
 /**
- * @brief max5847 digital potentiometer library
- * @defgroup max5847 libupm-max5847
+ * @brief MAX5487 Digital Potentiometer library
+ * @defgroup max5487 libupm-max5487
+ * @ingroup maxim spi digipot
  */
-
 /**
- * @brief C++ API for MAX5487 chip (SPI digital potentionmeter)
+ * @library max5487
+ * @sensor max5487
+ * @comname MAX5487 Digital Potentiometer
+ * @type digipot
+ * @man maxim
+ * @con spi
  *
- * The Maxim Integrated
+ * @brief API for the MAX5487 SPI Digital Potentiometer
+ *
+ * Maxim Integrated*
  * [MAX5487](http://datasheets.maximintegrated.com/en/ds/MAX5487-MAX5489.pdf)
- * is a Dual, 256-Tap, Nonvolatile, SPI-Interface, Linear-Taper Digital
- * Potentiometer. This module was tested on the  Maxim Integrated [MAX5487PMB1
+ * is a dual, 256-tap, nonvolatile, SPI, linear-taper digital
+ * potentiometer. This module was tested on the  Maxim Integrated [MAX5487PMB1
  * PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX5487PMB1.pdf)
  * from the analog PMOD kit.
  *
- * @ingroup max5847 spi
  * @snippet max5487.cxx Interesting
- * @image html max5487.jpeg
  */
 class MAX5487 {
     public:
@@ -58,9 +63,9 @@ class MAX5487 {
         static const uint8_t R_WR_WIPER_B   = 0x02;
 
         /**
-         * Instanciates a MAX5487 object
+         * Instantiates an MAX5487 object
          *
-         * @param csn to use if any, by default will use ICSP CS (-1)
+         * @param csn CSN to use, if any; by default, ICSP CS (-1) is used
          */
         MAX5487 (int csn = -1);
 
@@ -70,17 +75,17 @@ class MAX5487 {
         ~MAX5487 ();
 
         /**
-         * Set wiper for port A.
+         * Sets a wiper for port A.
          */
         void setWiperA (uint8_t wiper);
 
         /**
-         * Set wiper for port B.
+         * Sets a wiper for port B.
          */
         void setWiperB (uint8_t wiper);
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -92,12 +97,12 @@ class MAX5487 {
         mraa_gpio_context       m_csnPinCtx;
 
         /**
-         * Set chip select pin LOW
+         * Sets the chip select pin to LOW
          */
         mraa_result_t CSOn ();
 
         /**
-         * Set chip select pin HIGH
+         * Sets the chip select pin to HIGH
          */
         mraa_result_t CSOff ();
 };

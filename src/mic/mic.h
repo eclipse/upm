@@ -36,58 +36,68 @@ struct thresholdContext {
 namespace upm {
 
 /**
- * @brief analog microphone library
+ * @brief Analog Microphone library
  * @defgroup mic libupm-mic
+ * @ingroup seeed pwm sound gsk
  */
-
 /**
- * @brief C++ API for Microphone
+ * @library mic
+ * @sensor mic
+ * @comname Analog Microphone
+ * @altname Grove Sound Sensor
+ * @type sound
+ * @man seeed
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensors
+ * @con pwm
+ * @kit gsk
  *
- * This file defines the Microphone Analog sensor
+ * @brief API for the Analog Microphone
  *
- * @ingroup mic pwm
+ * This file defines the Analog Microphone sensor
+ *
+ * @image html mic.jpg
  * @snippet mic.cxx Interesting
  */
 class Microphone {
     public:
         /**
-         * Instanciates a Microphone object
+         * Instantiates a Microphone object
          *
-         * @param micPin pin where microphone is connected
+         * @param micPin Pin where the microphone is connected
          */
         Microphone(int micPin);
 
         /**
-         * MAX31723 object destructor
+         * Microphone object destructor
          */
         ~Microphone();
 
         /**
-         * Get samples from microphone according to provided window and
+         * Gets samples from the microphone according to the provided window and
          * number of samples
          *
-         * @param freqMS time between each sample (in microseconds)
-         * @param numberOfSamples number of sample to sample for this window
-         * @param buffer bufer with sampled data
+         * @param freqMS Time between each sample (in microseconds)
+         * @param numberOfSamples Number of sample to sample for this window
+         * @param buffer Buffer with sampled data
          */
         int getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples, uint16_t * buffer);
 
         /**
-         * Given sampled buffer this method will return TRUE/FALSE if threshold
-         * was reached
+         * Given the sampled buffer, this method returns TRUE/FALSE if threshold
+         * is reached
          *
-         * @param ctx threshold context
-         * @param threshold sample threshold
-         * @param buffer buffer with samples
-         * @param len bufer len
+         * @param ctx Threshold context
+         * @param threshold Sample threshold
+         * @param buffer Buffer with samples
+         * @param len Buffer length
          */
         int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, unsigned int len);
 
         /**
          *
-         * Print running average of threshold context
+         * Prints a running average of the threshold context
          *
-         * @param ctx threshold context
+         * @param ctx Threshold context
          */
         void printGraph (thresholdContext* ctx);
 

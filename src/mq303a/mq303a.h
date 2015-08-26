@@ -29,44 +29,59 @@
 namespace upm {
 
   /**
-   * @brief C++ API for the MQ303A Alcohol Sensor
+   * @brief MQ303A Alcohol Sensor library
+   * @defgroup mq303a libupm-mq303a
+   * @ingroup seeed analog gpio gaseous tsk
+   */
+  /**
+   * @library mq303a
+   * @sensor mq303a
+   * @comname MQ303A Alcohol Sensor
+   * @altname Grove Alcohol Sensor
+   * @type gaseous
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
+   * @con analog gpio
+   * @kit tsk
    *
-   * UPM module for the MQ303A Alcohol Sensor.
+   * @brief API for the MQ303A Alcohol Sensor
+   *
+   * UPM module for the MQ303A alcohol sensor.
    * This sensor needs to be warmed up before stable results are
-   * obtained.  The higher the value returned from value(),
-   * the higher the amount of alcohol that was detected.
+   * obtained. The higher the value returned from value(),
+   * the higher the amount of alcohol detected.
    *
-   * @ingroup analog gas alcohol
+   * @image html mq303a.jpg
    * @snippet mq303a.cxx Interesting
    */
   class MQ303A {
   public:
     /**
-     * MQ303A sensor constructor
+     * MQ303A constructor
      *
-     * @param pin analog pin to use
-     * @param heaterPin digital pin mapped to analog pin to use
+     * @param pin Analog pin to use
+     * @param heaterPin Digital pin mapped to the analog pin to use
      */
     MQ303A(int pin, int heaterPin);
 
     /**
-     * MQ303A Destructor
+     * MQ303A destructor
      */
     ~MQ303A();
 
     /**
-     * Get the alcohol detected from the sensor.  
+     * Gets the alcohol reading from the sensor.  
      * The value read from the analog pin is inverted.  
-     * A higher returned value means a higher amount of alcohol was detected.
+     * A higher returned value means a higher amount of alcohol detected.
      *
-     * @return the alcohol reading
+     * @return Alcohol reading
      */
     int value();
 
     /**
-     * Enable the heater.
+     * Enables the heater
      *
-     * @param enable if true, enable the heater else disable
+     * @param enable Enables the heater if true; otherwise, disables it
      */
     void heaterEnable(bool enable);
 

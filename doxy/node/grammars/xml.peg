@@ -1,0 +1,45 @@
+document
+  = _ ignore* _ "<doxygen " _ attr:attr* _ ">" body:elements _ "</doxygen>" _ { return body; }
+
+
+elements
+  = element*
+
+element
+  = _ "<" startTag:id _ attr:attr* _ ">" _ children:elements _ "</" endTag:id ">" _ {
+    if (startTag != endTag) {
+      throw new Error("Expected </" + startTag + "> but </" + endTag + "> found.");
+    }
+    return {name: startTag, attr: attr, children: children }
+  }
+  / "<" tag:id _ attr:attr* _ "/>" _ {
+    return {name: tag, attr: attr }
+  }
+  / _ text:text _ { return text }
+
+ignore
+  = "<?xml" _ attr* _ "?>" { return }
+
+attr
+  = name:id _ "=" _ value:string { return { name:name, value:value } }
+
+string
+  = '"' '"' _           { return ""; }
+  / "'" "'" _           { return ""; }
+  / '"' text:quoted '"' _ { return text; }
+  / "'" text:quoted "'" _ { return text; }
+
+quoted
+  = chars:[^<>'" \t\n\r]+  { return chars.join(""); }
+
+text
+  = chars:[^<> \t\n\r]+  { return chars.join(""); }
+
+id
+  = chars:[^<>/'"=? \t\n\r]+  { return chars.join(""); }
+
+_ "whitespace"
+  = whitespace*
+
+whitespace
+  = [ \t\n\r]

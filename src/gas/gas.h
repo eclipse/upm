@@ -34,21 +34,21 @@ struct thresholdContext {
 };
 
 namespace upm {
-
 /**
- * @brief Gas Sensor Library
+ * @brief Gas Sensor library
  *
- * Sensor Library for air quality and gas detecting sensors. Base class Gas provides buffered
- * sampling, threshold checking, a basic printing function and a standard read function.
+ * Library for air quality and gas detecting sensors. Base class Gas provides buffered
+ * sampling, threshold checking, basic printing function, and standard read function.
  *
  * @defgroup gas libupm-gas
+ * @ingroup seeed analog gaseous eak hak
  */
 class Gas {
     public:
         /**
          * Instantiates a Gas object
          *
-         * @param gasPin pin where gas is connected
+         * @param gasPin Pin where gas is connected
          */
         Gas(int gasPin);
 
@@ -58,45 +58,45 @@ class Gas {
         ~Gas();
 
         /**
-         * Get samples from gas sensor according to provided window and
+         * Gets samples from the gas sensor according to the provided window and
          * number of samples
          *
-         * @param freqMS time between each sample (in milliseconds)
-         * @param numberOfSamples number of sample to sample for this window
-         * @param buffer buffer with sampled data
+         * @param freqMS Time between each sample (in milliseconds)
+         * @param numberOfSamples Number of sample to sample for this window
+         * @param buffer Buffer with sampled data
          */
         virtual int getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples, uint16_t * buffer);
 
         /**
-         * Given sampled buffer this method will return TRUE/FALSE if threshold
-         * was reached
+         * Given the sampled buffer, this method returns TRUE/FALSE if the threshold
+         * is reached
          *
-         * @param ctx threshold context
-         * @param threshold sample threshold
-         * @param buffer buffer with samples
-         * @param len buffer length
+         * @param ctx Threshold context
+         * @param threshold Sample threshold
+         * @param buffer Buffer with samples
+         * @param len Buffer length
          */
         virtual int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, unsigned int len);
 
         /**
-         * Return average data for the sampled window
+         * Returns average data for the sampled window
          *
-         * @param ctx threshold context
+         * @param ctx Threshold context
          */
         virtual int getSampledData (thresholdContext* ctx);
 
         /**
-         * Return one sample from the sensor
+         * Returns one sample from the sensor
          *
-         * @param ctx threshold context
+         * @param ctx Threshold context
          */
         virtual int getSample ();
 
         /**
          *
-         * Print running average of threshold context
+         * Prints a running average of the threshold context
          *
-         * @param ctx threshold context
+         * @param ctx Threshold context
          */
         virtual void printGraph (thresholdContext* ctx, uint8_t resolution);
 

@@ -27,33 +27,47 @@
 #include <mraa/aio.h>
 
 namespace upm {
+  /**
+   * @brief GUVA-S12D UV sensor library
+   * @defgroup guvas12d libupm-guvas12d
+   * @ingroup seeed analog light eak
+   */
 
   /**
-   * @brief C++ API for the GUVAS12D UV sensor module
+   * @library guvas12d
+   * @sensor guvas12d
+   * @comname Grove UV Sensor
+   * @altname GUVA-S12D UV Sensor
+   * @type light
+   * @man seeed
+   * @con analog
+   * @kit eak
    *
-   * UPM module for the GUVAS12D UV Sensor
+   * @brief API for the GUVA-S12D UV Sensor
    *
-   * @ingroup grove analog
+   * UPM module for the GUVA-S12D UV sensor
+   *
+   * @image html guvas12d.jpg
    * @snippet guvas12d.cxx Interesting
    */
   class GUVAS12D {
   public:
     /**
-     * GUVAS12D sensor constructor
+     * GUVA-S12D UV sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GUVAS12D(int pin);
     /**
-     * GUVAS12D Destructor
+     * GUVAS12D destructor
      */
     ~GUVAS12D();
     /**
-     * Get the averaged voltage value from the sensor
+     * Gets the average voltage value from the sensor
      *
-     * @param aref the reference voltage in use (5.0 or 3.3 usually)
-     * @param samples number of samples to average over
-     * @return the averaged voltage reading
+     * @param aref Reference voltage in use (usually 5.0 V or 3.3 V)
+     * @param samples Number of samples to average over
+     * @return Average voltage reading
      */
     float value(float aref, unsigned int samples);
 
@@ -61,5 +75,3 @@ namespace upm {
     mraa_aio_context m_aio;
   };
 }
-
-

@@ -39,16 +39,27 @@ namespace upm {
 /**
  * @brief Buzzer library
  * @defgroup buzzer libupm-buzzer
+ * @ingroup seeed pwm sound gsk
  */
 
 /**
- * @brief C++ API for Buzzer component
+ * @library buzzer
+ * @sensor buzzer
+ * @comname Grove Buzzer
+ * @type sound
+ * @man seeed
+ * @con pwm
+ * @kit gsk
  *
- * This file defines the Buzzer C++ interface for libbuzzer.
+ * @brief API for the Buzzer component
+ *
+ * This file defines the Buzzer interface for libbuzzer.
  * This sensor can make different tones when connected to
- * a pin capable of analog pulse-width modulation.
+ * a pin capable of analog pulse-width modulation. It emits 
+ * sound using a piezoelectric material that vibrates at different
+ * frequencies based on the input voltage.
  *
- * @ingroup buzzer pwm
+ * @image html buzzer.jpg
  * @snippet buzzer-sound.cxx Interesting
  */
 class Buzzer {
@@ -66,42 +77,42 @@ class Buzzer {
         ~Buzzer ();
 
         /**
-         * Play a tone for a certain amount of time or indefinitely. When delay
+         * Plays a tone for a certain amount of time or indefinitely. When delay
          * is not used, the sound can be stopped by calling stopSound().
          *
-         * @param note the note to be played (DO, RE, MI, etc...) or frequency
-         * @param delay time in microseconds for playing the sound, a value of
-         * 0 plays the sound indefinitely
+         * @param note Note to play (C, D, E, etc.) or frequency
+         * @param delay Time in microseconds for which to play the sound; if the value is
+         * 0, the sound is played indefinitely
          *
-         * @return the note played
+         * @return Note played
          */
         int playSound (int note, int delay);
 
         /**
-         * Stops the sound currently playing. Has to be called when playSound()
-         * does not set a delay value.
+         * Stops the sound currently playing. Should be called when playSound()
+         * does not have a delay value.
          */
         void stopSound();
 
         /**
          * Sets the volume for the buzzer, but may affect the sound timbre.
-         * Works best with halved values, e.g. 1.0, 0.5, 0.25, ...
+         * Works best with halved values; e.g., 1.0, 0.5, 0.25, etc.
          *
-         * @param vol the value to set the volume to from 0.0 to 1.0
+         * @param vol Value to set the volume to, from 0.0 to 1.0
          */
         void setVolume(float vol);
 
         /**
          * Gets the buzzer volume.
          *
-         * @return the value the volume was set to
+         * @return Value the volume was set to
          */
         float getVolume();
 
         /**
-         * Return name of the component.
+         * Returns the name of the sensor.
          *
-         * @return name of the sensor
+         * @return Name of the sensor
          */
         std::string name()
         {

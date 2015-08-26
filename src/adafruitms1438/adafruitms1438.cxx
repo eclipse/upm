@@ -47,7 +47,7 @@ AdafruitMS1438::AdafruitMS1438(int bus, uint8_t address) :
   disableMotor(MOTOR_M2);
   disableMotor(MOTOR_M3);
   disableMotor(MOTOR_M4);
-  
+
   // Set all 'on time' registers to 0
   m_pca9685->ledOnTime(PCA9685_ALL_LED, 0);
 
@@ -152,6 +152,11 @@ void AdafruitMS1438::setMotorSpeed(DCMOTORS_T motor, int speed)
 
   float percent = float(speed) / 100.0;
   
+  // make sure that the FullOn bit is turned off, or the speed setting
+  // (PWM duty cycle) won't have any effect.
+  m_pca9685->ledFullOn(m_dcMotors[motor].pwm, false);
+
+  // set the PWM duty cycle
   m_pca9685->ledOffTime(m_dcMotors[motor].pwm, int(4095.0 * percent));
 }
 

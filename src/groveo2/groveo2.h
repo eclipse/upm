@@ -27,34 +27,43 @@
 #include <mraa/aio.h>
 
 namespace upm {
-    /**
-     * @brief UPM module for the GroveO2 Oxygen Gas Sensor
-     * @defgroup groveo2 libupm-groveo2
-    */
-    /**
-     * @brief C++ API for the GroveO2 Oxygen Gas Sensor
-     *
-     * The Grove O2 sensor measures the oxygen concentration in the air
-     * 
-     * @ingroup analog groveo2
-     * @snippet groveo2.cxx Interesting
-    */
+  /**
+   * @brief Grove O2 Oxygen Gas Sensor library
+   * @defgroup groveo2 libupm-groveo2
+   * @ingroup seeed analog gaseous
+   */
+
+  /**
+   * @library groveo2
+   * @sensor groveo2
+   * @comname Grove O2 Sensor
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   *
+   * @brief API for the Grove O2 Oxygen Gas Sensor
+   *
+   * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
+   *
+   * @image html groveo2.jpg    
+   * @snippet groveo2.cxx Interesting
+   */
   class GroveO2 {
   public:
     /**
-     * GroveO2 sensor constructor
+     * Grove O2 Oxygen Gas sensor constructor
      *
-     * @param pin analog pin to use
+     * @param pin Analog pin to use
      */
     GroveO2(int pin);
     /**
-     * GroveO2 Destructor
+     * GroveO2 destructor
      */
     ~GroveO2();
     /**
      * Measures O2 from the sensor
      *
-     * @return the Oxygen concentration as voltage
+     * @return Oxygen concentration as voltage
      */
     float voltageValue();
 
@@ -62,5 +71,3 @@ namespace upm {
     mraa_aio_context m_aio;
   };
 }
-
-

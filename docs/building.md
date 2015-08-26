@@ -3,8 +3,7 @@ Building UPM                         {#building}
 
 UPM uses cmake in order to make compilation relatively painless. Cmake runs
 build out of tree so the recommended way is to clone from git and make a build/
-directory. Failure to do an out-of-source build may cause issues when
-rebuilding later on.
+directory.
 
 This project depends on libmraa, so that needs to be installed first. Use the
 following environment variables to configure the paths:
@@ -21,7 +20,12 @@ mkdir build
 cd build
 cmake ..
 make
+make install
 ~~~~~~~~~~~~~
+
+The last command will create the include/ and lib/ directories with a copy of
+the headers and library objects respectively in your build location. Note that
+doing an out-of-source build may cause issues when rebuilding later on.
 
 Our cmake configure has a number of options, *cmake-gui* or *ccmake* can show
 you all the options. The interesting ones are detailed below:
@@ -57,7 +61,11 @@ Setting the python library to use:
 ~~~~~~~~~~~~~
 Building doxygen doc
 ~~~~~~~~~~~~~
--BUILDDOC=ON
+-DBUILDDOC=ON
+~~~~~~~~~~~~~
+Build C++ example binaries
+~~~~~~~~~~~~~
+-DBUILDEXAMPLES=ON
 ~~~~~~~~~~~~~
 
 If you intend to turn on all the options and build everything at once (C++,

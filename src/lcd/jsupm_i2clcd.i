@@ -8,14 +8,10 @@
   $1 = (uint8_t *)(argp);
 }
 
-%include "i2clcd.h"
+%include "ssd.h"
+%include "lcd.h"
 %{
-    #include "i2clcd.h"
-%}
-
-%include "jhd1313m1.h"
-%{
-    #include "jhd1313m1.h"
+    #include "lcd.h"
 %}
 
 %include "lcm1602.h"
@@ -23,7 +19,27 @@
     #include "lcm1602.h"
 %}
 
+%include "jhd1313m1.h"
+%{
+    #include "jhd1313m1.h"
+%}
+
 %include "ssd1327.h"
 %{
     #include "ssd1327.h"
+%}
+
+%include "ssd1308.h"
+%{
+    #include "ssd1308.h"
+%}
+
+%include "eboled.h"
+%{
+    #include "eboled.h"
+%}
+
+%include "sainsmartks.h"
+%{
+    #include "sainsmartks.h"
 %}

@@ -32,63 +32,72 @@
 #define LOW       0
 
 namespace upm {
-
+  /**
+   * @brief Grove Speaker library
+   * @defgroup grovespeaker libupm-grovespeaker
+   * @ingroup seeed gpio sound hak
+   */
 typedef struct
 {
-	int delayTimeLow;
-	int delayTimeLowSharp;
-	int delayTimeMed;
-	int delayTimeMedSharp;
-	int delayTimeHigh;
-	int delayTimeHighSharp;
+    int delayTimeLow;
+    int delayTimeLowSharp;
+    int delayTimeMed;
+    int delayTimeMedSharp;
+    int delayTimeHigh;
+    int delayTimeHighSharp;
 } NoteData;
-
   /**
-   * @brief C++ API for the GroveSpeaker speaker
+   * @library grovespeaker
+   * @sensor grovespeaker
+   * @comname Grove Speaker
+   * @type sound
+   * @man seeed
+   * @con gpio
+   * @kit hak
    *
-   * UPM module for the GroveSpeaker.
+   * @brief API for the Grove Speaker
+   *
+   * UPM module for the Grove Speaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
-   *
-   * @ingroup gpio
+   * 
+   * @image html grovespeaker.jpg 
    * @snippet grovespeaker.cxx Interesting
    */
   class GroveSpeaker {
   public:
     /**
-     * GroveSpeaker Constructor
+     * Grove Speaker constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveSpeaker(int pin);
     /**
-     * GroveSpeaker Destructor
+     * GroveSpeaker destructor
      */
     ~GroveSpeaker();
     /**
-     * Play all alto notes (lowest notes)
+     * Plays all alto notes (lowest notes)
      *
      */
-	void playAll();
+    void playAll();
     /**
-     * Play a sound and note whether it's sharp or not
+     * Plays a sound and a note whether it's sharp or not
      *
-     * @param letter character name of note 
+     * @param letter Character name of the note
      * ('a', 'b', 'c', 'd', 'e', 'f', or 'g')
-     * @param sharp if true, play sharp version of note; otherwise, do not
-     * @param vocalWeight string to determine whether to play low ("low"), 
-     * medium ("med"), or high ("high") note
+     * @param sharp If true, plays a sharp version of the note; otherwise, does not play the note
+     * @param vocalWeight String to determine whether to play a low ("low"),
+     * a medium ("med"), or a high ("high") note
      */
-	void playSound(char letter, bool sharp, std::string vocalWeight);
+    void playSound(char letter, bool sharp, std::string vocalWeight);
 
   private:
         mraa_gpio_context m_gpio;
         std::map <char, NoteData> m_note_list;
         void sound(int note_delay);
-        NoteData storeNote(int noteDelayLow, int noteDelayLowSharp, 
-                           int noteDelayMed, int noteDelayMedSharp, 
+        NoteData storeNote(int noteDelayLow, int noteDelayLowSharp,
+                           int noteDelayMed, int noteDelayMedSharp,
                            int noteDelayHigh, int noteDelayHighSharp);
   };
 }
-
-

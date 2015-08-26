@@ -121,6 +121,7 @@ main(int argc, char **argv)
 		lcd->write("Hello World");
 	}
 
-	lcd->close();
+	delete lcd;
 //! [Interesting]
+        return 0;
 }

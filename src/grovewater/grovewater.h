@@ -27,13 +27,26 @@
 #include <mraa/gpio.h>
 
 namespace upm {
+  /**
+   * @brief Grove Water Sensor library
+   * @defgroup grovewater libupm-grovewater
+   * @ingroup seeed gpio liquid eak
+   */
 
   /**
-   * @brief C++ API for the Grove Water Sensor
+   * @library grovewater
+   * @sensor grovewater
+   * @comname Grove Water Sensor
+   * @type liquid
+   * @man seeed
+   * @con gpio
+   * @kit eak
    *
-   * UPM module for the Grove Water Sensor
+   * @brief API for the Grove Water Sensor
    *
-   * @ingroup grove gpio
+   * UPM module for the Grove Water sensor
+   *
+   * @image html grovewater.jpg
    * @snippet grovewater.cxx Interesting
    */
   class GroveWater {
@@ -41,15 +54,15 @@ namespace upm {
     /**
      * Grove digital water sensor constructor
      *
-     * @param pin digital pin to use
+     * @param pin Digital pin to use
      */
     GroveWater(int pin);
     /**
-     * GroveWater Destructor
+     * GroveWater destructor
      */
     ~GroveWater();
     /**
-     * Get the water (wet/not wet) value from the sensor
+     * Gets the water (wet/not wet) value from the sensor
      *
      * @return True if the sensor is wet, false otherwise
      */
@@ -59,5 +72,3 @@ namespace upm {
     mraa_gpio_context m_gpio;
   };
 }
-
-

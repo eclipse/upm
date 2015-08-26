@@ -494,37 +494,35 @@ const unsigned char font[] = {
 };
 
 /**
- * @brief C++ API for the st7735 lcd display library
- *
- *   This file defines the C++ interface for ST7735 display library
- *
+ * @brief ST7735 LCD library
  * @defgroup st7735 libupm-st7735
  * @ingroup adafruit spi display
  */
 /**
  * @library st7735
  * @sensor st7735
- * @comname LCD display
+ * @comname ST7735 LCD
  * @type display
  * @man adafruit
  * @web http://www.adafruit.com/product/358
  * @con spi
  *
- * @brief C++ API for the st7735 lcd display library
+ * @brief API for the ST7735 LCD
  * 
- *   This file defines the C++ interface for ST7735 display library
+ * This file defines the interface for the ST7735 display library
  *
+ * @image html st7735.jpg
  * @snippet st7735.cxx Interesting
  */
 class ST7735 : public GFX {
     public:
         /**
-         * Instanciates a ST7735 object
+         * Instantiates an ST7735 object
          *
          * @param csLCD LCD chip select pin
          * @param cSD SD card chip select pin
-         * @param rs data/command pin
-         * @param rst reset pin
+         * @param rs Data/command pin
+         * @param rst Reset pin
          */
         ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst);
 
@@ -534,7 +532,7 @@ class ST7735 : public GFX {
         ~ST7735 ();
 
         /**
-         * Return name of the component
+         * Returns the name of the component
          */
         std::string name()
         {
@@ -542,88 +540,88 @@ class ST7735 : public GFX {
         }
 
         /**
-         * Initialize the modules GPIOs
+         * Initializes the module GPIOs
          */
         void initModule ();
 
         /**
-         * Configure the chip via SPI interface
+         * Configures the chip via the SPI
          */
         void configModule ();
 
         /**
-         * Send command to SPI bus (rs must be LOW)
+         * Sends a command to an SPI bus (rs must be LOW)
          *
-         * @param value command number
+         * @param value Command number
          */
         void write (uint8_t value);
 
         /**
-         * Send data to SPI bus (rs must be HIGH)
+         * Sends data to an SPI bus (rs must be HIGH)
          *
-         * @param value command number
+         * @param value Command number
          */
         void data (uint8_t value);
 
         /**
-         * Execute set of commands and data
+         * Executes a set of commands and data
          *
-         * @param addr pointer to start of the commands/data section
+         * @param addr Pointer to the start of the commands/data section
          */
         void executeCMDList (const uint8_t *addr);
 
         /**
-         * Set the window size inside the screen where the pixels data
-         * will be written.
+         * Sets the window size inside the screen where pixels data
+         * is written.
          *
-         * @param x0 first coordinate
-         * @param y0 first coordinate
-         * @param x1 second coordinate
-         * @param y1 second coordinate
+         * @param x0 First coordinate
+         * @param y0 First coordinate
+         * @param x1 Second coordinate
+         * @param y1 Second coordinate
          */
         void setAddrWindow (uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1);
 
         /**
-         * Send pixel collor (RGB) to the chip.
+         * Sends a pixel color (RGB) to the chip.
          *
-         * @param x axis on horizontal scale
-         * @param y axis on vertical scale
-         * @param color rgb (16bit) color (R[0-4], G[5-10], B[11-15])
+         * @param x Axis on the horizontal scale
+         * @param y Axis on the vertical scale
+         * @param color RGB (16-bit) color (R[0-4], G[5-10], B[11-15])
          */
         void drawPixel (int16_t x, int16_t y, uint16_t color);
 
         /**
-         * Copy the buffer to the chip via SPI interface.
+         * Copies the buffer to the chip via the SPI.
          */
         void refresh ();
 
         /**
-         * LCD chip select LOW.
+         * LCD chip select is LOW
          */
         mraa_result_t lcdCSOn ();
 
         /**
-         * LCD chip select HIGH.
+         * LCD chip select is HIGH
          */
         mraa_result_t lcdCSOff ();
 
         /**
-         * CD card chip select LOW.
+         * CD card chip select is LOW
          */
         mraa_result_t sdCSOn ();
 
         /**
-         * CD card select HIGH.
+         * CD card select is HIGH
          */
         mraa_result_t sdCSOff ();
 
         /**
-         * Data select HIGH.
+         * Data select is HIGH
          */
         mraa_result_t rsHIGH ();
 
         /**
-         * Data select LOW.
+         * Data select is LOW
          */
         mraa_result_t rsLOW ();
 

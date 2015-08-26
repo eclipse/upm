@@ -30,72 +30,86 @@
 #define MPR121_DEFAULT_I2C_ADDR    0x5a
 
 namespace upm {
-
   /**
-   * @brief C++ API for the MPR121 I2C touch sensor
+   * @brief MPR121 Touch Sensor library
+   * @defgroup mpr121 libupm-mpr121
+   * @ingroup seeed i2c touch tsk
+   */
+  /**
+   * @library mpr121
+   * @sensor mpr121
+   * @comname MPR121 Touch Sensor
+   * @altname Grove I2C Touch Sensor
+   * @type touch
+   * @man seeed
+   * @web http://www.seeedstudio.com/wiki/Grove_-_I2C_Touch_Sensor
+   * @con i2c
+   * @kit tsk
+   *
+   * @brief API for the MPR121 I2C Touch Sensor
    *
    * UPM module for the MPR121 touch sensor
    *
-   * @ingroup i2c mpr121
+   * @image html mpr121.jpg
    * @snippet mpr121.cxx Interesting
    */
   class MPR121 {
   public:
     /**
-     * mpr121 touch sensor constructor
+     * MPR121 constructor
      *
-     * @param bus i2c bus to use
+     * @param bus I2C bus to use
      */
     MPR121(int bus, uint8_t address = MPR121_DEFAULT_I2C_ADDR);
 
     /**
-     * MPR121 Destructor
+     * MPR121 destructor
      */
     ~MPR121();
 
     /**
-     * Setup a default configuration, based on Application Note 3944
+     * Sets up a default configuration, based on Application Note 3944
      * (AN3944):
      * http://cache.freescale.com/files/sensors/doc/app_note/AN3944.pdf
      *
-     * After configuration, the sensor will be left in the Run State.
+     * After configuration, the sensor is left in the run state.
      *
-     * @return True if configuration succeeded
+     * @return True if configuration is successful
      */
     bool configAN3944();
 
     /**
-     * Read the button states into the m_buttonStates member variable.  Also
-     * set the m_overCurrentFault variable if an over current is detected.
+     * Reads button states in the m_buttonStates member variable. Also,
+     * sets the m_overCurrentFault variable if overcurrent is detected.
      */
     void readButtons();
 
     /**
-     * Write value(s) into registers
+     * Writes value(s) into registers
      *
-     * @param reg register location to start writing into
-     * @param buffer buffer for data storage
-     * @param len number of bytes to write
+     * @param reg Register location to start writing into
+     * @param buffer Buffer for data storage
+     * @param len Number of bytes to write
      * @return mraa_result_t
      */
     mraa_result_t writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
 
     /**
-     * Read value(s) from registers
+     * Reads value(s) from registers
      *
-     * @param reg register location to start reading from
-     * @param buffer buffer for data storage
-     * @param len number of bytes to read
+     * @param reg Register location to start reading from
+     * @param buffer Buffer for data storage
+     * @param len Number of bytes to read
      */
     void readBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
 
     /**
-     * button states
+     * Button states
      */
     uint16_t m_buttonStates;
 
     /**
-     * Over current fault detected
+     * Overcurrent detected
      */
     bool m_overCurrentFault;
 

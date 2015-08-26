@@ -1,6 +1,5 @@
 /*jslint node:true, vars:true, bitwise:true, unparam:true */
 /*jshint unused:true */
-/*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
 * Copyright (c) 2014 Intel Corporation.
@@ -29,19 +28,24 @@ var electricitySensor = require('jsupm_ta12200');
 // Instantiate a TA12-200 sensor on analog pin A0
 var myElectricitySensor = new electricitySensor.TA12200(0);
 
-function getElectricityInfo()
+var maxVal, current;
+var myInterval = setInterval(function()
 {
-	var maxVal = myElectricitySensor.highestValue();
-	var current = myElectricitySensor.milliAmps(maxVal);
+	maxVal = myElectricitySensor.highestValue();
+	current = myElectricitySensor.milliAmps(maxVal);
 
-	console.log("Max ADC Value: " + maxVal + ", current: " + current + "mA");
-}
-
-setInterval(getElectricityInfo, 100);
+	outputStr = "Max ADC Value: " + maxVal +
+	", current: " + current + "mA";
+	console.log(outputStr);
+}, 100);
 
 // Print message when exiting
 process.on('SIGINT', function()
 {
+	clearInterval(myInterval);
+	myElectricitySensor = null;
+	electricitySensor.cleanUp();
+	electricitySensor = null;
 	console.log("Exiting...");
 	process.exit(0);
 });
