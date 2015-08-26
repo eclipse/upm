@@ -55,7 +55,6 @@ setInterval( function()
  
 function runSample(sample) 
 {
-  var begin = Date.now(); 
   switch(sample) {
     case 0: 
       // x/y coords are 0 based, using 1 here for padding.
@@ -147,6 +146,4 @@ function runSample(sample)
       oled.fillScreen(1);
       break;
   }
-  var end = Date.now();
-  console.log(end-begin);
 }
