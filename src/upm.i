@@ -9,6 +9,7 @@
  
         %apply int { speed_t };
         %apply int { mraa_result_t };
+        %apply int { mraa::Result };
 #endif
 
 #if (SWIG_JAVASCRIPT_V8)
