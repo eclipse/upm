@@ -58,15 +58,15 @@ LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
   m_gyroScale = 0.0;
   m_magScale = 0.0;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2cG.address(m_gAddr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2cG.address(m_gAddr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize Gyro i2c address");
       return;
     }
 
-  if ( (rv = m_i2cXM.address(m_xmAddr)) != MRAA_SUCCESS)
+  if ( (rv = m_i2cXM.address(m_xmAddr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) + 
                                ": Could not initialize XM i2c address");
@@ -318,11 +318,11 @@ bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
       return false;
     }
 
-  mraa_result_t rv;
-  if ((rv = device->writeReg(reg, val)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = device->writeReg(reg, val)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": failed:" << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
   

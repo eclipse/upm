@@ -41,11 +41,11 @@ M24LR64E::M24LR64E(int bus, AccessMode mode):
   else
     m_addr = M24LR64E_DEFAULT_I2C_ADDR_E2;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << "M24LR64E: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 }

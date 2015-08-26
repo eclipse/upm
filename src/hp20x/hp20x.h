@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
 #define HP20X_I2C_BUS 0

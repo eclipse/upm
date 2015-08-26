@@ -173,7 +173,7 @@ namespace upm {
      * @param baud Desired baud rate, default 19200
      * @return mraa_result_t value
      */
-    mraa_result_t setBaudRate(int baud=19200);
+    mraa::Result setBaudRate(int baud=19200);
 
     /**
      * Gets the firmware version string.
