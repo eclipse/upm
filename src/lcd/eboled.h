@@ -5,6 +5,9 @@
  * Author: Tyler Gibson <tgibson@microsoft.com>
  * Copyright (c) 2015 Microsoft Corporation.
  *
+ * Credits to Adafruit.
+ * Based on Adafruit ST7735 library, see original license in license.txt file.
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
