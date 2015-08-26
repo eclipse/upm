@@ -111,6 +111,7 @@ function runSample(sample)
                            Math.floor(Math.random()*32),
                            Math.floor(Math.random()*32),
                            Math.floor(Math.random()*32) ];
+      var begin = Date.now(); 
       while(Date.now()-begin < 2000) 
       {
         oled.clearScreenBuffer();
