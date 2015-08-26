@@ -38,11 +38,11 @@ H3LIS331DL::H3LIS331DL(int bus, uint8_t address):
 {
   m_addr = address;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << "H3LIS331DL: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 

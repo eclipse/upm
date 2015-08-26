@@ -50,11 +50,11 @@ MPU60X0::MPU60X0(int bus, uint8_t address) :
   m_accelScale = 1.0;
   m_gyroScale = 1.0;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 }
@@ -146,11 +146,11 @@ void MPU60X0::readRegs(uint8_t reg, uint8_t *buf, int len)
 
 bool MPU60X0::writeReg(uint8_t reg, uint8_t val)
 {
-  mraa_result_t rv;
-  if ((rv = m_i2c.writeReg(reg, val)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": failed:" << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
   

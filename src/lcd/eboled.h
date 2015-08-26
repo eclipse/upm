@@ -124,7 +124,7 @@ namespace upm
      * @param bytes the number of bytes to write
      * @return result of operation
      */
-    mraa_result_t draw(uint8_t* data, int bytes);
+    mraa::Result draw(uint8_t* data, int bytes);
 
     /**
      * Write a string to LCD
@@ -133,7 +133,7 @@ namespace upm
      * chars are supported
      * @return result of operation
      */
-    mraa_result_t write(std::string msg);
+    mraa::Result write(std::string msg);
 
     /**
      * Set cursor to a coordinate
@@ -143,27 +143,27 @@ namespace upm
      * 64 columns
      * @return result of operation
      */
-    mraa_result_t setCursor(int row, int column);
+    mraa::Result setCursor(int row, int column);
 
     /**
      * Clear display
      *
      * @return result of operation
      */
-    mraa_result_t clear();
+    mraa::Result clear();
 
     /**
      * Return to coordinate 0,0
      *
      * @return result of operation
      */
-    mraa_result_t home();
+    mraa::Result home();
 
   protected:
-    mraa_result_t command(uint8_t cmd);
-    mraa_result_t data(uint8_t data);
-    mraa_result_t writeChar(uint8_t value);
-    mraa_result_t setAddressingMode(displayAddressingMode mode);
+    mraa::Result command(uint8_t cmd);
+    mraa::Result data(uint8_t data);
+    mraa::Result writeChar(uint8_t value);
+    mraa::Result setAddressingMode(displayAddressingMode mode);
 
   private:
     mraa::Gpio m_gpioCD;        // command(0)/data(1)

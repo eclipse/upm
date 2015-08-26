@@ -39,8 +39,8 @@ TH02::TH02 (int bus, uint8_t addr) : m_i2c(bus) {
     m_addr = addr;
     m_name = "TH02";
 
-    mraa_result_t ret = m_i2c.address(m_addr);
-    if (ret != MRAA_SUCCESS) {
+    mraa::Result ret = m_i2c.address(m_addr);
+    if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
                                     ": mraa_i2c_address() failed");
     }
