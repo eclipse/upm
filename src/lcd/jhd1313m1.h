@@ -73,7 +73,7 @@ class Jhd1313m1 : public Lcm1602
      * @param direction True if scrolling to the right
      * @return Result of the operation
      */
-    mraa_result_t scroll(bool direction);
+    mraa::Result scroll(bool direction);
     /**
      * Sets the color of the backlight
      *
@@ -82,11 +82,11 @@ class Jhd1313m1 : public Lcm1602
      * @param b 0-255 value for blue
      * @return Result of the operation
      */
-    mraa_result_t setColor(uint8_t r, uint8_t g, uint8_t b);
+    mraa::Result setColor(uint8_t r, uint8_t g, uint8_t b);
 
  protected:
-    virtual mraa_result_t command(uint8_t cmd);
-    virtual mraa_result_t data(uint8_t data);
+    virtual mraa::Result command(uint8_t cmd);
+    virtual mraa::Result data(uint8_t data);
 
   private:
     int m_rgb_address;

@@ -61,11 +61,11 @@ PN532::PN532(int irq, int reset, int bus, uint8_t address):
   pn532Debug(false);
   mifareDebug(false);
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << "PN532: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 

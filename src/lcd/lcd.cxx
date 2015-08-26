@@ -38,7 +38,7 @@ LCD::~LCD()
 {
 }
 
-mraa_result_t
+mraa::Result
 LCD::write(int row, int column, std::string msg)
 {
     setCursor(row, column);
