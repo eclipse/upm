@@ -1267,6 +1267,29 @@ namespace upm {
      */
     void getMagnetometer(float *x, float *y, float *z);
 
+#ifdef SWIGJAVA
+    /**
+     * get the accelerometer values in gravities
+     *
+     * @return Array containing X, Y, Z acceleration values
+     */
+    float *getAccelerometer();
+
+    /**
+     * get the gyroscope values in degrees per second
+     *
+     * @return Array containing X, Y, Z gyroscope values
+     */
+    float *getGyroscope();
+
+    /**
+     * get the magnetometer values in gauss
+     *
+     * @return Array containing X, Y, Z magnetometer values
+     */
+    float *getMagnetometer();
+#endif
+
     /**
      * get the temperature value.  Unfortunately the datasheet does
      * not provide a mechanism to convert the temperature value into

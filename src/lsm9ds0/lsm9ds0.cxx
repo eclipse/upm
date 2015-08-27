@@ -602,6 +602,29 @@ void LSM9DS0::getMagnetometer(float *x, float *y, float *z)
     *z = (m_magZ * m_magScale) / 1000.0;
 }
 
+#ifdef SWIGJAVA
+float *LSM9DS0::getAccelerometer()
+{
+  float *v = new float[3];
+  getAccelerometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+float *LSM9DS0::getGyroscope()
+{
+  float *v = new float[3];
+  getGyroscope(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+float *LSM9DS0::getMagnetometer()
+{
+  float *v = new float[3];
+  getMagnetometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+#endif
+
 float LSM9DS0::getTemperature()
 {
   // This might be wrong... The datasheet does not provide enough info
