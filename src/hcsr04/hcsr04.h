@@ -35,6 +35,9 @@
 #define MAX_PERIOD             7968
 #define TRIGGER_PULSE          10
 
+#define CM 1
+#define INC 0
+
 namespace upm {
 /**
  * @brief HC-SR04 Ultrasonic Sensor library
@@ -76,7 +79,7 @@ class HCSR04 {
         /**
          * Gets the distance from the sensor
          */
-        int getDistance ();
+        double getDistance (int sys);
 
         /**
          * On each interrupt, this function detects if the interrupt
@@ -96,10 +99,10 @@ class HCSR04 {
         }
 
     private:
-        mraa_pwm_context     m_pwmTriggerCtx;
+        double timing();
+        mraa_gpio_context     m_triggerPinCtx;
         mraa_gpio_context    m_echoPinCtx;
 
-        uint8_t m_waitEcho;
         long    m_RisingTimeStamp;
         long    m_FallingTimeStamp;
         uint8_t m_InterruptCounter;
