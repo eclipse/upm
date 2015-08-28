@@ -108,7 +108,10 @@ const uint8_t  SSD1306_LCDHEIGHT = 64;
  * @brief API for SSD1306 I2C-controlled OLED displays
  *
  * SSD1306 is a 128x64 dot-matrix OLED/PLED segment driver with a
- * controller.
+ * controller. This device is available from many suppliers for a
+ * very low cost. This implementation was tested using a generic
+ * SSD1306 device from eBay.
+ *
  * @snippet ssd1306-oled.cxx Interesting
 
  */
