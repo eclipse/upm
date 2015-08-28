@@ -38,22 +38,21 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
     mraa_init();
 
     m_triggerPinCtx     = mraa_gpio_init (triggerPin);
-    if (m_triggerPinCtx == NULL) {
-    	fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", triggerPin);
-        exit (1);
-    }
+	if (m_triggerPinCtx == NULL) {
+		fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", triggerPin);
+		exit (1);
+	}
 
-    mraa_gpio_dir(m_triggerPinCtx, MRAA_GPIO_OUT);
-    mraa_gpio_write (m_triggerPinCtx, 0);
+	mraa_gpio_dir(m_triggerPinCtx, MRAA_GPIO_OUT);
 
-    m_echoPinCtx = mraa_gpio_init(echoPin);
-    if (m_echoPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", echoPin);
-        exit (1);
-    }
+	m_echoPinCtx = mraa_gpio_init(echoPin);
+	if (m_echoPinCtx == NULL) {
+		fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", echoPin);
+		exit (1);
+	}
 
-    mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
-    mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, fptr, NULL);
+	mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
+	mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, fptr, NULL);
 }
 
 HCSR04::~HCSR04 () {
@@ -79,7 +78,7 @@ HCSR04::timing() {
     m_doWork = 0;
     m_InterruptCounter = 0;
     while (!m_doWork) {
-    	usleep (10);
+    	usleep (5);
     }
 
     return m_FallingTimeStamp - m_RisingTimeStamp;
@@ -102,11 +101,11 @@ HCSR04::ackEdgeDetected () {
 double
 HCSR04::getDistance(int sys)
 {
-	double timing = timing();
+	double _timing = timing();
 	if (sys)
 	{
-		return (timing/2) / 29.1;
+		return (_timing/2) / 29.1;
 	} else {
-		return (timing/2) / 74.1;
+		return (_timing/2) / 74.1;
 	}
 }

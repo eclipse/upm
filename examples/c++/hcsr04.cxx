@@ -50,11 +50,15 @@ interrupt (void * args) {
 int
 main(int argc, char **argv)
 {
-    sonar = new upm::HCSR04(5, 7, &interrupt);
+    sonar = new upm::HCSR04(5, 6, &interrupt);
     signal(SIGINT, sig_handler);
 
-    printf ("width = %d\n", sonar->getDistance());
-    std::cout << "exiting application" << std::endl;
+    for(;;){
+		std::cout << "get distance" << std::endl;
+		double distance = sonar->getDistance(CM);
+		std::cout << "distance " << distance << std::endl;
+		sleep(5);
+	}
 
     delete sonar;
 

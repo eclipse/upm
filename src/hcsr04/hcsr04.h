@@ -29,12 +29,6 @@
 #include <mraa/pwm.h>
 #include <sys/time.h>
 
-#define HIGH                   1
-#define LOW                    0
-
-#define MAX_PERIOD             7968
-#define TRIGGER_PULSE          10
-
 #define CM 1
 #define INC 0
 
