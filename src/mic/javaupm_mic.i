@@ -1,9 +1,9 @@
 %module javaupm_mic
 %include "../upm.i"
 %include "stdint.i"
-%include "typemaps.i"
+%include "arrays_java.i"
 
-%apply uint16_t *OUTPUT { uint16_t *buffer };
+%apply unsigned short[] {uint16_t *buffer}; 
 
 %{
     #include "mic.h"
