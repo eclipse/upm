@@ -567,3 +567,26 @@ void H3LIS331DL::getXYZ(int *x, int *y, int*z)
   *y = (m_rawY - m_adjY);
   *z = (m_rawZ - m_adjZ);
 }
+
+#ifdef SWIGJAVA
+float *H3LIS331DL::getAcceleration()
+{
+  float *v = new float[3];
+  getAcceleration(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+int *H3LIS331DL::getRawXYZ()
+{
+  int *v = new int[3];
+  getRawXYZ(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+int *H3LIS331DL::getXYZ()
+{
+  int *v = new int[3];
+  getXYZ(&v[0], &v[1], &v[2]);
+  return v;
+}
+#endif
