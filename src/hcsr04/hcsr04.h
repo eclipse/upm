@@ -1,6 +1,7 @@
- /*
+/*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Rafael Neri <rafael.neri@gmail.com>
+ * Copyright (c) 2014-2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -33,11 +34,8 @@
 #include "../IsrCallback.h"
 #endif
 
-#define HIGH                   1
-#define LOW                    0
-
-#define MAX_PERIOD             7968
-#define TRIGGER_PULSE          10
+#define CM 1
+#define INC 0
 
 namespace upm {
 /**
@@ -62,9 +60,6 @@ namespace upm {
  */
 class HCSR04 {
     public:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
-#else 
         /**
          * Instantiates an HCSR04 object
          *
@@ -73,6 +68,9 @@ class HCSR04 {
          * @param fptr Function pointer to handle rising-edge and
          * falling-edge interrupts
          */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
+#else
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
 #endif
         /**
@@ -83,7 +81,7 @@ class HCSR04 {
         /**
          * Gets the distance from the sensor
          */
-        int getDistance ();
+        double getDistance (int sys);
 
         /**
          * On each interrupt, this function detects if the interrupt
@@ -106,10 +104,10 @@ class HCSR04 {
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
 #endif
-        mraa_pwm_context     m_pwmTriggerCtx;
-        mraa_gpio_context    m_echoPinCtx;
+        double timing();
+        mraa_gpio_context   m_triggerPinCtx;
+        mraa_gpio_context   m_echoPinCtx;
 
-        uint8_t m_waitEcho;
         long    m_RisingTimeStamp;
         long    m_FallingTimeStamp;
         uint8_t m_InterruptCounter;
