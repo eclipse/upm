@@ -26,6 +26,7 @@
 %typemap(out) float *getAcceleration {
     $result = JCALL1(NewFloatArray, jenv, 3);
     JCALL4(SetFloatArrayRegion, jenv, $result, 0, 3, $1);
+    delete [] $1;
 }
 
 
