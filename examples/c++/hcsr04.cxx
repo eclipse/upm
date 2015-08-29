@@ -53,6 +53,8 @@ main(int argc, char **argv)
     sonar = new upm::HCSR04(5, 6, &interrupt);
     signal(SIGINT, sig_handler);
 
+    sleep(1);
+
     for(;;){
 		std::cout << "get distance" << std::endl;
 		double distance = sonar->getDistance(CM);
