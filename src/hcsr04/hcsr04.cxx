@@ -44,6 +44,7 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
 	}
 
 	mraa_gpio_dir(m_triggerPinCtx, MRAA_GPIO_OUT);
+	mraa_gpio_write (m_triggerPinCtx, 0);
 
 	m_echoPinCtx = mraa_gpio_init(echoPin);
 	if (m_echoPinCtx == NULL) {
