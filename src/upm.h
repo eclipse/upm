@@ -42,6 +42,11 @@
  */
 
 /**
+ * @brief Sensors grouped by C++ interface
+ * @defgroup byif C++ Interface
+ */
+
+/**
  * @brief Sensors grouped by connection type
  * @defgroup bycon Connection Type
  */
@@ -222,6 +227,40 @@
  * @ingroup bycat
  */
 
+////////////////////////////////////////////////////////////////// @cond IF
+/// Groups for the various Sensor C++ Interfaces.
+////////////////////////////////////////////////////////////////// @endcond IF
+
+/**
+ * @brief Implements ILightSensor
+ * @defgroup ilightsensor ILightSensor
+ * @ingroup byif
+ */
+
+ /**
+ * @brief Implements ILightController
+ * @defgroup ilightcontroller ILightController
+ * @ingroup byif
+ */
+
+/**
+ * @brief Implements IPressureSensor
+ * @defgroup ipressuresensor IPressureSensor
+ * @ingroup byif
+ */
+
+ /**
+ * @brief Implements ITemperatureSensor
+ * @defgroup itemperaturesensor ITemperatureSensor
+ * @ingroup byif
+ */
+
+/**
+ * @brief Implements IADC
+ * @defgroup iadc IADC
+ * @ingroup byif
+ */
+
 ////////////////////////////////////////////////////////////////// @cond CON
 /// Groups for the various Connection Types.
 ////////////////////////////////////////////////////////////////// @endcond CON
@@ -325,6 +364,19 @@
  * @defgroup ti Texas Instruments
  * @ingroup byman
  */
+
+ /**
+ * @brief Silicon Labs
+ * @defgroup silabs Silicon Labs
+ * @ingroup byman
+ */
+
+/**
+ * @brief Bosch
+ * @defgroup bosch Bosch
+ * @ingroup byman
+ */
+
 
 ////////////////////////////////////////////////////////////////// @cond KIT
 /// Groups for the various Starter Kits.

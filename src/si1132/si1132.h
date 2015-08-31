@@ -32,8 +32,9 @@
 namespace upm {
 
 /**
- * @brief Si1132 proxmity sensor library
+ * @brief Si1132 UV and visible light sensor library
  * @defgroup Si1132 libupm-Si1132
+ * @ingroup silabs i2c light ilightsensor
  */
 
 /**
@@ -44,8 +45,15 @@ namespace upm {
  * is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C 
  * digital interface and programmable-event interrupt output.
  *
- * @ingroup Si1132 i2c light
- * @snippet Si1132.cxx Interesting
+ * @library si1132
+ * @sensor si1132
+ * @comname Si1132 Light Sensor
+ * @altname Si1132
+ * @type light
+ * @man silabs
+ * @con i2c
+ * @if ilightsensor
+
  */
 class SI1132 : public ILightSensor {
     public:
@@ -76,6 +84,7 @@ class SI1132 : public ILightSensor {
          * Returns whether the sensor is configured.
          */
         bool isConfigured();
+        const char* getModuleName() { return "si1132"; }        
 
     private:
         mraa_result_t i2cReadRegister(uint8_t reg, uint8_t* value);

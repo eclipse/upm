@@ -39,7 +39,7 @@ namespace upm {
   /**
    * @brief SI1145 UV Light Sensor library
    * @defgroup si114x libupm-si114x
-   * @ingroup adafruit i2c light
+   * @ingroup silabs adafruit i2c light
    */
 
   /**

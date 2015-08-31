@@ -128,12 +128,21 @@ typedef enum
 namespace upm {
 
   /**
+   * @defgroup ads1015 libupm-ads1015
+   * @ingroup ti i2c ainput iadc   
+   *
    * @brief C++ API for the ADS1015 I2C ADC
    *
-   * UPM module for the Texas Instruments ADS1015 12 bit Analog to Digital (ADC) converter.
+   * Texas Instruments ADS1015 12 bit Analog to Digital (ADC) converter.
    *
-   * @ingroup i2c ads1015
-   * @snippet ads1015.cxx Interesting
+   * @library si1132
+   * @sensor ads1015
+   * @comname ADS1015 ADC
+   * @altname ADS1015
+   * @type ainput
+   * @man ti
+   * @con i2c
+   * @if iadc
    */
 class ADS1015 : public IADC {
   public:
@@ -182,6 +191,7 @@ class ADS1015 : public IADC {
      * Returns whether the sensor is configured.
      */
     bool isConfigured();
+    const char* getModuleName() { return "ads1015"; }    
 
   private:
     mraa_i2c_context m_i2c;

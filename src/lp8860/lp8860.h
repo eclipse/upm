@@ -30,6 +30,7 @@ namespace upm
 /**
  * @brief lp8860 LED lighting controller library
  * @defgroup lp8860 libupm-lp8860
+ * @ingroup ti i2c light ilightcontroller
  */
 
 /**
@@ -39,17 +40,23 @@ namespace upm
  * [LP8860-Q1](http://www.ti.com/product/lp8860-q1)
  * Automotive Catalog Low-EMI, High-Performance 4-Channel LED Driver
  *
- * @ingroup lp8860 i2c
- * @snippet lp8860.cxx Interesting
+ * @library lp8860
+ * @sensor lp8860
+ * @comname TI LP8860 LED lighting controller
+ * @altname LP8860
+ * @type light
+ * @man ti
+ * @con i2c
+ * @if ilightcontroller
+ *
  */
 class LP8860 : public upm::ILightController
 {
 public:
    LP8860(int gpioPower, int i2cBus);
    ~LP8860();
-
-protected:
    bool isConfigured();
+   const char* getModuleName() { return "lp8860"; }
    bool isPowered();
    bool setPowerOn();
    bool setPowerOff();

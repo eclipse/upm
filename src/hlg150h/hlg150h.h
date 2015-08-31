@@ -30,8 +30,9 @@ namespace upm
 {
 
 /**
- * @brief lp8860 Lighting power supply controller library
+ * @brief Meanwell HLG150H Lighting power supply controller library
  * @defgroup hlg150h libupm-hlg150h
+ * @ingroup pwm light ilightcontroller
  */
 
 /**
@@ -41,8 +42,13 @@ namespace upm
  * [HLG-150H](http://www.meanwell.com/webapp/product/search.aspx?prod=HLG-150H)
  * 150W Single Output Switching Power Supply
  *
- * @ingroup hlg150h pwm
- * @snippet hlg150h.cxx Interesting
+ * @library hlg150h
+ * @sensor hlg150h
+ * @comname HLG150H lighting controller
+ * @altname HLG150H
+ * @type light
+ * @con pwm
+ * @if ilightcontroller
  */
 
 class HLG150H : public upm::ILightController
@@ -53,6 +59,7 @@ public:
 
 protected:
    bool isConfigured();
+   const char* getModuleName() { return "hlg150h"; }   
    bool setPowerOn();
    bool setPowerOff();
    bool isPowered();

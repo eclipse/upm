@@ -108,26 +108,24 @@ namespace upm {
 /**
  * @brief BPM180 atmospheric pressure sensor library
  * @defgroup BMP180 libupm-BMP180
- * @ingroup seeed adafruit sparkfun i2c pressure
+ * @ingroup bosch seeed adafruit sparkfun i2c pressure ipressuresensor
  */
 
 /**
+ * The Bosch BMP180 is a high precision, ultra-low
+ * power consumption pressure sensor. It has a range of between
+ * 30,000 and 110,000 Pa.
+ *
  * @library BMP180
  * @sensor BMP180
  * @comname Bosch BMP Atmospheric Pressure Sensor
  * @altname BMP180
  * @type pressure
- * @man seeed adafruit sparkfun
+ * @man bosch adafruit sparkfun
  * @con i2c
+ * @if ipressuresensor
  *
- * @brief C++ API for BMP180 chips (Atmospheric Pressure Sensor)
- *
- * The Bosch BMP180 is a high precision, ultra-low
- * power consumption pressure sensor. It has a range of between
- * 30,000 and 110,000 Pa.
- *
- *
- * @snippet BMP180.cxx Interesting
+ 
  */
 
 class BMP180 : public IPressureSensor {

@@ -81,8 +81,9 @@
 namespace upm {
 
 /**
- * @brief max44009 proxmity sensor library
+ * @brief max44009 ambient light sensor library
  * @defgroup max44009 libupm-max44009
+ * @ingroup maxim i2c light ilightsensor
  */
 
 /**
@@ -92,8 +93,17 @@ namespace upm {
  * [MAX44009](http://datasheets.maximintegrated.com/en/ds/MAX44009.pdf)
  * is Industry’s Lowest-Power Ambient Light Sensor with ADC.
  *
- * @ingroup max44009 i2c
- * @snippet max44009.cxx Interesting
+ * @library max44009
+ * @sensor max44009
+ * @comname MAX44009 Ambient Light Sensor
+ * @altname MAX44009
+ * @type light
+ * @man maxim
+ * @con i2c
+ * @if ilightsensor
+ *
+ * @snippet iLightSensor.h Interesting
+ *
  */
 class MAX44009 : public ILightSensor {
     public:
@@ -124,6 +134,7 @@ class MAX44009 : public ILightSensor {
          * Returns whether the sensor is configured.
          */
         bool isConfigured();
+        const char* getModuleName() { return "max44009"; }        
 
     private:
         int m_maxControlAddr;

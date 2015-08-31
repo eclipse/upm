@@ -30,7 +30,22 @@ namespace upm
 class IModuleStatus 
 {
 public:
+   /**
+    * Determines if sensor module is configured correctly
+    * e.g. if it uses i2c communication can it configure registers
+    * for correct operation.
+    *
+    * @return true if correctly configured, false it not
+    */
    virtual bool isConfigured() = 0;
+
+   /**
+    * Returns name of module. This is the string in library name after libupm_
+
+    * @return name of module
+    */
+    virtual const char* getModuleName() = 0;
+
    virtual ~IModuleStatus() {}
 };
 
