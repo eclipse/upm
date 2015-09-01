@@ -3,7 +3,6 @@
 %include "typemaps.i"
 %include "arrays_java.i";
 
-%apply unsigned char[] {unsigned char *};
 %apply short *OUTPUT { short * ptrX, short * ptrY, short * ptrZ };
 
 %{
@@ -25,5 +24,20 @@
 }
 
 %ignore readData(short *, short *, short *);
+
+%typemap(jni) (unsigned char *buf, unsigned char size) "jbyteArray";
+%typemap(jtype) (unsigned char *buf, unsigned char size) "byte[]";
+%typemap(jstype) (unsigned char *buf, unsigned char size) "byte[]";
+
+%typemap(javain) (unsigned char *buf, unsigned char size) "$javainput";
+
+%typemap(in) (unsigned char *buf, unsigned char size) {
+        $1 = (unsigned char *) JCALL2(GetByteArrayElements, jenv, $input, NULL);
+        $2 = JCALL1(GetArrayLength, jenv, $input);
+}
+
+%typemap(freearg) (unsigned char *buf, unsigned char size) {
+        JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
+}
 
 %include "mma7455.h"
