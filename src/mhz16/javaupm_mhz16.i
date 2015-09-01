@@ -3,8 +3,8 @@
 %include "cpointer.i"
 %include "typemaps.i"
 %include "arrays_java.i";
-        
-%apply unsigned char[] {unsigned char *};
+
+%apply signed char[] {unsigned char *};
 
 %apply int *OUTPUT { int *gas, int *temp };
 

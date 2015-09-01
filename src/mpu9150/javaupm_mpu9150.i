@@ -10,7 +10,7 @@
 
 %apply int {mraa::Edge};
 %apply float *INOUT { float *x, float *y, float *z  };
-%apply unsigned char[] {uint8_t *};
+%apply signed char[] {uint8_t *};
 
 %{
     #include "mpu60x0.h"
