@@ -229,7 +229,7 @@ uint32_t ZFM20::getMillis()
   return elapse;
 }
 
-bool ZFM20::verifyPacket(unsigned char *pkt)
+bool ZFM20::verifyPacket(unsigned char *pkt, int len)
 {
   // verify packet header
   if (pkt[0] != ZFM20_START1 || pkt[1] != ZFM20_START2)
@@ -291,7 +291,7 @@ bool ZFM20::getResponse(unsigned char *pkt, int len)
     }
 
   // now verify it.
-  return verifyPacket(pkt);
+  return verifyPacket(pkt, len);
 }
 
 bool ZFM20::verifyPassword()

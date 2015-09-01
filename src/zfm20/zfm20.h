@@ -212,9 +212,10 @@ namespace upm {
      * Verifies the packet header and indicates its validity
      *
      * @param pkt Packet to check
+     * @param len Length of packet
      * @return True if the checksum is valid, false otherwise
      */
-    bool verifyPacket(unsigned char *pkt);
+    bool verifyPacket(unsigned char *pkt, int len);
 
     /**
      * Returns the number of milliseconds elapsed since initClock()
