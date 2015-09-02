@@ -26,6 +26,19 @@
 #include <string>
 #include <iostream>
 
+#include <mraa/aio.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
+#include <mraa/gpio.hpp>
+#define SWIGJAVA
+
+#else
+#include <mraa/gpio.hpp>
+#endif
+
+#include <mraa/i2c.hpp>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -36,7 +49,6 @@
 #include <sys/stat.h>
 
 #include <mraa/uart.hpp>
-#include <mraa/gpio.hpp>
 
 #define SM130_DEFAULT_UART 0
 #define SM130_DEFAULT_RESET_PIN 13

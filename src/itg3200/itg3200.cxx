@@ -62,23 +62,16 @@
 
 using namespace upm;
 
-Itg3200::Itg3200(int bus)
+Itg3200::Itg3200(int bus) : m_i2c(bus)
 {
-    //init bus and reset chip
-    m_i2c = mraa_i2c_init(bus);
-
-    mraa_i2c_address(m_i2c, ITG3200_I2C_ADDR);
+    //reset chip
+    m_i2c.address(ITG3200_I2C_ADDR);
     m_buffer[0] = ITG3200_PWR_MGM;
     m_buffer[1] = ITG3200_RESET;
-    mraa_i2c_write(m_i2c, m_buffer, 2);
+    m_i2c.write(m_buffer, 2);
 
     Itg3200::calibrate();
     Itg3200::update();
-}
-
-Itg3200::~Itg3200()
-{
-    mraa_i2c_stop(m_i2c);
 }
 
 void
@@ -132,14 +125,14 @@ Itg3200::getRawTemp()
     return m_temperature;
 }
 
-mraa_result_t
+mraa::Result
 Itg3200::update(void)
 {
-    mraa_i2c_address(m_i2c, ITG3200_I2C_ADDR);
-    mraa_i2c_write_byte(m_i2c, ITG3200_TEMP_H);
+    m_i2c.address(ITG3200_I2C_ADDR);
+    m_i2c.writeByte(ITG3200_TEMP_H);
 
-    mraa_i2c_address(m_i2c, ITG3200_I2C_ADDR);
-    mraa_i2c_read(m_i2c, m_buffer, DATA_REG_SIZE);
+    m_i2c.address(ITG3200_I2C_ADDR);
+    m_i2c.read(m_buffer, DATA_REG_SIZE);
 
     //temp
     //
@@ -151,5 +144,5 @@ Itg3200::update(void)
     // z
     m_rotation[2] = ((m_buffer[6] << 8 ) | m_buffer[7]) + m_offsets[2];
 
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }

@@ -31,27 +31,17 @@
 
 using namespace upm;
 
-MAXDS3231M::MAXDS3231M (int bus, int devAddr) {
+MAXDS3231M::MAXDS3231M (int bus, int devAddr) : m_i2Ctx(bus) {
     m_name = "MAXDS3231M";
 
     m_i2cAddr = devAddr;
     m_bus = bus;
 
-    if (!(m_i2Ctx = mraa_i2c_init(m_bus)))
-      {
+    mraa::Result ret = m_i2Ctx.address(m_i2cAddr);
+    if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_init() failed");
-      }
-
-    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    if (ret != MRAA_SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_address() failed");
+                                    ": m_i2Ctx.address() failed");
     }
-}
-
-MAXDS3231M::~MAXDS3231M() {
-    mraa_i2c_stop(m_i2Ctx);
 }
 
 void
@@ -108,20 +98,20 @@ uint16_t
 MAXDS3231M::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    mraa_i2c_write_byte(m_i2Ctx, reg);
+    m_i2Ctx.address(m_i2cAddr);
+    m_i2Ctx.writeByte(reg);
 
-    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    readByte = mraa_i2c_read(m_i2Ctx, buffer, len);
+    m_i2Ctx.address(m_i2cAddr);
+    readByte = m_i2Ctx.read(buffer, len);
     return readByte;
 }
 
-mraa_result_t
+mraa::Result
 MAXDS3231M::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
-    error = mraa_i2c_write (m_i2Ctx, buffer, len);
+    error = m_i2Ctx.address (m_i2cAddr);
+    error = m_i2Ctx.write (buffer, len);
 
     return error;
 }

@@ -85,20 +85,18 @@
 
 using namespace upm;
 
-Adxl345::Adxl345(int bus)
+Adxl345::Adxl345(int bus) : m_i2c(bus)
 {
-    //init bus and reset chip
-    m_i2c = mraa_i2c_init(bus);
-
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
+    //reset chip
+    m_i2c.address(ADXL345_I2C_ADDR);
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    mraa_i2c_write(m_i2c, m_buffer, 2);
+    m_i2c.write(m_buffer, 2);
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
+    m_i2c.address(ADXL345_I2C_ADDR);
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
-    mraa_i2c_write(m_i2c, m_buffer, 2);
+    m_i2c.write(m_buffer, 2);
 
     //2.5V sensitivity is 256 LSB/g = 0.00390625 g/bit
     //3.3V x and y sensitivity is 265 LSB/g = 0.003773584 g/bit, z is the same
@@ -108,11 +106,6 @@ Adxl345::Adxl345(int bus)
     m_offsets[2] = 0.00390625;
 
     Adxl345::update();
-}
-
-Adxl345::~Adxl345()
-{
-    mraa_i2c_stop(m_i2c);
 }
 
 float*
@@ -135,23 +128,23 @@ Adxl345::getScale(){
 
     uint8_t result;
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
-    mraa_i2c_write_byte(m_i2c, ADXL345_DATA_FORMAT);
+    m_i2c.address(ADXL345_I2C_ADDR);
+    m_i2c.writeByte(ADXL345_DATA_FORMAT);
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
-    result = mraa_i2c_read_byte(m_i2c);
+    m_i2c.address(ADXL345_I2C_ADDR);
+    result = m_i2c.readByte();
 
     return pow(2, (result & 0x03) + 1);
 }
 
-mraa_result_t
+mraa::Result
 Adxl345::update(void)
 {
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
-    mraa_i2c_write_byte(m_i2c, ADXL345_XOUT_L);
+    m_i2c.address(ADXL345_I2C_ADDR);
+    m_i2c.writeByte(ADXL345_XOUT_L);
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
-    mraa_i2c_read(m_i2c, m_buffer, DATA_REG_SIZE);
+    m_i2c.address(ADXL345_I2C_ADDR);
+    m_i2c.read(m_buffer, DATA_REG_SIZE);
 
     // x
     m_rawaccel[0] = ((m_buffer[1] << 8 ) | m_buffer[0]);
@@ -160,5 +153,5 @@ Adxl345::update(void)
     // z
     m_rawaccel[2] = ((m_buffer[5] << 8 ) | m_buffer[4]);
 
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }

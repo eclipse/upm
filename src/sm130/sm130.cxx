@@ -29,9 +29,6 @@
 using namespace upm;
 using namespace std;
 
-// Uncomment the below to see packaet data sent and received from the SM130
-// #define SM130_DEBUG
-
 static const int defaultDelay = 1000; // ms for read
 
 static const int maxLen = 64; // max number of bytes to read
