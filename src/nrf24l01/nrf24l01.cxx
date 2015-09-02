@@ -31,61 +31,33 @@
 
 using namespace upm;
 
-NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce) {
-    mraa_init();
+NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce)
+                            : m_csnPinCtx(cs), m_cePinCtx(ce), m_spi(0)
+{
+    mraa::init();
     init (cs, ce);
-}
-
-NRF24L01::~NRF24L01 () {
-    mraa_result_t error = MRAA_SUCCESS;
-    error = mraa_spi_stop(m_spi);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_cePinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_csnPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
 }
 
 void
 NRF24L01::init (uint8_t chip_select, uint8_t chip_enable) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     m_csn       = chip_select;
     m_ce        = chip_enable;
     m_channel   = 99;
 
-    m_csnPinCtx = mraa_gpio_init (m_csn);
-    if (m_csnPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_csn);
-        exit (1);
+    error = m_csnPinCtx.dir(mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        mraa::printError (error);
     }
 
-    m_cePinCtx = mraa_gpio_init (m_ce);
-    if (m_cePinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_ce);
-        exit (1);
-    }
-
-    error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
-
-    error = mraa_gpio_dir (m_cePinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
+    error = m_cePinCtx.dir(mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        mraa::printError (error);
     }
 
     ceLow();
     csOff ();
-
-    m_spi = mraa_spi_init (0);
 }
 
 void
@@ -123,7 +95,7 @@ NRF24L01::send (uint8_t * value) {
     txFlushBuffer ();
 
     csOn ();
-    mraa_spi_write (m_spi, W_TX_PAYLOAD); // Write cmd to write payload
+    m_spi.writeByte(W_TX_PAYLOAD); // Write cmd to write payload
     writeBytes (value, NULL, m_payload); // Write payload
     csOff ();
     ceHigh(); // Start transmission
@@ -192,7 +164,7 @@ void
 NRF24L01::getData (uint8_t * data)  {
     csOn ();
     /* Send cmd to read rx payload */
-    mraa_spi_write (m_spi, R_RX_PAYLOAD);
+    m_spi.writeByte(R_RX_PAYLOAD);
     /* Read payload */
     writeBytes (data, data, m_payload);
     csOff ();
@@ -303,24 +275,24 @@ NRF24L01::setSpeedRate (speed_rate_t rate) {
     return 0x1;
 }
 
-mraa_result_t
+mraa::Result
 NRF24L01::ceHigh () {
-    return mraa_gpio_write (m_cePinCtx, HIGH);
+    return m_cePinCtx.write(HIGH);
 }
 
-mraa_result_t
+mraa::Result
 NRF24L01::ceLow () {
-    return mraa_gpio_write (m_cePinCtx, LOW);
+    return m_cePinCtx.write(LOW);
 }
 
-mraa_result_t
+mraa::Result
 NRF24L01::csOn () {
-    return mraa_gpio_write (m_csnPinCtx, LOW);
+    return m_csnPinCtx.write(LOW);
 }
 
-mraa_result_t
+mraa::Result
 NRF24L01::csOff () {
-    return mraa_gpio_write (m_csnPinCtx, HIGH);
+    return m_csnPinCtx.write(HIGH);
 }
 
 void
@@ -395,7 +367,7 @@ NRF24L01::sendBeaconingMsg (uint8_t * msg) {
         sendCommand (FLUSH_RX); // Clear TX Fifo
 
         csOn ();
-        mraa_spi_write (m_spi, W_TX_PAYLOAD);        // Write cmd to write payload
+        m_spi.writeByte(W_TX_PAYLOAD);        // Write cmd to write payload
         writeBytes (m_bleBuffer, NULL, 32);     // Write payload
         csOff ();
 
@@ -416,9 +388,9 @@ void
 NRF24L01::writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len) {
     for (uint8_t i = 0; i < len; i++) {
         if (datain != NULL) {
-            datain[i] = mraa_spi_write (m_spi, dataout[i]);
+            datain[i] = m_spi.writeByte(dataout[i]);
         } else {
-            mraa_spi_write (m_spi, dataout[i]);
+            m_spi.writeByte(dataout[i]);
         }
     }
 }
@@ -426,8 +398,8 @@ NRF24L01::writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len) {
 void
 NRF24L01::setRegister (uint8_t reg, uint8_t value) {
     csOn ();
-    mraa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
-    mraa_spi_write (m_spi, value);
+    m_spi.writeByte(W_REGISTER | (REGISTER_MASK & reg));
+    m_spi.writeByte(value);
     csOff ();
 }
 
@@ -436,8 +408,8 @@ NRF24L01::getRegister (uint8_t reg) {
     uint8_t data = 0;
 
     csOn ();
-    mraa_spi_write (m_spi, R_REGISTER | (REGISTER_MASK & reg));
-    data = mraa_spi_write (m_spi, data);
+    m_spi.writeByte(R_REGISTER | (REGISTER_MASK & reg));
+    data = m_spi.writeByte(data);
     csOff ();
 
     return data;
@@ -446,7 +418,7 @@ NRF24L01::getRegister (uint8_t reg) {
 void
 NRF24L01::readRegister (uint8_t reg, uint8_t * value, uint8_t len) {
     csOn ();
-    mraa_spi_write (m_spi, R_REGISTER | (REGISTER_MASK & reg));
+    m_spi.writeByte(R_REGISTER | (REGISTER_MASK & reg));
     writeBytes (value, value, len);
     csOff ();
 }
@@ -454,7 +426,7 @@ NRF24L01::readRegister (uint8_t reg, uint8_t * value, uint8_t len) {
 void
 NRF24L01::writeRegister (uint8_t reg, uint8_t * value, uint8_t len) {
     csOn ();
-    mraa_spi_write (m_spi, W_REGISTER | (REGISTER_MASK & reg));
+    m_spi.writeByte(W_REGISTER | (REGISTER_MASK & reg));
     writeBytes (value, NULL, len);
     csOff ();
 }
@@ -462,7 +434,7 @@ NRF24L01::writeRegister (uint8_t reg, uint8_t * value, uint8_t len) {
 void
 NRF24L01::sendCommand (uint8_t cmd) {
     csOn ();
-    mraa_spi_write (m_spi, cmd);
+    m_spi.writeByte(cmd);
     csOff ();
 }
 

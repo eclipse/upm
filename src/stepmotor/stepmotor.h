@@ -28,9 +28,18 @@
 
 #include <string>
 #include <math.h>
-#include <mraa/pwm.h>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
+#include <mraa/pwm.hpp>
+#include <mraa/aio.hpp>
+#include <mraa/common.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
+#include <mraa/gpio.hpp>
+#define SWIGJAVA
+
+#else
+#include <mraa/gpio.hpp>
+#endif
 
 #define MIN_PERIOD         500
 #define MAX_PERIOD         1000
@@ -76,8 +85,11 @@ class StepMotor {
 
         /**
          * StepMotor object destructor
-         */
-        ~StepMotor ();
+         * no need for the destructor; all the connections will be
+         * closed when m_dirPinCtx and m_pwmStepContext go out of
+         * scope
+         * ~StepMotor ();
+         **/
 
         /**
          * Sets the rotation speed
@@ -91,14 +103,14 @@ class StepMotor {
          *
          * @param ticks Number of ticks the motor moves
          */
-        mraa_result_t stepForward (int ticks);
+        mraa::Result stepForward (int ticks);
 
         /**
          * Rotates the motor backward
          *
          * @param ticks Number of ticks the motor moves
          */
-        mraa_result_t stepBackwards (int ticks);
+        mraa::Result stepBackwards (int ticks);
 
     private:
         std::string         m_name;
@@ -107,11 +119,11 @@ class StepMotor {
         int                 m_stePin;
         int                 m_speed;
 
-        mraa_gpio_context    m_dirPinCtx;
-        mraa_pwm_context     m_pwmStepContext;
+        mraa::Gpio    m_dirPinCtx;
+        mraa::Pwm     m_pwmStepContext;
 
-        mraa_result_t move (int ticks);
-        mraa_result_t dirForward ();
-        mraa_result_t dirBackwards ();
+        mraa::Result move (int ticks);
+        mraa::Result dirForward ();
+        mraa::Result dirBackwards ();
     };
 }

@@ -24,8 +24,17 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
+#include <mraa/aio.hpp>
+#include <mraa/common.hpp>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
+#include <mraa/gpio.hpp>
+#define SWIGJAVA
+
+#else
+#include <mraa/gpio.hpp>
+#endif
 
 #define MAX_BIT_PER_BLOCK     16
 #define CMDMODE               0x0000
@@ -72,17 +81,12 @@ class MY9221 {
         MY9221 (uint8_t di, uint8_t dcki);
 
         /**
-         * MY9221 object destructor
-         */
-        ~MY9221 ();
-
-        /**
          * Sets the bar level 
          *
          * @param level Selected level for the bar (1 - 10)
          * @param direction Up or down; up is true and default
          */
-        mraa_result_t setBarLevel (uint8_t level, bool direction=true);
+        mraa::Result setBarLevel (uint8_t level, bool direction=true);
 
         /**
          * Returns the name of the component
@@ -92,12 +96,12 @@ class MY9221 {
             return m_name;
         }
     private:
-        mraa_result_t lockData ();
-        mraa_result_t send16bitBlock (short data);
+        mraa::Result lockData ();
+        mraa::Result send16bitBlock (short data);
 
         std::string m_name;
-        mraa_gpio_context m_clkPinCtx;
-        mraa_gpio_context m_dataPinCtx;
+        mraa::Gpio m_clkPinCtx;
+        mraa::Gpio m_dataPinCtx;
 };
 
 }

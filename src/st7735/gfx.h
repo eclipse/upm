@@ -27,7 +27,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
-#include <mraa.h>
+
+#ifdef SWIGJAVA
+#undef SWIGJAVA
+#include <mraa.hpp>
+#define SWIGJAVA
+
+#else
+#include <mraa.hpp>
+#endif
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
@@ -106,7 +114,7 @@ class GFX {
          * @param y Axis on the vertical scale
          * @param color Pixel color
          */
-        mraa_result_t setPixel (int x, int y, uint16_t color);
+        mraa::Result setPixel (int x, int y, uint16_t color);
 
         /**
          * Fills the screen with a selected color

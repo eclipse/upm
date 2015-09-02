@@ -24,7 +24,7 @@
  */
 #pragma once
 
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define MAX_BUFFER_LENGTH 6
 
@@ -88,7 +88,7 @@ public:
      *
      * @return 0 if successful
      */
-    mraa_result_t update();
+    mraa::Result update();
 
     /**
      * Sets the magnetic declination for better calibration
@@ -105,7 +105,7 @@ private:
     int16_t m_coor[3];
     float m_declination;
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    mraa_i2c_context m_i2c;
+    mraa::I2c m_i2c;
 };
 
 }

@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Intel Corporation.
  *
  * This module is based on the my9221 driver
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -33,70 +33,40 @@
 
 using namespace upm;
 
-GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki) {
-  mraa_result_t error = MRAA_SUCCESS;
-  
-  // init clock context
-  m_clkPinCtx = mraa_gpio_init(dcki);
-  if (m_clkPinCtx == NULL) {
-    fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
-    exit(1);
-  }
-  mraa_gpio_use_mmaped(m_clkPinCtx, 1);
+GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki)
+									: m_clkPinCtx(dcki),
+									  m_dataPinCtx(di) {
+  mraa::Result error = mraa::SUCCESS;
 
-  // init data context
-  m_dataPinCtx = mraa_gpio_init(di);
-  if (m_dataPinCtx == NULL) {
-    fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
-    exit(1);
-  }
-
-  mraa_gpio_use_mmaped(m_dataPinCtx, 1);
+	m_clkPinCtx.useMmap(true);
+	m_dataPinCtx.useMmap(true);
 
   // set direction (out)
-  error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
-  if (error != MRAA_SUCCESS) {
-    mraa_result_print(error);
-  }
-
-  // set direction (out)
-  error = mraa_gpio_dir(m_dataPinCtx, MRAA_GPIO_OUT);
-  if (error != MRAA_SUCCESS) {
-    mraa_result_print(error);
+  error = m_clkPinCtx.dir(mraa::DIR_OUT);
+  if (error != mraa::SUCCESS) {
+    printError(error);
   }
 }
 
-GroveCircularLED::~GroveCircularLED() {
-  mraa_result_t error = MRAA_SUCCESS;
-  error = mraa_gpio_close (m_dataPinCtx);
-  if (error != MRAA_SUCCESS) {
-    mraa_result_print(error);
-  }
-  error = mraa_gpio_close (m_clkPinCtx);
-  if (error != MRAA_SUCCESS) {
-    mraa_result_print(error);
-  }
-}
-
-mraa_result_t
+mraa::Result
 GroveCircularLED::setSpinner (uint8_t position) {
   if (position < 0 || position >= 24) {
-    return MRAA_ERROR_INVALID_PARAMETER;
+    return mraa::ERROR_INVALID_PARAMETER;
   }
-    for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
-      if (block_idx % 12 == 0) {
+  for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
+    if (block_idx % 12 == 0) {
         send16bitBlock (CMDMODE);
-      }
-      uint32_t state = (block_idx == position) ? BIT_HIGH : BIT_LOW;
-      send16bitBlock (state);
     }
-    return lockData ();
+    uint32_t state = (block_idx == position) ? BIT_HIGH : BIT_LOW;
+    send16bitBlock (state);
+  }
+  return lockData ();
 }
 
-mraa_result_t
+mraa::Result
 GroveCircularLED::setLevel (uint8_t level, bool direction) {
   if (level < 0 || level > 24) {
-    return MRAA_ERROR_INVALID_PARAMETER;
+    return mraa::ERROR_INVALID_PARAMETER;
   }
   if (direction) {
     for(uint8_t block_idx = 24; block_idx > 0; block_idx--) {
@@ -118,7 +88,7 @@ GroveCircularLED::setLevel (uint8_t level, bool direction) {
   return lockData ();
 }
 
-mraa_result_t
+mraa::Result
 GroveCircularLED::setStatus (bool status[24]) {
   for(uint8_t block_idx = 0; block_idx < 24; block_idx++) {
     if (block_idx % 12 == 0) {
@@ -129,36 +99,36 @@ GroveCircularLED::setStatus (bool status[24]) {
   return lockData ();
 }
 
-mraa_result_t
+mraa::Result
 GroveCircularLED::lockData () {
-  mraa_result_t error = MRAA_SUCCESS;
-  error = mraa_gpio_write (m_dataPinCtx, LOW);
+    mraa::Result error = mraa::SUCCESS;
+  error = m_dataPinCtx.write (LOW);
   usleep(10);
 
   for(int idx = 0; idx < 4; idx++) {
-    error = mraa_gpio_write (m_dataPinCtx, HIGH);
-    error = mraa_gpio_write (m_dataPinCtx, LOW);
+    error = m_dataPinCtx.write(HIGH);
+    error = m_dataPinCtx.write(LOW);
   }
   return error;
 }
 
-mraa_result_t
+mraa::Result
 GroveCircularLED::send16bitBlock (short data) {
-  mraa_result_t error = MRAA_SUCCESS;
-  for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
-    uint32_t state = (data & 0x8000) ? HIGH : LOW;
-    error = mraa_gpio_write (m_dataPinCtx, state);
-    state = mraa_gpio_read (m_clkPinCtx);
+    mraa::Result error = mraa::SUCCESS;
+    for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
+        uint32_t state = (data & 0x8000) ? HIGH : LOW;
+        error = m_dataPinCtx.write (state);
+        state = m_clkPinCtx.read ();
 
-    if (state) {
-      state = LOW;
-    } else {
-      state = HIGH;
+        if (state) {
+            state = LOW;
+        } else {
+            state = HIGH;
+        }
+
+        error = m_clkPinCtx.write (state);
+
+        data <<= 1;
     }
-
-    error = mraa_gpio_write (m_clkPinCtx, state);
-
-    data <<= 1;
-  }
   return error;
 }

@@ -30,36 +30,19 @@
 
 using namespace upm;
 
-StepMotor::StepMotor (int dirPin, int stePin) {
-    mraa_result_t error = MRAA_SUCCESS;
+StepMotor::StepMotor (int dirPin, int stePin)
+                    : m_pwmStepContext(stePin), m_dirPinCtx(dirPin) {
+    mraa::Result error = mraa::SUCCESS;
     m_name = "StepMotor";
 
-    mraa_init();
+    mraa::init();
 
     m_stePin = stePin;
     m_dirPin = dirPin;
 
-    m_pwmStepContext = mraa_pwm_init (m_stePin);
-    m_dirPinCtx = mraa_gpio_init (m_dirPin);
-    if (m_dirPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_dirPin);
-        exit (1);
-    }
-
-    error = mraa_gpio_dir (m_dirPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
-}
-
-StepMotor::~StepMotor() {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    mraa_pwm_close (m_pwmStepContext);
-
-    error = mraa_gpio_close (m_dirPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
+    error = m_dirPinCtx.dir (mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        mraa::printError (error);
     }
 }
 
@@ -76,51 +59,51 @@ StepMotor::setSpeed (int speed) {
     m_speed = speed;
 }
 
-mraa_result_t
+mraa::Result
 StepMotor::stepForward (int ticks) {
     dirForward ();
     return move (ticks);
 }
 
-mraa_result_t
+mraa::Result
 StepMotor::stepBackwards (int ticks) {
     dirBackwards ();
     return move (ticks);
 }
 
-mraa_result_t
+mraa::Result
 StepMotor::move (int ticks) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    mraa_pwm_enable (m_pwmStepContext, 1);
+    m_pwmStepContext.enable (1);
     for (int tick = 0; tick < ticks; tick++) {
-        mraa_pwm_period_us (m_pwmStepContext, m_speed);
-        mraa_pwm_pulsewidth_us (m_pwmStepContext, PULSEWIDTH);
+        m_pwmStepContext.period_us (m_speed);
+        m_pwmStepContext.pulsewidth_us (PULSEWIDTH);
     }
-    mraa_pwm_enable (m_pwmStepContext, 0);
+    m_pwmStepContext.enable (0);
 
     return error;
 }
 
-mraa_result_t
+mraa::Result
 StepMotor::dirForward () {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_gpio_write (m_dirPinCtx, HIGH);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
+    error = m_dirPinCtx.write (HIGH);
+    if (error != mraa::SUCCESS) {
+        mraa::printError (error);
     }
 
     return error;
 }
 
-mraa_result_t
+mraa::Result
 StepMotor::dirBackwards () {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_gpio_write (m_dirPinCtx, LOW);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
+    error = m_dirPinCtx.write (LOW);
+    if (error != mraa::SUCCESS) {
+        mraa::printError (error);
     }
 
     return error;
