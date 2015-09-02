@@ -163,6 +163,7 @@ class BMP180 : public IPressureSensor {
          * Returns whether the correct chip is present at the given address.
          */
         bool isAvailable();
+        const char* getModuleName() { return "bmp180"; }
 
     private:
         std::string m_name;
