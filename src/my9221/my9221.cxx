@@ -30,52 +30,27 @@
 
 using namespace upm;
 
-MY9221::MY9221 (uint8_t di, uint8_t dcki) {
-    mraa_result_t error = MRAA_SUCCESS;
-    mraa_init();
+MY9221::MY9221 (uint8_t di, uint8_t dcki) : m_clkPinCtx(dcki), m_dataPinCtx(di) {
+    mraa::Result error = mraa::SUCCESS;
+    mraa::init();
 
-    // init clock context
-    m_clkPinCtx = mraa_gpio_init(dcki);
-    if (m_clkPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
-        exit(1);
-    }
-    // init data context
-    m_dataPinCtx = mraa_gpio_init(di);
-    if (m_dataPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
-        exit(1);
+    // set direction (out)
+    error = m_clkPinCtx.dir(mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        mraa::printError(error);
     }
 
     // set direction (out)
-    error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-
-    // set direction (out)
-    error = mraa_gpio_dir(m_dataPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
+    error = m_dataPinCtx.dir(mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        mraa::printError(error);
     }
 }
 
-MY9221::~MY9221() {
-    mraa_result_t error = MRAA_SUCCESS;
-    error = mraa_gpio_close (m_dataPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_clkPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-}
-
-mraa_result_t
+mraa::Result
 MY9221::setBarLevel (uint8_t level, bool direction) {
     if (level > 10) {
-        return MRAA_ERROR_INVALID_PARAMETER;
+        return mraa::ERROR_INVALID_PARAMETER;
     }
 
     send16bitBlock (CMDMODE);
@@ -94,26 +69,26 @@ MY9221::setBarLevel (uint8_t level, bool direction) {
     return lockData ();
 }
 
-mraa_result_t
+mraa::Result
 MY9221::lockData () {
-    mraa_result_t error = MRAA_SUCCESS;
-    error = mraa_gpio_write (m_dataPinCtx, LOW);
+    mraa::Result error = mraa::SUCCESS;
+    error = m_dataPinCtx.write(LOW);
     usleep(100);
 
     for(int idx = 0; idx < 4; idx++) {
-        error = mraa_gpio_write (m_dataPinCtx, HIGH);
-        error = mraa_gpio_write (m_dataPinCtx, LOW);
+        error = m_dataPinCtx.write(HIGH);
+        error = m_dataPinCtx.write(LOW);
     }
     return error;
 }
 
-mraa_result_t
+mraa::Result
 MY9221::send16bitBlock (short data) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
         uint32_t state = (data & 0x8000) ? HIGH : LOW;
-        error = mraa_gpio_write (m_dataPinCtx, state);
-        state = mraa_gpio_read (m_clkPinCtx);
+        error = m_dataPinCtx.write(state);
+        state = m_clkPinCtx.read();
 
         if (state) {
             state = LOW;
@@ -121,7 +96,7 @@ MY9221::send16bitBlock (short data) {
             state = HIGH;
         }
 
-        error = mraa_gpio_write (m_clkPinCtx, state);
+        error = m_clkPinCtx.write(state);
 
         data <<= 1;
     }

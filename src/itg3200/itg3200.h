@@ -23,7 +23,7 @@
  */
 #pragma once
 
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define READ_BUFFER_LENGTH 8
 
@@ -65,11 +65,6 @@ public:
     Itg3200(int bus);
 
     /**
-     * Itg3200 object destructor
-     */
-    ~Itg3200();
-
-    /**
      * Calibrates the sensor to 0 on all axes. The sensor needs to be resting for accurate calibration.
      * It takes about 3 seconds and is also called by the constructor on object creation.
      *
@@ -109,14 +104,14 @@ public:
      *
      * @return 0 if successful
      */
-    mraa_result_t update();
+    mraa::Result update();
 private:
     float m_angle[3];
     int16_t m_rotation[3];
     int16_t m_offsets[3];
     int16_t m_temperature;
     uint8_t m_buffer[READ_BUFFER_LENGTH];
-    mraa_i2c_context m_i2c;
+    mraa::I2c m_i2c;
 };
 
 }

@@ -32,39 +32,27 @@
 
 using namespace upm;
 
-LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) {
-    mraa_result_t error = MRAA_SUCCESS;
+LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) : m_csnPinCtx(csn), m_spi(0) {
+    mraa::Result error = mraa::SUCCESS;
     m_name = "LPD8806";
 
     m_pixels = NULL;
 
-    m_csnPinCtx = mraa_gpio_init (csn);
-    if (m_csnPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": GPIO failed to initialize");
-    }
-
-    error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
+    error = m_csnPinCtx.dir (mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
                                     ": GPIO failed to set direction");
     }
 
     CSOff ();
 
-    m_spi = mraa_spi_init (0);
-    if (m_spi == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": SPI failed to initialize");
-    }
-
     // set spi mode to mode2 (CPOL = 0, CPHA = 0)
-    mraa_spi_mode (m_spi, MRAA_SPI_MODE0);
+    m_spi.mode (mraa::SPI_MODE0);
 
     CSOn ();
     // issue initial latch/reset to strip:
     for (uint16_t i = ((pixelCount + 31) / 32); i > 0; i--) {
-        mraa_spi_write (m_spi, 0);
+        m_spi.writeByte (0);
     }
     CSOff ();
 
@@ -85,19 +73,8 @@ LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) {
 }
 
 LPD8806::~LPD8806() {
-    mraa_result_t error = MRAA_SUCCESS;
-
     if (m_pixels) {
         free(m_pixels);
-    }
-    
-    error = mraa_spi_stop(m_spi);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_csnPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
     }
 }
 
@@ -117,7 +94,7 @@ LPD8806::show (void) {
     uint16_t byte   = (m_pixelsCount * 3) + ((m_pixelsCount + 31) / 32);
     
     while (byte--) {
-        mraa_spi_write (m_spi, *ptr++);
+        m_spi.writeByte (*ptr++);
     }
 }
 
@@ -132,12 +109,12 @@ LPD8806::getStripLength (void) {
  * **************
  */
 
-mraa_result_t
+mraa::Result
 LPD8806::CSOn () {
-    return mraa_gpio_write (m_csnPinCtx, HIGH);
+    return m_csnPinCtx.write (HIGH);
 }
 
-mraa_result_t
+mraa::Result
 LPD8806::CSOff () {
-    return mraa_gpio_write (m_csnPinCtx, LOW);
+    return m_csnPinCtx.write (LOW);
 }
