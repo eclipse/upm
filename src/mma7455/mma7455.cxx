@@ -52,7 +52,7 @@ MMA7455::MMA7455 (int bus, int devAddr) {
 
     // setting GLVL 0x1 (64LSB/g) and MODE 0x1 (Measurement Mode)
     data = (BIT (MMA7455_GLVL0) | BIT (MMA7455_MODE0));
-    error = ic2WriteReg (MMA7455_MCTL, &data, 0x1);
+    error = i2cWriteReg (MMA7455_MCTL, &data, 0x1);
     if (error != MRAA_SUCCESS) {
         std::cout << "ERROR :: MMA7455 instance wan not created (Mode)" << std::endl;
         return;
@@ -86,7 +86,7 @@ MMA7455::calibrate () {
         xyz.value.y += 2 * -xyz.value.y;
         xyz.value.z += 2 * -(xyz.value.z - 64);
 
-        error = ic2WriteReg (MMA7455_XOFFL,  (unsigned char *) &xyz, 0x6);
+        error = i2cWriteReg (MMA7455_XOFFL,  (unsigned char *) &xyz, 0x6);
         if (error != MRAA_SUCCESS) {
             return error;
         }
@@ -103,7 +103,7 @@ MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     int nBytes = 0;
 
     /*do {
-        nBytes = ic2ReadReg (MMA7455_STATUS, &data, 0x1);
+        nBytes = i2cReadReg (MMA7455_STATUS, &data, 0x1);
     } while ( !(data & MMA7455_DRDY) && nBytes == MRAA_SUCCESS);
 
     if (nBytes == MRAA_SUCCESS) {
@@ -111,7 +111,7 @@ MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
         return MRAA_SUCCESS;
     }*/
 
-    nBytes = ic2ReadReg (MMA7455_XOUTL, (unsigned char *) &xyz, 0x6);
+    nBytes = i2cReadReg (MMA7455_XOUTL, (unsigned char *) &xyz, 0x6);
     if (nBytes == 0) {
         std::cout << "NO_GDB :: 2" << std::endl;
         return MRAA_ERROR_UNSPECIFIED;
@@ -146,7 +146,7 @@ short *MMA7455::readData() {
 #endif
 
 int
-MMA7455::ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size) {
+MMA7455::i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size) {
     if (MRAA_SUCCESS != mraa_i2c_address(m_i2ControlCtx, m_controlAddr)) {
         return 0;
     }
@@ -163,7 +163,7 @@ MMA7455::ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size)
 }
 
 mraa_result_t
-MMA7455::ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size) {
+MMA7455::i2cWriteReg (unsigned char reg, unsigned char * buf, unsigned char size) {
     mraa_result_t error = MRAA_SUCCESS;
 
     uint8_t data[size + 1];

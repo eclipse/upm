@@ -164,7 +164,7 @@ typedef union {
  *
  * @brief API for the MMA7455 Accelerometer
  *
- * This file defines the MMA7455 interface for libmma7455
+ * This module defines the MMA7455 interface for libmma7455
  *
  * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting
@@ -186,6 +186,8 @@ class MMA7455 {
 
         /**
          * Returns the name of the component
+         *
+         * @return Name of the component
          */
         std::string name()
         {
@@ -194,6 +196,8 @@ class MMA7455 {
 
         /**
          * Calibrates the sensor
+         *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
         mraa_result_t calibrate ();
 
@@ -203,6 +207,8 @@ class MMA7455 {
          * @param ptrX X-axis
          * @param ptrY Y-axis
          * @param ptrZ Z-axis
+         *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
         mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
 
@@ -214,28 +220,26 @@ class MMA7455 {
          */
         short *readData ();
 #endif
-
         /**
-         *
+         * Internal function for reading I2C data
          *
          * @param reg Register address
          * @param buf Register data buffer
          * @param size Buffer size
          */
-        int ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        int i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
 
         /**
-         *
+         * Internal function for writing I2C data
          *
          * @param reg Register address
          * @param buf Register data buffer
          * @param size Buffer size
          */
-        mraa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        mraa_result_t i2cWriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
 
     private:
         std::string m_name;
-
         int              m_controlAddr;
         int              m_bus;
         mraa_i2c_context  m_i2ControlCtx;
