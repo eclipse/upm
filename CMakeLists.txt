@@ -15,8 +15,8 @@ find_package (PkgConfig REQUIRED)
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-pkg_check_modules (MRAA REQUIRED mraa>=0.6.2)
-message (INFO " found libmraa version: ${MRAA_VERSION}")
+pkg_check_modules (MRAA REQUIRED mraa>=0.7.2)
+message (INFO " found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
