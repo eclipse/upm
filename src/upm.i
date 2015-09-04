@@ -10,6 +10,8 @@
         %apply int { speed_t };
         %apply int { mraa_result_t };
         %apply int { mraa::Result };
+#else
+        %typemap(out) mraa_result_t = int;
 #endif
 
 #if (SWIG_JAVASCRIPT_V8)
