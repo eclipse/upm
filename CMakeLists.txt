@@ -78,6 +78,7 @@ if (BUILDDOC)
     endforeach()
     add_custom_target (doc
       ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+      COMMAND tar -czf html/xml.tar.gz -C xml .
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Doxygen" VERBATIM
     )
