@@ -117,12 +117,6 @@ namespace upm {
     uint32_t flowCounter() { return m_flowCounter; };
 
     /**
-     * Flow interrupt service routine (ISR)
-     *
-     */
-    static void flowISR(void *ctx);
-
-    /**
      * Computes the flow rate in liters per minute (LPM)
      *
      * @return Computed flow rate
@@ -130,6 +124,12 @@ namespace upm {
     float flowRate();
 
   private:
+    /**
+     * Flow interrupt service routine (ISR)
+     *
+     */
+    static void flowISR(void *ctx);
+
     volatile uint32_t m_flowCounter;
     struct timeval m_startTime;
     mraa_gpio_context m_gpio;
