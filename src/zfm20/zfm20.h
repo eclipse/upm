@@ -213,7 +213,7 @@ namespace upm {
      *
      * @param pkt Packet to check
      * @param len Length of packet
-     * @return True if the checksum is valid, false otherwise
+     * @return True if the packet is valid, false otherwise
      */
     bool verifyPacket(unsigned char *pkt, int len);
 
