@@ -104,12 +104,6 @@ namespace upm {
     uint32_t beatCounter();
 
     /**
-     * Beat interrupt service routine (ISR)
-     *
-     */
-    static void beatISR(void *ctx);
-
-    /**
      * Computes the heart rate
      *
      * @return Computed heart rate
@@ -117,6 +111,12 @@ namespace upm {
     int heartRate();
 
   private:
+    /**
+     * Beat interrupt service routine (ISR)
+     *
+     */
+    static void beatISR(void *ctx);
+    
     volatile uint32_t m_beatCounter;
     struct timeval m_startTime;
     mraa_gpio_context m_gpio;
