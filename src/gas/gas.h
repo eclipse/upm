@@ -87,8 +87,6 @@ class Gas {
 
         /**
          * Returns one sample from the sensor
-         *
-         * @param ctx Threshold context
          */
         virtual int getSample ();
 
