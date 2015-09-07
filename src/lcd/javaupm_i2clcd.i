@@ -6,18 +6,6 @@
 
 %apply signed char[] {uint8_t []};
 
-%{
-    #include "lcd.h"
-    #include "ssd.h"
-    #include "ssd1327.h"
-    #include "ssd1308.h"
-    #include "eboled.h"
-    #include "lcm1602.h"
-    #include "jhd1313m1.h"
-    #include "sainsmartks.h"
-%}
-
-
 %typemap(jni) (uint8_t *data, int bytes) "jbyteArray";
 %typemap(jtype) (uint8_t *data, int bytes) "byte[]";
 %typemap(jstype) (uint8_t *data, int bytes) "byte[]";
@@ -32,6 +20,17 @@
 %typemap(freearg) (uint8_t *data, int bytes) {
         JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
 }
+
+%{
+    #include "lcd.h"
+    #include "ssd.h"
+    #include "ssd1327.h"
+    #include "ssd1308.h"
+    #include "eboled.h"
+    #include "lcm1602.h"
+    #include "jhd1313m1.h"
+    #include "sainsmartks.h"
+%}
 
 %include "lcd.h"
 %include "ssd.h"

@@ -219,7 +219,7 @@ class MMA7455 {
          * Internal function for reading I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
+         * @param buffer Register data buffer
          * @param size Buffer size
          */
         int i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
@@ -228,10 +228,10 @@ class MMA7455 {
          * Internal function for writing I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
+         * @param buffer Register data buffer
          * @param size Buffer size
          */
-        mraa::Result ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        mraa::Result i2cWriteReg (unsigned char reg, uint8_t *buffer, int len);
 
     private:
         std::string m_name;

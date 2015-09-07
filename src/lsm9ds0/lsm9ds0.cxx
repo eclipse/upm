@@ -287,7 +287,7 @@ uint8_t LSM9DS0::readReg(DEVICE_T dev, uint8_t reg)
   return device->readReg(reg);
 }
 
-void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
+void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len)
 {
   mraa::I2c *device;
 
@@ -302,7 +302,7 @@ void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
 
   // We need to set the high bit of the register to enable
   // auto-increment mode for reading multiple registers in one go.
-  device->readBytesReg(reg | m_autoIncrementMode, buf, len);
+  device->readBytesReg(reg | m_autoIncrementMode, buffer, len);
 }
 
 bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)

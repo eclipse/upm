@@ -93,7 +93,7 @@ namespace upm {
      * @param len Number of bytes to write
      * @return mraa::Result
      */
-    mraa::Result writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
+    mraa::Result writeBytes(uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * Reads value(s) from registers
@@ -102,7 +102,7 @@ namespace upm {
      * @param buffer Buffer for data storage
      * @param len Number of bytes to read
      */
-    void readBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
+    int readBytes(uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * Button states

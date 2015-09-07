@@ -1126,7 +1126,7 @@ namespace upm {
      * @param len the number of registers to read
      * @return the value of the register
      */
-    void readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len);
+    void readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * write to a register

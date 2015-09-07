@@ -89,7 +89,7 @@ bool HM11::dataAvailable(unsigned int millis)
     return false;
 }
 
-int HM11::readData(char *buffer, size_t len)
+int HM11::readData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -102,7 +102,7 @@ int HM11::readData(char *buffer, size_t len)
   return rv;
 }
 
-int HM11::writeData(char *buffer, size_t len)
+int HM11::writeData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
