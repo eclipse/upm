@@ -44,7 +44,7 @@ MPR121::MPR121(int bus, uint8_t address) : m_i2c(bus)
   m_overCurrentFault = false;
 }
 
-mraa::Result MPR121::writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
+mraa::Result MPR121::writeBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
     return mraa::SUCCESS;
@@ -64,17 +64,17 @@ mraa::Result MPR121::writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
   return m_i2c.write(buf2, len + 1);
 }
 
-void MPR121::readBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
+int MPR121::readBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
-    return;
+    return 0;
 
   // The usual m_i2c.read() does not work here, so we need to
   // read each byte individually.
   for (int i=0; i<len; i++)
     buffer[i] = m_i2c.readReg(reg + i);
 
-  return;
+  return len;
 }
 
 bool MPR121::configAN3944()

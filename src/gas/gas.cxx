@@ -46,7 +46,7 @@ Gas::~Gas() {
 }
 
 int
-Gas::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
+Gas::getSampledWindow (unsigned int freqMS, int numberOfSamples,
                             uint16_t * buffer) {
     int sampleIdx = 0;
 
@@ -70,7 +70,7 @@ Gas::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
 
 int
 Gas::findThreshold (thresholdContext* ctx, unsigned int threshold,
-                                uint16_t * buffer, unsigned int len) {
+                                uint16_t * buffer, int len) {
     long sum = 0;
     for (unsigned int i = 0; i < len; i++) {
         sum += buffer[i];

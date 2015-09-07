@@ -139,9 +139,9 @@ uint8_t MPU60X0::readReg(uint8_t reg)
   return m_i2c.readReg(reg);
 }
 
-void MPU60X0::readRegs(uint8_t reg, uint8_t *buf, int len)
+void MPU60X0::readRegs(uint8_t reg, uint8_t *buffer, int len)
 {
-  m_i2c.readBytesReg(reg, buf, len);
+  m_i2c.readBytesReg(reg, buffer, len);
 }
 
 bool MPU60X0::writeReg(uint8_t reg, uint8_t val)

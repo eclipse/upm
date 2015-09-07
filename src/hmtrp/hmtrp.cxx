@@ -94,7 +94,7 @@ bool HMTRP::dataAvailable(unsigned int millis)
     return false;
 }
 
-int HMTRP::readData(char *buffer, size_t len, int millis)
+int HMTRP::readData(char *buffer, int len, int millis)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -114,7 +114,7 @@ int HMTRP::readData(char *buffer, size_t len, int millis)
   return rv;
 }
 
-int HMTRP::writeData(char *buffer, size_t len)
+int HMTRP::writeData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
