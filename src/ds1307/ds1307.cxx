@@ -50,10 +50,10 @@ DS1307::~DS1307()
   mraa_i2c_stop(m_i2c);
 }
 
-mraa_result_t DS1307::writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
+mraa::Result DS1307::writeBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
-    return MRAA_ERROR_INVALID_PARAMETER;
+    return mraa::ERROR_INVALID_PARAMETER;
 
   // create a buffer 1 byte larger than the supplied buffer,
   // store the register in the first byte
@@ -67,10 +67,10 @@ mraa_result_t DS1307::writeBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
 
   mraa_i2c_address(m_i2c, DS1307_I2C_ADDR);
 
-  return mraa_i2c_write(m_i2c, buf2, len + 1);
+  return (mraa::Result) mraa_i2c_write(m_i2c, buf2, len + 1);
 }
 
-uint8_t DS1307::readBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
+int DS1307::readBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
     return 0;
@@ -166,7 +166,7 @@ bool DS1307::setTime()
   return writeBytes(0, buffer, 7);
 }
 
-mraa_result_t DS1307::enableClock()
+mraa::Result DS1307::enableClock()
 {
   // the oscillator enable bit is the high bit of reg 0
   // so read it, clear it, and write it back.
@@ -179,7 +179,7 @@ mraa_result_t DS1307::enableClock()
   return writeBytes(0, &buf, 1);
 }
 
-mraa_result_t DS1307::disableClock()
+mraa::Result DS1307::disableClock()
 {
   // the oscillator enable bit is the high bit of reg 0
   // so read it, set it, and write it back.

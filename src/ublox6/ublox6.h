@@ -98,7 +98,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return the Number of bytes read
      */
-    int readData(char *buffer, size_t len);
+    int readData(char *buffer, int len);
 
     /**
      * Writes the data in the buffer to the device
@@ -107,7 +107,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return Number of bytes written
      */
-    int writeData(char *buffer, size_t len);
+    int writeData(char *buffer, int len);
 
     /**
      * Sets up proper tty I/O modes and the baud rate. The default
