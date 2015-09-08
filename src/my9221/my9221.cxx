@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -37,14 +39,16 @@ MY9221::MY9221 (uint8_t di, uint8_t dcki) {
     // init clock context
     m_clkPinCtx = mraa_gpio_init(dcki);
     if (m_clkPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
-        exit(1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(dcki) failed, invalid pin?");
+        return;
     }
     // init data context
     m_dataPinCtx = mraa_gpio_init(di);
     if (m_dataPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
-        exit(1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(di) failed, invalid pin?");
+        return;
     }
 
     // set direction (out)
