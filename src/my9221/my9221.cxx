@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -30,9 +32,24 @@
 
 using namespace upm;
 
-MY9221::MY9221 (uint8_t di, uint8_t dcki) : m_clkPinCtx(dcki), m_dataPinCtx(di) {
+MY9221::MY9221 (uint8_t di, uint8_t dcki) {
     mraa::Result error = mraa::SUCCESS;
-    mraa::init();
+    mraa_init();
+
+    // init clock context
+    m_clkPinCtx = mraa_gpio_init(dcki);
+    if (m_clkPinCtx == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(dcki) failed, invalid pin?");
+        return;
+    }
+    // init data context
+    m_dataPinCtx = mraa_gpio_init(di);
+    if (m_dataPinCtx == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(di) failed, invalid pin?");
+        return;
+    }
 
     // set direction (out)
     error = m_clkPinCtx.dir(mraa::DIR_OUT);
