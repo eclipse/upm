@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "rpr220.h"
 
@@ -35,7 +37,8 @@ RPR220::RPR220(int pin)
 
   if ( !(m_gpio = mraa_gpio_init(pin)) )
    {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
       return;
     }
 
