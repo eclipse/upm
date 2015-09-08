@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "grovespeaker.h"
 
@@ -30,7 +32,10 @@ using namespace upm;
 
 GroveSpeaker::GroveSpeaker(int pin)
 {
-    m_gpio = mraa_gpio_init(pin);
+  if ( !(m_gpio = mraa_gpio_init(pin)) )
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_gpio_init() failed, invalid pin?");
+
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 	m_note_list['a'] = storeNote(1136, 1073, 568, 536, 284, 268);
 	m_note_list['b'] = storeNote(1012, 0, 506, 0, 253, 0);
