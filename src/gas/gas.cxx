@@ -27,13 +27,16 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
+#include <stdexcept>
 #include "gas.h"
 
 using namespace upm;
 
 Gas::Gas(int gasPin) {
     // initialise analog gas input
-    m_gasCtx = mraa_aio_init(gasPin);
+  if (!(m_gasCtx = mraa_aio_init(gasPin)))
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
 }
 
 Gas::~Gas() {
