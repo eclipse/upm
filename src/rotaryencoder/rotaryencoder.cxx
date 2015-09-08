@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "rotaryencoder.h"
 
@@ -33,7 +35,8 @@ RotaryEncoder::RotaryEncoder(int pinA, int pinB)
 {
   if ( !(m_gpioA = mraa_gpio_init(pinA)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(pinA) failed, invalid pin?");
       return;
     }
 
@@ -41,7 +44,8 @@ RotaryEncoder::RotaryEncoder(int pinA, int pinB)
 
   if ( !(m_gpioB = mraa_gpio_init(pinB)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(pinB) failed, invalid pin?");
       return;
     }
 
