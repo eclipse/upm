@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
-
+public class GroveLineFinderSample{
+	
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_grovelinefinder");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,12 +34,18 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
-			
+		// Instantiate a Grove Line Finder sensor on digital pin D2
+		upm_grovelinefinder.GroveLineFinder finder = new upm_grovelinefinder.GroveLineFinder(2);
+		// check every second for the presence of white detection
+		while(true){
+			boolean val = finder.whiteDetected();
+			if(val){
+				System.out.println("White detected");
+			}
+			else{
+				System.out.println("Black detected");
+			}
+
 			Thread.sleep(1000);
 		}
 	}

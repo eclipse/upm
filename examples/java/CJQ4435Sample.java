@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
-
+public class CJQ4435Sample{
+	
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_cjq4435");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,12 +34,26 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+		// Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
+		upm_cjq4435.CJQ4435 mosfet =  new upm_cjq4435.CJQ4435(3);
+		
+		mosfet.setPeriodMS(10);
+		mosfet.enable(true);
+		
+		while(true){
+			// start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
+			for (float i=0; i <= 1; i+=0.1){
+				mosfet.setDutyCycle(i);
+				Thread.sleep(100);
+			}
+			Thread.sleep(1000);
 			
+			// Now take it back down
+			// start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
+			for (float i=1; i >= 0; i-=0.1){
+				mosfet.setDutyCycle(i);
+				Thread.sleep(100);
+			}
 			Thread.sleep(1000);
 		}
 	}

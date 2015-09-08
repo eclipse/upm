@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
-
+public class NUNCHUCKSample{
+	
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_nunchuck");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,12 +34,32 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+		// Instantiate a nunchuck controller bus 0
+		upm_nunchuck.NUNCHUCK nunchuck = new upm_nunchuck.NUNCHUCK(0);
+		
+		// always do this first
+		System.out.println("Initializing... ");
+		if (!nunchuck.init()) {
+			System.err.println("nunchuck->init() failed.");
+			return;
+		}
+
+		while(true){
+			nunchuck.update();
+			System.out.println( "stickX: " + nunchuck.getStickX() + ", stickY: " + nunchuck.getStickY() );
+			System.out.println( "accelX: " + nunchuck.getAccelX() + ", accelY: " + nunchuck.getAccelY() 
+					+", accelZ: " + nunchuck.getAccelZ());
 			
+			if(nunchuck.getButtonC())
+				System.out.println("Button C pressed");
+			else
+				System.out.println("Button C not pressed");
+			
+			if(nunchuck.getButtonZ())
+				System.out.println("Button Z pressed");
+			else
+				System.out.println("Button Z not pressed");
+						
 			Thread.sleep(1000);
 		}
 	}

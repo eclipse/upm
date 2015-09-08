@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
-
+public class BuzzerSample{
+	
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_buzzer");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,14 +34,31 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+		int chord[] = {
+				upm_buzzer.javaupm_buzzer.DO, 
+				upm_buzzer.javaupm_buzzer.RE, 
+				upm_buzzer.javaupm_buzzer.MI, 
+				upm_buzzer.javaupm_buzzer.FA, 
+				upm_buzzer.javaupm_buzzer.SOL, 
+				upm_buzzer.javaupm_buzzer.LA, 
+				upm_buzzer.javaupm_buzzer.SI
+				};
+		
+		// Instantiate a buzzer on digital pin D5
+		upm_buzzer.Buzzer sound = new upm_buzzer.Buzzer(5);
+		
+		// print sensor name
+		System.out.println(sound.name());
+		
+		for (int i = 0; i < chord.length; i++) {
+			// play each note for one second
+			int note = sound.playSound( chord[i], 1000000);
+			System.out.println(note);
 			
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
+		sound.stopSound();
 	}
+	
 
 }
