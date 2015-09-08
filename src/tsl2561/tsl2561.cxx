@@ -27,6 +27,8 @@
  */
 
 
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "tsl2561.h"
 
@@ -45,30 +47,34 @@ TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime
 
     mraa::Result error = m_i2ControlCtx.address(m_controlAddr);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus in TSL2561()\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
         return;
     }
 
     // POWER UP.
-    error = i2cWriteReg(REGISTER_Control,CONTROL_POWERON);
+    error = m_i2ControlCtx.writeReg(REGISTER_Control, CONTROL_POWERON);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Error: Unable to power up - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Unable to power up TSL2561");
         return;
     }
     // Power on Settling time
     usleep(1000);
 
     // Gain & Integration time .
-    error = i2cWriteReg(REGISTER_Timing, m_gain | m_integrationTime);
+    error = m_i2ControlCtx.writeReg(REGISTER_Timing, m_gain | m_integrationTime);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Error: Unable to set gain/time - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Unable to set gain/time");
         return;
     }
 
     // Set interrupt threshold to default.
-    error = i2cWriteReg(REGISTER_Interrupt,0x00);
+    error = m_i2ControlCtx.writeReg(REGISTER_Interrupt, 0x00);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Error: Unable to interrupt threshold - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Unable to set interrupt threshold");
         return;
     }
 }
@@ -76,7 +82,7 @@ TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime
 TSL2561::~TSL2561()
 {
     // POWER DOWN
-    i2cWriteReg(REGISTER_Control,CONTROL_POWEROFF);
+    m_i2ControlCtx.writeReg(REGISTER_Control, CONTROL_POWEROFF);
 }
 
 int
@@ -96,22 +102,22 @@ TSL2561::getLux()
 
     error = i2cReadReg(REGISTER_Channal0H, ch0_high);
     if (error != mraa::SUCCESS) {
-         fprintf(stderr, "Error: Unable to read channel0H in getRawLux()\n");
-         return error;
+        fprintf(stderr, "Error: Unable to read channel0H in getRawLux()\n");
+        return error;
     }
 
     rawLuxCh0 = ch0_high*256+ch0_low;
 
     error= i2cReadReg(REGISTER_Channal1L, ch1_low);
     if (error != mraa::SUCCESS) {
-           fprintf(stderr, "Error: Unable to read channel1L in getRawLux()\n");
-           return error;
+        fprintf(stderr, "Error: Unable to read channel1L in getRawLux()\n");
+        return error;
     }
 
     error = i2cReadReg(REGISTER_Channal1H, ch1_high);
     if (error != mraa::SUCCESS) {
-           fprintf(stderr, "Error: Unable to read channel1H in getRawLux()\n");
-           return error;
+        fprintf(stderr, "Error: Unable to read channel1H in getRawLux()\n");
+        return error;
     }
 
     rawLuxCh1 = ch1_high*256+ch1_low;
@@ -198,15 +204,15 @@ TSL2561::i2cWriteReg (uint8_t reg, uint8_t value)
     // Write register to I2C
     error = m_i2ControlCtx.writeByte (reg);
     if (error != mraa::SUCCESS) {
-          fprintf(stderr, "Error: on i2c bus write reg in i2cWriteReg()\n");
-          return error;
+        fprintf(stderr, "Error: on i2c bus write reg in i2cWriteReg()\n");
+        return error;
     }
 
     // Write value to I2C
     error = m_i2ControlCtx.writeByte (value);
     if (error != mraa::SUCCESS) {
-          fprintf(stderr, "Error: on i2c bus write value in i2cWriteReg()\n");
-          return error;
+        fprintf(stderr, "Error: on i2c bus write value in i2cWriteReg()\n");
+        return error;
     }
 
     usleep(100000);
@@ -221,7 +227,6 @@ TSL2561::i2cReadReg(uint8_t reg, uint8_t &data)
 
     // Start transmission to device
     error = m_i2ControlCtx.address(m_controlAddr);
-
     if (error != mraa::SUCCESS) {
         fprintf(stderr, "Error: on i2c bus address setup in i2cReadReg()\n");
         return error;
