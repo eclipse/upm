@@ -5,6 +5,7 @@
 %include "arrays_java.i";
 
 %apply signed char[] {uint8_t []};
+%ignore BasicFont;
 
 %typemap(jni) (uint8_t *data, int bytes) "jbyteArray";
 %typemap(jtype) (uint8_t *data, int bytes) "byte[]";
