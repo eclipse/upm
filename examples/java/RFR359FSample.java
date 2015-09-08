@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
+public class RFR359FSample{
 
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_rfr359f");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,14 +34,19 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+		// Instantiate an RFR359F digital pin D2
+		upm_rfr359f.RFR359F dInterruptor = new upm_rfr359f.RFR359F(2);
+		
+		while(true){
+			if (dInterruptor.objectDetected()) {
+				System.out.println("Object detected");
+			}
+			else{
+				System.out.println("Area is clear!");
+			}
 			
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 	}
-
+	
 }

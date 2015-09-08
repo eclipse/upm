@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
-
+public class YG1006Sample{
+	
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_yg1006");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,11 +34,17 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
+		// Instantiate a yg1006 flame sensor on digital pin D2
+		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		
 		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+			boolean val = flame.flameDetected();
+			if (val){
+				System.out.println("Flame detected");
+			}
+			else{
+				System.out.println("No flame detected");				
+			}
 			
 			Thread.sleep(1000);
 		}

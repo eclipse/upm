@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample{
+public class MQ303ASample{
 
 	static {
 		try {
-			System.loadLibrary("javaupm_grove");
+			System.loadLibrary("javaupm_mq303a");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,14 +34,29 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
-		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
-	
-		while (true) {
-			System.out.println(button.name() +" value is " + button.value());
+		// Instantiate an mq303a sensor on analog pin A0
+		 
+		// This device uses a heater powered from an analog I/O pin.·
+		// If using A0 as the data pin, then you need to use A1, as the heater
+		// pin (if using a grove mq303a).  For A1, we can use the D15 gpio,·
+		// setup as an output, and drive it low to power the heater.
+		upm_mq303a.MQ303A mq303a = new upm_mq303a.MQ303A(1,15);
+		
+		System.out.println("Enabling heater and waiting 2 minutes for warmup.");
+		mq303a.heaterEnable(true);
+		Thread.sleep(120000);
+		
+		System.out.println("This sensor may need to warm until the value drops below about 450.");
+		
+		for(int i = 1 ; i < 10 ; i++){
+			int val = mq303a.value();
+			System.out.println("Alcohol detected (higher means stronger alcohol): " + val);
 			
 			Thread.sleep(1000);
 		}
+		
+		mq303a.heaterEnable(false);
+		System.out.println("Exiting");
 	}
 
 }
