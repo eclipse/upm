@@ -55,7 +55,7 @@ namespace upm {
  *
  * @brief API for MY9221-based LED Bars
  *
- * This file defines the MY9221 interface for libmy9221
+ * This module defines the MY9221 interface for libmy9221
  *
  * @image html my9221.jpg
  * @snippet my9221-ledbar.cxx Interesting

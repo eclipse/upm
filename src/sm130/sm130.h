@@ -60,7 +60,7 @@ namespace upm {
    *
    * @brief API for the SM130 RFID Reader Module
    * 
-   * This file defines the SM130 interface for the sm130 RFID library
+   * This module defines the SM130 interface for the sm130 RFID library
    *
    * This module was developed using an SM130 and a Sparkfun RFID
    * Evaluation shield using a UART for communications.  It should be

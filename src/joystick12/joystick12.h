@@ -46,7 +46,7 @@ namespace upm {
  *
  * @brief API for the ElecFreaks* Joystick v 1.2-1.4 Breakout
  *
- * This file defines the Joystick API, and implementation for the X and Y
+ * This module defines the Joystick API, and implementation for the X and Y
  * buttons could be treated as normal GPIO - this enables easier
  * interrupt support. This driver should be compatible with any
  * 2-axis analog joystick.

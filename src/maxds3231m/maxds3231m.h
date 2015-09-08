@@ -77,7 +77,7 @@ struct Time3231 {
  *
  * @brief API for the MAXDS3231M I2C Real-Time Clock
  *
- * This file defines the API for MAXDS3231M
+ * This module defines the API for MAXDS3231M
  *
  * @snippet maxds3231m.cxx Interesting
  */

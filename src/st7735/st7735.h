@@ -509,7 +509,7 @@ const unsigned char font[] = {
  *
  * @brief API for the ST7735 LCD
  * 
- * This file defines the interface for the ST7735 display library
+ * This module defines the interface for the ST7735 display library
  *
  * @image html st7735.jpg
  * @snippet st7735.cxx Interesting

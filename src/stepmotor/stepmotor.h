@@ -57,7 +57,7 @@ namespace upm {
  *
  * @brief API for the Stepper Motor
  * 
- * This file defines the Stepper Motor interface. It is compatible with stepper
+ * This module defines the Stepper Motor interface. It is compatible with stepper
  * motor drivers that use 2 pins to control the motor, like an Easy Driver
  * from Brian Schmalz.
  *

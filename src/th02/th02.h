@@ -61,7 +61,7 @@ namespace upm {
  *
  * @brief API for the TH02 Temperature & Humidity Sensor
  * 
- *   This file defines the TH02 interface for libth02 
+ *   This module defines the TH02 interface for libth02 
  *
  *   Note: For use on Intel(R) Edison with an Arduino* breakout board, Intel
  *   Edison must be set to 3 V rather than 5 V.

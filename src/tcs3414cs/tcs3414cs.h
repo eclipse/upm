@@ -121,7 +121,7 @@ typedef struct {
  *
  * @brief API for the TCS3414CS Color Sensor
  * 
- * This file defines the TCS3414CS interface for the color sensor
+ * This module defines the TCS3414CS interface for the color sensor
  *
  * @image html tcs3414cs.jpg
  * @snippet tcs3414cs.cxx Interesting

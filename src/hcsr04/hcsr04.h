@@ -56,7 +56,7 @@ namespace upm {
  *
  * @brief API for the HC-SR04 Ultrasonic Sensor
  *
- * This file defines the HC-SR04 interface for libhcsr04
+ * This module defines the HC-SR04 interface for libhcsr04
  *
  * @snippet hcsr04.cxx Interesting
  */

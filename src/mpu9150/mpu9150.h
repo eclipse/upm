@@ -51,7 +51,7 @@ namespace upm {
    *
    * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
    *
-   * This file defines the MPU9150 interface for libmpu9150
+   * This module defines the MPU9150 interface for libmpu9150
    *
    * @image html mpu9150.jpg
    * @snippet mpu9150.cxx Interesting

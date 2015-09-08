@@ -78,7 +78,7 @@ namespace upm {
  *
  * @brief API for the LSM303 Accelerometer & Compass
  *
- * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
+ * This module defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
  * This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass
  * module used over I2C. The magnometer and acceleromter are accessed
  * at two seperate I2C addresses.

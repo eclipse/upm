@@ -67,7 +67,7 @@ namespace upm {
  *
  * @brief API for the MLX90614 Temperature Sensor
  *
- * This file defines the MLX90614 interface for libmlx90614
+ * This module defines the MLX90614 interface for libmlx90614
  *
  * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting

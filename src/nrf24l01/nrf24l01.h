@@ -166,7 +166,7 @@ typedef enum {
  *
  * @brief API for the NRF24L01 Transceiver Module
  *
- * This file defines the NRF24L01 interface for libnrf24l01
+ * This module defines the NRF24L01 interface for libnrf24l01
  *
  * @image html nrf24l01.jpg
  * @snippet nrf24l01-receiver.cxx Interesting

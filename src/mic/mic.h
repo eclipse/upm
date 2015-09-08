@@ -53,7 +53,7 @@ namespace upm {
  *
  * @brief API for the Analog Microphone
  *
- * This file defines the Analog Microphone sensor
+ * This module defines the Analog Microphone sensor
  *
  * @image html mic.jpg
  * @snippet mic.cxx Interesting
