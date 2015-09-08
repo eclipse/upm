@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "yg1006.h"
 
@@ -33,7 +35,8 @@ YG1006::YG1006(int pin)
 {
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
       return;
     }
 
