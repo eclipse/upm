@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <stddef.h>
 #include <stdio.h>
 #include <time.h>
@@ -34,7 +36,13 @@ using namespace upm;
 
 PPD42NS::PPD42NS(int pin)
 {
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+      }
+
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
 }
 
