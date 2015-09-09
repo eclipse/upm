@@ -23,6 +23,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "math.h"
 #include "hmc5883l.h"
 
@@ -80,7 +83,12 @@ using namespace upm;
 
 Hmc5883l::Hmc5883l(int bus)
 {
-    m_i2c = mraa_i2c_init(bus);
+    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
     m_rx_tx_buf[0] = HMC5883L_CONF_REG_B;
