@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "math.h"
 #include "adxl345.h"
@@ -87,16 +89,34 @@ using namespace upm;
 
 Adxl345::Adxl345(int bus) : m_i2c(bus)
 {
-    //reset chip
-    m_i2c.address(ADXL345_I2C_ADDR);
+    //init bus and reset chip
+    if ( m_i2c.address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": i2c.address() failed");
+        return;
+    }
+
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    m_i2c.write(m_buffer, 2);
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() control register failed");
+        return;
+    }
 
-    m_i2c.address(ADXL345_I2C_ADDR);
+    if ( m_i2c.address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": i2c.address() failed");
+        return;
+    }
+
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
-    m_i2c.write(m_buffer, 2);
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() mode register failed");
+        return;
+    }
 
     //2.5V sensitivity is 256 LSB/g = 0.00390625 g/bit
     //3.3V x and y sensitivity is 265 LSB/g = 0.003773584 g/bit, z is the same
