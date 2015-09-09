@@ -40,15 +40,16 @@ AT42QT1070::AT42QT1070(int bus, uint8_t address)
 
     // setup our i2c link
     if (!(m_i2c = mraa_i2c_init(bus))) {
-        cerr << __FUNCTION__ << ": mraa_i2c_init() failed." << endl;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
         return;
     }
 
     mraa_result_t rv;
 
     if ((rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS) {
-        cerr << __FUNCTION__ << ": Could not initialize i2c bus. " << endl;
-        mraa_result_print(rv);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
         return;
     }
 
@@ -72,8 +73,8 @@ AT42QT1070::writeByte(uint8_t reg, uint8_t byte)
     mraa_result_t rv = mraa_i2c_write_byte_data(m_i2c, byte, reg);
 
     if (rv != MRAA_SUCCESS) {
-        cerr << __FUNCTION__ << ": mraa_i2c_write_byte() failed." << endl;
-        mraa_result_print(rv);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_write_byte() failed");
         return false;
     }
 
@@ -86,8 +87,8 @@ AT42QT1070::writeWord(uint8_t reg, uint16_t word)
     mraa_result_t rv = mraa_i2c_write_word_data(m_i2c, word, reg);
 
     if (rv != MRAA_SUCCESS) {
-        cerr << __FUNCTION__ << ": mraa_i2c_write_word() failed." << endl;
-        mraa_result_print(rv);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_write_word() failed");
         return false;
     }
 
