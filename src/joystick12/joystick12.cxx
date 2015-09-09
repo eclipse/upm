@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -42,9 +44,20 @@ const int Joystick12::Y_right= 4070;
 
 
 Joystick12::Joystick12(int pinX, int pinY) {
-    mraa_result_t error;
-    m_joystickCtxX = mraa_aio_init(pinX);
-    m_joystickCtxY = mraa_aio_init(pinY);
+
+    if ( !(m_joystickCtxX = mraa_aio_init(pinX)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init(pinX) failed, invalid pin?");
+        return;
+      }
+
+    if ( !(m_joystickCtxY = mraa_aio_init(pinY)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init(pinY) failed, invalid pin?");
+        return;
+      }
 }
 
 Joystick12::~Joystick12() {
