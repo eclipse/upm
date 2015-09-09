@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 
 #include "buzzer.h"
@@ -34,7 +36,8 @@ Buzzer::Buzzer(int pinNumber) {
     m_pwm_context = mraa_pwm_init(pinNumber);
     if(m_pwm_context == 0)
     {
-        cerr << __FUNCTION__ << ": Error initializing PWM on pin " << pinNumber << endl;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_init() failed, invalid pin?");
         return;
     }
     m_name = "Buzzer";
