@@ -31,6 +31,7 @@
  */
 
 #include <string>
+#include <stdexcept>
 #include <unistd.h>
 
 #include "hd44780_bits.h"
@@ -51,7 +52,8 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) :
 
     error = m_i2c_lcd_control->address(m_lcd_control_address);
     if (error != MRAA_SUCCESS) {
-        fprintf(stderr, "Failed to initialize i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": I2c.address() failed");
         return;
     }
 
