@@ -26,6 +26,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "adxl335.h"
 
@@ -41,19 +43,22 @@ ADXL335::ADXL335(int pinX, int pinY, int pinZ, float aref)
 
   if ( !(m_aioX = mraa_aio_init(pinX)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init(X) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(X) failed, invalid pin?");
       return;
     }
 
   if ( !(m_aioY = mraa_aio_init(pinY)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init(Y) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(Y) failed, invalid pin?");
       return;
     }
 
   if ( !(m_aioZ = mraa_aio_init(pinZ)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init(Z) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(Z) failed, invalid pin?");
       return;
     }
 }
