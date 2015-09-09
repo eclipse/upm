@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -31,19 +33,19 @@
 using namespace upm;
 
 BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus) {
+ 
     m_name = "BMPX8X";
-
-    m_controlAddr = devAddr;
-    m_bus = bus;
-
-    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
+ 
+    mraa::Result ret = m_i2ControlCtx.address(devAddr);
     if (ret != mraa::SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
-        exit(-1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
     }
 
     if (i2cReadReg_8 (0xD0) != 0x55)  {
-        std::cout << "Error :: Cannot continue" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Invalid chip ID");
         return;
     }
 
