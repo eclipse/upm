@@ -22,6 +22,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -46,11 +48,18 @@ AM2315::AM2315(int bus, int devAddr) {
 
     m_base_priority = sched_getscheduler(0);
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "%s: Error accessing i2c bus\n", m_name);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
     }
     m_model = i2cReadReg_16(AM2315_MODEL);
     m_version = i2cReadReg_8(AM2315_VERSION);
