@@ -37,6 +37,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -54,14 +56,23 @@ using namespace upm;
 ADIS16448::ADIS16448(int bus, int rst)
 {
 // Configure I/O
-	_rst = mraa_gpio_init(rst); //Initialize RST pin
+        //Initialize RST pin
+        if ( !(_rst = mraa_gpio_init(rst)) ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_gpio_init() failed, invalid pin?");
+            return;
+          }
 	mraa_gpio_dir(_rst, MRAA_GPIO_IN); //Set direction as INPUT
 
-// Configure SPI
-	_spi = mraa_spi_init(bus);
-	mraa_spi_frequency(_spi, 1000000); //Set SPI frequency to 1MHz
-	mraa_spi_mode(_spi, MRAA_SPI_MODE3); //Set SPI mode/polarity
-	mraa_spi_bit_per_word(_spi, 16); //Set # of bits per word
+        // Configure SPI
+        if ( !(_spi = mraa_spi_init(bus)) ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_spi_init() failed");
+            return;
+          }
+        configSPI();
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -102,8 +113,21 @@ void ADIS16448::resetDUT()
 ////////////////////////////////////////////////////////////////////////////
 void ADIS16448::configSPI() {
 	mraa_spi_frequency(_spi, 1000000); //Set SPI frequency to 1MHz
-	mraa_spi_mode(_spi, MRAA_SPI_MODE3); //Set SPI mode/polarity
-	mraa_spi_bit_per_word(_spi, 16); //Set # of bits per word
+
+        if ( mraa_spi_mode(_spi, MRAA_SPI_MODE3) != MRAA_SUCCESS ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_spi_mode() failed");
+            return;
+          }
+	//Set # of bits per word
+
+        if ( mraa_spi_bit_per_word(_spi, 16) != MRAA_SUCCESS ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_spi_bit_per_word() failed");
+            return;
+          }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
