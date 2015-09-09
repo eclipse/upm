@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "gp2y0a.h"
 
@@ -33,7 +35,8 @@ GP2Y0A::GP2Y0A(int pin)
 {
   if (!(m_aio = mraa_aio_init(pin)))
     {
-      cerr << __FUNCTION__ << "mraa_aio_init() failed." << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 
