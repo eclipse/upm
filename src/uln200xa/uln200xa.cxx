@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "uln200xa.h"
 
@@ -38,14 +40,16 @@ ULN200XA::ULN200XA(int stepsPerRev, int i1, int i2, int i3, int i4)
 
   if ( !(m_stepI1 = mraa_gpio_init(i1)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i1) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i1) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_stepI1, MRAA_GPIO_OUT);
 
   if ( !(m_stepI2 = mraa_gpio_init(i2)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i2) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i2) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       return;
     }
@@ -53,7 +57,8 @@ ULN200XA::ULN200XA(int stepsPerRev, int i1, int i2, int i3, int i4)
 
   if ( !(m_stepI3 = mraa_gpio_init(i3)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i3) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i3) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       mraa_gpio_close(m_stepI2);
       return;
@@ -62,7 +67,8 @@ ULN200XA::ULN200XA(int stepsPerRev, int i1, int i2, int i3, int i4)
 
   if ( !(m_stepI4 = mraa_gpio_init(i4)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i4) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i4) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       mraa_gpio_close(m_stepI2);
       mraa_gpio_close(m_stepI3);
