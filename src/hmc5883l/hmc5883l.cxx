@@ -23,6 +23,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "math.h"
 #include "hmc5883l.h"
 
@@ -80,15 +83,36 @@ using namespace upm;
 
 Hmc5883l::Hmc5883l(int bus) : m_i2c(bus)
 {
-    m_i2c.address(HMC5883L_I2C_ADDR);
+    mraa::Result error;
+    error = m_i2c.address(HMC5883L_I2C_ADDR);
+    if(error != mraa::SUCCESS){
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": i2c.address() failed");
+        return;
+    }
     m_rx_tx_buf[0] = HMC5883L_CONF_REG_B;
     m_rx_tx_buf[1] = GA_1_3_REG;
-    m_i2c.write(m_rx_tx_buf, 2);
+    error = m_i2c.write(m_rx_tx_buf, 2);
+    if(error != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() configuration failed");
+        return;
+    }
 
-    m_i2c.address(HMC5883L_I2C_ADDR);
+    error = m_i2c.address(HMC5883L_I2C_ADDR);
+    if(error != mraa::SUCCESS){
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": i2c.address() failed");
+        return;
+    }
     m_rx_tx_buf[0] = HMC5883L_MODE_REG;
     m_rx_tx_buf[1] = HMC5883L_CONT_MODE;
-    m_i2c.write(m_rx_tx_buf, 2);
+    error = m_i2c.write(m_rx_tx_buf, 2);
+    if(error != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() mode failed");
+        return;
+    }
 
     Hmc5883l::update();
 }
