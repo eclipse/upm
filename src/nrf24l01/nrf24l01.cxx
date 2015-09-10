@@ -25,6 +25,8 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <string>
+#include <stdexcept>
 #include <stdlib.h>
 
 #include "nrf24l01.h"
@@ -32,7 +34,6 @@
 using namespace upm;
 
 NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce) {
-    mraa_init();
     init (cs, ce);
 }
 
@@ -62,14 +63,16 @@ NRF24L01::init (uint8_t chip_select, uint8_t chip_enable) {
 
     m_csnPinCtx = mraa_gpio_init (m_csn);
     if (m_csnPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_csn);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(csn) failed, invalid pin?");
+        return;
     }
 
     m_cePinCtx = mraa_gpio_init (m_ce);
     if (m_cePinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_ce);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(ce) failed, invalid pin?");
+        return;
     }
 
     error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
