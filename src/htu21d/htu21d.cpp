@@ -22,6 +22,9 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
+
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -38,11 +41,17 @@ HTU21D::HTU21D(int bus, int devAddr) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Error accessing i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
     }
     resetSensor();
 }
@@ -213,7 +222,9 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
 
     uint8_t data[2] = { reg, value };
     mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
+    if ( mraa_i2c_write(m_i2ControlCtx, data, 2) != MRAA_SUCCESS)
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_write() failed");
 
     return error;
 }
