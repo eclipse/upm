@@ -25,6 +25,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <errno.h>
 
 #include "grovescam.h"
@@ -45,7 +47,8 @@ GROVESCAM::GROVESCAM(int uart, uint8_t camAddr)
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
-      cerr << __FUNCTION__ << ": mraa_uart_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init() failed");
       return;
     }
 
@@ -54,15 +57,18 @@ GROVESCAM::GROVESCAM(int uart, uint8_t camAddr)
 
   if (!devPath)
     {
-      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
       return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
-      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
-           << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed:" +
+                               string(strerror(errno)));
       return;
     }
 }
@@ -131,7 +137,9 @@ int GROVESCAM::writeData(uint8_t *buffer, int len)
 
   if (rv < 0)
     {
-      cerr << __FUNCTION__ << ": write failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed: " +
+                               string(strerror(errno)));
       return rv;
     }
 
@@ -161,7 +169,9 @@ bool GROVESCAM::setupTty(speed_t baud)
   // make it so
   if (tcsetattr(m_ttyFd, TCSAFLUSH, &termio) < 0)
     {
-      cerr << __FUNCTION__ << ": tcsetattr failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": tcsetattr() failed: " +
+                               string(strerror(errno)));
       return false;
     }
 
@@ -187,7 +197,8 @@ bool GROVESCAM::init()
     {
       if (retries++ > maxRetries)
         {
-          cerr << __FUNCTION__ << ": retries exceeded" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": maximum retries exceeded");
           return false;
         }
 
@@ -238,7 +249,8 @@ bool GROVESCAM::preCapture(PIC_FORMATS_T fmt)
     {
       if (retries++ > maxRetries)
         {
-          cerr << __FUNCTION__ << ": retries exceeded" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": maximum retries exceeded");
           return false;
         }
 
@@ -276,7 +288,8 @@ bool GROVESCAM::doCapture()
     {
       if (retries++ > maxRetries)
         {
-          cerr << __FUNCTION__ << ": retries exceeded" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": maximum retries exceeded");
           return false;
         }
 
@@ -309,7 +322,8 @@ bool GROVESCAM::doCapture()
     {
       if (retries++ > maxRetries)
         {
-          cerr << __FUNCTION__ << ": retries exceeded" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": maximum retries exceeded");
           return false;
         }
 
@@ -334,7 +348,8 @@ bool GROVESCAM::doCapture()
     {
       if (retries++ > maxRetries)
         {
-          cerr << __FUNCTION__ << ": retries exceeded" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": maximum retries exceeded");
           return false;
         }
 
@@ -373,15 +388,15 @@ bool GROVESCAM::storeImage(const char *fname)
 {
   if (!fname)
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ 
-           << ": fname is NULL" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": filename is NULL");
       return false;
     }
 
   if (!m_picTotalLen)
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ 
-           << ": Picture length is zero, you need to capture first." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                    ": Picture length is zero, you need to capture first.");
 
       return false;
     }
@@ -390,9 +405,9 @@ bool GROVESCAM::storeImage(const char *fname)
 
   if (!file)
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ 
-           << ": fopen failed: " << strerror(errno) << endl;
-
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": fopen() failed: " +
+                               string(strerror(errno)));
       return false;
     }
   
@@ -405,7 +420,6 @@ bool GROVESCAM::storeImage(const char *fname)
   uint8_t cmd[pktLen] = { 0xaa, 0x0e | m_camAddr, 0x00, 0x00, 0x00, 0x00 };
   uint8_t pkt[MAX_PKT_LEN];
   int retries = 0;
-  bool failed = false;
   
   for (unsigned int i = 0; i < pktCnt; i++)
     {
@@ -425,10 +439,9 @@ bool GROVESCAM::storeImage(const char *fname)
         {
           if (retries++ > maxRetries)
             {
-              cerr << __FUNCTION__ << ": timeout, max retries exhausted." 
-                   << endl;
-              failed = true;
-              break;
+              throw std::runtime_error(std::string(__FUNCTION__) +
+                                       ": timeout, maximum retries exceeded");
+              return false;
             }
           goto retry;
         }
@@ -446,10 +459,9 @@ bool GROVESCAM::storeImage(const char *fname)
             goto retry;
           else
             {
-              cerr << __FUNCTION__ << ": cksum error, max retries exhausted." 
-                   << endl;
-              failed = true;
-              break;
+              throw std::runtime_error(std::string(__FUNCTION__) +
+                                       ": cksum error, maximum retries exceeded");
+              return false;
             }
         }
 
@@ -464,12 +476,6 @@ bool GROVESCAM::storeImage(const char *fname)
 
   // reset the pic length to 0 for another run.
   m_picTotalLen = 0;
-
-  if (failed)
-    {
-      cerr << "Failed to download and store image." << endl;
-      return false;
-    }
 
   return true;
 }
