@@ -27,6 +27,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -43,16 +45,27 @@ MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus)
     m_controlAddr = devAddr;
     m_bus = bus;
 
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
+
     mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
     if (ret != mraa::SUCCESS) {
-        fprintf(stderr, "Error accessing i2c bus\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_address() failed");
+        return;
     }
 
     setOversampling(mode);
 
     id = i2cReadReg_8(MPL3115A2_WHO_AM_I);
     if (id != MPL3115A2_DEVICE_ID)  {
-        fprintf(stdout, "Incorrect device id - read: 0x%02x\n", id);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": incorrect device id");
+        return;
     }
 }
 
@@ -160,10 +173,6 @@ MPL3115A2::sampleData(void)
     // Loop waiting for the ready bit to become active
     while (tries-- > 0) {
         val = i2cReadReg_8(MPL3115A2_CTRL_REG1);
-        if (val < 0) {
-            fprintf(stdout,"Error reading CTRL_REG1\n");
-            return -1;
-        }
 
         /* wait for data ready, i.e. OST cleared */
         if (!(val & MPL3115A2_CTRL_OST))
@@ -171,7 +180,8 @@ MPL3115A2::sampleData(void)
         usleep(20000);
     }
     if (tries < 0) {
-        std::cout << "Device timeout during measurement" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": timeout during measurement");
         return -1;
     }
 
@@ -299,6 +309,9 @@ MPL3115A2::i2cWriteReg (uint8_t reg, uint8_t value) {
     m_i2ControlCtx.address (m_controlAddr);
     error = m_i2ControlCtx.write (data, 2);
 
+    if (error != MRAA_SUCCESS)
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ":mraa_i2c_write() failed");
     return error;
 }
 
