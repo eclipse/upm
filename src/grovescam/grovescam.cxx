@@ -119,7 +119,12 @@ int GROVESCAM::readData(uint8_t *buffer, int len)
   int rv = read(m_ttyFd, (char *)buffer, len);
 
   if (rv < 0)
-    cerr << __FUNCTION__ << ": read failed: " << strerror(errno) << endl;
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": read() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
 
   return rv;
 }
