@@ -26,6 +26,7 @@
 #include <math.h>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "pca9685.h"
 
@@ -49,7 +50,8 @@ PCA9685::PCA9685(int bus, uint8_t address, bool raw)
 
   if ( !m_i2c)
     {
-      cerr << "PCA9685: mraa_i2c_init() failed." << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
       return;
     }
       
@@ -57,8 +59,8 @@ PCA9685::PCA9685(int bus, uint8_t address, bool raw)
   
   if ( (rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS)
     {
-      cerr << "PCA9685: Could not initialize i2c bus. " << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
       return;
     }
 
@@ -81,8 +83,8 @@ bool PCA9685::writeByte(uint8_t reg, uint8_t byte)
 
   if (rv != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_write_byte() failed." << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write_byte_data() failed");
       return false;
     }
 
@@ -95,8 +97,8 @@ bool PCA9685::writeWord(uint8_t reg, uint16_t word)
 
   if (rv != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_write_word() failed." << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write_word_data() failed");
       return false;
     }
 
@@ -127,13 +129,7 @@ bool PCA9685::setModeSleep(bool sleep)
   if (!sleep && restartBit)
     mode1 &= ~MODE1_RESTART;
 
-  bool rv = writeByte(REG_MODE1, mode1);
-
-  if (!rv)
-    {
-      cerr << __FUNCTION__ << ": write to MODE1 failed." << endl;
-      return rv;
-    }
+  writeByte(REG_MODE1, mode1);
 
   // Need a delay of 500us after turning sleep mode off for the oscillator 
   // to stabilize
@@ -144,10 +140,10 @@ bool PCA9685::setModeSleep(bool sleep)
   if (restartBit && m_restartEnabled && !sleep)
     {
       mode1 |= restartBit;
-      rv = writeByte(REG_MODE1, mode1);
+      writeByte(REG_MODE1, mode1);
     }
 
-  return rv;
+  return true;
 }
 
 bool PCA9685::enableAutoIncrement(bool ai)
@@ -166,8 +162,9 @@ bool PCA9685::ledFullOn(uint8_t led, bool val)
 {
   if (led > 15 && (led != PCA9685_ALL_LED))
     {
-      cerr << __FUNCTION__ << ": led value must be between 0-15 or " 
-           << "PCA9685_ALL_LED (255)" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": led value must be between 0-15 or " +
+                              "PCA9685_ALL_LED (255)");
       return false;
     }
 
@@ -193,8 +190,9 @@ bool PCA9685::ledFullOff(uint8_t led, bool val)
 {
   if (led > 15 && (led != PCA9685_ALL_LED))
     {
-      cerr << __FUNCTION__ << ": led value must be between 0-15 or " 
-           << "PCA9685_ALL_LED (255)" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": led value must be between 0-15 or " +
+                              "PCA9685_ALL_LED (255)");
       return false;
     }
 
@@ -220,14 +218,16 @@ bool PCA9685::ledOnTime(uint8_t led, uint16_t time)
 {
   if (led > 15 && (led != PCA9685_ALL_LED))
     {
-      cerr << __FUNCTION__ << ": led value must be between 0-15 or " 
-           << "PCA9685_ALL_LED (255)" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": led value must be between 0-15 or " +
+                              "PCA9685_ALL_LED (255)");
       return false;
     }
 
   if (time > 4095)
     {
-      cerr << __FUNCTION__ << ": time value must be between 0-4095" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": time value must be between 0-4095");
       return false;
     }
 
@@ -251,14 +251,16 @@ bool PCA9685::ledOffTime(uint8_t led, uint16_t time)
 {
   if (led > 15 && (led != PCA9685_ALL_LED))
     {
-      cerr << __FUNCTION__ << ": led value must be between 0-15 or " 
-           << "PCA9685_ALL_LED (255)" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": led value must be between 0-15 or " +
+                              "PCA9685_ALL_LED (255)");
       return false;
     }
 
   if (time > 4095)
     {
-      cerr << __FUNCTION__ << ": time value must be between 0-4095" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": time value must be between 0-4095");
       return false;
     }
 
