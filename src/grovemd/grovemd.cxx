@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "grovemd.h"
 
@@ -39,7 +40,8 @@ GroveMD::GroveMD(int bus, uint8_t address)
   // setup our i2c link
   if ( !(m_i2c = mraa_i2c_init(bus)) )
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
       return;
     }
 
@@ -47,14 +49,15 @@ GroveMD::GroveMD(int bus, uint8_t address)
   mraa_result_t rv;
   if ( (rv = mraa_i2c_frequency(m_i2c, MRAA_I2C_STD)) != MRAA_SUCCESS )
     {
-      cerr << "GroveMD: Could not set i2c frequency (MRAA_I2C_STD). " << endl;
-      mraa_result_print(rv);
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_frequency(MRAA_I2C_STD) failed");
       return;
     }
 
   if (mraa_i2c_address(m_i2c, m_addr))
     {
-      cerr << "GroveMD: Could not initialize i2c bus. " << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
       return;
     }
 }
@@ -76,8 +79,8 @@ bool GroveMD::writePacket(REG_T reg, uint8_t data1, uint8_t data2)
   mraa_result_t rv;
   if ( (rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS )
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_address() failed. " << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
       return false;
     }
 
@@ -90,8 +93,8 @@ bool GroveMD::writePacket(REG_T reg, uint8_t data1, uint8_t data2)
 
   if ( (rv = mraa_i2c_write(m_i2c, buf, 3)) != MRAA_SUCCESS )
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_write() failed:" << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write() failed");
       return false;
     }
 
@@ -129,8 +132,9 @@ bool GroveMD::setStepperSteps(uint8_t steps)
   if (steps == 0)
     {
       // invalid
-      cerr << __FUNCTION__ << ": invalid number of steps.  "
-           << "Valid values are between 1 and 255." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                               ": invalid number of steps.  " +
+                               "Valid values are between 1 and 255.");
       return false;
     }
 
