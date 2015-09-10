@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "mhz16.h"
 
@@ -37,7 +39,8 @@ MHZ16::MHZ16(int uart)
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
-      cerr << __FUNCTION__ << ": mraa_uart_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init() failed");
       return;
     }
 
@@ -46,15 +49,18 @@ MHZ16::MHZ16(int uart)
 
   if (!devPath)
     {
-      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
       return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
-      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
-           << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed: " +
+                               string(strerror(errno)));
       return;
     }
 }
@@ -102,7 +108,12 @@ int MHZ16::readData(char *buffer, size_t len)
   int rv = read(m_ttyFd, buffer, len);
 
   if (rv < 0)
-    cerr << __FUNCTION__ << ": read failed: " << strerror(errno) << endl;
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": read() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
 
   return rv;
 }
@@ -119,7 +130,9 @@ int MHZ16::writeData(char *buffer, size_t len)
 
   if (rv < 0)
     {
-      cerr << __FUNCTION__ << ": write failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed: " +
+                               string(strerror(errno)));
       return rv;
     }
 
@@ -149,7 +162,9 @@ bool MHZ16::setupTty(speed_t baud)
   // make it so
   if (tcsetattr(m_ttyFd, TCSAFLUSH, &termio) < 0)
     {
-      cerr << __FUNCTION__ << ": tcsetattr failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": tcsetattr() failed: " +
+                               string(strerror(errno)));
       return false;
     }
 
@@ -160,7 +175,8 @@ bool MHZ16::verifyPacket(unsigned char *pkt)
 {
   if (pkt[0] != 0xff || pkt[1] != 0x86)
     {
-      cerr << __FUNCTION__ << ": Inavlid packet header." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": invalid packet header received");
       return false;
     }
   
@@ -178,7 +194,8 @@ bool MHZ16::getData(int *gas, int *temp)
   // wait up to one second for a response
   if (!dataAvailable(1000))
     {
-      cerr << __FUNCTION__ << ": Timed out waiting for response." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Timed out waiting for response");
       return false;
     }
 
@@ -188,16 +205,13 @@ bool MHZ16::getData(int *gas, int *temp)
 
   if ((rv = readData((char *)packet, 9)) != 9)
     {
-      cerr << __FUNCTION__ << ": Invalid packet read, rv = " << rv 
-           << ", expected 9." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid packet size read");
       return false;
     }
   
-  if (!verifyPacket(packet))
-    {
-      cerr << __FUNCTION__ << ": Packet verify failed." << endl;
-      return false;
-    }
+  // will throw an exception if it fails
+  verifyPacket(packet);
 
   // pull out the data and return it.
   *gas = (packet[2] << 8) | packet[3];
