@@ -24,6 +24,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -47,8 +49,9 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
 
     m_triggerPinCtx     = mraa_gpio_init (triggerPin);
     if (m_triggerPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", triggerPin);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_init() failed, invalid pin?");
+        return;
     }
 
     mraa_gpio_dir(m_triggerPinCtx, MRAA_GPIO_OUT);
@@ -56,8 +59,9 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
 
     m_echoPinCtx = mraa_gpio_init(echoPin);
     if (m_echoPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", echoPin);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
     }
 
     mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
