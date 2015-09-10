@@ -22,6 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <stdexcept>
 #include <string>
 #include <unistd.h>
 
@@ -37,7 +38,8 @@ SSD1308::SSD1308(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
 
     mraa::Result error = m_i2c_lcd_control.address(m_lcd_control_address);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Failed to initialize i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": I2c.address() failed");
         return;
     }
 
