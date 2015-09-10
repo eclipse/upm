@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "hmtrp.h"
 
@@ -41,7 +43,8 @@ HMTRP::HMTRP(int uart)
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
-      cerr << __FUNCTION__ << ": mraa_uart_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init() failed");
       return;
     }
 
@@ -50,15 +53,18 @@ HMTRP::HMTRP(int uart)
 
   if (!devPath)
     {
-      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
       return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
-      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
-           << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed: " +
+                               string(strerror(errno)));
       return;
     }
 }
@@ -67,8 +73,6 @@ HMTRP::~HMTRP()
 {
   if (m_ttyFd != -1)
     close(m_ttyFd);
-
-  mraa_deinit();
 }
 
 bool HMTRP::dataAvailable(unsigned int millis)
@@ -109,7 +113,12 @@ int HMTRP::readData(char *buffer, size_t len, int millis)
   int rv = read(m_ttyFd, buffer, len);
 
   if (rv < 0)
-    cerr << __FUNCTION__ << ": read failed: " << strerror(errno) << endl;
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": read() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
 
   return rv;
 }
@@ -123,7 +132,9 @@ int HMTRP::writeData(char *buffer, size_t len)
 
   if (rv < 0)
     {
-      cerr << __FUNCTION__ << ": write failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed: " +
+                               string(strerror(errno)));
       return rv;
     }
 
@@ -153,7 +164,9 @@ bool HMTRP::setupTty(speed_t baud)
   // make it so
   if (tcsetattr(m_ttyFd, TCSAFLUSH, &termio) < 0)
     {
-      cerr << __FUNCTION__ << ": tcsetattr failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": tcsetattr() failed: " +
+                               string(strerror(errno)));
       return false;
     }
 
@@ -285,7 +298,8 @@ bool HMTRP::setRFDataRate(uint32_t rate)
 
   if (rate < 1200 || rate > 115200)
     {
-      cerr << __FUNCTION__ << "Valid values are between 1200-115200." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": Valid rate values are between 1200-115200");
       return false;
     }
 
@@ -311,7 +325,8 @@ bool HMTRP::setRXBandwidth(uint16_t rxBand)
 
   if (rxBand < 30 || rxBand > 620)
     {
-      cerr << __FUNCTION__ << "Valid values are between 30-620." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": Valid rxBand values are between 30-620");
       return false;
     }
         
@@ -335,7 +350,8 @@ bool HMTRP::setFrequencyModulation(uint8_t modulation)
 
   if (modulation < 10 || modulation > 160)
     {
-      cerr << __FUNCTION__ << "Valid values are between 10-160." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": Valid modulation values are between 10-160");
       return false;
     }
         
@@ -358,7 +374,8 @@ bool HMTRP::setTransmitPower(uint8_t power)
 
   if (power > 7)
     {
-      cerr << __FUNCTION__ << "Valid values are between 0-7." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": Valid power values are between 0-7");
       return false;
     }
         
@@ -381,7 +398,8 @@ bool HMTRP::setUARTSpeed(uint32_t speed)
 
   if (speed < 1200 || speed > 115200)
     {
-      cerr << __FUNCTION__ << "Valid values are between 1200-115200." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": Valid speed values are between 1200-115200");
       return false;
     }
 
@@ -406,6 +424,8 @@ bool HMTRP::getRFSignalStrength(uint8_t *strength)
 {
   if (!strength)
     return false;
+
+  *strength = 0;
 
   char pkt[3];
   pkt[0] = HMTRP_START1;
@@ -436,6 +456,8 @@ bool HMTRP::getModSignalStrength(uint8_t *strength)
 {
   if (!strength)
     return false;
+
+  *strength = 0;
 
   char pkt[3];
   pkt[0] = HMTRP_START1;
