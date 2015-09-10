@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "math.h"
 #include "itg3200.h"
@@ -65,7 +67,12 @@ using namespace upm;
 Itg3200::Itg3200(int bus)
 {
     //init bus and reset chip
-    m_i2c = mraa_i2c_init(bus);
+    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_i2c_address(m_i2c, ITG3200_I2C_ADDR);
     m_buffer[0] = ITG3200_PWR_MGM;
