@@ -25,17 +25,19 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <string>
+#include <stdexcept>
 #include <stdlib.h>
 
 #include "nrf24l01.h"
 
 using namespace upm;
 
+
 NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce)
                             : m_csnPinCtx(cs), m_cePinCtx(ce), m_spi(0)
 {
     mraa::init();
-    init (cs, ce);
 }
 
 void
@@ -45,6 +47,20 @@ NRF24L01::init (uint8_t chip_select, uint8_t chip_enable) {
     m_csn       = chip_select;
     m_ce        = chip_enable;
     m_channel   = 99;
+
+    m_csnPinCtx = mraa_gpio_init (m_csn);
+    if (m_csnPinCtx == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(csn) failed, invalid pin?");
+        return;
+    }
+
+    m_cePinCtx = mraa_gpio_init (m_ce);
+    if (m_cePinCtx == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(ce) failed, invalid pin?");
+        return;
+    }
 
     error = m_csnPinCtx.dir(mraa::DIR_OUT);
     if (error != mraa::SUCCESS) {
