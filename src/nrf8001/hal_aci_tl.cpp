@@ -23,6 +23,8 @@
 @brief Implementation of the ACI transport layer module
 */
 
+#include <string>
+#include <stdexcept>
 #include <stdio.h>
 
 #include "hal_platform.h"
@@ -337,12 +339,12 @@ void hal_aci_tl_init(aci_pins_t *a_pins, bool debug)
      */
     a_pins->m_spi = mraa_spi_init (0);
     if (a_pins->m_spi == NULL) {
-        printf ("[ERROR] SPI failed to initilize\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_spi_init() failed");
     }
 
     mraa_spi_frequency (a_pins->m_spi, 2000000);
     mraa_spi_mode (a_pins->m_spi, MRAA_SPI_MODE0);
-    mraa_spi_lsbmode (a_pins->m_spi, 1);
 
     /* Initialize the ACI Command queue. This must be called after the delay above. */
     aci_queue_init(&aci_tx_q);
@@ -351,17 +353,20 @@ void hal_aci_tl_init(aci_pins_t *a_pins, bool debug)
     // Configure the IO lines
     a_pins->m_rdy_ctx = mraa_gpio_init (a_pins->rdyn_pin);
     if (a_pins->m_rdy_ctx == NULL) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(rdyn) failed, invalid pin?");
     }
 
     a_pins->m_req_ctx = mraa_gpio_init (a_pins->reqn_pin);
     if (a_pins->m_req_ctx == NULL) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(reqn) failed, invalid pin?");
     }
 
     a_pins->m_rst_ctx = mraa_gpio_init (a_pins->reset_pin);
     if (a_pins->m_rst_ctx == NULL) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(reset) failed, invalid pin?");
     }
 
     error = mraa_gpio_dir (a_pins->m_rdy_ctx, MRAA_GPIO_IN);
