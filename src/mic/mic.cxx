@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -33,9 +35,13 @@ using namespace upm;
 
 Microphone::Microphone(int micPin) {
     // initialise analog mic input
-    m_micCtx = mraa_aio_init(micPin);
-
-
+    
+    if ( !(m_micCtx = mraa_aio_init(micPin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+      }
 }
 
 Microphone::~Microphone() {
