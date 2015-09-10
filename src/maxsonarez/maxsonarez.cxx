@@ -33,7 +33,8 @@ MAXSONAREZ::MAXSONAREZ(int pin, float aref)
 {
   if (!(m_aio = mraa_aio_init(pin)))
     {
-      cerr << __FUNCTION__ << "mraa_aio_init() failed." << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 
