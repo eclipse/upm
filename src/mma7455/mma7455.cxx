@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,9 +44,17 @@ MMA7455::MMA7455 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
+
     mraa::Result error = m_i2ControlCtx.address(m_controlAddr);
     if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_address() failed");
         return;
     }
 
@@ -52,12 +62,14 @@ MMA7455::MMA7455 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     data = (BIT (MMA7455_GLVL0) | BIT (MMA7455_MODE0));
     error = i2cWriteReg (MMA7455_MCTL, &data, 0x1);
     if (error != mraa::SUCCESS) {
-        std::cout << "ERROR :: MMA7455 instance wan not created (Mode)" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": writing mode register failed");
         return;
     }
 
     if (mraa::SUCCESS != calibrate ()) {
-        std::cout << "ERROR :: MMA7455 instance wan not created (Calibrate)" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": calibrate() failed");
         return;
     }
 }
@@ -140,16 +152,17 @@ short *MMA7455::readData() {
 #endif
 
 int
+<<<<<<< HEAD
 MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {
     if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_address() failed");
         return 0;
     }
 
     if (mraa::SUCCESS != m_i2ControlCtx.writeByte(reg)) {
-        return 0;
-    }
-
-    if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_write_byte() failed");
         return 0;
     }
 
@@ -166,10 +179,14 @@ MMA7455::i2cWriteReg (unsigned char reg, uint8_t *buffer, int len) {
 
     error = m_i2ControlCtx.address (m_controlAddr);
     if (error != mraa::SUCCESS) {
+        hrow std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_address() failed");
         return error;
     }
     error = m_i2ControlCtx.write (data, len + 1);
     if (error != mraa::SUCCESS) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_write() failed");
         return error;
     }
 
