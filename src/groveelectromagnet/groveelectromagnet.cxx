@@ -22,13 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "groveelectromagnet.h"
 
 using namespace upm;
 
 GroveElectromagnet::GroveElectromagnet(int pin)
 {
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 }
 
