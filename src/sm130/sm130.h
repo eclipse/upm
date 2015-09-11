@@ -35,6 +35,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <mraa/common.hpp>
 #include <mraa/uart.hpp>
 #include <mraa/gpio.hpp>
 
@@ -171,9 +172,9 @@ namespace upm {
      * Sets the baud rate for the device.  The default is 19200.
      *
      * @param baud Desired baud rate, default 19200
-     * @return mraa_result_t value
+     * @return mraa::Result value
      */
-    mraa_result_t setBaudRate(int baud=19200);
+    mraa::Result setBaudRate(int baud=19200);
 
     /**
      * Gets the firmware version string.

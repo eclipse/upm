@@ -53,7 +53,7 @@ SM130::~SM130()
 {
 }
 
-mraa_result_t SM130::setBaudRate(int baud)
+mraa::Result SM130::setBaudRate(int baud)
 {
   m_baud = baud;
   return m_uart.setBaudRate(baud);
