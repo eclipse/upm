@@ -23,6 +23,9 @@
  */
 
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
@@ -58,12 +61,14 @@ Servo::~Servo () {
  *
  * */
 mraa_result_t Servo::setAngle (int angle) {
-    if (m_pwmServoContext == NULL) {
-        std::cout << "PWM context is NULL" << std::endl;
-        return MRAA_ERROR_UNSPECIFIED;
-    }
-
     if (angle > m_maxAngle || angle < 0) {
+        // C++11 std::to_string() would be nice, but...
+        std::ostringstream str;
+        str << m_maxAngle;
+        throw std::out_of_range(std::string(__FUNCTION__) +
+                                ": angle must be between 0 and " +
+                                str.str());
+
         return MRAA_ERROR_UNSPECIFIED;
     }
 
@@ -81,11 +86,6 @@ mraa_result_t Servo::setAngle (int angle) {
 }
 
 mraa_result_t Servo::haltPwm () {
-    if (m_pwmServoContext == NULL) {
-        std::cout << "PWM context is NULL" << std::endl;
-        return MRAA_ERROR_UNSPECIFIED;
-    }
-
     return mraa_pwm_enable (m_pwmServoContext, 0);
 }
 
@@ -150,7 +150,13 @@ Servo::init (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePw
 
     m_maxAngle        = 180.0;
     m_servoPin        = pin;
-    m_pwmServoContext = mraa_pwm_init (m_servoPin);
+    
+    if ( !(m_pwmServoContext = mraa_pwm_init (m_servoPin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_init() failed, invalid pin?");
+        return;
+      }
 
     m_currAngle = 180;
 
