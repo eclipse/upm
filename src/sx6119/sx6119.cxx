@@ -24,6 +24,8 @@
 
 #include <unistd.h>
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "sx6119.h"
 
@@ -34,7 +36,8 @@ SX6119::SX6119(int powerPin, int seekPin)
 {
   if ( !(m_gpioPower = mraa_gpio_init(powerPin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(power) failed, invalid pin?");
       return;
     }
 
@@ -43,7 +46,8 @@ SX6119::SX6119(int powerPin, int seekPin)
 
   if ( !(m_gpioSeek = mraa_gpio_init(seekPin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(seek) failed, invalid pin?");
       return;
     }
 
