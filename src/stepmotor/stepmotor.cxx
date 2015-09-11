@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -40,6 +42,20 @@ StepMotor::StepMotor (int dirPin, int stePin)
     m_stePin = stePin;
     m_dirPin = dirPin;
 
+    m_pwmStepContext = mraa_pwm_init (m_stePin);
+    if (m_pwmStepContext == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_init() failed, invalid pin?");
+
+        return;
+    }
+    m_dirPinCtx = mraa_gpio_init (m_dirPin);
+    if (m_dirPinCtx == NULL) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+
+        return;
+    }
     error = m_dirPinCtx.dir (mraa::DIR_OUT);
     if (error != mraa::SUCCESS) {
         mraa::printError (error);
