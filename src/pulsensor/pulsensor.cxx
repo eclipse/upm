@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include "pulsensor.h"
@@ -29,7 +31,12 @@
 void init_pulsensor (pulsensor_context * ctx, callback_handler handler) {
     ctx->callback = handler;
 
-    ctx->pin_ctx = mraa_aio_init(0);
+    if ( !(ctx->pin_ctx = mraa_aio_init(0)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+      }
 
     ctx->sample_counter = 0;
     ctx->last_beat_time = 0;
