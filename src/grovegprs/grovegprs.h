@@ -33,6 +33,7 @@
 #include <unistd.h>
 #include <string.h>
 
+#include <mraa/common.hpp>
 #include <mraa/uart.hpp>
 
 #define GROVEGPRS_DEFAULT_UART 0
@@ -140,7 +141,7 @@ namespace upm {
      * @param baud Desired baud rate.
      * @return true if successful
      */
-    mraa_result_t setBaudRate(int baud=19200);
+    mraa::Result setBaudRate(int baud=19200);
 
 
   protected:
