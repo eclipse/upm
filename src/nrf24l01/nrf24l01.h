@@ -194,11 +194,6 @@ class NRF24L01 {
         NRF24L01 (uint8_t cs, uint8_t ce);
 
         /**
-         * NRF24l01 object destructor
-         */
-        ~NRF24L01 ();
-
-        /**
          * Returns the name of the component
          */
         std::string name()
