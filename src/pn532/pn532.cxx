@@ -30,6 +30,7 @@
 #include <math.h>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "pn532.h"
 
@@ -64,8 +65,8 @@ PN532::PN532(int irq, int reset, int bus, uint8_t address):
   mraa::Result rv;
   if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
-      cerr << "PN532: Could not initialize i2c address. " << endl;
-      printError(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.address() failed");
       return;
     }
 
@@ -1462,7 +1463,13 @@ void PN532::readData(uint8_t* buff, uint8_t n)
 
   memset(buf, 0, n+2);
   usleep(2000); 
-  m_i2c.address(m_addr);
+  if (m_i2c.address(m_addr) != MRAA_SUCCESS)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
+      return;
+    }
+
   rv = m_i2c.read(buf, n + 2);
 
   if (m_pn532Debug)
@@ -1530,8 +1537,19 @@ void PN532::writeCommand(uint8_t* cmd, uint8_t cmdlen)
   buf[offset++] = ~checksum;
   buf[offset] = PN532_POSTAMBLE;
 
-  m_i2c.address(m_addr);
-  m_i2c.write(buf, cmdlen + 8 - 1);
+  if (m_i2c.address(m_addr) != MRAA_SUCCESS)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
+      return;
+    }
+
+  if (m_i2c.write(buf, cmdlen + 8 - 1) != MRAA_SUCCESS)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write() failed");
+      return;
+    }
 
   if (m_pn532Debug)
     {
