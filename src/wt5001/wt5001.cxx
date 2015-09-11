@@ -23,6 +23,9 @@
  */
 
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <stdexcept>
 
 #include "wt5001.h"
 
@@ -37,7 +40,8 @@ WT5001::WT5001(int uart)
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
-      cerr << __FUNCTION__ << ": mraa_uart_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init() failed");
       return;
     }
 
@@ -46,15 +50,18 @@ WT5001::WT5001(int uart)
 
   if (!devPath)
     {
-      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
       return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
-      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
-           << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed: " +
+                               string(strerror(errno)));
       return;
     }
 }
@@ -102,7 +109,12 @@ int WT5001::readData(char *buffer, int len)
   int rv = read(m_ttyFd, buffer, len);
 
   if (rv < 0)
-    cerr << __FUNCTION__ << ": read failed: " << strerror(errno) << endl;
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": read() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
 
   return rv;
 }
@@ -119,7 +131,9 @@ int WT5001::writeData(char *buffer, int len)
 
   if (rv < 0)
     {
-      cerr << __FUNCTION__ << ": write failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed: " +
+                               string(strerror(errno)));
       return rv;
     }
 
@@ -149,7 +163,9 @@ bool WT5001::setupTty(speed_t baud)
   // make it so
   if (tcsetattr(m_ttyFd, TCSAFLUSH, &termio) < 0)
     {
-      cerr << __FUNCTION__ << ": tcsetattr failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": tcsetattr() failed: " +
+                               string(strerror(errno)));
       return false;
     }
 
@@ -267,8 +283,13 @@ bool WT5001::setVolume(uint8_t vol)
 {
   if (vol > WT5001_MAX_VOLUME)
     {
-      cerr << __FUNCTION__ << ": volume must be between 0 and "
-           << WT5001_MAX_VOLUME << endl;
+      // C++11 std::to_string() would be nice, but...
+      std::ostringstream str;
+      str << WT5001_MAX_VOLUME;
+
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": angle must be between 0 and " +
+                              str.str());
       return false;
     }
   
