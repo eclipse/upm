@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,8 +34,9 @@
 
 using namespace upm;
 
-ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst) : GFX (160, 128, m_map, font) {
-    mraa_init();
+ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst) : 
+  GFX (160, 128, m_map, font) 
+{
 
     m_csLCD = csLCD;
     m_cSD   = cSD;
@@ -77,53 +80,48 @@ ST7735::initModule () {
 
     m_csLCDPinCtx = mraa_gpio_init (m_csLCD);
     if (m_csLCDPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_csLCD);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(csLCD) failed, invalid pin?");
+        return;
     }
 
     m_cSDPinCtx = mraa_gpio_init (m_cSD);
     if (m_cSDPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_cSD);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(cSD) failed, invalid pin?");
+        return;
     }
 
     m_rSTPinCtx = mraa_gpio_init (m_rST);
     if (m_rSTPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_rST);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(rST) failed, invalid pin?");
+        return;
     }
 
     m_rSPinCtx = mraa_gpio_init (m_rS);
     if (m_rSPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", m_rS);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(rS) failed, invalid pin?");
+        return;
     }
 
-    error = mraa_gpio_dir (m_csLCDPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
+    mraa_gpio_dir (m_csLCDPinCtx, MRAA_GPIO_OUT);
 
-    error = mraa_gpio_dir (m_cSDPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
+    mraa_gpio_dir (m_cSDPinCtx, MRAA_GPIO_OUT);
 
-    error = mraa_gpio_dir (m_rSTPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
+    mraa_gpio_dir (m_rSTPinCtx, MRAA_GPIO_OUT);
 
-    error = mraa_gpio_dir (m_rSPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
+    mraa_gpio_dir (m_rSPinCtx, MRAA_GPIO_OUT);
 
-    m_spi = mraa_spi_init (0);
-    error = mraa_spi_frequency(m_spi, 15 * 1000000);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print (error);
-    }
+    if ( !(m_spi = mraa_spi_init (0)) ) 
+        {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_spi_init() failed");
+            return;
+        }
+
+    mraa_spi_frequency(m_spi, 15 * 1000000);
 
     lcdCSOn ();
 }
