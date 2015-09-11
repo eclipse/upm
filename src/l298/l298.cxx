@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "l298.h"
 
@@ -40,13 +42,15 @@ L298::L298(int pwmA, int dir1, int dir2)
 
   if ( !(m_pwm = mraa_pwm_init(pwmA)) )
     {
-      cerr << __FUNCTION__ << ": mraa_pwm_init(pwm) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_pwm_init() failed, invalid pin?");
       return;
     }
 
   if ( !(m_dir1 = mraa_gpio_init(dir1)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(dir1) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(dir1) failed, invalid pin?");
       mraa_pwm_close(m_pwm);
       return;
     }
@@ -54,7 +58,8 @@ L298::L298(int pwmA, int dir1, int dir2)
 
   if ( !(m_dir2 = mraa_gpio_init(dir2)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(dir2) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(dir2) failed, invalid pin?");
       mraa_pwm_close(m_pwm);
       mraa_gpio_close(m_dir1);
       return;
@@ -84,21 +89,24 @@ L298::L298(int stepsPerRev, int en, int i1, int i2, int i3, int i4)
   // init the gpio's we will need
   if ( !(m_stepEnable = mraa_gpio_init(en)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(en) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(en) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_stepEnable, MRAA_GPIO_OUT);
 
   if ( !(m_stepI1 = mraa_gpio_init(i1)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i1) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i1) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_stepI1, MRAA_GPIO_OUT);
 
   if ( !(m_stepI2 = mraa_gpio_init(i2)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i2) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i2) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       return;
     }
@@ -106,7 +114,8 @@ L298::L298(int stepsPerRev, int en, int i1, int i2, int i3, int i4)
 
   if ( !(m_stepI3 = mraa_gpio_init(i3)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i3) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i3) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       mraa_gpio_close(m_stepI2);
       return;
@@ -115,7 +124,8 @@ L298::L298(int stepsPerRev, int en, int i1, int i2, int i3, int i4)
 
   if ( !(m_stepI4 = mraa_gpio_init(i4)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(i4) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(i4) failed, invalid pin?");
       mraa_gpio_close(m_stepI1);
       mraa_gpio_close(m_stepI2);
       mraa_gpio_close(m_stepI3);
@@ -190,8 +200,8 @@ void L298::setPeriodMS(int ms)
   if (m_motor)
     {
       if (mraa_pwm_period_ms(m_pwm, ms) != MRAA_SUCCESS)
-        cerr << __FUNCTION__ << ": period specified is not supported"
-             << endl;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_period_ms() failed");
     }
 }
 

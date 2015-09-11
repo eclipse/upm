@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "otp538u.h"
 
@@ -55,7 +57,8 @@ OTP538U::OTP538U(int pinA, int pinO, float aref)
 
   if ( !(m_aioA = mraa_aio_init(pinA)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(pinA) failed, invalid pin?");
       return;
     }
 
@@ -64,7 +67,8 @@ OTP538U::OTP538U(int pinA, int pinO, float aref)
 
   if ( !(m_aioO = mraa_aio_init(pinO)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(pinO) failed, invalid pin?");
       return;
     }
 
@@ -109,8 +113,9 @@ float OTP538U::ambientTemperature()
       }
 
   if (j >= otp538u_rt_table_max)
-    { 
-      cerr << __FUNCTION__ << ": ambient temperature out of range." << endl;
+    {
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": ambient temperature out of range.");
       return 0;
     }
 
@@ -123,7 +128,8 @@ float OTP538U::ambientTemperature()
   // too cold
   if (slot < 0)
     {
-      cerr << __FUNCTION__ << ": ambient temperature out of range." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": ambient temperature out of range.");
       return 0;
     }
 
@@ -174,7 +180,8 @@ float OTP538U::objectTemperature()
 
   if (slot >= (otp538u_vt_table_max - 1))
     {
-      cerr << __FUNCTION__ << ": object temperature out of range." << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": object temperature out of range.");
       return 0;
     }
 

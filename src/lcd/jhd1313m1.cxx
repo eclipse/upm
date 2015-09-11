@@ -42,7 +42,8 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
 
     mraa_result_t ret = m_i2c_lcd_rgb.address(m_rgb_address);
     if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": I2c.address() failed");
     }
 
     usleep(50000);

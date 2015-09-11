@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "ht9170.h"
 
@@ -34,35 +36,40 @@ HT9170::HT9170(int dr, int o1, int o2, int o3, int o4)
   // init the gpio's we will need
   if ( !(m_dr = mraa_gpio_init(dr)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(dr) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(dr) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_dr, MRAA_GPIO_IN);
 
   if ( !(m_o1 = mraa_gpio_init(o1)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(o1) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(o1) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_o1, MRAA_GPIO_IN);
 
   if ( !(m_o2 = mraa_gpio_init(o2)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(o2) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(o2) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_o2, MRAA_GPIO_IN);
 
   if ( !(m_o3 = mraa_gpio_init(o3)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(o3) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(o3) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_o3, MRAA_GPIO_IN);
 
   if ( !(m_o4 = mraa_gpio_init(o4)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init(o4) failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(o4) failed, invalid pin?");
       return;
     }
   mraa_gpio_dir(m_o4, MRAA_GPIO_IN);

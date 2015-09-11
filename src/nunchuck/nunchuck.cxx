@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdexcept>
 #include <unistd.h>
 
 #include "nunchuck.h"
@@ -43,14 +44,19 @@ NUNCHUCK::NUNCHUCK(int bus, uint8_t addr)
   buttonZ = false;
 
   // setup our i2c link
-  m_i2c = mraa_i2c_init(bus);
+  if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+      return;
+    }
 
   mraa_result_t rv;
 
   if ( (rv = mraa_i2c_address(m_i2c, addr)) != MRAA_SUCCESS )
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_address() failed." << endl;
-      mraa_result_print(rv);
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_address() failed");
     }
 }
 
@@ -65,8 +71,8 @@ bool NUNCHUCK::writeByte(uint8_t reg, uint8_t byte)
 
   if ( (rv = mraa_i2c_write_byte_data(m_i2c, byte, reg)) != MRAA_SUCCESS )
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_write_byte_data() failed." << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write_byte_data() failed");
       return false;
     }
 
@@ -108,8 +114,8 @@ void NUNCHUCK::update()
 
   if (rv != bufsize)
     {
-      cerr << __FUNCTION__ << "read failed, expected " << bufsize 
-           << "bytes, got " << rv << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": readBytes() failed");
       return;
     }
 

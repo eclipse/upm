@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -36,15 +38,23 @@ BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
     }
 
     if (i2cReadReg_8 (0xD0) != 0x55)  {
-        std::cout << "Error :: Cannot continue" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Invalid chip ID");
         return;
     }
 

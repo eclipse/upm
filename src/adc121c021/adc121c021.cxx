@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "adc121c021.h"
 
@@ -35,13 +36,23 @@ ADC121C021::ADC121C021(int bus, uint8_t address, float vref)
 {
   // setup our i2c link
   m_i2c = mraa_i2c_init(bus);
+  if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+      return;
+    }
 
   m_addr = address;
 
   mraa_result_t ret = mraa_i2c_address(m_i2c, m_addr);
 
-  if (ret != MRAA_SUCCESS) 
-    cerr << "ADC121C021: Could not initialize i2c bus. " << endl;
+  if (ret != MRAA_SUCCESS)
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_address() failed");
+      return;
+    }
 
   m_vref = vref;
 }

@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "math.h"
 #include "adxl345.h"
@@ -88,14 +90,31 @@ using namespace upm;
 Adxl345::Adxl345(int bus)
 {
     //init bus and reset chip
-    m_i2c = mraa_i2c_init(bus);
+    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
+    if ( mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR) != MRAA_SUCCESS ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
+      }
+
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
     mraa_i2c_write(m_i2c, m_buffer, 2);
 
-    mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR);
+    if ( mraa_i2c_address(m_i2c, ADXL345_I2C_ADDR) != MRAA_SUCCESS ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
+      }
+
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
     mraa_i2c_write(m_i2c, m_buffer, 2);

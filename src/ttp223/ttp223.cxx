@@ -22,14 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "ttp223.h"
 
 using namespace upm;
 
 TTP223::TTP223(unsigned int pin) {
     // initialize gpio input
-    mraa_init();
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
     m_name = "ttp223";
 }

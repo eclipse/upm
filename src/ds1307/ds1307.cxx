@@ -27,6 +27,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "ds1307.h"
 
@@ -37,12 +38,22 @@ using namespace std;
 DS1307::DS1307(int bus)
 {
   // setup our i2c link
-  m_i2c = mraa_i2c_init(bus);
+  
+  if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+      return;
+    }
 
   mraa_result_t ret = mraa_i2c_address(m_i2c, DS1307_I2C_ADDR);
 
-  if (ret != MRAA_SUCCESS) 
-    cerr << "DS1307: Could not initialize i2c bus. " << endl;
+  if (ret != MRAA_SUCCESS)
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_address() failed");
+      return;
+    }
 }
 
 DS1307::~DS1307()
@@ -90,8 +101,8 @@ bool DS1307::loadTime()
   if (bytesRead != 7)
     { 
       // problem
-      cerr << __FUNCTION__ << ": read " << bytesRead <<
-        " bytes, expected 7." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": failed to read expected 7 bytes from device");
       return false;
     }
 

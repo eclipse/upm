@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -44,15 +46,17 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
 
     m_pwmTriggerCtx     = mraa_pwm_init (triggerPin);
     if (m_pwmTriggerCtx == NULL) {
-        std::cout << "PWM context is NULL" << std::endl;
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_pwm_init() failed, invalid pin?");
+        return;
     }
 
     mraa_init();
     m_echoPinCtx = mraa_gpio_init(echoPin);
     if (m_echoPinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", echoPin);
-        exit (1);
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
     }
 
     mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);

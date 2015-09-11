@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "zfm20.h"
 
@@ -37,7 +39,8 @@ ZFM20::ZFM20(int uart)
 
   if ( !(m_uart = mraa_uart_init(uart)) )
     {
-      cerr << __FUNCTION__ << ": mraa_uart_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init() failed");
       return;
     }
 
@@ -46,15 +49,18 @@ ZFM20::ZFM20(int uart)
 
   if (!devPath)
     {
-      cerr << __FUNCTION__ << ": mraa_uart_get_dev_path() failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
       return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
-      cerr << __FUNCTION__ << ": open of " << devPath << " failed: " 
-           << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed: " +
+                               string(strerror(errno)));
       return;
     }
 
@@ -108,7 +114,12 @@ int ZFM20::readData(char *buffer, size_t len)
   int rv = read(m_ttyFd, buffer, len);
 
   if (rv < 0)
-    cerr << __FUNCTION__ << ": read failed: " << strerror(errno) << endl;
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": read() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
 
   return rv;
 }
@@ -125,7 +136,16 @@ int ZFM20::writeData(char *buffer, size_t len)
 
   if (rv < 0)
     {
-      cerr << __FUNCTION__ << ": write failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed: " +
+                               string(strerror(errno)));
+      return rv;
+    }
+
+  if (rv == 0)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": write() failed, no bytes written");
       return rv;
     }
 
@@ -155,7 +175,9 @@ bool ZFM20::setupTty(speed_t baud)
   // make it so
   if (tcsetattr(m_ttyFd, TCSAFLUSH, &termio) < 0)
     {
-      cerr << __FUNCTION__ << ": tcsetattr failed: " << strerror(errno) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": tcsetattr() failed: " +
+                               string(strerror(errno)));
       return false;
     }
 
@@ -234,15 +256,16 @@ bool ZFM20::verifyPacket(unsigned char *pkt, int len)
   // verify packet header
   if (pkt[0] != ZFM20_START1 || pkt[1] != ZFM20_START2)
     {
-      cerr << __FUNCTION__ << ": Invalid packet header." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid packet header");
       return false;
     }
 
   // check the ack byte
   if (pkt[6] != PKT_ACK)
     {
-      cerr << __FUNCTION__ << ": Invalid ACK code: " 
-           << int(pkt[6]) << ", expected: " << int(PKT_ACK) << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid ACK code");
       return false;
     }
   
@@ -268,16 +291,18 @@ bool ZFM20::getResponse(unsigned char *pkt, int len)
           timer += getMillis();
           if (timer > ZFM20_TIMEOUT)
             {
-              cerr << __FUNCTION__ << ": Timed out waiting for packet" << endl;
+              throw std::runtime_error(std::string(__FUNCTION__) +
+                                       ": Timed out waiting for packet");
               return false;
             }
 
           continue;
         }
 
-      if ((rv = readData(buf, ZFM20_MAX_PKT_LEN)) <= 0)
+      if ((rv = readData(buf, ZFM20_MAX_PKT_LEN)) == 0)
         {
-          cerr << __FUNCTION__ << ": Read failed" << endl;
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": readData() failed, no data returned");
           return false;
         }
 
@@ -303,21 +328,14 @@ bool ZFM20::verifyPassword()
                          (m_password >> 8) & 0xff,
                          m_password & 0xff };
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return false;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return false;
-    }
+  getResponse(rPkt, rPktLen);
+
 
   return true;
 }
@@ -327,27 +345,19 @@ int ZFM20::getNumTemplates()
   const int pktLen = 1;
   uint8_t pkt[pktLen] = {CMD_GET_TMPL_COUNT};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return 0;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 14;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return 0;
-    }
+  getResponse(rPkt, rPktLen);
 
   // check confirmation code
   if (rPkt[9] != 0x00)
     {
-      cerr << __FUNCTION__ << ": Invalid confirmation code:" << int(rPkt[9])
-           << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid confirmation code");
       return 0;
     }      
 
@@ -363,27 +373,19 @@ bool ZFM20::setNewPassword(uint32_t pwd)
                          (pwd >> 8) & 0xff,
                          pwd & 0xff };
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return false;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return false;
-    }
+  getResponse(rPkt, rPktLen);
 
   // check confirmation code
   if (rPkt[9] != 0x00)
     {
-      cerr << __FUNCTION__ << ": Invalid confirmation code:" << int(rPkt[9])
-           << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid confirmation code");
       return false;
     }      
 
@@ -401,27 +403,19 @@ bool ZFM20::setNewAddress(uint32_t addr)
                          (addr >> 8) & 0xff,
                          addr & 0xff };
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return false;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return false;
-    }
+  getResponse(rPkt, rPktLen);
 
   // check confirmation code
   if (rPkt[9] != 0x00)
     {
-      cerr << __FUNCTION__ << ": Invalid confirmation code:" << int(rPkt[9])
-           << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid confirmation code");
       return false;
     }      
 
@@ -435,21 +429,13 @@ uint8_t ZFM20::generateImage()
   const int pktLen = 1;
   uint8_t pkt[pktLen] = {CMD_GEN_IMAGE};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -458,7 +444,8 @@ uint8_t ZFM20::image2Tz(int slot)
 {
   if (slot != 1 && slot != 2)
     {
-      cerr << __FUNCTION__ << ": slot must be 1 or 2" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": slot must be 1 or 2");
       return ERR_INTERNAL_ERR;
     }
 
@@ -466,21 +453,13 @@ uint8_t ZFM20::image2Tz(int slot)
   uint8_t pkt[pktLen] = {CMD_IMG2TZ,
                          (slot & 0xff)};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -490,21 +469,13 @@ uint8_t ZFM20::createModel()
   const int pktLen = 1;
   uint8_t pkt[pktLen] = {CMD_REGMODEL};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -513,7 +484,8 @@ uint8_t ZFM20::storeModel(int slot, uint16_t id)
 {
   if (slot != 1 && slot != 2)
     {
-      cerr << __FUNCTION__ << ": slot must be 1 or 2" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": slot must be 1 or 2");
       return ERR_INTERNAL_ERR;
     }
 
@@ -523,21 +495,13 @@ uint8_t ZFM20::storeModel(int slot, uint16_t id)
                          (id >> 8) & 0xff,
                          id & 0xff};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -551,21 +515,13 @@ uint8_t ZFM20::deleteModel(uint16_t id)
                          0x00,
                          0x01};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -575,21 +531,13 @@ uint8_t ZFM20::deleteDB()
   const int pktLen = 1;
   uint8_t pkt[pktLen] = {CMD_EMPTYDB};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 12;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   return rPkt[9];
 }
@@ -601,7 +549,8 @@ uint8_t ZFM20::search(int slot, uint16_t *id, uint16_t *score)
 
   if (slot != 1 && slot != 2)
     {
-      cerr << __FUNCTION__ << ": slot must be 1 or 2" << endl;
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": slot must be 1 or 2");
       return ERR_INTERNAL_ERR;
     }
 
@@ -614,21 +563,13 @@ uint8_t ZFM20::search(int slot, uint16_t *id, uint16_t *score)
                          0x00,
                          0xa3};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 16;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   // if it was found, extract the location and the score
   if (rPkt[9] == ERR_OK)
@@ -647,21 +588,13 @@ uint8_t ZFM20::match(uint16_t *score)
   const int pktLen = 1;
   uint8_t pkt[pktLen] = {CMD_MATCH};
 
-  if (!writeCmdPacket(pkt, pktLen))
-    {
-      cerr << __FUNCTION__ << ": writePacket() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  writeCmdPacket(pkt, pktLen);
 
   // now read a response
   const int rPktLen = 14;
   unsigned char rPkt[rPktLen];
 
-  if (!getResponse(rPkt, rPktLen))
-    {
-      cerr << __FUNCTION__ << ": getResponse() failed" << endl;
-      return ERR_INTERNAL_ERR;
-    }
+  getResponse(rPkt, rPktLen);
 
   *score = (rPkt[10] << 8) & 0xff | rPkt[11] & 0xff;
 

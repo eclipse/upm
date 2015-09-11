@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -36,7 +38,12 @@ using namespace upm;
 MAX31855::MAX31855(int bus, int cs)
 {
     // initialise chip select as a normal gpio
-    m_gpio = mraa_gpio_init(cs);
+    if ( !(m_gpio = mraa_gpio_init(cs)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init(cs) failed, invalid pin?");
+        return;
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 
     // initialise the spi bus with a 2Mhz clock

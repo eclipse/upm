@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "mq303a.h"
 
@@ -30,9 +32,19 @@ using namespace upm;
 
 MQ303A::MQ303A(int pin, int heaterPin)
 {
-  m_aio = mraa_aio_init(pin);
+  if ( !(m_aio = mraa_aio_init(pin)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
+      return;
+    }
 
-  m_gpio = mraa_gpio_init(heaterPin);
+  if ( !(m_gpio = mraa_gpio_init(heaterPin)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+      return;
+    }
   mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 }
 

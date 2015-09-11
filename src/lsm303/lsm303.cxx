@@ -26,6 +26,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -40,7 +42,12 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale)
     m_addrMag = addrMag;
     m_addrAcc = addrAcc;
 
-    m_i2c = mraa_i2c_init(bus);
+    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     // 0x27 is the 'normal' mode with X/Y/Z enable
     setRegisterSafe(m_addrAcc, CTRL_REG1_A, 0x27);
@@ -191,16 +198,19 @@ LSM303::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
     buf[0] = sregister;
     buf[1] = data;
     if (mraa_i2c_address(m_i2c, slave) != MRAA_SUCCESS) {
-        fprintf(stderr, "lsm303: Failed to connect to slave\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
         return MRAA_ERROR_INVALID_HANDLE;
     }
     if (mraa_i2c_write(m_i2c, buf, 2) != MRAA_SUCCESS) {
-        fprintf(stderr, "lsm303: Failed to write to register\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_write() failed");
         return MRAA_ERROR_INVALID_HANDLE;
     }
     uint8_t val = mraa_i2c_read_byte_data(m_i2c, sregister);
     if (val != data) {
-        fprintf(stderr, "lsm303: Failed to set register correctly\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": failed to set register correctly");
         return MRAA_ERROR_UNSPECIFIED;
     }
     return MRAA_SUCCESS;

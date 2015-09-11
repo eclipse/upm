@@ -27,6 +27,8 @@
  */
 
 
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "tsl2561.h"
 
@@ -42,18 +44,25 @@ TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime
 
     m_name = "TSL2561- Digital Light Sensor";
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) )
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     mraa_result_t error = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
     if (error != MRAA_SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus in TSL2561()\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
         return;
     }
 
     // POWER UP.
     error = i2cWriteReg(REGISTER_Control,CONTROL_POWERON);
     if (error != MRAA_SUCCESS) {
-        fprintf(stderr, "Error: Unable to power up - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Unable to power up TSL2561");
         return;
     }
     // Power on Settling time
@@ -62,14 +71,16 @@ TSL2561::TSL2561(int bus, uint8_t devAddr, uint8_t gain, uint8_t integrationTime
     // Gain & Integration time .
     error = i2cWriteReg(REGISTER_Timing, m_gain | m_integrationTime);
     if (error != MRAA_SUCCESS) {
-        fprintf(stderr, "Error: Unable to set gain/time - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Unable to set gain/time");
         return;
     }
 
     // Set interrupt threshold to default.
     error = i2cWriteReg(REGISTER_Interrupt,0x00);
     if (error != MRAA_SUCCESS) {
-        fprintf(stderr, "Error: Unable to interrupt threshold - Ensure TSL2561 is connected to I2C\n");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Unable to set interrupt threshold");
         return;
     }
 }

@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 #include "h3lis331dl.h"
@@ -38,11 +39,10 @@ H3LIS331DL::H3LIS331DL(int bus, uint8_t address):
 {
   m_addr = address;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  if ( m_i2c.address(m_addr) != MRAA_SUCCESS )
     {
-      cerr << "H3LIS331DL: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.address() failed");
       return;
     }
 
@@ -84,7 +84,8 @@ bool H3LIS331DL::setDataRate(DR_BITS_T odr)
 
   if (m_i2c.writeReg(REG_REG1, reg1))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -100,7 +101,8 @@ bool H3LIS331DL::setPowerMode(PM_BITS_T pm)
 
   if (m_i2c.writeReg(REG_REG1, reg1))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -116,7 +118,8 @@ bool H3LIS331DL::enableAxis(uint8_t axisEnable)
 
   if (m_i2c.writeReg(REG_REG1, reg1))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -132,7 +135,8 @@ bool H3LIS331DL::setFullScale(FS_BITS_T fs)
 
   if (m_i2c.writeReg(REG_REG4, reg4))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -148,7 +152,8 @@ bool H3LIS331DL::setHPCF(HPCF_BITS_T val)
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -164,7 +169,8 @@ bool H3LIS331DL::setHPM(HPM_BITS_T val)
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -179,7 +185,8 @@ bool H3LIS331DL::boot()
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -203,7 +210,8 @@ bool H3LIS331DL::enableHPF1(bool enable)
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -221,7 +229,8 @@ bool H3LIS331DL::enableHPF2(bool enable)
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -239,7 +248,8 @@ bool H3LIS331DL::enableFDS(bool enable)
 
   if (m_i2c.writeReg(REG_REG2, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -257,7 +267,8 @@ bool H3LIS331DL::setInterruptActiveLow(bool enable)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -275,7 +286,8 @@ bool H3LIS331DL::setInterruptOpenDrain(bool enable)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -293,7 +305,8 @@ bool H3LIS331DL::setInterrupt1Latch(bool enable)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -311,7 +324,8 @@ bool H3LIS331DL::setInterrupt2Latch(bool enable)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -327,7 +341,8 @@ bool H3LIS331DL::setInterrupt1PadConfig(I_CFG_BITS_T val)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -343,7 +358,8 @@ bool H3LIS331DL::setInterrupt2PadConfig(I_CFG_BITS_T val)
 
   if (m_i2c.writeReg(REG_REG3, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -362,7 +378,8 @@ bool H3LIS331DL::enableBDU(bool enable)
 
   if (m_i2c.writeReg(REG_REG4, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -380,7 +397,8 @@ bool H3LIS331DL::enableBLE(bool enable)
 
   if (m_i2c.writeReg(REG_REG4, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -398,7 +416,8 @@ bool H3LIS331DL::enableSleepToWake(bool enable)
 
   if (m_i2c.writeReg(REG_REG5, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -419,7 +438,8 @@ bool H3LIS331DL::setInterrupt1Config(uint8_t val)
 
   if (m_i2c.writeReg(REG_INT1_CFG, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -435,7 +455,8 @@ bool H3LIS331DL::setInterrupt1Source(uint8_t val)
 
   if (m_i2c.writeReg(REG_INT1_SRC, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -446,7 +467,8 @@ bool H3LIS331DL::setInterrupt1Threshold(uint8_t val)
 {
   if (m_i2c.writeReg(REG_INT1_THS, val))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -457,7 +479,8 @@ bool H3LIS331DL::setInterrupt1Duration(uint8_t val)
 {
   if (m_i2c.writeReg(REG_INT1_DUR, val))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -473,7 +496,8 @@ bool H3LIS331DL::setInterrupt2Config(uint8_t val)
 
   if (m_i2c.writeReg(REG_INT2_CFG, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -489,7 +513,8 @@ bool H3LIS331DL::setInterrupt2Source(uint8_t val)
 
   if (m_i2c.writeReg(REG_INT2_SRC, reg))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -500,7 +525,8 @@ bool H3LIS331DL::setInterrupt2Threshold(uint8_t val)
 {
   if (m_i2c.writeReg(REG_INT2_THS, val))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 
@@ -511,7 +537,8 @@ bool H3LIS331DL::setInterrupt2Duration(uint8_t val)
 {
   if (m_i2c.writeReg(REG_INT2_DUR, val))
     {
-      cerr << __FUNCTION__ << "@" << __LINE__ << ": writeReg failed" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     }
 

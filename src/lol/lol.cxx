@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
@@ -136,7 +138,15 @@ LoL::LoL() {
     int i = 0;
     mraa_result_t error;
     for (i = 0; i < 12; i++)
-        m_LoLCtx[i] = mraa_gpio_init(i+2);
+      {
+        if ( !(m_LoLCtx[i] = mraa_gpio_init(i+2)) ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_gpio_init() failed, invalid pin?");
+            return;
+          }
+
+      }
 
     memset(framebuffer, 0, LOL_X*LOL_Y);
 

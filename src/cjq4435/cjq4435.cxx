@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "cjq4435.h"
 
@@ -33,7 +35,8 @@ CJQ4435::CJQ4435(int pin)
 {
   if ( !(m_pwm = mraa_pwm_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_pwm_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_pwm_init() failed, invalid pin?");
       return;
     }
 

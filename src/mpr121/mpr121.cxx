@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "mpr121.h"
 
@@ -34,14 +35,23 @@ using namespace std;
 MPR121::MPR121(int bus, uint8_t address)
 {
   // setup our i2c link
-  m_i2c = mraa_i2c_init(bus);
+  if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+      return;
+    }
 
   m_addr = address;
 
   mraa_result_t ret = mraa_i2c_address(m_i2c, m_addr);
 
   if (ret != MRAA_SUCCESS) 
-    cerr << "MPR121: Could not initialize i2c bus. " << endl;
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_address() failed");
+      return;
+    }
 
   m_buttonStates = 0;
   m_overCurrentFault = false;
@@ -98,7 +108,8 @@ bool MPR121::configAN3944()
   uint8_t eleConf = 0x00;
   if ((rv = writeBytes(0x5e, &eleConf, 1)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x5e) failed");
       return false;
     }
 
@@ -108,7 +119,8 @@ bool MPR121::configAN3944()
   uint8_t sectA[] = { 0x01, 0x01, 0x00, 0x00 };
   if ((rv = writeBytes(0x2b, sectA, 4)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x2b) failed");
       return false;
     }
 
@@ -118,7 +130,8 @@ bool MPR121::configAN3944()
   uint8_t sectB[] = { 0x01, 0x01, 0xff, 0x02 };
   if ((rv = writeBytes(0x2f, sectB, 4)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x2f) failed");
       return false;
     }
 
@@ -140,7 +153,8 @@ bool MPR121::configAN3944()
                       0x0f, 0x0a };
   if ((rv = writeBytes(0x41, sectC, 24)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x41) failed");
       return false;
     }
 
@@ -150,7 +164,8 @@ bool MPR121::configAN3944()
   uint8_t filterConf = 0x04;
   if ((rv = writeBytes(0x5d, &filterConf, 1)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x5d) failed");
       return false;
     }
 
@@ -160,13 +175,15 @@ bool MPR121::configAN3944()
   uint8_t sectF0 = 0x0b;
   if ((rv = writeBytes(0x7b, &sectF0, 1)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x7b) failed");
       return false;
     }
   uint8_t sectF1[] = { 0x9c, 0x65, 0x8c };
   if ((rv = writeBytes(0x7d, sectF1, 3)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x7d) failed");
       return false;
     }
 
@@ -177,7 +194,8 @@ bool MPR121::configAN3944()
   eleConf = 0x8c;
   if ((rv = writeBytes(0x5e, &eleConf, 1)) != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": " << __LINE__<< ": I2C write failed." << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": writeBytes(0x5e) failed");
       return false;
     }
 
