@@ -56,7 +56,7 @@ int main (int argc, char **argv)
 
   // Collect and output NMEA data.  There are various libraries out on
   // the Internet, such as tinyGPS or tinyGPS++ that can handle
-  // decoding NMEA data and presenting it in a more easily accessable
+  // decoding NMEA data and presenting it in a more easily accessible
   // format.  This example will just check for, and read raw NMEA data
   // from the device and output it on stdout.
 
