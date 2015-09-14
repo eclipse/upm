@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/gpio.h>
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
 
@@ -89,7 +89,7 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(IsrCallback *cb);
 #else
     void installISR(void (*isr)(void *), void *arg);
@@ -101,7 +101,7 @@ namespace upm {
     void uninstallISR();
 
   private:
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(void (*isr)(void *), void *arg);
 #endif
 

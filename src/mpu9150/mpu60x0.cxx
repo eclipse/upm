@@ -380,7 +380,7 @@ uint8_t MPU60X0::getInterruptPinConfig()
   return readReg(REG_INT_PIN_CFG);
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 void MPU60X0::installISR(int gpio, mraa::Edge level,
                          IsrCallback *cb)
 {

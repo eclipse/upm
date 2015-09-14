@@ -28,13 +28,7 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-#else
-#include <mraa/gpio.hpp>
-#endif
 
 #include <mraa/pwm.hpp>
 

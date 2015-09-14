@@ -29,7 +29,7 @@
 #include <mraa/pwm.h>
 #include <sys/time.h>
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
 
@@ -62,8 +62,8 @@ namespace upm {
  */
 class HCSR04 {
     public:
-#ifdef SWIGJAVA
-	HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
 #else 
         /**
          * Instantiates an HCSR04 object
@@ -103,7 +103,7 @@ class HCSR04 {
         }
 
     private:
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
 #endif
         mraa_pwm_context     m_pwmTriggerCtx;

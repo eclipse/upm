@@ -27,7 +27,7 @@
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
 
@@ -169,7 +169,7 @@ namespace upm {
      */
     void getRawValues(int *x, int *y, int *z);
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * Reads the current value of conversion
      *
@@ -187,7 +187,7 @@ namespace upm {
      */
     void getAcceleration(float *ax, float *ay, float *az);
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * Gets the computed acceleration
      *
@@ -270,7 +270,7 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(int pin, IsrCallback *cb);
 #else
     void installISR(int pin, void (*isr)(void *), void *arg);
@@ -301,7 +301,7 @@ namespace upm {
     bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
 
   private:
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(int pin, void (*isr)(void *), void *arg);
 #endif
 
