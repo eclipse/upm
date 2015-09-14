@@ -220,9 +220,9 @@ class MMA7455 {
          *
          * @param reg Register address
          * @param buffer Register data buffer
-         * @param size Buffer size
+         * @param len Buffer size
          */
-        int i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        int i2cReadReg (unsigned char reg, uint8_t *buffer, int len);
 
         /**
          * Internal function for writing I2C data

@@ -140,7 +140,7 @@ short *MMA7455::readData() {
 #endif
 
 int
-MMA7455::i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size) {
+MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len ) {
     if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
         return 0;
     }
@@ -153,7 +153,7 @@ MMA7455::i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size)
         return 0;
     }
 
-    return (int) m_i2ControlCtx.read(buf, size);
+    return (int) m_i2ControlCtx.read(buffer, len);
 }
 
 mraa::Result
