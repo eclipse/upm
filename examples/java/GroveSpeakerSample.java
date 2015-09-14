@@ -34,7 +34,8 @@ public class GroveSpeakerSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a Grove Speaker on digital pin D2
+		//! [Interesting]
+        // Instantiate a Grove Speaker on digital pin D2
 		upm_grovespeaker.GroveSpeaker speaker = new upm_grovespeaker.GroveSpeaker(2);
 		
 		// Play all 7 of the lowest notes
@@ -42,6 +43,7 @@ public class GroveSpeakerSample{
 		
 		// Play a medium C-sharp
 		speaker.playSound('c', true, "med");
-	}
+	    //! [Interesting]
+    }
 
 }

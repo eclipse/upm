@@ -34,6 +34,8 @@ public class BISS0001Sample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+//! [Interesting]
+        // Instantiate a Grove Motion sensor on GPIO pin D7
 		upm_biss0001.BISS0001 motion = new upm_biss0001.BISS0001(7);
 	
 		while (true) {
@@ -46,6 +48,7 @@ public class BISS0001Sample{
 			
 			Thread.sleep(1000);
 		}
+//! [Interesting]
 	}
 
 }

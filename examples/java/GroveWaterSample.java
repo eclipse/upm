@@ -34,7 +34,8 @@ public class GroveWaterSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a Grove Water sensor on digital pin D2
+		//! [Interesting]
+        // Instantiate a Grove Water sensor on digital pin D2
 		upm_grovewater.GroveWater water = new upm_grovewater.GroveWater(2);
 		
 		while (true) {
@@ -48,6 +49,7 @@ public class GroveWaterSample{
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 	
 

@@ -35,7 +35,8 @@ public class OTP538USample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a OTP538U on analog pins A0 and A1
+		//! [Interesting]
+        // Instantiate a OTP538U on analog pins A0 and A1
 		// A0 is used for the Ambient Temperature and A1 is used for the Object temperature.
 		upm_otp538u.OTP538U temps = new upm_otp538u.OTP538U(0, 1, OTP538U_AREF);
 
@@ -45,5 +46,6 @@ public class OTP538USample{
 		
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 }

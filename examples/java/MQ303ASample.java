@@ -34,7 +34,8 @@ public class MQ303ASample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate an mq303a sensor on analog pin A0
+		//! [Interesting]
+        // Instantiate an mq303a sensor on analog pin A0
 		 
 		// This device uses a heater powered from an analog I/O pin.·
 		// If using A0 as the data pin, then you need to use A1, as the heater
@@ -57,6 +58,7 @@ public class MQ303ASample{
 		
 		mq303a.heaterEnable(false);
 		System.out.println("Exiting");
-	}
+	    //! [Interesting]
+    }
 
 }

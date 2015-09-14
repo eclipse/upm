@@ -33,8 +33,9 @@ public class GroveMoistureSample{
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		upm_grovemoisture.GroveMoisture gm = new upm_grovemoisture.GroveMoisture(1);
-	
+		//! [Interesting]
+        upm_grovemoisture.GroveMoisture gm = new upm_grovemoisture.GroveMoisture(1);
+
 		while (true) {
 			int moisture_val = gm.value();
 			String result;
@@ -50,5 +51,6 @@ public class GroveMoistureSample{
 		
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 }

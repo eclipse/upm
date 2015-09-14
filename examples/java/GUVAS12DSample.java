@@ -29,7 +29,6 @@ public class GUVAS12DSample{
 	private static final float GUVAS12D_AREF = 5;
 	private static final int SAMPLES_PER_QUERY = 1024;
 
-	
 	static {
 		try {
 			System.loadLibrary("javaupm_guvas12d");
@@ -40,7 +39,9 @@ public class GUVAS12DSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		upm_guvas12d.GUVAS12D volts = new upm_guvas12d.GUVAS12D(3);
+		//! [Interesting]
+        // Instantiate a GUVAS12D on analog pin A3
+        upm_guvas12d.GUVAS12D volts = new upm_guvas12d.GUVAS12D(3);
 		
 		while (true) {
 			float value = volts.value(GUVAS12D_AREF, SAMPLES_PER_QUERY);
@@ -49,6 +50,7 @@ public class GUVAS12DSample{
 		
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

@@ -34,7 +34,8 @@ public class GroveRotarySample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		upm_grove.GroveRotary knob = new upm_grove.GroveRotary(0);
+		//! [Interesting]
+        upm_grove.GroveRotary knob = new upm_grove.GroveRotary(0);
 	
 		while (true) {
 			float abs_value = knob.abs_value();	// Absolute raw value
@@ -49,6 +50,7 @@ public class GroveRotarySample{
 			
 			Thread.sleep(3000);
 		}
+        //! [Interesting]
 	}
 
 }

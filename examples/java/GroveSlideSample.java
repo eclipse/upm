@@ -33,7 +33,8 @@ public class GroveSlideSample {
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		// Instantiate new grove slide potentiometer on  analog pin A0
+		//! [Interesting]
+        // Instantiate new grove slide potentiometer on  analog pin A0
         upm_grove.GroveSlide slide = new upm_grove.GroveSlide(0);
 		
 		while (true) {
@@ -45,5 +46,6 @@ public class GroveSlideSample {
 			
 			Thread.sleep(2500);
 		}
+        //! [Interesting]
 	}
 }

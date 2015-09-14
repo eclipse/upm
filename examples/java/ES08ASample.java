@@ -35,6 +35,7 @@ public class ES08ASample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+        //! [Interesting]
 		upm_servo.ES08A servo = new upm_servo.ES08A(6);
 		
 		// Sets the shaft to 180, then to 90, then to 0,
@@ -58,5 +59,6 @@ public class ES08ASample{
 
 		servo.setAngle (180);
 	    System.out.println("Set angle to 180");
+        //! [Interesting]
 	}
 }

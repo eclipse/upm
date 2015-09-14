@@ -34,7 +34,8 @@ public class TTP223Sample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		upm_ttp223.TTP223 touch = new upm_ttp223.TTP223(7);
+		//! [Interesting]
+        upm_ttp223.TTP223 touch = new upm_ttp223.TTP223(7);
 	
 		while (true) {
 			if(touch.isPressed())
@@ -44,6 +45,7 @@ public class TTP223Sample{
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }
