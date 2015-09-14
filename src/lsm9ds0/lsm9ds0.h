@@ -27,18 +27,11 @@
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-#else
-#include <mraa/gpio.hpp>
-#endif
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
-
 
 #define LSM9DS0_I2C_BUS 1
 #define LSM9DS0_DEFAULT_XM_ADDR 0x1d
@@ -1268,7 +1261,7 @@ namespace upm {
      */
     void getMagnetometer(float *x, float *y, float *z);
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * get the accelerometer values in gravities
      *
@@ -1418,7 +1411,7 @@ namespace upm {
      */
     uint8_t getInterruptGen2Src();
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
 		    IsrCallback *cb);
 #else
@@ -1471,7 +1464,7 @@ namespace upm {
   private:
     // OR'd with a register, this enables register autoincrement mode,
     // which we need.
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
                     void (*isr)(void *), void *arg);
 #endif

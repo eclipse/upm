@@ -602,7 +602,7 @@ void LSM9DS0::getMagnetometer(float *x, float *y, float *z)
     *z = (m_magZ * m_magScale) / 1000.0;
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 float *LSM9DS0::getAccelerometer()
 {
   float *v = new float[3];

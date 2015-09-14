@@ -28,14 +28,7 @@
 #include <unistd.h>
 #include <stdint.h>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa.hpp>
-#define SWIGJAVA
-
-#else
-#include <mraa.hpp>
-#endif
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 

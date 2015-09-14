@@ -32,14 +32,7 @@
 #include <mraa/aio.hpp>
 #include <mraa/common.hpp>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-
-#else
-#include <mraa/gpio.hpp>
-#endif
 
 #define MIN_PERIOD         500
 #define MAX_PERIOD         1000
