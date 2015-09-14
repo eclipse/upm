@@ -140,6 +140,7 @@ add_executable (wheelencoder-example wheelencoder.cxx)
 add_executable (sm130-example sm130.cxx)
 add_executable (grovegprs-example grovegprs.cxx)
 add_executable (mq7-example mq7.cxx)
+add_executable (mq8-example mq8.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
@@ -392,3 +393,4 @@ target_link_libraries (wheelencoder-example wheelencoder ${CMAKE_THREAD_LIBS_INI
 target_link_libraries (sm130-example sm130 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (grovegprs-example grovegprs ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (mq7-example gas ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (mq8-example gas ${CMAKE_THREAD_LIBS_INIT})
