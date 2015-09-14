@@ -163,9 +163,12 @@ uint8_t M24LR64E::getAFI()
   return EEPROM_Read_Byte(AFI_ADDR);
 }
 
-void M24LR64E::getUID(uint8_t* buffer)
+uint8_t *M24LR64E::getUID()
 {
+  uint8_t* buffer = new uint8_t[UID_LENGTH];
   EEPROM_Read_Bytes(UID_ADDR, buffer, UID_LENGTH);
+
+  return buffer;
 }
 
 uint32_t M24LR64E::getMemorySize()

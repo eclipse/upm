@@ -215,10 +215,11 @@ namespace upm {
     /**
      * Returns a unique ID.
      * Must be in the root mode.
+     * Maintained to preserve compatibility with older code.
      *
-     * @param buf Buffer to hold the returned UID. Must be UID_LENGTH bytes.
+     * @result buf Buffer to hold the UID. Must be UID_LENGTH bytes.
      */
-    void getUID(uint8_t* buffer);
+    uint8_t *getUID();
 
     /**
      * Returns the memory size

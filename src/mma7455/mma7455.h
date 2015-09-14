@@ -164,7 +164,7 @@ typedef union {
  *
  * @brief API for the MMA7455 Accelerometer
  *
- * This file defines the MMA7455 interface for libmma7455
+ * This module defines the MMA7455 interface for libmma7455
  *
  * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting
@@ -181,6 +181,8 @@ class MMA7455 {
 
         /**
          * Returns the name of the component
+         *
+         * @return Name of the component
          */
         std::string name()
         {
@@ -189,6 +191,8 @@ class MMA7455 {
 
         /**
          * Calibrates the sensor
+         *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
         mraa::Result calibrate ();
 
@@ -198,6 +202,8 @@ class MMA7455 {
          * @param ptrX X-axis
          * @param ptrY Y-axis
          * @param ptrZ Z-axis
+         *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
         mraa::Result readData (short * ptrX, short * ptrY, short * ptrZ);
 
@@ -209,28 +215,26 @@ class MMA7455 {
          */
         short *readData ();
 #endif
-
         /**
-         *
+         * Internal function for reading I2C data
          *
          * @param reg Register address
          * @param buffer Register data buffer
-         * @param size Buffer size
+         * @param len Buffer size
          */
         int i2cReadReg (unsigned char reg, uint8_t *buffer, int len);
 
         /**
-         *
+         * Internal function for writing I2C data
          *
          * @param reg Register address
          * @param buffer Register data buffer
-         * @param size Buffer size
+         * @param len Buffer size
          */
         mraa::Result i2cWriteReg (unsigned char reg, uint8_t *buffer, int len);
 
     private:
         std::string m_name;
-
         int              m_controlAddr;
         int              m_bus;
         mraa::I2c  m_i2ControlCtx;
