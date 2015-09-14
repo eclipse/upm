@@ -25,6 +25,11 @@
     #include "mq3.h"
 %}
 
+%include "mq4.h"
+%{
+    #include "mq4.h"
+%}
+
 %include "mq5.h"
 %{
     #include "mq5.h"
