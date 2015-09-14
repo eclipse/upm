@@ -33,6 +33,8 @@ public class A110xSample {
 	}
 	
 	public static void main(String argv[]) throws InterruptedException {
+//! [Interesting]
+        // Instantiate an A110X sensor on digital pin D2
 		upm_a110x.A110X a110x = new upm_a110x.A110X(2);
 
 		while(true) {
@@ -43,6 +45,7 @@ public class A110xSample {
 				System.out.println("magnet not detected...");
 			}
 			Thread.sleep(1000);
-		}			
+		}
+//! [Interesting]
 	}
 }

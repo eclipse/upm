@@ -33,7 +33,8 @@ public class GroveLightSample {
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
+		//! [Interesting]
+        upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
 		
 		while (true) {
 			float raw_value = gl.raw_value();
@@ -44,5 +45,6 @@ public class GroveLightSample {
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 }

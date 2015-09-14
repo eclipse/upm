@@ -34,6 +34,7 @@ public class BuzzerSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+        //! [Interesting]
 		int chord[] = {
 				upm_buzzer.javaupm_buzzer.DO, 
 				upm_buzzer.javaupm_buzzer.RE, 
@@ -57,6 +58,7 @@ public class BuzzerSample{
 			
 			Thread.sleep(100);
 		}
+        //! [Interesting]
 		sound.stopSound();
 	}
 	

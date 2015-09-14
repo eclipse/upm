@@ -34,7 +34,8 @@ public class YG1006Sample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a yg1006 flame sensor on digital pin D2
+		//! [Interesting]
+        // Instantiate a yg1006 flame sensor on digital pin D2
 		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
 		
 		while (true) {
@@ -48,6 +49,7 @@ public class YG1006Sample{
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

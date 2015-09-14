@@ -34,6 +34,7 @@ public class CJQ4435Sample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+        //! [Interesting]
 		// Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
 		upm_cjq4435.CJQ4435 mosfet =  new upm_cjq4435.CJQ4435(3);
 		
@@ -56,6 +57,7 @@ public class CJQ4435Sample{
 			}
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

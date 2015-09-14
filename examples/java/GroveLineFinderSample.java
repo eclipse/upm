@@ -34,7 +34,8 @@ public class GroveLineFinderSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a Grove Line Finder sensor on digital pin D2
+		//! [Interesting]
+        // Instantiate a Grove Line Finder sensor on digital pin D2
 		upm_grovelinefinder.GroveLineFinder finder = new upm_grovelinefinder.GroveLineFinder(2);
 		// check every second for the presence of white detection
 		while(true){
@@ -48,6 +49,7 @@ public class GroveLineFinderSample{
 
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

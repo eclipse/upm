@@ -33,7 +33,8 @@ public class GroveRelaySample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
+		//! [Interesting]
+        // Create the button object using UART
 		upm_grove.GroveRelay relay = new upm_grove.GroveRelay(5);
 	
 		for( int i = 0 ; i < 3 ; i++ ){
@@ -47,5 +48,6 @@ public class GroveRelaySample{
 				System.out.println("Relay is off");
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 }
