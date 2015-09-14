@@ -43,14 +43,14 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) :
   m_gpioRS(0), m_gpioEnable(0), m_gpioD0(0),
   m_gpioD1(0), m_gpioD2(0), m_gpioD3(0)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (I2C)";
     m_isI2C = true;
 
     m_lcd_control_address = addr_in;
 
     error = m_i2c_lcd_control->address(m_lcd_control_address);
-    if (error != MRAA_SUCCESS) {
+    if (error != mraa::SUCCESS) {
         fprintf(stderr, "Failed to initialize i2c bus\n");
         return;
     }
@@ -101,7 +101,7 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
   m_gpioD0(new mraa::Gpio(d0)), m_gpioD1(new mraa::Gpio(d1)),
   m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3))
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (4-bit GPIO)";
     m_isI2C = false;
 
@@ -180,20 +180,20 @@ Lcm1602::~Lcm1602()
  *  virtual area
  * **************
  */
-mraa_result_t
+mraa::Result
 Lcm1602::write(std::string msg)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
         error = data(msg[i]);
     }
     return error;
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::setCursor(int row, int column)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
     uint8_t offset = ((column % 16) + row_addr[row]);
@@ -201,31 +201,31 @@ Lcm1602::setCursor(int row, int column)
     return command(LCD_CMD | offset);
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::clear()
 {
-    mraa_result_t ret;
+    mraa::Result ret;
     ret = command(LCD_CLEARDISPLAY);
     usleep(2000); // this command takes awhile
     return ret;
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::home()
 {
-    mraa_result_t ret;
+    mraa::Result ret;
     ret = command(LCD_RETURNHOME);
     usleep(2000); // this command takes awhile
     return ret;
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     charSlot &= 0x07; // only have 8 positions we can set
     error = command(LCD_SETCGRAMADDR | (charSlot << 3));
-    if (error == MRAA_SUCCESS) {
+    if (error == mraa::SUCCESS) {
         for (int i = 0; i < 8; i++) {
           error = data(charData[i]);
         }
@@ -234,82 +234,82 @@ Lcm1602::createChar(uint8_t charSlot, uint8_t charData[])
     return error;
 }
 
-mraa_result_t Lcm1602::displayOn()
+mraa::Result Lcm1602::displayOn()
 {
   m_displayControl |= LCD_DISPLAYON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::displayOff()
+mraa::Result Lcm1602::displayOff()
 {
   m_displayControl &= ~LCD_DISPLAYON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::cursorOn()
+mraa::Result Lcm1602::cursorOn()
 {
   m_displayControl |= LCD_CURSORON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::cursorOff()
+mraa::Result Lcm1602::cursorOff()
 {
   m_displayControl &= ~LCD_CURSORON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::cursorBlinkOn()
+mraa::Result Lcm1602::cursorBlinkOn()
 {
   m_displayControl |= LCD_BLINKON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::cursorBlinkOff()
+mraa::Result Lcm1602::cursorBlinkOff()
 {
   m_displayControl &= ~LCD_BLINKON;
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
-mraa_result_t Lcm1602::scrollDisplayLeft()
+mraa::Result Lcm1602::scrollDisplayLeft()
 {
   return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
 }
 
-mraa_result_t Lcm1602::scrollDisplayRight()
+mraa::Result Lcm1602::scrollDisplayRight()
 {
   return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
 }
 
-mraa_result_t Lcm1602::entryLeftToRight()
+mraa::Result Lcm1602::entryLeftToRight()
 {
   m_entryDisplayMode |= LCD_ENTRYLEFT;
   return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-mraa_result_t Lcm1602::entryRightToLeft()
+mraa::Result Lcm1602::entryRightToLeft()
 {
   m_entryDisplayMode &= ~LCD_ENTRYLEFT;
   return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-mraa_result_t Lcm1602::autoscrollOn()
+mraa::Result Lcm1602::autoscrollOn()
 {
   m_entryDisplayMode |= LCD_ENTRYSHIFTINCREMENT;
   return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-mraa_result_t Lcm1602::autoscrollOff()
+mraa::Result Lcm1602::autoscrollOff()
 {
   m_entryDisplayMode &= ~LCD_ENTRYSHIFTINCREMENT;
   return command(LCD_ENTRYMODESET | m_entryDisplayMode);
 }
 
-mraa_result_t Lcm1602::command(uint8_t cmd)
+mraa::Result Lcm1602::command(uint8_t cmd)
 {
   return send(cmd, 0);
 }
 
-mraa_result_t Lcm1602::data(uint8_t cmd)
+mraa::Result Lcm1602::data(uint8_t cmd)
 {
   return send(cmd, LCD_RS); // 1
 }
@@ -320,10 +320,10 @@ mraa_result_t Lcm1602::data(uint8_t cmd)
  *  private area
  * **************
  */
-mraa_result_t
+mraa::Result
 Lcm1602::send(uint8_t value, int mode)
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
     uint8_t h;
     uint8_t l;
 
@@ -349,10 +349,10 @@ Lcm1602::send(uint8_t value, int mode)
     return ret;
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::write4bits(uint8_t value)
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
 
     if (m_isI2C)
       {
@@ -372,21 +372,21 @@ Lcm1602::write4bits(uint8_t value)
     return ret;
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::expandWrite(uint8_t value)
 {
     // invalid for gpio
     if (!m_isI2C)
-        return MRAA_ERROR_INVALID_RESOURCE;
+        return mraa::ERROR_INVALID_RESOURCE;
 
     uint8_t buffer = value | LCD_BACKLIGHT;
     return m_i2c_lcd_control->writeByte(buffer);
 }
 
-mraa_result_t
+mraa::Result
 Lcm1602::pulseEnable(uint8_t value)
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
 
     if (m_isI2C)
       {

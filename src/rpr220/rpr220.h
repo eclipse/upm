@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/gpio.h>
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
 
@@ -87,7 +87,7 @@ namespace upm {
      */
     bool blackDetected();
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(IsrCallback *cb);
 #else
     /**
@@ -108,7 +108,7 @@ namespace upm {
     void uninstallISR();
 
   private:
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(void (*isr)(void *), void *arg);
 #endif	
     bool m_isrInstalled;

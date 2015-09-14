@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define ADDR               0x1D // device address
 
@@ -180,11 +180,6 @@ class MMA7455 {
         MMA7455 (int bus=0, int devAddr=0x1D);
 
         /**
-         * MMA7455 object destructor; basically, it closes the I2C connection.
-         */
-        ~MMA7455 ();
-
-        /**
          * Returns the name of the component
          *
          * @return Name of the component
@@ -199,7 +194,7 @@ class MMA7455 {
          *
          * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
-        mraa_result_t calibrate ();
+        mraa::Result calibrate ();
 
         /**
          * Reads X-axis, Y-axis, and Z-axis acceleration data
@@ -210,7 +205,7 @@ class MMA7455 {
          *
          * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
-        mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
+        mraa::Result readData (short * ptrX, short * ptrY, short * ptrZ);
 
 #ifdef SWIGJAVA
         /**
@@ -224,25 +219,25 @@ class MMA7455 {
          * Internal function for reading I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
-         * @param size Buffer size
+         * @param buffer Register data buffer
+         * @param len Buffer size
          */
-        int i2cReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        int i2cReadReg (unsigned char reg, uint8_t *buffer, int len);
 
         /**
          * Internal function for writing I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
+         * @param buffer Register data buffer
          * @param size Buffer size
          */
-        mraa_result_t i2cWriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        mraa::Result i2cWriteReg (unsigned char reg, uint8_t *buffer, int len);
 
     private:
         std::string m_name;
         int              m_controlAddr;
         int              m_bus;
-        mraa_i2c_context  m_i2ControlCtx;
+        mraa::I2c  m_i2ControlCtx;
 };
 
 }

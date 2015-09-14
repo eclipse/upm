@@ -24,17 +24,12 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-#else
-#include <mraa/gpio.hpp>
-#endif
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "../IsrCallback.h"
 #endif
 
@@ -705,11 +700,11 @@ namespace upm {
      * read contiguous refister into a buffer
      *
      * @param reg the register to start reading at
-     * @param buf the buffer to store the results
+     * @param buffer the buffer to store the results
      * @param len the number of registers to read
      * @return the value of the register
      */
-    void readRegs(uint8_t reg, uint8_t *buf, int len);
+    void readRegs(uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * write to a register
@@ -808,7 +803,7 @@ namespace upm {
      */
     void getGyroscope(float *x, float *y, float *z);
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * get the accelerometer values
      *
@@ -925,7 +920,7 @@ namespace upm {
      * @param isr the interrupt handler, accepting a void * argument
      * @param arg the argument to pass the the interrupt handler
      */
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(int gpio, mraa::Edge level, IsrCallback *cb);
 #else
     void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
@@ -956,7 +951,7 @@ namespace upm {
     float m_gyroScale;
 
   private:
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
 #endif
 

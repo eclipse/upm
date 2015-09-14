@@ -91,7 +91,7 @@ bool WT5001::dataAvailable(unsigned int millis)
     return false;
 }
 
-int WT5001::readData(char *buffer, size_t len)
+int WT5001::readData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -107,7 +107,7 @@ int WT5001::readData(char *buffer, size_t len)
   return rv;
 }
 
-int WT5001::writeData(char *buffer, size_t len)
+int WT5001::writeData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);

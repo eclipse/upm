@@ -38,11 +38,11 @@ HP20X::HP20X(int bus, uint8_t address):
 {
   m_addr = address;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << "HP20X: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 }
@@ -98,10 +98,10 @@ bool HP20X::waitforDeviceReady()
 
 bool HP20X::writeCmd(uint8_t cmd)
 {
-  mraa_result_t rv;
-  if ((rv = m_i2c.writeByte(cmd)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = m_i2c.writeByte(cmd)) != mraa::SUCCESS)
     {
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
 
@@ -114,8 +114,8 @@ bool HP20X::writeReg(HP20X_REG_T reg, uint8_t data)
 
   uint8_t r = CMD_WRITE_REG | reg;
 
-  mraa_result_t rv;
-  if ((rv = m_i2c.writeReg(r, data)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = m_i2c.writeReg(r, data)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": writeReg failed" << endl;
       return false;

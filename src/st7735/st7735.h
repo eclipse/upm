@@ -27,9 +27,12 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/spi.h>
+#include <mraa/aio.hpp>
+#include <mraa/common.hpp>
+
+#include <mraa/gpio.hpp>
+
+#include <mraa/spi.hpp>
 #include <gfx.h>
 
 #define INITR_GREENTAB      0x0
@@ -527,11 +530,6 @@ class ST7735 : public GFX {
         ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst);
 
         /**
-         * ST7735 object destructor
-         */
-        ~ST7735 ();
-
-        /**
          * Returns the name of the component
          */
         std::string name()
@@ -598,45 +596,45 @@ class ST7735 : public GFX {
         /**
          * LCD chip select is LOW
          */
-        mraa_result_t lcdCSOn ();
+        mraa::Result lcdCSOn ();
 
         /**
          * LCD chip select is HIGH
          */
-        mraa_result_t lcdCSOff ();
+        mraa::Result lcdCSOff ();
 
         /**
          * CD card chip select is LOW
          */
-        mraa_result_t sdCSOn ();
+        mraa::Result sdCSOn ();
 
         /**
          * CD card select is HIGH
          */
-        mraa_result_t sdCSOff ();
+        mraa::Result sdCSOff ();
 
         /**
          * Data select is HIGH
          */
-        mraa_result_t rsHIGH ();
+        mraa::Result rsHIGH ();
 
         /**
          * Data select is LOW
          */
-        mraa_result_t rsLOW ();
+        mraa::Result rsLOW ();
 
         uint8_t m_map[160 * 128 * 2]; /**< Screens buffer */
     private:
-        mraa_spi_context      m_spi;
+        mraa::Spi      m_spi;
         uint8_t              m_csLCD;
         uint8_t              m_cSD;
         uint8_t              m_rST;
         uint8_t              m_rS;
 
-        mraa_gpio_context     m_csLCDPinCtx;
-        mraa_gpio_context     m_cSDPinCtx;
-        mraa_gpio_context     m_rSTPinCtx;
-        mraa_gpio_context     m_rSPinCtx;
+        mraa::Gpio     m_csLCDPinCtx;
+        mraa::Gpio     m_cSDPinCtx;
+        mraa::Gpio     m_rSTPinCtx;
+        mraa::Gpio     m_rSPinCtx;
 
         uint8_t              m_spiBuffer[32];
 

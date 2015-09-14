@@ -78,31 +78,29 @@
 
 using namespace upm;
 
-Hmc5883l::Hmc5883l(int bus)
+Hmc5883l::Hmc5883l(int bus) : m_i2c(bus)
 {
-    m_i2c = mraa_i2c_init(bus);
-
-    mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    m_i2c.address(HMC5883L_I2C_ADDR);
     m_rx_tx_buf[0] = HMC5883L_CONF_REG_B;
     m_rx_tx_buf[1] = GA_1_3_REG;
-    mraa_i2c_write(m_i2c, m_rx_tx_buf, 2);
+    m_i2c.write(m_rx_tx_buf, 2);
 
-    mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
+    m_i2c.address(HMC5883L_I2C_ADDR);
     m_rx_tx_buf[0] = HMC5883L_MODE_REG;
     m_rx_tx_buf[1] = HMC5883L_CONT_MODE;
-    mraa_i2c_write(m_i2c, m_rx_tx_buf, 2);
+    m_i2c.write(m_rx_tx_buf, 2);
 
     Hmc5883l::update();
 }
 
-mraa_result_t
+mraa::Result
 Hmc5883l::update(void)
 {
-    mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
-    mraa_i2c_write_byte(m_i2c, HMC5883L_DATA_REG);
+    m_i2c.address(HMC5883L_I2C_ADDR);
+    m_i2c.writeByte(HMC5883L_DATA_REG);
 
-    mraa_i2c_address(m_i2c, HMC5883L_I2C_ADDR);
-    mraa_i2c_read(m_i2c, m_rx_tx_buf, DATA_REG_SIZE);
+    m_i2c.address(HMC5883L_I2C_ADDR);
+    m_i2c.read(m_rx_tx_buf, DATA_REG_SIZE);
 
     // x
     m_coor[0] = (m_rx_tx_buf[HMC5883L_X_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_X_LSB_REG];
@@ -111,7 +109,7 @@ Hmc5883l::update(void)
     // y
     m_coor[1] = (m_rx_tx_buf[HMC5883L_Y_MSB_REG] << 8 ) | m_rx_tx_buf[HMC5883L_Y_LSB_REG];
 
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }
 
 float

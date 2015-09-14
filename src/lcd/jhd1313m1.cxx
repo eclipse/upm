@@ -40,8 +40,8 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
     m_rgb_address = rgbAddress;
     m_name = "Jhd1313m1";
 
-    mraa_result_t ret = m_i2c_lcd_rgb.address(m_rgb_address);
-    if (ret != MRAA_SUCCESS) {
+    mraa::Result ret = m_i2c_lcd_rgb.address(m_rgb_address);
+    if (ret != mraa::SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
     }
 
@@ -87,10 +87,10 @@ Jhd1313m1::~Jhd1313m1()
     setColor(0x00, 0x00, 0x00);
 }
 
-mraa_result_t
+mraa::Result
 Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
 {
-    mraa_result_t ret;
+    mraa::Result ret;
 
     ret = m_i2c_lcd_rgb.writeReg(0, 0);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
@@ -109,7 +109,7 @@ beach:
     return ret;
 }
 
-mraa_result_t
+mraa::Result
 Jhd1313m1::scroll(bool direction)
 {
     if (direction) {
@@ -119,12 +119,12 @@ Jhd1313m1::scroll(bool direction)
     }
 }
 
-mraa_result_t Jhd1313m1::command(uint8_t cmd)
+mraa::Result Jhd1313m1::command(uint8_t cmd)
 {
   return m_i2c_lcd_control->writeReg(LCD_CMD, cmd);
 
 }
-mraa_result_t Jhd1313m1::data(uint8_t cmd)
+mraa::Result Jhd1313m1::data(uint8_t cmd)
 {
   return m_i2c_lcd_control->writeReg(LCD_DATA, cmd);
 }

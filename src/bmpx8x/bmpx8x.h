@@ -28,7 +28,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include <math.h>
 
 #define ADDR               0x77 // device address
@@ -101,9 +101,11 @@ class BMPX8X {
 
         /**
          * BMPX8X object destructor; basically, it closes the I2C connection.
+         * ~BMPX8X ();
+         * LE: there is no need for the destructor, as the I2C connection
+         * will be closed when the m_i2ControlCtx variable will go out of
+         * scope (when all the BMPX8X objects will be destroyed)
          */
-        ~BMPX8X ();
-
         /**
          * Returns the calculated pressure
          */
@@ -159,7 +161,7 @@ class BMPX8X {
          * @param reg Address of the register
          * @param value Byte to be written
          */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
          * Reads a one-byte register
@@ -173,7 +175,7 @@ class BMPX8X {
 
         int m_controlAddr;
         int m_bus;
-        mraa_i2c_context m_i2ControlCtx;
+        mraa::I2c m_i2ControlCtx;
 
         uint8_t oversampling;
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;

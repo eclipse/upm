@@ -58,15 +58,15 @@ LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
   m_gyroScale = 0.0;
   m_magScale = 0.0;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2cG.address(m_gAddr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2cG.address(m_gAddr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize Gyro i2c address");
       return;
     }
 
-  if ( (rv = m_i2cXM.address(m_xmAddr)) != MRAA_SUCCESS)
+  if ( (rv = m_i2cXM.address(m_xmAddr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) + 
                                ": Could not initialize XM i2c address");
@@ -287,7 +287,7 @@ uint8_t LSM9DS0::readReg(DEVICE_T dev, uint8_t reg)
   return device->readReg(reg);
 }
 
-void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
+void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len)
 {
   mraa::I2c *device;
 
@@ -302,7 +302,7 @@ void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
 
   // We need to set the high bit of the register to enable
   // auto-increment mode for reading multiple registers in one go.
-  device->readBytesReg(reg | m_autoIncrementMode, buf, len);
+  device->readBytesReg(reg | m_autoIncrementMode, buffer, len);
 }
 
 bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
@@ -318,11 +318,11 @@ bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
       return false;
     }
 
-  mraa_result_t rv;
-  if ((rv = device->writeReg(reg, val)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = device->writeReg(reg, val)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": failed:" << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
   
@@ -602,7 +602,7 @@ void LSM9DS0::getMagnetometer(float *x, float *y, float *z)
     *z = (m_magZ * m_magScale) / 1000.0;
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 float *LSM9DS0::getAccelerometer()
 {
   float *v = new float[3];

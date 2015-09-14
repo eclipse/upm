@@ -4,7 +4,7 @@
  * Copyright (c) 2014 Intel Corporation.
  *
  * This module is based on the my9221 driver
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -27,8 +27,10 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
+#include <mraa/aio.hpp>
+#include <mraa/common.hpp>
+
+#include <mraa/gpio.hpp>
 
 #define MAX_BIT_PER_BLOCK     16
 #define CMDMODE               0x0000
@@ -45,7 +47,7 @@ namespace upm {
    * @defgroup grovecircularled libupm-grovecircularled
    * @ingroup seeed display gpio
    */
-  
+
   /**
    * @library grovecircularled
    * @sensor grovecircularled
@@ -72,33 +74,28 @@ namespace upm {
      * @param dcki Clock pin
      */
     GroveCircularLED (uint8_t di, uint8_t dcki);
-  
-    /**
-     * MY9221 object destructor
-     */
-    ~GroveCircularLED ();
-  
+
     /**
      * Sets the lighting status
      *
      * @param level Selected level for the circular LED (0-24)
      * @param direction Up or down; up is true and default
      */
-    mraa_result_t setLevel (uint8_t level, bool direction=true);
-  
+    mraa::Result setLevel (uint8_t level, bool direction=true);
+
     /**
      * Sets the spinner (lights up all the other LEDs but one)
      *
      * @param position Selected position for the spinner (0-23)
      */
-    mraa_result_t setSpinner (uint8_t position);
+    mraa::Result setSpinner (uint8_t position);
 
     /**
      * Sets the lighting status
      *
      * @param status Boolean array (24 elements)
      */
-    mraa_result_t setStatus (bool status[24]);
+    mraa::Result setStatus (bool status[24]);
 
     /**
      * Returns the name of the component
@@ -108,12 +105,12 @@ namespace upm {
         return m_name;
       }
   private:
-    mraa_result_t lockData ();
-    mraa_result_t send16bitBlock (short data);
-  
+    mraa::Result lockData ();
+    mraa::Result send16bitBlock (short data);
+
     std::string m_name;
-    mraa_gpio_context m_clkPinCtx;
-    mraa_gpio_context m_dataPinCtx;
+    mraa::Gpio m_clkPinCtx;
+    mraa::Gpio m_dataPinCtx;
   };
- 
+
 }

@@ -91,7 +91,7 @@ bool MHZ16::dataAvailable(unsigned int millis)
     return false;
 }
 
-int MHZ16::readData(char *buffer, size_t len)
+int MHZ16::readData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -107,7 +107,7 @@ int MHZ16::readData(char *buffer, size_t len)
   return rv;
 }
 
-int MHZ16::writeData(char *buffer, size_t len)
+int MHZ16::writeData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -156,7 +156,7 @@ bool MHZ16::setupTty(speed_t baud)
   return true;
 }
 
-bool MHZ16::verifyPacket(unsigned char *pkt)
+bool MHZ16::verifyPacket(uint8_t *pkt, int len)
 {
   if (pkt[0] != 0xff || pkt[1] != 0x86)
     {
@@ -193,7 +193,7 @@ bool MHZ16::getData(int *gas, int *temp)
       return false;
     }
   
-  if (!verifyPacket(packet))
+  if (!verifyPacket(packet, 9))
     {
       cerr << __FUNCTION__ << ": Packet verify failed." << endl;
       return false;

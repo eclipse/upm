@@ -24,9 +24,10 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/spi.h>
+#include <mraa/aio.hpp>
+
+#include <mraa/gpio.hpp>
+#include <mraa/spi.hpp>
 
 #define HIGH                    1
 #define LOW                     0
@@ -71,8 +72,10 @@ class MAX5487 {
 
         /**
          * MAX5487 object destructor, closes all IO connections
-         */
-        ~MAX5487 ();
+         * no more needed as the connections will be closed when
+         * m_spi and m_csnPinCtx will go out of scope
+         * ~MAX5487 ();
+         **/
 
         /**
          * Sets a wiper for port A.
@@ -93,18 +96,18 @@ class MAX5487 {
         }
     private:
         std::string m_name;
-        mraa_spi_context        m_spi;
-        mraa_gpio_context       m_csnPinCtx;
+        mraa::Spi        m_spi;
+        mraa::Gpio       m_csnPinCtx;
 
         /**
          * Sets the chip select pin to LOW
          */
-        mraa_result_t CSOn ();
+        mraa::Result CSOn ();
 
         /**
          * Sets the chip select pin to HIGH
          */
-        mraa_result_t CSOff ();
+        mraa::Result CSOff ();
 };
 
 }

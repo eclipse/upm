@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 class IsrCallback
 {
   public:

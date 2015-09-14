@@ -50,11 +50,11 @@ MPU60X0::MPU60X0(int bus, uint8_t address) :
   m_accelScale = 1.0;
   m_gyroScale = 1.0;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 }
@@ -139,18 +139,18 @@ uint8_t MPU60X0::readReg(uint8_t reg)
   return m_i2c.readReg(reg);
 }
 
-void MPU60X0::readRegs(uint8_t reg, uint8_t *buf, int len)
+void MPU60X0::readRegs(uint8_t reg, uint8_t *buffer, int len)
 {
-  m_i2c.readBytesReg(reg, buf, len);
+  m_i2c.readBytesReg(reg, buffer, len);
 }
 
 bool MPU60X0::writeReg(uint8_t reg, uint8_t val)
 {
-  mraa_result_t rv;
-  if ((rv = m_i2c.writeReg(reg, val)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": failed:" << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
   
@@ -380,7 +380,7 @@ uint8_t MPU60X0::getInterruptPinConfig()
   return readReg(REG_INT_PIN_CFG);
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 void MPU60X0::installISR(int gpio, mraa::Edge level,
                          IsrCallback *cb)
 {

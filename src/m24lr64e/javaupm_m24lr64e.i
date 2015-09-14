@@ -2,24 +2,25 @@
 %include "../upm.i"
 %include "stdint.i"
 %include "arrays_java.i";
+%include "../java_buffer.i"
+
+%typemap(jni) uint8_t * "jbyteArray"
+%typemap(jtype) uint8_t * "byte[]"
+%typemap(jstype) uint8_t * "byte[]"
+
+%typemap(javaout) uint8_t * {
+    return $jnicall;
+}
+
+%typemap(out) uint8_t *{
+    int length = upm::M24LR64E::UID_LENGTH;
+    $result = JCALL1(NewByteArray, jenv, length);
+    JCALL4(SetByteArrayRegion, jenv, $result, 0, length, reinterpret_cast<signed char *>($1));
+    delete [] $1;
+}
 
 %{
     #include "m24lr64e.h"
 %}
-
-%typemap(jni) (uint8_t *buf, unsigned int len) "jbyteArray";
-%typemap(jtype) (uint8_t *buf, unsigned int len) "byte[]";
-%typemap(jstype) (uint8_t *buf, unsigned int len) "byte[]";
-
-%typemap(javain) (uint8_t *buf, unsigned int len) "$javainput";
-
-%typemap(in) (uint8_t *buf, unsigned int len) {
-        $1 = (uint8_t *) JCALL2(GetByteArrayElements, jenv, $input, NULL);
-        $2 = JCALL1(GetArrayLength, jenv, $input);
-}
-
-%typemap(freearg) (uint8_t *buf, unsigned int len) {
-        JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
-}
 
 %include "m24lr64e.h"

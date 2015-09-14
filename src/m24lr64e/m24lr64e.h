@@ -33,6 +33,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
 #define M24LR64E_I2C_BUS 0
@@ -214,10 +215,11 @@ namespace upm {
     /**
      * Returns a unique ID.
      * Must be in the root mode.
+     * Maintained to preserve compatibility with older code.
      *
-     * @param buf Buffer to hold the returned UID. Must be UID_LENGTH bytes.
+     * @result buf Buffer to hold the UID. Must be UID_LENGTH bytes.
      */
-    void getUID(uint8_t* buf);
+    uint8_t *getUID();
 
     /**
      * Returns the memory size
@@ -238,7 +240,7 @@ namespace upm {
      * @param address Address to write to
      * @param data Data to write
      */
-    void writeByte(unsigned int address, uint8_t data);
+    mraa::Result writeByte(unsigned int address, uint8_t data);
 
     /**
      * Writes bytes to the EEPROM
@@ -247,7 +249,7 @@ namespace upm {
      * @param data Data to write
      * @param data Length of the data buffer
      */
-    void writeBytes(unsigned int address, uint8_t* buf, unsigned int len);
+    mraa::Result writeBytes(unsigned int address, uint8_t* buffer, int len);
 
     /**
      * Reads a byte from the EEPROM
@@ -264,16 +266,16 @@ namespace upm {
      * @param buffer Buffer to store data
      * @param len Number of bytes to read
      */
-    void readBytes(unsigned int address, uint8_t* buf, unsigned int len);
+    int readBytes(unsigned int address, uint8_t* buffer, int len);
 
   protected:
     mraa::I2c m_i2c;
-    void EEPROM_Write_Byte(unsigned int address, uint8_t data);
-    void EEPROM_Write_Bytes(unsigned int address, uint8_t* data,
-                            unsigned int len);
+    mraa::Result EEPROM_Write_Byte(unsigned int address, uint8_t data);
+    mraa::Result EEPROM_Write_Bytes(unsigned int address, uint8_t* data,
+                            int len);
     uint8_t EEPROM_Read_Byte(unsigned int address);
-    unsigned int EEPROM_Read_Bytes(unsigned int address, 
-                                   uint8_t* buf, unsigned int len);
+    int EEPROM_Read_Bytes(unsigned int address, 
+                                   uint8_t* buffer, int len);
 
   private:
     uint8_t m_addr;

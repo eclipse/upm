@@ -45,12 +45,12 @@ GroveMD::GroveMD(int bus, uint8_t address)
 
   // this board *requires* 100Khz i2c bus only
   mraa_result_t rv;
-  if ( (rv = mraa_i2c_frequency(m_i2c, MRAA_I2C_STD)) != MRAA_SUCCESS )
-    {
-      cerr << "GroveMD: Could not set i2c frequency (MRAA_I2C_STD). " << endl;
-      mraa_result_print(rv);
-      return;
-    }
+  //if ( (rv = mraa_i2c_frequency(m_i2c, MRAA_I2C_STD)) != MRAA_SUCCESS )
+    //{
+      //cerr << "GroveMD: Could not set i2c frequency (MRAA_I2C_STD). " << endl;
+      //mraa_result_print(rv);
+      //return;
+    //}
 
   if (mraa_i2c_address(m_i2c, m_addr))
     {

@@ -106,7 +106,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return Number of bytes read
      */
-    int readData(char *buffer, size_t len);
+    int readData(char *buffer, int len);
 
     /**
      * Writes the data in the buffer to the device
@@ -115,7 +115,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return Number of bytes written
      */
-    int writeData(char *buffer, size_t len);
+    int writeData(char *buffer, int len);
 
     /**
      * Sets up proper tty I/O modes and the baud rate. The default
@@ -132,7 +132,7 @@ namespace upm {
      * @param pkt Packet to check
      * @return True if the checksum is valid, false otherwise
      */
-    bool verifyPacket(unsigned char *pkt);
+    bool verifyPacket(uint8_t *pkt, int len);
 
     /**
      * Queries the sensor and returns gas (CO2) concentration and

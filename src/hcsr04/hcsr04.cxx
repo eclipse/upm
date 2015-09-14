@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb)
 {
         HCSR04 (triggerPin, echoPin, generic_callback_isr);

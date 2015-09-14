@@ -26,6 +26,12 @@
 #include <string>
 #include <iostream>
 
+#include <mraa/aio.hpp>
+
+#include <mraa/gpio.hpp>
+
+#include <mraa/i2c.hpp>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -36,7 +42,6 @@
 #include <sys/stat.h>
 
 #include <mraa/uart.hpp>
-#include <mraa/gpio.hpp>
 
 #define SM130_DEFAULT_UART 0
 #define SM130_DEFAULT_RESET_PIN 13
@@ -173,7 +178,7 @@ namespace upm {
      * @param baud Desired baud rate, default 19200
      * @return mraa_result_t value
      */
-    mraa_result_t setBaudRate(int baud=19200);
+    mraa::Result setBaudRate(int baud=19200);
 
     /**
      * Gets the firmware version string.
