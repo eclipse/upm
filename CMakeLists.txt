@@ -15,8 +15,8 @@ find_package (PkgConfig REQUIRED)
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-pkg_check_modules (MRAA REQUIRED mraa>=0.6.2)
-message (INFO " found libmraa version: ${MRAA_VERSION}")
+pkg_check_modules (MRAA REQUIRED mraa>=0.7.6)
+message (INFO " found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
@@ -78,6 +78,7 @@ if (BUILDDOC)
     endforeach()
     add_custom_target (doc
       ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+      COMMAND tar -czf html/xml.tar.gz -C xml .
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Doxygen" VERBATIM
     )
@@ -128,9 +129,23 @@ if (BUILDDOC)
 endif()
 
 if (IPK)
-  message (INFO " - IPK packaging enabled for ${DETECTED_ARCH}")
+
+ # Get target package arch from Yocto ADT sysroot if set or host OS, mapping to Ubuntu name if necessary
+  if (DEFINED ENV{OECORE_TARGET_SYSROOT})
+    GET_FILENAME_COMPONENT (DETECTED_SYSROOT $ENV{OECORE_TARGET_SYSROOT} NAME)
+    string (REGEX REPLACE "-poky-linux" "" TARGET_ARCH "${DETECTED_SYSROOT}")
+  else ()
+    # debian uses amd64 to denote x86_64
+    if (DETECTED_ARCH STREQUAL "x86_64")
+      set (TARGET_ARCH "amd64")
+    else ()
+      set (TARGET_ARCH ${DETECTED_ARCH})
+    endif ()
+  endif ()
+  message (INFO " - Package arch is ${TARGET_ARCH}")
+
   set(CPACK_GENERATOR "DEB" "TGZ")
-  set(OPKG_ARCH ${DETECTED_ARCH})
+  set(OPKG_ARCH ${TARGET_ARCH})
   set(CPACK_BINARY_DIR ${CMAKE_BINARY_DIR})
   set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Intel IoT-Devkit") #required
   set(upm_PACKAGE_ON_TAG ".")
@@ -141,9 +156,9 @@ if (IPK)
       "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_NAME "upm")
   set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
-  set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${DETECTED_ARCH})
-  set(CPACK_SYSTEM_NAME ${DETECTED_ARCH})
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libmraa0 (>= ${MRAA_VERSION})")
+  set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${TARGET_ARCH})
+  set(CPACK_SYSTEM_NAME ${TARGET_ARCH})
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "mraa (>= ${MRAA_VERSION})")
   set(CPACK_DEBIAN_PACKAGE_PROVIDES "upm-dev, upm-dbg, upm-doc")
   set(CPACK_DEBIAN_PACKAGE_REPLACES ${CPACK_DEBIAN_PACKAGE_PROVIDES})
   set(CPACK_DEBIAN_PACKAGE_CONFLICTS ${CPACK_DEBIAN_PACKAGE_PROVIDES})
@@ -161,7 +176,7 @@ if (RPM)
       "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}-${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
   set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
-  set(CPACK_RPM_PACKAGE_REQUIRES "libmraa0 >= ${MRAA_VERSION}")
+  set(CPACK_RPM_PACKAGE_REQUIRES "mraa >= ${MRAA_VERSION}")
   set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
   EXECUTE_PROCESS(COMMAND rpm --showrc
     COMMAND grep -E "dist[[:space:]]*\\."

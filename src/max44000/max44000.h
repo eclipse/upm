@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define ADDR               0x4A // device address
 
@@ -89,8 +89,10 @@ class MAX44000 {
 
         /**
          * MAX44000 object destructor; basically, it closes the I2C connection.
-         */
-        ~MAX44000 ();
+         * ~MAX44000 ();
+         * no need for the destructor - the I2c connection will be closed when
+         * m_i2cMaxControlCtx variable will be out of context
+         **/
 
         /**
          * Reads the proximity value from the sensor (based on ambient data).
@@ -129,14 +131,14 @@ class MAX44000 {
          * @param reg Address of the register
          * @param value Byte to be written
          */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
 
     private:
         std::string m_name;
 
         int m_maxControlAddr;
         int m_bus;
-        mraa_i2c_context m_i2cMaxControlCtx;
+        mraa::I2c m_i2cMaxControlCtx;
 };
 
 }

@@ -29,6 +29,10 @@
 #include <mraa/pwm.h>
 #include <sys/time.h>
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "../IsrCallback.h"
+#endif
+
 #define HIGH                   1
 #define LOW                    0
 
@@ -52,12 +56,15 @@ namespace upm {
  *
  * @brief API for the HC-SR04 Ultrasonic Sensor
  *
- * This file defines the HC-SR04 interface for libhcsr04
+ * This module defines the HC-SR04 interface for libhcsr04
  *
  * @snippet hcsr04.cxx Interesting
  */
 class HCSR04 {
     public:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
+#else 
         /**
          * Instantiates an HCSR04 object
          *
@@ -67,7 +74,7 @@ class HCSR04 {
          * falling-edge interrupts
          */
         HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
-
+#endif
         /**
          * HCSR04 object destructor
          */
@@ -96,6 +103,9 @@ class HCSR04 {
         }
 
     private:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
+#endif
         mraa_pwm_context     m_pwmTriggerCtx;
         mraa_gpio_context    m_echoPinCtx;
 

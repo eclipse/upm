@@ -24,9 +24,11 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/spi.h>
+#include <mraa/aio.hpp>
+
+#include <mraa/gpio.hpp>
+
+#include <mraa/spi.hpp>
 
 #define HIGH                    1
 #define LOW                     0
@@ -76,8 +78,10 @@ class MAX31723 {
 
         /**
          * MAXDS3231M object destructor; basically, it closes the I2C connection.
-         */
-        ~MAX31723 ();
+         * it is not needed anymore, as the connections will be closed when
+         * m_spi and m_csnPinCtx variables will go out of scope
+         * ~MAX31723 ();
+         **/
 
         /**
          * Gets the on-board temperature.
@@ -93,8 +97,8 @@ class MAX31723 {
         }
     private:
         std::string m_name;
-        mraa_spi_context        m_spi;
-        mraa_gpio_context       m_csnPinCtx;
+        mraa::Spi        m_spi;
+        mraa::Gpio       m_csnPinCtx;
 
         uint8_t readRegister (uint8_t reg);
         void writeRegister (uint8_t reg, uint8_t data);
@@ -102,12 +106,12 @@ class MAX31723 {
         /**
          * Sets the chip select pin to LOW
          */
-        mraa_result_t CSOn ();
+        mraa::Result CSOn ();
 
         /**
          * Sets the chip select pin to HIGH
          */
-        mraa_result_t CSOff ();
+        mraa::Result CSOff ();
 };
 
 }

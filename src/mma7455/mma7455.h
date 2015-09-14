@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define ADDR               0x1D // device address
 
@@ -130,7 +130,7 @@
 
 namespace upm {
 
-union accelData {
+typedef union {
     struct {
         unsigned char x_lsb;
         unsigned char x_msb;
@@ -145,7 +145,7 @@ union accelData {
         short y;
         short z;
     } value;
-};
+} accelData;
 
 #define BIT(n) (1<<n)
 
@@ -164,7 +164,7 @@ union accelData {
  *
  * @brief API for the MMA7455 Accelerometer
  *
- * This file defines the MMA7455 interface for libmma7455
+ * This module defines the MMA7455 interface for libmma7455
  *
  * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting
@@ -180,12 +180,9 @@ class MMA7455 {
         MMA7455 (int bus=0, int devAddr=0x1D);
 
         /**
-         * MMA7455 object destructor; basically, it closes the I2C connection.
-         */
-        ~MMA7455 ();
-
-        /**
          * Returns the name of the component
+         *
+         * @return Name of the component
          */
         std::string name()
         {
@@ -194,8 +191,10 @@ class MMA7455 {
 
         /**
          * Calibrates the sensor
+         *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
          */
-        mraa_result_t calibrate ();
+        mraa::Result calibrate ();
 
         /**
          * Reads X-axis, Y-axis, and Z-axis acceleration data
@@ -203,33 +202,42 @@ class MMA7455 {
          * @param ptrX X-axis
          * @param ptrY Y-axis
          * @param ptrZ Z-axis
-         */
-        mraa_result_t readData (short * ptrX, short * ptrY, short * ptrZ);
-
-        /**
          *
+         * @return 0 (MRAA_SUCCESS) if successful; non-zero otherwise
+         */
+        mraa::Result readData (short * ptrX, short * ptrY, short * ptrZ);
+
+#ifdef SWIGJAVA
+        /**
+         * Reads X-axis, Y-axis, and Z-axis acceleration data
+         *
+         * @return Array containing X, Y, Z acceleration data
+         */
+        short *readData ();
+#endif
+        /**
+         * Internal function for reading I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
-         * @param size Buffer size
+         * @param buffer Register data buffer
+         * @param len Buffer size
          */
-        int ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        int i2cReadReg (unsigned char reg, uint8_t *buffer, int len);
 
         /**
-         *
+         * Internal function for writing I2C data
          *
          * @param reg Register address
-         * @param buf Register data buffer
-         * @param size Buffer size
+         * @param buffer Register data buffer
+         * @param len Buffer size
          */
-        mraa_result_t ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size);
+        mraa::Result i2cWriteReg (unsigned char reg, uint8_t *buffer, int len);
 
     private:
         std::string m_name;
-
         int              m_controlAddr;
         int              m_bus;
-        mraa_i2c_context  m_i2ControlCtx;
+        mraa::I2c  m_i2ControlCtx;
 };
 
 }

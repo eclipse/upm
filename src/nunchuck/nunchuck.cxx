@@ -73,7 +73,7 @@ bool NUNCHUCK::writeByte(uint8_t reg, uint8_t byte)
   return true;
 }
 
-uint8_t NUNCHUCK::readBytes(uint8_t reg, uint8_t *buffer, unsigned int len)
+int NUNCHUCK::readBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
     return 0;

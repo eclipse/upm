@@ -88,14 +88,14 @@ namespace upm {
      */
     int position();
 
+  private:
     /**
      * Interrupt service routine (ISR) for signal A
      *
      * @param ctx User context for the ISR (*this pointer)
      */
     static void signalAISR(void *ctx);
-
-  private:
+  
     volatile int m_position;
     mraa_gpio_context m_gpioA;
     mraa_gpio_context m_gpioB;

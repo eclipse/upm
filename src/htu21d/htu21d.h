@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include <math.h>
 
 #define HTU21D_NAME "htu21d"
@@ -91,11 +91,6 @@ class HTU21D {
         HTU21D (int bus, int devAddr=HTU21D_I2C_ADDRESS);
 
         /**
-         * HTU21D object destructor; basically, it closes the I2C connection.
-         */
-        ~HTU21D ();
-
-        /**
          * Initiates a temperature/pressure mesasurement and waits for the function
          * to complete. The humidity and temperature registers can be read
          * after this call.
@@ -149,7 +144,7 @@ class HTU21D {
          * @param reg Address of the register
          * @param value Byte to be written
          */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
          * Reads a two-byte register
@@ -181,7 +176,7 @@ class HTU21D {
 
         int m_controlAddr;
         int m_bus;
-        mraa_i2c_context m_i2ControlCtx;
+        mraa::I2c m_i2ControlCtx;
 
         int32_t m_temperature;
         int32_t m_humidity;

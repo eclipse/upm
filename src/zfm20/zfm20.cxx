@@ -97,7 +97,7 @@ bool ZFM20::dataAvailable(unsigned int millis)
     return false;
 }
 
-int ZFM20::readData(char *buffer, size_t len)
+int ZFM20::readData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -113,7 +113,7 @@ int ZFM20::readData(char *buffer, size_t len)
   return rv;
 }
 
-int ZFM20::writeData(char *buffer, size_t len)
+int ZFM20::writeData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -162,9 +162,9 @@ bool ZFM20::setupTty(speed_t baud)
   return true;
 }
 
-int ZFM20::writeCmdPacket(unsigned char *pkt, int len)
+int ZFM20::writeCmdPacket(uint8_t *pkt, int len)
 {
-  unsigned char rPkt[ZFM20_MAX_PKT_LEN];
+  uint8_t rPkt[ZFM20_MAX_PKT_LEN];
 
   rPkt[0] = ZFM20_START1;             // header bytes
   rPkt[1] = ZFM20_START2;
@@ -229,7 +229,7 @@ uint32_t ZFM20::getMillis()
   return elapse;
 }
 
-bool ZFM20::verifyPacket(unsigned char *pkt)
+bool ZFM20::verifyPacket(uint8_t *pkt, int len)
 {
   // verify packet header
   if (pkt[0] != ZFM20_START1 || pkt[1] != ZFM20_START2)
@@ -249,7 +249,7 @@ bool ZFM20::verifyPacket(unsigned char *pkt)
   return true;
 }
 
-bool ZFM20::getResponse(unsigned char *pkt, int len)
+bool ZFM20::getResponse(uint8_t *pkt, int len)
 {
   char buf[ZFM20_MAX_PKT_LEN];
 
@@ -291,7 +291,7 @@ bool ZFM20::getResponse(unsigned char *pkt, int len)
     }
 
   // now verify it.
-  return verifyPacket(pkt);
+  return verifyPacket(pkt, len);
 }
 
 bool ZFM20::verifyPassword()
@@ -311,7 +311,7 @@ bool ZFM20::verifyPassword()
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -335,7 +335,7 @@ int ZFM20::getNumTemplates()
 
   // now read a response
   const int rPktLen = 14;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -371,7 +371,7 @@ bool ZFM20::setNewPassword(uint32_t pwd)
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -409,7 +409,7 @@ bool ZFM20::setNewAddress(uint32_t addr)
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -443,7 +443,7 @@ uint8_t ZFM20::generateImage()
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -474,7 +474,7 @@ uint8_t ZFM20::image2Tz(int slot)
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -498,7 +498,7 @@ uint8_t ZFM20::createModel()
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -531,7 +531,7 @@ uint8_t ZFM20::storeModel(int slot, uint16_t id)
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -559,7 +559,7 @@ uint8_t ZFM20::deleteModel(uint16_t id)
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -583,7 +583,7 @@ uint8_t ZFM20::deleteDB()
 
   // now read a response
   const int rPktLen = 12;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -622,7 +622,7 @@ uint8_t ZFM20::search(int slot, uint16_t *id, uint16_t *score)
 
   // now read a response
   const int rPktLen = 16;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {
@@ -655,7 +655,7 @@ uint8_t ZFM20::match(uint16_t *score)
 
   // now read a response
   const int rPktLen = 14;
-  unsigned char rPkt[rPktLen];
+  uint8_t rPkt[rPktLen];
 
   if (!getResponse(rPkt, rPktLen))
     {

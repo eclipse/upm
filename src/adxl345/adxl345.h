@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -23,7 +23,7 @@
  */
 #pragma once
 
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define READ_BUFFER_LENGTH 6
 
@@ -66,9 +66,9 @@ public:
     Adxl345(int bus);
 
     /**
-     * ADXL345 object destructor
+     * there is no need for a ADXL345 object destructor
+     * ~Adxl345();
      */
-    ~Adxl345();
 
     /**
      * Returns a pointer to a float[3] that contains acceleration (g) forces
@@ -98,13 +98,13 @@ public:
      *
      * @return 0 if successful
      */
-    mraa_result_t update();
+    mraa::Result update();
 private:
     float m_accel[3];
     float m_offsets[3];
     int16_t m_rawaccel[3];
     uint8_t m_buffer[READ_BUFFER_LENGTH];
-    mraa_i2c_context m_i2c;
+    mraa::I2c m_i2c;
 };
 
 }

@@ -1,6 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,248 +22,857 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <algorithm>
 #include <stdexcept>
 
 #include "sm130.h"
 
 using namespace upm;
+using namespace std;
 
-SM130::SM130 (int bus, int devAddr, int rst, int dready) {
-    mraa_result_t error = MRAA_SUCCESS;
+// Uncomment the below to see packaet data sent and received from the SM130
+// #define SM130_DEBUG
 
-    m_name = "SM130";
+static const int defaultDelay = 1000; // ms for read
 
-    m_i2cAddr = devAddr;
-    m_bus = bus;
+static const int maxLen = 64; // max number of bytes to read
 
-    if (!(m_i2Ctx = mraa_i2c_init(m_bus)))
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_init() failed");
-      }
+SM130::SM130(int uart, int reset) :
+  m_uart(uart), m_gpioReset(reset)
+{
+  m_tagType = TAG_NONE;
+  m_uidLen = 0;
+  m_uid.clear();
+  clearError();
+  initClock();
 
-    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    if (ret != MRAA_SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_address() failed");
-    }
-
-    m_resetPinCtx = mraa_gpio_init (rst);
-    if (m_resetPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_gpio_init(RESET) failed");
-    }
-
-    m_dataReadyPinCtx = mraa_gpio_init (dready);
-    if (m_dataReadyPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_gpio_init(DATA READY) failed");
-    }
-
-    error = mraa_gpio_dir (m_resetPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_gpio_dir(RESET) failed");
-    }
-
-    error = mraa_gpio_dir (m_dataReadyPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_gpio_dir(DATA READY) failed");
-    }
+  m_gpioReset.dir(mraa::DIR_OUT);
+  m_gpioReset.write(0);
 }
 
-SM130::~SM130 () {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    error = mraa_i2c_stop(m_i2Ctx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_resetPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_dataReadyPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
+SM130::~SM130() 
+{
 }
 
-const char*
-SM130::getFirmwareVersion () {
-    // Send VERSION command and retry a few times if no response
-    for (uint8_t n = 0; n < 10; n++) {
-        sendCommand (CMD_VERSION);
-        if (available() && getCommand() == CMD_VERSION)
-        //  return versionString;
-        usleep(100 * 1000);
-    }
-
-    return 0;
+mraa::Result SM130::setBaudRate(int baud)
+{
+  m_baud = baud;
+  return m_uart.setBaudRate(baud);
 }
 
-uint8_t
-SM130::available () {
-    // If in SEEK mode and using DREADY pin, check the status
-    if (m_LastCMD == CMD_SEEK_TAG) {
-        if (!mraa_gpio_read(m_dataReadyPinCtx)) {
-            return false;
-        }
-    }
+string SM130::sendCommand(CMD_T cmd, string data)
+{
+  uint8_t cksum = 0;
+  string command;
 
-    // Set the maximum length of the expected response packet
-    uint8_t len;
-    switch(m_LastCMD) {
-        case CMD_ANTENNA_POWER:
-        case CMD_AUTHENTICATE:
-        case CMD_DEC_VALUE:
-        case CMD_INC_VALUE:
-        case CMD_WRITE_KEY:
-        case CMD_HALT_TAG:
-        case CMD_SLEEP:
-            len = 4;
-            break;
-        case CMD_WRITE4:
-        case CMD_WRITE_VALUE:
-        case CMD_READ_VALUE:
-            len = 8;
-        case CMD_SEEK_TAG:
-        case CMD_SELECT_TAG:
-            len = 11;
-            break;
-        default:
-            len = SIZE_PACKET;
-    }
+  // for uart, we need to add the sync bytes, 0xff, 0x00
+  command.push_back(0xff);
+  command.push_back(0x00);
+  
+  // compute the length - command + data
+  uint8_t len = 1; // command
+  if (!data.empty())
+    len += data.size();
 
-    // If valid data received, process the response packet
-    if (i2cRecievePacket(len) > 0) {
-        // Init response variables
-        m_TagType = m_TagLength = *m_TagString = 0;
+  command.push_back(len);
 
-        // If packet length is 2, the command failed. Set error code.
-        errorCode = getPacketLength () < 3 ? m_Data[2] : 0;
+  cksum += len;
 
-        // Process command response
-        switch (getCommand ()) {
-            case CMD_RESET:
-            case CMD_VERSION:
-                // RESET and VERSION commands produce the firmware version
-                len = std::min ((unsigned int) getPacketLength(), (unsigned int) sizeof(m_Version)) - 1;
-                memcpy(m_Version, m_Data + 2, len);
-                m_Version[len] = 0;
-                break;
+  // now the command
+  command.push_back(cmd);
+  cksum += cmd;
 
-            case CMD_SEEK_TAG:
-            case CMD_SELECT_TAG:
-                // If no error, get tag number
-                if(errorCode == 0 && getPacketLength () >= 6)
-                {
-                    m_TagLength = getPacketLength () - 2;
-                    m_TagType = m_Data[2];
-                    memcpy(m_TagNumber, m_Data + 3, m_TagLength);
-                    arrayToHex (m_TagString, m_TagNumber, m_TagLength);
-                }
-                break;
-
-            case CMD_AUTHENTICATE:
-                break;
-
-            case CMD_READ16:
-                break;
-
-            case CMD_WRITE16:
-            case CMD_WRITE4:
-                break;
-
-            case CMD_ANTENNA_POWER:
-                errorCode = 0;
-                antennaPower = m_Data[2];
-                break;
-
-            case CMD_SLEEP:
-                // If in SLEEP mode, no data is available
-                return false;
-        }
-
-        // Data available
-        return true;
-    }
-    // No data available
-    return false;
-}
-
-uint16_t
-SM130::i2cRecievePacket (uint32_t len) {
-    int readByte = 0;
-
-    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    readByte = mraa_i2c_read(m_i2Ctx, m_Data, len);
-
-    if (readByte > 0) {
-        // verify checksum if length > 0 and <= SIZE_PAYLOAD
-        if (m_Data[0] > 0 && m_Data[0] <= SIZE_PAYLOAD)
+  // now the data if any
+  if (!data.empty())
+    {
+      for (int i=0; i<data.size(); i++)
         {
-            uint8_t i, sum;
-            for (i = 0, sum = 0; i <= m_Data[0]; i++) {
-                sum += m_Data[i];
-            }
-            // return with length of response, or -1 if invalid checksum
-            return sum == m_Data[i] ? m_Data[0] : -1;
+          command.push_back(data[i]);
+          cksum += (uint8_t)data[i];
         }
     }
 
-    return readByte;
-}
+  // now add the checksum
+  command.push_back(cksum);
 
-void
-SM130::arrayToHex (char *s, uint8_t array[], uint8_t len) {
-    for (uint8_t i = 0; i < len; i++) {
-        *s++ = toHex(array[i] >> 4);
-        *s++ = toHex(array[i]);
+#ifdef SM130_DEBUG
+  cerr << "CMD: " << string2HexString(command) << endl;
+#endif // SM130_DEBUG
+
+  // send it
+  m_uart.writeStr(command);
+
+  // if the command is SET_BAUD, then switch to the new baudrate here
+  // before attempting to read the response (and hope it worked).
+  if (cmd == CMD_SET_BAUD)
+    {
+      usleep(100000); // 100ms
+      setBaudRate(m_baud);
     }
 
-    *s = 0;
-}
-
-char
-SM130::toHex (uint8_t b) {
-    b = b & 0x0f;
-
-    return b < 10 ? b + '0' : b + 'A' - 10;
-}
-
-mraa_result_t
-SM130::i2cTransmitPacket (uint32_t len) {
-    mraa_result_t error = MRAA_SUCCESS;
-    uint8_t sum = 0;
-
-    // Save last command
-    m_LastCMD = m_Data[0];
-
-    // calculate the sum check
-    for (int i = 0; i < len; i++) {
-        sum += m_Data[i];
+  // now wait for a response
+  if (!m_uart.dataAvailable(defaultDelay))
+    {
+      cerr << __FUNCTION__ << ": timeout waiting for response" << endl;
+      return "";
     }
 
-    // placing the sum check to the last byte of the packet
-    m_Data[len + 1] = sum;
+  string resp = m_uart.readStr(maxLen);
 
-    error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
-    error = mraa_i2c_write (m_i2Ctx, m_Data, len + 1);
+#ifdef SM130_DEBUG
+  cerr << "RSP: " << string2HexString(resp) << endl;
+#endif // SM130_DEBUG
 
-    return error;
+  if (!((uint8_t)resp[0] == 0xff && (uint8_t)resp[1] == 0x00))
+    {
+      cerr << __FUNCTION__ << ": invalid packet header" << endl;
+      return "";
+    }
+    
+  // check size - 2 header bytes + len + cksum.
+  if (resp.size() != ((uint8_t)resp[2] + 2 + 1 + 1))
+    {
+      cerr << __FUNCTION__ << ": invalid packet length, expected " 
+           << int((uint8_t)resp[2] + 2 + 1 + 1) 
+           << ", got " << resp.size() << endl;
+      return "";
+    }
+
+  // verify the cksum
+  cksum = 0;
+  for (int i=2; i<(resp.size() - 1); i++)
+    cksum += (uint8_t)resp[i];
+
+  if (cksum != (uint8_t)resp[resp.size() - 1])
+    {
+      cerr << __FUNCTION__ << ": invalid checksum, expected " 
+           << int(cksum) << ", got " << (uint8_t)resp[resp.size()-1] << endl;
+      return "";
+    }
+
+  // we could also verify that the command code returned was for the
+  // command submitted...
+
+  // now, remove the 2 header bytes and the checksum, leave the length
+  // and command.
+  resp.erase(resp.size() - 1, 1); // cksum
+  resp.erase(0, 2);               // header bytes
+
+  // return the rest
+  return resp;
 }
 
-mraa_result_t
-SM130::sendCommand (uint8_t cmd) {
-    m_Data[0] = 1;
-    m_Data[1] = cmd;
-    i2cTransmitPacket(2);
+string SM130::getFirmwareVersion()
+{
+  clearError();
+
+  string resp = sendCommand(CMD_VERSION, "");
+
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return "";
+    }
+
+  // delete the len and cmd, return the rest
+  resp.erase(0, 2);
+  return resp;
 }
+
+bool SM130::reset()
+{
+  clearError();
+
+  string resp = sendCommand(CMD_RESET, "");
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+
+  return true;
+}
+
+void SM130::hardwareReset()
+{
+  m_gpioReset.write(1);
+  usleep(100000);
+  m_gpioReset.write(0);
+}
+
+bool SM130::select()
+{
+  clearError();
+
+  m_tagType = TAG_NONE;
+  m_uidLen = 0;
+  m_uid.clear();
+
+  string resp = sendCommand(CMD_SELECT_TAG, "");
+
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'U': m_lastErrorString = "Access failed, RF field is off";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  // if we are here, then store the uid info and tag type.
+  m_tagType = (TAG_TYPE_T)resp[2];
+
+  if ((uint8_t)resp[0] == 6)
+    m_uidLen = 4;               // 4 byte uid
+  else
+    m_uidLen = 7;               // 7 byte
+
+  for (int i=0; i<m_uidLen; i++)
+    m_uid.push_back(resp[i+3]);
+
+  return true;
+}
+
+bool SM130::authenticate(uint8_t block, KEY_TYPES_T keyType, string key)
+{
+  clearError();
+
+  // A little sanity checking...
+  if (keyType == KEY_TYPE_A || keyType == KEY_TYPE_B)
+    {
+      if (key.empty())
+        throw std::invalid_argument(string(__FUNCTION__) +
+                                    ": You must specify a key for type A or B");
+      if (key.size() != 6)
+        throw std::invalid_argument(string(__FUNCTION__) +
+                                    ": Key size must be 6");
+
+      return false; // probably not reached :)
+    }
+  else
+    {
+      // make sure the key is empty for any other key type
+      key.clear();
+    }
+
+  string data;
+  data.push_back(block);
+  data.push_back(keyType);
+  data += key;
+
+  string resp = sendCommand(CMD_AUTHENTICATE, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  // response len is always 2, 'L' means auth was successful
+  if (resp[2] != 'L')
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'N': m_lastErrorString = "No tag present, or login failed";
+          break;
+        case 'U': m_lastErrorString = "Login failed";
+          break;
+        case 'E': m_lastErrorString = "Invalid key format in EEPROM";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+string SM130::readBlock16(uint8_t block)
+{
+  clearError();
+
+  string data;
+
+  data.push_back(block);
+
+  string resp = sendCommand(CMD_READ16, data);
+
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return "";
+    }
+
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'F': m_lastErrorString = "Read failed";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+
+      return "";
+    }
+
+  // trim off the len, cmd, and block # bytes and return the rest
+  resp.erase(0, 3);
+  return resp;
+}
+
+int32_t SM130::readValueBlock(uint8_t block)
+{
+  clearError();
+
+  string data;
+
+  data.push_back(block);
+
+  string resp = sendCommand(CMD_READ_VALUE, data);
+
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return 0;
+    }
+
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'F': m_lastErrorString = "Read failed";
+          break;
+        case 'I': m_lastErrorString = "Invalid Value Block";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+
+      return 0;
+    }
+
+  int32_t rv;
+  rv = ((uint8_t)resp[3] |
+        ((uint8_t)resp[4] << 8) |
+        ((uint8_t)resp[5] << 16) |
+        ((uint8_t)resp[6] << 24));
+
+  return rv;
+}
+
+bool SM130::writeBlock16(uint8_t block, string contents)
+{
+  clearError();
+
+  // A little sanity checking...
+  if (contents.size() != 16)
+    {
+      throw std::invalid_argument(string(__FUNCTION__) +
+                                  ": You must supply 16 bytes for block content");
+      
+      return false;
+    }
+
+  string data;
+  data.push_back(block);
+  data += contents;
+
+  string resp = sendCommand(CMD_WRITE16, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'F': m_lastErrorString = "Write failed";
+          break;
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'U': m_lastErrorString = "Read after write failed";
+          break;
+        case 'X': m_lastErrorString = "Unable to read after write";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+bool SM130::writeValueBlock(uint8_t block, int32_t value)
+{
+  clearError();
+  
+  string data;
+  data.push_back(block);
+  // put the value in, LSB first
+  data += (value & 0xff);
+  data += ((value >> 8) & 0xff);
+  data += ((value >> 16) & 0xff);
+  data += ((value >> 24) & 0xff);
+
+  string resp = sendCommand(CMD_WRITE_VALUE, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'F': m_lastErrorString = "Read failed during verification";
+          break;
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'I': m_lastErrorString = "Invalid value block";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+bool SM130::writeBlock4(uint8_t block, string contents)
+{
+  clearError();
+
+  // A little sanity checking...
+  if (contents.size() != 4)
+    {
+      throw std::invalid_argument(string(__FUNCTION__) +
+                                  ": You must supply 4 bytes for block content");
+      
+      return false;
+    }
+
+  string data;
+  data.push_back(block);
+  data += contents;
+
+  string resp = sendCommand(CMD_WRITE4, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'F': m_lastErrorString = "Write failed";
+          break;
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'U': m_lastErrorString = "Read after write failed";
+          break;
+        case 'X': m_lastErrorString = "Unable to read after write";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+bool SM130::writeKey(uint8_t eepromSector, KEY_TYPES_T keyType, string key)
+{
+  clearError();
+
+  // A little sanity checking...
+  eepromSector &= 0x0f; // Only 0x00-0x0f is valid
+
+  if (!(keyType == KEY_TYPE_A || keyType == KEY_TYPE_B))
+    {
+      throw std::invalid_argument(string(__FUNCTION__) +
+                                  ": Key type must be A or B");
+      
+      return false;
+    }
+
+  if (key.size() != 6)
+    {
+      throw std::invalid_argument(string(__FUNCTION__) +
+                                  ": Key must be 6 bytes");
+      
+      return false;
+    }
+
+  string data;
+  data.push_back(eepromSector);
+  data += keyType;
+  data += key;
+
+  string resp = sendCommand(CMD_WRITE_KEY, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+
+  // reponse len is always 2
+  if ((uint8_t)resp[2] != 'L')
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'N': m_lastErrorString = "Write master key failed";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+int32_t SM130::adjustValueBlock(uint8_t block, int32_t value, bool incr)
+{
+  clearError();
+  
+  string data;
+  data.push_back(block);
+  // put the value in, LSB first
+  data += (value & 0xff);
+  data += ((value >> 8) & 0xff);
+  data += ((value >> 16) & 0xff);
+  data += ((value >> 24) & 0xff);
+
+  string resp = sendCommand(((incr) ? CMD_INC_VALUE : CMD_DEC_VALUE), data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return 0;
+    }
+  
+  if ((uint8_t)resp[0] == 2)
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'F': m_lastErrorString = "Read failed during verification";
+          break;
+        case 'N': m_lastErrorString = "No tag present";
+          break;
+        case 'I': m_lastErrorString = "Invalid value block";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return 0;
+    }
+
+  // now unpack the new value, LSB first
+  int32_t rv;
+  rv = ((uint8_t)resp[3] |
+        ((uint8_t)resp[4] << 8) |
+        ((uint8_t)resp[5] << 16) |
+        ((uint8_t)resp[6] << 24));
+  
+  return rv;
+}
+
+bool SM130::setAntennaPower(bool on)
+{
+  clearError();
+  
+  string resp = sendCommand(CMD_ANTENNA_POWER, "");
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  return true;
+}
+
+uint8_t SM130::readPorts()
+{
+  clearError();
+  
+  string resp = sendCommand(CMD_READ_PORT, "");
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return 0;
+    }
+  
+  // only the first 2 bits are valid
+  return (resp[2] & 3);
+}
+
+bool SM130::writePorts(uint8_t val)
+{
+  clearError();
+  
+  // only the first 2 bits are valid
+  val &= 3;
+
+  string data;
+  data.push_back(val);
+
+  string resp = sendCommand(CMD_WRITE_PORT, data);
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  return true;
+}
+
+bool SM130::haltTag()
+{
+  clearError();
+
+  string resp = sendCommand(CMD_HALT_TAG, "");
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+
+  // reponse len is always 2
+  if ((uint8_t)resp[2] != 'L')
+    {
+      // then we got an error of some sort, store the error code, str
+      // and bail.
+      m_lastErrorCode = resp[2];
+      
+      switch (m_lastErrorCode) 
+        {
+        case 'U': m_lastErrorString = "Can not halt, RF field is off";
+          break;
+        default: m_lastErrorString = "Unknown error code";
+          break;
+        }
+      return false;
+    }
+
+  return true;
+}
+
+bool SM130::setSM130BaudRate(int baud)
+{
+  clearError();
+  
+  uint8_t newBaud;
+
+  switch (baud)
+    {
+    case 9600: newBaud = 0x00;
+      break;
+    case 19200: newBaud = 0x01;
+      break;
+    case 38400: newBaud = 0x02;
+      break;
+    case 57600: newBaud = 0x03;
+      break;
+    case 115200: newBaud = 0x04;
+      break;
+    default:
+      throw std::invalid_argument(string(__FUNCTION__) +
+                                  ": Invalid SM130 baud rate specified");
+    }
+
+  // WARNING: this is a dangerous command
+  int oldBaud = m_baud;
+  m_baud = baud;
+  
+  string data;
+  data.push_back(newBaud);
+
+  string resp = sendCommand(CMD_SET_BAUD, data);
+
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      cerr << __FUNCTION__ << ": restoring old baud rate" << endl;
+
+      setBaudRate(oldBaud);
+      return false;
+    }
+
+  // otherwise assume success, possibly incorrectly
+  return true;
+}
+
+bool SM130::sleep()
+{
+  clearError();
+  
+  string resp = sendCommand(CMD_SLEEP, "");
+  
+  if (resp.empty())
+    {
+      cerr << __FUNCTION__ << ": failed" << endl;
+      return false;
+    }
+  
+  return true;
+}
+
+string SM130::string2HexString(string input)
+{
+  static const char* const lut = "0123456789abcdef";
+  size_t len = input.size();
+  
+  string output;
+  output.reserve(3 * len);
+  for (size_t i = 0; i < len; ++i)
+    {
+      const unsigned char c = input[i];
+      output.push_back(lut[c >> 4]);
+      output.push_back(lut[c & 15]);
+      output.push_back(' ');
+    }
+
+  return output;
+}
+
+void SM130::initClock()
+{
+  gettimeofday(&m_startTime, NULL);
+}
+
+uint32_t SM130::getMillis()
+{
+  struct timeval elapsed, now;
+  uint32_t elapse;
+
+  // get current time
+  gettimeofday(&now, NULL);
+
+  // compute the delta since m_startTime
+  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 ) 
+    {
+      elapsed.tv_usec += 1000000;
+      elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec - 1;
+    } 
+  else 
+    {
+      elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec;
+    }
+
+  elapse = (uint32_t)((elapsed.tv_sec * 1000) + (elapsed.tv_usec / 1000));
+
+  // never return 0
+  if (elapse == 0)
+    elapse = 1;
+
+  return elapse;
+}
+
+bool SM130::waitForTag(uint32_t timeout)
+{
+  initClock();
+
+  do 
+    {
+      if (select())
+        {
+          // success
+          return true;
+        }
+      else
+        {
+          // If there was an error, fail if it's anything other than a
+          // tag not present
+          if (getLastErrorCode() != 'N')
+            return false;
+
+          // otherwise, sleep for 100ms and try again
+          usleep(100000);
+        }
+    } while (getMillis() <= timeout);
+
+  return false;
+}
+
+string SM130::tag2String(TAG_TYPE_T tag)
+{
+  switch (tag)
+    {
+    case TAG_MIFARE_ULTRALIGHT: return "MiFare Ultralight";
+    case TAG_MIFARE_1K:         return "MiFare 1K";
+    case TAG_MIFARE_4K:         return "MiFare 4K";
+    case TAG_UNKNOWN:           return "Unknown Tag Type";
+    default:                    return "Invalid Tag Type";
+    }
+}
+
+
 

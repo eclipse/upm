@@ -1,7 +1,8 @@
-%module jacaupm_wt5001
+%module javaupm_wt5001
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
+%include "../java_buffer.i"
 
 %apply uint8_t *OUTPUT { uint8_t *vol };
 %apply uint8_t *OUTPUT { uint8_t *ps };

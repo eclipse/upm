@@ -53,7 +53,7 @@ namespace upm {
  *
  * @brief API for the Analog Microphone
  *
- * This file defines the Analog Microphone sensor
+ * This module defines the Analog Microphone sensor
  *
  * @image html mic.jpg
  * @snippet mic.cxx Interesting
@@ -80,7 +80,7 @@ class Microphone {
          * @param numberOfSamples Number of sample to sample for this window
          * @param buffer Buffer with sampled data
          */
-        int getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples, uint16_t * buffer);
+        int getSampledWindow (unsigned int freqMS, int numberOfSamples, uint16_t * buffer);
 
         /**
          * Given the sampled buffer, this method returns TRUE/FALSE if threshold
@@ -91,7 +91,7 @@ class Microphone {
          * @param buffer Buffer with samples
          * @param len Buffer length
          */
-        int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, unsigned int len);
+        int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, int len);
 
         /**
          *

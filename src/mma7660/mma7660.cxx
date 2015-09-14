@@ -88,6 +88,15 @@ void MMA7660::getRawValues(int *x, int *y, int *z)
   *z = getVerifiedAxis(REG_ZOUT);
 }
 
+#ifdef JAVACALLBACK
+int *MMA7660::getRawValues()
+{
+  int *values = new int[3];
+  getRawValues(&values[0], &values[1], &values[2]);
+  return values;
+}
+#endif
+
 void MMA7660::setModeActive()
 {
   uint8_t modeReg = readByte(REG_MODE);
@@ -195,6 +204,13 @@ bool MMA7660::tiltShake()
     return false;
 }
 
+#ifdef JAVACALLBACK
+void MMA7660::installISR(int pin, IsrCallback *cb)
+{
+        installISR(pin, generic_callback_isr, cb);
+}
+#endif
+
 void MMA7660::installISR(int pin, void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)
@@ -246,4 +262,13 @@ void MMA7660::getAcceleration(float *ax, float *ay, float *az)
   *ay = y/21.33;
   *az = z/21.33;
 }
+
+#ifdef JAVACALLBACK
+float *MMA7660::getAcceleration()
+{
+  float *values = new float[3];
+  getAcceleration(&values[0], &values[1], &values[2]);
+  return values;
+}
+#endif
 

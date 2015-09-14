@@ -54,6 +54,13 @@ bool A110X::magnetDetected()
   return (!mraa_gpio_read(m_gpio) ? true : false);
 }
 
+#ifdef JAVACALLBACK
+void A110X::installISR( IsrCallback *cb)
+{
+installISR(generic_callback_isr, cb);
+}
+#endif
+
 void A110X::installISR(void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)

@@ -2,6 +2,7 @@
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
+%include "../java_buffer.i"
 
 %apply uint32_t *OUTPUT { uint32_t *freq, uint32_t *dataRate };
 %apply uint16_t *OUTPUT { uint16_t *rxBandwidth };

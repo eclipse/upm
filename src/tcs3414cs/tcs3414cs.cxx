@@ -35,19 +35,13 @@
 
 using namespace upm;
 
-TCS3414CS::TCS3414CS () {
+TCS3414CS::TCS3414CS () : m_i2Ctx(0) {
     m_name = "TCS3414CS";
 
-    if (!(m_i2Ctx = mraa_i2c_init(0)))
-      {
+    mraa::Result ret = m_i2Ctx.address(ADDR);
+    if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_init() failed");
-      }
-
-    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, ADDR);
-    if (ret != MRAA_SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) + 
-                                    ": mraa_i2c_address() failed");
+                                    ": m_i2Ctx.address() failed");
     }
 
     // Set timing register
@@ -71,10 +65,6 @@ TCS3414CS::TCS3414CS () {
     usleep (100000);
 }
 
-TCS3414CS::~TCS3414CS () {
-    mraa_i2c_stop(m_i2Ctx);
-}
-
 void
 TCS3414CS::readRGB (tcs3414sc_rgb_t * rgb) {
     uint8_t buffer[8];
@@ -90,12 +80,12 @@ TCS3414CS::readRGB (tcs3414sc_rgb_t * rgb) {
 
 void
 TCS3414CS::clearInterrupt () {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_i2c_address (m_i2Ctx, ADDR);
-    error = mraa_i2c_write_byte (m_i2Ctx, CLR_INT);
+    error = m_i2Ctx.address (ADDR);
+    error = m_i2Ctx.writeByte (CLR_INT);
 
-    if (error != MRAA_SUCCESS) {
+    if (error != mraa::SUCCESS) {
         throw std::runtime_error(std::string(__FUNCTION__) + 
                                  ": Couldn't clear interrupt");
     }
@@ -110,32 +100,32 @@ uint16_t
 TCS3414CS::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    mraa_i2c_address(m_i2Ctx, ADDR);
-    mraa_i2c_write_byte(m_i2Ctx, reg);
+    m_i2Ctx.address(ADDR);
+    m_i2Ctx.writeByte(reg);
 
-    mraa_i2c_address(m_i2Ctx, ADDR);
-    readByte = mraa_i2c_read(m_i2Ctx, buffer, len);
+    m_i2Ctx.address(ADDR);
+    readByte = m_i2Ctx.read(buffer, len);
     return readByte;
 }
 
-mraa_result_t
+mraa::Result
 TCS3414CS::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_i2c_address (m_i2Ctx, ADDR);
-    error = mraa_i2c_write_byte (m_i2Ctx, reg);
-    error = mraa_i2c_write (m_i2Ctx, buffer, len);
+    error = m_i2Ctx.address (ADDR);
+    error = m_i2Ctx.writeByte (reg);
+    error = m_i2Ctx.write (buffer, len);
 
     return error;
 }
 
-mraa_result_t
+mraa::Result
 TCS3414CS::i2cWriteReg (uint8_t reg, uint8_t data) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    error = mraa_i2c_address (m_i2Ctx, ADDR);
-    error = mraa_i2c_write_byte (m_i2Ctx, reg);
-    error = mraa_i2c_write_byte (m_i2Ctx, data);
+    error = m_i2Ctx.address (ADDR);
+    error = m_i2Ctx.writeByte (reg);
+    error = m_i2Ctx.writeByte (data);
 
     return error;
 }

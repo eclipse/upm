@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include <math.h>
 
 #define MPL3115A2_NAME        "mpl3115a2"
@@ -92,8 +92,10 @@ class MPL3115A2 {
 
         /**
          * MPL3115A2 object destructor; basically, it closes the I2C connection.
-         */
-        ~MPL3115A2();
+         * ~MPL3115A2();
+         * no need for this here, as the I2c connection will be closed when the
+         * m_i2ControlCtx variable will go out of scope
+         **/
 
         /**
          * Tests the sensor and tries to determine if the sensor is operating by looking
@@ -222,7 +224,7 @@ class MPL3115A2 {
          * @param reg Address of the register
          * @param value Byte to be written
          */
-        mraa_result_t i2cWriteReg (uint8_t reg, uint8_t value);
+        mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
          * Reads two bytes from an I2C register
@@ -243,7 +245,7 @@ class MPL3115A2 {
 
         int m_controlAddr;
         int m_bus;
-        mraa_i2c_context m_i2ControlCtx;
+        mraa::I2c m_i2ControlCtx;
 
         uint8_t m_oversampling;
         int32_t m_iPressure;

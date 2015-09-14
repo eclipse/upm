@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define ADDR                    0x68 // device address
 
@@ -77,7 +77,7 @@ struct Time3231 {
  *
  * @brief API for the MAXDS3231M I2C Real-Time Clock
  *
- * This file defines the API for MAXDS3231M
+ * This module defines the API for MAXDS3231M
  *
  * @snippet maxds3231m.cxx Interesting
  */
@@ -90,11 +90,6 @@ class MAXDS3231M {
          * @param devAddr Address of the used I2C device
          */
         MAXDS3231M (int bus=0, int devAddr=0x68);
-
-        /**
-         * MAXDS3231M object destructor; basically, it closes the I2C connection.
-         */
-        ~MAXDS3231M ();
 
         /**
          * Sets the date and time on the chip.
@@ -127,10 +122,10 @@ class MAXDS3231M {
 
         int m_i2cAddr;
         int m_bus;
-        mraa_i2c_context m_i2Ctx;
+        mraa::I2c m_i2Ctx;
 
         uint16_t i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
+        mraa::Result i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
         uint8_t DECtoBSD (uint8_t data);
         uint8_t BCDtoDEC (uint8_t data);
 };

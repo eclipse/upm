@@ -48,7 +48,7 @@ Microphone::~Microphone() {
 }
 
 int
-Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
+Microphone::getSampledWindow (unsigned int freqMS, int numberOfSamples,
                             uint16_t * buffer) {
     int sampleIdx = 0;
 
@@ -72,7 +72,7 @@ Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
 
 int
 Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
-                                uint16_t * buffer, unsigned int len) {
+                                uint16_t * buffer, int len) {
     long sum = 0;
     for (unsigned int i = 0; i < len; i++) {
         sum += buffer[i];

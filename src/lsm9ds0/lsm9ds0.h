@@ -24,8 +24,14 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
+
 #include <mraa/gpio.hpp>
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "../IsrCallback.h"
+#endif
 
 #define LSM9DS0_I2C_BUS 1
 #define LSM9DS0_DEFAULT_XM_ADDR 0x1d
@@ -1113,7 +1119,7 @@ namespace upm {
      * @param len the number of registers to read
      * @return the value of the register
      */
-    void readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len);
+    void readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * write to a register
@@ -1255,6 +1261,29 @@ namespace upm {
      */
     void getMagnetometer(float *x, float *y, float *z);
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    /**
+     * get the accelerometer values in gravities
+     *
+     * @return Array containing X, Y, Z acceleration values
+     */
+    float *getAccelerometer();
+
+    /**
+     * get the gyroscope values in degrees per second
+     *
+     * @return Array containing X, Y, Z gyroscope values
+     */
+    float *getGyroscope();
+
+    /**
+     * get the magnetometer values in gauss
+     *
+     * @return Array containing X, Y, Z magnetometer values
+     */
+    float *getMagnetometer();
+#endif
+
     /**
      * get the temperature value.  Unfortunately the datasheet does
      * not provide a mechanism to convert the temperature value into
@@ -1382,6 +1411,10 @@ namespace upm {
      */
     uint8_t getInterruptGen2Src();
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+		    IsrCallback *cb);
+#else
     /**
      * install an interrupt handler.
      *
@@ -1396,7 +1429,7 @@ namespace upm {
      */
     void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                     void (*isr)(void *), void *arg);
-
+#endif
     /**
      * uninstall a previously installed interrupt handler
      *
@@ -1431,6 +1464,11 @@ namespace upm {
   private:
     // OR'd with a register, this enables register autoincrement mode,
     // which we need.
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+                    void (*isr)(void *), void *arg);
+#endif
+
     static const uint8_t m_autoIncrementMode = 0x80;
 
     mraa::I2c m_i2cG;

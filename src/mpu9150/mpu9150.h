@@ -51,7 +51,7 @@ namespace upm {
    *
    * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
    *
-   * This file defines the MPU9150 interface for libmpu9150
+   * This module defines the MPU9150 interface for libmpu9150
    *
    * @image html mpu9150.jpg
    * @snippet mpu9150.cxx Interesting
@@ -105,6 +105,17 @@ namespace upm {
      * @param z Pointer to returned Z axis value
      */
     void getMagnetometer(float *x, float *y, float *z);
+
+#ifdef SWIGJAVA
+    /**
+     * Return the compensated values for the x, y, and z axes.  The
+     * unit of measurement is in micro-teslas (uT).
+     *
+     * @return Array containing X, Y, Z magnetometer values
+     */
+    float *getMagnetometer();
+#endif
+
 
 
   protected:

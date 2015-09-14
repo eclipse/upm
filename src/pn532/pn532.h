@@ -31,7 +31,9 @@
 
 #include <string.h>
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
+
 #include <mraa/gpio.hpp>
 
 #define PN532_I2C_BUS 0

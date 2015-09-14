@@ -33,14 +33,12 @@
 
 using namespace upm;
 
-LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale)
+LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale) : m_i2c(bus)
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
 
     m_addrMag = addrMag;
     m_addrAcc = addrAcc;
-
-    m_i2c = mraa_i2c_init(bus);
 
     // 0x27 is the 'normal' mode with X/Y/Z enable
     setRegisterSafe(m_addrAcc, CTRL_REG1_A, 0x27);
@@ -66,14 +64,10 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale)
     setRegisterSafe(m_addrMag, MR_REG_M, 0x00);
 }
 
-LSM303::~LSM303() {
-    mraa_i2c_stop(m_i2c);
-}
-
 float
 LSM303::getHeading()
 {
-    if (getCoordinates() != MRAA_SUCCESS) {
+    if (getCoordinates() != mraa::SUCCESS) {
         return -1;
     }
 
@@ -115,16 +109,16 @@ LSM303::getAccelZ()
   return accel[Z];
 }
 
-mraa_result_t
+mraa::Result
 LSM303::getCoordinates()
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
 
     memset(&buf[0], 0, sizeof(uint8_t)*6);
-    ret = mraa_i2c_address(m_i2c, m_addrMag);
-    ret = mraa_i2c_write_byte(m_i2c, OUT_X_H_M);
-    ret = mraa_i2c_address(m_i2c, m_addrMag);
-    int num = mraa_i2c_read(m_i2c, buf, 6);
+    ret = m_i2c.address(m_addrMag);
+    ret = m_i2c.writeByte(OUT_X_H_M);
+    ret = m_i2c.address(m_addrMag);
+    int num = m_i2c.read(buf, 6);
     if (num != 6) {
         return ret;
     }
@@ -162,16 +156,16 @@ LSM303::getCoorZ() {
 int
 LSM303::readThenWrite(uint8_t reg)
 {
-    mraa_i2c_address(m_i2c, m_addrAcc);
-    mraa_i2c_write_byte(m_i2c, reg);
-    mraa_i2c_address(m_i2c, m_addrAcc);
-    return (int) mraa_i2c_read_byte(m_i2c);
+    m_i2c.address(m_addrAcc);
+    m_i2c.writeByte(reg);
+    m_i2c.address(m_addrAcc);
+    return (int) m_i2c.readByte();
 }
 
-mraa_result_t
+mraa::Result
 LSM303::getAcceleration()
 {
-    mraa_result_t ret = MRAA_SUCCESS;
+    mraa::Result ret = mraa::SUCCESS;
 
     accel[X] = (int16_t(readThenWrite(OUT_X_H_A)) << 8)
              |  int16_t(readThenWrite(OUT_X_L_A));
@@ -185,23 +179,23 @@ LSM303::getAcceleration()
 }
 
 // helper function that sets a register and then checks the set was succesful
-mraa_result_t
+mraa::Result
 LSM303::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
 {
     buf[0] = sregister;
     buf[1] = data;
-    if (mraa_i2c_address(m_i2c, slave) != MRAA_SUCCESS) {
+    if (m_i2c.address(slave) != mraa::SUCCESS) {
         fprintf(stderr, "lsm303: Failed to connect to slave\n");
-        return MRAA_ERROR_INVALID_HANDLE;
+        return mraa::ERROR_INVALID_HANDLE;
     }
-    if (mraa_i2c_write(m_i2c, buf, 2) != MRAA_SUCCESS) {
+    if (m_i2c.write(buf, 2) != mraa::SUCCESS) {
         fprintf(stderr, "lsm303: Failed to write to register\n");
-        return MRAA_ERROR_INVALID_HANDLE;
+        return mraa::ERROR_INVALID_HANDLE;
     }
-    uint8_t val = mraa_i2c_read_byte_data(m_i2c, sregister);
+    uint8_t val = m_i2c.readReg(sregister);
     if (val != data) {
         fprintf(stderr, "lsm303: Failed to set register correctly\n");
-        return MRAA_ERROR_UNSPECIFIED;
+        return mraa::ERROR_UNSPECIFIED;
     }
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }

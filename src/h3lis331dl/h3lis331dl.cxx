@@ -38,11 +38,11 @@ H3LIS331DL::H3LIS331DL(int bus, uint8_t address):
 {
   m_addr = address;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2c.address(m_addr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
       cerr << "H3LIS331DL: Could not initialize i2c address. " << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return;
     }
 
@@ -567,3 +567,26 @@ void H3LIS331DL::getXYZ(int *x, int *y, int*z)
   *y = (m_rawY - m_adjY);
   *z = (m_rawZ - m_adjZ);
 }
+
+#ifdef SWIGJAVA
+float *H3LIS331DL::getAcceleration()
+{
+  float *v = new float[3];
+  getAcceleration(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+int *H3LIS331DL::getRawXYZ()
+{
+  int *v = new int[3];
+  getRawXYZ(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+int *H3LIS331DL::getXYZ()
+{
+  int *v = new int[3];
+  getXYZ(&v[0], &v[1], &v[2]);
+  return v;
+}
+#endif

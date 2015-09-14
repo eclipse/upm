@@ -34,7 +34,9 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+
 #include <mraa/gpio.hpp>
+
 #include "lcd.h"
 
 namespace upm
@@ -98,7 +100,7 @@ class Lcm1602 : public LCD
      * characters are supported
      * @return Result of the operation
      */
-    mraa_result_t write(std::string msg);
+    mraa::Result write(std::string msg);
     /**
      * Sets the cursor to specified coordinates
      *
@@ -106,19 +108,19 @@ class Lcm1602 : public LCD
      * @param column Column to set the cursor to
      * @return Result of the operation
      */
-    mraa_result_t setCursor(int row, int column);
+    mraa::Result setCursor(int row, int column);
     /**
      * Clears the display of all characters
      *
      * @return Result of the operation
      */
-    mraa_result_t clear();
+    mraa::Result clear();
     /**
      * Returns to the original coordinates (0,0)
      *
      * @return Result of the operation
      */
-    mraa_result_t home();
+    mraa::Result home();
 
     /**
      * Create a custom character
@@ -127,98 +129,98 @@ class Lcm1602 : public LCD
      * @param charData The character data (8 bytes) making up the character
      * @return Result of operation
      */
-    mraa_result_t createChar(uint8_t charSlot, uint8_t charData[]);
+    mraa::Result createChar(uint8_t charSlot, uint8_t charData[]);
 
     /**
      * Turn the display on
      *
      * @return Result of operation
      */
-    mraa_result_t displayOn();
+    mraa::Result displayOn();
 
     /**
      * Turn the display off
      *
      * @return Result of operation
      */
-    mraa_result_t displayOff();
+    mraa::Result displayOff();
 
     /**
      * Turn the cursor on
      *
      * @return Result of operation
      */
-    mraa_result_t cursorOn();
+    mraa::Result cursorOn();
 
     /**
      * Turn the cursor off
      *
      * @return Result of operation
      */
-    mraa_result_t cursorOff();
+    mraa::Result cursorOff();
 
     /**
      * Turn cursor blink on
      *
      * @return Result of operation
      */
-    mraa_result_t cursorBlinkOn();
+    mraa::Result cursorBlinkOn();
 
     /**
      * Turn cursor blink off
      *
      * @return Result of operation
      */
-    mraa_result_t cursorBlinkOff();
+    mraa::Result cursorBlinkOff();
 
     /**
      * Scroll the display left, without changing the character RAM
      *
      * @return Result of operation
      */
-    mraa_result_t scrollDisplayLeft();
+    mraa::Result scrollDisplayLeft();
 
     /**
      * Scroll the display right, without changing the character RAM
      *
      * @return Result of operation
      */
-    mraa_result_t scrollDisplayRight();
+    mraa::Result scrollDisplayRight();
 
     /**
      * set the entry mode so that characters are added left to right
      *
      * @return Result of operation
      */
-    mraa_result_t entryLeftToRight();
+    mraa::Result entryLeftToRight();
 
     /**
      * set the entry mode so that characters are added right to left
      *
      * @return Result of operation
      */
-    mraa_result_t entryRightToLeft();
+    mraa::Result entryRightToLeft();
 
     /**
      * Right justify text entered from the cursor
      *
      * @return Result of operation
      */
-    mraa_result_t autoscrollOn();
+    mraa::Result autoscrollOn();
 
     /**
      * Left justify text entered from the cursor
      *
      * @return Result of operation
      */
-    mraa_result_t autoscrollOff();
+    mraa::Result autoscrollOff();
 
 
   protected:
-    mraa_result_t send(uint8_t value, int mode);
-    mraa_result_t write4bits(uint8_t value);
-    mraa_result_t expandWrite(uint8_t value);
-    mraa_result_t pulseEnable(uint8_t value);
+    mraa::Result send(uint8_t value, int mode);
+    mraa::Result write4bits(uint8_t value);
+    mraa::Result expandWrite(uint8_t value);
+    mraa::Result pulseEnable(uint8_t value);
 
     uint8_t m_displayControl;
     uint8_t m_entryDisplayMode;
@@ -227,8 +229,8 @@ class Lcm1602 : public LCD
     // default implementation in lcm1602.  This is expected to be
     // implemented by derived classes with different needs (Jhd1313m1,
     // for example).
-    virtual mraa_result_t command(uint8_t cmd);
-    virtual mraa_result_t data(uint8_t data);
+    virtual mraa::Result command(uint8_t cmd);
+    virtual mraa::Result data(uint8_t data);
 
     int m_lcd_control_address;
     mraa::I2c* m_i2c_lcd_control;

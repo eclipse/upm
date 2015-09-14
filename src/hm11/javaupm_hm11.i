@@ -1,6 +1,7 @@
 %module javaupm_hm11
 %include "../upm.i"
 %include "carrays.i"
+%include "../java_buffer.i"
 
 %{
     #include "hm11.h"
