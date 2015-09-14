@@ -27,14 +27,7 @@
 #include <mraa/aio.hpp>
 #include <mraa/common.hpp>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-
-#else
-#include <mraa/gpio.hpp>
-#endif
 
 #define MAX_BIT_PER_BLOCK     16
 #define CMDMODE               0x0000

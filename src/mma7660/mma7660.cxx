@@ -88,7 +88,7 @@ void MMA7660::getRawValues(int *x, int *y, int *z)
   *z = getVerifiedAxis(REG_ZOUT);
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 int *MMA7660::getRawValues()
 {
   int *values = new int[3];
@@ -204,7 +204,7 @@ bool MMA7660::tiltShake()
     return false;
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 void MMA7660::installISR(int pin, IsrCallback *cb)
 {
         installISR(pin, generic_callback_isr, cb);
@@ -263,7 +263,7 @@ void MMA7660::getAcceleration(float *ax, float *ay, float *az)
   *az = z/21.33;
 }
 
-#ifdef SWIGJAVA
+#ifdef JAVACALLBACK
 float *MMA7660::getAcceleration()
 {
   float *values = new float[3];

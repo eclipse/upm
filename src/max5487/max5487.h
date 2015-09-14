@@ -26,15 +26,7 @@
 #include <string>
 #include <mraa/aio.hpp>
 
-#ifdef SWIGJAVA
-#undef SWIGJAVA
 #include <mraa/gpio.hpp>
-#define SWIGJAVA
-
-#else
-#include <mraa/gpio.hpp>
-#endif
-
 #include <mraa/spi.hpp>
 
 #define HIGH                    1

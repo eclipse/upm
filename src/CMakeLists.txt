@@ -74,7 +74,7 @@ macro(upm_SWIG_JAVA)
       "${JAVA_INCLUDE_PATH}"
      )
     set_target_properties (javaupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive"
+        COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -DJAVACALLBACK"
       PREFIX "lib"
       SUFFIX ".so"
     )
