@@ -30,6 +30,11 @@
     #include "mq5.h"
 %}
 
+%include "mq7.h"
+%{
+    #include "mq7.h"
+%}
+
 %include "mq9.h"
 %{
     #include "mq9.h"
