@@ -24,8 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/gpio.h>
-#include <mraa/aio.h>
+#include <mraa/aio.hpp>
 
 struct thresholdContext {
     long averageReading;
@@ -99,7 +98,7 @@ class Gas {
         virtual void printGraph (thresholdContext* ctx, uint8_t resolution);
 
     protected:
-        mraa_aio_context    m_gasCtx;
+        mraa::Aio    m_aio;
 };
 
 }
