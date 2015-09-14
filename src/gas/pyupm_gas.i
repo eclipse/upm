@@ -35,6 +35,11 @@
     #include "mq7.h"
 %}
 
+%include "mq8.h"
+%{
+    #include "mq8.h"
+%}
+
 %include "mq9.h"
 %{
     #include "mq9.h"
