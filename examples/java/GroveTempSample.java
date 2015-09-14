@@ -33,7 +33,8 @@ public class GroveTempSample {
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		upm_grove.GroveTemp temp = new upm_grove.GroveTemp(3);
+		//! [Interesting]
+        upm_grove.GroveTemp temp = new upm_grove.GroveTemp(3);
 		
 		for (int i = 0; i < 10; ++i) {
 			
@@ -46,5 +47,6 @@ public class GroveTempSample {
 			Thread.sleep(1000);
 		}
 		temp.delete();
+        //! [Interesting]
 	}
 }

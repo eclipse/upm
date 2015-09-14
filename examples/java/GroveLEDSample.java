@@ -33,7 +33,8 @@ public class GroveLEDSample {
 	}
 
 	public static void main (String args[]) throws InterruptedException {
-		upm_grove.GroveLed led = new upm_grove.GroveLed(2);
+		//! [Interesting]
+        upm_grove.GroveLed led = new upm_grove.GroveLed(2);
 		
 		for (int i = 0; i < 10; ++i) {
 			led.on();
@@ -42,5 +43,6 @@ public class GroveLEDSample {
 			Thread.sleep(1000);
 		}
 		led.delete();
+        //! [Interesting]
 	}
 }

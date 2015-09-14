@@ -34,7 +34,8 @@ public class RFR359FSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate an RFR359F digital pin D2
+		//! [Interesting]
+        // Instantiate an RFR359F digital pin D2
 		upm_rfr359f.RFR359F dInterruptor = new upm_rfr359f.RFR359F(2);
 		
 		while(true){
@@ -47,6 +48,7 @@ public class RFR359FSample{
 			
 			Thread.sleep(100);
 		}
+        //! [Interesting]
 	}
 	
 }

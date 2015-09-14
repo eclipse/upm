@@ -34,7 +34,8 @@ public class RotaryEncoderSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Create the button object using UART
+		//! [Interesting]
+        // Create the button object using UART
 		upm_rotaryencoder.RotaryEncoder rotaryencoder = new upm_rotaryencoder.RotaryEncoder(2, 3);
 	
 		while (true) {
@@ -42,6 +43,7 @@ public class RotaryEncoderSample{
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

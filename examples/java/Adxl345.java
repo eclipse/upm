@@ -33,6 +33,8 @@ public class Adxl345 {
     }
 
     public static void main(String argv[]) throws InterruptedException {
+//! [Interesting]
+        // Note: Sensor only works at 3.3V on the Intel Edison with Arduino breakout
         upm_adxl345.Adxl345 obj = new upm_adxl345.Adxl345(0);
         int[] raw = new int[3];
         float[] accel = new float[3];
@@ -49,5 +51,6 @@ public class Adxl345 {
 
             Thread.sleep(1000);
         }
+//! [Interesting]
     }
 }

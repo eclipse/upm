@@ -41,7 +41,8 @@ public class TP401Sample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate new grove air quality sensor on analog pin A0
+		//! [Interesting]
+        // Instantiate new grove air quality sensor on analog pin A0
 		upm_gas.TP401 airSensor = new upm_gas.TP401(0);
 		
 		System.out.println(airSensor.name());
@@ -63,6 +64,7 @@ public class TP401Sample{
 			
 			Thread.sleep(100);
 		}
+        //! [Interesting]
 	}
 	
 

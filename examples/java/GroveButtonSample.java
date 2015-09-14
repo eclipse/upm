@@ -34,6 +34,7 @@ public class GroveButtonSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+        //! [Interesting]
 		// Create the button object using UART
 		upm_grove.GroveButton button = new upm_grove.GroveButton(0);
 	
@@ -42,6 +43,7 @@ public class GroveButtonSample{
 			
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }

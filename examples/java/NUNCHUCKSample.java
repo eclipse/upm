@@ -34,7 +34,8 @@ public class NUNCHUCKSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		// Instantiate a nunchuck controller bus 0
+		//! [Interesting]
+        // Instantiate a nunchuck controller bus 0
 		upm_nunchuck.NUNCHUCK nunchuck = new upm_nunchuck.NUNCHUCK(0);
 		
 		// always do this first
@@ -62,6 +63,7 @@ public class NUNCHUCKSample{
 						
 			Thread.sleep(1000);
 		}
+        //! [Interesting]
 	}
 
 }
