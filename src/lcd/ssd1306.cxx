@@ -44,11 +44,19 @@ SSD1306::SSD1306(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
     m_lcd_control_address = addr_in;
     m_name = "SSD1306";
 
-    mraa_result_t error = m_i2c_lcd_control.address(m_lcd_control_address);
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-
-    if (error != mraa_SUCCESS) {
-        fprintf(stderr, "Failed to initialize i2c bus\n");
+    mraa::Result error = m_i2c_lcd_control.address(m_lcd_control_address);
+    
+    if (error != mraa::SUCCESS) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_i2c_address() failed");
+        return;
+    }
+    
+    error = m_i2c_lcd_control.frequency(mraa::I2C_FAST);
+    
+    if (error != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_frequency(MRAA_I2C_FAST) failed");
         return;
     }
 
@@ -105,11 +113,10 @@ SSD1306::~SSD1306()
 {
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::draw(uint8_t* data, int bytes)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t error = mraa_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     setAddressingMode(HORIZONTAL);
     for (int idx = 0; idx < bytes; idx++) {
@@ -124,11 +131,10 @@ SSD1306::draw(uint8_t* data, int bytes)
  *  virtual area
  * **************
  */
-mraa_result_t
+mraa::Result
 SSD1306::write(std::string msg)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t error = mraa_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     setAddressingMode(PAGE);
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
@@ -138,11 +144,10 @@ SSD1306::write(std::string msg)
     return error;
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::setCursor(int row, int column)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t error = mraa_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     error = m_i2c_lcd_control.writeReg(LCD_CMD, BASE_PAGE_START_ADDR + row); // set page address
     error = m_i2c_lcd_control.writeReg(LCD_CMD,
@@ -155,11 +160,10 @@ SSD1306::setCursor(int row, int column)
     return error;
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::clear()
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t error = mraa_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off
@@ -177,10 +181,9 @@ SSD1306::clear()
     return error;
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::home()
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     return setCursor(0, 0);
 }
 
@@ -189,11 +192,10 @@ SSD1306::home()
  *  private area
  * **************
  */
-mraa_result_t
+mraa::Result
 SSD1306::writeChar(uint8_t value)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t rv;
+    mraa::Result rv;
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
     }
@@ -205,31 +207,28 @@ SSD1306::writeChar(uint8_t value)
     return rv;
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::setNormalDisplay()
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     return m_i2c_lcd_control.writeReg(LCD_CMD,
                                       DISPLAY_CMD_SET_NORMAL_1306); // set to normal display '1' is
                                                                     // ON
 }
 
-mraa_result_t
+mraa::Result
 SSD1306::setAddressingMode(displayAddressingMode mode)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t rv;
+    mraa::Result rv;
     rv =m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_MEM_ADDR_MODE); // set addressing mode
     rv =m_i2c_lcd_control.writeReg(LCD_CMD, mode);                      // set page addressing mode
     return rv;
 }
 
 
-mraa_result_t
+mraa::Result
 SSD1306::invert(bool i)
 {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
-    mraa_result_t rv;
+    mraa::Result rv;
     if(i){
         rv = m_i2c_lcd_control.writeReg(LCD_CMD,  DISPLAY_CMD_SET_INVERT_1306);
     } else {
@@ -240,7 +239,6 @@ SSD1306::invert(bool i)
 
 
 void SSD1306::startscrollright(uint8_t start, uint8_t stop){
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     m_i2c_lcd_control.writeReg(LCD_CMD,SSD1306_RIGHT_HORIZONTAL_SCROLL);
     m_i2c_lcd_control.writeReg(LCD_CMD,0X00);
     m_i2c_lcd_control.writeReg(LCD_CMD,start);
@@ -253,7 +251,6 @@ void SSD1306::startscrollright(uint8_t start, uint8_t stop){
 
 
 void SSD1306::startscrollleft(uint8_t start, uint8_t stop){
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     m_i2c_lcd_control.writeReg(LCD_CMD,SSD1306_LEFT_HORIZONTAL_SCROLL);
     m_i2c_lcd_control.writeReg(LCD_CMD,0X00);
     m_i2c_lcd_control.writeReg(LCD_CMD,start);
@@ -265,7 +262,6 @@ void SSD1306::startscrollleft(uint8_t start, uint8_t stop){
 }
 
 void SSD1306::startscrolldiagright(uint8_t start, uint8_t stop){
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     m_i2c_lcd_control.writeReg(LCD_CMD, SSD1306_SET_VERTICAL_SCROLL_AREA);
     m_i2c_lcd_control.writeReg(LCD_CMD, 0X00);
     m_i2c_lcd_control.writeReg(LCD_CMD, SSD1306_LCDHEIGHT);
@@ -279,7 +275,6 @@ void SSD1306::startscrolldiagright(uint8_t start, uint8_t stop){
 }
 
 void SSD1306::startscrolldiagleft(uint8_t start, uint8_t stop){
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     m_i2c_lcd_control.writeReg(LCD_CMD, SSD1306_SET_VERTICAL_SCROLL_AREA);
     m_i2c_lcd_control.writeReg(LCD_CMD, 0X00);
     m_i2c_lcd_control.writeReg(LCD_CMD, SSD1306_LCDHEIGHT);
@@ -293,7 +288,6 @@ void SSD1306::startscrolldiagleft(uint8_t start, uint8_t stop){
 }
 
 void SSD1306::stopscroll(void){
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     m_i2c_lcd_control.writeReg(LCD_CMD,SSD1306_DEACTIVATE_SCROLL);
 }
 
@@ -301,7 +295,6 @@ void SSD1306::stopscroll(void){
 // dim = true: display is dimmed
 // dim = false: display is normal
 void SSD1306::dim(bool dim) {
-    m_i2c_lcd_control.frequency(MRAA_I2C_FAST);
     uint8_t contrast;
 
     if (dim) {

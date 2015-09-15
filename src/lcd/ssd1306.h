@@ -127,7 +127,7 @@ class SSD1306 : public LCD
      * @param bytes Number of bytes to read from the pointer
      * @return Result of the operation
      */
-    mraa_result_t draw(uint8_t* data, int bytes);
+    mraa::Result draw(uint8_t* data, int bytes);
     /**
      * Writes a string to the LCD
      *
@@ -135,7 +135,7 @@ class SSD1306 : public LCD
      * characters are supported
      * @return Result of the operation
      */
-    mraa_result_t write(std::string msg);
+    mraa::Result write(std::string msg);
     /**
      * Sets the cursor to specified coordinates
      *
@@ -143,26 +143,26 @@ class SSD1306 : public LCD
      * @param column Column to set the cursor to
      * @return Result of the operation
      */
-    mraa_result_t setCursor(int row, int column);
+    mraa::Result setCursor(int row, int column);
     /**
      * Clears the display of all characters
      *
      * @return Result of the operation
      */
-    mraa_result_t clear();
+    mraa::Result clear();
     /**
      * Returns to the original coordinates (0,0)
      *
      * @return Result of the operation
      */
-    mraa_result_t home();
+    mraa::Result home();
     /**
      * Inverts the display
      *
      * @param i true to invert, false for normal display
      * @return Result of the operation
      */
-    mraa_result_t invert(bool i);
+    mraa::Result invert(bool i);
     /**
      *  Activate a scroll to the right for rows start through stop
      *  The display is 16 rows tall. To scroll the whole display, run:
@@ -218,9 +218,9 @@ class SSD1306 : public LCD
     void dim(bool dim);
 
   private:
-    mraa_result_t writeChar(uint8_t value);
-    mraa_result_t setNormalDisplay();
-    mraa_result_t setAddressingMode(displayAddressingMode mode);
+    mraa::Result writeChar(uint8_t value);
+    mraa::Result setNormalDisplay();
+    mraa::Result setAddressingMode(displayAddressingMode mode);
 
     int m_lcd_control_address;
     mraa::I2c m_i2c_lcd_control;
