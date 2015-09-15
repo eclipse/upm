@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Author: Zion Orent <zorent@ics.com>
+# Author: Jon Trulson <jtrulson@ics.com>
 # Copyright (c) 2015 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -22,18 +22,18 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_groveloudness as upmGroveloudness
+import pyupm_loudness as sensorObj
 
-# Instantiate a Grove Loudness sensor on analog pin A0
-myLoudness = upmGroveloudness.GroveLoudness(0)
-
+# Instantiate a Loudness sensor on analog pin A0, with an analog
+# reference voltage of 5.0
+sensor = sensorObj.Loudness(0, 5.0)
 
 ## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
+# This function stops python from printing a stacktrace when you hit control-C
 def SIGINTHandler(signum, frame):
 	raise SystemExit
 
-# This lets you run code on exit, including functions from myLoudness
+# This function lets you run code on exit
 def exitHandler():
 	print "Exiting"
 	sys.exit(0)
@@ -42,7 +42,9 @@ def exitHandler():
 atexit.register(exitHandler)
 signal.signal(signal.SIGINT, SIGINTHandler)
 
+# Every tenth of a second, sample the loudness and output it's
+# corresponding analog voltage. 
 
 while (1):
-	print "Loudness value (higher is louder):", myLoudness.value()
+        print "Detected loudness (volts): ", sensor.loudness()
 	time.sleep(.1)

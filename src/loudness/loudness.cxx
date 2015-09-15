@@ -22,47 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <signal.h>
-#include "hyld9767.h"
+
+#include "loudness.h"
 
 using namespace std;
+using namespace upm;
 
-bool shouldRun = true;
-
-#define HYLD9767_AREF   5.0
-
-void sig_handler(int signo)
+Loudness::Loudness(int pin, float aref) :
+  m_aio(pin)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+  m_aRes = m_aio.getBit();
+  m_aref = aref;
 }
 
-int main()
+Loudness::~Loudness()
 {
-  signal(SIGINT, sig_handler);
+}
 
-//! [Interesting]
+float Loudness::loudness()
+{
+  int val = m_aio.read();
 
-  // Instantiate a HYLD9767 on analog pin A0, with an analog
-  // reference voltage of HYLD9767_AREF
-  upm::HYLD9767 *loud = new upm::HYLD9767(0, HYLD9767_AREF);
-  
-  // Every tenth of a second, sample the loudness and output it's
-  // corresponding analog voltage. 
-
-  while (shouldRun)
-    {
-      cout << "Detected loudness (volts): " << loud->loudness() << endl;
-      
-      usleep(100000);
-    }
-
-//! [Interesting]
-
-  cout << "Exiting" << endl;
-
-  delete loud;
-  return 0;
+  return(val * (m_aref / float(1 << m_aRes)));
 }

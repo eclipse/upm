@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,54 +23,72 @@
  */
 #pragma once
 
+#include <iostream>
 #include <string>
-#include <mraa/aio.h>
+#include <mraa/aio.hpp>
 
 namespace upm {
   /**
-   * @brief Grove Loudness sensor library
-   * @defgroup groveloudness libupm-groveloudness
-   * @ingroup seeed analog sound
+   * @brief Generic loudness sensors
+   * @defgroup loudness libupm-loudness
+   * @ingroup dfrobot analog sound
    */
 
   /**
-   * @library groveloudness
-   * @sensor groveloudness
-   * @comname Grove Loudness Sensor
+   * @library loudness
+   * @sensor loudness
+   * @comname Loudness sensors
+   * @altname grove loudness hyld9767
    * @type sound
-   * @man seeed
+   * @man dfrobot seed
+   * @web http://www.dfrobot.com/index.php?route=product/product&product_id=83
    * @con analog
    *
-   * @brief API for the Grove Loudness Sensor
+   * @brief API for the Loudness Sensor
    *
-   * UPM module for the Grove Loudness Sensor. This sensor
-   * detects how loud the surrounding environment is.
-   * The higher the output analog value, the louder the sound.
+   * This sensor family returns an analog voltage proportional to the
+   * loudness of the ambient environment.  It's output does not
+   * correspond to a particular sound level in decibels.  The higher
+   * the output voltage, the louder the ambient noise level.
    *
-   * @image html groveloudness.jpg
-   * @snippet groveloudness.cxx Interesting
+   * This device uses an electret microphone for sound input.
+   *
+   * This driver was developed using the DFRobot Loudness Sensor V2
+   * and the Grove Loudness sensor.
+   *
+   * @snippet loudness.cxx Interesting
    */
-  class GroveLoudness {
+
+  class Loudness {
   public:
+
     /**
-     * Grove analog loudness sensor constructor
+     * Loudness constructor
      *
      * @param pin Analog pin to use
+     * @param aref Analog reference voltage; default is 5.0 V
      */
-    GroveLoudness(int pin);
+    Loudness(int pin, float aref=5.0);
+
     /**
-     * GroveLoudness destructor
+     * Loudness destructor
      */
-    ~GroveLoudness();
+    ~Loudness();
+
     /**
-     * Gets the loudness value from the sensor
+     * Returns the voltage detected on the analog pin
      *
-     * @return Loudness reading
+     * @return The detected voltage
      */
-    int value();
+    float loudness();
+
+  protected:
+    mraa::Aio m_aio;
 
   private:
-    mraa_aio_context m_aio;
+    float m_aref;
+    // ADC resolution
+    int m_aRes;
   };
 }
 
