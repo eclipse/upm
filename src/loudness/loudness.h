@@ -27,54 +27,54 @@
 #include <string>
 #include <mraa/aio.hpp>
 
-// EZ series is volts/512
-#define HYLD9767_RES  512
-
 namespace upm {
   /**
-   * @brief DFRobot Loudness Sensor V2
-   * @defgroup hyld9767 libupm-hyld9767
-   * @ingroup dfrobot analog sound
+   * @brief Generic loudness sensors
+   * @defgroup loudness libupm-loudness
+   * @ingroup dfrobot seeed analog sound
    */
 
   /**
-   * @library hyld9767
-   * @sensor hyld9767
-   * @comname DFRobot Loudness Sensor V2
-   * @altname HYLD9767
+   * @library loudness
+   * @sensor loudness
+   * @comname Loudness Sensor
+   * @altname Grove loudness hyld9767
    * @type sound
-   * @man dfrobot
+   * @man dfrobot seeed
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=83
    * @con analog
    *
-   * @brief API for the DFRobot Loudness Sensor V2
+   * @brief API for the Loudness Sensor
    *
-   * This sensor returns an analog voltage proportional to the
+   * This sensor family returns an analog voltage proportional to the
    * loudness of the ambient environment.  It's output does not
-   * correspond to a particular sound level in decibels.
+   * correspond to a particular sound level in decibels.  The higher
+   * the output voltage, the louder the ambient noise level.
    *
-   * This device uses an HYLD9767 electret microphone for sound input.
+   * This device uses an electret microphone for sound input.
    *
    * This driver was developed using the DFRobot Loudness Sensor V2
+   * and the Grove Loudness sensor.
    *
-   * @snippet hyld9767.cxx Interesting
+   * @image html groveloudness.jpg
+   * @snippet loudness.cxx Interesting
    */
 
-  class HYLD9767 {
+  class Loudness {
   public:
 
     /**
-     * HYLD9767 constructor
+     * Loudness constructor
      *
      * @param pin Analog pin to use
      * @param aref Analog reference voltage; default is 5.0 V
      */
-    HYLD9767(int pin, float aref=5.0);
+    Loudness(int pin, float aref=5.0);
 
     /**
-     * HYLD9767 destructor
+     * Loudness destructor
      */
-    ~HYLD9767();
+    ~Loudness();
 
     /**
      * Returns the voltage detected on the analog pin

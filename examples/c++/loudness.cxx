@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,57 +21,48 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <string>
-#include <mraa/aio.h>
+#include <unistd.h>
+#include <iostream>
+#include <signal.h>
+#include "loudness.h"
 
-namespace upm {
-  /**
-   * @brief Grove Loudness sensor library
-   * @defgroup groveloudness libupm-groveloudness
-   * @ingroup seeed analog sound
-   */
+using namespace std;
 
-  /**
-   * @library groveloudness
-   * @sensor groveloudness
-   * @comname Grove Loudness Sensor
-   * @type sound
-   * @man seeed
-   * @con analog
-   *
-   * @brief API for the Grove Loudness Sensor
-   *
-   * UPM module for the Grove Loudness Sensor. This sensor
-   * detects how loud the surrounding environment is.
-   * The higher the output analog value, the louder the sound.
-   *
-   * @image html groveloudness.jpg
-   * @snippet groveloudness.cxx Interesting
-   */
-  class GroveLoudness {
-  public:
-    /**
-     * Grove analog loudness sensor constructor
-     *
-     * @param pin Analog pin to use
-     */
-    GroveLoudness(int pin);
-    /**
-     * GroveLoudness destructor
-     */
-    ~GroveLoudness();
-    /**
-     * Gets the loudness value from the sensor
-     *
-     * @return Loudness reading
-     */
-    int value();
+bool shouldRun = true;
 
-  private:
-    mraa_aio_context m_aio;
-  };
+#define LOUDNESS_AREF   5.0
+
+void sig_handler(int signo)
+{
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
+int main()
+{
+  signal(SIGINT, sig_handler);
 
+//! [Interesting]
+
+  // Instantiate a Loudness sensor on analog pin A0, with an analog
+  // reference voltage of LOUDNESS_AREF
+  upm::Loudness *loud = new upm::Loudness(0, LOUDNESS_AREF);
+  
+  // Every tenth of a second, sample the loudness and output it's
+  // corresponding analog voltage. 
+
+  while (shouldRun)
+    {
+      cout << "Detected loudness (volts): " << loud->loudness() << endl;
+      
+      usleep(100000);
+    }
+
+//! [Interesting]
+
+  cout << "Exiting" << endl;
+
+  delete loud;
+  return 0;
+}
