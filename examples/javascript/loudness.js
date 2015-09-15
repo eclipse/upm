@@ -3,7 +3,7 @@
 /*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
-* Copyright (c) 2014 Intel Corporation.
+* Copyright (c) 2015 Intel Corporation.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -25,9 +25,9 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var loudnessSensor = require('jsupm_groveloudness');
+var loudnessSensor = require('jsupm_loudness');
 // Instantiate a Grove Loudness sensor on analog pin A0
-var myLoudnessSensor = new loudnessSensor.GroveLoudness(0);
+var myLoudnessSensor = new loudnessSensor.Loudness(0);
 
 // Print the loudness value every 0.1 seconds
 setInterval(function()

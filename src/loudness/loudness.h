@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,44 +24,53 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
+#include <mraa/aio.hpp>
 
 namespace upm {
   /**
-   * @brief Grove Loudness sensor library
-   * @defgroup groveloudness libupm-groveloudness
-   * @ingroup seeed analog sound
+   * @brief Loudness Sensor library
+   * @defgroup loudness libupm-loudness
+   * @ingroup seeed dfrobot analog sound
    */
 
   /**
-   * @library groveloudness
-   * @sensor groveloudness
-   * @comname Grove Loudness Sensor
+   * @library loudness
+   * @sensor loudness
+   * @comname Loudness Sensor
+   * @altname mic hyld9767 
    * @type sound
-   * @man seeed
+   * @man seeed dfrobot
    * @con analog
    *
-   * @brief API for the Grove Loudness Sensor
+   * @brief API for the Loudness Sensor
    *
-   * UPM module for the Grove Loudness Sensor. This sensor
-   * detects how loud the surrounding environment is.
-   * The higher the output analog value, the louder the sound.
+   * UPM module for the Loudness Sensor. This sensor family is
+   * typically composed of a electret microphone and an amplifier that
+   * provides a varying analog voltage proportional to the loudness of
+   * the ambient sound environment.  The higher the output analog
+   * value, the louder the ambient sound.
+   *
+   * This module has been tested with the Grove Loudness sensor, the
+   * Grove Sound sensor and the DFRobot Loudness Sensor V2.
    *
    * @image html groveloudness.jpg
-   * @snippet groveloudness.cxx Interesting
+   * @snippet loudness.cxx Interesting
    */
-  class GroveLoudness {
+
+  class Loudness {
   public:
     /**
-     * Grove analog loudness sensor constructor
+     * Loudness sensor constructor
      *
      * @param pin Analog pin to use
      */
-    GroveLoudness(int pin);
+    Loudness(int pin);
+
     /**
-     * GroveLoudness destructor
+     * Loudness destructor
      */
-    ~GroveLoudness();
+    ~Loudness();
+
     /**
      * Gets the loudness value from the sensor
      *
@@ -69,8 +78,8 @@ namespace upm {
      */
     int value();
 
-  private:
-    mraa_aio_context m_aio;
+  protected:
+    mraa::Aio m_aio;
   };
 }
 
