@@ -1,4 +1,5 @@
-# Author: John Van Drasek <john.r.van.drasek@intel.com>
+#!/usr/bin/python
+# Author: Zion Orent <zorent@ics.com>
 # Copyright (c) 2015 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -20,28 +21,28 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import time
-import pyupm_mic as upmMicrophone 
+import time, sys, signal, atexit
+import pyupm_loudness as upmLoudness
 
-# Attach microphone to analog port A0
-myMic = upmMicrophone.Microphone(0)
-threshContext = upmMicrophone.thresholdContext()
-threshContext.averageReading = 0
-threshContext.runningAverage = 0
-threshContext.averagedOver = 2
+# Instantiate a Grove Loudness sensor on analog pin A0
+myLoudness = upmLoudness.Loudness(0)
 
-# Infinite loop, ends when script is cancelled
-# Repeatedly, take a sample every 2 microseconds;
-# find the average of 128 samples; and
-# print a running graph of dots as averages
-while(1):
-    buffer = upmMicrophone.uint16Array(128)
-    len = myMic.getSampledWindow(2, 128, buffer);
-    if len:
-        thresh = myMic.findThreshold(threshContext, 30, buffer, len)
-        myMic.printGraph(threshContext)
-        if(thresh):
-            print "Threshold is ", thresh
 
-# Delete the upmMicrophone object
-del myMic
+## Exit handlers ##
+# This stops python from printing a stacktrace when you hit control-C
+def SIGINTHandler(signum, frame):
+	raise SystemExit
+
+# This lets you run code on exit, including functions from myLoudness
+def exitHandler():
+	print "Exiting"
+	sys.exit(0)
+
+# Register exit handlers
+atexit.register(exitHandler)
+signal.signal(signal.SIGINT, SIGINTHandler)
+
+
+while (1):
+	print "Loudness value (higher is louder):", myLoudness.value()
+	time.sleep(.1)

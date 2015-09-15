@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
@@ -25,28 +22,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "loudness.h"
 
-var sensorObj = require('jsupm_hyld9767');
+using namespace upm;
 
-// Instantiate a HYLD9767 on analog pin A0, with an analog
-// reference voltage of 5.0
-var sensor = new sensorObj.HYLD9767(0, 5.0);
-
-// Every tenth of a second, sample the loudness and output it's
-// corresponding analog voltage. 
-
-setInterval(function()
+Loudness::Loudness(int pin) :
+  m_aio(pin)
 {
-    console.log("Detected loudness (volts): " + sensor.loudness());
-}, 100);
+}
 
-// exit on ^C
-process.on('SIGINT', function()
+Loudness::~Loudness()
 {
-    sensor = null;
-    sensorObj.cleanUp();
-    sensorObj = null;
-    console.log("Exiting.");
-    process.exit(0);
-});
+}
 
+int Loudness::value()
+{
+  return m_aio.read();
+}
