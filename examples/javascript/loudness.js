@@ -26,11 +26,11 @@
  */
 
 
-var sensorObj = require('jsupm_hyld9767');
+var sensorObj = require('jsupm_loudness');
 
-// Instantiate a HYLD9767 on analog pin A0, with an analog
+// Instantiate a Loudness sensor on analog pin A0, with an analog
 // reference voltage of 5.0
-var sensor = new sensorObj.HYLD9767(0, 5.0);
+var sensor = new sensorObj.Loudness(0, 5.0);
 
 // Every tenth of a second, sample the loudness and output it's
 // corresponding analog voltage. 

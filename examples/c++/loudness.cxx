@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,25 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
+#include <signal.h>
+#include "loudness.h"
 
-#include "groveloudness.h"
+using namespace std;
 
-using namespace upm;
+bool shouldRun = true;
 
-GroveLoudness::GroveLoudness(int pin)
+#define LOUDNESS_AREF   5.0
+
+void sig_handler(int signo)
 {
-  mraa_init();
-
-  m_aio = mraa_aio_init(pin);
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-GroveLoudness::~GroveLoudness()
+int main()
 {
-  mraa_aio_close(m_aio);
-}
+  signal(SIGINT, sig_handler);
 
-int GroveLoudness::value()
-{
-  return mraa_aio_read(m_aio);
+//! [Interesting]
+
+  // Instantiate a Loudness sensor on analog pin A0, with an analog
+  // reference voltage of LOUDNESS_AREF
+  upm::Loudness *loud = new upm::Loudness(0, LOUDNESS_AREF);
+  
+  // Every tenth of a second, sample the loudness and output it's
+  // corresponding analog voltage. 
+
+  while (shouldRun)
+    {
+      cout << "Detected loudness (volts): " << loud->loudness() << endl;
+      
+      usleep(100000);
+    }
+
+//! [Interesting]
+
+  cout << "Exiting" << endl;
+
+  delete loud;
+  return 0;
 }
