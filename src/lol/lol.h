@@ -49,7 +49,7 @@ namespace upm {
  *
  * @brief API for the Olimex LoL array
  *
- * This file defines the LoL API and implementation for a simple framebuffer.
+ * This module defines the LoL API and implementation for a simple framebuffer.
  *
  * @image html lolshield.jpg
  * @snippet lol-example.cxx Interesting

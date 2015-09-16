@@ -53,6 +53,53 @@ macro(upm_SWIG_NODE)
   endif()
 endmacro()
 
+macro(upm_SWIG_JAVA)
+  if (BUILDSWIGJAVA AND BUILDSWIG)
+
+    FIND_PACKAGE (JNI REQUIRED)
+
+    include_directories (
+      ${JAVA_INCLUDE_PATH}
+      ${JAVA_INCLUDE_PATH2}
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
+
+    set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
+    set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
+    swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+    swig_link_libraries (javaupm_${libname} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES})
+    target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
+      PUBLIC
+      "${JAVA_INCLUDE_DIRS}"
+      "${JAVA_INCLUDE_PATH}"
+     )
+    set_target_properties (javaupm_${libname} PROPERTIES
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -DJAVACALLBACK"
+      PREFIX "lib"
+      SUFFIX ".so"
+    )
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/libjavaupm_${libname}.so
+	DESTINATION lib/java
+    )
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
+	DESTINATION lib/java
+    )
+
+    set (JAVAC $ENV{JAVA_HOME}/bin/javac)
+    set (JAR $ENV{JAVA_HOME}/bin/jar)
+
+    add_custom_command (TARGET javaupm_${libname}
+        POST_BUILD
+        COMMAND cmake -E echo "Compiling java.."
+        COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cmake -E echo "Creating jar"
+        COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
+    )
+
+  endif()
+endmacro()
+
 macro(upm_doxygen)
   if (DOXYGEN_FOUND)
     if(NOT DEFINED classname)
@@ -104,6 +151,10 @@ if (SWIG_FOUND)
     endmacro()
 
   endif(BUILDSWIGNODE)
+#  if(BUILDSWIGJAVA)
+#    add_subdirectory (java)
+#  endif(BUILDSWIGJAVA)
+    
 endif()
 
 macro(upm_module_init)
@@ -123,6 +174,7 @@ macro(upm_module_init)
   if (SWIG_FOUND)
     upm_swig_python()
     upm_swig_node()
+    upm_swig_java()
   endif()
   if (BUILDDOC)
     upm_doxygen()

@@ -179,7 +179,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return Number of bytes read
      */
-    int readData(char *buffer, size_t len);
+    int readData(char *buffer, int len);
 
     /**
      * Writes the data in the buffer to the device
@@ -188,7 +188,7 @@ namespace upm {
      * @param len Length of the buffer
      * @return Number of bytes written
      */
-    int writeData(char *buffer, size_t len);
+    int writeData(char *buffer, int len);
 
     /**
      * Sets up proper tty I/O modes and the baud rate. For this device,
@@ -206,15 +206,16 @@ namespace upm {
      * @param len Length of packet
      * @return Number of bytes written
      */
-    int writeCmdPacket(unsigned char *pkt, int len);
+    int writeCmdPacket(uint8_t *pkt, int len);
 
     /**
      * Verifies the packet header and indicates its validity
      *
      * @param pkt Packet to check
-     * @return True if the checksum is valid, false otherwise
+     * @param len Length of packet
+     * @return True if the packet is valid, false otherwise
      */
-    bool verifyPacket(unsigned char *pkt);
+    bool verifyPacket(uint8_t *pkt, int len);
 
     /**
      * Returns the number of milliseconds elapsed since initClock()
@@ -252,7 +253,7 @@ namespace upm {
      * large
      * @return True if successful
      */
-    bool getResponse(unsigned char *pkt, int len);
+    bool getResponse(uint8_t *pkt, int len);
 
     /**
      * Verifies and authenticates to the module. The password used is

@@ -53,9 +53,9 @@ namespace upm {
  *
  * @brief API for the Buzzer component
  *
- * This file defines the Buzzer interface for libbuzzer.
+ * This module defines the Buzzer interface for libbuzzer.
  * This sensor can make different tones when connected to
- * a pin capable of analog pulse-width modulation. It emits 
+ * a pin capable of analog pulse-width modulation. It emits
  * sound using a piezoelectric material that vibrates at different
  * frequencies based on the input voltage.
  *

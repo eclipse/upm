@@ -105,6 +105,15 @@ namespace upm {
      */
     void values(int *xVal, int *yVal, int *zVal);
 
+#ifdef SWIGJAVA
+    /**
+     * Gets the analog values for the 3 axes
+     *
+     * @return Array containing value of X, Y, Z axes
+     */
+    int *values();
+#endif
+
     /**
      * Gets the acceleration along all 3 axes
      *
@@ -113,6 +122,15 @@ namespace upm {
      * @param zAccel Pointer to returned Z-axis value
      */
     void acceleration(float *xAccel, float *yAccel, float *zAccel);
+
+#ifdef SWIGJAVA
+    /**
+     * Gets the acceleration along all 3 axes
+     *
+     * @return Array containing acceleration on X, Y, Z axes
+     */
+    float *acceleration();
+#endif
 
     /**
      * While the sensor is still, measures the X-axis, Y-axis, and Z-axis

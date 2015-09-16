@@ -94,9 +94,9 @@ EBOLED::~EBOLED()
   clear();
 }
 
-mraa_result_t EBOLED::draw(uint8_t* bdata, int bytes)
+mraa::Result EBOLED::draw(uint8_t* bdata, int bytes)
 {
-  mraa_result_t error = MRAA_SUCCESS;
+  mraa::Result error = mraa::SUCCESS;
 
   setAddressingMode(HORIZONTAL);
 
@@ -113,9 +113,9 @@ mraa_result_t EBOLED::draw(uint8_t* bdata, int bytes)
   return error;
 }
 
-mraa_result_t EBOLED::write(std::string msg)
+mraa::Result EBOLED::write(std::string msg)
 {
-  mraa_result_t error = MRAA_SUCCESS;
+  mraa::Result error = mraa::SUCCESS;
 
   setAddressingMode(PAGE);
   for (std::string::size_type i = 0; i < msg.size(); ++i)
@@ -124,9 +124,9 @@ mraa_result_t EBOLED::write(std::string msg)
   return error;
 }
 
-mraa_result_t EBOLED::setCursor(int row, int column)
+mraa::Result EBOLED::setCursor(int row, int column)
 {
-  mraa_result_t error = MRAA_SUCCESS;
+  mraa::Result error = mraa::SUCCESS;
 
   // set page address
   error = command(CMD_SETPAGESTARTADDR | (row & 0x07));
@@ -139,9 +139,9 @@ mraa_result_t EBOLED::setCursor(int row, int column)
   return error;
 }
 
-mraa_result_t EBOLED::clear()
+mraa::Result EBOLED::clear()
 {
-  mraa_result_t error = MRAA_SUCCESS;
+  mraa::Result error = mraa::SUCCESS;
   uint8_t columnIdx, rowIdx;
   
   for (rowIdx = 0; rowIdx < 8; rowIdx++)
@@ -155,17 +155,17 @@ mraa_result_t EBOLED::clear()
   
   home();
   
-  return MRAA_SUCCESS;
+  return mraa::SUCCESS;
 }
 
-mraa_result_t EBOLED::home()
+mraa::Result EBOLED::home()
 {
   return setCursor(0, 0);
 }
 
-mraa_result_t EBOLED::writeChar(uint8_t value)
+mraa::Result EBOLED::writeChar(uint8_t value)
 {
-  mraa_result_t rv;
+  mraa::Result rv;
 
   if (value < 0x20 || value > 0x7F) {
     value = 0x20; // space
@@ -178,9 +178,9 @@ mraa_result_t EBOLED::writeChar(uint8_t value)
   return rv;
 }
 
-mraa_result_t EBOLED::setAddressingMode(displayAddressingMode mode)
+mraa::Result EBOLED::setAddressingMode(displayAddressingMode mode)
 {
-  mraa_result_t rv;
+  mraa::Result rv;
 
   rv = command(CMD_MEMORYADDRMODE);
   rv = command(mode);
@@ -188,16 +188,16 @@ mraa_result_t EBOLED::setAddressingMode(displayAddressingMode mode)
   return rv;
 }
 
-mraa_result_t EBOLED::command(uint8_t cmd)
+mraa::Result EBOLED::command(uint8_t cmd)
 {
   m_gpioCD.write(0);            // command mode
   m_spi.writeByte(cmd);
-  return MRAA_SUCCESS;
+  return mraa::SUCCESS;
 }
 
-mraa_result_t EBOLED::data(uint8_t data)
+mraa::Result EBOLED::data(uint8_t data)
 {
   m_gpioCD.write(1);            // data mode
   m_spi.writeByte(data);
-  return MRAA_SUCCESS;
+  return mraa::SUCCESS;
 }

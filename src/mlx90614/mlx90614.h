@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #define DEVICE_ADDR         0x5A // device address
 
@@ -67,7 +67,7 @@ namespace upm {
  *
  * @brief API for the MLX90614 Temperature Sensor
  *
- * This file defines the MLX90614 interface for libmlx90614
+ * This module defines the MLX90614 interface for libmlx90614
  *
  * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting
@@ -82,11 +82,6 @@ class MLX90614 {
          * @param devAddr Address of the used I2C device
          */
         MLX90614 (int bus=0, int devAddr=0x5A);
-
-        /**
-         * MLX90614 object destructor; basically, it closes the I2C connection.
-         */
-        ~MLX90614 ();
 
         /**
          * Reads the object temperature in Fahrenheit
@@ -119,10 +114,10 @@ class MLX90614 {
 
         int m_i2cAddr;
         int m_bus;
-        mraa_i2c_context m_i2Ctx;
+        mraa::I2c m_i2Ctx;
 
         uint16_t i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer);
-        mraa_result_t i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
+        mraa::Result i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer);
         float readTemperature (uint8_t address);
 };
 

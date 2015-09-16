@@ -24,8 +24,14 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
+
 #include <mraa/gpio.hpp>
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "../IsrCallback.h"
+#endif
 
 #define MPU60X0_I2C_BUS 0
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68
@@ -694,11 +700,11 @@ namespace upm {
      * read contiguous refister into a buffer
      *
      * @param reg the register to start reading at
-     * @param buf the buffer to store the results
+     * @param buffer the buffer to store the results
      * @param len the number of registers to read
      * @return the value of the register
      */
-    void readRegs(uint8_t reg, uint8_t *buf, int len);
+    void readRegs(uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * write to a register
@@ -797,12 +803,29 @@ namespace upm {
      */
     void getGyroscope(float *x, float *y, float *z);
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    /**
+     * get the accelerometer values
+     *
+     * @return Array containing X, Y, Z accelerometer values
+     */
+    float *getAccelerometer();
+
+    /**
+     * get the gyroscope values
+     *
+     * @return Array containing X, Y, Z gyroscope values
+     */
+    float *getGyroscope();
+#endif
+
+
     /**
      * get the temperature value
      *
      * @return the temperature value in degrees Celcius
      */
-    float getTemperature();
+    virtual float getTemperature();
 
     /**
      * enable onboard temperature measurement sensor
@@ -897,7 +920,11 @@ namespace upm {
      * @param isr the interrupt handler, accepting a void * argument
      * @param arg the argument to pass the the interrupt handler
      */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(int gpio, mraa::Edge level, IsrCallback *cb);
+#else
     void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
 
     /**
      * uninstall a previously installed interrupt handler
@@ -924,6 +951,10 @@ namespace upm {
     float m_gyroScale;
 
   private:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
+
     mraa::I2c m_i2c;
     uint8_t m_addr;
 

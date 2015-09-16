@@ -1,5 +1,5 @@
 set (libname "servo")
 set (libdescription "upm servo")
-set (module_src servo.cxx es08a.cxx)
-set (module_h servo.h es08a.h)
+set (module_src servo.cxx es08a.cxx es9257.cxx)
+set (module_h servo.h es08a.h es9257.h)
 upm_module_init()

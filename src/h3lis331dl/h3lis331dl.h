@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
 #define H3LIS331DL_I2C_BUS 0
@@ -592,6 +593,30 @@ namespace upm {
      * @param z Returned Z-axis value
      */
     void getXYZ(int *x, int *y, int *z);
+
+#ifdef SWIGJAVA
+    /**
+     * Gets acceleration values for each of the axes
+     *
+     * @return Array containing X, Y, Z acceleration values
+     */
+    float *getAcceleration();
+
+    /**
+     * Gets raw axis values
+     *
+     * @return Array containing X, Y, Z raw values
+     */
+    int *getRawXYZ();
+
+    /**
+     * Gets adjusted axis values
+     *
+     * @return Array containing X, Y, Z adjusted axis values
+     */
+    int *getXYZ();
+#endif
+
 
     /**
      * Provides public access to the MRAA I2C context of the class for

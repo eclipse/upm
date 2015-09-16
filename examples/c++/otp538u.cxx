@@ -49,7 +49,7 @@ int main()
 
   // Instantiate a OTP538U on analog pins A0 and A1
   // A0 is used for the Ambient Temperature and A1 is used for the
-  // Object tempewrature.
+  // Object temperature.
   upm::OTP538U *temps = new upm::OTP538U(0, 1, OTP538U_AREF);
   
   // Output ambient and object temperatures

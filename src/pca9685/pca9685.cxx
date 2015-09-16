@@ -33,12 +33,21 @@ using namespace upm;
 using namespace std;
 
 
-PCA9685::PCA9685(int bus, uint8_t address)
+PCA9685::PCA9685(int bus, uint8_t address, bool raw)
 {
   m_addr = address;
 
   // setup our i2c link
-  if ( !(m_i2c = mraa_i2c_init(bus)) )
+  if ( raw )
+    {
+      m_i2c = mraa_i2c_init_raw(bus);
+    }
+  else
+    {
+      m_i2c = mraa_i2c_init(bus);
+    }
+
+  if ( !m_i2c)
     {
       cerr << "PCA9685: mraa_i2c_init() failed." << endl;
       return;
@@ -173,9 +182,9 @@ bool PCA9685::ledFullOn(uint8_t led, bool val)
   uint8_t bits = readByte(regoff);
 
   if (val)
-    bits |= ((1 << 4) & 0xff);
+    bits |= 0x10;
   else
-    bits &= ~((1 << 4) & 0xff);
+    bits &= ~0x10;
 
   return writeByte(regoff, bits);
 }
@@ -200,9 +209,9 @@ bool PCA9685::ledFullOff(uint8_t led, bool val)
   uint8_t bits = readByte(regoff);
 
   if (val)
-    bits |= ((1 << 4) & 0xff);
+    bits |= 0x10;
   else
-    bits &= ~((1 << 4) & 0xff);
+    bits &= ~0x10;
 
   return writeByte(regoff, bits);
 }
@@ -231,7 +240,7 @@ bool PCA9685::ledOnTime(uint8_t led, uint16_t time)
     regoff = REG_LED0_ON_L + (led * 4);
 
   // we need to preserve the full ON bit in *_ON_H
-  uint8_t onbit = (readByte(regoff + 1) & 0x40);
+  uint8_t onbit = (readByte(regoff + 1) & 0x10);
 
   time = (time & 0x0fff) | (onbit << 8);
 
@@ -262,7 +271,7 @@ bool PCA9685::ledOffTime(uint8_t led, uint16_t time)
     regoff = REG_LED0_ON_L + (led * 4) + 2;
 
   // we need to preserve the full OFF bit in *_OFF_H
-  uint8_t offbit = (readByte(regoff + 1) & 0x40);
+  uint8_t offbit = (readByte(regoff + 1) & 0x10);
 
   time = (time & 0x0fff) | (offbit << 8);
 

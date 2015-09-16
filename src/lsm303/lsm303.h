@@ -27,7 +27,7 @@
 #pragma once
 
 #include <string.h>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include <math.h>
 
 namespace upm {
@@ -78,7 +78,7 @@ namespace upm {
  *
  * @brief API for the LSM303 Accelerometer & Compass
  *
- * This file defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
+ * This module defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
  * This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass
  * module used over I2C. The magnometer and acceleromter are accessed
  * at two seperate I2C addresses.
@@ -102,8 +102,10 @@ class LSM303 {
 
         /**
          * LSM303 object destructor
-         */
-        ~LSM303 ();
+         * where is no more need for this here - I2c connection will be stopped
+         * automatically when m_i2c variable will go out of scope
+         * ~LSM303 ();
+         **/
 
         /**
          * Gets the current heading; headings <0 indicate an error has occurred
@@ -115,13 +117,13 @@ class LSM303 {
         /**
          * Gets the coordinates in the XYZ order
          */
-        mraa_result_t getCoordinates();
+        mraa::Result getCoordinates();
 
         /**
          * Gets accelerometer values
          * Should be called before other "get" functions for acceleration
          */
-        mraa_result_t getAcceleration();
+        mraa::Result getAcceleration();
 
         /**
          * Gets raw coordinate data; it is updated when getCoordinates() is called
@@ -165,9 +167,9 @@ class LSM303 {
 
     private:
         int readThenWrite(uint8_t reg);
-        mraa_result_t setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data);
+        mraa::Result setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data);
 
-        mraa_i2c_context m_i2c;
+        mraa::I2c m_i2c;
         int m_addrMag;
     int m_addrAcc;
         uint8_t buf[6];

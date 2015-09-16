@@ -27,6 +27,10 @@
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "../IsrCallback.h"
+#endif
+
 #define MMA7660_I2C_BUS 0
 #define MMA7660_DEFAULT_I2C_ADDR 0x4c
 
@@ -165,6 +169,15 @@ namespace upm {
      */
     void getRawValues(int *x, int *y, int *z);
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    /**
+     * Reads the current value of conversion
+     *
+     * @return Array containing x, y, z. Free using delete.
+     */
+    int *getRawValues();
+#endif
+
     /**
      * Gets the computed acceleration
      *
@@ -173,6 +186,15 @@ namespace upm {
      * @param az Returned computed acceleration of the Z-axis
      */
     void getAcceleration(float *ax, float *ay, float *az);
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    /**
+     * Gets the computed acceleration
+     *
+     * @return Array containing x, y, z. Free using delete.
+     */
+    float *getAcceleration();
+#endif
 
     /**
      * Reads an axis, verifying its validity. The value passed must
@@ -248,8 +270,11 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(int pin, IsrCallback *cb);
+#else
     void installISR(int pin, void (*isr)(void *), void *arg);
-
+#endif
     /**
      * Uninstalls the previously installed ISR
      *
@@ -276,6 +301,10 @@ namespace upm {
     bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
 
   private:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    void installISR(int pin, void (*isr)(void *), void *arg);
+#endif
+
     bool m_isrInstalled;
     mraa_i2c_context m_i2c;
     mraa_gpio_context m_gpio;

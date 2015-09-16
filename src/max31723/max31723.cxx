@@ -25,56 +25,28 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "max31723.h"
 
 using namespace upm;
 
-struct MAX31723Exception : public std::exception {
-    std::string message;
-    MAX31723Exception (std::string msg) : message (msg) { }
-    ~MAX31723Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
-MAX31723::MAX31723 (int csn) {
-    mraa_result_t error = MRAA_SUCCESS;
+MAX31723::MAX31723 (int csn) : m_csnPinCtx(csn), m_spi(0) {
+    mraa::Result error = mraa::SUCCESS;
     m_name = "MAX31723";
 
-    m_csnPinCtx = mraa_gpio_init (csn);
-    if (m_csnPinCtx == NULL) {
-        throw MAX31723Exception ("GPIO failed to initilize");
-    }
-
-    error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        throw MAX31723Exception ("GPIO failed to initilize");
+    error = m_csnPinCtx.dir (mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": m_csnPinCtx.dir() failed");
     }
 
     CSOff ();
 
-    m_spi = mraa_spi_init (0);
-    if (m_spi == NULL) {
-        throw MAX31723Exception ("SPI failed to initilize");
-    }
-
     // set spi mode to mode2 (CPOL = 1, CPHA = 0)
-    mraa_spi_mode (m_spi, MRAA_SPI_MODE2);
+    m_spi.mode (mraa::SPI_MODE2);
     // set ontinuously perform temperature conversions
     writeRegister (R_STS_WRITE_CMD, B_CONT_READING);
-}
-
-MAX31723::~MAX31723() {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    error = mraa_spi_stop(m_spi);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_csnPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
 }
 
 short
@@ -110,7 +82,7 @@ MAX31723::readRegister (uint8_t reg) {
 
     CSOn ();
     data[0] = reg;
-    sensorData = mraa_spi_write_buf(m_spi, data, 2);
+    sensorData = m_spi.write(data, 2);
     CSOff ();
 
     return sensorData[1];
@@ -124,16 +96,16 @@ MAX31723::writeRegister (uint8_t reg, uint8_t data) {
     CSOn ();
     buffer[0] = reg;
     buffer[1] = data;
-    sensorData = mraa_spi_write_buf(m_spi, buffer, 2);
+    sensorData = m_spi.write(buffer, 2);
     CSOff ();
 }
 
-mraa_result_t
+mraa::Result
 MAX31723::CSOn () {
-    return mraa_gpio_write (m_csnPinCtx, HIGH);
+    return m_csnPinCtx.write (HIGH);
 }
 
-mraa_result_t
+mraa::Result
 MAX31723::CSOff () {
-    return mraa_gpio_write (m_csnPinCtx, LOW);
+    return m_csnPinCtx.write (LOW);
 }

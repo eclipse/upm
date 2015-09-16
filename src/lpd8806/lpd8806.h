@@ -24,9 +24,11 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/spi.h>
+#include <mraa/aio.hpp>
+
+#include <mraa/gpio.hpp>
+
+#include <mraa/spi.hpp>
 
 #define HIGH                    1
 #define LOW                     0
@@ -66,7 +68,8 @@ class LPD8806 {
         LPD8806 (uint16_t pixelCount, uint8_t csn);
 
         /**
-         * LPD8806 object destructor; basically, it closes the SPI and the GPIO.
+         * LPD8806 object destructor; basically, it frees the allocated
+         * pixel buffer.
          */
         ~LPD8806 ();
 
@@ -97,8 +100,8 @@ class LPD8806 {
         }
     private:
         std::string m_name;
-        mraa_spi_context        m_spi;
-        mraa_gpio_context       m_csnPinCtx;
+        mraa::Spi        m_spi;
+        mraa::Gpio       m_csnPinCtx;
 
         uint8_t*                m_pixels;
         uint8_t                 m_pixelsCount;
@@ -109,12 +112,12 @@ class LPD8806 {
         /**
          * Sets the chip select pin to LOW
          */
-        mraa_result_t CSOn ();
+        mraa::Result CSOn ();
 
         /**
          * Sets the chip select pin to HIGH
          */
-        mraa_result_t CSOff ();
+        mraa::Result CSOff ();
 };
 
 }

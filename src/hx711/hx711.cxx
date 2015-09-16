@@ -24,39 +24,37 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdexcept>
 #include "hx711.h"
 
 using namespace upm;
 using namespace std;
-
-struct HX711Exception : public std::exception {
-    std::string message;
-    HX711Exception (std::string msg) : message (msg) { }
-    ~HX711Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
 
 HX711::HX711(uint8_t data, uint8_t sck, uint8_t gain) {
     mraa_result_t error = MRAA_SUCCESS;
 
     this->m_dataPinCtx = mraa_gpio_init(data);
     if (this->m_dataPinCtx == NULL) {
-        throw HX711Exception ("Couldn't initilize DATA pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": Couldn't initialize DATA pin.");
     }
 
     this->m_sckPinCtx = mraa_gpio_init(sck);
     if (this->m_sckPinCtx == NULL) {
-        throw HX711Exception ("Couldn't initilize CLOCK pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": Couldn't initialize CLOCK pin.");
     }
 
     error = mraa_gpio_dir (this->m_dataPinCtx, MRAA_GPIO_IN);
     if (error != MRAA_SUCCESS) {
-        throw HX711Exception ("Couldn't set direction for DATA pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": Couldn't set direction for DATA pin.");
     }
 
     error = mraa_gpio_dir (this->m_sckPinCtx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        throw HX711Exception ("Couldn't set direction for CLOCK pin.");
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": Couldn't set direction for CLOCK pin.");
     }
 
     this->setGain(gain);

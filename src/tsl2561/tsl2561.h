@@ -29,7 +29,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include <math.h>
 
 namespace upm {
@@ -145,23 +145,23 @@ class TSL2561{
         *
         * @param reg Addess to write
         * @param Value to write
-        * @return mraa_result_t
+        * @return mraa::Result
         */
-        mraa_result_t i2cWriteReg(uint8_t reg, uint8_t value);
+        mraa::Result i2cWriteReg(uint8_t reg, uint8_t value);
 
        /**
         * Reads from a TSL2561 register
         *
         * @param reg Addess to read
         * @param data Byte read from the register
-        * @return mraa_result_t
+        * @return mraa::Result
         */
-        mraa_result_t i2cReadReg(uint8_t reg, uint8_t &data);
+        mraa::Result i2cReadReg(uint8_t reg, uint8_t &data);
 
         int m_bus;
         std::string m_name;
         int m_controlAddr;
-        mraa_i2c_context m_i2ControlCtx;
+        mraa::I2c m_i2ControlCtx;
 
         uint8_t m_gain;
         uint8_t m_integrationTime;

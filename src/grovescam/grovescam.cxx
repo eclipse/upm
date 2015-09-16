@@ -105,7 +105,7 @@ bool GROVESCAM::dataAvailable(unsigned int millis)
     return false;
 }
 
-int GROVESCAM::readData(uint8_t *buffer, size_t len)
+int GROVESCAM::readData(uint8_t *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -118,7 +118,7 @@ int GROVESCAM::readData(uint8_t *buffer, size_t len)
   return rv;
 }
 
-int GROVESCAM::writeData(uint8_t *buffer, size_t len)
+int GROVESCAM::writeData(uint8_t *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -369,7 +369,7 @@ bool GROVESCAM::doCapture()
   return true;
 }
 
-bool GROVESCAM::storeImage(char *fname)
+bool GROVESCAM::storeImage(const char *fname)
 {
   if (!fname)
     {

@@ -87,7 +87,7 @@ bool Ublox6::dataAvailable()
     return false;
 }
 
-int Ublox6::readData(char *buffer, size_t len)
+int Ublox6::readData(char *buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);
@@ -100,7 +100,7 @@ int Ublox6::readData(char *buffer, size_t len)
   return rv;
 }
 
-int Ublox6::writeData(char * buffer, size_t len)
+int Ublox6::writeData(char * buffer, int len)
 {
   if (m_ttyFd == -1)
     return(-1);

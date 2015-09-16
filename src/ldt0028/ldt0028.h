@@ -46,7 +46,7 @@ namespace upm {
  * @brief API for LDT0-028 PZT film-based sensors,
  * such as a Grove Piezo Vibration sensor
  *
- * This file defines the LDT0-028 interface for libupm-ldt0028
+ * This module defines the LDT0-028 interface for libupm-ldt0028
  *
  * @image html ldt0028.jpg
  * @snippet ldt0028.cxx Interesting

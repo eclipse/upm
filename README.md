@@ -1,4 +1,4 @@
-UPM - Sensor/Actuator repository for libmraa
+UPM (Useful Packages & Modules) Sensor/Actuator repository for libmraa
 ==============
 
 UPM is a high level repository for sensors that use libmraa. Each sensor links

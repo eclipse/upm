@@ -35,8 +35,8 @@ SSD1308::SSD1308(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
     m_lcd_control_address = addr_in;
     m_name = "SSD1308";
 
-    mraa_result_t error = m_i2c_lcd_control.address(m_lcd_control_address);
-    if (error != MRAA_SUCCESS) {
+    mraa::Result error = m_i2c_lcd_control.address(m_lcd_control_address);
+    if (error != mraa::SUCCESS) {
         fprintf(stderr, "Failed to initialize i2c bus\n");
         return;
     }
@@ -55,10 +55,10 @@ SSD1308::~SSD1308()
 {
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::draw(uint8_t* data, int bytes)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     setAddressingMode(HORIZONTAL);
     for (int idx = 0; idx < bytes; idx++) {
@@ -73,10 +73,10 @@ SSD1308::draw(uint8_t* data, int bytes)
  *  virtual area
  * **************
  */
-mraa_result_t
+mraa::Result
 SSD1308::write(std::string msg)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     uint8_t data[2] = { 0x40, 0 };
 
     setAddressingMode(PAGE);
@@ -87,10 +87,10 @@ SSD1308::write(std::string msg)
     return error;
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::setCursor(int row, int column)
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     error = m_i2c_lcd_control.writeReg(LCD_CMD, BASE_PAGE_START_ADDR + row); // set page address
     error = m_i2c_lcd_control.writeReg(LCD_CMD,
@@ -103,10 +103,10 @@ SSD1308::setCursor(int row, int column)
     return error;
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::clear()
 {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off
@@ -121,10 +121,10 @@ SSD1308::clear()
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_ON); // display on
     home();
 
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::home()
 {
     return setCursor(0, 0);
@@ -135,10 +135,10 @@ SSD1308::home()
  *  private area
  * **************
  */
-mraa_result_t
+mraa::Result
 SSD1308::writeChar(uint8_t value)
 {
-    mraa_result_t rv;
+    mraa::Result rv;
     if (value < 0x20 || value > 0x7F) {
         value = 0x20; // space
     }
@@ -150,7 +150,7 @@ SSD1308::writeChar(uint8_t value)
     return rv;
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::setNormalDisplay()
 {
     return m_i2c_lcd_control.writeReg(LCD_CMD,
@@ -158,10 +158,10 @@ SSD1308::setNormalDisplay()
                                                                     // ON
 }
 
-mraa_result_t
+mraa::Result
 SSD1308::setAddressingMode(displayAddressingMode mode)
 {
-    mraa_result_t rv;
+    mraa::Result rv;
     rv =m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_MEM_ADDR_MODE); // set addressing mode
     rv =m_i2c_lcd_control.writeReg(LCD_CMD, mode);                      // set page addressing mode
     return rv;

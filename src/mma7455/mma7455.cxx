@@ -33,7 +33,7 @@
 
 using namespace upm;
 
-MMA7455::MMA7455 (int bus, int devAddr) {
+MMA7455::MMA7455 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     unsigned char data   = 0;
     int           nBytes = 0;
 
@@ -42,35 +42,29 @@ MMA7455::MMA7455 (int bus, int devAddr) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
-
-    mraa_result_t error = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (error != MRAA_SUCCESS) {
+    mraa::Result error = m_i2ControlCtx.address(m_controlAddr);
+    if (error != mraa::SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
         return;
     }
 
     // setting GLVL 0x1 (64LSB/g) and MODE 0x1 (Measurement Mode)
     data = (BIT (MMA7455_GLVL0) | BIT (MMA7455_MODE0));
-    error = ic2WriteReg (MMA7455_MCTL, &data, 0x1);
-    if (error != MRAA_SUCCESS) {
+    error = i2cWriteReg (MMA7455_MCTL, &data, 0x1);
+    if (error != mraa::SUCCESS) {
         std::cout << "ERROR :: MMA7455 instance wan not created (Mode)" << std::endl;
         return;
     }
 
-    if (MRAA_SUCCESS != calibrate ()) {
+    if (mraa::SUCCESS != calibrate ()) {
         std::cout << "ERROR :: MMA7455 instance wan not created (Calibrate)" << std::endl;
         return;
     }
 }
 
-MMA7455::~MMA7455() {
-    mraa_i2c_stop(m_i2ControlCtx);
-}
-
-mraa_result_t
+mraa::Result
 MMA7455::calibrate () {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
     int i = 0;
 
     accelData xyz;
@@ -78,7 +72,7 @@ MMA7455::calibrate () {
 
     do {
         error = readData (&xyz.value.x, &xyz.value.y, &xyz.value.z);
-        if (MRAA_SUCCESS != error) {
+        if (mraa::SUCCESS != error) {
             return error;
         }
 
@@ -86,8 +80,8 @@ MMA7455::calibrate () {
         xyz.value.y += 2 * -xyz.value.y;
         xyz.value.z += 2 * -(xyz.value.z - 64);
 
-        error = ic2WriteReg (MMA7455_XOFFL,  (unsigned char *) &xyz, 0x6);
-        if (error != MRAA_SUCCESS) {
+        error = i2cWriteReg (MMA7455_XOFFL,  (unsigned char *) &xyz, 0x6);
+        if (error != mraa::SUCCESS) {
             return error;
         }
 
@@ -96,25 +90,25 @@ MMA7455::calibrate () {
     return error;
 }
 
-mraa_result_t
+mraa::Result
 MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     accelData xyz;
     unsigned char data = 0;
     int nBytes = 0;
 
     /*do {
-        nBytes = ic2ReadReg (MMA7455_STATUS, &data, 0x1);
-    } while ( !(data & MMA7455_DRDY) && nBytes == MRAA_SUCCESS);
+        nBytes = i2cReadReg (MMA7455_STATUS, &data, 0x1);
+    } while ( !(data & MMA7455_DRDY) && nBytes == mraa::SUCCESS);
 
-    if (nBytes == MRAA_SUCCESS) {
+    if (nBytes == mraa::SUCCESS) {
         std::cout << "NO_GDB :: 1" << std::endl;
-        return MRAA_SUCCESS;
+        return mraa::SUCCESS;
     }*/
 
-    nBytes = ic2ReadReg (MMA7455_XOUTL, (unsigned char *) &xyz, 0x6);
+    nBytes = i2cReadReg (MMA7455_XOUTL, (unsigned char *) &xyz, 0x6);
     if (nBytes == 0) {
         std::cout << "NO_GDB :: 2" << std::endl;
-        return MRAA_ERROR_UNSPECIFIED;
+        return mraa::ERROR_UNSPECIFIED;
     }
 
     if (xyz.reg.x_msb & 0x02) {
@@ -134,40 +128,48 @@ MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     *ptrY = xyz.value.y;
     *ptrZ = xyz.value.z;
 
-    return MRAA_SUCCESS;
+    return mraa::SUCCESS;
 }
+
+#ifdef SWIGJAVA
+short *MMA7455::readData() {
+    short *v = new short[3];
+    readData(&v[0], &v[1], &v[2]);
+    return v;
+}
+#endif
 
 int
-MMA7455::ic2ReadReg (unsigned char reg, unsigned char * buf, unsigned char size) {
-    if (MRAA_SUCCESS != mraa_i2c_address(m_i2ControlCtx, m_controlAddr)) {
+MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {
+    if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
         return 0;
     }
 
-    if (MRAA_SUCCESS != mraa_i2c_write_byte(m_i2ControlCtx, reg)) {
+    if (mraa::SUCCESS != m_i2ControlCtx.writeByte(reg)) {
         return 0;
     }
 
-    if (MRAA_SUCCESS != mraa_i2c_address(m_i2ControlCtx, m_controlAddr)) {
+    if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
         return 0;
     }
 
-    return (int) mraa_i2c_read(m_i2ControlCtx, buf, size);
+    return (int) m_i2ControlCtx.read(buffer, len);
 }
 
-mraa_result_t
-MMA7455::ic2WriteReg (unsigned char reg, unsigned char * buf, unsigned char size) {
-    mraa_result_t error = MRAA_SUCCESS;
+mraa::Result
+MMA7455::i2cWriteReg (unsigned char reg, uint8_t *buffer, int len) {
+    mraa::Result error = mraa::SUCCESS;
 
-    uint8_t data[size + 1];
+    uint8_t data[len + 1];
     data[0] = reg;
-    memcpy(&data[1], buf, size);
+    memcpy(&data[1], buffer, len);
 
-    error = mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    if (error != MRAA_SUCCESS) {
+    error = m_i2ControlCtx.address (m_controlAddr);
+    if (error != mraa::SUCCESS) {
         return error;
     }
-    error = mraa_i2c_write (m_i2ControlCtx, data, size + 1);
-    if (error != MRAA_SUCCESS) {
+    error = m_i2ControlCtx.write (data, len + 1);
+    if (error != mraa::SUCCESS) {
         return error;
     }
 

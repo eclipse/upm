@@ -28,26 +28,21 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "th02.h"
 
 using namespace std;
 using namespace upm;
 
-struct TH02Exception : public std::exception {
-    std::string message;
-    TH02Exception (std::string msg) : message (msg) { }
-    ~TH02Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
 TH02::TH02 (int bus, uint8_t addr) : m_i2c(bus) {
     m_addr = addr;
     m_name = "TH02";
 
-    mraa_result_t ret = m_i2c.address(m_addr);
-    if (ret != MRAA_SUCCESS) {
-        throw TH02Exception ("Couldn't initilize I2C.");
+    mraa::Result ret = m_i2c.address(m_addr);
+    if (ret != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_i2c_address() failed");
     }
 }
 

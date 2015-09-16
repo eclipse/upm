@@ -1,7 +1,17 @@
 %include "std_string.i"
 %include "stdint.i"
+%include "upm_exception.i"
 
-%typemap(out) mraa_result_t = int;
+
+#if (SWIGJAVA)
+        /* %include "arrays_java.i"; */
+        /* %apply unsigned char[] {uint8_t *mama}; */
+        %apply int { speed_t };
+        %apply int { mraa_result_t };
+        %apply int { mraa::Result };
+#else
+        %typemap(out) mraa_result_t = int;
+#endif
 
 #if (SWIG_JAVASCRIPT_V8)
 %{
@@ -20,4 +30,7 @@
 	}
 %}
 void cleanUp();
+#endif
+
+#if (SWIGJAVA)
 #endif

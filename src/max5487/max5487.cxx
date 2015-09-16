@@ -25,56 +25,27 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "max5487.h"
 
 using namespace upm;
 
-struct MAX5487Exception : public std::exception {
-    std::string message;
-    MAX5487Exception (std::string msg) : message (msg) { }
-    ~MAX5487Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
-MAX5487::MAX5487 (int csn) {
-    mraa_result_t error = MRAA_SUCCESS;
+MAX5487::MAX5487 (int csn) : m_csnPinCtx(csn), m_spi(0) {
+    mraa::Result error = mraa::SUCCESS;
     m_name = "MAX5487";
 
-    m_csnPinCtx = NULL;
-    if (csn != -1) {
-        m_csnPinCtx = mraa_gpio_init (csn);
-        if (m_csnPinCtx == NULL) {
-            throw MAX5487Exception ("GPIO failed to initilize");
-        }
-
-        error = mraa_gpio_dir (m_csnPinCtx, MRAA_GPIO_OUT);
-        if (error != MRAA_SUCCESS) {
-            throw MAX5487Exception ("GPIO failed to initilize");
-        }
+    if (csn == -1) {
+        throw std::invalid_argument(std::string(__FUNCTION__));
     }
 
-    m_spi = mraa_spi_init (0);
-    if (m_spi == NULL) {
-        throw MAX5487Exception ("SPI failed to initilize");
+    error = m_csnPinCtx.dir (mraa::DIR_OUT);
+    if (error != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": mraa_gpio_dir() failed");
     }
 
     CSOff ();
-}
-
-MAX5487::~MAX5487() {
-    mraa_result_t error = MRAA_SUCCESS;
-
-    error = mraa_spi_stop(m_spi);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    if (m_csnPinCtx != NULL) {
-        error = mraa_gpio_close (m_csnPinCtx);
-        if (error != MRAA_SUCCESS) {
-            mraa_result_print(error);
-        }
-    }
 }
 
 void
@@ -86,7 +57,7 @@ MAX5487::setWiperA (uint8_t wiper) {
     data[0] = R_WR_WIPER_A;
     data[1] = wiper;
 
-    uint8_t* retData = mraa_spi_write_buf(m_spi, data, 2);
+    uint8_t* retData = m_spi.write(data, 2);
 
     CSOff ();
 }
@@ -100,7 +71,7 @@ MAX5487::setWiperB (uint8_t wiper) {
     data[0] = R_WR_WIPER_B;
     data[1] = wiper;
 
-    uint8_t* retData = mraa_spi_write_buf(m_spi, data, 2);
+    uint8_t* retData = m_spi.write(data, 2);
 
     CSOff ();
 }
@@ -111,16 +82,12 @@ MAX5487::setWiperB (uint8_t wiper) {
  * **************
  */
 
-mraa_result_t
+mraa::Result
 MAX5487::CSOn () {
-    if (m_csnPinCtx != NULL)
-        return mraa_gpio_write (m_csnPinCtx, LOW);
-    return MRAA_SUCCESS;
+    return m_csnPinCtx.write(LOW);
 }
 
-mraa_result_t
+mraa::Result
 MAX5487::CSOff () {
-    if (m_csnPinCtx != NULL)
-        return mraa_gpio_write (m_csnPinCtx, HIGH);
-    return MRAA_SUCCESS;
+    return m_csnPinCtx.write(HIGH);
 }

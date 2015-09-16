@@ -41,7 +41,7 @@ namespace upm {
  *
  * @brief API for the ES08A Servo
  * 
- * This file defines the ES08A interface for ES08A servos.
+ * This module defines the ES08A interface for ES08A servos.
  * Like other servos, the ES08A servo has a shaft that can be controlled
  * by setting the desired angle. There are also routines for setting
  * and getting the minimum and maximum pulse width as well as the

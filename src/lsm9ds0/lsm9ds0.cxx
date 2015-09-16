@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include <exception>
+#include <stdexcept>
 #include <string.h>
 
 #include "lsm9ds0.h"
@@ -58,21 +58,16 @@ LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
   m_gyroScale = 0.0;
   m_magScale = 0.0;
 
-  mraa_result_t rv;
-  if ( (rv = m_i2cG.address(m_gAddr)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ( (rv = m_i2cG.address(m_gAddr)) != mraa::SUCCESS)
     {
-      cerr << __FUNCTION__ << ": Could not initialize Gyro i2c address." 
-           << endl;
-      mraa_result_print(rv);
       throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize Gyro i2c address");
       return;
     }
 
-  if ( (rv = m_i2cXM.address(m_xmAddr)) != MRAA_SUCCESS)
+  if ( (rv = m_i2cXM.address(m_xmAddr)) != mraa::SUCCESS)
     {
-      cerr << __FUNCTION__ << ": Could not initialize XM i2c address. " << endl;
-      mraa_result_print(rv);
       throw std::runtime_error(string(__FUNCTION__) + 
                                ": Could not initialize XM i2c address");
       return;
@@ -292,7 +287,7 @@ uint8_t LSM9DS0::readReg(DEVICE_T dev, uint8_t reg)
   return device->readReg(reg);
 }
 
-void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
+void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len)
 {
   mraa::I2c *device;
 
@@ -307,7 +302,7 @@ void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buf, int len)
 
   // We need to set the high bit of the register to enable
   // auto-increment mode for reading multiple registers in one go.
-  device->readBytesReg(reg | m_autoIncrementMode, buf, len);
+  device->readBytesReg(reg | m_autoIncrementMode, buffer, len);
 }
 
 bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
@@ -323,11 +318,11 @@ bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
       return false;
     }
 
-  mraa_result_t rv;
-  if ((rv = device->writeReg(reg, val)) != MRAA_SUCCESS)
+  mraa::Result rv;
+  if ((rv = device->writeReg(reg, val)) != mraa::SUCCESS)
     {
       cerr << __FUNCTION__ << ": failed:" << endl;
-      mraa_result_print(rv);
+      printError(rv);
       return false;
     } 
   
@@ -607,6 +602,29 @@ void LSM9DS0::getMagnetometer(float *x, float *y, float *z)
     *z = (m_magZ * m_magScale) / 1000.0;
 }
 
+#ifdef JAVACALLBACK
+float *LSM9DS0::getAccelerometer()
+{
+  float *v = new float[3];
+  getAccelerometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+float *LSM9DS0::getGyroscope()
+{
+  float *v = new float[3];
+  getGyroscope(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+float *LSM9DS0::getMagnetometer()
+{
+  float *v = new float[3];
+  getMagnetometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+#endif
+
 float LSM9DS0::getTemperature()
 {
   // This might be wrong... The datasheet does not provide enough info
@@ -704,6 +722,14 @@ uint8_t LSM9DS0::getInterruptGen2Src()
   return readReg(DEV_XM, REG_INT_GEN_2_SRC);
 }
 
+#ifdef SWIGJAVA
+void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+			 IsrCallback *cb)
+{
+        installISR(intr, gpio, level, generic_callback_isr, cb);
+}
+#endif
+
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {
@@ -745,7 +771,7 @@ mraa::Gpio*& LSM9DS0::getPin(INTERRUPT_PINS_T intr)
       return m_gpioXM_GEN2;
       break;
     default:
-      throw std::logic_error(string(__FUNCTION__) +
-                             ": Invalid interrupt enum passed");
+      throw std::out_of_range(string(__FUNCTION__) +
+                              ": Invalid interrupt enum passed");
     }
 }

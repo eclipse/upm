@@ -30,17 +30,16 @@
 
 using namespace upm;
 
-BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
+BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus) {
     m_name = "BMPX8X";
 
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (ret != MRAA_SUCCESS) {
+    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
+    if (ret != mraa::SUCCESS) {
         fprintf(stderr, "Messed up i2c bus\n");
+        exit(-1);
     }
 
     if (i2cReadReg_8 (0xD0) != 0x55)  {
@@ -67,10 +66,6 @@ BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) {
     mb = i2cReadReg_16 (BMP085_CAL_MB);
     mc = i2cReadReg_16 (BMP085_CAL_MC);
     md = i2cReadReg_16 (BMP085_CAL_MD);
-}
-
-BMPX8X::~BMPX8X() {
-    mraa_i2c_stop(m_i2ControlCtx);
 }
 
 int32_t
@@ -180,13 +175,13 @@ BMPX8X::computeB5(int32_t UT) {
     return X1 + X2;
 }
 
-mraa_result_t
+mraa::Result
 BMPX8X::i2cWriteReg (uint8_t reg, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
+    error = m_i2ControlCtx.address (m_controlAddr);
+    error = m_i2ControlCtx.write (data, 2);
 
     return error;
 }
@@ -195,11 +190,11 @@ uint16_t
 BMPX8X::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte(m_i2ControlCtx, reg);
+    m_i2ControlCtx.address(m_controlAddr);
+    m_i2ControlCtx.writeByte(reg);
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_read(m_i2ControlCtx, (uint8_t *)&data, 0x2);
+    m_i2ControlCtx.address(m_controlAddr);
+    m_i2ControlCtx.read((uint8_t *)&data, 0x2);
 
     uint8_t high = (data & 0xFF00) >> 8;
     data = (data << 8) & 0xFF00;
@@ -212,11 +207,11 @@ uint8_t
 BMPX8X::i2cReadReg_8 (int reg) {
     uint8_t data;
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write_byte(m_i2ControlCtx, reg);
+    m_i2ControlCtx.address(m_controlAddr);
+    m_i2ControlCtx.writeByte(reg);
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_read(m_i2ControlCtx, &data, 0x1);
+    m_i2ControlCtx.address(m_controlAddr);
+    m_i2ControlCtx.read(&data, 0x1);
 
     return data;
 }

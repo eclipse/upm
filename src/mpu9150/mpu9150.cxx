@@ -100,3 +100,12 @@ void MPU9150::getMagnetometer(float *x, float *y, float *z)
   if (z)
     *z = mz;
 }
+
+#ifdef SWIGJAVA
+float *MPU9150::getMagnetometer()
+{
+    float *v = new float[3];
+    getMagnetometer(&v[0], &v[1], &v[2]);
+    return v;
+}
+#endif

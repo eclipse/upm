@@ -25,9 +25,12 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/spi.h>
+#include <mraa/aio.hpp>
+#include <mraa/common.hpp>
+
+#include <mraa/gpio.hpp>
+
+#include <mraa/spi.hpp>
 #include <cstring>
 
 /* Memory Map */
@@ -164,9 +167,10 @@ typedef enum {
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html
  * @con spi
  *
+ * id
  * @brief API for the NRF24L01 Transceiver Module
  *
- * This file defines the NRF24L01 interface for libnrf24l01
+ * This module defines the NRF24L01 interface for libnrf24l01
  *
  * @image html nrf24l01.jpg
  * @snippet nrf24l01-receiver.cxx Interesting
@@ -181,11 +185,6 @@ class NRF24L01 {
          * @param cs Chip select pin
          */
         NRF24L01 (uint8_t cs, uint8_t ce);
-
-        /**
-         * NRF24l01 object destructor
-         */
-        ~NRF24L01 ();
 
         /**
          * Returns the name of the component
@@ -317,22 +316,22 @@ class NRF24L01 {
         /**
          * Sets the chip enable pin to HIGH
          */
-        mraa_result_t ceHigh ();
+        mraa::Result ceHigh ();
 
         /**
          * Sets the chip enable pin to LOW
          */
-        mraa_result_t ceLow ();
+        mraa::Result ceLow ();
 
         /**
          * Sets the chip select pin to LOW
          */
-        mraa_result_t csOn ();
+        mraa::Result csOn ();
 
         /**
          * Sets the chip select pin to HIGH
          */
-        mraa_result_t csOff ();
+        mraa::Result csOff ();
 
         /**
          * Configures the NRF24L01 transceiver to behave as a BLE
@@ -386,7 +385,7 @@ class NRF24L01 {
 
         uint8_t swapbits (uint8_t a);
 
-        mraa_spi_context        m_spi;
+        mraa::Spi        m_spi;
         uint8_t                 m_ce;
         uint8_t                 m_csn;
         uint8_t                 m_channel;
@@ -395,8 +394,8 @@ class NRF24L01 {
         uint8_t                 m_payload;
         uint8_t                 m_localAddress[5];
 
-        mraa_gpio_context       m_csnPinCtx;
-        mraa_gpio_context       m_cePinCtx;
+        mraa::Gpio       m_csnPinCtx;
+        mraa::Gpio       m_cePinCtx;
 
         std::string             m_name;
 };

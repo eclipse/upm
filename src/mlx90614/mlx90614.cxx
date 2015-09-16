@@ -25,54 +25,43 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "mlx90614.h"
 
 using namespace upm;
 
-struct MLX90614Exception : public std::exception {
-    std::string message;
-    MLX90614Exception (std::string msg) : message (msg) { }
-    ~MLX90614Exception () throw () { }
-    const char* what() const throw () { return message.c_str(); }
-};
-
-MLX90614::MLX90614 (int bus, int devAddr) {
+MLX90614::MLX90614 (int bus, int devAddr) : m_i2Ctx(bus) {
     m_name = "MLX90614";
 
     m_i2cAddr = devAddr;
     m_bus = bus;
 
-    m_i2Ctx = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    if (ret != MRAA_SUCCESS) {
-        throw MLX90614Exception ("Couldn't initilize I2C.");
+    mraa::Result ret = m_i2Ctx.address(m_i2cAddr);
+    if (ret != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) + 
+                                    ": address() failed");
     }
-}
-
-MLX90614::~MLX90614() {
-    mraa_i2c_stop(m_i2Ctx);
 }
 
 float
 MLX90614::readObjectTempF(void) {
-    return (readTemperature (MLX90614_TOBJ1) * 9 / 5) + 32;
+    return (readTemperature(MLX90614_TOBJ1) * 9 / 5) + 32;
 }
 
 float
 MLX90614::readAmbientTempF(void) {
-    return (readTemperature (MLX90614_TA) * 9 / 5) + 32;
+    return (readTemperature(MLX90614_TA) * 9 / 5) + 32;
 }
 
 float
 MLX90614::readObjectTempC(void) {
-    return readTemperature (MLX90614_TOBJ1);
+    return readTemperature(MLX90614_TOBJ1);
 }
 
 float
 MLX90614::readAmbientTempC(void) {
-    return readTemperature (MLX90614_TA);
+    return readTemperature(MLX90614_TA);
 }
 
 /*
@@ -84,27 +73,19 @@ uint16_t
 MLX90614::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    if (m_i2Ctx == NULL) {
-        throw MLX90614Exception ("Couldn't find initilized I2C.");
-    }
+    m_i2Ctx.address(m_i2cAddr);
+    m_i2Ctx.writeByte(reg);
 
-    mraa_i2c_address(m_i2Ctx, m_i2cAddr);
-    mraa_i2c_write_byte(m_i2Ctx, reg);
-
-    readByte = mraa_i2c_read(m_i2Ctx, buffer, len);
+    readByte = m_i2Ctx.read(buffer, len);
     return readByte;
 }
 
-mraa_result_t
+mraa::Result
 MLX90614::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
-    if (m_i2Ctx == NULL) {
-        throw MLX90614Exception ("Couldn't find initilized I2C.");
-    }
-
-    error = mraa_i2c_address (m_i2Ctx, m_i2cAddr);
-    error = mraa_i2c_write (m_i2Ctx, buffer, len);
+    error = m_i2Ctx.address(m_i2cAddr);
+    error = m_i2Ctx.write(buffer, len);
 
     return error;
 }
@@ -117,7 +98,7 @@ MLX90614::readTemperature (uint8_t address) {
     /*  Reading temperature from sensor.
         Answer contained of 3 bytes (TEMP_LSB | TEMP_MSB | PEC)
      */
-    if (i2cReadReg_N (address, 3, buffer) > 2) {
+    if (i2cReadReg_N(address, 3, buffer) > 2) {
         temperature = buffer[0];
         temperature = buffer[1] << 8;
 

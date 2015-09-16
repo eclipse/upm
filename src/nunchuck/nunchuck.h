@@ -95,7 +95,7 @@ namespace upm {
      * @param len Number of bytes to read
      * @return Number of bytes read
      */
-    uint8_t readBytes(uint8_t reg, uint8_t *buffer, unsigned int len);
+    int readBytes(uint8_t reg, uint8_t *buffer, int len);
 
     /**
      * Initializes the controller. Here, we disable encryption after
