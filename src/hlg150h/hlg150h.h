@@ -36,7 +36,7 @@ namespace upm
  */
 
 /**
- * @brief C++ API for HLG-150H lighting power supply 
+ * @brief API for HLG-150H Lighting Power Supply Controller
  *
  * The Mean Well
  * [HLG-150H](http://www.meanwell.com/webapp/product/search.aspx?prod=HLG-150H)

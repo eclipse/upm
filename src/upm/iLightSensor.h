@@ -31,6 +31,9 @@
 
 namespace upm
 {
+/**
+ * @brief Interface for Light Sensors
+ */
 
    class ILightSensor : public IModuleStatus
    {

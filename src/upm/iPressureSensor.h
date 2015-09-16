@@ -31,6 +31,9 @@
 
 namespace upm
 {
+/**
+ * @brief Interface for Pressue Sensors
+ */
 
    class IPressureSensor : public IModuleStatus
    {

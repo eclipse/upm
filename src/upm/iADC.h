@@ -28,8 +28,12 @@
 #include "mraa/common.h"
 #include "iModuleStatus.h"
 
+
 namespace upm
 {
+/**
+ * @brief Interface for ADC Sensors
+ */
 
    class IADC : public IModuleStatus
    {

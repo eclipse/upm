@@ -38,7 +38,7 @@ namespace upm {
  */
 
 /**
- * @brief C++ API for Si1132 chip (Ambient Light Sensor)
+ * @brief API for Si1132 UV and Visible Light Sensor
  *
  * The Silicon Labs
  * [Si1132](https://www.silabs.com/Support%20Documents/TechnicalDocs/Si1132.pdf)

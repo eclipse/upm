@@ -34,7 +34,7 @@ namespace upm
  */
 
 /**
- * @brief C++ API for LP8860 chip (Ambient Light Sensor)
+ * @brief API for LP8860 LED Lighting Controller
  *
  * The Texas Instrumements
  * [LP8860-Q1](http://www.ti.com/product/lp8860-q1)

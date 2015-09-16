@@ -34,7 +34,7 @@ namespace upm
  */
 
 /**
- * @brief C++ API for DS1808 Dual Log Digital Potentiometer as a Light Controller
+ * @brief API for DS1808 Dual Log Digital Potentiometer as a Light Controller
  *
  * The Maxim Integrated
  * [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html)

@@ -128,10 +128,14 @@ typedef enum
 namespace upm {
 
   /**
+   * @brief ADS1015 12 bit Analog to Digital (ADC) converter.
    * @defgroup ads1015 libupm-ads1015
    * @ingroup ti i2c ainput iadc   
    *
-   * @brief C++ API for the ADS1015 I2C ADC
+   */
+
+ /**
+   * @brief API for the ADS1015 I2C ADC
    *
    * Texas Instruments ADS1015 12 bit Analog to Digital (ADC) converter.
    *

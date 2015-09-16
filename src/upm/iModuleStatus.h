@@ -26,6 +26,9 @@
 
 namespace upm
 {
+/**
+ * @brief Interface for Module Status. Sensor and Actuactor Interfaces Derive from this Interface.
+ */
 
 class IModuleStatus 
 {

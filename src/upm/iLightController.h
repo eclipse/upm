@@ -28,6 +28,9 @@
 
 namespace upm
 {
+/**
+ * @brief Interface for Light Controllers
+ */
 
     class ILightController : public IModuleStatus
     {
