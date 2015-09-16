@@ -42,7 +42,6 @@ GroveLed::GroveLed(int pin)
                                     ": mraa_gpio_init() failed, invalid pin?");
         return;
     }
-        
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
     m_name = "LED Socket";
 }
