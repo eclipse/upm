@@ -33,6 +33,7 @@
 
 int main ()
 {
+   //! [Interesting]
    // Simple example of using IModuleStatus (inherited by ILightSensor)
    // to determine if which sensor is present and return its name.
    // ILightSensor is then used to get reading from sensor
@@ -63,5 +64,7 @@ int main ()
       delete lightSensor;
    } else
       std::cout << "Light sensor not detected" << std::endl;                  
+   //! [Interesting]      
+      
    return 0;
 }

@@ -33,16 +33,17 @@ namespace upm
 {
 /**
  * @brief Interface for Light Sensors
+
+ * This interface is used to represent light sensors
+
+ * @snippet light-sensor.cxx Interesting 
  */
 
    class ILightSensor : public IModuleStatus
    {
    public:
        virtual mraa_result_t getValue (float* value) = 0;
-       // virtual mraa_result_t reset() = 0;
-       virtual bool isConfigured() = 0;
        virtual ~ILightSensor() {}
    };
-
 }
 
