@@ -277,3 +277,26 @@ int GroveButton::value()
 {
     return mraa_gpio_read(m_gpio);
 }
+
+#ifdef JAVACALLBACK
+void GroveButton::installISR(mraa::Edge level, IsrCallback *cb)
+{
+  installISR(level, generic_callback_isr, cb);
+}
+#endif
+
+void GroveButton::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
+{
+  if (m_isrInstalled)
+    uninstallISR();
+
+  // install our interrupt handler
+  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
+  m_isrInstalled = true;
+}
+
+void GroveButton::uninstallISR()
+{
+  mraa_gpio_isr_exit(m_gpio);
+  m_isrInstalled = false;
+}

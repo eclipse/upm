@@ -1,5 +1,13 @@
-%module javaupm_grove
+%module (directors="1", docstring="Basic Grove sensors") javaupm_grove
+
 %include "../upm.i"
+
+%feature("director") IsrCallback;
+
+%ignore generic_callback_isr;
+%include "../IsrCallback.h"
+
+%apply int {mraa::Edge}
 
 %{
     #include "grove.h"
