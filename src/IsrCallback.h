@@ -18,6 +18,8 @@ class IsrCallback
 static void generic_callback_isr (void* data)
 {
     IsrCallback* callback = (IsrCallback*) data;
+    if (callback == NULL)
+        return;
     callback->run();
 }
 #endif
