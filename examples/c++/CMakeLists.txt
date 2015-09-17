@@ -142,6 +142,7 @@ add_executable (sm130-example sm130.cxx)
 add_executable (grovegprs-example grovegprs.cxx)
 add_executable (light-sensor-example light-sensor.cxx)
 
+include_directories (${PROJECT_SOURCE_DIR}/src)
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
 include_directories (${PROJECT_SOURCE_DIR}/src/grove)
 include_directories (${PROJECT_SOURCE_DIR}/src/lcd)
