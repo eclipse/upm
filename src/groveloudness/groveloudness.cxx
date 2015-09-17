@@ -32,7 +32,6 @@ using namespace upm;
 
 GroveLoudness::GroveLoudness(int pin)
 {
-  ;
   if ( !(m_aio = mraa_aio_init(pin)) ) 
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +

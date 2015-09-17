@@ -47,7 +47,7 @@ adafruitss::adafruitss(int bus,int i2c_address)
                                     ": mraa_i2c_address() failed");
         return;
       }
-        
+
     m_rx_tx_buf[0]=PCA9685_MODE1;
     m_rx_tx_buf[1]=0;
     if (mraa_i2c_write(m_i2c,m_rx_tx_buf,2) != MRAA_SUCCESS)

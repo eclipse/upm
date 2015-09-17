@@ -34,7 +34,6 @@ using namespace upm;
 
 MY9221::MY9221 (uint8_t di, uint8_t dcki) {
     mraa::Result error = mraa::SUCCESS;
-    mraa_init();
 
     // init clock context
     m_clkPinCtx = mraa_gpio_init(dcki);

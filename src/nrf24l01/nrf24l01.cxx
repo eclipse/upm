@@ -37,7 +37,7 @@ using namespace upm;
 NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce)
                             : m_csnPinCtx(cs), m_cePinCtx(ce), m_spi(0)
 {
-    mraa::init();
+    init (cs, ce);
 }
 
 void
