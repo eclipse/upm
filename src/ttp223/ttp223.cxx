@@ -39,6 +39,7 @@ TTP223::TTP223(unsigned int pin) {
       }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
     m_name = "ttp223";
+    m_isrInstalled = false;
 }
 
 TTP223::~TTP223() {
@@ -56,4 +57,27 @@ int TTP223::value() {
 
 bool TTP223::isPressed() {
     return this->value() == 1;
+}
+
+#ifdef JAVACALLBACK
+void TTP223::installISR(mraa::Edge level, IsrCallback *cb)
+{
+  installISR(level, generic_callback_isr, cb);
+}
+#endif
+
+void TTP223::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
+{
+  if (m_isrInstalled)
+    uninstallISR();
+
+  // install our interrupt handler
+  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
+  m_isrInstalled = true;
+}
+
+void TTP223::uninstallISR()
+{
+  mraa_gpio_isr_exit(m_gpio);
+  m_isrInstalled = false;
 }
