@@ -23,14 +23,14 @@
  */
 #pragma once
 
+#include <stdint.h>
+#include <sys/time.h>
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/types.hpp>
+#include <mraa/i2c.hpp>
 
 #define GROVEMD_I2C_BUS 0
 #define GROVEMD_DEFAULT_I2C_ADDR 0x0f
-
-// This is a NOOP value used to pad packets
-#define GROVEMD_NOOP 0x01
 
 namespace upm {
   /**
@@ -61,10 +61,23 @@ namespace upm {
    * accepts I2C commands for its various operations.
    *
    * This module was tested with version 1.3 of the Grove I2C Motor
-   * Driver
+   * Driver.
+   *
+   * For stepper operation, this driver can run in one of two modes -
+   * Mode 1, where this driver handles the stepping operation, and
+   * Mode 2, where this driver simply sends commands to the Grove
+   * Motor Driver, and it handles the stepping operation.  Mode2
+   * requires updated (and working) firmware to be loaded onto the
+   * device.
+   *
+   * The default stepper operation mode is Mode1, which is generally
+   * more flexible and is supported on all firmware revisions.
    *
    * @image html grovemd.jpg
+   * An example showing the use of a DC motor
    * @snippet grovemd.cxx Interesting
+   * An example showing the use of a 4-wire stepper
+   * @snippet grovemd-stepper.cxx Interesting
    */
   class GroveMD {
 
@@ -81,14 +94,19 @@ namespace upm {
     } REG_T;
 
     // legal directions for the stepper
-    typedef enum { STEP_DIR_CCW    = 0x0a,
-                   STEP_DIR_CW     = 0x05
+    typedef enum { STEP_DIR_CCW    = 0x01,
+                   STEP_DIR_CW     = 0x00
     } STEP_DIRECTION_T;
     
     // legal directions for individual DC motors
     typedef enum { DIR_CCW    = 0x02,
                    DIR_CW     = 0x01
     } DC_DIRECTION_T;
+    
+    // stepper modes
+    typedef enum { STEP_MODE1 = 0x00,
+                   STEP_MODE2 = 0x01
+    } STEP_MODE_T;
     
     /**
      * GroveMD constructor
@@ -146,10 +164,16 @@ namespace upm {
 
     /**
      * To control a stepper motor, sets its direction and speed, and
-     * then enables it.
+     * then starts operation.  For Mode2, this method will return
+     * immediately.  For Mode1 (the default) this method returns when
+     * the number of steps specified by setStepperSteps() has
+     * completed.
      *
      * @param dir Direction, STEP_DIR_CW or STEP_DIR_CCW
-     * @param speed Motor speed. Valid range is 1-255, higher is slower.
+     * @param speed Motor speed. Valid range is 1-255. For Mode 1
+     * (default), this specifies the speed in RPM's.  For Mode 2,
+     * speed is multiplied by 4ms by the board, so higher numbers
+     * will mean a slower speed.
      * @return True if successful
      */
     bool enableStepper(STEP_DIRECTION_T dir, uint8_t speed);
@@ -163,17 +187,68 @@ namespace upm {
 
     /**
      * To control a stepper motor, specifies the number of steps to
-     * execute. Valid values are 1-255, 255 means continuous rotation.
+     * execute. For Mode2, valid values are between 1-255, 255 means
+     * continuous rotation.
      *
-     * @param steps Number of steps to execute. 255 means continuous rotation.
+     * For Mode1 (the default) steps can be any positive integer.
+     *
+     * @param steps Number of steps to execute. 255 (only in Mode2)
+     * means continuous rotation.  
      * @return True if successful
      */
-    bool setStepperSteps(uint8_t steps);
+    bool setStepperSteps(unsigned int steps);
 
+    /**
+     * Configure the initial Stepper parameters.  This should be
+     * called before any other stepper method.
+     *
+     * @param stepsPerRev The number of steps required to complete one
+     * full revolution.
+     * @param mode The stepper operating mode, default STEP_MODE1
+     * @return Elapsed milliseconds
+     */
+    void configStepper(unsigned int stepsPerRev, STEP_MODE_T mode=STEP_MODE1);
+
+  protected:
+    mraa::I2c m_i2c;
+    uint8_t m_addr;
 
   private:
-    mraa_i2c_context m_i2c;
-    uint8_t m_addr;
+    // steps per revolution
+    int m_stepsPerRev;
+    int m_currentStep;
+    uint32_t m_stepDelay;
+    uint32_t m_totalSteps;
+    STEP_MODE_T m_stepMode;
+
+    /**
+     * Steps the motor one tick
+     *
+     */
+    void stepperStep();
+
+    // step direction: - 1 = forward, -1 = backward
+    int m_stepDirection;
+
+    // This is a NOOP value used to pad packets
+    static const uint8_t GROVEMD_NOOP = 0x01;
+    // our timer
+    struct timeval m_startTime;
+
+    /**
+     * Returns the number of milliseconds elapsed since initClock()
+     * was last called.
+     *
+     * @return Elapsed milliseconds
+     */
+    uint32_t getMillis();
+
+    /**
+     * Resets the clock
+     *
+     */
+    void initClock();
+
   };
 }
 
