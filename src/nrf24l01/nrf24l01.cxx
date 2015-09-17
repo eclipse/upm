@@ -148,6 +148,20 @@ NRF24L01::setPayload (uint8_t payload) {
     m_payload = payload;
 }
 
+#ifdef JAVACALLBACK
+void
+NRF24L01::setDataReceivedHandler (Callback *call_obj)
+{
+    callback_obj = call_obj;
+    dataReceivedHandler = &generic_callback;
+}
+#else
+void setDataReceivedHandler (funcPtrVoidVoid handler)
+{
+    dataReceivedHandler = handler;
+}
+#endif
+
 bool
 NRF24L01::dataReady () {
     /* See note in getData() function - just checking RX_DR isn't good enough */
@@ -315,7 +329,11 @@ void
 NRF24L01::pollListener() {
     if (dataReady()) {
         getData (m_rxBuffer);
-        dataRecievedHandler (); /* let know that data arrived */
+#ifdef JAVACALLBACK
+        dataReceivedHandler (callback_obj); /* let know that data arrived */
+#else
+        dataReceivedHandler (); /* let know that data arrived */
+#endif
     }
 }
 

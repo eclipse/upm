@@ -33,6 +33,10 @@
 #include <mraa/spi.hpp>
 #include <cstring>
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "Callback.h"
+#endif
+
 /* Memory Map */
 #define CONFIG              0x00
 #define EN_AA               0x01
@@ -138,7 +142,11 @@
 
 namespace upm {
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+typedef void (* funcPtrVoidVoid) (Callback *);
+#else
 typedef void (* funcPtrVoidVoid) ();
+#endif
 
 typedef enum {
     NRF_250KBPS = 0,
@@ -249,6 +257,21 @@ class NRF24L01 {
          */
         void    setPayload (uint8_t load);
 
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        /**
+         * Sets the handler to be called when data has been
+         * received
+         * @param call_obj Object used for callback - Java
+         */
+        void setDataReceivedHandler (Callback *call_obj);
+#else
+        /**
+         * Sets the handler to be called when data has been
+         * received
+         * @param handler Handler used for callback
+         */
+        void setDataReceivedHandler (funcPtrVoidVoid handler);
+#endif
         /**
          * Checks if the data has arrived
          */
@@ -350,8 +373,13 @@ class NRF24L01 {
         uint8_t     m_txBuffer[MAX_BUFFER]; /**< Transmit buffer */
         uint8_t     m_bleBuffer [32];       /**< BLE buffer */
 
-        funcPtrVoidVoid dataRecievedHandler; /**< Data arrived handler */
     private:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        /**< Callback object to use for setting the handler from Java */
+        Callback *callback_obj;
+#endif
+        funcPtrVoidVoid dataReceivedHandler; /**< Data arrived handler */
+
         /**
          * Writes bytes to an SPI device
          */
@@ -385,7 +413,7 @@ class NRF24L01 {
 
         uint8_t swapbits (uint8_t a);
 
-        mraa::Spi        m_spi;
+        mraa::Spi               m_spi;
         uint8_t                 m_ce;
         uint8_t                 m_csn;
         uint8_t                 m_channel;
@@ -394,8 +422,8 @@ class NRF24L01 {
         uint8_t                 m_payload;
         uint8_t                 m_localAddress[5];
 
-        mraa::Gpio       m_csnPinCtx;
-        mraa::Gpio       m_cePinCtx;
+        mraa::Gpio              m_csnPinCtx;
+        mraa::Gpio              m_cePinCtx;
 
         std::string             m_name;
 };
