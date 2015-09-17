@@ -45,8 +45,6 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
     mraa_result_t error  = MRAA_SUCCESS;
     m_name              = "HCSR04";
 
-    mraa_init();
-
     m_triggerPinCtx     = mraa_gpio_init (triggerPin);
     if (m_triggerPinCtx == NULL) {
         throw std::invalid_argument(std::string(__FUNCTION__) +

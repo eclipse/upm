@@ -33,8 +33,6 @@ using namespace std;
 
 ENC03R::ENC03R(int pin, float vref)
 {
-  mraa_init();
-
   if ( !(m_aio = mraa_aio_init(pin)) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +

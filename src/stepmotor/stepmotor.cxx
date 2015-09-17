@@ -37,8 +37,6 @@ StepMotor::StepMotor (int dirPin, int stePin)
     mraa::Result error = mraa::SUCCESS;
     m_name = "StepMotor";
 
-    mraa::init();
-
     m_stePin = stePin;
     m_dirPin = dirPin;
 

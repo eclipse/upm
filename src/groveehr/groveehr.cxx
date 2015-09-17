@@ -33,8 +33,6 @@ using namespace std;
 
 GroveEHR::GroveEHR(int pin)
 {
-  mraa_init();
-
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +

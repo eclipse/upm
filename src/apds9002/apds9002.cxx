@@ -32,7 +32,6 @@ using namespace upm;
 
 APDS9002::APDS9002(int pin)
 {
-  
   if ( !(m_aio = mraa_aio_init(pin)) ) 
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
