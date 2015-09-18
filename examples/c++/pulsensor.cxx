@@ -28,7 +28,6 @@
 #include <signal.h>
 
 int doWork = 0;
-pulsensor_context sensor_ctx;
 
 void
 sig_handler(int signo)
@@ -49,13 +48,13 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    init_pulsensor (&sensor_ctx, handler);
+    Pulsensor *sensor = new Pulsensor(handler);
     
-    start_sampler (&sensor_ctx);
+    sensor->start_sampler();
     while (!doWork) {
         usleep (5);
     }
-    stop_sampler (&sensor_ctx);
+    sensor->stop_sampler();
 //! [Interesting]
     return 0;
 }

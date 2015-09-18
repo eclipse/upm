@@ -118,6 +118,6 @@ private:
 #else
     callback_handler callback; /**< The callback function */
 #endif
-    static volatile uint16_t ctx_counter;
+    volatile uint16_t ctx_counter;
 };
 

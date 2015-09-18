@@ -46,7 +46,6 @@ Pulsensor::Pulsensor (Callback *obj_call) : pin_ctx(0)
     bpm            = 0;
     qs             = FALSE;
     apmlitude      = 100;
-
 }
 #else
 Pulsensor::Pulsensor (callback_handler handler) : pin_ctx(0)
@@ -79,7 +78,7 @@ void Pulsensor::start_sampler ()
 }
 
 void Pulsensor::stop_sampler () {
-    Pulsensor::ctx_counter--;
+    ctx_counter--;
 }
 
 void *Pulsensor::do_sample (void *arg) {
@@ -88,7 +87,7 @@ void *Pulsensor::do_sample (void *arg) {
 
     Pulsensor *pulsensor = static_cast<Pulsensor *>(arg);
 
-    while (Pulsensor::ctx_counter) {
+    while (pulsensor->ctx_counter) {
         data_from_sensor = pulsensor->pin_ctx.read ();
         pulsensor->ret = FALSE;
 
