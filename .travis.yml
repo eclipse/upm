@@ -1,0 +1,17 @@
+language: cpp
+compiler:
+  - gcc
+  - clang
+install:
+  - sudo add-apt-repository --yes ppa:kalakris/cmake
+  - sudo add-apt-repository --yes ppa:fenics-packages/fenics-exp/swig
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq swig3.0 python git cmake
+  - sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
+script:
+  - git clone --branch=master https://github.com/intel-iot-devkit/mraa.git
+  - cd mraa && mkdir build && cd build && cmake -DENABLEEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=. -DNODE_ROOT_DIR:PATH=/home/travis/.nvm/v0.10.36/include .. && make && make install
+  - export PKG_CONFIG_PATH=$PWD/lib/pkgconfig
+  - export CPLUS_INCLUDE_PATH=$PWD/include
+  - export LIBRARY_PATH=$PWD/lib:$PWD/lib/x86_64-linux-gnu
+  - cd ../.. && mkdir build && cd build && cmake -DNODE_ROOT_DIR:PATH=/home/travis/.nvm/v0.10.36/include -DBUILDEXAMPLES=ON .. && make
