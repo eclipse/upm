@@ -58,7 +58,7 @@ main(int argc, char **argv)
     comm->setPayload (MAX_BUFFER);
     comm->setChannel (99);
     comm->configure ();
-    comm->dataRecievedHandler = nrf_handler;
+    comm->setDataReceivedHandler (nrf_handler);
 
     signal(SIGINT, sig_handler);
 
