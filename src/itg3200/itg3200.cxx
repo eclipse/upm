@@ -66,14 +66,6 @@ using namespace upm;
 
 Itg3200::Itg3200(int bus) : m_i2c(bus)
 {
-    //init bus and reset chip
-    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_init() failed");
-        return;
-      }
-
     m_i2c.address(ITG3200_I2C_ADDR);
     m_buffer[0] = ITG3200_PWR_MGM;
     m_buffer[1] = ITG3200_RESET;

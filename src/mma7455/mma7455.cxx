@@ -44,13 +44,6 @@ MMA7455::MMA7455 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_init() failed");
-        return;
-      }
-
     mraa::Result error = m_i2ControlCtx.address(m_controlAddr);
     if (error != mraa::SUCCESS) {
         throw std::runtime_error(std::string(__FUNCTION__) +
@@ -152,7 +145,6 @@ short *MMA7455::readData() {
 #endif
 
 int
-<<<<<<< HEAD
 MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {
     if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
         throw std::runtime_error(std::string(__FUNCTION__) +
@@ -179,7 +171,7 @@ MMA7455::i2cWriteReg (unsigned char reg, uint8_t *buffer, int len) {
 
     error = m_i2ControlCtx.address (m_controlAddr);
     if (error != mraa::SUCCESS) {
-        hrow std::runtime_error(std::string(__FUNCTION__) +
+        throw std::runtime_error(std::string(__FUNCTION__) +
                                  ": mraa_i2c_address() failed");
         return error;
     }

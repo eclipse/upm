@@ -40,25 +40,8 @@ GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki)
 									  m_dataPinCtx(di) {
   mraa::Result error = mraa::SUCCESS;
   
-  // init clock context
-  m_clkPinCtx = mraa_gpio_init(dcki);
-  if (m_clkPinCtx == NULL) {
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_gpio_init(dcki) failed, invalid pin?");
-    return;
-  }
-  mraa_gpio_use_mmaped(m_clkPinCtx, 1);
-
-  // init data context
-  m_dataPinCtx = mraa_gpio_init(di);
-  if (m_dataPinCtx == NULL) {
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_gpio_init(di) failed, invalid pin?");
-    return;
-  }
-
-	m_clkPinCtx.useMmap(true);
-	m_dataPinCtx.useMmap(true);
+  m_clkPinCtx.useMmap(true);
+  m_dataPinCtx.useMmap(true);
 
   // set direction (out)
   error = m_clkPinCtx.dir(mraa::DIR_OUT);

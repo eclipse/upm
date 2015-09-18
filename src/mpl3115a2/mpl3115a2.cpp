@@ -45,13 +45,6 @@ MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus)
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_init() failed");
-        return;
-      }
-
     mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
     if (ret != mraa::SUCCESS) {
         throw std::runtime_error(std::string(__FUNCTION__) +
@@ -309,7 +302,7 @@ MPL3115A2::i2cWriteReg (uint8_t reg, uint8_t value) {
     m_i2ControlCtx.address (m_controlAddr);
     error = m_i2ControlCtx.write (data, 2);
 
-    if (error != MRAA_SUCCESS)
+    if (error != mraa::SUCCESS)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ":mraa_i2c_write() failed");
     return error;
