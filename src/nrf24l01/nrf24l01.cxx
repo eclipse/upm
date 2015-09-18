@@ -48,20 +48,6 @@ NRF24L01::init (uint8_t chip_select, uint8_t chip_enable) {
     m_ce        = chip_enable;
     m_channel   = 99;
 
-    m_csnPinCtx = mraa_gpio_init (m_csn);
-    if (m_csnPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(csn) failed, invalid pin?");
-        return;
-    }
-
-    m_cePinCtx = mraa_gpio_init (m_ce);
-    if (m_cePinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(ce) failed, invalid pin?");
-        return;
-    }
-
     error = m_csnPinCtx.dir(mraa::DIR_OUT);
     if (error != mraa::SUCCESS) {
         mraa::printError (error);
@@ -156,7 +142,8 @@ NRF24L01::setDataReceivedHandler (Callback *call_obj)
     dataReceivedHandler = &generic_callback;
 }
 #else
-void setDataReceivedHandler (funcPtrVoidVoid handler)
+void
+NRF24L01::setDataReceivedHandler (funcPtrVoidVoid handler)
 {
     dataReceivedHandler = handler;
 }

@@ -151,13 +151,8 @@ bool MPU60X0::writeReg(uint8_t reg, uint8_t val)
   mraa::Result rv;
   if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
     {
-<<<<<<< HEAD
-      cerr << __FUNCTION__ << ": failed:" << endl;
-      printError(rv);
-=======
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
->>>>>>> 9378f17... mpu9150: throw exception(s) on fatal errors
       return false;
     } 
   

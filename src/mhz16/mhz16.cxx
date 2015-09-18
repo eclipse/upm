@@ -211,7 +211,7 @@ bool MHZ16::getData(int *gas, int *temp)
     }
   
   // will throw an exception if it fails
-  verifyPacket(packet);
+  verifyPacket(packet, sizeof(packet));
 
   // pull out the data and return it.
   *gas = (packet[2] << 8) | packet[3];

@@ -54,42 +54,7 @@ ST7735::initModule () {
     m_height = 160;
     m_width  = 128;
 
-    m_csLCDPinCtx = mraa_gpio_init (m_csLCD);
-    if (m_csLCDPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(csLCD) failed, invalid pin?");
-        return;
-    }
-
-    m_cSDPinCtx = mraa_gpio_init (m_cSD);
-    if (m_cSDPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(cSD) failed, invalid pin?");
-        return;
-    }
-
-    m_rSTPinCtx = mraa_gpio_init (m_rST);
-    if (m_rSTPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(rST) failed, invalid pin?");
-        return;
-    }
-
-    m_rSPinCtx = mraa_gpio_init (m_rS);
-    if (m_rSPinCtx == NULL) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init(rS) failed, invalid pin?");
-        return;
-    }
-
-    if ( !(m_spi = mraa_spi_init (0)) ) 
-        {
-            throw std::invalid_argument(std::string(__FUNCTION__) +
-                                        ": mraa_spi_init() failed");
-            return;
-        }
-
-    mraa_spi_frequency(m_spi, 15 * 1000000);
+    m_spi.frequency(15 * 1000000);
 
     error = m_csLCDPinCtx.dir(mraa::DIR_OUT);
     if (error != mraa::SUCCESS) {
