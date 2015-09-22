@@ -152,7 +152,7 @@ static void PrintHexChar(const uint8_t * data, const uint32_t numBytes)
 /**************************************************************************/
 uint32_t PN532::getFirmwareVersion()
 {
-  uint32_t response;
+  uint32_t response = 0;
 
   pn532_packetbuffer[0] = CMD_GETFIRMWAREVERSION;
   
@@ -1033,7 +1033,7 @@ bool PN532::mifareclassic_WriteNDEFURI (uint8_t sectorNumber,
       memcpy (sectorbuffer1+9, url, 7);
       memcpy (sectorbuffer2, url+7, 16);
       memcpy (sectorbuffer3, url+23, len-24);
-      sectorbuffer3[len-22] = 0xFE;
+      sectorbuffer3[len-23] = 0xFE;
     }
   
   // Now write all three blocks back to the card
