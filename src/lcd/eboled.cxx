@@ -121,7 +121,7 @@ mraa::Result EBOLED::refresh()
   for(int i=0; i<BUFFER_SIZE; i++)
   {
     error = data(screenBuffer[i]);
-    if(error != MRAA_SUCCESS)
+    if(error != mraa::SUCCESS)
       return error;
   }
 
@@ -219,7 +219,7 @@ mraa::Result EBOLED::clear()
   for(int i=0; i<BUFFER_SIZE; i++)
   {
     error = data(0x0000);
-    if(error != MRAA_SUCCESS)
+    if(error != mraa::SUCCESS)
       return error;
   }
 
