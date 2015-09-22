@@ -59,7 +59,7 @@ unsigned int GroveVDiv::value(unsigned int samples)
   return (sum / samples);
 }
 
-float GroveVDiv::computedValue(uint8_t gain, uint16_t val, int vref, int res)
+float GroveVDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
 {
   return ((float(gain) * float(val) * float(vref) / float(res)) / 1000.0);
 
