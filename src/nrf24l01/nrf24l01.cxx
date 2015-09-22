@@ -407,6 +407,9 @@ NRF24L01::sendBeaconingMsg (uint8_t * msg) {
 
 void
 NRF24L01::writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len) {
+    if(len > MAX_BUFFER){
+        len = MAX_BUFFER;
+    }
     for (uint8_t i = 0; i < len; i++) {
         if (datain != NULL) {
             datain[i] = m_spi.writeByte(dataout[i]);
@@ -497,6 +500,10 @@ NRF24L01::bleWhiten (uint8_t* data, uint8_t len, uint8_t whitenCoeff) {
 
 void
 NRF24L01::blePacketEncode(uint8_t* packet, uint8_t len, uint8_t chan) {
+    if(len > MAX_BUFFER){
+        len = MAX_BUFFER;
+    }
+    
     //length is of packet, including crc. pre-populate crc in packet with initial crc value!
     uint8_t i, dataLen = len - 3;
 
