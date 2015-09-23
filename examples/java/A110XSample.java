@@ -22,30 +22,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class Jhd1313m1Sample{
-
+public class A110XSample {
 	static {
 		try {
-			System.loadLibrary("javaupm_i2clcd");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_a110x");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        upm_i2clcd.Jhd1313m1 lcd = new upm_i2clcd.Jhd1313m1(1, 0x3E, 0x62);
-		
-		lcd.setCursor(0,0);
-	    lcd.write("Hello World");
-	    lcd.setCursor(1,2);
-	    lcd.write("Hello World");
+	public static void main(String argv[]) throws InterruptedException {
+//! [Interesting]
+        // Instantiate an A110X sensor on digital pin D2
+		upm_a110x.A110X a110x = new upm_a110x.A110X(2);
 
-		System.out.println("Sleeping for 5 seconds");
-		Thread.sleep(5000);
-	    lcd.clear();
-		//! [Interesting]
+		while(true) {
+			if(a110x.magnetDetected()) {
+				System.out.println("magnet detected...");
+			}
+			else {
+				System.out.println("magnet not detected...");
+			}
+			Thread.sleep(1000);
+		}
+//! [Interesting]
 	}
-	
 }

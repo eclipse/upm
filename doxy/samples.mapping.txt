@@ -20,6 +20,7 @@ enc03r.cxx	ENC03RSample.java
 es08a.cxx	ES08ASample.java
 flex.cxx	FlexSample.java
 gp2y0a.cxx	GP2Y0ASample.java
+grovebutton.cxx	GroveButtonSample.java
 grovecircularled.cxx	GroveCircularLEDSample.java
 grovecollision.cxx	GroveCollisionSample.java
 groveehr.cxx	GroveEHRSample.java
@@ -28,11 +29,16 @@ groveelectromagnet.cxx	GroveElectromagnetSample.java
 groveemg.cxx	GroveEMGSample.java
 grovegprs.cxx	GroveGPRSSample.java
 grovegsr.cxx	GroveGSRSample.java
+groveled.cxx	GroveLEDSample.java
 grovelinefinder.cxx	GroveLineFinderSample.java
+grovelight.cxx	GroveLightSample.java
 groveloudness.cxx	GroveLoudnessSample.java
 grovemoisture.cxx	GroveMoistureSample.java
 groveo2.cxx	GroveO2Sample.java
+groverelay.cxx	GroveRelaySample.java
+groverotary.cxx	GroveRotarySample.java
 grovescam.cxx	GROVESCAMSample.java
+groveslide.cxx	GroveSlideSample.java
 grovespeaker.cxx	GroveSpeakerSample.java
 grovevdiv.cxx	GroveVDivSample.java
 grovewater.cxx	GroveWaterSample.java

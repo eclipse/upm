@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class MY9221Sample{
+public class Jhd1313m1_lcdSample{
 
 	static {
 		try {
-			System.loadLibrary("javaupm_my9221");
+			System.loadLibrary("javaupm_i2clcd");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,16 +35,17 @@ public class MY9221Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-        // Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9
-		upm_my9221.MY9221 bar = new upm_my9221.MY9221((short) 8, (short) 9);
-	
-		while (true) {
-			for (short idx = 1; idx < 11; idx++) {
-				bar.setBarLevel(idx);
-				Thread.sleep(100);
-			}
-		}
-        //! [Interesting]
+        upm_i2clcd.Jhd1313m1 lcd = new upm_i2clcd.Jhd1313m1(1, 0x3E, 0x62);
+		
+		lcd.setCursor(0,0);
+	    lcd.write("Hello World");
+	    lcd.setCursor(1,2);
+	    lcd.write("Hello World");
+
+		System.out.println("Sleeping for 5 seconds");
+		Thread.sleep(5000);
+	    lcd.clear();
+		//! [Interesting]
 	}
 	
 }
