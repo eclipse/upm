@@ -22,35 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class Adxl345 {
-    static {
-        try {
-            System.loadLibrary("javaupm_adxl345");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("error in loading native library");
-            System.exit(-1);
-        }
-    }
+public class Buzzer_soundSample {
+	
+	static {
+		try {
+			System.loadLibrary("javaupm_buzzer");
+		}catch (UnsatisfiedLinkError e) {
+			System.err.println("error in loading native library");
+			System.exit(-1);
+		}
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
+        //! [Interesting]
+		int chord[] = {
+				upm_buzzer.javaupm_buzzer.DO, 
+				upm_buzzer.javaupm_buzzer.RE, 
+				upm_buzzer.javaupm_buzzer.MI, 
+				upm_buzzer.javaupm_buzzer.FA, 
+				upm_buzzer.javaupm_buzzer.SOL, 
+				upm_buzzer.javaupm_buzzer.LA, 
+				upm_buzzer.javaupm_buzzer.SI
+				};
+		
+		// Instantiate a buzzer on digital pin D5
+		upm_buzzer.Buzzer sound = new upm_buzzer.Buzzer(5);
+		
+		// print sensor name
+		System.out.println(sound.name());
+		
+		for (int i = 0; i < chord.length; i++) {
+			// play each note for one second
+			int note = sound.playSound( chord[i], 1000000);
+			System.out.println(note);
+			
+			Thread.sleep(100);
+		}
+        //! [Interesting]
+		sound.stopSound();
+	}
+	
 
-    public static void main(String argv[]) throws InterruptedException {
-//! [Interesting]
-        // Note: Sensor only works at 3.3V on the Intel Edison with Arduino breakout
-        upm_adxl345.Adxl345 obj = new upm_adxl345.Adxl345(0);
-        int[] raw = new int[3];
-        float[] accel = new float[3];
-
-        while (true) {
-            obj.update();
-            raw = obj.getRawValues();
-            accel = obj.getAcceleration();
-
-            System.out.println("raw data: " + raw[0] + " " + raw[1] + " " +
-                    raw[2]);
-            System.out.println("accel data: " + accel[0] + " " + accel[1] + " "
-                    + accel[2]);
-
-            Thread.sleep(1000);
-        }
-//! [Interesting]
-    }
 }

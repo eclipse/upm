@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class BuzzerSample{
-	
+public class MY9221_ledbarSample{
+
 	static {
 		try {
-			System.loadLibrary("javaupm_buzzer");
+			System.loadLibrary("javaupm_my9221");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -34,33 +34,17 @@ public class BuzzerSample{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-        //! [Interesting]
-		int chord[] = {
-				upm_buzzer.javaupm_buzzer.DO, 
-				upm_buzzer.javaupm_buzzer.RE, 
-				upm_buzzer.javaupm_buzzer.MI, 
-				upm_buzzer.javaupm_buzzer.FA, 
-				upm_buzzer.javaupm_buzzer.SOL, 
-				upm_buzzer.javaupm_buzzer.LA, 
-				upm_buzzer.javaupm_buzzer.SI
-				};
-		
-		// Instantiate a buzzer on digital pin D5
-		upm_buzzer.Buzzer sound = new upm_buzzer.Buzzer(5);
-		
-		// print sensor name
-		System.out.println(sound.name());
-		
-		for (int i = 0; i < chord.length; i++) {
-			// play each note for one second
-			int note = sound.playSound( chord[i], 1000000);
-			System.out.println(note);
-			
-			Thread.sleep(100);
+		//! [Interesting]
+        // Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9
+		upm_my9221.MY9221 bar = new upm_my9221.MY9221((short) 8, (short) 9);
+	
+		while (true) {
+			for (short idx = 1; idx < 11; idx++) {
+				bar.setBarLevel(idx);
+				Thread.sleep(100);
+			}
 		}
         //! [Interesting]
-		sound.stopSound();
 	}
 	
-
 }
