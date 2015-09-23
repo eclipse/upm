@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Marc Graham <marc@m2ag.net>
  * Copyright (c) 2015 Intel Corporation
  *
