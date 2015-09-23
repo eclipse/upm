@@ -32,8 +32,13 @@
 namespace upm
 {
 /**
+ * @brief ILightSensor Interface for Light Sensors
+ */
+ 
+/**
+ *
  * @brief Interface for Light Sensors
-
+ 
  * This interface is used to represent light sensors
 
  * @snippet light-sensor.cxx Interesting 
@@ -42,6 +47,12 @@ namespace upm
    class ILightSensor : public IModuleStatus
    {
    public:
+	/**
+	 * Get sensor reading.
+	 *
+	 * @param value Pointer to detected visible illuminance in Lux.
+	 * @return mraa_result_t MRAA_SUCCESS on successful reading
+	 */
        virtual mraa_result_t getValue (float* value) = 0;
        virtual ~ILightSensor() {}
    };
