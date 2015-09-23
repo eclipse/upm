@@ -15,7 +15,7 @@
     "url" : "http://github.com/intel-iot-devkit/upm/issues"
   },
   "dependencies": {
-  "mraa": ">=@MRAA_VERSION@",
+  "mraa": ">=@MRAA_VERSION@"
   },
   "license": "MIT",
   "version" : "@upm_VERSION_STRING@",
