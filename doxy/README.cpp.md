@@ -21,7 +21,7 @@ However implementation and API design is completely up to the developer, some
 enumerable sensors for example may provide much clever instantiation. Displays
 may also create more complex structures in order to interface with them.
 
-Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples).
+Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples/c%2B%2B).
 
 Multi-sensor samples for the starter and specialized kits can be found in the
 [iot-devkit-samples](https://github.com/intel-iot-devkit/iot-devkit-samples) repository.
@@ -43,21 +43,21 @@ please follow the instructions provided on the Intel Developer Zone IDE page.
 
 ### Building UPM
 
-See @ref building [here](docs/building.md).
+See @ref building here.
 
 ### Making your own UPM module
 
-@ref porting [link](docs/porting.md) has more information on making new UPM modules.
+@ref porting link has more information on making new UPM modules.
 
-There is also an example available for @ref max31855 [sensor](docs/max31855.md).
+There is also an example available for @ref max31855 sensor.
 
 ### Naming conventions and rules for new UPM contributions
 
-Before you begin development, take a look at our @ref naming [conventions](docs/naming.md).
+Before you begin development, take a look at our @ref naming conventions.
 
-Also, please read the guidelines for @ref contributions [to UPM](docs/contributions.md).
+Also, please read the guidelines for @ref contributions to UPM.
 
-Don't forget to check the @ref documentation [section](docs/documentation.md).
+Don't forget to check the @ref documentation section.
 
 Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
@@ -68,7 +68,7 @@ API Documentation
 
 @htmlonly
 
-<a href="http://iotdk.intel.com/docs/master/upm/modules.html"><img src="docs/icons/c++.png"/></a>
+<a href="http://iotdk.intel.com/docs/master/upm"><img src="docs/icons/c++.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/java"><img src="docs/icons/java.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/icons/python.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/icons/node.png"/></a>
@@ -76,7 +76,7 @@ API Documentation
 @endhtmlonly
 
 ### Changelog
-Version @ref changelog [here](docs/changelog.md).
+Version @ref changelog here.
 
 ### Known Limitations
-List of @ref knownlimitations [here](docs/knownlimitations.md).
+List of @ref knownlimitations here.
