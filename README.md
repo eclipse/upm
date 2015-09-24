@@ -68,9 +68,9 @@ You can also refer to the [Intel® IoT Developer Zone](https://software.intel.co
 
 ### IDE Integration
 
-If you would like to create Eclipse IDE projects using the UPM C++ samples,
-please follow the instructions posted [here](https://software.intel.com/en-us/node/551014).
-This will show you how to import the code and configure your project.
+If you would like to create projects and run the UPM samples using an Intel recommended IDE,
+please refer to the Intel Developer Zone IDE page.
+<a href="https://software.intel.com/iot/software/ide"><img src="../docs/icons/allides.png"/></a>
 
 ### Building UPM
 

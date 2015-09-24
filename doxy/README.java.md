@@ -32,11 +32,14 @@ Supported [sensor list](http://iotdk.intel.com/docs/master/upm/java/modules.html
 
 You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
 
-### IDE Integration
+### IDE Compatibility
 
-If you would like to create Eclipse IDE projects using the UPM C++ samples,
-please follow the instructions posted [here](https://software.intel.com/en-us/node/551014).
-This will show you how to import the code and configure your project.
+If you would like to create Eclipse IDE projects using the UPM Java samples,
+please follow the instructions provided on the Intel Developer Zone IDE page.
+
+@htmlonly
+<a href="https://software.intel.com/iot/software/ide"><img src="../docs/icons/eclipse.png"/></a>
+@endhtmlonly
 
 ### Building UPM
 
