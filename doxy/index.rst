@@ -21,7 +21,7 @@ For building UPM, please follow this `link <https://github.com/intel-iot-devkit/
 Multi-sensor samples for the starter and specialized kits can be found in the `iot-devkit-samples <https://github.com/intel-iot-devkit/iot-devkit-samples>`_
 repository.
 
-Individual sensor usage examples for python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
+Individual sensor usage examples for Python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
 
 ``IDE Compatibility``
 ################
@@ -57,8 +57,10 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ``List of Available Sensors Drivers``
 ######################################
 
+Click on the library prefix below to expand the full list of sensors:
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    modules
 

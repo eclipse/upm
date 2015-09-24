@@ -38,7 +38,7 @@ If you would like to create Eclipse IDE projects using the UPM C++ samples,
 please follow the instructions provided on the Intel Developer Zone IDE page.
 
 @htmlonly
-<a href="https://software.intel.com/iot/software/ide"><img src="../docs/icons/eclipse.png"/></a>
+<a href="https://software.intel.com/iot/software/ide"><img src="docs/icons/eclipse.png"/></a>
 @endhtmlonly
 
 ### Building UPM
