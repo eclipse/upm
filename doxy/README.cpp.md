@@ -75,8 +75,8 @@ API Documentation
 
 @endhtmlonly
 
-##### Changelog
+### Changelog
 Version @ref changelog [here](docs/changelog.md).
 
-##### Known Limitations
+### Known Limitations
 List of @ref knownlimitations [here](docs/knownlimitations.md).
