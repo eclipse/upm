@@ -190,6 +190,7 @@ endmacro(upm_module_init)
 
 if (MODULE_LIST AND NOT BUILDEXAMPLES)
   set (SUBDIRS ${MODULE_LIST})
+  set(SUBDIRS ${SUBDIRS} upm)
 else()
   subdirlist(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
