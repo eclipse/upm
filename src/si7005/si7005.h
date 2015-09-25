@@ -126,6 +126,11 @@ class SI7005 : public ITemperatureHumiditySensor {
         bool isConfigured();
 
         /**
+         * Returns sensor module name
+         */
+        const char* getModuleName() { return "si7005"; }          
+
+        /**
          * Detects the sensor to ensure it is connected as required.
          */
         bool isAvailable();
