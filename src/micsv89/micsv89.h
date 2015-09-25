@@ -57,7 +57,7 @@ namespace upm {
    * of operation.
    *
    *
-   * @image
+   * @image html micsv89.jpg 
    * @snippet micsv89.cxx Interesting
    */
     class MICSV89 {
