@@ -1,4 +1,4 @@
-%module javaupm_rpr220
+%module(directors="1") javaupm_rpr220
 %include "../upm.i"
 
 

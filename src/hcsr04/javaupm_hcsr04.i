@@ -1,4 +1,4 @@
-%module javaupm_hcsr04
+%module(directors="1") javaupm_hcsr04
 %include "../upm.i"
 
 %feature("director") IsrCallback;

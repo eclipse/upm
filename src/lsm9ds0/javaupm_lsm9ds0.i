@@ -1,4 +1,4 @@
-%module javaupm_lsm9ds0
+%module(directors="1") javaupm_lsm9ds0
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"

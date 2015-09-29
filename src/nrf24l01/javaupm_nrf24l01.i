@@ -1,4 +1,4 @@
-%module javaupm_nrf24l01
+%module(directors="1") javaupm_nrf24l01
 %include "../upm.i"
 
 %feature("director") Callback;
