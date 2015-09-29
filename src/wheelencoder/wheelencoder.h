@@ -37,7 +37,7 @@ namespace upm {
    */
 
   /**
-   * @library libupm-wheelencoder
+   * @library wheelencoder
    * @sensor wheelencoder
    * @comname DFRobot Wheel Encoder
    * @type other

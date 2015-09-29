@@ -37,7 +37,7 @@ namespace upm {
    */
 
   /**
-   * @library libupm-grovewfs
+   * @library grovewfs
    * @sensor grovewfs
    * @comname Grove Water Flow Sensor
    * @type liquid
