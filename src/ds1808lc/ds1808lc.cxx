@@ -33,11 +33,14 @@ DS1808LC::DS1808LC(int gpioPower, int i2cBus)
    mraa_i2c_address(i2c, DS1808_I2C_ADDR);
 
    // There is a bug in the hardware that prevents us from reading the power GPIO pin
-   m_isPowered = false;     // Assume it's off
-
+   // Assume light is off if brightness is set to 0
    int brightness = 0;
    if (getBrightness(&brightness))
-	   status = MRAA_SUCCESS;
+      (brightness > 0) ? m_isPowered = true : m_isPowered = false;
+   else
+      m_isPowered = false;     // Assume it's off
+
+
 }
 
 DS1808LC::~DS1808LC()
@@ -83,7 +86,8 @@ bool DS1808LC::setPowerOn()
 bool DS1808LC::setPowerOff()
 {
    m_isPowered = false;
-   return MraaUtils::setGpio(pinPower, 0) == MRAA_SUCCESS;
+   status = MraaUtils::setGpio(pinPower, 0);
+   return isConfigured();   
 }
 
 
@@ -93,12 +97,13 @@ bool DS1808LC::getBrightness(int* percent)
 
    if (mraa_i2c_read(i2c, values, 2) == 2) {
       *percent = getPercentBrightness(values[0], values[1]);
-      return true;
+      status = MRAA_SUCCESS;
    }
    else {
       printf("DS1808LC: Failed to retrieve potentiometer values.\n");
-      return false;
+      status = MRAA_ERROR_INVALID_RESOURCE;
    }
+   return isConfigured();   
 }
    
 
@@ -107,11 +112,8 @@ bool DS1808LC::setBrightness(int dutyPercent)
    uint8_t values[2];
    values[0] = getPot1Value(dutyPercent);
    values[1] = getPot2Value(dutyPercent);
-   mraa_i2c_write(i2c, values, 2);
-
-   bool retval =  isConfigured();
-
-   return retval;
+   status = mraa_i2c_write(i2c, values, 2);
+   return isConfigured();
 }
 
 //
