@@ -1,4 +1,4 @@
-%module javaupm_pulsensor
+%module(directors="1") javaupm_pulsensor
 %include "../upm.i"
 %include "arrays_java.i"
 

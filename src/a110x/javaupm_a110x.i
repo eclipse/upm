@@ -1,4 +1,4 @@
-%module javaupm_a110x
+%module(directors="1") javaupm_a110x
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
