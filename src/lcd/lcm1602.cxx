@@ -39,10 +39,12 @@
 
 using namespace upm;
 
-Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) : 
+Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
+                 uint8_t numColumns, uint8_t numRows) :
   m_i2c_lcd_control(new mraa::I2c(bus_in)),
   m_gpioRS(0), m_gpioEnable(0), m_gpioD0(0),
-  m_gpioD1(0), m_gpioD2(0), m_gpioD3(0)
+  m_gpioD1(0), m_gpioD2(0), m_gpioD3(0),
+  m_numColumns(numColumns), m_numRows(numRows)
 {
     mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (I2C)";
@@ -97,11 +99,13 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander) :
 }
 
 Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0, 
-                 uint8_t d1, uint8_t d2, uint8_t d3) :
+                 uint8_t d1, uint8_t d2, uint8_t d3,
+                 uint8_t numColumns, uint8_t numRows) :
   m_i2c_lcd_control(0),  
   m_gpioRS(new mraa::Gpio(rs)), m_gpioEnable(new mraa::Gpio(enable)), 
   m_gpioD0(new mraa::Gpio(d0)), m_gpioD1(new mraa::Gpio(d1)),
-  m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3))
+  m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3)),
+  m_numColumns(numColumns), m_numRows(numRows)
 {
     mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (4-bit GPIO)";
@@ -196,9 +200,49 @@ mraa::Result
 Lcm1602::setCursor(int row, int column)
 {
     mraa::Result error = mraa::SUCCESS;
+    column = column % m_numColumns;
+    uint8_t offset = column;
 
-    int row_addr[] = { 0x80, 0xc0, 0x14, 0x54 };
-    uint8_t offset = ((column % 16) + row_addr[row]);
+    switch (m_numRows)
+    {
+        case 1:
+            // assume 16x1 display (8x1 should work as well)
+            // DDRAM mapping:
+            // 00 01 02 03 04 05 06 07 40 41 42 43 44 45 46 47
+            offset = (column % 8) + (column / 8) * 0x40;
+            break;
+        case 2:
+            // this should work for 40x2, 20x2, and 16x2 displays
+            // DDRAM mapping:
+            // 00 .. 0F .. 13 .. 27
+            // 40 .. 4F .. 53 .. 67
+            offset += row * 0x40;
+            break;
+        case 4:
+            if (m_numRows == 16)
+            {
+                 // 16x4 display
+                 // DDRAM mapping:
+                 // 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+                 // 40 41 42 43 43 45 46 47 48 49 4A 4B 4C 4D 4E 4F
+                 // 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F
+                 // 50 51 52 53 54 55 56 57 58 59 5A 5B 5C 5D 5E 5F
+                 int row_addr[] = { 0x00, 0x40, 0x10, 0x50 };
+                 offset += row_addr[row];
+             }
+             else
+             {
+                 // 20x4 display
+                 // DDRAM mapping:
+                 // 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F 10 11 12 13
+                 // 40 41 42 43 43 45 46 47 48 49 4A 4B 4C 4D 4E 4F 50 51 52 53
+                 // 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F 20 21 22 23 24 25 26 27
+                 // 54 55 56 57 58 59 5A 5B 5C 5D 5E 5F 60 61 62 63 64 65 66 67
+		 int row_addr[] = { 0x00, 0x40, 0x14, 0x54 };
+                 offset += row_addr[row];
+             }
+             break;
+    }
 
     return command(LCD_CMD | offset);
 }
