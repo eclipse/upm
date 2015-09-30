@@ -64,7 +64,6 @@ protected:
    bool setPowerOff();
    bool getBrightness(int* percent);
    bool setBrightness(int dutyPercent);
-   bool getBrightnessRange(int* percentMin, int* percentMax);
 
 private:
    int getPercentBrightness(uint8_t val1, uint8_t val2);
@@ -75,7 +74,6 @@ private:
    mraa_result_t status;
    mraa_i2c_context i2c;
    int pinPower;
-   bool m_isPowered;
 };
 
 

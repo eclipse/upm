@@ -30,17 +30,7 @@ DS1808LC::DS1808LC(int gpioPower, int i2cBus)
       printf("DS1808LC: I2C initialisation failed.\n");
       return;
    }
-   mraa_i2c_address(i2c, DS1808_I2C_ADDR);
-
-   // There is a bug in the hardware that prevents us from reading the power GPIO pin
-   // Assume light is off if brightness is set to 0
-   int brightness = 0;
-   if (getBrightness(&brightness))
-      (brightness > 0) ? m_isPowered = true : m_isPowered = false;
-   else
-      m_isPowered = false;     // Assume it's off
-
-
+   status = mraa_i2c_address(i2c, DS1808_I2C_ADDR);
 }
 
 DS1808LC::~DS1808LC()
@@ -53,17 +43,13 @@ bool DS1808LC::isConfigured()
    return status == MRAA_SUCCESS;
 }
 
-bool DS1808LC::getBrightnessRange(int* percentMin, int* percentMax)
-{
-   *percentMin = 0;
-   *percentMax = 100;
-   return true;
-}
-
 bool DS1808LC::isPowered()
 {
-   // There is a bug where reading the GPIO pin sets it to 0 and powers off the light
-   return m_isPowered;
+   int level;
+   if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS)
+      return static_cast<bool>(level);
+   else
+      return false;
 }
 
 bool DS1808LC::setPowerOn()
@@ -79,13 +65,11 @@ bool DS1808LC::setPowerOn()
       if (!setBrightness(0))
          printf("DS1808LC: Failed to set brightness.\n");
    }
-   m_isPowered = isConfigured();
    return isConfigured();
 }
 
 bool DS1808LC::setPowerOff()
 {
-   m_isPowered = false;
    status = MraaUtils::setGpio(pinPower, 0);
    return isConfigured();   
 }
