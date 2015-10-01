@@ -206,10 +206,15 @@ Lcm1602::setCursor(int row, int column)
     switch (m_numRows)
     {
         case 1:
-            // assume 16x1 display (8x1 should work as well)
-            // DDRAM mapping:
+            // Single row displays with more than 8 columns usually have their
+            // DDRAM split in two halves. The first half starts at address 00.
+            // The second half starts at address 40. E.g. 16x2 DDRAM mapping:
             // 00 01 02 03 04 05 06 07 40 41 42 43 44 45 46 47
-            offset = (column % 8) + (column / 8) * 0x40;
+            if (m_numColumns > 8)
+            {
+                offset = (column % (m_numColumns / 2)) +
+                         (column / (m_numColumns / 2) * 0x40;
+            }
             break;
         case 2:
             // this should work for any display with two rows
