@@ -13,6 +13,8 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ")
+
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=0.8.0)
@@ -28,7 +30,7 @@ include(GNUInstallDirs)
 # Make a version file containing the current version from git.
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
-if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
+if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
   message (WARNING " - Install git to compile a production UPM!")
   set (VERSION "v0.4.0-dirty")
 endif ()
