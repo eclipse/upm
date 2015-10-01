@@ -212,14 +212,14 @@ Lcm1602::setCursor(int row, int column)
             offset = (column % 8) + (column / 8) * 0x40;
             break;
         case 2:
-            // this should work for 40x2, 20x2, and 16x2 displays
+            // this should work for any display with two rows
             // DDRAM mapping:
-            // 00 .. 0F .. 13 .. 27
-            // 40 .. 4F .. 53 .. 67
+            // 00 .. 27
+            // 40 .. 67
             offset += row * 0x40;
             break;
         case 4:
-            if (m_numRows == 16)
+            if (m_numColumns == 16)
             {
                  // 16x4 display
                  // DDRAM mapping:
