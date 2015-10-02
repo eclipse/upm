@@ -120,7 +120,6 @@ namespace upm {
 
   protected:
     int ttyFd() { return m_ttyFd; };
-    int setTtyFd(int fd) { m_ttyFd = fd; };
 
   private:
     mraa_uart_context m_uart;
