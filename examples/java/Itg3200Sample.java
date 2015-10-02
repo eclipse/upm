@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+//NOT TESTED!!!
+public class Itg3200Sample {
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_itg3200");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,24 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		int[] rot;
+		float[] ang;
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// Note: Sensor not supported on Intel Edison with Arduino breakout
+		upm_itg3200.Itg3200 gyro = new upm_itg3200.Itg3200(0);
+		
+		while(true){
+			gyro.update();
+			rot = gyro.getRawValues();
+			ang = gyro.getRotation();
+			
+			System.out.println( "Raw Values: X: " + rot[0] + " Y: " + rot[1] + " Z: " + rot[2] );
+			System.out.println( "Angular Velocities: X: " + ang[0] + " Y: " + ang[1] + " Z: " + ang[2]);
+						
+			System.out.println( "Temp: " + gyro.getTemperature() + ", Raw: " + gyro.getRawTemp());
 			
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }

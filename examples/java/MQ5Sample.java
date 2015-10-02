@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+public class MQ5Sample {
+	private static final short resolution = 7;
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_gas");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,29 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		short[] buffer = new short[128];
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
+		// Attach gas sensor to A0
+		upm_gas.MQ5 sensor = new upm_gas.MQ5(0);
+		
+		upm_gas.thresholdContext ctx = new upm_gas.thresholdContext();
+		ctx.setAverageReading(0);
+		ctx.setRunningAverage(0);
+		ctx.setAveragedOver(2);
+		
+		while(true){
+			int len = sensor.getSampledWindow(2, buffer);
+			
+			if(len != 0){
+				int thresh = sensor.findThreshold(ctx, 30, buffer);
+				sensor.printGraph(ctx, resolution);
+				if (thresh != 0){
+					System.out.println("---Threshold reached---");
+				}
 			}
 			
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }

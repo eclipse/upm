@@ -22,34 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+import upm_a110x.IsrCallback;
+
+public class A110X_intrSample {
 	
+	public static int counter=0;
+		
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_a110x");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// Instantiate an A110X sensor on digital pin D2
+		upm_a110x.A110X hall = new upm_a110x.A110X(2);
+
+		// This example uses a user-supplied interrupt handler to count
+		// pulses that occur when a magnetic field of the correct polarity
+		// is detected.  This could be used to measure the rotations per
+		// minute (RPM) of a rotor for example.
+
+		IsrCallback callback = new A110XISR();
+		hall.installISR(callback);
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
-			
+		while(true){
+			System.out.println("Counter: " + counter);
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
+}
 
+class A110XISR extends IsrCallback {
+	public A110XISR(){
+		super();
+	}
+	public void run(){
+		A110X_intrSample.counter++;
+	}
 }

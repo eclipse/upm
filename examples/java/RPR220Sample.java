@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+public class RPR220Sample {
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_rpr220");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +35,19 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// This example uses a simple method to determine current status
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// Instantiate an RPR220 digital pin D2
+		upm_rpr220.RPR220 sensor = new upm_rpr220.RPR220(2);
+		
+		while(true){
+			if(sensor.blackDetected())
+				System.out.println("Black detected");
+			else
+				System.out.println("Black NOT detected");
 			
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }

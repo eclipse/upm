@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+//NOT TESTED!!!
+public class H3LIS331DLSample {
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_h3lis331dl");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,26 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		int[] val;
+		float[] accel;
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// Instantiate an H3LIS331DL on I2C bus 0
+		upm_h3lis331dl.H3LIS331DL sensor = new upm_h3lis331dl.H3LIS331DL(0);
+		
+		// Initialize the device with default values
+		sensor.init();
+		
+		while(true){
+			sensor.update();
+			
+			val = sensor.getRawXYZ();
+			System.out.println( "Raw: X: " + val[0] + " Y: " + val[1] + " Z: " + val[2]  );
+			
+			accel = sensor.getAcceleration();
+			System.out.println( "Acceleration: X: " + accel[0] + " Y: " + accel[1] + " Z: " + accel[2] );
 			
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }
