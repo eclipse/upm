@@ -28,7 +28,7 @@ public class ENC03RSample {
 	
 	static {
 		try {
-			System.loadLibrary("upm_enc03r");
+			System.loadLibrary("javaupm_enc03r");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);

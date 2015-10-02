@@ -22,7 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
 public class Ublox6Sample {
 	private static final int BUFFERLENGTH = 256; 
 	
@@ -45,11 +44,11 @@ public class Ublox6Sample {
 			throw new RuntimeException("Failed to setup tty port parameters");
 	    }
 		   
-		// Collect and output NMEA data.  There are various libraries out on
-		// the Internet, such as tinyGPS or tinyGPS++ that can handle
-		// decoding NMEA data and presenting it in a more easily accessible
-		// format.  This example will just check for, and read raw NMEA data
-		// from the device and output it on standard output.
+		// Collect and output NMEA data. There are various libraries out on
+		// the Internet, that can handle decoding NMEA data and presenting
+		// it in a more easily accessible format.  This example will just
+		// check for, and read raw NMEA data from the device and output it
+		// on standard output.
 		
 		// This device also supports numerous configuration options, which
 		// you can set with writeData().  Please refer to the Ublox-6 data
@@ -65,10 +64,10 @@ public class Ublox6Sample {
 				int rv = nmea.readData(nmeaBuffer);
 
 				if(rv > 0)
-					for (int i = 0; i < nmeaBuffer.length; i++)
-						System.out.print(nmeaBuffer[i]);
+					for (int i = 0; i < rv; i++)
+						System.out.print((char)nmeaBuffer[i]);
 						
-				if (rv < 0){ // some sort of read error occured
+				if (rv < 0){ // some sort of read error occurred
 					System.err.println("Port read error.") ;
 					break;
 				}

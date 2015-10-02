@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+//NOT TESTED!!!
+public class GroveEHRSample {
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_groveehr");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,27 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
+		upm_groveehr.GroveEHR heart = new upm_groveehr.GroveEHR(2);
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// set the beat counter to 0, init the clock and start counting beats
+		heart.clearBeatCounter();
+		heart.initClock();
+		heart.startBeatCounter();
+		
+		while(true){
+			long millis = heart.getMillis();
+			long beats = heart.beatCounter();
+			
+			// heartRate() requires that at least 5 seconds pass before
+			// returning anything other than 0
+			int hr =  heart.heartRate();
+			
+			// output milliseconds passed, beat count, and computed heart rate
+			System.out.println("Millis: " + millis + ", Beats: " + beats + ", Heart rate: " + hr);
 			
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }

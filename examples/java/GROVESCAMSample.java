@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
-	
+//NOT TESTED!!!
+public class GROVESCAMSample{
+
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_grovescam");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,40 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// Instantiate a Grove Serial Camera on UART 0
+		upm_grovescam.GROVESCAM camera = new upm_grovescam.GROVESCAM(0);
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
-			
-			Thread.sleep(1000);
+		// make sure port is initialized properly.  115200 baud is the default.
+		if(!camera.setupTty()){
+			System.err.println("Failed to setup tty port parameters");
+			System.exit(-1);
 		}
-        //! [Interesting]
+		
+		if(camera.init())
+			System.out.println("Initialized...");
+		else
+			System.out.println("Initialization failed");
+		
+		if(camera.preCapture())
+			System.out.println("preCapture succeeded...");
+		else
+			System.out.println("preCapture failed.");
+		
+		if(camera.doCapture())
+			System.out.println("doCapture succeeded...");
+		else
+			System.out.println("doCapture failed.");
+		
+		if(camera.getImageSize() > 0){
+			System.out.println("Storing image.jpg...");
+			
+			if(camera.storeImage("image.jpg"))
+				System.out.println("storeImage succeeded...");
+			else
+				System.out.println("storeImage failed.");
+			
+		}
+		//! [Interesting]
 	}
 
 }

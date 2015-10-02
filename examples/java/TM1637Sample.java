@@ -22,11 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
-	
+import java.time.LocalDateTime;
+
+//NOT TESTED!!!
+public class TM1637Sample {
+
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_tm1637");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +38,30 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// TM1637 on pins 0 (clk) and 1 (dio)
+		upm_tm1637.TM1637 myDisplay = new upm_tm1637.TM1637(0, 1);
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// Start a box using 7-segment encoding
+		myDisplay.write(0x39, 0x09, 0x09);
+		
+		// Finish box using writeAt function
+		myDisplay.writeAt(3, ']');
+		
+		// Wait 3 seconds
+		Thread.sleep(3000);
+		
+		LocalDateTime now;
+		while(true){
+			now = LocalDateTime.now();
+			int hour = now.getHour();
+			int min = now.getMinute();
+			int sec = now.getSecond();
 			
+			System.out.println (hour + ":" + min + ":" + sec);
+			myDisplay.writeString(hour + ":" + min);
+						
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }
