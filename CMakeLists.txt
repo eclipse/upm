@@ -5,15 +5,13 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 message("WARNING: building into sources dir can be risky, prefer other directory")
 endif ()
 
-find_package (SWIG)
+find_package (SWIG 3.0.5)
 if (SWIG_FOUND)
   include (${SWIG_USE_FILE})
 endif ()
 
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
-
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ")
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
