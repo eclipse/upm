@@ -22,12 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
 public class Joystick12_exampleSample {
 
 	static {
 		try {
-			System.loadLibrary("upm_joystick12");
+			System.loadLibrary("javaupm_joystick12");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);

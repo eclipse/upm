@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+//NOT TESTED!!!
+public class MHZ16Sample {
 	
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_mhz16");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,23 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		int[] gas = new int[1];
+		int[] temp = new int[1];
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
+		// Instantiate a MHZ16 serial CO2 sensor on uart 0.
+		upm_mhz16.MHZ16 co2 = new upm_mhz16.MHZ16(0);
+		
+		System.out.println("Make sure that the sensor has had at least 3 minutes to warm up");
+		System.out.println("or you will not get valid results.");
+		System.out.println("The temperature reported is not the ambient temperature,");
+		System.out.println("but rather the temperature of the sensor elements.");
+		
+		while(true){
+			co2.getData(gas, temp);
+			System.out.println("CO2 concentration: " + gas[0] + "PPM, Temperature (in C): " + temp[0]);
 			
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }

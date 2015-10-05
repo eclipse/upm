@@ -22,34 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
+import upm_rpr220.IsrCallback;
+
+public class RPR220_intrSample {
 	
+	public static int counter=0;
+		
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_rpr220");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// This example uses an interrupt handler to increment a counter
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
-			
+		// Instantiate an RPR220 digital pin D2
+		upm_rpr220.RPR220 sensor = new upm_rpr220.RPR220(2);
+		
+		IsrCallback callback = new RPRISR();
+		sensor.installISR(callback);
+		
+		while(true){
+			System.out.println("Counter: " + counter);
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
+}
 
+class RPRISR extends IsrCallback {
+	public RPRISR(){
+		super();
+	}
+	public void run(){
+		RPR220_intrSample.counter++;
+	}
 }

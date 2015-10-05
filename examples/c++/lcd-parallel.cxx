@@ -1,6 +1,7 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sergey Kiselev <sergey.kiselev@intel.com>
+ * Author: Yevgeniy Kiveish <yevgeniy.kiveisha@intel.com>
+ * Copyright (c) 2014 - 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,34 +23,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
-	
-	static {
-		try {
-			System.loadLibrary("javaupm_yg1006");
-		}catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-	
-	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
-		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
-			
-			Thread.sleep(1000);
-		}
-        //! [Interesting]
-	}
+#include <upm/lcm1602.h>
 
+int
+main(int argc, char **argv)
+{
+//! [Interesting]
+    // LCD connection:
+    // LCD RS pin to digital pin 8
+    // LCD Enable pin to digital pin 13
+    // LCD D4 pin to digital pin 2
+    // LCD D5 pin to digital pin 3
+    // LCD D6 pin to digital pin 4
+    // LCD D7 pin to digital pin 5
+    // LCD R/W pin to ground
+    // 10K trimmer potentiometer:
+    //   ends to +5V and ground
+    //   wiper to LCD VO pin (pin 3)
+    upm::Lcm1602 *lcd = new upm::Lcm1602(8, 13, 2, 3, 4, 5, 20, 2);
+    lcd->setCursor(0,0);
+    lcd->write("Hello World");
+    lcd->setCursor(1,2);
+    lcd->write("Hello World");
+
+    printf("Sleeping for 5 seconds\n");
+    sleep(5);
+    delete lcd;
+//! [Interesting]
+    return 0;
 }

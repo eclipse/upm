@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class YG1006Sample{
-	
+//NOT TESTED!!!
+public class GroveWFSSample {
+
 	static {
 		try {
-			System.loadLibrary("javaupm_yg1006");
+			System.loadLibrary("javaupm_grovewfs");
 		}catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
@@ -35,21 +36,18 @@ public class YG1006Sample{
 	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
-		// Instantiate a yg1006 flame sensor on digital pin D2
-		upm_yg1006.YG1006 flame = new upm_yg1006.YG1006(2);
+		// Instantiate a Grove Water Flow Sensor on digital pin D2
+		upm_grovewfs.GroveWFS flow = new upm_grovewfs.GroveWFS(2);
 		
-		while (true) {
-			boolean val = flame.flameDetected();
-			if (val){
-				System.out.println("Flame detected");
-			}
-			else{
-				System.out.println("No flame detected");				
-			}
-			
-			Thread.sleep(1000);
+		flow.clearFlowCounter();
+		flow.startFlowCounter();
+		
+		while(true){
+			System.out.print("Millis: " + flow.getMillis() + " FlowCount: " + flow.flowCounter());
+			System.out.println(" Flow Rate: " + flow.flowRate() + " LPM");
+						
+			Thread.sleep(2000);
 		}
-        //! [Interesting]
+		//! [Interesting]
 	}
-
 }
