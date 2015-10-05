@@ -1,0 +1,5 @@
+set (libname "bma220")
+set (libdescription "accelerometer sensor based on bma220")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
