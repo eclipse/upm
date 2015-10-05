@@ -213,7 +213,7 @@ Lcm1602::setCursor(int row, int column)
             if (m_numColumns > 8)
             {
                 offset = (column % (m_numColumns / 2)) +
-                         (column / (m_numColumns / 2)) * 0x40;
+                         (column / (m_numColumns / 2) * 0x40;
             }
             break;
         case 2:
