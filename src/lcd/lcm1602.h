@@ -72,7 +72,8 @@ class Lcm1602 : public LCD
      * @param isExpander True if we are dealing with an I2C expander,
      * false otherwise.  Default is true.
      */
-  Lcm1602(int bus, int address, bool isExpander=true);
+  Lcm1602(int bus, int address, bool isExpander=true,
+          uint8_t numColumns = 16, uint8_t numRows = 4);
 
     /**
      * Lcm1602 alternate constructor, used for GPIO based hd44780
@@ -87,7 +88,8 @@ class Lcm1602 : public LCD
      * @param d3 Data 3 pin
      */
     Lcm1602(uint8_t rs,  uint8_t enable,
-            uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3);
+            uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
+            uint8_t numColumns = 16, uint8_t numRows = 4);
 
     /**
      * Lcm1602 destructor
@@ -224,6 +226,10 @@ class Lcm1602 : public LCD
 
     uint8_t m_displayControl;
     uint8_t m_entryDisplayMode;
+
+    // Display size
+    uint8_t m_numColumns;
+    uint8_t m_numRows;
 
     // Add a command() and data() virtual member functions, with a
     // default implementation in lcm1602.  This is expected to be
