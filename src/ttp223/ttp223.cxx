@@ -22,16 +22,24 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "ttp223.h"
 
 using namespace upm;
 
 TTP223::TTP223(unsigned int pin) {
     // initialize gpio input
-    mraa_init();
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
     m_name = "ttp223";
+    m_isrInstalled = false;
 }
 
 TTP223::~TTP223() {
@@ -49,4 +57,27 @@ int TTP223::value() {
 
 bool TTP223::isPressed() {
     return this->value() == 1;
+}
+
+#ifdef JAVACALLBACK
+void TTP223::installISR(mraa::Edge level, IsrCallback *cb)
+{
+  installISR(level, generic_callback_isr, cb);
+}
+#endif
+
+void TTP223::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
+{
+  if (m_isrInstalled)
+    uninstallISR();
+
+  // install our interrupt handler
+  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
+  m_isrInstalled = true;
+}
+
+void TTP223::uninstallISR()
+{
+  mraa_gpio_isr_exit(m_gpio);
+  m_isrInstalled = false;
 }

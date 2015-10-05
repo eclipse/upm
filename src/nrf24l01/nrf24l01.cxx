@@ -25,16 +25,18 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <string>
+#include <stdexcept>
 #include <stdlib.h>
 
 #include "nrf24l01.h"
 
 using namespace upm;
 
+
 NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce)
                             : m_csnPinCtx(cs), m_cePinCtx(ce), m_spi(0)
 {
-    mraa::init();
     init (cs, ce);
 }
 
@@ -131,6 +133,21 @@ void
 NRF24L01::setPayload (uint8_t payload) {
     m_payload = payload;
 }
+
+#ifdef JAVACALLBACK
+void
+NRF24L01::setDataReceivedHandler (Callback *call_obj)
+{
+    callback_obj = call_obj;
+    dataReceivedHandler = &generic_callback;
+}
+#else
+void
+NRF24L01::setDataReceivedHandler (funcPtrVoidVoid handler)
+{
+    dataReceivedHandler = handler;
+}
+#endif
 
 bool
 NRF24L01::dataReady () {
@@ -299,7 +316,11 @@ void
 NRF24L01::pollListener() {
     if (dataReady()) {
         getData (m_rxBuffer);
-        dataRecievedHandler (); /* let know that data arrived */
+#ifdef JAVACALLBACK
+        dataReceivedHandler (callback_obj); /* let know that data arrived */
+#else
+        dataReceivedHandler (); /* let know that data arrived */
+#endif
     }
 }
 
@@ -386,6 +407,9 @@ NRF24L01::sendBeaconingMsg (uint8_t * msg) {
 
 void
 NRF24L01::writeBytes (uint8_t * dataout, uint8_t * datain, uint8_t len) {
+    if(len > MAX_BUFFER){
+        len = MAX_BUFFER;
+    }
     for (uint8_t i = 0; i < len; i++) {
         if (datain != NULL) {
             datain[i] = m_spi.writeByte(dataout[i]);
@@ -476,6 +500,10 @@ NRF24L01::bleWhiten (uint8_t* data, uint8_t len, uint8_t whitenCoeff) {
 
 void
 NRF24L01::blePacketEncode(uint8_t* packet, uint8_t len, uint8_t chan) {
+    if(len > MAX_BUFFER){
+        len = MAX_BUFFER;
+    }
+    
     //length is of packet, including crc. pre-populate crc in packet with initial crc value!
     uint8_t i, dataLen = len - 3;
 

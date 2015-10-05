@@ -48,8 +48,8 @@ namespace upm {
  * @ingroup seeed sparkfun pwm gpio motor
  */
 /**
- * @library stepper
- * @sensor stepper
+ * @library stepmotor
+ * @sensor stepmotor
  * @comname Stepper Motor
  * @altname EasyDriver Stepper Motor Driver
  * @type motor

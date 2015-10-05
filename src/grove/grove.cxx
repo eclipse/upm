@@ -25,6 +25,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "grove.h"
 #include "math.h"
@@ -35,8 +37,11 @@ using namespace upm;
 
 GroveLed::GroveLed(int pin)
 {
-    mraa_init();
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+    }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
     m_name = "LED Socket";
 }
@@ -68,8 +73,11 @@ mraa_result_t GroveLed::off()
 
 GroveRelay::GroveRelay(unsigned int pin)
 {
-    mraa_init();
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+    }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
     m_name = "Relay Switch";
 }
@@ -103,8 +111,11 @@ bool GroveRelay::isOff()
 
 GroveTemp::GroveTemp(unsigned int pin)
 {
-    mraa_init();
-    m_aio = mraa_aio_init(pin);
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
     m_name = "Temperature Sensor";
 }
 
@@ -130,8 +141,11 @@ float GroveTemp::raw_value()
 
 GroveLight::GroveLight(unsigned int pin)
 {
-    mraa_init();
-    m_aio = mraa_aio_init(pin);
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
     m_name = "Light Sensor";
 }
 
@@ -157,8 +171,11 @@ float GroveLight::raw_value()
 
 GroveRotary::GroveRotary(unsigned int pin)
 {
-    mraa_init();
-    m_aio = mraa_aio_init(pin);
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
     m_name = "Rotary Angle Sensor";
 }
 
@@ -201,8 +218,11 @@ float GroveRotary::rel_rad()
 
 GroveSlide::GroveSlide(unsigned int pin, float ref_voltage)
 {
-    mraa_init();
-    m_aio = mraa_aio_init(pin);
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
     m_ref_voltage = ref_voltage;
     m_name = "Slide Potentiometer";
 }
@@ -234,8 +254,11 @@ float GroveSlide::ref_voltage()
 
 GroveButton::GroveButton(unsigned int pin)
 {
-    mraa_init();
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+    }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
     m_name = "Button Sensor";
 }
@@ -253,4 +276,27 @@ std::string GroveButton::name()
 int GroveButton::value()
 {
     return mraa_gpio_read(m_gpio);
+}
+
+#ifdef JAVACALLBACK
+void GroveButton::installISR(mraa::Edge level, IsrCallback *cb)
+{
+  installISR(level, generic_callback_isr, cb);
+}
+#endif
+
+void GroveButton::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
+{
+  if (m_isrInstalled)
+    uninstallISR();
+
+  // install our interrupt handler
+  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
+  m_isrInstalled = true;
+}
+
+void GroveButton::uninstallISR()
+{
+  mraa_gpio_isr_exit(m_gpio);
+  m_isrInstalled = false;
 }

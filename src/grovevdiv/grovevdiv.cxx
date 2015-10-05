@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "grovevdiv.h"
 
@@ -33,7 +35,8 @@ GroveVDiv::GroveVDiv(int pin)
 {
   if ( !(m_aio = mraa_aio_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 }
@@ -56,7 +59,7 @@ unsigned int GroveVDiv::value(unsigned int samples)
   return (sum / samples);
 }
 
-float GroveVDiv::computedValue(uint8_t gain, uint16_t val, int vref, int res)
+float GroveVDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
 {
   return ((float(gain) * float(val) * float(vref) / float(res)) / 1000.0);
 

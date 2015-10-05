@@ -22,6 +22,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
+
 #include "adafruitss.h"
 #include <unistd.h>
 #include <math.h>
@@ -30,16 +33,29 @@ using namespace upm;
 
 adafruitss::adafruitss(int bus,int i2c_address)
 {
-    mraa_init();
-
-
-    m_i2c = mraa_i2c_init(bus);
+    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        return;
+      }
 
     pca9685_addr =  i2c_address;
-    mraa_i2c_address(m_i2c, pca9685_addr);
+    if (mraa_i2c_address(m_i2c, pca9685_addr) != MRAA_SUCCESS)
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+        return;
+      }
+
     m_rx_tx_buf[0]=PCA9685_MODE1;
     m_rx_tx_buf[1]=0;
-    mraa_i2c_write(m_i2c,m_rx_tx_buf,2);
+    if (mraa_i2c_write(m_i2c,m_rx_tx_buf,2) != MRAA_SUCCESS)
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_write() failed");
+        return;
+      }
 
     adafruitss::setPWMFreq(60);
 

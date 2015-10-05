@@ -22,7 +22,7 @@ endif()
 
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-pkg_check_modules (MRAA REQUIRED mraa>=0.7.5)
+pkg_check_modules (MRAA REQUIRED mraa>=0.8.0)
 message (INFO " found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
@@ -37,7 +37,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND")
   message (WARNING " - Install git to compile a production UPM!")
-  set (VERSION "v0.3.2-dirty")
+  set (VERSION "v0.4.0-dirty")
 endif ()
 
 message (INFO " - UPM Version ${VERSION}")
@@ -79,6 +79,9 @@ if (BUILDDOC)
   find_package (Doxygen)
   if (DOXYGEN_FOUND)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+    if (BUILDSWIGJAVA)
+        configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.java.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile-java @ONLY)
+    endif()
     file(GLOB PNG_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/docs docs/icons/*.png)
     foreach(PNG_FILE ${PNG_FILES})
       configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/${PNG_FILE} ${CMAKE_CURRENT_BINARY_DIR}/html/docs/${PNG_FILE} COPYONLY)

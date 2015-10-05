@@ -1,6 +1,7 @@
 /*
+ * Author: Andrei Vasiliu <andrei.vasiliu@intel.com>
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Credits to Adafruit.
  * Based on Adafruit BMP085 library.
@@ -28,9 +29,9 @@
 
 #include <string>
 #include <math.h>
-#include <mraa/pwm.h>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
+#include <mraa/pwm.hpp>
+#include <mraa/aio.hpp>
+#include <mraa/gpio.hpp>
 #include <pthread.h>
 
 #define HIGH               1
@@ -71,13 +72,30 @@ struct clbk_data {
     int is_heart_beat; /**< heartbeat check */
 };
 
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "Callback.h"
+#else
 typedef void (* callback_handler) (clbk_data);
+#endif
 
 /*!
- * @struct pulsensor_context 
+ * @class Pulsensor
  * @brief The context for the heartbeat pulse sensor
  */
-struct pulsensor_context {
+class Pulsensor {
+
+public:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    Pulsensor(Callback *callback);
+#else
+    Pulsensor(callback_handler handler);
+#endif
+    void start_sampler();
+    void stop_sampler();
+
+private:
+    static void      *do_sample(void *arg);
     pthread_t        sample_thread; /**< Thread for the code sample */
     uint32_t         sample_counter; /**< Counter for the code sample */
     uint32_t         last_beat_time; /**< Last heartbeat time */
@@ -94,15 +112,12 @@ struct pulsensor_context {
     uint8_t          second_beat; /**< Second heartbeat */
     uint8_t          pin; /**< Pin */
     uint8_t          ret; /**< Return value */
-    mraa_aio_context  pin_ctx; /**< The pin context */
-
+    mraa::Aio        pin_ctx; /**< The pin context */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+    Callback *obj_callback; /**< The callback object */
+#else
     callback_handler callback; /**< The callback function */
+#endif
+    volatile uint16_t ctx_counter;
 };
 
-static volatile uint16_t ctx_counter = 0;
-
-void init_pulsensor (pulsensor_context * ctx, callback_handler handler);
-void start_sampler (pulsensor_context * ctx);
-void stop_sampler (pulsensor_context * ctx);
-
-void * do_sample (void * arg);

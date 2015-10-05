@@ -27,22 +27,15 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
+#include <stdexcept>
 #include "gas.h"
 
 using namespace upm;
 
-Gas::Gas(int gasPin) {
-    // initialise analog gas input
-    m_gasCtx = mraa_aio_init(gasPin);
+Gas::Gas(int gasPin) : m_aio(gasPin) {
 }
 
 Gas::~Gas() {
-    // close analog input
-    mraa_result_t error;
-    error = mraa_aio_close(m_gasCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
 }
 
 int
@@ -61,7 +54,7 @@ Gas::getSampledWindow (unsigned int freqMS, int numberOfSamples,
     }
 
     while (sampleIdx < numberOfSamples) {
-        buffer[sampleIdx++] = mraa_aio_read (m_gasCtx);
+        buffer[sampleIdx++] = getSample();
         usleep(freqMS * 1000);
     }
 
@@ -93,7 +86,7 @@ Gas::getSampledData (thresholdContext* ctx) {
 
 int
 Gas::getSample () {
-    return mraa_aio_read (m_gasCtx);
+    return m_aio.read();
 }
 
 void

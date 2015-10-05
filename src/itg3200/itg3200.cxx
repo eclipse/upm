@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include "math.h"
 #include "itg3200.h"
@@ -64,7 +66,6 @@ using namespace upm;
 
 Itg3200::Itg3200(int bus) : m_i2c(bus)
 {
-    //reset chip
     m_i2c.address(ITG3200_I2C_ADDR);
     m_buffer[0] = ITG3200_PWR_MGM;
     m_buffer[1] = ITG3200_RESET;

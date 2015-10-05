@@ -4,6 +4,21 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.4.0
+
+ * Fully functional and documented JAVA language bindings for sensors with
+ several examples also available
+ * Added standardized exception handling support across all language bindings
+ and updated sensors to use this feature
+ * Sensor drivers are now available and can be installed individually using NPM
+ for Node.js users
+ * Continuous Integration with Travis CI ensures new contributions are built
+ automatically once they are received
+ * API rewrite and improvements for hcsr04, sm130, eboled, loudness
+ * Documentation improvements and code style changes from C to C++
+ * New sensors: hyld9767, mg811, wheelencoder, grovegprs, mpu9250, ssd1306,
+ es9257, lm35, mq4, mq6, mq7, mq8
+
 ### v0.3.2
 
  * Introduced RPM package generation feature from cmake via cpack

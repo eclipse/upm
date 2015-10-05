@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -34,8 +36,6 @@ StepMotor::StepMotor (int dirPin, int stePin)
                     : m_pwmStepContext(stePin), m_dirPinCtx(dirPin) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "StepMotor";
-
-    mraa::init();
 
     m_stePin = stePin;
     m_dirPin = dirPin;

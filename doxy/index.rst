@@ -21,7 +21,16 @@ For building UPM, please follow this `link <https://github.com/intel-iot-devkit/
 Multi-sensor samples for the starter and specialized kits can be found in the `iot-devkit-samples <https://github.com/intel-iot-devkit/iot-devkit-samples>`_
 repository.
 
-Individual sensor usage examples for python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
+Individual sensor usage examples for Python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
+
+``IDE Compatibility``
+################
+
+While there is no official IDE provided with our Python libraries, we do recommend the web-based IDE Wyliodrin. It can be used with multiple programming
+languages, including Python. More information can be found on the Intel Developer Zone IDE page.
+
+.. image:: ../docs/icons/wyliodrin.png
+   :target: https://software.intel.com/iot/software/ide
 
 ``Making your own UPM Module``
 ##############################
@@ -48,8 +57,10 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ``List of Available Sensors Drivers``
 ######################################
 
+Click on the library prefix below to expand the full list of sensors:
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    modules
 
@@ -57,7 +68,9 @@ Don't forget to check the documentation `section <https://github.com/intel-iot-d
 ###########################
 
 .. image:: ../docs/icons/c++.png
-   :target: http://iotdk.intel.com/docs/master/upm/modules.html
+   :target: http://iotdk.intel.com/docs/master/upm
+.. image:: ../docs/icons/java.png
+   :target: http://iotdk.intel.com/docs/master/upm/java
 .. image:: ../docs/icons/python.png
    :target: http://iotdk.intel.com/docs/master/upm/python
 .. image:: ../docs/icons/node.png

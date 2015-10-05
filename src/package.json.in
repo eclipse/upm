@@ -1,9 +1,23 @@
 {
   "name" : "jsupm_@libname@",
+  "description": "Sensor library based on MRAA that allows you to use various sensors on platforms such as the Intel Galileo, Intel Edison, Minnowboard MAX and others.",
+  "keywords":["intel", "edison", "galileo", "minnow", "io", "mraajs", "upmjs", "gpio", "spi", "i2c", "uart", "aio", "sensor", "actuator"],
+  "homepage": "http://github.com/intel-iot-devkit/upm",
   "main" : "./jsupm_@libname@.node",
-  "version" : "@upm_VERSION_STRING@",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/intel-iot-devkit/upm"
+  },
   "engines" : {
     "node": ">= 0.10.x"
   },
-  "license": "MIT"
+  "bugs": {
+    "url" : "http://github.com/intel-iot-devkit/upm/issues"
+  },
+  "dependencies": {
+  "mraa": ">=@MRAA_VERSION@"
+  },
+  "license": "MIT",
+  "version" : "@upm_VERSION_STRING@",
+  "authors": "See http://github.com/intel-iot-devkit/upm/graphs/contributors"
 }

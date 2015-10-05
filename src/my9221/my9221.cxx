@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -30,9 +32,9 @@
 
 using namespace upm;
 
-MY9221::MY9221 (uint8_t di, uint8_t dcki) : m_clkPinCtx(dcki), m_dataPinCtx(di) {
+MY9221::MY9221 (uint8_t di, uint8_t dcki)
+                    : m_clkPinCtx(dcki), m_dataPinCtx(di) {
     mraa::Result error = mraa::SUCCESS;
-    mraa::init();
 
     // set direction (out)
     error = m_clkPinCtx.dir(mraa::DIR_OUT);

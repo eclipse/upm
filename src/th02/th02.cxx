@@ -55,8 +55,8 @@ TH02::getTemperature () {
 
     /* Start a new temperature conversion */
     if (m_i2c.writeReg(TH02_REG_CONFIG, TH02_CMD_MEASURE_TEMP)) {
-        cerr << __FUNCTION__ << "@" << __LINE__ 
-             << ": writeReg failed" << endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": I2c.writeReg() failed");
         return 0.0;
     }
 
@@ -76,8 +76,8 @@ TH02::getHumidity () {
 
     /* Start a new humidity conversion */
     if (m_i2c.writeReg(TH02_REG_CONFIG, TH02_CMD_MEASURE_HUMI)) {
-        cerr << __FUNCTION__ << "@" << __LINE__ 
-             << ": writeReg failed" << endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": I2c.writeReg() failed");
         return 0.0;
     }
 

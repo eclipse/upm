@@ -24,7 +24,11 @@
 #pragma once
 
 #include <string>
-#include <mraa/gpio.h>
+#include <mraa/gpio.hpp>
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "../IsrCallback.h"
+#endif
 
 namespace upm {
 /**
@@ -87,9 +91,32 @@ class TTP223 {
          */
         bool isPressed();
 
+        /**
+         * Installs an interrupt service routine (ISR) to be called when
+         * the button is activated or deactivated.
+         *
+         * @param fptr Pointer to a function to be called on interrupt
+         * @param arg Pointer to an object to be supplied as an
+         * argument to the ISR.
+         */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        void installISR(mraa::Edge level, IsrCallback *cb);
+#else
+        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
+        /**
+         * Uninstalls the previously installed ISR
+         *
+         */
+        void uninstallISR();
+
     protected:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
         std::string         m_name; //!< name of this sensor
         mraa_gpio_context   m_gpio; //!< GPIO pin
+        bool                m_isrInstalled;
 };
 
 }

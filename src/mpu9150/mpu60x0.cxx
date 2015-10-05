@@ -53,8 +53,8 @@ MPU60X0::MPU60X0(int bus, uint8_t address) :
   mraa::Result rv;
   if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
     {
-      cerr << __FUNCTION__ << ": Could not initialize i2c address. " << endl;
-      printError(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.address() failed");
       return;
     }
 }
@@ -69,7 +69,8 @@ bool MPU60X0::init()
   // first, take the device out of sleep mode
   if (!setSleep(false))
     {
-      cerr << __FUNCTION__ << ": Unable to wake up device" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Unable to wake up device");
       return false;
     }
 
@@ -77,7 +78,8 @@ bool MPU60X0::init()
   // internal clock for stability
   if (!setClockSource(PLL_XG))
     {
-      cerr << __FUNCTION__ << ": Unable to set clock source" << endl;
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Unable to set clock source");
       return false;
     }
 
@@ -149,8 +151,8 @@ bool MPU60X0::writeReg(uint8_t reg, uint8_t val)
   mraa::Result rv;
   if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
     {
-      cerr << __FUNCTION__ << ": failed:" << endl;
-      printError(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.writeReg() failed");
       return false;
     } 
   
@@ -215,7 +217,8 @@ bool MPU60X0::setGyroscopeScale(FS_SEL_T scale)
 
     default: // should never occur, but...
       m_gyroScale = 1.0;        // set a safe, though incorrect value
-      cerr << __FUNCTION__ << ": internal error, unsupported scale" << endl;
+      throw std::logic_error(string(__FUNCTION__) + 
+                             ": internal error, unsupported scale");
       break;
     }
 
@@ -257,7 +260,8 @@ bool MPU60X0::setAccelerometerScale(AFS_SEL_T scale)
 
     default: // should never occur, but...
       m_accelScale = 1.0;        // set a safe, though incorrect value
-      cerr << __FUNCTION__ << ": internal error, unsupported scale" << endl;
+      throw std::logic_error(string(__FUNCTION__) + 
+                             ": internal error, unsupported scale");
       break;
     }
 

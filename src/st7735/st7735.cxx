@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -35,8 +37,6 @@ using namespace upm;
 ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst)
     : GFX (160, 128, m_map, font), m_csLCDPinCtx(m_csLCD), m_cSDPinCtx(m_cSD),
       m_rSTPinCtx(m_rST), m_rSPinCtx(m_rS), m_spi(0) {
-
-    mraa::init();
 
     m_csLCD = csLCD;
     m_cSD   = cSD;
@@ -53,6 +53,8 @@ ST7735::initModule () {
 
     m_height = 160;
     m_width  = 128;
+
+    m_spi.frequency(15 * 1000000);
 
     error = m_csLCDPinCtx.dir(mraa::DIR_OUT);
     if (error != mraa::SUCCESS) {

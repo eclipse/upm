@@ -1,4 +1,4 @@
-%module javaupm_mma7660
+%module(directors="1") javaupm_mma7660
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
@@ -41,6 +41,7 @@
 %typemap(out) int *getRawValues {
     $result = JCALL1(NewIntArray, jenv, 3);
     JCALL4(SetIntArrayRegion, jenv, $result, 0, 3, (const signed int*)$1);
+    delete [] $1;
 }
 
 %ignore getRawValues(int *, int *, int *);

@@ -26,6 +26,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -37,9 +39,9 @@ GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki)
 									: m_clkPinCtx(dcki),
 									  m_dataPinCtx(di) {
   mraa::Result error = mraa::SUCCESS;
-
-	m_clkPinCtx.useMmap(true);
-	m_dataPinCtx.useMmap(true);
+  
+  m_clkPinCtx.useMmap(true);
+  m_dataPinCtx.useMmap(true);
 
   // set direction (out)
   error = m_clkPinCtx.dir(mraa::DIR_OUT);

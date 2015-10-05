@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "biss0001.h"
 
@@ -30,7 +32,12 @@ using namespace upm;
 
 BISS0001::BISS0001(int pin)
 {
-    m_gpio = mraa_gpio_init(pin);
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
 }
 

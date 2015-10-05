@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "apds9002.h"
 
@@ -30,9 +32,12 @@ using namespace upm;
 
 APDS9002::APDS9002(int pin)
 {
-  mraa_init();
-
-  m_aio = mraa_aio_init(pin);
+  if ( !(m_aio = mraa_aio_init(pin)) ) 
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
+      return;
+    }
 }
 
 APDS9002::~APDS9002()

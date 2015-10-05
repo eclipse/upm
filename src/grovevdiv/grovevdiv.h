@@ -89,7 +89,7 @@ namespace upm {
      *
      * @return Measured voltage
      */
-    float computedValue(uint8_t gain, uint16_t val, int vref=GROVEVDIV_VREF,
+    float computedValue(uint8_t gain, unsigned int val, int vref=GROVEVDIV_VREF,
                         int res=GROVEVDIV_ADC_RES);
 
   private:

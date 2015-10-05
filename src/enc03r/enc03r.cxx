@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "enc03r.h"
 
@@ -31,11 +33,10 @@ using namespace std;
 
 ENC03R::ENC03R(int pin, float vref)
 {
-  mraa_init();
-
   if ( !(m_aio = mraa_aio_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 

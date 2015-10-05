@@ -23,7 +23,10 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
+
 #include "ina132.h"
 
 using namespace upm;
@@ -33,7 +36,8 @@ INA132::INA132(int pin)
 {
     if ( !(m_aio = mraa_aio_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_aio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 }

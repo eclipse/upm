@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 #include "si114x.h"
@@ -43,7 +44,8 @@ SI114X::SI114X(int bus, uint8_t address)
   // setup our i2c link
   if ( !(m_i2c = mraa_i2c_init(bus)) )
     {
-      cerr << "SI114X: mraa_i2c_init() failed." << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
       return;
     }
       
@@ -51,8 +53,8 @@ SI114X::SI114X(int bus, uint8_t address)
   
   if ( (rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS)
     {
-      cerr << "SI114X: Could not initialize i2c bus. " << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_address() failed");
       return;
     }
 
@@ -79,8 +81,8 @@ bool SI114X::writeByte(uint8_t reg, uint8_t byte)
 
   if (rv != MRAA_SUCCESS)
     {
-      cerr << __FUNCTION__ << ": mraa_i2c_write_byte() failed." << endl;
-      mraa_result_print(rv);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_write_byte() failed");
       return false;
     }
 

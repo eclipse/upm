@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -38,7 +40,8 @@ MAX44000::MAX44000 (int bus, int devAddr) : m_i2cMaxControlCtx(bus) {
 
     mraa::Result ret = m_i2cMaxControlCtx.address(m_maxControlAddr);
     if (ret != mraa::SUCCESS) {
-        fprintf(stderr, "Messed up i2c bus\n");
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
     }
 
     // i2cWriteReg (MCR, 0x2C);

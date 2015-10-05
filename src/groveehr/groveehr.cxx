@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "groveehr.h"
 
@@ -31,11 +33,10 @@ using namespace std;
 
 GroveEHR::GroveEHR(int pin)
 {
-  mraa_init();
-
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
       return;
     }
 

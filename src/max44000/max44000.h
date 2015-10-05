@@ -85,7 +85,7 @@ class MAX44000 {
          * @param bus Number of the used bus
          * @param devAddr Address of the used I2C device
          */
-        MAX44000 (int bus, int devAddr);
+        MAX44000 (int bus, int devAddr=ADDR);
 
         /**
          * MAX44000 object destructor; basically, it closes the I2C connection.

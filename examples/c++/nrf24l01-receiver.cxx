@@ -60,7 +60,7 @@ main(int argc, char **argv)
     comm->configure ();
     comm->setSpeedRate (upm::NRF_250KBPS);
     comm->setChannel (99);
-    comm->dataRecievedHandler = nrf_handler;
+    comm->setDataReceivedHandler (nrf_handler);
 
     signal(SIGINT, sig_handler);
 

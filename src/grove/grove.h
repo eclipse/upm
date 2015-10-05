@@ -26,8 +26,12 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
+#include <mraa/aio.hpp>
+#include <mraa/gpio.hpp>
+
+#ifdef JAVACALLBACK
+#include "../IsrCallback.h"
+#endif
 
 namespace upm {
 
@@ -378,7 +382,31 @@ class GroveButton: public Grove {
          * @return Value from the GPIO pin
          */
         int value();
+
+        /**
+         * Installs an interrupt service routine (ISR) to be called when
+         * the button is activated or deactivated.
+         *
+         * @param fptr Pointer to a function to be called on interrupt
+         * @param arg Pointer to an object to be supplied as an
+         * argument to the ISR.
+         */
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        void installISR(mraa::Edge level, IsrCallback *cb);
+#else
+        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
+        /**
+         * Uninstalls the previously installed ISR
+         *
+         */
+        void uninstallISR();
+
     private:
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
+#endif
+        bool m_isrInstalled;
         std::string m_name;
         mraa_gpio_context m_gpio;
 };

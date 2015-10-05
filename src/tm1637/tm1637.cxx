@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+#include <stdexcept>
 #include "tm1637.h"
 #include <stdarg.h>
 
@@ -41,12 +43,14 @@ using namespace upm;
 upm::TM1637::TM1637(int clk_pin, int dio_pin, int bright, M_FAST_GPIO mmio) {
 
     if((m_clk = mraa_gpio_init(clk_pin)) == NULL){
-       cerr << "TM1637: failed to initialize CLK pin." << endl;
+       throw std::invalid_argument(std::string(__FUNCTION__) +
+                                   ": mraa_gpio_init(clk) failed, invalid pin?");
        return;
     }
 
     if((m_dio = mraa_gpio_init(dio_pin)) == NULL){
-       cerr << "TM1637: failed to initialize DIO pin." << endl;
+       throw std::invalid_argument(std::string(__FUNCTION__) +
+                                   ": mraa_gpio_init(dio) failed, invalid pin?");
        return;
     }
 
@@ -60,7 +64,8 @@ upm::TM1637::TM1637(int clk_pin, int dio_pin, int bright, M_FAST_GPIO mmio) {
     if(mmio){
        if(mraa_gpio_use_mmaped(m_clk, 1) != MRAA_SUCCESS ||
           mraa_gpio_use_mmaped(m_dio, 1) != MRAA_SUCCESS){
-           cerr << "TM1637: failed to set memory mapped GPIO" << endl;
+           throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_use_mmaped() failed");
            return;
        }
     }

@@ -23,6 +23,8 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "isd1820.h"
 
@@ -33,7 +35,8 @@ ISD1820::ISD1820(int playPin, int recPin)
 {
   if ( !(m_gpioPlay = mraa_gpio_init(playPin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(playPin) failed, invalid pin?");
       return;
     }
 
@@ -41,7 +44,8 @@ ISD1820::ISD1820(int playPin, int recPin)
 
   if ( !(m_gpioRec = mraa_gpio_init(recPin)) )
     {
-      cerr << __FUNCTION__ << ": mraa_gpio_init() failed" << endl;
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init(recPin) failed, invalid pin?");
       return;
     }
 
