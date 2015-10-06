@@ -22,8 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
 #pragma once
 
 #include <iostream>
@@ -31,33 +29,34 @@
 #include "mraa.hpp"
 #include "mraa/i2c.hpp"
 
-
-
 namespace upm {
   /**
-   * @library gas
-   * @sensor  MICS-V89
-   * @comname MICS-V89
-   * @type Environmental. VOC and CO2
-   * @man http://sgx.cdistore.com/datasheets/e2v/MiCS-VZ-86%20and%20VZ-89%20rev%204.pdf
-   * @man http://www.sgxsensortech.com/content/uploads/2015/01/MICS-VZ-89-I2C-specs-rev-A.pdf
+   * @brief MICS-VZ89 environmental sensor library
+   * @defgroup micsv89 libupm-micsv89
+   * @ingroup generic i2c gaseous
+   */
+  /**
+   * @library micsv89
+   * @sensor micsv89
+   * @comname MICS-VZ89 Gas Sensor
+   * @type gaseous
+   * @man generic
    * @con i2c
+   * @web http://sgx.cdistore.com/datasheets/e2v/MiCS-VZ-86%20and%20VZ-89%20rev%204.pdf
+   * @web http://www.sgxsensortech.com/content/uploads/2015/01/MICS-VZ-89-I2C-specs-rev-A.pdf
    *
    * @brief API for the MICS-VZ89 Gas Sensor
-   * The MiCS-VZ-86/89 combines state-of-the-art MOS
-   * sensor technology with intelligent detection algorithms
-   * to monitor VOCs and CO2 equivalent variations in
-   * confined spaces.
    *
-   * The MICSV89 comes in 4 variants, PWM and I2c
-   * in 3.3 volts and 5 volts. This library only implements
-   * the I2c version of the device.
+   * The MiCS-VZ-86/89 combines state-of-the-art MOS sensor technology with
+   * intelligent detection algorithms to monitor VOCs and CO2 equivalent
+   * variations in confined spaces.
    *
-   * Device output is not valid until a warm up of 15 minutes
-   * of operation.
+   * The MICSV89 comes in 4 variants, PWM and I2C in 3.3 volts and 5 volts.
+   * This library only implements the I2c version of the device.
    *
+   * Device output is not valid until a warm up of 15 minutes of operation.
    *
-   * @image html micsv89.jpg 
+   * @image html micsv89.jpg
    * @snippet micsv89.cxx Interesting
    */
     class MICSV89 {
@@ -84,7 +83,7 @@ namespace upm {
             }
 
             /**
-             *	Returns the  CO2 equivalent value.
+             * Returns the  CO2 equivalent value.
              */
             float co2equ();
 
@@ -106,7 +105,7 @@ namespace upm {
             /**
              * Performs a write/read cycle.
              */
-            void start();
+            void update();
 
             /**
              * Returns true if a valid write/read cycle has been completed.
@@ -114,20 +113,15 @@ namespace upm {
              */
             bool valid()
             {
-            	return m_valid;
+                return m_valid;
             }
-
-
-
 
         private:
             std::string m_name;
             bool m_valid;
             uint8_t m_address;
             uint8_t rx_buf[6];
-           	uint8_t tx_buf[3];
-           	mraa::I2c* i2c;
-
-
+            uint8_t tx_buf[3];
+            mraa::I2c* i2c;
     };
 }

@@ -22,59 +22,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
 #include "micsv89.h"
-
 
 using namespace upm;
 
 MICSV89::MICSV89 (int bus, uint8_t address) {
-	m_name = "micsv89";
-	m_valid = false;
-	m_address = address;
-	i2c = new mraa::I2c(bus);
-	tx_buf[0] = 0x09;
-	tx_buf[1] = 0x00;
-	tx_buf[2] = 0x00;
+    m_name = "micsv89";
+    m_valid = false;
+    m_address = address;
+    i2c = new mraa::I2c(bus);
+    tx_buf[0] = 0x09;
+    tx_buf[1] = 0x00;
+    tx_buf[2] = 0x00;
 }
 
-
-void MICSV89::start()
-{
-	m_valid = false;
-	i2c->address(m_address);
-	i2c->frequency(MRAA_I2C_STD);
-	i2c->write(tx_buf, 3);
-	sleep(1); //Give the device time to make the measurement.
-	i2c->address(m_address);
-	i2c->frequency(MRAA_I2C_STD);
-	i2c->read(rx_buf, 6);
-	m_valid = true;
+void MICSV89::update() {
+    m_valid = false;
+    i2c->address(m_address);
+    i2c->frequency(MRAA_I2C_STD);
+    i2c->write(tx_buf, 3);
+    sleep(1); //Give the device time to make the measurement.
+    i2c->address(m_address);
+    i2c->frequency(MRAA_I2C_STD);
+    i2c->read(rx_buf, 6);
+    m_valid = true;
 }
 
-float MICSV89::co2equ()
-{
-	return ((rx_buf[0] - 13) * (1600/229) + 400);
+float MICSV89::co2equ() {
+    return ((rx_buf[0] - 13) * (1600/229) + 400);
 }
 
-int MICSV89::vocshort()
-{
-	return rx_buf[1];
+int MICSV89::vocshort() {
+    return rx_buf[1];
 }
 
-float MICSV89::tvoc()
-{
-	return rx_buf[2] * (1000/229);
+float MICSV89::tvoc() {
+    return rx_buf[2] * (1000/229);
 }
 
-float MICSV89::resistor()
-{
-	return 10 * (rx_buf[3] + (256 * rx_buf[4]) + (65536 * rx_buf[5]));
+float MICSV89::resistor() {
+    return 10 * (rx_buf[3] + (256 * rx_buf[4]) + (65536 * rx_buf[5]));
 }
 
-MICSV89::~MICSV89 () {
-	delete i2c;
+MICSV89::~MICSV89() {
+    delete i2c;
 }
-
-

@@ -22,14 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "mraa.hpp"
-
-
 #include <iostream>
 #include <unistd.h>
+#include <signal.h>
 #include "micsv89.h"
-
-
 
 /*
  * An example for using the MICSV89 sensor library.
@@ -40,39 +36,43 @@
  * Device output is not valid until a warm up of 15 minutes
  * of operation.
  *
- * Additional linker flags: none
+ * Additional linker flags: -lupm-micsv89
  */
 
 using namespace std;
 
-upm::MICSV89 *sensor = NULL;
+volatile int running = 1;
 
+void
+sig_handler(int signo)
+{
+    if (signo == SIGINT) {
+        cout << "Exiting program." << endl;
+        running = 0;
+    }
+}
 
 int main()
 {
+    signal(SIGINT, sig_handler);
 
+//! [Interesting]
+    upm::MICSV89 *sensor = new upm::MICSV89(6);
 
-	sensor = new upm::MICSV89(6);
+    while(running)
+    {
+        sensor->update();
+        while(!sensor->valid());
+        cout << "co2: " << sensor->co2equ() << endl;
+        cout << "short: " << sensor->vocshort() << endl;
+        cout << "tvoc: " << sensor->tvoc() << endl;
+        cout << "resistor: " << sensor->resistor() << endl;
+        cout << "****************************" << endl;
+        sleep(5);
+    }
 
+    delete sensor;
+//! [Interesting]
 
-
-	while(true)
-	{
-		sensor->start();
-		while(!sensor->valid());
-		cout << "co2: " << sensor->co2equ() << endl;
-		cout << "short: " << sensor->vocshort() << endl;
-		cout << "tvoc: " << sensor->tvoc() << endl;
-		cout << "resistor: " << sensor->resistor() << endl;
-		cout << "****************************" << endl;
-		sleep(5);
-
-	}
-
-
-
-	delete sensor;
-
-
-	return MRAA_SUCCESS;
+    return MRAA_SUCCESS;
 }
