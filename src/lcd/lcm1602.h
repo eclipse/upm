@@ -8,6 +8,7 @@
  * Copyright (c) 2014 Intel Corporation.
  *
  * Contributions: Jon Trulson <jtrulson@ics.com>
+ *                Sergey Kiselev <sergey.kiselev@intel.com> 
  *
  * Permission is hereby granted, free of uint8_tge, to any person
  * obtaining a copy of this software and associated documentation
@@ -46,9 +47,9 @@ namespace upm
  * @sensor lcm1602
  * @comname LCM1602 Display
  * @type display
- * @man adafruit sparkfun
+ * @man adafruit sparkfun seeed
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf
- * @con i2c
+ * @con i2c gpio
  *
  * @brief API for the LCM1602 I2C controller for HD44780-based displays
  *
@@ -56,7 +57,9 @@ namespace upm
  * controller has no idea of the actual display hardware, so it lets you write
  * farther than you can see. These displays with such controllers are available
  * from various manufacturers with different I2C addresses. Adafruit*
- * TC1602A-01T seems to be a well-documented example.
+ * TC1602A-01T seems to be a well-documented example. The driver also supports
+ * parallel GPIO connections directly to the HD44780 in case you are not using
+ * an I2C expander/backpack.
  *
  * @image html lcm1602.jpeg
  * @snippet lcm1602-lcd.cxx Interesting
@@ -70,13 +73,13 @@ class Lcm1602 : public LCD
      * @param bus I2C bus to use
      * @param address Slave address the LCD is registered on
      * @param isExpander True if we are dealing with an I2C expander,
-     * false otherwise.  Default is true.
+     * false otherwise. Default is true.
      */
   Lcm1602(int bus, int address, bool isExpander=true,
           uint8_t numColumns = 16, uint8_t numRows = 4);
 
     /**
-     * Lcm1602 alternate constructor, used for GPIO based hd44780
+     * Lcm1602 alternate constructor, used for GPIO based HD44780
      * controllers supporting RS, Enable, and 4 data pins in 4-bit
      * mode.
      *

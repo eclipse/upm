@@ -1,6 +1,7 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Sergey Kiselev <sergey.kiselev@intel.com>
+ * Author: Yevgeniy Kiveish <yevgeniy.kiveisha@intel.com>
+ * Copyright (c) 2014 - 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,23 +23,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+#include <lcm1602.h>
 
 int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
+    // LCD connection:
+    // LCD RS pin to digital pin 8
+    // LCD Enable pin to digital pin 13
+    // LCD D4 pin to digital pin 2
+    // LCD D5 pin to digital pin 3
+    // LCD D6 pin to digital pin 4
+    // LCD D7 pin to digital pin 5
+    // LCD R/W pin to ground
+    // 10K trimmer potentiometer:
+    //   ends to +5V and ground
+    //   wiper to LCD VO pin (pin 3)
+    upm::Lcm1602 *lcd = new upm::Lcm1602(8, 13, 2, 3, 4, 5, 20, 2);
     lcd->setCursor(0,0);
     lcd->write("Hello World");
-//! [Interesting]
     lcd->setCursor(1,2);
     lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    delete lcd;
 
+    printf("Sleeping for 5 seconds\n");
+    sleep(5);
+    delete lcd;
+//! [Interesting]
     return 0;
 }
