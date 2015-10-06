@@ -31,6 +31,10 @@ MICSV89::MICSV89 (int bus, uint8_t address) {
     m_valid = false;
     m_address = address;
     i2c = new mraa::I2c(bus);
+    if(i2c->frequency(mraa::I2C_STD) != mraa::SUCCESS){
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.frequency(I2C_STD) failed");
+      return;
+    }
     tx_buf[0] = 0x09;
     tx_buf[1] = 0x00;
     tx_buf[2] = 0x00;
@@ -38,13 +42,23 @@ MICSV89::MICSV89 (int bus, uint8_t address) {
 
 void MICSV89::update() {
     m_valid = false;
-    i2c->address(m_address);
-    i2c->frequency(MRAA_I2C_STD);
-    i2c->write(tx_buf, 3);
+    if(i2c->address(m_address) != mraa::SUCCESS){
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.address() failed");
+      return;
+    }
+    if(i2c->write(tx_buf, 3) != mraa::SUCCESS){
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+      return;
+    }
     sleep(1); //Give the device time to make the measurement.
-    i2c->address(m_address);
-    i2c->frequency(MRAA_I2C_STD);
-    i2c->read(rx_buf, 6);
+    if(i2c->address(m_address) != mraa::SUCCESS){
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.address() failed");
+      return;
+    }
+    if(i2c->read(rx_buf, 6) != 6){
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.read() failed");
+      return;
+    }
     m_valid = true;
 }
 
