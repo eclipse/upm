@@ -32,11 +32,11 @@
 
 using namespace upm;
 
-BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus) {
+BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) : m_controlAddr(devAddr), m_i2ControlCtx(bus) {
  
     m_name = "BMPX8X";
  
-    mraa::Result ret = m_i2ControlCtx.address(devAddr);
+    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
     if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_address() failed");
