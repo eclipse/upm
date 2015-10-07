@@ -626,19 +626,14 @@ class ST7735 : public GFX {
         uint8_t m_map[160 * 128 * 2]; /**< Screens buffer */
     private:
         mraa::Spi      m_spi;
-        uint8_t              m_csLCD;
-        uint8_t              m_cSD;
-        uint8_t              m_rST;
-        uint8_t              m_rS;
-
+        uint8_t        m_spiBuffer[32];
+        
         mraa::Gpio     m_csLCDPinCtx;
         mraa::Gpio     m_cSDPinCtx;
         mraa::Gpio     m_rSTPinCtx;
         mraa::Gpio     m_rSPinCtx;
 
-        uint8_t              m_spiBuffer[32];
-
-        std::string          m_name;
+        std::string    m_name;
 };
 
 }
