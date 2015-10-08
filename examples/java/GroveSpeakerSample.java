@@ -22,28 +22,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveSpeakerSample{
+public class GroveSpeakerSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_grovespeaker");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate a Grove Speaker on digital pin D2
+		// ! [Interesting]
+		// Instantiate a Grove Speaker on digital pin D2
 		upm_grovespeaker.GroveSpeaker speaker = new upm_grovespeaker.GroveSpeaker(2);
-		
+
 		// Play all 7 of the lowest notes
 		speaker.playAll();
-		
+
 		// Play a medium C-sharp
 		speaker.playSound('c', true, "med");
-	    //! [Interesting]
-    }
+		// ! [Interesting]
+	}
 
 }

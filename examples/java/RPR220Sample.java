@@ -23,31 +23,31 @@
  */
 
 public class RPR220Sample {
-	
+
 	static {
 		try {
 			System.loadLibrary("javaupm_rpr220");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// This example uses a simple method to determine current status
-		
+
 		// Instantiate an RPR220 digital pin D2
 		upm_rpr220.RPR220 sensor = new upm_rpr220.RPR220(2);
-		
-		while(true){
-			if(sensor.blackDetected())
+
+		while (true) {
+			if (sensor.blackDetected())
 				System.out.println("Black detected");
 			else
 				System.out.println("Black NOT detected");
-			
+
 			Thread.sleep(100);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

@@ -22,32 +22,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveRelaySample{
+public class GroveRelaySample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grove");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Create the button object using UART
+		// ! [Interesting]
+		// Create the button object using UART
 		upm_grove.GroveRelay relay = new upm_grove.GroveRelay(5);
-	
-		for( int i = 0 ; i < 3 ; i++ ){
+
+		for (int i = 0; i < 3; i++) {
 			relay.on();
-			if( relay.isOn() )
+			if (relay.isOn())
 				System.out.println("Relay is on");
 			Thread.sleep(1000);
-			
+
 			relay.off();
-			if( relay.isOff() )
+			if (relay.isOff())
 				System.out.println("Relay is off");
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
 }
