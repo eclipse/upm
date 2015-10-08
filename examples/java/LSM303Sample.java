@@ -27,15 +27,15 @@ public class LSM303Sample {
 
 	static {
 		try {
-			System.loadLibrary("upm_lsm303");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_lsm303");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate LSM303 compass on I2C
 		upm_lsm303.LSM303 sensor = new upm_lsm303.LSM303(0);
 
@@ -43,23 +43,26 @@ public class LSM303Sample {
 		sensor.getCoordinates();
 		int[] coor = sensor.getRawCoorData(); // in XYZ order.·
 		// The sensor returns XZY, but the driver compensates and makes it XYZ
-		
+
 		// Print out the X, Y, and Z coordinate data using two different methods
 		System.out.println("coor: rX " + coor[0] + " - rY " + coor[1] + " - rZ " + coor[2]);
-		System.out.println("coor: gX " + sensor.getCoorX() + " - gY " + sensor.getCoorY() + " - gZ " + sensor.getCoorZ());
-		 
+		System.out.println("coor: gX " + sensor.getCoorX() + " - gY " + sensor.getCoorY()
+				+ " - gZ " + sensor.getCoorZ());
+
 		// Get and print out the heading
 		System.out.println("heading: " + sensor.getHeading());
-		 
+
 		// Get the acceleration
 		sensor.getAcceleration();
 		int[] accel = sensor.getRawAccelData();
-		
-		// Print out the X, Y, and Z acceleration data using two different methods
+
+		// Print out the X, Y, and Z acceleration data using two different
+		// methods
 		System.out.println("acc: rX " + accel[0] + " - rY " + accel[1] + " - rZ " + accel[2]);
-		System.out.println("acc: gX " + sensor.getAccelX() + " - gY " + sensor.getAccelY() + " - gZ " + sensor.getAccelZ());
-		
-		//! [Interesting]
+		System.out.println("acc: gX " + sensor.getAccelX() + " - gY " + sensor.getAccelY()
+				+ " - gZ " + sensor.getAccelZ());
+
+		// ! [Interesting]
 	}
 
 }

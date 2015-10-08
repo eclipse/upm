@@ -24,35 +24,36 @@
 
 //NOT TESTED!!!
 public class MHZ16Sample {
-	
+
 	static {
 		try {
 			System.loadLibrary("javaupm_mhz16");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		int[] gas = new int[1];
 		int[] temp = new int[1];
-		
+
 		// Instantiate a MHZ16 serial CO2 sensor on uart 0.
 		upm_mhz16.MHZ16 co2 = new upm_mhz16.MHZ16(0);
-		
+
 		System.out.println("Make sure that the sensor has had at least 3 minutes to warm up");
 		System.out.println("or you will not get valid results.");
 		System.out.println("The temperature reported is not the ambient temperature,");
 		System.out.println("but rather the temperature of the sensor elements.");
-		
-		while(true){
+
+		while (true) {
 			co2.getData(gas, temp);
-			System.out.println("CO2 concentration: " + gas[0] + "PPM, Temperature (in C): " + temp[0]);
-			
+			System.out.println("CO2 concentration: " + gas[0] + "PPM, Temperature (in C): "
+					+ temp[0]);
+
 			Thread.sleep(2000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

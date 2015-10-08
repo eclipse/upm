@@ -25,41 +25,41 @@
 import upm_rpr220.IsrCallback;
 
 public class RPR220_intrSample {
-	
-	public static int counter=0;
-		
+
+	public static int counter = 0;
+
 	static {
 		try {
 			System.loadLibrary("javaupm_rpr220");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// This example uses an interrupt handler to increment a counter
-		
+
 		// Instantiate an RPR220 digital pin D2
 		upm_rpr220.RPR220 sensor = new upm_rpr220.RPR220(2);
-		
+
 		IsrCallback callback = new RPRISR();
 		sensor.installISR(callback);
-		
-		while(true){
+
+		while (true) {
 			System.out.println("Counter: " + counter);
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }
 
 class RPRISR extends IsrCallback {
-	public RPRISR(){
+	public RPRISR() {
 		super();
 	}
-	public void run(){
+	public void run() {
 		RPR220_intrSample.counter++;
 	}
 }

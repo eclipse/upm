@@ -27,33 +27,36 @@ public class MPU9150Sample {
 
 	static {
 		try {
-			System.loadLibrary("upm_mpu9150");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_mpu9150");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		upm_mpu9150.MPU9150 sensor = new upm_mpu9150.MPU9150();
-		
+
 		sensor.init();
-		
-		while(true){
+
+		while (true) {
 			sensor.update();
-			
+
 			float[] accel = sensor.getAccelerometer();
-			System.out.println("Accelerometer: " + "AX: " + accel[0] + " AY: " + accel[1] + " AZ: " + accel[2] );
+			System.out.println("Accelerometer: " + "AX: " + accel[0] + " AY: " + accel[1] + " AZ: "
+					+ accel[2]);
 
 			float[] gyro = sensor.getGyroscope();
-			System.out.println("Gryoscope: " + "GX: " + gyro[0] + " GY: " + gyro[1] + " GZ: " + gyro[2] );
-			
+			System.out.println("Gryoscope: " + "GX: " + gyro[0] + " GY: " + gyro[1] + " GZ: "
+					+ gyro[2]);
+
 			float[] magn = sensor.getMagnetometer();
-			System.out.println("Magnetometer: " + "MX: " + magn[0] + " MY: " + magn[1] + " MZ: " + magn[2] );
-			
+			System.out.println("Magnetometer: " + "MX: " + magn[0] + " MY: " + magn[1] + " MZ: "
+					+ magn[2]);
+
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

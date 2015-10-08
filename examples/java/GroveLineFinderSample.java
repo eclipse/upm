@@ -22,34 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveLineFinderSample{
-	
+public class GroveLineFinderSample {
+
 	static {
 		try {
 			System.loadLibrary("javaupm_grovelinefinder");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate a Grove Line Finder sensor on digital pin D2
+		// ! [Interesting]
+		// Instantiate a Grove Line Finder sensor on digital pin D2
 		upm_grovelinefinder.GroveLineFinder finder = new upm_grovelinefinder.GroveLineFinder(2);
 		// check every second for the presence of white detection
-		while(true){
+		while (true) {
 			boolean val = finder.whiteDetected();
-			if(val){
+			if (val) {
 				System.out.println("White detected");
-			}
-			else{
+			} else {
 				System.out.println("Black detected");
 			}
 
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
 
 }

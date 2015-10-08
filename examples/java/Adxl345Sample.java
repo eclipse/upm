@@ -22,35 +22,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+//NOT TESTED!!!
 public class Adxl345Sample {
-    static {
-        try {
-            System.loadLibrary("javaupm_adxl345");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("error in loading native library");
-            System.exit(-1);
-        }
-    }
 
-    public static void main(String argv[]) throws InterruptedException {
-//! [Interesting]
-        // Note: Sensor only works at 3.3V on the Intel Edison with Arduino breakout
-        upm_adxl345.Adxl345 obj = new upm_adxl345.Adxl345(0);
-        int[] raw = new int[3];
-        float[] accel = new float[3];
+	static {
+		try {
+			System.loadLibrary("javaupm_adxl345");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println("error in loading native library");
+			System.exit(-1);
+		}
+	}
 
-        while (true) {
-            obj.update();
-            raw = obj.getRawValues();
-            accel = obj.getAcceleration();
+	public static void main(String[] args) throws InterruptedException {
+		// ! [Interesting]
+		short[] val;
+		float[] accel;
 
-            System.out.println("raw data: " + raw[0] + " " + raw[1] + " " +
-                    raw[2]);
-            System.out.println("accel data: " + accel[0] + " " + accel[1] + " "
-                    + accel[2]);
+		// Note: Sensor only works at 3.3V on the Intel Edison with Arduino
+		// breakout
+		upm_adxl345.Adxl345 sensor = new upm_adxl345.Adxl345(0);
 
-            Thread.sleep(1000);
-        }
-//! [Interesting]
-    }
+		while (true) {
+			sensor.update();
+			val = sensor.getRawValues();
+			accel = sensor.getAcceleration();
+
+			System.out.println("Current scale: " + sensor.getScale());
+			System.out.println("Raw Values: X: " + val[0] + " Y: " + val[1]
+					+ " Z: " + val[2]);
+			System.out.println("Acceleration: X: " + accel[0] + "g Y: "
+					+ accel[1] + "g Z: " + accel[2] + "g");
+
+			Thread.sleep(1000);
+		}
+		// ! [Interesting]
+	}
 }
