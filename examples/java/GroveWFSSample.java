@@ -28,26 +28,26 @@ public class GroveWFSSample {
 	static {
 		try {
 			System.loadLibrary("javaupm_grovewfs");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate a Grove Water Flow Sensor on digital pin D2
 		upm_grovewfs.GroveWFS flow = new upm_grovewfs.GroveWFS(2);
-		
+
 		flow.clearFlowCounter();
 		flow.startFlowCounter();
-		
-		while(true){
+
+		while (true) {
 			System.out.print("Millis: " + flow.getMillis() + " FlowCount: " + flow.flowCounter());
 			System.out.println(" Flow Rate: " + flow.flowRate() + " LPM");
-						
+
 			Thread.sleep(2000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

@@ -28,35 +28,37 @@ public class MMA7660Sample {
 	static {
 		try {
 			System.loadLibrary("javaupm_mma7660");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate an MMA7660 on I2C bus 0
 		upm_mma7660.MMA7660 accel = new upm_mma7660.MMA7660(0);
-		
+
 		// place device in standby mode so we can write registers
 		accel.setModeStandby();
-		
+
 		// enable 64 samples per second
 		accel.setSampleRate(upm_mma7660.MMA7660.MMA7660_AUTOSLEEP_T.AUTOSLEEP_64);
-		
+
 		// place device into active mode
 		accel.setModeActive();
-		
-		while(true){
+
+		while (true) {
 			int[] rawValues = accel.getRawValues();
-			System.out.println("Raw Values: x = " + rawValues[0] + " y = " + rawValues[1] + " x = " + rawValues[2]);
-			
+			System.out.println("Raw Values: x = " + rawValues[0] + " y = " + rawValues[1] + " x = "
+					+ rawValues[2]);
+
 			float[] acceleration = accel.getAcceleration();
-			System.out.println("Raw Values: x = " + acceleration[0] + " y = " + acceleration[1] + " x = " + acceleration[2]);
-						
+			System.out.println("Raw Values: x = " + acceleration[0] + " y = " + acceleration[1]
+					+ " x = " + acceleration[2]);
+
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

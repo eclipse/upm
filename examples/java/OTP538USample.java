@@ -22,30 +22,31 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class OTP538USample{
+public class OTP538USample {
 	private static final float OTP538U_AREF = 5;
-	
+
 	static {
 		try {
 			System.loadLibrary("javaupm_otp538u");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate a OTP538U on analog pins A0 and A1
-		// A0 is used for the Ambient Temperature and A1 is used for the Object temperature.
+		// ! [Interesting]
+		// Instantiate a OTP538U on analog pins A0 and A1
+		// A0 is used for the Ambient Temperature and A1 is used for the Object
+		// temperature.
 		upm_otp538u.OTP538U temps = new upm_otp538u.OTP538U(0, 1, OTP538U_AREF);
 
 		while (true) {
-			System.out.println( "Ambient temp: " + temps.ambientTemperature() + " C" );
-			System.out.println( "Object temp: " + temps.objectTemperature() + " C" );
-		
+			System.out.println("Ambient temp: " + temps.ambientTemperature() + " C");
+			System.out.println("Object temp: " + temps.objectTemperature() + " C");
+
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
 }

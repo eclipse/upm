@@ -23,53 +23,53 @@
  */
 
 //NOT TESTED!!!
-public class GROVESCAMSample{
+public class GROVESCAMSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_grovescam");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate a Grove Serial Camera on UART 0
 		upm_grovescam.GROVESCAM camera = new upm_grovescam.GROVESCAM(0);
-		
-		// make sure port is initialized properly.  115200 baud is the default.
-		if(!camera.setupTty()){
+
+		// make sure port is initialized properly. 115200 baud is the default.
+		if (!camera.setupTty()) {
 			System.err.println("Failed to setup tty port parameters");
 			System.exit(-1);
 		}
-		
-		if(camera.init())
+
+		if (camera.init())
 			System.out.println("Initialized...");
 		else
 			System.out.println("Initialization failed");
-		
-		if(camera.preCapture())
+
+		if (camera.preCapture())
 			System.out.println("preCapture succeeded...");
 		else
 			System.out.println("preCapture failed.");
-		
-		if(camera.doCapture())
+
+		if (camera.doCapture())
 			System.out.println("doCapture succeeded...");
 		else
 			System.out.println("doCapture failed.");
-		
-		if(camera.getImageSize() > 0){
+
+		if (camera.getImageSize() > 0) {
 			System.out.println("Storing image.jpg...");
-			
-			if(camera.storeImage("image.jpg"))
+
+			if (camera.storeImage("image.jpg"))
 				System.out.println("storeImage succeeded...");
 			else
 				System.out.println("storeImage failed.");
-			
+
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 
 }

@@ -22,39 +22,39 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
 public class Hmc5883lSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_hmc5883l");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate on I2C
-		upm_hmc5883l.Hmc5883l compas =  new upm_hmc5883l.Hmc5883l(0);
-		
+		upm_hmc5883l.Hmc5883l compas = new upm_hmc5883l.Hmc5883l(0);
+
 		int[] pos;
-		
+
 		// Set your declination from true north in radians
 		compas.set_declination(0.2749f);
-		
-		while(true){
+
+		while (true) {
 			// Update the coordinates
 			compas.update();
-			
+
 			pos = compas.coordinates();
-			System.out.println("Coor: " + pos[0] + " " + pos[1] + " " + pos[2]);
-			System.out.println("Heading: " + compas.heading() + " Direction:"  + compas.heading());
-						
-			Thread.sleep(1000);
+			System.out.println("Coor: " + (short) pos[0] + " " + (short) pos[1] + " "
+					+ (short) pos[2]);
+			System.out.println("Heading: " + compas.heading() + " Direction:" + compas.direction());
+
+			Thread.sleep(2000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 
 }

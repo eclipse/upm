@@ -22,33 +22,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class RFR359FSample{
+public class RFR359FSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_rfr359f");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate an RFR359F digital pin D2
+		// ! [Interesting]
+		// Instantiate an RFR359F digital pin D2
 		upm_rfr359f.RFR359F dInterruptor = new upm_rfr359f.RFR359F(2);
-		
-		while(true){
+
+		while (true) {
 			if (dInterruptor.objectDetected()) {
 				System.out.println("Object detected");
-			}
-			else{
+			} else {
 				System.out.println("Area is clear!");
 			}
-			
+
 			Thread.sleep(100);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
-	
+
 }

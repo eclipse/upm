@@ -27,28 +27,28 @@ public class MPL3115A2Sample {
 
 	static {
 		try {
-			System.loadLibrary("upm_mpl3115a2");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_mpl3115a2");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate a MPL3115A2 sensor on I2C
 		upm_mpl3115a2.MPL3115A2 sensor = new upm_mpl3115a2.MPL3115A2(0);
-		
-		while(true){
+
+		while (true) {
 			System.out.println("Pressure: " + sensor.getPressure());
 			System.out.println("Altitude: " + sensor.getAltitude());
 			System.out.println("Sealevel pressure: " + sensor.getSealevelPressure());
 			System.out.println("Temperature: " + sensor.getTemperature());
 			System.out.println();
-			
+
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 
 }
