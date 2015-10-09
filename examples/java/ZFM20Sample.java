@@ -90,7 +90,7 @@ public class ZFM20Sample {
 		}
 
 		System.out.println("Fingerprint found!");
-		System.out.println("ID: " + id + ", Score: " + score);
+		System.out.println("ID: " + id[0] + ", Score: " + score[0]);
 
 		// ! [Interesting]
 	}
