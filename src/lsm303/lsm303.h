@@ -33,8 +33,8 @@
 namespace upm {
 
 /* LSM303 Address definitions */
-#define LSM303_MAG 0x1E // assuming SA0 grounded
-#define LSM303_ACC 0x18 // assuming SA0 grounded
+#define LSM303_MAG 0x1E
+#define LSM303_ACC 0x19
 
 /* LSM303 Register definitions */
 #define CTRL_REG1_A 0x20
