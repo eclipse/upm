@@ -11,26 +11,15 @@
 #define DS1808_LOW_VALUE 32 // Lowest pot value that the eye can differentiate from 0
 #define DS1808_HIGH_VALUE 51 // Highest pot value that the eye can differentiate from full
 
-// Used to prevent silent failure in mraa_i2c_write()
-// Value from I2C_SMBUS_I2C_BLOCK_MAX in i2c driver
-#define MAX_I2C_WRITE_SIZE 32
-
-
 
 namespace upm {
 DS1808LC::DS1808LC(int gpioPower, int i2cBus)
 {
-   status = MRAA_ERROR_INVALID_RESOURCE;
    mraa_set_log_level(7);
    pinPower = gpioPower;
-   i2c = mraa_i2c_init(i2cBus);
-   if (i2c == NULL)
-   {
-      status = MRAA_ERROR_INVALID_RESOURCE;
-      printf("DS1808LC: I2C initialisation failed.\n");
-      return;
-   }
-   status = mraa_i2c_address(i2c, DS1808_I2C_ADDR);
+   i2c = new mraa::I2c(i2cBus);
+   status = i2c->address(DS1808_I2C_ADDR);
+   getBrightness();
 }
 
 DS1808LC::~DS1808LC()
@@ -40,64 +29,49 @@ DS1808LC::~DS1808LC()
 
 bool DS1808LC::isConfigured()
 {
-   return status == MRAA_SUCCESS;
+   return status == mraa::SUCCESS;
 }
 
 bool DS1808LC::isPowered()
 {
-   int level;
-   if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS)
-      return static_cast<bool>(level);
-   else
-      return false;
+   return static_cast<bool>(MraaUtils::getGpio(pinPower));
 }
 
-bool DS1808LC::setPowerOn()
+void DS1808LC::setPowerOn()
 {
    if (!isPowered())
    {
-      if (MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS)
-      {
-         printf("DS1808LC: Power on failed.\n");
-         status = MRAA_ERROR_INVALID_RESOURCE;
-         return false;
-      }
-      if (!setBrightness(0))
-         printf("DS1808LC: Failed to set brightness.\n");
+      MraaUtils::setGpio(pinPower, 1);
+      setBrightness(0);
    }
-   return isConfigured();
 }
 
-bool DS1808LC::setPowerOff()
+void DS1808LC::setPowerOff()
 {
-   status = MraaUtils::setGpio(pinPower, 0);
-   return isConfigured();   
+   MraaUtils::setGpio(pinPower, 0);
 }
 
 
-bool DS1808LC::getBrightness(int* percent)
+int DS1808LC::getBrightness()
 {
    uint8_t values[2];
 
-   if (mraa_i2c_read(i2c, values, 2) == 2) {
-      *percent = getPercentBrightness(values[0], values[1]);
-      status = MRAA_SUCCESS;
+   if (i2c->read(values, 2) == 2) {
+      return getPercentBrightness(values[0], values[1]);
    }
-   else {
-      printf("DS1808LC: Failed to retrieve potentiometer values.\n");
-      status = MRAA_ERROR_INVALID_RESOURCE;
-   }
-   return isConfigured();   
+   else
+      UPM_THROW("i2c read error");
 }
    
 
-bool DS1808LC::setBrightness(int dutyPercent)
+void DS1808LC::setBrightness(int dutyPercent)
 {
    uint8_t values[2];
    values[0] = getPot1Value(dutyPercent);
    values[1] = getPot2Value(dutyPercent);
-   status = mraa_i2c_write(i2c, values, 2);
-   return isConfigured();
+   status = i2c->write(values, 2);
+   if (status != mraa::SUCCESS)
+       UPM_THROW("i2c write error");
 }
 
 //

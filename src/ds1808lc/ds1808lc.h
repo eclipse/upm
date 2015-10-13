@@ -23,7 +23,7 @@
  */
 
 #include "upm/iLightController.h"
-#include "mraa/i2c.h"
+#include "mraa/i2c.hpp"
 
 namespace upm
 {
@@ -60,10 +60,10 @@ protected:
    bool isConfigured();
    const char* getModuleName() { return "ds1808lc"; }   
    bool isPowered();
-   bool setPowerOn();
-   bool setPowerOff();
-   bool getBrightness(int* percent);
-   bool setBrightness(int dutyPercent);
+   void setPowerOn();
+   void setPowerOff();
+   int getBrightness();
+   void setBrightness(int dutyPercent);
 
 private:
    int getPercentBrightness(uint8_t val1, uint8_t val2);
@@ -71,8 +71,8 @@ private:
    uint8_t getPot2Value(int dutyPercent);
    int getScaledResistance(int dutyPercent);
 
-   mraa_result_t status;
-   mraa_i2c_context i2c;
+   mraa::Result status;
+   mraa::I2c* i2c;
    int pinPower;
 };
 
