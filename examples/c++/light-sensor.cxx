@@ -30,41 +30,49 @@
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0
 
+//! [Interesting]
+// Simple example of using ILightSensor to determine 
+// which sensor is present and return its name.
+// ILightSensor is then used to get readings from sensor
+
+
+upm::ILightSensor* getLightSensor()
+{
+   upm::ILightSensor* lightSensor = NULL;
+   try {
+      lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+      return lightSensor;
+   } catch (std::exception& e) {
+      std::cerr << "SI1132: " << e.what() << std::endl;      
+   }
+   try {
+      lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
+      return lightSensor;
+   } catch (std::exception& e) {
+      std::cerr << "MAX44009: " << e.what() << std::endl;      
+   }
+   return lightSensor;   
+}
 
 int main ()
 {
-   //! [Interesting]
-   // Simple example of using IModuleStatus (inherited by ILightSensor)
-   // to determine if which sensor is present and return its name.
-   // ILightSensor is then used to get reading from sensor
-   upm::ILightSensor* lightSensor = NULL;
-   lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
-   if (!lightSensor->isConfigured()) {
-      delete lightSensor; 
-      lightSensor = NULL; 
+   upm::ILightSensor* lightSensor = getLightSensor();
+   if (lightSensor == NULL) {
+      std::cout << "Light sensor not detected" << std::endl;                        
+      return 1;
    }
-
-   if (lightSensor == NULL)
-   {
-      lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
-      if (!lightSensor->isConfigured()) {
-         delete lightSensor; 
-         lightSensor = NULL; 
-      }
-   }
-
-   if (lightSensor != NULL) {
-      float value;
-      std::cout << "Light sensor " << lightSensor->getModuleName() << " detected" << std::endl;
-      // sleep(1);
-      if (lightSensor->getValue(&value) == MRAA_SUCCESS)
+   std::cout << "Light sensor " << lightSensor->getModuleName() << " detected" << std::endl;
+   while (true) {
+      try {
+         float value = lightSensor->getVisibleLux();
          std::cout << "Light level = " << value << " lux" << std::endl;
-      else
-         std::cout << "Failed to get sensor reading" << std::endl;         
-      delete lightSensor;
-   } else
-      std::cout << "Light sensor not detected" << std::endl;                  
-   //! [Interesting]      
-      
+      } catch (std::exception& e) {
+         std::cerr << e.what() << std::endl;
+      }
+      sleep(1);         
+   }
+   delete lightSensor;
    return 0;
 }
+
+//! [Interesting]      
