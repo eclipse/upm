@@ -24,11 +24,15 @@
 
 #pragma once
 
+#include <stdexcept>
+
 namespace upm
 {
 /**
  * @brief Interface for Module Status. Sensor and Actuactor Interfaces Derive from this Interface.
  */
+
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
 class IModuleStatus 
 {
