@@ -23,10 +23,13 @@
  */
 
 #include "mraa-utils.h"
-#include "mraa/gpio.h"
+#include "mraa/gpio.hpp"
 
-mraa_result_t MraaUtils::setGpio(int pin, int level)
+ #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
+void MraaUtils::setGpio(int pin, int level)
 {
+/*
    mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
    mraa_gpio_context gpio = mraa_gpio_init(pin);
    if (gpio != NULL) 
@@ -36,11 +39,17 @@ mraa_result_t MraaUtils::setGpio(int pin, int level)
       mraa_gpio_close(gpio);
    } 
    return status;
+*/
+   mraa::Gpio gpio(pin);
+   gpio.dir(mraa::DIR_OUT);
+   if (gpio.write(level) != mraa::SUCCESS)
+      UPM_THROW("gpio write failed");
 }
 
 
-mraa_result_t MraaUtils::getGpio(int pin, int* level)
+int MraaUtils::getGpio(int pin)
 {
+/*
    mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
    mraa_gpio_context gpio = mraa_gpio_init(pin);
    if (gpio != NULL) 
@@ -54,6 +63,10 @@ mraa_result_t MraaUtils::getGpio(int pin, int* level)
       mraa_gpio_close(gpio);
    }
    return status;       
+*/
+   mraa::Gpio gpio(pin);
+   gpio.dir(mraa::DIR_IN);
+   return gpio.read();
 }
 
 

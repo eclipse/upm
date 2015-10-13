@@ -103,123 +103,83 @@ using namespace upm;
 
 LP8860::LP8860(int gpioPower, int i2cBus)
 {
-    status = MRAA_ERROR_INVALID_RESOURCE;
+    status = mraa::ERROR_INVALID_RESOURCE;
     mraa_set_log_level(7);
     pinPower = gpioPower;
-    i2c = mraa_i2c_init(i2cBus);
-    status = mraa_i2c_address(i2c, LP8860_I2C_ADDR);
-
-    if (status != MRAA_SUCCESS) { 
-        printf("LP8860: I2C initialisation failed.\n"); 
-        return; 
-    }
-
-    if(!isAvailable()) { 
-        status = MRAA_ERROR_INVALID_RESOURCE; 
-        return; 
-    }
-
-    status = MRAA_SUCCESS;
+    i2c = new mraa::I2c(i2cBus);
+    i2c->address(LP8860_I2C_ADDR);
+    if (isAvailable())
+        status = mraa::SUCCESS;
+   if (!isConfigured())
+      UPM_THROW("i2c config failed.");
 }
 
 LP8860::~LP8860()
 {
+    delete i2c;
 }
 
 
 bool LP8860::isConfigured()
 {
-    return status == MRAA_SUCCESS;
+    return status == mraa::SUCCESS;
 }
 
 bool LP8860::isAvailable()
 {
-    uint8_t id;
     bool wasPowered = true;
 
     // Check power state
     if(!isPowered()) {
-        if(MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS) { 
-            return false; 
-        }
         wasPowered = false;
+        MraaUtils::setGpio(pinPower, 1);
     }
 
     // Read ID register
-    mraa_i2c_address(i2c, LP8860_I2C_ADDR);
-    id = mraa_i2c_read_byte_data(i2c, LP8860_ID);
-
+    // mraa_i2c_address(i2c, LP8860_I2C_ADDR);
+    uint8_t id = i2c->readReg(LP8860_ID);
     // Turn off to save power if not required
-    if(!wasPowered) { 
+    if (!wasPowered)
         MraaUtils::setGpio(pinPower, 0); 
-    }
 
-    if(id == -1 || id == LP8860_INVALID_ID ) { 
-        return false; 
-    }
-
-    return true;
+    return id >= 0x10;
 }
 
-bool LP8860::getBrightnessRange(int* percentMin, int* percentMax)
-{
-    *percentMin = 0;
-    *percentMax = 100;
-    return true;
-}
 
 bool LP8860::isPowered()
 {
-    int level;
-
-    if (MraaUtils::getGpio(pinPower, &level) == MRAA_SUCCESS) { 
-        return level == 1; 
-    }
-    else { 
-        return false; 
-    }
+    return MraaUtils::getGpio(pinPower);
 }
 
-bool LP8860::setPowerOn()
+
+void LP8860::setPowerOn()
 {
     if (!isPowered())
     {
-        if (MraaUtils::setGpio(pinPower, 1) != MRAA_SUCCESS)
-        {
-            printf("setPowerOn failed\n");
-            status = MRAA_ERROR_INVALID_RESOURCE;
-            return false;
-        }
-        if (!setBrightness(0))
-            printf("setBrightness failed\n");
-        if (!loadEEPROM())
-            printf("loadEEPROM failed\n");
+        MraaUtils::setGpio(pinPower, 1);
+        setBrightness(0);
+        loadEEPROM();
         allowMaxCurrent();
     }
-    return isConfigured();
 }
 
-bool LP8860::setPowerOff()
+
+void LP8860::setPowerOff()
 {
-    return MraaUtils::setGpio(pinPower, 0) == MRAA_SUCCESS;
+    MraaUtils::setGpio(pinPower, 0);
 }
 
 
-bool LP8860::getBrightness(int* percent)
+int LP8860::getBrightness()
 {
-    uint8_t msb;
-    uint8_t lsb;
-    if (i2cReadByte(LP8860_DISP_CL1_BRT_MSB, &msb) && i2cReadByte(LP8860_DISP_CL1_BRT_LSB, &lsb))
-    {
-        *percent = (100 * ((int)msb << 8 | lsb)) / 0xFFFF;		
-        return true;
-    }
-    else
-        return false;
+    uint8_t msb = i2cReadByte(LP8860_DISP_CL1_BRT_MSB);
+    uint8_t lsb = i2cReadByte(LP8860_DISP_CL1_BRT_LSB);
+    int percent = (100 * ((int)msb << 8 | lsb)) / 0xFFFF;		
+    return percent;
 }
 
 
-bool LP8860::setBrightness(int dutyPercent)
+void LP8860::setBrightness(int dutyPercent)
 {
     int value = (0xFFFF * dutyPercent) / 100;
     int msb = value >> 8;
@@ -235,11 +195,10 @@ bool LP8860::setBrightness(int dutyPercent)
     i2cWriteByte(LP8860_CL3_BRT_LSB, lsb);
     i2cWriteByte(LP8860_CL4_BRT_MSB, msb);
     i2cWriteByte(LP8860_CL4_BRT_LSB, lsb);
-    return isConfigured();
 }
 
 
-bool LP8860::loadEEPROM()
+void LP8860::loadEEPROM()
 {
     const int eepromTableSize = 0x19;
     uint8_t eepromInitTable[] = {
@@ -256,10 +215,8 @@ bool LP8860::loadEEPROM()
     i2cWriteByte(LP8860_EEPROM_CNTRL, LP8860_LOAD_EEPROM);
     usleep(100000);
 
-
     // Check contents and program if not already done
     i2cReadBuffer(LP8860_EEPROM_REG_0, buf, eepromTableSize);
-    if (!isConfigured()) printf("Read eeprom error\n");
     if (memcmp(eepromInitTable, buf, eepromTableSize) != 0)
     {
         printf("LP8860 EEPROM not initialized - programming...\n");
@@ -273,63 +230,60 @@ bool LP8860::loadEEPROM()
         i2cWriteByte(LP8860_EEPROM_CNTRL, 0);
         i2cWriteByte(LP8860_EEPROM_UNLOCK, LP8860_LOCK_EEPROM);
     }
-
-    return isConfigured();
 }
 
 
-bool LP8860::allowMaxCurrent()
+void LP8860::allowMaxCurrent()
 {
     i2cWriteByte(LP8860_DISP_CL1_CURR_MSB, 0x0F);
     i2cWriteByte(LP8860_DISP_CL1_CURR_LSB, 0xFF);
     i2cWriteByte(LP8860_CL2_CURRENT, 0xFF);
     i2cWriteByte(LP8860_CL3_CURRENT, 0xFF);
     i2cWriteByte(LP8860_CL4_CURRENT, 0xFF);
-    return isConfigured();
 }
 
 
-bool LP8860::i2cWriteByte(int reg, int value)
+void LP8860::i2cWriteByte(int reg, int value)
 {
-    if (isConfigured())
-        status = mraa_i2c_write_byte_data(i2c, static_cast<uint8_t>(value), static_cast<uint8_t>(reg));
-    return isConfigured();
+    i2c->address(LP8860_I2C_ADDR);
+    status = i2c->writeReg(static_cast<uint8_t>(reg), static_cast<uint8_t>(value));
+    if (!isConfigured())
+        UPM_THROW("i2cWriteByte failed");
 }
 
 
-bool LP8860::i2cReadByte(uint8_t reg, uint8_t* value)
+uint8_t LP8860::i2cReadByte(uint8_t reg)
 {
-    mraa_i2c_write_byte(i2c, LP8860_I2C_ADDR);
-    mraa_i2c_write_byte(i2c, reg);
-    return mraa_i2c_read(i2c, value, 1) == 1;
+    uint8_t value;
+    i2c->address(LP8860_I2C_ADDR);
+    if (i2c->readBytesReg(reg, &value, 1) != 1)
+        UPM_THROW("i2cReadByte failed");        
+    return value;
 }
 
 
-bool LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
+void LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
 {
     if (length <= MAX_I2C_WRITE_SIZE)
     {
         uint8_t* writeBuf = new unsigned char[length + 1];
         writeBuf[0] = reg;
         memcpy(&writeBuf[1], buf, length);
-        status = mraa_i2c_write(i2c, writeBuf, length + 1);
+        i2c->address(LP8860_I2C_ADDR);
+        status = i2c->write(writeBuf, length + 1);
+        delete[] writeBuf;
     }
     else
-        status = MRAA_ERROR_INVALID_PARAMETER;
-    return isConfigured();
+        status = mraa::ERROR_INVALID_PARAMETER;
+    if (!isConfigured())
+        UPM_THROW("i2cWriteBuffer failed");                
 }
 
 
-bool LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
+void LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
 {
-    status = mraa_i2c_write_byte(i2c, reg);
-    if (isConfigured())
-    {
-        if (mraa_i2c_read(i2c, buf, length) != length)
-            status = MRAA_ERROR_NO_DATA_AVAILABLE;
-    }
-    return isConfigured();
+    i2c->address(LP8860_I2C_ADDR);
+    if (i2c->readBytesReg(reg, buf, length) != length)
+        UPM_THROW("i2cReadBuffer failed");                
 }
-
-
 

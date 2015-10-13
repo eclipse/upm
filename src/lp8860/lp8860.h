@@ -23,7 +23,7 @@
  */
 
 #include "upm/iLightController.h"
-#include "mraa/i2c.h"
+#include "mraa/i2c.hpp"
 
 namespace upm
 {
@@ -58,23 +58,22 @@ public:
    bool isConfigured();
    const char* getModuleName() { return "lp8860"; }
    bool isPowered();
-   bool setPowerOn();
-   bool setPowerOff();
-   bool getBrightness(int* percent);
-   bool setBrightness(int dutyPercent);
-   bool getBrightnessRange(int* percentMin, int* percentMax);
+   void setPowerOn();
+   void setPowerOff();
+   int getBrightness();
+   void setBrightness(int dutyPercent);
 
 private:
-   bool i2cWriteByte(int reg, int value);
-   bool i2cWriteBuffer(int reg, uint8_t* buf, int length);
-   bool i2cReadByte(uint8_t reg, uint8_t* value);
-   bool i2cReadBuffer(int reg, uint8_t* buf, int length);
-   bool loadEEPROM();
-   bool allowMaxCurrent();
+   void i2cWriteByte(int reg, int value);
+   void i2cWriteBuffer(int reg, uint8_t* buf, int length);
+   uint8_t i2cReadByte(uint8_t reg);
+   void i2cReadBuffer(int reg, uint8_t* buf, int length);
+   void loadEEPROM();
+   void allowMaxCurrent();
    bool isAvailable();
 
-   mraa_result_t status;
-   mraa_i2c_context i2c;
+   mraa::Result status;
+   mraa::I2c* i2c;
    int pinPower;
 };
 
