@@ -1,6 +1,6 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,23 +22,43 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+public class MQ5Sample {
+	private static final short resolution = 7;
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-//! [Interesting]
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    delete lcd;
+	static {
+		try {
+			System.loadLibrary("javaupm_gas");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println("error in loading native library");
+			System.exit(-1);
+		}
+	}
 
-    return 0;
+	public static void main(String[] args) throws InterruptedException {
+		// ! [Interesting]
+		short[] buffer = new short[128];
+
+		// Attach gas sensor to A0
+		upm_gas.MQ5 sensor = new upm_gas.MQ5(0);
+
+		upm_gas.thresholdContext ctx = new upm_gas.thresholdContext();
+		ctx.setAverageReading(0);
+		ctx.setRunningAverage(0);
+		ctx.setAveragedOver(2);
+
+		while (true) {
+			int len = sensor.getSampledWindow(2, buffer);
+
+			if (len != 0) {
+				int thresh = sensor.findThreshold(ctx, 30, buffer);
+				sensor.printGraph(ctx, resolution);
+				if (thresh != 0) {
+					System.out.println("---Threshold reached---");
+				}
+			}
+
+			Thread.sleep(1000);
+		}
+		// ! [Interesting]
+	}
 }

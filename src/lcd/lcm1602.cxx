@@ -8,6 +8,7 @@
  * Copyright (c) 2014 Intel Corporation.
  *
  * Contributions: Jon Trulson <jtrulson@ics.com>
+ *                Sergey Kiselev <sergey.kiselev@intel.com>
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation

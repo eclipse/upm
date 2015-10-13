@@ -27,21 +27,21 @@ public class MAX44000Sample {
 
 	static {
 		try {
-			System.loadLibrary("upm_max44000");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_max44000");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		upm_max44000.MAX44000 sensor = new upm_max44000.MAX44000(0);
-		
-		while(true){
+
+		while (true) {
 			System.out.println("proximity value = " + sensor.getAmbient());
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

@@ -574,8 +574,8 @@ uint8_t ZFM20::search(int slot, uint16_t *id, uint16_t *score)
   // if it was found, extract the location and the score
   if (rPkt[9] == ERR_OK)
     {
-      *id = (rPkt[10] << 8) & 0xff | rPkt[11] & 0xff;
-      *score = (rPkt[12] << 8) & 0xff | rPkt[13] & 0xff;
+      *id = ((rPkt[10] << 8) & 0xff) | (rPkt[11] & 0xff);
+      *score = ((rPkt[12] << 8) & 0xff) | (rPkt[13] & 0xff);
     }
 
   return rPkt[9];
@@ -596,7 +596,7 @@ uint8_t ZFM20::match(uint16_t *score)
 
   getResponse(rPkt, rPktLen);
 
-  *score = (rPkt[10] << 8) & 0xff | rPkt[11] & 0xff;
+  *score = ((rPkt[10] << 8) & 0xff) | (rPkt[11] & 0xff);
 
   return rPkt[9];
 }
