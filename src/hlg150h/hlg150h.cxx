@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include <unistd.h>
 #include "hlg150h.h"
 #include "mraa-utils.h"
@@ -14,13 +15,14 @@ HLG150H::HLG150H(int pinRelay, int pinPWM)
    this->pinRelay = pinRelay;
    isPoweredShadow = false;
    pwmBrightness = mraa_pwm_init(pinPWM);
-   if (pwmBrightness != NULL)
-   {
-      status = mraa_pwm_enable(pwmBrightness, 1);
-      status = mraa_pwm_period_us(pwmBrightness, PWM_PERIOD);
-      isPoweredShadow = dutyPercent > 10;
-      getBrightness(&dutyPercent);
-   }
+   if (pwmBrightness == NULL)
+      UPM_THROW("mraa_pwm_init() failed");
+   status = mraa_pwm_enable(pwmBrightness, 1);
+   status = mraa_pwm_period_us(pwmBrightness, PWM_PERIOD);
+   if (!isConfigured())
+      UPM_THROW("pwm config failed.");
+   dutyPercent = getBrightness();
+   isPoweredShadow = dutyPercent > 10;
 }
 
 HLG150H::~HLG150H()
@@ -33,24 +35,16 @@ bool HLG150H::isConfigured()
 }
 
 
-bool HLG150H::setPowerOn()
+void HLG150H::setPowerOn()
 {
-   if (isConfigured())
-   {
-      status = MraaUtils::setGpio(pinRelay, 0);
-      isPoweredShadow = true;
-   }
-   return isConfigured();  
+   isPoweredShadow = true;
+   MraaUtils::setGpio(pinRelay, 0);
 }
 
-bool HLG150H::setPowerOff()
+void HLG150H::setPowerOff()
 {
-   if (isConfigured())
-   {
-      status = MraaUtils::setGpio(pinRelay, 1);
-      isPoweredShadow = false;
-   }
-   return isConfigured();  
+   isPoweredShadow = false;
+   MraaUtils::setGpio(pinRelay, 1);
 }
 
 bool HLG150H::isPowered()
@@ -69,7 +63,7 @@ bool HLG150H::isPowered()
 
 
 // If duty is less than 10% light will flicker
-bool HLG150H::setBrightness(int dutyPercent)
+void HLG150H::setBrightness(int dutyPercent)
 {
    if (dutyPercent < 10)
       dutyPercent = 10;
@@ -80,18 +74,22 @@ bool HLG150H::setBrightness(int dutyPercent)
       status = mraa_pwm_pulsewidth_us(pwmBrightness, dutyUs);
       // std::cout << "Brightness = " << dutyPercent << "%, duty = " << dutyUs << "us" << std::endl;      
    }
-   return isConfigured();  
+   else
+      UPM_THROW("setBrightness failed");
+
 }
 
 
-bool HLG150H::getBrightness(int* dutyPercent)
+int HLG150H::getBrightness()
 {
    if (isConfigured())
    {
       float duty = mraa_pwm_read(pwmBrightness);
-      *dutyPercent = static_cast<int>(100.0 * (1.0 - duty) + 0.5);
+      int dutyPercent = static_cast<int>(100.0 * (1.0 - duty) + 0.5);
+      return dutyPercent;
    }
-   return isConfigured();  
+   else
+      UPM_THROW("getBrightness failed");
 }
 
 

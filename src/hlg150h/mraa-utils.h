@@ -29,8 +29,8 @@
 class __attribute__ ((visibility("hidden"))) MraaUtils
 {
 public:
-   static mraa_result_t setGpio(int pin, int level);
-   static mraa_result_t getGpio(int pin, int* level);
+   static void setGpio(int pin, int level);
+   static int getGpio(int pin);
 };
 
 

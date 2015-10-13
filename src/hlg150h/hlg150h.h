@@ -60,12 +60,11 @@ public:
 protected:
    bool isConfigured();
    const char* getModuleName() { return "hlg150h"; }   
-   bool setPowerOn();
-   bool setPowerOff();
+   void setPowerOn();
+   void setPowerOff();
    bool isPowered();
-   bool setBrightness(int dutyPercent);
-   bool getBrightness(int* dutyPercent);
-   bool getBrightnessRange(int* percentMin, int* percentMax);
+   void setBrightness(int dutyPercent);
+   int getBrightness();
 
 private:
    mraa_result_t status;
