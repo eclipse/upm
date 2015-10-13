@@ -26,7 +26,6 @@
 #pragma once
 
 #include <stdint.h>
-#include "mraa/common.h"
 #include "iModuleStatus.h"
 
 namespace upm
@@ -48,12 +47,20 @@ namespace upm
    {
    public:
 	/**
-	 * Get sensor reading.
+	 * Get visible illuminance raw value.
 	 *
-	 * @param value Pointer to detected visible illuminance in Lux.
-	 * @return mraa_result_t MRAA_SUCCESS on successful reading
+	 * @return uint16_t visible illuminance raw value
 	 */
-       virtual mraa_result_t getValue (float* value) = 0;
+       virtual uint16_t getVisibleRaw() = 0;
+
+	/**
+	 * Get visible illuminance in Lux.
+	 *
+	 * @return double visible illuminance in Lux
+	 */
+       virtual double getVisibleLux() = 0;
+
+
        virtual ~ILightSensor() {}
    };
 }
