@@ -76,77 +76,54 @@ using namespace upm;
 
 SI1132::SI1132 (int bus) {
 
-    i2c = mraa_i2c_init(bus);
-    status = mraa_i2c_address(i2c, SI1132_ADDRESS);
-    if (status != MRAA_SUCCESS) {
-        fprintf(stderr, "SI1132: I2C bus failed to initialise.\n");
-        return;
-    }
+    i2c = new mraa::I2c(bus);
+    i2c->address(SI1132_ADDRESS);
 
     // Reset chip to defaults
     status = reset();
-    if (status != MRAA_SUCCESS) {
-        return;
-    }
-
+    if (!isConfigured()) 
+        UPM_THROW("config failure");
 }
 
 SI1132::~SI1132() {
-    mraa_i2c_stop(i2c);
+   delete i2c;
 }
 
-mraa_result_t SI1132::reset() {
+mraa::Result SI1132::reset() {
     // Check version
-    uint8_t data = mraa_i2c_read_byte_data(i2c, SI1132_REG_PART_ID);
-    if (data != SI1132_PART_ID)  {
-        fprintf(stderr, "SI1132: Read ID failed. Data = %02x\n", data);
-        status = MRAA_ERROR_UNSPECIFIED;
+    uint8_t regValue = i2c->readReg(SI1132_REG_PART_ID);
+    if (regValue != SI1132_PART_ID)  {
+        fprintf(stderr, "SI1132: Read ID failed. Data = %02x\n", regValue);
+        status = mraa::ERROR_UNSPECIFIED;
         return status;
     } 
 
     // disable automatic updates
     uint16_t rate = 0;
-    status = writeRegister16(SI1132_REG_MEAS_RATE0, rate);
-    if (status != MRAA_SUCCESS)  {
+    status = i2c->writeWordReg(SI1132_REG_MEAS_RATE0, rate);
+    if (status != mraa::SUCCESS)  {
         fprintf(stderr, "SI1132_REG_MEAS_RATE0 failed\n");
         return status;        
     }
 
     // reset device
-    status = writeRegister8(SI1132_REG_COMMAND, SI1132_COMMAND_RESET);
-    if (status != MRAA_SUCCESS) {
+    status = i2c->writeReg(SI1132_REG_COMMAND, SI1132_COMMAND_RESET);
+    if (status != mraa::SUCCESS) {
         fprintf(stderr, "SI1132: Reset failed.\n");
-        status = MRAA_ERROR_UNSPECIFIED;
+        status = mraa::ERROR_UNSPECIFIED;
         return status;
     } 
     sleepMs(30);
 
     // start state machine
-    status = writeRegister8(SI1132_REG_HW_KEY, SI1132_HW_KEY_INIT);
-    if (status != MRAA_SUCCESS) {
-        fprintf(stderr, "writeRegister8 failed\n");
-        return status;        
-    }
-    // sleepMs(10);
-    uint8_t regValue = 0;
-    i2cReadRegister(SI1132_REG_HW_KEY, &regValue);
+    i2c->writeReg(SI1132_REG_HW_KEY, SI1132_HW_KEY_INIT);
+    regValue = i2c->readReg(SI1132_REG_HW_KEY);
     if (regValue != SI1132_HW_KEY_INIT) {
         fprintf(stderr, "Si1132: Did not start\n");
-        status = MRAA_ERROR_UNSPECIFIED;
+        status = mraa::ERROR_UNSPECIFIED;
         return status;        
     }
 
-    /*
-    uint8_t regValue;
-    status = i2cReadRegister(SI1132_REG_CHIP_STAT, &regValue);
-    if (status != MRAA_SUCCESS) {
-        fprintf(stderr, "i2cReadRegister SI1132_REG_CHIP_STAT failed\n");
-        return status;        
-    }
-    printf("CHIP_STAT = %d\n", regValue);
-    */
-
-    // enable visible light channel
     status = writeParam(SI1132_PARAM_CHLIST, SI1132_PARAM_CHLIST_ENALSVIS);
 
     // set visible light range for indoor lighting
@@ -155,133 +132,86 @@ mraa_result_t SI1132::reset() {
     // set visible light gain to 8
     status = writeParam(SI1132_PARAM_ALS_VIS_ADC_GAIN, 3);    
     status = writeParam(SI1132_PARAM_ALS_VIS_ADC_COUNT, 3 << 4);    
-
-
-    /*
-    status = readParam(SI1132_PARAM_CHLIST, &regValue);    
-    if (status != MRAA_SUCCESS) {
-        fprintf(stderr, "i2cReadRegister SI1132_REG_PARAM_RD failed\n");
-        return status;        
-    }
-    */
-    // fprintf(stdout, "SI1132::reset completed ok\n");    
     return status;
 }
 
-mraa_result_t SI1132::getValue(float* value) {
-    uint16_t rawValue;    
-    status = runCommand(SI1132_COMMAND_ALS_FORCE);    
-    if (status != MRAA_SUCCESS)    
-        return status;
-    status = i2cReadRegister(SI1132_REG_ALS_VIS_DATA0, &rawValue);
+
+uint16_t SI1132::getVisibleRaw() {
+    status = runCommand(SI1132_COMMAND_ALS_FORCE);
+    if (status != mraa::SUCCESS)
+       UPM_THROW("command failed");
+    return i2c->readWordReg(SI1132_REG_ALS_VIS_DATA0);    
+}
+
+
+double SI1132::getVisibleLux() {
+    uint16_t rawValue = getVisibleRaw();
     if (rawValue < 256)
         rawValue = 0;
     else
         rawValue -= 256;
-    *value = static_cast<float>(rawValue);
-    return status;
+    return static_cast<double>(rawValue);
 }
 
 bool SI1132::isConfigured() {
-    return status == MRAA_SUCCESS;
-}
-
-mraa_result_t SI1132::writeRegister8(uint8_t reg, uint8_t value)
-{
-    return mraa_i2c_write_byte_data(i2c, value, reg);
-}
-
-mraa_result_t SI1132::writeRegister16(uint8_t reg, uint16_t value)
-{
-    return mraa_i2c_write_word_data(i2c, value, reg);
+    return status == mraa::SUCCESS;
 }
 
 
-mraa_result_t SI1132::i2cReadRegister(uint8_t reg, uint8_t* value)
+mraa::Result SI1132::clearResponseRegister()
 {
-    status = mraa_i2c_write_byte(i2c, reg);
-    if (status != MRAA_SUCCESS)    
+    uint8_t regValue = 0xFF;
+    status = i2c->writeReg(SI1132_REG_COMMAND, 0);
+    if (status != mraa::SUCCESS)    
         return status;
-    if (mraa_i2c_read(i2c, value, 1) != 1) {
-        status = MRAA_ERROR_UNSPECIFIED;
-        return status;        
-    }
-    status = MRAA_SUCCESS;
+    int bytesRead = i2c->readBytesReg(SI1132_REG_RESPONSE, &regValue, 1);
+    if (bytesRead == 1 && regValue == 0)    
+       status = mraa::SUCCESS;
+    else
+        status = mraa::ERROR_UNSPECIFIED;
     return status;
 }
 
-
-mraa_result_t SI1132::i2cReadRegister(uint8_t reg, uint16_t* value)
-{
-    status = mraa_i2c_write_byte(i2c, reg);
-    if (status != MRAA_SUCCESS)    
-        return status;
-    if (mraa_i2c_read(i2c, (uint8_t*)value, 2) != 2) {
-        status = MRAA_ERROR_UNSPECIFIED;
-        return status;        
-    }
-    status = MRAA_SUCCESS;
-    return status;
-}
-
-
-mraa_result_t SI1132::clearResponseRegister()
-{
-    uint8_t regValue;
-    status = writeRegister8(SI1132_REG_COMMAND, 0);
-    if (status != MRAA_SUCCESS)    
-        return status;
-    status = i2cReadRegister(SI1132_REG_RESPONSE, &regValue) ;
-    if (status != MRAA_SUCCESS)    
-        return status;
-    if (regValue != 0) {
-        status = MRAA_ERROR_UNSPECIFIED;
-        return status;        
-    }
-    status = MRAA_SUCCESS;
-    return status;
-}
-
-mraa_result_t SI1132::runCommand(uint8_t command)
+mraa::Result SI1132::runCommand(uint8_t command)
 {
     uint8_t response = 0;
     int sleepTimeMs = 5;
     int timeoutMs = 50;
     int waitTimeMs = 0;    
     status = clearResponseRegister();
-    if (status != MRAA_SUCCESS)    
+    if (status != mraa::SUCCESS)    
         return status;    
-    status = writeRegister8(SI1132_REG_COMMAND, command);
-    if (status != MRAA_SUCCESS)    
+    status = i2c->writeReg(SI1132_REG_COMMAND, command);
+    if (status != mraa::SUCCESS)    
         return status;
-     while (response == 0 && status == MRAA_SUCCESS && waitTimeMs < timeoutMs) {
-        status = i2cReadRegister(SI1132_REG_RESPONSE, &response);
-        // printf("."); fflush(stdout);
+    while (response == 0 && waitTimeMs < timeoutMs) {
+        response = i2c->readReg(SI1132_REG_RESPONSE);
         sleepMs(sleepTimeMs);
         waitTimeMs += sleepTimeMs;
     }
-    // printf("Reponse = %d\n", response); 
     if (response == 0) {
-        status = MRAA_ERROR_UNSPECIFIED;
+        status = mraa::ERROR_UNSPECIFIED;
         fprintf(stderr, "Comand %d failed\n", command);
     }
     return status;
 }
 
-mraa_result_t SI1132::writeParam(uint8_t param, uint8_t value)
+mraa::Result SI1132::writeParam(uint8_t param, uint8_t value)
 {
-    status = writeRegister8(SI1132_REG_PARAM_WR, value);
-    if (status != MRAA_SUCCESS)    
+    status = i2c->writeReg(SI1132_REG_PARAM_WR, value);
+    if (status != mraa::SUCCESS)    
         return status;
     return runCommand(SI1132_COMMAND_PARAM_SET | param);
 }
 
-mraa_result_t SI1132::readParam(uint8_t param, uint8_t* value)
+mraa::Result SI1132::readParam(uint8_t param, uint8_t* value)
 {
     status = runCommand(SI1132_COMMAND_PARAM_QUERY | param);
-    if (status != MRAA_SUCCESS)    
+    if (status != mraa::SUCCESS)    
         return status;
-    return i2cReadRegister(SI1132_REG_PARAM_RD, value);
+    if (i2c->readBytesReg(SI1132_REG_PARAM_RD, value, 1) != 1)
+        status = mraa::ERROR_UNSPECIFIED;        
+    return status;        
 }
 
 

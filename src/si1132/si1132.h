@@ -1,6 +1,6 @@
 /*
- * Author: Scott Ware <scott.r.ware@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Henry Bruce <henry.bruce@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,8 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
-
+#include "mraa/i2c.hpp"
 #include "upm/iLightSensor.h"
 
 
@@ -71,14 +70,14 @@ class SI1132 : public ILightSensor {
         ~SI1132 ();
 
         /**
-          * Reset sensor to default configuration
-          */
-        mraa_result_t reset();
+         * Read the raw visible light value
+         */
+        uint16_t getVisibleRaw();
 
         /**
-         * Read the lux value from the chip.
+         * Read the lux value
          */
-        mraa_result_t getValue (float* value);
+        double getVisibleLux();
 	
         /**
          * Returns whether the sensor is configured.
@@ -87,18 +86,15 @@ class SI1132 : public ILightSensor {
         const char* getModuleName() { return "si1132"; }        
 
     private:
-        mraa_result_t i2cReadRegister(uint8_t reg, uint8_t* value);
-        mraa_result_t i2cReadRegister(uint8_t reg, uint16_t* value);
-        mraa_result_t writeRegister8(uint8_t reg, uint8_t value);
-        mraa_result_t writeRegister16(uint8_t reg, uint16_t value);        
-        mraa_result_t clearResponseRegister();
-        mraa_result_t runCommand(uint8_t command);
-        mraa_result_t readParam(uint8_t param, uint8_t* value);
-        mraa_result_t writeParam(uint8_t param, uint8_t value);
+        mraa::Result reset();
+        mraa::Result clearResponseRegister();
+        mraa::Result runCommand(uint8_t command);
+        mraa::Result readParam(uint8_t param, uint8_t* value);
+        mraa::Result writeParam(uint8_t param, uint8_t value);
         void sleepMs(int mseconds);
 
-        mraa_i2c_context i2c;
-        mraa_result_t status;
+        mraa::I2c* i2c;
+        mraa::Result status;
 };
 
 }
