@@ -1,6 +1,6 @@
 /*
  * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,51 +22,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "mraa-utils.h"
-#include "mraa/gpio.hpp"
+#pragma once
+#include "iModuleStatus.h"
 
- #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
-
-void MraaUtils::setGpio(int pin, int level)
+namespace upm
 {
-/*
-   mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
-   mraa_gpio_context gpio = mraa_gpio_init(pin);
-   if (gpio != NULL) 
+/**
+ * @brief Interface for Temperature Sensors
+ */
+
+   class ITemperatureSensor : public IModuleStatus
    {
-      mraa_gpio_dir(gpio, MRAA_GPIO_OUT);
-      status = mraa_gpio_write(gpio, level);
-      mraa_gpio_close(gpio);
-   } 
-   return status;
-*/
-   mraa::Gpio gpio(pin);
-   gpio.dir(mraa::DIR_OUT);
-   if (gpio.write(level) != mraa::SUCCESS)
-      UPM_THROW("gpio write failed");
+   public:
+       virtual uint16_t getTemperatureRaw () = 0;
+       virtual int getTemperatureCelcius () = 0;       
+       virtual ~ITemperatureSensor() {}
+   };
+
 }
-
-
-int MraaUtils::getGpio(int pin)
-{
-/*
-   mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
-   mraa_gpio_context gpio = mraa_gpio_init(pin);
-   if (gpio != NULL) 
-   {
-      status = mraa_gpio_dir(gpio, MRAA_GPIO_IN);
-      int value = mraa_gpio_read(gpio);
-      if (value != -1)
-         *level = value;
-      else
-         status = MRAA_ERROR_NO_RESOURCES; 
-      mraa_gpio_close(gpio);
-   }
-   return status;       
-*/
-   mraa::Gpio gpio(pin);
-   gpio.dir(mraa::DIR_IN);
-   return gpio.read();
-}
-
 

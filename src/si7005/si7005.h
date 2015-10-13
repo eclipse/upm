@@ -23,51 +23,15 @@
  */
 #pragma once
 
-#include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
-#include "upm/iTemperatureHumiditySensor.h"
+#include "upm/iTemperatureSensor.h"
+ #include "upm/iHumiditySensor.h"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define SI7005_ADDRESS                     ( 0x40 )
 #define SI7005_NOT_FOUND                   ( 0x00 )
 
-/* REGISTER ADDRESSES */
-#define SI7005_REG_STATUS                  ( 0x00 )
-#define SI7005_REG_DATA_LENGTH             ( 2 )
-#define SI7005_REG_DATA_START              ( 0x01 )
-#define SI7005_REG_DATA_HIGH               ( 0 )
-#define SI7005_REG_DATA_LOW                ( 1 )
-#define SI7005_REG_CONFIG                  ( 0x03 )
-#define SI7005_REG_ID                      ( 0x11 )
-
-/* STATUS REGISTER */
-#define SI7005_STATUS_NOT_READY            ( 0x01 )
-
-/* CONFIG REGISTER */
-#define SI7005_CONFIG_START                ( 0x01 )
-#define SI7005_CONFIG_HEAT                 ( 0x02 )
-#define SI7005_CONFIG_HUMIDITY             ( 0x00 )
-#define SI7005_CONFIG_TEMPERATURE          ( 0x10 )
-#define SI7005_CONFIG_FAST                 ( 0x20 )
-#define SI7005_CONFIG_RESET                ( 0x00 )
-
-/* ID REGISTER */
-#define SI7005_ID                          ( 0x50 )
-
-/* COEFFICIENTS */
-#define SI7005_TEMPERATURE_OFFSET          ( 50 )
-#define SI7005_TEMPERATURE_SLOPE           ( 32 )
-#define SI7005_HUMIDITY_OFFSET             ( 24 )
-#define SI7005_HUMIDITY_SLOPE              ( 16 )
-#define A0                                 ( -4.7844 )
-#define A1                                 ( 0.4008 )
-#define A2                                 ( -0.00393 )
-#define Q0                                 ( 0.1973 )
-#define Q1                                 ( 0.00237 )
-
-/* MISCELLANEOUS */
-#define SI7005_WAKE_UP_TIME                ( 15000 )
 
 namespace upm {
 
@@ -94,10 +58,10 @@ namespace upm {
  * @if itemperaturesensor
 
  */
-class SI7005 : public ITemperatureHumiditySensor {
+class SI7005 : public ITemperatureSensor, public IHumiditySensor {
     public:
         /**
-         * Instanciates a SI7005 object
+         * Instantiates a SI7005 object
          *
          * @param bus number of used bus
          * @param devAddr address of used i2c device
@@ -113,13 +77,22 @@ class SI7005 : public ITemperatureHumiditySensor {
         /**
          * Get temperature measurement.
          */
-        mraa_result_t getTemperature (float* value);
+        uint16_t getTemperatureRaw ();
+
+        /**
+         * Get temperature measurement.
+         */
+        int getTemperatureCelcius ();
 
         /**
          * Get relative humidity measurement.
          */
-        mraa_result_t getHumidity (float* value);
+        uint16_t getHumidityRaw ();
 	
+        /**
+         * Get relative humidity measurement.
+         */
+        int getHumidityRelative ();
         /**
          * Returns whether the sensor is configured.
          */
@@ -159,8 +132,8 @@ class SI7005 : public ITemperatureHumiditySensor {
         int m_controlAddr;
         int m_bus;
         int m_pin;
-        mraa_i2c_context m_i2cControlCtx;
-        bool configured;
+        mraa::I2c* m_i2c;
+        mraa::Result status;
         uint8_t config_reg;
         float last_temperature;
 
