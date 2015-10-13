@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 
 #include "upm/iLightSensor.h"
 
@@ -121,14 +121,14 @@ class MAX44009 : public ILightSensor {
         ~MAX44009 ();
 
         /**
-          * Reset sensor to default configuration
-          */
-        mraa_result_t reset();
+         * Read the raw visible light value
+         */
+        uint16_t getVisibleRaw();
 
         /**
-         * Read the lux value from the chip.
+         * Read the lux value
          */
-        mraa_result_t getValue (float* value);
+        double getVisibleLux();
 	
         /**
          * Returns whether the sensor is configured.
@@ -137,10 +137,11 @@ class MAX44009 : public ILightSensor {
         const char* getModuleName() { return "max44009"; }        
 
     private:
+        mraa::Result reset();
+
         int m_maxControlAddr;
-        int m_bus;
-        mraa_i2c_context m_i2cMaxControlCtx;
-        bool configured;
+        mraa::I2c* i2c;
+        mraa::Result status;
 };
 
 }
