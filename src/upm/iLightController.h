@@ -29,17 +29,62 @@
 namespace upm
 {
 /**
+ * @brief ILightController Interface for Light Controllers
+ */
+ 
+/**
+ *
  * @brief Interface for Light Controllers
+ 
+ * This interface is used to represent light controllers
+
+ * @snippet light-controllers.cxx Interesting 
  */
 
     class ILightController : public IModuleStatus
     {
     public:
-       virtual bool setPowerOn() = 0;
-       virtual bool setPowerOff() = 0;
+      /**
+       * Turn on power
+       *
+       * @throws std::runtime_error
+       */
+       virtual void setPowerOn() = 0;
+
+      /**
+       * Turn off power
+       *
+       * @throws std::runtime_error
+       */
+       virtual void setPowerOff() = 0;
+
+      /**
+       * Get power state
+       *
+       * @return true if powered, false otherwise
+       *
+       * @throws std::runtime_error
+       */
        virtual bool isPowered() = 0;
-       virtual bool setBrightness(int percent) = 0;
-       virtual bool getBrightness(int* percent) = 0;
+
+      /**
+       * Set brightness
+       *
+       * @param brightness as percentage
+       *
+       * @throws std::runtime_error
+       */
+       virtual void setBrightness(int percent) = 0;
+
+      /**
+       * Get brightness
+       *
+       * @return brightness as percentage
+       *
+       * @throws std::runtime_error
+       */
+       virtual int getBrightness() = 0;
+       
        virtual ~ILightController() {}
     };
 
