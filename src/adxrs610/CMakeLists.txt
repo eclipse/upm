@@ -1,0 +1,5 @@
+set (libname "adxrs610")
+set (libdescription "upm ADXRS610 gyroscope")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
