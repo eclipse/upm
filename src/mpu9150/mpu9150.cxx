@@ -31,11 +31,12 @@
 using namespace upm;
 using namespace std;
 
-MPU9150::MPU9150 (int bus, int address, int magAddress) :
+MPU9150::MPU9150 (int bus, int address, int magAddress, bool enableAk8975) :
   m_mag(0), MPU60X0(bus, address)
 {
   m_magAddress = magAddress;
   m_i2cBus = bus;
+  m_enableAk8975 = enableAk8975;
 }
 
 MPU9150::~MPU9150()
@@ -54,26 +55,30 @@ bool MPU9150::init()
       return false;
     }
 
-  // Now, we need to enable I2C bypass on the MPU60X0 component.  This
-  // will allow us to access the AK8975 Magnetometer on I2C addr 0x0c.
-  if (!enableI2CBypass(true))
+  // Enabling I2C bypass will allow us to access the
+  // AK8975 Magnetometer on I2C addr 0x0c.
+  if (m_enableAk8975 == true)
     {
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": Unable to enable I2C bypass");
-      return false;
-    }
+      if (!enableI2CBypass(true))
+        {
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": Unable to enable I2C bypass");
+          return false;
+        }
 
-  // Now that we've done that, create an AK8975 instance and
-  // initialize it.
-  m_mag = new AK8975(m_i2cBus, m_magAddress);
+      // Now that we've done that, create an AK8975 instance and
+      // initialize it.
 
-  if (!m_mag->init())
-    {
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": Unable to init magnetometer");
-      delete m_mag;
-      m_mag = 0;
-      return false;
+      m_mag = new AK8975(m_i2cBus, m_magAddress);
+
+      if (!m_mag->init())
+        {
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": Unable to init magnetometer");
+          delete m_mag;
+          m_mag = 0;
+          return false;
+        }
     }
 
   return true;
