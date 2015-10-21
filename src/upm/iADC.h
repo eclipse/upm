@@ -38,8 +38,9 @@ namespace upm
    class IADC : public IModuleStatus
    {
    public:
-       virtual mraa_result_t getValue(int input, uint16_t *value) = 0;
-       virtual float convertToVolts(uint16_t value) = 0;
+       virtual int getNumInputs() = 0;
+       virtual int getValue(int input) = 0;
+       virtual float getVoltage(int input) = 0;
        virtual ~IADC() {}
    };
 

@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include <mraa/i2c.hpp>
 #include "upm/iADC.h"
 
 /*=========================================================================
@@ -165,19 +165,27 @@ class ADS1015 : public IADC {
     ~ADS1015();
 
     /**
+     * Get number of inputs
+     *
+     * @return number of inputs
+     */
+     int getNumInputs();
+    /**
      * Read current value for a given analogue input (single ended)
      *
      * @return current conversion value
      */
-     mraa_result_t getValue(int input, uint16_t *value);
+     int getValue(int input);
 
     /**
-     * Convert a supplied value to voltage based on set VREF
+     * Read current voltage value for a given analogue input (single ended)
      *
-     * @param val value of conversion (from value())
-     * @return conversion value in volts
+     * @return current voltage
      */
+    float getVoltage(int input);
+
     float convertToVolts(uint16_t value);
+
 
     /**
      * Sets the gain and input voltage range
@@ -198,7 +206,8 @@ class ADS1015 : public IADC {
     const char* getModuleName() { return "ads1015"; }    
 
   private:
-    mraa_i2c_context m_i2c;
+    mraa::Result status;
+    mraa::I2c* m_i2c;
     uint8_t m_addr;
     int m_bus;
     float m_vref;
@@ -206,6 +215,6 @@ class ADS1015 : public IADC {
     bool configured;
 
     uint16_t readRegister(uint8_t reg);
-    mraa_result_t writeRegister(uint8_t reg, uint16_t word);
+    mraa::Result writeRegister(uint8_t reg, uint16_t word);
 };
 }
