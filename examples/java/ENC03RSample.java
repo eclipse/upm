@@ -25,40 +25,40 @@
 //NOT TESTED!!!
 public class ENC03RSample {
 	private static final long CALIBRATION_SAMPLES = 1000;
-	
+
 	static {
 		try {
 			System.loadLibrary("javaupm_enc03r");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-		 
+		// ! [Interesting]
+
 		// Instantiate a ENC03R on analog pin A0
 		upm_enc03r.ENC03R gyro = new upm_enc03r.ENC03R(0);
-		
+
 		System.out.println("Please place the sensor in a stable location, and do not");
 		System.out.println("move it while calibration takes place");
 		System.out.println("This may take a couple of minutes.");
-		
+
 		gyro.calibrate(CALIBRATION_SAMPLES);
 		System.out.println("Calibration complete.  Reference value: " + gyro.calibrationValue());
-		
+
 		// Read the input and print both the raw value and the angular velocity,
 		// waiting 1 second between readings
-		while(true){
+		while (true) {
 			long val = gyro.value();
 			double av = gyro.angularVelocity(val);
-			
+
 			System.out.println("Raw value: " + val + ", angular velocity: " + av + " deg/s");
-			
+
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 
 }

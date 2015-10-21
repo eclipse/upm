@@ -22,35 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveWaterSample{
+public class GroveWaterSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_grovewater");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate a Grove Water sensor on digital pin D2
+		// ! [Interesting]
+		// Instantiate a Grove Water sensor on digital pin D2
 		upm_grovewater.GroveWater water = new upm_grovewater.GroveWater(2);
-		
+
 		while (true) {
 			boolean val = water.isWet();
-			if (val){
+			if (val) {
 				System.out.println("Sensor is wet");
+			} else {
+				System.out.println("Sensor is dry");
 			}
-			else{
-				System.out.println("Sensor is dry");				
-			}
-			
+
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
-	
 
 }

@@ -1,7 +1,9 @@
+/*jslint node:true, vars:true, bitwise:true, unparam:true */
+/*jshint unused:true */
+
 /*
- * Author: Sergey Kiselev <sergey.kiselev@intel.com>
- * Author: Yevgeniy Kiveish <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 - 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,32 +25,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <upm/lcm1602.h>
 
-int
-main(int argc, char **argv)
+var sensorObj = require('jsupm_adxrs610');
+
+// Instantiate a ADXRS610 sensor on analog pin A0 (dataout), and
+// analog A1 (temp out) with an analog reference voltage of
+// 5.0
+var sensor = new sensorObj.ADXRS610(0, 1, 5.0);
+
+// set a deadband region around the zero point to report 0.0 (optional)
+sensor.setDeadband(0.015);
+
+// Every tenth of a second, sample the ADXRS610 and output it's
+// corresponding temperature and angular velocity 
+
+setInterval(function()
 {
-//! [Interesting]
-    // LCD connection:
-    // LCD RS pin to digital pin 8
-    // LCD Enable pin to digital pin 13
-    // LCD D4 pin to digital pin 2
-    // LCD D5 pin to digital pin 3
-    // LCD D6 pin to digital pin 4
-    // LCD D7 pin to digital pin 5
-    // LCD R/W pin to ground
-    // 10K trimmer potentiometer:
-    //   ends to +5V and ground
-    //   wiper to LCD VO pin (pin 3)
-    upm::Lcm1602 *lcd = new upm::Lcm1602(8, 13, 2, 3, 4, 5, 20, 2);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
+    console.log("Vel (deg/s): " + sensor.getAngularVelocity());
+    console.log("Temp (C): " + sensor.getTemperature());
+}, 100);
 
-    printf("Sleeping for 5 seconds\n");
-    sleep(5);
-    delete lcd;
-//! [Interesting]
-    return 0;
-}
+// exit on ^C
+process.on('SIGINT', function()
+{
+    sensor = null;
+    sensorObj.cleanUp();
+    sensorObj = null;
+    console.log("Exiting.");
+    process.exit(0);
+});
+

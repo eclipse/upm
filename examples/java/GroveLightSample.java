@@ -32,19 +32,19 @@ public class GroveLightSample {
 		}
 	}
 
-	public static void main (String args[]) throws InterruptedException {
-		//! [Interesting]
-        upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
-		
+	public static void main(String args[]) throws InterruptedException {
+		// ! [Interesting]
+		upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
+
 		while (true) {
 			float raw_value = gl.raw_value();
 			float value = gl.value();
 
 			System.out.println("raw value: " + raw_value);
 			System.out.println("value: " + value);
-			
+
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
 }

@@ -1,0 +1,8 @@
+%module jsupm_dfrph
+%include "../upm.i"
+
+%{
+    #include "dfrph.h"
+%}
+
+%include "dfrph.h"

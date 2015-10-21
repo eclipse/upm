@@ -27,30 +27,31 @@ public class BMPX8XSample {
 
 	static {
 		try {
-			System.loadLibrary("upm_bmpx8x");
-		}catch (UnsatisfiedLinkError e) {
+			System.loadLibrary("javaupm_bmpx8x");
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		// Instantiate a BMPX8X sensor on I2C
 		upm_bmpx8x.BMPX8X sensor = new upm_bmpx8x.BMPX8X(0);
-		
+
 		// Print the pressure, altitude, sea level, and
-	    // temperature values every second
-		while(true){
+		// temperature values every second
+		while (true) {
 			System.out.println("Pressure: " + sensor.getPressure());
 			System.out.println("Altitude: " + sensor.getAltitude());
-			System.out.println("Sealevel pressure: " + sensor.getSealevelPressure());
+			System.out.println("Sealevel pressure: "
+					+ sensor.getSealevelPressure());
 			System.out.println("Temperature: " + sensor.getTemperature());
 			System.out.println();
-			
+
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 
 }

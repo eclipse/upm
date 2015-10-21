@@ -28,24 +28,24 @@ public class LDT0028Sample {
 	static {
 		try {
 			System.loadLibrary("javaupm_ldt0028");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-		
+		// ! [Interesting]
+
 		// Create the LDT0-028 Piezo Vibration Sensor object using AIO pin 0
 		upm_ldt0028.LDT0028 sensor = new upm_ldt0028.LDT0028(0);
-		
+
 		System.out.println("Sensor name: " + sensor.name());
-		
-		while(true){
+
+		while (true) {
 			System.out.println("Sample value: " + sensor.getSample());
 			Thread.sleep(1000);
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }

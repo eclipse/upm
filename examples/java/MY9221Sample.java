@@ -1,6 +1,6 @@
 /*
- * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,23 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+public class MY9221Sample {
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-//! [Interesting]
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
-    delete lcd;
+	static {
+		try {
+			System.loadLibrary("javaupm_my9221");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println("error in loading native library");
+			System.exit(-1);
+		}
+	}
 
-    return 0;
+	public static void main(String[] args) throws InterruptedException {
+		// Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9
+		upm_my9221.MY9221 bar = new upm_my9221.MY9221((short) 8, (short) 9);
+
+		while (true) {
+			for (short idx = 1; idx < 11; idx++) {
+				bar.setBarLevel(idx);
+				Thread.sleep(100);
+			}
+		}
+	}
+
 }

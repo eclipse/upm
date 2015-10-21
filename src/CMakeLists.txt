@@ -85,8 +85,13 @@ macro(upm_SWIG_JAVA)
 	DESTINATION lib/java
     )
 
-    set (JAVAC $ENV{JAVA_HOME}/bin/javac)
-    set (JAR $ENV{JAVA_HOME}/bin/jar)
+    if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
+	set (JAVAC $ENV{JAVA_HOME}/bin/javac)
+	set (JAR $ENV{JAVA_HOME}/bin/jar)
+    else ()
+	set (JAVAC $ENV{JAVA_HOME_NATIVE}/bin/javac)
+	set (JAR $ENV{JAVA_HOME_NATIVE}/bin/jar)
+    endif ()
 
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD

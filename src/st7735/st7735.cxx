@@ -35,15 +35,10 @@
 using namespace upm;
 
 ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst)
-    : GFX (160, 128, m_map, font), m_csLCDPinCtx(m_csLCD), m_cSDPinCtx(m_cSD),
-      m_rSTPinCtx(m_rST), m_rSPinCtx(m_rS), m_spi(0) {
+    : GFX (160, 128, m_map, font), m_csLCDPinCtx(csLCD), m_cSDPinCtx(cSD),
+      m_rSTPinCtx(rst), m_rSPinCtx(rs), m_spi(0) {
 
-    m_csLCD = csLCD;
-    m_cSD   = cSD;
-    m_rST   = rst;
-    m_rS    = rs;
-
-    initModule ();
+      initModule ();
     configModule ();
 }
 

@@ -22,28 +22,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class RotaryEncoderSample{
+public class RotaryEncoderSample {
 
 	static {
 		try {
 			System.loadLibrary("javaupm_rotaryencoder");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Create the button object using UART
+		// ! [Interesting]
+		// Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
 		upm_rotaryencoder.RotaryEncoder rotaryencoder = new upm_rotaryencoder.RotaryEncoder(2, 3);
-	
+
 		while (true) {
 			System.out.println("Position: " + rotaryencoder.position());
-			
+
 			Thread.sleep(1000);
 		}
-        //! [Interesting]
+		// ! [Interesting]
 	}
 
 }

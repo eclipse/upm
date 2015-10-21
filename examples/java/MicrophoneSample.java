@@ -22,43 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class MicrophoneSample{
-	
+public class MicrophoneSample {
+
 	static {
 		try {
 			System.loadLibrary("javaupm_mic");
-		}catch (UnsatisfiedLinkError e) {
+		} catch (UnsatisfiedLinkError e) {
 			System.err.println("error in loading native library");
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
+		// ! [Interesting]
 		short[] buffer = new short[128];
-		
+
 		// Attach microphone to analog port A0
 		upm_mic.Microphone sensor = new upm_mic.Microphone(0);
-		
+
 		upm_mic.thresholdContext ctx = new upm_mic.thresholdContext();
 		ctx.setAverageReading(0);
 		ctx.setRunningAverage(0);
 		ctx.setAveragedOver(2);
-		
+
 		// Repeatedly, take a sample every 2 microseconds;
 		// find the average of 128 samples; and
 		// print a running graph of the averages
 		while (true) {
 			int len = sensor.getSampledWindow(2, buffer);
-			
-			if(len != 0){
+
+			if (len != 0) {
 				int thresh = sensor.findThreshold(ctx, 30, buffer);
 				sensor.printGraph(ctx);
-				if (thresh != 0){
-					System.out.println("---Threshold reached---  " + ctx.getRunningAverage() + "  " + ctx.getAverageReading());
+				if (thresh != 0) {
+					System.out.println("---Threshold reached---  " + ctx.getRunningAverage() + "  "
+							+ ctx.getAverageReading());
 				}
 			}
 		}
-		//! [Interesting]
+		// ! [Interesting]
 	}
 }
