@@ -28,10 +28,9 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
-#include <math.h>
-
+#include <mraa/i2c.hpp>
 #include "upm/iPressureSensor.h"
+#include "upm/iTemperatureSensor.h"
 
 #define BMP180_ADDR               0x77 // device address
 
@@ -41,67 +40,6 @@
 #define BMP180_HIGHRES       2
 #define BMP180_ULTRAHIGHRES  3
 
-/* CALIBRATION */
-#define BMP180_PROM_START_ADDR          (0xAA)
-#define BMP180_PROM_DATA_LEN            (22)
-
-#define	BMP180_CALIB_DATA_SIZE			(22)
-#define	BMP180_CALIB_PARAM_AC1_MSB		(0)
-#define	BMP180_CALIB_PARAM_AC1_LSB		(1)
-#define	BMP180_CALIB_PARAM_AC2_MSB		(2)
-#define	BMP180_CALIB_PARAM_AC2_LSB		(3)
-#define	BMP180_CALIB_PARAM_AC3_MSB		(4)
-#define	BMP180_CALIB_PARAM_AC3_LSB		(5)
-#define	BMP180_CALIB_PARAM_AC4_MSB		(6)
-#define	BMP180_CALIB_PARAM_AC4_LSB		(7)
-#define	BMP180_CALIB_PARAM_AC5_MSB		(8)
-#define	BMP180_CALIB_PARAM_AC5_LSB		(9)
-#define	BMP180_CALIB_PARAM_AC6_MSB		(10)
-#define	BMP180_CALIB_PARAM_AC6_LSB		(11)
-#define	BMP180_CALIB_PARAM_B1_MSB		(12)
-#define	BMP180_CALIB_PARAM_B1_LSB		(13)
-#define	BMP180_CALIB_PARAM_B2_MSB		(14)
-#define	BMP180_CALIB_PARAM_B2_LSB		(15)
-#define	BMP180_CALIB_PARAM_MB_MSB		(16)
-#define	BMP180_CALIB_PARAM_MB_LSB		(17)
-#define	BMP180_CALIB_PARAM_MC_MSB		(18)
-#define	BMP180_CALIB_PARAM_MC_LSB		(19)
-#define	BMP180_CALIB_PARAM_MD_MSB		(20)
-#define	BMP180_CALIB_PARAM_MD_LSB		(21)
-
-/* REGISTERS */
-#define BMP180_TEMPERATURE_DATA_LENGTH			((uint8_t)2)
-#define BMP180_PRESSURE_DATA_LENGTH				((uint8_t)3)
-
-#define BMP180_CHIP_ID_REG			(0xD0)
-#define BMP180_VERSION_REG			(0xD1)
-
-#define BMP180_CTRL_MEAS_REG		(0xF4)
-#define BMP180_ADC_OUT_MSB_REG		(0xF6)
-#define BMP180_ADC_OUT_LSB_REG		(0xF7)
-
-#define BMP180_SOFT_RESET_REG		(0xE0)
-
-/* temperature measurement */
-#define BMP180_T_MEASURE			(0x2E)
-
-/* pressure measurement*/
-#define BMP180_P_MEASURE			(0x34)
-
-#define	BMP180_TEMPERATURE_DATA_BYTES	(2)
-#define	BMP180_PRESSURE_DATA_BYTES		(3)
-#define	BMP180_TEMPERATURE_LSB_DATA		(1)
-#define	BMP180_TEMPERATURE_MSB_DATA		(0)
-#define	BMP180_PRESSURE_MSB_DATA		(0)
-#define	BMP180_PRESSURE_LSB_DATA		(1)
-#define	BMP180_PRESSURE_XLSB_DATA		(2)
-
-#define BMP180_PARAM_MG		(3038)
-#define BMP180_PARAM_MH		(-7357)
-#define BMP180_PARAM_MI		(3791)
-
-/* ID */
-#define BMP180_ID                (0x55)
 
 namespace upm {
 
@@ -130,7 +68,7 @@ namespace upm {
  
  */
 
-class BMP180 : public IPressureSensor {
+class BMP180 : public IPressureSensor, public ITemperatureSensor {
     public:
         /**
          * Instanciates a BMP180 object
@@ -147,14 +85,20 @@ class BMP180 : public IPressureSensor {
         ~BMP180 ();
 
         /**
-         * Return calculated pressure (Pa)
+         * Return pressure
          */
-        mraa_result_t getPressure (int32_t *value);
+        uint32_t getPressureRaw();
 
         /**
-         * Return latest calculated temperature value (0.1C)
+         * Return calculated pressure (Pa)
          */
-        mraa_result_t getTemperature (int16_t* value);
+        int getPressurePa();
+
+        uint16_t getTemperatureRaw();
+        /**
+         * Return latest calculated temperature value in Celcius
+         */
+        int getTemperatureCelcius();
 
         /**
          * Returns whether the sensor is configured.
@@ -172,7 +116,8 @@ class BMP180 : public IPressureSensor {
 
         int m_controlAddr;
         int m_bus;
-        mraa_i2c_context m_i2ControlCtx;
+        mraa::I2c* m_i2c;
+        mraa::Result status;
 
         uint8_t oversampling;
         int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
@@ -183,8 +128,6 @@ class BMP180 : public IPressureSensor {
         bool configured;
 
         bool getCalibrationData();
-        uint32_t getPressureRaw ();
-        uint16_t getTemperatureRaw ();
 };
 
 }

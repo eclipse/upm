@@ -38,8 +38,8 @@ namespace upm
    class IPressureSensor : public IModuleStatus
    {
    public:
-       virtual mraa_result_t getPressure (int32_t *value) = 0;
-       virtual mraa_result_t getTemperature (int16_t *value) = 0;
+       virtual uint32_t getPressureRaw() = 0;
+       virtual int getPressurePa() = 0;
        virtual ~IPressureSensor() {}
    };
 
