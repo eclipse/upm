@@ -24,56 +24,52 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si7005.h"
-#include "bmp180.h"
+#include "ads1015.h"
 
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0
 
- #define EDISON_GPIO_SI7005_CS 20
 
 //! [Interesting]
-// Simple example of using ITemperatureSensor to determine 
+// Simple example of using IADC to determine 
 // which sensor is present and return its name.
-// ITemperatureSensor is then used to get readings from sensor
+// IADC is then used to get readings from sensor
 
 
-upm::ITemperatureSensor* getTemperatureSensor()
+upm::IADC* getADC()
 {
-   upm::ITemperatureSensor* temperatureSensor = NULL;
+   upm::IADC* adc = NULL;
    try {
-      temperatureSensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
-      return temperatureSensor;
+      adc = new upm::ADS1015(EDISON_I2C_BUS);
+      return adc;
    } catch (std::exception& e) {
-      std::cerr << "SI7005: " << e.what() << std::endl;      
+      std::cerr << "ADS1015: " << e.what() << std::endl;      
    }
-   try {
-      temperatureSensor = new upm::BMP180(EDISON_I2C_BUS);
-      return temperatureSensor;
-   } catch (std::exception& e) {
-      std::cerr << "BMP180: " << e.what() << std::endl;      
-   }
-   return temperatureSensor;   
+   return adc;   
 }
 
 int main ()
 {
-   upm::ITemperatureSensor* temperatureSensor = getTemperatureSensor();
-   if (temperatureSensor == NULL) {
-      std::cout << "Temperature sensor not detected" << std::endl;                        
+   upm::IADC* adc = getADC();
+   if (adc == NULL) {
+      std::cout << "ADC not detected" << std::endl;                        
       return 1;
    }
-   std::cout << "Temperature sensor " << temperatureSensor->getModuleName() << " detected" << std::endl;
+   std::cout << "ADC " << adc->getModuleName() << " detected. " ;
+   std::cout << adc->getNumInputs() << " inputs available" << std::endl;   
    while (true) {
-      try {
-         int value = temperatureSensor->getTemperatureCelcius();
-         std::cout << "Temperature = " << value << "C" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
+      for (int i=0; i<adc->getNumInputs(); ++i) {
+         std::cout << "Input " << i;
+         try {
+            float voltage = adc->getVoltage(i);
+            std::cout << ": Voltage = " << voltage << "V" << std::endl;
+         } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+         }
       }
       sleep(1);         
    }
-   delete temperatureSensor;
+   delete adc;
    return 0;
 }
 

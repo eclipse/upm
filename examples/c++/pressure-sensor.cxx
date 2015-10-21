@@ -24,56 +24,48 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si7005.h"
 #include "bmp180.h"
+
 
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0
 
- #define EDISON_GPIO_SI7005_CS 20
-
 //! [Interesting]
-// Simple example of using ITemperatureSensor to determine 
+// Simple example of using ILightSensor to determine 
 // which sensor is present and return its name.
-// ITemperatureSensor is then used to get readings from sensor
+// ILightSensor is then used to get readings from sensor
 
 
-upm::ITemperatureSensor* getTemperatureSensor()
+upm::IPressureSensor* getPressureSensor()
 {
-   upm::ITemperatureSensor* temperatureSensor = NULL;
+   upm::IPressureSensor* pressureSensor = NULL;
    try {
-      temperatureSensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
-      return temperatureSensor;
-   } catch (std::exception& e) {
-      std::cerr << "SI7005: " << e.what() << std::endl;      
-   }
-   try {
-      temperatureSensor = new upm::BMP180(EDISON_I2C_BUS);
-      return temperatureSensor;
+      pressureSensor = new upm::BMP180(EDISON_I2C_BUS);
+      return pressureSensor;
    } catch (std::exception& e) {
       std::cerr << "BMP180: " << e.what() << std::endl;      
    }
-   return temperatureSensor;   
+   return pressureSensor;   
 }
 
 int main ()
 {
-   upm::ITemperatureSensor* temperatureSensor = getTemperatureSensor();
-   if (temperatureSensor == NULL) {
-      std::cout << "Temperature sensor not detected" << std::endl;                        
+   upm::IPressureSensor* pressureSensor = getPressureSensor();
+   if (pressureSensor == NULL) {
+      std::cout << "Pressure sensor not detected" << std::endl;                        
       return 1;
    }
-   std::cout << "Temperature sensor " << temperatureSensor->getModuleName() << " detected" << std::endl;
+   std::cout << "Pressure sensor " << pressureSensor->getModuleName() << " detected" << std::endl;
    while (true) {
       try {
-         int value = temperatureSensor->getTemperatureCelcius();
-         std::cout << "Temperature = " << value << "C" << std::endl;
+         int value = pressureSensor->getPressurePa();
+         std::cout << "Pressure = " << value << " Pa" << std::endl;
       } catch (std::exception& e) {
          std::cerr << e.what() << std::endl;
       }
       sleep(1);         
    }
-   delete temperatureSensor;
+   delete pressureSensor;
    return 0;
 }
 
