@@ -50,6 +50,6 @@ float GroveO2::voltageValue()
 {
 	int val = mraa_aio_read(m_aio);
 	float sensorVoltage = (val/1024.0) * 5.0;
-	sensorVoltage = (sensorVoltage/201.0) * 1000.0;
+	sensorVoltage = (sensorVoltage/201.0) * 10000.0;
 	return sensorVoltage;
 }
