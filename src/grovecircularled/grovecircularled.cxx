@@ -36,18 +36,23 @@
 using namespace upm;
 
 GroveCircularLED::GroveCircularLED (uint8_t di, uint8_t dcki)
-									: m_clkPinCtx(dcki),
-									  m_dataPinCtx(di) {
+  : m_clkPinCtx(dcki),
+    m_dataPinCtx(di) 
+{
   mraa::Result error = mraa::SUCCESS;
   
-  m_clkPinCtx.useMmap(true);
-  m_dataPinCtx.useMmap(true);
-
   // set direction (out)
+  error = m_dataPinCtx.dir(mraa::DIR_OUT);
+  if (error != mraa::SUCCESS) {
+    printError(error);
+  }
   error = m_clkPinCtx.dir(mraa::DIR_OUT);
   if (error != mraa::SUCCESS) {
     printError(error);
   }
+
+  m_clkPinCtx.useMmap(true);
+  m_dataPinCtx.useMmap(true);
 }
 
 mraa::Result
