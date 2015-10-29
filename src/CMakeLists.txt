@@ -175,7 +175,7 @@ macro(upm_module_init)
     SOVERSION ${upm_VERSION_MAJOR}
     VERSION ${upm_VERSION_STRING}
   )
-  upm_create_install_pkgconfig (upm-${libname}.pc lib${LIB_SUFFIX}/pkgconfig)
+  upm_create_install_pkgconfig (upm-${libname}.pc ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
   if (SWIG_FOUND)
     upm_swig_python()
     upm_swig_node()
