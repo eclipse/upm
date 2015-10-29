@@ -1,24 +1,19 @@
-
-#include "mraa.hpp"
-
 #include <iostream>
 #include <unistd.h>
 #include "mcp9808.h"
 
-
+#include "mraa.hpp"
 
 int main()
 {
-
 	using namespace std;
 
+//! [Interesting]   
 	int command;
 	upm::MCP9808 *temp = new upm::MCP9808(6);
 
-
 	do
 	{
-
 		cout << endl;
 		cout << "1 - read temp \t" ;
 		cout << "2 - sleep mode \t";
@@ -42,7 +37,6 @@ int main()
 		cout << "-1 - exit" << endl;
 		cout << "Enter a command: ";
 		cin >> command;
-
 
 		switch(command)
 		{
@@ -164,8 +158,6 @@ int main()
 		}
 
 	}while (command != -1 );
-
-
-
+//! [Interesting]
 	return MRAA_SUCCESS;
 }

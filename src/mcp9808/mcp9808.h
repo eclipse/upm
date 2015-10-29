@@ -43,15 +43,22 @@
 
 namespace upm {
   /**
+   * @brief MCP9808 precision temperature sensor library
+   * @defgroup mcp9808 libupm-mcp9808
+   * @ingroup adafruit i2c temp
+   */
+  /**
    * @library mcp9808
-   * @sensor  MCP9808
-   * @comname MCP9808
-   * @type Temperature, precision.
-   * @man https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview
-   * @man http://ww1.microchip.com/downloads/en/DeviceDoc/25095A.pdf
+   * @sensor MCP9808
+   * @comname MCP9808 Temperature Sensor
+   * @type temp
+   * @man adafruit
    * @con i2c
+   * @web https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview
+   * @web http://ww1.microchip.com/downloads/en/DeviceDoc/25095A.pdf
    *
    * @brief API for MCP9808 precision temprature sensor
+   *
    * The MCP9808 digital temperature sensor converts temperatures between -20°C and +100°C
    * to a digital word with ±0.5°C (max.) accuracy. The MCP9808 comes with user-programmable
    * registers that provide flexibility for temperature sensing applications. The registers
@@ -71,78 +78,78 @@ namespace upm {
     class MCP9808 {
 
         public:
-    		/**
-    		 * @enum MCP9808_REG
-    		 * @brief uint8_t enum containing register addresses
-    		 * used for setting temp thresholds for MCP9808
-    		 *
-    		 * @var MCP9808_REG::UPPER_TEMP = 0x02
-    		 * @var MCP9808_REG::LOWER_TEMP = 0x03
-    		 * @var MCP9808_REG::CRIT_TEMP = 0x04
-    		 */
-    		typedef enum
-			{
-    			 UPPER_TEMP = 0x02,
-    			 LOWER_TEMP = 0x03,
-    			 CRIT_TEMP = 0x04,
-			} MCP9808_REG;
+            /**
+             * @enum MCP9808_REG
+             * @brief uint8_t enum containing register addresses
+             * used for setting temp thresholds for MCP9808
+             *
+             * @var MCP9808_REG::UPPER_TEMP = 0x02
+             * @var MCP9808_REG::LOWER_TEMP = 0x03
+             * @var MCP9808_REG::CRIT_TEMP = 0x04
+             */
+            typedef enum
+            {
+                 UPPER_TEMP = 0x02,
+                 LOWER_TEMP = 0x03,
+                 CRIT_TEMP = 0x04,
+            } MCP9808_REG;
 
-    		/**
-    		 * @enum MCP9808_RESOLUTION
-    		 * @brief uint8_t enum containing the four possible
-    		 * values for MCP9808 resolution register.
-    		 *
-    		 * @var MCP9808_RESOLUTION::RES_LOW = 0.5C
-    		 * @var MCP9808_RESOLUTION::RES_MEDIUM = 0.25C
-    		 * @var MCP9808_RESOLUTION::RES_HIGH = 0.125C
-    		 * @var MCP9808_RESOLUTION::RES_PRECISION = (default) 0.0625C
-    		 */
-    		typedef enum
-			{
-    			RES_LOW = 0x00,
-				RES_MEDIUM = 0x01,
-				RES_HIGH = 0x02,
-    			RES_PRECISION = 0x03
-			} MCP9808_RESOLUTION;
+            /**
+             * @enum MCP9808_RESOLUTION
+             * @brief uint8_t enum containing the four possible
+             * values for MCP9808 resolution register.
+             *
+             * @var MCP9808_RESOLUTION::RES_LOW = 0.5C
+             * @var MCP9808_RESOLUTION::RES_MEDIUM = 0.25C
+             * @var MCP9808_RESOLUTION::RES_HIGH = 0.125C
+             * @var MCP9808_RESOLUTION::RES_PRECISION = (default) 0.0625C
+             */
+            typedef enum
+            {
+                RES_LOW = 0x00,
+                RES_MEDIUM = 0x01,
+                RES_HIGH = 0x02,
+                RES_PRECISION = 0x03
+            } MCP9808_RESOLUTION;
 
-    		/**
-    		 * @enum MCP9808_CONFIG
-    		 * @brief uint16_t enum containing alert and hysteresis options
-    		 * for config register.
-    		 *
-    		 * @var MCP9808_CONFIG::ALERTSTAT - Alert Output Status bit
-			 * 		0 = Alert output is not asserted by the device (power-up default)
-			 * 		1 = Alert output is asserted as a comparator/Interrupt or critical
-			 *  	temperature output
-			 * @var MCP9808_CONFIG::ALERTCTRL - Alert Output Control bit
-			 *      0 = Disabled (power-up default)
-			 *      1 = Enabled
-			 * @var MCP9808_CONFIG::ALERTSEL -  Alert Output Select bit
-			 *      0 = Alert output for TUPPER, TLOWER and TCRIT (power-up default)
-			 *      1 = TA > TCRIT only (TUPPER and TLOWER temperature boundaries are disabled)
-			 * @var MCP9808_CONFIG::ALERTPOL - Alert Output Polarity bit
-			 *      0 = Active-low (power-up default; pull-up resistor required)
-			 *      1 = Active-high
-			 * @var MCP9808_CONFIG::ALERTMODE - Alert Output Mode bit
-			 *      0 = Comparator output (power-up default)
-			 *      1 = Interrupt output
-			 * @var MCP9808_CONFIG::HYST_0 : 0°C
-			 * @var MCP9808_CONFIG::HYST_1_5 : +1.5°C
-			 * @var MCP9808_CONFIG::HYST_3_0 : +3.0°C
-			 * @var MCP9808_CONFIG::HYST_6_0 : +6.0°C
-    		 */
-    		typedef enum
-			{
-    			ALERTSTAT = 0x1000,
-    			ALERTCTRL = 0x0800,
-    			ALERTSEL = 0x0400,
-    			ALERTPOL = 0x0200,
-    			ALERTMODE = 0x0100,
-				HYST_0 = 0x0000,
-				HYST_1_5 = 0x0002,
-				HYST_3_0 = 0x0004,
-				HYST_6_0 = 0x0006
-			} MCP9808_CONFIG;
+            /**
+             * @enum MCP9808_CONFIG
+             * @brief uint16_t enum containing alert and hysteresis options
+             * for config register.
+             *
+             * @var MCP9808_CONFIG::ALERTSTAT - Alert Output Status bit
+             *      0 = Alert output is not asserted by the device (power-up default)
+             *      1 = Alert output is asserted as a comparator/Interrupt or critical
+             *      temperature output
+             * @var MCP9808_CONFIG::ALERTCTRL - Alert Output Control bit
+             *      0 = Disabled (power-up default)
+             *      1 = Enabled
+             * @var MCP9808_CONFIG::ALERTSEL -  Alert Output Select bit
+             *      0 = Alert output for TUPPER, TLOWER and TCRIT (power-up default)
+             *      1 = TA > TCRIT only (TUPPER and TLOWER temperature boundaries are disabled)
+             * @var MCP9808_CONFIG::ALERTPOL - Alert Output Polarity bit
+             *      0 = Active-low (power-up default; pull-up resistor required)
+             *      1 = Active-high
+             * @var MCP9808_CONFIG::ALERTMODE - Alert Output Mode bit
+             *      0 = Comparator output (power-up default)
+             *      1 = Interrupt output
+             * @var MCP9808_CONFIG::HYST_0 : 0°C
+             * @var MCP9808_CONFIG::HYST_1_5 : +1.5°C
+             * @var MCP9808_CONFIG::HYST_3_0 : +3.0°C
+             * @var MCP9808_CONFIG::HYST_6_0 : +6.0°C
+             */
+            typedef enum
+            {
+                ALERTSTAT = 0x1000,
+                ALERTCTRL = 0x0800,
+                ALERTSEL = 0x0400,
+                ALERTPOL = 0x0200,
+                ALERTMODE = 0x0100,
+                HYST_0 = 0x0000,
+                HYST_1_5 = 0x0002,
+                HYST_3_0 = 0x0004,
+                HYST_6_0 = 0x0006
+            } MCP9808_CONFIG;
 
             /**
              * MCP9808 constructor
@@ -166,15 +173,14 @@ namespace upm {
             }
 
             /**
-			 * Returns current temperature.
-			 */
+             * Returns current temperature.
+             */
             float getTemp(void);
 
-
             /**
-             *	Will cause the devices to either sleep or wakeup.
+             *  Will cause the devices to either sleep or wakeup.
              *
-             *	@param sleep . Bool, default true to sleep. false to wake.
+             *  @param sleep . Bool, default true to sleep. false to wake.
              */
              void shutDown(bool sleep = true);
 
@@ -186,7 +192,7 @@ namespace upm {
              */
             void setMode(bool celsius = true)
             {
-            	m_celsius = celsius;
+                m_celsius = celsius;
             }
 
             /**
@@ -195,7 +201,7 @@ namespace upm {
              */
             bool isCelsius(void)
             {
-            	return m_celsius;
+                return m_celsius;
             }
 
             /**
@@ -205,7 +211,7 @@ namespace upm {
              */
             bool isTcrit()
             {
-            	return m_tcrit;
+                return m_tcrit;
             }
 
             /**
@@ -215,7 +221,7 @@ namespace upm {
              */
             bool isTupper()
             {
-            	return m_tupper;
+                return m_tupper;
             }
 
             /**
@@ -225,7 +231,7 @@ namespace upm {
              */
             bool isTlower()
             {
-            	return m_tlower;
+                return m_tlower;
             }
 
             /**
@@ -270,7 +276,7 @@ namespace upm {
              * Sets hysteresis value.
              *
              * @param MCP9808_CONFIG enum value HYST_0, HYST_1_5,
-             * 	HYST_3_0 or HYST_6_0
+             *  HYST_3_0 or HYST_6_0
              */
             void setHysteresis(MCP9808_CONFIG value);
 
@@ -280,11 +286,11 @@ namespace upm {
             float getHysteresis();
 
             /**
-             *	Sets resolution of temperature conversion.
+             *  Sets resolution of temperature conversion.
              *
-             *	@param value - MCP9808_RESOLUTION enum value.
-             *	RES_LOW = +0.5 C
-             *	RES_MEDIUM = +0.25 C
+             *  @param value - MCP9808_RESOLUTION enum value.
+             *  RES_LOW = +0.5 C
+             *  RES_MEDIUM = +0.25 C
              *  RES_HIGH = +0.125 C
              *  RES_PRECISION = +0.0625 C (default).
              */
@@ -307,9 +313,6 @@ namespace upm {
              */
             uint16_t getDevicedId();
 
-
-
-
         private:
             std::string m_name;
             bool m_celsius;
@@ -317,13 +320,10 @@ namespace upm {
             bool m_tupper;
             bool m_tlower;
 
-           	mraa::I2c* i2c;
+            mraa::I2c* i2c;
 
-           	float getTempValue(uint16_t value);
-           	void updateConfigRegister(uint16_t update, bool on = true);
-           	uint16_t swapWord(uint16_t value);
-
-
-
+            float getTempValue(uint16_t value);
+            void updateConfigRegister(uint16_t update, bool on = true);
+            uint16_t swapWord(uint16_t value);
     };
 }
