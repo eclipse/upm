@@ -24,12 +24,14 @@
 
 #include <t6713.h>
 
+#define T6713_ADDR 0x15
+
 namespace upm {
 
     T6713::T6713 (int bus)
     {
         i2c = new mraa::I2c(bus);
-        status = mraa::SUCCESS;
+        status = i2c->address(T6713_ADDR);
     }
 
     T6713::~T6713()
