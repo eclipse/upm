@@ -26,7 +26,7 @@
 #include <mraa/i2c.hpp>
 
 #include "upm/iTemperatureSensor.h"
- #include "upm/iHumiditySensor.h"
+#include "upm/iHumiditySensor.h"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define SI7005_ADDRESS                     ( 0x40 )
