@@ -132,6 +132,12 @@ ADS1015::convertToVolts(uint16_t value) { return ((float)value * m_vref / ADS101
 bool
 ADS1015::isConfigured() { return configured; }
 
+float 
+ADS1015::getReferenceVoltage() { return m_vref; }
+
+int 
+ADS1015::getResolutionInBits() { return 12; }  
+
 uint16_t
 ADS1015::readRegister(uint8_t reg)
 {

@@ -182,6 +182,10 @@ class ADS1015 : public IADC {
      *
      * @return current voltage
      */
+
+    float getReferenceVoltage();
+    int getResolutionInBits();
+
     float getVoltage(int input);
 
     float convertToVolts(uint16_t value);

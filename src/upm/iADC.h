@@ -38,6 +38,8 @@ namespace upm
    class IADC : public IModuleStatus
    {
    public:
+       virtual float getReferenceVoltage() = 0;
+       virtual int getResolutionInBits() = 0;
        virtual int getNumInputs() = 0;
        virtual int getValue(int input) = 0;
        virtual float getVoltage(int input) = 0;
