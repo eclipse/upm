@@ -261,6 +261,13 @@
  * @ingroup byif
  */
 
+ /**
+ * @brief Implements ICOSensor
+ * @defgroup ic02sensor ICOSensor
+ * @ingroup byif
+ */
+
+
 ////////////////////////////////////////////////////////////////// @cond CON
 /// Groups for the various Connection Types.
 ////////////////////////////////////////////////////////////////// @endcond CON
@@ -383,6 +390,11 @@
  * @ingroup byman
  */
 
+/**
+ * @brief Amphenol
+ * @defgroup amphenol Amphenol
+ * @ingroup byman
+ */
 
 ////////////////////////////////////////////////////////////////// @cond KIT
 /// Groups for the various Starter Kits.
