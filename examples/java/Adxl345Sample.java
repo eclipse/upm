@@ -49,10 +49,9 @@ public class Adxl345Sample {
 			accel = sensor.getAcceleration();
 
 			System.out.println("Current scale: " + sensor.getScale());
-			System.out.println("Raw Values: X: " + val[0] + " Y: " + val[1]
-					+ " Z: " + val[2]);
-			System.out.println("Acceleration: X: " + accel[0] + "g Y: "
-					+ accel[1] + "g Z: " + accel[2] + "g");
+			System.out.println("Raw Values: X: " + val[0] + " Y: " + val[1] + " Z: " + val[2]);
+			System.out.println("Acceleration: X: " + accel[0] + "g Y: " + accel[1] + "g Z: "
+					+ accel[2] + "g");
 
 			Thread.sleep(1000);
 		}

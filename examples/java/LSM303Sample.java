@@ -41,7 +41,7 @@ public class LSM303Sample {
 
 		// Get the coordinate data
 		sensor.getCoordinates();
-		int[] coor = sensor.getRawCoorData(); // in XYZ order.·
+		short[] coor = sensor.getRawCoorData(); // in XYZ order.·
 		// The sensor returns XZY, but the driver compensates and makes it XYZ
 
 		// Print out the X, Y, and Z coordinate data using two different methods
@@ -54,7 +54,7 @@ public class LSM303Sample {
 
 		// Get the acceleration
 		sensor.getAcceleration();
-		int[] accel = sensor.getRawAccelData();
+		short[] accel = sensor.getRawAccelData();
 
 		// Print out the X, Y, and Z acceleration data using two different
 		// methods
