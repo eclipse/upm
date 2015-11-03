@@ -36,7 +36,7 @@ public class Itg3200Sample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		int[] rot;
+		short[] rot;
 		float[] ang;
 
 		// Note: Sensor not supported on Intel Edison with Arduino breakout

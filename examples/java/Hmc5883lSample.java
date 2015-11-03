@@ -38,7 +38,7 @@ public class Hmc5883lSample {
 		// Instantiate on I2C
 		upm_hmc5883l.Hmc5883l compas = new upm_hmc5883l.Hmc5883l(0);
 
-		int[] pos;
+		short[] pos;
 
 		// Set your declination from true north in radians
 		compas.set_declination(0.2749f);
@@ -48,8 +48,7 @@ public class Hmc5883lSample {
 			compas.update();
 
 			pos = compas.coordinates();
-			System.out.println("Coor: " + (short) pos[0] + " " + (short) pos[1] + " "
-					+ (short) pos[2]);
+			System.out.println("Coor: " + pos[0] + " " + pos[1] + " " + pos[2]);
 			System.out.println("Heading: " + compas.heading() + " Direction:" + compas.direction());
 
 			Thread.sleep(2000);
