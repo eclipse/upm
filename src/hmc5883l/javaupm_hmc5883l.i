@@ -16,7 +16,6 @@
 %typemap(out) int16_t *coordinates {
     $result = JCALL1(NewShortArray, jenv, 3);
     JCALL4(SetShortArrayRegion, jenv, $result, 0, 3, (jshort*)$1);
-    //delete [] $1;
 }
 
 %include "hmc5883l.h"

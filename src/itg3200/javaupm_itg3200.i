@@ -30,7 +30,6 @@
 %typemap(out) int16_t *getRawValues {
     $result = JCALL1(NewShortArray, jenv, 3);
     JCALL4(SetShortArrayRegion, jenv, $result, 0, 3, (jshort*)$1);
-    //delete [] $1;
 }
 
 %include "itg3200.h"
