@@ -1,6 +1,6 @@
 /*
- * Author: Scott Ware <scott.r.ware@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: HCL
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -81,8 +81,8 @@ namespace t6713_co2
                 uint8_t function_code;
                 uint8_t register_address_msb;
 		uint8_t register_address_lsb;			
-                uint16_t input_registers_to_read_msb;
-                uint16_t input_registers_to_read_lsb;
+                uint8_t input_registers_to_read_msb;
+                uint8_t input_registers_to_read_lsb;
 
         }COMMAND;
 
@@ -134,15 +134,15 @@ class T6713 : public ICO2Sensor {
          */
         uint16_t getPpm ();
         /**
-         * TODO: Read the version
+         * Get the firmware version
          */
         uint16_t getFirmwareRevision();
 
 
     private:
         mraa::Result runCommand(t6713_co2::MODBUS_COMMANDS command);
+	uint16_t getSensorData (t6713_co2::MODBUS_COMMANDS cmd);
         t6713_co2::STATUS getStatus();
-        void sleepMs(int mseconds);
 		
         int bus;
         mraa::I2c* i2c;
