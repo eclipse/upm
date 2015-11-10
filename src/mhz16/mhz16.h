@@ -135,14 +135,27 @@ namespace upm {
     bool verifyPacket(uint8_t *pkt, int len);
 
     /**
-     * Queries the sensor and returns gas (CO2) concentration and
+     * Queries the sensor and gets the gas (CO2) concentration and
      * temperature data.
+     * Should be called before other "get" functions.
      *
-     * @param gas Returned gas concentration
-     * @param temp Returned temperature in Celsius
      * @return True if successful
      */
-    bool getData(int *gas, int *temp);
+    bool getData();
+
+    /**
+     * Returns the gas (CO2) concentration data.
+     *
+     * @return Gas concentration
+     */
+    int getGas();
+
+    /**
+     * Returns the temperature data.
+     *
+     * @return Temperature in Celsius
+     */
+    int getTemperature();
 
     /**
      * Sets the zero point of the sensor
@@ -156,6 +169,8 @@ namespace upm {
   private:
     mraa_uart_context m_uart;
     int m_ttyFd;
+    int gas;
+    int temp;
   };
 }
 

@@ -62,14 +62,15 @@ int main (int argc, char **argv)
 
   sleep(1);
 
-  int gas;
-  int temp;
-
   while (shouldRun)
     {
-      co2->getData(&gas, &temp);
-      cout << "CO2 concentration: " << gas << " PPM, "
-           << "Temperature (in C): " << temp <<endl;
+      if(!co2->getData()){
+        cerr << "Failed to retrieve data" << endl;
+        continue;
+      }
+
+      cout << "CO2 concentration: " << co2->getGas() << " PPM, "
+           << "Temperature (in C): " << co2->getTemperature() <<endl;
 
       sleep(2);
     }
