@@ -36,9 +36,6 @@ public class MHZ16Sample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		int[] gas = new int[1];
-		int[] temp = new int[1];
-
 		// Instantiate a MHZ16 serial CO2 sensor on uart 0.
 		upm_mhz16.MHZ16 co2 = new upm_mhz16.MHZ16(0);
 
@@ -48,9 +45,12 @@ public class MHZ16Sample {
 		System.out.println("but rather the temperature of the sensor elements.");
 
 		while (true) {
-			co2.getData(gas, temp);
-			System.out.println("CO2 concentration: " + gas[0] + "PPM, Temperature (in C): "
-					+ temp[0]);
+			if (!co2.getData()) {
+				System.out.println("Failed to retrieve data");
+				continue;
+			}
+			System.out.println("CO2 concentration: " + co2.getGas() + "PPM, Temperature (in C): "
+					+ co2.getTemperature());
 
 			Thread.sleep(2000);
 		}
