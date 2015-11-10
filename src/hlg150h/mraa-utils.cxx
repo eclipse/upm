@@ -29,17 +29,6 @@
 
 void MraaUtils::setGpio(int pin, int level)
 {
-/*
-   mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
-   mraa_gpio_context gpio = mraa_gpio_init(pin);
-   if (gpio != NULL) 
-   {
-      mraa_gpio_dir(gpio, MRAA_GPIO_OUT);
-      status = mraa_gpio_write(gpio, level);
-      mraa_gpio_close(gpio);
-   } 
-   return status;
-*/
    mraa::Gpio gpio(pin);
    gpio.dir(mraa::DIR_OUT);
    if (gpio.write(level) != mraa::SUCCESS)
@@ -49,21 +38,6 @@ void MraaUtils::setGpio(int pin, int level)
 
 int MraaUtils::getGpio(int pin)
 {
-/*
-   mraa_result_t status = MRAA_ERROR_NO_RESOURCES; 
-   mraa_gpio_context gpio = mraa_gpio_init(pin);
-   if (gpio != NULL) 
-   {
-      status = mraa_gpio_dir(gpio, MRAA_GPIO_IN);
-      int value = mraa_gpio_read(gpio);
-      if (value != -1)
-         *level = value;
-      else
-         status = MRAA_ERROR_NO_RESOURCES; 
-      mraa_gpio_close(gpio);
-   }
-   return status;       
-*/
    mraa::Gpio gpio(pin);
    gpio.dir(mraa::DIR_IN);
    return gpio.read();
