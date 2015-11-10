@@ -34,10 +34,11 @@ int main(int argc, char **argv)
   upm::EBOLED *lcd = new upm::EBOLED();
 
   lcd->clear();
-  lcd->setCursor(2, 0);
+  lcd->setCursor(10, 15);
   lcd->write("Hello");
-  lcd->setCursor(3, 5);
+  lcd->setCursor(30, 15);
   lcd->write("World!");
+  lcd->refresh();
   
   cout << "Sleeping for 5 seconds..." << endl;
   sleep(5);

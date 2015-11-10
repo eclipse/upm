@@ -160,7 +160,7 @@ add_executable (urm37-uart-example urm37-uart.cxx)
 add_executable (adxrs610-example adxrs610.cxx)
 add_executable (bma220-example bma220.cxx)
 add_executable (dfrph-example dfrph.cxx)
-
+add_executable (mcp9808-example mcp9808.cxx)
 
 include_directories (${PROJECT_SOURCE_DIR}/src)
 include_directories (${PROJECT_SOURCE_DIR}/src/hmc5883l)
@@ -288,6 +288,7 @@ include_directories (${PROJECT_SOURCE_DIR}/src/urm37)
 include_directories (${PROJECT_SOURCE_DIR}/src/adxrs610)
 include_directories (${PROJECT_SOURCE_DIR}/src/bma220)
 include_directories (${PROJECT_SOURCE_DIR}/src/dfrph)
+include_directories (${PROJECT_SOURCE_DIR}/src/mcp9808)
 
 target_link_libraries (hmc5883l-example hmc5883l ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (groveled-example grove ${CMAKE_THREAD_LIBS_INIT})
@@ -449,4 +450,5 @@ target_link_libraries (urm37-uart-example urm37 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (adxrs610-example adxrs610 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (bma220-example bma220 ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (dfrph-example dfrph ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (mcp9808-example mcp9808 ${CMAKE_THREAD_LIBS_INIT})
 

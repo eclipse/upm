@@ -16,7 +16,7 @@ var mics = new upmMICSV89.MICSV89(6);
 
 while(1)
 {
-    mics.start(); 
+    mics.update(); 
     while(!mics.valid());
     console.log("co2: " + mics.co2equ()); 
     console.log("short: " + mics.vocshort()); 

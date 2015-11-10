@@ -1,5 +1,5 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
+ * Author: Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,34 +22,38 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+import upm_apds9002.APDS9002;
 
-#include "groveo2.h"
+public class Apds9002 {
 
-using namespace upm;
-using namespace std;
+	static {
+		try {
+			System.loadLibrary("javaupm_apds9002");
+			System.loadLibrary("mraajava");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println(
+					"Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n" +
+							e);
+			System.exit(1);
+		}
+	}
 
-GroveO2::GroveO2(int pin)
-{
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//! [Interesting]
+		// Instantiate the APDS9002 (Grove luminance sensor) on the Analog pin A0
+		APDS9002 lum = new APDS9002(0);
 
-GroveO2::~GroveO2()
-{
-  mraa_aio_close(m_aio);
-}
+		while(true){
+			System.out.println("The Luminance value is : "+lum.value());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("The following exception occured: "+e.getMessage());
+			}
+		}
+		//! [Interesting]
+	}
 
-float GroveO2::voltageValue()
-{
-	int val = mraa_aio_read(m_aio);
-	float sensorVoltage = (val/1024.0) * 5.0;
-	sensorVoltage = (sensorVoltage/201.0) * 10000.0;
-	return sensorVoltage;
 }
