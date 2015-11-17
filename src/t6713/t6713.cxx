@@ -51,10 +51,11 @@ using namespace upm::t6713_co2;
 
 T6713::T6713 (int bus)
 {
-	i2c = new mraa::I2c(bus);
-        status = i2c->address(T6713_ADDR);
-    	if (!isConfigured())
-        	UPM_THROW("config failure");
+    i2c = new mraa::I2c(bus);
+    status = i2c->address(T6713_ADDR);
+    uint16_t firmwareRevision = getFirmwareRevision();
+    if (!isConfigured())
+        UPM_THROW("config failure");
 }
 
 T6713::~T6713()
@@ -120,6 +121,7 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 	             if(readBytes = i2c->read((uint8_t*)(response), sizeof(RESPONSE) ) !=  sizeof(RESPONSE))
 		     {
 		     	 printf("\nFailed reading the right no of bytes, bytes read are %d", readBytes);
+		     	 UPM_THROW("read failed");
 			 // TODO
 		     }
 	             if(response->function_code == READ_INPUT_REGISTERS)
