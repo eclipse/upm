@@ -23,8 +23,8 @@
  */
 
 #include "upm/iLightController.h"
-#include "mraa/gpio.h"
-#include "mraa/pwm.h"
+// #include "mraa/gpio.hpp"
+#include "mraa/pwm.hpp"
 
 namespace upm
 {
@@ -67,10 +67,10 @@ protected:
    int getBrightness();
 
 private:
-   mraa_result_t status;
+   mraa::Result status;
    bool isPoweredShadow;
    int pinRelay;
-   mraa_pwm_context pwmBrightness;
+   mraa::Pwm* pwmBrightness;
 };
 
 }
