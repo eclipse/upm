@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /*
  * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
  * Copyright (c) 2015 Intel Corporation.
@@ -44,7 +46,7 @@ public class WT5001Sample {
 		System.out.println("4  - previous track");
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		// ! [Interesting]
 		// Instantiate a WT5001 serial MP3 player on uart 0
 		upm_wt5001.WT5001 mp3 = new upm_wt5001.WT5001(0);
@@ -87,21 +89,37 @@ public class WT5001Sample {
 		}
 
 		// print out some information
-		short vol[] = new short[1];
-		if (mp3.getVolume(vol))
-			System.out.println("The current volume is: " + vol[0]);
+		try {
+			short vol;
+			vol = mp3.getVolume();
+			System.out.println("The current volume is: " + vol);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		short ps[] = new short[1];
-		if (mp3.getPlayState(ps))
-			System.out.println("The current play state is: " + ps[0]);
+		try {
+			short ps;
+			ps = mp3.getPlayState();
+			System.out.println("The current play state is: " + ps);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		int numf[] = new int[1];
-		if (mp3.getNumFiles(upm_wt5001.WT5001.WT5001_PLAYSOURCE_T.SD, numf))
-			System.out.println("The number of files on the SD card is: " + numf[0]);
+		try {
+			int numf;
+			numf = mp3.getNumFiles(upm_wt5001.WT5001.WT5001_PLAYSOURCE_T.SD);
+			System.out.println("The number of files on the SD card is: " + numf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		int curf[] = new int[1];
-		if (mp3.getCurrentFile(curf))
-			System.out.println("The current file is: " + curf[0]);
+		try {
+			int curf;
+			curf = mp3.getCurrentFile();
+			System.out.println("The current file is: " + curf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		int year[] = new int[1];
 		short month[] = new short[1];
