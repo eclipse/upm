@@ -37,7 +37,6 @@ namespace upm
    {
    public:
        virtual uint16_t getPpm() = 0;
-       virtual uint16_t getFirmwareRevision() = 0;
        virtual ~ICO2Sensor() {}
    };
 
