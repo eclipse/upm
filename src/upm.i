@@ -2,11 +2,9 @@
 %include "stdint.i"
 %include "upm_exception.i"
 
-    /* %include "arrays_java.i"; */
-    /* %apply unsigned char[] {uint8_t *mama}; */
-    %apply int { speed_t };
-    %apply int { mraa_result_t };
-    %apply int { mraa::Result };
+%apply int { speed_t };
+%apply int { mraa_result_t };
+%apply int { mraa::Result };
 
 #if (SWIG_JAVASCRIPT_V8)
 %{

@@ -450,6 +450,15 @@ bool WT5001::getVolume(uint8_t *vol)
   return true;
 }
 
+uint8_t WT5001::getVolume()
+{
+  uint8_t vol = 0;
+  if (!getVolume(&vol))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return vol;
+}
+
 bool WT5001::getPlayState(uint8_t *ps)
 {
   char pkt[4];
@@ -471,6 +480,15 @@ bool WT5001::getPlayState(uint8_t *ps)
     return false;
 
   return true;
+}
+
+uint8_t WT5001::getPlayState()
+{
+  uint8_t ps = 0;
+  if (!getPlayState(&ps))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return ps;
 }
 
 bool WT5001::getNumFiles(WT5001_PLAYSOURCE_T psrc, uint16_t *numf)
@@ -515,6 +533,15 @@ bool WT5001::getNumFiles(WT5001_PLAYSOURCE_T psrc, uint16_t *numf)
   return true;
 }
 
+uint16_t WT5001::getNumFiles(WT5001_PLAYSOURCE_T psrc)
+{
+  uint16_t numf = 0;
+  if (!getNumFiles(psrc, &numf))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return numf;
+}
+
 bool WT5001::getCurrentFile(uint16_t *curf)
 {
   char pkt[4];
@@ -539,6 +566,15 @@ bool WT5001::getCurrentFile(uint16_t *curf)
   *curf = (buf[0] << 8) | (buf[1] & 0xff);
 
   return true;
+}
+
+uint16_t WT5001::getCurrentFile()
+{
+  uint16_t curf = 0;
+  if (!getCurrentFile(&curf))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return curf;
 }
 
 bool WT5001::getDate(uint16_t *year, uint8_t *month, uint8_t *day)

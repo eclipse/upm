@@ -293,12 +293,28 @@ namespace upm {
     bool getVolume(uint8_t *vol);
 
     /**
+     * Gets the current volume
+     *
+     * @return Volume
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint8_t getVolume();
+
+    /**
      * Gets the current play state: 1 = playing, 2 = stopped, 3 = paused
      *
      * @param ps Play state
      * @return True if successful
      */
     bool getPlayState(uint8_t *ps);
+
+    /**
+     * Gets the current play state: 1 = playing, 2 = stopped, 3 = paused
+     *
+     * @return Play state
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint8_t getPlayState();
 
     /**
      * Gets the number of files present on the source device
@@ -310,6 +326,15 @@ namespace upm {
     bool getNumFiles(WT5001_PLAYSOURCE_T psrc, uint16_t *numf);
 
     /**
+     * Gets the number of files present on the source device
+     *
+     * @param psrc Storage source
+     * @return Number of files
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint16_t getNumFiles(WT5001_PLAYSOURCE_T psrc);
+
+    /**
      * Gets the index of the current file
      *
      * @param curf Index of the current file
@@ -317,6 +342,14 @@ namespace upm {
      */
     bool getCurrentFile(uint16_t *curf);
 
+    /**
+     * Gets the index of the current file
+     *
+     * @return Index of the curretn file
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint16_t getCurrentFile();
+    
     /**
      * Gets the device date
      *
