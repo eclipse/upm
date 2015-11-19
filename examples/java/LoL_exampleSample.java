@@ -41,9 +41,7 @@ public class LoL_exampleSample {
 		int x = 0, y = 0;
 		while (true) {
 			// revert pixel
-			short pixel = sensor.getPixel(x, y);
-			pixel = (short) ((pixel == 0) ? 1 : 0);
-			sensor.setPixel(x, y, pixel);
+			sensor.setPixel(x, y, sensor.getPixel(x, y));
 
 			if (++x == 13) {
 				x = 0;
