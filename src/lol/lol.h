@@ -77,18 +77,19 @@ class LoL {
          * Gets a pixel at specified coordinates
          * @param x Coordinate x
          * @param y Coordinate y
-         * @return 1 if the pixel is on, 0 if off, -1 on error
+         * @return true if the pixel is on, false if off
+         * @throws std::invalid_argument if pixel is out of bounds
          */
-        unsigned char getPixel(int x, int y);
+        bool getPixel(int x, int y);
 
         /**
          * Sets a pixel at specified coordinates
          * @param x Coordinate x
          * @param y Coordinate y
-         * @param pixel 0 is off, 1 is on
-         * @return 0 if successful, -1 on error
+         * @param pixel false is off, true is on
+         * @throws std::invalid_argument if pixel is out of bounds
          */
-        unsigned char setPixel(int x, int y, unsigned char pixel);
+        void setPixel(int x, int y, bool pixel);
 
     private:
         mraa_gpio_context m_LoLCtx[14];

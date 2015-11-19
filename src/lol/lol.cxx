@@ -168,20 +168,22 @@ unsigned char* LoL::getFramebuffer() {
     return framebuffer;
 }
 
-unsigned char LoL::setPixel(int x, int y, unsigned char pixel)
+void LoL::setPixel(int x, int y, bool pixel)
 {
     if (x < 0 || y < 0 || x >= LOL_X || y >= LOL_Y)
-        return -1;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": pixel coordinates out of bounds");
 
-    framebuffer[x + LOL_X*y] = (pixel == 0) ? 0 : 1;
-    return 0;
+    framebuffer[x + LOL_X*y] = (pixel) ? 1 : 0;
+    return;
 }
 
-unsigned char LoL::getPixel(int x, int y)
+bool LoL::getPixel(int x, int y)
 {
     if (x < 0 || y < 0 || x >= LOL_X || y >= LOL_Y)
-        return -1;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": pixel coordinates out of bounds");
 
-    return (framebuffer[x + LOL_X*y] == 0) ? 0 : 1;
+    return (framebuffer[x + LOL_X*y] == 0) ? false : true;
 }
 
