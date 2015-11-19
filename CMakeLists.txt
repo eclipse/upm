@@ -202,4 +202,7 @@ add_subdirectory (src)
 
 if(BUILDEXAMPLES)
   add_subdirectory (examples/c++)
+  if (BUILDSWIGJAVA AND BUILDSWIG)
+#    add_subdirectory (examples/java)    
+  endif()
 endif()
