@@ -13,6 +13,13 @@ endif ()
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
+
+# This is required for Fedora builds
+# Make sure pkg-config searches /usr/lib/pkgconfig as mraa.pc will be in this directory
+if (NOT DEFINED ENV{PKG_CONFIG_PATH})
+   set (ENV{PKG_CONFIG_PATH} "/usr/lib/pkgconfig")
+endif()
+
 # force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=0.8.0)
@@ -179,7 +186,7 @@ if (RPM)
       "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}-${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
   set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
-  set(CPACK_RPM_PACKAGE_REQUIRES "mraa >= ${MRAA_VERSION}")
+  set(CPACK_RPM_PACKAGE_REQUIRES "libmraa0 >= ${MRAA_VERSION}")
   set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
   EXECUTE_PROCESS(COMMAND rpm --showrc
     COMMAND grep -E "dist[[:space:]]*\\."
@@ -195,4 +202,7 @@ add_subdirectory (src)
 
 if(BUILDEXAMPLES)
   add_subdirectory (examples/c++)
+  if (BUILDSWIGJAVA AND BUILDSWIG)
+#    add_subdirectory (examples/java)    
+  endif()
 endif()

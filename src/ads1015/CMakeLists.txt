@@ -1,0 +1,6 @@
+include_directories(..)
+set (libname "ads1015")
+set (libdescription "upm ADS1015 I2C ADC module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()

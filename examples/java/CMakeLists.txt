@@ -1,0 +1,5 @@
+find_package(Java)  
+include(UseJava)
+set(CMAKE_JAVA_INCLUDE_PATH ${CMAKE_BINARY_DIR}/src/si1132/upm_si1132.jar ${CMAKE_BINARY_DIR}/src/upm/upm_interfaces.jar)
+add_jar(LightSensorSample LightSensorSample.java ENTRY_POINT LightSensorSample)
+install_jar(LightSensorSample ${CMAKE_BINARY_DIR}/examples)

@@ -1,0 +1,6 @@
+include_directories(..)
+set (libname "bmp180")
+set (libdescription "upm BMP180")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
