@@ -63,7 +63,7 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
     }
 
     mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
-    mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, fptr, NULL);
+    mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, fptr, (void*)this);
 }
 
 HCSR04::~HCSR04 () {
