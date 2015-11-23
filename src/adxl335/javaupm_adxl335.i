@@ -41,3 +41,14 @@
 %ignore acceleration(float *, float *, float *);
 
 %include "adxl335.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_adxl335");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

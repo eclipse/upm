@@ -32,3 +32,14 @@ READDATA_EXCEPTION(getCurrentFile())
 
 %include "wt5001.h"
 speed_t int_B9600 = B9600;
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_wt5001");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

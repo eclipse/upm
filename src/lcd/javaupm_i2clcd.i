@@ -43,3 +43,14 @@
 %include "lcm1602.h"
 %include "jhd1313m1.h"
 %include "sainsmartks.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_i2clcd");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}
