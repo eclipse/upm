@@ -3,6 +3,7 @@
 %include "stdint.i"
 %include "typemaps.i"
 %include "../java_buffer.i"
+%include "../java_exceptions.i"
 
 %apply uint32_t *OUTPUT { uint32_t *freq, uint32_t *dataRate };
 %apply uint16_t *OUTPUT { uint16_t *rxBandwidth };
@@ -14,6 +15,12 @@
     #include "hmtrp.h"
     speed_t int_B9600 = B9600;
 %}
+
+%ignore getRFSignalStrength(uint8_t *strength);
+READDATA_EXCEPTION(getRFSignalStrength())
+
+%ignore getModSignalStrength(uint8_t *strength);
+READDATA_EXCEPTION(getModSignalStrength())
 
 %include "hmtrp.h"
 speed_t int_B9600 = B9600;

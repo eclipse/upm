@@ -236,12 +236,28 @@ namespace upm {
     bool getRFSignalStrength(uint8_t *strength);
 
     /**
+     * Gets the RF signal strength
+     *
+     * @return Signal strength
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint8_t getRFSignalStrength();
+
+    /**
      * Gets the modulation signal strength.
      *
      * @param strength Returned strength
      * @return True if successful
      */
     bool getModSignalStrength(uint8_t *strength);
+
+    /**
+     * Gets the modulation signal strength.
+     *
+     * @return Signal strength
+     * @throws std::runtime_error if reading from the sensor failed
+     */
+    uint8_t getModSignalStrength();
 
 
   private:
