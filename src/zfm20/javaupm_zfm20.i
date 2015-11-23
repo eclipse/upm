@@ -15,3 +15,14 @@
 
 %include "zfm20.h"
 speed_t int_B57600 = B57600;
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_zfm20");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

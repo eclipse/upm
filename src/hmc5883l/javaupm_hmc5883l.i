@@ -19,3 +19,14 @@
 }
 
 %include "hmc5883l.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_hmc5883l");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

@@ -37,3 +37,14 @@
 
 %include "mpu60x0.h"
 %include "mpu9150.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_mpu9150");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

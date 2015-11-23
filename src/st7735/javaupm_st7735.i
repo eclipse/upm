@@ -44,3 +44,14 @@
 %{
     #include "st7735.h"
 %}
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_st7735");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

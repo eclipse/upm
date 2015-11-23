@@ -55,3 +55,14 @@
 %include "mq8.h"
 %include "mq9.h"
 %include "tp401.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_gas");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}
