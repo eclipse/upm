@@ -452,6 +452,15 @@ bool HMTRP::getRFSignalStrength(uint8_t *strength)
   return true;
 }
 
+uint8_t HMTRP::getRFSignalStrength()
+{
+  uint8_t strength = 0;
+  if (!getRFSignalStrength(&strength))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return strength;
+}
+
 bool HMTRP::getModSignalStrength(uint8_t *strength)
 {
   if (!strength)
@@ -482,5 +491,14 @@ bool HMTRP::getModSignalStrength(uint8_t *strength)
   *strength = (uint8_t)buf;
 
   return true;
+}
+
+uint8_t HMTRP::getModSignalStrength()
+{
+  uint8_t strength = 0;
+  if (!getModSignalStrength(&strength))
+    throw std::runtime_error(std::string(__PRETTY_FUNCTION__) +
+                                ": readData() failed");
+  return strength;
 }
 

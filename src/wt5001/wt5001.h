@@ -349,7 +349,7 @@ namespace upm {
      * @throws std::runtime_error if reading from the sensor failed
      */
     uint16_t getCurrentFile();
-    
+
     /**
      * Gets the device date
      *
