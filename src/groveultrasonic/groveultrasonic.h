@@ -33,27 +33,36 @@
 #define HIGH                   1
 #define LOW                    0
 
-#define MAX_PERIOD             7968
-#define TRIGGER_PULSE          10
-
 namespace upm {
 
 /**
  * @brief Grove ultrasonic sensor library
  * @defgroup groveultrasonic libupm-groveultrasonic
+ * @ingroup grove gpio sound
  */
 
 /**
- * @brief C++ API for Grove ultrasonic ranging component
+ * @library groveultrasonic
+ * @sensor groveultrasonic
+ * @comname Grove Ultrasonic Ranger
+ * @type sound
+ * @man grove
+ * @con gpio
  *
- * This file defines the GroveUltraSonic C++ interface for libgroveultrasonic
+ * @brief API for Grove Ultrasonic Ranger
  *
- * @ingroup groveultrasonic gpio
+ * This Grove Ultrasonic sensor is a non-contact distance measurement module
+ * which is compatible with the Grove system. It is designed for easy modular
+ * project usage with industrial performance. Detection ranges from 3 cm (1.2")
+ * to 4 m (13'1.5") and works best when the object is within a 30 degree angle
+ * relative to the sensor.
+ *
+ * @snippet groveultrasonic.cxx Interesting
  */
 class GroveUltraSonic {
     public:
         /**
-         * Instanciates a GroveUltraSonic object
+         * Instantiates a GroveUltraSonic object
          *
          * @param pin pin for triggering the sensor for distance and for receiving pulse response
          */
@@ -65,7 +74,9 @@ class GroveUltraSonic {
         ~GroveUltraSonic ();
 
         /**
-         * Get the distance from the sensor.
+         * Returns the echo's pulse width from the sensor in microseconds.
+         * Divide by 58 to convert distance to centimetres. 
+         * Divide by 148 to convert distance to inches.
          */
         int getDistance ();
 
@@ -78,23 +89,25 @@ class GroveUltraSonic {
         }
 
         /**
-         * ISR for the pulse signal
+         * Returns true while the sensor is busy waiting for the echo pulse
          */
-        static void signalISR(void *ctx);
-
-        /**
-         * Flag to controll blocking function while waiting for falling edge interrupt
-         */
-        uint8_t m_doWork;
+        bool working()
+        {
+            return m_doWork;
+        }
 
     private:
+        bool m_doWork; /* Flag to control blocking function while waiting for falling edge interrupt */
         mraa_gpio_context m_pinCtx;
-
         uint8_t m_InterruptCounter;
         struct timeval m_RisingTimeStamp;
         struct timeval m_FallingTimeStamp;
-
         std::string m_name;
+
+        /**
+         * ISR for the pulse signal
+         */
+        static void signalISR(void *ctx);
 
         /**
          * On each interrupt this function will detect if the interrupt

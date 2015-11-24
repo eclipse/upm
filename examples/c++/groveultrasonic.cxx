@@ -32,13 +32,13 @@
 #include <sys/time.h>
 
 upm::GroveUltraSonic *sonar = NULL;
+bool running = true;
 
 void
 sig_handler(int signo)
 {
-    printf("got signal\n");
     if (signo == SIGINT) {
-      sonar->m_doWork = 1;
+      running = false;
     }
 }
 
@@ -49,10 +49,14 @@ main(int argc, char **argv)
 //! [Interesting]
   // upm::GroveUltraSonic *sonar = NULL;
   sonar = new upm::GroveUltraSonic(2);
-  printf("width = %d\n", sonar->getDistance());
-  delete sonar;
+  while(running) {
+    int width = sonar->getDistance();
+    printf("Echo width = %d\n", width);
+    printf("Distance inches = %f.2\n\n", width/148.0);
+    sleep(3);
+  }
 //! [Interesting]
   printf("exiting application\n");
-
+  delete sonar;
   return 0;
 }

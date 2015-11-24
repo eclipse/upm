@@ -69,15 +69,15 @@ GroveUltraSonic::getDistance () {
     mraa_gpio_write(m_pinCtx, LOW);
 
     // wait for the pulse,
-    m_doWork = 0;
+    m_doWork = true;
     m_InterruptCounter = 0;
     mraa_gpio_dir(m_pinCtx, MRAA_GPIO_IN);
 
     // though do not wait over 25 [ms].
     int timer = 0;
-    while (!m_doWork && timer++ < 5) {
+    while (m_doWork && timer++ < 5) {
         // in 25 [ms], sound travels 25000 / 29 / 2 = 431 [cm],
-        // which is more than 400 [cm], the max distance mesurable with this sensor.
+        // which is more than 400 [cm], the max distance measurable with this sensor.
         usleep(5 * 1000); // 5 [ms]
     }
 
@@ -97,7 +97,7 @@ void
 GroveUltraSonic::ackEdgeDetected () {
     if (++m_InterruptCounter % 2 == 0) {
         gettimeofday(&m_FallingTimeStamp, NULL);
-        m_doWork = 1;
+        m_doWork = false;
     } else {
         gettimeofday(&m_RisingTimeStamp, NULL);
     }
