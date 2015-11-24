@@ -47,6 +47,15 @@ macro(upm_SWIG_NODE)
       PREFIX ""
       SUFFIX ".node"
     )
+    if (${V8_VERSION_MAJOR} GREATER 3)
+      if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.7")
+	    message(FATAL_ERROR " **ERROR** GCC 4.7 or above is required to compile jsupm_${libname} ")
+	  endif()
+      endif()
+      set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD 11)
+      set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD_REQUIRED ON)
+    endif()
     createpackagejson(${libname})
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION lib/node_modules/jsupm_${libname} COMPONENT ${libname})
