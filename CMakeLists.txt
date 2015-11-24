@@ -5,15 +5,10 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 message("WARNING: building into sources dir can be risky, prefer other directory")
 endif ()
 
-find_package (SWIG 3.0.5)
-if (SWIG_FOUND)
-  include (${SWIG_USE_FILE})
-endif ()
-
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
-# force a libmraa search and minimum required version every time a config is generated
+# Force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=0.8.0)
 message (INFO " found mraa version: ${MRAA_VERSION}")
@@ -35,7 +30,7 @@ endif ()
 
 message (INFO " - UPM Version ${VERSION}")
 
-#parse the version information into pieces.
+# Parse the version information into pieces.
 string (REGEX REPLACE "^v([0-9]+)\\..*" "\\1" VERSION_MAJOR "${VERSION}")
 string (REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" VERSION_MINOR "${VERSION}")
 string (REGEX REPLACE "^v[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" VERSION_PATCH "${VERSION}")
@@ -62,13 +57,25 @@ option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 
-# detect arch
+# Find swig
+if (BUILDSWIG)
+    if (BUILDSWIGNODE)
+        find_package (SWIG 3.0.5 REQUIRED)
+    else ()
+        find_package (SWIG REQUIRED)
+    endif ()
+    if (SWIG_FOUND)
+        include (${SWIG_USE_FILE})
+    endif ()
+endif ()
+
+# Detect arch
 include (TargetArch)
 target_architecture (DETECTED_ARCH)
 message( INFO " - Target arch is ${DETECTED_ARCH}")
 
 if (BUILDDOC)
-  # add a target to generate API documentation with Doxygen
+  # Add a target to generate API documentation with Doxygen
   find_package (Doxygen)
   if (DOXYGEN_FOUND)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
@@ -86,10 +93,10 @@ if (BUILDDOC)
       COMMENT "Generating API documentation with Doxygen" VERBATIM
     )
   endif (DOXYGEN_FOUND)
-  # check if Sphinx is installed and add target to generate API documentation
+  # Check if Sphinx is installed and add target to generate API documentation
   find_package (Sphinx)
   if(SPHINX_FOUND AND BUILDSWIG AND BUILDSWIGPYTHON)
-    # python required for Sphinx build
+    # Python required for Sphinx build
     find_package (PythonLibs)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
     list (GET PYTHON_VERSION_LIST 0 PYTHON_VERSION_MAJOR)
@@ -102,7 +109,7 @@ if (BUILDDOC)
       COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
       COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
       COMMAND ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/pyupm
-      # todo: use a separate cmake FILE module for string replacement instead
+      # TODO: use a separate cmake FILE module for string replacement instead
       COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
       COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
       COMMAND sed -i.bak s|[[:space:]][mM]odule</a>|</a>|g html/python/index.html html/python/modules.html
@@ -111,10 +118,10 @@ if (BUILDDOC)
       COMMENT "Generating API documentation with Sphinx" VERBATIM
     )
   endif ()
-  # check if Yuidoc is installed and add target for API documentation
+  # Check if Yuidoc is installed and add target for API documentation
   find_package(Yuidoc)
   if(YUIDOC_FOUND AND BUILDSWIGNODE)
-    # node required for Yuidoc documentation
+    # Node required for Yuidoc documentation
     find_package(Node)
     file(GLOB_RECURSE JSDOC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node doxy/node/*)
     foreach(JSDOC_FILE ${JSDOC_FILES})
@@ -138,7 +145,7 @@ if (IPK)
     GET_FILENAME_COMPONENT (DETECTED_SYSROOT $ENV{OECORE_TARGET_SYSROOT} NAME)
     string (REGEX REPLACE "-poky-linux" "" TARGET_ARCH "${DETECTED_SYSROOT}")
   else ()
-    # debian uses amd64 to denote x86_64
+    # Debian uses amd64 to denote x86_64
     if (DETECTED_ARCH STREQUAL "x86_64")
       set (TARGET_ARCH "amd64")
     else ()
