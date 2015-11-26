@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include <upm/hcsr04.h>
+#include "hcsr04.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/time.h>
