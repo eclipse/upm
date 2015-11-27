@@ -195,7 +195,7 @@ bool SX1276::writeReg(uint8_t reg, uint8_t val)
   return true;
 }
 
-void SX1276::readFifo(uint8_t *buf, int len)
+void SX1276::readFifo(uint8_t *buffer, int len)
 {
   // can't read more than 256 bytes
   if (len > FIFO_SIZE)
@@ -216,7 +216,7 @@ void SX1276::readFifo(uint8_t *buf, int len)
       return;
     }
 
-  if (m_spi.transfer(NULL, buf, len))
+  if (m_spi.transfer(NULL, buffer, len))
     {
       csOff();
       throw std::runtime_error(string(__FUNCTION__) +
@@ -226,7 +226,7 @@ void SX1276::readFifo(uint8_t *buf, int len)
   csOff();
 }
 
-void SX1276::writeFifo(uint8_t *buf, int len)
+void SX1276::writeFifo(uint8_t *buffer, int len)
 {
   // can't write more than 256 bytes
   if (len > FIFO_SIZE)
@@ -247,7 +247,7 @@ void SX1276::writeFifo(uint8_t *buf, int len)
       return;
     }
 
-  if (m_spi.transfer(buf, NULL, len))
+  if (m_spi.transfer(buffer, NULL, len))
     {
       csOff();
       throw std::runtime_error(string(__FUNCTION__) +

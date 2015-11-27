@@ -1625,18 +1625,18 @@ namespace upm {
     /**
      * read the FIFO into a buffer
      *
-     * @param buf The buffer to read data into
+     * @param buffer The buffer to read data into
      * @param len The length of the buffer
      */
-    void readFifo(uint8_t *buf, int len);
+    void readFifo(uint8_t *buffer, int len);
 
     /**
      * write a buffer into the FIFO
      *
-     * @param buf The buffer containing the data to write
+     * @param buffer The buffer containing the data to write
      * @param len The length of the buffer
      */
-    void writeFifo(uint8_t *buf, int len);
+    void writeFifo(uint8_t *buffer, int len);
 
     /**
      * Set the frequency to transmit and receive on
