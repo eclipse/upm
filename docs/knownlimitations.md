@@ -39,6 +39,8 @@ such sensors and known workarounds if they exist.
  Galileo.
  * **Grove BLE** (HM-11) does not return data on the Intel Galileo board due to
  known UART limitation.
+ * **Grove Hall Sensor** (A11X), if the base shield is set to 3V on Intel Edison, 
+ it will trigger continous callbacks when the sensor is not reading anything.
 
 #### Adafruit Sensors
 
