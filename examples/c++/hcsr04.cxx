@@ -42,15 +42,10 @@ sig_handler(int signo)
 }
 
 //! [Interesting]
-void
-interrupt (void * args) {
-    sonar->ackEdgeDetected ();
-}
-
 int
 main(int argc, char **argv)
 {
-    sonar = new upm::HCSR04(5, 6, &interrupt);
+    sonar = new upm::HCSR04(5, 6);
     signal(SIGINT, sig_handler);
 
     sleep(1);

@@ -68,11 +68,7 @@ class HCSR04 {
          * @param fptr Function pointer to handle rising-edge and
          * falling-edge interrupts
          */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb);
-#else
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
-#endif
+        HCSR04 (uint8_t triggerPin, uint8_t echoPin);
         /**
          * HCSR04 object destructor
          */
@@ -83,12 +79,6 @@ class HCSR04 {
          */
         double getDistance (int sys);
 
-        /**
-         * On each interrupt, this function detects if the interrupt
-         * was falling-edge or rising-edge.
-         * Should be called from the interrupt handler.
-         */
-        void ackEdgeDetected ();
 
         uint8_t m_doWork; /**< Flag to control blocking function while waiting for a falling-edge interrupt */
 
@@ -101,9 +91,12 @@ class HCSR04 {
         }
 
     private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *));
-#endif
+        /**
+         * On each interrupt, this function detects if the interrupt
+         * was falling-edge or rising-edge.
+         */
+        static void ackEdgeDetected (void *ctx);
+
         double timing();
         mraa_gpio_context   m_triggerPinCtx;
         mraa_gpio_context   m_echoPinCtx;

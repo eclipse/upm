@@ -34,14 +34,7 @@
 
 using namespace upm;
 
-#ifdef JAVACALLBACK
-HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, IsrCallback *cb)
-{
-        HCSR04 (triggerPin, echoPin, generic_callback_isr);
-}
-#endif
-
-HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
+HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin) {
     mraa_result_t error  = MRAA_SUCCESS;
     m_name              = "HCSR04";
 
@@ -63,7 +56,7 @@ HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin, void (*fptr)(void *)) {
     }
 
     mraa_gpio_dir(m_echoPinCtx, MRAA_GPIO_IN);
-    mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, fptr, (void*)this);
+    mraa_gpio_isr(m_echoPinCtx, MRAA_GPIO_EDGE_BOTH, &ackEdgeDetected, (void*)this);
 }
 
 HCSR04::~HCSR04 () {
@@ -96,16 +89,17 @@ HCSR04::timing() {
 }
 
 void
-HCSR04::ackEdgeDetected () {
+HCSR04::ackEdgeDetected (void *ctx) {
+    upm::HCSR04 *This = (upm::HCSR04 *)ctx;
     struct timeval timer;
     gettimeofday(&timer, NULL);
 
-    ++m_InterruptCounter;
-    if (!(m_InterruptCounter % 2)) {
-        m_FallingTimeStamp  = 1000000 * timer.tv_sec + timer.tv_usec;
-        m_doWork = 1;
+    This->m_InterruptCounter++;
+    if (!(This->m_InterruptCounter % 2)) {
+        This->m_FallingTimeStamp  = 1000000 * timer.tv_sec + timer.tv_usec;
+        This->m_doWork = 1;
     } else {
-        m_RisingTimeStamp = 1000000 * timer.tv_sec + timer.tv_usec;
+        This->m_RisingTimeStamp = 1000000 * timer.tv_sec + timer.tv_usec;
     }
 }
 
