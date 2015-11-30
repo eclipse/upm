@@ -31,8 +31,8 @@
 using namespace upm;
 using namespace std;
 
-MPU9250::MPU9250 (int bus, int address, int magAddress) :
-  MPU9150(bus, address, magAddress)
+MPU9250::MPU9250 (int bus, int address, int magAddress, bool enableAk8975) :
+  MPU9150(bus, address, magAddress, enableAk8975)
 {
 }
 
