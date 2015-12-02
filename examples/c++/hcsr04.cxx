@@ -29,28 +29,26 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-upm::HCSR04 *sonar = NULL;
-
 void
 sig_handler(int signo)
 {
     printf("got signal\n");
     if (signo == SIGINT) {
         printf("exiting application\n");
-        sonar->m_doWork = 1;
     }
 }
 
 //! [Interesting]
 void
 interrupt (void * args) {
+    upm::HCSR04 * sonar = (upm::HCSR04 *) args;
     sonar->ackEdgeDetected ();
 }
 
 int
 main(int argc, char **argv)
 {
-    sonar = new upm::HCSR04(5, 6, &interrupt);
+    upm::HCSR04 * sonar = new upm::HCSR04(5, 6, &interrupt);
     signal(SIGINT, sig_handler);
 
     sleep(1);
