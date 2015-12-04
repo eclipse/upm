@@ -25,15 +25,6 @@
 public class Ublox6Sample {
 	private static final int BUFFERLENGTH = 256;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_ublox6");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a Ublox6 GPS device on uart 0

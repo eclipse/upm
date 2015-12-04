@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class ST7735Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_st7735");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_st7735.ST7735 lcd = new upm_st7735.ST7735((short) 7, (short) 4, (short) 9, (short) 8);

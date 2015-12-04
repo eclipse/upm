@@ -25,15 +25,6 @@
 public class OTP538USample {
 	private static final float OTP538U_AREF = 5;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_otp538u");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a OTP538U on analog pins A0 and A1

@@ -24,15 +24,6 @@
 
 public class YG1006Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_yg1006");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a yg1006 flame sensor on digital pin D2

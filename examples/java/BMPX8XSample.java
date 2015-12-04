@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class BMPX8XSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_bmpx8x");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a BMPX8X sensor on I2C

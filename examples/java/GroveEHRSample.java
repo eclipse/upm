@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class GroveEHRSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_groveehr");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2

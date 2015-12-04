@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class H3LIS331DLSample {
 	
-	static {
-		try {
-			System.loadLibrary("javaupm_h3lis331dl");
-		}catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
 		int[] val;

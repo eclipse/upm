@@ -26,15 +26,6 @@
 public class ENC03RSample {
 	private static final long CALIBRATION_SAMPLES = 1000;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_enc03r");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 

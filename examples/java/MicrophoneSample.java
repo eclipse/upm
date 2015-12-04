@@ -24,15 +24,6 @@
 
 public class MicrophoneSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mic");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		short[] buffer = new short[128];

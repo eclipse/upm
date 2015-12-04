@@ -23,15 +23,6 @@
  */
 
 public class GroveLEDSample {
-	static {
-		try {
-			System.loadLibrary("javaupm_grove");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main (String args[]) throws InterruptedException {
 		//! [Interesting]
         upm_grove.GroveLed led = new upm_grove.GroveLed(2);

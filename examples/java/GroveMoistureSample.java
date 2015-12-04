@@ -23,15 +23,6 @@
  */
 
 public class GroveMoistureSample {
-	static {
-		try {
-			System.loadLibrary("javaupm_grovemoisture");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String args[]) throws InterruptedException {
 		// ! [Interesting]
 		upm_grovemoisture.GroveMoisture gm = new upm_grovemoisture.GroveMoisture(1);

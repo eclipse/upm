@@ -24,15 +24,6 @@
 
 public class TTP223Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_ttp223");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_ttp223.TTP223 touch = new upm_ttp223.TTP223(7);

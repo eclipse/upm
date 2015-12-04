@@ -24,15 +24,6 @@
 
 public class GroveRotarySample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_grove");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_grove.GroveRotary knob = new upm_grove.GroveRotary(0);

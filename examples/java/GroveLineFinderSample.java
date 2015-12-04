@@ -24,15 +24,6 @@
 
 public class GroveLineFinderSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_grovelinefinder");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a Grove Line Finder sensor on digital pin D2

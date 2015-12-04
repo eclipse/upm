@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class StepMotorSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_stepmotor");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_stepmotor.StepMotor sensor = new upm_stepmotor.StepMotor(4, 6);

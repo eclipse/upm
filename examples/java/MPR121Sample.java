@@ -1,14 +1,5 @@
 public class MPR121Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mpr121");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	private static void printButtons(upm_mpr121.MPR121 touch) {
 		boolean buttonPresed = false;
 

@@ -23,15 +23,6 @@
  */
 
 public class ES08ASample {
-	static {
-		try {
-			System.loadLibrary("javaupm_servo");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_servo.ES08A servo = new upm_servo.ES08A(6);

@@ -28,15 +28,6 @@ public class RPR220_intrSample {
 
 	public static int counter = 0;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_rpr220");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// This example uses an interrupt handler to increment a counter

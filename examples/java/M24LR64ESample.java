@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class M24LR64ESample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_m24lr64e");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate an M24LR64E on I2C bus 0

@@ -27,15 +27,6 @@ public class GUVAS12DSample {
 	private static final float GUVAS12D_AREF = 5;
 	private static final int SAMPLES_PER_QUERY = 1024;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_guvas12d");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a GUVAS12D on analog pin A3

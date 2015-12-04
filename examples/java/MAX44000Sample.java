@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MAX44000Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_max44000");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_max44000.MAX44000 sensor = new upm_max44000.MAX44000(0);

@@ -24,15 +24,6 @@
 
 public class Jhd1313m1Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_i2clcd");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_i2clcd.Jhd1313m1 lcd = new upm_i2clcd.Jhd1313m1(0);

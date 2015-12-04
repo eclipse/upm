@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class SSD1308_oledSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_i2clcd");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	static private final int[] IntelLogo = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 128, 128, 192,
 			192, 192, 224, 224, 224, 224, 240, 240, 248, 248, 120, 120, 120, 120, 60, 60, 60, 60,

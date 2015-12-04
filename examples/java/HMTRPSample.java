@@ -27,15 +27,6 @@ public class HMTRPSample {
 
 	static private final int bufferLength = 255;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_hmtrp");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	private static void printUsage() {
 		System.out.println("Usage:");
 		System.out.println("Pass a commandline argument (any argument) to this program");

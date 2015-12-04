@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MMA7455Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mma7455");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_mma7455.MMA7455 sensor = new upm_mma7455.MMA7455(0);

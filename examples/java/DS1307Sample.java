@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class DS1307Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_ds1307");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	static private void printTime(upm_ds1307.DS1307 rtc) {
 		System.out.print("The time is: " + rtc.getMonth() + "/" + rtc.getDayOfMonth() + "/"
 				+ rtc.getYear() + " " + rtc.getHours() + ":" + rtc.getMinutes() + ":"

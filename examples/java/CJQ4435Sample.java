@@ -24,15 +24,6 @@
 
 public class CJQ4435Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_cjq4435");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
 		upm_cjq4435.CJQ4435 mosfet = new upm_cjq4435.CJQ4435(3);

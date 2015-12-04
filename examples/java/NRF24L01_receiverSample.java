@@ -31,15 +31,6 @@ public class NRF24L01_receiverSample {
 	static private final byte[] broadcast_address = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
 			(byte) 0xFF, (byte) 0xFF};
 
-	static {
-		try {
-			System.loadLibrary("javaupm_nrf24l01");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_nrf24l01.NRF24L01 comm = new upm_nrf24l01.NRF24L01((short) 7, (short) 8);

@@ -24,15 +24,6 @@
 
 public class MQ303ASample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mq303a");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// Instantiate an mq303a sensor on analog pin A0
 

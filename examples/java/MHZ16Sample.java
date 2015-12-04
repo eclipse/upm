@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MHZ16Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mhz16");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a MHZ16 serial CO2 sensor on uart 0.

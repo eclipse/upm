@@ -26,19 +26,6 @@ import upm_grovecollision.*;
 
 public class GroveCollision {
 
-	static boolean shouldRun = true;
-	static {
-		try {
-			System.loadLibrary("javaupm_grovecollision");
-			System.loadLibrary("mraajava");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println(
-					"Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n" +
-							e);
-			System.exit(1);
-		}
-	}
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// Initializing the sensor on D2 on the Base Shield

@@ -24,15 +24,6 @@
 
 public class PPD42NSSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_ppd42ns");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a dust sensor on GPIO pin D8

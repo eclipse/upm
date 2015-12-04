@@ -27,15 +27,6 @@ import java.io.IOException;
 //NOT TESTED!!!
 public class WT5001Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_wt5001");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	static private void printUsage() {
 		System.out.println("Usage: java WT5001Sample <command>");
 		System.out.println("Commands:");

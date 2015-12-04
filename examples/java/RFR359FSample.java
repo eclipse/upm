@@ -24,15 +24,6 @@
 
 public class RFR359FSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_rfr359f");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate an RFR359F digital pin D2

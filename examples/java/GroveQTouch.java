@@ -26,18 +26,6 @@ import upm_at42qt1070.AT42QT1070;
 
 public class GroveQTouch {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_at42qt1070");
-			System.loadLibrary("mraajava");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println(
-					"Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n" +
-							e);
-			System.exit(1);
-		}
-	}
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// Instantiating the Q Touch sensor on the I2C bus 0

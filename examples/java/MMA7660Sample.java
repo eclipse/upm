@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MMA7660Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mma7660");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate an MMA7660 on I2C bus 0

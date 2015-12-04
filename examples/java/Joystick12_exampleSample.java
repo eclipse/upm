@@ -24,15 +24,6 @@
 
 public class Joystick12_exampleSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_joystick12");
-		}catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
 		// Instantiate a joystick on analog pins A0 and A1

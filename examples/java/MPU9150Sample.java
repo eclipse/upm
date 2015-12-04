@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MPU9150Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mpu9150");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_mpu9150.MPU9150 sensor = new upm_mpu9150.MPU9150();

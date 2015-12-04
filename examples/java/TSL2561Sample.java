@@ -24,15 +24,6 @@
 
 public class TSL2561Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_tsl2561");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a TSL2561 Digital Light Sensor on I2C

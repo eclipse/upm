@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class HTU21DSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_htu21d");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		float humidity = 0;

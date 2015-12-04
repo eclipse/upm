@@ -23,15 +23,6 @@
  */
 
 public class TP401Sample {
-	static {
-		try {
-			System.loadLibrary("javaupm_gas");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	private static String airQuality(int value) {
 		if (value < 50)
 			return "Fresh Air";

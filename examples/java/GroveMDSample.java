@@ -26,15 +26,6 @@ public class GroveMDSample {
 	private static final short speed50 = 127;
 	private static final short speed0 = 0;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_grovemd");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate an I2C Grove Motor Driver on I2C bus 0

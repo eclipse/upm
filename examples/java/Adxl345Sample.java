@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class Adxl345Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_adxl345");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		short[] val;

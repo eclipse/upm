@@ -24,15 +24,6 @@
 
 public class MY9221_ledbarSample{
 
-	static {
-		try {
-			System.loadLibrary("javaupm_my9221");
-		}catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
         // Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9

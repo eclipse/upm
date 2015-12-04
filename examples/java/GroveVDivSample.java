@@ -27,15 +27,6 @@ public class GroveVDivSample {
 	private static final short gain3 = 3;
 	private static final short gain10 = 10;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_grovevdiv");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a Grove Voltage Divider sensor on analog pin A0

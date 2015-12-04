@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class HCSR04Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_hcsr04");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	// ! [Interesting]
 	public static void main(String[] args) throws InterruptedException {
 		upm_hcsr04.HCSR04 sonar = new upm_hcsr04.HCSR04((short) 5, (short) 6);

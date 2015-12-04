@@ -28,15 +28,6 @@ public class A110X_intrSample {
 	
 	public static int counter=0;
 		
-	static {
-		try {
-			System.loadLibrary("javaupm_a110x");
-		}catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
 		// Instantiate an A110X sensor on digital pin D2

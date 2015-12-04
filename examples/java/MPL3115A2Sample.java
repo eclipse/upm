@@ -25,15 +25,6 @@
 //NOT TESTED!!!
 public class MPL3115A2Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_mpl3115a2");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a MPL3115A2 sensor on I2C

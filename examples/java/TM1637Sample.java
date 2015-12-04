@@ -27,15 +27,6 @@ import java.time.LocalDateTime;
 //NOT TESTED!!!
 public class TM1637Sample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_tm1637");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// TM1637 on pins 0 (clk) and 1 (dio)

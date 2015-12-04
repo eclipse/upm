@@ -27,15 +27,6 @@ public class HM11Sample {
 
 	private static final int BUFSIZ = 1024;
 
-	static {
-		try {
-			System.loadLibrary("javaupm_hm11");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	private static void printUsage() {
 		System.out.println("Usage: java HM11Sample [AT command]");
 

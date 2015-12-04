@@ -29,15 +29,6 @@ public class GroveButton_intrSample {
 
 	public static int counter = 0;
 
-	static {
-		try {
-			System.loadLibrary("mraajava");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_grove.GroveButton b = new upm_grove.GroveButton(2);

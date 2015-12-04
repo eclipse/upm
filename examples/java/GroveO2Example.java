@@ -26,18 +26,6 @@ import upm_groveo2.GroveO2;
 
 public class GroveO2Example {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_groveo2");
-			System.loadLibrary("mraajava");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println(
-					"Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n" +
-							e);
-			System.exit(1);
-		}
-	}
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//! [Interesting]

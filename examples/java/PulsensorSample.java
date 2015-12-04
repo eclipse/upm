@@ -25,15 +25,6 @@
 import upm_pulsensor.*;
 
 public class PulsensorSample {
-	static {
-		try {
-			System.loadLibrary("javaupm_pulsensor");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	static class PulsensorCallback extends Callback {
 		public PulsensorCallback() {
 			super();

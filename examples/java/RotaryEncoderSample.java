@@ -24,15 +24,6 @@
 
 public class RotaryEncoderSample {
 
-	static {
-		try {
-			System.loadLibrary("javaupm_rotaryencoder");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("error in loading native library");
-			System.exit(-1);
-		}
-	}
-
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
