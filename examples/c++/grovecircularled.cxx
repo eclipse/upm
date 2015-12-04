@@ -43,9 +43,9 @@ int main()
   
 //! [Interesting]
   
-  // Instantiate a Grove Circular LED on gpio pins 5 and 4
+  // Instantiate a Grove Circular LED on D9 for data, D8 for clock
   
-  upm::GroveCircularLED *circle = new upm::GroveCircularLED(5, 4);
+  upm::GroveCircularLED *circle = new upm::GroveCircularLED(9, 8);
   
   int level = 0;
   while (shouldRun)
@@ -54,6 +54,7 @@ int main()
       level = (level + 1) % 24;
       usleep(100000);
     }
+
 //! [Interesting]
 
   cout << "Exiting" << endl;

@@ -27,37 +27,36 @@
 #include "my9221.h"
 #include <signal.h>
 
-int running = 0;
+int shouldRun = true;
 
-void
-sig_handler(int signo)
+void sig_handler(int signo)
 {
-    printf("got signal\n");
-    if (signo == SIGINT) {
-        printf("exiting application\n");
-        running = 1;
-    }
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-    //! [Interesting]
-    upm::MY9221 *bar = new upm::MY9221(8, 9);
+  signal(SIGINT, sig_handler);
 
-    signal(SIGINT, sig_handler);
+  //! [Interesting]
+  upm::MY9221 *bar = new upm::MY9221(8, 9);
 
-    while (!running) {
-        for (int idx = 1; idx < 11; idx++) {
-            bar->setBarLevel (idx);
-            usleep(1000);
+  // Green to Red
+  bar->setBarDirection(true);
+  while (shouldRun)
+    {
+      for (int i = 0; i < 11; i++)
+        {
+          bar->setBarLevel(i);
+          usleep(250000);
         }
     }
-    //! [Interesting]
+  //! [Interesting]
 
-    std::cout << "exiting application" << std::endl;
+  std::cout << "Existing..." << std::endl;
 
-    delete bar;
+  delete bar;
 
-    return 0;
+  return 0;
 }

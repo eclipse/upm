@@ -1,5 +1,16 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * These modules were rewritten, based on original work by:
+ *
+ * (original my9221/groveledbar)
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
+ *
+ * (grovecircularled)
+ * Author: Jun Kato and Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,77 +35,118 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.hpp>
 #include <mraa/common.hpp>
-
 #include <mraa/gpio.hpp>
-
-#define MAX_BIT_PER_BLOCK     16
-#define CMDMODE               0x0000
-#define BIT_HIGH              0x00ff
-#define BIT_LOW               0x0000
-
-#define HIGH                  1
-#define LOW                   0
 
 namespace upm {
 
-/**
- * @brief MY9221 LED Bar library
- * @defgroup my9221 libupm-my9221
- * @ingroup seeed display gpio eak
- */
-/**
- * @library my9221
- * @sensor my9221
- * @comname Grove LED Bar
- * @altname MY9221 LED Bar
- * @type display
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
- * @con gpio
- * @kit eak
- *
- * @brief API for MY9221-based LED Bars
- *
- * This module defines the MY9221 interface for libmy9221
- *
- * @image html my9221.jpg
- * @snippet my9221-ledbar.cxx Interesting
- * @snippet my9221-updown.cxx Interesting
- */
-class MY9221 {
-    public:
-         /**
-         * Instantiates an MY9221 object
-         *
-         * @param di Data pin
-         * @param dcki Clock pin
-         */
-        MY9221 (uint8_t di, uint8_t dcki);
+  /**
+   * @brief MY9221 LED Controller library
+   * @defgroup my9221 libupm-my9221
+   * @ingroup seeed display gpio eak
+   */
+  class MY9221 {
+  public:
 
-        /**
-         * Sets the bar level 
-         *
-         * @param level Selected level for the bar (1 - 10)
-         * @param direction Up or down; up is true and default
-         */
-        mraa::Result setBarLevel (uint8_t level, bool direction=true);
+    // 12 LED channels per chip (instance)
+    static const int LEDS_PER_INSTANCE = 12;
 
-        /**
-         * Returns the name of the component
-         */
-        std::string name()
-        {
-            return m_name;
-        }
-    private:
-        mraa::Result lockData ();
-        mraa::Result send16bitBlock (short data);
+    /**
+     * Instantiates an MY9221 object
+     *
+     * @param dataPin Data pin
+     * @param clockPin Clock pin
+     * @param instances Number of daisy-chained my9221s, default 1
+     */
+    MY9221(uint8_t dataPin, uint8_t clockPin, int instances=1);
 
-        std::string m_name;
-        mraa::Gpio m_clkPinCtx;
-        mraa::Gpio m_dataPinCtx;
-};
+    /**
+     * MY9221 destructor
+     */
+    ~MY9221();
+
+    /**
+     * Enable or disable auto refresh.  When auto refresh is enabled,
+     * update the LED display as soon as the internal state changes.
+     * When false, the display(s) will not be updated until the
+     * refresh() method is called.
+     *
+     * @param enable true to enable auto refresh, false otherwise
+     */
+    void setAutoRefresh(bool enable)
+    {
+      m_autoRefresh = enable;
+    }
+
+    /**
+     * Set an LED to a specific on (high intensity) or off (low
+     * intensity) value.
+     *
+     * @param led The LED whose state you wish to change
+     * @param on true to turn on the LED, false to turn the LED off
+     */
+    void setLED(int led, bool on);
+
+    /**
+     * Set the greyscale intensity of an LED in the OFF state.  The
+     * intensity is a value from 0 (fully off) to 255 (fully on).
+     * This will take effect on any future LED set or clear
+     * operations.
+     *
+     * @param intensity a value from 0 (fully off) to 255 (fully on)
+     */
+    void setLowIntensityValue(int intensity);
+
+    /**
+     * Set the greyscale intensity of an LED in the ON state.  The
+     * intensity is a value from 0 (fully off) to 255 (fully on).
+     * This will take effect on any future LED set or clear
+     * operations.
+     *
+     * @param intensity a value from 0 (fully off) to 255 (fully on)
+     */
+    void setHighIntensityValue(int intensity);
+
+    /**
+     * Set all of the LEDS to the ON (high intensity value) state.
+     */
+    void setAll();
+
+    /**
+     * Set all of the LEDS to the OFF (low intensity value) state.
+     */
+    void clearAll();
+
+    /**
+     * Set the LED states to match the internal stored states.  This
+     * is useful when auto refresh (setAutoRefresh()) is false to
+     * update the display.
+     */
+    void refresh();
+
+  protected:
+    virtual void lockData();
+    virtual void send16bitBlock(uint16_t data);
+
+    bool m_autoRefresh;
+    // we're only doing 8-bit greyscale, so the high order bits are
+    // always 0
+    uint16_t m_lowIntensity;
+    uint16_t m_highIntensity;
+
+    unsigned int m_instances;
+
+    // an array of uint16_t's representing our bit states (on/off)
+    // intensities.  Only the low 8 bits are used, but in the future
+    // 16bit support can work here as well.
+    uint16_t *m_bitStates;
+
+    uint16_t m_commandWord;
+
+    mraa::Gpio m_gpioClk;
+    mraa::Gpio m_gpioData;
+
+  private:
+  };
 
 }

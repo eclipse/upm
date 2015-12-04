@@ -1,5 +1,16 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * These modules were rewritten, based on original work by:
+ *
+ * (original my9221/groveledbar driver)
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
+ *
+ * (grovecircularled driver)
+ * Author: Jun Kato and Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,76 +42,150 @@
 #include "my9221.h"
 
 using namespace upm;
+using namespace std;
 
-MY9221::MY9221 (uint8_t di, uint8_t dcki)
-                    : m_clkPinCtx(dcki), m_dataPinCtx(di) {
-    mraa::Result error = mraa::SUCCESS;
-
-    // set direction (out)
-    error = m_clkPinCtx.dir(mraa::DIR_OUT);
-    if (error != mraa::SUCCESS) {
-        mraa::printError(error);
+MY9221::MY9221 (uint8_t dataPin, uint8_t clockPin, int instances)
+  : m_gpioData(dataPin), m_gpioClk(clockPin), m_bitStates(0)
+{
+  if (instances < 1)
+    {
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": instances must be at least 1");
     }
 
-    // set direction (out)
-    error = m_dataPinCtx.dir(mraa::DIR_OUT);
-    if (error != mraa::SUCCESS) {
-        mraa::printError(error);
-    }
+  // set directions
+  m_gpioClk.dir(mraa::DIR_OUT);
+  m_gpioData.dir(mraa::DIR_OUT);
+  
+  // we warn if these fail, since it may not be possible to handle
+  // more than one instance
+
+  if (m_gpioClk.useMmap(true) != mraa::SUCCESS)
+    cerr << __FUNCTION__
+         << ": Warning: mmap of Clk pin failed, correct operation "
+         << "may be affected."
+         << endl;
+
+  if (m_gpioData.useMmap(true) != mraa::SUCCESS)
+    cerr << __FUNCTION__
+         << ": Warning: mmap of Data pin failed, correct operation "
+         << "may be affected."
+         << endl;
+
+  setLowIntensityValue(0x00);   // full off
+  setHighIntensityValue(0xff);  // full brightness
+
+  m_commandWord = 0x0000;       // all defaults
+  m_instances = instances;
+
+  m_bitStates = new uint16_t[instances * LEDS_PER_INSTANCE];
+
+  setAutoRefresh(true);
+  clearAll();
 }
 
-mraa::Result
-MY9221::setBarLevel (uint8_t level, bool direction) {
-    if (level > 10) {
-        return mraa::ERROR_INVALID_PARAMETER;
-    }
+MY9221::~MY9221()
+{
+  clearAll();
 
-    send16bitBlock (CMDMODE);
-    if (direction) {
-        level += 3;
-        for(uint8_t block_idx = 12; block_idx > 0; block_idx--) {
-            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
-            send16bitBlock (state);
-        }
-    } else {
-        for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
-            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
-            send16bitBlock (state);
-        }
-    }
-    return lockData ();
+  if (!m_autoRefresh)
+    refresh();
+
+  delete m_bitStates;
 }
 
-mraa::Result
-MY9221::lockData () {
-    mraa::Result error = mraa::SUCCESS;
-    error = m_dataPinCtx.write(LOW);
-    usleep(100);
+void MY9221::setLED(int led, bool on)
+{
+  int maxLed = (LEDS_PER_INSTANCE * m_instances) - 1;
 
-    for(int idx = 0; idx < 4; idx++) {
-        error = m_dataPinCtx.write(HIGH);
-        error = m_dataPinCtx.write(LOW);
-    }
-    return error;
+  if (led > maxLed)
+    led = maxLed;
+  if (led < 0)
+    led = 0;
+
+  m_bitStates[led] = (on) ? m_highIntensity : m_lowIntensity;
+
+  if (m_autoRefresh)
+    refresh();
 }
 
-mraa::Result
-MY9221::send16bitBlock (short data) {
-    mraa::Result error = mraa::SUCCESS;
-    for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
-        uint32_t state = (data & 0x8000) ? HIGH : LOW;
-        error = m_dataPinCtx.write(state);
-        state = m_clkPinCtx.read();
+void MY9221::setLowIntensityValue(int intensity)
+{
+  m_lowIntensity = (intensity & 0xff);
+}
 
-        if (state) {
-            state = LOW;
-        } else {
-            state = HIGH;
+void MY9221::setHighIntensityValue(int intensity)
+{
+  m_highIntensity = (intensity & 0xff);
+}
+
+void MY9221::setAll()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    m_bitStates[i] = m_highIntensity;
+
+  if (m_autoRefresh)
+    refresh();
+}
+
+void MY9221::clearAll()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    m_bitStates[i] = m_lowIntensity;
+
+  if (m_autoRefresh)
+    refresh();
+}
+
+void MY9221::refresh()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    {
+      if (i % 12 == 0)
+        {
+          send16bitBlock(m_commandWord);
         }
-
-        error = m_clkPinCtx.write(state);
-
-        data <<= 1;
+      send16bitBlock(m_bitStates[i]);
     }
-    return error;
+
+  lockData();
+}
+
+void MY9221::lockData()
+{
+  m_gpioData.write(0);
+  usleep(220);
+
+  for(int idx = 0; idx < 4; idx++)
+    {
+      m_gpioData.write(1);
+      m_gpioData.write(0);
+    }
+
+  // in reality, we only need > 200ns + (m_instances * 10ns), so the
+  // following should be good for up to m_instances < 80), if the
+  // datasheet is to be believed :)
+  usleep(1);
+
+  return;
+}
+
+void MY9221::send16bitBlock(uint16_t data)
+{
+  for (uint8_t bit_idx = 0; bit_idx < 16; bit_idx++)
+    {
+      uint32_t state = (data & 0x8000) ? 1 : 0;
+      m_gpioData.write(state);
+      state = m_gpioClk.read();
+
+      if (state)
+        state = 0;
+      else
+        state = 1;
+      
+      m_gpioClk.write(state);
+      
+      data <<= 1;
+    }
+  return;
 }
