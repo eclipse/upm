@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "my9221.h"
+#include "groveledbar.h"
 
 using namespace std;
 
@@ -44,26 +44,25 @@ int main ()
 
 //! [Interesting] 
 
-  // Instantiate a MY9221, we use D2 for the data, and D3 for the
-  // data clock.  This was tested with a Grove LED bar.
-
-  upm::MY9221* bar = new upm::MY9221(2, 3);
+  // Instantiate a GroveLEDBar, we use D8 for the data, and D9 for the
+  // clock.  This was tested with a Grove LED bar.
+  upm::GroveLEDBar* bar = new upm::GroveLEDBar(8, 9);
   
   while (shouldRun)
     {
       // count up from green to red
-      for (int i=1; i<=10; i++)
+      for (int i=0; i<=10; i++)
         {
           bar->setBarLevel(i, true);
-          usleep(50000);
+          usleep(100000);
         }
       sleep(1);
 
       // count down from red to green
-      for (int i=1; i<=10; i++)
+      for (int i=0; i<=10; i++)
         {
           bar->setBarLevel(i, false);
-          usleep(50000);
+          usleep(100000);
         }
       sleep(1);
     }
@@ -71,7 +70,7 @@ int main ()
 
   cout << "Exiting..." << endl;
   // turn off the LED's
-  bar->setBarLevel(0, true);
+  bar->setBarLevel(0);
 
   delete bar;
   return 0;
