@@ -58,7 +58,7 @@ int main ()
    while (true) {
       try {
          uint16_t value = cO2Sensor->getPpm();
-         std::cout << "CO2 level = " << value << " lux" << std::endl;
+         std::cout << "CO2 level = " << value << " ppm" << std::endl;
       } catch (std::exception& e) {
          std::cerr << e.what() << std::endl;
       }
