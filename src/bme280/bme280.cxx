@@ -2678,7 +2678,7 @@ void BME280::BME280_delay_msek(u32 mseconds)
         /**
          * Get temperature measurement.
          */
-        int BME280::getTemperatureCelcius (){ return BME280::getTemperatureInternal(); } 
+        int BME280::getTemperatureCelcius (){ return (BME280::getTemperatureInternal() + 50) /100; } 
         /**
          * Get relative humidity measurement.
          */
