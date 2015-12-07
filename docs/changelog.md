@@ -4,6 +4,20 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.4.1
+
+ * Over 150 supported sensor drivers including some industrial grade devices
+ * Improved the JAVA bindings, added a large number of examples for sensors,
+ enabled JAVA builds in Travis CI, and introduced automatic loading for the
+ JAVA shared libraries
+ * Continued to improve existing sensor drivers and to enhance them with the
+ new C++ coding style and exception types
+ * Several cmake improvements to allow building on various Linux distributions
+ and with a newer version of Node.JS
+ * Simplified adding and building of C++ sensor examples via cmake
+ * New sensors: micsv89, xbee, urm37, adxrs610, bma220, dfrph, mcp9808, sx1276,
+ groveultrasonic, ozw
+
 ### v0.4.0
 
  * Fully functional and documented JAVA language bindings for sensors with
