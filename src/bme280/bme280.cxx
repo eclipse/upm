@@ -2251,7 +2251,7 @@ return v_actual_temp_s32;
 s32 BME280::getPressureInternal(void)
 {
 	/* The variable used to read uncompensated pressure*/
-	s32 v_data_uncomp_pres_s32 = getPressureInternal();
+	s32 v_data_uncomp_pres_s32 = getPressureRawInternal();
 
 
 /*------------------------------------------------------------------*
@@ -2291,7 +2291,7 @@ return v_actual_press_u32;
 s32 BME280::getHumidityInternal(void)
 {
 	/* The variable used to read uncompensated pressure*/
-	s32 v_data_uncomp_hum_s32 = getHumidityInternal();
+	s32 v_data_uncomp_hum_s32 = getHumidityRawInternal();
 
 /*------------------------------------------------------------------*
 ************ START READ TRUE PRESSURE, TEMPERATURE AND HUMIDITY DATA ********
