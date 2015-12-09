@@ -5,7 +5,7 @@
 %include "../java_buffer.i"
 
 %feature("director") IsrCallback;
-
+SWIG_DIRECTOR_OWNED(IsrCallback)
 %ignore generic_callback_isr;
 %include "../IsrCallback.h"
 
