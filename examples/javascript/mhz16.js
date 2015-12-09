@@ -47,16 +47,17 @@ console.log(outputStr);
 outputStr = "but rather the temperature of the sensor elements.";
 console.log(outputStr);
 
-var gas = CO2_lib.new_intp();
-var temp = CO2_lib.new_intp();
-
 function writeCO2data()
 {
-	myCO2_obj.getData(gas, temp);
-	outputStr = "CO2 concentration: " + CO2_lib.intp_value(gas) +
-	" PPM, " +
-	"Temperature (in C): " + CO2_lib.intp_value(temp);
-	console.log(outputStr);	
+	if (!myCO2_obj.getData())
+		console.log("Failed to retrieve data");
+	else
+	{
+		outputStr = "CO2 concentration: " + myCO2_obj.getGas() +
+		" PPM, " +
+		"Temperature (in C): " + myCO2_obj.getTemperature();
+		console.log(outputStr);
+	}
 }
 var myInterval;
 setTimeout(function()
