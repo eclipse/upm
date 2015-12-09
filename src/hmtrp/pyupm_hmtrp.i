@@ -24,6 +24,9 @@
   $1 = reinterpret_cast< uint32_t * >(argp);
 }
 
+%rename("getModSignalStrengthNoParam")  getModSignalStrength();
+%rename("getRFSignalStrengthNoParam") getRFSignalStrength();
+
 %feature("autodoc", "3");
 
 %include "hmtrp.h"
