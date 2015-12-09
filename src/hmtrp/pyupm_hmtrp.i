@@ -6,6 +6,9 @@
 %include "../carrays_uint16_t.i"
 %include "../carrays_uint32_t.i"
 
+%rename("getModSignalStrengthNoParam")  getModSignalStrength();
+%rename("getRFSignalStrengthNoParam") getRFSignalStrength();
+
 %feature("autodoc", "3");
 
 %include "hmtrp.h"

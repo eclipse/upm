@@ -5,6 +5,11 @@
 %include "../carrays_uint8_t.i"
 %include "../carrays_uint16_t.i"
 
+%rename("getVolumeNoParam")  getVolume();
+%rename("getPlayStateNoParam") getPlayState();
+%rename("getNumFilesOneParam")  getNumFiles(WT5001_PLAYSOURCE_T psrc);
+%rename("getCurrentFileNoParam") getCurrentFile();
+
 %feature("autodoc", "3");
 
 %{
