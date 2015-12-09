@@ -56,16 +56,15 @@ print ("Make sure that the sensor has had "
 "The temperature reported is not the ambient temperature,\n"
 "but rather the temperature of the sensor elements.")
 
-gas = upmMhz16.new_intp()
-temp = upmMhz16.new_intp()
-
 time.sleep(1)
 
 while(1):
-	myCO2.getData(gas, temp)
-	outputStr = ("CO2 concentration: {0} PPM, "
-	"Temperature (in C): {1}".format(
-	upmMhz16.intp_value(gas), upmMhz16.intp_value(temp)))
-	print outputStr
+	if (not myCO2.getData()):
+		print "Failed to retrieve data"
+	else:
+		outputStr = ("CO2 concentration: {0} PPM, "
+		"Temperature (in C): {1}".format(
+		myCO2.getGas(), myCO2.getTemperature()))
+		print outputStr
 
 	time.sleep(2)
