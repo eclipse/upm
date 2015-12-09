@@ -3,6 +3,7 @@
 %include "arrays_java.i"
 
 %feature("director") Callback;
+SWIG_DIRECTOR_OWNED(Callback)
 
 %ignore sample_thread;
 %ignore pin_ctx;

@@ -2,6 +2,7 @@
 %include "../upm.i"
 
 %feature("director") Callback;
+SWIG_DIRECTOR_OWNED(Callback)
 
 %include "arrays_java.i";
 %apply signed char[] {uint8_t *};
