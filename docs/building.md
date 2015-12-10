@@ -5,12 +5,10 @@ UPM uses cmake in order to make compilation relatively painless. Cmake runs
 build out of tree so the recommended way is to clone from git and make a build/
 directory.
 
-This project depends on libmraa, so that needs to be installed first. Use the
-following environment variables to configure the paths:
+This project depends on libmraa, so that needs to be installed first. Append
+the install location of mraa pkgconfig to the following environment variable:
 
     PKG_CONFIG_PATH=$PKG_CONFIG_PATH:.../mraa/build/lib/pkgconfig
-    CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:.../mraa/build/include
-    LIBRARY_PATH=$LIBRARY_PATH:.../mraa/build/lib
 
 UPM will attempt to build all directories inside src/ and they must contain
 individual CMakeLists.txt files.

@@ -74,6 +74,10 @@ endmacro()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/examples)
 
+# Set the mraa include and link directories prior to adding examples
+include_directories (${MRAA_INCLUDE_DIRS})
+link_directories (${MRAA_LIBDIR})
+
 # If your sample source file matches the name of the module it tests, add it here
 # Exceptions are as follows:
 #  string after first '-' is ignored (e.g. nrf24l01-transmitter maps to nrf24l01)

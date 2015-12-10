@@ -49,9 +49,9 @@ macro(upm_SWIG_NODE)
     )
     if (${V8_VERSION_MAJOR} GREATER 3)
       if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.7")
-	    message(FATAL_ERROR " **ERROR** GCC 4.7 or above is required to compile jsupm_${libname} ")
-	  endif()
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.7")
+          message(FATAL_ERROR " **ERROR** GCC 4.7 or above is required to compile jsupm_${libname} ")
+        endif()
       endif()
       set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD 11)
       set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD_REQUIRED ON)
@@ -88,10 +88,10 @@ macro(upm_SWIG_JAVA)
       SUFFIX ".so"
     )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/libjavaupm_${libname}.so
-	DESTINATION lib/java
+        DESTINATION lib/java
     )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
-	DESTINATION lib/java
+        DESTINATION lib/java
     )
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
@@ -168,15 +168,16 @@ if (SWIG_FOUND)
 #  if(BUILDSWIGJAVA)
 #    add_subdirectory (java)
 #  endif(BUILDSWIGJAVA)
-    
+
 endif()
 
 macro(upm_module_init)
+  link_directories (${MRAA_LIBDIR})
   add_library (${libname} SHARED ${module_src})
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIR} .)
+  include_directories (${MRAA_INCLUDE_DIRS} .)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
