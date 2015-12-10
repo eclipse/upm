@@ -464,34 +464,34 @@ void BME280::BME280_delay_msek(uint16_t mseconds)
 }
 
 
-        /**
-         * Get temperature measurement.
-         */
-        uint16_t BME280::getTemperatureRaw (){ return BME280::getTemperatureRawInternal(); }
+/**
+ * Get temperature measurement.
+ */
+uint16_t BME280::getTemperatureRaw (){ return BME280::getTemperatureRawInternal(); }
 
-        /**
-         * Get temperature measurement.
-         */
-        int BME280::getTemperatureCelcius (){ return (BME280::getTemperatureInternal() + 50) /100; } 
-        /**
-         * Get relative humidity measurement.
-         */
-        uint16_t BME280::getHumidityRaw (){ return BME280::getHumidityRawInternal(); }
+/**
+ * Get temperature measurement.
+ */
+int BME280::getTemperatureCelcius (){ return (BME280::getTemperatureInternal() + 50) /100; } 
+/**
+ * Get relative humidity measurement.
+ */
+uint16_t BME280::getHumidityRaw (){ return BME280::getHumidityRawInternal(); }
 
-        /**
-         * Get relative humidity measurement.
-         */
-        int BME280::getHumidityRelative (){ return BME280::getHumidityInternal(); }
+/**
+ * Get relative humidity measurement.
+ */
+int BME280::getHumidityRelative (){ return (BME280::getHumidityInternal() + 500) / 1000; }
 
-        /**
-         * Return pressure
-         */
-        uint32_t BME280::getPressureRaw(){  return BME280::getPressureRawInternal(); }
+/**
+ * Return pressure
+ */
+uint32_t BME280::getPressureRaw(){  return BME280::getPressureRawInternal(); }
 
-        /**
-         * Return calculated pressure (Pa)
-         */
-        int BME280::getPressurePa(){ return BME280::getPressureInternal(); }
+/**
+ * Return calculated pressure (Pa)
+ */
+int BME280::getPressurePa(){ return BME280::getPressureInternal(); }
 
 
 
