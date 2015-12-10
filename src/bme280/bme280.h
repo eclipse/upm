@@ -2,7 +2,6 @@
 #include "upm/iPressureSensor.h"
 #include "upm/iTemperatureSensor.h"
 #include "upm/iHumiditySensor.h"
-#include "bme280driver.h"
 #ifndef __BME280_H__
 #define __BME280_H__
 
@@ -12,8 +11,8 @@
 /****************************************************/
 /**\name        I2C ADDRESS DEFINITIONS  */
 /***************************************************/
-//#define BME280_I2C_ADDRESS1                  (0x76)
-//#define BME280_I2C_ADDRESS2                  (0x77)
+#define BME280_I2C_ADDRESS1                  (0x76)
+#define BME280_I2C_ADDRESS2                  (0x77)
 #define BME280_ONE_U8X   (1)
 
 namespace upm {
@@ -34,7 +33,7 @@ class BME280 : public ITemperatureSensor, public IHumiditySensor, public IPressu
          */
 	BME280();
         //BME280 (int bus, int devAddr= 0x77 , uint8_t mode = 0x03 );
-	BME280 (int bus, int devAddr);
+	BME280 (int bus, int devAddr = BME280_I2C_ADDRESS1);
 
         /**
          * BME280 object destructor, basicaly it close i2c connection.
