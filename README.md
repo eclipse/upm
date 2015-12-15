@@ -83,6 +83,8 @@ Porting [link](docs/porting.md) has more information on making new UPM modules.
 
 There is also an example available for max31855 [sensor](docs/max31855.md).
 
+Guide on creating Java [bindings](docs/creating_java_bindings.md).
+
 ### Naming conventions and rules for new UPM contributions
 
 Before you begin development, take a look at our naming [conventions](docs/naming.md).
