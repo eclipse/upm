@@ -1,5 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Authors: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,13 +23,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
 #include <unistd.h>
 #include <iostream>
-#include "stepmotor.h"
 #include <signal.h>
+#include "stepmotor.h"
 
-int doWork = 0;
+using namespace std;
+
+int doWork = 1;
 upm::StepMotor *sensor = NULL;
 
 void
@@ -37,7 +39,7 @@ sig_handler(int signo)
     printf("got signal\n");
     if (signo == SIGINT) {
         printf("exiting application\n");
-        doWork = 1;
+        doWork = 0;
     }
 }
 
@@ -45,26 +47,29 @@ int
 main(int argc, char **argv)
 {
 //! [Interesting]
-    sensor = new upm::StepMotor(4, 6);
+    sensor = new upm::StepMotor(2, 3);
 
-    while (!doWork) {
-        sensor->setSpeed (500);
-        sensor->stepForward (500);
-        usleep (10000);
-        sensor->stepBackwards (500);
-        usleep (10000);
+    while (doWork) {
+        cout << "1 Revolution forward and back at 60 rpm" << endl;
+        sensor->setSpeed (60);
+        sensor->stepForward(200);
+        usleep (1000000);
+        sensor->stepBackwards(200);
+        usleep (1000000);
 
-        sensor->setSpeed (750);
-        sensor->stepForward (500);
-        usleep (10000);
-        sensor->stepBackwards (500);
-        usleep (10000);
+        cout << "1 Revolution forward and back at 150 rpm" << endl;
+        sensor->setSpeed (150);
+        sensor->stepForward(200);
+        usleep (1000000);
+        sensor->stepBackwards(200);
+        usleep (1000000);
 
-        sensor->setSpeed (1000);
-        sensor->stepForward (500);
-        usleep (10000);
-        sensor->stepBackwards (500);
-        usleep (10000);
+        cout << "1 Revolution forward and back at 300 rpm" << endl;
+        sensor->setSpeed (300);
+        sensor->stepForward (200);
+        usleep (1000000);
+        sensor->stepBackwards (200);
+        usleep (1000000);
     }
 
     delete sensor;

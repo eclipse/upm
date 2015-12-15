@@ -1,5 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Authors: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,86 +26,157 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-#include <unistd.h>
 #include <stdlib.h>
-
+#include <time.h>
 #include "stepmotor.h"
 
 using namespace upm;
+using namespace std;
 
-StepMotor::StepMotor (int dirPin, int stePin)
-                    : m_pwmStepContext(stePin), m_dirPinCtx(dirPin) {
-    mraa::Result error = mraa::SUCCESS;
+StepMotor::StepMotor (int dirPin, int stePin, int steps, int enPin)
+                    : m_dirPinCtx(dirPin), m_stePinCtx(stePin), m_enPinCtx(0), m_steps(steps) {
     m_name = "StepMotor";
+    setSpeed(60);
+    setStep(0);
 
-    m_stePin = stePin;
-    m_dirPin = dirPin;
+    if (m_dirPinCtx.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
+        throw std::runtime_error(string(__FUNCTION__) +
+                               ": Could not initialize dirPin as output");
+        return;
+    }
+    m_dirPinCtx.useMmap(true);
+    m_dirPinCtx.write(0);
 
-    error = m_dirPinCtx.dir (mraa::DIR_OUT);
-    if (error != mraa::SUCCESS) {
-        mraa::printError (error);
+    if (m_stePinCtx.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
+        throw std::runtime_error(string(__FUNCTION__) +
+                               ": Could not initialize stePin as output");
+        return;
+    }
+    m_stePinCtx.useMmap(true);
+    m_stePinCtx.write(0);
+
+    if (enPin >= 0) {
+        m_enPinCtx = new mraa::Gpio(enPin);
+        if(m_enPinCtx->dir(mraa::DIR_OUT) != mraa::SUCCESS) {
+            throw std::runtime_error(string(__FUNCTION__) +
+                               ": Could not initialize enPin as output");
+            return;
+        }
+        m_enPinCtx->useMmap(true);
+        enable(true);
+    }
+}
+
+StepMotor::~StepMotor () {
+    if (m_enPinCtx)
+        delete m_enPinCtx;
+}
+
+void
+StepMotor::enable (bool flag) {
+    if (m_enPinCtx) {
+        m_enPinCtx->write(flag);
+    } else {
+        throw std::runtime_error(string(__FUNCTION__) +
+                                ": Enable pin not defined");
     }
 }
 
 void
 StepMotor::setSpeed (int speed) {
-    if (speed > MAX_PERIOD) {
-        m_speed = MAX_PERIOD;
+    if (speed > 0) {
+        m_delay = 60000000 / (speed * m_steps);
+    } else {
+        throw std::invalid_argument(string(__FUNCTION__) +
+                                    ": Parameter must be greater than 0");
     }
+}
 
-    if (speed < MIN_PERIOD) {
-        m_speed = MIN_PERIOD;
+mraa::Result
+StepMotor::step (int ticks) {
+    if (ticks < 0) {
+        return stepBackwards(abs(ticks));
+    } else {
+        return stepForward(ticks);
     }
-
-    m_speed = speed;
 }
 
 mraa::Result
 StepMotor::stepForward (int ticks) {
-    dirForward ();
-    return move (ticks);
+    dirForward();
+    for (int i = 0; i < ticks; i++) {
+        move();
+        if (++m_position >= m_steps) {
+            m_position = 0;
+        }
+        delayus(m_delay - MINPULSE_US - OVERHEAD_US);
+    }
+    return mraa::SUCCESS;
 }
 
 mraa::Result
 StepMotor::stepBackwards (int ticks) {
-    dirBackwards ();
-    return move (ticks);
+    dirBackwards();
+    for (int i = 0; i < ticks; i++) {
+        move();
+        if (--m_position < 0) {
+            m_position = m_steps - 1;
+        }
+        delayus(m_delay - MINPULSE_US - OVERHEAD_US);
+    }
+    return mraa::SUCCESS;
 }
 
-mraa::Result
-StepMotor::move (int ticks) {
-    mraa::Result error = mraa::SUCCESS;
-
-    m_pwmStepContext.enable (1);
-    for (int tick = 0; tick < ticks; tick++) {
-        m_pwmStepContext.period_us (m_speed);
-        m_pwmStepContext.pulsewidth_us (PULSEWIDTH);
+void
+StepMotor::setStep (int step) {
+    if (step <= m_steps) {
+        m_position = step;
     }
-    m_pwmStepContext.enable (0);
+}
 
-    return error;
+int
+StepMotor::getStep () {
+    return m_position;
+}
+
+void
+StepMotor::move () {
+    m_stePinCtx.write(1);
+    delayus(MINPULSE_US);
+    m_stePinCtx.write(0);
 }
 
 mraa::Result
 StepMotor::dirForward () {
-    mraa::Result error = mraa::SUCCESS;
-
-    error = m_dirPinCtx.write (HIGH);
+    mraa::Result error = m_dirPinCtx.write(HIGH);
     if (error != mraa::SUCCESS) {
-        mraa::printError (error);
+        throw std::runtime_error(string(__FUNCTION__) +
+                                       ": Could not write to dirPin");
     }
-
     return error;
 }
 
 mraa::Result
 StepMotor::dirBackwards () {
-    mraa::Result error = mraa::SUCCESS;
-
-    error = m_dirPinCtx.write (LOW);
+    mraa::Result error = m_dirPinCtx.write(LOW);
     if (error != mraa::SUCCESS) {
-        mraa::printError (error);
+        throw std::runtime_error(string(__FUNCTION__) +
+                                       ": Could not write to dirPin");
     }
-
     return error;
+}
+
+void upm::StepMotor::delayus (int us) {
+    int diff = 0;
+    struct timespec gettime_now;
+
+    clock_gettime(CLOCK_REALTIME, &gettime_now);
+    int start = gettime_now.tv_nsec;
+    while (diff < us * 1000)
+    {
+        clock_gettime(CLOCK_REALTIME, &gettime_now);
+        diff = gettime_now.tv_nsec - start;
+        if (diff < 0)
+            diff += 1000000000;
+    }
 }
