@@ -18,6 +18,7 @@ endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 macro(upm_SWIG_PYTHON)
   if (BUILDSWIGPYTHON AND BUILDSWIG)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
+    set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
     swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_pyupm_${libname}_REAL_NAME}
@@ -120,16 +121,8 @@ macro(upm_doxygen)
       set (classname ${libname})
     endif()
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
-    add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
-      COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doxy2swig.py -n
-        ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
-        ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i
-        DEPENDS ${CMAKE_BINARY_DIR}/xml/${classname}_8h.xml
-    )
-    add_custom_target (${libname}doc_i DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${libname}_doc.i)
-    add_dependencies (${libname}doc_i doc)
     if (BUILDSWIG)
-      add_dependencies (_pyupm_${libname} ${libname}doc_i)
+      add_dependencies (_pyupm_${libname} pyupm_doxy2swig)
       add_dependencies (pydoc _pyupm_${libname})
     else ()
       add_dependencies (${libname} doc)
@@ -202,6 +195,24 @@ macro(upm_module_init)
     set(CPACK_COMPONENT_${libname}_DESCRIPTION "${libdescription}")
   endif()
 endmacro(upm_module_init)
+
+# Generate python module documentation from doxygen collateral
+if (BUILDDOC AND BUILDSWIGPYTHON AND SWIG_FOUND)
+  # doxy2swig the doxygen output
+  add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doxy2swig.py
+      ${CMAKE_BINARY_DIR}/xml/index.xml
+      ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i
+    DEPENDS ${CMAKE_BINARY_DIR}/xml/index.xml
+  )
+  add_custom_target (pyupm_doxy2swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i)
+  add_dependencies (pyupm_doxy2swig doc)
+# BUILDDOC not set but still building python modules, generate an empty
+# pyupm_doxy2swig.i file (overwriting if necessary)
+elseif (BUILDSWIGPYTHON AND SWIG_FOUND)
+  message (INFO " Generating empty ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i")
+  file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i "// Empty doxy2swig stub")
+endif (BUILDDOC AND BUILDSWIGPYTHON AND SWIG_FOUND)
 
 if (MODULE_LIST)
   set(SUBDIRS ${MODULE_LIST})
