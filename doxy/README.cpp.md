@@ -30,7 +30,7 @@ Multi-sensor samples for the starter and specialized kits can be found in the
 
 Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) from API documentation.
 
-You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
+You can also refer to the [Intel IoT Developer Zone](https://software.intel.com/iot/sensors).
 
 ### IDE Compatibility
 

@@ -1,3 +1,5 @@
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
 %module pyupm_at42qt1070
 %include "../upm.i"
 
