@@ -1,3 +1,5 @@
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
 %module pyupm_h3lis331dl
 %include "../upm.i"
 %include "cpointer.i"

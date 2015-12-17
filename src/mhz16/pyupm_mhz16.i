@@ -1,3 +1,5 @@
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
 %module pyupm_mhz16
 %include "../upm.i"
 %include "cpointer.i"

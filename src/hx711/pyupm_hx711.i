@@ -1,3 +1,5 @@
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
 %module pyupm_hx711
 %include "../upm.i"
 %include "stdint.i"
