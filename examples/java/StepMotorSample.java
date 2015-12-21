@@ -25,29 +25,32 @@
 //NOT TESTED!!!
 public class StepMotorSample {
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		upm_stepmotor.StepMotor sensor = new upm_stepmotor.StepMotor(4, 6);
+    public static void main(String[] args) throws InterruptedException {
+        // ! [Interesting]
+        upm_stepmotor.StepMotor sensor = new upm_stepmotor.StepMotor(2, 3);
 
-		while (true) {
-			sensor.setSpeed(500);
-			sensor.stepForward(500);
-			Thread.sleep(10);
-			sensor.stepBackwards(500);
-			Thread.sleep(10);
+        while (true) {
+            System.out.println("One complete rotation forward and back at 60 rpm.");
+            sensor.setSpeed(60);
+            sensor.stepForward(200);
+            Thread.sleep(1000);
+            sensor.stepBackwards(200);
+            Thread.sleep(1000);
 
-			sensor.setSpeed(750);
-			sensor.stepForward(500);
-			Thread.sleep(10);
-			sensor.stepBackwards(500);
-			Thread.sleep(10);
+            System.out.println("One complete rotation forward and back at 150 rpm.");
+            sensor.setSpeed(150);
+            sensor.stepForward(200);
+            Thread.sleep(1000);
+            sensor.stepBackwards(200);
+            Thread.sleep(1000);
 
-			sensor.setSpeed(1000);
-			sensor.stepForward(500);
-			Thread.sleep(10);
-			sensor.stepBackwards(500);
-			Thread.sleep(10);
-		}
-		// ! [Interesting]
-	}
+            System.out.println("One complete rotation forward and back at 300 rpm.");
+            sensor.setSpeed(300);
+            sensor.stepForward(200);
+            Thread.sleep(1000);
+            sensor.stepBackwards(200);
+            Thread.sleep(1000);
+        }
+        // ! [Interesting]
+    }
 }
