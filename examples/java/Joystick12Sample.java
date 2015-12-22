@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class Joystick12_exampleSample {
+public class Joystick12Sample {
 
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]

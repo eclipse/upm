@@ -27,13 +27,12 @@ import upm_grovecollision.*;
 public class GroveCollision {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		// Initializing the sensor on D2 on the Base Shield
 		upm_grovecollision.GroveCollision collision = new upm_grovecollision.GroveCollision(2);
 		boolean collisionState = false;
 
 		// ! [Interesting]
-		while(shouldRun){
+		while(true){
 			if(collision.isColliding() && !collisionState){
 				System.out.println("Collision!!");
 				collisionState = true;
@@ -44,7 +43,6 @@ public class GroveCollision {
 			}
 		}
 		// ! [Interesting]
-		System.out.println("Exiting");
 	}
 
 }

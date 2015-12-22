@@ -38,7 +38,7 @@ public class Lcm1602_parallelSample {
 		// 10K trimmer potentiometer:
 		// ends to +5V and ground
 		// wiper to LCD VO pin (pin 3)
-		upm_i2clcd.Lcm1602 lcd = new upm_i2clcd.Lcm1602(8, 13, 2, 3, 4, 5, 20, 2);
+		upm_i2clcd.Lcm1602 lcd = new upm_i2clcd.Lcm1602((short) 8, (short) 13, (short) 2, (short) 3, (short) 4, (short) 5, (short) 20, (short) 2);
 
 		lcd.setCursor(0, 0);
 		lcd.write("Hello World");

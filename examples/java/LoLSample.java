@@ -23,7 +23,7 @@
  */
 
 //NOT TESTED!!!
-public class LoL_exampleSample {
+public class LoLSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
