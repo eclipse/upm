@@ -57,6 +57,7 @@ option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
+option (BUILDTESTS "Generate check-ups for upm" OFF)
 
 # Find swig
 if (BUILDSWIG)
@@ -207,4 +208,12 @@ endif()
 
 if(BUILDJAVAEXAMPLES)
   add_subdirectory (examples/java)
+endif()
+
+if(BUILDTESTS)
+    find_package (PythonInterp REQUIRED)
+    if (${PYTHONINTERP_FOUND})
+        enable_testing ()
+        add_subdirectory (tests)
+    endif ()
 endif()
