@@ -34,21 +34,21 @@ public class StepMotorSample {
             sensor.setSpeed(60);
             sensor.stepForward(200);
             Thread.sleep(1000);
-            sensor.stepBackwards(200);
+            sensor.stepBackward(200);
             Thread.sleep(1000);
 
             System.out.println("One complete rotation forward and back at 150 rpm.");
             sensor.setSpeed(150);
             sensor.stepForward(200);
             Thread.sleep(1000);
-            sensor.stepBackwards(200);
+            sensor.stepBackward(200);
             Thread.sleep(1000);
 
             System.out.println("One complete rotation forward and back at 300 rpm.");
             sensor.setSpeed(300);
             sensor.stepForward(200);
             Thread.sleep(1000);
-            sensor.stepBackwards(200);
+            sensor.stepBackward(200);
             Thread.sleep(1000);
         }
         // ! [Interesting]

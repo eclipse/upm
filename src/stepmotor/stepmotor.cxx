@@ -34,10 +34,13 @@ using namespace upm;
 using namespace std;
 
 StepMotor::StepMotor (int dirPin, int stePin, int steps, int enPin)
-                    : m_dirPinCtx(dirPin), m_stePinCtx(stePin), m_enPinCtx(0), m_steps(steps) {
+                    : m_dirPinCtx(dirPin),
+                      m_stePinCtx(stePin),
+                      m_enPinCtx(0),
+                      m_steps(steps) {
     m_name = "StepMotor";
     setSpeed(60);
-    setStep(0);
+    setPosition(0);
 
     if (m_dirPinCtx.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
         throw std::runtime_error(string(__FUNCTION__) +
@@ -95,7 +98,7 @@ StepMotor::setSpeed (int speed) {
 mraa::Result
 StepMotor::step (int ticks) {
     if (ticks < 0) {
-        return stepBackwards(abs(ticks));
+        return stepBackward(abs(ticks));
     } else {
         return stepForward(ticks);
     }
@@ -106,37 +109,37 @@ StepMotor::stepForward (int ticks) {
     dirForward();
     for (int i = 0; i < ticks; i++) {
         move();
-        if (++m_position >= m_steps) {
-            m_position = 0;
-        }
+        m_position++;
         delayus(m_delay - MINPULSE_US - OVERHEAD_US);
     }
     return mraa::SUCCESS;
 }
 
 mraa::Result
-StepMotor::stepBackwards (int ticks) {
-    dirBackwards();
+StepMotor::stepBackward (int ticks) {
+    dirBackward();
     for (int i = 0; i < ticks; i++) {
         move();
-        if (--m_position < 0) {
-            m_position = m_steps - 1;
-        }
+        m_position--;
         delayus(m_delay - MINPULSE_US - OVERHEAD_US);
     }
     return mraa::SUCCESS;
 }
 
 void
-StepMotor::setStep (int step) {
-    if (step <= m_steps) {
-        m_position = step;
-    }
+StepMotor::setPosition (int pos) {
+    m_position = pos;
+}
+
+int
+StepMotor::getPosition () {
+    return m_position;
 }
 
 int
 StepMotor::getStep () {
-    return m_position;
+    return m_position < 0 ? m_steps + m_position % m_steps :
+                            m_position % m_steps;
 }
 
 void
@@ -157,7 +160,7 @@ StepMotor::dirForward () {
 }
 
 mraa::Result
-StepMotor::dirBackwards () {
+StepMotor::dirBackward () {
     mraa::Result error = m_dirPinCtx.write(LOW);
     if (error != mraa::SUCCESS) {
         throw std::runtime_error(string(__FUNCTION__) +

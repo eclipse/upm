@@ -48,21 +48,21 @@ console.log("Rotating 1 revolution forward and back at 60 rpm.");
 stepper.setSpeed(60);
 stepper.stepForward(200);
 delay(1000);
-stepper.stepBackwards(200);
+stepper.stepBackward(200);
 delay(1000);
 
 console.log("Rotating 1 revolution forward and back at 150 rpm.");
 stepper.setSpeed(150);
 stepper.stepForward(200);
 delay(1000);
-stepper.stepBackwards(200);
+stepper.stepBackward(200);
 delay(1000);
 
 console.log("Rotating 1 revolution forward and back at 300 rpm.");
 stepper.setSpeed(300);
 stepper.stepForward(200);
 delay(1000);
-stepper.stepBackwards(200);
+stepper.stepBackward(200);
 delay(1000);
 
 stepper.quit();

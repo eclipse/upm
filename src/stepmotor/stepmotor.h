@@ -69,7 +69,7 @@ namespace upm {
  * and/or microstepping on stepper drivers that support such features.
  *
  * @image html stepmotor.jpg
- * <br><em>ECS1030 Sensor image provided by SparkFun* under
+ * <br><em>EasyDriver Sensor image provided by SparkFun* under
  * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
  * CC BY-NC-SA-3.0</a>.</em>
  *
@@ -128,20 +128,28 @@ class StepMotor {
          *
          * @param ticks Number of steps the motor moves
          */
-        mraa::Result stepBackwards (int ticks);
+        mraa::Result stepBackward (int ticks);
 
         /**
-         * Sets the current step. Useful if the motor is not at 0 when the
+         * Sets the current position. Useful if the motor is not at 0 when the
          * driver is initialized.
          *
-         * @param step Current shaft position
+         * @param step Current position
          */
-        void setStep (int step);
+        void setPosition (int pos);
 
         /**
-         * Gets the current step.
+         * Gets the current position. This is cumulative and the result of all
+         * the step commands sent to the motor.
          *
-         * @return Current shaft position.
+         * @return Stepper's position.
+         */
+        int getPosition ();
+
+        /**
+         * Gets the current step. This is relative to one revolution.
+         *
+         * @return Current step, ranges from 0 to number of steps per revolution.
          */
         int getStep ();
 
@@ -157,7 +165,7 @@ class StepMotor {
         int                 m_position;
 
         mraa::Result dirForward ();
-        mraa::Result dirBackwards ();
+        mraa::Result dirBackward ();
         void move ();
         void delayus (int us);
     };

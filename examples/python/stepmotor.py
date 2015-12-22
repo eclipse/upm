@@ -46,19 +46,19 @@ print "Rotating 1 revolution forward and back at 60 rpm."
 stepper.setSpeed(60)
 stepper.stepForward(200)
 time.sleep(1)
-stepper.stepBackwards(200)
+stepper.stepBackward(200)
 time.sleep(1)
 
 print "Rotating 1 revolution forward and back at 150 rpm."
 stepper.setSpeed(150)
 stepper.stepForward(200)
 time.sleep(1)
-stepper.stepBackwards(200)
+stepper.stepBackward(200)
 time.sleep(1)
 
 print "Rotating 1 revolution forward and back at 300 rpm."
 stepper.setSpeed(300)
 stepper.stepForward(200)
 time.sleep(1)
-stepper.stepBackwards(200)
+stepper.stepBackward(200)
 time.sleep(1)

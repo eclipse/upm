@@ -51,24 +51,24 @@ main(int argc, char **argv)
 
     while (doWork) {
         cout << "1 Revolution forward and back at 60 rpm" << endl;
-        sensor->setSpeed (60);
+        sensor->setSpeed(60);
         sensor->stepForward(200);
-        usleep (1000000);
-        sensor->stepBackwards(200);
-        usleep (1000000);
+        usleep(1000000);
+        sensor->stepBackward(200);
+        usleep(1000000);
 
         cout << "1 Revolution forward and back at 150 rpm" << endl;
-        sensor->setSpeed (150);
+        sensor->setSpeed(150);
         sensor->stepForward(200);
-        usleep (1000000);
-        sensor->stepBackwards(200);
-        usleep (1000000);
+        usleep(1000000);
+        sensor->stepBackward(200);
+        usleep(1000000);
 
         cout << "1 Revolution forward and back at 300 rpm" << endl;
-        sensor->setSpeed (300);
-        sensor->stepForward (200);
+        sensor->setSpeed(300);
+        sensor->stepForward(200);
         usleep (1000000);
-        sensor->stepBackwards (200);
+        sensor->stepBackward(200);
         usleep (1000000);
     }
 
