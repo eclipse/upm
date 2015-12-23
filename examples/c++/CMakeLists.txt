@@ -14,7 +14,6 @@ macro(get_module_name example_name module_name)
   endif()
 endmacro()
 
-
 # Set source file, include and linker settings for an example
 # If example cannot be built, example_bin is cleared
 macro(add_custom_example example_bin example_src example_module_list)
@@ -231,6 +230,7 @@ if (OPENZWAVE_FOUND)
   include_directories(${OPENZWAVE_INCLUDE_DIRS})
   add_example (ozw)
 endif()
+add_example (nlgpio16)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)

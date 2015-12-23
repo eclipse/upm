@@ -315,6 +315,12 @@
  */
 
 /**
+ * @brief Numato Labs
+ * @defgroup numatolabs Numato Labs
+ * @ingroup byman
+ */
+
+/**
  * @brief SeeedStudio - Grove Sensors
  * @defgroup seeed SeeedStudio
  * @ingroup byman
