@@ -27,10 +27,6 @@
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 #define MMA7660_I2C_BUS 0
 #define MMA7660_DEFAULT_I2C_ADDR 0x4c
 
@@ -271,7 +267,7 @@ namespace upm {
      * argument to the ISR.
      */
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int pin, IsrCallback *cb);
+    void installISR(int pin, jobject runnable);
 #else
     void installISR(int pin, void (*isr)(void *), void *arg);
 #endif

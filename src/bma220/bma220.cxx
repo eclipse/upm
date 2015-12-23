@@ -489,14 +489,21 @@ bool BMA220::resetInterrupts()
   return writeReg(REG_ENABLE_CONFIG2, reg);
 }
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || (JAVACALLBACK)
 void BMA220::installISR(int gpio, mraa::Edge level,
-                        IsrCallback *cb)
+                        jobject runnable)
 {
-  installISR(gpio, level, generic_callback_isr, cb);
-}
-#endif
+  // delete any existing ISR and GPIO context
+  uninstallISR();
 
+  // create gpio context
+  m_gpioIntr = new mraa::Gpio(gpio);
+
+  m_gpioIntr->dir(mraa::DIR_IN);
+  m_gpioIntr->isr(level, runnable);
+
+}
+#else
 void BMA220::installISR(int gpio, mraa::Edge level, 
                         void (*isr)(void *), void *arg)
 {
@@ -509,6 +516,7 @@ void BMA220::installISR(int gpio, mraa::Edge level,
   m_gpioIntr->dir(mraa::DIR_IN);
   m_gpioIntr->isr(level, isr, arg);
 }
+#endif
 
 void BMA220::uninstallISR()
 {

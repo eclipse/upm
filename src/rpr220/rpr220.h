@@ -26,10 +26,6 @@
 #include <string>
 #include <mraa/gpio.h>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 namespace upm {
 
 /**
@@ -88,7 +84,7 @@ namespace upm {
     bool blackDetected();
 
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(IsrCallback *cb);
+    void installISR(jobject runnable);
 #else
     /**
      * Installs an ISR to be called when
@@ -110,7 +106,7 @@ namespace upm {
   private:
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
     void installISR(void (*isr)(void *), void *arg);
-#endif	
+#endif
     bool m_isrInstalled;
     mraa_gpio_context m_gpio;
   };

@@ -207,9 +207,9 @@ bool MMA7660::tiltShake()
 }
 
 #ifdef JAVACALLBACK
-void MMA7660::installISR(int pin, IsrCallback *cb)
+void MMA7660::installISR(int pin, jobject runnable)
 {
-        installISR(pin, generic_callback_isr, cb);
+        installISR(pin, mraa_java_isr_callback, runnable);
 }
 #endif
 

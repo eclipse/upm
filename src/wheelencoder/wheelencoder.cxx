@@ -24,6 +24,9 @@
 
 #include <iostream>
 
+#ifdef JAVACALLBACK
+#undef JAVACALLBACK
+#endif
 #include "wheelencoder.h"
 
 using namespace upm;

@@ -30,6 +30,10 @@
 #include <stdlib.h>
 #include <functional>
 
+#ifdef JAVACALLBACK
+#undef JAVACALLBACK
+#endif
+
 #include "hcsr04.h"
 
 using namespace upm;

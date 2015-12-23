@@ -384,14 +384,20 @@ uint8_t MPU60X0::getInterruptPinConfig()
   return readReg(REG_INT_PIN_CFG);
 }
 
-#ifdef JAVACALLBACK
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 void MPU60X0::installISR(int gpio, mraa::Edge level,
-                         IsrCallback *cb)
+                         jobject runnable)
 {
-        installISR(gpio, level, generic_callback_isr, cb);
-}
-#endif
+  // delete any existing ISR and GPIO context
+  uninstallISR();
 
+  // greate gpio context
+  m_gpioIRQ = new mraa::Gpio(gpio);
+
+  m_gpioIRQ->dir(mraa::DIR_IN);
+  m_gpioIRQ->isr(level, runnable);
+}
+#else
 void MPU60X0::installISR(int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {
@@ -404,6 +410,7 @@ void MPU60X0::installISR(int gpio, mraa::Edge level,
   m_gpioIRQ->dir(mraa::DIR_IN);
   m_gpioIRQ->isr(level, isr, arg);
 }
+#endif
 
 void MPU60X0::uninstallISR()
 {

@@ -58,9 +58,9 @@ bool A110X::magnetDetected()
 }
 
 #ifdef JAVACALLBACK
-void A110X::installISR( IsrCallback *cb)
+void A110X::installISR(jobject runnable)
 {
-installISR(generic_callback_isr, cb);
+installISR(mraa_java_isr_callback, runnable);
 }
 #endif
 

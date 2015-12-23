@@ -32,6 +32,10 @@
 #include <string>
 #include <stdexcept>
 
+#ifdef JAVACALLBACK
+#undef JAVACALLBACK
+#endif
+
 #include "pn532.h"
 
 using namespace upm;
