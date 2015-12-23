@@ -1,12 +1,7 @@
-%module(directors="1") javaupm_mma7660
+%module javaupm_mma7660
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
-
-%feature("director") IsrCallback;
-SWIG_DIRECTOR_OWNED(IsrCallback)
-%ignore generic_callback_isr;
-%include "../IsrCallback.h"
 
 %apply int *OUTPUT { int *x, int *y, int *z };
 %apply float *OUTPUT { float *ax, float *ay, float *az  };

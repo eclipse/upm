@@ -60,9 +60,9 @@ bool TTP223::isPressed() {
 }
 
 #ifdef JAVACALLBACK
-void TTP223::installISR(mraa::Edge level, IsrCallback *cb)
+void TTP223::installISR(mraa::Edge level, jobject runnable)
 {
-  installISR(level, generic_callback_isr, cb);
+  installISR(level, mraa_java_isr_callback, runnable);
 }
 #endif
 

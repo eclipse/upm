@@ -30,10 +30,6 @@
 #include <mraa/pwm.h>
 #include <sys/time.h>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 #define CM 1
 #define INC 0
 

@@ -1,13 +1,8 @@
-%module(directors="1") javaupm_mpu9150
+%module javaupm_mpu9150
 %include "../upm.i"
 %include "typemaps.i"
 %include "arrays_java.i"
 %include "../java_buffer.i"
-
-%feature("director") IsrCallback;
-SWIG_DIRECTOR_OWNED(IsrCallback)
-%ignore generic_callback_isr;
-%include "../IsrCallback.h"
 
 %apply int {mraa::Edge};
 

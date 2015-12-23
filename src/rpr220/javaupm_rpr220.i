@@ -1,11 +1,6 @@
-%module(directors="1") javaupm_rpr220
+%module javaupm_rpr220
 %include "../upm.i"
 
-
-%feature("director") IsrCallback;
-SWIG_DIRECTOR_OWNED(IsrCallback)
-%ignore generic_callback_isr;
-%include "../IsrCallback.h"
 
 %{
     #include "rpr220.h"

@@ -741,14 +741,21 @@ uint8_t LSM9DS0::getInterruptGen2Src()
   return readReg(DEV_XM, REG_INT_GEN_2_SRC);
 }
 
-#ifdef SWIGJAVA
+#if defined(SWIGJAVA) || defined (JAVACALLBACK)
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
-			 IsrCallback *cb)
+			 jobject runnable)
 {
-        installISR(intr, gpio, level, generic_callback_isr, cb);
-}
-#endif
+  // delete any existing ISR and GPIO context
+  uninstallISR(intr);
 
+  // greate gpio context
+  getPin(intr) = new mraa::Gpio(gpio);
+
+  getPin(intr)->dir(mraa::DIR_IN);
+  getPin(intr)->isr(level, runnable);
+
+}
+#else
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {
@@ -761,6 +768,7 @@ void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
   getPin(intr)->dir(mraa::DIR_IN);
   getPin(intr)->isr(level, isr, arg);
 }
+#endif
 
 void LSM9DS0::uninstallISR(INTERRUPT_PINS_T intr)
 {

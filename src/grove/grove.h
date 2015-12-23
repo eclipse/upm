@@ -29,10 +29,6 @@
 #include <mraa/aio.hpp>
 #include <mraa/gpio.hpp>
 
-#ifdef JAVACALLBACK
-#include "../IsrCallback.h"
-#endif
-
 namespace upm {
 
 /**
@@ -392,7 +388,7 @@ class GroveButton: public Grove {
          * argument to the ISR.
          */
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, IsrCallback *cb);
+        void installISR(mraa::Edge level, jobject runnable);
 #else
         void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
 #endif

@@ -26,4 +26,6 @@ void cleanUp();
 #endif
 
 #if (SWIGJAVA)
+%typemap(jtype) jobject runnable "java.lang.Runnable"
+%typemap(jstype) jobject runnable "java.lang.Runnable"
 #endif

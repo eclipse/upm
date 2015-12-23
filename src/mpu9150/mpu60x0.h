@@ -29,10 +29,6 @@
 
 #include <mraa/gpio.hpp>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 #define MPU60X0_I2C_BUS 0
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68
 
@@ -921,7 +917,7 @@ namespace upm {
      * @param arg the argument to pass the the interrupt handler
      */
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int gpio, mraa::Edge level, IsrCallback *cb);
+    void installISR(int gpio, mraa::Edge level, jobject runnable);
 #else
     void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
 #endif
@@ -951,10 +947,6 @@ namespace upm {
     float m_gyroScale;
 
   private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
-
     mraa::I2c m_i2c;
     uint8_t m_addr;
 

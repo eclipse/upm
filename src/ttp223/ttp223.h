@@ -26,10 +26,6 @@
 #include <string>
 #include <mraa/gpio.hpp>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 namespace upm {
 /**
  * @brief TTP223 Touch Detector Sensor library
@@ -100,7 +96,7 @@ class TTP223 {
          * argument to the ISR.
          */
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, IsrCallback *cb);
+        void installISR(mraa::Edge level, jobject runnable);
 #else
         void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
 #endif

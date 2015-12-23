@@ -1,4 +1,4 @@
-%module(directors="1") javaupm_sx1276
+%module javaupm_sx1276
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
