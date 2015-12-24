@@ -55,34 +55,32 @@
 
 namespace upm {
   /**
-   * @library ADS1115
-   * @sensor  ADS1115
-   * @comname ADS1115
-   * @type adc
-   * @man adafruit
+   * @library ads1x15
+   * @sensor ADS1115
+   * @comname ADS1115 ADC
+   * @type electric
+   * @man ti adafruit
    * @con i2c
-   * web https://www.adafruit.com/products/1085
-   * web http://www.ti.com/lit/ds/symlink/ads1115.pdf
-   *
+   * @web http://www.ti.com/lit/ds/symlink/ads1115.pdf
    *
    * @brief API for ADS1115
    *
    * The ADS1113, ADS1114, and ADS1115 are precision analog-to-digital converters (ADCs) with 16 bits of resolution offered
-   *  in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1113/4/5 are designed with precision, power,
-   *  and ease of implementation in mind. The ADS1113/4/5 feature an onboard reference and oscillator. Data are transferred via
-   *  an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1113/4/5 operate from a single power
-   *  supply ranging from 2.0V to 5.5V.
-   *  The ADS1113/4/5 can perform conversions at rates up to 860 samples per second (SPS). An onboard PGA is available on
-   *   the ADS1114 and ADS1115 that offers input ranges from the supply to as low as ±256mV, allowing both large and small
-   *   signals to be measured with high resolution. The ADS1115 also features an input multiplexer (MUX) that provides two
-   *   differential or four single-ended inputs.
-   *   The ADS1113/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down after
-   *   a conversion and greatly reduces current consumption during idle periods. The ADS1113/4/5 are specified from –40°C to +125°C.
+   * in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1113/4/5 are designed with precision, power,
+   * and ease of implementation in mind. The ADS1113/4/5 feature an onboard reference and oscillator. Data is transferred via
+   * an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1113/4/5 operate from a single power
+   * supply ranging from 2.0V to 5.5V.
+   * The ADS1113/4/5 can perform conversions at rates up to 860 samples per second (SPS). An onboard PGA is available on
+   * the ADS1114 and ADS1115 that offers input ranges from the supply to as low as ±256mV, allowing both large and small
+   * signals to be measured with high resolution. The ADS1115 also features an input multiplexer (MUX) that provides two
+   * differential or four single-ended inputs.
+   * The ADS1113/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down after
+   * a conversion and greatly reduces current consumption during idle periods. The ADS1113/4/5 are specified from –40°C to +125°C.
    *
-   * Tested with DIYMall ADS1115 board.
+   * Tested with DIYMall ADS1115 board. Also available from Adafruit: https://www.adafruit.com/products/1085
    *
-   * @image html ADS1115.jpg
-   * @snippet ADS1015.cxx Interesting
+   * @image html ads1115.jpg
+   * @snippet ads1x15.cxx Interesting
    */
     class ADS1115 : public ADS1X15 {
 

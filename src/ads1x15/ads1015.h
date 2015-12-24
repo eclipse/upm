@@ -54,19 +54,20 @@
 
 namespace upm {
   /**
-   * @library ADS1115
-   * @sensor  ADS1115
-   * @comname ADS1115
-   * @type adc
-   * @man adafruit
+   * @library ads1x15
+   * @sensor ADS1115
+   * @comname ADS1115 ADC
+   * @type electric
+   * @man ti adafruit
    * @con i2c
+   * @web web http://www.ti.com/lit/ds/symlink/ads1015.pdf
    *
    * @brief API for ADS1015
    *
    * The ADS1013, ADS1014, and ADS1015 are precision analog-to-digital converters (ADCs) with 12 bits of resolution
    * offered in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1013/4/5 are designed with
    * precision, power, and ease of implementation in mind. The ADS1013/4/5 feature an onboard reference and oscillator.
-   * Data are transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5
+   * Data is transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5
    * operate from a single power supply ranging from 2.0V to 5.5V.
    * The ADS1013/4/5 can perform conversions at rates up to 3300 samples per second (SPS). An onboard PGA is available
    * on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as ±256mV, allowing both large and small
@@ -76,13 +77,10 @@ namespace upm {
    * after a conversion and greatly reduces current consumption during idle periods. The ADS1013/4/5 are specified from
    * –40°C to +125°C.
    *
-   * web https://www.adafruit.com/products/1083
-   * web http://www.ti.com/lit/ds/symlink/ads1015.pdf
+   * Tested with Adafriut ADS1015 board: https://www.adafruit.com/products/1083
    *
-   * Tested with Adafriut ADS1015 board.
-   *
-   * @image html ADS1015.jpg
-   * @snippet ADS1015.cxx Interesting
+   * @image html ads1015.jpg
+   * @snippet ads1x15.cxx Interesting
    */
     class ADS1015 : public ADS1X15 {
 

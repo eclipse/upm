@@ -107,6 +107,8 @@ namespace upm {
    * Library for TI analog to digital converter ic. Base clase fro ADS1X15 provides all the functionality that
    * ADS1115 and ADS1015 ics have in common.
    *
+   * @defgroup ads1x15 libupm-ads1x15
+   * @ingroup ti adafruit i2c electric
    */
     class ADS1X15 {
 

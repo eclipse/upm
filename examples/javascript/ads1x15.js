@@ -30,7 +30,7 @@ if (version >= 'v0.6.1') {
     console.log('mraa version (' + version + ') ok');
 }
 else {
-    console.log('meaa version(' + version + ') is old - this code may not work');
+    console.log('mraa version(' + version + ') is old - this code may not work');
 }
 
 var ADS1X15 = require('jsupm_ads1x15');
