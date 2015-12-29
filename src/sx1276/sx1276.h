@@ -42,6 +42,13 @@
 #include <mraa/spi.hpp>
 #include <mraa/gpio.hpp>
 
+// Our crystal oscillator frequency (32Mhz)
+#define FXOSC_FREQ 32000000.0
+
+// Our freq stepping resolution (in Hz) if FXOSC_FREQ is 32Mhz
+// (FXOSC_FREQ / 2^19) =
+#define FXOSC_STEP 61.03515625
+
 namespace upm {
   
   /**
@@ -86,12 +93,6 @@ namespace upm {
     // The default chip revision
     static const uint8_t chipRevision = 0x12;
 
-    // Our crystal oscillator frequency (32Mhz)
-    static const double FXOSC_FREQ = 32000000.0;
-
-    // Our freq stepping resolution (in Hz) if FXOSC_FREQ is 32Mhz
-    // (FXOSC_FREQ / 2^19) =
-    static const double FXOSC_STEP = 61.03515625;
 
     // total FIFO size
     static const int FIFO_SIZE = 256;
