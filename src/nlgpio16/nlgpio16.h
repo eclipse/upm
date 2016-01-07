@@ -38,6 +38,12 @@
 
 #define NLGPIO16_DEFAULT_UART_DEV "/dev/ttyACM0"
 
+// ADC analog ref voltage is 3.3v
+#define ADC_AREF 3.3
+
+// 10-bit precision (0-1023)
+#define ADC_PRECISION 10
+
 namespace upm {
     /**
      * @brief NLGPIO16 module
@@ -81,11 +87,6 @@ namespace upm {
 
   class NLGPIO16 {
   public:
-
-    // ADC analog ref voltage is 3.3v
-    static const float ADC_AREF = 3.3;
-    // 10-bit precision (0-1023)
-    static const int ADC_PRECISION = 10;
 
     /**
      * NLGPIO16 object constructor
