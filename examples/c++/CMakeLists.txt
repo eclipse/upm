@@ -262,7 +262,7 @@ add_custom_example (temperature-sensor-example temperature-sensor.cxx "si7005;bm
 add_custom_example (humidity-sensor-example humidity-sensor.cxx "si7005;bme280")
 add_custom_example (pressure-sensor-example pressure-sensor.cxx "bmp180;bme280")
 add_custom_example (co2-sensor-example co2-sensor.cxx "t6713")
-#add_custom_example (adc-example adc-sensor.cxx ads1015)
+add_custom_example (adc-example adc-sensor.cxx "ads1x15")
 add_custom_example (light-sensor-example light-sensor.cxx "si1132;max44009")
 add_custom_example (light-controller-example light-controller.cxx "lp8860;ds1808lc;hlg150h")
 
