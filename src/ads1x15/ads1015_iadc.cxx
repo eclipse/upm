@@ -1,6 +1,7 @@
 /*
- * Author: Marc Graham <marc@m2ag.net>
+ * Author: Henry Bruce <henry.bruce@intel.com>
  * Copyright (c) 2015 Intel Corporation.
+ * Based on work by Marc Graham <marc@m2ag.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,6 +22,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #include "ads1015_iadc.h"
 
 using namespace upm;

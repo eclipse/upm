@@ -24,14 +24,16 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "ads1015.h"
+#include "ads1015_iadc.h"
+#include "mraa/gpio.hpp"
 
-#define EDISON_I2C_BUS 1 
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
+#define EDISON_GPIO_SI7005_CS 20
 
 
 //! [Interesting]
-// Simple example of using IADC to determine 
+// Simple example of using IADC to determine
 // which sensor is present and return its name.
 // IADC is then used to get readings from sensor
 
@@ -40,25 +42,27 @@ upm::IADC* getADC()
 {
    upm::IADC* adc = NULL;
    try {
-      adc = new upm::ADS1015(EDISON_I2C_BUS);
+      adc = new upm::ADS1015_IADC(EDISON_I2C_BUS);
+      mraa::Gpio gpio(EDISON_GPIO_SI7005_CS);
+      gpio.dir(mraa::DIR_OUT_HIGH);
       return adc;
    } catch (std::exception& e) {
-      std::cerr << "ADS1015: " << e.what() << std::endl;      
+      std::cerr << "ADS1015: " << e.what() << std::endl;
    }
-   return adc;   
+   return adc;
 }
 
 int main ()
 {
    upm::IADC* adc = getADC();
    if (adc == NULL) {
-      std::cout << "ADC not detected" << std::endl;                        
+      std::cout << "ADC not detected" << std::endl;
       return 1;
    }
    std::cout << "ADC " << adc->getModuleName() << " detected. " ;
-   std::cout << adc->getNumInputs() << " inputs available" << std::endl;   
+   std::cout << adc->getNumInputs() << " inputs available" << std::endl;
    while (true) {
-      for (int i=0; i<adc->getNumInputs(); ++i) {
+      for (unsigned int i=0; i<adc->getNumInputs(); ++i) {
          std::cout << "Input " << i;
          try {
             float voltage = adc->getVoltage(i);
@@ -67,10 +71,10 @@ int main ()
             std::cerr << e.what() << std::endl;
          }
       }
-      sleep(1);         
+      sleep(1);
    }
    delete adc;
    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]

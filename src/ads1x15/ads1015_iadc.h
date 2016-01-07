@@ -1,6 +1,7 @@
 ﻿/*
- * Author: Marc Graham <marc@m2ag.net>
+ * Author: Henry Bruce <henry.bruce@intel.com>
  * Copyright (c) 2015 Intel Corporation.
+ * Based on work by Marc Graham <marc@m2ag.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -12,6 +13,7 @@
  *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
+
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
