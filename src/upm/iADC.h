@@ -39,10 +39,10 @@ namespace upm
    {
    public:
        virtual float getReferenceVoltage() = 0;
-       virtual int getResolutionInBits() = 0;
-       virtual int getNumInputs() = 0;
-       virtual int getValue(int input) = 0;
-       virtual float getVoltage(int input) = 0;
+       virtual unsigned int getResolutionInBits() = 0;
+       virtual unsigned int getNumInputs() = 0;
+       virtual uint16_t getRawValue(unsigned int input) = 0;
+       virtual float getVoltage(unsigned int input) = 0;
        virtual ~IADC() {}
    };
 
