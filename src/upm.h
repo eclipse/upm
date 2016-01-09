@@ -285,6 +285,12 @@
  */
 
 /**
+ * @brief Comet System
+ * @defgroup comet Comet
+ * @ingroup byman
+ */
+
+/**
  * @brief EpicTinker
  * @defgroup epict EpicTinker
  * @ingroup byman
