@@ -30,14 +30,67 @@ ADS1015::setSPS(ADSSAMPLERATE rate){
     updateConfigRegister((m_config_reg & ~ADS1X15_DR_MASK) | rate);
 }
 
-ADS1015::ADS1015(int bus, uint8_t address) : ADS1X15(bus, address) {
+ADS1015::ADS1015(int bus, uint8_t address, float vref) : ADS1X15(bus, address) {
     m_name = "ADS1015";
     m_conversionDelay = ADS1015_CONVERSIONDELAY;
     m_bitShift = 4;
     ADS1X15::getCurrentConfig();
+    if (vref < 0.0 || vref > 6.144)
+        UPM_THROW("vref out of range");
+    else if (vref > 4.096)
+        setGain(GAIN_TWOTHIRDS);
+    else if (vref > 2.048)
+        setGain(GAIN_ONE);
+    else if (vref > 1.024)
+        setGain(GAIN_TWO);
+    else if (vref > 0.512)
+        setGain(GAIN_FOUR);
+    else if (vref > 0.256)
+        setGain(GAIN_EIGHT);
+    else
+        setGain(GAIN_SIXTEEN);
 }
 
 ADS1015::~ADS1015(){};
+
+bool
+ADS1015::isConfigured() {
+    return true;
+}
+
+const char*
+ADS1015::getModuleName() {
+    return m_name.c_str();
+}
+
+
+unsigned int
+ADS1015::getNumInputs() {
+    return 4;
+}
+
+unsigned int
+ADS1015::getResolutionInBits() {
+    return 12;
+}
+
+uint16_t
+ADS1015::getRawValue(unsigned int input) {
+    ADS1X15::ADSMUXMODE mode = getMuxMode(input);
+    updateConfigRegister((m_config_reg & ~ADS1X15_MUX_MASK) | mode, true);
+    usleep(m_conversionDelay);
+    uint16_t value = i2c->readWordReg(ADS1X15_REG_POINTER_CONVERT);
+    value = value >> m_bitShift;
+    return swapWord(value);
+}
+
+float
+ADS1015::getVoltage(unsigned int input) {
+    ADSMUXMODE mode = getMuxMode(input);
+    return getSample(mode);
+}
+
+
 
 //Private functions
 float
@@ -99,4 +152,20 @@ ADS1015::setDelay(){
     }
 }
 
+ADS1X15::ADSMUXMODE
+ADS1015::getMuxMode(unsigned int input) {
+    ADS1X15::ADSMUXMODE mode;
+    switch (input) {
+    case 0:
+        return SINGLE_0;
+    case 1:
+        return SINGLE_1;
+    case 2:
+        return SINGLE_2;
+    case 3:
+        return SINGLE_3;
+    default:
+        UPM_THROW("Invalid input");
+    }
+}
 

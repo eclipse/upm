@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "ads1015_iadc.h"
+#include "ads1015.h"
 #include "mraa/gpio.hpp"
 
 #define EDISON_I2C_BUS 1
@@ -42,7 +42,7 @@ upm::IADC* getADC()
 {
    upm::IADC* adc = NULL;
    try {
-      adc = new upm::ADS1015_IADC(EDISON_I2C_BUS);
+      adc = new upm::ADS1015(EDISON_I2C_BUS);
       mraa::Gpio gpio(EDISON_GPIO_SI7005_CS);
       gpio.dir(mraa::DIR_OUT_HIGH);
       return adc;
