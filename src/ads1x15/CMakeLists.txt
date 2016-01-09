@@ -1,5 +1,5 @@
 set (libname "ads1x15")
 set (libdescription "analog to digital converter")
-set (module_src ${libname}.cxx ads1115.cxx ads1015.cxx ads1015_iadc.cxx)
-set (module_h ${libname}.h ads1115.h ads1015.h ads1015_iadc.h)
+set (module_src ${libname}.cxx ads1115.cxx ads1015.cxx)
+set (module_h ${libname}.h ads1115.h ads1015.h)
 upm_module_init()
