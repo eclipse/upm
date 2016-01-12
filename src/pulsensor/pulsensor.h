@@ -41,6 +41,20 @@
 #define FALSE              LOW
 
 /**
+ * Callback data struct
+ */
+struct clbk_data {
+    int is_heart_beat; /**< heartbeat check */
+};
+
+#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+#include "Callback.h"
+#else
+typedef void (* callback_handler) (clbk_data);
+#endif
+
+namespace upm {
+/**
  * @brief Pulsensor Pulse Sensor library
  * @defgroup pulsensor libupm-pulsensor
  * @ingroup seeed analog medical
@@ -62,26 +76,6 @@
  *
  * @image html pulsensor.jpg
  * @snippet pulsensor.cxx Interesting
- */
-
-/*!
- * @struct clbk_data
- * @brief callback data 
- */
-struct clbk_data {
-    int is_heart_beat; /**< heartbeat check */
-};
-
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "Callback.h"
-#else
-typedef void (* callback_handler) (clbk_data);
-#endif
-
-/*!
- * @class Pulsensor
- * @brief The context for the heartbeat pulse sensor
  */
 class Pulsensor {
 
@@ -120,4 +114,4 @@ private:
 #endif
     volatile uint16_t ctx_counter;
 };
-
+}

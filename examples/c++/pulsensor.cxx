@@ -27,6 +27,8 @@
 #include "pulsensor.h"
 #include <signal.h>
 
+using namespace upm;
+
 int doWork = 0;
 
 void

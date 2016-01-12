@@ -30,6 +30,8 @@
 
 #include "pulsensor.h"
 
+using namespace upm;
+
 #if defined(JAVACALLBACK)
 Pulsensor::Pulsensor (Callback *obj_call) : pin_ctx(0)
 {
