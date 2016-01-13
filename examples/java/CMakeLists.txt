@@ -3,14 +3,14 @@ include(UseJava)
 
 macro(add_example example_name jar_name)
     set(example_src "${example_name}.java")
-    set(example_jar "${PROJECT_SOURCE_DIR}/build/src/${jar_name}/upm_${jar_name}.jar")
+    set(example_jar "${CMAKE_CURRENT_BINARY_DIR}/../../src/${jar_name}/upm_${jar_name}.jar")
 
     add_jar(${example_name} SOURCES ${example_src} INCLUDE_JARS ${example_jar})
 endmacro()
 
 macro(add_example_with_path example_name jar_path)
     set(example_src "${example_name}.java")
-    set(example_jar "${PROJECT_SOURCE_DIR}/build/src/${jar_path}")
+    set(example_jar "${CMAKE_CURRENT_BINARY_DIR}/../../src/${jar_path}")
 
     add_jar(${example_name} SOURCES ${example_src} INCLUDE_JARS ${example_jar})
 endmacro()
