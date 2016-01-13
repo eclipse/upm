@@ -344,6 +344,12 @@
  * @ingroup byman
  */
 
+/**
+ * @brief Veris Industries
+ * @defgroup veris Veris Industries
+ * @ingroup byman
+ */
+
 ////////////////////////////////////////////////////////////////// @cond KIT
 /// Groups for the various Starter Kits.
 ////////////////////////////////////////////////////////////////// @endcond KIT

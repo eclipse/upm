@@ -236,6 +236,7 @@ if (MODBUS_FOUND)
   include_directories(${MODBUS_INCLUDE_DIRS})
   add_example (t3311)
 endif()
+add_example (hdxxvxta)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
