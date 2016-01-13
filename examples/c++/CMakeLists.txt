@@ -232,6 +232,7 @@ if (OPENZWAVE_FOUND)
 endif()
 add_example (nlgpio16)
 add_example (ads1x15)
+add_example (hdxxvxta)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
