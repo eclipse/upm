@@ -33,25 +33,19 @@ namespace upm
 /**
  * @brief ILightSensor Interface for Light Sensors
  */
- 
+
 /**
  *
  * @brief Interface for Light Sensors
- 
+
  * This interface is used to represent light sensors
 
- * @snippet light-sensor.cxx Interesting 
+ * @snippet light-sensor.cxx Interesting
  */
 
    class ILightSensor : public IModuleStatus
    {
    public:
-	/**
-	 * Get visible illuminance raw value.
-	 *
-	 * @return uint16_t visible illuminance raw value
-	 */
-       virtual uint16_t getVisibleRaw() = 0;
 
 	/**
 	 * Get visible illuminance in Lux.
