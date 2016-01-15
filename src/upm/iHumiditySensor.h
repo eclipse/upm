@@ -34,8 +34,7 @@ namespace upm
    class IHumiditySensor : public IModuleStatus
    {
    public:
-       virtual uint16_t getHumidityRaw () = 0;
-       virtual int getHumidityRelative () = 0;       
+       virtual int getHumidityRelative () = 0;
        virtual ~IHumiditySensor() {}
    };
 

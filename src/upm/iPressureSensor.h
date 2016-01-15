@@ -38,7 +38,6 @@ namespace upm
    class IPressureSensor : public IModuleStatus
    {
    public:
-       virtual uint32_t getPressureRaw() = 0;
        virtual int getPressurePa() = 0;
        virtual ~IPressureSensor() {}
    };

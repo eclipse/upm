@@ -34,8 +34,7 @@ namespace upm
    class ITemperatureSensor : public IModuleStatus
    {
    public:
-       virtual uint16_t getTemperatureRaw () = 0;
-       virtual int getTemperatureCelcius () = 0;       
+       virtual int getTemperatureCelcius () = 0;
        virtual ~ITemperatureSensor() {}
    };
 
