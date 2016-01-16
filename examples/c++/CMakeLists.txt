@@ -235,6 +235,7 @@ add_example (ads1x15)
 if (MODBUS_FOUND)
   include_directories(${MODBUS_INCLUDE_DIRS})
   add_example (t3311)
+  add_example (hwxpxx)
 endif()
 add_example (hdxxvxta)
 
