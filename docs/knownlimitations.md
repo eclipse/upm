@@ -14,8 +14,8 @@ such sensors and known workarounds if they exist.
  on the Intel Edison boards.
  * **Grove 3-Axis Digital Gyroscope** (ITG-3200) is not compatible with the
  Intel Edison Arduino board but will work with the Mini-breakout.
- * **Grove 3-Axis Digital Accelerometer** (ADXL345) only works with the Intel
- Edison Arduino board when powered from the 3.3V line.
+ * **Grove 3-Axis Digital Accelerometer +/-16g** (ADXL345) only works with the
+ Intel Edison Arduino board when powered from the 3.3V line.
  * **Grove 3-Axis Digital Compass** (HMC5883L) reports inaccurate values at 5V
  on the Intel Edison Arduino board and newer revisions might not work at all.
  Use 3.3V or the Mini-breakout.
@@ -39,8 +39,10 @@ such sensors and known workarounds if they exist.
  Galileo.
  * **Grove BLE** (HM-11) does not return data on the Intel Galileo board due to
  known UART limitation.
- * **Grove Hall Sensor** (A11X), if the base shield is set to 3V on Intel Edison, 
+ * **Grove Hall Sensor** (A11X) if the base shield is set to 3V on Intel Edison,
  it will trigger continous callbacks when the sensor is not reading anything.
+ * **Grove RTC** (DS1307) is not compatible with the Intel Edison Arduino board
+ but will work with the Mini-breakout.
 
 #### Adafruit Sensors
 
