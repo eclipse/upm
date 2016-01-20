@@ -238,6 +238,7 @@ if (MODBUS_FOUND)
   add_example (hwxpxx)
 endif()
 add_example (hdxxvxta)
+add_example (rhusb)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)

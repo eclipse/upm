@@ -327,6 +327,12 @@
  */
 
 /**
+ * @brief Omega
+ * @defgroup omega Omega
+ * @ingroup byman
+ */
+
+/**
  * @brief SeeedStudio - Grove Sensors
  * @defgroup seeed SeeedStudio
  * @ingroup byman
