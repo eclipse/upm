@@ -166,13 +166,6 @@ namespace upm {
             unsigned int getResolutionInBits();
 
             /**
-             * Returns whether the sensor is detected and correctly configured.
-             *
-             * @return true if is detected and correctly configured, otherwise false
-             */
-            bool isConfigured();
-
-            /**
              * Returns module name
              *
              * @return modulename as const char*

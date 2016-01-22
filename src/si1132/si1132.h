@@ -41,7 +41,7 @@ namespace upm {
  *
  * The Silicon Labs
  * [Si1132](https://www.silabs.com/Support%20Documents/TechnicalDocs/Si1132.pdf)
- * is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C 
+ * is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C
  * digital interface and programmable-event interrupt output.
  *
  * @library si1132
@@ -78,12 +78,8 @@ class SI1132 : public ILightSensor {
          * Read the lux value
          */
         double getVisibleLux();
-	
-        /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
-        const char* getModuleName() { return "si1132"; }        
+
+        const char* getModuleName() { return "si1132"; }
 
     private:
         mraa::Result reset();

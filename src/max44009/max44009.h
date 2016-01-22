@@ -129,12 +129,8 @@ class MAX44009 : public ILightSensor {
          * Read the lux value
          */
         double getVisibleLux();
-	
-        /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
-        const char* getModuleName() { return "max44009"; }        
+
+        const char* getModuleName() { return "max44009"; }
 
     private:
         mraa::Result reset();

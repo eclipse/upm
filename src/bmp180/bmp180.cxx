@@ -98,7 +98,6 @@ BMP180::BMP180 (int bus, int devAddr, uint8_t mode) {
     m_name = "BMP180";
     m_controlAddr = devAddr;
     m_bus = bus;
-    configured = false;
 
     m_i2c = new mraa::I2c(m_bus);
 
@@ -113,7 +112,6 @@ BMP180::BMP180 (int bus, int devAddr, uint8_t mode) {
         UPM_THROW("Init failed");
 
     getTemperatureCelcius();
-    configured = true;
 }
 
 BMP180::~BMP180() {
@@ -286,7 +284,3 @@ BMP180::isAvailable() {
     return true;
 }
 
-bool
-BMP180::isConfigured() {
-    return configured;
-}

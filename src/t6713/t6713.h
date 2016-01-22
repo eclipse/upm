@@ -80,7 +80,7 @@ namespace t6713_co2
         {
                 uint8_t function_code;
                 uint8_t register_address_msb;
-		uint8_t register_address_lsb;			
+		uint8_t register_address_lsb;
                 uint8_t input_registers_to_read_msb;
                 uint8_t input_registers_to_read_lsb;
 
@@ -120,14 +120,9 @@ class T6713 : public ICO2Sensor {
         ~T6713 ();
 
         /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
-
-        /**
          * Returns sensor module name
          */
-        const char* getModuleName();          
+        const char* getModuleName();
 
         /**
          * Get relative humidity measurement.
@@ -143,7 +138,7 @@ class T6713 : public ICO2Sensor {
         mraa::Result runCommand(t6713_co2::MODBUS_COMMANDS command);
 	uint16_t getSensorData (t6713_co2::MODBUS_COMMANDS cmd);
         t6713_co2::STATUS getStatus();
-		
+
         int bus;
         mraa::I2c* i2c;
         mraa::Result status;

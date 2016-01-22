@@ -88,20 +88,16 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
          * Get relative humidity measurement.
          */
         uint16_t getHumidityRaw ();
-	
+
         /**
          * Get relative humidity measurement.
          */
         int getHumidityRelative ();
-        /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
 
         /**
          * Returns sensor module name
          */
-        const char* getModuleName() { return "si7005"; }          
+        const char* getModuleName() { return "si7005"; }
 
         /**
          * Detects the sensor to ensure it is connected as required.

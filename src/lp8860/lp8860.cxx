@@ -110,7 +110,7 @@ LP8860::LP8860(int gpioPower, int i2cBus)
     i2c->address(LP8860_I2C_ADDR);
     if (isAvailable())
         status = mraa::SUCCESS;
-   if (!isConfigured())
+   if (status != mraa::SUCCESS)
       UPM_THROW("i2c config failed.");
 }
 
@@ -119,11 +119,6 @@ LP8860::~LP8860()
     delete i2c;
 }
 
-
-bool LP8860::isConfigured()
-{
-    return status == mraa::SUCCESS;
-}
 
 bool LP8860::isAvailable()
 {
@@ -140,7 +135,7 @@ bool LP8860::isAvailable()
     uint8_t id = i2c->readReg(LP8860_ID);
     // Turn off to save power if not required
     if (!wasPowered)
-        MraaUtils::setGpio(pinPower, 0); 
+        MraaUtils::setGpio(pinPower, 0);
 
     return id >= 0x10;
 }
@@ -174,7 +169,7 @@ int LP8860::getBrightness()
 {
     uint8_t msb = i2cReadByte(LP8860_DISP_CL1_BRT_MSB);
     uint8_t lsb = i2cReadByte(LP8860_DISP_CL1_BRT_LSB);
-    int percent = (100 * ((int)msb << 8 | lsb)) / 0xFFFF;		
+    int percent = (100 * ((int)msb << 8 | lsb)) / 0xFFFF;
     return percent;
 }
 
@@ -247,7 +242,7 @@ void LP8860::i2cWriteByte(int reg, int value)
 {
     i2c->address(LP8860_I2C_ADDR);
     status = i2c->writeReg(static_cast<uint8_t>(reg), static_cast<uint8_t>(value));
-    if (!isConfigured())
+    if (status != mraa::SUCCESS)
         UPM_THROW("i2cWriteByte failed");
 }
 
@@ -257,7 +252,7 @@ uint8_t LP8860::i2cReadByte(uint8_t reg)
     uint8_t value;
     i2c->address(LP8860_I2C_ADDR);
     if (i2c->readBytesReg(reg, &value, 1) != 1)
-        UPM_THROW("i2cReadByte failed");        
+        UPM_THROW("i2cReadByte failed");
     return value;
 }
 
@@ -275,8 +270,8 @@ void LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
     }
     else
         status = mraa::ERROR_INVALID_PARAMETER;
-    if (!isConfigured())
-        UPM_THROW("i2cWriteBuffer failed");                
+    if (status != mraa::SUCCESS)
+        UPM_THROW("i2cWriteBuffer failed");
 }
 
 
@@ -284,6 +279,6 @@ void LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
 {
     i2c->address(LP8860_I2C_ADDR);
     if (i2c->readBytesReg(reg, buf, length) != length)
-        UPM_THROW("i2cReadBuffer failed");                
+        UPM_THROW("i2cReadBuffer failed");
 }
 

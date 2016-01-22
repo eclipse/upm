@@ -58,8 +58,7 @@ public:
    ~HLG150H();
 
 protected:
-   bool isConfigured();
-   const char* getModuleName() { return "hlg150h"; }   
+   const char* getModuleName() { return "hlg150h"; }
    void setPowerOn();
    void setPowerOff();
    bool isPowered();

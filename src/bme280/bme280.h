@@ -6,7 +6,7 @@
 #define __BME280_H__
 
 
-//#define BME280_MDELAY_DATA_TYPE uint32_t 
+//#define BME280_MDELAY_DATA_TYPE uint32_t
 
 /****************************************************/
 /**\name        I2C ADDRESS DEFINITIONS  */
@@ -31,9 +31,7 @@ class BME280 : public ITemperatureSensor, public IHumiditySensor, public IPressu
          * @param devAddr address of used i2c device
          * @param mode BME280 mode
          */
-	BME280();
-        //BME280 (int bus, int devAddr= 0x77 , uint8_t mode = 0x03 );
-	BME280 (int bus, int devAddr = BME280_I2C_ADDRESS1);
+	    BME280 (int bus, int devAddr = BME280_I2C_ADDRESS1);
 
         /**
          * BME280 object destructor, basicaly it close i2c connection.
@@ -72,48 +70,39 @@ class BME280 : public ITemperatureSensor, public IHumiditySensor, public IPressu
 
         /**
          * Return calculated pressure (Pa)
-         */ 
+         */
         int getPressurePa();
 
 
         /**
          * Return temperature
          */
-	int32_t getTemperatureInternal(void);
+ 	    int32_t getTemperatureInternal(void);
 
          /**
          * Return pressure
          */
-	int32_t getPressureInternal(void);
-	 /**
+	    int32_t getPressureInternal(void);
+
+	    /**
          * Return  humidity
          */
-	int32_t getHumidityInternal(void);
+	    int32_t getHumidityInternal(void);
 
-
-	  /**
+	    /**
          * Return temperature
          */
-	int32_t getTemperatureRawInternal(void);
+	    int32_t getTemperatureRawInternal(void);
 
          /**
          * Return pressure
          */
-	int32_t getPressureRawInternal(void);
-	 /**
+	    int32_t getPressureRawInternal(void);
+
+	    /**
          * Return  humidity
          */
-	int32_t getHumidityRawInternal(void);
-        
-       
-        
-              
-        //int32_t getTemperatureRaw(void);
-
-        /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
+	    int32_t getHumidityRawInternal(void);
 
         /**
          * Returns whether the correct chip is present at the given address.

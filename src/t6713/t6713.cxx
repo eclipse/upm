@@ -54,7 +54,7 @@ T6713::T6713 (int bus)
     i2c = new mraa::I2c(bus);
     status = i2c->address(T6713_ADDR);
     uint16_t firmwareRevision = getFirmwareRevision();
-    if (!isConfigured())
+    if (firmwareRevision != mraa::SUCCESS)
         UPM_THROW("config failure");
 }
 
@@ -63,20 +63,15 @@ T6713::~T6713()
         delete i2c;
 }
 
-bool T6713::isConfigured()
+const char* T6713::getModuleName()
 {
-        return status == mraa::SUCCESS;
+        return "t6713";
 }
-
-const char* T6713::getModuleName() 
-{ 
-        return "t6713"; 
-}          
 
 uint16_t T6713::getFirmwareRevision()
 {
 	return(getSensorData(T6713_COMMAND_GET_FIRMWARE_REVISION));
-} 
+}
 
 uint16_t T6713::getPpm ()
 {
@@ -115,7 +110,7 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 	  	     if (ret != mraa::SUCCESS)
 	  	     {
                          UPM_THROW ("I2C error setting slave address");
-			 // TODO: need to handle this 
+			 // TODO: need to handle this
 	  	     }
 		     RESPONSE * response  = new RESPONSE ;
 	             if(readBytes = i2c->read((uint8_t*)(response), sizeof(RESPONSE) ) !=  sizeof(RESPONSE))
@@ -133,13 +128,13 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 		     delete(response); response=NULL;
 	             return(data);
 		break;
-	}		
+	}
 	return 0;
 
 }
 
 
-mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd) 
+mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 {
 
     COMMAND * cmdPacket = new COMMAND ;
@@ -195,7 +190,7 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 		if (ret != mraa::SUCCESS)
 		{
                         UPM_THROW ("I2C error setting slave address");
-			//need to handle this 
+			//need to handle this
 		}
 
 
@@ -203,16 +198,16 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 		{
 		     	UPM_THROW("I2C write failed");
 		}
-			
+
 	break;
 	}
 	delete cmdPacket; cmdPacket=NULL;
-	
+
 	return ret;
 }
 
 
-STATUS T6713::getStatus() 
+STATUS T6713::getStatus()
 {
 	uint16_t responseStatus = 0, readBytes = 0;
 	RESPONSE * response  = new RESPONSE ;
@@ -221,18 +216,18 @@ STATUS T6713::getStatus()
 	if (ret != mraa::SUCCESS)
 	{
                 UPM_THROW ("I2C error setting slave address");
-		//need to handle tnis 
+		//need to handle tnis
 	}
 	if(readBytes = i2c->read((uint8_t*) (response), sizeof(RESPONSE)) != sizeof(RESPONSE))
 	{
                 UPM_THROW("I2C read failed");
-	
-	} 
+
+	}
 	if(response->function_code == READ_INPUT_REGISTERS)
 	{
 		if(response->byte_count == 2)
-		{			
-			responseStatus = (response->status_msb << 8 | response->status_lsb);		
+		{
+			responseStatus = (response->status_msb << 8 | response->status_lsb);
 		}
 		else
 		{

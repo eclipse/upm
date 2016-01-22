@@ -34,18 +34,9 @@ namespace upm
 
 #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
-class IModuleStatus 
+class IModuleStatus
 {
 public:
-   /**
-    * Determines if sensor module is configured correctly
-    * e.g. if it uses i2c communication can it configure registers
-    * for correct operation.
-    *
-    * @return true if correctly configured, false it not
-    */
-   virtual bool isConfigured() = 0;
-
    /**
     * Returns name of module. This is the string in library name after libupm_
 

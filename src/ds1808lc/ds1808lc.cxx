@@ -27,11 +27,6 @@ DS1808LC::~DS1808LC()
 }
 
 
-bool DS1808LC::isConfigured()
-{
-   return status == mraa::SUCCESS;
-}
-
 bool DS1808LC::isPowered()
 {
    return static_cast<bool>(MraaUtils::getGpio(pinPower));
@@ -62,7 +57,7 @@ int DS1808LC::getBrightness()
    else
       UPM_THROW("i2c read error");
 }
-   
+
 
 void DS1808LC::setBrightness(int dutyPercent)
 {

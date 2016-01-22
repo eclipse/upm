@@ -53,11 +53,6 @@ ADS1015::ADS1015(int bus, uint8_t address, float vref) : ADS1X15(bus, address) {
 
 ADS1015::~ADS1015(){};
 
-bool
-ADS1015::isConfigured() {
-    return true;
-}
-
 const char*
 ADS1015::getModuleName() {
     return m_name.c_str();
