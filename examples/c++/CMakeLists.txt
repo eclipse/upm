@@ -246,7 +246,7 @@ add_example (hlg150h)
 add_example (lp8860)
 add_example (max44009)
 add_example (si1132)
-#add_example (si7005)
+add_example (si7005)
 #add_example (t6713)
 
 # These are special cases where you specify example binary, source file and module(s)
