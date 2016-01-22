@@ -150,7 +150,7 @@ uint16_t SI7005::getMeasurement(uint8_t configValue) {
 
     // Check we got the data we need
     if(length != SI7005_REG_DATA_LENGTH)
-        UPM_THROW("read error");        
+        UPM_THROW("read error");
 
     // Merge MSB and LSB
     rawData  = ((uint16_t)( data[SI7005_REG_DATA_LOW] & 0xFFFF )) + ( (uint16_t)(( data[SI7005_REG_DATA_HIGH] & 0xFFFF ) << 8 ));
@@ -158,10 +158,6 @@ uint16_t SI7005::getMeasurement(uint8_t configValue) {
     return rawData;
 }
 
-bool
-SI7005::isConfigured() {
-    return status == mraa::SUCCESS;
-}
 
 bool
 SI7005::isAvailable( )

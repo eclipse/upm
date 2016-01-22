@@ -65,7 +65,7 @@ namespace upm {
  * @con i2c
  * @if ipressuresensor
  *
- 
+
  */
 
 class BMP180 : public IPressureSensor, public ITemperatureSensor {
@@ -101,15 +101,10 @@ class BMP180 : public IPressureSensor, public ITemperatureSensor {
         int getTemperatureCelcius();
 
         /**
-         * Returns whether the sensor is configured.
-         */
-        bool isConfigured();
-
-        /**
          * Returns whether the correct chip is present at the given address.
          */
         bool isAvailable();
-        const char* getModuleName() { return "bmp180"; }
+        const char* getModuleName() { return m_name.c_str(); }
 
     private:
         std::string m_name;
@@ -124,8 +119,6 @@ class BMP180 : public IPressureSensor, public ITemperatureSensor {
         uint16_t ac4, ac5, ac6;
 
         int32_t b5;
-
-        bool configured;
 
         bool getCalibrationData();
 };

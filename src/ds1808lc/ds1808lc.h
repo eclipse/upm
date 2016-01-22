@@ -40,7 +40,7 @@ namespace upm
  * [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html)
  * Dual Log Digital Potentiometer
  *
- * 
+ *
  * @library ds1808lc
  * @sensor ds1808lc
  * @comname Maxim  DS1808 as lighting controller
@@ -57,8 +57,7 @@ public:
    ~DS1808LC();
 
 protected:
-   bool isConfigured();
-   const char* getModuleName() { return "ds1808lc"; }   
+   const char* getModuleName() { return "ds1808lc"; }
    bool isPowered();
    void setPowerOn();
    void setPowerOff();

@@ -71,7 +71,7 @@ BME280::BME280 (int bus, int devAddr) {
 		 *	Bus Write
 		 *	Bus read
 		 *	Chip id
-		*-------------------------------------------------------------------------*/	
+		*-------------------------------------------------------------------------*/
 		bme280_init(&bme280);
 	}
 }
@@ -79,18 +79,6 @@ BME280::BME280 (int bus, int devAddr) {
 BME280::~BME280() {
     delete m_i2c;
 }
-
-bool
-BME280::isAvailable() {
-    return true;
-}
-
-bool
-BME280::isConfigured() {
-	return true;
-}
-
-
 
 /* This function is an example for reading sensor temperature
  *	\param: None
@@ -224,7 +212,7 @@ return v_data_uncomp_tem_int32;
 
 /* This function is an example for reading sensor pressure
  *	\param: None
- *	\return: uncompensated pressure 
+ *	\return: uncompensated pressure
  */
 
 int32_t BME280::getPressureRawInternal(void)
@@ -248,7 +236,7 @@ int32_t BME280::getPressureRawInternal(void)
 	 * In the code automated reading and writing of "BME280_CTRLHUM_REG_OSRSH"
 	 * register first set the "BME280_CTRLHUM_REG_OSRSH" and then read and write
 	 * the "BME280_CTRLMEAS_REG" register in the function*/
-	
+
 	/* set the pressure oversampling*/
 	bme280_set_oversamp_pressure(BME280_OVERSAMP_2X);
 
@@ -379,14 +367,14 @@ int32_t BME280::i2c_write_string(uint8_t dev_addr,uint8_t* ptr, uint8_t cnt)
 {
 	mraa::Result ret;
 	m_i2c->address(dev_addr);
-	
+
 	if((ret = m_i2c->write((const uint8_t*) (ptr), cnt)) != 0)
 	{
 	  	UPM_THROW("I2C write error");
 
 	}
 
-} 
+}
 
 /*	\Brief: The function is used as I2C bus write
 *	\Return : Status of the I2C write
@@ -403,7 +391,7 @@ int8_t BME280::BME280_I2C_bus_write(uint8_t dev_addr, uint8_t reg_addr, uint8_t 
 	int32_t iError = BME280_INIT_VALUE;
 	static uint8_t array[I2C_BUFFER_LEN];
         for (int i=0; i<I2C_BUFFER_LEN; i++) array[i]=0;
-	
+
 	uint8_t stringpos = BME280_INIT_VALUE;
 	array[BME280_INIT_VALUE] = reg_addr;
 	for (stringpos = BME280_INIT_VALUE; stringpos < cnt; stringpos++) {
@@ -418,7 +406,7 @@ int32_t BME280::i2c_write_read_string(uint8_t dev_addr,uint8_t reg_addr , uint8_
 	 mraa::Result ret;
 
 	m_i2c->address(dev_addr);
-	
+
 	if( m_i2c->readBytesReg(reg_addr, ptr, cnt) != cnt)
 	{
 		UPM_THROW("bme280 register read failed");
@@ -453,7 +441,7 @@ int8_t BME280::BME280_I2C_bus_read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *
 void BME280::BME280_delay_msek(uint16_t mseconds)
 {
 	struct timespec sleepTime;
-	
+
 	sleepTime.tv_sec = mseconds / 1000; // Number of seconds
 	sleepTime.tv_nsec = ( mseconds % 1000 ) * 1000000; // Convert fractional seconds to nanoseconds
 
@@ -472,7 +460,7 @@ uint16_t BME280::getTemperatureRaw (){ return BME280::getTemperatureRawInternal(
 /**
  * Get temperature measurement.
  */
-int BME280::getTemperatureCelcius (){ return (BME280::getTemperatureInternal() + 50) /100; } 
+int BME280::getTemperatureCelcius (){ return (BME280::getTemperatureInternal() + 50) /100; }
 /**
  * Get relative humidity measurement.
  */

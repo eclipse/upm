@@ -40,7 +40,7 @@ MAX44009::MAX44009 (int bus, int devAddr) {
     // Reset chip to defaults
     status = mraa::SUCCESS;
     reset();
-    if (!isConfigured())
+    if (status != mraa::SUCCESS)
         UPM_THROW("config failure");
 }
 
@@ -81,19 +81,14 @@ double
 MAX44009::getVisibleLux() {
     uint16_t rawValue = getVisibleRaw();
     uint8_t rawValueMsb = rawValue >> 8;
-    uint8_t rawValueLsb = rawValue & 0xFF;    
+    uint8_t rawValueLsb = rawValue & 0xFF;
     uint8_t exponent = (( rawValueMsb & 0xF0 ) >> 4);
     uint8_t mantissa = (( rawValueMsb & 0x0F ) << 4 ) | ( rawValueLsb & 0x0F );
 
     // Check for overrange condition
-    if(exponent == MAX44009_OVERRANGE_CONDITION) 
-        UPM_THROW("Overrange error");        
+    if(exponent == MAX44009_OVERRANGE_CONDITION)
+        UPM_THROW("Overrange error");
 
     return pow((double)2,(double)exponent) * mantissa * 0.045;
 }
 
-
-bool
-MAX44009::isConfigured() {
-    return  status == mraa::SUCCESS;
-}

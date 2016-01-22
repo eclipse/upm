@@ -19,7 +19,7 @@ HLG150H::HLG150H(int pinRelay, int pinPWM)
       UPM_THROW("pwm init failed");
    status = pwmBrightness->enable(true);
    status = pwmBrightness->period_us(PWM_PERIOD);
-   if (!isConfigured())
+   if (status != mraa::SUCCESS)
       UPM_THROW("pwm config failed.");
    dutyPercent = getBrightness();
    isPoweredShadow = dutyPercent > 10;
@@ -29,12 +29,6 @@ HLG150H::~HLG150H()
 {
    delete pwmBrightness;
 }
-
-bool HLG150H::isConfigured()
-{
-   return status == mraa::SUCCESS;
-}
-
 
 void HLG150H::setPowerOn()
 {
@@ -68,14 +62,11 @@ void HLG150H::setBrightness(int dutyPercent)
 {
    if (dutyPercent < 10)
       dutyPercent = 10;
-   if (isConfigured())
-   {
-      int dutyUs = (PWM_PERIOD * dutyPercent) / 100;
-      dutyUs = PWM_PERIOD - dutyUs;
-      status = pwmBrightness->pulsewidth_us(dutyUs);
-      // std::cout << "Brightness = " << dutyPercent << "%, duty = " << dutyUs << "us" << std::endl;      
-   }
-   else
+   int dutyUs = (PWM_PERIOD * dutyPercent) / 100;
+   dutyUs = PWM_PERIOD - dutyUs;
+   status = pwmBrightness->pulsewidth_us(dutyUs);
+   // std::cout << "Brightness = " << dutyPercent << "%, duty = " << dutyUs << "us" << std::endl;
+   if (status != mraa::SUCCESS)
       UPM_THROW("setBrightness failed");
 
 }
@@ -83,14 +74,9 @@ void HLG150H::setBrightness(int dutyPercent)
 
 int HLG150H::getBrightness()
 {
-   if (isConfigured())
-   {
-      float duty = pwmBrightness->read();
-      int dutyPercent = static_cast<int>(100.0 * (1.0 - duty) + 0.5);
-      return dutyPercent;
-   }
-   else
-      UPM_THROW("getBrightness failed");
+   float duty = pwmBrightness->read();
+   int dutyPercent = static_cast<int>(100.0 * (1.0 - duty) + 0.5);
+   return dutyPercent;
 }
 
 
