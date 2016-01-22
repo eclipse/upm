@@ -15,8 +15,6 @@ HLG150H::HLG150H(int pinRelay, int pinPWM)
    this->pinRelay = pinRelay;
    isPoweredShadow = false;
    pwmBrightness = new mraa::Pwm(pinPWM);
-   if (pwmBrightness == NULL)
-      UPM_THROW("pwm init failed");
    status = pwmBrightness->enable(true);
    status = pwmBrightness->period_us(PWM_PERIOD);
    if (status != mraa::SUCCESS)

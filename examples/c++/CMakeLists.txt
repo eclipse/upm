@@ -241,6 +241,7 @@ add_example (apds9930)
 add_example (kxcjk1013)
 add_example (ssd1351)
 add_example (bme280)
+add_example (ds1808lc)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
