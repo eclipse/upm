@@ -22,8 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_a110x.IsrCallback;
-
 public class A110X_intrSample {
 	
 	public static int counter=0;
@@ -38,7 +36,7 @@ public class A110X_intrSample {
 		// is detected.  This could be used to measure the rotations per
 		// minute (RPM) of a rotor for example.
 
-		IsrCallback callback = new A110XISR();
+		A110XISR callback = new A110XISR();
 		hall.installISR(callback);
 		
 		while(true){
@@ -49,7 +47,7 @@ public class A110X_intrSample {
 	}
 }
 
-class A110XISR extends IsrCallback {
+class A110XISR implements Runnable {
 	public A110XISR(){
 		super();
 	}
