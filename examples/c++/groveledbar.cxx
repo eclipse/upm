@@ -42,12 +42,12 @@ int main ()
 {
   signal(SIGINT, sig_handler);
 
-//! [Interesting] 
+//! [Interesting]
 
   // Instantiate a GroveLEDBar, we use D8 for the data, and D9 for the
   // clock.  This was tested with a Grove LED bar.
   upm::GroveLEDBar* bar = new upm::GroveLEDBar(8, 9);
-  
+
   while (shouldRun)
     {
       // count up from green to red
