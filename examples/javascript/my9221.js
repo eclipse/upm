@@ -26,9 +26,9 @@
 
 var LEDBar = require("jsupm_my9221");
 
-// Instantiate a MY9221, we use D2 for the data, and D3 for the
+// Instantiate a MY9221, we use D8 for the data, and D9 for the
 // data clock.  This was tested with a Grove LED bar.
-var myLEDBar = new LEDBar.MY9221(2, 3);
+var myLEDBar = new LEDBar.GroveLEDBar(8, 9);
 
 var directionBool = true;
 
