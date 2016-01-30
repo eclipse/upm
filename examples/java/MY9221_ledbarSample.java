@@ -22,20 +22,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class MY9221_ledbarSample{
+public class GroveLEDBar {
 
-	public static void main(String[] args) throws InterruptedException {
-		//! [Interesting]
-        // Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9
-		upm_my9221.MY9221 bar = new upm_my9221.MY9221((short) 8, (short) 9);
-	
-		while (true) {
-			for (short idx = 1; idx < 11; idx++) {
-				bar.setBarLevel(idx);
-				Thread.sleep(100);
-			}
-		}
+    public static void main(String[] args) throws InterruptedException {
         //! [Interesting]
-	}
+        // Instantiate a Grove LED Bar, with Data pin D8 and Clock pin D9
+        upm_my9221.GroveLEDBar bar = new upm_my9221.GroveLEDBar((short) 8, (short) 9);
+        
+        while (true) {
+            for (short idx = 1; idx < 11; idx++) {
+                bar.setBarLevel(idx);
+                Thread.sleep(100);
+            }
+        }
+        //! [Interesting]
+    }
 	
 }
