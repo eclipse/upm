@@ -23,7 +23,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovecircularled as upmGroveCircularLED
+import pyupm_my9221 as upmGroveCircularLED
 
 # Exit handlers
 def SIGINTHandler(signum, frame):
@@ -39,8 +39,8 @@ atexit.register(exitHandler)
 # This function stops python from printing a stacktrace when you hit control-C
 signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Instantiate a Grove Circular LED on gpio pins 5 and 4
-circle = upmGroveCircularLED.GroveCircularLED(5, 4)
+# Instantiate a Grove Circular LED on gpio pins 9 and 8
+circle = upmGroveCircularLED.GroveCircularLED(9, 8)
 
 level = 0
 
