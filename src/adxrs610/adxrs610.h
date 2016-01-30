@@ -38,7 +38,7 @@
 
 namespace upm {
   /**
-   * @brief DFRobot ADXRS610 Gyro Beakout board
+   * @brief DFRobot ADXRS610 Gyro Breakout Board
    * @defgroup adxrs610 libupm-adxrs610
    * @ingroup dfrobot analog compass
    */
@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library adxrs610
    * @sensor adxrs610
-   * @comname DFRobot ADXRS610 Gyro Beakout board
+   * @comname DFRobot ADXRS610 Gyro Breakout Board
    * @altname ADXRS610
    * @type compass
    * @man dfrobot
