@@ -1,5 +1,0 @@
-set (libname "grovecircularled")
-set (libdescription "upm grove circular led")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
