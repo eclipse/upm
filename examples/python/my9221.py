@@ -24,9 +24,9 @@
 import time, sys, signal, atexit
 import pyupm_my9221 as upmMy9221
 
-# Instantiate a MY9221, we use D2 for the data, and D3 for the
+# Instantiate a MY9221, we use D8 for the data, and D9 for the
 # data clock.  This was tested with a Grove LED bar.
-myLEDBar = upmMy9221.MY9221(2, 3)
+myLEDBar = upmMy9221.GroveLEDBar(8, 9)
 
 
 # Exit handlers
