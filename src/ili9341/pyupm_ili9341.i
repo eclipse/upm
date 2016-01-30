@@ -4,6 +4,7 @@
 %include "../upm.i"
 
 %feature("autodoc", "3");
+%rename("printString") print(std::string msg);
 
 %include "gfx.h"
 %{

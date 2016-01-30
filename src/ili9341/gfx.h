@@ -32,7 +32,6 @@
 
 namespace upm 
 {
-
     /**
      * @brief GFX helper class
      */

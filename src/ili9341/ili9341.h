@@ -32,7 +32,7 @@
 #include <mraa/common.hpp>
 #include <mraa/gpio.hpp>
 #include <mraa/spi.hpp>
-#include <gfx.h>
+#include "gfx.h"
 
 // Defines
 #define ILI9341_TFTWIDTH    240
@@ -128,7 +128,6 @@
 #define ILI9341_PINK        0xF81F
 
 namespace upm {
-
     /**
      * @brief ILI9341 LCD library
      * @defgroup ili9341 libupm-ili9341
