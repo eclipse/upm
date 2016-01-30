@@ -128,11 +128,8 @@ namespace upm
     ~EBOLED();
 
     /**
-     * Draw the buffer to screen, see examples/python/make_oled_pic.py for an
-     * explanation on how the pixels are mapped to bytes.
+     * Draw the buffer to screen.
      *
-     * @param data the buffer to write
-     * @param bytes the number of bytes to write
      * @return result of operation
      */
     mraa::Result refresh();

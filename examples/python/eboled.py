@@ -29,10 +29,11 @@ import pyupm_i2clcd as lcdObj
 lcd = lcdObj.EBOLED();
 
 lcd.clear();
-lcd.setCursor(2, 0);
+lcd.setCursor(10, 15);
 lcd.write("Hello");
-lcd.setCursor(3, 5);
+lcd.setCursor(30, 15);
 lcd.write("World!");
+lcd.refresh();
 print "Sleeping for 5 seconds..."
 time.sleep(5)
 
