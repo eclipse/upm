@@ -33,7 +33,7 @@
 #include <mraa/gpio.hpp>
 
 #include <mraa/spi.hpp>
-#include <gfx.h>
+#include "gfx.h"
 
 #define INITR_GREENTAB      0x0
 #define INITR_REDTAB        0x1
