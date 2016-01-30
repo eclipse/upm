@@ -9,3 +9,13 @@
 %{
     #include "my9221.h"
 %}
+
+%include "groveledbar.h"
+%{
+    #include "groveledbar.h"
+%}
+
+%include "grovecircularled.h"
+%{
+    #include "grovecircularled.h"
+%}
