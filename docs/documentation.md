@@ -50,10 +50,12 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
   library's "@defgroup", otherwise this is a new library name, generally the
   same as chip id. *Mandatory*
 - `<chip-id>` Usually the chip number used by the sensor. When this is not
-  available or relevant, use a unique descriptor that makes sense. *Mandatory*
-- `<component-name>` A short name for your sensor, can include manufacturer
-  name. *Mandatory*
-- `<alt-name>` Alternative names that your sensor driver might have. *Optional*
+  available or relevant, use a unique descriptor that makes sense. Must match
+  class name. *Mandatory*
+- `<component-name>` A short name for your sensor, try to avoid including the
+  manufacturer's name here. *Mandatory*
+- `<alt-name>` Alternative names that your sensor driver might have. This may
+  include manufacturer's name. *Optional*
 - `<alt-id>` Alternative chip-ids that your sensor driver supports. *Optional*
 - `<component-category>` Mention one or more categories the sensor fits in. Can
   be 'other'. *Mandatory*
