@@ -48,7 +48,7 @@ int
 APDS9930::getAmbient()
 {
     int iio_value = 0;
-    mraa_iio_read_integer(m_iio, "in_illuminance_input", &iio_value);
+    mraa_iio_read_int(m_iio, "in_illuminance_input", &iio_value);
     return iio_value;
 }
 
@@ -56,6 +56,6 @@ int
 APDS9930::getProximity()
 {
     int iio_value = 0;
-    mraa_iio_read_integer(m_iio, "in_proximity_raw", &iio_value);
+    mraa_iio_read_int(m_iio, "in_proximity_raw", &iio_value);
     return iio_value;
 }
