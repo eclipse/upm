@@ -61,14 +61,6 @@ KXCJK1013::~KXCJK1013()
     // mraa_iio_stop(m_iio);
 }
 
-#ifdef JAVACALLBACK
-void
-KXCJK1013::installISR(IsrCallback* cb)
-{
-    installISR(generic_callback_isr, cb);
-}
-#endif
-
 void
 KXCJK1013::installISR(void (*isr)(char*), void* arg)
 {
@@ -132,9 +124,9 @@ KXCJK1013::getChannelValue(unsigned char* input, mraa_iio_channel* chan)
 bool
 KXCJK1013::enableBuffer(int length)
 {
-    mraa_iio_write_integer(m_iio, "buffer/length", length);
+    mraa_iio_write_int(m_iio, "buffer/length", length);
     // enable must be last step, else will have error in writing above config
-    mraa_iio_write_integer(m_iio, "buffer/enable", 1);
+    mraa_iio_write_int(m_iio, "buffer/enable", 1);
 
     return true;
 }
@@ -142,7 +134,7 @@ KXCJK1013::enableBuffer(int length)
 bool
 KXCJK1013::disableBuffer()
 {
-    mraa_iio_write_integer(m_iio, "buffer/enable", 0);
+    mraa_iio_write_int(m_iio, "buffer/enable", 0);
 
     return true;
 }
@@ -170,9 +162,9 @@ KXCJK1013::enable3AxisChannel()
     sprintf(trigger, "kxcjk1013-hr-dev%d", m_iio_device_num);
 
     mraa_iio_write_string(m_iio, "trigger/current_trigger", trigger);
-    mraa_iio_write_integer(m_iio, "scan_elements/in_accel_x_en", 1);
-    mraa_iio_write_integer(m_iio, "scan_elements/in_accel_y_en", 1);
-    mraa_iio_write_integer(m_iio, "scan_elements/in_accel_z_en", 1);
+    mraa_iio_write_int(m_iio, "scan_elements/in_accel_x_en", 1);
+    mraa_iio_write_int(m_iio, "scan_elements/in_accel_y_en", 1);
+    mraa_iio_write_int(m_iio, "scan_elements/in_accel_z_en", 1);
 
     // need update channel data size after enable
     mraa_iio_update_channels(m_iio);

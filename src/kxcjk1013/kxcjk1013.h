@@ -26,10 +26,6 @@
 #include <string>
 #include <mraa/iio.h>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-#include "../IsrCallback.h"
-#endif
-
 namespace upm
 {
 /**
@@ -67,20 +63,16 @@ class KXCJK1013
      * KXCJK1013 destructor
      */
     ~KXCJK1013();
-/**
- * Installs an interrupt service routine (ISR) to be called when
- * an interrupt occurs
- *
- * @param interrupt channel
- * @param fptr Pointer to a function to be called on interrupt
- * @param arg Pointer to an object to be supplied as an
- * argument to the ISR.
- */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(IsrCallback* cb);
-#else
+    /**
+     * Installs an interrupt service routine (ISR) to be called when
+     * an interrupt occurs
+     *
+     * @param interrupt channel
+     * @param fptr Pointer to a function to be called on interrupt
+     * @param arg Pointer to an object to be supplied as an
+     * argument to the ISR.
+     */
     void installISR(void (*isr)(char*), void* arg);
-#endif
     /**
      * Extract the channel value based on channel type
    * @param input Channel data
