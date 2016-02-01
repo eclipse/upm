@@ -31,9 +31,6 @@ such sensors and known workarounds if they exist.
  * **Grove Barometer** (BMP085) has an unstable connection on the Intel Edison
  using the Arduino breakout and may drop read data. The Xadow version of this
  sensor (BMP180) is also dropping data packets occasionally.
- * **Grove Digital Light Sensor** (TSL2561) occasionally drops I2C reads on the
- Intel Edison with the Arduino breakout. This might cause the sensor not to
- initialize properly. Works as expected with the Mini-breakout.
  * **Grove 6-Axis Accelerometer & Compass** (LSM303) fails to write to the
  configuration register properly and returns invalid data.
  * **Grove I2C ADC Converter** does not show up on the I2C bus on the Intel
@@ -42,7 +39,8 @@ such sensors and known workarounds if they exist.
  the inability to change the I2C bus speed to 100 KHz.
  * **Grove Digital Light Sensor** (TSL2561) may have an unstable connection on
  the Intel Edison using the Arduino breakout that results in missed I2C reads.
- This is usually applicable when the I2C lines are pulled-up to 5V.
+ This is usually applicable when the I2C lines are pulled-up to 5V. Works as
+ expected with the Mini-breakout.
  * **Grove CO2 Sensor** will return zeroed data and is unusable on the Intel
  Galileo.
  * **Grove BLE** (HM-11) does not return data on the Intel Galileo board due to
