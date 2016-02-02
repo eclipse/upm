@@ -4,6 +4,21 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.5.0
+
+ * First implementations for industrial grade Modbus sensors, along with first
+ sensor examples that use the new iio system driver in MRAA.
+ * Significant improvements to the stepmotor driver that will now allow precise
+ control using any GPIO pin and extended the API with new functionality.
+ * Further improved JAVA bindings and sensor ISRs have been modified to
+ implement Runnable objects.
+ * Improved Python typemaps and error checking, documentation now includes
+ detailed function descriptions.
+ * Simplified the build process by eliminating the need to define redundant
+ MRAA related environment variables.
+ * New sensors: nlgpio16, ads1x15, t3311, hdxxvxta, hwxpxx, rhusb, ili9341,
+ apds9930, kxcjk1013
+
 ### v0.4.1
 
  * Over 150 supported sensor drivers including some industrial grade devices
