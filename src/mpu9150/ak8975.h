@@ -38,7 +38,7 @@ namespace upm {
    * @comname AK8975 3-axis Magnetometer
    * @altname AK9875
    * @type compass
-   * @man grove
+   * @man seeed
    * @con i2c
    *
    * @brief API for the AK8975 magnetometer

@@ -46,7 +46,7 @@ namespace upm {
  * @sensor groveultrasonic
  * @comname Grove Ultrasonic Ranger
  * @type sound
- * @man grove
+ * @man seeed
  * @con gpio
  *
  * @brief API for Grove Ultrasonic Ranger
