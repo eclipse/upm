@@ -55,8 +55,8 @@
 namespace upm {
   /**
    * @library ads1x15
-   * @sensor ADS1115
-   * @comname ADS1115 ADC
+   * @sensor ADS1015
+   * @comname ADS1015 ADC
    * @type electric
    * @man ti adafruit
    * @con i2c
