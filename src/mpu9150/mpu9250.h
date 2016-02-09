@@ -46,6 +46,7 @@ namespace upm {
    *
    * This module defines the MPU9250 interface for libmpu9150
    *
+   * @image html mpu9250.jpg
    * @snippet mpu9250.cxx Interesting
    */
 

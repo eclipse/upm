@@ -34,16 +34,20 @@ namespace upm
    * @sensor sainsmartks
    * @comname SainSmart LCD Keypad Shield
    * @type display
-   * @man sainsmart
+   * @man sainsmart dfrobot sparkfun
    * @web http://www.sainsmart.com/sainsmart-1602-lcd-keypad-shield-for-arduino-duemilanove-uno-mega2560-mega1280.html
+   * @web http://www.dfrobot.com/index.php?route=product/product&product_id=51
+   * @web https://www.sparkfun.com/products/13293
    * @con gpio analog
    *
    * @brief API for Sainsmart LCD Keypad Shield
    *
-   * The Sainsmart LCD Keypad Shield uses 6 digital outputs and 1
-   * analog input (for the keypad).  The outputs are used to drive an
-   * attached LCM1602 LCD controller.
+   * The Sainsmart LCD Keypad Shield uses 6 digital outputs and 1 analog input
+   * (for the keypad). The outputs are used to drive an attached LCM1602 LCD
+   * controller. This driver should also be compatible with the similar LCD
+   * keypad shields from DFRobot and Sparkfun.
    *
+   * @image keypadlcd.jpg
    * @snippet sainsmartks.cxx Interesting
    */
   class SAINSMARTKS : public Lcm1602

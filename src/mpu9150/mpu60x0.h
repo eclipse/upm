@@ -55,6 +55,7 @@ namespace upm {
    * should allow an end user to implement whatever features are
    * required.
    *
+   * @image html mpu60x0.jpg
    * @snippet mpu60x0.cxx Interesting
    */
   class MPU60X0 {

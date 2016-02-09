@@ -74,6 +74,7 @@ namespace upm {
      *
      * (https://www.dfrobot.com/wiki/index.php?title=URM37_V4.0_Ultrasonic_Sensor_%28SKU:SEN0001%29)
      *
+     * @image html urm37.jpg
      * An example using analog mode
      * @snippet urm37.cxx Interesting
      * An example using UART mode

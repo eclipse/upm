@@ -66,6 +66,7 @@ namespace upm {
    *
    * @brief API for the PN532 based NFC/RFID reader/writer
    *
+   * @image html pn532.jpg
    * Identify a card and print out basic info
    * @snippet pn532.cxx Interesting
    * Add a URI to an already NDEF formatted ultralight or NTAG2XX tag

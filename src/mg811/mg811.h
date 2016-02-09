@@ -64,6 +64,7 @@ namespace upm {
    * on the sensor will light, and the digital pin will be driven
    * high.
    *
+   * @image html mg811.jpg
    * @snippet mg811.cxx Interesting
    */
 

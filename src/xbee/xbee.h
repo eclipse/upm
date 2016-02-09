@@ -70,6 +70,11 @@ namespace upm {
      * windows software, however it is possible of course to configure
      * them manually using AT commands.  See the examples.
      *
+     * @image html xbee.jpg
+     * <br><em>XBee Sensor image provided by SparkFun* under
+     * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+     * CC BY-NC-SA-3.0</a>.</em>
+     *
      * @snippet xbee.cxx Interesting
      */
 

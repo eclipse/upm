@@ -59,6 +59,7 @@ namespace upm {
    * correlate the number of counts to a time period for calculating
    * an RPM or other value as needed.
    *
+   * @image html wheelencoder.jpg
    * @snippet wheelencoder.cxx Interesting
    */
   class WheelEncoder {

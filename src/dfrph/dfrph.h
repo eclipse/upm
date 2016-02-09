@@ -83,6 +83,7 @@ namespace upm {
    *  this calibration, you can measure the pH value of an alkaline
    *  solution.
    *
+   * @image html dfrph.jpg
    * @snippet dfrph.cxx Interesting
    */
 

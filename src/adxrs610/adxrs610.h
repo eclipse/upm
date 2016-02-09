@@ -65,6 +65,7 @@ namespace upm {
    *
    * This driver was developed using the DFRobot ADXRS610 Gyro Beakout board.
    *
+   * @image html adxrs610.jpg
    * @snippet adxrs610.cxx Interesting
    */
 

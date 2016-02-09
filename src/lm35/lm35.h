@@ -54,6 +54,7 @@ namespace upm {
    * This driver was developed using the DFRobot LM35 Linear
    * Temperature Sensor
    *
+   * @image html lm35.jpg
    * @snippet lm35.cxx Interesting
    */
 

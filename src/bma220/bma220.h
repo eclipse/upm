@@ -63,6 +63,7 @@ namespace upm {
    *
    * This driver was developed on a DFRobot BMA (Tiny).
    *
+   * @image html bma220.jpg
    * @snippet bma220.cxx Interesting
    */
 

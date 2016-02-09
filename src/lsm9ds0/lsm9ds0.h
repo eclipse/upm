@@ -68,6 +68,11 @@ namespace upm {
    *
    * This driver was developed on a Sparkfun 9DOF edison block.
    *
+   * @image html lsm9ds0.jpg
+   * <br><em>LSM9DS0 Sensor image provided by SparkFun* under
+   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
+   * CC BY-NC-SA-3.0</a>.</em>
+   *
    * @snippet lsm9ds0.cxx Interesting
    */
 
