@@ -45,6 +45,14 @@
 
 namespace upm
 {
+  const uint8_t COLOR_WHITE     = 0x01;
+  const uint8_t COLOR_BLACK     = 0x00;
+  const uint8_t COLOR_XOR       = 0x02;
+  const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
+  const uint8_t VERT_COLUMNS    = 0x20; // half width for hi/lo 16bit writes.
+  const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
+  const int     BUFFER_SIZE     = 192;
+
   /**
    * @library i2clcd
    * @sensor eboled
@@ -73,15 +81,6 @@ namespace upm
    *
    * @snippet eboled.cxx Interesting
    */
-
-  const uint8_t COLOR_WHITE     = 0x01;
-  const uint8_t COLOR_BLACK     = 0x00;
-  const uint8_t COLOR_XOR       = 0x02;
-  const uint8_t OLED_WIDTH      = 0x40; // 64 pixels
-  const uint8_t VERT_COLUMNS    = 0x20; // half width for hi/lo 16bit writes.
-  const uint8_t OLED_HEIGHT     = 0x30; // 48 pixels
-  const int     BUFFER_SIZE     = 192;
-
   class EBOLED : public LCD
   {
     // SSD commands

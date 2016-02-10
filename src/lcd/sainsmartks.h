@@ -47,7 +47,7 @@ namespace upm
    * controller. This driver should also be compatible with the similar LCD
    * keypad shields from DFRobot and Sparkfun.
    *
-   * @image keypadlcd.jpg
+   * @image html keypadlcd.jpg
    * @snippet sainsmartks.cxx Interesting
    */
   class SAINSMARTKS : public Lcm1602

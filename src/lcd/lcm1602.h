@@ -62,7 +62,10 @@ namespace upm
  * an I2C expander/backpack.
  *
  * @image html lcm1602.jpeg
- * @snippet lcm1602-lcd.cxx Interesting
+ * Example for LCM1602 displays that use the I2C bus
+ * @snippet lcm1602-i2c.cxx Interesting
+ * Code sample for GPIO based LCM1602 displays
+ * @snippet lcm1602-parallel.cxx Interesting
  */
 class Lcm1602 : public LCD
 {
