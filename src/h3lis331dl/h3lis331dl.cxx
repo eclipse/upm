@@ -57,16 +57,20 @@ H3LIS331DL::~H3LIS331DL()
 
 bool H3LIS331DL::init(DR_BITS_T odr, PM_BITS_T pm, FS_BITS_T fs)
 {
-  if (!setDataRate(odr))
+  if (!setDataRate(odr)) {
     return false;
-  if (!setPowerMode(pm))
+  }
+  if (!setPowerMode(pm)) {
     return false;
-  if (!setFullScale(fs))
+  }
+  if (!setFullScale(fs)) {
     return false;
+  }
 
   // now enable X, Y, and Z axes
-  if (enableAxis(REG1_XEN | REG1_YEN | REG1_ZEN))
+  if (!enableAxis(REG1_XEN | REG1_YEN | REG1_ZEN)) {
     return false;
+  }
 
   return true;
 }
