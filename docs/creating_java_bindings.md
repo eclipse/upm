@@ -253,61 +253,29 @@ __SWIG:__
 
 
 ###Implementing callbacks in Java
-Method calls from the Java instance are passed to the C++ instance transparently via C wrapper functions. In the default usage of SWIG, this arrangement is asymmetric in the sense that no corresponding mechanism exists to pass method calls down the inheritance chain from C++ to Java. To address this problem, SWIG introduces new classes called directors at the bottom of the C++ inheritance chain. The job of the directors is to route method calls correctly, either to C++ implementations higher in the inheritance chain or to Java implementations lower in the inheritance chain. The upshot is that C++ classes can be extended in Java and from C++ these extensions look exactly like native C++ classes. For more on Java directors, read the ["Cross language polymorphism using directors"](http://www.swig.org/Doc3.0/SWIGDocumentation.html#Java_directors) chapter of the SWIG documentation.
-To enable directors, add the "directors" option to the %module directive, and use the %feature("director") directive to tell SWIG which classes and methods should get directors. If only a class is specified, the %feature is applied to all virtual methods in that class. If no class or method is specified, the %feature is applied globally to all virtual methods.
-
-```
-%module(directors="1") modulename
-%feature("director") IsrCallback;
-```
+Callbacks in the UPM Java library (as well as the MRAA Java library) make use of the _void mraa\_java\_isr\_callback(void\* data\)_ method from MRAA.  
 
 __Callbacks in the UPM Java library are implemented as follows (we use the a110x Hall Effect sensors as example):__
 
-We create a new C++ class, that will be wrapped by SWIG, called _IsrCallback_; and a method _generic\_callback\_isr(void\* data)_ that takes an instance of IsrCallback as argument.
+We extend the sensor class with another method, _installISR\(jobject runnable\)_, which is a wrapper over the original _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ method. This will install the _mraa\_java\_isr\_callback\(\)_ method as the interrupt service routine \(ISR\) to be called, with _jobject runnable_ as argument.
+
+SWIGJAVA is a symbol that is always defined by SWIG when using Java. We enclose the _installISR\(jobject runnable\)_ method in a _\#if defined(SWIGJAVA)_ check, to ensure the code only exists when creating a wrapper for Java.
 
 ```c++
 #if defined(SWIGJAVA)
-class IsrCallback
+void A110X::installISR(jobject runnable)
 {
-    public:
-        virtual ~IsrCallback()
-        {
-        }
-        virtual void run()
-        { /* empty, overridden in Java*/
-        }
-
-    private:
-};
-
-static void generic_callback_isr (void* data)
-{
-    IsrCallback* callback = (IsrCallback*) data;
-    if (callback == NULL)
-        return;
-    callback->run();
+    installISR(mraa_java_isr_callback, runnable);
 }
 #endif
 ```
 
-SWIGJAVA is a symbol that is always defined by SWIG when using Java. We enclose the _IsrCallback_ class and _generic\_callback\_isr()_ in a _\#if defined(SWIGJAVA)_ check, to ensure the code only exists when creating a wrapper for Java.
-We extend the sensor class with another method, _installISR\(IsrCallback \*cb\)_, which is a wrapper over the original _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ method. This will install the _generic\_callback\_isr\(\)_ method as the interrupt service routine \(ISR\) to be called, with the _IsrCallback_ object (referenced by *cb) as argument.
-
-```c++
-#if defined(SWIGJAVA)
-void A110X::installISR( IsrCallback *cb)
-{
-    installISR(generic_callback_isr, cb);
-}
-#endif
-```
-
-We hide the underlying method, _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ , and expose only the _installISR\(IsrCallback \*cb\)_ to SWIG, through the use of the SWIGJAVA symbol. When SWIGJAVA is defined, we change the access modifier of the underlying method to private.
+We hide the underlying method, _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ , and expose only the _installISR\(jobject runnable\)_ to SWIG, through the use of the SWIGJAVA symbol. When SWIGJAVA is defined, we change the access modifier of the underlying method to private.
 
 ```c++
 public:
 #if defined(SWIGJAVA)
-    void installISR(IsrCallback *cb);
+    void installISR(jobject runnable);
 #else
     void installISR(void (*isr)(void *), void *arg);
 #endif
@@ -317,7 +285,7 @@ private:
 #endif
 ```
 
-To use callback in java, we create a ISR class, which extends the new IsrCallback class created by SWIG, and we override the _run\(\)_ method with the code to be executed when the interrupt is received. An example for the a110x Hall sensor that increments a counter each time an interrupt is received:
+To use callback in java, we create a ISR class, which implements the Java Runnable interface, and we override the _run\(\)_ method with the code to be executed when the interrupt is received. An example for the a110x Hall sensor that increments a counter each time an interrupt is received:
 
 ```java
 public class A110X_intrSample {
@@ -326,7 +294,7 @@ public class A110X_intrSample {
     public static void main(String[] args) throws InterruptedException {
         upm_a110x.A110X hall = new upm_a110x.A110X(2);
 
-        IsrCallback callback = new A110XISR();
+        A110XISR callback = new A110XISR();
         hall.installISR(callback);
         
         while(true){
@@ -336,7 +304,7 @@ public class A110X_intrSample {
     }
 }
 
-class A110XISR extends IsrCallback {
+class A110XISR implements Runnable {
     public A110XISR(){
         super();
     }
@@ -381,20 +349,5 @@ But in a big automatic build like the java upm libraries, this may prove too har
 by
 ```c++
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
-```
-
-__Use GlobalRef instead of WeakRef__
-
-By default, SWIG uses WeakRef to the Java objects handled by a director. Once Java objects run out of scope they can get cleaned up. In many cases WeakRef is undesirable as we may still want to be able to run methods or access fields in the objects passed to the JNI layer (e.g. we want to pass a runnable-like object which should be called when something happens). To use GlobalRefs instead, the following line must be added after the director declaration:
-
-```
-SWIG_DIRECTOR_OWNED(module)
-```
-
-For, example, in case of a module called IsrCallback (used for interrupts in MRAA and UPM), we would declare said module as such:
-
-```
-%feature ("director") IsrCallback;
-SWIG_DIRECTOR_OWNED(IsrCallback)
 ```
 
