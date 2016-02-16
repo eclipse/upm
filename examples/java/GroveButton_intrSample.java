@@ -22,9 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_grove.IsrCallback;
-
-//NOT TESTED!!!
 public class GroveButton_intrSample {
 
 	public static int counter = 0;
@@ -33,8 +30,8 @@ public class GroveButton_intrSample {
 		// ! [Interesting]
 		upm_grove.GroveButton b = new upm_grove.GroveButton(2);
 
-		IsrCallback callback = new ButtonISR();
-		b.installISR(mraa.Edge.EDGE_RISING.swigValue(), callback);
+		ButtonISR callback = new ButtonISR();
+		b.installISR(2, callback);
 
 		while (true) {
 			System.out.println("Counter: " + counter);
@@ -44,7 +41,7 @@ public class GroveButton_intrSample {
 	}
 }
 
-class ButtonISR extends IsrCallback {
+class ButtonISR implements Runnable {
 	public ButtonISR() {
 		super();
 	}
