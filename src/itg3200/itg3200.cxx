@@ -86,7 +86,7 @@ Itg3200::calibrate(void)
     for(int i = 0; i < reads; i++){
 
         Itg3200::update();
-        if (i > skip){
+        if (i >= skip){
             for (int j = 0; j < 3; j++){
                 temp[j] += m_rotation[j];
             }
