@@ -70,7 +70,7 @@ void A110X::installISR(void (*isr)(void *), void *arg)
     uninstallISR();
 
   // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_FALLING, 
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_BOTH, 
                 isr, arg);
   m_isrInstalled = true;
 }
