@@ -239,6 +239,7 @@ add_example (hdxxvxta)
 add_example (rhusb)
 add_example (apds9930)
 add_example (kxcjk1013)
+add_example (apa102)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
