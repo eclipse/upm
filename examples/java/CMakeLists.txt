@@ -106,6 +106,7 @@ add_example(Gp2y0aExample gp2y0a)
 add_example(Th02Example th02)
 add_example(FlexSensorExample flex)
 add_example(CWLSXXA_Example cwlsxxa)
+add_example(TEAMS_Example teams)
 
 
 add_example_with_path(Jhd1313m1_lcdSample lcd/upm_i2clcd.jar)
