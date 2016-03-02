@@ -108,6 +108,7 @@ add_example(FlexSensorExample flex)
 add_example(CWLSXXA_Example cwlsxxa)
 add_example(TEAMS_Example teams)
 add_example(APA102Sample apa102)
+add_example(TEX00_Example tex00)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd/upm_i2clcd.jar)
 add_example_with_path(Jhd1313m1Sample lcd/upm_i2clcd.jar)
