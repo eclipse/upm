@@ -167,7 +167,7 @@ SX1276::~SX1276()
 
 uint8_t SX1276::readReg(uint8_t reg)
 {
-  uint8_t pkt[2] = {(reg & 0x7f), 0};
+  uint8_t pkt[2] = {static_cast<uint8_t>(reg & 0x7f), 0};
 
   csOn();
   if (m_spi.transfer(pkt, pkt, 2))
@@ -184,7 +184,7 @@ uint8_t SX1276::readReg(uint8_t reg)
 
 bool SX1276::writeReg(uint8_t reg, uint8_t val)
 {
-  uint8_t pkt[2] = {reg | m_writeMode, val};
+  uint8_t pkt[2] = {static_cast<uint8_t>(reg | m_writeMode), val};
 
   csOn();
   if (m_spi.transfer(pkt, NULL, 2))
