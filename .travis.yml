@@ -18,4 +18,4 @@ script:
   - export PKG_CONFIG_PATH=$PWD/lib/pkgconfig:$PWD/lib/x86_64-linux-gnu/pkgconfig
   - export CPLUS_INCLUDE_PATH=$PWD/include
   - export LIBRARY_PATH=$PWD/lib:$PWD/lib/x86_64-linux-gnu
-  - cd ../.. && mkdir build && cd build && cmake -DBUILDSWIGJAVA=$BUILDJAVA -DNODE_ROOT_DIR:PATH=/home/travis/.nvm/v0.10.36/include -DBUILDEXAMPLES=ON -DBUILDJAVAEXAMPLES=$BUILDJAVA .. && make
+  - cd ../.. && mkdir build && cd build && cmake -DBUILDSWIGJAVA=$BUILDJAVA -DNODE_ROOT_DIR:PATH=/home/travis/.nvm/v0.10.36/include -DBUILDEXAMPLES=ON -DBUILDJAVAEXAMPLES=$BUILDJAVA .. && make && make test
