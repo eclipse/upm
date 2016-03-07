@@ -48,7 +48,7 @@ mpu9150.cxx	MPU9150Sample.java
 mq2.cxx	MQ2Sample.java
 mq303a.cxx	MQ303ASample.java
 mq5.cxx	MQ5Sample.java
-my9221-ledbar.cxx	MY9221_ledbarSample.java
+groveledbar	GroveLEDBar
 nrf24l01-receiver.cxx	NRF24L01_receiverSample.java
 nrf24l01-transmitter.cxx	NRF24L01_transmitterSample.java
 nunchuck.cxx	NUNCHUCKSample.java
