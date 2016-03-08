@@ -1,0 +1,5 @@
+set (libname "mics6814")
+set (libdescription "upm mics6814 multichanel gas sensor module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
