@@ -252,6 +252,7 @@ add_example (cwlsxxa)
 add_example (teams)
 add_example (apa102)
 add_example (tex00)
+add_example (bmi160)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
