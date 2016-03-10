@@ -327,6 +327,12 @@
  */
 
 /**
+ * @brief Mouser
+ * @defgroup mouser Mouser
+ * @ingroup byman
+ */
+
+/**
  * @brief Omega
  * @defgroup omega Omega
  * @ingroup byman
