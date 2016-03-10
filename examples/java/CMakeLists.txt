@@ -101,6 +101,10 @@ add_example(WaterLevelSensor waterlevel)
 add_example(WT5001Sample wt5001)
 add_example(YG1006Sample yg1006)
 add_example(ZFM20Sample zfm20)
+add_example(Ad8232Example ad8232)
+add_example(Gp2y0aExample gp2y0a)
+add_example(Th02Example th02)
+add_example(FlexSensorExample flex)
 
 
 add_example_with_path(Jhd1313m1_lcdSample lcd/upm_i2clcd.jar)
