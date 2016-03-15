@@ -1,0 +1,5 @@
+set (libname "curieimu")
+set (libdescription "upm Curie IMU via Firmata")
+set (module_src ${libname}.cpp)
+set (module_h ${libname}.hpp)
+upm_module_init()
