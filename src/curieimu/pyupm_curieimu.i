@@ -5,8 +5,7 @@
 
 %include "stdint.i"
 
-%include "curieimu.h"
+%include "curieimu.hpp"
 %{
-    #include "curieimu.h"
+    #include "curieimu.hpp"
 %}
-

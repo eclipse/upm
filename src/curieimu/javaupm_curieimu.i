@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "curieimu.h"
+    #include "curieimu.hpp"
 %}
 
-%include "curieimu.h"
+%include "curieimu.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
