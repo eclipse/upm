@@ -77,10 +77,19 @@ class CurieImu {
         ~CurieImu();
 
         /**
-         * Returns the Temperature
+         * Read accelerometer
+         */
+        void readAccelerometer(int *xVal, int *yVal, int *zVal);
+
+        /**
+         * Returns the temperature
          */
         int16_t getTemperature();
 
+
+        /**
+         * Used for response handling
+         */
         pthread_mutex_t m_responseLock;
         pthread_cond_t m_responseCond;
         char* m_results;

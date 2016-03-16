@@ -40,6 +40,10 @@ main(int argc, char **argv)
 
     std::cout << "temperature is: " << (sensor->getTemperature() * pow(0.5, 9) + 23) << std::endl;
 
+    int x, y, z;
+    sensor->readAccelerometer(&x, &y, &z);
+    printf("accelerometer is: %d, %d, %d\n", x, y, z);
+
     delete sensor;
 
     return 0;

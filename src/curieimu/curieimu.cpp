@@ -72,6 +72,34 @@ handleResponses(uint8_t* buf, int length)
     pthread_cond_broadcast(&(awaitingReponse->m_responseCond));
 }
 
+void
+CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
+{
+  char message[4];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_READ_ACCEL;
+  message[3] = FIRMATA_END_SYSEX;
+
+  pthread_mutex_lock(&m_responseLock);
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 4);
+
+  awaitingReponse = this;
+  pthread_cond_wait(&m_responseCond, &m_responseLock);
+
+  *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+  *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+  *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+
+  delete m_results;
+  pthread_mutex_unlock(&m_responseLock);
+
+  return;
+}
+
 int16_t
 CurieImu::getTemperature()
 {
