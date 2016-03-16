@@ -24,29 +24,78 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include "curieimu.hpp"
 
 using namespace upm;
 
+static CurieImu* awaitingReponse;
+
 CurieImu::CurieImu (int subplatformoffset)
 {
-    m_firmata = mraa_firmata_init(0x11);
+    m_firmata = mraa_firmata_init(FIRMATA_CURIE_IMU);
     if (m_firmata == NULL) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_firmata_init() failed");
         return;
     }
+
+    if (pthread_mutex_init(&m_responseLock, NULL)) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": pthread_mutex_init(m_responseLock) failed");
+        return;
+    }
+
+    if (pthread_cond_init(&m_responseCond, NULL)) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": pthread_cond_init(m_responseCond) failed");
+        return;
+    }
+}
+
+CurieImu::~CurieImu()
+{
+  pthread_mutex_destroy(&m_responseLock);
+  pthread_cond_destroy(&m_responseCond);
+}
+
+static void
+handleResponses(uint8_t* buf, int length)
+{
+    awaitingReponse->m_results = new char(length);
+    memcpy((void*)awaitingReponse->m_results, (void*)buf, length);
+    pthread_cond_broadcast(&(awaitingReponse->m_responseCond));
 }
 
 int16_t
 CurieImu::getTemperature()
 {
-    char message[8];
-    mraa_firmata_write_sysex(m_firmata, &message[0], 8);
-    // needs to block on mraa_firmata_response
-    return 0;
+    char message[4];
+    message[0] = FIRMATA_START_SYSEX;
+    message[1] = FIRMATA_CURIE_IMU;
+    message[2] = FIRMATA_CURIE_IMU_READ_TEMP;
+    message[3] = FIRMATA_END_SYSEX;
+
+    pthread_mutex_lock(&m_responseLock);
+
+    mraa_firmata_response_stop(m_firmata);
+    mraa_firmata_response(m_firmata, handleResponses);
+    mraa_firmata_write_sysex(m_firmata, &message[0], 4);
+
+    awaitingReponse = this;
+    pthread_cond_wait(&m_responseCond, &m_responseLock);
+
+    int16_t result;
+    result = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    result += ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7)) << 8;
+
+    delete m_results;
+    pthread_mutex_unlock(&m_responseLock);
+
+    return result;
 }

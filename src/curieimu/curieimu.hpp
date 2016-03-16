@@ -51,6 +51,17 @@ namespace upm {
  * @snippet curieimu.cxx Interesting
  */
 
+#define FIRMATA_START_SYSEX                 0xF0
+#define FIRMATA_END_SYSEX                   0xF7
+#define FIRMATA_CURIE_IMU                   0x11
+#define FIRMATA_CURIE_IMU_READ_ACCEL        0x00
+#define FIRMATA_CURIE_IMU_READ_GYRO         0x01
+#define FIRMATA_CURIE_IMU_READ_TEMP         0x02
+#define FIRMATA_CURIE_IMU_SHOCK_DETECT      0x03
+#define FIRMATA_CURIE_IMU_STEP_COUNTER      0x04
+#define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
+#define FIRMATA_CURIE_IMU_READ_MOTION       0x06
+
 class CurieImu {
     public:
         /**
@@ -61,9 +72,18 @@ class CurieImu {
         CurieImu (int subplatform_offset=512);
 
         /**
+         * Destructor for a CurieImu object
+         */
+        ~CurieImu();
+
+        /**
          * Returns the Temperature
          */
         int16_t getTemperature();
+
+        pthread_mutex_t m_responseLock;
+        pthread_cond_t m_responseCond;
+        char* m_results;
 
     private:
         mraa_firmata_context m_firmata;

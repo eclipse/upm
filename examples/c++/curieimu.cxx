@@ -25,14 +25,20 @@
 #include <unistd.h>
 #include <iostream>
 #include "curieimu.hpp"
+#include "mraa.h"
+#include "mraa/firmata.h"
+#include <math.h>
 
 int
 main(int argc, char **argv)
 {
     //! [Interesting]
+    mraa_init();
+    mraa_add_subplatform(MRAA_GENERIC_FIRMATA, "/dev/ttyACM0");
+
     upm::CurieImu* sensor = new upm::CurieImu();
 
-    std::cout << "temperature is: " << sensor->getTemperature() << std::endl;
+    std::cout << "temperature is: " << (sensor->getTemperature() * pow(0.5, 9) + 23) << std::endl;
 
     delete sensor;
 
