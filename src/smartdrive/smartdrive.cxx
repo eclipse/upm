@@ -36,8 +36,8 @@ using namespace upm;
 
 SmartDrive::SmartDrive(int i2c_bus, int address): m_smartdrive_control_address(address), m_i2c_smartdrive_control(i2c_bus)
 {
-    mraa_result_t ret = m_i2c_smartdrive_control.address(m_smartdrive_control_address);
-    if (ret != MRAA_SUCCESS) {
+    mraa::Result ret = m_i2c_smartdrive_control.address(m_smartdrive_control_address);
+    if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_address() failed");
         return;
