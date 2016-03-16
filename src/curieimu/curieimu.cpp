@@ -65,7 +65,7 @@ CurieImu::~CurieImu()
 }
 
 static void
-handleResponses(uint8_t* buf, int length)
+handleSyncResponse(uint8_t* buf, int length)
 {
     awaitingReponse->m_results = new char(length);
     memcpy((void*)awaitingReponse->m_results, (void*)buf, length);
@@ -84,7 +84,7 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
   pthread_mutex_lock(&m_responseLock);
 
   mraa_firmata_response_stop(m_firmata);
-  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
   awaitingReponse = this;
@@ -112,7 +112,7 @@ CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
   pthread_mutex_lock(&m_responseLock);
 
   mraa_firmata_response_stop(m_firmata);
-  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
   awaitingReponse = this;
@@ -140,7 +140,7 @@ CurieImu::getTemperature()
     pthread_mutex_lock(&m_responseLock);
 
     mraa_firmata_response_stop(m_firmata);
-    mraa_firmata_response(m_firmata, handleResponses);
+    mraa_firmata_response(m_firmata, handleSyncResponse);
     mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
     awaitingReponse = this;
@@ -168,7 +168,7 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
   pthread_mutex_lock(&m_responseLock);
 
   mraa_firmata_response_stop(m_firmata);
-  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
   awaitingReponse = this;
