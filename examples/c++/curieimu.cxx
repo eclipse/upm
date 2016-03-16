@@ -52,6 +52,16 @@ main(int argc, char **argv)
     sensor->readMotion(&m, &n, &o, &p, &q, &r);
     printf("motion is: %d, %d, %d, %d, %d, %d\n", m, n, o, p, q, r);
 
+    int axis, direction;
+    sensor->enableShockDetection(true);
+    for(int i=0; i<300; i++) {
+      if (sensor->isShockDetected()) {
+        sensor->getShockDetectData(&axis, &direction);
+        printf("shock data is: %d, %d\n", axis, direction);
+      }
+      usleep(10000);
+    }
+
     delete sensor;
 
     return 0;

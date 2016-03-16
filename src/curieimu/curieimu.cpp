@@ -60,16 +60,54 @@ CurieImu::CurieImu (int subplatformoffset)
 
 CurieImu::~CurieImu()
 {
-  pthread_mutex_destroy(&m_responseLock);
-  pthread_cond_destroy(&m_responseCond);
+    pthread_mutex_destroy(&m_responseLock);
+    pthread_cond_destroy(&m_responseCond);
+}
+
+void
+CurieImu::lock()
+{
+    pthread_mutex_lock(&m_responseLock);
+}
+
+void
+CurieImu::unlock()
+{
+    pthread_mutex_unlock(&m_responseLock);
+}
+
+void
+CurieImu::wait()
+{
+    awaitingReponse = this;
+    pthread_cond_wait(&m_responseCond, &m_responseLock);
+}
+
+void
+CurieImu::proceed()
+{
+    pthread_cond_broadcast(&m_responseCond);
+}
+
+void
+CurieImu::setResults(uint8_t* buf, int length)
+{
+    m_results = new char(length);
+    memcpy((void*)m_results, (void*)buf, length);
 }
 
 static void
 handleSyncResponse(uint8_t* buf, int length)
 {
-    awaitingReponse->m_results = new char(length);
-    memcpy((void*)awaitingReponse->m_results, (void*)buf, length);
-    pthread_cond_broadcast(&(awaitingReponse->m_responseCond));
+    awaitingReponse->setResults(buf, length);
+    awaitingReponse->proceed();
+}
+
+static void
+handleAsyncResponses(uint8_t* buf, int length)
+{
+    awaitingReponse->setResults(buf, length);
+    awaitingReponse->processResponse();
 }
 
 void
@@ -81,21 +119,20 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
   message[2] = FIRMATA_CURIE_IMU_READ_ACCEL;
   message[3] = FIRMATA_END_SYSEX;
 
-  pthread_mutex_lock(&m_responseLock);
+  lock();
 
   mraa_firmata_response_stop(m_firmata);
   mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
-  awaitingReponse = this;
-  pthread_cond_wait(&m_responseCond, &m_responseLock);
+  wait();
 
   *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
   *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
   *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
 
   delete m_results;
-  pthread_mutex_unlock(&m_responseLock);
+  unlock();
 
   return;
 }
@@ -109,21 +146,20 @@ CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
   message[2] = FIRMATA_CURIE_IMU_READ_GYRO;
   message[3] = FIRMATA_END_SYSEX;
 
-  pthread_mutex_lock(&m_responseLock);
+  lock();
 
   mraa_firmata_response_stop(m_firmata);
   mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
-  awaitingReponse = this;
-  pthread_cond_wait(&m_responseCond, &m_responseLock);
+  wait();
 
   *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
   *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
   *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
 
   delete m_results;
-  pthread_mutex_unlock(&m_responseLock);
+  unlock();
 
   return;
 }
@@ -137,21 +173,20 @@ CurieImu::getTemperature()
     message[2] = FIRMATA_CURIE_IMU_READ_TEMP;
     message[3] = FIRMATA_END_SYSEX;
 
-    pthread_mutex_lock(&m_responseLock);
+    lock();
 
     mraa_firmata_response_stop(m_firmata);
     mraa_firmata_response(m_firmata, handleSyncResponse);
     mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
-    awaitingReponse = this;
-    pthread_cond_wait(&m_responseCond, &m_responseLock);
+    wait();
 
     int16_t result;
     result = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
     result += ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7)) << 8;
 
     delete m_results;
-    pthread_mutex_unlock(&m_responseLock);
+    unlock();
 
     return result;
 }
@@ -165,14 +200,13 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
   message[2] = FIRMATA_CURIE_IMU_READ_MOTION;
   message[3] = FIRMATA_END_SYSEX;
 
-  pthread_mutex_lock(&m_responseLock);
+  lock();
 
   mraa_firmata_response_stop(m_firmata);
   mraa_firmata_response(m_firmata, handleSyncResponse);
   mraa_firmata_write_sysex(m_firmata, &message[0], 4);
 
-  awaitingReponse = this;
-  pthread_cond_wait(&m_responseCond, &m_responseLock);
+  wait();
 
   *xA = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
   *yA = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
@@ -182,7 +216,58 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
   *zG = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
 
   delete m_results;
-  pthread_mutex_unlock(&m_responseLock);
+  unlock();
 
   return;
+}
+
+void
+CurieImu::processResponse()
+{
+    ShockDataItem* item = new ShockDataItem();
+    item->axis = m_results[3];
+    item->direction = m_results[4];
+    m_shockData.push(item);
+
+    return;
+}
+
+void
+CurieImu::enableShockDetection(bool enable)
+{
+  char message[5];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_SHOCK_DETECT;
+  message[3] = enable;
+  message[4] = FIRMATA_END_SYSEX;
+
+  lock();
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleAsyncResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 5);
+
+  awaitingReponse = this;
+  unlock();
+
+  return;
+}
+
+bool
+CurieImu::isShockDetected()
+{
+  return (m_shockData.size() > 0);
+}
+
+void
+CurieImu::getShockDetectData(int *axis, int *direction)
+{
+  if (m_shockData.size() > 0) {
+    ShockDataItem* item = m_shockData.front();
+    *axis = item->axis;
+    *direction = item->direction;
+    m_shockData.pop();
+    delete item;
+  }
 }

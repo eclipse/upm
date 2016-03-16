@@ -24,6 +24,7 @@
 #pragma once
 
 #include <mraa/firmata.h>
+#include <queue>
 
 namespace upm {
 
@@ -62,6 +63,11 @@ namespace upm {
 #define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
 #define FIRMATA_CURIE_IMU_READ_MOTION       0x06
 
+struct ShockDataItem {
+    int axis;
+    int direction;
+};
+
 class CurieImu {
     public:
         /**
@@ -96,16 +102,27 @@ class CurieImu {
          */
         void readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG);
 
+        void enableShockDetection(bool enable);
+        bool isShockDetected();
+        void getShockDetectData(int *axis, int *direction);
 
         /**
          * Used for response handling
          */
+        void lock();
+        void unlock();
+        void wait();
+        void proceed();
+        void setResults(uint8_t* buf, int length);
+        void processResponse();
+
+    private:
+        mraa_firmata_context m_firmata;
         pthread_mutex_t m_responseLock;
         pthread_cond_t m_responseCond;
         char* m_results;
 
-    private:
-        mraa_firmata_context m_firmata;
+        std::queue<ShockDataItem*> m_shockData;
 };
 
 }
