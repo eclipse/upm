@@ -63,7 +63,7 @@ namespace upm {
 #define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
 #define FIRMATA_CURIE_IMU_READ_MOTION       0x06
 
-struct ShockDataItem {
+struct IMUDataItem {
     int axis;
     int direction;
 };
@@ -102,9 +102,26 @@ class CurieImu {
          */
         void readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG);
 
+        /**
+         * Shock detection
+         */
         void enableShockDetection(bool enable);
         bool isShockDetected();
         void getShockDetectData(int *axis, int *direction);
+
+        /**
+         * Step counter
+         */
+        void enableStepCounter(bool enable);
+        bool isStepDetected();
+        void getStepCount(int *count);
+
+        /**
+         * Tap detection
+         */
+        void enableTapDetection(bool enable);
+        bool isTapDetected();
+        void getTapDetectData(int *axis, int *direction);
 
         /**
          * Used for response handling
@@ -122,7 +139,9 @@ class CurieImu {
         pthread_cond_t m_responseCond;
         char* m_results;
 
-        std::queue<ShockDataItem*> m_shockData;
+        std::queue<IMUDataItem*> m_shockData;
+        std::queue<int> m_stepData;
+        std::queue<IMUDataItem*> m_tapData;
 };
 
 }

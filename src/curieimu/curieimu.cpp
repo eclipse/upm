@@ -224,12 +224,32 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
 void
 CurieImu::processResponse()
 {
-    ShockDataItem* item = new ShockDataItem();
-    item->axis = m_results[3];
-    item->direction = m_results[4];
-    m_shockData.push(item);
+  switch(m_results[2]) {
+    case FIRMATA_CURIE_IMU_SHOCK_DETECT:
+    {
+        IMUDataItem* item = new IMUDataItem();
+        item->axis = m_results[3];
+        item->direction = m_results[4];
+        m_shockData.push(item);
+        break;
+    }
+    case FIRMATA_CURIE_IMU_STEP_COUNTER:
+    {
+        int count = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+        m_stepData.push(count);
+        break;
+    }
+    case FIRMATA_CURIE_IMU_TAP_DETECT:
+    {
+        IMUDataItem* item = new IMUDataItem();
+        item->axis = m_results[3];
+        item->direction = m_results[4];
+        m_tapData.push(item);
+        break;
+    }
+  }
 
-    return;
+  return;
 }
 
 void
@@ -264,10 +284,87 @@ void
 CurieImu::getShockDetectData(int *axis, int *direction)
 {
   if (m_shockData.size() > 0) {
-    ShockDataItem* item = m_shockData.front();
+    IMUDataItem* item = m_shockData.front();
     *axis = item->axis;
     *direction = item->direction;
     m_shockData.pop();
+    delete item;
+  }
+}
+
+void
+CurieImu::enableStepCounter(bool enable)
+{
+  char message[5];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_STEP_COUNTER;
+  message[3] = enable;
+  message[4] = FIRMATA_END_SYSEX;
+
+  lock();
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleAsyncResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 5);
+
+  awaitingReponse = this;
+  unlock();
+
+  return;
+}
+
+bool
+CurieImu::isStepDetected()
+{
+  return (m_stepData.size() > 0);
+}
+
+void
+CurieImu::getStepCount(int *count)
+{
+  if (m_stepData.size() > 0) {
+    *count = m_stepData.front();
+    m_stepData.pop();
+  }
+}
+
+void
+CurieImu::enableTapDetection(bool enable)
+{
+  char message[5];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_TAP_DETECT;
+  message[3] = enable;
+  message[4] = FIRMATA_END_SYSEX;
+
+  lock();
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleAsyncResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 5);
+
+  awaitingReponse = this;
+  unlock();
+
+  return;
+}
+
+bool
+CurieImu::isTapDetected()
+{
+  return (m_tapData.size() > 0);
+}
+
+void
+CurieImu::getTapDetectData(int *axis, int *direction)
+{
+  if (m_tapData.size() > 0) {
+    IMUDataItem* item = m_tapData.front();
+    *axis = item->axis;
+    *direction = item->direction;
+    m_tapData.pop();
     delete item;
   }
 }
