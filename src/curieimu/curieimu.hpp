@@ -82,9 +82,19 @@ class CurieImu {
         void readAccelerometer(int *xVal, int *yVal, int *zVal);
 
         /**
+         * Read gyroscope
+         */
+        void readGyro(int *xVal, int *yVal, int *zVal);
+
+        /**
          * Returns the temperature
          */
         int16_t getTemperature();
+
+        /**
+         * Read motion aka both accelerometer and gyroscope
+         */
+        void readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG);
 
 
         /**

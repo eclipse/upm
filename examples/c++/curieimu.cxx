@@ -44,6 +44,14 @@ main(int argc, char **argv)
     sensor->readAccelerometer(&x, &y, &z);
     printf("accelerometer is: %d, %d, %d\n", x, y, z);
 
+    int a, b, c;
+    sensor->readGyro(&a, &b, &c);
+    printf("gyroscope is: %d, %d, %d\n", a, b, c);
+
+    int m, n, o, p, q, r;
+    sensor->readMotion(&m, &n, &o, &p, &q, &r);
+    printf("motion is: %d, %d, %d, %d, %d, %d\n", m, n, o, p, q, r);
+
     delete sensor;
 
     return 0;

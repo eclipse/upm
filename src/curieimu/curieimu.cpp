@@ -100,6 +100,34 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
   return;
 }
 
+void
+CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
+{
+  char message[4];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_READ_GYRO;
+  message[3] = FIRMATA_END_SYSEX;
+
+  pthread_mutex_lock(&m_responseLock);
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 4);
+
+  awaitingReponse = this;
+  pthread_cond_wait(&m_responseCond, &m_responseLock);
+
+  *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+  *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+  *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+
+  delete m_results;
+  pthread_mutex_unlock(&m_responseLock);
+
+  return;
+}
+
 int16_t
 CurieImu::getTemperature()
 {
@@ -126,4 +154,35 @@ CurieImu::getTemperature()
     pthread_mutex_unlock(&m_responseLock);
 
     return result;
+}
+
+void
+CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
+{
+  char message[4];
+  message[0] = FIRMATA_START_SYSEX;
+  message[1] = FIRMATA_CURIE_IMU;
+  message[2] = FIRMATA_CURIE_IMU_READ_MOTION;
+  message[3] = FIRMATA_END_SYSEX;
+
+  pthread_mutex_lock(&m_responseLock);
+
+  mraa_firmata_response_stop(m_firmata);
+  mraa_firmata_response(m_firmata, handleResponses);
+  mraa_firmata_write_sysex(m_firmata, &message[0], 4);
+
+  awaitingReponse = this;
+  pthread_cond_wait(&m_responseCond, &m_responseLock);
+
+  *xA = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+  *yA = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+  *zA = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+  *xG = ((m_results[9] & 0x7f) | ((m_results[10] & 0x7f) << 7));
+  *yG = ((m_results[11] & 0x7f) | ((m_results[12] & 0x7f) << 7));
+  *zG = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
+
+  delete m_results;
+  pthread_mutex_unlock(&m_responseLock);
+
+  return;
 }
