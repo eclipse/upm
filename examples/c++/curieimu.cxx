@@ -1,5 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Ron Evans (@deadprogram)
+ * Author: Justin Zemlyansky (@JustInDevelopment) 
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,14 +27,42 @@
 #include <unistd.h>
 #include <iostream>
 #include "curieimu.hpp"
+#include "mraa.h"
+#include "mraa/firmata.h"
+#include <math.h>
 
 int
 main(int argc, char **argv)
 {
     //! [Interesting]
+    mraa_init();
+    mraa_add_subplatform(MRAA_GENERIC_FIRMATA, "/dev/ttyACM0");
+
     upm::CurieImu* sensor = new upm::CurieImu();
 
-    std::cout << "temperature is: " << sensor->getTemperature() << std::endl;
+    std::cout << "temperature is: " << (sensor->getTemperature() * pow(0.5, 9) + 23) << std::endl;
+
+    int x, y, z;
+    sensor->readAccelerometer(&x, &y, &z);
+    printf("accelerometer is: %d, %d, %d\n", x, y, z);
+
+    int a, b, c;
+    sensor->readGyro(&a, &b, &c);
+    printf("gyroscope is: %d, %d, %d\n", a, b, c);
+
+    int axis, direction;
+    sensor->enableShockDetection(true);
+    for(int i=0; i<300; i++) {
+      if (sensor->isShockDetected()) {
+        sensor->getShockDetectData(&axis, &direction);
+        printf("shock data is: %d, %d\n", axis, direction);
+      }
+      usleep(10000);
+    }
+
+    int m, n, o, p, q, r;
+    sensor->readMotion(&m, &n, &o, &p, &q, &r);
+    printf("motion is: %d, %d, %d, %d, %d, %d\n", m, n, o, p, q, r);
 
     delete sensor;
 

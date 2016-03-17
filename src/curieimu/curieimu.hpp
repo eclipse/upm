@@ -1,5 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Ron Evans (@deadprogram)
+ * Author: Justin Zemlyansky (@JustInDevelopment)
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,6 +26,7 @@
 #pragma once
 
 #include <mraa/firmata.h>
+#include <queue>
 
 namespace upm {
 
@@ -51,22 +54,182 @@ namespace upm {
  * @snippet curieimu.cxx Interesting
  */
 
+#define FIRMATA_START_SYSEX                 0xF0
+#define FIRMATA_END_SYSEX                   0xF7
+#define FIRMATA_CURIE_IMU                   0x11
+#define FIRMATA_CURIE_IMU_READ_ACCEL        0x00
+#define FIRMATA_CURIE_IMU_READ_GYRO         0x01
+#define FIRMATA_CURIE_IMU_READ_TEMP         0x02
+#define FIRMATA_CURIE_IMU_SHOCK_DETECT      0x03
+#define FIRMATA_CURIE_IMU_STEP_COUNTER      0x04
+#define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
+#define FIRMATA_CURIE_IMU_READ_MOTION       0x06
+
+struct IMUDataItem {
+    int axis;
+    int direction;
+};
+
 class CurieImu {
     public:
-        /**
-         * Instantiates a CurieImu object
-         *
-         * @param subplatform_offset Subplatform offset, default 512
-         */
-        CurieImu (int subplatform_offset=512);
 
-        /**
-         * Returns the Temperature
-         */
-        int16_t getTemperature();
+      /**
+      * Instantiates a CurieImu object
+      *
+      * @param subplatformoffset Subplatform offset
+      */
+      CurieImu (int subplatform_offset=512);
+
+      /**
+      * Destructor for CurieImu object
+      */
+      ~CurieImu();
+
+      /**
+       * Read accelerometer X, Y, and Z axis
+       *
+       * @param xVal Pointer to returned X-axis value
+       * @param yVal Pointer to returned Y-axis value
+       * @param zVal Pointer to returned Z-axis value
+       */
+      void readAccelerometer(int *xVal, int *yVal, int *zVal);
+
+      /**
+       * Read gyroscope X, Y, and Z axis
+       *
+       * @param xVal Pointer to returned X-axis value
+       * @param yVal Pointer to returned Y-axis value
+       * @param zVal Pointer to returned Z-axis value
+       */
+      void readGyro(int *xVal, int *yVal, int *zVal);
+
+      /**
+       * Reads the internal temperature
+       *
+       * @return 16-bit integer containing the scaled temperature reading
+       */
+      int16_t getTemperature();
+
+      /**
+       * Reads the X, Y, and Z axis of both gyroscope and accelerometer
+       *
+       * @param xA Pointer to returned X-axis value of accelerometer
+       * @param yA Pointer to returned Y-axis value of accelerometer
+       * @param zA Pointer to returned Z-axis value of accelerometer
+       * @param xG Pointer to returned X-axis value of Gyroscope
+       * @param yG Pointer to returned Y-axis value of Gyroscope
+       * @param zG Pointer to returned Z-axis value of Gyroscope
+       */
+      void readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG);
+
+      /**
+       * Turns shock detection notifications on/off
+       *
+       * @param enable enables/disables notifications
+       */
+      void enableShockDetection(bool enable);
+
+      /**
+       * Has there been a shock detected?
+       *
+       * @return true if any unprocessed shock notifications are in the queue
+       */
+      bool isShockDetected();
+
+      /**
+       * Gets shock detect data from queue
+       *
+       * @param axis gets axis data
+       * @param direction gets direction data
+       */
+      void getShockDetectData(int *axis, int *direction);
+
+      /**
+       * Turns step counter notifications on/off
+       *
+       * @param enable enables/disables notifications
+       */
+      void enableStepCounter(bool enable);
+
+      /**
+       * Has there been a step detected?
+       *
+       * @return true if any unprocessed step notifications are in the queue
+       */
+      bool isStepDetected();
+
+      /**
+       * Gets step count data from queue
+       *
+       * @param count the total number of steps taken
+       */
+      void getStepCount(int *count);
+
+      /**
+       * Turns tap detection notifications on/off
+       *
+       * @param enable enables/disables notifications
+       */
+      void enableTapDetection(bool enable);
+
+      /**
+       * Has there been a tap detected?
+       *
+       * @return true if any unprocessed tap notifications are in the queue
+       */
+      bool isTapDetected();
+
+      /**
+       * Gets tap detect data from queue
+       *
+       * @param axis gets axis data
+       * @param direction gets direction data
+       */
+      void getTapDetectData(int *axis, int *direction);
+
+      /**
+       * Locks responses from Firmata
+       */
+      void lock();
+
+      /**
+       * Unlocks responses from Firmata
+       */
+      void unlock();
+
+      /**
+       * Wait for a response from Firmata before proceeding
+       */
+      void wait();
+
+      /**
+       * Proceed with original function call now that response
+       * from Firmata has been received
+       */
+      void proceed();
+
+      /**
+       * Set results being returned from Firmata for processing
+       *
+       * @param buf is the buffer
+       * @param length is the length of results buffer
+       */
+      void setResults(uint8_t* buf, int length);
+
+      /**
+       * Processes asyncronous responses returned from Firmata
+       */
+      void processResponse();
 
     private:
         mraa_firmata_context m_firmata;
+        pthread_mutex_t m_responseLock;
+        pthread_cond_t m_responseCond;
+        char* m_results;
+
+        std::queue<IMUDataItem*> m_shockData;
+        std::queue<int> m_stepData;
+        std::queue<IMUDataItem*> m_tapData;
 };
 
 }
