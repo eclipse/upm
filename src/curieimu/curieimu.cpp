@@ -35,7 +35,9 @@
 using namespace upm;
 
 static CurieImu* awaitingReponse;
-
+/*
+* Instantiates a CurieImu object
+*/
 CurieImu::CurieImu (int subplatformoffset)
 {
     m_firmata = mraa_firmata_init(FIRMATA_CURIE_IMU);
@@ -57,13 +59,17 @@ CurieImu::CurieImu (int subplatformoffset)
         return;
     }
 }
-
+/*
+*Destructor for CurieImu object
+*/
 CurieImu::~CurieImu()
 {
     pthread_mutex_destroy(&m_responseLock);
     pthread_cond_destroy(&m_responseCond);
 }
-
+/*
+*response handlers
+*/
 void
 CurieImu::lock()
 {
@@ -95,21 +101,28 @@ CurieImu::setResults(uint8_t* buf, int length)
     m_results = new char(length);
     memcpy((void*)m_results, (void*)buf, length);
 }
-
+/*
+*handles syncronus response
+*/
 static void
 handleSyncResponse(uint8_t* buf, int length)
 {
     awaitingReponse->setResults(buf, length);
     awaitingReponse->proceed();
 }
-
+/*
+*handles A-syncronus response
+*/
 static void
 handleAsyncResponses(uint8_t* buf, int length)
 {
     awaitingReponse->setResults(buf, length);
     awaitingReponse->processResponse();
 }
-
+/**
+* Read accelerometer 
+*X,Y, and Z axis 
+*/
 void
 CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 {
@@ -136,7 +149,10 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 
   return;
 }
-
+/**
+* Read gyroscope 
+*X,Y, and Z axis
+*/
 void
 CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
 {
@@ -163,7 +179,9 @@ CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
 
   return;
 }
-
+/*
+*reads the temperature
+*/
 int16_t
 CurieImu::getTemperature()
 {
@@ -190,7 +208,10 @@ CurieImu::getTemperature()
 
     return result;
 }
-
+/*
+*reads the X,Y, and Z axis of both
+*the gyroscope and the accelerometer
+*/
 void
 CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
 {
@@ -224,6 +245,9 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
 void
 CurieImu::processResponse()
 {
+    /*
+    *response if shock is detected
+    */
   switch(m_results[2]) {
     case FIRMATA_CURIE_IMU_SHOCK_DETECT:
     {
@@ -233,12 +257,18 @@ CurieImu::processResponse()
         m_shockData.push(item);
         break;
     }
+    /*
+    *response for steps counted 
+    */
     case FIRMATA_CURIE_IMU_STEP_COUNTER:
     {
         int count = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
         m_stepData.push(count);
         break;
     }
+    /*
+    *response if tap is detected
+    */
     case FIRMATA_CURIE_IMU_TAP_DETECT:
     {
         IMUDataItem* item = new IMUDataItem();
@@ -251,7 +281,9 @@ CurieImu::processResponse()
 
   return;
 }
-
+/*
+*turns shock detection on
+*/
 void
 CurieImu::enableShockDetection(bool enable)
 {
@@ -291,7 +323,9 @@ CurieImu::getShockDetectData(int *axis, int *direction)
     delete item;
   }
 }
-
+/*
+*turns step counter on
+*/
 void
 CurieImu::enableStepCounter(bool enable)
 {
@@ -328,7 +362,9 @@ CurieImu::getStepCount(int *count)
     m_stepData.pop();
   }
 }
-
+/*
+*turns tap detection on
+*/
 void
 CurieImu::enableTapDetection(bool enable)
 {
