@@ -37,6 +37,7 @@ using namespace upm;
 static CurieImu* awaitingReponse;
 /*
 * Instantiates a CurieImu object
+*@param subplatform_offset Subplatform offset
 */
 CurieImu::CurieImu (int subplatformoffset)
 {
@@ -94,7 +95,11 @@ CurieImu::proceed()
 {
     pthread_cond_broadcast(&m_responseCond);
 }
-
+/*
+*set results 
+*@param buf is the buffer
+*@param length is the lenghth of results
+*/
 void
 CurieImu::setResults(uint8_t* buf, int length)
 {
@@ -103,6 +108,8 @@ CurieImu::setResults(uint8_t* buf, int length)
 }
 /*
 *handles syncronus response
+*@param buffer
+*@param length
 */
 static void
 handleSyncResponse(uint8_t* buf, int length)
@@ -112,6 +119,8 @@ handleSyncResponse(uint8_t* buf, int length)
 }
 /*
 *handles A-syncronus response
+*@param buffer
+*@param length
 */
 static void
 handleAsyncResponses(uint8_t* buf, int length)
@@ -122,6 +131,9 @@ handleAsyncResponses(uint8_t* buf, int length)
 /**
 * Read accelerometer 
 *X,Y, and Z axis 
+* @param xVal Pointer to returned X-axis value
+* @param yVal Pointer to returned Y-axis value
+* @param zVal Pointer to returned Z-axis value
 */
 void
 CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
@@ -152,6 +164,9 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 /**
 * Read gyroscope 
 *X,Y, and Z axis
+* @param xVal Pointer to returned X-axis value
+* @param yVal Pointer to returned Y-axis value
+* @param zVal Pointer to returned Z-axis value
 */
 void
 CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
@@ -211,6 +226,12 @@ CurieImu::getTemperature()
 /*
 *reads the X,Y, and Z axis of both
 *the gyroscope and the accelerometer
+* @param xA Pointer to returned X-axis value of accelerometer
+* @param yA Pointer to returned Y-axis value of accelerometer
+* @param zA Pointer to returned Z-axis value of accelerometer
+* @param xG Pointer to returned X-axis value of Gyroscope
+* @param yG Pointer to returned Y-axis value of Gyroscope
+* @param zG Pointer to returned Z-axis value of Gyroscope
 */
 void
 CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
@@ -283,6 +304,7 @@ CurieImu::processResponse()
 }
 /*
 *turns shock detection on
+*@param enable
 */
 void
 CurieImu::enableShockDetection(bool enable)
@@ -311,7 +333,11 @@ CurieImu::isShockDetected()
 {
   return (m_shockData.size() > 0);
 }
-
+/*
+*gets shock detect data
+*@param axis gets axis data
+*@param direction gets direction data
+*/
 void
 CurieImu::getShockDetectData(int *axis, int *direction)
 {
@@ -325,6 +351,7 @@ CurieImu::getShockDetectData(int *axis, int *direction)
 }
 /*
 *turns step counter on
+*param enable
 */
 void
 CurieImu::enableStepCounter(bool enable)
@@ -353,7 +380,9 @@ CurieImu::isStepDetected()
 {
   return (m_stepData.size() > 0);
 }
-
+/*
+*@param count pointer to current step count
+*/
 void
 CurieImu::getStepCount(int *count)
 {
@@ -364,6 +393,7 @@ CurieImu::getStepCount(int *count)
 }
 /*
 *turns tap detection on
+*param enable
 */
 void
 CurieImu::enableTapDetection(bool enable)
@@ -392,7 +422,11 @@ CurieImu::isTapDetected()
 {
   return (m_tapData.size() > 0);
 }
-
+/*
+*gets tap detect data
+*@param axis gets axis data
+*@param direction gets direction data
+*/
 void
 CurieImu::getTapDetectData(int *axis, int *direction)
 {
