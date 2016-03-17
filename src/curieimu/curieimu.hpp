@@ -1,5 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Author: Ron Evans (@deadprogram)
+ * Author: Justin Zemlyansky (@JustInDevelopment)
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
