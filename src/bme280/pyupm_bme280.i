@@ -1,10 +1,10 @@
-%module pyupm_bmp180
+%module pyupm_bme280
 %include "../upm.i"
 
 %include "stdint.i"
 
-%include "bmp180.h"
+%include "bme280.h"
 %{
-    #include "bmp180.h"
+    #include "bme280.h"
 %}
 
