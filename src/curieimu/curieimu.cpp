@@ -38,10 +38,6 @@ using namespace upm;
 
 static CurieImu* awaitingReponse;
 
-/*
-* Instantiates a CurieImu object
-* @param subplatform_offset Subplatform offset
-*/
 CurieImu::CurieImu (int subplatformoffset)
 {
     m_firmata = mraa_firmata_init(FIRMATA_CURIE_IMU);
@@ -64,18 +60,12 @@ CurieImu::CurieImu (int subplatformoffset)
     }
 }
 
-/*
-* Destructor for CurieImu object
-*/
 CurieImu::~CurieImu()
 {
     pthread_mutex_destroy(&m_responseLock);
     pthread_cond_destroy(&m_responseCond);
 }
 
-/*
-* response handlers
-*/
 void
 CurieImu::lock()
 {
@@ -101,11 +91,6 @@ CurieImu::proceed()
     pthread_cond_broadcast(&m_responseCond);
 }
 
-/*
-* set results
-* @param buf is the buffer
-* @param length is the lenghth of results
-*/
 void
 CurieImu::setResults(uint8_t* buf, int length)
 {
@@ -114,9 +99,10 @@ CurieImu::setResults(uint8_t* buf, int length)
 }
 
 /*
-* handles syncronous response
-* @param buffer
-* @param length
+* Handles a single syncronous response being returned from Firmata
+*
+* @param buffer the data beinig returned from Firmata
+* @param length length of results buffer
 */
 static void
 handleSyncResponse(uint8_t* buf, int length)
@@ -126,9 +112,10 @@ handleSyncResponse(uint8_t* buf, int length)
 }
 
 /*
-* handles asyncronous response
-* @param buffer
-* @param length
+* Handles asyncronous responses being returned from Firmata
+*
+* @param buffer the data beinig returned from Firmata
+* @param length length of results buffer
 */
 static void
 handleAsyncResponses(uint8_t* buf, int length)
@@ -137,12 +124,37 @@ handleAsyncResponses(uint8_t* buf, int length)
     awaitingReponse->processResponse();
 }
 
-/**
-* Read accelerometer X, Y, and Z axis
-* @param xVal Pointer to returned X-axis value
-* @param yVal Pointer to returned Y-axis value
-* @param zVal Pointer to returned Z-axis value
-*/
+void
+CurieImu::processResponse()
+{
+  switch(m_results[2]) {
+    case FIRMATA_CURIE_IMU_SHOCK_DETECT:
+    {
+        IMUDataItem* item = new IMUDataItem();
+        item->axis = m_results[3];
+        item->direction = m_results[4];
+        m_shockData.push(item);
+        break;
+    }
+    case FIRMATA_CURIE_IMU_STEP_COUNTER:
+    {
+        int count = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+        m_stepData.push(count);
+        break;
+    }
+    case FIRMATA_CURIE_IMU_TAP_DETECT:
+    {
+        IMUDataItem* item = new IMUDataItem();
+        item->axis = m_results[3];
+        item->direction = m_results[4];
+        m_tapData.push(item);
+        break;
+    }
+  }
+
+  return;
+}
+
 void
 CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 {
@@ -170,13 +182,6 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
   return;
 }
 
-/**
-* Read gyroscope
-* X, Y, and Z axis
-* @param xVal Pointer to returned X-axis value
-* @param yVal Pointer to returned Y-axis value
-* @param zVal Pointer to returned Z-axis value
-*/
 void
 CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
 {
@@ -204,9 +209,6 @@ CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
   return;
 }
 
-/*
-* reads the temperature
-*/
 int16_t
 CurieImu::getTemperature()
 {
@@ -233,16 +235,7 @@ CurieImu::getTemperature()
 
     return result;
 }
-/*
-* reads the X, sY, and Z axis of both
-* the gyroscope and the accelerometer
-* @param xA Pointer to returned X-axis value of accelerometer
-* @param yA Pointer to returned Y-axis value of accelerometer
-* @param zA Pointer to returned Z-axis value of accelerometer
-* @param xG Pointer to returned X-axis value of Gyroscope
-* @param yG Pointer to returned Y-axis value of Gyroscope
-* @param zG Pointer to returned Z-axis value of Gyroscope
-*/
+
 void
 CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
 {
@@ -274,50 +267,6 @@ CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
 }
 
 void
-CurieImu::processResponse()
-{
-    /*
-    * response if shock is detected
-    */
-  switch(m_results[2]) {
-    case FIRMATA_CURIE_IMU_SHOCK_DETECT:
-    {
-        IMUDataItem* item = new IMUDataItem();
-        item->axis = m_results[3];
-        item->direction = m_results[4];
-        m_shockData.push(item);
-        break;
-    }
-    /*
-    * response for steps counted
-    */
-    case FIRMATA_CURIE_IMU_STEP_COUNTER:
-    {
-        int count = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-        m_stepData.push(count);
-        break;
-    }
-    /*
-    * response if tap is detected
-    */
-    case FIRMATA_CURIE_IMU_TAP_DETECT:
-    {
-        IMUDataItem* item = new IMUDataItem();
-        item->axis = m_results[3];
-        item->direction = m_results[4];
-        m_tapData.push(item);
-        break;
-    }
-  }
-
-  return;
-}
-
-/*
-* turns shock detection on
-* @param enable
-*/
-void
 CurieImu::enableShockDetection(bool enable)
 {
   char message[5];
@@ -345,11 +294,6 @@ CurieImu::isShockDetected()
   return (m_shockData.size() > 0);
 }
 
-/*
-* gets shock detect data
-* @param axis gets axis data
-* @param direction gets direction data
-*/
 void
 CurieImu::getShockDetectData(int *axis, int *direction)
 {
@@ -362,10 +306,6 @@ CurieImu::getShockDetectData(int *axis, int *direction)
   }
 }
 
-/*
-* turns step counter on
-* @param enable
-*/
 void
 CurieImu::enableStepCounter(bool enable)
 {
@@ -388,18 +328,12 @@ CurieImu::enableStepCounter(bool enable)
   return;
 }
 
-/*
-* has there been a step detected?
-*/
 bool
 CurieImu::isStepDetected()
 {
   return (m_stepData.size() > 0);
 }
 
-/*
-* @param count pointer to current step count
-*/
 void
 CurieImu::getStepCount(int *count)
 {
@@ -409,10 +343,6 @@ CurieImu::getStepCount(int *count)
   }
 }
 
-/*
-* turns tap detection on
-* @param enable
-*/
 void
 CurieImu::enableTapDetection(bool enable)
 {
@@ -435,20 +365,12 @@ CurieImu::enableTapDetection(bool enable)
   return;
 }
 
-/*
-* has there been a tap detected?
-*/
 bool
 CurieImu::isTapDetected()
 {
   return (m_tapData.size() > 0);
 }
 
-/*
-* gets tap detect data
-* @param axis gets axis data
-* @param direction gets direction data
-*/
 void
 CurieImu::getTapDetectData(int *axis, int *direction)
 {
