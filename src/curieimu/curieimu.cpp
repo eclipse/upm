@@ -155,8 +155,26 @@ CurieImu::processResponse()
     return;
 }
 
+int16_t*
+CurieImu::getAccel()
+{
+    return &accel[0];
+}
+
+int16_t*
+CurieImu::getGyro()
+{
+    return &gyro[0];
+}
+
+int16_t*
+CurieImu::getMotion()
+{
+    return &motion[0];
+}
+
 void
-CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
+CurieImu::updateAccel()
 {
     char message[4];
     message[0] = FIRMATA_START_SYSEX;
@@ -172,9 +190,9 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 
     waitForResponse();
 
-    *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    accel[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    accel[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    accel[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
 
     delete m_results;
     unlock();
@@ -183,7 +201,7 @@ CurieImu::readAccelerometer(int *xVal, int *yVal, int *zVal)
 }
 
 void
-CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
+CurieImu::updateGyro()
 {
     char message[4];
     message[0] = FIRMATA_START_SYSEX;
@@ -199,9 +217,39 @@ CurieImu::readGyro(int *xVal, int *yVal, int *zVal)
 
     waitForResponse();
 
-    *xVal = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    *yVal = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    *zVal = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    gyro[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    gyro[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    gyro[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+
+    delete m_results;
+    unlock();
+
+    return;
+}
+
+void
+CurieImu::updateMotion()
+{
+    char message[4];
+    message[0] = FIRMATA_START_SYSEX;
+    message[1] = FIRMATA_CURIE_IMU;
+    message[2] = FIRMATA_CURIE_IMU_READ_MOTION;
+    message[3] = FIRMATA_END_SYSEX;
+
+    lock();
+
+    mraa_firmata_response_stop(m_firmata);
+    mraa_firmata_response(m_firmata, handleSyncResponse);
+    mraa_firmata_write_sysex(m_firmata, &message[0], 4);
+
+    waitForResponse();
+
+    motion[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    motion[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    motion[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    motion[3] = ((m_results[9] & 0x7f) | ((m_results[10] & 0x7f) << 7));
+    motion[4] = ((m_results[11] & 0x7f) | ((m_results[12] & 0x7f) << 7));
+    motion[5] = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
 
     delete m_results;
     unlock();
@@ -234,36 +282,6 @@ CurieImu::getTemperature()
     unlock();
 
     return result;
-}
-
-void
-CurieImu::readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG)
-{
-    char message[4];
-    message[0] = FIRMATA_START_SYSEX;
-    message[1] = FIRMATA_CURIE_IMU;
-    message[2] = FIRMATA_CURIE_IMU_READ_MOTION;
-    message[3] = FIRMATA_END_SYSEX;
-
-    lock();
-
-    mraa_firmata_response_stop(m_firmata);
-    mraa_firmata_response(m_firmata, handleSyncResponse);
-    mraa_firmata_write_sysex(m_firmata, &message[0], 4);
-
-    waitForResponse();
-
-    *xA = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    *yA = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    *zA = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
-    *xG = ((m_results[9] & 0x7f) | ((m_results[10] & 0x7f) << 7));
-    *yG = ((m_results[11] & 0x7f) | ((m_results[12] & 0x7f) << 7));
-    *zG = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
-
-    delete m_results;
-    unlock();
-
-    return;
 }
 
 void
