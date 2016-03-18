@@ -178,6 +178,20 @@ class CurieImu {
       int16_t* getMotion();
 
       /**
+       * Returns last shock or tap axis reading
+       *
+       * @return axis value
+       */
+      int16_t getAxis();
+
+      /**
+       * Returns last shock or tap direction reading
+       *
+       * @return direction value
+       */
+      int16_t getDirection();
+
+      /**
        * Turns shock detection notifications on/off
        *
        * @param enable enables/disables notifications
@@ -192,12 +206,10 @@ class CurieImu {
       bool isShockDetected();
 
       /**
-       * Gets shock detect data from queue
-       *
-       * @param axis gets axis data
-       * @param direction gets direction data
+       * Gets shock detect data from queue. Then m_axis gets axis data, and
+       * m_direction gets direction data
        */
-      void getShockDetectData(int *axis, int *direction);
+      void getNextShock();
 
       /**
        * Turns step counter notifications on/off
@@ -216,9 +228,9 @@ class CurieImu {
       /**
        * Gets step count data from queue
        *
-       * @param count the total number of steps taken
+       * @return the total number of steps taken
        */
-      void getStepCount(int *count);
+      int16_t getStepCount();
 
       /**
        * Turns tap detection notifications on/off
@@ -235,12 +247,10 @@ class CurieImu {
       bool isTapDetected();
 
       /**
-       * Gets tap detect data from queue
-       *
-       * @param axis gets axis data
-       * @param direction gets direction data
+       * Gets tap detect data from queue. Then m_axis gets axis data, and
+       * m_direction gets direction data
        */
-      void getTapDetectData(int *axis, int *direction);
+      void getNextTap();
 
       /**
        * Locks responses from Firmata
@@ -289,6 +299,9 @@ class CurieImu {
         int16_t m_accel[3];
         int16_t m_gyro[3];
         int16_t m_motion[6];
+
+        int16_t m_axis;
+        int16_t m_direction;
 };
 
 }
