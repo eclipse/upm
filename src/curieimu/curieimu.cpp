@@ -158,19 +158,55 @@ CurieImu::processResponse()
 int16_t*
 CurieImu::getAccel()
 {
-    return &accel[0];
+    return &m_accel[0];
+}
+
+int16_t
+CurieImu::getAccelX()
+{
+  return m_accel[X];
+}
+
+int16_t
+CurieImu::getAccelY()
+{
+  return m_accel[Y];
+}
+
+int16_t
+CurieImu::getAccelZ()
+{
+  return m_accel[Z];
 }
 
 int16_t*
 CurieImu::getGyro()
 {
-    return &gyro[0];
+    return &m_gyro[0];
+}
+
+int16_t
+CurieImu::getGyroX()
+{
+  return m_gyro[X];
+}
+
+int16_t
+CurieImu::getGyroY()
+{
+  return m_gyro[Y];
+}
+
+int16_t
+CurieImu::getGyroZ()
+{
+  return m_gyro[Z];
 }
 
 int16_t*
 CurieImu::getMotion()
 {
-    return &motion[0];
+    return &m_motion[0];
 }
 
 void
@@ -190,9 +226,9 @@ CurieImu::updateAccel()
 
     waitForResponse();
 
-    accel[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    accel[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    accel[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    m_accel[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    m_accel[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    m_accel[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
 
     delete m_results;
     unlock();
@@ -217,9 +253,9 @@ CurieImu::updateGyro()
 
     waitForResponse();
 
-    gyro[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    gyro[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    gyro[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    m_gyro[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    m_gyro[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    m_gyro[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
 
     delete m_results;
     unlock();
@@ -244,12 +280,18 @@ CurieImu::updateMotion()
 
     waitForResponse();
 
-    motion[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
-    motion[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
-    motion[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
-    motion[3] = ((m_results[9] & 0x7f) | ((m_results[10] & 0x7f) << 7));
-    motion[4] = ((m_results[11] & 0x7f) | ((m_results[12] & 0x7f) << 7));
-    motion[5] = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
+    m_motion[0] = ((m_results[3] & 0x7f) | ((m_results[4] & 0x7f) << 7));
+    m_motion[1] = ((m_results[5] & 0x7f) | ((m_results[6] & 0x7f) << 7));
+    m_motion[2] = ((m_results[7] & 0x7f) | ((m_results[8] & 0x7f) << 7));
+    m_motion[3] = ((m_results[9] & 0x7f) | ((m_results[10] & 0x7f) << 7));
+    m_motion[4] = ((m_results[11] & 0x7f) | ((m_results[12] & 0x7f) << 7));
+    m_motion[5] = ((m_results[13] & 0x7f) | ((m_results[13] & 0x7f) << 7));
+
+    for (int i=0; i<3; i++)
+      m_accel[i] = m_motion[i];
+
+    for (int i=0; i<3; i++)
+      m_gyro[i] = m_motion[i+3];
 
     delete m_results;
     unlock();

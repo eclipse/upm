@@ -1,7 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Author: Ron Evans (@deadprogram)
- * Author: Justin Zemlyansky (@JustInDevelopment) 
+ * Author: Justin Zemlyansky (@JustInDevelopment)
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -42,12 +42,16 @@ main(int argc, char **argv)
 
     std::cout << "temperature is: " << (sensor->getTemperature() * pow(0.5, 9) + 23) << std::endl;
 
-    int x, y, z;
-    sensor->readAccelerometer(&x, &y, &z);
+    sensor->updateAccel();
+    int x = sensor->getAccelX(),
+        y = sensor->getAccelY(),
+        z = sensor->getAccelZ();
     printf("accelerometer is: %d, %d, %d\n", x, y, z);
 
-    int a, b, c;
-    sensor->readGyro(&a, &b, &c);
+    sensor->updateGyro();
+    int a = sensor->getGyroX(),
+        b = sensor->getGyroY(),
+        c = sensor->getGyroZ();
     printf("gyroscope is: %d, %d, %d\n", a, b, c);
 
     int axis, direction;
@@ -60,8 +64,13 @@ main(int argc, char **argv)
       usleep(10000);
     }
 
-    int m, n, o, p, q, r;
-    sensor->readMotion(&m, &n, &o, &p, &q, &r);
+    sensor->updateMotion();
+    int m = sensor->getAccelX(),
+        n = sensor->getAccelY(),
+        o = sensor->getAccelZ(),
+        p = sensor->getGyroX(),
+        q = sensor->getGyroY(),
+        r = sensor->getGyroZ();
     printf("motion is: %d, %d, %d, %d, %d, %d\n", m, n, o, p, q, r);
 
     delete sensor;
