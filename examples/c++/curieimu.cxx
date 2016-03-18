@@ -58,7 +58,9 @@ main(int argc, char **argv)
     sensor->enableShockDetection(true);
     for(int i=0; i<300; i++) {
       if (sensor->isShockDetected()) {
-        sensor->getShockDetectData(&axis, &direction);
+        sensor->getNextShock();
+        axis = sensor->getAxis();
+        direction = sensor->getDirection();
         printf("shock data is: %d, %d\n", axis, direction);
       }
       usleep(10000);

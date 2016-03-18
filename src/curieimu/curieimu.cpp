@@ -326,6 +326,18 @@ CurieImu::getTemperature()
     return result;
 }
 
+int16_t
+CurieImu::getAxis()
+{
+  return m_axis;
+}
+
+int16_t
+CurieImu::getDirection()
+{
+  return m_direction;
+}
+
 void
 CurieImu::enableShockDetection(bool enable)
 {
@@ -355,15 +367,15 @@ CurieImu::isShockDetected()
 }
 
 void
-CurieImu::getShockDetectData(int *axis, int *direction)
+CurieImu::getNextShock()
 {
-    if (m_shockData.size() > 0) {
-        IMUDataItem* item = m_shockData.front();
-        *axis = item->axis;
-        *direction = item->direction;
-        m_shockData.pop();
-        delete item;
-    }
+  if (m_shockData.size() > 0) {
+      IMUDataItem* item = m_shockData.front();
+      m_axis = item->axis;
+      m_direction = item->direction;
+      m_shockData.pop();
+      delete item;
+  }
 }
 
 void
@@ -394,13 +406,15 @@ CurieImu::isStepDetected()
     return (m_stepData.size() > 0);
 }
 
-void
-CurieImu::getStepCount(int *count)
+int16_t
+CurieImu::getStepCount()
 {
+    int16_t count = 0;
     if (m_stepData.size() > 0) {
-        *count = m_stepData.front();
+        count = m_stepData.front();
         m_stepData.pop();
     }
+    return count;
 }
 
 void
@@ -432,13 +446,13 @@ CurieImu::isTapDetected()
 }
 
 void
-CurieImu::getTapDetectData(int *axis, int *direction)
+CurieImu::getNextTap()
 {
-    if (m_tapData.size() > 0) {
-        IMUDataItem* item = m_tapData.front();
-        *axis = item->axis;
-        *direction = item->direction;
-        m_tapData.pop();
-        delete item;
-    }
+  if (m_tapData.size() > 0) {
+      IMUDataItem* item = m_tapData.front();
+      m_axis = item->axis;
+      m_direction = item->direction;
+      m_tapData.pop();
+      delete item;
+  }
 }
