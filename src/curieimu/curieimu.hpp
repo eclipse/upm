@@ -65,6 +65,10 @@ namespace upm {
 #define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
 #define FIRMATA_CURIE_IMU_READ_MOTION       0x06
 
+#define X 0
+#define Y 1
+#define Z 2
+
 struct IMUDataItem {
     int axis;
     int direction;
@@ -86,36 +90,76 @@ class CurieImu {
       ~CurieImu();
 
       /**
+       * Updates the latest accelerometer readings by calling Firmata
        */
       void updateAccel();
 
       /**
-       *
+       * Updates the latest gyroscope readings by calling Firmata
        */
       void updateGyro();
 
       /**
-       *
+       * Updates the both the latest accelerometer & gyroscope readings
+       * by calling Firmata
        */
       void updateMotion();
 
       /**
-       * Read accelerometer X, Y, and Z axis
+       * Returns last accelerometer reading X, Y, and Z axis
        *
-       * @param xVal Pointer to returned X-axis value
-       * @param yVal Pointer to returned Y-axis value
-       * @param zVal Pointer to returned Z-axis value
+       * @return pointer to array with X-axis, Y-axis & Z-axis value
        */
       int16_t* getAccel();
 
       /**
+       * Returns last accelerometer reading X axis
+       *
+       * @return X-axis value
+       */
+      int16_t getAccelX();
+
+      /**
+       * Returns last accelerometer reading Y axis
+       *
+       * @return Y-axis value
+       */
+      int16_t getAccelY();
+
+      /**
+       * Returns last accelerometer reading Z axis
+       *
+       * @return Z-axis value
+       */
+      int16_t getAccelZ();
+
+      /**
        * Read gyroscope X, Y, and Z axis
        *
-       * @param xVal Pointer to returned X-axis value
-       * @param yVal Pointer to returned Y-axis value
-       * @param zVal Pointer to returned Z-axis value
+       * @return pointer to array with X-axis, Y-axis & Z-axis value
        */
       int16_t* getGyro();
+
+      /**
+       * Returns last gyroscope reading X axis
+       *
+       * @return X-axis value
+       */
+      int16_t getGyroX();
+
+      /**
+       * Returns last gyroscope reading Y axis
+       *
+       * @return Y-axis value
+       */
+      int16_t getGyroY();
+
+      /**
+       * Returns last gyroscope reading Z axis
+       *
+       * @return Z-axis value
+       */
+      int16_t getGyroZ();
 
       /**
        * Reads the internal temperature
@@ -127,12 +171,9 @@ class CurieImu {
       /**
        * Reads the X, Y, and Z axis of both gyroscope and accelerometer
        *
-       * @param xA Pointer to returned X-axis value of accelerometer
-       * @param yA Pointer to returned Y-axis value of accelerometer
-       * @param zA Pointer to returned Z-axis value of accelerometer
-       * @param xG Pointer to returned X-axis value of Gyroscope
-       * @param yG Pointer to returned Y-axis value of Gyroscope
-       * @param zG Pointer to returned Z-axis value of Gyroscope
+       * @return pointer to array with X-axis, Y-axis & Z-axis values for
+       * accelerometer, and then X-axis, Y-axis & Z-axis values for
+       * gyroscope
        */
       int16_t* getMotion();
 
@@ -245,9 +286,9 @@ class CurieImu {
         std::queue<int> m_stepData;
         std::queue<IMUDataItem*> m_tapData;
 
-        int16_t accel[3];
-        int16_t gyro[3];
-        int16_t motion[6];
+        int16_t m_accel[3];
+        int16_t m_gyro[3];
+        int16_t m_motion[6];
 };
 
 }
