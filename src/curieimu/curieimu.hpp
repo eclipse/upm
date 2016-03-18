@@ -86,13 +86,27 @@ class CurieImu {
       ~CurieImu();
 
       /**
+       */
+      void updateAccel();
+
+      /**
+       *
+       */
+      void updateGyro();
+
+      /**
+       *
+       */
+      void updateMotion();
+
+      /**
        * Read accelerometer X, Y, and Z axis
        *
        * @param xVal Pointer to returned X-axis value
        * @param yVal Pointer to returned Y-axis value
        * @param zVal Pointer to returned Z-axis value
        */
-      void readAccelerometer(int *xVal, int *yVal, int *zVal);
+      int16_t* getAccel();
 
       /**
        * Read gyroscope X, Y, and Z axis
@@ -101,7 +115,7 @@ class CurieImu {
        * @param yVal Pointer to returned Y-axis value
        * @param zVal Pointer to returned Z-axis value
        */
-      void readGyro(int *xVal, int *yVal, int *zVal);
+      int16_t* getGyro();
 
       /**
        * Reads the internal temperature
@@ -120,7 +134,7 @@ class CurieImu {
        * @param yG Pointer to returned Y-axis value of Gyroscope
        * @param zG Pointer to returned Z-axis value of Gyroscope
        */
-      void readMotion(int *xA, int *yA, int *zA, int *xG, int *yG, int *zG);
+      int16_t* getMotion();
 
       /**
        * Turns shock detection notifications on/off
@@ -230,6 +244,10 @@ class CurieImu {
         std::queue<IMUDataItem*> m_shockData;
         std::queue<int> m_stepData;
         std::queue<IMUDataItem*> m_tapData;
+
+        int16_t accel[3];
+        int16_t gyro[3];
+        int16_t motion[6];
 };
 
 }
