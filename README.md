@@ -12,6 +12,19 @@ to provide identification/pin location on the board.
 Typically an update() function will be called in order to get new data from the
 sensor in order to reduce load when doing multiple reads to sensor data.
 
+Although implementation and API design is up to the developer, C++ interfaces have
+been defined for the following sensor/actuator types and developers are encouraged to
+implement them. Interface header files are in the src/upm folder.
+
+* Light controller 
+* Light sensor
+* Temperature sensor
+* Humidity sensor
+* Pressure sensor
+* Analog to digital converter
+
+Feedback on interface design and additions for new types are welcome
+
 ### Example
 
 A sensor/actuator is expected to work as such (here is the MMA7660 accelerometer API):
@@ -51,10 +64,6 @@ A sensor/actuator is expected to work as such (here is the MMA7660 accelerometer
     }
 ```
 
-However implementation and API design is completely up to the developer, some
-enumerable sensors for example may provide much clever instantiation. Displays
-may also create more complex structures in order to interface with them.
-
 Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples).
 
 Multi-sensor samples for the starter and specialized kits can be found in the
@@ -81,7 +90,7 @@ See building documentation [here](docs/building.md).
 
 Porting [link](docs/porting.md) has more information on making new UPM modules.
 
-There is also an example available for max31855 [sensor](docs/max31855.md).
+There is also an example available gfor max31855 [sensor](docs/max31855.md).
 
 Guide on creating Java [bindings](docs/creating_java_bindings.md).
 

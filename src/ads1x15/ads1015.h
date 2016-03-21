@@ -26,8 +26,9 @@
 #pragma once
 
 #include "ads1x15.h"
+#include "upm/iADC.h"
 
-
+#define ADS1015_VREF 2.048
 
 /*=========================================================================
     CONVERSION DELAY (in microS)
@@ -82,7 +83,7 @@ namespace upm {
    * @image html ads1015.jpg
    * @snippet ads1x15.cxx Interesting
    */
-    class ADS1015 : public ADS1X15 {
+    class ADS1015 : public ADS1X15, public IADC {
 
         public:
 
@@ -111,12 +112,16 @@ namespace upm {
 
 
             /**
-             * ADS1X15 constructor
+             * ADS1015 constructor
+             *
+             * This constructor includes a vref parameter that can be used
+             * to set gain so it matches full scale value of input
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Device address. Default is 0x48.
+             * @param address. Optional device address. Default is 0x48.
+             * @param vref. Optional reference (i.e. half full swing) voltage. Default is 2.048V
              */
-            ADS1015 (int bus, uint8_t address = 0x48);
+            ADS1015 (int bus, uint8_t address = 0x48, float vref = ADS1015_VREF);
 
             /**
              * ADS1X15 destructor
@@ -132,9 +137,48 @@ namespace upm {
              */
             void setSPS(ADSSAMPLERATE rate = SPS_1600);
 
+            /**
+             * Get number of inputs
+             *
+             * @return number of inputs
+             */
+            unsigned int getNumInputs();
+
+            /**
+             * Read current value for current single ended analogue input
+             *
+             * @return current conversion value
+             */
+            uint16_t getRawValue(unsigned int input);
+
+            /**
+             * Read current voltage for current single ended analogue input
+             *
+             * @return current voltage
+             */
+            float getVoltage(unsigned int input);
+
+            /**
+             * Read current voltage for current single ended analogue input
+             *
+             * @return current voltage
+             */
+            unsigned int getResolutionInBits();
+
+            /**
+             * Returns module name
+             *
+             * @return modulename as const char*
+             */
+            const char* getModuleName();
+
+
         protected:
             float getMultiplier(void);
             void setDelay(void);
+
+        private:
+            ADS1X15::ADSMUXMODE getMuxMode(unsigned int input);
 
     };
 }

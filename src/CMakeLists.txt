@@ -147,18 +147,11 @@ if (SWIG_FOUND)
   endif(BUILDSWIGPYTHON)
   if(BUILDSWIGNODE)
     if(NOT NODE_FOUND)
-      find_package(Node)
+      find_package(Node REQUIRED)
     endif()
     if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
       message("WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
     endif()
-    find_path (NODE_ROOT_DIR "node/node.h")
-    set (NODE_INCLUDE_DIRS
-      ${NODE_ROOT_DIR}/src
-      ${NODE_ROOT_DIR}/node
-      ${NODE_ROOT_DIR}/deps/v8/include
-      ${NODE_ROOT_DIR}/deps/uv/include
-    )
     macro(createpackagejson)
         configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
@@ -175,7 +168,7 @@ macro(upm_module_init)
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} .)
+  include_directories (${MRAA_INCLUDE_DIRS} . ..)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
