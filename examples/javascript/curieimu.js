@@ -27,7 +27,7 @@
 var mraa = require('mraa');
 console.log('MRAA Version: ' + mraa.getVersion());
 
-// open connection to firmata
+// open connection to Firmata
 mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0");
 
 var curieImu = require('jsupm_curieimu');
@@ -36,7 +36,6 @@ var myCurie = new curieImu.CurieImu();
 var outputStr;
 var myInterval = setInterval(function()
 {
-	// get accelerometer readings
 	myCurie.updateAccel();
 	outputStr = "accel: x " + myCurie.getAccelX()
 				+ " - y " + myCurie.getAccelY()
