@@ -24,19 +24,24 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+var mraa = require('mraa');
+console.log('MRAA Version: ' + mraa.getVersion());
+
+// open connection to Firmata
+mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0");
+
 var curieImu = require('jsupm_curieimu');
+var myCurie = new curieImu.CurieImu();
 
 var outputStr;
 var myInterval = setInterval(function()
 {
-	// get accelerometer readings
-	curieImu.updateAccel();
-	outputStr = "accel: x " + curieImu.getAccelX()
-				+ " - y " + curieImu.getAccelY()
-				+ " - z " + curieImu.getAccelZ();
+	myCurie.updateAccel();
+	outputStr = "accel: x " + myCurie.getAccelX()
+				+ " - y " + myCurie.getAccelY()
+				+ " - z " + myCurie.getAccelZ();
 	console.log(outputStr);
-	console.log(" ");
-}, 1000);
+}, 500);
 
 // Print message when exiting
 process.on('SIGINT', function()
