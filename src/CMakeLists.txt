@@ -69,8 +69,9 @@ macro(upm_SWIG_NODE)
       set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD_REQUIRED ON)
     endif()
     createpackagejson(${libname})
+    set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
-         DESTINATION lib/node_modules/jsupm_${libname} COMPONENT ${libname})
+         DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
   endif()
 endmacro()
 
@@ -147,15 +148,23 @@ if (SWIG_FOUND)
   endif(BUILDSWIGPYTHON)
   if(BUILDSWIGNODE)
     if(NOT NODE_FOUND)
-      find_package(Node REQUIRED)
+      find_package(Node)
     endif()
     if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
       message("WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
     endif()
+    find_path (NODE_ROOT_DIR "include/node/node.h")
+    set (NODE_INCLUDE_DIRS
+      ${NODE_ROOT_DIR}/include/src
+      ${NODE_ROOT_DIR}/include/node
+      ${NODE_ROOT_DIR}/include/deps/v8/include
+      ${NODE_ROOT_DIR}/include/deps/uv/include
+    )
     macro(createpackagejson)
         configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+        set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
-            DESTINATION lib/node_modules/jsupm_${libname} COMPONENT ${libname})
+            DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
     endmacro()
 
   endif(BUILDSWIGNODE)
@@ -168,7 +177,7 @@ macro(upm_module_init)
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} . ..)
+  include_directories (${MRAA_INCLUDE_DIRS} .)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
