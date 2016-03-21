@@ -27,11 +27,11 @@
 #include "max44009.h"
 #include "si1132.h"
 
-#define EDISON_I2C_BUS 1 
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
 //! [Interesting]
-// Simple example of using ILightSensor to determine 
+// Simple example of using ILightSensor to determine
 // which sensor is present and return its name.
 // ILightSensor is then used to get readings from sensor
 
@@ -43,22 +43,28 @@ upm::ILightSensor* getLightSensor()
       lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
       return lightSensor;
    } catch (std::exception& e) {
-      std::cerr << "SI1132: " << e.what() << std::endl;      
+      std::cerr << "SI1132: " << e.what() << std::endl;
+   }
+   try {
+      lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS + 1));
+      return lightSensor;
+   } catch (std::exception& e) {
+      std::cerr << "SI1132: " << e.what() << std::endl;
    }
    try {
       lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
       return lightSensor;
    } catch (std::exception& e) {
-      std::cerr << "MAX44009: " << e.what() << std::endl;      
+      std::cerr << "MAX44009: " << e.what() << std::endl;
    }
-   return lightSensor;   
+   return lightSensor;
 }
 
 int main ()
 {
    upm::ILightSensor* lightSensor = getLightSensor();
    if (lightSensor == NULL) {
-      std::cout << "Light sensor not detected" << std::endl;                        
+      std::cout << "Light sensor not detected" << std::endl;
       return 1;
    }
    std::cout << "Light sensor " << lightSensor->getModuleName() << " detected" << std::endl;
@@ -69,10 +75,10 @@ int main ()
       } catch (std::exception& e) {
          std::cerr << e.what() << std::endl;
       }
-      sleep(1);         
+      sleep(1);
    }
    delete lightSensor;
    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]
