@@ -22,16 +22,20 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+import mraa
+print (mraa.getVersion())
+
+# open connection to Firmata
+mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0")
+
 import time, sys, signal, atexit
 import pyupm_curieimu as curieimu
+sensor = curieimu.CurieImu()
 
 ## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
 def SIGINTHandler(signum, frame):
 	raise SystemExit
 
-# This lets you run code on exit,
-# including functions from myAccelrCompass
 def exitHandler():
 	print "Exiting"
 	sys.exit(0)
@@ -42,13 +46,11 @@ signal.signal(signal.SIGINT, SIGINTHandler)
 
 
 while(1):
-	# Get the acceleration
-	curieimu.updateAccel();
+	sensor.updateAccel();
 
 	outputStr = "acc: gX {0} - gY {1} - gZ {2}".format(
-	curieimu.getAccelX(), curieimu.getAccelY(),
-	curieimu.getAccelZ())
+	sensor.getAccelX(), sensor.getAccelY(),
+	sensor.getAccelZ())
 	print outputStr
 
-	print " "
 	time.sleep(1)
