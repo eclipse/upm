@@ -24,7 +24,7 @@
 
 import mraa
 print (mraa.getVersion())
-mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0");
+mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0")
 
 import time, sys, signal, atexit
 import pyupm_curieimu as curieimu
@@ -55,5 +55,4 @@ while(1):
 	sensor.getAccelZ())
 	print outputStr
 
-	print " "
 	time.sleep(1)

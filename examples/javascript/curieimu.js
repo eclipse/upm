@@ -42,7 +42,6 @@ var myInterval = setInterval(function()
 				+ " - y " + myCurie.getAccelY()
 				+ " - z " + myCurie.getAccelZ();
 	console.log(outputStr);
-	console.log(" ");
 }, 500);
 
 // Print message when exiting
