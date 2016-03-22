@@ -46,16 +46,28 @@ endmacro()
 
 macro(upm_SWIG_NODE)
   if (BUILDSWIGNODE AND BUILDSWIG)
+    # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
+    # required. This hardcodes V8_VERSION to be <10 but I assume that's not going
+    # to be a problem for a little while! SWIG uses a padded SWIG_V8 version which
+    # we hack together from our findnode module.
+    set (V8_VERSION_HEX 0x0${V8_VERSION_MAJOR}${V8_VERSION_MINOR}${V8_VERSION_PATCH})
+    string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
+    while (V8_VERSION_HEX_length LESS 8)
+      set (V8_VERSION_HEX "${V8_VERSION_HEX}0")
+      string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
+    endwhile ()
+
+    set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
-    set_source_files_properties (jsupm_${libname}.i PROPERTIES SWIG_FLAGS "-node")
     swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i ${module_src})
     swig_link_libraries (jsupm_${libname} ${MRAA_LIBRARIES} ${NODE_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
       "${NODE_INCLUDE_DIRS}"
-     )
+    )
+
     set_target_properties (jsupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=0x0${V8_DEFINE_STRING}"
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=${V8_VERSION_HEX}"
       PREFIX ""
       SUFFIX ".node"
     )
