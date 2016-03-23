@@ -48,7 +48,8 @@ main(int argc, char **argv)
 
     std::cout << "SmartDrive demo is starting. Please make sure drive is connected to board" << std::endl;
     sleep(2); //Wait for 2 seconds in case you want to fix your h/w setup
-
+    
+    //! [Interesting]
     // Instantiate a SmartDrive connected to /dev/i2c-0 bus, using DefaultAddress
     drive = new upm::SmartDrive(0);
 
@@ -63,6 +64,7 @@ main(int argc, char **argv)
     sleep(2); //Sleep for 2 seconds
     //Stop motor M2 and then finish program
     drive->StopMotor(SmartDrive_Motor_ID_2, SmartDrive_Action_BrakeHold);
+    //! [Interesting]
 
     std::cout << "Demo complete. GoodBye" << std::endl;
 

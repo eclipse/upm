@@ -117,10 +117,10 @@
 #define SmartDrive_MOTOR_CONTROL_ON        0x1
 #define SmartDrive_MOTOR_IS_RAMPING        0x2
 #define SmartDrive_MOTOR_IS_POWERED        0x4
-#define SmartDrive_MOTOR_POS_CTRL_ON    0x8
-#define SmartDrive_MOTOR_IN_BRAKE_MODE    0x10
+#define SmartDrive_MOTOR_POS_CTRL_ON       0x8
+#define SmartDrive_MOTOR_IN_BRAKE_MODE     0x10
 #define SmartDrive_MOTOR_OVERLOADED        0x20
-#define SmartDrive_MOTOR_IN_TIME_MODE    0x40
+#define SmartDrive_MOTOR_IN_TIME_MODE      0x40
 #define SmartDrive_MOTOR_IS_STALLED        0x80
 
 namespace upm {
@@ -146,7 +146,6 @@ namespace upm {
  *
  * This module has been tested on the SmartDrive.
  *
- * @image html smartdrive.jpeg
  * @snippet smartdrive.cxx Interesting
  */
 //Class definition

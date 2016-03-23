@@ -425,6 +425,12 @@
  * @defgroup amphenol Amphenol
  * @ingroup byman
  */
+ 
+/**
+ * @brief Open Electrons
+ * @defgroup openelectrons Open Electrons
+ * @ingroup byman
+ */ 
 
 ////////////////////////////////////////////////////////////////// @cond KIT
 /// Groups for the various Starter Kits.
