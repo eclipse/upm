@@ -52,6 +52,7 @@ namespace upm
  * For each LED, brightness (0-31) and RGB (0-255) values can be set.
  *
  * @image html apa102.jpg
+ * @snippet apa102.cxx Interesting
  */
 class APA102
 {
@@ -59,11 +60,11 @@ class APA102
     /**
      * Instantiates a new APA102 LED Strip
      *
-     * @param ledCount 	Number of APA102 leds in the strip
-     * @param spiBus 	SPI Bus number
+     * @param ledCount  Number of APA102 leds in the strip
+     * @param spiBus    SPI Bus number
      * @param batchMode (optional) Immediatly write to SPI (false, default) or wait for a pushState
      * call (true)
-     * @param csn 		(optional) Chip Select Pin
+     * @param csn       (optional) Chip Select Pin
      */
     APA102(uint16_t ledCount, uint8_t spiBus, bool batchMode = false, int8_t csn = -1);
 
@@ -75,33 +76,33 @@ class APA102
     /**
      * Change the color for a single led
      *
-     * @param ledIdx		Index of the LED in the strip (0 based)
-     * @param brightness	Brightness value (0-31)
-     * @param r				Red component (0-255)
-     * @param g				Green component (0-255)
-     * @param b				Blue component (0-255)
+     * @param ledIdx        Index of the LED in the strip (0 based)
+     * @param brightness    Brightness value (0-31)
+     * @param r             Red component (0-255)
+     * @param g             Green component (0-255)
+     * @param b             Blue component (0-255)
      */
     void setLed(uint16_t ledIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
      * Change the color for all leds
      *
-     * @param brightness	Brightness value (0-31)
-     * @param r				Red component (0-255)
-     * @param g				Green component (0-255)
-     * @param b				Blue component (0-255)
+     * @param brightness    Brightness value (0-31)
+     * @param r             Red component (0-255)
+     * @param g             Green component (0-255)
+     * @param b             Blue component (0-255)
      */
     void setAllLeds(uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
      * Change the color for a range of leds
      *
-     * @param startIdx		Start index of the range of LEDs in the strip (0 based)
-     * @param endIdx		End index of the range of LEDs in the strip (0 based)
-     * @param brightness	Brightness value (0-31)
-     * @param r				Red component (0-255)
-     * @param g				Green component (0-255)
-     * @param b				Blue component (0-255)
+     * @param startIdx      Start index of the range of LEDs in the strip (0 based)
+     * @param endIdx        End index of the range of LEDs in the strip (0 based)
+     * @param brightness    Brightness value (0-31)
+     * @param r             Red component (0-255)
+     * @param g             Green component (0-255)
+     * @param b             Blue component (0-255)
      */
     void
     setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
@@ -110,12 +111,12 @@ class APA102
      * (Advanced) Manually control the colors of a range of LEDS
      * Best used to maximize performance
      *
-     * @param startIdx		Start index of the range of LEDs to update (0 based)
-     * @param endIdx		End index of the range of LEDs to update (0 based)
-     * @param colors		Pointer to an array of bytes. Each color is described as the following:
-     *						B1: Brightness (224-255) B2: Blue (0-255) B3: Green (0-255) B4: Red
+     * @param startIdx      Start index of the range of LEDs to update (0 based)
+     * @param endIdx        End index of the range of LEDs to update (0 based)
+     * @param colors        Pointer to an array of bytes. Each color is described as the following:
+     *                      B1: Brightness (224-255) B2: Blue (0-255) B3: Green (0-255) B4: Red
      *(0-255)
-     *						No check done on the boundaries
+     *                      No check done on the boundaries
      */
     void setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t* colors);
 
