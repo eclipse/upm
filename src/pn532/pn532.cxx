@@ -993,8 +993,10 @@ bool PN532::mifareclassic_WriteNDEFURI (uint8_t sectorNumber,
   // in NDEF records
     
   // Setup the sector buffer (w/pre-formatted TLV wrapper and NDEF message)
-  uint8_t sectorbuffer1[16] = {0x00, 0x00, 0x03, len+5, 0xD1, 0x01, len+1, 
-                               0x55, uriIdentifier, 0x00, 0x00, 0x00, 0x00, 
+  uint8_t sectorbuffer1[16] = {0x00, 0x00, 0x03, static_cast<uint8_t>(len+5),
+                               0xD1, 0x01, static_cast<uint8_t>(len+1),
+                               0x55, static_cast<uint8_t>(uriIdentifier), 
+                               0x00, 0x00, 0x00, 0x00, 
                                0x00, 0x00, 0x00};
   uint8_t sectorbuffer2[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -1330,13 +1332,13 @@ bool PN532::ntag2xx_WriteNDEFURI (NDEF_URI_T uriIdentifier, char * url,
                        each lock bit can lock (4 bit + 4 bits) */
       /* NDEF Message TLV - URI Record */
       0x03,         /* Tag Field (0x03 = NDEF Message) */
-      len+5,        /* Payload Length (not including 0xFE trailer) */
+      static_cast<uint8_t>(len+5), /* Payload Length (not including 0xFE trailer) */
       0xD1,         /* NDEF Record Header (TNF=0x1:Well known record +
                        SR + ME + MB) */
       0x01,         /* Type Length for the record type indicator */
-      len+1,        /* Payload len */
+      static_cast<uint8_t>(len+1),        /* Payload len */
       0x55,         /* Record Type Indicator (0x55 or 'U' = URI Record) */
-      uriIdentifier /* URI Prefix (ex. 0x01 = "http://www.") */
+      static_cast<uint8_t>(uriIdentifier) /* URI Prefix (ex. 0x01 = "http://www.") */
     };
   
   // Write 12 byte header (three pages of data starting at page 4)

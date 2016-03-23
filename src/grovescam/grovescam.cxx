@@ -194,7 +194,8 @@ void GROVESCAM::drainInput()
 bool GROVESCAM::init()
 {
   const unsigned int pktLen = 6;
-  uint8_t cmd[pktLen] = {0xaa, 0x0d|m_camAddr, 0x00, 0x00, 0x00, 0x00};
+  uint8_t cmd[pktLen] = {0xaa, static_cast<uint8_t>(0x0d|m_camAddr), 0x00,
+                         0x00, 0x00, 0x00};
   uint8_t resp[pktLen];
   int retries = 0;
 
@@ -246,7 +247,8 @@ bool GROVESCAM::init()
 bool GROVESCAM::preCapture(PIC_FORMATS_T fmt)
 {
   const unsigned int pktLen = 6;
-  uint8_t cmd[pktLen] = { 0xaa, 0x01 | m_camAddr, 0x00, 0x07, 0x00, fmt };
+  uint8_t cmd[pktLen] = { 0xaa, static_cast<uint8_t>(0x01 | m_camAddr), 0x00,
+                          0x07, 0x00, static_cast<uint8_t>(fmt) };
   uint8_t resp[pktLen];
   int retries = 0;
 
@@ -282,8 +284,9 @@ bool GROVESCAM::preCapture(PIC_FORMATS_T fmt)
 bool GROVESCAM::doCapture()
 {
   const unsigned int pktLen = 6;
-  uint8_t cmd[pktLen] = { 0xaa, 0x06 | m_camAddr, 0x08, MAX_PKT_LEN & 0xff, 
-                          (MAX_PKT_LEN >> 8) & 0xff, 0};
+  uint8_t cmd[pktLen] = { 0xaa, static_cast<uint8_t>(0x06 | m_camAddr), 0x08,
+                          static_cast<uint8_t>(MAX_PKT_LEN & 0xff),
+                          static_cast<uint8_t>((MAX_PKT_LEN >> 8)) & 0xff, 0};
   uint8_t resp[pktLen];
   int retries = 0;
   
@@ -422,7 +425,8 @@ bool GROVESCAM::storeImage(const char *fname)
   if ((m_picTotalLen % (MAX_PKT_LEN-6)) != 0) 
     pktCnt += 1;
   
-  uint8_t cmd[pktLen] = { 0xaa, 0x0e | m_camAddr, 0x00, 0x00, 0x00, 0x00 };
+  uint8_t cmd[pktLen] = { 0xaa, static_cast<uint8_t>(0x0e | m_camAddr), 0x00,
+                          0x00, 0x00, 0x00 };
   uint8_t pkt[MAX_PKT_LEN];
   int retries = 0;
   
