@@ -57,7 +57,7 @@ option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
-option (BUILDTESTS "Generate check-ups for upm" OFF)
+option (BUILDTESTS "Generate check-ups for upm" ON)
 
 # Find swig
 if (BUILDSWIG)
