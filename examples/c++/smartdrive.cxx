@@ -46,23 +46,23 @@ main(int argc, char **argv)
 {
     float voltage = 0;
 
-    cout << "SmartDrive demo is starting. Please make sure drive is connected to board" << endl;
+    std::cout << "SmartDrive demo is starting. Please make sure drive is connected to board" << std::endl;
     sleep(2); //Wait for 2 seconds in case you want to fix your h/w setup
 
     // Instantiate a SmartDrive connected to /dev/i2c-0 bus, using DefaultAddress
     drive = new upm::SmartDrive(0);
 
-    cout << "Battery Voltage before motor run : " << drive.GetBattVoltage() << std::endl;
-    //Set motor M1 to run for 300seconds, with speed of 15RPM, waith for it to finish and then Brake It
-    drive->Run_Seconds(Motor_ID_M1, Dir_Forward, 15, 300, true, Action_Brake );
-    std::cout << "Battery Voltage after motor run : " << drive.GetBattVoltage() << std::endl;
-    //Rotate motor M2 2270 degrees, in reverse sens, with speed of 10RPM, return immediately from function call
-    drive->Run_Degrees(Motor_ID_M2, Dir_Reverse, 10, 2270, false, Action_Float);
+    std::cout << "Battery Voltage before motor run : " << drive->GetBattVoltage() << std::endl;
+    //Set motor M1 to run for 120 seconds, with speed of 15RPM, waith for it to finish and then Brake It
+    drive->Run_Seconds(SmartDrive_Motor_ID_1, SmartDrive_Dir_Forward, 15, 120, true, SmartDrive_Action_Brake);
+    std::cout << "Battery Voltage after motor run : " << drive->GetBattVoltage() << std::endl;
+    //Rotate motor M2 2270 degrees, in reverse sense, with speed of 10RPM, return immediately from function call
+    drive->Run_Degrees(SmartDrive_Motor_ID_2, SmartDrive_Dir_Reverse, 10, 2270, false, SmartDrive_Action_Float);
     //While motor is running, Display its status
-    drive->PrintMotorStatus(Motor_ID_M2);
+    drive->PrintMotorStatus(SmartDrive_Motor_ID_2);
     sleep(2); //Sleep for 2 seconds
     //Stop motor M2 and then finish program
-    drive->StopMotor(Motor_ID_M2, Action_BrakeHold );
+    drive->StopMotor(SmartDrive_Motor_ID_2, SmartDrive_Action_BrakeHold);
 
     std::cout << "Demo complete. GoodBye" << std::endl;
 
