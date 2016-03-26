@@ -60,6 +60,10 @@ macro(upm_SWIG_NODE)
     
 #    include_directories (${NODE_INCLUDE_DIRS})
 
+    include_directories (
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
+
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i ${module_src})
