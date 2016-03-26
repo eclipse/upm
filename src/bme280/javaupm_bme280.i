@@ -1,0 +1,23 @@
+%module javaupm_bme280
+%include "../upm.i"
+%include "arrays_java.i";
+%include "../java_buffer.i"
+%include "cpointer.i"
+%include "typemaps.i"
+
+%{
+    #include "bme280.h"
+%}
+
+%include "bme280.h"
+
+%pragma(java) jniclasscode=%{
+    static {
+        try {
+            System.loadLibrary("javaupm_bme280");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. \n" + e);
+            System.exit(1);
+        }
+    }
+%}

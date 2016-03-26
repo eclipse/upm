@@ -4,6 +4,19 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.6.0
+
+ * Introduced C++ Interfaces for several sensor categories that will help
+ consolidate the sensor APIs with uniform function names upon implementation
+ * Greatly improved Node.js detection and handling during build and install,
+ and should be now compatible with all major versions
+ * Added a driver for the Curie IMU (accelerometer + gyroscope) that works with
+ the new Firmata support implemented by MRAA
+ * Continued to provide several JAVA fixes and examples
+ * Many new industrial and maker sensors: cwlsxxa, teams, tex00, h803x, apa102,
+ smartdrive, bmi160, bme280, ds1808lc, hlg150, lp8860, max44009, si1132, t6713,
+ si7005, ssd1351
+
 ### v0.5.1
 
  * Updated the API and added new functionality for the MY9221 class and derived

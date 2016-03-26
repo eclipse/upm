@@ -30,6 +30,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 #include <math.h>
+#include "upm/iTemperatureSensor.h"
 
 #define ADDR               0x77 // device address
 
@@ -88,7 +89,7 @@ namespace upm {
  * @snippet bmpx8x.cxx Interesting
  */
 
-class BMPX8X {
+class BMPX8X : public ITemperatureSensor {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -140,6 +141,19 @@ class BMPX8X {
          * @param sealevelPressure Sea level
          */
         float getAltitude (float sealevelPressure = 101325);
+
+        /**
+         * Return latest calculated temperature value in Celcius
+         * See ITemperatureSensor
+         */
+        int getTemperatureCelcius();
+
+        /**
+         * Returns name of module. This is the string in library name after libupm_
+
+         * @return name of module
+         */
+        const char* getModuleName();
 
         /**
          * Calculates B5 (check the spec for more information)

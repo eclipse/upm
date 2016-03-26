@@ -33,9 +33,9 @@
 using namespace upm;
 
 BMPX8X::BMPX8X (int bus, int devAddr, uint8_t mode) : m_controlAddr(devAddr), m_i2ControlCtx(bus) {
- 
+
     m_name = "BMPX8X";
- 
+
     mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
     if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -93,7 +93,8 @@ BMPX8X::getPressure () {
     B7 = ((uint32_t)UP - B3) * (uint32_t)( 50000UL >> oversampling );
 
     if (B7 < 0x80000000) {
-        p = (B7 * 2) / B4;
+        p = (B7 * 2) / B4
+;
     } else {
         p = (B7 / B4) * 2;
     }
@@ -168,6 +169,18 @@ BMPX8X::getAltitude (float sealevelPressure) {
 
     return altitude;
 }
+
+
+int
+BMPX8X::getTemperatureCelcius() {
+    return static_cast<int>(getTemperature() + 0.5);
+}
+
+const char*
+BMPX8X::getModuleName() {
+    return m_name.c_str();
+}
+
 
 int32_t
 BMPX8X::computeB5(int32_t UT) {
