@@ -30,7 +30,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 #include <math.h>
-#include "upm/iTemperatureSensor.h"
+#include "iTemperatureSensor.h"
 
 #define ADDR               0x77 // device address
 
