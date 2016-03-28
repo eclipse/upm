@@ -40,7 +40,7 @@ macro(upm_SWIG_PYTHON)
      )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/_pyupm_${libname}.so
          ${CMAKE_CURRENT_BINARY_DIR}/pyupm_${libname}.py
-         DESTINATION ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
+         DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
   endif()
 endmacro()
@@ -104,7 +104,7 @@ macro(upm_SWIG_NODE)
 
     endif()
     createpackagejson(${libname})
-    set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
+    set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
   endif()
@@ -136,8 +136,8 @@ macro(upm_SWIG_JAVA)
       PREFIX "lib"
       SUFFIX ".so"
     )
-    install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar DESTINATION ${CMAKE_INSTALL_LIBDIR}/../lib/java)
+    install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar DESTINATION ${LIB_INSTALL_DIR}/../lib/java)
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
         set (JAVAC $ENV{JAVA_HOME}/bin/javac)
@@ -202,11 +202,11 @@ if (SWIG_FOUND)
       # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
       # base on the NODE_ROOT_DIR.
       if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-        set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
+        set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
       # If a CMAKE_INSTALL_PREFIX has been provided, set NODE_MODULE_INSTALL_PATH
       # relative to the provided install directory.
       else ()
-        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib/node_modules/jsupm_${libname}/)
+        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
       endif ()
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
           DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
@@ -228,7 +228,7 @@ macro(upm_module_init)
     SOVERSION ${upm_VERSION_MAJOR}
     VERSION ${upm_VERSION_STRING}
   )
-  upm_create_install_pkgconfig (upm-${libname}.pc ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+  upm_create_install_pkgconfig (upm-${libname}.pc ${LIB_INSTALL_DIR}/pkgconfig)
   if (SWIG_FOUND)
     if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
       upm_swig_python()
@@ -243,7 +243,7 @@ macro(upm_module_init)
   if (BUILDDOC)
     upm_doxygen()
   endif()
-  install(TARGETS ${libname} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  install(TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
   install (FILES ${module_h} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
