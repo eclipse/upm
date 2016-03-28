@@ -68,7 +68,7 @@ namespace upm {
 
  */
 
-class BMP180 : public IPressureSensor, public ITemperatureSensor {
+class BMP180  {
     public:
         /**
          * Instanciates a BMP180 object
@@ -98,7 +98,7 @@ class BMP180 : public IPressureSensor, public ITemperatureSensor {
         /**
          * Return latest calculated temperature value in Celcius
          */
-        int getTemperatureCelcius();
+        int getTemperatureCelsius();
 
         /**
          * Returns whether the correct chip is present at the given address.

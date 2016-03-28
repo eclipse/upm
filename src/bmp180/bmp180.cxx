@@ -111,7 +111,7 @@ BMP180::BMP180 (int bus, int devAddr, uint8_t mode) {
     if (!isAvailable() || !getCalibrationData())
         UPM_THROW("Init failed");
 
-    getTemperatureCelcius();
+    getTemperatureCelsius();
 }
 
 BMP180::~BMP180() {
@@ -165,7 +165,7 @@ BMP180::getPressurePa () {
 }
 
 int
-BMP180::getTemperatureCelcius () {
+BMP180::getTemperatureCelsius () {
     uint32_t temp;
     int32_t x1, x2;
 

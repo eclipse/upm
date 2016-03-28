@@ -89,7 +89,7 @@ namespace upm {
  * @snippet bmpx8x.cxx Interesting
  */
 
-class BMPX8X : public ITemperatureSensor {
+class BMPX8X {
     public:
         /**
          * Instantiates a BMPX8X object

@@ -58,7 +58,7 @@ namespace upm {
  * @if itemperaturesensor
 
  */
-class SI7005 : public ITemperatureSensor, public IHumiditySensor {
+class SI7005  {
     public:
         /**
          * Instantiates a SI7005 object

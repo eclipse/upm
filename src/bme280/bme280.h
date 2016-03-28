@@ -19,7 +19,7 @@ namespace upm {
 
 
 
-class BME280 : public ITemperatureSensor, public IHumiditySensor, public IPressureSensor {
+class BME280 {
     public:
 
 
