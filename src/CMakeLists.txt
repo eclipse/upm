@@ -194,14 +194,20 @@ if (SWIG_FOUND)
       ${NODE_ROOT_DIR}/include/deps/uv/include
     )
     macro(createpackagejson)
-        configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+      configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+      # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
+      # base on the NODE_ROOT_DIR.
+      if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
-            DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
+      # If a CMAKE_INSTALL_PREFIX has been provided, set NODE_MODULE_INSTALL_PATH
+      # relative to the provided install directory.
+      else ()
+        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib/node_modules/jsupm_${libname}/)
+      endif ()
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
+          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
     endmacro()
-
   endif(BUILDSWIGNODE)
-
 endif()
 
 macro(upm_module_init)
