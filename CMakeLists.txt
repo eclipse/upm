@@ -48,7 +48,7 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 
 set (CMAKE_SWIG_FLAGS "")
 
-option (BUILDDOC "Build all doc." OFF)
+option (BUILDDOC "Build all doc." ON)
 option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
 option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
