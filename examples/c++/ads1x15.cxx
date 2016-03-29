@@ -286,7 +286,7 @@ int main()
                 else ads->setCompMode();
                break;
           case 18:
-               cout << ads->getCompLatch() << cout;
+               cout << ads->getCompLatch() << endl;
                break;
           case 19:
                cout << "select one of the following:" << endl;
@@ -296,7 +296,7 @@ int main()
                 else ads->setCompLatch();
                break;
           case 20:
-               cout << ads->getContinuous() << cout;
+               cout << ads->getContinuous() << endl;
                break;
           case 21:
                cout << "select one of the following:" << endl;
