@@ -28,7 +28,7 @@ endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 
 macro(upm_SWIG_PYTHON)
   if (BUILDSWIGPYTHON AND BUILDSWIG)
-   
+
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
@@ -57,7 +57,7 @@ macro(upm_SWIG_NODE)
       set (V8_VERSION_HEX "${V8_VERSION_HEX}0")
       string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
     endwhile ()
-    
+
 #    include_directories (${NODE_INCLUDE_DIRS})
 
     include_directories (
@@ -84,7 +84,7 @@ macro(upm_SWIG_NODE)
           message(FATAL_ERROR " **ERROR** GCC 4.7 or above is required to compile jsupm_${libname} ")
         endif()
       endif()
-      
+
       if (NOT ENABLECXX11)
           set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD 11)
           set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD_REQUIRED ON)
@@ -220,7 +220,7 @@ macro(upm_module_init)
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} .)
+  include_directories (${MRAA_INCLUDE_DIRS} . ..)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
