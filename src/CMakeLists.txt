@@ -106,7 +106,6 @@ macro(upm_SWIG_NODE)
 
     endif()
     createpackagejson(${libname})
-    set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
   endif()
