@@ -29,6 +29,10 @@ endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 macro(upm_SWIG_PYTHON)
   if (BUILDSWIGPYTHON AND BUILDSWIG)
 
+    include_directories (
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
+
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
@@ -57,8 +61,6 @@ macro(upm_SWIG_NODE)
       set (V8_VERSION_HEX "${V8_VERSION_HEX}0")
       string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
     endwhile ()
-
-#    include_directories (${NODE_INCLUDE_DIRS})
 
     include_directories (
       ${CMAKE_CURRENT_SOURCE_DIR}/..
