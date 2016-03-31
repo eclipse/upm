@@ -92,7 +92,13 @@ namespace upm {
  *
  * @brief API for SSD1351 OLED displays
  *
- * This module defines the interface for the SSD1351 display library
+ * This module defines the interface for the SSD1351 display library. It was
+ * tested with the Adafruit 1.5" OLED Display, but should work with any SSD1351
+ * display running in SPI mode.
+ *
+ * On the Intel Edison don't forget to disable SPI Power Management (PM) for
+ * this driver to work, you can find more details on this topic here:
+ * http://iotdk.intel.com/docs/master/mraa/edison.html
  *
  * @image html ssd1351.jpg
  * @snippet ssd1351.cxx Interesting
