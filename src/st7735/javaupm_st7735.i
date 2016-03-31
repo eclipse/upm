@@ -35,9 +35,9 @@
     $1 = (unsigned char *)JCALL2(GetByteArrayElements, jenv, $input, NULL);
 }
 
-%include "gfx.h"
+%include "st7735_gfx.h"
 %{
-    #include "gfx.h"
+    #include "st7735_gfx.h"
 %}
 
 %include "st7735.h"

@@ -5,9 +5,9 @@
 
 %apply uint8_t *INPUT { uint8_t *addr }
 
-%include "gfx.h"
+%include "ili9341_gfx.h"
 %{
-    #include "gfx.h"
+    #include "ili9341_gfx.h"
 %}
 
 %{

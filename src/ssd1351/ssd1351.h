@@ -30,7 +30,7 @@
 #include <mraa/common.hpp>
 #include <mraa/gpio.hpp>
 #include <mraa/spi.hpp>
-#include "gfx.h"
+#include "ssd1351_gfx.h"
 
 // Display Size
 #define SSD1351WIDTH 128

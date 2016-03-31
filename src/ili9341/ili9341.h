@@ -32,7 +32,7 @@
 #include <mraa/common.hpp>
 #include <mraa/gpio.hpp>
 #include <mraa/spi.hpp>
-#include "gfx.h"
+#include "ili9341_gfx.h"
 
 // Defines
 #define ILI9341_TFTWIDTH    240

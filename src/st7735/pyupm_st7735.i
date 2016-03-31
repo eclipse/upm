@@ -6,9 +6,9 @@
 %feature("autodoc", "3");
 %rename("printString") print(std::string msg);
 
-%include "gfx.h"
+%include "st7735_gfx.h"
 %{
-    #include "gfx.h"
+    #include "st7735_gfx.h"
 %}
 
 %include "st7735.h"
