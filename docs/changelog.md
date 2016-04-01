@@ -4,6 +4,15 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.6.1
+
+ * Fixed library build process for different configurations across multiple
+ environments reported by users.
+ * Fixed multiple GFX library header clash and improved SSD1351 compatibility
+ by changing SPI mode
+ * Added Node and Python array typemaps for nrf24l01
+ * Added 2 new JAVA examples
+
 ### v0.6.0
 
  * Introduced C++ Interfaces for several sensor categories that will help
