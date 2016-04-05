@@ -203,11 +203,11 @@ if (SWIG_FOUND)
       # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
       # base on the NODE_ROOT_DIR.
       if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-        set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
+        set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
       # If a CMAKE_INSTALL_PREFIX has been provided, set NODE_MODULE_INSTALL_PATH
       # relative to the provided install directory.
       else ()
-        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/node_modules/jsupm_${libname}/)
+        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib/node_modules/jsupm_${libname}/)
       endif ()
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
           DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
