@@ -15,15 +15,10 @@ message (INFO " found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-# Older cmake might not pick CMAKE_INSTALL_LIBDIR right
-if (CMAKE_INSTALL_LIBDIR)
-  set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for libraries")
-else ()
-  set (LIB_INSTALL_DIR "lib" CACHE PATH "Installation path for libraries")
-endif ()
 
-# Set CMAKE_LIB_INSTALL_DIR if not defined
+# Set CMAKE_INSTALL_LIBDIR if not defined
 include(GNUInstallDirs)
+set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for libraries")
 
 # Make a version file containing the current version from git.
 include (GetGitRevisionDescription)
