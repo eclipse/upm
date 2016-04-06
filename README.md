@@ -114,6 +114,15 @@ API Documentation
 <a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/icons/python.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/icons/node.png"/></a>
 
+### API Compatibility
+Even if we try our best not to, every once in a while we are forced to modify
+our API in a way that will break backwards compatibility. If you find yourself
+unable to compile code that was working fine before a library update, make sure
+you check the [API changes](docs/apichanges.md) section first.
+
+**NOTE** - Our **C++ header files** will change their extension from *.h* to
+*.hpp* in the upcoming version.
+
 ### Changelog
 Version changelog [here](docs/changelog.md).
 
