@@ -260,6 +260,8 @@ if (HAVE_FIRMATA)
 endif ()
 if (BACNET_FOUND)
   include_directories(${BACNET_INCLUDE_DIRS})
+  # we need access to bacnetmstp headers too
+  include_directories(${PROJECT_SOURCE_DIR}/src/bacnetmstp)
   add_example (e50hx)
 endif()
 
