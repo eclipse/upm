@@ -205,12 +205,17 @@ if (RPM)
   set(CPACK_PACKAGE_VERSION ${VERSION})
   set(CPACK_GENERATOR "RPM")
   set(CPACK_PACKAGE_NAME "upm")
+  set(upm_PACKAGE_ON_TAG ".")
+  if ("${VERSION_COMMIT}" STREQUAL "")
+    set(upm_PACKAGE_ON_TAG "")
+  endif()
   set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}.${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
   set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
   set(CPACK_RPM_PACKAGE_REQUIRES "mraa >= ${MRAA_VERSION}")
   set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
+  set(CPACK_RPM_PACKAGE_LICENSE "MIT")
   EXECUTE_PROCESS(COMMAND rpm --showrc
     COMMAND grep -E "dist[[:space:]]*\\."
     COMMAND sed -e "s/^.*dist\\s*\\.//"
