@@ -851,7 +851,7 @@ namespace upm {
 
     /**
      * enable I2C Bypass.  Enabling this feature allows devices on the
-     * MPU60X0 auxillary I2C bus to be visible on the MCU's I2C bus.
+     * MPU60X0 auxiliary I2C bus to be visible on the MCU's I2C bus.
      *
      * @param enable true to I2C bypass
      * @return true if successful, false otherwise

@@ -371,17 +371,17 @@ void hal_aci_tl_init(aci_pins_t *a_pins, bool debug)
 
     error = mraa_gpio_dir (a_pins->m_rdy_ctx, MRAA_GPIO_IN);
     if (error != MRAA_SUCCESS) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        printf ("[ERROR] GPIO failed to initialize \n");
     }
 
     error = mraa_gpio_dir (a_pins->m_req_ctx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        printf ("[ERROR] GPIO failed to initialize \n");
     }
 
     error = mraa_gpio_dir (a_pins->m_rst_ctx, MRAA_GPIO_OUT);
     if (error != MRAA_SUCCESS) {
-        printf ("[ERROR] GPIO failed to initilize \n");
+        printf ("[ERROR] GPIO failed to initialize \n");
     }
 
     if (UNUSED != a_pins->active_pin) {

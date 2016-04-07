@@ -39,7 +39,7 @@ public class GroveEmg {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following exception occured: "+e.getMessage());
+				System.out.println("The following exception occurred: "+e.getMessage());
 			}
 		}
 	}

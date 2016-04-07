@@ -192,8 +192,8 @@ uint32_t PN532::getFirmwareVersion()
   @param  cmdlen    The size of the command in bytes 
   @param  timeout   timeout before giving up
     
-  @returns  1 if everything is OK, 0 if timeout occured before an
-  ACK was recieved
+  @returns  1 if everything is OK, 0 if timeout occurred before an
+  ACK was received
 */
 /**************************************************************************/
 // default timeout of one second

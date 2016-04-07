@@ -232,8 +232,8 @@ namespace upm {
      * @param  cmdlen    the size of the command in bytes 
      * @param  timeout   timeout before giving up (in ms)
      * 
-     * @return true if everything is OK, false if timeout occured
-     * before an ACK was recieved
+     * @return true if everything is OK, false if timeout occurred
+     * before an ACK was received
      */
     bool sendCommandCheckAck(uint8_t *cmd, uint8_t cmdlen, 
                              uint16_t timeout=1000);

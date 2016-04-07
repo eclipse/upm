@@ -113,7 +113,7 @@ namespace upm {
     /**
      * Set the zero point.  This is the point measured and averaged
      * when the sensor is not moving.  It is set at construction time
-     * (averaged over a number of samples), but can be overriden here.
+     * (averaged over a number of samples), but can be overridden here.
      *
      * @param zeroPoint The averaged zero point of the sensor at rest
      */
