@@ -398,7 +398,7 @@ namespace upm {
      * library.  Most modern devices are never polled, rather they are
      * configured to report changing values to the controller on their
      * own at device specific intervals or when appropriate events
-     * (depending the device) have occured.
+     * (depending the device) have occurred.
      *
      * @param nodeId The node ID
      * @param index The value index (see dumpNodes()) of the value to query.

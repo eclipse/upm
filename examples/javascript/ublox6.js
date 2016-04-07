@@ -66,7 +66,7 @@ function getGPSInfo()
 			process.stdout.write(GPSData)
 		}
 
-		if (rv < 0) // some sort of read error occured
+		if (rv < 0) // some sort of read error occurred
 		{
 			console.log("Port read error.");
 			process.exit(0);

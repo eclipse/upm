@@ -522,7 +522,7 @@ namespace upm {
     /**
      * Sets up the interrupt 1 threshold register
      *
-     * @param val Threshhold to set
+     * @param val Threshold to set
      * @return True if successful
      */
     bool setInterrupt1Threshold(uint8_t val);
@@ -530,7 +530,7 @@ namespace upm {
     /**
      * Sets up the interrupt 2 threshold register
      *
-     * @param val Threshhold to set
+     * @param val Threshold to set
      * @return True if successful
      */
     bool setInterrupt2Threshold(uint8_t val);

@@ -177,8 +177,8 @@ namespace upm {
 
     /**
      * Set the driection mode (input or output) for all gpios enabled
-     * by gpioSetIOMask().  A 0 in a given bit postion (LSB = gpio0)
-     * configures the gpio as an ouput, and a 1 bit configures the
+     * by gpioSetIOMask().  A 0 in a given bit position (LSB = gpio0)
+     * configures the gpio as an output, and a 1 bit configures the
      * gpio as an input.  Only the gpios enabled by gpioSetMask() are
      * affected by this call.
      *
@@ -211,7 +211,7 @@ namespace upm {
 
     /**
      * Read the raw analog input value present at the given gpio and
-     * return the coresponding voltage value at the pin.  The gpio is
+     * return the corresponding voltage value at the pin.  The gpio is
      * switched to analog input mode by this call, regardless of any
      * previous mode.  The returned value will be a number between
      * 0.0-3.3, depending on the voltage present at the pin.  Only the

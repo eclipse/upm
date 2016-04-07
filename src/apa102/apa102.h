@@ -62,7 +62,7 @@ class APA102
      *
      * @param ledCount  Number of APA102 leds in the strip
      * @param spiBus    SPI Bus number
-     * @param batchMode (optional) Immediatly write to SPI (false, default) or wait for a pushState
+     * @param batchMode (optional) Immediately write to SPI (false, default) or wait for a pushState
      * call (true)
      * @param csn       (optional) Chip Select Pin
      */

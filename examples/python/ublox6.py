@@ -73,7 +73,7 @@ def getGPSInfo():
 				GPSData += nmeaBuffer.__getitem__(x)
 			sys.stdout.write(GPSData)
 
-		if (rv < 0): # some sort of read error occured
+		if (rv < 0): # some sort of read error occurred
 			print "Port read error."
 			sys.exit(0)
 

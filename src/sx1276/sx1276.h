@@ -1740,7 +1740,7 @@ namespace upm {
      *                          FSK : N/A ( set to 0 ) 
      *                          LoRa: timeout in symbols
      * @param fixLen Fixed length packets [false: variable, true: fixed]
-     * @param payloadLen Sets payload length when fixed lenght is used
+     * @param payloadLen Sets payload length when fixed length is used
      * @param crcOn Enables/Disables the CRC [false: OFF, true: ON]
      * @param FreqHopOn Enables disables the intra-packet frequency hopping
      *                          FSK : N/A ( set to 0 )

@@ -189,7 +189,7 @@ mraa::Result SI1132::runCommand(uint8_t command)
     }
     if (response == 0) {
         status = mraa::ERROR_UNSPECIFIED;
-        fprintf(stderr, "Comand %d failed\n", command);
+        fprintf(stderr, "Command %d failed\n", command);
     }
     return status;
 }
