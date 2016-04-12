@@ -152,9 +152,9 @@ if (BUILDDOC)
       configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
     endforeach()
     add_custom_target(jsdoc ALL
-      COMMAND ${NODE_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
+      COMMAND ${NODEJS_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
       COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers generators/yuidoc/helper.js --themedir generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
-      COMMAND ${NODE_EXECUTABLE} tolower -i html/node
+      COMMAND ${NODEJS_EXECUTABLE} tolower -i html/node
       DEPENDS doc
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Yuidoc" VERBATIM
