@@ -264,6 +264,7 @@ if (BACNET_FOUND)
   include_directories(${PROJECT_SOURCE_DIR}/src/bacnetmstp)
   add_example (e50hx)
 endif()
+add_example (vcap)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)

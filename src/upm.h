@@ -222,6 +222,12 @@
  */
 
 /**
+ * @brief Provide video or video camera access
+ * @defgroup video Video
+ * @ingroup bycat
+ */
+
+/**
  * @brief Provide WiFi, Bluetooth, RF communication
  * @defgroup wifi Wireless Communication
  * @ingroup bycat
