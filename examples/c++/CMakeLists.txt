@@ -258,6 +258,7 @@ add_example (smartdrive)
 if (HAVE_FIRMATA)
   add_example (curieimu)
 endif ()
+add_example (ds18b20)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
