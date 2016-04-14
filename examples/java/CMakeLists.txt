@@ -115,6 +115,7 @@ add_example(AM2315Example am2315)
 if (MODBUS_FOUND)
   add_example(H803X_Example h803x)
 endif()
+add_example(VCAP_Example vcap)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd/upm_i2clcd.jar)
 add_example_with_path(Jhd1313m1Sample lcd/upm_i2clcd.jar)
