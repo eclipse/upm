@@ -267,6 +267,7 @@ add_example (vcap)
 add_example (ds2413)
 add_example (ds18b20)
 add_example (bmp280)
+add_example (bno055)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)

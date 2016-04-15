@@ -127,6 +127,7 @@ if (BACNET_FOUND)
 endif()
 add_example(VCAP_Example vcap)
 add_example(BMP280_Example bmp280)
+add_example(BNO055_Example bno055)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd i2clcd)
 add_example_with_path(Jhd1313m1Sample lcd i2clcd)
