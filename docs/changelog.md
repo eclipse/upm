@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.6.2
+
+ * Added a generic driver for taking snapshots from an USB camera device
+ * New API changes section in documentation to let users know when the UPM API
+ gets modified
+ * Fixed some spelling errors and improved JavaScript documentation builds with
+ newer versions of YUI and Node
+ * Enhanced Cmake scripts and the build process
+ * New sensors: vcap, e50hx
+
 ### v0.6.1
 
  * Fixed library build process for different configurations across multiple
