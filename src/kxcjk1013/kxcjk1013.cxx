@@ -28,6 +28,8 @@
 #include <string.h>
 #include "kxcjk1013.hpp"
 
+#define NUMBER_OF_BITS_IN_BYTE 8
+
 using namespace upm;
 
 KXCJK1013::KXCJK1013(int device)
@@ -45,7 +47,7 @@ KXCJK1013::KXCJK1013(int device)
     sprintf(trigger, "hrtimer-kxcjk1013-hr-dev%d", device);
 
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
-        fprintf(stderr, "Create trigger failed\n");
+        fprintf(stderr, "Create trigger %s failed\n", trigger);
 
     if (mraa_iio_get_mounting_matrix(m_iio, m_mount_matrix) == MRAA_SUCCESS)
         m_mount_matrix_exist = true;
@@ -58,7 +60,8 @@ KXCJK1013::KXCJK1013(int device)
 
 KXCJK1013::~KXCJK1013()
 {
-    // mraa_iio_stop(m_iio);
+    if(m_iio)
+        mraa_iio_close(m_iio);
 }
 
 void
@@ -70,21 +73,20 @@ KXCJK1013::installISR(void (*isr)(char*), void* arg)
 int64_t
 KXCJK1013::getChannelValue(unsigned char* input, mraa_iio_channel* chan)
 {
-    uint64_t u64;
+    uint64_t u64 = 0;
     int i;
-    int storagebits = chan->bytes * 8;
+    int storagebits = chan->bytes * NUMBER_OF_BITS_IN_BYTE;
     int realbits = chan->bits_used;
     int zeroed_bits = storagebits - realbits;
     uint64_t sign_mask;
     uint64_t value_mask;
 
-    u64 = 0;
 
     if (!chan->lendian)
-        for (i = 0; i < storagebits / 8; i++)
-            u64 = (u64 << 8) | input[i];
+        for (i = 0; i < storagebits / NUMBER_OF_BITS_IN_BYTE; i++)
+            u64 = (u64 << NUMBER_OF_BITS_IN_BYTE) | input[i];
     else
-        for (i = storagebits / 8 - 1; i >= 0; i--)
+        for (i = storagebits / NUMBER_OF_BITS_IN_BYTE - 1; i >= 0; i--)
             u64 = (u64 << 8) | input[i];
 
     u64 = (u64 >> chan->shift) & (~0ULL >> zeroed_bits);

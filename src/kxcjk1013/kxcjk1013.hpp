@@ -59,10 +59,12 @@ class KXCJK1013
      * @param iio device number
      */
     KXCJK1013(int device);
+
     /**
      * KXCJK1013 destructor
      */
     ~KXCJK1013();
+
     /**
      * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs
@@ -73,16 +75,17 @@ class KXCJK1013
      * argument to the ISR.
      */
     void installISR(void (*isr)(char*), void* arg);
+
     /**
      * Extract the channel value based on channel type
-   * @param input Channel data
-   * @param chan MRAA iio-layer channel info
+     * @param input Channel data
+     * @param chan MRAA iio-layer channel info
      */
     int64_t getChannelValue(unsigned char* input, mraa_iio_channel* chan);
 
     /**
      * Enable trigger buffer
-   * @param trigger buffer length in string
+     * @param trigger buffer length in string
      */
     bool enableBuffer(int length);
 
@@ -93,13 +96,13 @@ class KXCJK1013
 
     /**
      * Set scale
-   * @param scale in string
+     * @param scale in string
      */
     bool setScale(const float scale);
 
     /**
      * Set sampling frequency
-   * @param sampling frequency  in string
+     * @param sampling frequency in string
      */
     bool setSamplingFrequency(const float sampling_frequency);
 
@@ -110,10 +113,10 @@ class KXCJK1013
 
     /**
      * Process enabled channel buffer and return x, y, z axis
-   * @param data Enabled channel data, 6 bytes, each axis 2 bytes
-   * @param x X-Axis
-   * @param y Y-Axis
-   * @param z Z-Axis
+     * @param data Enabled channel data, 6 bytes, each axis 2 bytes
+     * @param x X-Axis
+     * @param y Y-Axis
+     * @param z Z-Axis
      */
     void extract3Axis(char* data, float* x, float* y, float* z);
 
