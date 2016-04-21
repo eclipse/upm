@@ -30,6 +30,8 @@
 
 #define NUMBER_OF_BITS_IN_BYTE 8
 
+#define NUMBER_OF_BITS_IN_BYTE 8
+
 using namespace upm;
 
 KXCJK1013::KXCJK1013(int device)
