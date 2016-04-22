@@ -22,41 +22,53 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
-#include <string>
-#include <stdexcept>
+#include <signal.h>
+#include "l3gd20.h"
 
-#include "apds9930.h"
+using namespace std;
 
-using namespace upm;
+int shouldRun = true;
+upm::L3GD20* gyroscope;
 
-APDS9930::APDS9930(int device)
+void
+sig_handler(int signo)
 {
-    if (!(m_iio = mraa_iio_init(device))) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_iio_init() failed, invalid device?");
-        return;
+    if (signo == SIGINT)
+        shouldRun = false;
+}
+
+void
+data_callback(char* data)
+{
+    float x, y, z;
+    if (gyroscope->extract3Axis(data, &x, &y, &z))
+        printf("% .2f               % .2f               % .2f\n", x, y, z);
+}
+
+int
+main()
+{
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
+    // Instantiate a L3GD20 Gyroscope Sensor on iio device 3
+    gyroscope = new upm::L3GD20(3);
+    gyroscope->setScale(0.001222);
+    gyroscope->setSamplingFrequency(95.0);
+    gyroscope->enable3AxisChannel();
+    gyroscope->installISR(data_callback, NULL);
+    gyroscope->enableBuffer(16);
+
+    while (shouldRun) {
+        sleep(1);
     }
-}
+    gyroscope->disableBuffer();
 
-APDS9930::~APDS9930()
-{
-    if(m_iio)
-        mraa_iio_close(m_iio);
-}
+    //! [Interesting]
+    cout << "Exiting" << endl;
 
-int
-APDS9930::getAmbient()
-{
-    int iio_value = 0;
-    mraa_iio_read_int(m_iio, "in_illuminance_input", &iio_value);
-    return iio_value;
-}
+    delete gyroscope;
 
-int
-APDS9930::getProximity()
-{
-    int iio_value = 0;
-    mraa_iio_read_int(m_iio, "in_proximity_raw", &iio_value);
-    return iio_value;
+    return 0;
 }

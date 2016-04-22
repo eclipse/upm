@@ -25,12 +25,13 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "kxcjk1013.h"
+#include <math.h>
+#include "mmc35240.h"
 
 using namespace std;
 
 int shouldRun = true;
-upm::KXCJK1013* accelerometer;
+upm::MMC35240* magnetometer;
 
 void
 sig_handler(int signo)
@@ -43,8 +44,18 @@ void
 data_callback(char* data)
 {
     float x, y, z;
-    accelerometer->extract3Axis(data, &x, &y, &z);
-    printf("% .1f               % .1f               % .1f\n", x, y, z);
+    double azimuth;
+    int level;
+    magnetometer->extract3Axis(data, &x, &y, &z);
+    /* calibrated level
+     * UNRELIABLE = 0
+     * ACCURACY_LOW = 1
+     * ACCURACY_MEDIUM = 2
+     * ACCURACY_HIGH = >=3
+     */
+    level = magnetometer->getCalibratedLevel();
+    azimuth = 90 - atan(y/x) * 180 / M_PI;
+    printf("[Calibrated Level:%d] [Azimuth:%d]    % .2f               % .2f               % .2f\n", level, (int)azimuth, x, y, z);
 }
 
 int
@@ -52,23 +63,24 @@ main()
 {
     signal(SIGINT, sig_handler);
     //! [Interesting]
-    // Instantiate a KXCJK1013 Accelerometer Sensor on iio device 0
-    accelerometer = new upm::KXCJK1013(0);
-    accelerometer->setScale(0.019163);
-    accelerometer->setSamplingFrequency(25.0);
-    accelerometer->enable3AxisChannel();
-    accelerometer->installISR(data_callback, NULL);
-    accelerometer->enableBuffer(16);
+    // Instantiate a MMC35240 Magnetic Sensor on iio device 5
+    magnetometer = new upm::MMC35240(5);
+
+    magnetometer->setScale(0.001000);
+    magnetometer->setSamplingFrequency(25.000000);
+    magnetometer->enable3AxisChannel();
+    magnetometer->installISR(data_callback, NULL);
+    magnetometer->enableBuffer(16);
 
     while (shouldRun) {
         sleep(1);
     }
-    accelerometer->disableBuffer();
+    magnetometer->disableBuffer();
 
     //! [Interesting]
     cout << "Exiting" << endl;
 
-    delete accelerometer;
+    delete magnetometer;
 
     return 0;
 }
