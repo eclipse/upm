@@ -1,0 +1,5 @@
+set (libname "l3gd20")
+set (libdescription "upm l3gd20 sensor module")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.h)
+upm_module_init()
