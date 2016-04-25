@@ -265,6 +265,8 @@ if (BACNET_FOUND)
   add_example (e50hx)
 endif()
 add_example (vcap)
+add_example (l3gd20)
+add_example (mmc35240)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
