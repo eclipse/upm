@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "max31723.h"
+    #include "max31723.hpp"
 %}
 
-%include "max31723.h"
+%include "max31723.hpp"

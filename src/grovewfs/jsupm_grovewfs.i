@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "grovewfs.h"
+    #include "grovewfs.hpp"
 %}
 
-%include "grovewfs.h"
+%include "grovewfs.hpp"

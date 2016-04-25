@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "guvas12d.h"
+#include "guvas12d.hpp"
 
 using namespace upm;
 using namespace std;

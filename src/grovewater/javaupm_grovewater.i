@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "grovewater.h"
+    #include "grovewater.hpp"
 %}
 
-%include "grovewater.h"
+%include "grovewater.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

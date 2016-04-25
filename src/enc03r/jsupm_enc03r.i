@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "enc03r.h"
+    #include "enc03r.hpp"
 %}
 
-%include "enc03r.h"
+%include "enc03r.hpp"

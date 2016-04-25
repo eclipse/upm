@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "h803x.h"
+#include "h803x.hpp"
 
 using namespace upm;
 using namespace std;

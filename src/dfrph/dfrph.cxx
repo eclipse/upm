@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "dfrph.h"
+#include "dfrph.hpp"
 
 using namespace std;
 using namespace upm;

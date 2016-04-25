@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "uln200xa.h"
+#include "uln200xa.hpp"
 
 using namespace upm;
 using namespace std;

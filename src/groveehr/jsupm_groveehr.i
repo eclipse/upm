@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "groveehr.h"
+    #include "groveehr.hpp"
 %}
 
-%include "groveehr.h"
+%include "groveehr.hpp"

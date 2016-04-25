@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "otp538u.h"
+%include "otp538u.hpp"
 %{
-    #include "otp538u.h"
+    #include "otp538u.hpp"
 %}

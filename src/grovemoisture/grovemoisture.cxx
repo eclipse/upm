@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovemoisture.h"
+#include "grovemoisture.hpp"
 
 using namespace upm;
 

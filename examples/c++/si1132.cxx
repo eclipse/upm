@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si1132.h"
+#include "si1132.hpp"
 
 #define FT4222_I2C_BUS 1
 

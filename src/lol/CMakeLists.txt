@@ -1,5 +1,5 @@
 set (libname "lol")
 set (libdescription "LoL Olimex LoL rev A")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

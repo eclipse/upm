@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "teams.h"
+    #include "teams.hpp"
 %}
-%include "teams.h"
+%include "teams.hpp"
 

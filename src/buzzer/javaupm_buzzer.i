@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "buzzer.h"
+    #include "buzzer.hpp"
 %}
 
-%include "buzzer.h"
+%include "buzzer.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

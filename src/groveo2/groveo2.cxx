@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveo2.h"
+#include "groveo2.hpp"
 
 using namespace upm;
 using namespace std;

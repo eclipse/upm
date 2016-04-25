@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "max44009.h"
+#include "max44009.hpp"
 
 #define EDISON_I2C_BUS 1
 

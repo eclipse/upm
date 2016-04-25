@@ -6,10 +6,10 @@
 %include "typemaps.i"
 
 %{
-    #include "ds1808lc.h"
+    #include "ds1808lc.hpp"
 %}
 
-%include "ds1808lc.h"
+%include "ds1808lc.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

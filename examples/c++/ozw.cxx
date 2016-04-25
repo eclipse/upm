@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 
-#include "ozw.h"
+#include "ozw.hpp"
 
 using namespace std;
 

@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grove.h"
+#include "grove.hpp"
 #include "math.h"
 
 using namespace upm;

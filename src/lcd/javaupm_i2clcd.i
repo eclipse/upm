@@ -23,26 +23,26 @@
 }
 
 %{
-    #include "lcd.h"
-    #include "ssd.h"
-    #include "ssd1327.h"
-    #include "ssd1308.h"
-    #include "ssd1306.h"
-    #include "eboled.h"
-    #include "lcm1602.h"
-    #include "jhd1313m1.h"
-    #include "sainsmartks.h"
+    #include "lcd.hpp"
+    #include "ssd.hpp"
+    #include "ssd1327.hpp"
+    #include "ssd1308.hpp"
+    #include "ssd1306.hpp"
+    #include "eboled.hpp"
+    #include "lcm1602.hpp"
+    #include "jhd1313m1.hpp"
+    #include "sainsmartks.hpp"
 %}
 
-%include "lcd.h"
-%include "ssd.h"
-%include "ssd1327.h"
-%include "ssd1308.h"
-%include "ssd1306.h"
-%include "eboled.h"
-%include "lcm1602.h"
-%include "jhd1313m1.h"
-%include "sainsmartks.h"
+%include "lcd.hpp"
+%include "ssd.hpp"
+%include "ssd1327.hpp"
+%include "ssd1308.hpp"
+%include "ssd1306.hpp"
+%include "eboled.hpp"
+%include "lcm1602.hpp"
+%include "jhd1313m1.hpp"
+%include "sainsmartks.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "joystick12.h"
+#include "joystick12.hpp"
 #include <stdlib.h>
 #include <sys/time.h>
 

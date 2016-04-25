@@ -1,5 +1,5 @@
 set (libname "mcp9808")
 set (libdescription "upm mcp9808 Precision I2c temperature sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

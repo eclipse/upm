@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "otp538u.h"
+    #include "otp538u.hpp"
 %}
 
-%include "otp538u.h"
+%include "otp538u.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

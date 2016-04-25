@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "flex.h"
+#include "flex.hpp"
 
 using namespace upm;
 using namespace std;

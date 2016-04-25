@@ -3,8 +3,8 @@
 %include "std_string.i"
 
 %{
-    #include "cwlsxxa.h"
+    #include "cwlsxxa.hpp"
 %}
 
-%include "cwlsxxa.h"
+%include "cwlsxxa.hpp"
 

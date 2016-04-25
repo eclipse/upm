@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "bmpx8x.h"
+    #include "bmpx8x.hpp"
 %}
 
-%include "bmpx8x.h"
+%include "bmpx8x.hpp"

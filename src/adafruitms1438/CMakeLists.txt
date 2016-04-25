@@ -1,7 +1,7 @@
 set (libname "adafruitms1438")
 set (libdescription "upm module for the Adafruit Motor Shield 1438")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 set (reqlibname "upm-pca9685")
 include_directories("../pca9685")
 upm_module_init()

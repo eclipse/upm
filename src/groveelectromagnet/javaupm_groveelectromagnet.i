@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "groveelectromagnet.h"
+    #include "groveelectromagnet.hpp"
 %}
 
-%include "groveelectromagnet.h"
+%include "groveelectromagnet.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

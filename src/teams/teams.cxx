@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "teams.h"
+#include "teams.hpp"
 
 using namespace upm;
 using namespace std;

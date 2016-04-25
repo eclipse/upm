@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "cwlsxxa.h"
+    #include "cwlsxxa.hpp"
 %}
-%include "cwlsxxa.h"
+%include "cwlsxxa.hpp"
 

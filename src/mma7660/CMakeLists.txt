@@ -1,5 +1,5 @@
 set (libname "mma7660")
 set (libdescription "upm mma7660 I2C 3-axis digital accelermeter (1.5g)")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

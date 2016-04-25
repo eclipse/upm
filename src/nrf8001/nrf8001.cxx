@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "nrf8001.h"
+#include "nrf8001.hpp"
 
 /**
  * Include the services_lock.h to put the setup in the OTP memory of the nRF8001.

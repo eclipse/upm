@@ -8,7 +8,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "grovegprs.h"
+    #include "grovegprs.hpp"
 %}
-%include "grovegprs.h"
+%include "grovegprs.hpp"
 %array_class(char, charArray);

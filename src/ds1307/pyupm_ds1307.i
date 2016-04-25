@@ -9,7 +9,7 @@
 %include "ds1307_doc.i"
 #endif
 
-%include "ds1307.h"
+%include "ds1307.hpp"
 %{
-    #include "ds1307.h"
+    #include "ds1307.hpp"
 %}

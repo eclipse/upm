@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "kxcjk1013.h"
+#include "kxcjk1013.hpp"
 
 using namespace std;
 

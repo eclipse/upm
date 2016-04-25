@@ -3,7 +3,7 @@
 %include "../carrays_uint8_t.i"
 
 %{
-    #include "pn532.h"
+    #include "pn532.hpp"
 %}
 
-%include "pn532.h"
+%include "pn532.hpp"

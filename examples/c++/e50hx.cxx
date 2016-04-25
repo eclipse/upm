@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "e50hx.h"
+#include "e50hx.hpp"
 
 using namespace std;
 using namespace upm;

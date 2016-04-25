@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "st7735.h"
+#include "st7735.hpp"
 
 using namespace upm;
 

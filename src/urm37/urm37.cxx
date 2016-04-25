@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "urm37.h"
+#include "urm37.hpp"
 
 using namespace upm;
 using namespace std;

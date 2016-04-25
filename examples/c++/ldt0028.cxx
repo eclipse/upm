@@ -26,7 +26,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include "ldt0028.h"
+#include "ldt0028.hpp"
 
 int
 main(int argc, char **argv)

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "hdxxvxta.h"
+#include "hdxxvxta.hpp"
 
 using namespace std;
 

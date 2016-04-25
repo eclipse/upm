@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "loudness.h"
+    #include "loudness.hpp"
 %}
 
-%include "loudness.h"
+%include "loudness.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

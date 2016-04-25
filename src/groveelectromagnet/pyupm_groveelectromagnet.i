@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "groveelectromagnet.h"
+%include "groveelectromagnet.hpp"
 %{
-    #include "groveelectromagnet.h"
+    #include "groveelectromagnet.hpp"
 %}

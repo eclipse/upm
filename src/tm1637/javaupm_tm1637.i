@@ -11,10 +11,10 @@
 %apply uint8_t *INPUT { uint8_t *digits }
 
 %{
-    #include "tm1637.h"
+    #include "tm1637.hpp"
 %}
 
-%include "tm1637.h"
+%include "tm1637.hpp"
 
 
 %pragma(java) jniclasscode=%{

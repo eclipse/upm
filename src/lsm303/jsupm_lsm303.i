@@ -9,7 +9,7 @@
 }
 
 %{
-    #include "lsm303.h"
+    #include "lsm303.hpp"
 %}
 
-%include "lsm303.h"
+%include "lsm303.hpp"

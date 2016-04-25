@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "maxsonarez.h"
+#include "maxsonarez.hpp"
 
 using namespace std;
 using namespace upm;

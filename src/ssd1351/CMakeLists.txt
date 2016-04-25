@@ -1,5 +1,5 @@
 set (libname "ssd1351")
 set (libdescription "libupm SSD1351 SPI LCD")
 set (module_src ssd1351_gfx.cxx ssd1351.cxx)
-set (module_h ssd1351_gfx.h ssd1351.h)
+set (module_hpp ssd1351_gfx.hpp ssd1351.hpp)
 upm_module_init()

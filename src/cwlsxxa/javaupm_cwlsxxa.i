@@ -2,9 +2,9 @@
 %include "../upm.i"
 %include "std_string.i"
 
-%include "cwlsxxa.h"
+%include "cwlsxxa.hpp"
 %{
-    #include "cwlsxxa.h"
+    #include "cwlsxxa.hpp"
 %}
 
 %pragma(java) jniclasscode=%{

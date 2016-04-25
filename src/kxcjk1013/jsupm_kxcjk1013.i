@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "kxcjk1013.h"
+    #include "kxcjk1013.hpp"
 %}
 
-%include "kxcjk1013.h"
+%include "kxcjk1013.hpp"

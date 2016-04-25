@@ -9,7 +9,7 @@
 %include "htu21d_doc.i"
 #endif
 
-%include "htu21d.h"
+%include "htu21d.hpp"
 %{
-    #include "htu21d.h"
+    #include "htu21d.hpp"
 %}

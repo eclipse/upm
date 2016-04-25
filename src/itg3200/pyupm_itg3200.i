@@ -19,7 +19,7 @@
 %include "itg3200_doc.i"
 #endif
 
-%include "itg3200.h"
+%include "itg3200.hpp"
 %{
-    #include "itg3200.h"
+    #include "itg3200.hpp"
 %}

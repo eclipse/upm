@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "rpr220.h"
+%include "rpr220.hpp"
 %{
-    #include "rpr220.h"
+    #include "rpr220.hpp"
 %}

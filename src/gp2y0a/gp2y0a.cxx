@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "gp2y0a.h"
+#include "gp2y0a.hpp"
 
 using namespace std;
 using namespace upm;

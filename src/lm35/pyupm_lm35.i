@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "lm35.h"
+%include "lm35.hpp"
 %{
-    #include "lm35.h"
+    #include "lm35.hpp"
 %}

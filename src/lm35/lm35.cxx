@@ -23,7 +23,7 @@
  */
 
 #include <iostream>
-#include "lm35.h"
+#include "lm35.hpp"
 
 using namespace std;
 using namespace upm;

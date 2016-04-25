@@ -6,7 +6,7 @@
 
 %feature("autodoc", "3");
 
-%include "nrf24l01.h"
+%include "nrf24l01.hpp"
 %{
-    #include "nrf24l01.h"
+    #include "nrf24l01.hpp"
 %}

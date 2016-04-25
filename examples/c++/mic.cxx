@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "mic.h"
+#include "mic.hpp"
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/time.h>

@@ -25,7 +25,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <signal.h>
-#include "micsv89.h"
+#include "micsv89.hpp"
 
 /*
  * An example for using the MICSV89 sensor library.

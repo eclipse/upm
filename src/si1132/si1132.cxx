@@ -28,7 +28,7 @@
 #include <math.h>
 #include <errno.h>
 
-#include "si1132.h"
+#include "si1132.hpp"
 
 
 #define SI1132_ADDRESS                  0x60

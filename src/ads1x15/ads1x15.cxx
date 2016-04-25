@@ -23,7 +23,7 @@
  */
 
 
-#include "ads1x15.h"
+#include "ads1x15.hpp"
 
 #include <unistd.h>
 

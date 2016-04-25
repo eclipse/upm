@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <stdexcept>
 
-#include "mlx90614.h"
+#include "mlx90614.hpp"
 
 using namespace upm;
 

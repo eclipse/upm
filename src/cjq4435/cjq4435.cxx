@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "cjq4435.h"
+#include "cjq4435.hpp"
 
 using namespace upm;
 using namespace std;

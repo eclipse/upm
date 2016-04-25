@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "st7735_gfx.h"
+#include "st7735_gfx.hpp"
 
 using namespace upm;
 

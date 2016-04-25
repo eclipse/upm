@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "mpl3115a2.h"
+#include "mpl3115a2.hpp"
 
 volatile int doWork = 0;
 

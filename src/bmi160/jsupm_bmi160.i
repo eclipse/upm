@@ -4,7 +4,7 @@
 
 %pointer_functions(float, floatp);
 
-%include "bmi160.h"
+%include "bmi160.hpp"
 %{
-    #include "bmi160.h"
+    #include "bmi160.hpp"
 %}

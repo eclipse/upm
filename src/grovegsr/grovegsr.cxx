@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovegsr.h"
+#include "grovegsr.hpp"
 
 using namespace upm;
 using namespace std;

@@ -7,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "max31855.h"
+%include "max31855.hpp"
 %{
-    #include "max31855.h"
+    #include "max31855.hpp"
 %}

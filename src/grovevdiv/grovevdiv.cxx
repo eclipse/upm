@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovevdiv.h"
+#include "grovevdiv.hpp"
 
 using namespace upm;
 using namespace std;

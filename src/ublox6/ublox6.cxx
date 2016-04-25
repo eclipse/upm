@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ublox6.h"
+#include "ublox6.hpp"
 
 using namespace upm;
 using namespace std;

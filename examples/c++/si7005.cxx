@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si7005.h"
+#include "si7005.hpp"
 
 #define EDISON_I2C_BUS 1
 #define EDISON_GPIO_SI7005_CS 20

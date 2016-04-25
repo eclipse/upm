@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <cmath>
-#include "ds1808lc.h"
-#include "mraa-utils.h"
+#include "ds1808lc.hpp"
+#include "mraa-utils.hpp"
 
 #define DS1808_I2C_ADDR 0x28
 #define DS1808_POT2_OFFSET 0x40

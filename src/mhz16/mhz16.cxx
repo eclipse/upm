@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "mhz16.h"
+#include "mhz16.hpp"
 
 using namespace upm;
 using namespace std;

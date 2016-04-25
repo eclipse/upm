@@ -19,10 +19,10 @@
 }
 
 %{
-    #include "lol.h"
+    #include "lol.hpp"
 %}
 
-%include "lol.h"
+%include "lol.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -1,7 +1,7 @@
 set (libname "h803x")
 set (libdescription "upm module for the Veris H803X (H8035/H8036)")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 
 pkg_search_module(MODBUS libmodbus)
 if (MODBUS_FOUND)

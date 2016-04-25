@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "si1132.h"
+%include "si1132.hpp"
 %{
-    #include "si1132.h"
+    #include "si1132.hpp"
 %}

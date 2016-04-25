@@ -245,7 +245,7 @@ macro(upm_module_init)
     upm_doxygen()
   endif()
   install(TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
-  install (FILES ${module_h} DESTINATION include/upm COMPONENT ${libname})
+  install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
     cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)

@@ -24,7 +24,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <signal.h>
-#include "waterlevel.h"
+#include "waterlevel.hpp"
 
 using namespace std;
 

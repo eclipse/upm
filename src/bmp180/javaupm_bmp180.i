@@ -6,10 +6,10 @@
 %include "typemaps.i"
 
 %{
-    #include "bmp180.h"
+    #include "bmp180.hpp"
 %}
 
-%include "bmp180.h"
+%include "bmp180.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

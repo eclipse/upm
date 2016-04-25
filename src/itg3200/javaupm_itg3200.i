@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "itg3200.h"
+    #include "itg3200.hpp"
 %}
 
 %typemap(jni) float* "jfloatArray"
@@ -32,7 +32,7 @@
     JCALL4(SetShortArrayRegion, jenv, $result, 0, 3, (jshort*)$1);
 }
 
-%include "itg3200.h"
+%include "itg3200.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

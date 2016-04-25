@@ -11,8 +11,8 @@
 /* Send "int *" to python as intp */
 %pointer_functions(int, intp);
 %{
-    #include "zfm20.h"
+    #include "zfm20.hpp"
     speed_t int_B57600 = B57600;
 %}
-%include "zfm20.h"
+%include "zfm20.hpp"
 speed_t int_B57600 = B57600;

@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "sx6119.h"
+#include "sx6119.hpp"
 
 using namespace std;
 

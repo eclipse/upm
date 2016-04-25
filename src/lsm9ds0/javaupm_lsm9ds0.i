@@ -39,10 +39,10 @@
 %ignore getMagnetometer(float *, float *, float *);
 
 %{
-    #include "lsm9ds0.h"
+    #include "lsm9ds0.hpp"
 %}
 
-%include "lsm9ds0.h"
+%include "lsm9ds0.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

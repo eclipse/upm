@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovewater.h"
+#include "grovewater.hpp"
 
 using namespace std;
 

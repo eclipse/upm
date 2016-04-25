@@ -24,7 +24,7 @@
 
 #include <stdexcept>
 
-#include "sm130.h"
+#include "sm130.hpp"
 
 using namespace upm;
 using namespace std;

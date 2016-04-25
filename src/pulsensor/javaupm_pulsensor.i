@@ -10,12 +10,12 @@ SWIG_DIRECTOR_OWNED(Callback)
 %ignore do_sample;
 %ignore callback; 
 
-%include "Callback.h"
+%include "Callback.hpp"
 %{
-    #include "pulsensor.h"
+    #include "pulsensor.hpp"
 %}
 
-%include "pulsensor.h"
+%include "pulsensor.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

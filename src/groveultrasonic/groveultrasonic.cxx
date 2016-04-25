@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <functional>
 
-#include "groveultrasonic.h"
+#include "groveultrasonic.hpp"
 
 using namespace upm;
 

@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "hdxxvxta.h"
+    #include "hdxxvxta.hpp"
 %}
-%include "hdxxvxta.h"
+%include "hdxxvxta.hpp"
 

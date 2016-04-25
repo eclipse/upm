@@ -28,7 +28,7 @@
 #include <math.h>
 #include <errno.h>
 
-#include "bme280.h"
+#include "bme280.hpp"
 #include "bme280driver.h"
 /************** I2C buffer length ******/
 #define I2C_BUFFER_LEN 26
@@ -361,7 +361,7 @@ int8_t BME280::I2C_routine()
 
 
 /*-------------------------------------------------------------------*
-*   The device address defined in the bme280.h file
+*   The device address defined in the bme280.hpp file
 *-----------------------------------------------------------------------*/
 int32_t BME280::i2c_write_string(uint8_t dev_addr,uint8_t* ptr, uint8_t cnt)
 {

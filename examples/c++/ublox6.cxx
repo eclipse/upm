@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ublox6.h"
+#include "ublox6.hpp"
 
 using namespace std;
 

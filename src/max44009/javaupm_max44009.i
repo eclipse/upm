@@ -6,10 +6,10 @@
 %include "typemaps.i"
 
 %{
-    #include "max44009.h"
+    #include "max44009.hpp"
 %}
 
-%include "max44009.h"
+%include "max44009.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

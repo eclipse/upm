@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "stepmotor.h"
+    #include "stepmotor.hpp"
 %}
 
-%include "stepmotor.h"
+%include "stepmotor.hpp"

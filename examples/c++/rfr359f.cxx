@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "rfr359f.h"
+#include "rfr359f.hpp"
 
 using namespace std;
 

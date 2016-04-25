@@ -6,8 +6,8 @@
 %feature("autodoc", "3");
 
 %{
-    #include "sx6119.h"
+    #include "sx6119.hpp"
 %}
 
-%include "sx6119.h"
+%include "sx6119.hpp"
 

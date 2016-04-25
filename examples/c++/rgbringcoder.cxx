@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "rgbringcoder.h"
+#include "rgbringcoder.hpp"
 #include <signal.h>
 
 using namespace std;

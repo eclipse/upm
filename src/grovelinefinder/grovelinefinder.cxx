@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovelinefinder.h"
+#include "grovelinefinder.hpp"
 
 using namespace upm;
 using namespace std;

@@ -1,5 +1,5 @@
 set (libname "m24lr64e")
 set (libdescription "upm m24lr64e grove NFC tag")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "groveehr.h"
+%include "groveehr.hpp"
 %{
-    #include "groveehr.h"
+    #include "groveehr.hpp"
 %}

@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "lcm1602.h"
+#include "lcm1602.hpp"
 
 int
 main(int argc, char **argv)

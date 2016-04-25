@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "enc03r.h"
+#include "enc03r.hpp"
 
 using namespace std;
 

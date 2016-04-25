@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "mq8.h"
+#include "mq8.hpp"
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/time.h>

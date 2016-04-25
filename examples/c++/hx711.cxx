@@ -26,7 +26,7 @@
 #include <signal.h>
 
 //! [Interesting]
-#include "hx711.h"
+#include "hx711.hpp"
 
 int
 main(int argc, char **argv)

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "tex00.h"
+#include "tex00.hpp"
 
 using namespace std;
 

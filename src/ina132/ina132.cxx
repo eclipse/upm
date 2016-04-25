@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "ina132.h"
+#include "ina132.hpp"
 
 using namespace upm;
 using namespace std;

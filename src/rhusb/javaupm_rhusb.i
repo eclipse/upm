@@ -6,10 +6,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "rhusb.h"
+    #include "rhusb.hpp"
 %}
 
-%include "rhusb.h"
+%include "rhusb.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

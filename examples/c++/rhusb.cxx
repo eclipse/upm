@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "rhusb.h"
+#include "rhusb.hpp"
 
 using namespace std;
 

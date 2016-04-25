@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "cjq4435.h"
+    #include "cjq4435.hpp"
 %}
 
-%include "cjq4435.h"
+%include "cjq4435.hpp"

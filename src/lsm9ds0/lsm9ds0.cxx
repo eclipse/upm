@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <string.h>
 
-#include "lsm9ds0.h"
+#include "lsm9ds0.hpp"
 
 using namespace upm;
 using namespace std;

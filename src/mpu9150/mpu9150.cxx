@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "mpu9150.h"
+#include "mpu9150.hpp"
 
 using namespace upm;
 using namespace std;

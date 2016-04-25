@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "adafruitms1438.h"
+#include "adafruitms1438.hpp"
 
 using namespace std;
 using namespace upm;

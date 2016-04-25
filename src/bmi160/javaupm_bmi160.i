@@ -5,7 +5,7 @@
 %include "../java_buffer.i"
 
 %{
-    #include "bmi160.h"
+    #include "bmi160.hpp"
 %}
 
 
@@ -27,7 +27,7 @@
 %ignore getGyroscope(float *, float *, float *);
 %ignore getMagnetometer(float *, float *, float *);
 
-%include "bmi160.h"
+%include "bmi160.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovespeaker.h"
+%include "grovespeaker.hpp"
 %{
-    #include "grovespeaker.h"
+    #include "grovespeaker.hpp"
 %}

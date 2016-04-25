@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ppd42ns.h"
+#include "ppd42ns.hpp"
 
 using namespace std;
 

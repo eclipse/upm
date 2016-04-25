@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "at42qt1070.h"
+#include "at42qt1070.hpp"
 
 using namespace upm;
 using namespace std;

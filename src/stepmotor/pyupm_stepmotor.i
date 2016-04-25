@@ -7,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "stepmotor.h"
+%include "stepmotor.hpp"
 %{
-    #include "stepmotor.h"
+    #include "stepmotor.hpp"
 %}

@@ -33,7 +33,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ili9341.h"
+#include "ili9341.hpp"
 
 using namespace upm;
 

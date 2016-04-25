@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "tcs3414cs.h"
+%include "tcs3414cs.hpp"
 %{
-    #include "tcs3414cs.h"
+    #include "tcs3414cs.hpp"
 %}

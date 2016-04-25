@@ -6,7 +6,7 @@
 %pointer_functions(float, floatPointer);
 
 %{
-    #include "adxl335.h"
+    #include "adxl335.hpp"
 %}
 
-%include "adxl335.h"
+%include "adxl335.hpp"

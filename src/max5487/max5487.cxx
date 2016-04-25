@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <stdexcept>
 
-#include "max5487.h"
+#include "max5487.hpp"
 
 using namespace upm;
 

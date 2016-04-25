@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "apa102.h"
+#include "apa102.hpp"
 
 using namespace upm;
 

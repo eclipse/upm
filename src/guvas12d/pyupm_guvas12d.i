@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "guvas12d.h"
+%include "guvas12d.hpp"
 %{
-    #include "guvas12d.h"
+    #include "guvas12d.hpp"
 %}

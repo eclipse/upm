@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "groveo2.h"
+    #include "groveo2.hpp"
 %}
 
-%include "groveo2.h"
+%include "groveo2.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

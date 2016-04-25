@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "nunchuck.h"
+    #include "nunchuck.hpp"
 %}
 
-%include "nunchuck.h"
+%include "nunchuck.hpp"

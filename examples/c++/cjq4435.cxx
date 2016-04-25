@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "cjq4435.h"
+#include "cjq4435.hpp"
 
 using namespace std;
 

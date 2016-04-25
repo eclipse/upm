@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "biss0001.h"
+    #include "biss0001.hpp"
 %}
 
-%include "biss0001.h"
+%include "biss0001.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

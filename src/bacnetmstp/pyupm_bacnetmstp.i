@@ -9,7 +9,7 @@
 
 %pointer_functions(float, floatp);
 
-%include "bacnetmstp.h"
+%include "bacnetmstp.hpp"
 %{
-    #include "bacnetmstp.h"
+    #include "bacnetmstp.hpp"
 %}

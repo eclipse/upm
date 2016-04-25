@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "micsv89.h"
+    #include "micsv89.hpp"
 %}
 
-%include "micsv89.h"
+%include "micsv89.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

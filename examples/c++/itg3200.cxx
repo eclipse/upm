@@ -23,7 +23,7 @@
  */
 
 #include <unistd.h>
-#include "itg3200.h"
+#include "itg3200.hpp"
 
 int
 main(int argc, char **argv)
