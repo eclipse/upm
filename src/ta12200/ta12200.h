@@ -89,9 +89,9 @@ namespace upm {
     /**
      * Gets the conversion value from the sensor
      *
-     * @return Highest value obtained over 1 second of measuring
+     * @return Highest value obtained over 1 second of measuring or -1 if error
      */
-    unsigned int highestValue();
+    int highestValue();
 
     /**
      * Computes the measured voltage

@@ -55,6 +55,7 @@ float INA132::value()
 	for(i=0;i<10;i++)
 	{
 		val = mraa_aio_read(m_aio);
+                if (val == -1) return -1;
 		v = val*5.00/1023;
 		sum += v;
 		usleep(10000);
