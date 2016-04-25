@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 #include <string.h>
-#include "kxcjk1013.h"
+#include "kxcjk1013.hpp"
 
 using namespace upm;
 

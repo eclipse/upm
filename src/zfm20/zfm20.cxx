@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "zfm20.h"
+#include "zfm20.hpp"
 
 using namespace upm;
 using namespace std;

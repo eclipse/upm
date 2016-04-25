@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "wheelencoder.h"
+    #include "wheelencoder.hpp"
 %}
 
-%include "wheelencoder.h"
+%include "wheelencoder.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

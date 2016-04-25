@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "enc03r.h"
+%include "enc03r.hpp"
 %{
-    #include "enc03r.h"
+    #include "enc03r.hpp"
 %}

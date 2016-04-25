@@ -1,7 +1,7 @@
 set (libname "ozw")
 set (libdescription "upm module for the OpenZWave library interface")
 set (module_src ${libname}.cxx zwNode.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 
 pkg_search_module(OPENZWAVE libopenzwave)
 if (OPENZWAVE_FOUND)

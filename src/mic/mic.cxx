@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "mic.h"
+#include "mic.hpp"
 
 using namespace upm;
 

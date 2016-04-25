@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "buzzer.h"
+#include "buzzer.hpp"
 
 using namespace upm;
 using namespace std;

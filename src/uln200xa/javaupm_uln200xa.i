@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "uln200xa.h"
+    #include "uln200xa.hpp"
 %}
 
-%include "uln200xa.h"
+%include "uln200xa.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

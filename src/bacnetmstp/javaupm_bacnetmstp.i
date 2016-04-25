@@ -6,10 +6,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "bacnetmstp.h"
+    #include "bacnetmstp.hpp"
 %}
 
-%include "bacnetmstp.h"
+%include "bacnetmstp.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

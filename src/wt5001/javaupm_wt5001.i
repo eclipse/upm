@@ -14,7 +14,7 @@
 %apply uint8_t *OUTPUT { uint8_t *hour, uint8_t *minute, uint8_t *second };
 
 %{
-    #include "wt5001.h"
+    #include "wt5001.hpp"
     speed_t int_B9600 = B9600;
 %}
 
@@ -30,7 +30,7 @@ READDATA_EXCEPTION(getNumFiles(WT5001_PLAYSOURCE_T psrc))
 %ignore getCurrentFile(uint16_t *curf);
 READDATA_EXCEPTION(getCurrentFile())
 
-%include "wt5001.h"
+%include "wt5001.hpp"
 speed_t int_B9600 = B9600;
 
 %pragma(java) jniclasscode=%{

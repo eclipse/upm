@@ -35,8 +35,8 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "hd44780_bits.h"
-#include "lcm1602.h"
+#include "hd44780_bits.hpp"
+#include "lcm1602.hpp"
 
 using namespace upm;
 

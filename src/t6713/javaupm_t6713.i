@@ -6,10 +6,10 @@
 %include "typemaps.i"
 
 %{
-    #include "t6713.h"
+    #include "t6713.hpp"
 %}
 
-%include "t6713.h"
+%include "t6713.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

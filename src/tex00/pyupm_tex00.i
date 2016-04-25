@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "tex00.h"
+    #include "tex00.hpp"
 %}
-%include "tex00.h"
+%include "tex00.hpp"
 

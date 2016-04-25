@@ -1,7 +1,7 @@
 set (libname "bacnetmstp")
 set (libdescription "upm driver module for BACnet MS/TP devices")
 set (module_src ${libname}.cxx device-client.c)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 
 pkg_search_module(BACNET libbacnet)
 if (BACNET_FOUND)

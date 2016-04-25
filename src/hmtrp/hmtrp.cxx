@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "hmtrp.h"
+#include "hmtrp.hpp"
 
 using namespace upm;
 using namespace std;

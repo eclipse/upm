@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "cwlsxxa.h"
+#include "cwlsxxa.hpp"
 
 using namespace std;
 

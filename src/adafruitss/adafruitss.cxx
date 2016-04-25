@@ -25,7 +25,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "adafruitss.h"
+#include "adafruitss.hpp"
 #include <unistd.h>
 #include <math.h>
 

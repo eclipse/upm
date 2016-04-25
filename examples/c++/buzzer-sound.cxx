@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "buzzer.h"
+#include "buzzer.hpp"
 
 
 int

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "htu21d.h"
+#include "htu21d.hpp"
 
 volatile int doWork = 0;
 

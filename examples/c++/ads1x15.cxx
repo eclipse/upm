@@ -26,8 +26,8 @@
 
 #include <iostream>
 #include <unistd.h>
-#include "ads1015.h"
-#include "ads1115.h"
+#include "ads1015.hpp"
+#include "ads1115.hpp"
 
 
 

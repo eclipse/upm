@@ -24,7 +24,7 @@
 
 #include <string>
 #include <stdexcept>
-#include "tm1637.h"
+#include "tm1637.hpp"
 #include <stdarg.h>
 
 const uint8_t m_brkt[2]  = {0x39, 0x0f};

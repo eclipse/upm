@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "groveultrasonic.h"
+%include "groveultrasonic.hpp"
 %{
-    #include "groveultrasonic.h"
+    #include "groveultrasonic.hpp"
 %}

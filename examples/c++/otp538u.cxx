@@ -26,7 +26,7 @@
 #include <iostream>
 #include <iomanip>
 #include <signal.h>
-#include "otp538u.h"
+#include "otp538u.hpp"
 
 using namespace std;
 

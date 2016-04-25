@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "gp2y0a.h"
+    #include "gp2y0a.hpp"
 %}
 
-%include "gp2y0a.h"
+%include "gp2y0a.hpp"

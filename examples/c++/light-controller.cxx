@@ -3,9 +3,9 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
-#include "lp8860.h"
-#include "ds1808lc.h"
-#include "hlg150h.h"
+#include "lp8860.hpp"
+#include "ds1808lc.hpp"
+#include "hlg150h.hpp"
 
 #define EDISON_I2C_BUS 1   // Edison I2C-1
 #define GPIO_SI7005_CS 20 // Edison GP12

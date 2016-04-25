@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "pca9685.h"
+#include "pca9685.hpp"
 
 using namespace upm;
 using namespace std;

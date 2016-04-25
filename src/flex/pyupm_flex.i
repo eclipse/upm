@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "flex.h"
+%include "flex.hpp"
 %{
-    #include "flex.h"
+    #include "flex.hpp"
 %}

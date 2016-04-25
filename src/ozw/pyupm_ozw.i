@@ -10,8 +10,8 @@
 
 %pointer_functions(float, floatp);
 
-%include "ozw.h"
+%include "ozw.hpp"
 %{
-    #include "ozw.h"
+    #include "ozw.hpp"
 %}
 

@@ -10,8 +10,8 @@
 
 %pointer_functions(float, floatp);
 
-%include "sx1276.h"
+%include "sx1276.hpp"
 %{
-    #include "sx1276.h"
+    #include "sx1276.hpp"
 %}
 

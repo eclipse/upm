@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "hx711.h"
+    #include "hx711.hpp"
 %}
 
-%include "hx711.h"
+%include "hx711.hpp"

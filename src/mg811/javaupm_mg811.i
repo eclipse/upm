@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "mg811.h"
+    #include "mg811.hpp"
 %}
 
-%include "mg811.h"
+%include "mg811.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

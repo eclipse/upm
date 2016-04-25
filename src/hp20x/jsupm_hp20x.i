@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "hp20x.h"
+    #include "hp20x.hpp"
 %}
 
-%include "hp20x.h"
+%include "hp20x.hpp"

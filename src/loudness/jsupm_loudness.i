@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "loudness.h"
+    #include "loudness.hpp"
 %}
 
-%include "loudness.h"
+%include "loudness.hpp"

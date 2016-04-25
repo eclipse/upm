@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "adxrs610.h"
+    #include "adxrs610.hpp"
 %}
 
-%include "adxrs610.h"
+%include "adxrs610.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

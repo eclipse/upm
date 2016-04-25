@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "rfr359f.h"
+#include "rfr359f.hpp"
 
 using namespace upm;
 using namespace std;

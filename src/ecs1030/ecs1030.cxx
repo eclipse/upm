@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ecs1030.h"
+#include "ecs1030.hpp"
 
 using namespace upm;
 

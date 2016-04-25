@@ -3,7 +3,7 @@
 
 %include "stdint.i"
 
-%include "smartdrive.h"
+%include "smartdrive.hpp"
 %{
-    #include "smartdrive.h"
+    #include "smartdrive.hpp"
 %}

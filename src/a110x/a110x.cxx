@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "a110x.h"
+#include "a110x.hpp"
 
 using namespace upm;
 using namespace std;

@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "bmp180.h"
+#include "bmp180.hpp"
 
 /* CALIBRATION */
 #define BMP180_PROM_START_ADDR          (0xAA)

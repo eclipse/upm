@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovecircularled.h"
+#include "grovecircularled.hpp"
 
 using namespace std;
 

@@ -9,7 +9,7 @@
 %include "grove_doc.i"
 #endif
 
-%include "grove.h"
+%include "grove.hpp"
 %{
-    #include "grove.h"
+    #include "grove.hpp"
 %}

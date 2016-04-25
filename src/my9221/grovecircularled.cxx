@@ -39,7 +39,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "grovecircularled.h"
+#include "grovecircularled.hpp"
 
 using namespace upm;
 using namespace std;

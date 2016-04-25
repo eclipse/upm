@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "adc121c021.h"
+#include "adc121c021.hpp"
 
 using namespace upm;
 using namespace std;

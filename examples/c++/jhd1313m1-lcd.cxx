@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "jhd1313m1.h"
+#include "jhd1313m1.hpp"
 
 int
 main(int argc, char **argv)

@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "e50hx.h"
+#include "e50hx.hpp"
 
 using namespace upm;
 using namespace std;

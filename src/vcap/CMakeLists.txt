@@ -1,7 +1,7 @@
 set (libname "vcap")
 set (libdescription "upm Video Frame Capture and image save utility")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.hpp)
+set (module_hpp ${libname}.hpp)
 set (reqlibname "jpeg")
 upm_module_init()
 target_link_libraries(${libname} jpeg)

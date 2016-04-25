@@ -6,7 +6,7 @@
 
 %feature("autodoc", "3");
 
-%include "rhusb.h"
+%include "rhusb.hpp"
 %{
-    #include "rhusb.h"
+    #include "rhusb.hpp"
 %}

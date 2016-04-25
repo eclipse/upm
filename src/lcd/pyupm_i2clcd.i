@@ -6,43 +6,43 @@
 
 %feature("autodoc", "3");
 
-%include "ssd.h"
-%include "lcd.h"
+%include "ssd.hpp"
+%include "lcd.hpp"
 %{
-    #include "lcd.h"
+    #include "lcd.hpp"
 %}
 
-%include "lcm1602.h"
+%include "lcm1602.hpp"
 %{
-    #include "lcm1602.h"
+    #include "lcm1602.hpp"
 %}
 
-%include "jhd1313m1.h"
+%include "jhd1313m1.hpp"
 %{
-    #include "jhd1313m1.h"
+    #include "jhd1313m1.hpp"
 %}
 
-%include "ssd1327.h"
+%include "ssd1327.hpp"
 %{
-    #include "ssd1327.h"
+    #include "ssd1327.hpp"
 %}
 
-%include "ssd1308.h"
+%include "ssd1308.hpp"
 %{
-    #include "ssd1308.h"
+    #include "ssd1308.hpp"
 %}
 
-%include "eboled.h"
+%include "eboled.hpp"
 %{
-    #include "eboled.h"
+    #include "eboled.hpp"
 %}
 
-%include "sainsmartks.h"
+%include "sainsmartks.hpp"
 %{
-    #include "sainsmartks.h"
+    #include "sainsmartks.hpp"
 %}
 
-%include "ssd1306.h"
+%include "ssd1306.hpp"
 %{
-    #include "ssd1306.h"
+    #include "ssd1306.hpp"
 %}

@@ -24,7 +24,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ili9341_gfx.h"
+#include "ili9341_gfx.hpp"
 
 using namespace upm;
 

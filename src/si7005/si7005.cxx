@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "mraa-utils.h"
-#include "si7005.h"
+#include "mraa-utils.hpp"
+#include "si7005.hpp"
 
 /* REGISTER ADDRESSES */
 #define SI7005_REG_STATUS                  ( 0x00 )

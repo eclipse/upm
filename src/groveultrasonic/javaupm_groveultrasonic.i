@@ -4,10 +4,10 @@
 %ignore signalISR;
 
 %{
-    #include "groveultrasonic.h"
+    #include "groveultrasonic.hpp"
 %}
 
-%include "groveultrasonic.h"
+%include "groveultrasonic.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -26,10 +26,10 @@
 #include <string>
 #include <stdexcept>
 
-#include "otp538u.h"
+#include "otp538u.hpp"
 
-#include "thermopile_vt_table.h"
-#include "thermister_rt_table.h"
+#include "thermopile_vt_table.hpp"
+#include "thermister_rt_table.hpp"
 
 using namespace upm;
 using namespace std;

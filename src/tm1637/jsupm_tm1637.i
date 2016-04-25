@@ -8,8 +8,8 @@
 %rename("writeString") write(std::string digits);
 
 %{
-    #include "tm1637.h"
+    #include "tm1637.hpp"
 %}
 
-%include "tm1637.h"
+%include "tm1637.hpp"
 

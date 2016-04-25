@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "mq303a.h"
+%include "mq303a.hpp"
 %{
-    #include "mq303a.h"
+    #include "mq303a.hpp"
 %}

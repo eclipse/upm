@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "enc03r.h"
+#include "enc03r.hpp"
 
 using namespace upm;
 using namespace std;

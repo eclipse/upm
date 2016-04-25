@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 #include <stdio.h>
-#include "hm11.h"
+#include "hm11.hpp"
 
 using namespace std;
 using namespace upm;

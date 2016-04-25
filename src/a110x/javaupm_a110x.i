@@ -4,9 +4,9 @@
 %include "typemaps.i"
 
 %{
-    #include "a110x.h"
+    #include "a110x.hpp"
 %}
-%include "a110x.h"
+%include "a110x.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveemg.h"
+#include "groveemg.hpp"
 
 using namespace upm;
 using namespace std;

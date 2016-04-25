@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "lm35.h"
+    #include "lm35.hpp"
 %}
 
-%include "lm35.h"
+%include "lm35.hpp"

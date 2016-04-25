@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveehr.h"
+#include "groveehr.hpp"
 
 using namespace upm;
 using namespace std;

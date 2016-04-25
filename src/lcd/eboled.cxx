@@ -27,7 +27,7 @@
 #include <unistd.h>
 #include <iostream>
 
-#include "eboled.h"
+#include "eboled.hpp"
 
 using namespace upm;
 using namespace std;

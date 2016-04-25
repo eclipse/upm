@@ -28,7 +28,7 @@
 #include <string>
 #include <sstream>
 
-#include "bacnetmstp.h"
+#include "bacnetmstp.hpp"
 #include "handlers.h"
 #include "client.h"
 #include "txbuf.h"

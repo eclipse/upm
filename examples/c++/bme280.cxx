@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "bme280.h"
+#include "bme280.hpp"
 
 #define FT4222_I2C_BUS 0
 

@@ -1,18 +1,18 @@
 %module jsupm_my9221
 %include "../upm.i"
 
-%include "my9221.h"
+%include "my9221.hpp"
 %{
-    #include "my9221.h"
+    #include "my9221.hpp"
 %}
 
-%include "groveledbar.h"
+%include "groveledbar.hpp"
 %{
-    #include "groveledbar.h"
+    #include "groveledbar.hpp"
 %}
 
-%include "grovecircularled.h"
+%include "grovecircularled.hpp"
 %{
-    #include "grovecircularled.h"
+    #include "grovecircularled.hpp"
 %}
 

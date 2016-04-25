@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "maxsonarez.h"
+    #include "maxsonarez.hpp"
 %}
 
-%include "maxsonarez.h"
+%include "maxsonarez.hpp"

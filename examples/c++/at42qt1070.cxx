@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "at42qt1070.h"
+#include "at42qt1070.hpp"
 
 using namespace std;
 

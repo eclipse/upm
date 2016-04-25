@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "rpr220.h"
+    #include "rpr220.hpp"
 %}
 
-%include "rpr220.h"
+%include "rpr220.hpp"

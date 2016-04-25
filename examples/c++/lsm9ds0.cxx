@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "lsm9ds0.h"
+#include "lsm9ds0.hpp"
 
 using namespace std;
 

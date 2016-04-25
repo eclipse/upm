@@ -26,7 +26,7 @@
 #include <string.h>
 #include <iostream>
 #include <signal.h>
-#include "hmtrp.h"
+#include "hmtrp.hpp"
 
 using namespace std;
 

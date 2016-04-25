@@ -12,7 +12,7 @@
 %apply uint8_t *OUTPUT { uint8_t *strength };
 
 %{
-    #include "hmtrp.h"
+    #include "hmtrp.hpp"
     speed_t int_B9600 = B9600;
 %}
 
@@ -22,7 +22,7 @@ READDATA_EXCEPTION(getRFSignalStrength())
 %ignore getModSignalStrength(uint8_t *strength);
 READDATA_EXCEPTION(getModSignalStrength())
 
-%include "hmtrp.h"
+%include "hmtrp.hpp"
 speed_t int_B9600 = B9600;
 
 %pragma(java) jniclasscode=%{

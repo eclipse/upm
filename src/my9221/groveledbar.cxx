@@ -39,7 +39,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "groveledbar.h"
+#include "groveledbar.hpp"
 
 using namespace upm;
 using namespace std;

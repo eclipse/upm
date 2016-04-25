@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "rgbringcoder.h"
+%include "rgbringcoder.hpp"
 %{
-    #include "rgbringcoder.h"
+    #include "rgbringcoder.hpp"
 %}

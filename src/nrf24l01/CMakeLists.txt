@@ -1,5 +1,5 @@
 set (libname "nrf24l01")
 set (libdescription "libupm NRF tx/rx")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

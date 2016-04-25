@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "ssd1351_gfx.h"
+#include "ssd1351_gfx.hpp"
 
 using namespace upm;
 

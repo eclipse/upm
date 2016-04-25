@@ -4,10 +4,10 @@
 %include "std_string.i"
 
 %{
-    #include "xbee.h"
+    #include "xbee.hpp"
 %}
 
-%include "xbee.h"
+%include "xbee.hpp"
 %array_class(char, charArray);
 
 %pragma(java) jniclasscode=%{

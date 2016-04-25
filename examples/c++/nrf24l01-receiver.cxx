@@ -25,7 +25,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
-#include "nrf24l01.h"
+#include "nrf24l01.hpp"
 #include <signal.h>
 
 int running = 0;

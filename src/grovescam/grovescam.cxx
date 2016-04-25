@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include <errno.h>
 
-#include "grovescam.h"
+#include "grovescam.hpp"
 
 using namespace upm;
 using namespace std;

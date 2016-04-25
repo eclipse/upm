@@ -1,5 +1,5 @@
 set (libname "lsm303")
 set (libdescription "upm lsm303")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

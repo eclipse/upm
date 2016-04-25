@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "htu21d.h"
+    #include "htu21d.hpp"
 %}
 
-%include "htu21d.h"
+%include "htu21d.hpp"

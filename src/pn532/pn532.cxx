@@ -36,7 +36,7 @@
 #undef JAVACALLBACK
 #endif
 
-#include "pn532.h"
+#include "pn532.hpp"
 
 using namespace upm;
 using namespace std;

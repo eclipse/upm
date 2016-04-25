@@ -30,7 +30,7 @@
 #include <sched.h>
 #include <time.h>
 
-#include "am2315.h"
+#include "am2315.hpp"
 
 using namespace upm;
 

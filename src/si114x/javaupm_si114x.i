@@ -3,10 +3,10 @@
 %include "cpointer.i"
 
 %{
-    #include "si114x.h"
+    #include "si114x.hpp"
 %}
 
-%include "si114x.h"
+%include "si114x.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

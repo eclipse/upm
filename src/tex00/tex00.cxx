@@ -24,7 +24,7 @@
 
 #include <iostream>
 #include <math.h>
-#include "tex00.h"
+#include "tex00.hpp"
 
 using namespace upm;
 using namespace std;

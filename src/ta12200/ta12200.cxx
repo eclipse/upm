@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ta12200.h"
+#include "ta12200.hpp"
 
 using namespace upm;
 using namespace std;

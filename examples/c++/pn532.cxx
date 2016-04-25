@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "pn532.h"
+#include "pn532.hpp"
 
 using namespace std;
 

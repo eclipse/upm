@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovecollision.h"
+%include "grovecollision.hpp"
 %{
-    #include "grovecollision.h"
+    #include "grovecollision.hpp"
 %}

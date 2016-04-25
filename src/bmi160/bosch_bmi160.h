@@ -3,7 +3,7 @@
 ****************************************************************************
 * Copyright (C) 2014 Bosch Sensortec GmbH
 *
-* File : bmi160.h
+* File : bosch_bmi160.h
 *
 * Date : 2014/10/27
 *
@@ -54,7 +54,7 @@
 * patent rights of the copyright holder.
 **************************************************************************/
 
-/*! \file bmi160.h
+/*! \file bmi160.hpp
     \brief BMI160 Sensor Driver Support Header File */
 /* user defined code to be added here ... */
 #ifndef __BMI160_H__

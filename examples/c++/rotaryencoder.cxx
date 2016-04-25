@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "rotaryencoder.h"
+#include "rotaryencoder.hpp"
 
 using namespace std;
 

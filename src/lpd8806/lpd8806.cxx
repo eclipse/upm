@@ -28,7 +28,7 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "lpd8806.h"
+#include "lpd8806.hpp"
 
 using namespace upm;
 

@@ -24,8 +24,8 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "bmp180.h"
-#include "bme280.h"
+#include "bmp180.hpp"
+#include "bme280.hpp"
 
 
 #define EDISON_I2C_BUS 1 

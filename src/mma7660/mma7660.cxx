@@ -26,7 +26,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "mma7660.h"
+#include "mma7660.hpp"
 
 using namespace upm;
 using namespace std;

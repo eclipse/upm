@@ -1,5 +1,5 @@
 set (libname "gp2y0a")
 set (libdescription "upm gp2y0a family of IR distance detectors")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

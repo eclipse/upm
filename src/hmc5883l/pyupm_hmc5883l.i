@@ -14,7 +14,7 @@
   $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_int16Array, 0 |  0 );
 }
 
-%include "hmc5883l.h"
+%include "hmc5883l.hpp"
 %{
-    #include "hmc5883l.h"
+    #include "hmc5883l.hpp"
 %}

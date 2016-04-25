@@ -3,8 +3,8 @@
 
 %include "stdint.i"
 
-%include "bmp180.h"
+%include "bmp180.hpp"
 %{
-    #include "bmp180.h"
+    #include "bmp180.hpp"
 %}
 

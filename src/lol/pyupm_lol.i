@@ -7,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "lol.h"
+%include "lol.hpp"
 %{
-    #include "lol.h"
+    #include "lol.hpp"
 %}

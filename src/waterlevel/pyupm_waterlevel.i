@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "waterlevel.h"
+%include "waterlevel.hpp"
 %{
-    #include "waterlevel.h"
+    #include "waterlevel.hpp"
 %}

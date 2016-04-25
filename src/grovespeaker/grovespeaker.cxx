@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovespeaker.h"
+#include "grovespeaker.hpp"
 
 using namespace upm;
 

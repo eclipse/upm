@@ -30,7 +30,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "si114x.h"
+#include "si114x.hpp"
 
 using namespace upm;
 using namespace std;

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 #include <stdio.h>
-#include "grovegprs.h"
+#include "grovegprs.hpp"
 
 using namespace std;
 using namespace upm;

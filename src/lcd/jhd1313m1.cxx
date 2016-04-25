@@ -28,9 +28,9 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "lcd_private.h"
-#include "hd44780_bits.h"
-#include "jhd1313m1.h"
+#include "lcd_private.hpp"
+#include "hd44780_bits.hpp"
+#include "jhd1313m1.hpp"
 
 using namespace upm;
 

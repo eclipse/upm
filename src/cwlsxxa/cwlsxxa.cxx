@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "cwlsxxa.h"
+#include "cwlsxxa.hpp"
 
 using namespace upm;
 using namespace std;

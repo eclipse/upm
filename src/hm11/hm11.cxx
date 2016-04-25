@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "hm11.h"
+#include "hm11.hpp"
 
 using namespace upm;
 using namespace std;

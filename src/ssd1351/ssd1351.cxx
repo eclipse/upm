@@ -30,7 +30,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "ssd1351.h"
+#include "ssd1351.hpp"
 
 using namespace upm;
 using namespace std;

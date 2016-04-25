@@ -4,8 +4,8 @@
 
 %pointer_functions(float, floatp);
 
-%include "bma220.h"
+%include "bma220.hpp"
 %{
-    #include "bma220.h"
+    #include "bma220.hpp"
 %}
 

@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "t6713.h"
+#include "t6713.hpp"
 
 #define FT4222_I2C_BUS 0
 

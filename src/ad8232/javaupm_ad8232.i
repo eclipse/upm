@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "ad8232.h"
+    #include "ad8232.hpp"
 %}
 
-%include "ad8232.h"
+%include "ad8232.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

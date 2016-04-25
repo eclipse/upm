@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "l298.h"
+#include "l298.hpp"
 
 using namespace std;
 

@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "joystick12.h"
+#include "joystick12.hpp"
 
 using namespace upm;
 

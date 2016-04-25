@@ -1,6 +1,6 @@
 #include <iostream>
 #include <unistd.h>
-#include "mcp9808.h"
+#include "mcp9808.hpp"
 
 #include "mraa.hpp"
 

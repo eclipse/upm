@@ -3,8 +3,8 @@
 %include "std_string.i"
 
 %{
-    #include "hdxxvxta.h"
+    #include "hdxxvxta.hpp"
 %}
 
-%include "hdxxvxta.h"
+%include "hdxxvxta.hpp"
 

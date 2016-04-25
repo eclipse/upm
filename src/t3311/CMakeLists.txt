@@ -1,7 +1,7 @@
 set (libname "t3311")
 set (libdescription "upm module for the Comet System T3311")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 
 pkg_search_module(MODBUS libmodbus)
 if (MODBUS_FOUND)

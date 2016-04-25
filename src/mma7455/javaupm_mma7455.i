@@ -23,10 +23,10 @@
 %ignore readData(short *, short *, short *);
 
 %{
-    #include "mma7455.h"
+    #include "mma7455.hpp"
 %}
 
-%include "mma7455.h"
+%include "mma7455.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

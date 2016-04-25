@@ -30,7 +30,7 @@
 // we have to do it the old skool way
 #include <mraa/i2c.h>
 
-#include "bmi160.h"
+#include "bmi160.hpp"
 
 extern "C" {
 #include "bosch_bmi160.h"

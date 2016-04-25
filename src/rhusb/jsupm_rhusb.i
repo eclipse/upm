@@ -2,7 +2,7 @@
 %include "../upm.i"
 %include "stdint.i"
 
-%include "rhusb.h"
+%include "rhusb.hpp"
 %{
-    #include "rhusb.h"
+    #include "rhusb.hpp"
 %}

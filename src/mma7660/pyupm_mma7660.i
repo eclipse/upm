@@ -14,7 +14,7 @@
 %include "mma7660_doc.i"
 #endif
 
-%include "mma7660.h"
+%include "mma7660.hpp"
 %{
-    #include "mma7660.h"
+    #include "mma7660.hpp"
 %}

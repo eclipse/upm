@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <errno.h>
-#include <t6713.h>
+#include <t6713.hpp>
 
 #define T6713_ADDR                                0x15
 

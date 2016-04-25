@@ -4,10 +4,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "ds1307.h"
+    #include "ds1307.hpp"
 %}
 
-%include "ds1307.h"
+%include "ds1307.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

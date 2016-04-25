@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "apds9930.h"
+#include "apds9930.hpp"
 
 using namespace upm;
 

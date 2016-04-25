@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "mq9.h"
+#include "mq9.hpp"
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/time.h>

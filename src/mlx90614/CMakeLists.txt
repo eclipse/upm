@@ -1,5 +1,5 @@
 set (libname "mlx90614")
 set (libdescription "Infrared thermometer designed for non-contact emperature sensing")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

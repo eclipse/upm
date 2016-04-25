@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ta12200.h"
+#include "ta12200.hpp"
 
 using namespace std;
 

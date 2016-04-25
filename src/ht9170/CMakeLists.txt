@@ -1,5 +1,5 @@
 set (libname "ht9170")
 set (libdescription "upm ht9170 DTMF decoder")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

@@ -4,10 +4,10 @@
 %ignore beatISR;
 
 %{
-    #include "groveehr.h"
+    #include "groveehr.hpp"
 %}
 
-%include "groveehr.h"
+%include "groveehr.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
