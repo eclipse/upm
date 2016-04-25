@@ -556,7 +556,7 @@ mraa::Result EBOLED::command(uint8_t cmd)
 
 mraa::Result EBOLED::data(uint16_t data)
 {
-  m_spi.write_word(data);
+  m_spi.writeWord(data);
   return mraa::SUCCESS;
 }
 
