@@ -69,7 +69,11 @@ Microphone::getSampledWindow (unsigned int freqMS, int numberOfSamples,
     }
 
     while (sampleIdx < numberOfSamples) {
-        buffer[sampleIdx++] = mraa_aio_read (m_micCtx);
+        int x = mraa_aio_read (m_micCtx);
+        if (x == -1) {
+            return 0;
+        }
+        buffer[sampleIdx++] = x;
         usleep(freqMS * 1000);
     }
 

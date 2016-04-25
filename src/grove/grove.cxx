@@ -127,7 +127,10 @@ GroveTemp::~GroveTemp()
 
 int GroveTemp::value ()
 {
-    int a = mraa_aio_read(m_aio) * m_scale;
+    float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
+    // Apply scale factore after error check
+    a *= m_scale;
     float r = (float)(1023.0-a)*10000.0/a;
     float t = 1.0/(log(r/10000.0)/3975.0 + 1.0/298.15)-273.15;
     return (int) round(t);
@@ -159,6 +162,7 @@ int GroveLight::value()
 {
     // rough conversion to lux, using formula from Grove Starter Kit booklet
     float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
     a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
     return (int) round(a);
 }

@@ -82,18 +82,22 @@ uint32_t TA12200::getMillis()
 }
 
 
-unsigned int TA12200::highestValue()
+int TA12200::highestValue()
 {
-  unsigned int hiVal = 0;
-  unsigned int val;
+  int hiVal = 0;
+  int val;
   uint32_t start = getMillis();
 
   // 1 second
   while (getMillis() < (start + 1000))
     {
       val = mraa_aio_read(m_aio);
-      if (val > hiVal)
+      if (val == -1) {
+        return -1;
+      }
+      if (val > hiVal) {
         hiVal = val;
+      }
     }
         
   return hiVal;
