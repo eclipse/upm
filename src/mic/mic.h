@@ -47,7 +47,7 @@ namespace upm {
  * @altname Grove Sound Sensor
  * @type sound
  * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensors
+ * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensor
  * @con pwm
  * @kit gsk
  *
