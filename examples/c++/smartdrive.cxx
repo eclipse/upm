@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "smartdrive.h"
+#include "smartdrive.hpp"
 #include <signal.h>
 
 upm::SmartDrive *drive = NULL;

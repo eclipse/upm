@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "apa102.h"
+#include "apa102.hpp"
 #include <iostream>
 #include <signal.h>
 #include <unistd.h>
