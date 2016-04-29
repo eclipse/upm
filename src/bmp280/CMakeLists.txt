@@ -1,0 +1,5 @@
+set (libname "bmp280")
+set (libdescription "Bosch bmp280 Pressure sensor")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.hpp)
+upm_module_init()
