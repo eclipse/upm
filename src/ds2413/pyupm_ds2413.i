@@ -6,7 +6,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "ds2413.h"
+    #include "ds2413.hpp"
 %}
-%include "ds2413.h"
+%include "ds2413.hpp"
 %array_class(char, charArray);

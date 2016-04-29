@@ -26,7 +26,7 @@
 #include <time.h>
 #include <stdexcept>
 
-#include "ds2413.h"
+#include "ds2413.hpp"
 
 using namespace upm;
 using namespace std;

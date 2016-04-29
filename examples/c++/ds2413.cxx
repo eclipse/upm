@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <stdio.h>
-#include "ds2413.h"
+#include "ds2413.hpp"
 
 using namespace std;
 using namespace upm;
