@@ -126,7 +126,7 @@ macro(upm_SWIG_JAVA)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LDFLAGS} ${JAVA_LDFLAGS})
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
