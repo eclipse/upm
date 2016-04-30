@@ -51,6 +51,68 @@ PPD42NS::~PPD42NS()
     mraa_gpio_close(m_gpio);
 }
 
+// Assues density, shape, and size of dust to estimate mass concentration from particle count.
+//
+// This method was described in a 2009 paper
+// Preliminary Screening System for Ambient Air Quality in Southeast Philadelphia by Uva, M., Falcone, R., McClellan, A., and Ostapowicz, E.
+// http://www.cleanair.org/sites/default/files/Drexel%20Air%20Monitoring_-_Final_Report_-_Team_19_0.pdf
+//
+// This method does not use the correction factors, based on the presence of humidity and rain in the paper.
+//
+// convert from particles/0.01 ft3 to μg/m3
+double pcs2ugm3 (double concentration_pcs)
+{
+    double pi = 3.14159;
+    // All particles are spherical, with a density of 1.65E12 µg/m3
+    double density = 1.65 * pow (10, 12);
+    // The radius of a particle in the PM2.5 channel is .44 µm
+    double r25 = 0.44 * pow (10, -6);
+    double vol25 = (4/3) * pi * pow (r25, 3);
+    double mass25 = density * vol25; // ug
+    double K = 3531.5; // per m^3 
+
+    return concentration_pcs * K * mass25;
+}
+
+// https://www3.epa.gov/airquality/particlepollution/2012/decfsstandards.pdf
+static struct aqi {
+    float clow;
+    float chigh;
+    int llow;
+    int lhigh;
+} aqi[] = {
+  {0.0,    12.4,   0, 50},
+  {12.1,   35.4,  51, 100},
+  {35.5,   55.4, 101, 150},
+  {55.5,  150.4, 151, 200},
+  {150.5, 250.4, 201, 300},
+  {250.5, 350.4, 301, 350},
+  {350.5, 500.4, 401, 500},
+};
+
+// Guidelines for the Reporting of Daily Air Quality – the Air Quality Index (AQI)
+// https://www3.epa.gov/ttn/oarpg/t1/memoranda/rg701.pdf
+//
+// Revised air quality standards for particle pollution and updates to the air quality index (aqi)
+// https://www3.epa.gov/airquality/particlepollution/2012/decfsstandards.pdf
+//
+// calculate AQI (Air Quality Index) based on μg/m3 concentration
+int ugm32aqi (double ugm3)
+{
+  int i;
+
+  for (i = 0; i < 7; i++) {
+    if (ugm3 >= aqi[i].clow &&
+        ugm3 <= aqi[i].chigh) {
+        // Ip =  [(Ihi-Ilow)/(BPhi-BPlow)] (Cp-BPlow)+Ilow,
+        return ((aqi[i].lhigh - aqi[i].llow) / (aqi[i].chigh - aqi[i].clow)) * 
+            (ugm3 - aqi[i].clow) + aqi[i].llow;
+    }
+  }
+
+  return 0;
+}
+
 dustData PPD42NS::getData()
 {
 	dustData data;
@@ -77,10 +139,10 @@ dustData PPD42NS::getData()
 	data.lowPulseOccupancy = (int)low_pulse_occupancy;
 	data.ratio = ratio;
 	data.concentration = concentration;
-
+    data.ugm3 = pcs2ugm3(data.concentration);
+    data.aqi = ugm32aqi(data.ugm3);
 	return data;
 }
-
 
 // Mimicking Arduino's pulseIn function
 //	return how long it takes a pin to go from HIGH to LOW or LOW to HIGH
