@@ -1,0 +1,5 @@
+set (libname "tca9548a")
+set (libdescription "upm tca9548a I2c Multiplexer")
+set (module_src ${libname}.cxx)
+set (module_h ${libname}.hpp)
+upm_module_init()
