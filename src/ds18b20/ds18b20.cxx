@@ -26,7 +26,7 @@
 #include <time.h>
 #include <stdexcept>
 
-#include "ds18b20.h"
+#include "ds18b20.hpp"
 
 using namespace upm;
 using namespace std;

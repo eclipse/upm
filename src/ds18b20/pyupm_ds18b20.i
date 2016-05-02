@@ -6,7 +6,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "ds18b20.h"
+    #include "ds18b20.hpp"
 %}
-%include "ds18b20.h"
+%include "ds18b20.hpp"
 %array_class(char, charArray);

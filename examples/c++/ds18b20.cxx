@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "ds18b20.h"
+#include "ds18b20.hpp"
 
 using namespace std;
 
