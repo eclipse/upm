@@ -30,6 +30,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 #include <math.h>
+#include "upm/iPressureSensor.hpp"
 #include "upm/iTemperatureSensor.hpp"
 
 #define ADDR               0x77 // device address
@@ -89,7 +90,7 @@ namespace upm {
  * @snippet bmpx8x.cxx Interesting
  */
 
-class BMPX8X : public ITemperatureSensor {
+class BMPX8X : public IPressureSensor, public ITemperatureSensor {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -149,7 +150,14 @@ class BMPX8X : public ITemperatureSensor {
         int getTemperatureCelcius();
 
         /**
-         * Returns name of module. This is the string in library name after libupm_
+         * Return latest calculated pressure value in Pascals
+         * See IPressureSensor
+         */
+        int getPressurePa() { return getPressure(); };
+
+        /**
+         * Returns name of module. This is the string in library name
+         * after libupm_
 
          * @return name of module
          */
