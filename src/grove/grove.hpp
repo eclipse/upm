@@ -171,8 +171,10 @@ class GroveTemp: public Grove {
          * Grove analog temperature sensor constructor
          *
          * @param pin Analog pin to use
+         * @param scale Scaling factor for raw analog value from the ADC,
+         * useful for mixed 3.3V/5V boards
          */
-        GroveTemp(unsigned int pin);
+        GroveTemp(unsigned int pin, float scale = 1.0);
         /**
          * GroveTemp destructor
          */
@@ -191,6 +193,7 @@ class GroveTemp: public Grove {
         int value();
     private:
         mraa_aio_context m_aio;
+        float m_scale;
 };
 
 /**

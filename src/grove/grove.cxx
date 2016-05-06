@@ -109,7 +109,7 @@ bool GroveRelay::isOff()
 
 //// GroveTemp ////
 
-GroveTemp::GroveTemp(unsigned int pin)
+GroveTemp::GroveTemp(unsigned int pin, float scale)
 {
     if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -117,6 +117,7 @@ GroveTemp::GroveTemp(unsigned int pin)
         return;
     }
     m_name = "Temperature Sensor";
+    m_scale = scale;
 }
 
 GroveTemp::~GroveTemp()
@@ -126,7 +127,7 @@ GroveTemp::~GroveTemp()
 
 int GroveTemp::value ()
 {
-    int a = mraa_aio_read(m_aio);
+    int a = mraa_aio_read(m_aio) * m_scale;
     float r = (float)(1023.0-a)*10000.0/a;
     float t = 1.0/(log(r/10000.0)/3975.0 + 1.0/298.15)-273.15;
     return (int) round(t);
