@@ -1,0 +1,5 @@
+set (libname "bmx055")
+set (libdescription "Bosch bmx055, bmi055, bma250e, bmc150, bmg160, bmm150")
+set (module_src ${libname}.cxx bma250e.cxx bmg160.cxx bmm150.cxx bmc150.cxx bmi055.cxx)
+set (module_hpp ${libname}.hpp bma250e.hpp bmg160.hpp bmm150.hpp bmc150.cxx bmi055.hpp)
+upm_module_init()
