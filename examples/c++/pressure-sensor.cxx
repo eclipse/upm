@@ -40,6 +40,7 @@
 upm::IPressureSensor* getPressureSensor()
 {
    upm::IPressureSensor* pressureSensor = NULL;
+	
    try {
 	pressureSensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
 	return pressureSensor ;
@@ -47,7 +48,7 @@ upm::IPressureSensor* getPressureSensor()
    {
 	std::cerr <<"BME280: "<<e.what() << std::endl;
    }
-	
+
    try {
       pressureSensor = new upm::BMP180(EDISON_I2C_BUS);
       return pressureSensor;

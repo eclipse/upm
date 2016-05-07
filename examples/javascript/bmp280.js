@@ -1,3 +1,6 @@
+/*jslint node:true, vars:true, bitwise:true, unparam:true */
+/*jshint unused:true */
+
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
@@ -22,57 +25,43 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
+var sensorObj = require('jsupm_bmp280');
 
-#include "bme280.hpp"
+// Instantiate a BMP280 instance using default i2c bus and address
+var sensor = new sensorObj.BMP280();
 
-using namespace std;
-using namespace upm;
+// For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+// BMP280(0, -1, 10);
 
-int shouldRun = true;
-
-void sig_handler(int signo)
+setInterval(function()
 {
-  if (signo == SIGINT)
-    shouldRun = false;
-}
+    // update our values from the sensor
+    sensor.update();
 
+    console.log("Compensation Temperature: "
+                + sensor.getTemperature()
+                + " C / "
+                + sensor.getTemperature(true)
+                + " F");
 
-int main(int argc, char **argv)
+    console.log("Pressure: "
+                + sensor.getPressure()
+                + " Pa");
+
+    console.log("Computed Altitude: "
+                + sensor.getAltitude()
+                + " m");
+
+    console.log();
+
+}, 1000);
+
+// exit on ^C
+process.on('SIGINT', function()
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
-
-  // Instantiate a BME280 instance using default i2c bus and address
-  upm::BME280 *sensor = new upm::BME280();
-
-  // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-  // BME280(0, -1, 10);
-
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor->update();
-
-      // we show both C and F for temperature
-      cout << "Compensation Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
-           << endl;
-      cout << "Pressure: " << sensor->getPressure() << " Pa" << endl;
-      cout << "Computed Altitude: " << sensor->getAltitude() << " m" << endl;
-      cout << "Humidity: " << sensor->getHumidity() << " %RH" << endl;
-
-      cout << endl;
-
-      sleep(1);
-    }
-//! [Interesting]
-
-  cout << "Exiting..." << endl;
-
-  delete sensor;
-
-  return 0;
-}
+    sensor = null;
+    sensorObj.cleanUp();
+    sensorObj = null;
+    console.log("Exiting.");
+    process.exit(0);
+});

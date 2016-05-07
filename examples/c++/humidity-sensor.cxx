@@ -41,6 +41,7 @@
 upm::IHumiditySensor* getHumiditySensor()
 {
    upm::IHumiditySensor* humiditySensor = NULL;
+
    try {
 	humiditySensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
 	return humiditySensor ;

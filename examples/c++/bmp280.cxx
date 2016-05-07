@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "bme280.hpp"
+#include "bmp280.hpp"
 
 using namespace std;
 using namespace upm;
@@ -45,11 +45,11 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 //! [Interesting]
 
-  // Instantiate a BME280 instance using default i2c bus and address
-  upm::BME280 *sensor = new upm::BME280();
+  // Instantiate a BMP280 instance using default i2c bus and address
+  upm::BMP280 *sensor = new upm::BMP280();
 
   // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-  // BME280(0, -1, 10);
+  // BMP280(0, -1, 10);
 
   while (shouldRun)
     {
@@ -62,7 +62,6 @@ int main(int argc, char **argv)
            << endl;
       cout << "Pressure: " << sensor->getPressure() << " Pa" << endl;
       cout << "Computed Altitude: " << sensor->getAltitude() << " m" << endl;
-      cout << "Humidity: " << sensor->getHumidity() << " %RH" << endl;
 
       cout << endl;
 
