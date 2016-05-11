@@ -26,13 +26,13 @@
 #include <string>
 #include <mraa/pwm.h>
 
-#define  DO     3300    // 261 Hz 3830
-#define  RE     2930    // 294 Hz
-#define  MI     2600    // 329 Hz
-#define  FA     2460    // 349 Hz
-#define  SOL    2190    // 392 Hz
-#define  LA     1960    // 440 Hz
-#define  SI     1750    // 493 Hz
+#define  DO     3800    // 262 Hz - C4
+#define  RE     3400    // 294 Hz - D
+#define  MI     3000    // 330 Hz - E
+#define  FA     2900    // 349 Hz - F
+#define  SOL    2550    // 392 Hz - G
+#define  LA     2270    // 440 Hz - A
+#define  SI     2000    // 494 Hz - B
 
 namespace upm {
 
@@ -80,7 +80,7 @@ class Buzzer {
          * Plays a tone for a certain amount of time or indefinitely. When delay
          * is not used, the sound can be stopped by calling stopSound().
          *
-         * @param note Note to play (C, D, E, etc.) or frequency
+         * @param note Note to play (DO, RE, MI, etc.) or frequency
          * @param delay Time in microseconds for which to play the sound; if the value is
          * 0, the sound is played indefinitely
          *
