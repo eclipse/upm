@@ -3,7 +3,7 @@ set (libdescription "upm driver module for BACnet MS/TP devices")
 set (module_src ${libname}.cxx device-client.c)
 set (module_hpp ${libname}.hpp)
 
-pkg_search_module(BACNET libbacnet)
+pkg_check_modules(BACNET libbacnet)
 if (BACNET_FOUND)
   set (reqlibname "libbacnet")
   include_directories(${BACNET_INCLUDE_DIRS})

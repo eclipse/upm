@@ -3,7 +3,7 @@ set (libdescription "upm module for the Veris E50HX (E50H2/E50H5)Energy Meters")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
-pkg_search_module(BACNET libbacnet)
+pkg_check_modules(BACNET libbacnet)
 if (BACNET_FOUND)
   # upm-libbacnetmstp will bring in libbacnet, I hope
   set (reqlibname "upm-bacnetmstp")

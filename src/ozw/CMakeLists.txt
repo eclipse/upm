@@ -3,7 +3,7 @@ set (libdescription "upm module for the OpenZWave library interface")
 set (module_src ${libname}.cxx zwNode.cxx)
 set (module_hpp ${libname}.hpp)
 
-pkg_search_module(OPENZWAVE libopenzwave)
+pkg_check_modules(OPENZWAVE libopenzwave)
 if (OPENZWAVE_FOUND)
   set (reqlibname "libopenzwave")
   include_directories(${OPENZWAVE_INCLUDE_DIRS})
