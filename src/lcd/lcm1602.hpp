@@ -73,13 +73,15 @@ class Lcm1602 : public LCD
     /**
      * Lcm1602 constructor; calls libmraa initialisation functions
      *
-     * @param bus I2C bus to use
-     * @param address Slave address the LCD is registered on
+     * @param bus I2C bus to use. Default 0 (autodetect).
+     * @param address Slave address the LCD is registered on. Default 0x27
      * @param isExpander True if we are dealing with an I2C expander,
      * false otherwise. Default is true.
+     * @param numColumns Number of columns the display has. Default 16.
+     * @param numRows Number of rows the display has. Default 2.
      */
-  Lcm1602(int bus, int address, bool isExpander=true,
-          uint8_t numColumns = 16, uint8_t numRows = 4);
+  Lcm1602(int bus = 0, int address = 0x27, bool isExpander=true,
+          uint8_t numColumns = 16, uint8_t numRows = 2);
 
     /**
      * Lcm1602 alternate constructor, used for GPIO based HD44780
@@ -92,10 +94,12 @@ class Lcm1602 : public LCD
      * @param d1 Data 1 pin
      * @param d2 Data 2 pin
      * @param d3 Data 3 pin
+     * @param numColumns Number of columns the display has. Default 16.
+     * @param numRows Number of rows the display has. Default 2.
      */
     Lcm1602(uint8_t rs,  uint8_t enable,
             uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
-            uint8_t numColumns = 16, uint8_t numRows = 4);
+            uint8_t numColumns = 16, uint8_t numRows = 2);
 
     /**
      * Lcm1602 destructor
@@ -182,6 +186,20 @@ class Lcm1602 : public LCD
     mraa::Result cursorBlinkOff();
 
     /**
+     * Turn backlight on
+     *
+     * @return Result of operation
+     */
+    mraa::Result backlightOn();
+    
+    /**
+     * Turn backlight off
+     *
+     * @return Result of operation
+     */
+    mraa::Result backlightOff();    
+    
+    /**
      * Scroll the display left, without changing the character RAM
      *
      * @return Result of operation
@@ -236,6 +254,9 @@ class Lcm1602 : public LCD
     // Display size
     uint8_t m_numColumns;
     uint8_t m_numRows;
+    
+    // Backlight
+    uint8_t m_backlight;
 
     // Add a command() and data() virtual member functions, with a
     // default implementation in lcm1602.  This is expected to be
