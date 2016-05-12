@@ -1058,9 +1058,12 @@ namespace upm {
      * lsm9ds0 constructor
      *
      * @param bus i2c bus to use
+     * @param raw bypass board definition file, set to true if using Sparkfun
+     * 9DOF Block on an Intel Edison Arduino board
      * @param address the address for this device
      */
-    LSM9DS0(int bus=LSM9DS0_I2C_BUS, 
+    LSM9DS0(int bus=LSM9DS0_I2C_BUS,
+            bool raw=false,
             uint8_t gAddress=LSM9DS0_DEFAULT_GYRO_ADDR,
             uint8_t xmAddress=LSM9DS0_DEFAULT_XM_ADDR);
 
