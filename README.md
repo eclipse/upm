@@ -120,8 +120,7 @@ our API in a way that will break backwards compatibility. If you find yourself
 unable to compile code that was working fine before a library update, make sure
 you check the [API changes](docs/apichanges.md) section first.
 
-**NOTE** - Our **C++ header files** will change their extension from *.h* to
-*.hpp* in the upcoming version.
+**NOTE** - Our **C++ header files** changed extension from *.h* to *.hpp*!
 
 ### Changelog
 Version changelog [here](docs/changelog.md).

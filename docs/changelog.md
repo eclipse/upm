@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.7.0
+
+ * C++ header files have been renamed from *.h to *.hpp along with all Intel
+ provided examples and code samples to allow for native C drivers
+ * Updated driver compatibility to new MRAA 1.0 API
+ * First sensor implementations for our newly added Dallas One Wire support
+ * Several fixes based on issues reported on Github
+ * Changed SWIG linking strategy, more robust Travis CI build checks
+ * New sensors: ds2413, ds18b20, bmp280, bno055, l3gd20
+
 ### v0.6.2
 
  * Added a generic driver for taking snapshots from an USB camera device
