@@ -4,7 +4,7 @@ UPM (Useful Packages & Modules) Sensor/Actuator repository for MRAA
 The UPM repository provides software drivers for a wide variety of commonly
 used sensors and actuators. These software drivers interact with the
 underlying hardware platform (or microcontroller), as well as with the attached
-sensors, through calls to [MRAA](github.com/intel-iot-devkit/mraa) APIs.
+sensors, through calls to [MRAA](https://github.com/intel-iot-devkit/mraa) APIs.
 
 Programmers can access the interfaces for each sensor by including the sensor’s
 corresponding header file and instantiating the associated sensor class. In the
