@@ -46,13 +46,19 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
                                     ": I2c.address() failed");
     }
 
+    /* HD44780 requires writing three times to initialize or reset
+       according to the hardware errata on page 45 figure 23 of
+       the Hitachi HD44780 datasheet */
+    /* First try */
     usleep(50000);
-    ret = command(LCD_FUNCTIONSET | LCD_2LINE);
-
-    if (!ret) {
-        ret = command(LCD_FUNCTIONSET | LCD_2LINE);
-        UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
-    }
+    ret = command(LCD_FUNCTIONSET | LCD_8BITMODE);
+    /* Second try */
+    usleep(4500);
+    ret = command(LCD_FUNCTIONSET | LCD_8BITMODE);
+    /* Third try */
+    usleep(150);
+    ret = command(LCD_FUNCTIONSET | LCD_8BITMODE);
+    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
     usleep(100);
     ret = displayOn();
