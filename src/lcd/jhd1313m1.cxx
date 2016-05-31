@@ -60,6 +60,10 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
     ret = command(LCD_FUNCTIONSET | LCD_8BITMODE);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
+    /* Set 2 row mode and font size */
+    ret = command(LCD_FUNCTIONSET | LCD_8BITMODE | LCD_2LINE | LCD_5x10DOTS);
+    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
+
     usleep(100);
     ret = displayOn();
 
