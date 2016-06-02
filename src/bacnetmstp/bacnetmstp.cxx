@@ -860,6 +860,17 @@ BACNET_APPLICATION_DATA_VALUE BACNETMSTP::createDataString(string value)
   return data;
 }
 
+BACNET_APPLICATION_DATA_VALUE BACNETMSTP::createDataEnum(uint32_t value)
+{
+  BACNET_APPLICATION_DATA_VALUE data;
+
+  memset(&data, 0, sizeof(BACNET_APPLICATION_DATA_VALUE));
+
+  data.tag = BACNET_APPLICATION_TAG_ENUMERATED;
+  data.type.Enumerated = value;
+
+  return data;
+}
 
 string BACNETMSTP::string2HexString(string input)
 {

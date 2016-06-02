@@ -393,6 +393,18 @@ namespace upm {
     BACNET_APPLICATION_DATA_VALUE createDataString(std::string value);
 
     /**
+     * This method is used to create and return an initialized
+     * BACNET_APPLICATION_DATA_VALUE containing an enumeration.  A
+     * pointer to this returned structure can then be used with
+     * writeProperty().
+     *
+     * @param value The BACnet enumeration to initialize the
+     * structure to.
+     * @return An initialized structure containing the value
+     */
+    BACNET_APPLICATION_DATA_VALUE createDataEnum(uint32_t value);
+
+    /**
      * Return an enumration of the last error type to occur.  The
      * value returned will be one of the BACERR_TYPE_T values.
      *
