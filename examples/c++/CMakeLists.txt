@@ -262,6 +262,7 @@ if (BACNET_FOUND)
   # we need access to bacnetmstp headers too
   include_directories(${PROJECT_SOURCE_DIR}/src/bacnetmstp)
   add_example (e50hx)
+  add_example (tb7300)
 endif()
 add_example (vcap)
 add_example (ds2413)
