@@ -1,15 +1,15 @@
 %module javaupm_bacnetmstp
 %include "../upm.i"
 %include "typemaps.i"
-%include "cpointer.i"
-%include "arrays_java.i";
-%include "../java_buffer.i"
+%include "carrays_uint32_t.i"
 
 %{
     #include "bacnetmstp.hpp"
+    #include "bacnetutil.hpp"
 %}
 
 %include "bacnetmstp.hpp"
+%include "bacnetutil.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
