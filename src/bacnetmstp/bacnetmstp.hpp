@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 // we only support a BACnet RS-485 MS/TP datalink
 #define BACDL_MSTP 1
@@ -185,8 +186,7 @@ namespace upm {
      * instance you wish to access.  It should be one of the
      * BACNET_PROPERTY_ID values.
      * @param arrayIndex This specifies the index number of an array
-     * property.  This is not currently supported.  Until it is, leave
-     * the default at BACNET_ARRAY_ALL.
+     * property. The default is BACNET_ARRAY_ALL.
      * @return true if an error occurred, false otherwise.
      */
     bool readProperty(uint32_t targetDeviceInstanceID,
@@ -225,8 +225,7 @@ namespace upm {
      * information in the bacnet-stack documentation as to whether
      * this is even supported.
      * @param arrayIndex This specifies the index number of an array
-     * property.  This is not currently supported.  Until it is, leave
-     * the default at BACNET_ARRAY_ALL.
+     * property. The default is BACNET_ARRAY_ALL.
      * @return true if an error occurred, false otherwise.
      */
     bool writeProperty(uint32_t targetDeviceInstanceID,
@@ -242,19 +241,32 @@ namespace upm {
      * to return a BACNET_APPLICATION_DATA_VALUE structure containing
      * the returned data.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return a BACNET_APPLICATION_DATA_VALUE structure containing
      * the returned data.
      */
-    BACNET_APPLICATION_DATA_VALUE getData();
+    BACNET_APPLICATION_DATA_VALUE getData(int index=0);
+
+    /**
+     * After a successful readProperty request, this method can be
+     * used to return the number of data elements returned.  This will
+     * usually be 1, unless reading an array.
+     *
+     * @return The number of data elements received.
+     */
+    int getDataNumElements();
 
     /**
      * After a successful readProperty request, this method can be
      * used to return the BACnet data type of the returned data.  It
      * will be one of the BACNET_APPLICATION_TAG_* values.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A BACNET_APPLICATION_TAG_* value
      */
-    uint8_t getDataType();
+    uint8_t getDataType(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -263,9 +275,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_REAL, and the value returned cannot be
      * safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A floating point value representing the returned data
      */
-    float getDataTypeReal();
+    float getDataTypeReal(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -274,9 +288,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_BOOLEAN, and the value returned cannot
      * be safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A boolean value representing the returned data
      */
-    bool getDataTypeBoolean();
+    bool getDataTypeBoolean(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -285,9 +301,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_UNSIGNED_INT, and the value returned
      * cannot be safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return An unsigned int value representing the returned data
      */
-    unsigned int getDataTypeUnsignedInt();
+    unsigned int getDataTypeUnsignedInt(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -296,9 +314,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_SIGNED_INT, and the value returned
      * cannot be safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A signed int value representing the returned data
      */
-    int getDataTypeSignedInt();
+    int getDataTypeSignedInt(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -308,9 +328,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_CHARACTER_STRING, and the value returned
      * cannot be safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A string value representing the returned data
      */
-    std::string getDataTypeString();
+    std::string getDataTypeString(int index=0);
 
     /**
      * After a successful readProperty request, this method can be
@@ -318,9 +340,11 @@ namespace upm {
      * enumeration.  If the data type (getDataType()) is not a
      * BACNET_APPLICATION_TAG_ENUMERATED an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return An unsigned int representing a BACnet enumerant
      */
-    unsigned int getDataTypeEnum();
+    unsigned int getDataTypeEnum(int index=0);
 
 #if defined(BACAPP_DOUBLE)
     /**
@@ -330,9 +354,11 @@ namespace upm {
      * BACNET_APPLICATION_TAG_DOUBLE, and the value returned cannot be
      * safely converted, an exception is thrown.
      *
+     * @param index into the list of returned data. 0 (first) is the
+     * default.
      * @return A double floating point value representing the returned data
      */
-    double getDataTypeDouble();
+    double getDataTypeDouble(int index=0);
 #endif // BACAPP_DOUBLE
 
     /**
@@ -391,6 +417,18 @@ namespace upm {
      * @return An initialized structure containing the value
      */
     BACNET_APPLICATION_DATA_VALUE createDataString(std::string value);
+
+    /**
+     * This method is used to create and return an initialized
+     * BACNET_APPLICATION_DATA_VALUE containing an enumeration.  A
+     * pointer to this returned structure can then be used with
+     * writeProperty().
+     *
+     * @param value The BACnet enumeration to initialize the
+     * structure to.
+     * @return An initialized structure containing the value
+     */
+    BACNET_APPLICATION_DATA_VALUE createDataEnum(uint32_t value);
 
     /**
      * Return an enumration of the last error type to occur.  The
@@ -664,7 +702,7 @@ namespace upm {
     std::string m_upmErrorString;
 
     // our returned data from readProperty()
-    BACNET_APPLICATION_DATA_VALUE m_returnedValue;
+    std::vector<BACNET_APPLICATION_DATA_VALUE> m_returnedValue;
 
     // current bound target address of dispatched service request
     // (read/write prop, etc)
