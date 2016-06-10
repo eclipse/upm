@@ -69,8 +69,8 @@ sensor.initMaster(defaultDev, 38400, 1000001, 2)
 
 # output the serial number and firmware revision
 print
-print "Device Description:", sensor.getDescription()
-print "Device Location:", sensor.getLocation()
+print "Device Description:", sensor.getDeviceDescription()
+print "Device Location:", sensor.getDeviceLocation()
 print
 
 # update and print available values every second

@@ -27,6 +27,7 @@
 #include <map>
 
 #include "bacnetmstp.hpp"
+#include "bacnetutil.hpp"
 
 namespace upm {
 
@@ -81,7 +82,7 @@ namespace upm {
    * @snippet e50hx.cxx Interesting
    */
 
-  class E50HX {
+  class E50HX : public BACNETUTIL {
   public:
 
     // Supported Analog Value Objects.  These are readable and writable.
@@ -209,14 +210,6 @@ namespace upm {
       DISP_UNITS_IEEE               = 1  // IEEE display units
     } DISP_UNITS_T;
 
-    // Since none of the legal values returned by getAnalogValue() or
-    // getAnalogInput() will ever be negative, we use these two values
-    // to indicate either an error (BACnet or UPM), or to indicate
-    // that the value is unreliable if checkReliability() has been
-    // enabled.
-    const float RETURN_ERROR = -1.0;
-    const float RETURN_UNRELIABLE = -2.0;
-
     /**
      * E50HX constructor
      *
@@ -237,352 +230,92 @@ namespace upm {
     ~E50HX();
 
     /**
-     * This function initializes the underlying BACNETMSTP Master
-     * singleton in the event it has not already been initialized.  If
-     * the BACNETMSTP Master singleton has already been initialized,
-     * then this call will be ignored.
-     *
-     * @param port The serial port that the RS-485 interface is
-     * connected to.
-     * @param baudRate The baudrate of the RS-485 interface.  All
-     * devices on a BACnet RS-485 bus must run at the same baudrate.
-     * Valid values are 9600, 19200, 38400, 57600, 76800, and 115200.
-     * @param deviceInstanceNumber This is the unique Device Object
-     * Instance number that will be used for our BACnet Master in
-     * order to communicate over the BACnet interface.  This number
-     * must be between 1-4194302 and must be unique on the BACnet
-     * network.
-     * @param macAddr This is the MAC address of our BACnet Master.
-     * It must be unique on the BACnet segment, and must be between
-     * 1-127.
-     * @param maxMaster This specifies to our Master the maximum MAC
-     * address used by any other Masters on the BACnet network.  This
-     * must be between 1-127, the default is 127.  Do not change this
-     * unless you know what you are doing or you could introduce
-     * token passing errors on the BACnet network.
-     * @param maxInfoFrames This number specifies the maximum number
-     * of transmissions (like requests for data) our Master is allowed
-     * to make before passing the token to the next Master.  The
-     * default is 1.
-     */
-    void initMaster(std::string port, int baudRate, int deviceInstanceNumber,
-                    int macAddr, int maxMaster=DEFAULT_MAX_MASTER,
-                    int maxInfoFrames=1);
-
-    /**
-     * Enable some debugging output in this module as well as the
-     * BACNETMSTP module.  Debugging is disabled by default.
-     *
-     * @param enable true to enable, false to disable.
-     */
-    void setDebug(bool enable);
-
-    /**
-     * Retrieve the Present_Value property of an Analog Value object.
-     * If checkReliability() has been enabled, then the Reliability
-     * property of the object will be retrieved first.  If the
-     * Reliability property is anything other than
-     * RELIABILITY_NO_FAULT_DETECTED, then the RETURN_UNRELIABLE value
-     * will be returned.  Reliability checking is disabled by default
-     * for performance reasons.
-     *
-     * @param objInstance One of the ANALOG_VALUES_T values.
-     * @return the floating point value requested
-     */
-    float getAnalogValue(ANALOG_VALUES_T objInstance);
-
-    /**
-     * Retrieve the Present_Value property of an Analog Input object.
-     * If checkReliability() has been enabled, then the Reliability
-     * property of the object will be retrieved first.  If the
-     * Reliability property is anything other than
-     * RELIABILITY_NO_FAULT_DETECTED, then the RETURN_UNRELIABLE value
-     * will be returned.  Reliability checking is disabled by default
-     * for performance reasons.
-     *
-     * @param objInstance One of the ANALOG_INPUTS_T values.
-     * @return the floating point value requested
-     */
-    float getAnalogInput(ANALOG_INPUTS_T objInstance);
-
-    /**
      * Write one of several 'magic' numbers to the configuration
      * object (AV1).  This is used to clear certain counters, reset
-     * the accumulated Energy consumption values, etc.
+     * the accumulated Energy consumption values, etc.  This method
+     * will throw on error.
      *
      * @param config One of the CFG_VALUES_T values
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeConfig(CFG_VALUES_T config);
+    void writeConfig(CFG_VALUES_T config);
 
     /**
      * Set the System Type of the device.  This defines the voltage
-     * lines you have connected.
+     * lines you have connected.  This method will throw on error.
      *
      * @param systype One of the SYSTEM_TYPES_T values.
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeSystemType(SYSTEM_TYPES_T systype);
+    void writeSystemType(SYSTEM_TYPES_T systype);
 
     /**
-     * Set the Primary CT ratio.  See the datasheet for details.
+     * Set the Primary CT ratio.  See the datasheet for details.  This
+     * method will throw on error.
      *
      * @param ctRatio A floating point value between 5-32000
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeCTRatioPrimary(float ctRatio);
+    void writeCTRatioPrimary(float ctRatio);
 
     /**
      * Set the Secondary CT ratio.  See the datasheet for details.
+     * This method will throw on error.
      *
      * @param ctRatio One of the CT_SECONDARY_T values.
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeCTRatioSecondary(CT_SECONDARY_T ctRatio);
+    void writeCTRatioSecondary(CT_SECONDARY_T ctRatio);
 
     /**
-     * Set the PT ratio.  See the datasheet for details.
+     * Set the PT ratio.  See the datasheet for details.  This method
+     * will throw on error.
      *
      * @param ptRatio A floating point value between 0.01-320.0
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writePTRatio(float ptRatio);
+    void writePTRatio(float ptRatio);
 
     /**
-     * Set the System Voltage parmeter.  See the datasheet for details.
+     * Set the System Voltage parmeter.  See the datasheet for
+     * details.  This method will throw on error.
      *
      * @param sysVolts A floating point value between 82.0-32000.0
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeSystemVoltage(float sysVolts);
+    void writeSystemVoltage(float sysVolts);
 
     /**
-     * Set the LCD Display Units in IEC or IEEE format.
+     * Set the LCD Display Units in IEC or IEEE format.  This method
+     * will throw on error.
      *
      * @param dispUnits One of the DISP_UNITS_T values.
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writeDisplayUnits(DISP_UNITS_T dispUnits);
+    void writeDisplayUnits(DISP_UNITS_T dispUnits);
 
     /**
      * Set the Phase Loss Voltage Threshold.  See the datasheet for
-     * details.
+     * details.  This method will throw on error.
      *
      * @param dispUnits A floating point value between 1.0-99.0
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writePhaseLossVT(float phaseLoss);
+    void writePhaseLossVT(float phaseLoss);
 
     /**
      * Set the Phase Loss Imbalance Threshold.  See the datasheet for
-     * details.
+     * details.  This method will throw on error.
      *
      * @param dispUnits A floating point value between 1.0-99.0
-     * @return true if the operation suceeded, false if there was an
-     * error.
      */
-    bool writePhaseLossIT(float phaseLoss);
-
-    /**
-     * Query an Analog Value object for the unit code, translate it
-     * into a string and cache the result for future use.  Return the
-     * BACnet text for the Unit enumeration.  Unit enumerations are
-     * things like 'kilowatt-hours', 'volts', etc.  For Objects which
-     * do not have a Units property defined for them, or for which
-     * Units has no meaning, 'no-units' will typically be returned and
-     * cached.
-     *
-     * @param objInstance One of the ANALOG_VALUES_T values.
-     * @return A string representing the Object's Unit property.
-     */
-    std::string getAnalogValueUnits(ANALOG_VALUES_T objInstance);
-
-    /**
-     * Query an Analog Input object for the unit code, translate it
-     * into a string and cache the result for future use.  Return the
-     * BACnet text for the Unit enumeration.  Unit enumerations are
-     * things like 'kilowatt-hours', 'volts', etc.  For Objects which
-     * do not have a Units property defined for them, or for which
-     * Units has no meaning, 'no-units' will typically be returned and
-     * cached.
-     *
-     * @param objInstance One of the ANALOG_INPUTS_T values.
-     * @return A string representing the Object's Unit property.
-     */
-    std::string getAnalogInputUnits(ANALOG_INPUTS_T objInstance);
+    void writePhaseLossIT(float phaseLoss);
 
     /**
      * Query the AI52 Object and return a bitmask of current Alarms.
      * Compare against ALARM_BITS_T to determine what conditions are
      * signaling an alarm.  Alarm conditions will clear on their own
-     * as soon as the cause is rectified.
+     * as soon as the cause is rectified.  This method will throw on
+     * error.
      *
      * @return A bitmask of values from ALARM_BITS_T indicating
      * current alarm conditions.
      */
     uint16_t getAlarmBits();
 
-    /**
-     * Enable or disable reliability checking.  By default, when using
-     * getAnalogValue() or getAnalogInput() the Present_Value property
-     * is returned.  There is also a property called Reliability that
-     * can be checked to ensure that the Present_Value property is
-     * currently valid.
-     *
-     * Enabling Reliability Checking has these functions check for a
-     * RELIABILITY_NO_FAULT_DETECTED value for the Reliability
-     * property before querying the Present_Value property.  If
-     * anything other than RELIABILITY_NO_FAULT_DETECTED is set, then
-     * these functions will return RETURN_UNRELIABLE rather than the
-     * Present_Value.
-     *
-     * This checking is disabled by default since it will double the
-     * number of queries needed to retrieve a given value.  However,
-     * if you need to ensure that the values returned are always
-     * completely valid as determined by the device firmware, you
-     * should enable this.
-     *
-     * @param enable true to check Reliability before returning a
-     * value, false otherwise.
-     */
-    void checkReliability(bool enable)
-    {
-      m_checkReliability = enable;
-    };
-
-    /**
-     * Query the Device Object of the device and return it's
-     * Description property.  This typically contains information like
-     * the Vendor, model and serial number of a device.
-     *
-     * @return A string containing the Device Object's Description property.
-     */
-    std::string getDescription();
-
-    /**
-     * Query the Device Object of the device and return it's Location
-     * property.  This typically contains a string indication a
-     * customer specific value.  Use setLocation() to change.
-     *
-     * @return A string containing the Device Object's Location property.
-     */
-    std::string getLocation();
-
-    /**
-     * Set the Device Object's Location property.  This must be a
-     * string containing no more than 63 characters.
-     *
-     * @return true if the operation succeeded, false otherwise
-     */
-    bool setLocation(std::string location);
-
-    /**
-     * This is a utility function that will return a string reporting
-     * on the various types of errors that can occur in BACnet
-     * operation.
-     *
-     * @return A string containing the last error message.
-     */
-    std::string getAllErrorString();
-
-    /**
-     * Return an enumration of the last error type to occur.  The
-     * value returned will be one of the BACNETMSTP::BACERR_TYPE_T
-     * values.
-     *
-     * @return The last error type to occur, one of the
-     * BACNETMSTP::BACERR_TYPE_T values.
-     */
-    BACNETMSTP::BACERR_TYPE_T getErrorType();
-
-    /**
-     * In the event of a BACnet Reject error, return the error code.
-     *
-     * @return The Reject error code.
-     */
-    uint8_t getRejectReason();
-
-    /**
-     * In the event of a BACnet Reject error, return the error string.
-     *
-     * @return The Reject error string.
-     */
-    std::string getRejectString();
-
-    /**
-     * In the event of a BACnet Abort error, return the Abort reason code.
-     *
-     * @return The Abort reason code.
-     */
-    uint8_t getAbortReason();
-
-    /**
-     * In the event of a BACnet Abort error, return the Abort string.
-     *
-     * @return The Abort error string.
-     */
-    std::string getAbortString();
-
-    /**
-     * In the event of a general BACnet error, return the BACnet error class.
-     *
-     * @return One of the BACNET_ERROR_CLASS error class codes
-     */
-    BACNET_ERROR_CLASS getErrorClass();
-
-    /**
-     * In the event of a general BACnet error, return the BACnet error code.
-     *
-     * @return One of the BACNET_ERROR_CODE error codes
-     */
-    BACNET_ERROR_CODE getErrorCode();
-
-    /**
-     * In the event of a general BACnet error, return the BACnet error
-     * string.
-     *
-     * @return A string representing the BACnet error class and code.
-     */
-    std::string getErrorString();
-
-    /**
-     * In the event of a non-BACnet UPM error, return a string
-     * describing the error.
-     *
-     * @return A string representing the UPM error.
-     */
-    std::string getUPMErrorString();
-
   protected:
-    // a copy of the BACNETMSTP singleton instance pointer
-    BACNETMSTP* m_instance;
-
-    // unique device object ID of e50hx
-    uint32_t m_targetDeviceObjectID;
-
-    // are we initialized?
-    bool m_initialized;
-
   private:
-    bool m_debugging;
-
-    // whether or not to verify reliability before reading a value.
-    bool m_checkReliability;
-
-    // Unit cache for AV
-    typedef std::map<ANALOG_VALUES_T, std::string> avCacheMap_t;
-    avCacheMap_t m_avUnitCache;
-
-    // Unit cache for AI
-    typedef std::map<ANALOG_INPUTS_T, std::string> aiCacheMap_t;
-    aiCacheMap_t m_aiUnitCache;
   };
 }
