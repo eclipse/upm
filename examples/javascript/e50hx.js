@@ -63,8 +63,8 @@ sensor.initMaster(defaultDev, 38400, 1000001, 2);
 // sensor.setDebug(true);
 
 console.log("");
-console.log("Device Description:", sensor.getDescription());
-console.log("Device Location:", sensor.getLocation());
+console.log("Device Description:", sensor.getDeviceDescription());
+console.log("Device Location:", sensor.getDeviceLocation());
 console.log("");
 
 // update and print a few values every 5 seconds

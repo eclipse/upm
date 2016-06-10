@@ -74,8 +74,8 @@ int main(int argc, char **argv)
   // sensor->setDebug(true);
 
   cout << endl;
-  cout << "Device Description: " << sensor->getDescription() << endl;
-  cout << "Device Location: " << sensor->getLocation() << endl;
+  cout << "Device Description: " << sensor->getDeviceDescription() << endl;
+  cout << "Device Location: " << sensor->getDeviceLocation() << endl;
   cout << endl;
 
   // update and print a few values every 5 seconds

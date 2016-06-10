@@ -58,8 +58,10 @@ public class E50HX_Example
         // sensor.setDebug(true);
 
         System.out.println();
-        System.out.println("Device Description: " + sensor.getDescription());
-        System.out.println("Device Location: " + sensor.getLocation());
+        System.out.println("Device Description: "
+                           + sensor.getDeviceDescription());
+        System.out.println("Device Location: "
+                           + sensor.getDeviceLocation());
         System.out.println();
 
         // update and print a few values every 5 seconds
@@ -84,7 +86,6 @@ public class E50HX_Example
                 System.out.println();
                 Thread.sleep(5000);
             }
-
 // ! [Interesting]
     }
 }
