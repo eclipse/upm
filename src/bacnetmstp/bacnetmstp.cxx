@@ -57,7 +57,7 @@ BACNETMSTP::BACNETMSTP()
 
   memset(m_rxBuffer, 0, MAX_MPDU);
 
-  m_returnedValue = {0};
+  m_returnedValue.clear();
   m_targetAddress = {0};
   m_invokeID = 0;
   m_errorDetected = false;
@@ -165,6 +165,15 @@ void BACNETMSTP::handlerReadPropertyAck(uint8_t* service_request,
   int len = 0;
   BACNET_READ_PROPERTY_DATA data;
 
+  // clear our stored data
+  instance()->m_returnedValue.clear();
+
+  BACNET_APPLICATION_DATA_VALUE value;
+  memset((void *)&value, 0, sizeof(value));
+
+  uint8_t *application_data = 0;
+  int application_data_len = 0;
+
   if (address_match(&(instance()->m_targetAddress), src) &&
       (service_data->invoke_id == instance()->m_invokeID))
     {
@@ -173,19 +182,49 @@ void BACNETMSTP::handlerReadPropertyAck(uint8_t* service_request,
 
       len = rp_ack_decode_service_request(service_request, service_len,
                                           &data);
-      // FIXME: we don't currently handle arrays (len < service_len)
+
+      // store any delivered data elements
       if (len > 0)
         {
-          bacapp_decode_application_data(data.application_data,
-                                         data.application_data_len,
-                                         &(instance()->m_returnedValue));
-        }
-      else
-        {
-          // shouldn't happen?
-          cerr << __FUNCTION__ << ": decode app data failed" << endl;
+          application_data_len = data.application_data_len;
+          application_data = data.application_data;
+
+          while (true)
+            {
+              len = bacapp_decode_application_data(application_data,
+                                                   application_data_len,
+                                                   &value);
+              if (len > 0)
+                {
+                  // store a copy
+                  instance()->m_returnedValue.push_back(value);
+
+                  if (len < application_data_len)
+                    {
+                      // there is more data
+                      application_data += len;
+                      application_data_len -= len;
+                    }
+                  else
+                    {
+                      // we are done
+                      break;
+                    }
+                }
+              else
+                {
+                  // shouldn't happen?
+                  cerr << __FUNCTION__ << ": decode app data failed" << endl;
+                  break;
+                }
+            }
         }
     }
+
+  if (instance()->m_debugging)
+    cerr << __FUNCTION__ << ": STORED "
+         << instance()->m_returnedValue.size()
+         << " data elements." << endl;
 }
 
 void BACNETMSTP::handlerWritePropertyAck(BACNET_ADDRESS* src,
@@ -553,7 +592,7 @@ bool BACNETMSTP::readProperty(uint32_t targetDeviceInstanceID,
   m_command.readPropArgs.objType = objType;
   m_command.readPropArgs.objInstance = objInstance;
   m_command.readPropArgs.objProperty = objProperty;
-  m_command.readPropArgs.arrayIndex = arrayIndex; // not implemented in the ack handler!
+  m_command.readPropArgs.arrayIndex = arrayIndex;
 
   if (m_debugging)
     cerr << __FUNCTION__  << ": calling dispatchRequest()..." << endl;
@@ -591,7 +630,7 @@ bool BACNETMSTP::writeProperty(uint32_t targetDeviceInstanceID,
   m_command.writePropArgs.objProperty = objProperty;
   m_command.writePropArgs.propValue = propValue;
   m_command.writePropArgs.propPriority = propPriority;
-  m_command.writePropArgs.arrayIndex = arrayIndex; // not implemented!
+  m_command.writePropArgs.arrayIndex = arrayIndex;
 
   if (m_debugging)
     cerr << __FUNCTION__  << ": calling dispatchRequest()..." << endl;
@@ -605,158 +644,163 @@ bool BACNETMSTP::writeProperty(uint32_t targetDeviceInstanceID,
   return error;
 }
 
-BACNET_APPLICATION_DATA_VALUE BACNETMSTP::getData()
+BACNET_APPLICATION_DATA_VALUE BACNETMSTP::getData(int index)
 {
-  return m_returnedValue;
+  return m_returnedValue.at(index);
 }
 
-uint8_t BACNETMSTP::getDataType()
+int BACNETMSTP::getDataNumElements()
 {
-  return m_returnedValue.tag;
+  return m_returnedValue.size();
 }
 
-float BACNETMSTP::getDataTypeReal()
+uint8_t BACNETMSTP::getDataType(int index)
 {
-  if (getDataType() == BACNET_APPLICATION_TAG_REAL)
-    return m_returnedValue.type.Real;
+  return m_returnedValue.at(index).tag;
+}
+
+float BACNETMSTP::getDataTypeReal(int index)
+{
+  if (getDataType(index) == BACNET_APPLICATION_TAG_REAL)
+    return m_returnedValue.at(index).type.Real;
   else
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Not of Real type, trying to convert..." << endl;
 
       // try to convert or throw
-      switch (getDataType())
+      switch (getDataType(index))
         {
         case BACNET_APPLICATION_TAG_BOOLEAN:
-          return (getDataTypeBoolean() ? 1.0 : 0.0);
+          return (getDataTypeBoolean(index) ? 1.0 : 0.0);
         case BACNET_APPLICATION_TAG_UNSIGNED_INT:
-          return float(getDataTypeUnsignedInt());
+          return float(getDataTypeUnsignedInt(index));
         case BACNET_APPLICATION_TAG_SIGNED_INT:
-          return float(getDataTypeSignedInt());
+          return float(getDataTypeSignedInt(index));
         default:
           throw std::invalid_argument(std::string(__FUNCTION__)
                                       + ": data type ("
-                                      + std::to_string(int(getDataType()))
+                                      + std::to_string(int(getDataType(index)))
                                       + ") is not convertible to Real");
         }
     }
 }
 
-bool BACNETMSTP::getDataTypeBoolean()
+bool BACNETMSTP::getDataTypeBoolean(int index)
 {
-  if (getDataType() == BACNET_APPLICATION_TAG_BOOLEAN)
-    return ((m_returnedValue.type.Boolean) ? true : false);
+  if (getDataType(index) == BACNET_APPLICATION_TAG_BOOLEAN)
+    return ((m_returnedValue.at(index).type.Boolean) ? true : false);
   else
     throw std::invalid_argument(std::string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType()))
+                                + std::to_string(int(getDataType(index)))
                                 + ") is not convertible to Bool");
 }
 
-unsigned int BACNETMSTP::getDataTypeUnsignedInt()
+unsigned int BACNETMSTP::getDataTypeUnsignedInt(int index)
 {
-  if (getDataType() == BACNET_APPLICATION_TAG_UNSIGNED_INT)
-    return m_returnedValue.type.Unsigned_Int;
+  if (getDataType(index) == BACNET_APPLICATION_TAG_UNSIGNED_INT)
+    return m_returnedValue.at(index).type.Unsigned_Int;
   else
     throw std::invalid_argument(std::string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType()))
+                                + std::to_string(int(getDataType(index)))
                                 + ") is not convertible to UnsignedInt");
 }
 
-int BACNETMSTP::getDataTypeSignedInt()
+int BACNETMSTP::getDataTypeSignedInt(int index)
 {
-  if (getDataType() == BACNET_APPLICATION_TAG_SIGNED_INT)
-    return m_returnedValue.type.Signed_Int;
+  if (getDataType(index) == BACNET_APPLICATION_TAG_SIGNED_INT)
+    return m_returnedValue.at(index).type.Signed_Int;
   else
     throw std::invalid_argument(std::string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType()))
+                                + std::to_string(int(getDataType(index)))
                                 + ") is not convertible to SignedInt");
 }
 
 #if defined(BACAPP_DOUBLE)
-double BACNETMSTP::getDataTypeDouble()
+double BACNETMSTP::getDataTypeDouble(int index)
 {
   if (getDataType() == BACNET_APPLICATION_TAG_DOUBLE)
-    return m_returnedValue.type.Double;
+    return m_returnedValue.at(index).type.Double;
   else
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Not of Double type, trying to convert..." << endl;
 
       // try to convert or throw
-      switch (getDataType())
+      switch (getDataType(index))
         {
         case BACNET_APPLICATION_TAG_REAL:
-          return double(getDataTypeReal());
+          return double(getDataTypeReal(index));
         case BACNET_APPLICATION_TAG_BOOLEAN:
-          return (getDataTypeBoolean() ? 1.0 : 0.0);
+          return (getDataTypeBoolean(index) ? 1.0 : 0.0);
         case BACNET_APPLICATION_TAG_UNSIGNED_INT:
-          return double(getDataTypeUnsignedInt());
+          return double(getDataTypeUnsignedInt(index));
         case BACNET_APPLICATION_TAG_SIGNED_INT:
-          return double(getDataTypeSignedInt());
+          return double(getDataTypeSignedInt(index));
         default:
           throw std::invalid_argument(std::string(__FUNCTION__)
                                       + ": data type ("
-                                      + std::to_string(int(getDataType()))
+                                      + std::to_string(int(getDataType(index)))
                                       + ") is not convertible to Double");
         }
     }
 }
 #endif // BACAPP_DOUBLE
 
-unsigned int BACNETMSTP::getDataTypeEnum()
+unsigned int BACNETMSTP::getDataTypeEnum(int index)
 {
-  if (getDataType() == BACNET_APPLICATION_TAG_ENUMERATED)
-    return m_returnedValue.type.Enumerated;
+  if (getDataType(index) == BACNET_APPLICATION_TAG_ENUMERATED)
+    return m_returnedValue.at(index).type.Enumerated;
   else
     throw std::invalid_argument(std::string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType()))
+                                + std::to_string(int(getDataType(index)))
                                 + ") is not convertible to Enum");
 }
 
-std::string BACNETMSTP::getDataTypeString()
+std::string BACNETMSTP::getDataTypeString(int index)
 {
   string retval;
 
   // Here, we can try to accomodate all the types
-  switch(getDataType())
+  switch(getDataType(index))
     {
     case BACNET_APPLICATION_TAG_REAL:
-      retval = std::to_string(getDataTypeReal());
+      retval = std::to_string(getDataTypeReal(index));
       break;
 
 #if defined(BACAPP_DOUBLE)
     case BACNET_APPLICATION_TAG_DOUBLE:
-      retval = std::to_string(getDataTypeDouble());
+      retval = std::to_string(getDataTypeDouble(index));
       break;
 #endif // BACAPP_DOUBLE
 
     case BACNET_APPLICATION_TAG_UNSIGNED_INT:
-      retval = std::to_string(getDataTypeUnsignedInt());
+      retval = std::to_string(getDataTypeUnsignedInt(index));
       break;
 
     case BACNET_APPLICATION_TAG_SIGNED_INT:
-      retval = std::to_string(getDataTypeSignedInt());
+      retval = std::to_string(getDataTypeSignedInt(index));
       break;
 
     case BACNET_APPLICATION_TAG_BOOLEAN:
-      retval = (getDataTypeBoolean() ? string("true") : string("false"));
+      retval = (getDataTypeBoolean(index) ? string("true") : string("false"));
       break;
 
     case BACNET_APPLICATION_TAG_CHARACTER_STRING:
-      retval = string(characterstring_value(&m_returnedValue.type.Character_String),
+      retval = string(characterstring_value(&m_returnedValue.at(index).type.Character_String),
 
-                      characterstring_length(&m_returnedValue.type.Character_String));
+                      characterstring_length(&m_returnedValue.at(index).type.Character_String));
       break;
 
     case BACNET_APPLICATION_TAG_OCTET_STRING:
       {
-        string tmpstr((char *)octetstring_value(&m_returnedValue.type.Octet_String),
+        string tmpstr((char *)octetstring_value(&m_returnedValue.at(index).type.Octet_String),
 
-                      octetstring_length(&m_returnedValue.type.Octet_String));
+                      octetstring_length(&m_returnedValue.at(index).type.Octet_String));
         retval = string2HexString(tmpstr);
       }
 
@@ -764,11 +808,12 @@ std::string BACNETMSTP::getDataTypeString()
 
     case BACNET_APPLICATION_TAG_BIT_STRING:
       {
-        int len = bitstring_bits_used(&m_returnedValue.type.Bit_String);
+        int len = bitstring_bits_used(&m_returnedValue.at(index).type.Bit_String);
 
         for (int i=0; i<len; i++)
           {
-            if (bitstring_bit(&m_returnedValue.type.Bit_String, uint8_t(i)))
+            if (bitstring_bit(&m_returnedValue.at(index).type.Bit_String,
+                              uint8_t(i)))
               retval += "1";
             else
               retval += "0";
@@ -783,7 +828,7 @@ std::string BACNETMSTP::getDataTypeString()
     default:
       throw std::invalid_argument(std::string(__FUNCTION__)
                                   + ": data type ("
-                                  + std::to_string(int(getDataType()))
+                                  + std::to_string(int(getDataType(index)))
                                   + ") is not convertible to String");
       break;
     }
@@ -860,6 +905,17 @@ BACNET_APPLICATION_DATA_VALUE BACNETMSTP::createDataString(string value)
   return data;
 }
 
+BACNET_APPLICATION_DATA_VALUE BACNETMSTP::createDataEnum(uint32_t value)
+{
+  BACNET_APPLICATION_DATA_VALUE data;
+
+  memset(&data, 0, sizeof(BACNET_APPLICATION_DATA_VALUE));
+
+  data.tag = BACNET_APPLICATION_TAG_ENUMERATED;
+  data.type.Enumerated = value;
+
+  return data;
+}
 
 string BACNETMSTP::string2HexString(string input)
 {
