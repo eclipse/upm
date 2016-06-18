@@ -1,5 +1,5 @@
 set (libname "hm11")
 set (libdescription "upm grove hm11 bluetooth low energy module")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ht9170.h"
+#include "ht9170.hpp"
 
 using namespace upm;
 using namespace std;

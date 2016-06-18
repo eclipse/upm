@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "pulsensor.h"
+    #include "pulsensor.hpp"
 %}
 
-%include "pulsensor.h"
+%include "pulsensor.hpp"

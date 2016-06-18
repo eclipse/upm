@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovewater.h"
+#include "grovewater.hpp"
 
 using namespace upm;
 using namespace std;

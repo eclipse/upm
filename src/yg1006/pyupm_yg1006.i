@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "yg1006.h"
+%include "yg1006.hpp"
 %{
-    #include "yg1006.h"
+    #include "yg1006.hpp"
 %}

@@ -24,7 +24,7 @@
 
 #include <string>
 #include <stdexcept>
-#include "waterlevel.h"
+#include "waterlevel.hpp"
 
 using namespace upm;
 

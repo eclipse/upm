@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "hp20x.h"
+#include "hp20x.hpp"
 
 using namespace std;
 using namespace upm;

@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "bmpx8x.h"
+#include "bmpx8x.hpp"
 
 using namespace upm;
 

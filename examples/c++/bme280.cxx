@@ -1,6 +1,6 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,28 +24,55 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "bme280.h"
+#include <signal.h>
 
-#define FT4222_I2C_BUS 0
+#include "bme280.hpp"
 
-int main ()
+using namespace std;
+using namespace upm;
+
+int shouldRun = true;
+
+void sig_handler(int signo)
 {
-   try {
-      upm::BME280* bme280 = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
-      while (true) {
-         int temperature = bme280->getTemperatureCelcius();
-         int humidity = bme280->getHumidityRelative();
-         int pressure = bme280->getPressurePa();
-         std::cout << "Temperature = " << temperature << "C" << std::endl;
-         std::cout << "Humidity    = " << humidity << "%" << std::endl;
-         std::cout << "Pressure    = " << pressure << "Pa" << std::endl;
-         sleep(1);
-      }
-      delete bme280;
-   } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-   }
-   return 0;
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
+
+int main(int argc, char **argv)
+{
+  signal(SIGINT, sig_handler);
 //! [Interesting]
+
+  // Instantiate a BME280 instance using default i2c bus and address
+  upm::BME280 *sensor = new upm::BME280();
+
+  // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+  // BME280(0, -1, 10);
+
+  while (shouldRun)
+    {
+      // update our values from the sensor
+      sensor->update();
+
+      // we show both C and F for temperature
+      cout << "Compensation Temperature: " << sensor->getTemperature()
+           << " C / " << sensor->getTemperature(true) << " F"
+           << endl;
+      cout << "Pressure: " << sensor->getPressure() << " Pa" << endl;
+      cout << "Computed Altitude: " << sensor->getAltitude() << " m" << endl;
+      cout << "Humidity: " << sensor->getHumidity() << " %RH" << endl;
+
+      cout << endl;
+
+      sleep(1);
+    }
+//! [Interesting]
+
+  cout << "Exiting..." << endl;
+
+  delete sensor;
+
+  return 0;
+}

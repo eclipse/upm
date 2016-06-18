@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "uln200xa.h"
+#include "uln200xa.hpp"
 
 using namespace std;
 

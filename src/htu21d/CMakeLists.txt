@@ -1,5 +1,5 @@
 set (libname "htu21d")
 set (libdescription "libupm Humidity Sensor")
 set (module_src ${libname}.cpp)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

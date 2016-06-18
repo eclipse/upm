@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "groveledbar.h"
+#include "groveledbar.hpp"
 
 using namespace std;
 

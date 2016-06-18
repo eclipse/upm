@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovewater.h"
+%include "grovewater.hpp"
 %{
-    #include "grovewater.h"
+    #include "grovewater.hpp"
 %}

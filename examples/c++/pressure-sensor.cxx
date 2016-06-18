@@ -24,8 +24,8 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "bmp180.h"
-#include "bme280.h"
+#include "bmpx8x.hpp"
+#include "bme280.hpp"
 
 
 #define EDISON_I2C_BUS 1 
@@ -47,12 +47,12 @@ upm::IPressureSensor* getPressureSensor()
    {
 	std::cerr <<"BME280: "<<e.what() << std::endl;
    }
-	
+
    try {
-      pressureSensor = new upm::BMP180(EDISON_I2C_BUS);
+      pressureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
       return pressureSensor;
    } catch (std::exception& e) {
-      std::cerr << "BMP180: " << e.what() << std::endl;      
+      std::cerr << "BMPX8X: " << e.what() << std::endl;      
    }
    return pressureSensor;   
 }

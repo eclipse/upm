@@ -33,7 +33,7 @@
 #undef JAVACALLBACK
 #endif
 
-#include "sx1276.h"
+#include "sx1276.hpp"
 
 using namespace upm;
 using namespace std;

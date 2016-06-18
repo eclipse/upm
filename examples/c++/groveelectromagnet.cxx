@@ -24,7 +24,7 @@
 #include <iostream>
 #include <time.h>
 #include <signal.h>
-#include "groveelectromagnet.h"
+#include "groveelectromagnet.hpp"
 
 using namespace std;
 

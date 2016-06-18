@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ublox6.h"
+#include "ublox6.hpp"
 
 using namespace std;
 
@@ -77,7 +77,7 @@ int main (int argc, char **argv)
           if (rv > 0)
             write(1, nmeaBuffer, rv);
 
-          if (rv < 0) // some sort of read error occured
+          if (rv < 0) // some sort of read error occurred
             {
               cerr << "Port read error." << endl;
               break;

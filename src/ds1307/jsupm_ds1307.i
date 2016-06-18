@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "ds1307.h"
+    #include "ds1307.hpp"
 %}
 
-%include "ds1307.h"
+%include "ds1307.hpp"

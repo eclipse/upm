@@ -34,7 +34,7 @@
 #undef JAVACALLBACK
 #endif
 
-#include "hcsr04.h"
+#include "hcsr04.hpp"
 
 using namespace upm;
 

@@ -26,7 +26,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "mma7660.h"
+#include "mma7660.hpp"
 
 using namespace upm;
 using namespace std;
@@ -80,7 +80,11 @@ bool MMA7660::writeByte(uint8_t reg, uint8_t byte)
 
 uint8_t MMA7660::readByte(uint8_t reg)
 {
-  return mraa_i2c_read_byte_data(m_i2c, reg);
+  int x = mraa_i2c_read_byte_data(m_i2c, reg);
+  if (x != -1) {
+    return (uint8_t) x;
+  }
+  return 0;
 }
 
 void MMA7660::getRawValues(int *x, int *y, int *z)

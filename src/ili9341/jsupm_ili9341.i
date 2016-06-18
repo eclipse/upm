@@ -1,12 +1,12 @@
 %module jsupm_ili9341
 %include "../upm.i"
 
-%include "gfx.h"
+%include "ili9341_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "ili9341_gfx.hpp"
 %}
 
-%include "ili9341.h"
+%include "ili9341.hpp"
 %{
-    #include "ili9341.h"
+    #include "ili9341.hpp"
 %}

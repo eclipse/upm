@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "adc121c021.h"
+#include "adc121c021.hpp"
 
 using namespace upm;
 using namespace std;
@@ -79,12 +79,20 @@ mraa_result_t ADC121C021::writeWord(uint8_t reg, uint16_t word)
 
 uint8_t ADC121C021::readByte(uint8_t reg)
 {
-  return mraa_i2c_read_byte_data(m_i2c, reg);
+  int val = mraa_i2c_read_byte_data(m_i2c, reg);
+  if (val != -1) {
+    return (uint8_t) val;
+  }
+  return 0;
 }
 
 uint16_t ADC121C021::readWord(uint8_t reg)
 {
-  uint16_t val = mraa_i2c_read_word_data(m_i2c, reg);
+  int x = mraa_i2c_read_word_data(m_i2c, reg);
+  if (x == -1) {
+    return 0;
+  }
+  uint16_t val = (uint16_t) x;
   uint8_t b1;
 
   // The value returned is in the wrong byte order, so we need to swap them

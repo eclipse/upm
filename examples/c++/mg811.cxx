@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "mg811.h"
+#include "mg811.hpp"
 
 using namespace std;
 

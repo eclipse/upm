@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdexcept>
-#include "hx711.h"
+#include "hx711.hpp"
 
 using namespace upm;
 using namespace std;

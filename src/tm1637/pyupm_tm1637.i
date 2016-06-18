@@ -7,6 +7,6 @@
 %varargs(4, int digit = 0) write;
 
 %{
-    #include "tm1637.h"
+    #include "tm1637.hpp"
 %}
-%include "tm1637.h"
+%include "tm1637.hpp"

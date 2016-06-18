@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovegsr.h"
+#include "grovegsr.hpp"
 
 using namespace upm;
 using namespace std;
@@ -54,6 +54,8 @@ void GroveGSR::calibrate()
 	for(int i=0; i<500; i++)
 	{
 		val = mraa_aio_read(m_aio);
+		if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
+			                                ": Failed to do an aio read.");
 		sum += val;
 		usleep(5000);
 	}

@@ -7,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "pulsensor.h"
+%include "pulsensor.hpp"
 %{
-    #include "pulsensor.h"
+    #include "pulsensor.hpp"
 %}

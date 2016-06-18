@@ -1,29 +1,29 @@
 UPM (Useful Packages & Modules) Sensor/Actuator repository for MRAA
 ==============
 
-UPM is a high level repository for sensors that use MRAA. Each sensor links
-to MRAA and are not meant to be interlinked although some groups of sensors
-may be. Each sensor contains a header which allows to interface with it.
-Typically a sensor is represented as a class and instantiated.
+The UPM repository provides software drivers for a wide variety of commonly
+used sensors and actuators. These software drivers interact with the
+underlying hardware platform (or microcontroller), as well as with the attached
+sensors, through calls to [MRAA](https://github.com/intel-iot-devkit/mraa) APIs.
 
-The constructor is expected to initialise the sensor and parameters may be used
-to provide identification/pin location on the board.
+Programmers can access the interfaces for each sensor by including the sensor’s
+corresponding header file and instantiating the associated sensor class. In the
+typical use case, a constructor initializes the sensor based on parameters that
+identify the sensor, the I/O protocol used and the pin location of the sensor.
 
-Typically an update() function will be called in order to get new data from the
-sensor in order to reduce load when doing multiple reads to sensor data.
-
-Although implementation and API design is up to the developer, C++ interfaces have
-been defined for the following sensor/actuator types and developers are encouraged to
-implement them. Interface header files are in the src/upm folder.
+C++ interfaces have been defined for the following sensor/actuator types, but
+they are subject to change:
 
 * Light controller 
 * Light sensor
 * Temperature sensor
 * Humidity sensor
 * Pressure sensor
+* Gas sensor
 * Analog to digital converter
 
-Feedback on interface design and additions for new types are welcome
+The developer community is encouraged to help expand the list of supported
+sensors and actuators and provide feedback on interface design.
 
 ### Example
 
@@ -113,6 +113,14 @@ API Documentation
 <a href="http://iotdk.intel.com/docs/master/upm/java"><img src="docs/icons/java.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/python"><img src="docs/icons/python.png"/></a>
 <a href="http://iotdk.intel.com/docs/master/upm/node"><img src="docs/icons/node.png"/></a>
+
+### API Compatibility
+Even if we try our best not to, every once in a while we are forced to modify
+our API in a way that will break backwards compatibility. If you find yourself
+unable to compile code that was working fine before a library update, make sure
+you check the [API changes](docs/apichanges.md) section first.
+
+**NOTE** - Our **C++ header files** changed extension from *.h* to *.hpp*!
 
 ### Changelog
 Version changelog [here](docs/changelog.md).

@@ -7,7 +7,7 @@
 %pointer_functions(float, floatp);
 
 %{
-    #include "h3lis331dl.h"
+    #include "h3lis331dl.hpp"
 %}
 
-%include "h3lis331dl.h"
+%include "h3lis331dl.hpp"

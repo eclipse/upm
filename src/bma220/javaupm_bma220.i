@@ -25,10 +25,10 @@
 %ignore getAccelerometer(float *, float *, float *);
 
 %{
-    #include "bma220.h"
+    #include "bma220.hpp"
 %}
 
-%include "bma220.h"
+%include "bma220.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

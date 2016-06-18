@@ -29,7 +29,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ds1307.h"
+#include "ds1307.hpp"
 
 using namespace upm;
 using namespace std;

@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "smartdrive.h"
+#include "smartdrive.hpp"
 
 
 using namespace upm;
@@ -397,7 +397,7 @@ SmartDrive::GetMotorStatus(int motor_id) {
     if (motor_id == SmartDrive_Motor_ID_2)
         status = readByte(SmartDrive_STATUS_M1);
     if (motor_id == SmartDrive_Motor_ID_BOTH) {
-        std::cout << "Please specifiy which motor's status you want to fetch !" << std::endl;
+        std::cout << "Please specify which motor's status you want to fetch !" << std::endl;
     }
     return status;
 }
@@ -425,6 +425,6 @@ SmartDrive::PrintMotorStatus(int motor_id) {
     std::cout << "Motor " << motor_id+1 << " is " <<  ((is_stalled == 0) ? "NOT" : "") << " stalled" << std::endl;
 
     } else {
-        std::cout << "Please specifiy which motor's status you want to fetch !" << std::endl;
+        std::cout << "Please specify which motor's status you want to fetch !" << std::endl;
     }
 }

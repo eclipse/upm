@@ -28,7 +28,7 @@
 #include <stdexcept>
 #include <stdlib.h>
 #include <time.h>
-#include "stepmotor.h"
+#include "stepmotor.hpp"
 
 using namespace upm;
 using namespace std;

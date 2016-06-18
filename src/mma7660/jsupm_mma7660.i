@@ -7,7 +7,7 @@
 %pointer_functions(float, floatp);
 
 %{
-    #include "mma7660.h"
+    #include "mma7660.hpp"
 %}
 
-%include "mma7660.h"
+%include "mma7660.hpp"

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "mcp9808.h"
+%include "mcp9808.hpp"
 %{
-    #include "mcp9808.h"
+    #include "mcp9808.hpp"
 %}

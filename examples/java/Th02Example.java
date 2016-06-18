@@ -39,7 +39,7 @@ public class Th02Example {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following exception has occured: "+e.getMessage());
+				System.out.println("The following exception has occurred: "+e.getMessage());
 			}
 		}
 	}

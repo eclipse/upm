@@ -25,7 +25,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
-#include "st7735.h"
+#include "st7735.hpp"
 #include <signal.h>
 
 int

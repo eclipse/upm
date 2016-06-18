@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "at42qt1070.h"
+#include "at42qt1070.hpp"
 
 using namespace upm;
 using namespace std;
@@ -98,13 +98,21 @@ AT42QT1070::writeWord(uint8_t reg, uint16_t word)
 uint8_t
 AT42QT1070::readByte(uint8_t reg)
 {
-    return mraa_i2c_read_byte_data(m_i2c, reg);
+    int x = mraa_i2c_read_byte_data(m_i2c, reg);
+    if (x != -1) {
+        return (uint8_t) x;
+    }
+    return 0;
 }
 
 uint16_t
 AT42QT1070::readWord(uint8_t reg)
 {
-    return mraa_i2c_read_word_data(m_i2c, reg);
+    int x = mraa_i2c_read_word_data(m_i2c, reg);
+    if (x != -1) {
+        return (uint16_t) x;
+    }
+    return 0;
 }
 
 uint8_t

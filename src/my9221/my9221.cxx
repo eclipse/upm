@@ -39,7 +39,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "my9221.h"
+#include "my9221.hpp"
 
 using namespace upm;
 using namespace std;

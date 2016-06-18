@@ -94,4 +94,4 @@ if (NODEJS_EXECUTABLE)
     mark_as_advanced (NODEJS_EXECUTABLE)
 endif ()
 
-mark_as_advanced (NODE_EXECUTABLE)
+mark_as_advanced (NODEJS_EXECUTABLE)

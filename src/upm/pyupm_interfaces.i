@@ -4,10 +4,10 @@
 %feature("autodoc", "3");
 
 %{
-    #include "../upm/iLightSensor.h"
-    #include "../upm/iLightController.h"
+    #include "../upm/iLightSensor.hpp"
+    #include "../upm/iLightController.hpp"
 %}
 
-%include "iModuleStatus.h"
-%include "iLightSensor.h"
-%include "iLightController.h"
+%include "iModuleStatus.hpp"
+%include "iLightSensor.hpp"
+%include "iLightController.hpp"

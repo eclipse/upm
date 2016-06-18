@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovemoisture.h"
+%include "grovemoisture.hpp"
 %{
-    #include "grovemoisture.h"
+    #include "grovemoisture.hpp"
 %}

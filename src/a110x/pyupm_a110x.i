@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "a110x.h"
+%include "a110x.hpp"
 %{
-    #include "a110x.h"
+    #include "a110x.hpp"
 %}

@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "si114x.h"
+#include "si114x.hpp"
 
 using namespace std;
 

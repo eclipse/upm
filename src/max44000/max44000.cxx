@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "max44000.h"
+#include "max44000.hpp"
 
 using namespace upm;
 

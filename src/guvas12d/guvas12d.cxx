@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "guvas12d.h"
+#include "guvas12d.hpp"
 
 using namespace upm;
 using namespace std;
@@ -54,6 +54,7 @@ float GUVAS12D::value(float aref, unsigned int samples)
   for (int i=0; i<samples; i++)
     {
       val = mraa_aio_read(m_aio);
+      if (val == -1) return -1;
       sum += val;
       usleep(2000);
     }

@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "max44009.h"
+#include "max44009.hpp"
 
 using namespace upm;
 

@@ -6,12 +6,12 @@
 %feature("autodoc", "3");
 %rename("printString") print(std::string msg);
 
-%include "gfx.h"
+%include "ili9341_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "ili9341_gfx.hpp"
 %}
 
-%include "ili9341.h"
+%include "ili9341.hpp"
 %{
-    #include "ili9341.h"
+    #include "ili9341.hpp"
 %}

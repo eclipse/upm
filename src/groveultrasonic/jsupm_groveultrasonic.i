@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "groveultrasonic.h"
+    #include "groveultrasonic.hpp"
 %}
 
-%include "groveultrasonic.h"
+%include "groveultrasonic.hpp"

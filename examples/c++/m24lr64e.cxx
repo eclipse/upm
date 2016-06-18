@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "m24lr64e.h"
+#include "m24lr64e.hpp"
 
 using namespace std;
 using namespace upm;

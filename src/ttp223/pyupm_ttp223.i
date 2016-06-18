@@ -5,8 +5,8 @@
 
 %feature("autodoc", "3");
 
-%include "ttp223.h"
+%include "ttp223.hpp"
 %{
-    #include "ttp223.h"
+    #include "ttp223.hpp"
 %}
 

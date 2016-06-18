@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
-#include "hlg150h.h"
+#include "hlg150h.hpp"
 
 #define HLG150H_GPIO_RELAY 21
 #define HLG150H_GPIO_PWM 22

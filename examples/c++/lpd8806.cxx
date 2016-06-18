@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "lpd8806.h"
+#include "lpd8806.hpp"
 #include <signal.h>
 
 void scanner(uint8_t r, uint8_t g, uint8_t b, uint8_t wait);

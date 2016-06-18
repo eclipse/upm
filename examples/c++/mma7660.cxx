@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "mma7660.h"
+#include "mma7660.hpp"
 
 using namespace std;
 

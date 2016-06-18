@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "maxsonarez.h"
+%include "maxsonarez.hpp"
 %{
-    #include "maxsonarez.h"
+    #include "maxsonarez.hpp"
 %}

@@ -24,7 +24,7 @@
 
 #include <stdint.h>
 #include <string>
-#include "zwNode.h"
+#include "zwNode.hpp"
 
 #include "Node.h"
 

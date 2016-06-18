@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "guvas12d.h"
+#include "guvas12d.hpp"
 
 using namespace std;
 

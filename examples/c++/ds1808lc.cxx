@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
-#include "ds1808lc.h"
+#include "ds1808lc.hpp"
 
 #define EDISON_I2C_BUS 1            // Edison I2C-1
 #define DS1808_GPIO_PWR 15          // Edison GP165

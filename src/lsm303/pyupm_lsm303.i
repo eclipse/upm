@@ -12,7 +12,7 @@
 	resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_int16Array, 0 |  0 );
 }
 
-%include "lsm303.h"
+%include "lsm303.hpp"
 %{
-    #include "lsm303.h"
+    #include "lsm303.hpp"
 %}

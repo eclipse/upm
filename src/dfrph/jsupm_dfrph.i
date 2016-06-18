@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "dfrph.h"
+    #include "dfrph.hpp"
 %}
 
-%include "dfrph.h"
+%include "dfrph.hpp"

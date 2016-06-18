@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "maxds3231m.h"
+%include "maxds3231m.hpp"
 %{
-    #include "maxds3231m.h"
+    #include "maxds3231m.hpp"
 %}

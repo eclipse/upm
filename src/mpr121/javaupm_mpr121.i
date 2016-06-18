@@ -4,10 +4,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "mpr121.h"
+    #include "mpr121.hpp"
 %}
 
-%include "mpr121.h"
+%include "mpr121.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

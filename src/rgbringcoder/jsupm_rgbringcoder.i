@@ -3,7 +3,7 @@
 %include "stdint.i"
 
 %{
-    #include "rgbringcoder.h"
+    #include "rgbringcoder.hpp"
 %}
 
-%include "rgbringcoder.h"
+%include "rgbringcoder.hpp"

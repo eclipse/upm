@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "groveo2.h"
+%include "groveo2.hpp"
 %{
-    #include "groveo2.h"
+    #include "groveo2.hpp"
 %}

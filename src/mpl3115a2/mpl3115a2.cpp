@@ -32,7 +32,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "mpl3115a2.h"
+#include "mpl3115a2.hpp"
 
 using namespace upm;
 

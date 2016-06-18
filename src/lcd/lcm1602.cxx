@@ -35,8 +35,8 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "hd44780_bits.h"
-#include "lcm1602.h"
+#include "hd44780_bits.hpp"
+#include "lcm1602.hpp"
 
 using namespace upm;
 
@@ -50,6 +50,7 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
     mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (I2C)";
     m_isI2C = true;
+    m_backlight = LCD_BACKLIGHT;
 
     m_lcd_control_address = addr_in;
 
@@ -73,7 +74,7 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
       return;
 
     usleep(50000);
-    expandWrite(LCD_BACKLIGHT);
+    backlightOn();
     usleep(100000);
 
     write4bits(0x03 << 4);
@@ -111,6 +112,7 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
     mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (4-bit GPIO)";
     m_isI2C = false;
+    m_backlight = LCD_BACKLIGHT;
 
     // setup our gpios
 
@@ -322,6 +324,18 @@ mraa::Result Lcm1602::cursorBlinkOff()
   return command(LCD_DISPLAYCONTROL | m_displayControl);
 }
 
+mraa::Result Lcm1602::backlightOn()
+{
+  m_backlight = LCD_BACKLIGHT;
+  return expandWrite(m_backlight);
+}
+
+mraa::Result Lcm1602::backlightOff()
+{
+  m_backlight = LCD_NOBACKLIGHT;
+  return expandWrite(m_backlight);
+}
+
 mraa::Result Lcm1602::scrollDisplayLeft()
 {
   return command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
@@ -431,7 +445,7 @@ Lcm1602::expandWrite(uint8_t value)
     if (!m_isI2C)
         return mraa::ERROR_INVALID_RESOURCE;
 
-    uint8_t buffer = value | LCD_BACKLIGHT;
+    uint8_t buffer = value | m_backlight;
     return m_i2c_lcd_control->writeByte(buffer);
 }
 

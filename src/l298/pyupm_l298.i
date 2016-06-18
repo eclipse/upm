@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "l298.h"
+%include "l298.hpp"
 %{
-    #include "l298.h"
+    #include "l298.hpp"
 %}

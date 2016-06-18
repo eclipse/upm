@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "max44000.h"
+    #include "max44000.hpp"
 %}
 
-%include "max44000.h"
+%include "max44000.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

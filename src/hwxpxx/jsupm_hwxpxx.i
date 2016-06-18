@@ -2,7 +2,7 @@
 %include "../upm.i"
 %include "stdint.i"
 
-%include "hwxpxx.h"
+%include "hwxpxx.hpp"
 %{
-    #include "hwxpxx.h"
+    #include "hwxpxx.hpp"
 %}

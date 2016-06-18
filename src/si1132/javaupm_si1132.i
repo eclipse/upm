@@ -3,15 +3,15 @@
 %include "../upm/javaupm_interfaces.i"
 
 %{
-    #include "si1132.h"
+    #include "si1132.hpp"
 %}
 
 /*
-%include "../upm/iModuleStatus.h"    
-%include "../upm/iLightSensor.h"    
+%include "../upm/iModuleStatus.hpp"    
+%include "../upm/iLightSensor.hpp"    
 
 %feature("director") IModuleStatus;
 %feature("director") ILightSensor;
 */
 
-%include "si1132.h"
+%include "si1132.hpp"

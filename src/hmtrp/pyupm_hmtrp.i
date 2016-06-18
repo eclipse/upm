@@ -11,9 +11,9 @@
 
 %feature("autodoc", "3");
 
-%include "hmtrp.h"
+%include "hmtrp.hpp"
 %{
-    #include "hmtrp.h"
+    #include "hmtrp.hpp"
     speed_t int_B9600 = B9600;
 %}
 speed_t int_B9600 = B9600;

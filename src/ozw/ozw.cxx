@@ -30,9 +30,9 @@
 
 #include "platform/Log.h"
 
-#include "zwNode.h"
+#include "zwNode.hpp"
 
-#include "ozw.h"
+#include "ozw.hpp"
 
 using namespace upm;
 using namespace std;

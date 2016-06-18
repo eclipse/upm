@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "ads1015.h"
+#include "ads1015.hpp"
 #include "mraa/gpio.hpp"
 
 #define EDISON_I2C_BUS 1

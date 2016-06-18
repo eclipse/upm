@@ -9,7 +9,7 @@
 %include "grovemd_doc.i"
 #endif
 
-%include "grovemd.h"
+%include "grovemd.hpp"
 %{
-    #include "grovemd.h"
+    #include "grovemd.hpp"
 %}

@@ -10,22 +10,22 @@ find_package (PkgConfig REQUIRED)
 
 # Force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-pkg_check_modules (MRAA REQUIRED mraa>=0.9.1)
+pkg_check_modules (MRAA REQUIRED mraa>=1.0.0)
 message (INFO " found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for libraries")
 
-# Set CMAKE_LIB_INSTALL_DIR if not defined
+# Set CMAKE_INSTALL_LIBDIR if not defined
 include(GNUInstallDirs)
+set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for libraries")
 
 # Make a version file containing the current version from git.
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
   message (WARNING " - Install git to compile a production UPM!")
-  set (VERSION "v0.6.0-dirty")
+  set (VERSION "v0.7.0-dirty")
 endif ()
 
 message (INFO " - UPM Version ${VERSION}")
@@ -78,6 +78,11 @@ include (TargetArch)
 target_architecture (DETECTED_ARCH)
 message( INFO " - Target arch is ${DETECTED_ARCH}")
 
+#-march=native for ARM when not defined/forced
+if (DETECTED_ARCH MATCHES "arm.*" AND NOT CMAKE_CXX_FLAGS MATCHES "-march")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
+endif()
+
 # enable c++11 standards support
 if (ENABLECXX11)
   include(CheckCXXCompilerFlag)
@@ -126,7 +131,6 @@ if (BUILDDOC)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
     list (GET PYTHON_VERSION_LIST 0 PYTHON_VERSION_MAJOR)
     list (GET PYTHON_VERSION_LIST 1 PYTHON_VERSION_MINOR)
-    set (SITE_PACKAGES ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
     add_custom_target (pydoc ALL
@@ -153,9 +157,9 @@ if (BUILDDOC)
       configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
     endforeach()
     add_custom_target(jsdoc ALL
-      COMMAND ${NODE_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
+      COMMAND ${NODEJS_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
       COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers generators/yuidoc/helper.js --themedir generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
-      COMMAND ${NODE_EXECUTABLE} tolower -i html/node
+      COMMAND ${NODEJS_EXECUTABLE} tolower -i html/node
       DEPENDS doc
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Yuidoc" VERBATIM
@@ -206,12 +210,17 @@ if (RPM)
   set(CPACK_PACKAGE_VERSION ${VERSION})
   set(CPACK_GENERATOR "RPM")
   set(CPACK_PACKAGE_NAME "upm")
+  set(upm_PACKAGE_ON_TAG ".")
+  if ("${VERSION_COMMIT}" STREQUAL "")
+    set(upm_PACKAGE_ON_TAG "")
+  endif()
   set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}.${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
+      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
   set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
   set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
   set(CPACK_RPM_PACKAGE_REQUIRES "mraa >= ${MRAA_VERSION}")
   set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
+  set(CPACK_RPM_PACKAGE_LICENSE "MIT")
   EXECUTE_PROCESS(COMMAND rpm --showrc
     COMMAND grep -E "dist[[:space:]]*\\."
     COMMAND sed -e "s/^.*dist\\s*\\.//"

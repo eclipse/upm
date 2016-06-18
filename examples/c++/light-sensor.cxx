@@ -24,8 +24,8 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "max44009.h"
-#include "si1132.h"
+#include "max44009.hpp"
+#include "si1132.hpp"
 
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0

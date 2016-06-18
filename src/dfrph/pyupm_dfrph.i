@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "dfrph.h"
+%include "dfrph.hpp"
 %{
-    #include "dfrph.h"
+    #include "dfrph.hpp"
 %}

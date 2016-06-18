@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "adafruitms1438.h"
+    #include "adafruitms1438.hpp"
 %}
 
-%include "adafruitms1438.h"
+%include "adafruitms1438.hpp"

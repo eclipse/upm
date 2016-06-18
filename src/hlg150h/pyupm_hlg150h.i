@@ -3,7 +3,7 @@
 
 %feature("autodoc", "3");
 
-%include "hlg150h.h"
+%include "hlg150h.hpp"
 %{
-    #include "hlg150h.h"
+    #include "hlg150h.hpp"
 %}

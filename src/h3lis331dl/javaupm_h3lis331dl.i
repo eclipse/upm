@@ -9,7 +9,7 @@
 %ignore i2cContext;
 
 %{
-    #include "h3lis331dl.h"
+    #include "h3lis331dl.hpp"
 %}
 
 %typemap(jni) float* "jfloatArray"
@@ -48,7 +48,7 @@
 %ignore getXYZ(int *, int *, int *);
 %ignore getAcceleration(float *, float *, float *);
 
-%include "h3lis331dl.h"
+%include "h3lis331dl.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

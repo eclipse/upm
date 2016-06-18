@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveo2.h"
+#include "groveo2.hpp"
 
 using namespace upm;
 using namespace std;
@@ -49,6 +49,7 @@ GroveO2::~GroveO2()
 float GroveO2::voltageValue()
 {
 	int val = mraa_aio_read(m_aio);
+	if (val == -1) return -1.0f;
 	float sensorVoltage = (val/1024.0) * 5.0;
 	sensorVoltage = (sensorVoltage/201.0) * 10000.0;
 	return sensorVoltage;

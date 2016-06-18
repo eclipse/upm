@@ -28,7 +28,7 @@
 #include <string>
 #include <string.h>
 
-#include "bma220.h"
+#include "bma220.hpp"
 
 using namespace upm;
 using namespace std;

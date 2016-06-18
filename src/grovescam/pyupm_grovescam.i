@@ -6,6 +6,6 @@
 %feature("autodoc", "3");
 
 %{
-    #include "grovescam.h"
+    #include "grovescam.hpp"
 %}
-%include "grovescam.h"
+%include "grovescam.hpp"

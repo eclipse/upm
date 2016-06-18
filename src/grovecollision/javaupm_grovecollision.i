@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "grovecollision.h"
+    #include "grovecollision.hpp"
 %}
 
-%include "grovecollision.h"
+%include "grovecollision.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "adxrs610.h"
+#include "adxrs610.hpp"
 
 using namespace std;
 using namespace upm;

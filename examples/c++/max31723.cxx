@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "max31723.h"
+#include "max31723.hpp"
 #include <signal.h>
 
 int doWork = 0;

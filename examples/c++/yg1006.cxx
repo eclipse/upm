@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "yg1006.h"
+#include "yg1006.hpp"
 
 using namespace std;
 

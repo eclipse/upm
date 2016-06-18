@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
-#include "adc121c021.h"
+#include "adc121c021.hpp"
 
 using namespace std;
 

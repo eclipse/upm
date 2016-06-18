@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "maxsonarez.h"
+#include "maxsonarez.hpp"
 
 using namespace std;
 

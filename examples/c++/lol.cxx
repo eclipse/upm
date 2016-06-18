@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "lol.h"
+#include "lol.hpp"
 #include <stdlib.h>
 #include <sys/time.h>
 

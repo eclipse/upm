@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <iomanip>
-#include "grove.h"
+#include "grove.hpp"
 
 using namespace std;
 

@@ -24,8 +24,8 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si7005.h"
-#include "bme280.h"
+#include "si7005.hpp"
+#include "bme280.hpp"
 
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0
@@ -41,6 +41,7 @@
 upm::IHumiditySensor* getHumiditySensor()
 {
    upm::IHumiditySensor* humiditySensor = NULL;
+
    try {
 	humiditySensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
 	return humiditySensor ;

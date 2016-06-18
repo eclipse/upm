@@ -3,7 +3,7 @@
 
 %feature("autodoc", "3");
 
-%include "lp8860.h"
+%include "lp8860.hpp"
 %{
-    #include "lp8860.h"
+    #include "lp8860.hpp"
 %}

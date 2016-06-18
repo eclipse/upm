@@ -1,5 +1,5 @@
 set (libname "groveeldriver")
 set (libdescription "upm groveeldriver sensor module")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init("-lrt")

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "groveemg.h"
+%include "groveemg.hpp"
 %{
-    #include "groveemg.h"
+    #include "groveemg.hpp"
 %}

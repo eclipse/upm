@@ -28,7 +28,7 @@
 #include <math.h>
 #include <errno.h>
 
-#include "si1132.h"
+#include "si1132.hpp"
 
 
 #define SI1132_ADDRESS                  0x60
@@ -189,7 +189,7 @@ mraa::Result SI1132::runCommand(uint8_t command)
     }
     if (response == 0) {
         status = mraa::ERROR_UNSPECIFIED;
-        fprintf(stderr, "Comand %d failed\n", command);
+        fprintf(stderr, "Command %d failed\n", command);
     }
     return status;
 }

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "teams.h"
+#include "teams.hpp"
 
 using namespace std;
 

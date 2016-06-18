@@ -28,7 +28,11 @@ endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 
 macro(upm_SWIG_PYTHON)
   if (BUILDSWIGPYTHON AND BUILDSWIG)
-   
+
+    include_directories (
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
+
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
@@ -40,7 +44,7 @@ macro(upm_SWIG_PYTHON)
      )
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/_pyupm_${libname}.so
          ${CMAKE_CURRENT_BINARY_DIR}/pyupm_${libname}.py
-         DESTINATION ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
+         DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
   endif()
 endmacro()
@@ -57,8 +61,10 @@ macro(upm_SWIG_NODE)
       set (V8_VERSION_HEX "${V8_VERSION_HEX}0")
       string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
     endwhile ()
-    
-#    include_directories (${NODE_INCLUDE_DIRS})
+
+    include_directories (
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+    )
 
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
@@ -80,7 +86,7 @@ macro(upm_SWIG_NODE)
           message(FATAL_ERROR " **ERROR** GCC 4.7 or above is required to compile jsupm_${libname} ")
         endif()
       endif()
-      
+
       if (NOT ENABLECXX11)
           set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD 11)
           set_property (TARGET jsupm_${libname} PROPERTY CXX_STANDARD_REQUIRED ON)
@@ -100,7 +106,6 @@ macro(upm_SWIG_NODE)
 
     endif()
     createpackagejson(${libname})
-    set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
   endif()
@@ -121,7 +126,7 @@ macro(upm_SWIG_JAVA)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LDFLAGS} ${JAVA_LDFLAGS})
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
@@ -132,8 +137,8 @@ macro(upm_SWIG_JAVA)
       PREFIX "lib"
       SUFFIX ".so"
     )
-    install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar DESTINATION ${CMAKE_INSTALL_LIBDIR}/../lib/java)
+    install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar DESTINATION ${LIB_INSTALL_DIR}/../lib/java)
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
         set (JAVAC $ENV{JAVA_HOME}/bin/javac)
@@ -161,7 +166,7 @@ macro(upm_doxygen)
       set (classname ${libname})
     endif()
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
-    if (BUILDSWIG)
+    if (BUILDSWIGPYTHON AND BUILDSWIG)
       add_dependencies (_pyupm_${libname} pyupm_doxy2swig)
       add_dependencies (pydoc _pyupm_${libname})
     else ()
@@ -174,8 +179,11 @@ if (SWIG_FOUND)
   if (BUILDSWIGPYTHON)
     if(NOT PYTHONLIBS_FOUND)
       find_package (PythonLibs ${PYTHONBUILD_VERSION} REQUIRED)
+      string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
+      list (GET PYTHON_VERSION_LIST 0 PYTHON_VERSION_MAJOR)
+      list (GET PYTHON_VERSION_LIST 1 PYTHON_VERSION_MINOR)
     endif()
-  endif()
+  endif(BUILDSWIGPYTHON)
   if (BUILDSWIGNODE)
     if(NOT NODE_FOUND)
       find_package(Node)
@@ -191,14 +199,20 @@ if (SWIG_FOUND)
       ${NODE_ROOT_DIR}/include/deps/uv/include
     )
     macro(createpackagejson)
-        configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+      configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+      # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
+      # base on the NODE_ROOT_DIR.
+      if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set (NODE_MODULE_INSTALL_PATH ${NODE_ROOT_DIR}/lib/node_modules/jsupm_${libname}/)
-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
-            DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
+      # If a CMAKE_INSTALL_PREFIX has been provided, set NODE_MODULE_INSTALL_PATH
+      # relative to the provided install directory.
+      else ()
+        set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib/node_modules/jsupm_${libname}/)
+      endif ()
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
+          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
     endmacro()
-
   endif(BUILDSWIGNODE)
-
 endif()
 
 macro(upm_module_init)
@@ -207,7 +221,7 @@ macro(upm_module_init)
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} .)
+  include_directories (${MRAA_INCLUDE_DIRS} . ..)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
@@ -215,7 +229,7 @@ macro(upm_module_init)
     SOVERSION ${upm_VERSION_MAJOR}
     VERSION ${upm_VERSION_STRING}
   )
-  upm_create_install_pkgconfig (upm-${libname}.pc ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+  upm_create_install_pkgconfig (upm-${libname}.pc ${LIB_INSTALL_DIR}/pkgconfig)
   if (SWIG_FOUND)
     if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
       upm_swig_python()
@@ -230,8 +244,8 @@ macro(upm_module_init)
   if (BUILDDOC)
     upm_doxygen()
   endif()
-  install(TARGETS ${libname} DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  install (FILES ${module_h} DESTINATION include/upm COMPONENT ${libname})
+  install(TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
+  install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
     cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)

@@ -4,7 +4,7 @@
 %include "../upm.i"
 
 %{
-    #include "adis16448.h"
+    #include "adis16448.hpp"
 %}
 
-%include "adis16448.h"
+%include "adis16448.hpp"

@@ -23,7 +23,7 @@
  */
 
 #include <unistd.h>
-#include "adxl345.h"
+#include "adxl345.hpp"
 
 int
 main(int argc, char **argv)

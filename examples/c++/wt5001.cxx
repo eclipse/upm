@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "wt5001.h"
+#include "wt5001.hpp"
 
 using namespace std;
 

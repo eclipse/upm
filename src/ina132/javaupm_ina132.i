@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "ina132.h"
+    #include "ina132.hpp"
 %}
 
-%include "ina132.h"
+%include "ina132.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

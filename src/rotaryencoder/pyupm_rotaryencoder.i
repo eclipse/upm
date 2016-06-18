@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "rotaryencoder.h"
+%include "rotaryencoder.hpp"
 %{
-    #include "rotaryencoder.h"
+    #include "rotaryencoder.hpp"
 %}

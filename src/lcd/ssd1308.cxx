@@ -26,8 +26,8 @@
 #include <string>
 #include <unistd.h>
 
-#include "hd44780_bits.h"
-#include "ssd1308.h"
+#include "hd44780_bits.hpp"
+#include "ssd1308.hpp"
 
 using namespace upm;
 

@@ -9,7 +9,7 @@
 %include "tsl2561_doc.i"
 #endif
 
-%include "tsl2561.h"
+%include "tsl2561.hpp"
 %{
-    #include "tsl2561.h"
+    #include "tsl2561.hpp"
 %}

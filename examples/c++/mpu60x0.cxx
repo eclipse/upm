@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "mpu9150.h"
+#include "mpu9150.hpp"
 
 using namespace std;
 

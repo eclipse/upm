@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "am2315.h"
+#include "am2315.hpp"
 
 volatile int doWork = 0;
 

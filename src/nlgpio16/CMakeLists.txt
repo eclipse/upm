@@ -1,5 +1,5 @@
 set (libname "nlgpio16")
 set (libdescription "upm module for the Numato Labs GPIO 16 USB")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()

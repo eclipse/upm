@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovewfs.h"
+%include "grovewfs.hpp"
 %{
-    #include "grovewfs.h"
+    #include "grovewfs.hpp"
 %}

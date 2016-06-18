@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "ssd1351.h"
+#include "ssd1351.hpp"
 
 #define BLACK       0x0000
 #define WHITE       0xFFFF

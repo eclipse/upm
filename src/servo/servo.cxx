@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "servo.h"
+#include "servo.hpp"
 
 using namespace upm;
 

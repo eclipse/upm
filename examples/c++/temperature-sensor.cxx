@@ -24,9 +24,9 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si7005.h"
-#include "bmp180.h"
-#include "bme280.h"
+#include "si7005.hpp"
+#include "bmpx8x.hpp"
+#include "bme280.hpp"
 
 #define EDISON_I2C_BUS 1 
 #define FT4222_I2C_BUS 0
@@ -42,6 +42,7 @@
 upm::ITemperatureSensor* getTemperatureSensor()
 {
    upm::ITemperatureSensor* temperatureSensor = NULL;
+
    try {
 	temperatureSensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
 	return temperatureSensor;
@@ -49,7 +50,6 @@ upm::ITemperatureSensor* getTemperatureSensor()
    {
 	std::cerr <<"BME280: "<<e.what() << std::endl;
    }
-	
 
    try {
       temperatureSensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
@@ -58,10 +58,10 @@ upm::ITemperatureSensor* getTemperatureSensor()
       std::cerr << "SI7005: " << e.what() << std::endl;      
    }
    try {
-      temperatureSensor = new upm::BMP180(EDISON_I2C_BUS);
+      temperatureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
       return temperatureSensor;
    } catch (std::exception& e) {
-      std::cerr << "BMP180: " << e.what() << std::endl;      
+      std::cerr << "BMPX8X: " << e.what() << std::endl;      
    }
    return temperatureSensor;   
 }

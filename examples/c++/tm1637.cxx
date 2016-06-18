@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "tm1637.h"
+#include "tm1637.hpp"
 #include <signal.h>
 #include <unistd.h>
 #include <sstream>

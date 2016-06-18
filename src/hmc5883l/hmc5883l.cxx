@@ -27,7 +27,7 @@
 #include <stdexcept>
 
 #include "math.h"
-#include "hmc5883l.h"
+#include "hmc5883l.hpp"
 
 #define MAX_BUFFER_LENGTH 6
 #define HMC5883L_I2C_ADDR 0x1E

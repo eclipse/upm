@@ -38,7 +38,7 @@ public class GroveO2Example {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following exception has occured: "+e.getMessage());
+				System.out.println("The following exception has occurred: "+e.getMessage());
 			}
 		}
 		//! [Interesting]

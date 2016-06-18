@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "nunchuck.h"
+#include "nunchuck.hpp"
 
 using namespace upm;
 using namespace std;

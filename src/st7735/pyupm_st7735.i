@@ -6,12 +6,12 @@
 %feature("autodoc", "3");
 %rename("printString") print(std::string msg);
 
-%include "gfx.h"
+%include "st7735_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "st7735_gfx.hpp"
 %}
 
-%include "st7735.h"
+%include "st7735.hpp"
 %{
-    #include "st7735.h"
+    #include "st7735.hpp"
 %}

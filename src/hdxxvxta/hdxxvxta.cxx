@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "hdxxvxta.h"
+#include "hdxxvxta.hpp"
 
 using namespace upm;
 using namespace std;

@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "st7735.h"
+#include "st7735.hpp"
 
 using namespace upm;
 
@@ -128,7 +128,7 @@ ST7735::setAddrWindow(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) {
     m_spiBuffer[1] = x0 + colstart;             // XSTART
     m_spiBuffer[2] = 0x00;
     m_spiBuffer[3] = x1 + colstart;             // XEND
-    m_spi.write(m_spiBuffer, 4);
+    free(m_spi.write(m_spiBuffer, 4));
 
     write (ST7735_RASET);                       // Row addr set
 
@@ -137,7 +137,7 @@ ST7735::setAddrWindow(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) {
     m_spiBuffer[1] = y0 + rowstart;             // YSTART
     m_spiBuffer[2] = 0x00;
     m_spiBuffer[3] = y1 + rowstart;             // YEND
-    m_spi.write(m_spiBuffer, 4);
+    free(m_spi.write(m_spiBuffer, 4));
 
     write (ST7735_RAMWR);                       // write to RAM
 }
@@ -157,7 +157,7 @@ ST7735::refresh () {
 
     int fragmentSize = m_height * m_width * 2 / 20;
     for (int fragment = 0; fragment < 20; fragment++) {
-        m_spi.write(&m_map[fragment * fragmentSize], fragmentSize);
+        free(m_spi.write(&m_map[fragment * fragmentSize], fragmentSize));
     }
 }
 

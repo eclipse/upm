@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "h803x.h"
+#include "h803x.hpp"
 
 using namespace std;
 
