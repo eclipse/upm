@@ -231,8 +231,6 @@ if (RPM)
   include(CPack)
 endif()
 
-add_subdirectory (src)
-
 if(BUILDEXAMPLES)
   add_subdirectory (examples/c++)
 endif()
@@ -248,6 +246,8 @@ if (BUILDSWIGPYTHON OR BUILDTESTS)
     set (PYTHONBUILD_VERSION 2.7)
   endif ()
 endif ()
+
+add_subdirectory (src)
 
 if (BUILDTESTS)
   find_package (PythonInterp ${PYTHONBUILD_VERSION} REQUIRED)
