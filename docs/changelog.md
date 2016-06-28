@@ -4,6 +4,13 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.7.1
+
+ * Fix for building python2 vs python3 bindings
+ * Fixes for jhd1313m1 row/font size and reset
+ * Added bacnet utility class
+ * New sensors: bmx055, bmi055, bmc160, bma250e, bmg150, bmm150, t8100, tb7300
+
 ### v0.7.0
 
  * C++ header files have been renamed from *.h to *.hpp along with all Intel
