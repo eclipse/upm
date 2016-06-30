@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -56,7 +56,7 @@ L3GD20::L3GD20(int device)
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
         fprintf(stderr, "Create trigger %s failed\n", trigger);
 
-    if (mraa_iio_get_mounting_matrix(m_iio, m_mount_matrix) == MRAA_SUCCESS)
+    if (mraa_iio_get_mount_matrix(m_iio, "in_mount_matrix", m_mount_matrix) == MRAA_SUCCESS)
         m_mount_matrix_exist = true;
     else
         m_mount_matrix_exist = false;
@@ -88,17 +88,9 @@ L3GD20::~L3GD20()
         free(m_filter.buff);
         m_filter.buff = NULL;
     }
-    if(m_iio)
+    if (m_iio)
         mraa_iio_close(m_iio);
 }
-
-#ifdef JAVACALLBACK
-void
-L3GD20::installISR(IsrCallback* cb)
-{
-    installISR(generic_callback_isr, cb);
-}
-#endif
 
 void
 L3GD20::installISR(void (*isr)(char*), void* arg)
@@ -177,6 +169,8 @@ L3GD20::disableBuffer()
 bool
 L3GD20::setScale(float scale)
 {
+    m_scale = scale;
+
     mraa_iio_write_float(m_iio, "in_anglvel_x_scale", scale);
     mraa_iio_write_float(m_iio, "in_anglvel_y_scale", scale);
     mraa_iio_write_float(m_iio, "in_anglvel_z_scale", scale);
@@ -224,6 +218,8 @@ L3GD20::extract3Axis(char* data, float* x, float* y, float* z)
     iio_y = getChannelValue((unsigned char*) (data + channels[1].location), &channels[1]);
     iio_z = getChannelValue((unsigned char*) (data + channels[2].location), &channels[2]);
 
+    // Raw data is x, y, z axis angular velocity. Units after application of scale are radians per
+    // second
     *x = (iio_x * m_scale);
     *y = (iio_y * m_scale);
     *z = (iio_z * m_scale);

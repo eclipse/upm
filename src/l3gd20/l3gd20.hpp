@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -100,7 +100,7 @@ class L3GD20
 
     /**
      * Enable trigger buffer
-     * @param trigger buffer length in string
+     * @param trigger buffer length in integer
      */
     bool enableBuffer(int length);
 
@@ -111,13 +111,17 @@ class L3GD20
 
     /**
      * Set scale
-     * @param scale in string
+     * @param scale in float
+     * Available scales are 0.000153(250dps), 0.000305(500dps), and 0.001222(2000dps)
+     * Default scale is 0.000153
      */
     bool setScale(const float scale);
 
     /**
      * Set sampling frequency
-     * @param sampling frequency  in string
+     * @param sampling frequency in float
+     * Available sampling frequency are 95, 190, 380, and 760
+     * Default sampling frequency is 95
      */
     bool setSamplingFrequency(const float sampling_frequency);
 
@@ -202,9 +206,9 @@ class L3GD20
     bool m_mount_matrix_exist; // is mount matrix exist
     float m_mount_matrix[9];   // mount matrix
     float m_scale;             // gyroscope data scale
-    int m_event_count; // sample data arrive
-    bool m_calibrated;        // calibrate state
-    gyro_cal_t m_cal_data;    // calibrate data
-    filter_median_t m_filter; // filter data
+    int m_event_count;         // sample data arrive
+    bool m_calibrated;         // calibrate state
+    gyro_cal_t m_cal_data;     // calibrate data
+    filter_median_t m_filter;  // filter data
 };
 }
