@@ -4,6 +4,12 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.7.2
+
+ * Mraa 1.1.1 required changes to UPM drivers and examples for IIO core
+ kernel support
+ * Rev'ed libmraa requirement to 1.1.1
+
 ### v0.7.1
 
  * Fix for building python2 vs python3 bindings
