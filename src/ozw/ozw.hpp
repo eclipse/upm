@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -37,7 +37,7 @@
 namespace upm {
   
   /**
-   * @brief OZW OpenZWave library
+   * @brief UPM OpenZWave library
    * @defgroup ozw libupm-ozw
    * @ingroup uart wifi
    */
@@ -53,47 +53,40 @@ namespace upm {
    *
    * @brief UPM API for the OpenZWave library
    *
-   * This module implements a wrapper around the OpenZWave library.
-   * OpenZWave must be compiled and installed on your machine in order
-   * to use this library.
+   * This module implements a singleton wrapper around the OpenZWave
+   * library.  OpenZWave must be compiled and installed on your
+   * machine in order to use this library.
    *
-   * This module was developed with OpenZWave 1.3, and an Aeon Z-Stick
-   * Gen5 configured as a Primary Controller.  It provides the ability
-   * to query and set various values that can be used to control ZWave
-   * devices.  It does not concern itself with configuration of
-   * devices.  It is assumed that you have already setup your ZWave
-   * network using a tool like the OpenZWave control panel, and have
-   * already configured your devices as appropriate.
+   * This module was developed with OpenZWave 1.3/1.4, and an Aeon
+   * Z-Stick Gen5 configured as a Primary Controller.  It provides the
+   * ability to query and set various values that can be used to
+   * control ZWave devices.  It does not concern itself with
+   * configuration of devices.  It is assumed that you have already
+   * setup your ZWave network using a tool like the OpenZWave control
+   * panel, and have already configured your devices as appropriate.
    *
    * To avoid exposing some of the internals of OpenZWave, devices
    * (nodes) and their values, are accessed via a nodeId and a value
-   * index number.  The example will run dumpNodes() which will list
-   * the currently connected devices and the values that are available
-   * to them, along with an index number for that value.  It is
-   * through these values (nodeId and index) that you can query and
-   * set device values.
+   * index number.  The ozwdump example will run dumpNodes() which
+   * will list the currently connected devices and the values that are
+   * available to them, along with an index number for that value.  It
+   * is through these values (nodeId and index) that you can query and
+   * set device values at a low level.
    *
    * In addition to querying values from a device (such as state
    * (on/off), or temperature, etc), methods are provided to allow you
    * to control these devices to the extent they allow, for example,
    * using a ZWave connected switch to turn on a lamp.
    *
-   * Since it's likely no two ZWave networks are going to be the same,
-   * the example will just initialize OpenZWave and run the
-   * dumpNodes() method to allow you to see what devices are present,
-   * the values they support and their current content, along with the
-   * per-node index number you can use to address them.  There will be
-   * commented out code examples showing you how to query or set a
-   * specific value for a device.
-   * 
-   * See the ozw example code comments for an example of the ouput of
-   * running dumpNodes().
+   * Access to this class by OZW drivers is handled by the
+   * ozwInterface class.  It is that class that drivers use for access
+   * to ozw, and therefore the Z-Wave network.
    *
-   * In most of the methods below, You will need the NodeId (Node
-   * number), and the Index number to access or otherwise affect these
-   * values.
-   *
-   * @snippet openzwave.cxx Interesting
+   * This class is not intended to be used directly by end users.
+   * When writing an OZW driver, the ozwInterface class should be used
+   * (inherited) by your driver, and your driver should wrap and
+   * expose only those methods needed by the user.  Take a look at
+   * some of the drivers (like aeotecss6) to see how this works.
    */
 
   // forward declaration of private zwNode data
@@ -105,14 +98,13 @@ namespace upm {
     typedef std::map<uint8_t, zwNode *> zwNodeMap_t;
 
     /**
-     * OZW constructor
+     * Get our singleton instance, initializing it if neccessary.  All
+     * requests to this class should be done through this instance
+     * accessor.
+     *
+     * @return static pointer to our class instance
      */
-    OZW();
-
-    /**
-     * OZW Destructor
-     */
-    ~OZW();
+    static OZW* instance();
 
     /**
      * Start configuration with basic options.  This must be called
@@ -193,11 +185,11 @@ namespace upm {
     bool init(std::string devicePath, bool isHID=false);
 
     /**
-     * Dump information about all configured nodes and their values to
-     * stdout.  This is useful to determine what nodes are available,
-     * and the index (used for querying and seting values for them).
-     * In addition, it includes information about each value (type,
-     * current value, etc).
+     * Dump information about all configured nodes (devices) and their
+     * available values to stdout.  This is useful to determine what
+     * nodes are available, and the index (used for querying and
+     * seting values for them).  In addition, it includes information
+     * about each value (type, current value, etc).
      *
      * @param all set to true to dump information about all values
      * available for each node.  If false, only information about
@@ -519,7 +511,36 @@ namespace upm {
      */
     bool isNodeAwake(int nodeId);
 
+    /**
+     * Determine whether a Node's information has been received.  For
+     * sleeping nodes, this may take a while (until the node wakes).
+     *
+     * @param nodeId The node ID
+     * @return true if the node information is known, false otherwise
+     */
+    bool isNodeInfoReceived(int nodeId);
+
+    /**
+     * Determine if the Z-Wave network has been initialized yet.
+     *
+     * @return true if the network is initialized, false otherwise
+     */
+    bool isInitialized()
+    {
+      return m_initialized;
+    }
+
   protected:
+    /**
+     * OZW constructor
+     */
+    OZW();
+
+    /**
+     * OZW Destructor
+     */
+    ~OZW();
+
     /**
      * Based on a nodeId and a value index, lookup the corresponding
      * OpenZWave ValueID.
@@ -532,22 +553,40 @@ namespace upm {
     bool getValueID(int nodeId, int index, OpenZWave::ValueID *vid);
 
     /**
+     * Return the Home ID of the network.
+     *
+     * @return The Home ID.
+     */
+    uint32_t getHomeID()
+    {
+      return m_homeId;
+    }
+
+    /**
      * Lock the m_zwNodeMap mutex to protect against changes made to
      * the the the map by the OpenZWave notification handler.  Always
      * lock this mutex when acessing anything in the zwNodeMap map.
      */
-
     void lockNodes() { pthread_mutex_lock(&m_nodeLock); };
+
     /**
      * Unlock the m_zwNodeMap mutex after lockNodes() has been called.
      */
     void unlockNodes() { pthread_mutex_unlock(&m_nodeLock); };
 
   private:
+    // prevent copying and assignment
+    OZW(OZW const &) {};
+    OZW& operator=(OZW const&) {};
+
+    // our class instance
+    static OZW* m_instance;
+
     uint32_t m_homeId;
     bool m_mgrCreated;
     bool m_driverFailed;
     bool m_debugging;
+    bool m_initialized;
 
     bool m_driverIsHID;
     std::string m_devicePath;
