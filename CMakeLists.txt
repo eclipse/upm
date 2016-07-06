@@ -231,14 +231,6 @@ if (RPM)
   include(CPack)
 endif()
 
-if(BUILDEXAMPLES)
-  add_subdirectory (examples/c++)
-endif()
-
-if(BUILDJAVAEXAMPLES)
-  add_subdirectory (examples/java)
-endif()
-
 if (BUILDSWIGPYTHON OR BUILDTESTS)
   if (BUILDPYTHON3)
     set (PYTHONBUILD_VERSION 3)
@@ -248,6 +240,14 @@ if (BUILDSWIGPYTHON OR BUILDTESTS)
 endif ()
 
 add_subdirectory (src)
+if(BUILDEXAMPLES)
+  add_subdirectory (examples/c++)
+endif()
+
+if(BUILDJAVAEXAMPLES)
+  add_subdirectory (examples/java)
+endif()
+
 
 if (BUILDTESTS)
   find_package (PythonInterp ${PYTHONBUILD_VERSION} REQUIRED)
