@@ -576,8 +576,8 @@ namespace upm {
 
   private:
     // prevent copying and assignment
-    OZW(OZW const &) {};
-    OZW& operator=(OZW const&) {};
+    OZW(OZW const &) = delete;
+    OZW& operator=(OZW const&) = delete;
 
     // our class instance
     static OZW* m_instance;

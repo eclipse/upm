@@ -24,6 +24,8 @@
 
 #include <stdint.h>
 #include <string>
+#include <cinttypes>
+
 #include "zwNode.hpp"
 
 #include "Node.h"
@@ -185,7 +187,7 @@ void zwNode::dumpNode(bool all)
                   valueUnits.c_str(),
                   perms.c_str());
 
-          fprintf(stderr, "\t\t VID: %016x\n",
+          fprintf(stderr, "\t\t VID: %016" PRIx64 "\n",
                   vid.GetId());
         }
     }
