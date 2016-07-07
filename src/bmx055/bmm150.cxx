@@ -92,12 +92,9 @@
 using namespace upm;
 using namespace std;
 
-BMM150::BMM150(int bus, uint8_t addr, int cs) :
+BMM150::BMM150(int bus, int addr, int cs) :
   m_i2c(0), m_spi(0), m_gpioIntr(0), m_gpioDR(0), m_gpioCS(0)
 {
-  m_addr = addr;
-  m_isSPI = false;
-
   m_magX = 0;
   m_magY = 0;
   m_magZ = 0;
@@ -119,7 +116,16 @@ BMM150::BMM150(int bus, uint8_t addr, int cs) :
   m_dig_xy1 = 0;
 
   if (addr < 0)
-    m_isSPI = true;
+    {
+      m_addr = 0;
+      m_isSPI = true;
+    }
+  else
+    {
+      m_addr = uint8_t(addr);
+      m_isSPI = false;
+    }
+
 
   if (m_isSPI)
     {
@@ -177,6 +183,13 @@ BMM150::~BMM150()
 {
   uninstallISR(INTERRUPT_INT);
   uninstallISR(INTERRUPT_DR);
+
+  if (m_i2c)
+    delete m_i2c;
+  if (m_spi)
+    delete m_spi;
+  if(m_gpioCS)
+    delete m_gpioCS;
 }
 
 void BMM150::init(USAGE_PRESETS_T usage)

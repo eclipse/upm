@@ -100,13 +100,13 @@ namespace upm {
      * I2C or for SPI with a hardware controlled pin.
      */
     BMX055(int accelBus=BMA250E_I2C_BUS,
-           uint8_t accelAddr=BMA250E_DEFAULT_ADDR,
+           int accelAddr=BMA250E_DEFAULT_ADDR,
            int accelCS=-1,
            int gyroBus=BMG160_I2C_BUS,
-           uint8_t gyroAddr=BMG160_DEFAULT_ADDR,
+           int gyroAddr=BMG160_DEFAULT_ADDR,
            int gyroCS=-1,
            int magBus=BMM150_I2C_BUS,
-           uint8_t magAddr=BMM150_DEFAULT_ADDR,
+           int magAddr=BMM150_DEFAULT_ADDR,
            int magCS=-1);
 
     /**

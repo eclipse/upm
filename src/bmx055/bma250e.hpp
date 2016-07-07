@@ -964,7 +964,7 @@ namespace upm {
      * @param cs The gpio pin to use for the SPI Chip Select.  -1 for
      * I2C or for SPI with a hardware controlled pin.
      */
-    BMA250E(int bus=BMA250E_I2C_BUS, uint8_t addr=BMA250E_DEFAULT_ADDR,
+    BMA250E(int bus=BMA250E_I2C_BUS, int addr=BMA250E_DEFAULT_ADDR,
             int cs=-1);
 
     /**

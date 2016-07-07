@@ -40,12 +40,9 @@ static float c2f(float c)
   return (c * (9.0 / 5.0) + 32.0);
 }
 
-BMA250E::BMA250E(int bus, uint8_t addr, int cs) :
+BMA250E::BMA250E(int bus, int addr, int cs) :
   m_i2c(0), m_spi(0), m_gpioIntr1(0), m_gpioIntr2(0), m_gpioCS(0)
 {
-  m_addr = addr;
-  m_isSPI = false;
-
   m_accX = 0;
   m_accY = 0;
   m_accZ = 0;
@@ -53,7 +50,15 @@ BMA250E::BMA250E(int bus, uint8_t addr, int cs) :
   m_temperature = 0.0;
 
   if (addr < 0)
-    m_isSPI = true;
+    {
+      m_addr = 0;
+      m_isSPI = true;
+    }
+  else
+    {
+      m_addr = uint8_t(addr);
+      m_isSPI = false;
+    }
 
   if (m_isSPI)
     {
@@ -127,6 +132,13 @@ BMA250E::~BMA250E()
 {
   uninstallISR(INTERRUPT_INT1);
   uninstallISR(INTERRUPT_INT2);
+
+  if (m_i2c)
+    delete m_i2c;
+  if (m_spi)
+    delete m_spi;
+  if(m_gpioCS)
+    delete m_gpioCS;
 }
 
 void BMA250E::init(POWER_MODE_T pwr, RANGE_T range, BW_T bw)
@@ -160,19 +172,13 @@ void BMA250E::init(POWER_MODE_T pwr, RANGE_T range, BW_T bw)
 
 void BMA250E::update()
 {
-  int bufLen = 0;
-  uint8_t startReg = 0;
+  int bufLen = 7; // max, non-FIFO
+  uint8_t startReg = REG_ACCD_X_LSB;
 
   if (m_useFIFO)
     {
       bufLen = 6;
       startReg = REG_FIFO_DATA;
-    }
-  else
-    {
-      // non FIFO, read acc regs directly (including temp)
-      bufLen = 7;
-      startReg = REG_ACCD_X_LSB;
     }
 
   uint8_t buf[bufLen];

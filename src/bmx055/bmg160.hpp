@@ -823,7 +823,7 @@ namespace upm {
      * I2C or for SPI with a hardware controlled pin.
      * @param theChipID The chip ID to use for validation
      */
-    BMG160(int bus=BMG160_I2C_BUS, uint8_t addr=BMG160_DEFAULT_ADDR,
+    BMG160(int bus=BMG160_I2C_BUS, int addr=BMG160_DEFAULT_ADDR,
            int cs=-1);
 
     /**

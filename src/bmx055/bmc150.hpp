@@ -93,10 +93,10 @@ namespace upm {
      * I2C or for SPI with a hardware controlled pin.
      */
     BMC150(int accelBus=BMC150_DEFAULT_BUS,
-           uint8_t accelAddr=BMC150_DEFAULT_ACC_ADDR,
+           int accelAddr=BMC150_DEFAULT_ACC_ADDR,
            int accelCS=-1,
            int magBus=BMC150_DEFAULT_BUS,
-           uint8_t magAddr=BMC150_DEFAULT_MAG_ADDR,
+           int magAddr=BMC150_DEFAULT_MAG_ADDR,
            int magCS=-1);
 
     /**

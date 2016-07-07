@@ -32,8 +32,8 @@
 using namespace upm;
 using namespace std;
 
-BMC150::BMC150(int accelBus, uint8_t accelAddr, int accelCS,
-               int magBus, uint8_t magAddr, int magCS) :
+BMC150::BMC150(int accelBus, int accelAddr, int accelCS,
+               int magBus, int magAddr, int magCS) :
   m_accel(0), m_mag(0)
 {
   // if -1 is supplied as a bus for any of these, we will not

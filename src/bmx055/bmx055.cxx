@@ -32,9 +32,9 @@
 using namespace upm;
 using namespace std;
 
-BMX055::BMX055(int accelBus, uint8_t accelAddr, int accelCS,
-               int gyroBus, uint8_t gyroAddr, int gyroCS,
-               int magBus, uint8_t magAddr, int magCS) :
+BMX055::BMX055(int accelBus, int accelAddr, int accelCS,
+               int gyroBus, int gyroAddr, int gyroCS,
+               int magBus, int magAddr, int magCS) :
   m_accel(0), m_gyro(0), m_mag(0)
 {
   // if -1 is supplied as a bus for any of these, we will not

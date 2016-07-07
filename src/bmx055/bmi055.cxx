@@ -32,8 +32,8 @@
 using namespace upm;
 using namespace std;
 
-BMI055::BMI055(int accelBus, uint8_t accelAddr, int accelCS,
-               int gyroBus, uint8_t gyroAddr, int gyroCS) :
+BMI055::BMI055(int accelBus, int accelAddr, int accelCS,
+               int gyroBus, int gyroAddr, int gyroCS) :
   m_accel(0), m_gyro(0)
 {
   // if -1 is supplied as a bus for any of these, we will not
