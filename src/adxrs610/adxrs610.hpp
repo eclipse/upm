@@ -138,7 +138,7 @@ namespace upm {
     float getZeroPoint() { return m_zeroPoint; };
 
     /**
-     * Return the measured temperature in Celcius.  Note, the
+     * Return the measured temperature in Celsius.  Note, the
      * datasheet says that this value is very repeatable, but is not
      * an accurate absolute temperature.
      *

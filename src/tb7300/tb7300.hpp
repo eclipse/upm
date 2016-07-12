@@ -222,27 +222,27 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit.
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 
     /**
-     * Set the device temperature scale to Celcius of Fahrenheit.  For
+     * Set the device temperature scale to Celsius of Fahrenheit.  For
      * devices with an LCD display, this will affect which scale is
      * displayed.  When changing the scale, it may take several
      * seconds for the setting to take effect.
      *
      * @param fahrenheit true to set the scale to fahrenheit, false
-     * for celcius.
+     * for celsius.
      */
     void setTemperatureScale(bool fahrenheit);
 
     /**
      * Get the device temperature scale.
      *
-     * @return true if scale is fahrenheit, false for celcius.
+     * @return true if scale is fahrenheit, false for celsius.
      */
     bool getTemperatureScale();
 
@@ -251,7 +251,7 @@ namespace upm {
     float m_temperature;
 
     bool m_isTempInitialized;
-    bool m_isCelcius;
+    bool m_isCelsius;
 
   private:
   };

@@ -32,7 +32,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {
@@ -107,9 +107,9 @@ HWXPXX::HWXPXX(std::string device, int address, int baud, int bits, char parity,
 
   // temp scale
   if (coils[0])
-    m_isCelcius = false;
+    m_isCelsius = false;
   else
-    m_isCelcius = true;
+    m_isCelsius = true;
 
   // current override switch status
   m_override = ((coils[1]) ? true : false);
@@ -243,7 +243,7 @@ void HWXPXX::update()
   // temperature, we always store as C
   float tmpF = float((int16_t)data[1]) / 10.0;
 
-  if (m_isCelcius)
+  if (m_isCelsius)
     m_temperature = tmpF;
   else
     m_temperature = f2c(tmpF);
@@ -319,11 +319,11 @@ void HWXPXX::setTemperatureScale(bool fahrenheit)
 {
   writeCoil(COIL_TEMP_SCALE, fahrenheit);
 
-  // now re-read and set m_isCelcius properly
+  // now re-read and set m_isCelsius properly
   if (readCoil(COIL_TEMP_SCALE))
-    m_isCelcius = false;
+    m_isCelsius = false;
   else
-    m_isCelcius = true;
+    m_isCelsius = true;
 }
 
 string HWXPXX::getSlaveID()
@@ -361,11 +361,11 @@ void HWXPXX::setSlaveAddress(int addr)
                                ": modbus_set_slave() failed");
     }
 
-  // now re-read and set m_isCelcius properly
+  // now re-read and set m_isCelsius properly
   if (readCoil(COIL_TEMP_SCALE))
-    m_isCelcius = false;
+    m_isCelsius = false;
   else
-    m_isCelcius = true;
+    m_isCelsius = true;
 }
 
 void HWXPXX::setDebug(bool enable)

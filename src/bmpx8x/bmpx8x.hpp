@@ -144,10 +144,10 @@ class BMPX8X : public IPressureSensor, public ITemperatureSensor {
         float getAltitude (float sealevelPressure = 101325);
 
         /**
-         * Return latest calculated temperature value in Celcius
+         * Return latest calculated temperature value in Celsius
          * See ITemperatureSensor
          */
-        int getTemperatureCelcius();
+        int getTemperatureCelsius();
 
         /**
          * Return latest calculated pressure value in Pascals

@@ -75,9 +75,9 @@ namespace upm {
     ~LM35();
 
     /**
-     * Returns the temperature in degrees Celcius
+     * Returns the temperature in degrees Celsius
      *
-     * @return The Temperature in degrees Celcius
+     * @return The Temperature in degrees Celsius
      */
     float getTemperature();
 
