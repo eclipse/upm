@@ -90,7 +90,7 @@ namespace upm {
       // Advantech-ADAM standard section) in the "Description of
       // communications protocols of TXXXX series" document.  We use
       // it to simply detect whether the device is configured for
-      // Celcius or Fahrenheit data and compensate internally.
+      // Celsius or Fahrenheit data and compensate internally.
 
       REG_UNIT_SETTINGS                     = 0x203F,
 
@@ -144,9 +144,9 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -183,9 +183,9 @@ namespace upm {
      * extendedDataAvailable() returns true).
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last dew point temperature reading in Celcius or
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last dew point temperature reading in Celsius or
      * Fahrenheit
      */
     float getDewPointTemperature(bool fahrenheit=false);
@@ -281,7 +281,7 @@ namespace upm {
     modbus_t *m_mbContext;
 
     // is the device reporting in C or F?
-    bool m_isCelcius;
+    bool m_isCelsius;
 
     // Is the device FW > than 2.44?
     bool m_isExtendedDataAvailable;

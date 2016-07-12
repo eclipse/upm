@@ -40,7 +40,7 @@ using namespace std;
 
 // #define BMP280_USE_TEST_DATA
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {

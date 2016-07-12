@@ -125,9 +125,9 @@ namespace upm {
      * constructor) then this function will always return 0C/32F.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -154,7 +154,7 @@ namespace upm {
     // does this sensor support temperature reporting?
     bool m_hasTemp;
 
-    // in Celcius
+    // in Celsius
     float m_temperature;
 
     float m_humidity;

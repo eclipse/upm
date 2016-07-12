@@ -95,7 +95,7 @@ SI7005::getTemperatureRaw () {
 }
 
 int
-SI7005::getTemperatureCelcius () {
+SI7005::getTemperatureCelsius () {
     uint16_t rawTemperature = getTemperatureRaw();
     rawTemperature = ((rawTemperature >> 2) & 0xFFFF);
     last_temperature = ((float)rawTemperature) / SI7005_TEMPERATURE_SLOPE - SI7005_TEMPERATURE_OFFSET;

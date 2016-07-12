@@ -820,7 +820,7 @@ namespace upm {
     /**
      * get the temperature value
      *
-     * @return the temperature value in degrees Celcius
+     * @return the temperature value in degrees Celsius
      */
     virtual float getTemperature();
 

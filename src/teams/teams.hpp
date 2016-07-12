@@ -100,9 +100,9 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -161,7 +161,7 @@ namespace upm {
     bool m_connected;
     float m_rawMilliamps;
 
-    // in Celcius
+    // in Celsius
     float m_temperature;
 
     // in case an offset should be applied to the cumputed current

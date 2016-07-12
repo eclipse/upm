@@ -188,7 +188,7 @@ namespace upm {
              *  setMode - sets temperature reporting mode.
              *
              *  @param celsius. Default is true. If false all
-             *  temps will be reported in fahrenhiet.
+             *  temps will be reported in fahrenheit.
              */
             void setMode(bool celsius = true)
             {

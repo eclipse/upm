@@ -33,7 +33,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {
@@ -245,20 +245,20 @@ void BNO055::setTemperatureSource(TEMP_SOURCES_T src)
   writeReg(REG_TEMP_SOURCE, src);
 }
 
-void BNO055::setTemperatureUnits(bool celcius)
+void BNO055::setTemperatureUnits(bool celsius)
 {
   setPage(0);
 
   uint8_t reg = readReg(REG_UNIT_SEL);
 
-  if (celcius)
+  if (celsius)
     reg &= ~UNIT_SEL_TEMP_UNIT;
   else
     reg |= UNIT_SEL_TEMP_UNIT;
 
   writeReg(REG_UNIT_SEL, reg);
 
-  m_tempIsC = celcius;
+  m_tempIsC = celsius;
 }
 
 void BNO055::setAccelerometerUnits(bool mg)

@@ -35,7 +35,7 @@ using namespace std;
 
 #define BMG160_DEFAULT_CHIPID 0x0f
 
-// conversion from celcius to fahrenheit
+// conversion from celsius to fahrenheit
 
 static float c2f(float c)
 {

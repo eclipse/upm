@@ -46,7 +46,7 @@ bar = barometerObj.HP20X()
 bar.init()
 
 while(1):
-    print "Temperature:", bar.getTemperature(), "Celcius"
+    print "Temperature:", bar.getTemperature(), "Celsius"
     print "Pressure:   ", bar.getPressure(), "Millibars"
     print "Altitude:   ", bar.getAltitude(), "Meters"
     print 

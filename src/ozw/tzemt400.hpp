@@ -74,12 +74,12 @@ namespace upm {
     ~TZEMT400();
 
     /**
-     * Return the current measured temperature in Celcius or
+     * Return the current measured temperature in Celsius or
      * Fahrenheit.
      *
      * @param fahrenheit true to return data in Fahrenheit, false for
-     * Celicus.  Celcius is the default.
-     * @return The temperature in degrees Celcius or Fahrenheit.
+     * Celicus.  Celsius is the default.
+     * @return The temperature in degrees Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -100,25 +100,25 @@ namespace upm {
     std::string getOperatingState();
 
     /**
-     * Return the current Heating Point temperature in Celcius or
+     * Return the current Heating Point temperature in Celsius or
      * Fahrenheit.  This is the temperature at which the thermostat
      * will want to engage Heat.
      *
      * @param fahrenheit true to return data in Fahrenheit, false for
-     * Celicus.  Celcius is the default.
-     * @return The Heating Point temperature in degrees Celcius or
+     * Celicus.  Celsius is the default.
+     * @return The Heating Point temperature in degrees Celsius or
      * Fahrenheit.
      */
     float getHeatingPointTemperature(bool fahrenheit=false);
 
     /**
-     * Return the current Cooling Point temperature in Celcius or
+     * Return the current Cooling Point temperature in Celsius or
      * Fahrenheit.  This is the temperature at which the thermostat
      * will want to engage Cooling.
      *
      * @param fahrenheit true to return data in Fahrenheit, false for
-     * Celicus.  Celcius is the default.
-     * @return The Cooling Point temperature in degrees Celcius or
+     * Celicus.  Celsius is the default.
+     * @return The Cooling Point temperature in degrees Celsius or
      * Fahrenheit.
      */
     float getCoolingPointTemperature(bool fahrenheit=false);

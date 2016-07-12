@@ -53,7 +53,7 @@ int main(int argc, char **argv)
   // Output data every second until interrupted
   while (shouldRun)
     {
-      printf("Temperature: %f Celcius\n", bar->getTemperature());
+      printf("Temperature: %f Celsius\n", bar->getTemperature());
       printf("Pressure:    %f Millibars\n", bar->getPressure());
       printf("Altitude:    %f Meters\n", bar->getAltitude());
 

@@ -76,7 +76,7 @@ int main ()
    std::cout << "Temperature sensor " << temperatureSensor->getModuleName() << " detected" << std::endl;
    while (true) {
       try {
-         int value = temperatureSensor->getTemperatureCelcius();
+         int value = temperatureSensor->getTemperatureCelsius();
          std::cout << "Temperature = " << value << "C" << std::endl;
       } catch (std::exception& e) {
          std::cerr << e.what() << std::endl;
