@@ -33,7 +33,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {
@@ -55,7 +55,7 @@ TB7300::TB7300(uint32_t targetDeviceObjectID) :
   checkReliability(false);
 
   m_isTempInitialized = false;
-  m_isCelcius = false;
+  m_isCelsius = false;
 
   // room temperature only
   m_temperature = 0.0;
@@ -75,7 +75,7 @@ void TB7300::update()
 
   float tmpF = getAnalogValue(AV_Room_Temperature);
 
-  if (m_isCelcius)
+  if (m_isCelsius)
     m_temperature = tmpF;
   else
     m_temperature = f2c(tmpF);
@@ -94,7 +94,7 @@ void TB7300::setTemperatureScale(bool fahrenheit)
   setBinaryValue(BV_Temperature_Scale, fahrenheit);
 
   m_isTempInitialized = true;
-  m_isCelcius = (fahrenheit) ? false : true;
+  m_isCelsius = (fahrenheit) ? false : true;
 }
 
 bool TB7300::getTemperatureScale()
@@ -102,7 +102,7 @@ bool TB7300::getTemperatureScale()
   bool scale = getBinaryValue(BV_Temperature_Scale);
 
   m_isTempInitialized = true;
-  m_isCelcius = !scale;
+  m_isCelsius = !scale;
 
   return scale;
 }

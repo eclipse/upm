@@ -37,7 +37,7 @@ bar.init();
 // Output data every second until interrupted
 setInterval(function()
 {
-    console.log("Temperature: " + bar.getTemperature() + " Celcius");
+    console.log("Temperature: " + bar.getTemperature() + " Celsius");
     console.log("Pressure:    " + bar.getPressure() + " Millibars");
     console.log("Altitude:    " + bar.getAltitude() + " Meters");
     console.log("");

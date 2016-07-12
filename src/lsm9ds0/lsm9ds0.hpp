@@ -1294,7 +1294,7 @@ namespace upm {
      * the correct value, so I made a 'guess'.  If it's wrong, and you
      * figure it out, send a patch!
      *
-     * @return the temperature value in degrees Celcius
+     * @return the temperature value in degrees Celsius
      */
     float getTemperature();
 

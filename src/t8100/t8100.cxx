@@ -34,7 +34,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {
@@ -56,7 +56,7 @@ T8100::T8100(uint32_t targetDeviceObjectID) :
   checkReliability(false);
 
   m_isTempInitialized = false;
-  m_isCelcius = false;
+  m_isCelsius = false;
 
   m_humidity = 0.0;
   m_temperature = 0.0;
@@ -78,7 +78,7 @@ void T8100::update()
 
   float tmpF = getAnalogInput(AI_Temperature_Thermistor);
 
-  if (m_isCelcius)
+  if (m_isCelsius)
     m_temperature = tmpF;
   else
     m_temperature = f2c(tmpF);
@@ -101,7 +101,7 @@ void T8100::setTemperatureScale(bool fahrenheit)
   setBinaryValue(BV_Temperature_Units, fahrenheit);
 
   m_isTempInitialized = true;
-  m_isCelcius = (fahrenheit) ? false : true;
+  m_isCelsius = (fahrenheit) ? false : true;
 }
 
 bool T8100::getTemperatureScale()
@@ -109,7 +109,7 @@ bool T8100::getTemperatureScale()
   bool scale = getBinaryValue(BV_Temperature_Units);
 
   m_isTempInitialized = true;
-  m_isCelcius = !scale;
+  m_isCelsius = !scale;
 
   return scale;
 }
@@ -126,7 +126,7 @@ void T8100::setTemperatureOffset(float value)
     {
       throw std::out_of_range(std::string(__FUNCTION__)
                               + ": value must be between -50 and 50,"
-                              + " in degrees Celcius");
+                              + " in degrees Celsius");
 
     }
 

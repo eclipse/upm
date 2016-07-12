@@ -32,7 +32,7 @@ using namespace std;
 // we average over several aio reads.
 static const int maxSamples = 10;
 
-// conversion from celcius to fahrenheit
+// conversion from celsius to fahrenheit
 
 static float c2f(float c)
 {

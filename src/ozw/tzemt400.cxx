@@ -31,7 +31,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {

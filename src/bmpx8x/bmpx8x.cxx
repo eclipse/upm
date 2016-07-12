@@ -172,7 +172,7 @@ BMPX8X::getAltitude (float sealevelPressure) {
 
 
 int
-BMPX8X::getTemperatureCelcius() {
+BMPX8X::getTemperatureCelsius() {
     return static_cast<int>(getTemperature() + 0.5);
 }
 

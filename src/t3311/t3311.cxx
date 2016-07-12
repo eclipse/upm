@@ -34,7 +34,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from fahrenheit to celcius and back
+// conversion from fahrenheit to celsius and back
 
 static float f2c(float f)
 {
@@ -133,9 +133,9 @@ T3311::T3311(std::string device, int address, int baud, int bits, char parity,
   // our temperature data in.
   tmp = readInputReg(REG_UNIT_SETTINGS);
   if (tmp & 0x0001)
-    m_isCelcius = false;
+    m_isCelsius = false;
   else
-    m_isCelcius = true;
+    m_isCelsius = true;
 
   // read in the the FW_LO register (BCD encoded) and convert
   tmp = readInputReg(REG_FW_LO);
@@ -225,7 +225,7 @@ void T3311::update()
 
   // temperature first, we always store as C
   float tmpF = float((int16_t)data[0]) / 10.0;
-  if (m_isCelcius)
+  if (m_isCelsius)
     m_temperature = tmpF;
   else
     m_temperature = f2c(tmpF);
@@ -240,7 +240,7 @@ void T3311::update()
     {
       // we always store temps in C
       tmpF = float((int16_t)data[4]) / 10.0;
-      if (m_isCelcius)
+      if (m_isCelsius)
         m_dewPointTemperature = tmpF;
       else
         m_dewPointTemperature = f2c(tmpF);

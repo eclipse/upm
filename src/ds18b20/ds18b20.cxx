@@ -31,7 +31,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from celcius to fahrenheit
+// conversion from celsius to fahrenheit
 static float c2f(float c)
 {
   return (c * (9.0 / 5.0) + 32.0);

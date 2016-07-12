@@ -29,7 +29,7 @@
 using namespace upm;
 using namespace std;
 
-// conversion from celcius to fahrenheit
+// conversion from celsius to fahrenheit
 
 static float c2f(float c)
 {

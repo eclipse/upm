@@ -82,7 +82,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         /**
          * Get temperature measurement.
          */
-        int getTemperatureCelcius ();
+        int getTemperatureCelsius ();
 
         /**
          * Get relative humidity measurement.

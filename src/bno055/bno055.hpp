@@ -896,7 +896,7 @@ namespace upm {
      *
      * By default, the constructor sets the acceleration units to
      * m/s^2, gyro and Euler units to degrees, and temperature to
-     * celcius.  It then enters the NDOF fusion mode.
+     * celsius.  It then enters the NDOF fusion mode.
      *
      * In addition, the internal clock is used so that compatibility
      * with other implementations is assured.  If you are using a
@@ -980,11 +980,11 @@ namespace upm {
 
     /**
      * Select the temperature units.  This can be the Fahrenheit or
-     * Celcius.
+     * Celsius.
      *
-     * @param celcius true for Celius, false for Fahrenheit.
+     * @param celsius true for Celius, false for Fahrenheit.
      */
-    void setTemperatureUnits(bool celcius);
+    void setTemperatureUnits(bool celsius);
 
     /**
      * Set the operating mode for the device.  This places the device
@@ -1060,8 +1060,8 @@ namespace upm {
      * calling this method.
      *
      * @param fahrenheit true to return data in Fahrenheit, false for
-     * Celicus.  Celcius is the default.
-     * @return The temperature in degrees Celcius or Fahrenheit.
+     * Celicus.  Celsius is the default.
+     * @return The temperature in degrees Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 

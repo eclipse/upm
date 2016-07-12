@@ -1014,8 +1014,8 @@ namespace upm {
      * calling this method.
      *
      * @param fahrenheit true to return data in Fahrenheit, false for
-     * Celicus.  Celcius is the default.
-     * @return The temperature in degrees Celcius or Fahrenheit.
+     * Celicus.  Celsius is the default.
+     * @return The temperature in degrees Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 
