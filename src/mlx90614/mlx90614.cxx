@@ -42,6 +42,12 @@ MLX90614::MLX90614 (int bus, int devAddr) : m_i2Ctx(bus) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
                                     ": address() failed");
     }
+
+    if ((ret = m_i2Ctx.frequency(mraa::I2C_STD)) != mraa::SUCCESS ) {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": I2c.frequency(I2C_STD) failed");
+      return;
+    }
 }
 
 float
