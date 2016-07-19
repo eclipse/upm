@@ -19,7 +19,7 @@ compiler:
 install:
   - sudo add-apt-repository --yes ppa:fenics-packages/fenics-dev/swig
   - sudo apt-get update -qq
-  - sudo apt-get install -y -qq swig3.0 git
+  - sudo apt-get install -y --force-yes -qq swig3.0 git
   - sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
   - sudo update-java-alternatives -s java-8-oracle
 before_script:
