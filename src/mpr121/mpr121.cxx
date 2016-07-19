@@ -147,7 +147,7 @@ bool MPR121::configAN3944()
   // Section D
   // Filter configuration
   // reg 0x5d
-  uint8_t filterConf = 0x04;
+  uint8_t filterConf = 0x24;
   if ((rv = writeBytes(0x5d, &filterConf, 1)) != mraa::SUCCESS)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
