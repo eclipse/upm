@@ -353,7 +353,7 @@
  * @defgroup freescale Freescale
  * @ingroup byman
  */
- 
+
 /**
  * @brief Generic Brands
  * @defgroup generic Generic
@@ -431,12 +431,18 @@
  * @defgroup amphenol Amphenol
  * @ingroup byman
  */
- 
+
 /**
  * @brief Open Electrons
  * @defgroup openelectrons Open Electrons
  * @ingroup byman
- */ 
+ */
+
+/**
+ * @brief Measurement Specialties
+ * @defgroup meas Measurement Specialties
+ * @ingroup byman
+ */
 
 ////////////////////////////////////////////////////////////////// @cond KIT
 /// Groups for the various Starter Kits.
@@ -447,25 +453,25 @@
  * @defgroup gsk Grove Starter Kit
  * @ingroup bykit
  */
- 
+
 /**
  * @brief Home Automation Kit - For projects around the house
  * @defgroup hak Home Automation Kit
  * @ingroup bykit
- */ 
+ */
 
 /**
  * @brief Environment & Agriculture Kit - For outdoor projects
  * @defgroup eak Environment & Agriculture Kit
  * @ingroup bykit
  */
- 
+
 /**
- * @brief Transportation & Safety Kit - Used mostly on vehicles 
+ * @brief Transportation & Safety Kit - Used mostly on vehicles
  * @defgroup tsk Transportation & Safety Kit
  * @ingroup bykit
  */
- 
+
 /**
  * @brief Robotics Kit - Sensors for your robot
  * @defgroup robok Robotics Kit
