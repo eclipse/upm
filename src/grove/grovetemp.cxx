@@ -33,7 +33,7 @@
 
 using namespace upm;
 
-GroveTemp::GroveTemp(unsigned int pin, float scale)
+GroveTemp::GroveTemp(unsigned int pin, float scale, int r0, int b)
 {
     if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -42,6 +42,8 @@ GroveTemp::GroveTemp(unsigned int pin, float scale)
     }
     m_name = "Temperature Sensor";
     m_scale = scale;
+    m_r0 = r0;
+    m_b = b;
 }
 
 GroveTemp::~GroveTemp()
@@ -55,8 +57,8 @@ int GroveTemp::value ()
     if (a == -1.0) return -1;
     // Apply scale factor after error check
     a *= m_scale;
-    float r = (float)(1023.0-a)*10000.0/a;
-    float t = 1.0/(log(r/10000.0)/3975.0 + 1.0/298.15)-273.15;
+    float r = (float)(1023.0-a)*(float)m_r0/a;
+    float t = 1.0/(log(r/(float)m_r0)/(float)m_b + 1.0/298.15)-273.15;
     return (int) round(t);
 }
 

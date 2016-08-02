@@ -43,7 +43,11 @@ namespace upm {
  *
  * @brief API for the Grove Temperature Sensor
  *
- * Basic UPM module for the Grove temperature sensor on analog
+ * Basic UPM module for the Grove temperature sensor on analog. This sensor
+ * uses a thermistor to measure ambient temperature. The conversion formula has
+ * been updated to work with versions 1.1 and 1.2 of the sensor. For the older
+ * v1.0 sensor you will have to specify R0 and B values when initializing the
+ * device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.
  *
  * @image html grovetemp.jpg
  * @snippet grovetemp.cxx Interesting
@@ -55,9 +59,13 @@ class GroveTemp: public Grove {
          *
          * @param pin Analog pin to use
          * @param scale Scaling factor for raw analog value from the ADC,
-         * useful for mixed 3.3V/5V boards
+         * useful for mixed 3.3V/5V boards, default 1.0
+         * @param r0 zero power resistance, this is 100K (default) for
+         * v1.1-v1.2 and 10K for v1.0 of the sensor
+         * @param b thermistor nominal B constant, this is 4275 (default) for
+         * v1.1-v1.2 and 3975 for v1.0 of the sensor
          */
-        GroveTemp(unsigned int pin, float scale = 1.0);
+        GroveTemp(unsigned int pin, float scale = 1.0, int r0 = 100000, int b = 4275);
         /**
          * GroveTemp destructor
          */
@@ -77,5 +85,8 @@ class GroveTemp: public Grove {
     private:
         mraa_aio_context m_aio;
         float m_scale;
+        int m_r0;
+        int m_b;
+
 };
 }
