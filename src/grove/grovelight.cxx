@@ -24,59 +24,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
+#include <iostream>
 #include <string>
-#include <mraa/aio.hpp>
-#include "grovebase.hpp"
+#include <stdexcept>
 
-namespace upm {
+#include "grovelight.hpp"
+#include "math.h"
 
-/**
- * @library grove
- * @sensor grovelight
- * @comname Grove Light Sensor
- * @type light
- * @man seeed
- * @con analog
- * @kit gsk
- *
- * @brief API for the Grove Light Sensor
- *
- * The Grove light sensor detects the intensity of the ambient light.
- * As the light intensity of the environment increases, the resistance
- * of the sensor decreases. This means the raw value from the
- * analog pin is larger in bright light and smaller in the dark.
- * An approximate lux value can also be returned.
- *
- * @image html grovelight.jpg
- * @snippet grovelight.cxx Interesting
- */
-class GroveLight: public Grove {
-    public:
-        /**
-         * Grove analog light sensor constructor
-         *
-         * @param pin Analog pin to use
-         */
-        GroveLight(unsigned int pin);
-        /**
-         * GroveLight destructor
-         */
-        ~GroveLight();
-        /**
-         * Gets the raw value from the AIO pin
-         *
-         * @return Raw value from the ADC
-         */
-        float raw_value();
-        /**
-         * Gets an approximate light value, in lux, from the sensor
-         *
-         * @return Normalized light reading in lux
-         */
-        int value();
-    private:
-        mraa_aio_context m_aio;
-};
+using namespace upm;
+
+GroveLight::GroveLight(unsigned int pin)
+{
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
+    m_name = "Light Sensor";
+}
+
+GroveLight::~GroveLight()
+{
+    mraa_aio_close(m_aio);
+}
+
+int GroveLight::value()
+{
+    // rough conversion to lux, using formula from Grove Starter Kit booklet
+    float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
+    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
+    return (int) round(a);
+}
+
+float GroveLight::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
 }

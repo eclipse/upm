@@ -1,7 +1,8 @@
 /*
- * Place-holder Header for Documentation and future API change
- *
- * Copyright (c) 2014 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,7 +23,15 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
+#pragma once
+
+#include <string>
+#include <mraa/aio.hpp>
+#include "grovebase.hpp"
+
+namespace upm {
+
 /**
  * @library grove
  * @sensor groverotary
@@ -42,4 +51,56 @@
  * @image html groverotary.jpeg
  * @snippet groverotary.cxx Interesting
  */
- 
+class GroveRotary: public Grove {
+    public:
+        /**
+         * Grove rotary angle sensor constructor
+         *
+         * @param pin Number of the analog pin to use
+         */
+        GroveRotary(unsigned int pin);
+        /**
+         * GroveRotary destructor
+         */
+        ~GroveRotary();
+        /**
+         * Gets the absolute raw value from the AIO pin
+         *
+         * @return Unsigned value from the ADC
+         */
+        float abs_value();
+        /**
+         * Gets absolute raw degrees from the AIO pin
+         *
+         * @return Unsigned degrees from the ADC
+         */
+        float abs_deg();
+        /**
+         * Gets absolute raw radians from the AIO pin
+         *
+         * @return Unsigned radians from the ADC
+         */
+        float abs_rad();
+        /**
+         * Gets the relative value from the AIO pin
+         *
+         * @return Signed value from the ADC
+         */
+        float rel_value();
+        /**
+         * Gets relative degrees from the AIO pin
+         *
+         * @return Signed degrees from the ADC
+         */
+        float rel_deg();
+        /**
+         * Gets relative radians from the AIO pin
+         *
+         * @return Signed radians from the ADC
+         */
+        float rel_rad();
+    private:
+        mraa_aio_context m_aio;
+        static const int m_max_angle = 300;
+};
+}
