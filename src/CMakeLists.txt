@@ -27,7 +27,7 @@ macro (upm_CREATE_INSTALL_PKGCONFIG generated_file install_location)
 endmacro (upm_CREATE_INSTALL_PKGCONFIG)
 
 macro(upm_SWIG_PYTHON)
-  if (BUILDSWIGPYTHON AND BUILDSWIG)
+  if (BUILDSWIGPYTHON)
 
     include_directories (
       ${CMAKE_CURRENT_SOURCE_DIR}/..
@@ -50,7 +50,7 @@ macro(upm_SWIG_PYTHON)
 endmacro()
 
 macro(upm_SWIG_NODE)
-  if (BUILDSWIGNODE AND BUILDSWIG)
+  if (BUILDSWIGNODE)
     # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
     # required. This hardcodes V8_VERSION to be <10 but I assume that's not going
     # to be a problem for a little while! SWIG uses a padded SWIG_V8 version which
@@ -112,7 +112,7 @@ macro(upm_SWIG_NODE)
 endmacro()
 
 macro(upm_SWIG_JAVA)
-  if (BUILDSWIGJAVA AND BUILDSWIG)
+  if (BUILDSWIGJAVA)
 
     FIND_PACKAGE (JNI REQUIRED)
     pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
@@ -166,7 +166,7 @@ macro(upm_doxygen)
       set (classname ${libname})
     endif()
     set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
-    if (BUILDSWIGPYTHON AND BUILDSWIG)
+    if (BUILDSWIGPYTHON)
       add_dependencies (_pyupm_${libname} pyupm_doxy2swig)
       add_dependencies (pydoc _pyupm_${libname})
     else ()

@@ -49,20 +49,19 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 set (CMAKE_SWIG_FLAGS "")
 
 option (BUILDDOC "Build all doc." OFF)
-option (BUILDSWIG "Build swig modules." ON)
 option (BUILDSWIGPYTHON "Build swig python modules." ON)
-option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
 option (BUILDSWIGNODE "Build swig node modules." ON)
+option (BUILDSWIGJAVA "Build swig java modules" OFF)
+option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
 option (BUILDEXAMPLES "Build C++ example binaries" OFF)
 option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
-option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 option (BUILDTESTS "Generate check-ups for upm" ON)
 option (ENABLECXX11 "Enable C++11 standards support" ON)
 
 # Find swig
-if (BUILDSWIG)
+if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
     if (BUILDSWIGNODE)
         find_package (SWIG 3.0.5 REQUIRED)
     else ()
@@ -125,7 +124,7 @@ if (BUILDDOC)
   endif (DOXYGEN_FOUND)
   # Check if Sphinx is installed and add target to generate API documentation
   find_package (Sphinx)
-  if(SPHINX_FOUND AND BUILDSWIG AND BUILDSWIGPYTHON)
+  if(SPHINX_FOUND AND BUILDSWIGPYTHON)
     # Python required for Sphinx build
     find_package (PythonLibs ${PYTHONBUILD_VERSION} REQUIRED)
     string (REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHONLIBS_VERSION_STRING})

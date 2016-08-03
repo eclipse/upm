@@ -1,5 +1,5 @@
 install (DIRECTORY . DESTINATION include/upm FILES_MATCHING PATTERN "*.hpp")
-if (BUILDSWIGJAVA AND BUILDSWIG)
+if (BUILDSWIGJAVA)
     set (libname "interfaces")
     set (libdescription "upm interfaces")
     set (module_src ${libname}.cxx)
