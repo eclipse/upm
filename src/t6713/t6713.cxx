@@ -1,5 +1,5 @@
 /*
- * Author: HCL
+ * Author: Henry Bruce <henry.bruce@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining

@@ -1,5 +1,5 @@
 /*
- * Author: HCL
+ * Author: Henry Bruce <henry.bruce@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,16 +31,10 @@ namespace upm {
 /**
  * @brief Amphenol Telaire 6713 Series CO2 Module
  * @defgroup t6713 libupm-t6713
- * @ingroup i2c telaire gas ico2sensor
+ * @ingroup i2c amphenol gaseous ico2sensor
  */
 
 /**
- * @brief C++ API for Amphenol Telaire 6713 Series CO2 Module
- *
- * The Telaire 6713 Series CO2 Module
- * [6713](http://amphenol-sensors.com/en/products/co2/co2-modules/3215-t6700#specifications-t6713)
- * is a CO2 Module sensor.
- *
  * @library t6713
  * @sensor t6713
  * @comname Telaire 6713 Series CO2 Module
@@ -48,8 +42,16 @@ namespace upm {
  * @type gaseous
  * @man amphenol
  * @con i2c
- * @if ic02sensor
-
+ * @if ico2sensor
+ *
+ * @brief C++ API for Amphenol Telaire 6713 Series CO2 Module
+ *
+ * The Telaire 6713 Series CO2 Module
+ * [6713](http://amphenol-sensors.com/en/products/co2/co2-modules/3215-t6700#specifications-t6713)
+ * is a CO2 Module sensor.
+ *
+ * @snippet t6713.cxx Interesting
+ * @snippet co2-sensor.cxx Interesting
  */
 namespace t6713_co2
 {

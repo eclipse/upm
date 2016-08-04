@@ -269,7 +269,7 @@
 
  /**
  * @brief Implements ICOSensor
- * @defgroup ic02sensor ICOSensor
+ * @defgroup ico2sensor ICOSensor
  * @ingroup byif
  */
 
