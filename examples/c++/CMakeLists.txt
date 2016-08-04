@@ -268,6 +268,7 @@ add_example (bmp280)
 add_example (bno055)
 add_example (l3gd20)
 add_example (bmx055)
+add_example (ms5611)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
