@@ -33,16 +33,10 @@ namespace upm
 /**
  * @brief ms5611 Barometric Pressure Sensor library
  * @defgroup ms5611 libupm-ms5611
- * @ingroup meas i2c temp pressure
+ * @ingroup meas i2c temp pressure ipressuresensor itemperaturesensor
  */
 
 /**
- * @brief API for MS5611 Barometric Pressure Sensor library
- *
- * Measurement Specialties
- * [MS5611-01BA03](http://www.te.com/usa-en/product-CAT-BLPS0036.html)
- * Automotive Catalog Low-EMI, High-Performance 4-Channel LED Driver
- *
  * @library ms5611
  * @sensor ms5611
  * @comname Meas-Spec MS5611 Barometric Pressure Sensor library
@@ -50,8 +44,17 @@ namespace upm
  * @type temp pressure
  * @man meas
  * @con i2c
- * @if ilightcontroller
+ * @if ipressuresensor itemperaturesensor
  *
+ * @brief API for MS5611 Barometric Pressure Sensor library
+ *
+ * Measurement Specialties
+ * [MS5611-01BA03](http://www.te.com/usa-en/product-CAT-BLPS0036.html)
+ * The MS5611 is a new generation of high resolution altimeter sensors from
+ * MEAS Switzerland with SPI and I2C bus interface. This module implements
+ * I2C only.
+ *
+ * @snippet ms5611.cxx Interesting
  */
 
 class MS5611 : public IPressureSensor, ITemperatureSensor
