@@ -4,6 +4,17 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.7.3
+
+ * Fixed several existing drivers and updated Grove Temperature sensor to use
+ new formula for v1.1+ by default
+ * Separated codebase for upm_grove module that bundles some of the starter kit
+ sensors into individual source files
+ * Documentation and doxygen tag updates with correct spelling for Celsius in
+ several places, this also affects API compatibility
+ * Removed superfluous BUILDSWIG option, some build recipes might be impacted
+ * New sensor: ms5611
+
 ### v0.7.2
 
  * Mraa 1.1.1 required changes to UPM drivers and examples for IIO core
