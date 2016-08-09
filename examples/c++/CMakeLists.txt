@@ -267,6 +267,7 @@ add_example (ds18b20)
 add_example (bmp280)
 add_example (bno055)
 add_example (l3gd20)
+add_example (l3gd20-i2c)
 add_example (bmx055)
 add_example (ms5611)
 
