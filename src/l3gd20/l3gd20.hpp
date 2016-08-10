@@ -35,6 +35,8 @@
 // if SDO tied to GND
 #define L3GD20_DEFAULT_I2C_ADDR                     0x6a
 #define L3GD20_DEFAULT_CHIP_ID                      0xd4
+// the 'H' variant uses a different chip id
+#define L3GD20H_DEFAULT_CHIP_ID                     0xd7
 
 namespace upm
 {

@@ -134,11 +134,13 @@ L3GD20::L3GD20(int bus, int addr)
   // check ChipID
 
   uint8_t cid = getChipID();
-  if (cid != L3GD20_DEFAULT_CHIP_ID)
+  if (!(cid == L3GD20_DEFAULT_CHIP_ID || cid == L3GD20H_DEFAULT_CHIP_ID))
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": invalid Chip ID: expected "
+                               ": Invalid Chip ID: expected "
                                + std::to_string(L3GD20_DEFAULT_CHIP_ID)
+                               + " or "
+                               + std::to_string(L3GD20H_DEFAULT_CHIP_ID)
                                + ", got "
                                + std::to_string(int(cid)));
       return;
