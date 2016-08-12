@@ -26,6 +26,7 @@
 #include "ads1x15.hpp"
 
 #include <unistd.h>
+#include <syslog.h>
 
 using namespace upm;
 
@@ -42,8 +43,7 @@ ADS1X15::ADS1X15(int bus, uint8_t address){
      }
 
      if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS){
-          throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.frequency(I2C_FAST) failed");
-         return;
+           syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
      }
      //Will be reset by sub class.
      m_bitShift = 0;
