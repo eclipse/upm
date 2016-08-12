@@ -1,9 +1,6 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
-/*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+/* 
+ * Authors: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,35 +22,24 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef UPM_STREAM_H_
+#define UPM_STREAM_H_
 
-var sensorObj = require('jsupm_dfrph');
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// Instantiate a DFRPH sensor on analog pin A0, with an analog
-// reference voltage of 5.0
-var sensor = new sensorObj.DFRPH(0, 5.0);
+struct _upm_stream_ft {
+        /* read up to len bytes into buffer, return number of bytes read */
+        int (*upm_stream_read) (void* dev, void *buffer, int len);
+        /* write up to len bytes from buffer, return number of bytes written */
+        int (*upm_stream_write) (void* dev, void *buffer, int len);
+        /* return true if data is available to be read, false otherwise */
+        bool (*upm_stream_data_available) (void* dev, unsigned int timeout);
+} upm_stream_ft;
 
+#ifdef __cplusplus
+}
+#endif
 
-// After calibration, set the offset (based on calibration with a pH
-// 7.0 buffer solution).  See the UPM sensor documentation for
-// calibrations instructions.
-sensor.setOffset(0.065);
-
-// Every second, sample the pH and output it's corresponding
-// analog voltage.
-
-setInterval(function()
-{
-    console.log("Detected volts: " + sensor.getRawVolts());
-    console.log("pH value: " + sensor.pH());
-}, 1000);
-
-// exit on ^C
-process.on('SIGINT', function()
-{
-    sensor = null;
-    sensorObj.cleanUp();
-    sensorObj = null;
-    console.log("Exiting.");
-    process.exit(0);
-});
-
+#endif /* UPM_STREAM_H_ */

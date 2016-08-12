@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
+# Useful for external tools (such as YouCompleteMe)
+set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
+
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 message("WARNING: building into sources dir can be risky, prefer other directory")
 endif ()

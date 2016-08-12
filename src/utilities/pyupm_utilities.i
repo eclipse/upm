@@ -1,12 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_dfrph
+%module pyupm_utilities
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "base/ainBase.hpp"
-%include "dfrph.hpp"
+%include "upm_utilities.h"
 %{
-    #include "dfrph.hpp"
+    #include "upm_utilities.h"
 %}

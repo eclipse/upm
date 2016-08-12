@@ -25,7 +25,9 @@
 
 #include <iostream>
 #include <string>
-#include <mraa/aio.hpp>
+
+#include "base/ainBase.hpp"
+#include "dfrph.h"
 
 namespace upm {
   /**
@@ -87,36 +89,19 @@ namespace upm {
    * @snippet dfrph.cxx Interesting
    */
 
-  class DFRPH {
+  class DFRPH : public ainBase {
   public:
-
     /**
      * DFRPH constructor
      *
      * @param pin Analog pin to use
      * @param aref Analog reference voltage; default is 5.0 V
      */
-    DFRPH(int pin, float aref=5.0);
+    DFRPH(int pin, float aref = 5.0);
 
-    /**
-     * DFRPH destructor
-     */
-    ~DFRPH();
-
-    /**
-     * Returns the voltage detected on the analog pin
-     *
-     * @return The detected voltage
-     */
-    float volts();
-
-    /**
-     * Specifies the offset determined from calibration.  The default
-     * is 0.0.
-     *
-     * @param offset The offset value to use
-     */
-    void setOffset(float offset);
+    virtual std::string name() const {return "DFRPH";}
+    virtual std::string description() const {return "DFRobot pH Sensor";}
+    virtual std::string units() const {return "pH";}
 
     /**
      * Take a number of samples and return the detected pH value.  The
@@ -125,19 +110,11 @@ namespace upm {
      * @param samples The number of samples to average over, default 15
      * @return The pH value detected
      */
-    float pH(unsigned int samples=15);
+    float pH(unsigned int samples = 15);
 
-  protected:
-    mraa::Aio m_aio;
+    virtual float getSensorValue(int16_t pin = -1) const;
 
   private:
-    float m_aref;
-    // ADC resolution
-    int m_aRes;
-
-    // voltage offset
-    float m_offset;
+    analog_sensor_t* _dev;
   };
 }
-
-

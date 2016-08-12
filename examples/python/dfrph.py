@@ -31,12 +31,12 @@ sensor = sensorObj.DFRPH(0, 5.0)
 ## Exit handlers ##
 # This function stops python from printing a stacktrace when you hit control-C
 def SIGINTHandler(signum, frame):
-	raise SystemExit
+    raise SystemExit
 
 # This function lets you run code on exit
 def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    print "Exiting"
+    sys.exit(0)
 
 # Register exit handlers
 atexit.register(exitHandler)
@@ -51,6 +51,6 @@ sensor.setOffset(0.065);
 # analog voltage.
 
 while (1):
-        print "Detected volts: ", sensor.volts()
-        print "pH value: ", sensor.pH()
-	time.sleep(1)
+    print "Detected volts: ", sensor.getRawVolts()
+    print "pH value: ", sensor.pH()
+    time.sleep(1)
