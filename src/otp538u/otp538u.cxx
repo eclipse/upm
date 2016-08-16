@@ -36,9 +36,24 @@ using namespace std;
 
 OTP538U::OTP538U(int pinA, int pinO, float aref)
 {
+  const int adcHighRes = 4095;
+  const int adcLowRes = 1023;
+
+  // for subplatforms like the Arduino 101, we need to limit ADC
+  // resolution to 10b currently.  For this sensor unfortunately, this
+  // means readings will be less accurate.  This sensor really does
+  // need to measure with about 1mV accuracy.
+  bool isSubplatform = false;
+
+  m_debug = false;
+
+  if (pinA >= 512 || pinO >= 512)
+    isSubplatform = true;
+
   // this is the internal voltage reference on the Grove IR temp
-  // sensor module
-  m_vref = 2.5;
+  // sensor module for the thermistor.
+
+  m_internalVRef = 2.5;
 
   // analog reference in use
   m_aref = aref;
@@ -51,29 +66,72 @@ OTP538U::OTP538U(int pinA, int pinO, float aref)
   // can adjust as neccessary depending on your calibration.
   m_offsetVoltage = 0.014;
 
-  // We need around 1mV resolution, so use 12 bit resolution (4096)
-  // with a default aref of 5.0.
-  m_adcResolution = 4096;
+  // We need around 1mV resolution (preferred), so use 12 bit
+  // resolution (4096) if we can.
+  //
+  // This logic is over complicated due to the fact that it is
+  // currently difficult to determine exactly what the capabilities of
+  // the platform (sub or otherwise) actually are.  So for
+  // subplatforms, we always limit to 1024.  Otherwise, we try 12b if
+  // the mraa_adc_raw_bits() says we can, though this isn't
+  // particularly accurate either, as it reports that the G2 can do
+  // 12b, when in reality it can not.  We are just lucky that it works
+  // anyway (ie: will give 12b resolution, though underneath it's just
+  // scaling the real 10b value.).  Sigh.  But trying 12b resolution
+  // on the 101 via firmata will definitely break things, so don't
+  // even try until whatever the problem it has with 12b is fixed.
+  if (isSubplatform)
+    {
+      m_adcResolution = adcLowRes; // 10b
+    }
+  else
+    {
+      if (mraa_adc_raw_bits() == 12)
+        m_adcResolution = adcHighRes; // 12b
+      else
+        m_adcResolution = adcLowRes; // 10b
+    }
+
+  // notify the user
+  if (m_adcResolution == adcLowRes)
+    cerr << "Using 10 bit ADC resolution.  Values will be less accurate."
+         << endl;
+
 
   if ( !(m_aioA = mraa_aio_init(pinA)) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init(pinA) failed, invalid pin?");
+                                  ": mraa_gpio_init(pinA) failed");
       return;
     }
 
-  // enable 12 bit resolution
-  mraa_aio_set_bit(m_aioA, 12);
+  // enable 12 bit resolution, if we can
+  if (m_adcResolution == adcHighRes)
+    mraa_aio_set_bit(m_aioA, 12);
 
   if ( !(m_aioO = mraa_aio_init(pinO)) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init(pinO) failed, invalid pin?");
+                                  ": mraa_gpio_init(pinO) failed");
       return;
     }
 
-  // enable 12 bit resolution
-  mraa_aio_set_bit(m_aioO, 12);
+
+  // enable 12 bit resolution, if we can
+  if (m_adcResolution == adcHighRes)
+    mraa_aio_set_bit(m_aioO, 12);
+
+  if (isSubplatform)
+    {
+      // The first analog read always seems to return 0 on the 101
+      // with firmata, so just do a couple of reads here and discard
+      // them.  Then sleep for half a second.  THIS IS A HACK.  The
+      // real problem should be fixed elsewhere (Firmata?).
+      mraa_aio_read(m_aioA);
+      mraa_aio_read(m_aioO);
+
+      usleep(500000);
+    }
 }
 
 OTP538U::~OTP538U()
@@ -87,7 +145,7 @@ float OTP538U::ambientTemperature()
   const int samples = 5;
   int val = 0;
   float temp = 0;
-  float res;
+  float res = 0;
 
   for (int i=0; i<samples; i++)
     {
@@ -96,15 +154,25 @@ float OTP538U::ambientTemperature()
           throw std::runtime_error(std::string(__FUNCTION__) +
                                    ": failed to do aio read");
       }
-      temp += val;
+      temp += (float)val;
       usleep(10000);
     }
-
   temp = temp / samples;
-  temp = temp * m_aref / m_adcResolution;
+
+  float volts = temp * m_aref / m_adcResolution;
+  if (m_debug)
+    {
+      cerr << "\tAMB sample " << temp << " m_aref " << m_aref
+           << " VOLTS " << volts << endl;
+    }
 
   // compute the resistance of the thermistor
-  res = m_vResistance * temp / (m_vref - temp);
+  res = m_vResistance * volts / (m_internalVRef - volts);
+
+  if (m_debug)
+    {
+      cerr << "\tAMB computed resistance: " << res << endl;
+    }
 
   // look it up in the thermistor (RT) resistence/temperature table
   int rawslot;
@@ -119,7 +187,7 @@ float OTP538U::ambientTemperature()
   if (j >= otp538u_rt_table_max)
     {
       throw std::out_of_range(std::string(__FUNCTION__) +
-                              ": ambient temperature out of range.");
+                              ": ambient temperature out of range (high).");
       return 0;
     }
 
@@ -133,7 +201,7 @@ float OTP538U::ambientTemperature()
   if (slot < 0)
     {
       throw std::out_of_range(std::string(__FUNCTION__) +
-                              ": ambient temperature out of range.");
+                              ": ambient temperature out of range (low).");
       return 0;
     }
 
@@ -168,9 +236,18 @@ float OTP538U::objectTemperature()
 
   temp = temp / samples;
 
-  float temp1 = temp * m_aref / m_adcResolution;
-  float sensorVolts = temp1 - (reference_vol + m_offsetVoltage);
-  // cout << "Sensor Voltage: " << sensorVolts << endl;
+  if (m_debug)
+    cerr << "\tOBJ sample " << temp << " ";
+
+  float volts = temp * m_aref / m_adcResolution;
+
+  if (m_debug)
+    cerr << "VOLTS: " << volts << " ";
+
+  float sensorVolts = volts - (reference_vol + m_offsetVoltage);
+
+  if (m_debug)
+    cerr << "Sensor Voltage (computed): " << sensorVolts << endl;
 
   // search the VT (voltage/temperature) table to find the object
   // temperature.
@@ -198,8 +275,11 @@ float OTP538U::objectTemperature()
     ( otp538u_vt_table[slot + 1][voltOffset] - 
       otp538u_vt_table[slot][voltOffset] );    
 
-  //  cout << "TABLE VALUE [" << slot << "][" <<
-  //    voltOffset << "] = " << otp538u_vt_table[slot][voltOffset] << endl;
+  if (m_debug)
+    {
+      cerr << "\tVoltage (" << voltage << "): TABLE VALUE [" << slot << "][" <<
+        voltOffset << "] = " << otp538u_vt_table[slot][voltOffset] << endl;
+    }
 
   return (ambTemp + objTemp);
 }

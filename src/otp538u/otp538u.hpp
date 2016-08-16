@@ -65,6 +65,10 @@ namespace upm {
    * These tables assume the object to be measured is 9 cm (3.54
    * inches) from the sensor.
    *
+   * This sensor will not work at 3.3v on the Edsion or the Galileo 2.
+   * It works fine on both systems at 5v.  It will work at 3.3v on the
+   * Arduino 101 (tested via firmata subplatform on edison).
+   *
    * @image html otp538u.jpg
    * @snippet otp538u.cxx Interesting
    */
@@ -135,13 +139,22 @@ namespace upm {
      * looking at the EAGLE files containing their schematics for this
      * device.
      *
-     * @param vref Reference voltage of the internal sensor; default is 2.5 V
+     * @param vref Reference voltage of the internal sensor; default
+     * is 2.5
      */
-    void setVRef(float vref) { m_vref = vref; };
+    void setVRef(float vref) { m_internalVRef = vref; };
+
+    /**
+     * Enable debugging output.
+     *
+     * @param true to enable some debug output, false otherwise
+     */
+    void setDebug(bool enable) { m_debug = enable; };
 
 
   private:
-    float m_vref;
+    bool m_debug;
+    float m_internalVRef;
     float m_aref;
     int m_vResistance;
     float m_offsetVoltage;
