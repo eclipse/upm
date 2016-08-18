@@ -3,7 +3,7 @@ macro (file_to_list readfile outlist)
   STRING(REGEX REPLACE ";" "\\\\;" contents "${contents}")
   STRING(REGEX REPLACE "\n" ";" contents "${contents}")
   set("${outlist}" "${contents}" )
-endmacro()
+endmacro(file_to_list)
 
 file_to_list ("javaswig_blacklist" JAVASWIG_BLACKLIST)
 file_to_list ("pythonswig_blacklist" PYTHONSWIG_BLACKLIST)
@@ -18,15 +18,15 @@ macro(subdirlist result curdir)
     endif()
   endforeach()
   set(${result} ${dirlist})
-endmacro()
+endmacro(subdirlist)
 
-macro (upm_CREATE_INSTALL_PKGCONFIG generated_file install_location)
+macro (upm_create_install_pkgconfig generated_file install_location)
   configure_file (${PROJECT_SOURCE_DIR}/src/pkgconfig.in
     ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} @ONLY)
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} DESTINATION ${install_location})
-endmacro (upm_CREATE_INSTALL_PKGCONFIG)
+endmacro(upm_create_install_pkgconfig)
 
-macro(upm_SWIG_PYTHON)
+macro(upm_swig_python)
   if (BUILDSWIGPYTHON)
 
     include_directories (
@@ -35,8 +35,9 @@ macro(upm_SWIG_PYTHON)
 
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
-    swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
-    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES})
+
+    swig_add_module (pyupm_${libname} python pyupm_${libname}.i)
+    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_pyupm_${libname}_REAL_NAME}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
@@ -47,9 +48,9 @@ macro(upm_SWIG_PYTHON)
          DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
   endif()
-endmacro()
+endmacro(upm_swig_python)
 
-macro(upm_SWIG_NODE)
+macro(upm_swig_node)
   if (BUILDSWIGNODE)
     # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
     # required. This hardcodes V8_VERSION to be <10 but I assume that's not going
@@ -68,8 +69,8 @@ macro(upm_SWIG_NODE)
 
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
-    swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i ${module_src})
-    swig_link_libraries (jsupm_${libname} ${MRAA_LIBRARIES} ${NODE_LIBRARIES})
+    swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i)
+    swig_link_libraries (jsupm_${libname} ${MRAA_LIBRARIES} ${NODE_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
       "${NODE_INCLUDE_DIRS}"
@@ -109,9 +110,9 @@ macro(upm_SWIG_NODE)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
   endif()
-endmacro()
+endmacro(upm_swig_node)
 
-macro(upm_SWIG_JAVA)
+macro(upm_swig_java)
   if (BUILDSWIGJAVA)
 
     FIND_PACKAGE (JNI REQUIRED)
@@ -125,8 +126,8 @@ macro(upm_SWIG_JAVA)
 
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
-    swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES})
+    swig_add_module (javaupm_${libname} java javaupm_${libname}.i)
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
@@ -158,7 +159,7 @@ macro(upm_SWIG_JAVA)
     )
 
   endif()
-endmacro()
+endmacro(upm_swig_java)
 
 macro(upm_doxygen)
   if (DOXYGEN_FOUND)
@@ -173,7 +174,7 @@ macro(upm_doxygen)
       add_dependencies (${libname} doc)
     endif ()
   endif ()
-endmacro()
+endmacro(upm_doxygen)
 
 if (SWIG_FOUND)
   if (BUILDSWIGPYTHON)
@@ -212,11 +213,96 @@ if (SWIG_FOUND)
       endif ()
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
           DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
-    endmacro()
+    endmacro(createpackagejson)
   endif(BUILDSWIGNODE)
 endif()
 
+# Process C/C++ sensor modules
+# This function pre-processes sensor library input and hands off the
+# necessary global variables to upm_module_init for library creation,
+# documenation, swigging, etc...
+function (UPM_MIXED_MODULE_INIT)
+  # CPP_WRAPS_C -> Set to have CPP library link to C library
+  # DESCRIPTION -> Library description string
+  # CPP_HDR -> List of CPP header files
+  # CPP_SRC -> List of CPP source files
+  # C_HDR -> List of C header files
+  # C_SRC -> List of C source files
+  # FTI_SRC -> List of C FTI source files
+  # REQUIRES -> List requires libraries for pkg-config
+  set (options CPP_WRAPS_C)
+  set (oneValueArgs NAME DESCRIPTION)
+  set (multiValueArgs CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
+  # Parse function parameters
+  cmake_parse_arguments(UPM_MIXED_MODULE_INIT "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
+
+  # Set the description
+  set (libdescription ${UPM_MIXED_MODULE_INIT_DESCRIPTION})
+
+  # Always build C libs first
+  if (UPM_MIXED_MODULE_INIT_C_SRC)
+    set (libname ${UPM_MIXED_MODULE_INIT_NAME})
+    # Set the src and hpp variables for upm_module_init
+    set (module_src ${UPM_MIXED_MODULE_INIT_C_SRC})
+    set (module_hpp ${UPM_MIXED_MODULE_INIT_C_HDR})
+
+    # Create the reqlibname list
+    string(REPLACE ";" " " reqlibname "${UPM_MIXED_MODULE_INIT_REQUIRES}")
+    # Append upm-utilities to the reqlibs
+    set (reqlibname "${reqlibname} upm-utilities")
+
+    # If building FTI, and FTI src exists, add it in
+    if (BUILDFTI AND UPM_MIXED_MODULE_INIT_FTI_SRC)
+      #set (module_src ${UPM_MIXED_MODULE_INIT_C_SRC} ${UPM_MIXED_MODULE_INIT_FTI_SRC})
+      list (APPEND module_src ${UPM_MIXED_MODULE_INIT_FTI_SRC})
+      message ( INFO " XXX BUILDING FTI ${UPM_MIXED_MODULE_INIT_FTI_SRC}")
+    endif (BUILDFTI AND UPM_MIXED_MODULE_INIT_FTI_SRC)
+    message ( INFO " XXX BUILDING C src ${module_src}")
+
+    # Add include directories for C
+    include_directories (${UPM_COMMON_HEADER_DIRS}
+                         ${CMAKE_SOURCE_DIR}/src/utilities)
+
+    # Set a flag to tell upm_module_init that it's building a C library
+    set (IS_C_LIBRARY TRUE)
+    upm_module_init()
+  endif (UPM_MIXED_MODULE_INIT_C_SRC)
+
+  # Build C++ if enabled AND C++ headers exist
+  if (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
+    # Set the src and hpp variables for upm_module_init
+    set (module_src ${UPM_MIXED_MODULE_INIT_CPP_SRC})
+    set (module_hpp ${UPM_MIXED_MODULE_INIT_CPP_HDR})
+
+    # Create the reqlibname list
+    string(REPLACE ";" " " reqlibname "${UPM_MIXED_MODULE_INIT_REQUIRES}")
+
+    # Reset the libname (upm_module_init can change it)
+    set (libname ${UPM_MIXED_MODULE_INIT_NAME})
+    unset (IS_C_LIBRARY)
+    message ( INFO " XXX BUILDING C++ src ${module_src}")
+    upm_module_init()
+
+    # If the C++ wraps the C target, add the C target as a dependency
+    if (UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
+      target_link_libraries(${libname} ${libname}-c)
+    endif (UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
+  endif (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
+endfunction (UPM_MIXED_MODULE_INIT)
+
 macro(upm_module_init)
+  set (basename ${libname})
+
+  # If this is a C library, handle different collateral naming
+  if (IS_C_LIBRARY)
+    set (libname ${libname}-c)
+    set (libprefix upmc-)
+    set (pcname upmc-${basename}.pc)
+  else ()
+    set (libprefix upm-)
+    set (pcname upm-${basename}.pc)
+  endif (IS_C_LIBRARY)
+
   link_directories (${MRAA_LIBDIR})
   add_library (${libname} SHARED ${module_src})
   foreach (linkflag ${ARGN})
@@ -226,12 +312,15 @@ macro(upm_module_init)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
   set_target_properties(
     ${libname}
-    PROPERTIES PREFIX "libupm-"
+    PROPERTIES PREFIX lib${libprefix}
+    OUTPUT_NAME ${basename}
     SOVERSION ${upm_VERSION_MAJOR}
     VERSION ${upm_VERSION_STRING}
   )
-  upm_create_install_pkgconfig (upm-${libname}.pc ${LIB_INSTALL_DIR}/pkgconfig)
-  if (SWIG_FOUND)
+  upm_create_install_pkgconfig (${pcname} ${LIB_INSTALL_DIR}/pkgconfig)
+
+  # Don't SWIG C
+  if (SWIG_FOUND AND NOT IS_C_LIBRARY)
     if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
       upm_swig_python()
     endif()
@@ -241,11 +330,14 @@ macro(upm_module_init)
     if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
       upm_swig_java()
     endif()
-  endif()
-  if (BUILDDOC)
+  endif (SWIG_FOUND AND NOT IS_C_LIBRARY)
+
+  # Skip doxygen run on C (for now)
+  if (BUILDDOC AND NOT IS_C_LIBRARY)
     upm_doxygen()
   endif()
-  install(TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
+
+  install (TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
   install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)

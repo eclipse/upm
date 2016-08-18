@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors:
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,55 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <stdexcept>
+#ifndef UPM_SENSOR_MOISTURE_H_
+#define UPM_SENSOR_MOISTURE_H_
+#include <stdarg.h>
 
-#include "dfrph.hpp"
+typedef struct _upm_moisture_ft {
+    upm_result_t (*upm_moisture_sensor_get_moisture) (void* dev, int* moisture);
+} upm_moisture_ft;
 
-using namespace upm;
-
-DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin))
-{
-    if (_dev == NULL)
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                ": dfrph_init() failed, invalid pin?");
-}
-
-DFRPH::~DFRPH()
-{
-    dfrph_close(_dev);
-}
-
-void DFRPH::setOffset(float offset)
-{
-    dfrph_set_offset(_dev, offset);
-}
-
-void DFRPH::setScale(float scale)
-{
-    dfrph_set_scale(_dev, scale);
-}
-
-float DFRPH::volts()
-{
-    float volts = 0.0;
-    dfrph_get_raw_volts(_dev, &volts);
-    return volts;
-}
-
-float DFRPH::pH(unsigned int samples)
-{
-    float ph_avg = 0.0;
-
-    // Read at least 1 sample
-    if (samples == 0) samples = 1;
-
-    float ph = 0.0;
-    for (int i =0; i < samples; i++)
-    {
-        dfrph_get_ph(_dev, &ph);
-        ph_avg += ph;
-    }
-
-    return ph_avg/samples;
-}
+#endif /* UPM_SENSOR_MOISTURE_H_ */

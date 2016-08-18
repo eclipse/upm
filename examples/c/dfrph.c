@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,55 +22,55 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <stdexcept>
+#include <unistd.h>
+#include <signal.h>
 
-#include "dfrph.hpp"
+#include "dfrph.h"
 
-using namespace upm;
+bool shouldRun = true;
 
-DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin))
+void sig_handler(int signo)
 {
-    if (_dev == NULL)
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                ": dfrph_init() failed, invalid pin?");
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-DFRPH::~DFRPH()
+int main()
 {
-    dfrph_close(_dev);
-}
+  signal(SIGINT, sig_handler);
 
-void DFRPH::setOffset(float offset)
-{
-    dfrph_set_offset(_dev, offset);
-}
+//! [Interesting]
 
-void DFRPH::setScale(float scale)
-{
-    dfrph_set_scale(_dev, scale);
-}
+  // Instantiate a dfrph sensor on analog pin A0
+  dfrph_context sensor = dfrph_init(0);
 
-float DFRPH::volts()
-{
-    float volts = 0.0;
-    dfrph_get_raw_volts(_dev, &volts);
-    return volts;
-}
-
-float DFRPH::pH(unsigned int samples)
-{
-    float ph_avg = 0.0;
-
-    // Read at least 1 sample
-    if (samples == 0) samples = 1;
-
-    float ph = 0.0;
-    for (int i =0; i < samples; i++)
+  if (!sensor)
     {
-        dfrph_get_ph(_dev, &ph);
-        ph_avg += ph;
+      printf("dfrph_init() failed.\n");
+      return(1);
     }
 
-    return ph_avg/samples;
+  // Every half a second, sample the URM37 and output the measured
+  // distance in cm.
+
+  while (shouldRun)
+    {
+      float volts = 0.0, pH = 0.0;
+
+      dfrph_get_raw_volts(sensor, &volts);
+      dfrph_get_ph(sensor, &pH);
+
+      printf("Detected volts: %0.03f\n", volts);
+      printf("pH value: %0.03f\n", pH);
+
+      usleep(500000);
+    }
+
+//! [Interesting]
+
+  printf("Exiting\n");
+
+  dfrph_close(sensor);
+
+  return 0;
 }
