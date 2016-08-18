@@ -66,7 +66,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 - `<component-kit>` Specifies if the sensor is part of a kit. *Optional*
 
 Existing groups that can be used for the manufacturer, connection, category and
-kit tags are found in the src/upm.h file.
+kit tags are found in the src/upm.hpp file.
 
 Optionally, a small representative image can be placed in the "docs/images"
 subfolder and linked with the "@image" tag.

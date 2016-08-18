@@ -25,7 +25,8 @@
 
 #include <iostream>
 #include <string>
-#include <mraa/aio.hpp>
+
+#include "dfrph.h"
 
 namespace upm {
   /**
@@ -94,21 +95,14 @@ namespace upm {
      * DFRPH constructor
      *
      * @param pin Analog pin to use
-     * @param aref Analog reference voltage; default is 5.0 V
+     * @param vref Analog reference voltage; default is 5.0 V
      */
-    DFRPH(int pin, float aref=5.0);
+    DFRPH(int pin, float vref = 5.0);
 
     /**
      * DFRPH destructor
      */
     ~DFRPH();
-
-    /**
-     * Returns the voltage detected on the analog pin
-     *
-     * @return The detected voltage
-     */
-    float volts();
 
     /**
      * Specifies the offset determined from calibration.  The default
@@ -119,24 +113,26 @@ namespace upm {
     void setOffset(float offset);
 
     /**
+     * Specifies the scale determined from calibration.  The default
+     * is 1.0.
+     *
+     * @param scale The scale value to use
+     */
+    void setScale(float scale);
+
+    float volts();
+
+    /**
      * Take a number of samples and return the detected pH value.  The
      * default number of samples is 15.
      *
      * @param samples The number of samples to average over, default 15
      * @return The pH value detected
      */
-    float pH(unsigned int samples=15);
-
-  protected:
-    mraa::Aio m_aio;
+    float pH(unsigned int samples = 15);
 
   private:
-    float m_aref;
-    // ADC resolution
-    int m_aRes;
-
-    // voltage offset
-    float m_offset;
+    dfrph_context _dev;
   };
 }
 

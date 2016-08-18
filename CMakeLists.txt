@@ -48,12 +48,14 @@ set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_
 
 set (CMAKE_SWIG_FLAGS "")
 
-option (BUILDDOC "Build all doc." OFF)
-option (BUILDSWIGPYTHON "Build swig python modules." ON)
-option (BUILDSWIGNODE "Build swig node modules." ON)
+option (BUILDDOC "Build all doc" OFF)
+option (BUILDCPP "Build CPP sensor libraries" ON)
+option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF)
+option (BUILDSWIGPYTHON "Build swig python modules" ON)
+option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
-option (BUILDEXAMPLES "Build C++ example binaries" OFF)
+option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
 option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
@@ -238,18 +240,29 @@ if (BUILDSWIGPYTHON OR BUILDTESTS)
   endif ()
 endif ()
 
+# UPM common headers
+set (UPM_COMMON_HEADER_DIRS
+    ${CMAKE_HOME_DIRECTORY}/include
+    ${CMAKE_HOME_DIRECTORY}/include/fti)
+
 add_subdirectory (src)
 if(BUILDEXAMPLES)
-  add_subdirectory (examples/c++)
+  add_subdirectory (examples/c)
+  if(BUILDCPP)
+    add_subdirectory (examples/c++)
+  endif(BUILDCPP)
 endif()
 
 if(BUILDJAVAEXAMPLES)
   add_subdirectory (examples/java)
 endif()
 
-
 if (BUILDTESTS)
   find_package (PythonInterp ${PYTHONBUILD_VERSION} REQUIRED)
   enable_testing ()
   add_subdirectory (tests)
 endif()
+
+# Install C headers
+install(DIRECTORY include/ DESTINATION include/upm
+    FILES_MATCHING PATTERN "*.h")

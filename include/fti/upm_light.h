@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors:
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,56 +21,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_LIGHT_H_
+#define UPM_LIGHT_H_
 
-#include <iostream>
-#include <stdexcept>
+#include "upm_types.h"
 
-#include "dfrph.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace upm;
-
-DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin))
+/* pH function table */
+typedef struct _upm_light_ft
 {
-    if (_dev == NULL)
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                ": dfrph_init() failed, invalid pin?");
+    /* Set sensor offset in raw counts */
+    upm_result_t (*upm_light_set_offset) (const void* dev, float offset);
+    /* Set sensor scale in raw counts */
+    upm_result_t (*upm_light_set_scale) (const void* dev, float scale);
+    /* Read sensor value, return lux */
+    upm_result_t (*upm_light_get_value) (const void* dev, float* value);
+} upm_light_ft;
+
+#ifdef __cplusplus
 }
+#endif
 
-DFRPH::~DFRPH()
-{
-    dfrph_close(_dev);
-}
-
-void DFRPH::setOffset(float offset)
-{
-    dfrph_set_offset(_dev, offset);
-}
-
-void DFRPH::setScale(float scale)
-{
-    dfrph_set_scale(_dev, scale);
-}
-
-float DFRPH::volts()
-{
-    float volts = 0.0;
-    dfrph_get_raw_volts(_dev, &volts);
-    return volts;
-}
-
-float DFRPH::pH(unsigned int samples)
-{
-    float ph_avg = 0.0;
-
-    // Read at least 1 sample
-    if (samples == 0) samples = 1;
-
-    float ph = 0.0;
-    for (int i =0; i < samples; i++)
-    {
-        dfrph_get_ph(_dev, &ph);
-        ph_avg += ph;
-    }
-
-    return ph_avg/samples;
-}
+#endif /* UPM_LIGHT_H_ */

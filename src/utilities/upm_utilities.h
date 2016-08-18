@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors:
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,56 +21,48 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_UTILITIES_H_
+#define UPM_UTILITIES_H_
 
-#include <iostream>
-#include <stdexcept>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "dfrph.hpp"
+#if defined(linux)
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#endif
 
-using namespace upm;
+#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#include <zephyr.h>
+#include <device.h>
+#include <sys_clock.h>
 
-DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin))
-{
-    if (_dev == NULL)
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                ": dfrph_init() failed, invalid pin?");
+#if defined(CONFIG_STDOUT_CONSOLE)
+#include <stdio.h>
+#define PRINT           printf
+#else
+#include <misc/printk.h>
+#define PRINT           printk
+#endif
+#endif
+
+/* Get filename w/o path */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
+void upm_delay(int time);
+
+void upm_delay_ms(int time);
+
+void upm_delay_us(int time);
+
+void* upm_malloc(int mem_map, int size);
+
+void upm_free(int mem_map, void* ptr);
+
+#ifdef __cplusplus
 }
+#endif
 
-DFRPH::~DFRPH()
-{
-    dfrph_close(_dev);
-}
-
-void DFRPH::setOffset(float offset)
-{
-    dfrph_set_offset(_dev, offset);
-}
-
-void DFRPH::setScale(float scale)
-{
-    dfrph_set_scale(_dev, scale);
-}
-
-float DFRPH::volts()
-{
-    float volts = 0.0;
-    dfrph_get_raw_volts(_dev, &volts);
-    return volts;
-}
-
-float DFRPH::pH(unsigned int samples)
-{
-    float ph_avg = 0.0;
-
-    // Read at least 1 sample
-    if (samples == 0) samples = 1;
-
-    float ph = 0.0;
-    for (int i =0; i < samples; i++)
-    {
-        dfrph_get_ph(_dev, &ph);
-        ph_avg += ph;
-    }
-
-    return ph_avg/samples;
-}
+#endif /* UPM_UTILITIES_H_ */
