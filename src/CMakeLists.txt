@@ -248,8 +248,10 @@ function (UPM_MIXED_MODULE_INIT)
 
     # Create the reqlibname list
     string(REPLACE ";" " " reqlibname "${UPM_MIXED_MODULE_INIT_REQUIRES}")
-    # Append upm-utilities to the reqlibs
-    set (reqlibname "${reqlibname} upm-utilities")
+    # Append upmc-utilities to the reqlibs (but not on upm-utilities itself)
+    if (NOT ${libname} MATCHES "utilities")
+      set (reqlibname "${reqlibname} upmc-utilities")
+    endif()
 
     # If building FTI, and FTI src exists, add it in
     if (BUILDFTI AND UPM_MIXED_MODULE_INIT_FTI_SRC)
@@ -266,7 +268,13 @@ function (UPM_MIXED_MODULE_INIT)
     # Set a flag to tell upm_module_init that it's building a C library
     set (IS_C_LIBRARY TRUE)
     upm_module_init()
-  endif (UPM_MIXED_MODULE_INIT_C_SRC)
+
+    # add upmc-utilities as a dependancy to all C libs (but NOT to the
+    # utilities lib itself)
+    if (NOT ${libname} MATCHES "utilities-c")
+      target_link_libraries (${libname} upmc-utilities)
+    endif()
+endif (UPM_MIXED_MODULE_INIT_C_SRC)
 
   # Build C++ if enabled AND C++ headers exist
   if (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
