@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Thanks to Adafruit for supplying a google translated version of the
  * Chinese datasheet and some clues in their code.
@@ -33,12 +33,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <mraa/common.hpp>
-#include <mraa/uart.hpp>
-#include <mraa/aio.hpp>
-#include <mraa/gpio.hpp>
-
-#define URM37_DEFAULT_UART 0
+#include "urm37.h"
 
 namespace upm {
     /**
@@ -153,52 +148,10 @@ namespace upm {
     void writeEEPROM(uint8_t addr, uint8_t value);
 
   protected:
-    mraa::Uart *m_uart;
-    mraa::Aio *m_aio;
-    mraa::Gpio *m_gpioTrigger;
-    mraa::Gpio m_gpioReset;
-
-    // initialize reset gpio and call reset
-    void init();
-
-    // send a serial command and return a 4 byte response (UART mode only)
-    std::string sendCommand(std::string cmd);
+    // urm37 device context
+    urm37_context m_urm37;
 
   private:
-    /**
-     * Checks to see if there is data aavailable for reading
-     *
-     * @param millis Number of milliseconds to wait; 0 means no waiting
-     * @return true if there is data available for reading
-     */
-    bool dataAvailable(unsigned int millis);
-
-    /**
-     * Reads any available data and returns it in a std::string. Note:
-     * the call blocks until data is available for reading. Use
-     * dataAvailable() to determine whether there is data available
-     * beforehand, to avoid blocking.
-     *
-     * @param len Maximum length of the data to be returned
-     * @return Number of bytes read
-     */
-    std::string readDataStr(int len);
-
-    /**
-     * Writes the std:string data to the device.  If you are writing a
-     * command, be sure to terminate it with a carriage return (\r)
-     *
-     * @param data Buffer to write to the device
-     * @return Number of bytes written
-     */
-    int writeDataStr(std::string data);
-
-    // analog or UART mode
-    bool m_analogMode;
-
-    // analog reference and resolution
-    float m_aref;
-    int m_aRes;
   };
 }
 

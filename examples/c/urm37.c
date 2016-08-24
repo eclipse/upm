@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,9 @@
  */
 
 #include <unistd.h>
-#include <iostream>
 #include <signal.h>
-#include "urm37.hpp"
 
-using namespace std;
+#include "urm37.h"
 
 bool shouldRun = true;
 
@@ -43,25 +41,33 @@ int main()
 
 //! [Interesting]
 
-  // Instantiate a URM37 sensor on UART 0, with the reset pin on D2
-  upm::URM37 *sensor = new upm::URM37(0, 2);
-  
+  // Instantiate a URM37 sensor on analog pin A0, reset pin on D2,
+  // trigger pin on D3 with an analog reference voltage of 5.0
+  urm37_context sensor = urm37_init(0, 2, 3, 5.0, 0, true);
+
+  if (!sensor)
+    {
+      printf("urm37_init() failed.\n");
+      return(1);
+    }
+
   // Every half a second, sample the URM37 and output the measured
-  // distance in cm, and temperature in degrees C
+  // distance in cm.
 
   while (shouldRun)
     {
-      cout << "Detected distance (cm): " << sensor->getDistance() << endl;
-      cout << "Temperature (C): " << sensor->getTemperature() << endl;
-      cout << endl;
+      float distance;
 
+      urm37_get_distance(sensor, &distance, 0);
+      printf("Detected distance (cm): %f\n", distance);
       usleep(500000);
     }
 
 //! [Interesting]
 
-  cout << "Exiting" << endl;
+  printf("Exiting\n");
 
-  delete sensor;
+  urm37_close(sensor);
+
   return 0;
 }

@@ -1,5 +1,9 @@
-set (libname "urm37")
-set (libdescription "upm DFRobot URM37 Ultrasonic ranger")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME urm37
+    DESCRIPTION "upm URM37 Ultrasonic Ranger"
+    C_HDR urm37.h
+    C_SRC urm37.c
+    CPP_HDR urm37.hpp
+    CPP_SRC urm37.cxx
+    FTI_SRC urm37_fti.c
+    CPP_WRAPS_C
+    REQUIRES upmc-utilities mraa)
