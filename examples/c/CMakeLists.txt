@@ -88,3 +88,4 @@ link_directories (${MRAA_LIBDIR})
 #  grove* will use module grove
 add_example (dfrph)
 add_example (vk2828u7)
+add_example (mma7361)
