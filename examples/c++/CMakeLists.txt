@@ -274,6 +274,7 @@ add_example (l3gd20)
 add_example (l3gd20-i2c)
 add_example (bmx055)
 add_example (ms5611)
+add_example (vk2828u7)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
