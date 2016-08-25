@@ -4,6 +4,11 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+ * The Ublox6 driver has been removed and replaced with a generic
+ implementation called nmea_gps.  This driver should handle all
+ generic serial GPS devices that output NMEA data going forward.  This
+ new driver has been tested with ublox6, DFRobot VK2828U7 (ublox7) and
+ ublox LEA-6H GPS devices.
  * There were frequent misspellings of the word *Celsius* in the UPM
  code.  In some cases, these were in method names, which will cause
  some API compatibility issues.  These have all been corrected for UPM
