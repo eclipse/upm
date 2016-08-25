@@ -29,40 +29,37 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "vk2828u7.h"
+#include "nmea_gps.h"
 
 namespace upm {
   /**
-   * @brief UPM C++ API for the DFRobot VK2828U7 Analog Accelerometer
-   * @defgroup vk2828u7 libupm-vk2828u7
-   * @ingroup dfrobot uart gpio gps
+   * @brief UPM C++ API for a generic GPS serial device reporting NMEA data
+   * @defgroup nmea_gps libupm-nmea_gps
+   * @ingroup uart gpio gps
    */
   
   /**
-   * @library vk2828u7
-   * @sensor vk2828u7
-   * @comname DFRobot VK2828U7 GPS Module
+   * @library nmea_gps
+   * @sensor nmea_gps
+   * @comname Generic Serial GPS NMEA device
    * @type gps
-   * @man dfrobot
+   * @man dfrobot seed
    * @con uart gpio
-   * @web http://www.dfrobot.com/index.php?route=product/product&search=gps&description=true&product_id=1302#.V7tMfN9ytNK
+   * @altname VK2828u7 ublox LEA-6H
    *
-   * @brief API for the DFRobot VK2828U7 GPS Module
+   * @brief API for the NMEA GPS Module
    *
-   * The driver was tested with the DFRobot VK2828U7 GPS module.  The
-   * website claims the device can be run at 5v, however the datasheet
-   * says the logic inputs and outputs can only handle 3.3v, and there
-   * does not appear to be a schematic available. So this module was
-   * tested only at 3.3v.
+   * This driver was tested with a number of GPS devices that emit
+   * NMEA data via a serial interface of some sort (typically a UART).
    *
-   * @snippet vk2828u7.cxx Interesting
+   * @snippet nmea_gps.cxx Interesting
    */
 
-  class VK2828U7 {
+  class NMEAGPS {
   public:
 
     /**
-     * VK2828U7 object constructor
+     * NMEAGPS object constructor
      *
      * @param uart Specify which uart to use.
      * @param baudrate Specify the baudrate to use.  The device defaults
@@ -70,13 +67,13 @@ namespace upm {
      * @param enable_pin Specify the GPIO pin to use for the enable pin,
      * -1 to not use an enable pin.
      */
-    VK2828U7(unsigned int uart, unsigned int baudrate,
+    NMEAGPS(unsigned int uart, unsigned int baudrate,
              int enable_pin);
 
     /**
-     * VK2828U7 object destructor
+     * NMEAGPS object destructor
      */
-    ~VK2828U7();
+    ~NMEAGPS();
 
     /**
      * Read character data from the device.
@@ -121,8 +118,8 @@ namespace upm {
     bool dataAvailable(unsigned int millis);
 
   protected:
-    // vk2828u7 device context
-    vk2828u7_context m_vk2828u7;
+    // nmeaGPS device context
+    nmea_gps_context m_nmea_gps;
 
   private:
   };

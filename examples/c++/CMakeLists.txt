@@ -274,7 +274,7 @@ add_example (l3gd20)
 add_example (l3gd20-i2c)
 add_example (bmx055)
 add_example (ms5611)
-add_example (vk2828u7)
+add_example (nmea_gps)
 add_example (mma7361)
 add_example (bh1750)
 

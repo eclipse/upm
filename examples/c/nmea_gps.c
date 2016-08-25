@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
@@ -25,26 +22,59 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var sensorObj = require('jsupm_vk2828u7');
+#include <unistd.h>
+#include <signal.h>
 
-// Instantiate a VK2828U7 sensor on uart 0 at 9600 baud with enable
-// pin on D3
-var sensor = new sensorObj.VK2828U7(0, 9600, 3);
+#include "nmea_gps.h"
 
-// loop, dumping NMEA data out as fast as it comes in
-while (sensor.dataAvailable(5000))
+bool shouldRun = true;
+
+const size_t bufferLength = 256;
+
+void sig_handler(int signo)
 {
-    process.stdout.write(sensor.readStr(256));
+  if (signo == SIGINT)
+    shouldRun = false;
 }
-console.log("Timed out");
 
-// exit on ^C
-process.on('SIGINT', function()
+int main()
 {
-    sensor = null;
-    sensorObj.cleanUp();
-    sensorObj = null;
-    console.log("Exiting.");
-    process.exit(0);
-});
+  signal(SIGINT, sig_handler);
 
+//! [Interesting]
+
+  // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
+  // pin on D3.  If you do not need an enable pin, you can specify -1.
+  nmea_gps_context sensor = nmea_gps_init(0, 9600, 3);
+
+  if (!sensor)
+    {
+      printf("nmea_gps_init() failed.\n");
+      return 1;
+    }
+
+  char buffer[bufferLength];
+  int rv = 0;
+
+  // loop, dumping NMEA data out as fast as it comes in
+  while (shouldRun && nmea_gps_data_available(sensor, 5000))
+    {
+      if ((rv = nmea_gps_read(sensor, buffer, bufferLength)) >= 0)
+        {
+          int i;
+          for (i=0; i<rv; i++)
+            printf("%c", buffer[i]);
+        }
+    }
+
+  if (shouldRun)
+    printf("Timed out\n");
+
+//! [Interesting]
+
+  printf("Exiting\n");
+
+  nmea_gps_close(sensor);
+
+  return 0;
+}

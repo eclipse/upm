@@ -1,3 +1,6 @@
+/*jslint node:true, vars:true, bitwise:true, unparam:true */
+/*jshint unused:true */
+
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
@@ -22,27 +25,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_vk2828u7.VK2828U7;
+var sensorObj = require('jsupm_nmea_gps');
 
-public class VK2828U7_Example 
+// Instantiate a NMEAGPS sensor on uart 0 at 9600 baud with enable
+// pin on D3
+var sensor = new sensorObj.NMEAGPS(0, 9600, 3);
+
+// loop, dumping NMEA data out as fast as it comes in
+while (sensor.dataAvailable(5000))
 {
-    public static void main(String[] args) throws InterruptedException
-    {
-// ! [Interesting]
-        System.out.println("Initializing...");
-
-        // Instantiate a VK2828U7 sensor on uart 0 at 9600 baud with
-        // enable pin on D3
-        VK2828U7 sensor = new VK2828U7(0, 9600, 3);
-
-        // loop, dumping NMEA data out as fast as it comes in
-        while (sensor.dataAvailable(5000))
-            {
-                System.out.print(sensor.readStr(256));
-            }
-        System.out.println("Timed out");
-
-        
-// ! [Interesting]
-    }
+    process.stdout.write(sensor.readStr(256));
 }
+console.log("Timed out");
+
+// exit on ^C
+process.on('SIGINT', function()
+{
+    sensor = null;
+    sensorObj.cleanUp();
+    sensorObj = null;
+    console.log("Exiting.");
+    process.exit(0);
+});
+

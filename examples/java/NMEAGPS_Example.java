@@ -22,59 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
+import upm_nmea_gps.NMEAGPS;
 
-#include "vk2828u7.h"
-
-bool shouldRun = true;
-
-const size_t bufferLength = 256;
-
-void sig_handler(int signo)
+public class NMEAGPS_Example 
 {
-  if (signo == SIGINT)
-    shouldRun = false;
-}
-
-int main()
-{
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a VK2828U7 sensor on uart 0 at 9600 baud with enable
-  // pin on D3
-  vk2828u7_context sensor = vk2828u7_init(0, 9600, 3);
-
-  if (!sensor)
+    public static void main(String[] args) throws InterruptedException
     {
-      printf("vk2828u7_init() failed.\n");
-      return 1;
+// ! [Interesting]
+        System.out.println("Initializing...");
+
+        // Instantiate a NMEAGPS sensor on uart 0 at 9600 baud with
+        // enable pin on D3
+        NMEAGPS sensor = new NMEAGPS(0, 9600, 3);
+
+        // loop, dumping NMEA data out as fast as it comes in
+        while (sensor.dataAvailable(5000))
+            {
+                System.out.print(sensor.readStr(256));
+            }
+        System.out.println("Timed out");
+
+        
+// ! [Interesting]
     }
-
-  char buffer[bufferLength];
-  int rv = 0;
-
-  // loop, dumping NMEA data out as fast as it comes in
-  while (shouldRun && vk2828u7_data_available(sensor, 5000))
-    {
-      if ((rv = vk2828u7_read(sensor, buffer, bufferLength)) >= 0)
-        {
-          int i;
-          for (i=0; i<rv; i++)
-            printf("%c", buffer[i]);
-        }
-    }
-
-  if (shouldRun)
-    printf("Timed out\n");
-
-//! [Interesting]
-
-  printf("Exiting\n");
-
-  vk2828u7_close(sensor);
-
-  return 0;
 }

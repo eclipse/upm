@@ -87,7 +87,7 @@ link_directories (${MRAA_LIBDIR})
 #  mq? will use module gas
 #  grove* will use module grove
 add_example (dfrph)
-add_example (vk2828u7)
+add_example (nmea_gps)
 add_example (mma7361)
 add_example (bh1750)
 add_example (urm37)

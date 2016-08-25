@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "vk2828u7.hpp"
+#include "nmea_gps.hpp"
 
 using namespace std;
 
@@ -46,9 +46,9 @@ int main()
 
 //! [Interesting]
 
-  // Instantiate a VK2828U7 sensor on uart 0 at 9600 baud with enable
-  // pin on D3
-  upm::VK2828U7 *sensor = new upm::VK2828U7(0, 9600, 3);
+  // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
+  // pin on D3.  If you do not need an enable pin, you can specify -1.
+  upm::NMEAGPS *sensor = new upm::NMEAGPS(0, 9600, 3);
 
   // loop, dumping NMEA data out as fast as it comes in
   while (shouldRun && sensor->dataAvailable(5000))

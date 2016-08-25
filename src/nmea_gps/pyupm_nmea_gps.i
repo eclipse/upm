@@ -1,13 +1,13 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_vk2828u7
+%module pyupm_nmea_gps
 %include "../upm.i"
 %include "std_string.i"
 
 %feature("autodoc", "3");
 
-%include "vk2828u7.hpp"
+%include "nmea_gps.hpp"
 %{
-    #include "vk2828u7.hpp"
+    #include "nmea_gps.hpp"
 %}
 
