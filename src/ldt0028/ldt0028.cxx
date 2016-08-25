@@ -22,13 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ldt0028.h"
+#include <string>
+#include <stdexcept>
+
+#include "ldt0028.hpp"
 
 using namespace upm;
 
 LDT0028::LDT0028(unsigned int pin) {
     // initialize analog input
-    m_pin = mraa_aio_init(pin);
+    if ( !(m_pin = mraa_aio_init(pin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+      }
     m_name = "ldt0-028";
 }
 

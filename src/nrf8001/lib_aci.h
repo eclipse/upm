@@ -19,16 +19,21 @@
  * SOFTWARE.
  */
 
+/** 
+ * @file
+ * @defgroup aci-lib aci-library
+ * @brief ACI library
+ *
+ * Library for the logical part of the Application Controller Interface (ACI)
+ * 
+ * @ingroup nrf8001
+ */
+ 
 #ifndef LIB_ACI_H__
 #define LIB_ACI_H__
 
-/** @file
-* @brief ACI library
-*/
-
-/** @addtogroup lib_aci
-@{
-@brief Library for the logical part of the Application Controller Interface (ACI)
+/**
+* @{
 */
 
 #ifdef __cplusplus

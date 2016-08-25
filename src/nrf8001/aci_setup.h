@@ -19,6 +19,11 @@
  * SOFTWARE.
  */
 
+/** 
+ * @file
+ * @brief ACI setup functions
+ * @ingroup aci
+ */
 
 #ifndef H_ACI_SETUP
 #define H_ACI_SETUP

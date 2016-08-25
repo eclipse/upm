@@ -1,5 +1,16 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * These modules were rewritten, based on original work by:
+ *
+ * (original my9221/groveledbar driver)
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
+ *
+ * (grovecircularled driver)
+ * Author: Jun Kato and Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * Contributions: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,107 +34,158 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "my9221.h"
+#include "my9221.hpp"
 
 using namespace upm;
+using namespace std;
 
-MY9221::MY9221 (uint8_t di, uint8_t dcki) {
-    mraa_result_t error = MRAA_SUCCESS;
-    mraa_init();
-
-    // init clock context
-    m_clkPinCtx = mraa_gpio_init(dcki);
-    if (m_clkPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", dcki);
-        exit(1);
-    }
-    // init data context
-    m_dataPinCtx = mraa_gpio_init(di);
-    if (m_dataPinCtx == NULL) {
-        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", di);
-        exit(1);
+MY9221::MY9221 (uint8_t dataPin, uint8_t clockPin, int instances)
+  : m_gpioData(dataPin), m_gpioClk(clockPin), m_bitStates(0)
+{
+  if (instances < 1)
+    {
+      throw std::out_of_range(std::string(__FUNCTION__) +
+                              ": instances must be at least 1");
     }
 
-    // set direction (out)
-    error = mraa_gpio_dir(m_clkPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
+  // set directions
+  m_gpioClk.dir(mraa::DIR_OUT);
+  m_gpioData.dir(mraa::DIR_OUT);
+  
+  // we warn if these fail, since it may not be possible to handle
+  // more than one instance
 
-    // set direction (out)
-    error = mraa_gpio_dir(m_dataPinCtx, MRAA_GPIO_OUT);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
+  if (m_gpioClk.useMmap(true) != mraa::SUCCESS)
+    cerr << __FUNCTION__
+         << ": Warning: mmap of Clk pin failed, correct operation "
+         << "may be affected."
+         << endl;
+
+  if (m_gpioData.useMmap(true) != mraa::SUCCESS)
+    cerr << __FUNCTION__
+         << ": Warning: mmap of Data pin failed, correct operation "
+         << "may be affected."
+         << endl;
+
+  setLowIntensityValue(0x00);   // full off
+  setHighIntensityValue(0xff);  // full brightness
+
+  m_commandWord = 0x0000;       // all defaults
+  m_instances = instances;
+
+  m_bitStates = new uint16_t[instances * LEDS_PER_INSTANCE];
+
+  setAutoRefresh(true);
+  clearAll();
 }
 
-MY9221::~MY9221() {
-    mraa_result_t error = MRAA_SUCCESS;
-    error = mraa_gpio_close (m_dataPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
-    error = mraa_gpio_close (m_clkPinCtx);
-    if (error != MRAA_SUCCESS) {
-        mraa_result_print(error);
-    }
+MY9221::~MY9221()
+{
+  clearAll();
+
+  if (!m_autoRefresh)
+    refresh();
+
+  delete m_bitStates;
 }
 
-mraa_result_t
-MY9221::setBarLevel (uint8_t level, bool direction) {
-    if (level > 10) {
-        return MRAA_ERROR_INVALID_PARAMETER;
-    }
+void MY9221::setLED(int led, bool on)
+{
+  int maxLed = (LEDS_PER_INSTANCE * m_instances) - 1;
 
-    send16bitBlock (CMDMODE);
-    if (direction) {
-        level += 3;
-        for(uint8_t block_idx = 12; block_idx > 0; block_idx--) {
-            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
-            send16bitBlock (state);
+  if (led > maxLed)
+    led = maxLed;
+  if (led < 0)
+    led = 0;
+
+  m_bitStates[led] = (on) ? m_highIntensity : m_lowIntensity;
+
+  if (m_autoRefresh)
+    refresh();
+}
+
+void MY9221::setLowIntensityValue(int intensity)
+{
+  m_lowIntensity = (intensity & 0xff);
+}
+
+void MY9221::setHighIntensityValue(int intensity)
+{
+  m_highIntensity = (intensity & 0xff);
+}
+
+void MY9221::setAll()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    m_bitStates[i] = m_highIntensity;
+
+  if (m_autoRefresh)
+    refresh();
+}
+
+void MY9221::clearAll()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    m_bitStates[i] = m_lowIntensity;
+
+  if (m_autoRefresh)
+    refresh();
+}
+
+void MY9221::refresh()
+{
+  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+    {
+      if (i % 12 == 0)
+        {
+          send16bitBlock(m_commandWord);
         }
-    } else {
-        for(uint8_t block_idx = 0; block_idx < 12; block_idx++) {
-            uint32_t state = (block_idx < level) ? BIT_HIGH : BIT_LOW;
-            send16bitBlock (state);
-        }
+      send16bitBlock(m_bitStates[i]);
     }
-    return lockData ();
+
+  lockData();
 }
 
-mraa_result_t
-MY9221::lockData () {
-    mraa_result_t error = MRAA_SUCCESS;
-    error = mraa_gpio_write (m_dataPinCtx, LOW);
-    usleep(100);
+void MY9221::lockData()
+{
+  m_gpioData.write(0);
+  usleep(220);
 
-    for(int idx = 0; idx < 4; idx++) {
-        error = mraa_gpio_write (m_dataPinCtx, HIGH);
-        error = mraa_gpio_write (m_dataPinCtx, LOW);
+  for(int idx = 0; idx < 4; idx++)
+    {
+      m_gpioData.write(1);
+      m_gpioData.write(0);
     }
-    return error;
+
+  // in reality, we only need > 200ns + (m_instances * 10ns), so the
+  // following should be good for up to m_instances < 80), if the
+  // datasheet is to be believed :)
+  usleep(1);
+
+  return;
 }
 
-mraa_result_t
-MY9221::send16bitBlock (short data) {
-    mraa_result_t error = MRAA_SUCCESS;
-    for (uint8_t bit_idx = 0; bit_idx < MAX_BIT_PER_BLOCK; bit_idx++) {
-        uint32_t state = (data & 0x8000) ? HIGH : LOW;
-        error = mraa_gpio_write (m_dataPinCtx, state);
-        state = mraa_gpio_read (m_clkPinCtx);
+void MY9221::send16bitBlock(uint16_t data)
+{
+  for (uint8_t bit_idx = 0; bit_idx < 16; bit_idx++)
+    {
+      uint32_t state = (data & 0x8000) ? 1 : 0;
+      m_gpioData.write(state);
+      state = m_gpioClk.read();
 
-        if (state) {
-            state = LOW;
-        } else {
-            state = HIGH;
-        }
-
-        error = mraa_gpio_write (m_clkPinCtx, state);
-
-        data <<= 1;
+      if (state)
+        state = 0;
+      else
+        state = 1;
+      
+      m_gpioClk.write(state);
+      
+      data <<= 1;
     }
-    return error;
+  return;
 }

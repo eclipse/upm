@@ -1,0 +1,122 @@
+Language: Cpp
+
+# Access modifiers in the middle
+AccessModifierOffset: -2
+
+# Align escaped newlines as far left as possible
+AlignEscapedNewlinesLeft: true
+
+# Align all trailing comments
+AlignTrailingComments: true
+
+# Don't allow parameters to be placed on the next line, even though BinPackParameters is false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Do not allow short functions/if statements/loops on a single line
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+# Don't force breaks before multiline strings
+AlwaysBreakBeforeMultilineStrings: false
+
+# Don't force breaks before template declarations
+AlwaysBreakTemplateDeclarations: false
+
+# Force breaks after definition return type
+AlwaysBreakAfterDefinitionReturnType: true
+
+# Arguments and parameters are either on one line or on one line each
+BinPackArguments: false
+BinPackParameters: false
+
+# Do not break before binary operators
+BreakBeforeBinaryOperators: None
+
+# Use the linux brace breaking style: Attach braces to context except for braces on functions,
+# namespaces and class definitions
+BreakBeforeBraces: Linux
+
+# Do not place ternary operators after line breaks
+BreakBeforeTernaryOperators: false
+
+# In the constructor initializers do not align the comma with the colon
+BreakConstructorInitializersBeforeComma: false
+
+# Force columns to be less than 100 characters
+ColumnLimit: 100
+
+# Constructor initializer all in one line or all on their own line
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+# Indent constructor initializers
+ConstructorInitializerIndentWidth: 8
+
+# Do not indent continuations
+ContinuationIndentWidth: 0
+
+# Do not use braced lists in c++11 style
+Cpp11BracedListStyle: false
+
+# Do not derive pointer alignment
+DerivePointerAlignment: false
+
+# Case labes are indented
+IndentCaseLabels: true
+
+# Do not indent function declarations
+IndentFunctionDeclarationAfterType: false
+
+# Indentation is 4 characters
+IndentWidth: 4
+
+# Do not keep empty lines at start of blocks
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Keep at most 2 consecutive empty lines
+MaxEmptyLinesToKeep: 2
+
+# Do not indent namespaces
+NamespaceIndentation: None
+
+# Spaces for ObjC properties and protocol lists
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+
+# Penalties
+PenaltyBreakBeforeFirstCallParameter: 100
+PenaltyBreakComment: 10
+PenaltyBreakFirstLessLess: 0
+PenaltyBreakString: 100
+PenaltyExcessCharacter: 20
+PenaltyReturnTypeOnItsOwnLine: 20
+
+# Force pointers to typename (i.e. char* a instead of char *a)
+PointerAlignment: Left
+
+# Spaces after C-style casts and before assignments
+SpaceAfterCStyleCast: true
+SpaceBeforeAssignmentOperators: true
+
+# Only space before parentheses if they are control statements
+SpaceBeforeParens: ControlStatements
+
+# Single space before trailing comments
+SpacesBeforeTrailingComments: 1
+
+# No spaces in parentheses, angles, or square brackets
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Use c++11 as the language standard
+Standard: Cpp11
+
+# Tabs are 4 characters wide
+TabWidth: 4
+
+# Don't use tabs for indentation :-(
+UseTab: Never
+

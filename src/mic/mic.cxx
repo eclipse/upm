@@ -23,19 +23,25 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "mic.h"
+#include "mic.hpp"
 
 using namespace upm;
 
 Microphone::Microphone(int micPin) {
     // initialise analog mic input
-    m_micCtx = mraa_aio_init(micPin);
-
-
+    
+    if ( !(m_micCtx = mraa_aio_init(micPin)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+      }
 }
 
 Microphone::~Microphone() {
@@ -48,7 +54,7 @@ Microphone::~Microphone() {
 }
 
 int
-Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
+Microphone::getSampledWindow (unsigned int freqMS, int numberOfSamples,
                             uint16_t * buffer) {
     int sampleIdx = 0;
 
@@ -63,7 +69,11 @@ Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
     }
 
     while (sampleIdx < numberOfSamples) {
-        buffer[sampleIdx++] = mraa_aio_read (m_micCtx);
+        int x = mraa_aio_read (m_micCtx);
+        if (x == -1) {
+            return 0;
+        }
+        buffer[sampleIdx++] = x;
         usleep(freqMS * 1000);
     }
 
@@ -72,7 +82,7 @@ Microphone::getSampledWindow (unsigned int freqMS, unsigned int numberOfSamples,
 
 int
 Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
-                                uint16_t * buffer, unsigned int len) {
+                                uint16_t * buffer, int len) {
     long sum = 0;
     for (unsigned int i = 0; i < len; i++) {
         sum += buffer[i];

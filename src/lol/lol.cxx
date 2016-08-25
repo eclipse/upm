@@ -23,11 +23,13 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "lol.h"
+#include "lol.hpp"
 
 using namespace upm;
 
@@ -136,7 +138,15 @@ LoL::LoL() {
     int i = 0;
     mraa_result_t error;
     for (i = 0; i < 12; i++)
-        m_LoLCtx[i] = mraa_gpio_init(i+2);
+      {
+        if ( !(m_LoLCtx[i] = mraa_gpio_init(i+2)) ) 
+          {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                        ": mraa_gpio_init() failed, invalid pin?");
+            return;
+          }
+
+      }
 
     memset(framebuffer, 0, LOL_X*LOL_Y);
 
@@ -158,20 +168,22 @@ unsigned char* LoL::getFramebuffer() {
     return framebuffer;
 }
 
-unsigned char LoL::setPixel(int x, int y, unsigned char pixel)
+void LoL::setPixel(int x, int y, bool pixel)
 {
     if (x < 0 || y < 0 || x >= LOL_X || y >= LOL_Y)
-        return -1;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": pixel coordinates out of bounds");
 
-    framebuffer[x + LOL_X*y] = (pixel == 0) ? 0 : 1;
-    return 0;
+    framebuffer[x + LOL_X*y] = (pixel) ? 1 : 0;
+    return;
 }
 
-unsigned char LoL::getPixel(int x, int y)
+bool LoL::getPixel(int x, int y)
 {
     if (x < 0 || y < 0 || x >= LOL_X || y >= LOL_Y)
-        return -1;
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": pixel coordinates out of bounds");
 
-    return (framebuffer[x + LOL_X*y] == 0) ? 0 : 1;
+    return (framebuffer[x + LOL_X*y] == 0) ? false : true;
 }
 

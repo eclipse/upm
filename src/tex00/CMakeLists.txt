@@ -1,0 +1,5 @@
+set (libname "tex00")
+set (libdescription "upm Veris TEX00 Temperature thermistors")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init()

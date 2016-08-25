@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "mma7455.h"
+    #include "mma7455.hpp"
 %}
 
-%include "mma7455.h"
+%include "mma7455.hpp"

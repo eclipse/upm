@@ -22,14 +22,17 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
+
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "htu21d.h"
+#include "htu21d.hpp"
 
 using namespace upm;
 
-HTU21D::HTU21D(int bus, int devAddr) {
+HTU21D::HTU21D(int bus, int devAddr) : m_i2ControlCtx(bus) {
     m_temperature = 0;
     m_humidity    = 0;
 
@@ -38,25 +41,20 @@ HTU21D::HTU21D(int bus, int devAddr) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Error accessing i2c bus\n");
+    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
+    if (ret != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
     }
     resetSensor();
 }
 
-HTU21D::~HTU21D() {
-    mraa_i2c_stop(m_i2ControlCtx);
-}
-
-int
+void
 HTU21D::resetSensor(void)
 {
     uint8_t data;
-    mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    mraa_i2c_write (m_i2ControlCtx, &data, 1);
+    m_i2ControlCtx.address (m_controlAddr);
+    m_i2ControlCtx.write (&data, 1);
     usleep(20000);
 }
 
@@ -207,13 +205,16 @@ HTU21D::testSensor(void)
  * Functions to read and write data to the i2c device
  */
 
-mraa_result_t
+mraa::Result
 HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
+    m_i2ControlCtx.address (m_controlAddr);
+    error = m_i2ControlCtx.write (data, 2);
+    if ( error != mraa::SUCCESS)
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_write() failed");
 
     return error;
 }
@@ -221,15 +222,15 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
 uint16_t
 HTU21D::i2cReadReg_16 (int reg) {
     uint16_t data;
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    data  = (uint16_t)mraa_i2c_read_byte_data(m_i2ControlCtx, reg) << 8;
-    data |= (uint16_t)mraa_i2c_read_byte_data(m_i2ControlCtx, reg+1);
+    m_i2ControlCtx.address(m_controlAddr);
+    data  = (uint16_t)m_i2ControlCtx.readReg(reg) << 8;
+    data |= (uint16_t)m_i2ControlCtx.readReg(reg+1);
     return data;
 }
 
 uint8_t
 HTU21D::i2cReadReg_8 (int reg) {
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    return mraa_i2c_read_byte_data(m_i2ControlCtx, reg);
+    m_i2ControlCtx.address(m_controlAddr);
+    return m_i2ControlCtx.readReg(reg);
 }
 

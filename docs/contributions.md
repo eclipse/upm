@@ -2,35 +2,57 @@ Contributing a module                         {#contributions}
 =====================
 
 Here are the rules of contribution:
-- Your module must have an example that builds against your UPM library
-- Commits must have a sign-off line by everyone who reviewed them
-- Commits must be named <file/module>: Some decent description
+- Your new module must have an example that builds against your UPM library.
+- Each commit must have a sign-off line by everyone who authored or reviewed
+  them.
+- Commits must be named `<file/module>: Some decent description`.
 - You must license your module under a FOSS license. The recommended license
   is MIT but any permissive license is fine. Please consider that people using
   UPM may want to write proprietary programs with your sensors so we like to
-  avoid GPL. (LGPL is fine). If your license is not MIT please include a
-  LICENSE file in src/mymodule/
+  avoid GPL. If your license is not MIT please include a LICENSE file in
+  src/mymodule/.
+- The top of each source file must contain a comment block containing the
+  license information.
 - Please test your module builds before contributing and make sure it works on
-  the latest version of mraa. If you tested on a specific board/platform please
-  tell us what this was in your PR.
+  the latest version of libmraa. If you tested on a specific board/platform
+  please tell us what this was in your PR.
 - Try not to break master. In any commit.
-- Attempt to have some decent API documentation below are the explicit rules on documentation:
+- Attempt to have some decent API documentation as described in the the @ref
+  documentation [guide](documentation.md).
 
-Documentation
-=============
+Including the MIT license
+=========================
+Choosing the [MIT license](http://opensource.org/licenses/MIT) is preferred for
+the UPM repository.  Below is the comment block needed at the top each source
+file:
 
-- Try to have no warnings in doxygen, this is generally fairly easy
-- Have the specific sensor manufacturer/model & version that you used, if you
-  support multiple versions please list
-- Comments do not need full stops
-- Stick to <80 chars per line even in comments
-- No text is allowed on the same line as the start or end of a comment /** */
-- All classes should have a "@brief" and a "@snippet"
+        /*
+         * The MIT License (MIT)
+         *
+         * Author: <your full name> 
+         * Copyright (c) <year> <copyright holder>
+         *
+         * Author: <contributing author full name - if applicable> 
+         * Copyright (c) <year> <copyright holder>
+         *
+         * Permission is hereby granted, free of charge, to any person obtaining a copy of
+         * this software and associated documentation files (the "Software"), to deal in
+         * the Software without restriction, including without limitation the rights to
+         * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+         * the Software, and to permit persons to whom the Software is furnished to do so,
+         * subject to the following conditions:
+         *
+         * The above copyright notice and this permission notice shall be included in all
+         * copies or substantial portions of the Software.
+         *
+         * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+         * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+         * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+         * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+         * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+         * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+         */
 
-The example should have an 'Interesting' section which will be highlighted as a
-code sample in doxygen.  Everything in between such tags will show up in the
-class documentation when the following is put at the end of a class docstring
-as show above.
 
 Code signing
 ============
@@ -66,7 +88,7 @@ the below:
             maintained indefinitely and may be redistributed consistent with
             this project or the open source license(s) involved.
 
-then you just add a line saying
+then you just add a line to each of your commits with `--signoff` saying
 
         Signed-off-by: Random J Developer <random@developer.example.org>
 

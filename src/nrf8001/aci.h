@@ -21,10 +21,13 @@
 
 /**
  * @file
- *
+ * @ingroup aci
+ */
+
+/**
  * @defgroup aci aci
  * @{
- * @ingroup lib
+ * @ingroup aci-lib
  *
  * @brief Definitions for the ACI (Application Control Interface)
  * @remarks

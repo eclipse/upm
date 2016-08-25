@@ -1,0 +1,5 @@
+set (libname "grovemd")
+set (libdescription "upm grove i2c motor driver module")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init()

@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "th02.h"
+    #include "th02.hpp"
 %}
 
-%include "th02.h"
+%include "th02.hpp"

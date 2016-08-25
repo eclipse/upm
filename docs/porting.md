@@ -3,7 +3,7 @@ Porting a module from Arduino                         {#porting}
 
 Porting arduino libraries to libmraa as UPM libraries is usually fairly easy.
 The issues typically come from misunderstanding of how a non real time OS deals
-with interupts and timers. It also highly depends on the sensor. A concrete
+with interrupts and timers. It also highly depends on the sensor. A concrete
 example is explained in detail on @ref max31855
 
 ### Adding a new module to UPM
@@ -14,16 +14,16 @@ example is explained in detail on @ref max31855
 
 ### CmakeLists.txt
 
-By default you need a header called modulename.h and a C++ file called
+By default you need a header called modulename.hpp and a C++ file called
 modulename.cxx. You can have multiple headers and source files. Only public
-headers need to be added to module_h and all source files need to be in
+headers need to be added to module_hpp and all source files need to be in
 module_src.
 
 ~~~~~~~~~~~
 set (libname "modulename")
 set (libdescription "Module Description")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()
 ~~~~~~~~~~~
 
@@ -36,9 +36,9 @@ required to talk to the board's IO. An I2c sensor will create a
 mraa_i2c_context, keep it as a private member and require a bus number and slave
 address in it's constructor.
 
-Typically in sensors a simple object->read() function is prefered, depending on
-your sensor/actuaotr this may or may not be easy or not even make sense. Most
-UPM apis have a simple set of functions.
+Typically in sensors a simple object->read() function is preferred, depending on
+your sensor/actuator this may or may not be easy or not even make sense. Most
+UPM APIs have a simple set of functions.
 
 ### Mapping arduino API to libmraa
 
@@ -59,7 +59,7 @@ the UPM build system.
 The last step is when you're happy with your module and it works send us a pull
 request! We'd love to include your sensor in our repository.
 
-If you don't like github you can also send brendan.le.foll@intel.com a git
-formatted patch if your sensor. More details are on @ref contributions and on
+If you don't like github you can also send mihai.tudor.panu@intel.com a git
+formatted patch of your sensor. More details are on @ref contributions and on
 https://help.github.com/articles/creating-a-pull-request
 

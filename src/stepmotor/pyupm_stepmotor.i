@@ -1,3 +1,5 @@
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
 %module pyupm_stepmotor
 %include "../upm.i"
 
@@ -5,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "stepmotor.h"
+%include "stepmotor.hpp"
 %{
-    #include "stepmotor.h"
+    #include "stepmotor.hpp"
 %}

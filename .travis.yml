@@ -1,0 +1,46 @@
+language: cpp
+env:
+  global:
+    - MRAA_ROOT=/tmp/mraa
+    - MRAA_BUILD=$MRAA_ROOT/build
+    - MRAA_INSTALL=$MRAA_ROOT/install
+    - UPM_ROOT=$TRAVIS_BUILD_DIR
+    - UPM_BUILD=$UPM_ROOT/build
+    - UPM_INSTALL=$UPM_ROOT/install
+    - JAVA_HOME=/usr/lib/jvm/java-8-oracle
+  matrix:
+    - NODE010=true
+    - NODE012=true
+    - NODE4=true
+    - NODE5=true
+compiler:
+  - clang
+  - gcc
+install:
+  - sudo add-apt-repository --yes ppa:fenics-packages/fenics-dev/swig
+  - sudo apt-get update -qq
+  - sudo apt-get install -y --force-yes -qq swig3.0 git
+  - sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
+  - sudo update-java-alternatives -s java-8-oracle
+before_script:
+  # Turn off JAVA SWIG for clang++, use 4.8 for all g++ builds
+  - if [ "$CC" == "gcc" ]; then export BUILDJAVA=ON; export CC=gcc-4.8; export CXX=g++-4.8; else export BUILDJAVA=OFF; fi
+  - if [ "${NODE012}" ]; then nvm install 0.12; fi
+  - if [ "${NODE4}" ]; then nvm install 4.1; fi
+  - if [ "${NODE5}" ]; then nvm install 5; fi
+  # Handle 0.10 NODE_ROOT_DIR differently than other versions
+  - if [ -z ${NODE010} ]; then export NODE_ROOT_DIR="/home/travis/.nvm/versions/node/`nvm version`"; else export NODE_ROOT_DIR=/home/travis/.nvm/v0.10.36; fi
+script:
+  - echo "CC=$CC BUILDJAVA=$BUILDJAVA NODE010=$NODE010 NODE012=$NODE012 NODE4=$NODE4 NODE5=$NODE5 NODE_ROOT_DIR=$NODE_ROOT_DIR"
+  - git clone https://github.com/intel-iot-devkit/mraa.git $MRAA_ROOT
+  - mkdir -p $MRAA_BUILD && cd $_ && cmake -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDSWIGNODE=OFF -DBUILDSWIGPYTHON=OFF -DFIRMATA=ON -DENABLEEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=$MRAA_INSTALL $MRAA_ROOT && make install
+  - cd $UPM_ROOT && mkdir $UPM_BUILD && cd $_ && PKG_CONFIG_PATH=$MRAA_INSTALL/lib/pkgconfig cmake -DNODE_ROOT_DIR:PATH="${NODE_ROOT_DIR}" -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDEXAMPLES=ON -DBUILDJAVAEXAMPLES=$BUILDJAVA -DCMAKE_INSTALL_PREFIX:PATH=$UPM_INSTALL .. && make install
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+      - g++-4.8

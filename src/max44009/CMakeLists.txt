@@ -1,0 +1,6 @@
+include_directories(..)
+set (libname "max44009")
+set (libdescription "upm MAX44009")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init()

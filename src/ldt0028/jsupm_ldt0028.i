@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "ldt0028.h"
+    #include "ldt0028.hpp"
 %}
 
-%include "ldt0028.h"
+%include "ldt0028.hpp"

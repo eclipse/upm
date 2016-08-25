@@ -1,5 +1,5 @@
 set (libname "st7735")
 set (libdescription "libupm SPI LCD")
-set (module_src gfx.cxx st7735.cxx)
-set (module_h gfx.h st7735.h)
+set (module_src st7735_gfx.cxx st7735.cxx)
+set (module_hpp st7735_gfx.hpp st7735.hpp)
 upm_module_init()

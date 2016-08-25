@@ -27,14 +27,17 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "mpl3115a2.h"
+#include "mpl3115a2.hpp"
 
 using namespace upm;
 
-MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) {
+MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus)
+{
     int id;
 
     m_name = MPL3115A2_NAME;
@@ -42,23 +45,21 @@ MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) {
     m_controlAddr = devAddr;
     m_bus = bus;
 
-    m_i2ControlCtx = mraa_i2c_init(m_bus);
-
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    if (ret != MRAA_SUCCESS) {
-        fprintf(stderr, "Error accessing i2c bus\n");
+    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
+    if (ret != mraa::SUCCESS) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_address() failed");
+        return;
     }
 
     setOversampling(mode);
 
     id = i2cReadReg_8(MPL3115A2_WHO_AM_I);
     if (id != MPL3115A2_DEVICE_ID)  {
-        fprintf(stdout, "Incorrect device id - read: 0x%02x\n", id);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": incorrect device id");
+        return;
     }
-}
-
-MPL3115A2::~MPL3115A2() {
-    mraa_i2c_stop(m_i2ControlCtx);
 }
 
 /*
@@ -146,14 +147,14 @@ int
 MPL3115A2::sampleData(void)
 {
     int val;
-    mraa_result_t ret;
+    mraa::Result ret;
     int tries = 15;
     uint32_t us_delay;
 
     // trigger measurement
     ret = i2cWriteReg(MPL3115A2_CTRL_REG1,
             MPL3115A2_CTRL_OST | MPL3115A2_SETOVERSAMPLE(m_oversampling));
-    if (MRAA_SUCCESS != ret) {
+    if (mraa::SUCCESS != ret) {
         fprintf(stdout, "Write to trigger measurement failed\n");
         return -1;
     }
@@ -165,10 +166,6 @@ MPL3115A2::sampleData(void)
     // Loop waiting for the ready bit to become active
     while (tries-- > 0) {
         val = i2cReadReg_8(MPL3115A2_CTRL_REG1);
-        if (val < 0) {
-            fprintf(stdout,"Error reading CTRL_REG1\n");
-            return -1;
-        }
 
         /* wait for data ready, i.e. OST cleared */
         if (!(val & MPL3115A2_CTRL_OST))
@@ -176,7 +173,8 @@ MPL3115A2::sampleData(void)
         usleep(20000);
     }
     if (tries < 0) {
-        std::cout << "Device timeout during measurement" << std::endl;
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": timeout during measurement");
         return -1;
     }
 
@@ -296,14 +294,17 @@ MPL3115A2::convertPaToinHg(float fPressure)
  * Functions to read and write data to the i2c device
  */
 
-mraa_result_t
+mraa::Result
 MPL3115A2::i2cWriteReg (uint8_t reg, uint8_t value) {
-    mraa_result_t error = MRAA_SUCCESS;
+    mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    mraa_i2c_address (m_i2ControlCtx, m_controlAddr);
-    error = mraa_i2c_write (m_i2ControlCtx, data, 2);
+    m_i2ControlCtx.address (m_controlAddr);
+    error = m_i2ControlCtx.write (data, 2);
 
+    if (error != mraa::SUCCESS)
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ":mraa_i2c_write() failed");
     return error;
 }
 
@@ -311,16 +312,16 @@ uint16_t
 MPL3115A2::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    data  = (uint16_t)mraa_i2c_read_byte_data(m_i2ControlCtx, reg) << 8;
-    data |= (uint16_t)mraa_i2c_read_byte_data(m_i2ControlCtx, reg+1);
+    m_i2ControlCtx.address(m_controlAddr);
+    data  = (uint16_t)m_i2ControlCtx.readReg(reg) << 8;
+    data |= (uint16_t)m_i2ControlCtx.readReg(reg+1);
 
     return data;
 }
 
 uint8_t
 MPL3115A2::i2cReadReg_8 (int reg) {
-    mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
-    return mraa_i2c_read_byte_data(m_i2ControlCtx, reg);
+    m_i2ControlCtx.address(m_controlAddr);
+    return m_i2ControlCtx.readReg(reg);
 }
 

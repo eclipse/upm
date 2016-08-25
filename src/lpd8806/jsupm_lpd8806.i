@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "lpd8806.h"
+    #include "lpd8806.hpp"
 %}
 
-%include "lpd8806.h"
+%include "lpd8806.hpp"

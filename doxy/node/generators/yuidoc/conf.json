@@ -1,0 +1,8 @@
+{
+  "name": "UPM",
+  "description": "The UPM API: High Level Sensor Library for Intel IoT Devices Using MRAA",
+  "logo": "http://upload.wikimedia.org/wikipedia/commons/8/8c/Transparent.png",
+  "options": {
+    "outdir": "./html/node"
+  }
+}

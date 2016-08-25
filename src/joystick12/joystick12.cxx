@@ -23,11 +23,13 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "joystick12.h"
+#include "joystick12.hpp"
 
 using namespace upm;
 
@@ -42,9 +44,20 @@ const int Joystick12::Y_right= 4070;
 
 
 Joystick12::Joystick12(int pinX, int pinY) {
-    mraa_result_t error;
-    m_joystickCtxX = mraa_aio_init(pinX);
-    m_joystickCtxY = mraa_aio_init(pinY);
+
+    if ( !(m_joystickCtxX = mraa_aio_init(pinX)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init(pinX) failed, invalid pin?");
+        return;
+      }
+
+    if ( !(m_joystickCtxY = mraa_aio_init(pinY)) ) 
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init(pinY) failed, invalid pin?");
+        return;
+      }
 }
 
 Joystick12::~Joystick12() {
@@ -62,6 +75,7 @@ Joystick12::~Joystick12() {
 
 float Joystick12::getXInput() {
     float in = mraa_aio_read (m_joystickCtxX);
+    if (in == -1.0) return -1;
     if (in < X_left) return -1;
     if (in < X_center) return -(X_center - in) / (X_center - X_left);
     if (in == X_center) return 0;
@@ -73,6 +87,7 @@ float Joystick12::getXInput() {
 
 float Joystick12::getYInput() {
     float  in = mraa_aio_read (m_joystickCtxY);
+    if (in == -1.0) return -1;
     if (in < Y_left) return -1;
     if (in < Y_center) return -(Y_center - in) / (Y_center - Y_left);
     if (in == Y_center) return 0;
