@@ -1,17 +1,17 @@
-%module javaupm_vk2828u7
+%module javaupm_nmea_gps
 %include "../upm.i"
 %include "std_string.i"
 %include "typemaps.i"
 
-%include "vk2828u7.hpp"
+%include "nmea_gps.hpp"
 %{
-    #include "vk2828u7.hpp"
+    #include "nmea_gps.hpp"
 %}
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_vk2828u7");
+            System.loadLibrary("javaupm_nmea_gps");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

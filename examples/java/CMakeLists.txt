@@ -131,7 +131,7 @@ add_example(VCAP_Example vcap)
 add_example(BMP280_Example bmp280)
 add_example(BNO055_Example bno055)
 add_example(BMX055_Example bmx055)
-add_example(VK2828U7_Example vk2828u7)
+add_example(NMEAGPS_Example nmea_gps)
 add_example(MMA7361_Example mma7361)
 add_example(BH1750_Example bh1750)
 

@@ -22,40 +22,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "vk2828u7.h"
+#include "nmea_gps.h"
 #include "upm_fti.h"
 
 /** 
  * This file implements the Function Table Interface (FTI) for this sensor
  */
 
-const char upm_vk2828u7_name[] = "VK2828U7";
-const char upm_vk2828u7_description[] = "Serial GPS (providing NMEA data)";
-const upm_protocol_t upm_vk2828u7_protocol[] = {UPM_UART, UPM_GPIO};
-const upm_sensor_t upm_vk2828u7_category[] = {UPM_STREAM};
+const char upm_nmea_gps_name[] = "NMEA_GPS";
+const char upm_nmea_gps_description[] = "Serial GPS (providing NMEA data)";
+const upm_protocol_t upm_nmea_gps_protocol[] = {UPM_UART, UPM_GPIO};
+const upm_sensor_t upm_nmea_gps_category[] = {UPM_STREAM};
 
 // forward declarations
-const void* upm_vk2828u7_get_ft(upm_sensor_t sensor_type);
-void* upm_vk2828u7_init_name();
-void upm_vk2828u7_close(void *dev);
-int upm_vk2828u7_read(void *dev, char *buffer, int len);
-int upm_vk2828u7_write(void *dev, char *buffer, int len);
-bool upm_vk2828u7_data_available(void *dev, unsigned int timeout);
+const void* upm_nmea_gps_get_ft(upm_sensor_t sensor_type);
+void* upm_nmea_gps_init_name();
+void upm_nmea_gps_close(void *dev);
+int upm_nmea_gps_read(void *dev, char *buffer, int len);
+int upm_nmea_gps_write(void *dev, char *buffer, int len);
+bool upm_nmea_gps_data_available(void *dev, unsigned int timeout);
 
 static const upm_sensor_ft ft =
 {
-  .upm_sensor_init_name = &upm_vk2828u7_init_name,
-  .upm_sensor_close = &upm_vk2828u7_close,
+  .upm_sensor_init_name = &upm_nmea_gps_init_name,
+  .upm_sensor_close = &upm_nmea_gps_close,
 };
 
 static const upm_stream_ft sft =
 {
-  .upm_stream_read = upm_vk2828u7_read,
-  .upm_stream_write = upm_vk2828u7_write,
-  .upm_stream_data_available = upm_vk2828u7_data_available
+  .upm_stream_read = upm_nmea_gps_read,
+  .upm_stream_write = upm_nmea_gps_write,
+  .upm_stream_data_available = upm_nmea_gps_data_available
 };
 
-const void* upm_vk2828u7_get_ft(upm_sensor_t sensor_type)
+const void* upm_nmea_gps_get_ft(upm_sensor_t sensor_type)
 {
   switch(sensor_type)
     {
@@ -70,27 +70,27 @@ const void* upm_vk2828u7_get_ft(upm_sensor_t sensor_type)
     }
 }
 
-void* upm_vk2828u7_init_name()
+void* upm_nmea_gps_init_name()
 {
   return NULL;
 }
 
-void upm_vk2828u7_close(void *dev)
+void upm_nmea_gps_close(void *dev)
 {
-  vk2828u7_close((vk2828u7_context)dev);
+  nmea_gps_close((nmea_gps_context)dev);
 }
 
-int upm_vk2828u7_read(void *dev, char *buffer, int len)
+int upm_nmea_gps_read(void *dev, char *buffer, int len)
 {
-  return vk2828u7_read((vk2828u7_context)dev, buffer, len);
+  return nmea_gps_read((nmea_gps_context)dev, buffer, len);
 }
 
-int upm_vk2828u7_write(void *dev, char *buffer, int len)
+int upm_nmea_gps_write(void *dev, char *buffer, int len)
 {
-  return vk2828u7_write((vk2828u7_context)dev, buffer, len);
+  return nmea_gps_write((nmea_gps_context)dev, buffer, len);
 }
 
-bool upm_vk2828u7_data_available(void *dev, unsigned int timeout)
+bool upm_nmea_gps_data_available(void *dev, unsigned int timeout)
 {
-  return vk2828u7_data_available((vk2828u7_context)dev, timeout);
+  return nmea_gps_data_available((nmea_gps_context)dev, timeout);
 }

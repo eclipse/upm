@@ -25,65 +25,65 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "vk2828u7.hpp"
+#include "nmea_gps.hpp"
 
 using namespace upm;
 using namespace std;
 
-VK2828U7::VK2828U7(unsigned int uart, unsigned int baudrate,
+NMEAGPS::NMEAGPS(unsigned int uart, unsigned int baudrate,
                    int enable_pin) :
-  m_vk2828u7(vk2828u7_init(uart, baudrate, enable_pin))
+  m_nmea_gps(nmea_gps_init(uart, baudrate, enable_pin))
 {
-  if (!m_vk2828u7)
+  if (!m_nmea_gps)
     throw std::runtime_error(string(__FUNCTION__)
-                             + ": vk2828u7_init() failed");
+                             + ": nmea_gps_init() failed");
 }
 
-VK2828U7::~VK2828U7()
+NMEAGPS::~NMEAGPS()
 {
-  vk2828u7_close(m_vk2828u7);
+  nmea_gps_close(m_nmea_gps);
 }
 
-std::string VK2828U7::readStr(unsigned int size)
+std::string NMEAGPS::readStr(unsigned int size)
 {
   char buffer[size];
 
   int rv;
 
-  if ((rv = vk2828u7_read(m_vk2828u7, buffer, size)) < 0)
+  if ((rv = nmea_gps_read(m_nmea_gps, buffer, size)) < 0)
     throw std::runtime_error(string(__FUNCTION__)
-                             + ": vk2828u7_read() failed");
+                             + ": nmea_gps_read() failed");
 
   return string(buffer, rv);
 }
 
-int VK2828U7::writeStr(std::string buffer)
+int NMEAGPS::writeStr(std::string buffer)
 {
   int rv;
 
-  if ((rv = vk2828u7_write(m_vk2828u7, (char*)buffer.data(),
+  if ((rv = nmea_gps_write(m_nmea_gps, (char*)buffer.data(),
                            buffer.size())) < 0)
     throw std::runtime_error(string(__FUNCTION__)
-                             + ": vk2828u7_write() failed");
+                             + ": nmea_gps_write() failed");
 
   return rv;  
 }
 
-void VK2828U7::enable(bool enable)
+void NMEAGPS::enable(bool enable)
 {
-  if (vk2828u7_enable(m_vk2828u7, enable))
+  if (nmea_gps_enable(m_nmea_gps, enable))
     throw std::runtime_error(string(__FUNCTION__)
-                             + ": vk2828u7_enable() failed");
+                             + ": nmea_gps_enable() failed");
 }
 
-void VK2828U7::setBaudrate(unsigned int baudrate)
+void NMEAGPS::setBaudrate(unsigned int baudrate)
 {
-  if (vk2828u7_set_baudrate(m_vk2828u7, baudrate))
+  if (nmea_gps_set_baudrate(m_nmea_gps, baudrate))
     throw std::runtime_error(string(__FUNCTION__)
-                             + ": vk2828u7_baudrate() failed");
+                             + ": nmea_gps_baudrate() failed");
 }
 
-bool VK2828U7::dataAvailable(unsigned int millis)
+bool NMEAGPS::dataAvailable(unsigned int millis)
 {
-  return vk2828u7_data_available(m_vk2828u7, millis);
+  return nmea_gps_data_available(m_nmea_gps, millis);
 }

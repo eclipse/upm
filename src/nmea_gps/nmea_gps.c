@@ -25,21 +25,21 @@
 #include <string.h>
 #include <assert.h>
 
-#include "vk2828u7.h"
+#include "nmea_gps.h"
 
 #include "upm_utilities.h"
 
-vk2828u7_context vk2828u7_init(unsigned int uart, unsigned int baudrate,
+nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                int enable_pin)
 {
-  vk2828u7_context dev =
-    (vk2828u7_context)malloc(sizeof(struct _vk2828u7_context));
+  nmea_gps_context dev =
+    (nmea_gps_context)malloc(sizeof(struct _nmea_gps_context));
 
   if (!dev)
     return NULL;
 
   // zero out context
-  memset((void *)dev, 0, sizeof(struct _vk2828u7_context));
+  memset((void *)dev, 0, sizeof(struct _nmea_gps_context));
   
   dev->uart = NULL;
   dev->gpio_en = NULL;
@@ -50,14 +50,14 @@ vk2828u7_context vk2828u7_init(unsigned int uart, unsigned int baudrate,
   if (!(dev->uart = mraa_uart_init(uart)))
     {
       printf("%s: mraa_uart_init() failed.\n", __FUNCTION__);
-      vk2828u7_close(dev);
+      nmea_gps_close(dev);
       return NULL;
     }
 
-  if (vk2828u7_set_baudrate(dev, baudrate))
+  if (nmea_gps_set_baudrate(dev, baudrate))
     {
-      printf("%s: vk2828u7_set_baudrate() failed.\n", __FUNCTION__);
-      vk2828u7_close(dev);
+      printf("%s: nmea_gps_set_baudrate() failed.\n", __FUNCTION__);
+      nmea_gps_close(dev);
       return NULL;
     }      
 
@@ -69,25 +69,25 @@ vk2828u7_context vk2828u7_init(unsigned int uart, unsigned int baudrate,
       if (!(dev->gpio_en = mraa_gpio_init(enable_pin)))
         {
           printf("%s: mraa_gpio_init() failed.\n", __FUNCTION__);
-          vk2828u7_close(dev);
+          nmea_gps_close(dev);
           return NULL;
         }
 
       mraa_gpio_dir(dev->gpio_en, MRAA_GPIO_OUT);
 
       // wake up
-      vk2828u7_enable(dev, true);
+      nmea_gps_enable(dev, true);
     }
 
   return dev;
 }
 
-void vk2828u7_close(vk2828u7_context dev)
+void nmea_gps_close(nmea_gps_context dev)
 {
   assert(dev != NULL);
 
   // sleepy-time
-  vk2828u7_enable(dev, false);
+  nmea_gps_enable(dev, false);
 
   if (dev->uart)
     mraa_uart_stop(dev->uart);
@@ -97,7 +97,7 @@ void vk2828u7_close(vk2828u7_context dev)
   free(dev);
 }
 
-upm_result_t vk2828u7_enable(const vk2828u7_context dev, bool enable)
+upm_result_t nmea_gps_enable(const nmea_gps_context dev, bool enable)
 {
   assert(dev != NULL);
 
@@ -112,21 +112,21 @@ upm_result_t vk2828u7_enable(const vk2828u7_context dev, bool enable)
   return UPM_SUCCESS;
 }
 
-int vk2828u7_read(const vk2828u7_context dev, char *buffer, size_t len)
+int nmea_gps_read(const nmea_gps_context dev, char *buffer, size_t len)
 {
   assert(dev != NULL);
 
   return mraa_uart_read(dev->uart, buffer, len);
 }
 
-int vk2828u7_write(const vk2828u7_context dev, char *buffer, size_t len)
+int nmea_gps_write(const nmea_gps_context dev, char *buffer, size_t len)
 {
   assert(dev != NULL);
 
   return mraa_uart_write(dev->uart, buffer, len);
 }
 
-bool vk2828u7_data_available(const vk2828u7_context dev, unsigned int millis)
+bool nmea_gps_data_available(const nmea_gps_context dev, unsigned int millis)
 {
   assert(dev != NULL);
 
@@ -136,7 +136,7 @@ bool vk2828u7_data_available(const vk2828u7_context dev, unsigned int millis)
     return false;
 }
 
-upm_result_t vk2828u7_set_baudrate(const vk2828u7_context dev,
+upm_result_t nmea_gps_set_baudrate(const nmea_gps_context dev,
                                    unsigned int baudrate)
 {
   assert(dev != NULL);

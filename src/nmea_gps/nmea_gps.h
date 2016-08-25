@@ -34,24 +34,24 @@ extern "C" {
 #endif
 
   /**
-   * @brief UPM C API for the DFRobot VK2828U7 GPS Module
+   * @brief UPM C API for a generic GPS serial device reporting NMEA data
    *
-   * The driver was tested with the DFRobot VK2828U7 GPS Module.  It
-   * is accessed via a UART and provides NMEA data.
+   * This driver was tested with a number of GPS devices that emit
+   * NMEA data via a serial interface of some sort (typically a UART).
    *
-   * @snippet vk2828u7.c Interesting
+   * @snippet nmea_gps.c Interesting
    */
   
   /**
    * Device context
    */
-  typedef struct _vk2828u7_context {
+  typedef struct _nmea_gps_context {
     mraa_uart_context        uart;
     mraa_gpio_context        gpio_en;
-  } *vk2828u7_context;
+  } *nmea_gps_context;
   
   /**
-   * VK2828U7 Initializer
+   * NMEA_GPS Initializer
    *
    * @param uart Specify which uart to use.
    * @param baudrate Specify the baudrate to use.  The device defaults
@@ -60,13 +60,13 @@ extern "C" {
    * -1 to not use an enable pin.
    * @return an initialized device context on success, NULL on error.
    */
-  vk2828u7_context vk2828u7_init(unsigned int uart, unsigned int baudrate,
+  nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                  int enable_pin);
 
   /**
-   * VK2828U7 sensor close function
+   * NMEA_GPS sensor close function
    */
-  void vk2828u7_close(vk2828u7_context dev);
+  void nmea_gps_close(nmea_gps_context dev);
 
   /**
    * Read character data from the device.
@@ -76,7 +76,7 @@ extern "C" {
    * @param len The maximum size of the buffer
    * @return The number of bytes successfully read, or -1 on error
    */
-  int vk2828u7_read(const vk2828u7_context dev, char *buffer, size_t len);
+  int nmea_gps_read(const nmea_gps_context dev, char *buffer, size_t len);
 
   /**
    * Write character data to the device.
@@ -86,7 +86,7 @@ extern "C" {
    * @param len The number of bytes to write.
    * @return The number of bytes successfully written, or -1 on error.
    */
-  int vk2828u7_write(const vk2828u7_context dev, char *buffer, size_t len);
+  int nmea_gps_write(const nmea_gps_context dev, char *buffer, size_t len);
 
   /**
    * Enable or disable the device.  When disabled, the device enters a
@@ -97,17 +97,17 @@ extern "C" {
    * @param enable true to enable the device, false otherwise.
    * @return UPM result
    */
-  upm_result_t vk2828u7_enable(const vk2828u7_context dev, bool enable);
+  upm_result_t nmea_gps_enable(const nmea_gps_context dev, bool enable);
 
   /**
-   * Set the baudrate of the device.  By default, vk2828u7_init() will
+   * Set the baudrate of the device.  By default, nmea_gps_init() will
    * set the baudrate to 9600.
    *
    * @param dev sensor context
    * @param baudrate The baud rate to set for the device.
    * @return UPM result
    */
-  upm_result_t vk2828u7_set_baudrate(const vk2828u7_context dev,
+  upm_result_t nmea_gps_set_baudrate(const nmea_gps_context dev,
                                      unsigned int baudrate);
 
   /**
@@ -118,7 +118,7 @@ extern "C" {
    * become available.
    * @return true if data is available to be read, false otherwise.
    */
-  bool vk2828u7_data_available(const vk2828u7_context dev,
+  bool nmea_gps_data_available(const nmea_gps_context dev,
                                unsigned int millis);
 
 #ifdef __cplusplus
