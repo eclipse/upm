@@ -153,4 +153,4 @@ if (OPENZWAVE_FOUND)
   add_example_with_path(AeotecDSB09104_Example ozw ozw)
   add_example_with_path(TZEMT400_Example ozw ozw)
 endif()
-
+add_example_with_path(NMEAGPS_I2C_Example nmea_gps nmea_gps)

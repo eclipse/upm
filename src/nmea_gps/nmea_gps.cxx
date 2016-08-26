@@ -31,8 +31,16 @@ using namespace upm;
 using namespace std;
 
 NMEAGPS::NMEAGPS(unsigned int uart, unsigned int baudrate,
-                   int enable_pin) :
+                 int enable_pin) :
   m_nmea_gps(nmea_gps_init(uart, baudrate, enable_pin))
+{
+  if (!m_nmea_gps)
+    throw std::runtime_error(string(__FUNCTION__)
+                             + ": nmea_gps_init() failed");
+}
+
+NMEAGPS::NMEAGPS(unsigned int bus, uint8_t addr) :
+  m_nmea_gps(nmea_gps_init_ublox_i2c(bus, addr))
 {
   if (!m_nmea_gps)
     throw std::runtime_error(string(__FUNCTION__)

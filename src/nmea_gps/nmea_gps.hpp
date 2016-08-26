@@ -52,14 +52,23 @@ namespace upm {
    * This driver was tested with a number of GPS devices that emit
    * NMEA data via a serial interface of some sort (typically a UART).
    *
+   * The I2C capablity was tested with a UBLOX LEA-6H based GPS shield
+   * from DFRobot.  Currently, the I2C capability is only supported
+   * for UBLOX devices (or compatibles) that conform to the
+   * specifications outlined in the u-blox6 Receiver Description
+   * Protocol Specification, Chapter 4, DDC Port.
+   *
+   * An example using the UART.
    * @snippet nmea_gps.cxx Interesting
+   * An example using I2C.
+   * @snippet nmea_gps_i2c.cxx Interesting
    */
 
   class NMEAGPS {
   public:
 
     /**
-     * NMEAGPS object constructor
+     * NMEAGPS object constructor for a UART
      *
      * @param uart Specify which uart to use.
      * @param baudrate Specify the baudrate to use.  The device defaults
@@ -68,7 +77,16 @@ namespace upm {
      * -1 to not use an enable pin.
      */
     NMEAGPS(unsigned int uart, unsigned int baudrate,
-             int enable_pin);
+            int enable_pin);
+
+    /**
+     * NMEAGPS object constructor for a UBLOX I2C interface
+     *
+     * @param bus Specify which the I2C bus to use.
+     * @param addr Specify the I2C address to use.  For UBLOX devices,
+     * this typically defaults to 0x42.
+     */
+    NMEAGPS(unsigned int bus, uint8_t addr);
 
     /**
      * NMEAGPS object destructor
@@ -84,7 +102,8 @@ namespace upm {
     std::string readStr(size_t size);
 
     /**
-     * Write character data to the device.
+     * Write character data to the device.  This is only valid for a
+     * UART device.
      *
      * @param buffer The string containing the data to write.
      * @return The number of bytes written.
@@ -102,14 +121,19 @@ namespace upm {
 
     /**
      * Set the baudrate of the device.  By default, the constructor
-     * will set the baudrate to 9600.
+     * will set the baudrate to 9600.  This is only valid for UART
+     * devices.
      *
      * @param baudrate The baud rate to set for the device.
      */
     void setBaudrate(unsigned int baudrate);
 
     /**
-     * Determine whether there is data available to be read.
+     * Determine whether there is data available to be read.  In the
+     * case of a UART, this function will wait up to "millis"
+     * milliseconds for data to become available.  In the case of an I2C
+     * device, the millis argument is ignored and the function will
+     * return immediately, indicating whether data is available.
      *
      * @param millis The number of milliseconds to wait for data to
      * become available.

@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include "upm.h"
 #include "mraa/uart.h"
+#include "mraa/i2c.h"
 #include "mraa/gpio.h"
 
 #ifdef __cplusplus
@@ -39,7 +40,16 @@ extern "C" {
    * This driver was tested with a number of GPS devices that emit
    * NMEA data via a serial interface of some sort (typically a UART).
    *
+   * The I2C capablity was tested with a UBLOX LEA-6H based GPS shield
+   * from DFRobot.  Currently, the I2C capability is only supported
+   * for UBLOX devices (or compatibles) that conform to the
+   * specifications outlined in the u-blox6 Receiver Description
+   * Protocol Specification, Chapter 4, DDC Port.
+   *
+   * An example using the UART.
    * @snippet nmea_gps.c Interesting
+   * An example using I2C.
+   * @snippet nmea_gps_i2c.c Interesting
    */
   
   /**
@@ -48,10 +58,11 @@ extern "C" {
   typedef struct _nmea_gps_context {
     mraa_uart_context        uart;
     mraa_gpio_context        gpio_en;
+    mraa_i2c_context         i2c;
   } *nmea_gps_context;
   
   /**
-   * NMEA_GPS Initializer
+   * NMEA_GPS Initializer for generic UART operation
    *
    * @param uart Specify which uart to use.
    * @param baudrate Specify the baudrate to use.  The device defaults
@@ -62,6 +73,16 @@ extern "C" {
    */
   nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                  int enable_pin);
+
+  /**
+   * NMEA_GPS Initializer for UBLOX I2C operation
+   *
+   * @param bus Specify which the I2C bus to use.
+   * @param addr Specify the I2C address to use.  For UBLOX devices,
+   * this typically defaults to 0x42.
+   * @return an initialized device context on success, NULL on error.
+   */
+  nmea_gps_context nmea_gps_init_ublox_i2c(unsigned int bus, uint8_t addr);
 
   /**
    * NMEA_GPS sensor close function
@@ -79,7 +100,8 @@ extern "C" {
   int nmea_gps_read(const nmea_gps_context dev, char *buffer, size_t len);
 
   /**
-   * Write character data to the device.
+   * Write character data to the device.  This is only valid for a
+   * UART device.
    *
    * @param dev sensor context
    * @param buffer The character buffer containing data to write.
@@ -101,7 +123,7 @@ extern "C" {
 
   /**
    * Set the baudrate of the device.  By default, nmea_gps_init() will
-   * set the baudrate to 9600.
+   * set the baudrate to 9600.  This is only valid for UART devices.
    *
    * @param dev sensor context
    * @param baudrate The baud rate to set for the device.
@@ -111,7 +133,11 @@ extern "C" {
                                      unsigned int baudrate);
 
   /**
-   * Determine whether there is data available to be read.
+   * Determine whether there is data available to be read.  In the
+   * case of a UART, this function will wait up to "millis"
+   * milliseconds for data to become available.  In the case of an I2C
+   * device, the millis argument is ignored and the function will
+   * return immediately, indicating whether data is available.
    *
    * @param dev sensor context
    * @param millis The number of milliseconds to wait for data to
