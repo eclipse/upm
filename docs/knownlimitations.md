@@ -12,6 +12,10 @@ such sensors and known workarounds if they exist.
  some high powered USB ports might be enough, in most cases you will encounter
  dropped characters, washed out text and/or failed I2C writes while using USB
  power alone.
+ * **Grove Servo** (ES08A) requires an external power supply connected to the
+ board to work. We highly recommend using a separate circuit when powering any
+ sort of motor. Trying to use this servo off USB power alone can lead to damage
+ to the servo and/or board!
  * **Grove I2C Touch Sensor** (MPR121) v1.3 is incompatible with the Intel
  Edison using the Arduino board, but will work with the Mini-breakout if
  supplied with at least 4V. Revision v1.2 works well on all Intel boards.
@@ -49,6 +53,8 @@ such sensors and known workarounds if they exist.
  it will trigger continous callbacks when the sensor is not reading anything.
  * **Grove RTC** (DS1307) is not compatible with the Intel Edison Arduino board
  but will work with the Mini-breakout.
+ * **Grove Tempture & Humidity (High-Accuracy & Mini) Sensor** (TH02) only works
+ with the Intel Edison Arduino board when powered from the 3.3V rail.
 
 #### Adafruit Sensors
 
@@ -57,12 +63,13 @@ such sensors and known workarounds if they exist.
 
 #### Other Sensors
 
- * **NRF24L01** corrupted data packets are sent to the device due to the Intel
- Edison SPI bus limitation. Sensor works as expected with the Intel Galileo
- boards.
- * **NRF8001** based devices do not initialize properly with provided examples
- on Intel Edison boards also due to SPI bus limitation and data corruption.
- Works on Intel Galileo.
+ * **MLX90614** is not compatible with the Intel Galileo due to the inability
+ to change the I2C bus speed to 100 KHz.
+ * **MICSV89** is not compatible with the Intel Galileo due to the inability to
+ change the I2C bus speed to 100 KHz.
+ * **InvenSense MPU9150 & MPU9250** will be unable to report magnetometer data
+ when used on the Intel Edison Arduino board because the integrated compass
+ chips are not detected on the I2C bus.
 
 #### General
 
@@ -74,10 +81,8 @@ Edison Mini-breakout. When this board is not an option, the sensor can be
 sometimes replaced with the same model from a different vendor.
 
 The Intel Edison *SPI* bus can corrupt data being sent across when certain
-sensors are connected to it. Based on the sensor, this can affect functionality
-slightly or make the sensor entirely unusable. Unlike the I2C bus limitation,
-different boards are not likely to resolve this. A kernel update on the other
-hand might help alleviate this.
+sensors are connected to it, if using an old image. This has been resolved with
+the latest releases.
 
 On the Intel Galileo boards, the *UART* bus might drop data if several bytes
 are read at once.
