@@ -42,8 +42,6 @@ def exitHandler():
 atexit.register(exitHandler)
 signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every second, sample the NMEAGPS and output the measured lux value
-
 # loop, dumping NMEA data out as fast as it comes in
 while (sensor.dataAvailable(5000)):
         sys.stdout.write(sensor.readStr(256))
