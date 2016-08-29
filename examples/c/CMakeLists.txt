@@ -92,6 +92,7 @@ add_example (mma7361)
 add_example (bh1750)
 add_example (urm37)
 add_example (urm37-uart)
+add_example (hka5)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
