@@ -274,7 +274,7 @@ function (UPM_MIXED_MODULE_INIT)
     if (NOT ${libname} MATCHES "utilities-c")
       target_link_libraries (${libname} upmc-utilities)
     endif()
-endif (UPM_MIXED_MODULE_INIT_C_SRC)
+  endif (UPM_MIXED_MODULE_INIT_C_SRC)
 
   # Build C++ if enabled AND C++ headers exist
   if (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
