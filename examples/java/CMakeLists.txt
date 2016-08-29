@@ -133,6 +133,7 @@ add_example(BMX055_Example bmx055)
 add_example(NMEAGPS_Example nmea_gps)
 add_example(MMA7361_Example mma7361)
 add_example(BH1750_Example bh1750)
+add_example(HKA5_Example hka5)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd i2clcd)
 add_example_with_path(Jhd1313m1Sample lcd i2clcd)
