@@ -67,6 +67,8 @@ such sensors and known workarounds if they exist.
  to change the I2C bus speed to 100 KHz.
  * **MICSV89** is not compatible with the Intel Galileo due to the inability to
  change the I2C bus speed to 100 KHz.
+ * **MPL3115A2** uses repeated starts for I2C communication and may not work as
+ expected especially when other I2C sensors are present on the same bus.
  * **InvenSense MPU9150 & MPU9250** will be unable to report magnetometer data
  when used on the Intel Edison Arduino board because the integrated compass
  chips are not detected on the I2C bus.
