@@ -86,6 +86,8 @@ please refer to the Intel Developer Zone IDE page.
 
 See building documentation [here](docs/building.md).
 
+[![Build Status](https://travis-ci.org/intel-iot-devkit/upm.svg?branch=master)](https://travis-ci.org/intel-iot-devkit/upm)
+
 ### Making your own UPM module
 
 Porting [link](docs/porting.md) has more information on making new UPM modules.
