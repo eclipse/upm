@@ -2,6 +2,10 @@
  * Author: William Penner <william.penner@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Modifications by G. Vidal IFÉ ENSde Lyon 2016-06-18
+ * To prevent readReg error that appeared with commit on mraa
+ *  N° 1e4516d0266679a67ad8487d6d17448b76d8c211
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -151,14 +155,14 @@ class HTU21D {
          *
          * @param reg Address of the register
          */
-        uint16_t i2cReadReg_16 (int reg);
+        uint16_t i2cReadReg_16 (uint8_t reg);
 
         /**
          * Reads a one-byte register
          *
          * @param reg Address of the register
          */
-        uint8_t i2cReadReg_8 (int reg);
+        uint8_t i2cReadReg_8 (uint8_t reg);
 
     private:
 

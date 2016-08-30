@@ -2,6 +2,12 @@
  * Author: William Penner <william.penner@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
+ * Modifications by G. Vidal IFÉ ENSde Lyon 2016-06-18
+ * To prevent readReg error that appeared with commit on mraa
+ *  N° 1e4516d0266679a67ad8487d6d17448b76d8c211
+
+
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -49,10 +55,19 @@ HTU21D::HTU21D(int bus, int devAddr) : m_i2ControlCtx(bus) {
     resetSensor();
 }
 
+/*
+ * Reset sensor to initial state
+ * Modification by G. Vidal
+ * uint8_t data = 0x0; instead of
+ * uint8_t data;
+ * to compensate side-effect of error thtrown by readReg 
+ * after commit on i2c.hpp in mraa
+ */
+
 void
 HTU21D::resetSensor(void)
 {
-    uint8_t data;
+    uint8_t data = 0x0;
     m_i2ControlCtx.address (m_controlAddr);
     m_i2ControlCtx.write (&data, 1);
     usleep(20000);
@@ -219,17 +234,26 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
     return error;
 }
 
+/*
+ * Modification G. Vidal cahnged reg from int to uint8_t
+ */
+
 uint16_t
-HTU21D::i2cReadReg_16 (int reg) {
+HTU21D::i2cReadReg_16 (uint8_t reg) {
     uint16_t data;
     m_i2ControlCtx.address(m_controlAddr);
+/*    data  = (uint16_t)m_i2ControlCtx.readWordReg(reg);*/
     data  = (uint16_t)m_i2ControlCtx.readReg(reg) << 8;
     data |= (uint16_t)m_i2ControlCtx.readReg(reg+1);
     return data;
 }
 
+/*
+ * Modification G. Vidal cahnged reg from int to uint8_t
+ */
+
 uint8_t
-HTU21D::i2cReadReg_8 (int reg) {
+HTU21D::i2cReadReg_8 (uint8_t reg) {
     m_i2ControlCtx.address(m_controlAddr);
     return m_i2ControlCtx.readReg(reg);
 }
