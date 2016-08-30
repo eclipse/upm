@@ -42,21 +42,22 @@ namespace upm {
  */
 
 /**
+ * @library si7005
+ * @sensor si7005
+ * @comname Silicon Labs Si7005 Humidity And Temperature Sensor
+ * @altname Si7005
+ * @type temp
+ * @man silabs
+ * @con i2c
+ * @if itemperaturesensor
+ *
  * @brief C++ API for SI7005 sensor (Humidity And Temperature Sensor)
  *
  * The Silicon Labs Si7005
  * [SI7005](https://www.silabs.com/Support%20Documents/TechnicalDocs/Si7005.pdf)
  * is a digital relative humidity and temperature sensor.
  *
- * @library si7005
- * @sensor si7005
- * @comname Silicon Labs Si7005 LED lighting controller
- * @altname Si7005
- * @type temp
- * @man silabs
- * @con i2c
- * @if itemperaturesensor
-
+ * @snippet si7005.cxx Interesting
  */
 class SI7005 : public ITemperatureSensor, public IHumiditySensor {
     public:
