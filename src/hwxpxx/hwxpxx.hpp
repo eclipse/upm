@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library hwxpxx
    * @sensor hwxpxx
-   * @comname UPM API for the Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor
+   * @comname Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor
    * @type temp
    * @man veris
    * @con uart

@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library tb7300
    * @sensor tb7300
-   * @comname UPM API for the Honeywell TB7300 Communicating Fan Coil
+   * @comname Honeywell TB7300 Communicating Fan Coil
    * Thermostat
    * @type temp
    * @man honeywell

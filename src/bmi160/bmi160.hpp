@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library bmi160
    * @sensor bmi160
-   * @comname UPM API for the BMI160 3-axis Accelerometer, Gyroscope
+   * @comname BMI160 3-axis Accelerometer, Gyroscope
    * and Magnetometer
    * @type accelerometer compass
    * @man mouser

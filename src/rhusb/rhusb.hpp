@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library rhusb
    * @sensor rhusb
-   * @comname UPM API for the Omega RH-USB Temperature and Humidity Sensor
+   * @comname Omega RH-USB Temperature and Humidity Sensor
    * @type temp
    * @man omega
    * @con uart

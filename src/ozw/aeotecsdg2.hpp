@@ -31,7 +31,7 @@ namespace upm {
 
   /**
    * @library ozw
-   * @comname UPM API for the Aeotec Smart Dimmer Gen 2
+   * @comname Aeotec Smart Dimmer Gen 2
    * @con uart
    *
    * @brief UPM API for Aeotec Smart Dimmer Gen 2

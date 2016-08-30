@@ -31,7 +31,7 @@ namespace upm {
 
   /**
    * @library ozw
-   * @comname UPM API for he Aeotec Home Energy Meter Gen 1
+   * @comname Aeotec Home Energy Meter Gen 1
    * @con uart
    *
    * @brief UPM API for Aeotec Home Energy Meter Gen 1

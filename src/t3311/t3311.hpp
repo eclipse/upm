@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library t3311
    * @sensor t3311
-   * @comname UPM API for the T3311 Temperature and Humidity Sensor
+   * @comname T3311 Temperature and Humidity Sensor
    * @type temp
    * @man comet
    * @con uart

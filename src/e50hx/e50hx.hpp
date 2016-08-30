@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library e50hx
    * @sensor e50hx
-   * @comname UPM API for the Veris E50HX Energy Meters
+   * @comname Veris E50HX Energy Meters
    * @type electic
    * @man veris
    * @con uart

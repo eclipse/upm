@@ -31,7 +31,7 @@ namespace upm {
 
   /**
    * @library ozw
-   * @comname UPM API for he Aeotec Smart Switch 6
+   * @comname Aeotec Smart Switch 6
    * @con uart
    *
    * @brief UPM API for Aeotec Smart Switch 6

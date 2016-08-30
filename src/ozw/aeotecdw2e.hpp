@@ -31,7 +31,7 @@ namespace upm {
 
   /**
    * @library ozw
-   * @comname UPM API for he Aeotec Door/Window Sensor 2nd Edition
+   * @comname Aeotec Door/Window Sensor 2nd Edition
    * @altname DSB29
    * @con uart
    *
