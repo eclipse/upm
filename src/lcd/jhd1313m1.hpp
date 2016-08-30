@@ -76,6 +76,7 @@ class Jhd1313m1 : public Lcm1602
     mraa::Result scroll(bool direction);
     /**
      * Sets the color of the backlight
+     * Can be used to change the color even when the backlight is off
      *
      * @param r 0-255 value for red
      * @param g 0-255 value for green
@@ -83,6 +84,18 @@ class Jhd1313m1 : public Lcm1602
      * @return Result of the operation
      */
     mraa::Result setColor(uint8_t r, uint8_t g, uint8_t b);
+    /**
+     * Turns backlight on
+     *
+     * @return Result of operation
+     */
+    mraa::Result backlightOn();
+    /**
+     * Turns backlight off, background color is saved
+     *
+     * @return Result of operation
+     */
+    mraa::Result backlightOff();
 
  protected:
     virtual mraa::Result command(uint8_t cmd);

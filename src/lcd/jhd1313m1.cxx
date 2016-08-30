@@ -77,18 +77,9 @@ Jhd1313m1::Jhd1313m1(int bus, int lcdAddress, int rgbAddress)
     ret = command(LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the LCD controller");
 
-    ret = m_i2c_lcd_rgb.writeReg(0, 0);
+    ret = setColor(0xFF, 0xFF, 0xFF);
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = m_i2c_lcd_rgb.writeReg(1, 0);
-    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = m_i2c_lcd_rgb.writeReg(0x08, 0xAA);
-    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-
-    ret = m_i2c_lcd_rgb.writeReg(0x04, 0xFF);
-    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = m_i2c_lcd_rgb.writeReg(0x03, 0xFF);
-    UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
-    ret = m_i2c_lcd_rgb.writeReg(0x02, 0xFF);
+    ret = backlightOn();
     UPM_CHECK_MRAA_SUCCESS(ret, "Unable to initialise the RGB controller");
 }
 
@@ -107,8 +98,6 @@ Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
     ret = m_i2c_lcd_rgb.writeReg(1, 0);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
-    ret = m_i2c_lcd_rgb.writeReg(0x08, 0xAA);
-    UPM_GOTO_ON_MRAA_FAIL(ret, beach);
 
     ret = m_i2c_lcd_rgb.writeReg(0x04, r);
     UPM_GOTO_ON_MRAA_FAIL(ret, beach);
@@ -118,6 +107,18 @@ Jhd1313m1::setColor(uint8_t r, uint8_t g, uint8_t b)
 
 beach:
     return ret;
+}
+
+mraa::Result
+Jhd1313m1::backlightOn()
+{
+    return m_i2c_lcd_rgb.writeReg(0x08, 0xAA);
+}
+
+mraa::Result
+Jhd1313m1::backlightOff()
+{
+    return m_i2c_lcd_rgb.writeReg(0x08, 0x00);
 }
 
 mraa::Result
