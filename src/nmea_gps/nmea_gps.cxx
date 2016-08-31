@@ -52,7 +52,7 @@ NMEAGPS::~NMEAGPS()
   nmea_gps_close(m_nmea_gps);
 }
 
-std::string NMEAGPS::readStr(unsigned int size)
+std::string NMEAGPS::readStr(size_t size)
 {
   char buffer[size];
 
