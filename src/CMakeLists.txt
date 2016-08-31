@@ -272,7 +272,7 @@ function (UPM_MIXED_MODULE_INIT)
     # add upmc-utilities as a dependancy to all C libs (but NOT to the
     # utilities lib itself)
     if (NOT ${libname} MATCHES "utilities-c")
-      target_link_libraries (${libname} upmc-utilities)
+      target_link_libraries (${libname} utilities-c)
     endif()
   endif (UPM_MIXED_MODULE_INIT_C_SRC)
 
