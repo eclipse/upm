@@ -7,8 +7,6 @@
 // in Javascript for some of the common LCD functions
 
 // configure jshint
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
 
 var upmMICSV89 = require("jsupm_micsv89"); 
 

@@ -1,5 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
 /*
 * Author:  Takahiro Poly Horikawa <horikawa.takahiro@gmail.com>
 * Copyright (c) 2015 Intel Corporation.

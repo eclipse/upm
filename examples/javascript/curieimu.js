@@ -1,5 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
 /*
 * Author: Ron Evans (@deadprogram)
 * Copyright (c) 2016 Intel Corporation.

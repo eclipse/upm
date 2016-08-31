@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Henry Bruce <henry.bruce@intel.com>
  * Copyright (c) 2016 Intel Corporation.
