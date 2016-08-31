@@ -1,5 +1,9 @@
-set (libname "a110x")
-set (libdescription "upm a110x sensor module")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME a110x
+    DESCRIPTION "upm a110x sensor module"
+    C_HDR a110x.h
+    C_SRC a110x.c
+    CPP_HDR a110x.hpp
+    CPP_SRC a110x.cxx
+    FTI_SRC a110x_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
