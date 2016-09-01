@@ -29,47 +29,47 @@
 #include <mraa/aio.h>
 
 // reference voltage in millivolts
-#define GROVEVDIV_VREF  4980
+#define VDIV_VREF  4980
 
 // default ADC resolution
-#define GROVEVDIV_ADC_RES 1024
+#define VDIV_ADC_RES 1024
 
 namespace upm {
   /**
-   * @brief Grove Voltage Divider Sensor library
-   * @defgroup grovevdiv libupm-grovevdiv
+   * @brief Voltage Divider Sensor library
+   * @defgroup vdiv libupm-vdiv
    * @ingroup seeed analog electric robok
    */
 
   /**
-   * @library grovevdiv
-   * @sensor grovevdiv
-   * @comname Grove Voltage Divider
+   * @library vdiv
+   * @sensor vdiv
+   * @comname Voltage Divider
    * @type electric
    * @man seeed
    * @con analog
    * @kit robok
    *
-   * @brief API for the Grove Voltage Divider Sensor
+   * @brief API for the Voltage Divider Sensor
    *
-   * UPM module for the Grove Voltage Divider sensor
+   * UPM module for the Voltage Divider sensor
    *
-   * @image html grovevdiv.jpg
-   * @snippet grovevdiv.cxx Interesting
+   * @image html vdiv.jpg
+   * @snippet vdiv.cxx Interesting
    */
-  class GroveVDiv {
+  class VDiv {
   public:
     /**
-     * Grove Voltage Divider sensor constructor
+     * Voltage Divider sensor constructor
      *
      * @param pin Analog pin to use
      */
-    GroveVDiv(int pin);
+    VDiv(int pin);
 
     /**
-     * Grove Voltage Divider destructor
+     * Voltage Divider destructor
      */
-    ~GroveVDiv();
+    ~VDiv();
 
     /**
      * Gets the conversion value from the sensor
@@ -82,15 +82,15 @@ namespace upm {
     /**
      * Computes the measured voltage
      *
-     * @param gain Gain switch, either 3 or 10 for Grove
+     * @param gain Gain switch, example: either 3 or 10 grove vdiv
      * @param val Measured voltage (from value())
      * @param vref Reference voltage in millivolts
      * @param res ADC resolution
      *
      * @return Measured voltage
      */
-    float computedValue(uint8_t gain, unsigned int val, int vref=GROVEVDIV_VREF,
-                        int res=GROVEVDIV_ADC_RES);
+    float computedValue(uint8_t gain, unsigned int val, int vref=VDIV_VREF,
+                        int res=VDIV_ADC_RES);
 
   private:
     mraa_aio_context m_aio;
