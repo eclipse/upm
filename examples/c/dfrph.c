@@ -31,46 +31,44 @@ bool shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 int main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a dfrph sensor on analog pin A0
-  dfrph_context sensor = dfrph_init(0);
+    // Instantiate a dfrph sensor on analog pin A0
+    dfrph_context sensor = dfrph_init(0);
 
-  if (!sensor)
+    if (!sensor)
     {
-      printf("dfrph_init() failed.\n");
-      return(1);
+        printf("dfrph_init() failed.\n");
+        return(1);
     }
 
-  // Every half a second, sample the URM37 and output the measured
-  // distance in cm.
-
-  while (shouldRun)
+    // Every half a second, sample the sensor output
+    while (shouldRun)
     {
-      float volts = 0.0, pH = 0.0;
+        float volts = 0.0, pH = 0.0;
 
-      dfrph_get_raw_volts(sensor, &volts);
-      dfrph_get_ph(sensor, &pH);
+        dfrph_get_raw_volts(sensor, &volts);
+        dfrph_get_ph(sensor, &pH);
 
-      printf("Detected volts: %0.03f\n", volts);
-      printf("pH value: %0.03f\n", pH);
+        printf("Detected volts: %0.03f\n", volts);
+        printf("pH value: %0.03f\n", pH);
 
-      usleep(500000);
+        usleep(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  printf("Exiting\n");
+    printf("Exiting\n");
 
-  dfrph_close(sensor);
+    dfrph_close(sensor);
 
-  return 0;
+    return 0;
 }
