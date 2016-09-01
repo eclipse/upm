@@ -93,6 +93,7 @@ add_example (bh1750)
 add_example (urm37)
 add_example (urm37-uart)
 add_example (hka5)
+add_example (dfrorp)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

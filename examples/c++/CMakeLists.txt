@@ -277,6 +277,7 @@ add_example (nmea_gps)
 add_example (mma7361)
 add_example (bh1750)
 add_example (hka5)
+add_example (dfrorp)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
