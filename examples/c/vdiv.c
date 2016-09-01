@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,45 +23,52 @@
  */
 
 #include <unistd.h>
-#include <iostream>
 #include <signal.h>
-#include "grovevdiv.hpp"
 
-using namespace std;
+#include "vdiv.h"
 
 bool shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Voltage Divider sensor on analog pin A0
-  upm::GroveVDiv* vDiv = new upm::GroveVDiv(0);
+    //! [Interesting]
 
-  // collect data and output measured voltage according to the setting
-  // of the scaling switch (3 or 10)
-  while (shouldRun)
+    // Instantiate a sensor on analog pin A0
+    vdiv_context sensor = vdiv_init(0, 5);
+
+    if (!sensor)
     {
-      unsigned int val = vDiv->value(100);
-      float gain3val = vDiv->computedValue(3, val);
-      float gain10val = vDiv->computedValue(10, val);
-      cout << "ADC value: " << val << " Gain 3: " << gain3val 
-           << "v Gain 10: " << gain10val << "v" << endl;
-
-      sleep(1);
+        printf("vdiv_init() failed.\n");
+        return(1);
     }
-//! [Interesting]
 
-  cout << "Exiting..." << endl;
+    // Every half a second, sample the sensor output
+    while (shouldRun)
+    {
+        float raw_volts = 0.0, computed_volts = 0.0;
 
-  delete vDiv;
-  return 0;
+        vdiv_get_raw_volts(sensor, &raw_volts);
+        vdiv_get_computed_volts(sensor, &computed_volts);
+
+        printf("Divide SW: %d ADC voltage: %0.03f Sensor voltage: %0.03f\n",
+                vdiv_get_divsw(sensor), raw_volts, computed_volts);
+
+        usleep(500000);
+    }
+
+    //! [Interesting]
+
+    printf("Exiting\n");
+
+    vdiv_close(sensor);
+
+    return 0;
 }

@@ -22,22 +22,22 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovevdiv as upmGrovevdiv
+import pyupm_vdiv as upmvdiv
 
-# Instantiate a Grove Voltage Divider sensor on analog pin A0
-myVoltageDivider = upmGrovevdiv.GroveVDiv(0)
+# Instantiate a Voltage Divider sensor on analog pin A0
+myVoltageDivider = upmvdiv.VDiv(0)
 
 
 ## Exit handlers ##
 # This stops python from printing a stacktrace when you hit control-C
 def SIGINTHandler(signum, frame):
-	raise SystemExit
+    raise SystemExit
 
 # This function lets you run code on exit,
 # including functions from myVoltageDivider
 def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    print "Exiting"
+    sys.exit(0)
 
 # Register exit handlers
 atexit.register(exitHandler)
@@ -45,10 +45,10 @@ signal.signal(signal.SIGINT, SIGINTHandler)
 
 
 while(1):
-	val = myVoltageDivider.value(100)
-	gain3val = myVoltageDivider.computedValue(3, val)
-	gain10val = myVoltageDivider.computedValue(10, val)
-	print "ADC value: {0} Gain 3: {1}v Gain 10: {2}v".format(
-	val,  gain3val, gain10val)
+    val = myVoltageDivider.value(100)
+    gain3val = myVoltageDivider.computedValue(3, val)
+    gain10val = myVoltageDivider.computedValue(10, val)
+    print "ADC value: {0} Gain 3: {1}v Gain 10: {2}v".format(
+    val,  gain3val, gain10val)
 
-	time.sleep(1)
+    time.sleep(1)

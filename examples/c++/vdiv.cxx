@@ -1,6 +1,6 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,29 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
-public class GroveVDivSample {
-	private static final short gain3 = 3;
-	private static final short gain10 = 10;
+#include <unistd.h>
+#include <iostream>
+#include <signal.h>
+#include "vdiv.hpp"
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a Grove Voltage Divider sensor on analog pin A0
-		upm_grovevdiv.GroveVDiv vDiv = new upm_grovevdiv.GroveVDiv(0);
+using namespace std;
 
-		// collect data and output measured voltage according to the setting
-		// of the scaling switch (3 or 10)
-		while (true) {
-			long val = vDiv.value(100);
-			float gain3val = vDiv.computedValue(gain3, val);
-			float gain10val = vDiv.computedValue(gain10, val);
+bool shouldRun = true;
 
-			System.out.println("ADC value: " + val + ", Gain 3: " + gain3val + "v, Gain 10: "
-					+ gain10val);
+void sig_handler(int signo)
+{
+  if (signo == SIGINT)
+    shouldRun = false;
+}
 
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
 
+int main ()
+{
+  signal(SIGINT, sig_handler);
+
+//! [Interesting]
+  // Instantiate a Grove Voltage Divider sensor on analog pin A0
+  upm::VDiv* vDiv = new upm::VDiv(0);
+
+  // collect data and output measured voltage according to the setting
+  // of the scaling switch (3 or 10)
+  while (shouldRun)
+    {
+      unsigned int val = vDiv->value(100);
+      float gain3val = vDiv->computedValue(3, val);
+      float gain10val = vDiv->computedValue(10, val);
+      cout << "ADC value: " << val << " Gain 3: " << gain3val 
+           << "v Gain 10: " << gain10val << "v" << endl;
+
+      sleep(1);
+    }
+//! [Interesting]
+
+  cout << "Exiting..." << endl;
+
+  delete vDiv;
+  return 0;
 }

@@ -21,7 +21,7 @@ groverotary.cxx	GroveRotarySample.java
 grovescam.cxx	GROVESCAMSample.java
 groveslide.cxx	GroveSlideSample.java
 grovespeaker.cxx	GroveSpeakerSample.java
-grovevdiv.cxx	GroveVDivSample.java
+vdiv.cxx	VDivSample.java
 grovewater.cxx	GroveWaterSample.java
 grovewfs.cxx	GroveWFSSample.java
 guvas12d.cxx	GUVAS12DSample.java

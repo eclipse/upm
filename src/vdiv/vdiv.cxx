@@ -26,12 +26,12 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovevdiv.hpp"
+#include "vdiv.hpp"
 
 using namespace upm;
 using namespace std;
 
-GroveVDiv::GroveVDiv(int pin)
+VDiv::VDiv(int pin)
 {
   if ( !(m_aio = mraa_aio_init(pin)) )
     {
@@ -41,12 +41,12 @@ GroveVDiv::GroveVDiv(int pin)
     }
 }
 
-GroveVDiv::~GroveVDiv()
+VDiv::~VDiv()
 {
   mraa_aio_close(m_aio);
 }
 
-unsigned int GroveVDiv::value(unsigned int samples)
+unsigned int VDiv::value(unsigned int samples)
 {
   unsigned int sum = 0;
 
@@ -60,7 +60,7 @@ unsigned int GroveVDiv::value(unsigned int samples)
   return (sum / samples);
 }
 
-float GroveVDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
+float VDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
 {
   return ((float(gain) * float(val) * float(vref) / float(res)) / 1000.0);
 

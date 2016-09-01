@@ -22,9 +22,9 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var voltageDivider = require('jsupm_grovevdiv');
+var voltageDivider = require('jsupm_vdiv');
 // Instantiate a Grove Voltage Divider sensor on analog pin A0
-var myVoltageDivider = new voltageDivider.GroveVDiv(0);
+var myVoltageDivider = new voltageDivider.VDiv(0);
 
 // collect data and output measured voltage according to the setting
 // of the scaling switch (3 or 10)
