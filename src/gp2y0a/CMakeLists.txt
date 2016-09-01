@@ -1,5 +1,9 @@
-set (libname "gp2y0a")
-set (libdescription "upm gp2y0a family of IR distance detectors")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME gp2y0a
+    DESCRIPTION "upm gp2y0a family of IR distance detectors"
+    C_HDR gp2y0a.h
+    C_SRC gp2y0a.c
+    CPP_HDR gp2y0a.hpp
+    CPP_SRC gp2y0a.cxx
+    FTI_SRC gp2y0a_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
