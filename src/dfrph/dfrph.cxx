@@ -26,49 +26,46 @@
 
 #include "dfrph.hpp"
 
-using namespace std;
 using namespace upm;
 
-DFRPH::DFRPH(int pin, float aref) :
-  m_aio(pin)
+DFRPH::DFRPH(int pin, float aref)
 {
-  m_aRes = (1 << m_aio.getBit());
-  m_aref = aref;
-
-  m_offset = 0.0;
-}
-
-DFRPH::~DFRPH()
-{
-}
-
-float DFRPH::volts()
-{
-  int val = m_aio.read();
-
-  return(val * (m_aref / m_aRes));
-}
-
-void DFRPH::setOffset(float offset)
-{
-  m_offset = offset;
+   _dev = dfrph_init(pin);
+   addPin(pin, _dev);
 }
 
 float DFRPH::pH(unsigned int samples)
 {
-  if (!samples)
-    samples = 1;
+    if (!samples)
+        samples = 1;
 
-  float sum = 0.0;
+    float avg = 0.0;
 
-  for (int i=0; i<samples; i++)
-    {
-      sum += volts();
-      usleep(20000);
-    }
+    for (int i=0; i<samples; i++)
+        avg += getSensorValue();
 
-  sum /= samples;
+    avg /= samples;
 
-  // 3.5 is a 'magic' DFRobot number. Seems to work though :)
-  return (3.5 * sum + m_offset);
+    return avg;
+}
+
+float DFRPH::getSensorValue(int16_t pin) const
+{
+    std::map<int16_t, analog_sensor_t*>::const_iterator it =
+        _pinmap.begin();
+
+    /* Use default or throw if invalid pin */
+    if (pin != -1)
+        it = _pinmap.find(pin);
+
+    if (it == _pinmap.end())
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": Invalid AIO pin");
+
+    float value = 0.0;
+    // Call C get_ph method
+    if (dfrph_get_ph(_dev, &value) != UPM_SUCCESS)
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": dfrph_get_ph() failed, invalid pin?");
+    return value;
 }

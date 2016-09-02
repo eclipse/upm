@@ -51,7 +51,7 @@ endmacro()
 # Note special case for grove based examples
 macro(add_example example_name)
   set(example_src "${example_name}.cxx")
-  set(example_bin "${example_name}-example")
+  set(example_bin "${example_name}-example-cxx")
   get_module_name(${example_name} module_name)
   set(module_dir "${PROJECT_SOURCE_DIR}/src/${module_name}")
   if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${example_src}"
@@ -75,7 +75,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/examples)
 
 # Set the mraa include and link directories prior to adding examples
 include_directories (${MRAA_INCLUDE_DIRS})
+# Add the utilities directory
+include_directories (${CMAKE_SOURCE_DIR}/src/utilities)
 link_directories (${MRAA_LIBDIR})
+
+# UPM include directory
+include_directories (${PROJECT_SOURCE_DIR}/include)
 
 # If your sample source file matches the name of the module it tests, add it here
 # Exceptions are as follows:

@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors:
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,55 +21,25 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_H_
+#define UPM_H_
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "dfrph.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace std;
+#if __STDC_VERSION__ >= 199901L
+#define C99
+#endif
 
-bool shouldRun = true;
+#include <upm_types.h>
+#include <upm_math.h>
+#include <upm_utilities.h>
 
-#define DFRPH_AREF   5.0
+#define upm_perror(...) perror(args, __VA_ARGS__)
 
-void sig_handler(int signo)
-{
-  if (signo == SIGINT)
-    shouldRun = false;
+#ifdef __cplusplus
 }
+#endif
 
-int main()
-{
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a DFRPH sensor on analog pin A0, with an analog
-  // reference voltage of DFRPH_AREF
-  upm::DFRPH *sensor = new upm::DFRPH(0, DFRPH_AREF);
-
-
-  // After calibration, set the offset (based on calibration with a pH
-  // 7.0 buffer solution).  See the UPM sensor documentation for
-  // calibrations instructions.
-  sensor->setOffset(0.065);
-
-  // Every second, sample the pH and output it's corresponding
-  // analog voltage.
-
-  while (shouldRun)
-    {
-      cout << "Detected volts: " << sensor->getRawVolts() << endl;
-      cout << "pH value: " << sensor->pH() << endl;
-      cout << endl;
-      sleep(1);
-    }
-
-//! [Interesting]
-
-  cout << "Exiting" << endl;
-
-  delete sensor;
-  return 0;
-}
+#endif /* UPM_H_ */

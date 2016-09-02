@@ -1,0 +1,5 @@
+set (libname "utilities")
+set (libdescription "UPM Utilities Library")
+set (module_src upm_utilities.c)
+set (module_h upm_utilities.h)
+upm_module_init()

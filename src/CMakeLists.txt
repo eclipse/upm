@@ -9,6 +9,11 @@ file_to_list ("javaswig_blacklist" JAVASWIG_BLACKLIST)
 file_to_list ("pythonswig_blacklist" PYTHONSWIG_BLACKLIST)
 file_to_list ("nodeswig_blacklist" NODESWIG_BLACKLIST)
 
+# UPM C header files
+set (UPM_H_DIR ${CMAKE_SOURCE_DIR}/include)
+
+# UPM C++ header files
+set (UPM_HPP_COMMON ${CMAKE_SOURCE_DIR}/src/upm.hpp)
 macro(subdirlist result curdir)
   file(GLOB children RELATIVE ${curdir} ${curdir}/*)
   set(dirlist "")
@@ -36,7 +41,7 @@ macro(upm_SWIG_PYTHON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
     swig_add_module (pyupm_${libname} python pyupm_${libname}.i ${module_src})
-    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES})
+    swig_link_libraries (pyupm_${libname} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES} upm_base)
     target_include_directories ( ${SWIG_MODULE_pyupm_${libname}_REAL_NAME}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
@@ -46,6 +51,10 @@ macro(upm_SWIG_PYTHON)
          ${CMAKE_CURRENT_BINARY_DIR}/pyupm_${libname}.py
          DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
+
+    # account for the upm_utilities library
+    set_target_properties(${SWIG_MODULE_pyupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
+    swig_link_libraries (pyupm_${libname} utilities)
   endif()
 endmacro()
 
@@ -108,6 +117,10 @@ macro(upm_SWIG_NODE)
     createpackagejson(${libname})
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
+
+    # account for the upm_utilities library
+    set_target_properties(${SWIG_MODULE_jsupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
+    swig_link_libraries (jsupm_${libname} utilities)
   endif()
 endmacro()
 
@@ -157,6 +170,8 @@ macro(upm_SWIG_JAVA)
         COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
     )
 
+    # account for the upm_utilities library
+    swig_link_libraries (javaupm_${libname} utilities)
   endif()
 endmacro()
 
@@ -217,13 +232,59 @@ if (SWIG_FOUND)
 endif()
 
 macro(upm_module_init)
+  # First pass, check for C and C++ files.
+  set (found_c_source false)
+  set (found_cxx_source false)
+  foreach(srcfile ${module_src})
+    if (${srcfile} MATCHES ".*c$" )
+      set (found_c_source true)
+    endif()
+    if (${srcfile} MATCHES ".*cxx$" )
+      set (found_cxx_source true)
+    endif()
+  endforeach(srcfile)
+
+  # Remove .cxx files if C only
+  if (NOT BUILDCPP)
+    if (found_c_source)
+        message (INFO " Building C-only library: ${libname}")
+        foreach(srcfile ${module_src})
+            if (${srcfile} MATCHES ".*cxx" )
+                list(REMOVE_ITEM module_src ${srcfile})
+            endif()
+        endforeach(srcfile)
+    endif()
+  endif ()
+
+  # Remove *_fti.c files if C files are present and NOT BUILDFTI
+  if (NOT BUILDFTI)
+    if (found_c_source)
+        message (INFO " Disabling FTI implementation: ${libname}")
+        foreach(srcfile ${module_src})
+            if (${srcfile} MATCHES ".*_fti\\.c" )
+                list(REMOVE_ITEM module_src ${srcfile})
+            endif()
+        endforeach(srcfile)
+    endif()
+  endif ()
+
   link_directories (${MRAA_LIBDIR})
   add_library (${libname} SHARED ${module_src})
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} . ..)
+  include_directories (${MRAA_INCLUDE_DIRS} . .. ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/include/types ${CMAKE_SOURCE_DIR}/src/utilities)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
+  target_link_libraries (${libname} upm_base)
+
+  # add linkage and dependencies for the upm_utilities lib, except for
+  # the utilities library itself
+  if (NOT ${libname} MATCHES "utilities")
+    set (reqlibname "${reqlibname} upm-utilities")
+    add_dependencies(${libname} utilities)
+    target_link_libraries(${libname} utilities)
+  endif()
+
   set_target_properties(
     ${libname}
     PROPERTIES PREFIX "libupm-"
@@ -231,7 +292,8 @@ macro(upm_module_init)
     VERSION ${upm_VERSION_STRING}
   )
   upm_create_install_pkgconfig (upm-${libname}.pc ${LIB_INSTALL_DIR}/pkgconfig)
-  if (SWIG_FOUND)
+  # no point is doing SWIG if there are no C++ files...
+  if (SWIG_FOUND AND found_cxx_source)
     if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
       upm_swig_python()
     endif()
@@ -247,6 +309,7 @@ macro(upm_module_init)
   endif()
   install(TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
   install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
+  install (FILES ${module_h} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
     cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
@@ -283,3 +346,7 @@ foreach(subdir ${SUBDIRS})
         add_subdirectory(${subdir})
     endif()
 endforeach()
+
+install (DIRECTORY ${UPM_H_DIR} DESTINATION .)
+#install (FILES ${UPM_H_COMMON} DESTINATION include)
+install (FILES ${UPM_HPP_COMMON} DESTINATION include)

@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors:
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,55 +21,48 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_UTILITIES_H_
+#define UPM_UTILITIES_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#if defined(linux)
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "dfrph.hpp"
+#endif
 
-using namespace std;
+#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#include <zephyr.h>
+#include <device.h>
+#include <sys_clock.h>
 
-bool shouldRun = true;
+#if defined(CONFIG_STDOUT_CONSOLE)
+#include <stdio.h>
+#define PRINT           printf
+#else
+#include <misc/printk.h>
+#define PRINT           printk
+#endif
+#endif
 
-#define DFRPH_AREF   5.0
+/* Get filename w/o path */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-void sig_handler(int signo)
-{
-  if (signo == SIGINT)
-    shouldRun = false;
+void upm_delay(int time);
+
+void upm_delay_ms(int time);
+
+void upm_delay_us(int time);
+
+void* upm_malloc(int mem_map, int size);
+
+void upm_free(int mem_map, void* ptr);
+
+#ifdef __cplusplus
 }
+#endif
 
-int main()
-{
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a DFRPH sensor on analog pin A0, with an analog
-  // reference voltage of DFRPH_AREF
-  upm::DFRPH *sensor = new upm::DFRPH(0, DFRPH_AREF);
-
-
-  // After calibration, set the offset (based on calibration with a pH
-  // 7.0 buffer solution).  See the UPM sensor documentation for
-  // calibrations instructions.
-  sensor->setOffset(0.065);
-
-  // Every second, sample the pH and output it's corresponding
-  // analog voltage.
-
-  while (shouldRun)
-    {
-      cout << "Detected volts: " << sensor->getRawVolts() << endl;
-      cout << "pH value: " << sensor->pH() << endl;
-      cout << endl;
-      sleep(1);
-    }
-
-//! [Interesting]
-
-  cout << "Exiting" << endl;
-
-  delete sensor;
-  return 0;
-}
+#endif /* UPM_UTILITIES_H_ */
