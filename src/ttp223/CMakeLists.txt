@@ -1,5 +1,9 @@
-set (libname "ttp223")
-set (libdescription "upm ttp223")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME ttp223
+    DESCRIPTION "upm ttp223 touch sensor module"
+    C_HDR ttp223.h
+    C_SRC ttp223.c
+    CPP_HDR ttp223.hpp
+    CPP_SRC ttp223.cxx
+    FTI_SRC ttp223_fti.c
+    CPP_WRAPS_C
+    REQUIRES libmraa)
