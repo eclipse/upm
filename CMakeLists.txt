@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
-message("WARNING: building into sources dir can be risky, prefer other directory")
+  message (WARNING "Building into sources dir can be risky, prefer other directory")
 endif ()
 
 find_package (Threads REQUIRED)
@@ -11,7 +11,7 @@ find_package (PkgConfig REQUIRED)
 # Force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
 pkg_check_modules (MRAA REQUIRED mraa>=1.1.1)
-message (INFO " found mraa version: ${MRAA_VERSION}")
+message (STATUS "found mraa version: ${MRAA_VERSION}")
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
@@ -24,11 +24,11 @@ set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
-  message (WARNING " - Install git to compile a production UPM!")
+  message (WARNING "Install git to compile a production UPM!")
   set (VERSION "v0.7.3-dirty")
 endif ()
 
-message (INFO " - UPM Version ${VERSION}")
+message (STATUS "UPM Version ${VERSION}")
 
 # Parse the version information into pieces.
 string (REGEX REPLACE "^v([0-9]+)\\..*" "\\1" VERSION_MAJOR "${VERSION}")
@@ -77,7 +77,7 @@ endif ()
 # Detect arch
 include (TargetArch)
 target_architecture (DETECTED_ARCH)
-message( INFO " - Target arch is ${DETECTED_ARCH}")
+message (STATUS "Target arch is ${DETECTED_ARCH}")
 
 #-march=native for ARM when not defined/forced
 if (DETECTED_ARCH MATCHES "arm.*" AND NOT CMAKE_CXX_FLAGS MATCHES "-march")
@@ -182,7 +182,7 @@ if (IPK)
       set (TARGET_ARCH ${DETECTED_ARCH})
     endif ()
   endif ()
-  message (INFO " - Package arch is ${TARGET_ARCH}")
+  message (STATUS "Package arch is ${TARGET_ARCH}")
 
   set(CPACK_GENERATOR "DEB")
   set(OPKG_ARCH ${TARGET_ARCH})
@@ -207,7 +207,7 @@ if (IPK)
 endif()
 
 if (RPM)
-  message (INFO " - RPM packaging enabled for ${DETECTED_ARCH}")
+  message (STATUS "RPM packaging enabled for ${DETECTED_ARCH}")
   set(CPACK_PACKAGE_VERSION ${VERSION})
   set(CPACK_GENERATOR "RPM")
   set(CPACK_PACKAGE_NAME "upm")
