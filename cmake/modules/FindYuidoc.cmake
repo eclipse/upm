@@ -14,9 +14,11 @@ find_package_handle_standard_args (Yuidoc DEFAULT_MSG
 # Get Yuidoc version
 if (YUIDOC_EXECUTABLE)
     execute_process(COMMAND ${YUIDOC_EXECUTABLE} --version
-                    ERROR_VARIABLE YUIDOC_VERSION)
+                    ERROR_VARIABLE YUIDOC_VERSION
+                    OUTPUT_STRIP_TRAILING_WHITESPACE
+                    ERROR_STRIP_TRAILING_WHITESPACE)
     if(YUIDOC_VERSION)
-      message ("INFO - Yuidoc version is " ${YUIDOC_VERSION})
+      message (STATUS "Yuidoc version is ${YUIDOC_VERSION}")
     endif()
 endif ()
 
