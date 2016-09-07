@@ -21,15 +21,15 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-var groveO2_lib = require("jsupm_groveo2");
+var O2_lib = require("jsupm_o2");
 
 // The was tested with the O2 Oxygen Concentration Sensor Module
-// Instantiate a GroveO2 on analog pin A0
-var groveO2_obj = new groveO2_lib.GroveO2(0);
+// Instantiate a O2 on analog pin A0
+var O2_obj = new O2_lib.O2(0);
 
 var myInterval = setInterval(function()
 {
-	console.log("The output voltage is: " + roundNum(groveO2_obj.voltageValue(), 5) + "mV");
+	console.log("The output voltage is: " + roundNum(O2_obj.voltageValue(), 5) + "mV");
 }, 100);
 
 function roundNum(num, decimalPlaces)
@@ -42,9 +42,9 @@ function roundNum(num, decimalPlaces)
 process.on('SIGINT', function()
 {
 	clearInterval(myInterval);
-	groveO2_obj = null;
-	groveO2_lib.cleanUp();
-	groveO2_lib = null;
+	O2_obj = null;
+	O2_lib.cleanUp();
+	O2_lib = null;
 	console.log("Exiting...");
 	process.exit(0);
 });

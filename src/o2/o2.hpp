@@ -21,36 +21,53 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <iostream>
 #include <string>
-#include <stdexcept>
+#include <mraa/aio.h>
 
-#include "groveo2.hpp"
+namespace upm {
+  /**
+   * @brief Grove O2 Oxygen Gas Sensor library
+   * @defgroup o2 libupm-o2
+   * @ingroup seeed analog gaseous
+   */
 
-using namespace upm;
-using namespace std;
+  /**
+   * @library o2
+   * @sensor o2
+   * @comname Grove O2 Sensor
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   *
+   * @brief API for the Grove O2 Oxygen Gas Sensor
+   *
+   * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
+   *
+   * @image html o2.jpg    
+   * @snippet o2.cxx Interesting
+   */
+  class O2 {
+  public:
+    /**
+     * Grove O2 Oxygen Gas sensor constructor
+     *
+     * @param pin Analog pin to use
+     */
+    O2(int pin);
+    /**
+     * O2 destructor
+     */
+    ~O2();
+    /**
+     * Measures O2 from the sensor
+     *
+     * @return Oxygen concentration as voltage
+     */
+    float voltageValue();
 
-GroveO2::GroveO2(int pin)
-{
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-}
-
-GroveO2::~GroveO2()
-{
-  mraa_aio_close(m_aio);
-}
-
-float GroveO2::voltageValue()
-{
-	int val = mraa_aio_read(m_aio);
-	if (val == -1) return -1.0f;
-	float sensorVoltage = (val/1024.0) * 5.0;
-	sensorVoltage = (sensorVoltage/201.0) * 10000.0;
-	return sensorVoltage;
+  private:
+    mraa_aio_context m_aio;
+  };
 }

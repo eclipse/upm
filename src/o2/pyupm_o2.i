@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_groveo2
+%module pyupm_o2
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "groveo2.hpp"
+%include "o2.hpp"
 %{
-    #include "groveo2.hpp"
+    #include "o2.hpp"
 %}

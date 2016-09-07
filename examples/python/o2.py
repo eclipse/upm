@@ -22,11 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_groveo2 as upmGroveo2
+import pyupm_o2 as upmO2
 
 # This was tested with the O2 Oxygen Concentration Sensor Module
-# Instantiate a GroveO2 on analog pin A0
-myGroveO2 = upmGroveo2.GroveO2(0)
+# Instantiate a O2 on analog pin A0
+myO2 = upmO2.O2(0)
 
 
 ## Exit handlers ##
@@ -34,7 +34,7 @@ myGroveO2 = upmGroveo2.GroveO2(0)
 def SIGINTHandler(signum, frame):
 	raise SystemExit
 
-# This lets you run code on exit, including functions from myGroveO2
+# This lets you run code on exit, including functions from myO2
 def exitHandler():
 	print "Exiting"
 	sys.exit(0)
@@ -46,6 +46,6 @@ signal.signal(signal.SIGINT, SIGINTHandler)
 
 while(1):
 	print "The output voltage is: {0}mV".format(
-	myGroveO2.voltageValue())
+	myO2.voltageValue())
 
 	time.sleep(.1)

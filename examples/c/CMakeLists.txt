@@ -96,6 +96,7 @@ add_example (hka5)
 add_example (dfrorp)
 add_example (vdiv)
 add_example (mqx)
+add_example (o2)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
