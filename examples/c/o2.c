@@ -1,6 +1,6 @@
 /*
- * Author: Abhishek Malik <abhishek.malik@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,25 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_groveo2.GroveO2;
+#include <unistd.h>
+#include <signal.h>
 
-public class GroveO2Example {
+#include "o2.h"
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//! [Interesting]
-		// Initializing the Grove O2 sensor on the A) analog pin
-		GroveO2 o2 = new GroveO2(0);
+bool shouldRun = true;
 
-		while(true){
-			System.out.println("The output voltage is: "+o2.voltageValue());
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				System.out.println("The following exception has occurred: "+e.getMessage());
-			}
-		}
-		//! [Interesting]
-	}
+void sig_handler(int signo)
+{
+    if (signo == SIGINT)
+        shouldRun = false;
+}
+
+int main()
+{
+    signal(SIGINT, sig_handler);
+
+    //! [Interesting]
+
+    // Instantiate a o2 sensor on analog pin A0
+    o2_context sensor = o2_init(0);
+
+    if (!sensor)
+    {
+        printf("o2_init() failed.\n");
+        return -1;
+    }
+
+    // Every half a second, sample the sensor output
+    while (shouldRun)
+    {
+        float raw_volts = 0.0;
+        float o2_percent = 0.0;
+
+        o2_get_raw_volts(sensor, &raw_volts);
+        o2_get_value(sensor, &o2_percent);
+
+        printf("O2 raw volts: %0.03f v, o2: %0.03f %\n",
+                raw_volts, o2_percent);
+
+        usleep(500000);
+    }
+
+    //! [Interesting]
+
+    printf("Exiting\n");
+
+    o2_close(sensor);
+
+    return 0;
 }

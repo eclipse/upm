@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "groveo2.hpp"
+#include "o2.hpp"
 
 using namespace std;
 
@@ -42,8 +42,8 @@ int main(int argc, char **argv)
 
 //! [Interesting]
   // The was tested with the O2 Oxygen Concentration Sensor Module
-  // Instantiate a GroveO2 on analog pin A0
-  upm::GroveO2 *O2 = new upm::GroveO2(0);
+  // Instantiate a O2 on analog pin A0
+  upm::O2 *O2 = new upm::O2(0);
   while (shouldRun)
   {
     cout << "The output voltage is: " << O2->voltageValue() << "mV" << endl;
