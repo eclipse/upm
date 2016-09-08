@@ -1,5 +1,5 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
+ * Author: Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,49 +21,27 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+import upm_emg.EMG;
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+public class Emg {
 
-#include "groveemg.hpp"
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//! [Interesting]
+		// Instantiating the Grove EMG sensor on Analog pin 0
+		EMG emg = new EMG(0);
+		System.out.println("Calibrating ... ");
+		emg.calibrate();
 
-using namespace upm;
-using namespace std;
-
-GroveEMG::GroveEMG(int pin)
-{
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-}
-
-GroveEMG::~GroveEMG()
-{
-  mraa_aio_close(m_aio);
-}
-
-void GroveEMG::calibrate()
-{
-	int val, sum = 0;
-
-	for (int i=0; i<1100; i++)
-	{
-		val = mraa_aio_read(m_aio);
-                if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
-                                                        ": Failed to do an aio read.");
-		sum += val;
-		usleep(1000);
+		while(true){
+			System.out.println("EMG Val: "+emg.value());
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("The following exception occurred: "+e.getMessage());
+			}
+		}
 	}
-	sum /= 1100;
-	cout << "Static analog data = " << sum << endl;
-}
-
-int GroveEMG::value()
-{
-	int val = mraa_aio_read(m_aio);
-	return val;
+	//! [Interesting]
 }

@@ -22,11 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_groveemg as upmGroveemg
+import pyupm_emg as upmEmg
 
-# Tested with the GroveEMG Muscle Signal Reader Sensor Module
-# Instantiate a GroveEMG on analog pin A0
-myEMG = upmGroveemg.GroveEMG(0)
+# Tested with the EMG Muscle Signal Reader Sensor Module
+# Instantiate a EMG on analog pin A0
+myEMG = upmEmg.EMG(0)
 
 
 ## Exit handlers ##
