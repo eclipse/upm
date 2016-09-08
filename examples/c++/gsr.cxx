@@ -22,49 +22,42 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
-#include <string>
-#include <stdexcept>
+#include <signal.h>
+#include "gsr.hpp"
 
-#include "grovegsr.hpp"
-
-using namespace upm;
 using namespace std;
 
-GroveGSR::GroveGSR(int pin)
+bool shouldRun = true;
+
+void sig_handler(int signo)
 {
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-GroveGSR::~GroveGSR()
+int main()
 {
-  mraa_aio_close(m_aio);
-}
+  signal(SIGINT, sig_handler);
 
-void GroveGSR::calibrate()
-{
-	sleep(1);
-	int val, threshold, sum = 0;
+//! [Interesting]
+  // The was tested with the GSR Galvanic Skin Response Sensor module.
 
-	for(int i=0; i<500; i++)
-	{
-		val = mraa_aio_read(m_aio);
-		if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
-			                                ": Failed to do an aio read.");
-		sum += val;
-		usleep(5000);
-	}
-	threshold = sum / 500;
-	cout << "Threshold = " << threshold << endl;
-}
+  // Instantiate a GSR on analog pin A0
+  upm::GSR *gsr = new upm::GSR(0);
+  cout << "Calibrating...." << endl;
+  gsr->calibrate();
 
-int GroveGSR::value()
-{
-	int val = mraa_aio_read(m_aio);
-	return val;
+  while (shouldRun)
+  {
+      cout << gsr->value() << endl;
+      usleep(500000);
+  }
+//! [Interesting]
+
+  cout << "Exiting" << endl;
+
+  delete gsr;
+  return 0;
 }

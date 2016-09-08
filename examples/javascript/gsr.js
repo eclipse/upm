@@ -22,18 +22,18 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var grovegsr_lib = require("jsupm_grovegsr");
+var gsr_lib = require("jsupm_gsr");
 
-// The was tested with the GroveGSR Galvanic Skin Response Sensor module.
+// The was tested with the GSR Galvanic Skin Response Sensor module.
 
-// Instantiate a GroveGSR on analog pin A0
-var grovegsr_obj = new grovegsr_lib.GroveGSR(0);
+// Instantiate a GSR on analog pin A0
+var gsr_obj = new gsr_lib.GSR(0);
 console.log("Calibrating....");
-grovegsr_obj.calibrate();
+gsr_obj.calibrate();
 
 var myInterval = setInterval(function()
 {
-	console.log(grovegsr_obj.value());
+	console.log(gsr_obj.value());
 }, 500);
 
 
@@ -41,9 +41,9 @@ var myInterval = setInterval(function()
 process.on('SIGINT', function()
 {
 	clearInterval(myInterval);
-	grovegsr_obj = null;
-	grovegsr_lib.cleanUp();
-	grovegsr_lib = null;
+	gsr_obj = null;
+	gsr_lib.cleanUp();
+	gsr_lib = null;
 	console.log("Exiting...");
 	process.exit(0);
 });

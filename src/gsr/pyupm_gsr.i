@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_grovegsr
+%module pyupm_gsr
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "grovegsr.hpp"
+%include "gsr.hpp"
 %{
-    #include "grovegsr.hpp"
+    #include "gsr.hpp"
 %}

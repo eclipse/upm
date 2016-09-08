@@ -1,5 +1,5 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
+ * Author: Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,42 +22,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "grovegsr.hpp"
+import upm_gsr.GSR;
 
-using namespace std;
+public class Gsr {
 
-bool shouldRun = true;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
-void sig_handler(int signo)
-{
-  if (signo == SIGINT)
-    shouldRun = false;
-}
+		//! [Interesting]
+		// Instantiate a Grove GSR sensor on analog pin A0
+		GSR gsr = new GSR(0);
+		System.out.println("Calibrating...");
+		gsr.calibrate();
+		
+		while(true){
+			System.out.println("Value: "+gsr.value());
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("The following exception occurred: "+e.getMessage());
+			}
+		}
+		//! [Interesting]
+	}
 
-int main()
-{
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-  // The was tested with the GroveGSR Galvanic Skin Response Sensor module.
-
-  // Instantiate a GroveGSR on analog pin A0
-  upm::GroveGSR *gsr = new upm::GroveGSR(0);
-  cout << "Calibrating...." << endl;
-  gsr->calibrate();
-
-  while (shouldRun)
-  {
-      cout << gsr->value() << endl;
-      usleep(500000);
-  }
-//! [Interesting]
-
-  cout << "Exiting" << endl;
-
-  delete gsr;
-  return 0;
 }
