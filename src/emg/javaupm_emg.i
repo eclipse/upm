@@ -1,16 +1,16 @@
-%module javaupm_groveemg
+%module javaupm_emg
 %include "../upm.i"
 
 %{
-    #include "groveemg.hpp"
+    #include "emg.hpp"
 %}
 
-%include "groveemg.hpp"
+%include "emg.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_groveemg");
+            System.loadLibrary("javaupm_emg");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

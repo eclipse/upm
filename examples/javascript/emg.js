@@ -21,26 +21,26 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-var groveemg_lib = require("jsupm_groveemg");
+var emg_lib = require("jsupm_emg");
 
-// The was tested with the GroveEMG Muscle Signal Reader Sensor Module
-// Instantiate a GroveEMG on analog pin A0
-var groveemg_obj = new groveemg_lib.GroveEMG(0);
+// The was tested with the EMG Muscle Signal Reader Sensor Module
+// Instantiate a EMG on analog pin A0
+var emg_obj = new emg_lib.EMG(0);
 console.log("Calibrating....");
-groveemg_obj.calibrate();
+emg_obj.calibrate();
 
 var myInterval = setInterval(function()
 {
-	console.log(groveemg_obj.value());
+	console.log(emg_obj.value());
 }, 100);
 
 // When exiting: clear interval, and print message
 process.on('SIGINT', function()
 {
 	clearInterval(myInterval);
-	groveemg_obj = null;
-	groveemg_lib.cleanUp();
-	groveemg_lib = null;
+	emg_obj = null;
+	emg_lib.cleanUp();
+	emg_lib = null;
 	console.log("Exiting...");
 	process.exit(0);
 });

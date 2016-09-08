@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "groveemg.hpp"
+#include "emg.hpp"
 
 using namespace std;
 
@@ -41,9 +41,9 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // The was tested with the GroveEMG Muscle Signal Reader Sensor Module
-  // Instantiate a GroveEMG on analog pin A0
-  upm::GroveEMG *emg = new upm::GroveEMG(0);
+  // The was tested with the EMG Muscle Signal Reader Sensor Module
+  // Instantiate a EMG on analog pin A0
+  upm::EMG *emg = new upm::EMG(0);
   cout << "Calibrating...." << endl;
   emg->calibrate();
   

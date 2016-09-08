@@ -1,5 +1,5 @@
 /*
- * Author: Abhishek Malik <abhishek.malik@intel.com>
+ * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,27 +21,62 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import upm_groveemg.GroveEMG;
+#pragma once
 
-public class GroveEmg {
+#include <string>
+#include <mraa/aio.h>
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//! [Interesting]
-		// Instantiating the Grove EMG sensor on Analog pin 0
-		GroveEMG emg = new GroveEMG(0);
-		System.out.println("Calibrating ... ");
-		emg.calibrate();
+namespace upm {
+  /**
+   * @brief Grove EMG Muscle Signal Reader library
+   * @defgroup emg libupm-emg
+   * @ingroup seeed analog electric
+   */
 
-		while(true){
-			System.out.println("EMG Val: "+emg.value());
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				System.out.println("The following exception occurred: "+e.getMessage());
-			}
-		}
-	}
-	//! [Interesting]
+  /**
+   * @library emg
+   * @sensor emg
+   * @comname Grove EMG Sensor
+   * @type electric
+   * @man seeed
+   * @con analog
+   *
+   * @brief API for the Grove EMG Muscle Signal Reader
+   * 
+   * Grove EMG muscle signal reader gathers small muscle signals,
+   * then processes them, and returns the result
+   *
+   * @image html emg.jpg 
+   * @snippet emg.cxx Interesting
+   */
+  class EMG {
+  public:
+    /**
+     * Grove EMG reader constructor
+     *
+     * @param pin Analog pin to use
+     */
+    EMG(int pin);
+    /**
+     * EMG destructor
+     */
+    ~EMG();
+
+    /**
+     * Calibrates the Grove EMG reader
+     */
+    void calibrate();
+
+    /**
+     * Measures muscle signals from the reader
+     *
+     * @return Muscle output as analog voltage
+     */
+    int value();
+
+  private:
+    mraa_aio_context m_aio;
+  };
 }
+
+

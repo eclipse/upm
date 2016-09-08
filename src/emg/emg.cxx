@@ -21,62 +21,49 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
+#include <iostream>
 #include <string>
-#include <mraa/aio.h>
+#include <stdexcept>
 
-namespace upm {
-  /**
-   * @brief Grove EMG Muscle Signal Reader library
-   * @defgroup groveemg libupm-groveemg
-   * @ingroup seeed analog electric
-   */
+#include "emg.hpp"
 
-  /**
-   * @library groveemg
-   * @sensor groveemg
-   * @comname Grove EMG Sensor
-   * @type electric
-   * @man seeed
-   * @con analog
-   *
-   * @brief API for the Grove EMG Muscle Signal Reader
-   * 
-   * Grove EMG muscle signal reader gathers small muscle signals,
-   * then processes them, and returns the result
-   *
-   * @image html groveemg.jpg 
-   * @snippet groveemg.cxx Interesting
-   */
-  class GroveEMG {
-  public:
-    /**
-     * Grove EMG reader constructor
-     *
-     * @param pin Analog pin to use
-     */
-    GroveEMG(int pin);
-    /**
-     * GroveEMG destructor
-     */
-    ~GroveEMG();
+using namespace upm;
+using namespace std;
 
-    /**
-     * Calibrates the Grove EMG reader
-     */
-    void calibrate();
-
-    /**
-     * Measures muscle signals from the reader
-     *
-     * @return Muscle output as analog voltage
-     */
-    int value();
-
-  private:
-    mraa_aio_context m_aio;
-  };
+EMG::EMG(int pin)
+{
+    if ( !(m_aio = mraa_aio_init(pin)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
+      return;
+    }
 }
 
+EMG::~EMG()
+{
+  mraa_aio_close(m_aio);
+}
 
+void EMG::calibrate()
+{
+	int val, sum = 0;
+
+	for (int i=0; i<1100; i++)
+	{
+		val = mraa_aio_read(m_aio);
+                if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                                        ": Failed to do an aio read.");
+		sum += val;
+		usleep(1000);
+	}
+	sum /= 1100;
+	cout << "Static analog data = " << sum << endl;
+}
+
+int EMG::value()
+{
+	int val = mraa_aio_read(m_aio);
+	return val;
+}
