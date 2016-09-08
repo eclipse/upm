@@ -21,64 +21,47 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
+#include <iostream>
 #include <string>
-#include <mraa/aio.h>
+#include <stdexcept>
 
-namespace upm {
-  /**
-   * @brief Grove GSR Galvanic Skin Response Sensor library
-   * @defgroup grovegsr libupm-grovegsr
-   * @ingroup seeed analog electric
-   */
+#include "gsr.hpp"
 
-  /**
-   * @library grovegsr
-   * @sensor grovegsr
-   * @comname Grove GSR Sensor
-   * @type electric
-   * @man seeed
-   * @con analog
-   *
-   * @brief API for the Grove GSR Galvanic Skin Response Sensor
-   * 
-   * Measures the electrical conductance of skin
-   * to measure strong emotional reactions.
-   * In other words, it measures sweat on your fingers
-   * as an indicator of strong emotional reactions.
-   *
-   * @image html grovegsr.jpg
-   * @snippet grovegsr.cxx Interesting
-   */
-  class GroveGSR {
-  public:
-    /**
-     * Grove GSR sensor constructor
-     *
-     * @param pin Analog pin to use
-     */
-    GroveGSR(int pin);
-    /**
-     * GroveGSR destructor
-     */
-    ~GroveGSR();
+using namespace upm;
+using namespace std;
 
-    /**
-     * Calibrates the Grove GSR sensor
-     */
-    void calibrate();
-
-    /**
-     * Gets the electrical conductance of the skin from the sensor
-     *
-     * @return Electrical conductance of the skin
-     */
-    int value();
-
-  private:
-    mraa_aio_context m_aio;
-  };
+GSR::GSR(int pin)
+{
+    if ( !(m_aio = mraa_aio_init(pin)) )
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": mraa_aio_init() failed, invalid pin?");
 }
 
+GSR::~GSR()
+{
+    mraa_aio_close(m_aio);
+}
 
+void GSR::calibrate()
+{
+    int val, threshold, sum = 0;
+
+    for(int i=0; i<500; i++)
+    {
+        val = mraa_aio_read(m_aio);
+        if (val < 0)
+            throw std::runtime_error(std::string(__FUNCTION__) +
+                ": Failed to do an aio read.");
+        sum += val;
+        usleep(5000);
+    }
+    threshold = sum / 500;
+    cout << "Threshold = " << threshold << endl;
+}
+
+int GSR::value()
+{
+    int val = mraa_aio_read(m_aio);
+    return val;
+}

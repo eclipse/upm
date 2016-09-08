@@ -98,6 +98,7 @@ add_example (vdiv)
 add_example (mqx)
 add_example (o2)
 add_example (emg)
+add_example (gsr)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

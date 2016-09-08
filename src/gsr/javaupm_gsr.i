@@ -1,16 +1,16 @@
-%module javaupm_grovegsr
+%module javaupm_gsr
 %include "../upm.i"
 
 %{
-    #include "grovegsr.hpp"
+    #include "gsr.hpp"
 %}
 
-%include "grovegsr.hpp"
+%include "gsr.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_grovegsr");
+            System.loadLibrary("javaupm_gsr");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

@@ -22,12 +22,12 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovegsr as upmGrovegsr
+import pyupm_gsr as upmGsr
 
-# Tested with the GroveGSR Galvanic Skin Response Sensor module.
+# Tested with the GSR Galvanic Skin Response Sensor module.
 
-# Instantiate a GroveGSR on analog pin A0
-myGSR = upmGrovegsr.GroveGSR(0)
+# Instantiate a GSR on analog pin A0
+myGSR = upmGsr.GSR(0)
 
 
 ## Exit handlers ##
