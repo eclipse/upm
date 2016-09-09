@@ -28,42 +28,41 @@
 
 #include <string>
 #include <mraa/aio.hpp>
-#include "grovebase.hpp"
 
 namespace upm {
 
 /**
- * @library grove
- * @sensor grovelight
- * @comname Grove Light Sensor
+ * @library light
+ * @sensor light
+ * @comname  Light Sensor
  * @type light
  * @man seeed
  * @con analog
  * @kit gsk
  *
- * @brief API for the Grove Light Sensor
+ * @brief API for the  Light Sensor
  *
- * The Grove light sensor detects the intensity of the ambient light.
+ * The  light sensor detects the intensity of the ambient light.
  * As the light intensity of the environment increases, the resistance
  * of the sensor decreases. This means the raw value from the
  * analog pin is larger in bright light and smaller in the dark.
  * An approximate lux value can also be returned.
  *
- * @image html grovelight.jpg
- * @snippet grovelight.cxx Interesting
+ * @image html light.jpg
+ * @snippet light.cxx Interesting
  */
-class GroveLight: public Grove {
+class Light {
     public:
         /**
-         * Grove analog light sensor constructor
+         *  analog light sensor constructor
          *
          * @param pin Analog pin to use
          */
-        GroveLight(unsigned int pin);
+        Light(unsigned int pin);
         /**
-         * GroveLight destructor
+         * Light destructor
          */
-        ~GroveLight();
+        ~Light();
         /**
          * Gets the raw value from the AIO pin
          *
@@ -76,7 +75,18 @@ class GroveLight: public Grove {
          * @return Normalized light reading in lux
          */
         int value();
+
+        /* Sensor name
+         *
+         * @return Sensor name
+         */
+        std::string name()
+        {
+            return m_name;
+        }
+
     private:
         mraa_aio_context m_aio;
+        const std::string m_name = "Light Sensor";
 };
 }

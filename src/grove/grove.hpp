@@ -27,7 +27,6 @@
 
 #include <grovebutton.hpp>
 #include <groveled.hpp>
-#include <grovelight.hpp>
 #include <groverelay.hpp>
 #include <groverotary.hpp>
 #include <groveslide.hpp>

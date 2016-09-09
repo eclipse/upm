@@ -25,11 +25,6 @@
     #include "groveled.hpp"
 %}
 
-%include "grovelight.hpp"
-%{
-    #include "grovelight.hpp"
-%}
-
 %include "groverelay.hpp"
 %{
     #include "groverelay.hpp"
