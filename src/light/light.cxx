@@ -1,6 +1,8 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,20 +24,39 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveLightSample {
-	public static void main(String args[]) throws InterruptedException {
-		// ! [Interesting]
-		upm_grove.GroveLight gl = new upm_grove.GroveLight(2);
+#include <iostream>
+#include <string>
+#include <stdexcept>
 
-		while (true) {
-			float raw_value = gl.raw_value();
-			float value = gl.value();
+#include "light.hpp"
+#include "math.h"
 
-			System.out.println("raw value: " + raw_value);
-			System.out.println("value: " + value);
+using namespace upm;
 
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
+Light::Light(unsigned int pin)
+{
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
+    }
+}
+
+Light::~Light()
+{
+    mraa_aio_close(m_aio);
+}
+
+int Light::value()
+{
+    // rough conversion to lux, using formula from  Starter Kit booklet
+    float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
+    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
+    return (int) round(a);
+}
+
+float Light::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
 }

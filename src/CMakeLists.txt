@@ -309,7 +309,7 @@ macro(upm_module_init)
   endif (IS_C_LIBRARY)
 
   link_directories (${MRAA_LIBDIR})
-  add_library (${libname} SHARED ${module_src})
+  add_library (${libname} SHARED ${module_src} ${module_hpp})
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()

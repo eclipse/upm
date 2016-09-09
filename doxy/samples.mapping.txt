@@ -14,7 +14,7 @@ grovebutton.cxx	GroveButtonSample.java
 groveehr.cxx	GroveEHRSample.java
 groveled.cxx	GroveLEDSample.java
 grovelinefinder.cxx	GroveLineFinderSample.java
-grovelight.cxx	GroveLightSample.java
+light.cxx	LightSample.java
 grovemoisture.cxx	GroveMoistureSample.java
 groverelay.cxx	GroveRelaySample.java
 groverotary.cxx	GroveRotarySample.java
