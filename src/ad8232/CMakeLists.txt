@@ -1,5 +1,9 @@
-set (libname "ad8232")
-set (libdescription "upm ad8232 heart rate monitor")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME ad8232
+    DESCRIPTION "upm ad8232sensor module"
+    C_HDR ad8232.h
+    C_SRC ad8232.c
+    CPP_HDR ad8232.hpp
+    CPP_SRC ad8232.cxx
+    FTI_SRC ad8232_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
