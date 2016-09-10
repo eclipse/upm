@@ -1,6 +1,7 @@
 /*
- * Authors:
- * Copyright (c) 2016 Intel Corporation.
+ * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,25 +22,34 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_TEMPERATURE_H_
-#define UPM_TEMPERATURE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <unistd.h>
+#include <iostream>
+#include <iomanip>
+#include "grove.hpp"
 
-// Temperature units
-typedef enum _upm_temperature_u {CELSIUS, FAHRENHEIT, KELVIN} upm_temperature_u;
+int
+main(int argc, char **argv)
+{
+//! [Interesting]
 
-// Temperature function table
-typedef struct _upm_temperature_ft {
-    upm_result_t (*upm_temperature_set_scale) (void* dev, float scale);
-    upm_result_t (*upm_temperature_set_offset) (void* dev, float offset);
-    upm_result_t (*upm_temperature_get_value) (void* dev, float* value, upm_temperature_u unit);
-} upm_temperature_ft;
+    // Create the temperature sensor object using AIO pin 0
+    upm::Temperature* temp = new upm::Temperature(0);
+    std::cout << temp->name() << std::endl;
 
-#ifdef __cplusplus
+    // Read the temperature ten times, printing both the Celsius and
+    // equivalent Fahrenheit temperature, waiting one second between readings
+    for (int i=0; i < 10; i++) {
+        int celsius = temp->value();
+        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
+        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
+                celsius, fahrenheit);
+        sleep(1);
+    }
+
+    // Delete the temperature sensor object
+    delete temp;
+//! [Interesting]
+
+    return 0;
 }
-#endif
-
-#endif /* UPM_TEMPERATURE_H_ */

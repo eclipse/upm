@@ -1,6 +1,6 @@
 /*
- * Authors:
- * Copyright (c) 2016 Intel Corporation.
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,25 +21,22 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_TEMPERATURE_H_
-#define UPM_TEMPERATURE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// Load temperature module
+var upm = require('jsupm_temperature');
 
-// Temperature units
-typedef enum _upm_temperature_u {CELSIUS, FAHRENHEIT, KELVIN} upm_temperature_u;
+// Create the temperature sensor object using AIO pin 0
+var temp = new upm.Temperature(0);
+console.log(temp.name());
 
-// Temperature function table
-typedef struct _upm_temperature_ft {
-    upm_result_t (*upm_temperature_set_scale) (void* dev, float scale);
-    upm_result_t (*upm_temperature_set_offset) (void* dev, float offset);
-    upm_result_t (*upm_temperature_get_value) (void* dev, float* value, upm_temperature_u unit);
-} upm_temperature_ft;
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* UPM_TEMPERATURE_H_ */
+// Read the temperature ten times, printing both the Celsius and
+// equivalent Fahrenheit temperature, waiting one second between readings
+var i = 0;
+var waiting = setInterval(function() {
+        var celsius = temp.value();
+        var fahrenheit = celsius * 9.0/5.0 + 32.0;
+        console.log(celsius + " degrees Celsius, or " +
+            Math.round(fahrenheit) + " degrees Fahrenheit");
+        i++;
+        if (i == 10) clearInterval(waiting);
+        }, 1000);
