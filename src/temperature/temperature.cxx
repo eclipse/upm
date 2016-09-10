@@ -31,6 +31,7 @@
 #include "temperature.hpp"
 #include "math.h"
 
+using namespace std;
 using namespace upm;
 
 Temperature::Temperature(unsigned int pin, float scale, int r0, int b)
