@@ -22,10 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var upm_grove = require('jsupm_grove');
+var upm_slide = require('jsupm_slide');
 
 //setup access analog input Analog pin #0 (A0)
-var Slide = new upm_grove.Slide(0);
+var Slide = new upm_slide.Slide(0);
 
 loop();
 

@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
-var groveSensor = require('jsupm_grove');
+// Load light module
+var sensor = require('jsupm_light');
 
 // Create the light sensor object using AIO pin 0
-var light = new groveSensor.Light(0);
+var light = new sensor.Light(0);
 
 // Read the input and print both the raw value and a rough lux value,
 // waiting one second between readings
