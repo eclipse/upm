@@ -1,5 +1,9 @@
-set (libname "loudness")
-set (libdescription "upm loudness sensors")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME loudness
+    DESCRIPTION "upm loudness sensor module"
+    C_HDR loudness.h
+    C_SRC loudness.c
+    CPP_SRC loudness.cxx
+    CPP_HDR loudness.hpp
+    FTI_SRC loudness_fti.c
+    CPP_WRAPS_C
+    REQUIRES libmraa)
