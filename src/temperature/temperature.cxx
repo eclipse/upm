@@ -1,7 +1,8 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,33 +24,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
-#include "grove.hpp"
+#include <string>
+#include <stdexcept>
 
-int
-main(int argc, char **argv)
+#include "temperature.hpp"
+#include "math.h"
+
+using namespace upm;
+
+Temperature::Temperature(unsigned int pin, float scale, int r0, int b)
 {
-//! [Interesting]
-
-    // Create the temperature sensor object using AIO pin 0
-    upm::GroveTemp* temp = new upm::GroveTemp(0);
-    std::cout << temp->name() << std::endl;
-
-    // Read the temperature ten times, printing both the Celsius and
-    // equivalent Fahrenheit temperature, waiting one second between readings
-    for (int i=0; i < 10; i++) {
-        int celsius = temp->value();
-        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
-        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
-                celsius, fahrenheit);
-        sleep(1);
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
     }
+    m_scale = scale;
+    m_r0 = r0;
+    m_b = b;
+}
 
-    // Delete the temperature sensor object
-    delete temp;
-//! [Interesting]
+Temperature::~Temperature()
+{
+    mraa_aio_close(m_aio);
+}
 
-    return 0;
+int Temperature::value ()
+{
+    float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
+    // Apply scale factor after error check
+    a *= m_scale;
+    float r = (float)(1023.0-a)*(float)m_r0/a;
+    float t = 1.0/(log(r/(float)m_r0)/(float)m_b + 1.0/298.15)-273.15;
+    return (int) round(t);
+}
+
+float Temperature::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
 }

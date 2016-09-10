@@ -1,6 +1,6 @@
 /*
- * Author: Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Andrei Vasiliu <andrei.vasiliu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,21 +22,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
-var groveSensor = require('jsupm_grove');
+public class TemperatureSample {
+	public static void main (String args[]) throws InterruptedException {
+		//! [Interesting]
+        upm_temperature.Temperature temp = new upm_temperature.Temperature(3);
+		
+		for (int i = 0; i < 10; ++i) {
+			
+			int celsius = temp.value();
+			int fahrneheit = celsius * 2 + 32;
 
-// Create the temperature sensor object using AIO pin 0
-var temp = new groveSensor.GroveTemp(0);
-console.log(temp.name());
-
-// Read the temperature ten times, printing both the Celsius and
-// equivalent Fahrenheit temperature, waiting one second between readings
-var i = 0;
-var waiting = setInterval(function() {
-        var celsius = temp.value();
-        var fahrenheit = celsius * 9.0/5.0 + 32.0;
-        console.log(celsius + " degrees Celsius, or " +
-            Math.round(fahrenheit) + " degrees Fahrenheit");
-        i++;
-        if (i == 10) clearInterval(waiting);
-        }, 1000);
+			System.out.println("Celsius: " + celsius);
+			System.out.println("Fahrneheit: " + fahrneheit);
+			
+			Thread.sleep(1000);
+		}
+		temp.delete();
+        //! [Interesting]
+	}
+}

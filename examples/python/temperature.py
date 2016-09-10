@@ -22,10 +22,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+import pyupm_temperature as upm
 
 # Create the temperature sensor object using AIO pin 0
-temp = grove.GroveTemp(0)
+temp = upm.Temperature(0)
 print temp.name()
 
 # Read the temperature ten times, printing both the Celsius and

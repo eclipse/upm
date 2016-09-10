@@ -1,6 +1,7 @@
 /*
- * Author: Andrei Vasiliu <andrei.vasiliu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ *
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,22 +23,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveTempSample {
-	public static void main (String args[]) throws InterruptedException {
-		//! [Interesting]
-        upm_grove.GroveTemp temp = new upm_grove.GroveTemp(3);
-		
-		for (int i = 0; i < 10; ++i) {
-			
-			int celsius = temp.value();
-			int fahrneheit = celsius * 2 + 32;
+#ifndef TEMPERATURE_H_
+#define TEMPERATURE_H_
 
-			System.out.println("Celsius: " + celsius);
-			System.out.println("Fahrneheit: " + fahrneheit);
-			
-			Thread.sleep(1000);
-		}
-		temp.delete();
-        //! [Interesting]
-	}
-}
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "upm.h"
+#include "mraa/aio.h"
+
+/**
+ * driver context
+ */
+typedef struct _temperature_context {
+    mraa_aio_context aio;
+    int16_t m_aRes;
+} *temperature_context;
+
+
+temperature_context temperature_init(int pin);
+
+void temperature_close(temperature_context dev);
+
+// Celsius
+upm_result_t temperature_get_value(temperature_context dev,
+                                   float* tempval);
+
+#endif /* TEMPERATURE_H_ */
