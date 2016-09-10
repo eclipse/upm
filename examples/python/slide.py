@@ -21,10 +21,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_grove as grove
+import pyupm_slide as slide
 
 # New Grove Slider on AIO pin 0
-slider = grove.Slide(0)
+slider = slide.Slide(0)
 
 # Loop indefinitely
 while True:
