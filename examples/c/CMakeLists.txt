@@ -103,6 +103,7 @@ add_example (light)
 add_example (ldt0028)
 add_example (joystick12)
 add_example (flex)
+add_example (slide)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

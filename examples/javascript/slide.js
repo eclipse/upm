@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,45 +22,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+var upm_grove = require('jsupm_grove');
 
-#include "groveslide.hpp"
-#include "math.h"
+//setup access analog input Analog pin #0 (A0)
+var Slide = new upm_grove.Slide(0);
 
-using namespace upm;
+loop();
 
-GroveSlide::GroveSlide(unsigned int pin, float ref_voltage)
+function loop()
 {
-    if ( !(m_aio = mraa_aio_init(pin)) ) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_aio_init() failed, invalid pin?");
-        return;
-    }
-    m_ref_voltage = ref_voltage;
-    m_name = "Slide Potentiometer";
-}
+    var raw = Slide.raw_value();
+    var volts = Slide.voltage_value();
 
-GroveSlide::~GroveSlide()
-{
-    mraa_aio_close(m_aio);
-}
+    //write the slider values to the console
+    console.log("Slider Value: " + raw + " = " + volts.toFixed(2) + " V");
 
-float GroveSlide::raw_value()
-{
-    return (float) mraa_aio_read(m_aio);
-}
-
-float GroveSlide::voltage_value()
-{
-    // conversion to Volts
-    float a = GroveSlide::raw_value();
-    a = m_ref_voltage * a / 1023.0 ;
-    return a;
-}
-
-float GroveSlide::ref_voltage()
-{
-    return m_ref_voltage;
+    //wait 2 s then call function again
+    setTimeout(loop, 2000);
 }

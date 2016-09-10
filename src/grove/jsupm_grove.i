@@ -31,11 +31,6 @@
     #include "groverotary.hpp"
 %}
 
-%include "groveslide.hpp"
-%{
-    #include "groveslide.hpp"
-%}
-
 %include "grovetemp.hpp"
 %{
     #include "grovetemp.hpp"

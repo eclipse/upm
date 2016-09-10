@@ -24,7 +24,7 @@ from time import sleep
 import pyupm_grove as grove
 
 # New Grove Slider on AIO pin 0
-slider = grove.GroveSlide(0)
+slider = grove.Slide(0)
 
 # Loop indefinitely
 while True:

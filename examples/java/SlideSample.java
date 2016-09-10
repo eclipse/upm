@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveSlideSample {
+public class SlideSample {
 	public static void main (String args[]) throws InterruptedException {
 		//! [Interesting]
         // Instantiate new grove slide potentiometer on  analog pin A0
-        upm_grove.GroveSlide slide = new upm_grove.GroveSlide(0);
+        upm_grove.Slide slide = new upm_grove.Slide(0);
 		
 		while (true) {
 			float raw_value = slide.raw_value();

@@ -29,5 +29,4 @@
 #include <groveled.hpp>
 #include <groverelay.hpp>
 #include <groverotary.hpp>
-#include <groveslide.hpp>
 #include <grovetemp.hpp>
