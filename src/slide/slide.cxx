@@ -1,6 +1,8 @@
 /*
- * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,29 +24,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
-#include "grove.hpp"
+#include <string>
+#include <stdexcept>
 
-using namespace std;
+#include "slide.hpp"
+#include "math.h"
 
-int main ()
+using namespace upm;
+
+Slide::Slide(unsigned int pin, float ref_voltage)
 {
-//! [Interesting]
-    upm::GroveSlide* slide = new upm::GroveSlide(0);    // Instantiate new grove slide potentiometer on analog pin A0
-
-    cout << slide->name() << endl;
-
-    while(true) {
-        float adc_value = slide->raw_value();       // Read raw value
-        float volts = slide->voltage_value();    // Read voltage, board reference set at 5.0V
-        fprintf(stdout, "%4d = %.2f V\n", (uint16_t)adc_value, volts);
-
-        usleep(2500000);    // Sleep for 2.5s
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
     }
-//! [Interesting]
-    delete slide;
-    return 0;
+    m_ref_voltage = ref_voltage;
+}
+
+Slide::~Slide()
+{
+    mraa_aio_close(m_aio);
+}
+
+float Slide::raw_value()
+{
+    return (float) mraa_aio_read(m_aio);
+}
+
+float Slide::voltage_value()
+{
+    // conversion to Volts
+    float a = Slide::raw_value();
+    a = m_ref_voltage * a / 1023.0 ;
+    return a;
+}
+
+float Slide::ref_voltage()
+{
+    return m_ref_voltage;
 }

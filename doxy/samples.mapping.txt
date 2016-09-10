@@ -19,7 +19,7 @@ grovemoisture.cxx	GroveMoistureSample.java
 groverelay.cxx	GroveRelaySample.java
 groverotary.cxx	GroveRotarySample.java
 grovescam.cxx	GROVESCAMSample.java
-groveslide.cxx	GroveSlideSample.java
+slide.cxx	SlideSample.java
 grovespeaker.cxx	GroveSpeakerSample.java
 vdiv.cxx	VDivSample.java
 grovewater.cxx	GroveWaterSample.java

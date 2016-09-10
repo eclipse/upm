@@ -22,21 +22,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var upm_grove = require('jsupm_grove');
 
-//setup access analog input Analog pin #0 (A0)
-var groveSlide = new upm_grove.GroveSlide(0);
+#include <unistd.h>
+#include <iostream>
+#include <iomanip>
+#include "slide.hpp"
 
-loop();
+using namespace std;
 
-function loop()
+int main ()
 {
-    var raw = groveSlide.raw_value();
-    var volts = groveSlide.voltage_value();
+//! [Interesting]
+    upm::Slide* slide = new upm::Slide(0);    // Instantiate new grove slide potentiometer on analog pin A0
 
-    //write the slider values to the console
-    console.log("Slider Value: " + raw + " = " + volts.toFixed(2) + " V");
+    cout << slide->name() << endl;
 
-    //wait 2 s then call function again
-    setTimeout(loop, 2000);
+    while(true) {
+        float adc_value = slide->raw_value();       // Read raw value
+        float volts = slide->voltage_value();    // Read voltage, board reference set at 5.0V
+        fprintf(stdout, "%4d = %.2f V\n", (uint16_t)adc_value, volts);
+
+        usleep(2500000);    // Sleep for 2.5s
+    }
+//! [Interesting]
+    delete slide;
+    return 0;
 }

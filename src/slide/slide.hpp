@@ -28,40 +28,39 @@
 
 #include <string>
 #include <mraa/aio.hpp>
-#include "grovebase.hpp"
 
 namespace upm {
 
 /**
- * @library grove
- * @sensor groveslide
- * @comname Grove Slide Potentiometer
+ * @library slide
+ * @sensor slide
+ * @comname Slide Potentiometer
  * @type ainput
  * @man seeed
  * @con analog
  *
- * @brief API for the Grove Slide Potentiometer
+ * @brief API for the Slide Potentiometer
  *
- * Basic UPM module for the Grove slide potentiometer on analog that
+ * Basic UPM module for the slide potentiometer on analog that
  * returns either a raw value or a scaled voltage value.
  *
- * @image html groveslide.jpeg
- * @snippet groveslide.cxx Interesting
+ * @image html slide.jpeg
+ * @snippet slide.cxx Interesting
  */
-class GroveSlide: public Grove {
+class Slide {
     public:
         /**
-         * Grove analog slide potentiometer constructor
+         * Analog slide potentiometer constructor
          *
          * @param pin Number of the analog pin to use
          *
          * @param ref_voltage Reference voltage the board is set to, as a floating-point value; default is 5.0V
          */
-        GroveSlide(unsigned int pin, float ref_voltage = 5.0);
+        Slide(unsigned int pin, float ref_voltage = 5.0);
         /**
-         * GroveSlide destructor
+         * Slide destructor
          */
-        ~GroveSlide();
+        ~Slide();
         /**
          * Gets the raw value from the AIO pin
          *
@@ -80,6 +79,12 @@ class GroveSlide: public Grove {
          * @return Reference voltage the class was set for
          */
         float ref_voltage();
+
+        /* Gets the sensor name
+         *
+         * @return sensor name
+         */
+        std::string name() {return "Slide Potentiometer";}
     private:
         mraa_aio_context m_aio;
         float m_ref_voltage;
