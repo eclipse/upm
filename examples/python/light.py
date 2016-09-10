@@ -21,10 +21,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+import pyupm_light as light
 
 # Create the light sensor object using AIO pin 0
-light = grove.Light(0)
+light = light.Light(0)
 
 # Read the input and print both the raw value and a rough lux value,
 # waiting one second between readings
