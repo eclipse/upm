@@ -1,5 +1,9 @@
-set (libname "mpr121")
-set (libdescription "upm mpr121 I2C Touch module")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME mpr121
+    DESCRIPTION "upm mpr121sensor module"
+    C_HDR mpr121.h
+    C_SRC mpr121.c
+    CPP_HDR mpr121.hpp
+    CPP_SRC mpr121.cxx
+    FTI_SRC mpr121_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
