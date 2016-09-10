@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include "a110x.h"
 
-void main(void)
+int main()
 {
 	a110x_context dev = a110x_init(2);
 	bool abc = 0;
