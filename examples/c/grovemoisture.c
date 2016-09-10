@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include "grovemoisture.h"
 
-void main(void)
+int main()
 {
 	grovemoisture_context dev = grovemoisture_init(14);
 	int val;
