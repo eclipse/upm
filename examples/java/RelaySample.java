@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,10 +21,24 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <relay.hpp>
-#include <groverotary.hpp>
-#include <grovetemp.hpp>
+public class RelaySample {
+	public static void main(String[] args) throws InterruptedException {
+		// ! [Interesting]
+		// Create the button object using UART
+		upm_grove.Relay relay = new upm_grove.Relay(5);
+
+		for (int i = 0; i < 3; i++) {
+			relay.on();
+			if (relay.isOn())
+				System.out.println("Relay is on");
+			Thread.sleep(1000);
+
+			relay.off();
+			if (relay.isOff())
+				System.out.println("Relay is off");
+			Thread.sleep(1000);
+		}
+		// ! [Interesting]
+	}
+}

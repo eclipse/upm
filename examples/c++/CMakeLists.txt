@@ -88,7 +88,7 @@ link_directories (${MRAA_LIBDIR})
 #  grove* will use module grove
 add_example (hmc5883l)
 add_example (groveled)
-add_example (groverelay)
+add_example (relay)
 add_example (light)
 add_example (temperature)
 add_example (grovebutton)
