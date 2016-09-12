@@ -24,7 +24,7 @@ import time
 import pyupm_grove as grove
 
 # Create the relay switch object using GPIO pin 0
-relay = grove.GroveRelay(0)
+relay = grove.Relay(0)
 
 # Close and then open the relay switch 3 times,
 # waiting one second each time.  The LED on the relay switch

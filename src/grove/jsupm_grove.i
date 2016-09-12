@@ -21,9 +21,9 @@
     #include "groveled.hpp"
 %}
 
-%include "groverelay.hpp"
+%include "relay.hpp"
 %{
-    #include "groverelay.hpp"
+    #include "relay.hpp"
 %}
 
 %include "groverotary.hpp"

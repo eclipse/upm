@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,46 +22,37 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
 #include <iostream>
-#include <string>
-#include <stdexcept>
+#include "grove.hpp"
 
-#include "groverelay.hpp"
-
-using namespace upm;
-
-GroveRelay::GroveRelay(unsigned int pin)
+int
+main(int argc, char **argv)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
-        return;
+    // This example uses GPIO 0
+//! [Interesting]
+
+    // Create the relay switch object using GPIO pin 0
+    upm::Relay* relay = new upm::Relay(0);
+
+    // Close and then open the relay switch 3 times,
+    // waiting one second each time.  The LED on the relay switch
+    // will light up when the switch is on (closed).
+    // The switch will also make a noise between transitions.
+    for ( int i = 0; i < 3; i++ ) {
+        relay->on();
+        if ( relay->isOn() ) 
+            std::cout << relay->name() << " is on" << std::endl;
+        sleep(1);
+        relay->off();
+        if ( relay->isOff() ) 
+            std::cout << relay->name() << " is off" << std::endl;
+        sleep(1);
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
-    m_name = "Relay Switch";
-}
 
-GroveRelay::~GroveRelay()
-{
-    mraa_gpio_close(m_gpio);
-}
+    // Delete the relay switch object
+    delete relay;
+//! [Interesting]
 
-mraa_result_t GroveRelay::on()
-{
-    return mraa_gpio_write(m_gpio, 1);
-}
-
-mraa_result_t GroveRelay::off()
-{
-    return mraa_gpio_write(m_gpio, 0);
-}
-
-bool GroveRelay::isOn()
-{
-    return mraa_gpio_read(m_gpio) == 1;
-}
-
-bool GroveRelay::isOff()
-{
-    return mraa_gpio_read(m_gpio) == 0;
+    return 0;
 }

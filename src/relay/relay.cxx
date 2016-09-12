@@ -1,6 +1,8 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,23 +24,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveRelaySample {
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Create the button object using UART
-		upm_grove.GroveRelay relay = new upm_grove.GroveRelay(5);
+#include <iostream>
+#include <string>
+#include <stdexcept>
 
-		for (int i = 0; i < 3; i++) {
-			relay.on();
-			if (relay.isOn())
-				System.out.println("Relay is on");
-			Thread.sleep(1000);
+#include "relay.hpp"
 
-			relay.off();
-			if (relay.isOff())
-				System.out.println("Relay is off");
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
+using namespace upm;
+
+Relay::Relay(unsigned int pin)
+{
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+        return;
+    }
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
+}
+
+Relay::~Relay()
+{
+    mraa_gpio_close(m_gpio);
+}
+
+mraa_result_t Relay::on()
+{
+    return mraa_gpio_write(m_gpio, 1);
+}
+
+mraa_result_t Relay::off()
+{
+    return mraa_gpio_write(m_gpio, 0);
+}
+
+bool Relay::isOn()
+{
+    return mraa_gpio_read(m_gpio) == 1;
+}
+
+bool Relay::isOff()
+{
+    return mraa_gpio_read(m_gpio) == 0;
 }

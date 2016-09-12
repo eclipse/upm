@@ -1,6 +1,7 @@
 /*
- * Author: Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ *
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,37 +23,35 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef RELAY_H_
+#define RELAY_H_
+
+#pragma once
+#include <stdlib.h>
 #include <unistd.h>
-#include <iostream>
-#include "grove.hpp"
 
-int
-main(int argc, char **argv)
-{
-    // This example uses GPIO 0
-//! [Interesting]
+#include "upm.h"
+#include <mraa/gpio.h>
 
-    // Create the relay switch object using GPIO pin 0
-    upm::GroveRelay* relay = new upm::GroveRelay(0);
+/**
+ * device context
+ */
+typedef struct _relay_context{
+    mraa_gpio_context gpio;
+} *relay_context;
 
-    // Close and then open the relay switch 3 times,
-    // waiting one second each time.  The LED on the relay switch
-    // will light up when the switch is on (closed).
-    // The switch will also make a noise between transitions.
-    for ( int i = 0; i < 3; i++ ) {
-        relay->on();
-        if ( relay->isOn() ) 
-            std::cout << relay->name() << " is on" << std::endl;
-        sleep(1);
-        relay->off();
-        if ( relay->isOff() ) 
-            std::cout << relay->name() << " is off" << std::endl;
-        sleep(1);
-    }
+typedef struct _relay_context *relay_context;
 
-    // Delete the relay switch object
-    delete relay;
-//! [Interesting]
+relay_context relay_init(int pin);
 
-    return 0;
-}
+void relay_close(relay_context dev);
+
+upm_result_t relay_on(relay_context dev);
+
+upm_result_t relay_off(relay_context dev);
+
+bool relay_is_on(relay_context dev);
+
+bool relay_is_off(relay_context dev);
+
+#endif /* RELAY_H_ */

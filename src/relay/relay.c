@@ -1,6 +1,7 @@
 /*
- * Author: Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ *
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,28 +23,61 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
-var groveSensor = require('jsupm_grove');
+#include "relay.h"
 
-// Create the relay switch object using GPIO pin 0
-var relay = new groveSensor.GroveRelay(0);
+relay_context relay_init(int pin)
+{
+    relay_context dev = (relay_context)malloc(sizeof(struct _relay_context));
 
-// Close and then open the relay switch 3 times,
-// waiting one second each time.  The LED on the relay switch
-// will light up when the switch is on (closed).
-// The switch will also make a noise between transitions.
-var i = 0;
-var waiting = setInterval(function() {
-        if ( i % 2 == 0 ) {
-            relay.on();
-            if ( relay.isOn() )
-                console.log(relay.name() + " is on");
-        } else {
-            relay.off();
-            if ( relay.isOff() )
-                console.log(relay.name() + " is off");
-        }
-        i++;
-        if ( i == 6) clearInterval(waiting);
-        }, 1000);
+    if (dev == NULL)
+        return NULL;
+
+    dev->gpio = mraa_gpio_init(pin);
+
+    if (dev->gpio == NULL)
+    {
+        free(dev);
+        return NULL;
+    }
+    return dev;
+}
+
+void relay_close(relay_context dev)
+{
+    mraa_gpio_close(dev->gpio);
+
+    free(dev);
+}
+
+upm_result_t relay_on(relay_context dev)
+{
+    mraa_gpio_write(dev->gpio, 1);
+    return UPM_SUCCESS;
+}
+
+upm_result_t relay_off(relay_context dev)
+{
+    mraa_gpio_write(dev->gpio, 0);
+    return UPM_SUCCESS;
+}
+
+bool relay_is_on(relay_context dev)
+{
+    int val;
+    val = mraa_gpio_read(dev->gpio);
+    if (val > 0)
+        return true;
+    else
+        return false;
+}
+
+bool relay_is_off(relay_context dev)
+{
+    int val;
+    val = mraa_gpio_read(dev->gpio);
+    if (!val)
+        return true;
+    else
+        return false;
+}
 

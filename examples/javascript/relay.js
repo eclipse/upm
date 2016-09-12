@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,10 +21,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <relay.hpp>
-#include <groverotary.hpp>
-#include <grovetemp.hpp>
+// Load Grove module
+var groveSensor = require('jsupm_grove');
+
+// Create the relay switch object using GPIO pin 0
+var relay = new groveSensor.Relay(0);
+
+// Close and then open the relay switch 3 times,
+// waiting one second each time.  The LED on the relay switch
+// will light up when the switch is on (closed).
+// The switch will also make a noise between transitions.
+var i = 0;
+var waiting = setInterval(function() {
+        if ( i % 2 == 0 ) {
+            relay.on();
+            if ( relay.isOn() )
+                console.log(relay.name() + " is on");
+        } else {
+            relay.off();
+            if ( relay.isOff() )
+                console.log(relay.name() + " is off");
+        }
+        i++;
+        if ( i == 6) clearInterval(waiting);
+        }, 1000);
+
