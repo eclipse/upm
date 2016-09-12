@@ -23,11 +23,11 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#include "grovecollision.h"
+#include "collision.h"
 
-mvs0608_context mvs0608_init(int pin){
-    mvs0608_context dev =
-      (mvs0608_context)malloc(sizeof(struct _mvs0608_context));
+collision_context collision_init(int pin){
+    collision_context dev =
+      (collision_context)malloc(sizeof(struct _collision_context));
 
     if (!dev)
       return NULL;
@@ -44,11 +44,11 @@ mvs0608_context mvs0608_init(int pin){
     return dev;
 }
 
-void mvs0608_close(mvs0608_context dev){
+void collision_close(collision_context dev){
     free(dev);
 }
 
-upm_result_t mvs0608_is_colliding(mvs0608_context dev, bool* collision_val){
+upm_result_t collision_is_colliding(collision_context dev, bool* collision_val){
     int value = mraa_gpio_read(dev->gpio);
 
     if(!value)

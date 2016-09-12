@@ -25,11 +25,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovecollision.hpp"
+#include "collision.hpp"
 
 using namespace upm;
 
-GroveCollision::GroveCollision(int pin)
+Collision::Collision(int pin)
 {
     
     if ( !(m_gpio = mraa_gpio_init(pin)) ) 
@@ -41,12 +41,12 @@ GroveCollision::GroveCollision(int pin)
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
 }
 
-GroveCollision::~GroveCollision()
+Collision::~Collision()
 {
     mraa_gpio_close(m_gpio);
 }
 
-bool GroveCollision::isColliding()
+bool Collision::isColliding()
 {
 	// Collisions cause 0; no collision is 1
 	return (!(bool)mraa_gpio_read(m_gpio));
