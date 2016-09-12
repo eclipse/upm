@@ -22,10 +22,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovemoisture as upmMoisture
+import pyupm_moisture as upmMoisture
 
 # Instantiate a Grove Moisture sensor on analog pin A0
-myMoisture = upmMoisture.GroveMoisture(0)
+myMoisture = upmMoisture.Moisture(0)
 
 
 ## Exit handlers ##

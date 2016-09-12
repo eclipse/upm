@@ -28,23 +28,24 @@
 
 namespace upm {
   /**
-   * @brief Grove Moisture Sensor library
+   * @brief Moisture Sensor library
    * @defgroup grovemoisture libupm-grovemoisture
    * @ingroup seeed analog liquid eak hak
    */
 
   /**
-   * @library grovemoisture
-   * @sensor grovemoisture
-   * @comname Grove Moisture Sensor
+   * @library moisture
+   * @sensor moisture
+   * @comname Moisture Sensor
+   * @altname Grove Moisture Sensor
    * @type liquid
    * @man seeed
    * @con analog
    * @kit eak hak
    *
-   * @brief API for the Grove Moisture Sensor
+   * @brief API for the Moisture Sensor
    *
-   * UPM module for the Grove Moisture Sensor.
+   * UPM module for the Moisture Sensor.
    * This sensor can be used to detect the moisture content
    * of soil or whether there is water around the sensor.
    * As the moisture content increases, so does the value that is read.
@@ -52,20 +53,20 @@ namespace upm {
    * nor to be used outdoors.
    *
    * @image html grovemoisture.jpg
-   * @snippet grovemoisture.cxx Interesting
+   * @snippet moisture.cxx Interesting
    */
-  class GroveMoisture {
+  class Moisture {
   public:
     /**
-     * Grove analog moisture sensor constructor
+     * Analog moisture sensor constructor
      *
      * @param pin Analog pin to use
      */
-    GroveMoisture(int pin);
+    Moisture(int pin);
     /**
-     * GroveMoisture destructor
+     * Moisture destructor
      */
-    ~GroveMoisture();
+    ~Moisture();
     /**
      * Gets the moisture value from the sensor
      *

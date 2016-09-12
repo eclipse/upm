@@ -1,6 +1,7 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ *         Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,54 +23,39 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "grovemoisture.hpp"
+#include "moisture.h"
 
-using namespace std;
+moisture_context moisture_init(int pin) {
+    moisture_context dev =
+      (moisture_context) malloc(sizeof(struct _moisture_context));
 
-int shouldRun = true;
+    if (dev == NULL) {
+        printf("Unable to allocate memory for device context\n");
+        return NULL;
+    }
 
-void sig_handler(int signo)
-{
-  if (signo == SIGINT)
-    shouldRun = false;
+    dev->analog_pin = pin;
+    dev->aio = mraa_aio_init(dev->analog_pin);
+
+    if (dev->aio == NULL) {
+        printf("mraa_aio_init() failed.\n");
+        free(dev);
+
+        return NULL;
+    }
+
+    return dev;
 }
 
+void moisture_close(moisture_context dev) {
+    mraa_aio_close(dev->aio);
+    free(dev);
+}
 
-int main ()
-{
-  signal(SIGINT, sig_handler);
+upm_result_t moisture_get_moisture(moisture_context dev,
+                                            int* moisture) {
 
-//! [Interesting]
-  // Instantiate a Grove Moisture sensor on analog pin A0
-  upm::GroveMoisture* moisture = new upm::GroveMoisture(0);
-  
-  // Values (approximate): 
-  // 0-300, sensor in air or dry soil
-  // 300-600, sensor in humid soil
-  // 600+, sensor in wet soil or submerged in water.
-  // Read the value every second and print the corresponding moisture level
-  while (shouldRun)
-    {
-      int val = moisture->value();
-      cout << "Moisture value: " << val << ", ";
-      if (val >= 0 && val < 300)
-        cout << "dry";
-      else if (val >= 300 && val < 600)
-        cout << "moist";
-      else
-        cout << "wet";
+    *moisture = mraa_aio_read(dev->aio);
 
-      cout << endl;
-
-      sleep(1);
-    }
-//! [Interesting]
-
-  cout << "Exiting" << endl;
-
-  delete moisture;
-  return 0;
+    return UPM_SUCCESS;
 }

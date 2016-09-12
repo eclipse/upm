@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,27 +22,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+public class MoistureSample {
+	public static void main(String args[]) throws InterruptedException {
+		// ! [Interesting]
+		upm_moisture.Moisture gm = new upm_moisture.Moisture(1);
 
-#include "grovemoisture.hpp"
+		while (true) {
+			int moisture_val = gm.value();
+			String result;
 
-using namespace upm;
+			if (moisture_val >= 0 && moisture_val < 300)
+				result = "Dry";
+			else if ((moisture_val >= 0 && moisture_val < 300))
+				result = "Moist";
+			else
+				result = "Wet";
 
-GroveMoisture::GroveMoisture(int pin)
-{
-  if ( !(m_aio = mraa_aio_init(pin)) )
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_aio_init() failed, invalid pin?");
-}
+			System.out.println("Moisture Value: " + moisture_val + ", " + result);
 
-GroveMoisture::~GroveMoisture()
-{
-  mraa_aio_close(m_aio);
-}
-
-int GroveMoisture::value()
-{
-  return mraa_aio_read(m_aio);
+			Thread.sleep(1000);
+		}
+		// ! [Interesting]
+	}
 }

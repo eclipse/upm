@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_grovemoisture
+%module pyupm_moisture
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "grovemoisture.hpp"
+%include "moisture.hpp"
 %{
-    #include "grovemoisture.hpp"
+    #include "moisture.hpp"
 %}

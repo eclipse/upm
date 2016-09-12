@@ -1,6 +1,6 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,26 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveMoistureSample {
-	public static void main(String args[]) throws InterruptedException {
-		// ! [Interesting]
-		upm_grovemoisture.GroveMoisture gm = new upm_grovemoisture.GroveMoisture(1);
+#include <unistd.h>
+#include <iostream>
+#include <signal.h>
+#include "moisture.hpp"
 
-		while (true) {
-			int moisture_val = gm.value();
-			String result;
+using namespace std;
 
-			if (moisture_val >= 0 && moisture_val < 300)
-				result = "Dry";
-			else if ((moisture_val >= 0 && moisture_val < 300))
-				result = "Moist";
-			else
-				result = "Wet";
+int shouldRun = true;
 
-			System.out.println("Moisture Value: " + moisture_val + ", " + result);
+void sig_handler(int signo)
+{
+  if (signo == SIGINT)
+    shouldRun = false;
+}
 
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
+
+int main ()
+{
+  signal(SIGINT, sig_handler);
+
+//! [Interesting]
+  // Instantiate a Moisture sensor on analog pin A0
+  upm::Moisture* moisture = new upm::Moisture(0);
+  
+  // Values (approximate): 
+  // 0-300, sensor in air or dry soil
+  // 300-600, sensor in humid soil
+  // 600+, sensor in wet soil or submerged in water.
+  // Read the value every second and print the corresponding moisture level
+  while (shouldRun)
+    {
+      int val = moisture->value();
+      cout << "Moisture value: " << val << ", ";
+      if (val >= 0 && val < 300)
+        cout << "dry";
+      else if (val >= 300 && val < 600)
+        cout << "moist";
+      else
+        cout << "wet";
+
+      cout << endl;
+
+      sleep(1);
+    }
+//! [Interesting]
+
+  cout << "Exiting" << endl;
+
+  delete moisture;
+  return 0;
 }

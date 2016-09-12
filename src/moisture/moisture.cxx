@@ -1,7 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- *         Abhishek Malik <abhishek.malik@intel.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,52 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+#include <iostream>
+#include <string>
+#include <stdexcept>
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+#include "moisture.hpp"
 
-#include "upm.h"
-#include "mraa/aio.h"
+using namespace upm;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
- * device context
- */
-typedef struct _grovemoisture_context {
-    mraa_aio_context    aio;
-    uint16_t            analog_pin;
-} *grovemoisture_context;
-
-/**
- * Init function
- *
- * @param pin analog pin number
- * @return void* pointer to the sensor struct
- */
-grovemoisture_context grovemoisture_init(int pin);
-
-/**
- * Close function
- *
- * @param dev pointer to the sensor structure
- */
-void grovemoisture_close(grovemoisture_context dev);
-
-/**
- * Get Moisture function.
- *
- * @param dev pointer to the sensor struct
- * @param moisture pointer that will be used to store the
- * output value from the sensor
- */
-upm_result_t grovemoisture_get_moisture(grovemoisture_context dev,
-                                        int* moisture);
-
-#ifdef __cplusplus
+Moisture::Moisture(int pin)
+{
+  if ( !(m_aio = mraa_aio_init(pin)) )
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init() failed, invalid pin?");
 }
-#endif
+
+Moisture::~Moisture()
+{
+  mraa_aio_close(m_aio);
+}
+
+int Moisture::value()
+{
+  return mraa_aio_read(m_aio);
+}
