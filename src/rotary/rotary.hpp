@@ -28,13 +28,14 @@
 
 #include <string>
 #include <mraa/aio.hpp>
-#include "grovebase.hpp"
+
+#include "rotary.hpp"
 
 namespace upm {
 
 /**
- * @library grove
- * @sensor groverotary
+ * @library rotary
+ * @sensor rotary
  * @comname Grove Rotary Angle Sensor
  * @altname Rotary Potentiometer
  * @type ainput
@@ -42,27 +43,27 @@ namespace upm {
  * @con analog
  * @kit gsk
  *
- * @brief API for the Grove Rotary Angle Sensor (Knob)
+ * @brief API for the Rotary Angle Sensor (Knob)
  *
- * Basic UPM module for the Grove rotary angle sensor (knob) on analog. Provides
+ * Basic UPM module for the rotary angle sensor (knob) on analog. Provides
  * a set of functions to read the absolute pin value, degrees or radians, and another set
  * to do the same relative to the center of the knob's range.
  *
- * @image html groverotary.jpeg
- * @snippet groverotary.cxx Interesting
+ * @image html rotary.jpeg
+ * @snippet rotary.cxx Interesting
  */
-class GroveRotary: public Grove {
+class Rotary{
     public:
         /**
          * Grove rotary angle sensor constructor
          *
          * @param pin Number of the analog pin to use
          */
-        GroveRotary(unsigned int pin);
+        Rotary(unsigned int pin);
         /**
-         * GroveRotary destructor
+         * Rotary destructor
          */
-        ~GroveRotary();
+        ~Rotary();
         /**
          * Gets the absolute raw value from the AIO pin
          *
@@ -99,6 +100,7 @@ class GroveRotary: public Grove {
          * @return Signed radians from the ADC
          */
         float rel_rad();
+        std::string name(){ return "Rotary Angle Sensor";}
     private:
         mraa_aio_context m_aio;
         static const int m_max_angle = 300;

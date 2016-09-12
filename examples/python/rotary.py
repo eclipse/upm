@@ -24,7 +24,7 @@ from time import sleep
 import pyupm_grove as grove
 
 # New knob on AIO pin 0
-knob = grove.GroveRotary(0)
+knob = grove.Rotary(0)
 
 # Loop indefinitely
 while True:

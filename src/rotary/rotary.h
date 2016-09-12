@@ -1,6 +1,8 @@
 /*
- * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Brendan Le Foll <brendan.le.foll@intel.com>
+ * 	   Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ *
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,28 +24,34 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//setup/Initialization
-var upm_grove = require('jsupm_grove');
+#ifndef ROTARY_H_
+#define ROTARY_H_
 
-//setup access analog input Analog pin #0 (A0)
-var groveRotary = new upm_grove.GroveRotary(0);
+#include <unistd.h>
 
-loop();
+#include "upm.h"
+#include <mraa/aio.h>
 
-function loop()
-{
-    var abs = groveRotary.abs_value();
-    var absdeg = groveRotary.abs_deg();
-    var absrad = groveRotary.abs_rad();
+/**
+ * driver context
+ */
+typedef struct _rotary_context {
+    mraa_aio_context aio;
+    float m_aRef;
+    int16_t m_aRes;
+} *rotary_context;
 
-    var rel = groveRotary.rel_value();
-    var reldeg = groveRotary.rel_deg();
-    var relrad = groveRotary.rel_rad();
+#define ROTARY_MAX_ANGLE 300
 
-    //write the knob value to the console in different formats
-    console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3));
-    console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
+typedef struct _rotary_context* rotary_context;
 
-    //wait 2 s and call function again
-    setTimeout(loop, 2000);
-}
+rotary_context rotary_init(int pin, float aRef);
+
+void rotary_close(rotary_context dev);
+
+upm_result_t rotary_get_value_voltage(const rotary_context dev, float* volts);
+
+// degrees only
+upm_result_t rotary_get_value_angle(rotary_context dev, float* rotval);
+
+#endif /* ROTARY_H_ */

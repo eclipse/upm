@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveRotarySample {
+public class RotarySample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		upm_grove.GroveRotary knob = new upm_grove.GroveRotary(0);
+		upm_grove.Rotary knob = new upm_grove.Rotary(0);
 
 		while (true) {
 			float abs_value = knob.abs_value(); // Absolute raw value

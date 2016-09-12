@@ -26,9 +26,9 @@
     #include "relay.hpp"
 %}
 
-%include "groverotary.hpp"
+%include "rotary.hpp"
 %{
-    #include "groverotary.hpp"
+    #include "rotary.hpp"
 %}
 
 %include "grovetemp.hpp"
