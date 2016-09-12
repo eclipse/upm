@@ -59,7 +59,7 @@ int main()
         o2_get_raw_volts(sensor, &raw_volts);
         o2_get_value(sensor, &o2_percent);
 
-        printf("O2 raw volts: %0.03f v, o2: %0.03f %\n",
+        printf("O2 raw volts: %0.03f v, o2: %0.03f %%\n",
                 raw_volts, o2_percent);
 
         usleep(500000);
