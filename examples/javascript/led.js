@@ -23,10 +23,10 @@
  */
 
 // Load Grove module
-var groveSensor = require('jsupm_grove');
+var ledSensor = require('jsupm_led');
 
 // Create the Grove LED object using GPIO pin 2
-var led = new groveSensor.GroveLed(2);
+var led = new ledSensor.Led(2);
 
 // Print the name
 console.log(led.name());

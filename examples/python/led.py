@@ -21,10 +21,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+import pyupm_led as led
 
 # Create the Grove LED object using GPIO pin 2
-led = grove.GroveLed(2)
+led = led.Led(2)
 
 # Print the name
 print led.name()
