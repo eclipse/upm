@@ -94,6 +94,7 @@ upm_result_t slide_get_normalized(const slide_context dev, float *value)
     *value = mraa_aio_read_float(dev->aio);
     if (*value < 0)
         return UPM_ERROR_OPERATION_FAILED;
+    return UPM_SUCCESS;
 }
 
 upm_result_t slide_get_raw_volts(const slide_context dev, float *value)

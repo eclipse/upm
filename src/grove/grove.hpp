@@ -27,6 +27,4 @@
 
 #include <grovebutton.hpp>
 #include <groveled.hpp>
-#include <relay.hpp>
-#include <rotary.hpp>
 #include <grovetemp.hpp>

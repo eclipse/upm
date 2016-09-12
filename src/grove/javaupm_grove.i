@@ -24,16 +24,6 @@
     #include "groveled.hpp"
 %}
 
-%include "relay.hpp"
-%{
-    #include "relay.hpp"
-%}
-
-%include "rotary.hpp"
-%{
-    #include "rotary.hpp"
-%}
-
 %include "grovetemp.hpp"
 %{
     #include "grovetemp.hpp"

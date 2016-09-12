@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <iomanip>
-#include "grove.hpp"
+#include "rotary.hpp"
 
 using namespace std;
 

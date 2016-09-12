@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "grove.hpp"
+#include "relay.hpp"
 
 int
 main(int argc, char **argv)
