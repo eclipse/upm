@@ -26,7 +26,7 @@ public class RotarySample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		upm_grove.Rotary knob = new upm_grove.Rotary(0);
+		upm_rotary.Rotary knob = new upm_rotary.Rotary(0);
 
 		while (true) {
 			float abs_value = knob.abs_value(); // Absolute raw value

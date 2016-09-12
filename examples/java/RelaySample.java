@@ -26,7 +26,7 @@ public class RelaySample {
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Create the button object using UART
-		upm_grove.Relay relay = new upm_grove.Relay(5);
+		upm_relay.Relay relay = new upm_relay.Relay(5);
 
 		for (int i = 0; i < 3; i++) {
 			relay.on();
