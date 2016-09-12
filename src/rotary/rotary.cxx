@@ -28,52 +28,51 @@
 #include <string>
 #include <stdexcept>
 
-#include "groverotary.hpp"
+#include "rotary.hpp"
 #include "math.h"
 
 using namespace upm;
 
-GroveRotary::GroveRotary(unsigned int pin)
+Rotary::Rotary(unsigned int pin)
 {
     if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_aio_init() failed, invalid pin?");
         return;
     }
-    m_name = "Rotary Angle Sensor";
 }
 
-GroveRotary::~GroveRotary()
+Rotary::~Rotary()
 {
     mraa_aio_close(m_aio);
 }
 
-float GroveRotary::abs_value()
+float Rotary::abs_value()
 {
     return (float) mraa_aio_read(m_aio);
 }
 
-float GroveRotary::abs_deg()
+float Rotary::abs_deg()
 {
-    return GroveRotary::abs_value() * (float) m_max_angle / 1023.0;
+    return Rotary::abs_value() * (float) m_max_angle / 1023.0;
 }
 
-float GroveRotary::abs_rad()
+float Rotary::abs_rad()
 {
-    return GroveRotary::abs_deg() * M_PI / 180.0;
+    return Rotary::abs_deg() * M_PI / 180.0;
 }
 
-float GroveRotary::rel_value()
+float Rotary::rel_value()
 {
-    return GroveRotary::abs_value() - 512.0;
+    return Rotary::abs_value() - 512.0;
 }
 
-float GroveRotary::rel_deg()
+float Rotary::rel_deg()
 {
-    return GroveRotary::rel_value() * (float) m_max_angle / 1023.0;
+    return Rotary::rel_value() * (float) m_max_angle / 1023.0;
 }
 
-float GroveRotary::rel_rad()
+float Rotary::rel_rad()
 {
-    return GroveRotary::rel_deg() * M_PI / 180.0;
+    return Rotary::rel_deg() * M_PI / 180.0;
 }

@@ -22,36 +22,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include <iomanip>
-#include "grove.hpp"
+//setup/Initialization
+var upm_grove = require('jsupm_grove');
 
-using namespace std;
+//setup access analog input Analog pin #0 (A0)
+var groveRotary = new upm_grove.Rotary(0);
 
-int main ()
+loop();
+
+function loop()
 {
-//! [Interesting]
-    // Instantiate a rotary sensor on analog pin A0
-    upm::GroveRotary* knob = new upm::GroveRotary(0);
+    var abs = groveRotary.abs_value();
+    var absdeg = groveRotary.abs_deg();
+    var absrad = groveRotary.abs_rad();
 
-    // Print sensor name to confirm it initialized properly
-    cout << knob->name() << endl;
+    var rel = groveRotary.rel_value();
+    var reldeg = groveRotary.rel_deg();
+    var relrad = groveRotary.rel_rad();
 
-    while(true) {
-        float abs_value = knob->abs_value(); // Absolute raw value
-        float abs_deg = knob->abs_deg();     // Absolute degrees
-        float abs_rad = knob->abs_rad();     // Absolute radians
-        float rel_value = knob->rel_value(); // Relative raw value
-        float rel_deg = knob->rel_deg();     // Relative degrees
-        float rel_rad = knob->rel_rad();     // Relative radians
+    //write the knob value to the console in different formats
+    console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3));
+    console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
 
-        fprintf(stdout, "Absolute: %4d raw %5.2f deg = %3.2f rad Relative: %4d raw %5.2f deg %3.2f rad\n",
-                (int16_t)abs_value, abs_deg, abs_rad, (int16_t)rel_value, rel_deg, rel_rad);
-
-        usleep(2500000); // Sleep for 2.5s
-    }
-//! [Interesting]
-    delete knob;
-    return 0;
+    //wait 2 s and call function again
+    setTimeout(loop, 2000);
 }
