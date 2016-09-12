@@ -22,11 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovecollision as upmGrovecollision
+import pyupm_collision as upmcollision
 
-# The was tested with the Grove Collision Sensor
-# Instantiate a Grove Collision on digital pin D2
-myGrovecollision = upmGrovecollision.GroveCollision(2)
+# The was tested with the Collision Sensor
+# Instantiate a Collision on digital pin D2
+mycollision = upmcollision.Collision(2)
 
 
 ## Exit handlers ##
@@ -49,9 +49,9 @@ collisionState = False
 print "No collision"
 
 while(1):
-	if (myGrovecollision.isColliding() and not collisionState):
+	if (mycollision.isColliding() and not collisionState):
 		print "Collision!"
 		collisionState = True
-	elif (not myGrovecollision.isColliding() and collisionState):
+	elif (not mycollision.isColliding() and collisionState):
 		print "No collision"
 		collisionState = False

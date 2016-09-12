@@ -21,40 +21,49 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+#include <iostream>
+#include <unistd.h>
+#include <signal.h>
+#include "collision.hpp"
 
-var collision_lib = require("jsupm_grovecollision");
+using namespace std;
 
-// The was tested with the Grove Collision Sensor
-// Instantiate a Grove Collision on digital pin D2
-var collision_obj = new collision_lib.GroveCollision(2);
+int shouldRun = true;
 
-var collisionState = false;
-console.log("No collision");
-
-// Having an infinate loop prevents nodeJS from catching Cntl-C
-// We need to catch Cntl-C to clean up memory
-// Instead, we check the collision sensor every millisecond
-var myInterval = setInterval(function()
+void sig_handler(int signo)
 {
-	if (collision_obj.isColliding() && !collisionState)
+  if (signo == SIGINT)
+    shouldRun = false;
+}
+
+int main(int argc, char **argv)
+{
+  signal(SIGINT, sig_handler);
+
+//! [Interesting]
+  // The was tested with the Collision Sensor
+  // Instantiate a Collision on digital pin D2
+  upm::Collision* collision = new upm::Collision(2);
+
+  bool collisionState = false;
+  cout << "No collision" << endl;
+  while (shouldRun)
+  {
+	if (collision->isColliding() && !collisionState)
 	{
-		console.log("Collision!");
+		cout << "Collision!" << endl;
 		collisionState = true;
 	}
-	else if (!collision_obj.isColliding() && collisionState)
+	else if (collisionState)
 	{
-		console.log("No collision");
+		cout << "No collision" << endl;
 		collisionState = false;
 	}
-}, 1);
+  }
 
-// When exiting: clear interval, clean up memory, and print message
-process.on('SIGINT', function()
-{
-	clearInterval(myInterval);
-	collision_obj = null;
-	collision_lib.cleanUp();
-	collision_lib = null;
-	console.log("Exiting...");
-	process.exit(0);
-});
+//! [Interesting]
+  cout << "Exiting" << endl;
+
+  delete collision;
+  return 0;
+}

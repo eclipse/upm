@@ -22,13 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_grovecollision.*;
+import upm_collision.*;
 
-public class GroveCollision {
+public class Collision {
 
 	public static void main(String[] args) {
 		// Initializing the sensor on D2 on the Base Shield
-		upm_grovecollision.GroveCollision collision = new upm_grovecollision.GroveCollision(2);
+		upm_collision.Collision collision = new upm_collision.Collision(2);
 		boolean collisionState = false;
 
 		// ! [Interesting]

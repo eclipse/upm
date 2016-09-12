@@ -22,57 +22,57 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#include "grovecollision.h"
+#include "collision.h"
 #include "upm_fti.h"
 
 /** 
  * This file implements the Function Table Interface (FTI) for this sensor
  */
 
-const char upm_mvs0608_name[] = "MVS0608";
-const char upm_mvs0608_description[] = "MVS0608 Grove Collision sensor";
-const upm_protocol_t upm_mvs0608_protocol[] = {UPM_GPIO};
-const upm_sensor_t upm_mvs0608_category[] = {UPM_ELECTRICITY};
+const char upm_collision_name[] = "Collision";
+const char upm_collision_description[] = "Collision sensor";
+const upm_protocol_t upm_collision_protocol[] = {UPM_GPIO};
+const upm_sensor_t upm_collision_category[] = {UPM_ELECTRICITY};
 
 // forward declarations
-const upm_sensor_descriptor_t upm_mvs0608_get_descriptor();
-const void* upm_mvs0608_get_ft(upm_sensor_t sensor_type);
-void* upm_mvs0608_init_name();
-void upm_mvs0608_close(void* dev);
+const upm_sensor_descriptor_t upm_collision_get_descriptor();
+const void* upm_collision_get_ft(upm_sensor_t sensor_type);
+void* upm_collision_init_name();
+void upm_collision_close(void* dev);
 
-const upm_sensor_descriptor_t upm_mvs0608_get_descriptor(){
+const upm_sensor_descriptor_t upm_collision_get_descriptor(){
     upm_sensor_descriptor_t usd;
-    usd.name = upm_mvs0608_name;
-    usd.description = upm_mvs0608_description;
+    usd.name = upm_collision_name;
+    usd.description = upm_collision_description;
     usd.protocol_size = 1;
-    usd.protocol = upm_mvs0608_protocol;
+    usd.protocol = upm_collision_protocol;
     usd.category_size = 1;
-    usd.category = upm_mvs0608_category;
+    usd.category = upm_collision_category;
     return usd;
 }
 
 static const upm_sensor_ft ft =
 {
-    .upm_sensor_init_name = &upm_mvs0608_init_name,
-    .upm_sensor_close = &upm_mvs0608_close,
-    .upm_sensor_get_descriptor = &upm_mvs0608_get_descriptor
+    .upm_sensor_init_name = &upm_collision_init_name,
+    .upm_sensor_close = &upm_collision_close,
+    .upm_sensor_get_descriptor = &upm_collision_get_descriptor
 };
 
-const void* upm_mvs0608_get_ft(upm_sensor_t sensor_type){
+const void* upm_collision_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SENSOR){
         return &ft;
     }
     return NULL;
 }
 
-void* upm_mvs0608_init_name(){
+void* upm_collision_init_name(){
     return NULL;
 }
 
-void upm_mvs0608_close(void* dev){
-    mvs0608_close((mvs0608_context)dev);
+void upm_collision_close(void* dev){
+    collision_close((collision_context)dev);
 }
 
-upm_result_t upm_mvs0608_is_colliding(void* dev, bool* collision_val){
-    return mvs0608_is_colliding((mvs0608_context)dev, collision_val);
+upm_result_t upm_collision_is_colliding(void* dev, bool* collision_val){
+    return collision_is_colliding((collision_context)dev, collision_val);
 }
