@@ -22,10 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveLEDSample {
+public class LEDSample {
 	public static void main (String args[]) throws InterruptedException {
 		//! [Interesting]
-        upm_grove.GroveLed led = new upm_grove.GroveLed(2);
+        upm_led.Led led = new upm_led.Led(2);
 		
 		for (int i = 0; i < 10; ++i) {
 			led.on();

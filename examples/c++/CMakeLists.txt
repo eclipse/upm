@@ -87,7 +87,7 @@ link_directories (${MRAA_LIBDIR})
 #  mq? will use module gas
 #  grove* will use module grove
 add_example (hmc5883l)
-add_example (groveled)
+add_example (led)
 add_example (relay)
 add_example (light)
 add_example (temperature)

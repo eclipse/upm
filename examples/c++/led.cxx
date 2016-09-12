@@ -25,7 +25,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "grove.hpp"
+#include "led.hpp"
 
 int
 main(int argc, char **argv)
@@ -33,7 +33,7 @@ main(int argc, char **argv)
 //! [Interesting]
 
     // Create the Grove LED object using GPIO pin 2
-    upm::GroveLed* led = new upm::GroveLed(2);
+    upm::Led* led = new upm::Led(2);
 
     // Print the name
     std::cout << led->name() << std::endl;
