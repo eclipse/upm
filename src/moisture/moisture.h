@@ -23,39 +23,52 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "moisture.h"
+#pragma once
 
-grovemoisture_context grovemoisture_init(int pin) {
-    grovemoisture_context dev =
-      (grovemoisture_context) malloc(sizeof(struct _grovemoisture_context));
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
-    if (dev == NULL) {
-        printf("Unable to allocate memory for device context\n");
-        return NULL;
-    }
+#include "upm.h"
+#include "mraa/aio.h"
 
-    dev->analog_pin = pin;
-    dev->aio = mraa_aio_init(dev->analog_pin);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-    if (dev->aio == NULL) {
-        printf("mraa_aio_init() failed.\n");
-        free(dev);
+/**
+ * device context
+ */
+typedef struct _moisture_context {
+    mraa_aio_context    aio;
+    uint16_t            analog_pin;
+} *moisture_context;
 
-        return NULL;
-    }
+/**
+ * Init function
+ *
+ * @param pin analog pin number
+ * @return void* pointer to the sensor struct
+ */
+moisture_context moisture_init(int pin);
 
-    return dev;
+/**
+ * Close function
+ *
+ * @param dev pointer to the sensor structure
+ */
+void moisture_close(moisture_context dev);
+
+/**
+ * Get Moisture function.
+ *
+ * @param dev pointer to the sensor struct
+ * @param moisture pointer that will be used to store the
+ * output value from the sensor
+ */
+upm_result_t moisture_get_moisture(moisture_context dev,
+                                        int* moisture);
+
+#ifdef __cplusplus
 }
-
-void grovemoisture_close(grovemoisture_context dev) {
-    mraa_aio_close(dev->aio);
-    free(dev);
-}
-
-upm_result_t grovemoisture_get_moisture(grovemoisture_context dev,
-                                            int* moisture) {
-
-    *moisture = mraa_aio_read(dev->aio);
-
-    return UPM_SUCCESS;
-}
+#endif

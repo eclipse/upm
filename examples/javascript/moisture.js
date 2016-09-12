@@ -23,10 +23,10 @@
 */
 
 //Load Grove Moisture module
-var grove_moisture = require('jsupm_grovemoisture');
+var moisture = require('jsupm_moisture');
 
 // Instantiate a Grove Moisture sensor on analog pin A0
-var myMoistureObj = new grove_moisture.GroveMoisture(0);
+var myMoistureObj = new moisture.Moisture(0);
 
 // Values (approximate):
 // 0-300,   sensor in air or dry soil
