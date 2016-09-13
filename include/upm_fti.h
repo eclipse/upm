@@ -116,6 +116,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <fti/upm_light.h>
 #include <fti/upm_stream.h>
 #include <fti/upm_orp.h>
+#include <fti/upm_ec.h>
 
 #ifdef __cplusplus
 }
