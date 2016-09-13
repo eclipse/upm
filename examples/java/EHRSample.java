@@ -23,12 +23,12 @@
  */
 
 //NOT TESTED!!!
-public class GroveEHRSample {
+public class EHRSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		// Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
-		upm_groveehr.GroveEHR heart = new upm_groveehr.GroveEHR(2);
+		// Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
+		upm_ehr.EHR heart = new upm_ehr.EHR(2);
 
 		// set the beat counter to 0, init the clock and start counting beats
 		heart.clearBeatCounter();

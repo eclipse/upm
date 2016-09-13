@@ -30,39 +30,39 @@
 
 namespace upm {
   /**
-   * @brief Grove Ear-clip Heart Rate Sensor library
-   * @defgroup groveehr libupm-groveehr
+   * @brief  Ear-clip Heart Rate Sensor library
+   * @defgroup ehr libupm-ehr
    * @ingroup seeed gpio medical
    */
 
   /**
-   * @library groveehr
-   * @sensor groveehr
-   * @comname Grove Ear-clip Heart Rate Sensor
+   * @library ehr
+   * @sensor ehr
+   * @comname  Ear-clip Heart Rate Sensor
    * @type medical
    * @man seeed
    * @con gpio
    *
-   * @brief API for the Grove Ear-clip Heart Rate Sensor
+   * @brief API for the  Ear-clip Heart Rate Sensor
    *
-   * UPM module for the Grove ear-clip heart rate sensor. It is used to measure your
+   * UPM module for the  ear-clip heart rate sensor. It is used to measure your
    * heart rate. 
    *
-   * @image html groveehr.jpg 
-   * @snippet groveehr.cxx Interesting
+   * @image html ehr.jpg 
+   * @snippet ehr.cxx Interesting
    */
-  class GroveEHR {
+  class EHR {
   public:
     /**
-     * GroveEHR constructor
+     * EHR constructor
      *
      * @param pin Digital pin to use
      */
-    GroveEHR(int pin);
+    EHR(int pin);
     /**
-     * GroveEHR destructor
+     * EHR destructor
      */
-    ~GroveEHR();
+    ~EHR();
     /**
      * Returns the time of milliseconds elapsed since initClock()
      * was last called.

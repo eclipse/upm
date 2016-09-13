@@ -23,10 +23,10 @@
 
 
 import time, sys, signal, atexit
-import pyupm_groveehr as upmGroveehr
+import pyupm_ehr as upmehr
 
-# Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
-myHeartRateSensor = upmGroveehr.GroveEHR(2)
+# Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
+myHeartRateSensor = upmehr.EHR(2)
 
 
 ## Exit handlers ##

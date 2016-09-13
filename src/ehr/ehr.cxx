@@ -26,12 +26,12 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveehr.hpp"
+#include "ehr.hpp"
 
 using namespace upm;
 using namespace std;
 
-GroveEHR::GroveEHR(int pin)
+EHR::EHR(int pin)
 {
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     {
@@ -46,17 +46,17 @@ GroveEHR::GroveEHR(int pin)
   m_beatCounter = 0;
 }
 
-GroveEHR::~GroveEHR()
+EHR::~EHR()
 {
   mraa_gpio_close(m_gpio);
 }
 
-void GroveEHR::initClock()
+void EHR::initClock()
 {
   gettimeofday(&m_startTime, NULL);
 }
 
-uint32_t GroveEHR::getMillis()
+uint32_t EHR::getMillis()
 {
   struct timeval elapsed, now;
   uint32_t elapse;
@@ -84,36 +84,36 @@ uint32_t GroveEHR::getMillis()
   return elapse;
 }
 
-void GroveEHR::clearBeatCounter()
+void EHR::clearBeatCounter()
 {
   m_beatCounter = 0;
 }
 
-void GroveEHR::startBeatCounter()
+void EHR::startBeatCounter()
 {
   // install our interrupt handler
   mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
                 &beatISR, this);
 }
 
-void GroveEHR::stopBeatCounter()
+void EHR::stopBeatCounter()
 {
   // remove the interrupt handler
   mraa_gpio_isr_exit(m_gpio);
 }
 
-uint32_t GroveEHR::beatCounter()
+uint32_t EHR::beatCounter()
 {
   return m_beatCounter;
 }
 
-void GroveEHR::beatISR(void *ctx)
+void EHR::beatISR(void *ctx)
 {
-  upm::GroveEHR *This = (upm::GroveEHR *)ctx;
+  upm::EHR *This = (upm::EHR *)ctx;
   This->m_beatCounter++;
 }
 
-int GroveEHR::heartRate()
+int EHR::heartRate()
 {
   uint32_t millis = getMillis();
   uint32_t beats = beatCounter();
