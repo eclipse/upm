@@ -26,11 +26,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "grovespeaker.hpp"
+#include "speaker.hpp"
 
 using namespace upm;
 
-GroveSpeaker::GroveSpeaker(int pin)
+Speaker::Speaker(int pin)
 {
   if ( !(m_gpio = mraa_gpio_init(pin)) )
     throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -46,12 +46,12 @@ GroveSpeaker::GroveSpeaker(int pin)
 	m_note_list['g'] = storeNote(1276, 1204, 638, 602, 319, 301);
 }
 
-GroveSpeaker::~GroveSpeaker()
+Speaker::~Speaker()
 {
     mraa_gpio_close(m_gpio);
 }
 
-NoteData GroveSpeaker::storeNote(int noteDelayLow, int noteDelayLowSharp, 
+NoteData Speaker::storeNote(int noteDelayLow, int noteDelayLowSharp, 
                                  int noteDelayMed, int noteDelayMedSharp, 
                                  int noteDelayHigh, int noteDelayHighSharp)
 {
@@ -65,7 +65,7 @@ NoteData GroveSpeaker::storeNote(int noteDelayLow, int noteDelayLowSharp,
 	return note;
 }
 
-void GroveSpeaker::playAll()
+void Speaker::playAll()
 {
 	playSound('c', false, "low");
 	usleep(200000);
@@ -83,7 +83,7 @@ void GroveSpeaker::playAll()
 	usleep(500000);
 }
 
-void GroveSpeaker::playSound(char letter, bool sharp, std::string vocalWeight)
+void Speaker::playSound(char letter, bool sharp, std::string vocalWeight)
 {
 	std::map<char, NoteData>::iterator it = m_note_list.find(letter);
 	if(it == m_note_list.end())
@@ -134,7 +134,7 @@ void GroveSpeaker::playSound(char letter, bool sharp, std::string vocalWeight)
 	sound(delayTime);
 }
 
-void GroveSpeaker::sound(int note_delay)
+void Speaker::sound(int note_delay)
 {
 	mraa_result_t error = MRAA_SUCCESS;
 	for (int i = 0; i < 100; i++)   

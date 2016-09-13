@@ -1,16 +1,16 @@
-%module javaupm_grovespeaker
+%module javaupm_speaker
 %include "../upm.i"
 
 %{
-    #include "grovespeaker.hpp"
+    #include "speaker.hpp"
 %}
 
-%include "grovespeaker.hpp"
+%include "speaker.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_grovespeaker");
+            System.loadLibrary("javaupm_speaker");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

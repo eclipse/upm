@@ -20,7 +20,7 @@ relay.cxx	RelaySample.java
 rotary.cxx	RotarySample.java
 grovescam.cxx	GROVESCAMSample.java
 slide.cxx	SlideSample.java
-grovespeaker.cxx	GroveSpeakerSample.java
+speaker.cxx	SpeakerSample.java
 vdiv.cxx	VDivSample.java
 water.cxx	WaterSample.java
 grovewfs.cxx	GroveWFSSample.java

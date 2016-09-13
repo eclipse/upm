@@ -22,10 +22,10 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//Load Grove Speaker module
-var groveSpeaker = require('jsupm_grovespeaker');
-// Instantiate a Grove Speaker on digital pin D2
-var mySpeaker = new groveSpeaker.GroveSpeaker(2);
+//Load Speaker module
+var Speaker = require('jsupm_speaker');
+// Instantiate a Speaker on digital pin D2
+var mySpeaker = new Speaker.Speaker(2);
 
 // Play all 7 of the lowest notes
 mySpeaker.playAll();

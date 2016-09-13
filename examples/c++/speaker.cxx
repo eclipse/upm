@@ -1,6 +1,6 @@
 /*
- * Author: Andrei Vasiliu <andrei.vasiliu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,19 +22,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveSpeakerSample {
+#include <unistd.h>
+#include <iostream>
+#include <signal.h>
+#include "speaker.hpp"
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a Grove Speaker on digital pin D2
-		upm_grovespeaker.GroveSpeaker speaker = new upm_grovespeaker.GroveSpeaker(2);
+using namespace std;
 
-		// Play all 7 of the lowest notes
-		speaker.playAll();
+int main ()
+{
+//! [Interesting]
+  // Instantiate a Speaker on digital pin D2
+  upm::Speaker* speaker = new upm::Speaker(2);
 
-		// Play a medium C-sharp
-		speaker.playSound('c', true, "med");
-		// ! [Interesting]
-	}
+  // Play all 7 of the lowest notes
+  speaker->playAll();
 
+  // Play a medium C-sharp
+  speaker->playSound('c', true, "med");
+//! [Interesting]
+
+  cout << "Exiting" << endl;
+
+  delete speaker;
+  return 0;
 }
