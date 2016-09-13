@@ -14,11 +14,6 @@
     #include "grovebase.hpp"
 %}
 
-%include "button.hpp"
-%{
-    #include "button.hpp"
-%}
-
 %include "groveled.hpp"
 %{
     #include "groveled.hpp"
