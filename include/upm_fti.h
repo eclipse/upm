@@ -43,6 +43,7 @@ typedef enum {
     UPM_CURRENT,
     UPM_DISPLAY,
     UPM_DISTANCE,
+    UPM_EC,
     UPM_ELECTRICITY,
     UPM_FLOW,
     UPM_FORCE,
