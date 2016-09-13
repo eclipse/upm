@@ -33,8 +33,8 @@
 
 namespace upm {
   /**
-   * @brief Grove Speaker library
-   * @defgroup grovespeaker libupm-grovespeaker
+   * @brief Speaker library
+   * @defgroup speaker libupm-speaker
    * @ingroup seeed gpio sound hak
    */
 typedef struct
@@ -47,35 +47,35 @@ typedef struct
     int delayTimeHighSharp;
 } NoteData;
   /**
-   * @library grovespeaker
-   * @sensor grovespeaker
-   * @comname Grove Speaker
+   * @library speaker
+   * @sensor speaker libupm-speaker
+   * @comname Speaker
    * @type sound
    * @man seeed
    * @con gpio
    * @kit hak
    *
-   * @brief API for the Grove Speaker
+   * @brief API for the Speaker
    *
-   * UPM module for the Grove Speaker.
+   * UPM module for the Speaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
    * 
-   * @image html grovespeaker.jpg 
-   * @snippet grovespeaker.cxx Interesting
+   * @image html speaker.jpg 
+   * @snippet speaker.cxx Interesting
    */
-  class GroveSpeaker {
+  class Speaker {
   public:
     /**
-     * Grove Speaker constructor
+     * Speaker constructor
      *
      * @param pin Digital pin to use
      */
-    GroveSpeaker(int pin);
+    Speaker(int pin);
     /**
-     * GroveSpeaker destructor
+     * Speaker destructor
      */
-    ~GroveSpeaker();
+    ~Speaker();
     /**
      * Plays all alto notes (lowest notes)
      *

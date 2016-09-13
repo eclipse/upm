@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_grovespeaker
+%module pyupm_speaker
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "grovespeaker.hpp"
+%include "speaker.hpp"
 %{
-    #include "grovespeaker.hpp"
+    #include "speaker.hpp"
 %}

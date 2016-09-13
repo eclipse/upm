@@ -22,10 +22,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovespeaker as upmGrovespeaker
+import pyupm_speaker as upmspeaker
 
-# Instantiate a Grove Speaker on digital pin D2
-mySpeaker = upmGrovespeaker.GroveSpeaker(2)
+# Instantiate a Speaker on digital pin D2
+mySpeaker = upmspeaker.Speaker(2)
 
 # Play all 7 of the lowest notes
 mySpeaker.playAll()
