@@ -22,11 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_groveeldriver as upmGroveeldriver
+import pyupm_eldriver as upmeldriver
 
-# The was tested with the Grove El Driver Module
-# Instantiate a Grove El Driver on digital pin D2
-myEldriver = upmGroveeldriver.GroveElDriver(2)
+# The was tested with the  El Driver Module
+# Instantiate a  El Driver on digital pin D2
+myEldriver = upmeldriver.ElDriver(2)
 
 
 ## Exit handlers ##

@@ -21,32 +21,46 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+#include <iostream>
+#include <unistd.h>
+#include <signal.h>
+#include "eldriver.hpp"
 
-var eldriver_lib = require("jsupm_groveeldriver");
+using namespace std;
 
-// The was tested with the Grove El Driver Module
-// Instantiate a Grove El Driver on digital pin D2
-var eldriver_obj = new eldriver_lib.GroveElDriver(2);
+int shouldRun = true;
 
-var lightState = true;
-
-var myInterval = setInterval(function()
+void sig_handler(int signo)
 {
+  if (signo == SIGINT)
+    shouldRun = false;
+}
+
+int main(int argc, char **argv)
+{
+  signal(SIGINT, sig_handler);
+
+//! [Interesting]
+  // The was tested with the  El Driver Module
+  // Instantiate a  El Driver on digital pin D2
+  upm::ElDriver* eldriver = new upm::ElDriver(2);
+
+  bool lightState = true;
+
+  while (shouldRun)
+  {
 	if (lightState)
-		eldriver_obj.on();
+		eldriver->on();
 	else
-		eldriver_obj.off();
+		eldriver->off();
 	lightState = !lightState;
-}, 1000);
+	sleep(1);
+  }
 
-// When exiting: turn off EL wire, clear interval, and print message
-process.on('SIGINT', function()
-{
-	clearInterval(myInterval);
-	eldriver_obj.off();
-	eldriver_obj = null;
-	eldriver_lib.cleanUp();
-	eldriver_lib = null;
-	console.log("Exiting...");
-	process.exit(0);
-});
+//! [Interesting]
+  eldriver->off();
+  cout << "Exiting" << endl;
+
+  delete eldriver;
+  return 0;
+}
