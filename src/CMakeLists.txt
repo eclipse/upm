@@ -272,6 +272,11 @@ function (UPM_MIXED_MODULE_INIT)
     if (NOT ${libname} MATCHES "utilities-c")
       target_link_libraries (${libname} utilities-c)
     endif()
+
+    ## "export" the logical C lib target for the calling module's
+    ## CMakeLists.txt
+    set (libnamec ${libname} PARENT_SCOPE)
+
   endif (UPM_MIXED_MODULE_INIT_C_SRC)
 
   # Build C++ if enabled AND C++ headers exist
@@ -292,7 +297,13 @@ function (UPM_MIXED_MODULE_INIT)
     if (UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
       target_link_libraries(${libname} ${libname}-c)
     endif (UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
+
+    ## "export" the logical C++ lib target for the calling module's
+    ## CMakeLists.txt
+    set (libnamecxx ${libname} PARENT_SCOPE)
+
   endif (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
+
 endfunction (UPM_MIXED_MODULE_INIT)
 
 macro(upm_module_init)
