@@ -22,10 +22,10 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var electromagnet_lib = require("jsupm_groveelectromagnet");
-// The was tested with the Grove Electromagnetic Module
-// Instantiate a Grove Electromagnet on digital pin D2
-var electromagnet_obj = new electromagnet_lib.GroveElectromagnet(2);
+var electromagnet_lib = require("jsupm_electromagnet");
+// The was tested with the  Electromagnetic Module
+// Instantiate a  Electromagnet on digital pin D2
+var electromagnet_obj = new electromagnet_lib.Electromagnet(2);
 console.log("Starting up magnet....");
 electromagnet_obj.off();
 
