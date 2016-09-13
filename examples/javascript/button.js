@@ -22,28 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include "grove.hpp"
+// Load Grove module
+var groveSensor = require('jsupm_grove');
 
-int
-main(int argc, char **argv)
-{
-    // This example uses GPIO 0
-//! [Interesting]
+// Create the button object using GPIO pin 0
+var button = new groveSensor.Button(0);
 
-    // Create the button object using GPIO pin 0
-    upm::GroveButton* button = new upm::GroveButton(0);
-
-    // Read the input and print, waiting one second between readings
-    while( 1 ) {
-        std::cout << button->name() << " value is " << button->value() << std::endl;
-        sleep(1);
-    }
-
-    // Delete the button object
-    delete button;
-//! [Interesting]
-
-    return 0;
+// Read the input and print, waiting one second between readings
+function readButtonValue() {
+    console.log(button.name() + " value is " + button.value());
 }
+setInterval(readButtonValue, 1000);

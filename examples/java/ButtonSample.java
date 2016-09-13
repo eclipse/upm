@@ -22,12 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButtonSample {
+public class ButtonSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// Create the button object using GPIO pin 2
-		upm_grove.GroveButton button = new upm_grove.GroveButton(2);
+		upm_button.Button button = new upm_button.Button(2);
 
 		while (true) {
 			System.out.println(button.name() + " value is " + button.value());
