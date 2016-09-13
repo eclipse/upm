@@ -24,7 +24,7 @@
 #include <iostream>
 #include <time.h>
 #include <signal.h>
-#include "groveelectromagnet.hpp"
+#include "electromagnet.hpp"
 
 using namespace std;
 
@@ -46,9 +46,9 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // The was tested with the Grove Electromagnetic Module
-  // Instantiate a Grove Electromagnet on digital pin D2
-  upm::GroveElectromagnet* magnet = new upm::GroveElectromagnet(2);
+  // The was tested with the  Electromagnetic Module
+  // Instantiate a  Electromagnet on digital pin D2
+  upm::Electromagnet* magnet = new upm::Electromagnet(2);
   cout << "Starting up magnet...." << endl;
   magnet->off();
 

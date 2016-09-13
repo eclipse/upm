@@ -22,11 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_groveelectromagnet as upmGroveelectromagnet
+import pyupm_electromagnet as upmelectromagnet
 
-# This was tested with the Grove Electromagnetic Module
-# Instantiate a Grove Electromagnet on digital pin D2
-myElectromagnet = upmGroveelectromagnet.GroveElectromagnet(2)
+# This was tested with the  Electromagnetic Module
+# Instantiate a  Electromagnet on digital pin D2
+myElectromagnet = upmelectromagnet.Electromagnet(2)
 
 
 ## Exit handlers ##

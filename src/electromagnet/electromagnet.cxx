@@ -25,11 +25,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveelectromagnet.hpp"
+#include "electromagnet.hpp"
 
 using namespace upm;
 
-GroveElectromagnet::GroveElectromagnet(int pin)
+Electromagnet::Electromagnet(int pin)
 {
     if ( !(m_gpio = mraa_gpio_init(pin)) ) 
       {
@@ -40,12 +40,12 @@ GroveElectromagnet::GroveElectromagnet(int pin)
     mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
 }
 
-GroveElectromagnet::~GroveElectromagnet()
+Electromagnet::~Electromagnet()
 {
     mraa_gpio_close(m_gpio);
 }
 
-void GroveElectromagnet::on()
+void Electromagnet::on()
 {
 	mraa_result_t error = MRAA_SUCCESS;
 	error = mraa_gpio_write (m_gpio, HIGH);
@@ -53,7 +53,7 @@ void GroveElectromagnet::on()
 		mraa_result_print(error);
 }
 
-void GroveElectromagnet::off()
+void Electromagnet::off()
 {
 	mraa_result_t error = MRAA_SUCCESS;
 	error = mraa_gpio_write (m_gpio, LOW);
