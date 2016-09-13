@@ -22,10 +22,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovegprs as sensorObj
+import pyupm_gprs as sensorObj
 
-# Instantiate a GroveGPRS Module on UART 0
-sensor = sensorObj.GroveGPRS(0)
+# Instantiate a GPRS Module on UART 0
+sensor = sensorObj.GPRS(0)
 
 ## Exit handlers ##
 # This stops python from printing a stacktrace when you hit control-C

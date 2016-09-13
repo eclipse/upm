@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 #include <stdio.h>
-#include "grovegprs.hpp"
+#include "gprs.hpp"
 
 using namespace std;
 using namespace upm;
@@ -48,7 +48,7 @@ void printUsage(char *progname)
 }
 
 // simple helper function to send a command and wait for a response
-void sendCommand(upm::GroveGPRS* sensor, string cmd)
+void sendCommand(upm::GPRS* sensor, string cmd)
 {
   // commands need to be terminated with a carriage return
   cmd += "\r";
@@ -71,8 +71,8 @@ int main(int argc, char **argv)
 {
 //! [Interesting]
 
-  // Instantiate a GroveGPRS Module on UART 0
-  upm::GroveGPRS* sensor = new upm::GroveGPRS(0);
+  // Instantiate a GPRS Module on UART 0
+  upm::GPRS* sensor = new upm::GPRS(0);
 
   // Set the baud rate, 19200 baud is the default.
   if (sensor->setBaudRate(19200) != mraa::SUCCESS)

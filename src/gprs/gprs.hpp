@@ -36,27 +36,27 @@
 #include <mraa/common.hpp>
 #include <mraa/uart.hpp>
 
-#define GROVEGPRS_DEFAULT_UART 0
+#define GPRS_DEFAULT_UART 0
 
 namespace upm {
     /**
-     * @brief Grove GPRS Module library
-     * @defgroup grovegprs libupm-grovegprs
+     * @brief  GPRS Module library
+     * @defgroup gprs libupm-gprs
      * @ingroup seeed uart wifi
      */
 
     /**
-     * @library grovegprs
-     * @sensor grovegprs
-     * @comname Grove GPRS Module
+     * @library gprs
+     * @sensor gprs
+     * @comname  GPRS Module
      * @type wifi
      * @man seeed
      * @con uart
      * @web http://www.seeedstudio.com/wiki/GPRS_Shield_V2.0
      *
-     * @brief API for the Grove GPRS Module
+     * @brief API for the  GPRS Module
      *
-     * The driver was tested with the Grove GPRS Module, V2.  It's a
+     * The driver was tested with the  GPRS Module, V2.  It's a
      * GSM GPRS module based on the SIM900.  This module uses a
      * standard 'AT' command set.  See the datasheet for a full list
      * of available commands and their possible responses:
@@ -65,24 +65,24 @@ namespace upm {
      *
      * It is connected via a UART at 19200 baud.
      *
-     * @image html grovegprs.jpg
-     * @snippet grovegprs.cxx Interesting
+     * @image html gprs.jpg
+     * @snippet gprs.cxx Interesting
      */
 
-  class GroveGPRS {
+  class GPRS {
   public:
 
     /**
-     * GroveGPRS object constructor
+     * GPRS object constructor
      *
      * @param uart Default UART to use (0 or 1). Default is 0.
      */
-    GroveGPRS(int uart=GROVEGPRS_DEFAULT_UART);
+    GPRS(int uart=GPRS_DEFAULT_UART);
 
     /**
-     * GroveGPRS object destructor
+     * GPRS object destructor
      */
-    ~GroveGPRS();
+    ~GPRS();
 
     /**
      * Checks to see if there is data available for reading

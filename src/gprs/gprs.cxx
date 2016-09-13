@@ -24,50 +24,50 @@
 
 #include <iostream>
 
-#include "grovegprs.hpp"
+#include "gprs.hpp"
 
 using namespace upm;
 using namespace std;
 
 static const int defaultDelay = 100;     // max wait time for read
 
-GroveGPRS::GroveGPRS(int uart) :
+GPRS::GPRS(int uart) :
   m_uart(uart)
 {
 }
 
-GroveGPRS::~GroveGPRS()
+GPRS::~GPRS()
 {
 }
 
-bool GroveGPRS::dataAvailable(unsigned int millis)
+bool GPRS::dataAvailable(unsigned int millis)
 {
   return m_uart.dataAvailable(millis);
 }
 
-int GroveGPRS::readData(char *buffer, unsigned int len)
+int GPRS::readData(char *buffer, unsigned int len)
 {
   return m_uart.read(buffer, len);
 }
 
-std::string GroveGPRS::readDataStr(int len)
+std::string GPRS::readDataStr(int len)
 {
   return m_uart.readStr(len);
 }
 
-int GroveGPRS::writeData(char *buffer, unsigned int len)
+int GPRS::writeData(char *buffer, unsigned int len)
 {
   m_uart.flush();
   return m_uart.write(buffer, len);
 }
 
-int GroveGPRS::writeDataStr(std::string data)
+int GPRS::writeDataStr(std::string data)
 {
   m_uart.flush();
   return m_uart.writeStr(data);
 }
 
-mraa::Result GroveGPRS::setBaudRate(int baud)
+mraa::Result GPRS::setBaudRate(int baud)
 {
   return m_uart.setBaudRate(baud);
 }

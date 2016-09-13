@@ -23,7 +23,7 @@
  */
 
 
-var sensorObj = require('jsupm_grovegprs');
+var sensorObj = require('jsupm_gprs');
 
 
 /************** Functions **************/
@@ -57,8 +57,8 @@ function sendCommand(sensor, cmd, callback)
 }
 
 /************** Main code **************/
-// Instantiate a GROVEGPRS Module on UART 0
-var sensor = new sensorObj.GroveGPRS(0);
+// Instantiate a GPRS Module on UART 0
+var sensor = new sensorObj.GPRS(0);
 
 // Set the baud rate, 19200 baud is the default.
 if (sensor.setBaudRate(19200))
@@ -70,7 +70,7 @@ if (sensor.setBaudRate(19200))
 printUsage(process.argv[1]);
 
 // Note: in nodeJS, command-line argument 0 is "node".
-// Command-line argument 1 is "grovegprs.js"
+// Command-line argument 1 is "gprs.js"
 // If you have a third argument, then it's a command
 if (process.argv.length > 2)
 {
