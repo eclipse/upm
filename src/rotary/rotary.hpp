@@ -35,7 +35,7 @@ namespace upm {
 
 /**
  * @library rotary
- * @sensor rotary
+ * @sensor rotary libupm-rotary
  * @comname Grove Rotary Angle Sensor
  * @altname Rotary Potentiometer
  * @type ainput
@@ -49,7 +49,7 @@ namespace upm {
  * a set of functions to read the absolute pin value, degrees or radians, and another set
  * to do the same relative to the center of the knob's range.
  *
- * @image html rotary.jpeg
+ * @image html rotary.jpg
  * @snippet rotary.cxx Interesting
  */
 class Rotary{
