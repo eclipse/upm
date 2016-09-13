@@ -21,42 +21,58 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <string>
-#include <stdexcept>
+#include <mraa/gpio.h>
 
-#include "groveeldriver.hpp"
+#define HIGH      1
+#define LOW       0
 
-using namespace upm;
+namespace upm {
+  /**
+   * @brief  EL Driver Module library
+   * @defgroup eldriver libupm-eldriver
+   * @ingroup seeed gpio electric
+   */
 
-GroveElDriver::GroveElDriver(int pin)
-{
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
-        return;
-      }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
-}
+  /**
+   * @library eldriver
+   * @sensor eldriver
+   * @comname  EL Driver
+   * @type electric
+   * @man seeed
+   * @con gpio
+   *
+   * @brief API for the  EL Driver Module
+   * 
+   * The  EL Driver allows you to easily light up an
+   * EL wire with just one single  cable.
+   *
+   * @image html eldriver.jpg 
+   * @snippet eldriver.cxx Interesting
+   */
+  class ElDriver {
+  public:
+    /**
+     *  EL Driver constructor
+     *
+     * @param pin Digital pin to use
+     */
+    ElDriver(int pin);
+    /**
+     *  EL Driver destructor
+     */
+    ~ElDriver();
+    /**
+     * Turns the EL wire on
+     */
+     void on();
+    /**
+     * Turns the EL wire off
+     */
+     void off();
 
-GroveElDriver::~GroveElDriver()
-{
-    mraa_gpio_close(m_gpio);
-}
-
-void GroveElDriver::on()
-{
-	mraa_result_t error = MRAA_SUCCESS;
-	error = mraa_gpio_write (m_gpio, HIGH);
-	if (error != MRAA_SUCCESS)
-		mraa_result_print(error);
-}
-
-void GroveElDriver::off()
-{
-	mraa_result_t error = MRAA_SUCCESS;
-	error = mraa_gpio_write (m_gpio, LOW);
-	if (error != MRAA_SUCCESS)
-		mraa_result_print(error);
+  private:
+        mraa_gpio_context m_gpio;
+	};
 }
