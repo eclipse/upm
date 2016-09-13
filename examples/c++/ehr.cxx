@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "groveehr.hpp"
+#include "ehr.hpp"
 
 using namespace std;
 
@@ -43,8 +43,8 @@ int main()
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
-  upm::GroveEHR* heart = new upm::GroveEHR(2);
+  // Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
+  upm::EHR* heart = new upm::EHR(2);
   
   // set the beat counter to 0, init the clock and start counting beats
   heart->clearBeatCounter();

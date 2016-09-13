@@ -23,9 +23,9 @@
 */
 
 // Load heart rate sensor module
-var heartRateSensor = require('jsupm_groveehr');
-// Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
-var myHeartRateSensor = new heartRateSensor.GroveEHR(2);
+var heartRateSensor = require('jsupm_ehr');
+// Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
+var myHeartRateSensor = new heartRateSensor.EHR(2);
 
 // set the beat counter to 0, init the clock and start counting beats
 myHeartRateSensor.clearBeatCounter();
