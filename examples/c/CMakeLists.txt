@@ -116,6 +116,7 @@ add_example (tsl2561)
 add_example (collision)
 add_example (moisture)
 add_example (led)
+add_example (ds18b20)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

@@ -72,12 +72,39 @@ namespace upm {
      * in MRAA.  In reality, this is trivial to handle yourself in
      * your application.
      *
-     * This device requires the use of a UART to provide access to a
-     * Dallas 1-wire bus, via a new facility supported by MRAA (once
-     * the relevant PR is accepted), using the UartOW access class.
-     * It is important to realize that the UART is only being used to
-     * access and control a Dallas 1-wire compliant bus, it is not
-     * actually a UART device.
+     * This device requires the use of a TTL level UART (specifically
+     * through the UartOW MRAA context class) to provide access to a
+     * Dallas 1-wire bus. It is important to realize that the UART is
+     * only being used to provide an interface to devices on a Dallas
+     * 1-wire compliant bus.
+     *
+     * A circuit like the following should be used for the UART
+     * interface (ASCII schematic - best viewed in a fixed monospace
+     * font):
+     *
+     * -|
+     * U|      (D1)
+     * A| TX---|<--+
+     * R|          |
+     * T| RX-------o--------o  >to 1-wire data bus
+     * -|
+     *
+     *
+     *             Vcc
+     *              |
+     *              o------------+
+     *              |            |
+     *              R1           |
+     *              |            o(+)
+     * >1-wire------o--------o[DS18B20]
+     *                           o(-)
+     *                           |
+     *                          GND
+     *
+     * D1 = 1N4148
+     * R1 = 4.7K
+     *
+     * The cathode of D1 is connected to the UART TX.
      *
      * @snippet ds18b20.cxx Interesting
      */
