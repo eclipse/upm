@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,12 +21,34 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <grovelight.hpp>
-#include <groverelay.hpp>
-#include <groverotary.hpp>
-#include <groveslide.hpp>
-#include <grovetemp.hpp>
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+#include "grovewater.hpp"
+
+using namespace upm;
+using namespace std;
+
+GroveWater::GroveWater(int pin)
+{
+  if ( !(m_gpio = mraa_gpio_init(pin)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+      return;
+    }
+
+  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+}
+
+GroveWater::~GroveWater()
+{
+  mraa_gpio_close(m_gpio);
+}
+
+bool GroveWater::isWet()
+{
+  return (!mraa_gpio_read(m_gpio) ? true : false);
+}

@@ -28,56 +28,36 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "grovelight.hpp"
+#include "math.h"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveLight::GroveLight(unsigned int pin)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
+                                    ": mraa_aio_init() failed, invalid pin?");
         return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
+    m_name = "Light Sensor";
 }
 
-Button::~Button()
+GroveLight::~GroveLight()
 {
-    mraa_gpio_close(m_gpio);
+    mraa_aio_close(m_aio);
 }
 
-std::string Button::name()
+int GroveLight::value()
 {
-    return m_name;
+    // rough conversion to lux, using formula from Grove Starter Kit booklet
+    float a = (float) mraa_aio_read(m_aio);
+    if (a == -1.0) return -1;
+    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
+    return (int) round(a);
 }
 
-int Button::value()
+float GroveLight::raw_value()
 {
-    return mraa_gpio_read(m_gpio);
-}
-
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
-{
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
-}
-
-void Button::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+    return (float) mraa_aio_read(m_aio);
 }

@@ -28,56 +28,42 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "groverelay.hpp"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveRelay::GroveRelay(unsigned int pin)
 {
     if ( !(m_gpio = mraa_gpio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_gpio_init() failed, invalid pin?");
         return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
+    m_name = "Relay Switch";
 }
 
-Button::~Button()
+GroveRelay::~GroveRelay()
 {
     mraa_gpio_close(m_gpio);
 }
 
-std::string Button::name()
+mraa_result_t GroveRelay::on()
 {
-    return m_name;
+    return mraa_gpio_write(m_gpio, 1);
 }
 
-int Button::value()
+mraa_result_t GroveRelay::off()
 {
-    return mraa_gpio_read(m_gpio);
+    return mraa_gpio_write(m_gpio, 0);
 }
 
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
+bool GroveRelay::isOn()
 {
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
+    return mraa_gpio_read(m_gpio) == 1;
 }
 
-void Button::uninstallISR()
+bool GroveRelay::isOff()
 {
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+    return mraa_gpio_read(m_gpio) == 0;
 }

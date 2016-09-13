@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Zion Orent <sorent@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,60 +22,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "grovecollision.hpp"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveCollision::GroveCollision(int pin)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+    
+    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+      {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_gpio_init() failed, invalid pin?");
         return;
-    }
+      }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
 }
 
-Button::~Button()
+GroveCollision::~GroveCollision()
 {
     mraa_gpio_close(m_gpio);
 }
 
-std::string Button::name()
+bool GroveCollision::isColliding()
 {
-    return m_name;
-}
-
-int Button::value()
-{
-    return mraa_gpio_read(m_gpio);
-}
-
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
-{
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
-}
-
-void Button::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+	// Collisions cause 0; no collision is 1
+	return (!(bool)mraa_gpio_read(m_gpio));
 }

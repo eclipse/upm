@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Zion Orent <zorent@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,10 +23,51 @@
  */
 #pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <grovelight.hpp>
-#include <groverelay.hpp>
-#include <groverotary.hpp>
-#include <groveslide.hpp>
-#include <grovetemp.hpp>
+#include <string>
+#include <mraa/aio.h>
+
+namespace upm {
+  /**
+   * @brief Grove O2 Oxygen Gas Sensor library
+   * @defgroup groveo2 libupm-groveo2
+   * @ingroup seeed analog gaseous
+   */
+
+  /**
+   * @library groveo2
+   * @sensor groveo2
+   * @comname Grove O2 Sensor
+   * @type gaseous
+   * @man seeed
+   * @con analog
+   *
+   * @brief API for the Grove O2 Oxygen Gas Sensor
+   *
+   * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
+   *
+   * @image html groveo2.jpg    
+   * @snippet groveo2.cxx Interesting
+   */
+  class GroveO2 {
+  public:
+    /**
+     * Grove O2 Oxygen Gas sensor constructor
+     *
+     * @param pin Analog pin to use
+     */
+    GroveO2(int pin);
+    /**
+     * GroveO2 destructor
+     */
+    ~GroveO2();
+    /**
+     * Measures O2 from the sensor
+     *
+     * @return Oxygen concentration as voltage
+     */
+    float voltageValue();
+
+  private:
+    mraa_aio_context m_aio;
+  };
+}
