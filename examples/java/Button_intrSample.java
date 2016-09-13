@@ -22,13 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveButton_intrSample {
+public class Button_intrSample {
 
 	public static int counter = 0;
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		upm_grove.GroveButton b = new upm_grove.GroveButton(2);
+		upm_button.Button b = new upm_button.Button(2);
 
 		ButtonISR callback = new ButtonISR();
 		b.installISR(2, callback);
@@ -47,7 +47,7 @@ class ButtonISR implements Runnable {
 	}
 
 	public void run() {
-		GroveButton_intrSample.counter++;
+		Button_intrSample.counter++;
 		System.out.println("Button pressed!");
 	}
 }

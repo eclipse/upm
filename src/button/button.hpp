@@ -28,39 +28,38 @@
 
 #include <string>
 #include <mraa/gpio.hpp>
-#include "grovebase.hpp"
 
 namespace upm {
 
 /**
- * @library grove
- * @sensor grovebutton
- * @comname Grove Button
+ * @library button 
+ * @sensor button libupm-button
+ * @comname Button
  * @altname Grove Touch Sensor
  * @type button touch
  * @man seeed
  * @con gpio
  * @kit gsk
  *
- * @brief API for the Grove Button
+ * @brief API for the Button
  *
- * Basic UPM module for the Grove button
+ * Basic UPM module for the button sensor
  *
- * @image html grovebutton.jpg
- * @snippet grovebutton.cxx Interesting
+ * @image html button.jpg
+ * @snippet button.cxx Interesting
  */
-class GroveButton: public Grove {
+class Button{
     public:
         /**
          * Grove button constructor
          *
          * @param gpio Pin to use
          */
-        GroveButton(unsigned int pin);
+        Button(unsigned int pin);
         /**
          * Grove button destructor
          */
-        ~GroveButton();
+        ~Button();
         /**
          * Gets the name of the sensor
          *

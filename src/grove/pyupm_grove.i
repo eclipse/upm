@@ -15,9 +15,9 @@
     #include "grovebase.hpp"
 %}
 
-%include "grovebutton.hpp"
+%include "button.hpp"
 %{
-    #include "grovebutton.hpp"
+    #include "button.hpp"
 %}
 
 %include "groveled.hpp"

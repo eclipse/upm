@@ -25,6 +25,6 @@
  */
 #pragma once
 
-#include <grovebutton.hpp>
+#include <button.hpp>
 #include <groveled.hpp>
 #include <grovetemp.hpp>

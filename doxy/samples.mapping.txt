@@ -10,7 +10,7 @@ cjq4435.cxx	CJQ4435Sample.java
 ds1307.cxx	DS1307Sample.java
 enc03r.cxx	ENC03RSample.java
 es08a.cxx	ES08ASample.java
-grovebutton.cxx	GroveButtonSample.java
+button.cxx	ButtonSample.java
 groveehr.cxx	GroveEHRSample.java
 groveled.cxx	GroveLEDSample.java
 grovelinefinder.cxx	GroveLineFinderSample.java
