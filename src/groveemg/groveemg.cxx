@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Zion Orent <zorent@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,56 +26,44 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "groveemg.hpp"
 
-using namespace std;
 using namespace upm;
+using namespace std;
 
-Button::Button(unsigned int pin)
+GroveEMG::GroveEMG(int pin)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
-        return;
+    if ( !(m_aio = mraa_aio_init(pin)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
+      return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
 }
 
-Button::~Button()
+GroveEMG::~GroveEMG()
 {
-    mraa_gpio_close(m_gpio);
+  mraa_aio_close(m_aio);
 }
 
-std::string Button::name()
+void GroveEMG::calibrate()
 {
-    return m_name;
+	int val, sum = 0;
+
+	for (int i=0; i<1100; i++)
+	{
+		val = mraa_aio_read(m_aio);
+                if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                                        ": Failed to do an aio read.");
+		sum += val;
+		usleep(1000);
+	}
+	sum /= 1100;
+	cout << "Static analog data = " << sum << endl;
 }
 
-int Button::value()
+int GroveEMG::value()
 {
-    return mraa_gpio_read(m_gpio);
-}
-
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
-{
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
-}
-
-void Button::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+	int val = mraa_aio_read(m_aio);
+	return val;
 }

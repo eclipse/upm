@@ -28,56 +28,41 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "groveslide.hpp"
+#include "math.h"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveSlide::GroveSlide(unsigned int pin, float ref_voltage)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
+                                    ": mraa_aio_init() failed, invalid pin?");
         return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
+    m_ref_voltage = ref_voltage;
+    m_name = "Slide Potentiometer";
 }
 
-Button::~Button()
+GroveSlide::~GroveSlide()
 {
-    mraa_gpio_close(m_gpio);
+    mraa_aio_close(m_aio);
 }
 
-std::string Button::name()
+float GroveSlide::raw_value()
 {
-    return m_name;
+    return (float) mraa_aio_read(m_aio);
 }
 
-int Button::value()
+float GroveSlide::voltage_value()
 {
-    return mraa_gpio_read(m_gpio);
+    // conversion to Volts
+    float a = GroveSlide::raw_value();
+    a = m_ref_voltage * a / 1023.0 ;
+    return a;
 }
 
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
+float GroveSlide::ref_voltage()
 {
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
-}
-
-void Button::uninstallISR()
-{
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+    return m_ref_voltage;
 }

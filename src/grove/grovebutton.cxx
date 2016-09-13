@@ -28,12 +28,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "grovebutton.hpp"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveButton::GroveButton(unsigned int pin)
 {
     if ( !(m_gpio = mraa_gpio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -44,29 +43,29 @@ Button::Button(unsigned int pin)
     m_name = "Button Sensor";
 }
 
-Button::~Button()
+GroveButton::~GroveButton()
 {
     mraa_gpio_close(m_gpio);
 }
 
-std::string Button::name()
+std::string GroveButton::name()
 {
     return m_name;
 }
 
-int Button::value()
+int GroveButton::value()
 {
     return mraa_gpio_read(m_gpio);
 }
 
 #ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
+void GroveButton::installISR(mraa::Edge level, jobject runnable)
 {
   installISR(level, mraa_java_isr_callback, runnable);
 }
 #endif
 
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
+void GroveButton::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)
     uninstallISR();
@@ -76,7 +75,7 @@ void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
   m_isrInstalled = true;
 }
 
-void Button::uninstallISR()
+void GroveButton::uninstallISR()
 {
   mraa_gpio_isr_exit(m_gpio);
   m_isrInstalled = false;

@@ -28,56 +28,52 @@
 #include <string>
 #include <stdexcept>
 
-#include "button.hpp"
+#include "groverotary.hpp"
+#include "math.h"
 
-using namespace std;
 using namespace upm;
 
-Button::Button(unsigned int pin)
+GroveRotary::GroveRotary(unsigned int pin)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+    if ( !(m_aio = mraa_aio_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
+                                    ": mraa_aio_init() failed, invalid pin?");
         return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-    m_name = "Button Sensor";
+    m_name = "Rotary Angle Sensor";
 }
 
-Button::~Button()
+GroveRotary::~GroveRotary()
 {
-    mraa_gpio_close(m_gpio);
+    mraa_aio_close(m_aio);
 }
 
-std::string Button::name()
+float GroveRotary::abs_value()
 {
-    return m_name;
+    return (float) mraa_aio_read(m_aio);
 }
 
-int Button::value()
+float GroveRotary::abs_deg()
 {
-    return mraa_gpio_read(m_gpio);
+    return GroveRotary::abs_value() * (float) m_max_angle / 1023.0;
 }
 
-#ifdef JAVACALLBACK
-void Button::installISR(mraa::Edge level, jobject runnable)
+float GroveRotary::abs_rad()
 {
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
-
-void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
-{
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, (mraa_gpio_edge_t) level, isr, arg);
-  m_isrInstalled = true;
+    return GroveRotary::abs_deg() * M_PI / 180.0;
 }
 
-void Button::uninstallISR()
+float GroveRotary::rel_value()
 {
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+    return GroveRotary::abs_value() - 512.0;
+}
+
+float GroveRotary::rel_deg()
+{
+    return GroveRotary::rel_value() * (float) m_max_angle / 1023.0;
+}
+
+float GroveRotary::rel_rad()
+{
+    return GroveRotary::rel_deg() * M_PI / 180.0;
 }

@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,12 +21,54 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <grovelight.hpp>
-#include <groverelay.hpp>
-#include <groverotary.hpp>
-#include <groveslide.hpp>
-#include <grovetemp.hpp>
+#include <iostream>
+
+#include "grovegprs.hpp"
+
+using namespace upm;
+using namespace std;
+
+static const int defaultDelay = 100;     // max wait time for read
+
+GroveGPRS::GroveGPRS(int uart) :
+  m_uart(uart)
+{
+}
+
+GroveGPRS::~GroveGPRS()
+{
+}
+
+bool GroveGPRS::dataAvailable(unsigned int millis)
+{
+  return m_uart.dataAvailable(millis);
+}
+
+int GroveGPRS::readData(char *buffer, unsigned int len)
+{
+  return m_uart.read(buffer, len);
+}
+
+std::string GroveGPRS::readDataStr(int len)
+{
+  return m_uart.readStr(len);
+}
+
+int GroveGPRS::writeData(char *buffer, unsigned int len)
+{
+  m_uart.flush();
+  return m_uart.write(buffer, len);
+}
+
+int GroveGPRS::writeDataStr(std::string data)
+{
+  m_uart.flush();
+  return m_uart.writeStr(data);
+}
+
+mraa::Result GroveGPRS::setBaudRate(int baud)
+{
+  return m_uart.setBaudRate(baud);
+}
+

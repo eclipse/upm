@@ -1,0 +1,5 @@
+set (libname "groveelectromagnet")
+set (libdescription "upm groveelectromagnet sensor module")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init("-lrt")

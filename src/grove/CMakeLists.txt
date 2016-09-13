@@ -1,7 +1,5 @@
-upm_mixed_module_init (NAME grove
-    DESCRIPTION "upm grove module"
-    CPP_HDR groveled.hpp
-            grovetemp.hpp grovebase.hpp grove.hpp
-    CPP_SRC groveled.cxx
-            grovetemp.cxx
-    REQUIRES mraa)
+set (libname "grove")
+set (libdescription "upm grove module")
+set (module_src grovebutton.cxx groveled.cxx grovelight.cxx groverelay.cxx groverotary.cxx groveslide.cxx grovetemp.cxx)
+set (module_hpp grovebutton.hpp groveled.hpp grovelight.hpp groverelay.hpp groverotary.hpp groveslide.hpp grovetemp.hpp grovebase.hpp grove.hpp)
+upm_module_init()

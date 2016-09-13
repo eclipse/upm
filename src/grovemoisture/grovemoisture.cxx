@@ -1,8 +1,6 @@
 /*
- * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
- *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,12 +21,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <grovebutton.hpp>
-#include <groveled.hpp>
-#include <grovelight.hpp>
-#include <groverelay.hpp>
-#include <groverotary.hpp>
-#include <groveslide.hpp>
-#include <grovetemp.hpp>
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+#include "grovemoisture.hpp"
+
+using namespace upm;
+
+GroveMoisture::GroveMoisture(int pin)
+{
+  if ( !(m_aio = mraa_aio_init(pin)) )
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init() failed, invalid pin?");
+}
+
+GroveMoisture::~GroveMoisture()
+{
+  mraa_aio_close(m_aio);
+}
+
+int GroveMoisture::value()
+{
+  return mraa_aio_read(m_aio);
+}
