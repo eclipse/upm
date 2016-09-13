@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovewater.hpp"
+#include "water.hpp"
 
 using namespace std;
 
@@ -43,8 +43,8 @@ int main ()
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate a Grove Water sensor on digital pin D2
-  upm::GroveWater* water = new upm::GroveWater(2);
+  // Instantiate a Water sensor on digital pin D2
+  upm::Water* water = new upm::Water(2);
   
   while (shouldRun)
     {

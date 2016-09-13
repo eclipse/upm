@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_grovewater
+%module pyupm_water
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "grovewater.hpp"
+%include "water.hpp"
 %{
-    #include "grovewater.hpp"
+    #include "water.hpp"
 %}

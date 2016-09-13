@@ -28,39 +28,39 @@
 
 namespace upm {
   /**
-   * @brief Grove Water Sensor library
-   * @defgroup grovewater libupm-grovewater
+   * @brief Water Sensor library
+   * @defgroup water libupm-water
    * @ingroup seeed gpio liquid eak
    */
 
   /**
-   * @library grovewater
-   * @sensor grovewater
-   * @comname Grove Water Sensor
+   * @library water
+   * @sensor water
+   * @comname Water Sensor
    * @type liquid
    * @man seeed
    * @con gpio
    * @kit eak
    *
-   * @brief API for the Grove Water Sensor
+   * @brief API for the Water Sensor
    *
-   * UPM module for the Grove Water sensor
+   * UPM module for the Water sensor
    *
-   * @image html grovewater.jpg
-   * @snippet grovewater.cxx Interesting
+   * @image html water.jpg
+   * @snippet water.cxx Interesting
    */
-  class GroveWater {
+  class Water {
   public:
     /**
-     * Grove digital water sensor constructor
+     * digital water sensor constructor
      *
      * @param pin Digital pin to use
      */
-    GroveWater(int pin);
+    Water(int pin);
     /**
-     * GroveWater destructor
+     * Water destructor
      */
-    ~GroveWater();
+    ~Water();
     /**
      * Gets the water (wet/not wet) value from the sensor
      *

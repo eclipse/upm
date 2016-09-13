@@ -1,6 +1,6 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,24 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class GroveWaterSample {
+#include <iostream>
+#include <string>
+#include <stdexcept>
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a Grove Water sensor on digital pin D2
-		upm_grovewater.GroveWater water = new upm_grovewater.GroveWater(2);
+#include "water.hpp"
 
-		while (true) {
-			boolean val = water.isWet();
-			if (val) {
-				System.out.println("Sensor is wet");
-			} else {
-				System.out.println("Sensor is dry");
-			}
+using namespace upm;
+using namespace std;
 
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
+Water::Water(int pin)
+{
+  if ( !(m_gpio = mraa_gpio_init(pin)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+      return;
+    }
 
+  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+}
+
+Water::~Water()
+{
+  mraa_gpio_close(m_gpio);
+}
+
+bool Water::isWet()
+{
+  return (!mraa_gpio_read(m_gpio) ? true : false);
 }
