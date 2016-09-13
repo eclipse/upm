@@ -70,6 +70,8 @@ apa102_context apa102_init(int ledcount, int bus, int cs) {
         }
         mraa_gpio_dir(dev->cs, MRAA_GPIO_OUT);
     }
+
+    return dev;
 }
 
 void apa102_close(apa102_context dev) {
