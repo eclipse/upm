@@ -22,7 +22,7 @@ grovescam.cxx	GROVESCAMSample.java
 slide.cxx	SlideSample.java
 grovespeaker.cxx	GroveSpeakerSample.java
 vdiv.cxx	VDivSample.java
-grovewater.cxx	GroveWaterSample.java
+water.cxx	WaterSample.java
 grovewfs.cxx	GroveWFSSample.java
 guvas12d.cxx	GUVAS12DSample.java
 h3lis331dl.cxx	H3LIS331DLSample.java

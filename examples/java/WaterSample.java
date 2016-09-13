@@ -1,6 +1,6 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,25 +22,24 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
-var waterSensor = require('jsupm_grovewater');
+public class WaterSample {
 
-// Instantiate a Grove Water sensor on digital pin D2
-var water = new waterSensor.GroveWater(2);
+	public static void main(String[] args) throws InterruptedException {
+		// ! [Interesting]
+		// Instantiate a Water sensor on digital pin D2
+		upm_water.Water water = new upm_water.Water(2);
 
-// Read whether the sensor is wet/dry, waiting one second between readings
-function readWaterState()
-{
-	if (water.isWet())
-		console.log("Sensor is wet");
-	else
-		console.log("Sensor is dry");
+		while (true) {
+			boolean val = water.isWet();
+			if (val) {
+				System.out.println("Sensor is wet");
+			} else {
+				System.out.println("Sensor is dry");
+			}
+
+			Thread.sleep(1000);
+		}
+		// ! [Interesting]
+	}
+
 }
-setInterval(readWaterState, 1000);
-
-// Print message when exiting
-process.on('SIGINT', function()
-{
-	console.log("Exiting...");
-	process.exit(0);
-});

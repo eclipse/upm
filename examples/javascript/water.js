@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,33 +22,25 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+// Load Grove module
+var waterSensor = require('jsupm_water');
 
-#include "grovewater.hpp"
+// Instantiate a Water sensor on digital pin D2
+var water = new waterSensor.Water(2);
 
-using namespace upm;
-using namespace std;
-
-GroveWater::GroveWater(int pin)
+// Read whether the sensor is wet/dry, waiting one second between readings
+function readWaterState()
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+	if (water.isWet())
+		console.log("Sensor is wet");
+	else
+		console.log("Sensor is dry");
 }
+setInterval(readWaterState, 1000);
 
-GroveWater::~GroveWater()
+// Print message when exiting
+process.on('SIGINT', function()
 {
-  mraa_gpio_close(m_gpio);
-}
-
-bool GroveWater::isWet()
-{
-  return (!mraa_gpio_read(m_gpio) ? true : false);
-}
+	console.log("Exiting...");
+	process.exit(0);
+});

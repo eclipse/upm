@@ -22,10 +22,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovewater as upmGrovewater
+import pyupm_water as upmwater
 
-# Instantiate a Grove Water sensor on digital pin D2
-myWaterSensor = upmGrovewater.GroveWater(2)
+# Instantiate a Water sensor on digital pin D2
+myWaterSensor = upmwater.Water(2)
 
 
 ## Exit handlers ##

@@ -1,16 +1,16 @@
-%module javaupm_grovewater
+%module javaupm_water
 %include "../upm.i"
 
 %{
-    #include "grovewater.hpp"
+    #include "water.hpp"
 %}
 
-%include "grovewater.hpp"
+%include "water.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_grovewater");
+            System.loadLibrary("javaupm_water");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);
