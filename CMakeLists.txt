@@ -25,7 +25,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
   message (WARNING " - Install git to compile a production UPM!")
-  set (VERSION "v0.7.3-dirty")
+  set (VERSION "v0.8.0-dirty")
 endif ()
 
 message (INFO " - UPM Version ${VERSION}")

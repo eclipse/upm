@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v0.8.0
+
+ * Extended l3gd20 driver to support I2C connections in addition to IIO
+ * Updated ads1x15, mcp9808 and ssd1306 I2C drivers to not throw a fatal
+ exception if they fail to set a different I2C speed
+ * Added extra functionality to apa102 driver, backlight control to jhd1313m1
+ LCDs and fixed htu21d
+ * Improved documentation with build dependencies, refreshed the list of known
+ limitations and simplified the component name for a few sensors
+
 ### v0.7.3
 
  * Fixed several existing drivers and updated Grove Temperature sensor to use
