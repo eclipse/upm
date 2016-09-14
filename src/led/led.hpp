@@ -51,7 +51,7 @@ namespace upm {
  * negative seat (cathode). The flat side of the bulb corresponds
  * to the cathode, while the rounded side corresponds to the anode.
  *
- * @image html groveled.jpg
+ * @image html led.jpg
  * @snippet groveled.cxx Interesting
  * @snippet groveled-multi.cxx Interesting
  */
