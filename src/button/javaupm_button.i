@@ -1,6 +1,8 @@
 %module javaupm_button
 %include "../upm.i"
 
+%apply int {mraa::Edge}
+
 %{
     #include "button.hpp"
 %}
