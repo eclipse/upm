@@ -34,9 +34,15 @@
 namespace upm {
 
 /**
+ * @brief Rotary library
+ * @defgroup rotary libupm-rotary
+ * @ingroup seeed analog ainput gsk
+ */
+
+/**
  * @library rotary
- * @sensor rotary libupm-rotary
- * @comname Grove Rotary Angle Sensor
+ * @sensor rotary
+ * @comname Rotary Angle Sensor
  * @altname Rotary Potentiometer
  * @type ainput
  * @man seeed

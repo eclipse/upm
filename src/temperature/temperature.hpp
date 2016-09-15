@@ -53,7 +53,7 @@ namespace upm {
  * v1.0 sensor you will have to specify R0 and B values when initializing the
  * device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.
  *
- * @image html grovetemp.jpg
+ * @image html temp.jpg
  * @snippet temperature.cxx Interesting
  */
 class Temperature {

@@ -32,8 +32,14 @@
 namespace upm {
 
 /**
- * @library button 
- * @sensor button libupm-button
+ * @brief Button library
+ * @defgroup button libupm-button
+ * @ingroup seeed gpio button touch gsk
+ */
+
+/**
+ * @library button
+ * @sensor button
  * @comname Button
  * @altname Grove Touch Sensor
  * @type button touch
@@ -51,13 +57,13 @@ namespace upm {
 class Button{
     public:
         /**
-         * Grove button constructor
+         * button constructor
          *
          * @param gpio Pin to use
          */
         Button(unsigned int pin);
         /**
-         * Grove button destructor
+         * button destructor
          */
         ~Button();
         /**
