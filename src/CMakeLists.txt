@@ -158,6 +158,9 @@ macro(upm_swig_java)
         COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
     )
 
+    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/../pom.xml.in
+        ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.pom)
+
   endif()
 endmacro(upm_swig_java)
 
