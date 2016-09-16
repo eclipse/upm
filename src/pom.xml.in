@@ -41,7 +41,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>mraa</artifactId>
       <version>[@MRAA_MINIMUM@, )</version>
       <scope>compile</scope>
-    </dependecy>
+    </dependency>
   </dependencies>
 
 </project>
