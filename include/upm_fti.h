@@ -1,5 +1,6 @@
 /*
  * Authors:
+ *          Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -118,6 +119,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <fti/upm_stream.h>
 #include <fti/upm_orp.h>
 #include <fti/upm_ec.h>
+#include <fti/upm_humidity.h>
 
 #ifdef __cplusplus
 }

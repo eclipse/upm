@@ -156,6 +156,7 @@ add_example(BH1750_Example bh1750)
 add_example(HKA5_Example hka5)
 add_example(DFRORP_Example dfrorp)
 add_example(DFREC_Example dfrec)
+add_example(SHT1X_Example sht1x)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd i2clcd)
 add_example_with_path(Jhd1313m1Sample lcd i2clcd)
