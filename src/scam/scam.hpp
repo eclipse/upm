@@ -55,8 +55,9 @@ namespace upm {
 
     /**
      * @library scam
-     * @sensor scam 
-     * @comname  Serial Camera
+     * @sensor scam
+     * @comname Serial Camera
+     * @altname Grove Serial Camera
      * @type other
      * @man seeed
      * @con uart
@@ -70,7 +71,7 @@ namespace upm {
      * sketch.
      *
      * It is connected via a UART at 115,200 baud.
-     * 
+     *
      * @image html scam.jpg
      * @snippet scam.cxx Interesting
      */

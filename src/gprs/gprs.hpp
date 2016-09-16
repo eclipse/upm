@@ -40,7 +40,7 @@
 
 namespace upm {
     /**
-     * @brief  GPRS Module library
+     * @brief GPRS Module library
      * @defgroup gprs libupm-gprs
      * @ingroup seeed uart wifi
      */
@@ -48,13 +48,14 @@ namespace upm {
     /**
      * @library gprs
      * @sensor gprs
-     * @comname  GPRS Module
+     * @comname GPRS Module
+     * @altname Grove GPRS Module
      * @type wifi
      * @man seeed
      * @con uart
      * @web http://www.seeedstudio.com/wiki/GPRS_Shield_V2.0
      *
-     * @brief API for the  GPRS Module
+     * @brief API for the GPRS Module
      *
      * The driver was tested with the  GPRS Module, V2.  It's a
      * GSM GPRS module based on the SIM900.  This module uses a

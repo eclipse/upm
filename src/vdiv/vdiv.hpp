@@ -45,6 +45,7 @@ namespace upm {
    * @library vdiv
    * @sensor vdiv
    * @comname Voltage Divider
+   * @altname Grove Voltage Divider
    * @type electric
    * @man seeed
    * @con analog

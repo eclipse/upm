@@ -39,7 +39,8 @@ namespace upm {
   /**
    * @library wfs
    * @sensor wfs
-   * @comname Grove Water Flow Sensor
+   * @comname Water Flow Sensor
+   * @altname Grove Water Flow Sensor
    * @type liquid
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor

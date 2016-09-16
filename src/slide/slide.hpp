@@ -30,23 +30,29 @@
 #include <mraa/aio.hpp>
 
 namespace upm {
+ /**
+  * @brief Slide Sensor library
+  * @defgroup slide libupm-slide 
+  * @ingroup seeed analog ainput 
+  */
 
-/**
- * @library slide
- * @sensor slide
- * @comname Slide Potentiometer
- * @type ainput
- * @man seeed
- * @con analog
- *
- * @brief API for the Slide Potentiometer
- *
- * Basic UPM module for the slide potentiometer on analog that
- * returns either a raw value or a scaled voltage value.
- *
- * @image html slide.jpeg
- * @snippet slide.cxx Interesting
- */
+ /**
+  * @library slide
+  * @sensor slide
+  * @comname Slide Potentiometer
+  * @altname Grove Slide 
+  * @type ainput
+  * @man seeed
+  * @con analog
+  *
+  * @brief API for the Slide Potentiometer
+  *
+  * Basic UPM module for the slide potentiometer on analog that
+  * returns either a raw value or a scaled voltage value.
+  *
+  * @image html slide.jpg
+  * @snippet slide.cxx Interesting
+  */
 class Slide {
     public:
         /**

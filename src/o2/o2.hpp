@@ -36,7 +36,8 @@ namespace upm {
   /**
    * @library o2
    * @sensor o2
-   * @comname Grove O2 Sensor
+   * @comname O2 Sensor
+   * @altname Grove O2 Sensor
    * @type gaseous
    * @man seeed
    * @con analog
@@ -45,7 +46,7 @@ namespace upm {
    *
    * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
    *
-   * @image html o2.jpg    
+   * @image html o2.jpg
    * @snippet o2.cxx Interesting
    */
   class O2 {

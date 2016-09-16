@@ -47,7 +47,7 @@ namespace upm {
    * collision movement or vibration happens.
    * It outputs a low pulse signal when vibration is detected. 
    *
-   * @image html grovecollision.jpg
+   * @image html collision.jpg
    * @snippet collision.cxx Interesting
    */
   class Collision {

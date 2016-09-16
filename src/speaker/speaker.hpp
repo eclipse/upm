@@ -32,11 +32,7 @@
 #define LOW       0
 
 namespace upm {
-  /**
-   * @brief Speaker library
-   * @defgroup speaker libupm-speaker
-   * @ingroup seeed gpio sound hak
-   */
+
 typedef struct
 {
     int delayTimeLow;
@@ -46,10 +42,18 @@ typedef struct
     int delayTimeHigh;
     int delayTimeHighSharp;
 } NoteData;
+
+  /**
+   * @brief Speaker library
+   * @defgroup speaker libupm-speaker
+   * @ingroup seeed gpio sound hak
+   */
+
   /**
    * @library speaker
    * @sensor speaker libupm-speaker
    * @comname Speaker
+   * @altname Grove Speaker 
    * @type sound
    * @man seeed
    * @con gpio
@@ -60,8 +64,8 @@ typedef struct
    * UPM module for the Speaker.
    * This sensor can generate different tones and sounds depending on the
    * frequency of the input signal.
-   * 
-   * @image html speaker.jpg 
+   *
+   * @image html speaker.jpg
    * @snippet speaker.cxx Interesting
    */
   class Speaker {

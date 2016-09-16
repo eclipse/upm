@@ -28,23 +28,24 @@
 
 namespace upm {
   /**
-   * @brief  Line Finder Sensor library
+   * @brief Line Finder Sensor library
    * @defgroup linefinder libupm-linefinder
-   * @ingroup seeed gpio color robok
+   * @ingroup seeed dfrobot gpio color robok
    */
 
   /**
    * @library linefinder
    * @sensor linefinder
-   * @comname  Line Finder
+   * @comname Line Finder
+   * @altname Grove Line Finder, DFRobot Line Tracking sensor
    * @type color
-   * @man seeed
+   * @man seeed, dfrobot
    * @con gpio
    * @kit robok
    *
    * @brief API for the  Line Finder Sensor
    *
-   * UPM module for the  Line Finder sensor.  It outputs a
+   * UPM module for the Line Finder sensor. It outputs a
    * digital signal indicating whether it is detecting black on a
    * white background, or white on a black background.
    *

@@ -45,7 +45,7 @@ namespace upm {
    *
    * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
    *
-   * @image html groveo2.jpg    
+   * @image html groveo2.jpg
    * @snippet groveo2.cxx Interesting
    */
   class GroveO2 {

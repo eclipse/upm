@@ -36,7 +36,8 @@ namespace upm {
   /**
    * @library emg
    * @sensor emg
-   * @comname Grove EMG Sensor
+   * @comname EMG Sensor
+   * @altname Grove EMG Sensor
    * @type electric
    * @man seeed
    * @con analog
@@ -46,7 +47,7 @@ namespace upm {
    * Grove EMG muscle signal reader gathers small muscle signals,
    * then processes them, and returns the result
    *
-   * @image html emg.jpg 
+   * @image html emg.jpg
    * @snippet emg.cxx Interesting
    */
   class EMG {

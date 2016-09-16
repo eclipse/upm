@@ -31,6 +31,11 @@
 #include "led.hpp"
 
 namespace upm {
+/**
+ * @brief Led Sensor library
+ * @defgroup led libupm-led
+ * @ingroup seeed gpio led gsk
+ */
 
 /**
  * @library led
