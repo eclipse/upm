@@ -54,13 +54,6 @@ sht1x_context sht1x_init(unsigned int clk_pin, unsigned int data_pin)
 
   mraa_gpio_dir(dev->gpio_clk, MRAA_GPIO_OUT);
 
-  if (mraa_gpio_use_mmaped(dev->gpio_clk, 1))
-    {
-      // not fatal, just slower
-      printf("%s: warning, mraa_gpio_use_mmaped(clk) failed.\n",
-             __FUNCTION__);
-    }
-
   // data
   if (!(dev->gpio_data = mraa_gpio_init(data_pin)))
     {
@@ -71,13 +64,6 @@ sht1x_context sht1x_init(unsigned int clk_pin, unsigned int data_pin)
 
   mraa_gpio_dir(dev->gpio_data, MRAA_GPIO_OUT);
   mraa_gpio_mode(dev->gpio_data, MRAA_GPIO_PULLUP);
-
-  if (mraa_gpio_use_mmaped(dev->gpio_data, 1))
-    {
-      // not fatal, just slower
-      printf("%s: warning, mraa_gpio_use_mmaped(data) failed.\n",
-             __FUNCTION__);
-    }
 
   // max init time
   upm_delay_ms(15);
@@ -154,7 +140,6 @@ upm_result_t sht1x_update(const sht1x_context dev)
   sht1x_read_8bits(dev, &byte3);
 
   int temp = (byte1 << 8) | byte2;
-  // printf("temp %d (0x%04x)\n", temp, temp);
 
   // compute temperature
   dev->temperature = dev->coeff_d1 + dev->coeff_d2 * (float)temp;
