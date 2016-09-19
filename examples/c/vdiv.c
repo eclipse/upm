@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "vdiv.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,6 +39,12 @@ void sig_handler(int signo)
 
 int main()
 {
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
+
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
@@ -61,7 +69,7 @@ int main()
         printf("Divide SW: %d ADC voltage: %0.03f Sensor voltage: %0.03f\n",
                 vdiv_get_divsw(sensor), raw_volts, computed_volts);
 
-        usleep(500000);
+        upm_delay_ms(500);
     }
 
     //! [Interesting]

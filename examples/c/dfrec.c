@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "dfrec.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,40 +39,46 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
-  // temperature sensor connected to UART 0, and a device index (for
-  // the ds1820b uart bus) of 0, and an analog reference voltage of
-  // 5.0.
-  dfrec_context sensor = dfrec_init(0, 0, 0, 5.0);
-
-  if (!sensor)
     {
-      printf("dfrec_init() failed.\n");
-      return(1);
+        if (mraa_init() != MRAA_SUCCESS)
+            perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // Every 2 seconds, update and print values
-  while (shouldRun)
+    signal(SIGINT, sig_handler);
+
+    //! [Interesting]
+
+    // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
+    // temperature sensor connected to UART 0, and a device index (for
+    // the ds1820b uart bus) of 0, and an analog reference voltage of
+    // 5.0.
+    dfrec_context sensor = dfrec_init(0, 0, 0, 5.0);
+
+    if (!sensor)
     {
-      dfrec_update(sensor);
-
-      printf("EC = %f ms/cm\n", dfrec_get_ec(sensor));
-      printf("Volts = %f, Temperature = %f C\n",
-             dfrec_get_volts(sensor), dfrec_get_temperature(sensor));
-      printf("\n");
-
-      sleep(2);
+        printf("dfrec_init() failed.\n");
+        return(1);
     }
 
-//! [Interesting]
+    // Every 2 seconds, update and print values
+    while (shouldRun)
+    {
+        dfrec_update(sensor);
 
-  printf("Exiting...\n");
+        printf("EC = %f ms/cm\n", dfrec_get_ec(sensor));
+        printf("Volts = %f, Temperature = %f C\n",
+                dfrec_get_volts(sensor), dfrec_get_temperature(sensor));
+        printf("\n");
 
-  dfrec_close(sensor);
+        upm_delay(2);
+    }
 
-  return 0;
+    //! [Interesting]
+
+    printf("Exiting...\n");
+
+    dfrec_close(sensor);
+
+    return 0;
 }

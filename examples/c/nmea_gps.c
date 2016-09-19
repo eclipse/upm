@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "nmea_gps.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -39,42 +41,48 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
-  // pin on D3.  If you do not need an enable pin, you can specify -1.
-  nmea_gps_context sensor = nmea_gps_init(0, 9600, 3);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("nmea_gps_init() failed.\n");
-      return 1;
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  char buffer[bufferLength];
-  int rv = 0;
+    signal(SIGINT, sig_handler);
 
-  // loop, dumping NMEA data out as fast as it comes in
-  while (shouldRun && nmea_gps_data_available(sensor, 5000))
+    //! [Interesting]
+
+    // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
+    // pin on D3.  If you do not need an enable pin, you can specify -1.
+    nmea_gps_context sensor = nmea_gps_init(0, 9600, 3);
+
+    if (!sensor)
     {
-      if ((rv = nmea_gps_read(sensor, buffer, bufferLength)) >= 0)
+        printf("nmea_gps_init() failed.\n");
+        return 1;
+    }
+
+    char buffer[bufferLength];
+    int rv = 0;
+
+    // loop, dumping NMEA data out as fast as it comes in
+    while (shouldRun && nmea_gps_data_available(sensor, 5000))
+    {
+        if ((rv = nmea_gps_read(sensor, buffer, bufferLength)) >= 0)
         {
-          int i;
-          for (i=0; i<rv; i++)
-            printf("%c", buffer[i]);
+            int i;
+            for (i=0; i<rv; i++)
+                printf("%c", buffer[i]);
         }
     }
 
-  if (shouldRun)
-    printf("Timed out\n");
+    if (shouldRun)
+        printf("Timed out\n");
 
-//! [Interesting]
+    //! [Interesting]
 
-  printf("Exiting\n");
+    printf("Exiting\n");
 
-  nmea_gps_close(sensor);
+    nmea_gps_close(sensor);
 
-  return 0;
+    return 0;
 }

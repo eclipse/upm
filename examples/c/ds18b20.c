@@ -27,6 +27,8 @@
 #include <signal.h>
 
 #include "ds18b20.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -38,44 +40,50 @@ void sig_handler(int signo)
 
 int main(int argc, char **argv)
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  printf("Initializing...\n");
-
-  // Instantiate an DS18B20 instance using the uart 0
-  ds18b20_context sensor = ds18b20_init(0);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("ds18b20_init() failed.\n");
-      return(1);
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  printf("Found %d device(s)\n\n", ds18b20_devices_found(sensor));
+    signal(SIGINT, sig_handler);
 
-  // update and print available values every second
-  while (shouldRun)
+    //! [Interesting]
+
+    printf("Initializing...\n");
+
+    // Instantiate an DS18B20 instance using the uart 0
+    ds18b20_context sensor = ds18b20_init(0);
+
+    if (!sensor)
     {
-      // update our values for all sensors
-      ds18b20_update(sensor, -1);
+        printf("ds18b20_init() failed.\n");
+        return(1);
+    }
 
-      int i;
-      for (i=0; i<ds18b20_devices_found(sensor); i++)
+    printf("Found %d device(s)\n\n", ds18b20_devices_found(sensor));
+
+    // update and print available values every second
+    while (shouldRun)
+    {
+        // update our values for all sensors
+        ds18b20_update(sensor, -1);
+
+        int i;
+        for (i=0; i<ds18b20_devices_found(sensor); i++)
         {
-          printf("Device %02d: Temperature: %f C\n",
-                 i, ds18b20_get_temperature(sensor, i));
+            printf("Device %02d: Temperature: %f C\n",
+                    i, ds18b20_get_temperature(sensor, i));
         }
-      printf("\n");
+        printf("\n");
 
-      sleep(2);
+        upm_delay(2);
     }
 
-  printf("Exiting...\n");
+    printf("Exiting...\n");
 
-  ds18b20_close(sensor);
-//! [Interesting]
+    ds18b20_close(sensor);
+    //! [Interesting]
 
-  return 0;
+    return 0;
 }

@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "gsr.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,6 +39,12 @@ void sig_handler(int signo)
 
 int main()
 {
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
+
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
@@ -73,7 +81,7 @@ int main()
         printf("Normalized output: %0.03f, raw gsr sensor output: %0.03f v "
                 "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
 
-        usleep(500000);
+        upm_delay_ms(500);
     }
 
     //! [Interesting]

@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "urm37.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,39 +39,45 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a URM37 sensor on UART 0, with the reset pin on D2
-  urm37_context sensor = urm37_init(0, 2, 0, 0, 0, false);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("urm37_init() failed.\n");
-      return(1);
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // Every half a second, sample the URM37 and output the measured
-  // distance in cm.
+    signal(SIGINT, sig_handler);
 
-  while (shouldRun)
+    //! [Interesting]
+
+    // Instantiate a URM37 sensor on UART 0, with the reset pin on D2
+    urm37_context sensor = urm37_init(0, 2, 0, 0, 0, false);
+
+    if (!sensor)
     {
-      float distance, temperature;
-
-      urm37_get_distance(sensor, &distance, 0);
-      printf("Detected distance (cm): %f\n", distance);
-
-      urm37_get_temperature(sensor, &temperature);
-      printf("Temperature (C): %f\n\n", temperature);
-      usleep(500000);
+        printf("urm37_init() failed.\n");
+        return(1);
     }
 
-//! [Interesting]
+    // Every half a second, sample the URM37 and output the measured
+    // distance in cm.
 
-  printf("Exiting\n");
+    while (shouldRun)
+    {
+        float distance, temperature;
 
-  urm37_close(sensor);
+        urm37_get_distance(sensor, &distance, 0);
+        printf("Detected distance (cm): %f\n", distance);
 
-  return 0;
+        urm37_get_temperature(sensor, &temperature);
+        printf("Temperature (C): %f\n\n", temperature);
+        upm_delay_ms(500);
+    }
+
+    //! [Interesting]
+
+    printf("Exiting\n");
+
+    urm37_close(sensor);
+
+    return 0;
 }

@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,6 +26,9 @@
 #include <signal.h>
 
 #include "joystick12.h"
+#include "upm_utilities.h"
+#include "mraa.h"
+
 
 bool shouldRun = true;
 
@@ -37,6 +40,12 @@ void sig_handler(int signo)
 
 int main()
 {
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
+
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
@@ -73,7 +82,7 @@ int main()
         joystick12_get_value_y(sensor, &y);
 
         printf("X: %5.02f Y: %5.02f\n", x, y);
-        usleep(500000);
+        upm_delay_ms(500);
     }
 
     //! [Interesting]

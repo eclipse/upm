@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "bh1750.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,39 +39,45 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a BH1750 sensor on default I2C bus (0), using the
-  // default I2C address (0x23), and setting the mode to highest
-  // resolution, lowest power mode.
-  bh1750_context sensor = bh1750_init(BH1750_DEFAULT_I2C_BUS,
-                                      BH1750_DEFAULT_I2C_ADDR,
-                                      BH1750_OPMODE_H2_ONCE);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("bh1750_init() failed.\n");
-      return 1;
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // Every second, sample the BH1750 and output the measured lux value
+    signal(SIGINT, sig_handler);
 
-  while (shouldRun)
+    //! [Interesting]
+
+    // Instantiate a BH1750 sensor on default I2C bus (0), using the
+    // default I2C address (0x23), and setting the mode to highest
+    // resolution, lowest power mode.
+    bh1750_context sensor = bh1750_init(BH1750_DEFAULT_I2C_BUS,
+            BH1750_DEFAULT_I2C_ADDR,
+            BH1750_OPMODE_H2_ONCE);
+
+    if (!sensor)
     {
-      float lux;
-
-      bh1750_get_lux(sensor, &lux);
-      printf("Detected Light Level (lux): %f\n", lux);
-      sleep(1);
+        printf("bh1750_init() failed.\n");
+        return 1;
     }
 
-//! [Interesting]
+    // Every second, sample the BH1750 and output the measured lux value
 
-  printf("Exiting\n");
+    while (shouldRun)
+    {
+        float lux;
 
-  bh1750_close(sensor);
+        bh1750_get_lux(sensor, &lux);
+        printf("Detected Light Level (lux): %f\n", lux);
+        upm_delay(1);
+    }
 
-  return 0;
+    //! [Interesting]
+
+    printf("Exiting\n");
+
+    bh1750_close(sensor);
+
+    return 0;
 }

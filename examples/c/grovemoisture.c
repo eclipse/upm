@@ -7,19 +7,28 @@
 #include <unistd.h>
 #include "grovemoisture.h"
 
+#include "upm_utilities.h"
+#include "mraa.h"
+
 int main()
 {
-	grovemoisture_context dev = grovemoisture_init(14);
-	int val;
-	while(1){
-		if(grovemoisture_get_moisture(dev, &val) != UPM_SUCCESS){
-			printf("Failed to get any values from the sensor\n");
-		}
-		printf("Moisture Value: %d\n", val);
-		upm_delay(1);
-	}
-	grovemoisture_close(dev);
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
 
-	return 0;
+    grovemoisture_context dev = grovemoisture_init(14);
+    int val;
+    while(1){
+        if(grovemoisture_get_moisture(dev, &val) != UPM_SUCCESS){
+            printf("Failed to get any values from the sensor\n");
+        }
+        printf("Moisture Value: %d\n", val);
+        upm_delay(1);
+    }
+    grovemoisture_close(dev);
+
+    return 0;
 }
 

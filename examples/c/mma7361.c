@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "mma7361.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,49 +39,55 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a MMA7361 sensor on analog pins A0 (X), A1 (Y) A2
-  // (Z), selftest pin on D2, sleep pin on D3 nd an analog reference
-  // value of 5.0.  The freefall pin and the range pin are unused
-  // (-1).
-  mma7361_context sensor = mma7361_init(0, 1, 2, 2, 3, -1, -1, 5.0);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("mma7361_init() failed.\n");
-      return(1);
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // 1.5g (true = 6g)
-  mma7361_set_range(sensor, false);
+    signal(SIGINT, sig_handler);
 
-  // Every 10th of a second, update and print values
+    //! [Interesting]
 
-  while (shouldRun)
+    // Instantiate a MMA7361 sensor on analog pins A0 (X), A1 (Y) A2
+    // (Z), selftest pin on D2, sleep pin on D3 nd an analog reference
+    // value of 5.0.  The freefall pin and the range pin are unused
+    // (-1).
+    mma7361_context sensor = mma7361_init(0, 1, 2, 2, 3, -1, -1, 5.0);
+
+    if (!sensor)
     {
-      mma7361_update(sensor);
-
-      float x, y, z;
-
-      mma7361_get_acceleration(sensor, &x, &y, &z);
-      printf("Acceleration x = %f y = %f z = %f\n",
-             x, y, z);
-
-      mma7361_get_volts(sensor, &x, &y, &z);
-      printf("Volts x = %f y = %f z = %f\n\n",
-             x, y, z);
-
-      usleep(100000);
+        printf("mma7361_init() failed.\n");
+        return(1);
     }
 
-//! [Interesting]
+    // 1.5g (true = 6g)
+    mma7361_set_range(sensor, false);
 
-  printf("Exiting...\n");
+    // Every 10th of a second, update and print values
 
-  mma7361_close(sensor);
+    while (shouldRun)
+    {
+        mma7361_update(sensor);
 
-  return 0;
+        float x, y, z;
+
+        mma7361_get_acceleration(sensor, &x, &y, &z);
+        printf("Acceleration x = %f y = %f z = %f\n",
+                x, y, z);
+
+        mma7361_get_volts(sensor, &x, &y, &z);
+        printf("Volts x = %f y = %f z = %f\n\n",
+                x, y, z);
+
+        upm_delay_ms(500);
+    }
+
+    //! [Interesting]
+
+    printf("Exiting...\n");
+
+    mma7361_close(sensor);
+
+    return 0;
 }

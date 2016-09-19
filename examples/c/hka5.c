@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "hka5.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,42 +39,48 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a HKA5 sensor on uart 0.  We don't use the set or
-  // reset pins, so we pass -1 for them.
-  hka5_context sensor = hka5_init(0, -1, -1);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("hka5_init() failed.\n");
-      return 1;
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // update once every 2 seconds and output data
-  while (shouldRun)
+    signal(SIGINT, sig_handler);
+
+    //! [Interesting]
+
+    // Instantiate a HKA5 sensor on uart 0.  We don't use the set or
+    // reset pins, so we pass -1 for them.
+    hka5_context sensor = hka5_init(0, -1, -1);
+
+    if (!sensor)
     {
-      if (hka5_update(sensor) != UPM_SUCCESS)
+        printf("hka5_init() failed.\n");
+        return 1;
+    }
+
+    // update once every 2 seconds and output data
+    while (shouldRun)
+    {
+        if (hka5_update(sensor) != UPM_SUCCESS)
         {
-          printf("hka5_update() failed, exiting.\n");
-          shouldRun = false;
+            printf("hka5_update() failed, exiting.\n");
+            shouldRun = false;
         }
 
-      printf("PM 1  : %d ug/m3\n", hka5_get_pm1(sensor));
-      printf("PM 2.5: %d ug/m3\n", hka5_get_pm2_5(sensor));
-      printf("PM 10 : %d ug/m3\n", hka5_get_pm10(sensor));
-      printf("\n");
+        printf("PM 1  : %d ug/m3\n", hka5_get_pm1(sensor));
+        printf("PM 2.5: %d ug/m3\n", hka5_get_pm2_5(sensor));
+        printf("PM 10 : %d ug/m3\n", hka5_get_pm10(sensor));
+        printf("\n");
 
-      sleep(2);
+        upm_delay(2);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  printf("Exiting\n");
+    printf("Exiting\n");
 
-  hka5_close(sensor);
+    hka5_close(sensor);
 
-  return 0;
+    return 0;
 }

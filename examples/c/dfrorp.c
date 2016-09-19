@@ -26,6 +26,8 @@
 #include <signal.h>
 
 #include "dfrorp.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -37,50 +39,56 @@ void sig_handler(int signo)
 
 int main()
 {
-  signal(SIGINT, sig_handler);
-
-//! [Interesting]
-
-  // Instantiate a DFRobot ORP sensor on analog pin A0 with an analog
-  // reference voltage of 5.0.
-  dfrorp_context sensor = dfrorp_init(0, 5.0);
-
-  if (!sensor)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-      printf("dfrorp_init() failed.\n");
-      return(1);
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-  // To calibrate:
-  //
-  // Disconnect the sensor probe (but leave the sensor interface board
-  // connected).  Then run one of the examples while holding down the
-  // 'calibrate' button on the device.  Read the ORP value reported
-  // (it should be fairly small).
-  //
-  // This value is what you should supply to
-  // dfrorp_set_orp_cal_offset().  Then reconnect the probe to the
-  // interface board and you should be ready to go.
-  //
-  // DO NOT press the calibrate button on the interface board while
-  // the probe is attached or you can permanently damage the probe.
-  dfrorp_set_calibration_offset(sensor, 0.97);
+    signal(SIGINT, sig_handler);
 
-  // Every second, update and print values
-  while (shouldRun)
+    //! [Interesting]
+
+    // Instantiate a DFRobot ORP sensor on analog pin A0 with an analog
+    // reference voltage of 5.0.
+    dfrorp_context sensor = dfrorp_init(0, 5.0);
+
+    if (!sensor)
     {
-      dfrorp_update(sensor);
-
-      printf("ORP = %f mV\n", dfrorp_get_orp(sensor));
-
-      sleep(1);
+        printf("dfrorp_init() failed.\n");
+        return(1);
     }
 
-//! [Interesting]
+    // To calibrate:
+    //
+    // Disconnect the sensor probe (but leave the sensor interface board
+    // connected).  Then run one of the examples while holding down the
+    // 'calibrate' button on the device.  Read the ORP value reported
+    // (it should be fairly small).
+    //
+    // This value is what you should supply to
+    // dfrorp_set_orp_cal_offset().  Then reconnect the probe to the
+    // interface board and you should be ready to go.
+    //
+    // DO NOT press the calibrate button on the interface board while
+    // the probe is attached or you can permanently damage the probe.
+    dfrorp_set_calibration_offset(sensor, 0.97);
 
-  printf("Exiting...\n");
+    // Every second, update and print values
+    while (shouldRun)
+    {
+        dfrorp_update(sensor);
 
-  dfrorp_close(sensor);
+        printf("ORP = %f mV\n", dfrorp_get_orp(sensor));
 
-  return 0;
+        upm_delay(1);
+    }
+
+    //! [Interesting]
+
+    printf("Exiting...\n");
+
+    dfrorp_close(sensor);
+
+    return 0;
 }

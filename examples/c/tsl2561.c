@@ -7,14 +7,23 @@
 #include <unistd.h>
 #include "tsl2561.h"
 
+#include "upm_utilities.h"
+#include "mraa.h"
+
 int main()
 {
-	tsl2561_context dev = tsl2561_init(0, TSL2561_Address, GAIN_0X, INTEGRATION_TIME1_101MS);
-	float abc = 0;
-	if(tsl2561_get_lux(dev, &abc) != UPM_SUCCESS){
-		printf("ERROR !! ERROR !! ERROR!!");
-	}
-	printf("value retrieved: %f\n", abc);
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
 
-	return 0;
+    tsl2561_context dev = tsl2561_init(0, TSL2561_Address, GAIN_0X, INTEGRATION_TIME1_101MS);
+    float abc = 0;
+    if(tsl2561_get_lux(dev, &abc) != UPM_SUCCESS){
+        printf("ERROR !! ERROR !! ERROR!!");
+    }
+    printf("value retrieved: %f\n", abc);
+
+    return 0;
 }

@@ -7,24 +7,33 @@
 #include <unistd.h>
 #include "mpr121.h"
 
+#include "upm_utilities.h"
+#include "mraa.h"
+
 int main()
 {
-	mpr121_context dev = mpr121_init(MPR121_I2C_BUS, MPR121_DEFAULT_I2C_ADDR);
+    if (mraa_init() != MRAA_SUCCESS)
+    {
+        perror("Failed to initialize mraa\n");
+        return -1;
+    }
 
-	if(mpr121_config_an3944(dev) != UPM_SUCCESS){
-		printf("unable to configure device\n");
-	}
-	uint32_t states;
-	while(1){
-		if(mpr121_read_buttons(dev, &states, 0) != UPM_SUCCESS){
-			printf("Error while reading button values\n");
-		}
-		printf("retrieved button states: %d\n", states);
-		upm_delay(1);
-	}
+    mpr121_context dev = mpr121_init(MPR121_I2C_BUS, MPR121_DEFAULT_I2C_ADDR);
 
-	mpr121_close(dev);
-	printf("all done!!\n");
+    if(mpr121_config_an3944(dev) != UPM_SUCCESS){
+        printf("unable to configure device\n");
+    }
+    uint32_t states;
+    while(1){
+        if(mpr121_read_buttons(dev, &states, 0) != UPM_SUCCESS){
+            printf("Error while reading button values\n");
+        }
+        printf("retrieved button states: %d\n", states);
+        upm_delay(1);
+    }
 
-	return 0;
+    mpr121_close(dev);
+    printf("all done!!\n");
+
+    return 0;
 }
