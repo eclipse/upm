@@ -48,10 +48,11 @@ namespace upm {
  * @brief API for the Grove Temperature Sensor
  *
  * Basic UPM module for the Grove temperature sensor on analog. This sensor
- * uses a thermistor to measure ambient temperature. The conversion formula has
- * been updated to work with versions 1.1 and 1.2 of the sensor. For the older
- * v1.0 sensor you will have to specify R0 and B values when initializing the
- * device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.
+ * uses a NTC thermistor to measure ambient temperature. The conversion formula
+ * has been updated to work with versions 1.1 and 1.2 of the sensor. For the
+ * older v1.0 sensor you will have to specify R0 and B values when initializing
+ * the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5
+ * C.
  *
  * @image html temp.jpg
  * @snippet temperature.cxx Interesting

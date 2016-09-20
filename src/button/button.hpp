@@ -33,16 +33,16 @@ namespace upm {
 
 /**
  * @brief Button library
- * @defgroup button libupm-button
- * @ingroup seeed gpio button touch gsk
+ * @defgroup buttonlib libupm-button
+ * @ingroup seeed gpio button gsk
  */
 
 /**
- * @library button
+ * @library buttonlib
  * @sensor button
  * @comname Button
- * @altname Grove Touch Sensor
- * @type button touch
+ * @altname Grove Button
+ * @type button
  * @man seeed
  * @con gpio
  * @kit gsk

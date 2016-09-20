@@ -32,13 +32,13 @@
 
 namespace upm {
 /**
- * @brief Led Sensor library
- * @defgroup led libupm-led
+ * @brief LED library
+ * @defgroup ledlib libupm-led
  * @ingroup seeed gpio led gsk
  */
 
 /**
- * @library led
+ * @library ledlib
  * @sensor led
  * @comname LED
  * @altname Grove LED
