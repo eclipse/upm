@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "es08a.c"
+#include "es08a.h"
 
 #include "upm_utilities.h"
 #include "mraa.h"
