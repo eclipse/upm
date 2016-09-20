@@ -313,6 +313,12 @@
  * @ingroup bycon
  */
 
+/**
+ * @brief Modules using Firmata over serial
+ * @defgroup firmata Firmata
+ * @ingroup bycon
+ */
+
 ////////////////////////////////////////////////////////////////// @cond MAN
 /// Groups for the various Manufacturers.
 ////////////////////////////////////////////////////////////////// @endcond MAN

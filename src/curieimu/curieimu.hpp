@@ -31,25 +31,26 @@
 namespace upm {
 
 /**
- * @brief CurieIMU sensor for Genuino 101 running Firmata
+ * @brief CurieIMU sensor for Arduino/Genuino 101 running Firmata
  * @defgroup curieimu libupm-curieimu
- * @ingroup firmata
+ * @ingroup firmata accelerometer compass bosch
  */
 
 /**
  * @library curieimu
  * @sensor curieimu
- * @comname Curie IMU sensor over Genuino 101 running Firmata
- * @altname Curie Firmata IMU
- * @type firmata
- * @man firmata imu genuino
+ * @comname Curie IMU Sensor with Firmata
+ * @altname Curie IMU Sensor for Arduino/Genuino 101 running Firmata
+ * @type accelerometer compass
+ * @man bosch
  * @con firmata
  *
  * @brief API for the Curie IMU via Firmata
  *
- * Curie IMU is a 6-axxis acclerometer
+ * Curie IMU is a 6-axis accelerometer
  *
- * This module has been tested on an Genuino 101 running ConfigurableFirmata with CurieIMU
+ * This module has been tested on an Arduino/Genuino 101 running
+ * ConfigurableFirmata with CurieIMU
  *
  * @snippet curieimu.cxx Interesting
  */
