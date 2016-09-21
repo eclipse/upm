@@ -468,6 +468,7 @@ bool SCAM::storeImage(const char *fname)
             goto retry;
           else
             {
+              fclose(file);
               throw std::runtime_error(std::string(__FUNCTION__) +
                                        ": cksum error, maximum retries exceeded");
               return false;

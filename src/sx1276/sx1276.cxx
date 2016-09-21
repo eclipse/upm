@@ -151,6 +151,7 @@ SX1276::SX1276(uint8_t chipRev, int bus, int cs, int resetPin, int dio0,
   
   if (pthread_mutex_init(&m_intrLock, &mutexAttrib))
     {
+      pthread_mutexattr_destroy(&mutexAttrib);
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": pthread_mutex_init(intrLock) failed");
     }

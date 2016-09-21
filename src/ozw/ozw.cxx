@@ -54,6 +54,7 @@ OZW::OZW()
 
   if (pthread_mutex_init(&m_nodeLock, &mutexAttrib))
     {
+      pthread_mutexattr_destroy(&mutexAttrib);
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": pthread_mutex_init(nodeLock) failed");
     }
