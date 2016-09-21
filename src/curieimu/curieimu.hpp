@@ -28,13 +28,32 @@
 #include <mraa/firmata.h>
 #include <queue>
 
-namespace upm {
+#define FIRMATA_START_SYSEX                 0xF0
+#define FIRMATA_END_SYSEX                   0xF7
+#define FIRMATA_CURIE_IMU                   0x11
+#define FIRMATA_CURIE_IMU_READ_ACCEL        0x00
+#define FIRMATA_CURIE_IMU_READ_GYRO         0x01
+#define FIRMATA_CURIE_IMU_READ_TEMP         0x02
+#define FIRMATA_CURIE_IMU_SHOCK_DETECT      0x03
+#define FIRMATA_CURIE_IMU_STEP_COUNTER      0x04
+#define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
+#define FIRMATA_CURIE_IMU_READ_MOTION       0x06
 
+#define X 0
+#define Y 1
+#define Z 2
+
+namespace upm {
 /**
  * @brief CurieIMU sensor for Arduino/Genuino 101 running Firmata
  * @defgroup curieimu libupm-curieimu
  * @ingroup firmata accelerometer compass bosch
  */
+
+struct IMUDataItem {
+    int axis;
+    int direction;
+};
 
 /**
  * @library curieimu
@@ -54,27 +73,6 @@ namespace upm {
  *
  * @snippet curieimu.cxx Interesting
  */
-
-#define FIRMATA_START_SYSEX                 0xF0
-#define FIRMATA_END_SYSEX                   0xF7
-#define FIRMATA_CURIE_IMU                   0x11
-#define FIRMATA_CURIE_IMU_READ_ACCEL        0x00
-#define FIRMATA_CURIE_IMU_READ_GYRO         0x01
-#define FIRMATA_CURIE_IMU_READ_TEMP         0x02
-#define FIRMATA_CURIE_IMU_SHOCK_DETECT      0x03
-#define FIRMATA_CURIE_IMU_STEP_COUNTER      0x04
-#define FIRMATA_CURIE_IMU_TAP_DETECT        0x05
-#define FIRMATA_CURIE_IMU_READ_MOTION       0x06
-
-#define X 0
-#define Y 1
-#define Z 2
-
-struct IMUDataItem {
-    int axis;
-    int direction;
-};
-
 class CurieImu {
     public:
 
