@@ -21,54 +21,58 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <string>
+#include <assert.h>
 #include "water.h"
 
-namespace upm {
-  /**
-   * @brief Water Sensor library
-   * @defgroup water libupm-water
-   * @ingroup seeed gpio liquid eak
-   */
+water_context water_init(unsigned int pin)
+{
+  water_context dev =
+    (water_context)malloc(sizeof(struct _water_context));
 
-  /**
-   * @library water
-   * @sensor water
-   * @comname Water Sensor
-   * @type liquid
-   * @man seeed
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the Water Sensor
-   *
-   * UPM module for the Water sensor
-   *
-   * @image html water.jpg
-   * @snippet water.cxx Interesting
-   */
-  class Water {
-  public:
-    /**
-     * digital water sensor constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Water(unsigned int pin);
-    /**
-     * Water destructor
-     */
-    ~Water();
-    /**
-     * Gets the water (wet/not wet) value from the sensor
-     *
-     * @return True if the sensor is wet, false otherwise
-     */
-    bool isWet();
+  if (!dev)
+    return NULL;
 
-  private:
-    water_context m_water;
-  };
+  dev->gpio = NULL;
+
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("mraa_init() failed (%d).\n", mraa_rv);
+      mraa_result_print(mraa_rv);
+      water_close(dev);
+      return NULL;
+  }
+
+  // initialize the MRAA context
+
+  if (!(dev->gpio = mraa_gpio_init(pin)))
+    {
+      printf("%s: mraa_gpio_init() failed.\n", __FUNCTION__);
+      water_close(dev);
+      return NULL;
+    }
+
+  mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN);
+
+  return dev;
+}
+
+void water_close(const water_context dev)
+{
+  assert(dev != NULL);
+
+  if (dev->gpio)
+    mraa_gpio_close(dev->gpio);
+
+  free(dev);
+}
+
+bool water_is_wet(const water_context dev)
+{
+  assert(dev != NULL);
+
+  // gpio is low when wet
+  return (mraa_gpio_read(dev->gpio) ? false : true);
 }

@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Authors: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,54 +21,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
+#ifndef UPM_BINARY_H_
+#define UPM_BINARY_H_
 
-#include <string>
-#include "water.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-namespace upm {
-  /**
-   * @brief Water Sensor library
-   * @defgroup water libupm-water
-   * @ingroup seeed gpio liquid eak
-   */
+// Binary function table.  This table is for simple sensors that just
+// return a single TRUE/FALSE, ON/OFF type values.  It can also be
+// used to set a simple binary value.
+typedef struct _upm_binary_ft {
+    upm_result_t (*upm_binary_get_value) (void* dev, bool* value);
+    upm_result_t (*upm_binary_set_value) (void* dev, bool value);
+} upm_binary_ft;
 
-  /**
-   * @library water
-   * @sensor water
-   * @comname Water Sensor
-   * @type liquid
-   * @man seeed
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the Water Sensor
-   *
-   * UPM module for the Water sensor
-   *
-   * @image html water.jpg
-   * @snippet water.cxx Interesting
-   */
-  class Water {
-  public:
-    /**
-     * digital water sensor constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Water(unsigned int pin);
-    /**
-     * Water destructor
-     */
-    ~Water();
-    /**
-     * Gets the water (wet/not wet) value from the sensor
-     *
-     * @return True if the sensor is wet, false otherwise
-     */
-    bool isWet();
-
-  private:
-    water_context m_water;
-  };
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* UPM_BINARY_H_ */

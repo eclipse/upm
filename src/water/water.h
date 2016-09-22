@@ -23,52 +23,48 @@
  */
 #pragma once
 
-#include <string>
-#include "water.h"
+#include "upm.h"
+#include "mraa/gpio.h"
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
+
   /**
-   * @brief Water Sensor library
-   * @defgroup water libupm-water
-   * @ingroup seeed gpio liquid eak
+   * @brief Water Sensor
+   *
+   * This module simply tests for the presence of water.
+   *
+   * @snippet water.c Interesting
    */
 
   /**
-   * @library water
-   * @sensor water
-   * @comname Water Sensor
-   * @type liquid
-   * @man seeed
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the Water Sensor
-   *
-   * UPM module for the Water sensor
-   *
-   * @image html water.jpg
-   * @snippet water.cxx Interesting
+   * Device context
    */
-  class Water {
-  public:
-    /**
-     * digital water sensor constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Water(unsigned int pin);
-    /**
-     * Water destructor
-     */
-    ~Water();
-    /**
-     * Gets the water (wet/not wet) value from the sensor
-     *
-     * @return True if the sensor is wet, false otherwise
-     */
-    bool isWet();
+  typedef struct _water_context {
+    mraa_gpio_context        gpio;
+  } *water_context;
 
-  private:
-    water_context m_water;
-  };
+  /**
+   * Water initializer
+   *
+   * @param pin Digital pin to use
+   * @return an initialized device context on success, NULL on error.
+   */
+  water_context water_init(unsigned int pin);
+
+  /**
+   * Water close function
+   */
+  void water_close(water_context dev);
+
+  /**
+   * Gets the water (wet/not wet) value from the sensor.
+   *
+   * @return true if the sensor is wet, false otherwise
+   */
+  bool water_is_wet(const water_context dev);
+
+#ifdef __cplusplus
 }
+#endif

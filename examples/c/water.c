@@ -25,11 +25,10 @@
 #include <unistd.h>
 #include <signal.h>
 
-#include "dfrec.h"
+#include "water.h"
 #include "upm_utilities.h"
-#include "mraa.h"
 
-bool shouldRun = true;
+int shouldRun = true;
 
 void sig_handler(int signo)
 {
@@ -37,23 +36,14 @@ void sig_handler(int signo)
     shouldRun = false;
 }
 
-int main()
-{
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        printf("Failed to initialize mraa\n");
-        return -1;
-    }
 
+int main ()
+{
     signal(SIGINT, sig_handler);
 
-    //! [Interesting]
-
-    // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
-    // temperature sensor connected to UART 0, and a device index (for
-    // the ds1820b uart bus) of 0, and an analog reference voltage of
-    // 5.0.
-    dfrec_context sensor = dfrec_init(0, 0, 0, 5.0);
+//! [Interesting]
+    // Instantiate a Water sensor on digital pin D2
+    water_context sensor = water_init(2);
 
     if (!sensor)
     {
@@ -61,24 +51,20 @@ int main()
         return(1);
     }
 
-    // Every 2 seconds, update and print values
     while (shouldRun)
     {
-        dfrec_update(sensor);
+        if (water_is_wet(sensor))
+            printf("Sensor is wet\n");
+        else
+            printf("Sensor is dry\n");
 
-        printf("EC = %f ms/cm\n", dfrec_get_ec(sensor));
-        printf("Volts = %f, Temperature = %f C\n",
-                dfrec_get_volts(sensor), dfrec_get_temperature(sensor));
-        printf("\n");
-
-        upm_delay(2);
+        upm_delay(1);
     }
-
-    //! [Interesting]
+//! [Interesting]
 
     printf("Exiting...\n");
 
-    dfrec_close(sensor);
+    water_close(sensor);
 
     return 0;
 }

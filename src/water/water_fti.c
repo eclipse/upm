@@ -22,63 +22,61 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
+#include "water.h"
+#include "upm_fti.h"
 
-#include "dfrec.h"
-#include "upm_utilities.h"
-#include "mraa.h"
+/**
+ * This file implements the Function Table Interface (FTI) for this sensor
+ */
 
-bool shouldRun = true;
+const char upm_water_name[] = "water";
+const char upm_water_description[] = "Water presence sensor";
+const upm_protocol_t upm_water_protocol[] = {UPM_GPIO};
+const upm_sensor_t upm_water_category[] = {UPM_BINARY};
 
-void sig_handler(int signo)
+// forward declarations
+const void* upm_water_get_ft(upm_sensor_t sensor_type);
+void* upm_water_init_name();
+void upm_water_close(void *dev);
+upm_result_t upm_water_is_wet(void *dev, bool *value);
+
+static const upm_sensor_ft ft =
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+  .upm_sensor_init_name = upm_water_init_name,
+  .upm_sensor_close = upm_water_close,
+};
+
+static const upm_binary_ft bft =
+{
+  .upm_binary_get_value = upm_water_is_wet,
+};
+
+const void* upm_water_get_ft(upm_sensor_t sensor_type)
+{
+  switch(sensor_type)
+    {
+    case UPM_SENSOR:
+      return &ft;
+    case UPM_BINARY:
+      return &bft;
+    default:
+      return NULL;
+    }
 }
 
-int main()
+void *upm_water_init_name()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        printf("Failed to initialize mraa\n");
-        return -1;
-    }
+  return NULL;
+}
 
-    signal(SIGINT, sig_handler);
+void upm_water_close(void *dev)
+{
+  water_close((water_context)dev);
+}
 
-    //! [Interesting]
+upm_result_t upm_water_is_wet(void *dev, bool *value)
+{
+  *value = water_is_wet((water_context)dev);
 
-    // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
-    // temperature sensor connected to UART 0, and a device index (for
-    // the ds1820b uart bus) of 0, and an analog reference voltage of
-    // 5.0.
-    dfrec_context sensor = dfrec_init(0, 0, 0, 5.0);
-
-    if (!sensor)
-    {
-        printf("dfrec_init() failed.\n");
-        return(1);
-    }
-
-    // Every 2 seconds, update and print values
-    while (shouldRun)
-    {
-        dfrec_update(sensor);
-
-        printf("EC = %f ms/cm\n", dfrec_get_ec(sensor));
-        printf("Volts = %f, Temperature = %f C\n",
-                dfrec_get_volts(sensor), dfrec_get_temperature(sensor));
-        printf("\n");
-
-        upm_delay(2);
-    }
-
-    //! [Interesting]
-
-    printf("Exiting...\n");
-
-    dfrec_close(sensor);
-
-    return 0;
+  return UPM_SUCCESS;
 }

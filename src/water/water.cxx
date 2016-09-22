@@ -31,24 +31,20 @@
 using namespace upm;
 using namespace std;
 
-Water::Water(int pin)
+Water::Water(unsigned int pin) :
+  m_water(water_init(pin))
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+  if (!m_water )
+    throw std::runtime_error(std::string(__FUNCTION__) +
+                             ": water_init() failed");
 }
 
 Water::~Water()
 {
-  mraa_gpio_close(m_gpio);
+  water_close(m_water);
 }
 
 bool Water::isWet()
 {
-  return (!mraa_gpio_read(m_gpio) ? true : false);
+  return water_is_wet(m_water);
 }

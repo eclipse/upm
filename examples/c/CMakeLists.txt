@@ -119,6 +119,7 @@ add_example (led)
 add_example (ds18b20)
 add_example (dfrec)
 add_example (sht1x)
+add_example (water)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
