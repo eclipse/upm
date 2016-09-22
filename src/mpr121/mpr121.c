@@ -41,8 +41,8 @@ mpr121_context mpr121_init(int bus, uint8_t address){
     }
 
     if (mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
-        free(dev);
         printf("error using i2c address: %x\n", dev->address);
+        free(dev);
         return NULL;
     }
 

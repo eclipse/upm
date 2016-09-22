@@ -30,6 +30,7 @@ gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref){
     dev->pin = pin;
     dev->aio = mraa_aio_init(dev->pin);
     if(dev->aio == NULL){
+        free(dev);
         return NULL;
     }
     dev->a_res = (1 << mraa_aio_get_bit(dev->aio));
