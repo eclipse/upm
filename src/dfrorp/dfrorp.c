@@ -126,8 +126,6 @@ upm_result_t dfrorp_update(const dfrorp_context dev)
   dev->normalized = sample / dev->a_res;
   dev->volts = dev->normalized * dev->a_ref;
 
-  float volts = dev->volts + dev->orp_cal_offset;
-
   // From the DFRobot site
   dev->orp = ( (DFRORP_R2 * dev->a_ref * 1000.0) -
                (DFRORP_R3 * sample * dev->a_ref * 1000.0 / dev->a_res) ) /
