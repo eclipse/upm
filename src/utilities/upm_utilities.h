@@ -1,5 +1,6 @@
 /*
  * Authors:
+ *          Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -32,7 +33,7 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#endif
+#endif /* linux */
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 #include <zephyr.h>
@@ -46,20 +47,33 @@ extern "C" {
 #include <misc/printk.h>
 #define PRINT           printk
 #endif
-#endif
+
+#endif /* CONFIG_BOARD_ARDUINO_101 || CONFIG_BOARD_ARDUINO_101_SSS ||
+          CONFIG_BOARD_QUARK_D2000_CRB */
 
 /* Get filename w/o path */
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
+/**
+ * Delay for a number of seconds
+ *
+ * @param time The number of seconds to delay for
+ */
 void upm_delay(int time);
 
+/**
+ * Delay for a number of milliseconds
+ *
+ * @param time The number of milliseconds to delay for
+ */
 void upm_delay_ms(int time);
 
+/**
+ * Delay for a number of microseconds
+ *
+ * @param time The number of microsenconds to delay for
+ */
 void upm_delay_us(int time);
-
-void* upm_malloc(int mem_map, int size);
-
-void upm_free(int mem_map, void* ptr);
 
 #ifdef __cplusplus
 }
