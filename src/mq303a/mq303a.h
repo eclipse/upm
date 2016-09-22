@@ -27,6 +27,7 @@
 
 #include "upm.h"
 #include "mraa/aio.h"
+#include "mraa/gpio.h"
 
 /**
  * @brief MQ303A Alcohol Sensor library
