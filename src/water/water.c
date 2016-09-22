@@ -23,6 +23,8 @@
  */
 
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "water.h"
 
 water_context water_init(unsigned int pin)
@@ -40,7 +42,6 @@ water_context water_init(unsigned int pin)
   if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
   {
       printf("mraa_init() failed (%d).\n", mraa_rv);
-      mraa_result_print(mraa_rv);
       water_close(dev);
       return NULL;
   }
