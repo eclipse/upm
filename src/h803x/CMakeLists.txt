@@ -4,7 +4,7 @@ set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
 pkg_check_modules(MODBUS libmodbus)
-if (MODBUS_FOUND)
+if (MODBUS_FOUND AND (NOT (MODBUS_VERSION LESS 3.1.2)))
   set (reqlibname "libmodbus")
   include_directories(${MODBUS_INCLUDE_DIRS})
   upm_module_init()
