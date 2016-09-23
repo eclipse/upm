@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,7 +24,7 @@
 #pragma once
 
 #include <string>
-#include <mraa/gpio.h>
+#include "yg1006.h"
 
 namespace upm {
     /**
@@ -32,6 +32,7 @@ namespace upm {
      * @defgroup yg1006 libupm-yg1006
      * @ingroup seeed gpio light hak
      */
+
     /**
      * @library yg1006
      * @sensor yg1006
@@ -53,25 +54,29 @@ namespace upm {
      */
   class YG1006 {
   public:
+
     /**
      * YG1006 constructor
      *
      * @param pin Digital pin to use
      */
-    YG1006(int pin);
+    YG1006(unsigned int pin);
+
     /**
      * YG1006 destructor
      */
     ~YG1006();
+
     /**
      * Determines whether a flame has been detected
      *
-     * @return True if a flame or another comparable light source has been detected
+     * @return true if a flame or another comparable light source has
+     * been detected
      */
     bool flameDetected();
 
   private:
-    mraa_gpio_context m_gpio;
+    yg1006_context m_yg1006;
   };
 }
 

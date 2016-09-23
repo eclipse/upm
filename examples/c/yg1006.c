@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,29 +22,49 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <signal.h>
 
-#include "yg1006.hpp"
+#include "yg1006.h"
+#include "upm_utilities.h"
 
-using namespace upm;
-using namespace std;
+int shouldRun = true;
 
-YG1006::YG1006(unsigned int pin) :
-    m_yg1006(yg1006_init(pin))
+void sig_handler(int signo)
 {
-    if (!m_yg1006)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": water_init() failed");
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-YG1006::~YG1006()
-{
-    yg1006_close(m_yg1006);
-}
 
-bool YG1006::flameDetected()
+int main ()
 {
-    return yg1006_flame_detected(m_yg1006);
+    signal(SIGINT, sig_handler);
+
+//! [Interesting]
+    // Instantiate a YG1006 sensor on digital pin D2
+    yg1006_context sensor = yg1006_init(2);
+
+    if (!sensor)
+    {
+        printf("yg1006_init() failed.\n");
+        return(1);
+    }
+
+    while (shouldRun)
+    {
+        if (yg1006_flame_detected(sensor))
+            printf("Flame detected.\n");
+        else
+            printf("No flame detected.\n");
+
+        upm_delay(1);
+    }
+//! [Interesting]
+
+    printf("Exiting...\n");
+
+    yg1006_close(sensor);
+
+    return 0;
 }

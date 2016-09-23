@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,30 +21,54 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+#include <mraa/gpio.h>
 
-#include "yg1006.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace upm;
-using namespace std;
+    /**
+     * @brief YG1006 Flame Sensor
+     *
+     *   UPM module for the YG1006 flame sensor. It detects a flame or any
+     *   other light source in the 760-1,100 nm wavelength range.
+     *
+     * @snippet yg1006.cxx Interesting
+     */
 
-YG1006::YG1006(unsigned int pin) :
-    m_yg1006(yg1006_init(pin))
-{
-    if (!m_yg1006)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": water_init() failed");
+    /**
+     * Device context
+     */
+    typedef struct _yg1006_context {
+        mraa_gpio_context        gpio;
+    } *yg1006_context;
+
+    /**
+     * YG1006 initializer
+     *
+     * @param pin Digital pin to use
+     * @return an initialized device context on success, NULL on error.
+     */
+    yg1006_context yg1006_init(unsigned int pin);
+
+    /**
+     * YG1006 close function
+     */
+    void yg1006_close(yg1006_context dev);
+
+    /**
+     * Determines whether a flame has been detected
+     *
+     * @return true if a flame or another comparable light source has
+     * been detected
+     */
+    bool yg1006_flame_detected(const yg1006_context dev);
+
+#ifdef __cplusplus
 }
-
-YG1006::~YG1006()
-{
-    yg1006_close(m_yg1006);
-}
-
-bool YG1006::flameDetected()
-{
-    return yg1006_flame_detected(m_yg1006);
-}
+#endif
