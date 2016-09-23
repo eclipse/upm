@@ -47,7 +47,7 @@ int main ()
 
     if (!sensor)
     {
-        printf("dfrec_init() failed.\n");
+        printf("water_init() failed.\n");
         return(1);
     }
 
