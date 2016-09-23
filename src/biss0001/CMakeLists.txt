@@ -1,5 +1,9 @@
-set (libname "biss0001")
-set (libdescription "upm biss0001 motion module")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME biss0001
+    DESCRIPTION "UPM biss0001 PIR motion sensor"
+    C_HDR biss0001.h
+    C_SRC biss0001.c
+    CPP_HDR biss0001.hpp
+    CPP_SRC biss0001.cxx
+    FTI_SRC biss0001_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
