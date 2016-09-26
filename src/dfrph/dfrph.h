@@ -59,6 +59,21 @@ dfrph_context dfrph_init(int16_t pin);
 void dfrph_close(dfrph_context dev);
 
 /**
+ * Set ADC reference voltage
+ * @param dev sensor context pointer
+ * @param aref ADC reference voltage
+ * @return Function result code
+ */
+upm_result_t dfrph_set_aref(const dfrph_context dev, float aref);
+
+/**
+ *  Get sensor aref
+ *  @param dev sensor context pointer
+ *  @return Sensor ADC reference voltage
+ */
+float dfrph_get_aref(const dfrph_context dev);
+
+/**
  * Set sensor offset.  This offset is applied to the return value:
  *     counts = counts + offset
  * @param dev sensor context pointer

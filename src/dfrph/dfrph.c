@@ -56,6 +56,17 @@ void dfrph_close(dfrph_context dev)
     free(dev);
 }
 
+upm_result_t dfrph_set_aref(const dfrph_context dev, float aref)
+{
+    dev->m_aref = aref;
+    return UPM_SUCCESS;
+}
+
+float dfrph_get_aref(const dfrph_context dev)
+{
+    return dev->m_aref;
+}
+
 upm_result_t dfrph_set_offset(const dfrph_context dev, float offset)
 {
     dev->m_count_offset = offset;
