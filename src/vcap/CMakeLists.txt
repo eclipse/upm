@@ -3,7 +3,6 @@ set (libdescription "upm Video Frame Capture and image save utility")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
-find_package (JPEG)
 if (JPEG_FOUND)
     set (reqlibname "jpeg")
     upm_module_init()

@@ -3,7 +3,6 @@ set (libdescription "upm module for the Telaire T8100 Ventostat")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
-pkg_check_modules(BACNET libbacnet)
 if (BACNET_FOUND)
   # upm-libbacnetmstp will bring in libbacnet, I hope
   set (reqlibname "upm-bacnetmstp")

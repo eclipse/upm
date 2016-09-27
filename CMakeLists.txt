@@ -1,9 +1,28 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
+# Before going any further, define build options
+option (BUILDDOC "Build all doc" OFF)
+option (BUILDCPP "Build CPP sensor libraries" ON)
+option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF)
+option (BUILDSWIGPYTHON "Build swig python modules" ON)
+option (BUILDSWIGNODE "Build swig node modules" ON)
+option (BUILDSWIGJAVA "Build swig java modules" OFF)
+option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
+option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
+option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
+option (IPK "Generate IPK using CPack" OFF)
+option (RPM "Generate RPM using CPack" OFF)
+option (BUILDTESTS "Generate check-ups for upm" ON)
+option (ENABLECXX11 "Enable C++11 standards support" ON)
+
+# Warn if building in source root
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
   message (WARNING "Building into sources dir can be risky, prefer other directory")
 endif ()
+
+# Appends the cmake/modules path to MAKE_MODULE_PATH variable.
+set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
@@ -12,10 +31,24 @@ find_package (PkgConfig REQUIRED)
 unset(MRAA_FOUND CACHE)
 set(MRAA_MINIMUM 1.1.1)
 pkg_check_modules (MRAA REQUIRED mraa>=${MRAA_MINIMUM})
-message (STATUS "found mraa version: ${MRAA_VERSION}")
 
-# Appends the cmake/modules path to MAKE_MODULE_PATH variable.
-set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+# Check for BACNET
+pkg_check_modules (BACNET libbacnet)
+
+# Check for MODBUS
+pkg_check_modules (MODBUS libmodbus>=3.1.2)
+
+# Check for OPENZWAVE
+pkg_check_modules (OPENZWAVE libopenzwave)
+
+# Find JPEG
+find_package (JPEG)
+
+# Find swig if any wrapper is enabled
+if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
+  find_package (SWIG 3.0.5 REQUIRED)
+  include (${SWIG_USE_FILE})
+endif ()
 
 # Set CMAKE_INSTALL_LIBDIR if not defined
 include(GNUInstallDirs)
@@ -25,7 +58,7 @@ set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
-  message (WARNING " - Install git to compile a production UPM!")
+  message (WARNING "Install git to compile a production UPM!")
   set (VERSION "v0.8.0-dirty")
 endif ()
 
@@ -46,34 +79,6 @@ set (upm_VERSION_MAJOR ${VERSION_MAJOR})
 set (upm_VERSION_MINOR ${VERSION_MINOR})
 set (upm_VERSION_PATCH ${VERSION_PATCH})
 set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH})
-
-set (CMAKE_SWIG_FLAGS "")
-
-option (BUILDDOC "Build all doc" OFF)
-option (BUILDCPP "Build CPP sensor libraries" ON)
-option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF)
-option (BUILDSWIGPYTHON "Build swig python modules" ON)
-option (BUILDSWIGNODE "Build swig node modules" ON)
-option (BUILDSWIGJAVA "Build swig java modules" OFF)
-option (BUILDPYTHON3 "Use python3 for building/installing/testing" OFF)
-option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
-option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
-option (IPK "Generate IPK using CPack" OFF)
-option (RPM "Generate RPM using CPack" OFF)
-option (BUILDTESTS "Generate check-ups for upm" ON)
-option (ENABLECXX11 "Enable C++11 standards support" ON)
-
-# Find swig
-if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
-    if (BUILDSWIGNODE)
-        find_package (SWIG 3.0.5 REQUIRED)
-    else ()
-        find_package (SWIG REQUIRED)
-    endif ()
-    if (SWIG_FOUND)
-        include (${SWIG_USE_FILE})
-    endif ()
-endif ()
 
 # Detect arch
 include (TargetArch)

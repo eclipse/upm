@@ -3,7 +3,6 @@ set (libdescription "upm module for the Veris HWXPXX (HWXPHTX)")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
-pkg_check_modules(MODBUS libmodbus)
 if (MODBUS_FOUND)
   set (reqlibname "libmodbus")
   include_directories(${MODBUS_INCLUDE_DIRS})
