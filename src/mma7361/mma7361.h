@@ -34,13 +34,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief UPM C API for the DFRobot MMA7361 Analog Accelerometer
+   * @file mma7361.h
+   * @library mma7361
+   * @brief C API for the MMA7361 Analog Accelerometer
    *
-   * The driver was tested with the DFRobot MMA7361 Analog
-   * Accelerometer.  It supports 3 Axes with a selectable 1.5G and 6G
-   * sensitivity.
-   *
-   * @snippet mma7361.c Interesting
+   * @include mma7361.c
    */
   
   /**

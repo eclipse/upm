@@ -33,33 +33,18 @@
 #include "upm.h"
 #include "mraa/pwm.h"
 
-/**
- * @library servo
- * @sensor es9257
- * @comname ES9257 Servo
- * @altname Grove Servo
- * @type servos
- * @man emax
- * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
- * @con pwm
- * @kit gsk
- *
- * @brief API for the ES9257 Servo
- *
- * This module defines the ES9257 interface for ES9257 servos.
- * Like other servos, the ES9257 servo has a shaft that can be controlled
- * by setting the desired angle. There are also routines for setting
- * and getting the minimum and maximum pulse width as well as the
- * maximum period.
- *
- * @image html es9257.jpg
- * @snippet es9257.c Interesting
- */
-
 #define ES9257_MIN_PULSE_WIDTH             600
 #define ES9257_MAX_PULSE_WIDTH             2200
 #define ES9257_PERIOD                      20000
 #define ES9257_MAX_ANGLE                   180.0
+
+/**
+ * @file es9257.h
+ * @library servo
+ * @brief C API for the ES9257 Servo
+ *
+ * @include es9257.c
+ */
 
 /*
  * device context

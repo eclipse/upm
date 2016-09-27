@@ -1,7 +1,7 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- * Contributions: Sarah Knepper <sarah.knepper@intel.com>
+ *                Sarah Knepper <sarah.knepper@intel.com>
  *                Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
@@ -35,20 +35,11 @@
 #include "mraa/gpio.h"
 
 /**
- * @type led
- * @con gpio
- * @kit gsk
+ * @file led.h
+ * @library led
+ * @brief C API for LEDs
  *
- * @brief API for the Grove LED
- *
- * UPM module for the Grove LED (or other similar light-emitting diodes).
- * An LED is a small lightbulb that emits light in
- * response to a small current. The longer wire of an LED connects
- * to the positive seat (anode); the shorter wire connects to the
- * negative seat (cathode). The flat side of the bulb corresponds
- * to the cathode, while the rounded side corresponds to the anode.
- *
- * @image html led.jpg
+ * @include led.c
  */
 
 /**

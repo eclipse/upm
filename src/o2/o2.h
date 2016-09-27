@@ -33,6 +33,14 @@ extern "C" {
 #endif
 
 /**
+ * @file o2.h
+ * @library o2
+ * @brief C API for the O2 Oxygen Gas Sensor
+ *
+ * @include o2.c
+ */
+
+/**
  * device context
  */
 typedef struct _o2_context {

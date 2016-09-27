@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file slide.h
+ * @library slide
+ * @brief C API for the Slide Potentiometer
+ *
+ * @include slide.c
+ */
+
+/**
  * driver context
  */
 typedef struct _slide_context {

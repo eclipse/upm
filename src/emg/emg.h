@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file emg.h
+ * @library emg
+ * @brief C API for the EMG Sensor
+ *
+ * @include emg.c
+ */
+
+/**
  * driver context
  */
 typedef struct _emg_context {

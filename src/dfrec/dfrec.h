@@ -35,21 +35,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief DFRobot EC Meter
+   * @file dfrec.h
+   * @library dfrec
+   * @brief C API for the DFRobot EC Meter
    *
-   * The driver was tested with the DFRobot EC Analog Sensor.
-   *
-   * This device measure the electrical conductivity of an aqueous
-   * solution.  The included probe is a K=1 model.
-   *
-   * Calibration is somewhat complicated - see the DFRobot wiki for
-   * instructions on calibration.  Functions are provided to supply
-   * the appropriate values.  By default, the values used in the
-   * DFRobot arduino example are used.
-   *
-   * wiki: https://www.dfrobot.com/wiki/index.php/Analog_EC_Meter_SKU:DFR0300
-   *
-   * @snippet dfrec.c Interesting
+   * @include dfrec.c
    */
 
   /**

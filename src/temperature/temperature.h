@@ -33,6 +33,14 @@
 #include "mraa/aio.h"
 
 /**
+ * @file temperature.h
+ * @library temperature
+ * @brief C API for Analog Temperature (NTC) Sensors
+ *
+ * @include temperature.c
+ */
+
+/**
  * driver context
  */
 typedef struct _temperature_context {

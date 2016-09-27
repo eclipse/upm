@@ -34,6 +34,14 @@
 #include "mraa/aio.h"
 
 /**
+ * @file loudness.h
+ * @library loudness
+ * @brief C API for the Analog Loudness Sensor
+ *
+ * @include loudness.c
+ */
+
+/**
  * device context
  */
 typedef struct _loudness_context {

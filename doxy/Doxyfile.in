@@ -879,7 +879,8 @@ EXCLUDE_SYMBOLS        = aci_*
 # that contain example code fragments that are included (see the \include
 # command).
 
-EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples/c++ \
+EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples/c \
+                         @CMAKE_CURRENT_SOURCE_DIR@/examples/c++ \
                          @CMAKE_CURRENT_SOURCE_DIR@/docs/ \
                          @CMAKE_CURRENT_SOURCE_DIR@/src/max31855/
 
@@ -888,7 +889,8 @@ EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples/c++ \
 # *.h) to filter out the source-files in the directories. If left blank all
 # files are included.
 
-EXAMPLE_PATTERNS       = *.cxx
+EXAMPLE_PATTERNS       = *.c \
+                         *.cxx
 
 # If the EXAMPLE_RECURSIVE tag is set to YES then subdirectories will be
 # searched for input files to be used with the \include or \dontinclude commands

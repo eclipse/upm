@@ -33,6 +33,14 @@
 #include <mraa/aio.h>
 
 /**
+ * @file rotary.h
+ * @library rotary
+ * @brief C API for the Rotary Angle Sensor
+ *
+ * @include rotary.c
+ */
+
+/**
  * driver context
  */
 typedef struct _rotary_context {

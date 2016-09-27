@@ -33,15 +33,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief SHT1X Temperature and Humidity Sensor
+   * @file sht1x.h
+   * @library sht1x
+   * @brief C API for SHT1X Temperature and Humidity Sensors
    *
-   * This driver was tested with a DFRobot SHT10 Temperature and
-   * Humidity sensor.  This driver should work on all SHT1X devices.
-   *
-   * It requires a 10K pull-up resistor connected to the data pin.
-   * The sensor can be run at differing voltages from 2.5v to 5v.
-   *
-   * @snippet sht1x.c Interesting
+   * @include sht1x.c
    */
 
   /**

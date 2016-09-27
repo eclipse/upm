@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file dfrph.h
+ * @library dfrph
+ * @brief C API for the DFRobot pH Sensors
+ *
+ * @include dfrph.c
+ */
+
+/**
  * device context
  */
 typedef struct _dfrph_context {

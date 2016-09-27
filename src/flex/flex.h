@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file flex.h
+ * @library flex
+ * @brief C API for the Spectra Symbol Flex Sensor
+ *
+ * @include flex.c
+ */
+
+/**
  * driver context
  */
 typedef struct _flex_context {

@@ -33,12 +33,11 @@ extern "C" {
 #endif
 
     /**
-     * @brief YG1006 Flame Sensor
+     * @file yg1006.h
+     * @library yg1006
+     * @brief C API for the YG1006 Flame Sensor
      *
-     *   UPM module for the YG1006 flame sensor. It detects a flame or any
-     *   other light source in the 760-1,100 nm wavelength range.
-     *
-     * @snippet yg1006.cxx Interesting
+     * @include yg1006.c
      */
 
     /**

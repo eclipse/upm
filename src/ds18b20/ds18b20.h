@@ -40,69 +40,11 @@ extern "C" {
 #define DS18B20_FAMILY_CODE 0x28
 
   /**
+   * @file ds18b20.h
    * @library ds18b20
-   * @sensor ds18b20
-   * @comname DS18B20 1-Wire Temperature Sensor
-   * @type uart
-   * @man maxim
-   * @con uart
-   * @web https://www.sparkfun.com/products/11050
+   * @brief C API for the DS18B20 1-Wire Temperature Sensor
    *
-   * @brief DS18B20 1-Wire Temperature Sensor
-   *
-   * This driver supports, and was tested with, a DS18B20 with
-   * external power.
-   *
-   * Multiple DS18B20 devices can be connected to this bus.  This
-   * module will identify all such devices connected, and allow you
-   * to access them using an index starting at 0.
-   *
-   * Parasitic power is not currently supported due
-   * to the very tight 10us limit on switching a GPIO properly to
-   * supply power during certain operations.  For this reason, you
-   * should use external power for your sensors.
-   *
-   * Setting the alarm values (Tl, Th) is also not supported, since
-   * this is only useful when doing a 1-wire device search looking
-   * for devices in an alarm state, a capability not yet supported
-   * in MRAA.  In reality, this is trivial to handle yourself in
-   * your application.
-   *
-   * This device requires the use of a TTL level UART (specifically
-   * through the uart_ow MRAA context) to provide access to a Dallas
-   * 1-wire bus. It is important to realize that the UART is only
-   * being used to provide an interface to devices on a Dallas 1-wire
-   * compliant bus.
-   *
-   * A circuit like the following should be used for the UART
-   * interface (ASCII schematic - best viewed in a fixed monospace
-   * font):
-   *
-   * -|
-   * U|      (D1)
-   * A| TX---|<--+
-   * R|          |
-   * T| RX-------o--------o  >to 1-wire data bus
-   * -|
-   *
-   *
-   *             Vcc
-   *              |
-   *              o------------+
-   *              |            |
-   *              R1           |
-   *              |            o(+)
-   * >1-wire------o--------o[DS18B20]
-   *                           o(-)
-   *                           |
-   *                          GND
-   *
-   * D1 = 1N4148
-   * R1 = 4.7K
-   *
-   * The cathode of D1 is connected to the UART TX.
-   *
-   * @snippet ds18b20.c Interesting
+   * @include ds18b20.c
    */
 
   // forward declaration

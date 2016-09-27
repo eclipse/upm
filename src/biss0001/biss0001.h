@@ -34,11 +34,11 @@ extern "C" {
 #endif
 
     /**
-     * @brief BISS0001 PIR Motion Sensor
+     * @file biss0001.h
+     * @library biss0001
+     * @brief C API for the BISS0001 Motion Sensor
      *
-     * This module tests for movement in it's detecting range.
-     *
-     * @snippet biss0001.c Interesting
+     * @include biss0001.c
      */
 
     /**

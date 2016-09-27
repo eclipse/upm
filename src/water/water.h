@@ -31,11 +31,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief Water Sensor
+   * @file water.h
+   * @library water
+   * @brief C API for the Water Sensor
    *
-   * This module simply tests for the presence of water.
-   *
-   * @snippet water.c Interesting
+   * @include water.c
    */
 
   /**

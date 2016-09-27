@@ -35,6 +35,14 @@
 #include "mraa/aio.h"
 
 /**
+ * @file mic.h
+ * @library mic
+ * @brief C API for the Analog Microphone
+ *
+ * @include mic.c
+ */
+
+/**
  * device context
  */
 typedef struct _mic_context {

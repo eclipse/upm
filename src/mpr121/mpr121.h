@@ -34,6 +34,14 @@
 #define MPR121_DEFAULT_I2C_ADDR    0x5a
 
 /**
+ * @file mpr121.h
+ * @library mpr121
+ * @brief C API for the MPR121 Touch Sensor
+ *
+ * @include mpr121.c
+ */
+
+/**
  * device context
  */
 typedef struct _mpr121_context {

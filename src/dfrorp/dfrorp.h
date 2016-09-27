@@ -34,26 +34,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief UPM C API for the DFRobot ORP (Oxidation/Reduction
-   * Potential) Sensor
+   * @file dfrorp.h
+   * @library dfrorp
+   * @brief C API for the DFRobot ORP (Oxidation/Reduction Potential) Sensor
    *
-   * The driver was tested with the DFRobot ORP Analog Sensor.
-   *
-   * To calibrate:
-   *
-   * Disconnect the sensor probe (but leave the sensor interface board
-   * connected).  Then run one of the examples while holding down the
-   * 'calibrate' button on the device.  Read the ORP value reported
-   * (it should be fairly small).
-   *
-   * This value is what you should supply to
-   * dfrorp_set_orp_cal_offset().  Then reconnect the probe to the
-   * interface board and you should be ready to go.
-   *
-   * DO NOT press the calibrate button on the interface board while
-   * the probe is attached or you can permanently damage the probe.
-   *
-   * @snippet dfrorp.c Interesting
+   * @include dfrorp.c
    */
 
   /**

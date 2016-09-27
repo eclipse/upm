@@ -33,12 +33,11 @@ extern "C" {
 #endif
 
 /**
- * @brief API for controlling APA102/DotStar RGB LED Strips
+ * @file apa102.h
+ * @library apa102
+ * @brief C API for controlling APA102/DotStar RGB LED Strips
  *
- * APA102 LED Strips provide individually controllable LEDs through a SPI interface.
- * For each LED, brightness (0-31) and RGB (0-255) values can be set.
- *
- * @snippet apa102.c Interesting
+ * @include apa102.c
  */
 
 /**

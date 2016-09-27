@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file gsr.h
+ * @library gsr
+ * @brief C API for the GSR Sensor
+ *
+ * @include gsr.c
+ */
+
+/**
  * driver context
  */
 typedef struct _gsr_context {

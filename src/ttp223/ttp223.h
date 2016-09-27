@@ -34,6 +34,14 @@
 #include "mraa/gpio.h"
 
 /**
+ * @file ttp223.h
+ * @library ttp223
+ * @brief C API for the TTP223 Touch Detector Sensor
+ *
+ * @include ttp223.c
+ */
+
+/**
  * device context
  */
 typedef struct _ttp223_context {

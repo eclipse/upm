@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file ldt0028.h
+ * @library ldt0028
+ * @brief C API for the LDT0-028 Piezo Vibration Sensor
+ *
+ * @include ldt0028.c
+ */
+
+/**
  * driver context
  */
 typedef struct _ldt0028_context {

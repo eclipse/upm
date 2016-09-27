@@ -31,7 +31,11 @@
 extern "C" {
 #endif
 
-/*
+/**
+ * @file mqx.h
+ * @library mqx
+ * @brief C API for the MQ Gas Sensors
+ *
  * The mqx gas sensor driver can be used to read a wide range of sensors.  The
  * list below shows the currently supported sensors:
  *
@@ -49,6 +53,7 @@ extern "C" {
  *      mq8: H 100-10000 ppm
  *      mq9: CO/CH4/LPG 200-1000/10000/10000 ppm
  *
+ * @include mqx.c
  */
 
 /**

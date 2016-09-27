@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file joystick12.h
+ * @library joystick12
+ * @brief C API for Analog 2-Axis Joysticks
+ *
+ * @include joystick12.c
+ */
+
+/**
  * device context
  */
 typedef struct _joystick12_context {

@@ -36,13 +36,11 @@ extern "C" {
 #endif // __cplusplus
 
 /**
- * @brief UPM C API for the DFRobot I2C BH1750 Light Sensor
+ * @file bh1750.h
+ * @library bh1750
+ * @brief C API for the BH1750 Light Sensor
  *
- * This driver was developed with the DFRobot Light Sensor based on
- * the BH1750.  It has a sensitivity of .5 10 65535 Lux.  It supports
- * voltages from 3-5vdc and is connected via I2C.
- *
- * @snippet bh1750.c Interesting
+ * @include bh1750.c
  */
 
 #define BH1750_DEFAULT_I2C_BUS              0

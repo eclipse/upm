@@ -33,26 +33,11 @@
 #include "mraa/gpio.h"
 
 /**
- * @brief MVS0608 - GPIO Collision Sensor library
- * @ingroup gpio accelerometer
- */
-
-/**
+ * @file collision.h
  * @library collision
- * @sensor Collision
- * @comname Collision Sensor
- * @altname Grove Collision Sensor
- * @type accelerometer
- * @con gpio
+ * @brief C API for the MVS0608 - Digital Collision Sensor
  *
- * @brief API for the Collision Sensor
- *
- * MVS0608 can detect whether any
- * collision movement or vibration happens.
- * It outputs a low pulse signal when vibration is detected.
- *
- * @image html grovecollision.jpg
- * @snippet collision.c Interesting
+ * @include collision.c
  */
 
 /**

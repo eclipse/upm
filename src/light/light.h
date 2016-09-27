@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file light.h
+ * @library light
+ * @brief C API for Analog Light (Photocell) Sensors
+ *
+ * @include light.c
+ */
+
+/**
  * driver context
  */
 typedef struct _light_context {

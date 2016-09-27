@@ -34,6 +34,14 @@
 #include <mraa/gpio.h>
 
 /**
+ * @file relay.h
+ * @library relay
+ * @brief C API for Relays
+ *
+ * @include relay.c
+ */
+
+/**
  * device context
  */
 typedef struct _relay_context{

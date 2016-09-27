@@ -92,6 +92,14 @@
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
 /**
+ * @file tsl2561.h
+ * @library tsl2561
+ * @brief C API for the TSL2561 Digital Light Sensor
+ *
+ * @include tsl2561.c
+ */
+
+/**
  * device context
  */
 typedef struct _tsl2561_context {

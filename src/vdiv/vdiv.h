@@ -32,6 +32,14 @@ extern "C" {
 #endif
 
 /**
+ * @file vdiv.h
+ * @library vdiv
+ * @brief C API for Voltage Dividers
+ *
+ * @include vdiv.c
+ */
+
+/**
  * device context
  */
 typedef struct _vdiv_context {

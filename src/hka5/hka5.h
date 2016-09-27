@@ -34,14 +34,11 @@ extern "C" {
 #endif
 
   /**
-   * @brief UPM C API for the DFRobot Laser PM2.5 Sensor
+   * @file hka5.h
+   * @library hka5
+   * @brief C API for the Laser PM2.5 Sensor
    *
-   * This driver was tested with a DFRobot Laser PM2.5 Sensor.  It
-   * connects to a UART at 9600 baud.  This is the only baud rate
-   * supported.  It optionally supports Reset and Set/Sleep gpios as
-   * well.
-   *
-   * @snippet hka5.c Interesting
+   * @include hka5.c
    */
 
   /**

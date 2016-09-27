@@ -30,29 +30,11 @@
 #include "mraa/gpio.h"
 
 /**
- * @brief MQ303A Alcohol Sensor library
- * @defgroup mq303a libupm-mq303a
- * @ingroup analog gpio gaseous tsk
- */
-/**
- * @library mq303a
- * @sensor mq303a
- * @comname MQ303A Alcohol Sensor
- * @type gaseous
- * @man seeed
- * @web http://www.seeedstudio.com/document/pdf/MQ303A.pdf
- * @con analog gpio
- * @kit tsk
+ * @file mq303a.h
+ * @library mq303
+ * @brief C API for the MQ303A Alcohol Sensor
  *
- * @brief API for the MQ303A Alcohol Sensor
- *
- * UPM module for the MQ303A alcohol sensor.
- * This sensor needs to be warmed up before stable results are
- * obtained. The higher the value returned from value(),
- * the higher the amount of alcohol detected.
- *
- * @image html mq303a.jpg
- * @snippet mq303a.cxx Interesting
+ * @include mq303.c
  */
 
 /**

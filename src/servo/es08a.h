@@ -33,33 +33,18 @@
 #include "upm.h"
 #include "mraa/pwm.h"
 
-/**
- * @library servo
- * @sensor es08a
- * @comname ES08A Servo
- * @altname Grove Servo
- * @type servos
- * @man emax
- * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
- * @con pwm
- * @kit gsk
- *
- * @brief API for the ES08A Servo
- *
- * This module defines the ES08A interface for ES08A servos.
- * Like other servos, the ES08A servo has a shaft that can be controlled
- * by setting the desired angle. There are also routines for setting
- * and getting the minimum and maximum pulse width as well as the
- * maximum period.
- *
- * @image html es08a.jpg
- * @snippet es08a.c Interesting
- */
-
 #define ES08A_MIN_PULSE_WIDTH             600
 #define ES08A_MAX_PULSE_WIDTH             2200
 #define ES08A_PERIOD                      20000
 #define ES08A_MAX_ANGLE                   180.0
+
+/**
+ * @file es08a.h
+ * @library servo
+ * @brief C API for the ES08A Servo
+ *
+ * @include es08a.c
+ */
 
 /**
  * device context

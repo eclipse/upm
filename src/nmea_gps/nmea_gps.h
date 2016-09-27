@@ -35,21 +35,14 @@ extern "C" {
 #endif
 
   /**
-   * @brief UPM C API for a generic GPS serial device reporting NMEA data
-   *
-   * This driver was tested with a number of GPS devices that emit
-   * NMEA data via a serial interface of some sort (typically a UART).
-   *
-   * The I2C capablity was tested with a UBLOX LEA-6H based GPS shield
-   * from DFRobot.  Currently, the I2C capability is only supported
-   * for UBLOX devices (or compatibles) that conform to the
-   * specifications outlined in the u-blox6 Receiver Description
-   * Protocol Specification, Chapter 4, DDC Port.
+   * @file nmea-gps.h
+   * @library nmea-gps
+   * @brief C API for NMEA GPS Sensors
    *
    * An example using the UART.
-   * @snippet nmea_gps.c Interesting
+   * @include nmea_gps.c
    * An example using I2C.
-   * @snippet nmea_gps_i2c.c Interesting
+   * @include nmea_gps_i2c.c
    */
   
   /**

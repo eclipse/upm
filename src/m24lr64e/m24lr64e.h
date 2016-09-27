@@ -53,39 +53,11 @@
 #define M24LR64E_I2C_WRITE_TIME 5
 
 /**
- * @brief Grove NFC Tag
- * @defgroup m24lr64e libupm-m24lr64e
- * @ingroup seeed i2c other
- */
-
-/**
+ * @file m24lr64e.h
  * @library m24lr64e
- * @sensor m24lr64e
- * @comname Grove NFC Tag
- * @type other
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_NFC_Tag
- * @con i2c
+ * @brief C API for M24LR64E-based NFC Tags
  *
- * @brief C++ API for the M24LR64E-based Grove NFC Tag
- *
- * Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM)
- * that can be written to or read from using I2C and NFC-equipped devices.
- *
- * The user mode (default) allows read and write access to all 8KB
- * of space, provided the sector security status (SSS) allows it.
- * The root mode allows modification of the SSS data and other
- * information, provided the proper password is submitted.  The
- * default password for a new tag is 0x00000000. See the datasheet
- * for more details.
- *
- * The Seeed Studio* wiki page for this device includes a link to an
- * Android* application that can be used to also read and write the
- * device via NFC, as well as set NFC passwords, which cannot be
- * done via I2C.
- *
- * @image html m24lr64e.jpg
- * @snippet m24lr64e.cxx Interesting
+ * @include m24lr64e.c
  */
 
 #include <stdint.h>

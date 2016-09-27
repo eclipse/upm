@@ -40,28 +40,14 @@ extern "C" {
 #endif
 
 /**
- * @brief UPM C API for the DFRobot URM37 Ultrasonic Ranger
- *
- * The driver was tested with the DFRobot URM37 Ultrasonic Ranger,
- * V4.  It has a range of between 5 and 500 centimeters (cm).  It
- * supports both analog distance measurement, and UART based
- * temperature and distance measurements.  This driver does not
- * support PWM measurement mode.
- *
- * For UART operation, the only supported baud rate is 9600.  In
- * addition, you must ensure that the UART TX/RX pins are
- * configured for TTL operation (the factory default) rather than
- * RS232 operation, or permanent damage to your URM37 and/or MCU
- * will result.  On power up, the LED indicator will blink one
- * long pulse, followed by one short pulse to indicate TTL
- * operation.  See the DFRobot wiki for more information:
- *
- * (https://www.dfrobot.com/wiki/index.php?title=URM37_V4.0_Ultrasonic_Sensor_%28SKU:SEN0001%29)
+ * @file urm37.h
+ * @library urm37
+ * @brief C API for the DFRobot URM37 Ultrasonic Ranger
  *
  * An example using analog mode
- * @snippet urm37.c Interesting
+ * @include urm37.c Interesting
  * An example using UART mode
- * @snippet urm37-uart.c Interesting
+ * @include urm37-uart.c Interesting
  */
 
 /**

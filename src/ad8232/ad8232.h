@@ -37,6 +37,14 @@
 #define AD8232_DEFAULT_AREF  3.3
 
 /**
+ * @file ad8232.h
+ * @library ad8232
+ * @brief C API for the AD8232 Heart Rate Monitor
+ *
+ * @include ad8232.c
+ */
+
+/**
  * device context
  */
 typedef struct _ad8232_context {

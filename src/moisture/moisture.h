@@ -37,6 +37,14 @@ extern "C" {
 #endif
 
 /**
+ * @file moisture.h
+ * @library moisture
+ * @brief C API for the Analog Moisture Sensor
+ *
+ * @include moisture.c
+ */
+
+/**
  * device context
  */
 typedef struct _moisture_context {
