@@ -3,6 +3,7 @@
 %module pyupm_bmi160
 %include "../upm.i"
 %include "cpointer.i"
+%include "std_string.i"
 
 %include "stdint.i"
 

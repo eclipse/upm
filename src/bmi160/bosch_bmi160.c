@@ -101,7 +101,8 @@ struct yas_vector fifo_vector_xyz;
  *	(Better case don't change the reference value of the parameter)
  *
 */
-BMI160_RETURN_FUNCTION_TYPE bmi160_init(struct bmi160_t *bmi160)
+/* JET - renamed from bmi160_init to avoid conflict with UPM code */
+BMI160_RETURN_FUNCTION_TYPE bmi160_init_bus(struct bmi160_t *bmi160)
 {
 	/* variable used for return the status of communication result*/
 	BMI160_RETURN_FUNCTION_TYPE com_rslt = E_BMI160_COMM_RES;
