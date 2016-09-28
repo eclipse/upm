@@ -30,6 +30,14 @@
 
 sht1x_context sht1x_init(unsigned int clk_pin, unsigned int data_pin)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   sht1x_context dev =
     (sht1x_context)malloc(sizeof(struct _sht1x_context));
 

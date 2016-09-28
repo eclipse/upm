@@ -29,6 +29,14 @@
 
 dfrph_context dfrph_init(int16_t pin)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     dfrph_context dev =
       (dfrph_context) malloc(sizeof(struct _dfrph_context));
 

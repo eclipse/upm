@@ -29,6 +29,14 @@
 
 slide_context slide_init(int16_t pin)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     slide_context dev = (slide_context) malloc(sizeof(struct _slide_context));
 
     if (dev == NULL)

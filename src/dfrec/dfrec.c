@@ -60,6 +60,14 @@ static float average(const dfrec_context dev, int samples)
 dfrec_context dfrec_init(unsigned int apin, unsigned int uart_ow,
                          unsigned int device_idx, float a_ref)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   dfrec_context dev =
     (dfrec_context)malloc(sizeof(struct _dfrec_context));
 

@@ -29,6 +29,14 @@
 
 vdiv_context vdiv_init(int16_t pin, float voltage_ref)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     vdiv_context dev = (vdiv_context)malloc(sizeof(struct _vdiv_context));
 
     if (dev == NULL) return NULL;

@@ -25,7 +25,15 @@
 #include "es08a.h"
 
 es08a_context es08a_init(int32_t pin, int32_t min_pulse_width,
-                         int32_t max_pulse_width){
+                         int32_t max_pulse_width) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     es08a_context dev = (es08a_context) malloc(sizeof(struct _es08a_context));
 
     if(dev == NULL){

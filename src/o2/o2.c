@@ -28,6 +28,14 @@
 #include "o2.h"
 o2_context o2_init(int16_t pin)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     o2_context dev = (o2_context)malloc(sizeof(struct _o2_context));
 
     if(dev == NULL) return NULL;

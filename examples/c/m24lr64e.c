@@ -6,16 +6,9 @@
 #include "m24lr64e.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     m24lr64e_context dev = m24lr64e_init(0, M24LR64E_USER_MODE);
     int addr = M24LR64E_EEPROM_I2C_LENGTH-1;
     printf("address being accessed: %d\n", addr);

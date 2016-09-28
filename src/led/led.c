@@ -28,6 +28,14 @@
 #include "upm_types.h"
 
 led_context led_init(uint8_t pin){
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     led_context dev =
       (led_context)malloc(sizeof(struct _led_context));
 

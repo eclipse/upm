@@ -34,6 +34,14 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data);
 
 tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
                              uint8_t integration_time){
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     tsl2561_context dev =
       (tsl2561_context)malloc(sizeof(struct _tsl2561_context));
 

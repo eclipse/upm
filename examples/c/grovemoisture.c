@@ -8,16 +8,9 @@
 #include "grovemoisture.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     grovemoisture_context dev = grovemoisture_init(14);
     int val;
     while(1){

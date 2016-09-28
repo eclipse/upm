@@ -25,7 +25,15 @@
 
 #include "ttp223.h"
 
-ttp223_context ttp223_init(int pin){
+ttp223_context ttp223_init(int pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     ttp223_context dev = 
       (ttp223_context) malloc(sizeof(struct _ttp223_context));
 

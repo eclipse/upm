@@ -26,6 +26,14 @@
 #include "moisture.h"
 
 moisture_context moisture_init(int pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     moisture_context dev =
       (moisture_context) malloc(sizeof(struct _moisture_context));
 

@@ -60,6 +60,14 @@ static float average(const dfrorp_context dev, int samples)
 
 dfrorp_context dfrorp_init(unsigned int apin, float a_ref)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   dfrorp_context dev =
     (dfrorp_context)malloc(sizeof(struct _dfrorp_context));
 

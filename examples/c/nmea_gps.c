@@ -27,7 +27,6 @@
 
 #include "nmea_gps.h"
 #include "upm_utilities.h"
-#include "mraa.h"
 
 bool shouldRun = true;
 
@@ -41,12 +40,6 @@ void sig_handler(int signo)
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     signal(SIGINT, sig_handler);
 
     //! [Interesting]

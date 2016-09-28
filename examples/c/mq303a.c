@@ -8,16 +8,8 @@
 #include "mq303a.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main() {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
-
     /* --------- MQ303A EXAMPLE -------- */
     mq303a_context dev = mq303a_init(0, 15);
     printf("init done for mq303a\n");

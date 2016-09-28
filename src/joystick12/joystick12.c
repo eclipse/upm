@@ -29,6 +29,14 @@
 
 joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     joystick12_context dev =
       (joystick12_context) malloc(sizeof(struct _joystick12_context));
 

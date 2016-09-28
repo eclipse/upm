@@ -8,16 +8,9 @@
 #include "es08a.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     es08a_context dev = es08a_init(3, ES08A_MIN_PULSE_WIDTH, ES08A_MAX_PULSE_WIDTH);
     if(dev == NULL){
         printf("unable to initialize the servo context\n");

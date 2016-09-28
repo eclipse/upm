@@ -24,7 +24,15 @@
  */
 #include "a110x.h"
 
-a110x_context a110x_init(uint8_t pin){
+a110x_context a110x_init(uint8_t pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     a110x_context dev =
       (a110x_context) malloc(sizeof(struct _a110x_context));
 

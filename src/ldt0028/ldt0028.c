@@ -29,6 +29,14 @@
 
 ldt0028_context ldt0028_init(int16_t pin)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     ldt0028_context dev = (ldt0028_context) malloc(sizeof(struct _ldt0028_context));
 
     if (dev == NULL)

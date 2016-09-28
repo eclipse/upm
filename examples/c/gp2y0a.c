@@ -8,16 +8,9 @@
 #include "gp2y0a.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     gp2y0a_context dev = gp2y0a_init(14, 5.0);
     float val;
     while(1){

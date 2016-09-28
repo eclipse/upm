@@ -48,6 +48,14 @@ upm_result_t m24lr64e_eeprom_write_bytes(m24lr64e_context dev,
                                          uint8_t* data, int len);
 
 m24lr64e_context m24lr64e_init(int bus, m24lr64e_access_mode mode){
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     m24lr64e_context dev =
       (m24lr64e_context)malloc(sizeof(struct _m24lr64e_context));
 

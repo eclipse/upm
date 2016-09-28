@@ -50,6 +50,14 @@ static bool verify_cksum(uint8_t *pkt)
 
 hka5_context hka5_init(unsigned int uart, int set_pin, int reset_pin)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   hka5_context dev =
     (hka5_context)malloc(sizeof(struct _hka5_context));
 

@@ -8,16 +8,9 @@
 #include "ttp223.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     ttp223_context dev = ttp223_init(2);
     bool abc = 0;
     while(1){

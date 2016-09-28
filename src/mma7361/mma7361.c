@@ -53,6 +53,14 @@ mma7361_context mma7361_init(int x_pin, int y_pin, int z_pin,
       return NULL;
     }
 
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   mma7361_context dev =
     (mma7361_context)malloc(sizeof(struct _mma7361_context));
 

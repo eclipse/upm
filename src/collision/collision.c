@@ -24,7 +24,15 @@
  */
 #include "collision.h"
 
-collision_context collision_init(int pin){
+collision_context collision_init(int pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     collision_context dev =
       (collision_context)malloc(sizeof(struct _collision_context));
 

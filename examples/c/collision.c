@@ -8,16 +8,9 @@
 #include "collision.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     collision_context dev = collision_init(2);
     bool abc = 0;
     while(1){

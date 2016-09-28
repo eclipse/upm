@@ -29,6 +29,14 @@
 
 bh1750_context bh1750_init(int bus, uint8_t addr, BH1750_OPMODES_T mode)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   bh1750_context dev =
     (bh1750_context)malloc(sizeof(struct _bh1750_context));
 

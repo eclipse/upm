@@ -25,7 +25,15 @@
 
 #include "mq303a.h"
 
-mq303a_context mq303a_init(int pin, int heater_pin){
+mq303a_context mq303a_init(int pin, int heater_pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     mq303a_context dev =
       (mq303a_context)malloc(sizeof(struct _mq303a_context));
 

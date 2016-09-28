@@ -49,6 +49,14 @@ static float readSingleTemp(const ds18b20_context dev, unsigned int index);
 
 ds18b20_context ds18b20_init(unsigned int uart)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   ds18b20_context dev =
     (ds18b20_context)malloc(sizeof(struct _ds18b20_context));
 

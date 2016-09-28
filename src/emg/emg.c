@@ -29,6 +29,14 @@
 
 emg_context emg_init(int16_t pin)
 {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     emg_context dev = (emg_context) malloc(sizeof(struct _emg_context));
 
     if (dev == NULL)

@@ -25,7 +25,15 @@
 
 #include "mpr121.h"
 
-mpr121_context mpr121_init(int bus, uint8_t address){
+mpr121_context mpr121_init(int bus, uint8_t address) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     mpr121_context dev = (mpr121_context)malloc(sizeof(struct _mpr121_context));
 
     if (!dev)

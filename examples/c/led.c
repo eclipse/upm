@@ -8,16 +8,9 @@
 #include "led.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main(void)
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     led_context dev = led_init(2);
     while(1){
         if(led_on(dev) != UPM_SUCCESS){

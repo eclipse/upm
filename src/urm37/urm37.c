@@ -40,6 +40,13 @@ urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
                          uint8_t trigger_pin, float a_ref,
                          uint8_t uart_bus, bool analog_mode)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
 
   urm37_context dev = (urm37_context)malloc(sizeof(struct _urm37_context));
 

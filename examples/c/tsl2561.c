@@ -8,16 +8,9 @@
 #include "tsl2561.h"
 
 #include "upm_utilities.h"
-#include "mraa.h"
 
 int main()
 {
-    if (mraa_init() != MRAA_SUCCESS)
-    {
-        perror("Failed to initialize mraa\n");
-        return -1;
-    }
-
     tsl2561_context dev = tsl2561_init(0, TSL2561_Address, GAIN_0X, INTEGRATION_TIME1_101MS);
     float abc = 0;
     if(tsl2561_get_lux(dev, &abc) != UPM_SUCCESS){

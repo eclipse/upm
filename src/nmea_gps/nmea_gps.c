@@ -71,6 +71,14 @@ static int readRegs(const nmea_gps_context dev, uint8_t reg,
 nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                int enable_pin)
 {
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
   nmea_gps_context dev =
     (nmea_gps_context)malloc(sizeof(struct _nmea_gps_context));
 
@@ -207,7 +215,8 @@ int nmea_gps_read(const nmea_gps_context dev, char *buffer, size_t len)
   if (dev->i2c)
     {
       int rv;
-      if ((rv = readRegs(dev, UBLOX6_I2C_BYTE_STREAM, buffer, len)) < 0)
+      if ((rv = readRegs(dev, UBLOX6_I2C_BYTE_STREAM, (uint8_t *)buffer,
+                         len)) < 0)
         return rv;
 
       // now we need to go through the bytes returned, and stop

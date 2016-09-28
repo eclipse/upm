@@ -25,6 +25,14 @@
 #include "loudness.h"
 
 loudness_context loudness_init(int pin) {
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     loudness_context dev =
       (loudness_context) malloc(sizeof(struct _loudness_context));
 

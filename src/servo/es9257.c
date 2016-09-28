@@ -25,7 +25,16 @@
 #include "es9257.h"
 
 es9257_context es9257_init(int32_t pin, int32_t min_pulse_width,
-                         int32_t max_pulse_width){
+                         int32_t max_pulse_width) {
+
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
     es9257_context dev = (es9257_context) malloc(sizeof(struct _es9257_context));
 
     if(dev == NULL){
