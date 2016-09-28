@@ -48,9 +48,9 @@ typedef struct _dfrph_context {
     /* ADC reference */
     float m_aref;
     /* Raw count offset */
-    float m_count_offset;
+    float m_offset;
     /* Raw count scale */
-    float m_count_scale;
+    float m_scale;
 } *dfrph_context;
 
 /**

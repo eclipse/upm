@@ -39,8 +39,8 @@ dfrph_context dfrph_init(int16_t pin)
 
     /* Set the ref, offset, and scale */
     dev->m_aref = 5.0;
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
+    dev->m_offset = 0.0;
+    dev->m_scale = 1.0;
 
     if(dev->aio == NULL) {
         free(dev);
@@ -69,13 +69,13 @@ float dfrph_get_aref(const dfrph_context dev)
 
 upm_result_t dfrph_set_offset(const dfrph_context dev, float offset)
 {
-    dev->m_count_offset = offset;
+    dev->m_offset = offset;
     return UPM_SUCCESS;
 }
 
 upm_result_t dfrph_set_scale(const dfrph_context dev, float scale)
 {
-    dev->m_count_scale = scale;
+    dev->m_scale = scale;
     return UPM_SUCCESS;
 }
 
@@ -92,23 +92,18 @@ upm_result_t dfrph_get_raw_volts(const dfrph_context dev, float *volts)
 
 upm_result_t dfrph_get_ph(const dfrph_context dev, float *value)
 {
-    /* Read counts */
-    int counts = mraa_aio_read(dev->aio);
+    /* Read normalized */
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0.0) return UPM_ERROR_OPERATION_FAILED;
 
-    /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(dev->aio)) - 1;
-
-    /* Apply raw scale */
-    *value = counts * dev->m_count_scale;
-
-    /* Apply raw offset */
-    *value += dev->m_count_offset * dev->m_count_scale;
-
-    /* Normalize the value */
-    *value /= max_adc;
+    /* Apply scale */
+    *value *= dev->m_scale;
 
     /* Vmax for sensor is 0.8 * Vref, so scale by 1/0.8 = 1.25 */
     *value *= 1.25 * 14; /* Convert to pH */
+
+    /* Apply offset in pH */
+    *value += dev->m_offset;
 
     return UPM_SUCCESS;
 }
