@@ -1,4 +1,7 @@
 %module pyupm_l3gd20
+// Include doxygen-generated documentation
+%include "pyupm_doxy2swig.i"
+
 %include "../upm.i"
 
 %feature("autodoc", "3");
