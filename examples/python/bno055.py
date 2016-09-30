@@ -24,57 +24,58 @@
 import time, sys, signal, atexit
 import pyupm_bno055 as sensorObj
 
-# Instantiate an BNO055 using default parameters (bus 0, addr
-# 0x28).  The default running mode is NDOF absolute orientation
-# mode.
-sensor = sensorObj.BNO055()
+def main():
+    # Instantiate an BNO055 using default parameters (bus 0, addr
+    # 0x28).  The default running mode is NDOF absolute orientation
+    # mode.
+    sensor = sensorObj.BNO055()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-mag = sensorObj.new_intp()
-acc = sensorObj.new_intp()
-gyr = sensorObj.new_intp()
-syst = sensorObj.new_intp()
+    mag = sensorObj.new_intp()
+    acc = sensorObj.new_intp()
+    gyr = sensorObj.new_intp()
+    syst = sensorObj.new_intp()
 
-w = sensorObj.new_floatp()
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    w = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-print "First we need to calibrate.  4 numbers will be output every"
-print "second for each sensor.  0 means uncalibrated, and 3 means"
-print "fully calibrated."
-print "See the UPM documentation on this sensor for instructions on"
-print "what actions are required to calibrate."
-print
+    print "First we need to calibrate.  4 numbers will be output every"
+    print "second for each sensor.  0 means uncalibrated, and 3 means"
+    print "fully calibrated."
+    print "See the UPM documentation on this sensor for instructions on"
+    print "what actions are required to calibrate."
+    print
 
-while (not sensor.isFullyCalibrated()):
+    while (not sensor.isFullyCalibrated()):
         sensor.getCalibrationStatus(mag, acc, gyr, syst)
         print "Magnetometer:", sensorObj.intp_value(mag),
         print " Accelerometer:", sensorObj.intp_value(acc),
         print " Gyroscope:", sensorObj.intp_value(gyr),
         print " System:", sensorObj.intp_value(syst),
-	time.sleep(1)
+        time.sleep(1)
 
-print
-print "Calibration complete."
-print
+    print
+    print "Calibration complete."
+    print
 
-# now output various fusion data every 250 milliseconds
+    # now output various fusion data every 250 milliseconds
 
-while (True):
+    while (True):
         sensor.update()
 
         sensor.getEulerAngles(x, y, z)
@@ -103,3 +104,6 @@ while (True):
 
         print
         time.sleep(.25);
+
+if __name__ == '__main__':
+    main()

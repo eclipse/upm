@@ -24,37 +24,39 @@
 import time, sys, signal, atexit
 import pyupm_electromagnet as upmelectromagnet
 
-# This was tested with the  Electromagnetic Module
-# Instantiate a  Electromagnet on digital pin D2
-myElectromagnet = upmelectromagnet.Electromagnet(2)
+def main():
+    # This was tested with the  Electromagnetic Module
+    # Instantiate a  Electromagnet on digital pin D2
+    myElectromagnet = upmelectromagnet.Electromagnet(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myElectromagnet
+    def exitHandler():
+        print "Exiting"
+        myElectromagnet.off()
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myElectromagnet
-def exitHandler():
-	print "Exiting"
-	myElectromagnet.off()
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    magnetState = False
 
+    # Turn magnet on and off every 5 seconds
+    while(1):
+        magnetState = not magnetState
+        if (magnetState):
+            myElectromagnet.on()
+        else:
+            myElectromagnet.off()
+        print "Turning magnet", ("on" if magnetState else "off")
 
-magnetState = False
+        time.sleep(5)
 
-# Turn magnet on and off every 5 seconds
-while(1):
-	magnetState = not magnetState
-	if (magnetState):
-		myElectromagnet.on()
-	else:
-		myElectromagnet.off()
-	print "Turning magnet", ("on" if magnetState else "off")
-
-	time.sleep(5)
+if __name__ == '__main__':
+    main()

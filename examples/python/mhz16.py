@@ -24,47 +24,49 @@
 import time, sys, signal, atexit
 import pyupm_mhz16 as upmMhz16
 
-# Instantiate a MHZ16 serial CO2 sensor on uart 0.
-# This example was tested on the Grove CO2 sensor module.
-myCO2 = upmMhz16.MHZ16(0)
+def main():
+    # Instantiate a MHZ16 serial CO2 sensor on uart 0.
+    # This example was tested on the Grove CO2 sensor module.
+    myCO2 = upmMhz16.MHZ16(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myCO2
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myCO2
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # make sure port is initialized properly.  9600 baud is the default.
+    if (not myCO2.setupTty(upmMhz16.cvar.int_B9600)):
+        print "Failed to setup tty port parameters"
+        sys.exit(0)
 
+    print ("Make sure that the sensor has had "
+    "at least 3 minutes to warm up\n"
+    "or you will not get valid results.\n"
+    "The temperature reported is not the ambient temperature,\n"
+    "but rather the temperature of the sensor elements.")
 
-# make sure port is initialized properly.  9600 baud is the default.
-if (not myCO2.setupTty(upmMhz16.cvar.int_B9600)):
-	print "Failed to setup tty port parameters"
-	sys.exit(0)
+    time.sleep(1)
 
-print ("Make sure that the sensor has had "
-"at least 3 minutes to warm up\n"
-"or you will not get valid results.\n"
-"The temperature reported is not the ambient temperature,\n"
-"but rather the temperature of the sensor elements.")
+    while(1):
+        if (not myCO2.getData()):
+            print "Failed to retrieve data"
+        else:
+            outputStr = ("CO2 concentration: {0} PPM, "
+            "Temperature (in C): {1}".format(
+            myCO2.getGas(), myCO2.getTemperature()))
+            print outputStr
 
-time.sleep(1)
+        time.sleep(2)
 
-while(1):
-	if (not myCO2.getData()):
-		print "Failed to retrieve data"
-	else:
-		outputStr = ("CO2 concentration: {0} PPM, "
-		"Temperature (in C): {1}".format(
-		myCO2.getGas(), myCO2.getTemperature()))
-		print outputStr
-
-	time.sleep(2)
+if __name__ == '__main__':
+    main()

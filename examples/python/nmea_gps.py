@@ -24,26 +24,30 @@
 import time, sys, signal, atexit
 import pyupm_nmea_gps as sensorObj
 
-# Instantiate a NMEAGPS sensor on uart 0 at 9600 baud with enable
-# pin on D3
-sensor = sensorObj.NMEAGPS(0, 9600, 3)
+def main():
+    # Instantiate a NMEAGPS sensor on uart 0 at 9600 baud with enable
+    # pin on D3
+    sensor = sensorObj.NMEAGPS(0, 9600, 3)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# loop, dumping NMEA data out as fast as it comes in
-while (sensor.dataAvailable(5000)):
+    # loop, dumping NMEA data out as fast as it comes in
+    while (sensor.dataAvailable(5000)):
         sys.stdout.write(sensor.readStr(256))
 
-print "Timed out"
+    print "Timed out"
+
+if __name__ == '__main__':
+    main()

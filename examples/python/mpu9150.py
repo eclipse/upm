@@ -24,47 +24,51 @@
 import time, sys, signal, atexit
 import pyupm_mpu9150 as sensorObj
 
-# Instantiate an MPU9150 on I2C bus 0
-sensor = sensorObj.MPU9150()
+def main():
+    # Instantiate an MPU9150 on I2C bus 0
+    sensor = sensorObj.MPU9150()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-sensor.init()
+    sensor.init()
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-while (1):
+    while (1):
         sensor.update()
         sensor.getAccelerometer(x, y, z)
-        print "Accelerometer: AX: ", sensorObj.floatp_value(x), 
+        print "Accelerometer: AX: ", sensorObj.floatp_value(x),
         print " AY: ", sensorObj.floatp_value(y),
         print " AZ: ", sensorObj.floatp_value(z)
 
         sensor.getGyroscope(x, y, z)
-        print "Gyroscope:     GX: ", sensorObj.floatp_value(x), 
+        print "Gyroscope:     GX: ", sensorObj.floatp_value(x),
         print " GY: ", sensorObj.floatp_value(y),
         print " GZ: ", sensorObj.floatp_value(z)
 
         sensor.getMagnetometer(x, y, z)
-        print "Magnetometer:  MX: ", sensorObj.floatp_value(x), 
+        print "Magnetometer:  MX: ", sensorObj.floatp_value(x),
         print " MY: ", sensorObj.floatp_value(y),
         print " MZ: ", sensorObj.floatp_value(z)
 
         print "Temperature:  ", sensor.getTemperature()
         print
 
-	time.sleep(.5)
+        time.sleep(.5)
+
+if __name__ == '__main__':
+    main()

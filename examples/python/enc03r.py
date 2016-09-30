@@ -24,41 +24,43 @@
 import time, sys, signal, atexit
 import pyupm_enc03r as upmEnc03r
 
-# Instantiate an ENC03R on analog pin A0
-myAnalogGyro = upmEnc03r.ENC03R(0)
+def main():
+    # Instantiate an ENC03R on analog pin A0
+    myAnalogGyro = upmEnc03r.ENC03R(0)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myAnalogGyro
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myAnalogGyro
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    CALIBRATION_SAMPLES = 1000
 
+    print ("Please place the sensor in a stable location,\n"
+    "and do not move it while calibration takes place.\n"
+    "This may take a couple of minutes.")
 
-CALIBRATION_SAMPLES = 1000
+    myAnalogGyro.calibrate(CALIBRATION_SAMPLES)
+    print "Calibration complete. "
+    print "Reference value: ", myAnalogGyro.calibrationValue()
 
-print ("Please place the sensor in a stable location,\n"
-"and do not move it while calibration takes place.\n"
-"This may take a couple of minutes.")
+    while(1):
+        gyroVal = myAnalogGyro.value();
+        outputStr = ("Raw value: {0}, "
+        "angular velocity: {1}"
+        " deg/s".format(gyroVal, myAnalogGyro.angularVelocity(gyroVal)))
+        print outputStr
 
-myAnalogGyro.calibrate(CALIBRATION_SAMPLES)
-print "Calibration complete. "
-print "Reference value: ", myAnalogGyro.calibrationValue()
+        time.sleep(.1)
 
-while(1):
-	gyroVal = myAnalogGyro.value();
-	outputStr = ("Raw value: {0}, "
-	"angular velocity: {1}"
-	" deg/s".format(gyroVal, myAnalogGyro.angularVelocity(gyroVal)))
-	print outputStr
-
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

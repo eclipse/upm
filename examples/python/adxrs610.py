@@ -24,32 +24,36 @@
 import time, sys, signal, atexit
 import pyupm_adxrs610 as sensorObj
 
-# Instantiate a ADXRS610 sensor on analog pin A0 (dataout), and
-# analog A1 (temp out) with an analog reference voltage of
-# 5.0
-sensor = sensorObj.ADXRS610(0, 1, 5.0)
+def main():
+    # Instantiate a ADXRS610 sensor on analog pin A0 (dataout), and
+    # analog A1 (temp out) with an analog reference voltage of
+    # 5.0
+    sensor = sensorObj.ADXRS610(0, 1, 5.0)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# set a deadband region around the zero point to report 0.0 (optional)
-sensor.setDeadband(0.015);
+    # set a deadband region around the zero point to report 0.0 (optional)
+    sensor.setDeadband(0.015);
 
-# Every tenth of a second, sample the ADXRS610 and output it's
-# corresponding temperature and angular velocity 
+    # Every tenth of a second, sample the ADXRS610 and output it's
+    # corresponding temperature and angular velocity
 
-while (1):
+    while (1):
         print "Vel (deg/s):", sensor.getAngularVelocity()
         print "Temp (C):", sensor.getTemperature()
-	time.sleep(.1)
+        time.sleep(.1)
+
+if __name__ == '__main__':
+    main()

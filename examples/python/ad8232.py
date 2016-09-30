@@ -24,31 +24,33 @@
 import time, sys, signal, atexit
 import pyupm_ad8232 as upmAD8232
 
-# Instantiate a AD8232 sensor on digital pins 10 (LO+), 11 (LO-)
-# and an analog pin, 0 (OUTPUT)
-myAD8232 = upmAD8232.AD8232(10, 11, 0)
+def main():
+    # Instantiate a AD8232 sensor on digital pins 10 (LO+), 11 (LO-)
+    # and an analog pin, 0 (OUTPUT)
+    myAD8232 = upmAD8232.AD8232(10, 11, 0)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myAD8232
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myAD8232
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Output the raw numbers from the ADC, for plotting elsewhere.
+    # A return of 0 indicates a Lead Off (LO) condition.
+    # In theory, this data could be fed to software like Processing
+    # (https://www.processing.org/) to plot the data just like an
+    # EKG you would see in a hospital.
+    while(1):
+        print myAD8232.value()
+        time.sleep(.001)
 
-
-# Output the raw numbers from the ADC, for plotting elsewhere.
-# A return of 0 indicates a Lead Off (LO) condition.
-# In theory, this data could be fed to software like Processing 
-# (https://www.processing.org/) to plot the data just like an 
-# EKG you would see in a hospital.
-while(1):
-	print myAD8232.value()
-	time.sleep(.001)
+if __name__ == '__main__':
+    main()

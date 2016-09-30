@@ -24,76 +24,80 @@
 import time, sys, signal, atexit
 import pyupm_ozw as sensorObj
 
-# Instantiate an OZW instance
-sensor = sensorObj.OZWDUMP()
+def main():
+    # Instantiate an OZW instance
+    sensor = sensorObj.OZWDUMP()
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
 
-defaultDev = "/dev/ttyACM0"
-if (len(sys.argv) > 1):
+    defaultDev = "/dev/ttyACM0"
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-# The first thing to do is create options, then lock them when done.
-sensor.optionsCreate()
-sensor.optionsLock()
+    # The first thing to do is create options, then lock them when done.
+    sensor.optionsCreate()
+    sensor.optionsLock()
 
-# Next, initialize it.
-print "Initializing, this may take awhile depending on your ZWave network"
+    # Next, initialize it.
+    print "Initializing, this may take awhile depending on your ZWave network"
 
-sensor.init(defaultDev)
+    sensor.init(defaultDev)
 
-print "Initialization complete"
+    print "Initialization complete"
 
-print "Dumping nodes..."
+    print "Dumping nodes..."
 
-sensor.dumpNodes(True)
+    sensor.dumpNodes(True)
 
-# The following is example output of dumpNodes:
-#
-# Dumping nodes...
-# Node 1: Z-Stick Gen5
-# Node 2: Smart Switch 6
-#    Index:  0, Type: bool, Label: Switch, Value: False
-#    Index:  2, Type: float, Label: Energy, Value: 1.190 kWh
-#    Index:  3, Type: float, Label: Previous Reading, Value: 1.190 kWh
-#    Index:  4, Type: int32, Label: Interval, Value: 1521 seconds
-#    Index:  5, Type: float, Label: Power, Value: 0.000 W
-#    Index:  6, Type: float, Label: Voltage, Value: 121.256 V
-#    Index:  7, Type: float, Label: Current, Value: 0.000 A
-#    Index:  8, Type: bool, Label: Exporting, Value: False
-#    Index: 45, Type: list, Label: Day, Value: Friday
-#    Index: 46, Type: byte, Label: Hour, Value: 5
-#    Index: 47, Type: byte, Label: Minute, Value: 53
-# Node 3: Multi Sensor
-#    Index:  0, Type: bool, Label: Sensor, Value: True
-#    Index:  1, Type: float, Label: Temperature, Value: 72.8 F
-#    Index:  2, Type: float, Label: Luminance, Value: 4 lux
-#    Index:  3, Type: float, Label: Relative Humidity, Value: 22 %
-#    Index: 17, Type: byte, Label: Battery Level, Value: 98 %
-# Node 5: Minimote
-# Node 6: Smart Energy Switch
-#    Index:  0, Type: bool, Label: Switch, Value: False
-#    Index:  2, Type: float, Label: Power, Value: 0.000 W
-#    Index:  3, Type: float, Label: Energy, Value: 1.609 kWh
-#    Index:  4, Type: float, Label: Previous Reading, Value: 1.609 kWh
-#    Index:  5, Type: int32, Label: Interval, Value: 1521 seconds
-#    Index:  6, Type: float, Label: Power, Value: 0.000 W
-#    Index:  7, Type: float, Label: Previous Reading, Value: 1.609 W
-#    Index:  8, Type: int32, Label: Interval, Value: 1521 seconds
-#    Index:  9, Type: bool, Label: Exporting, Value: False
-# Node 7: Smart Energy Switch
-#    Index:  0, Type: bool, Label: Switch, Value: False
-#    Index:  2, Type: float, Label: Power, Value: 0.000 W
-#    Index:  3, Type: float, Label: Energy, Value: 0.000 kWh
-#    Index:  4, Type: float, Label: Previous Reading, Value: 0.000 kWh
-#    Index:  5, Type: int32, Label: Interval, Value: 1521 seconds
-#    Index:  6, Type: float, Label: Power, Value: 0.000 W
-#    Index:  7, Type: float, Label: Previous Reading, Value: 0.000 W
-#    Index:  8, Type: int32, Label: Interval, Value: 1521 seconds
-#    Index:  9, Type: bool, Label: Exporting, Value: False
+    # The following is example output of dumpNodes:
+    #
+    # Dumping nodes...
+    # Node 1: Z-Stick Gen5
+    # Node 2: Smart Switch 6
+    #    Index:  0, Type: bool, Label: Switch, Value: False
+    #    Index:  2, Type: float, Label: Energy, Value: 1.190 kWh
+    #    Index:  3, Type: float, Label: Previous Reading, Value: 1.190 kWh
+    #    Index:  4, Type: int32, Label: Interval, Value: 1521 seconds
+    #    Index:  5, Type: float, Label: Power, Value: 0.000 W
+    #    Index:  6, Type: float, Label: Voltage, Value: 121.256 V
+    #    Index:  7, Type: float, Label: Current, Value: 0.000 A
+    #    Index:  8, Type: bool, Label: Exporting, Value: False
+    #    Index: 45, Type: list, Label: Day, Value: Friday
+    #    Index: 46, Type: byte, Label: Hour, Value: 5
+    #    Index: 47, Type: byte, Label: Minute, Value: 53
+    # Node 3: Multi Sensor
+    #    Index:  0, Type: bool, Label: Sensor, Value: True
+    #    Index:  1, Type: float, Label: Temperature, Value: 72.8 F
+    #    Index:  2, Type: float, Label: Luminance, Value: 4 lux
+    #    Index:  3, Type: float, Label: Relative Humidity, Value: 22 %
+    #    Index: 17, Type: byte, Label: Battery Level, Value: 98 %
+    # Node 5: Minimote
+    # Node 6: Smart Energy Switch
+    #    Index:  0, Type: bool, Label: Switch, Value: False
+    #    Index:  2, Type: float, Label: Power, Value: 0.000 W
+    #    Index:  3, Type: float, Label: Energy, Value: 1.609 kWh
+    #    Index:  4, Type: float, Label: Previous Reading, Value: 1.609 kWh
+    #    Index:  5, Type: int32, Label: Interval, Value: 1521 seconds
+    #    Index:  6, Type: float, Label: Power, Value: 0.000 W
+    #    Index:  7, Type: float, Label: Previous Reading, Value: 1.609 W
+    #    Index:  8, Type: int32, Label: Interval, Value: 1521 seconds
+    #    Index:  9, Type: bool, Label: Exporting, Value: False
+    # Node 7: Smart Energy Switch
+    #    Index:  0, Type: bool, Label: Switch, Value: False
+    #    Index:  2, Type: float, Label: Power, Value: 0.000 W
+    #    Index:  3, Type: float, Label: Energy, Value: 0.000 kWh
+    #    Index:  4, Type: float, Label: Previous Reading, Value: 0.000 kWh
+    #    Index:  5, Type: int32, Label: Interval, Value: 1521 seconds
+    #    Index:  6, Type: float, Label: Power, Value: 0.000 W
+    #    Index:  7, Type: float, Label: Previous Reading, Value: 0.000 W
+    #    Index:  8, Type: int32, Label: Interval, Value: 1521 seconds
+    #    Index:  9, Type: bool, Label: Exporting, Value: False
+
+if __name__ == '__main__':
+    main()

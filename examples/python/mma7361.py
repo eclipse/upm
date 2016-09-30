@@ -24,35 +24,36 @@
 import time, sys, signal, atexit
 import pyupm_mma7361 as sensorObj
 
-# Instantiate a MMA7361 sensor on analog pins A0 (X), A1 (Y) A2
-# (Z), selftest pin on D2, sleep pin on D3 nd an analog reference
-# value of 5.0.  The freefall pin and the range pin are unused
-# (-1).
-sensor = sensorObj.MMA7361(0, 1, 2, 2, 3, -1, -1, 5.0)
+def main():
+    # Instantiate a MMA7361 sensor on analog pins A0 (X), A1 (Y) A2
+    # (Z), selftest pin on D2, sleep pin on D3 nd an analog reference
+    # value of 5.0.  The freefall pin and the range pin are unused
+    # (-1).
+    sensor = sensorObj.MMA7361(0, 1, 2, 2, 3, -1, -1, 5.0)
 
-# 1.5g (true = 6g)
-sensor.setRange(False)
+    # 1.5g (true = 6g)
+    sensor.setRange(False)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-# Every 10th of a second, update and print values
-while (1):
+    # Every 10th of a second, update and print values
+    while (1):
         sensor.update()
 
         sensor.getAcceleration(x, y, z)
@@ -66,4 +67,7 @@ while (1):
         print " z:", sensorObj.floatp_value(z)
 
         print
-	time.sleep(.100)
+        time.sleep(.100)
+
+if __name__ == '__main__':
+    main()

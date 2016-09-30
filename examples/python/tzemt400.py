@@ -24,37 +24,38 @@
 import time, sys, signal, atexit
 import pyupm_ozw as sensorObj
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+def main():
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
 
-defaultDev = "/dev/ttyACM0"
-if (len(sys.argv) > 1):
+    defaultDev = "/dev/ttyACM0"
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
-print "Using device", defaultDev
+    print "Using device", defaultDev
 
-# Instantiate a TZEMT400 instance, on device node 13.  You will
-# almost certainly need to change this to reflect your own network.
-# Use the ozwdump example to see what nodes are available.
-sensor = sensorObj.TZEMT400(13)
+    # Instantiate a TZEMT400 instance, on device node 13.  You will
+    # almost certainly need to change this to reflect your own network.
+    # Use the ozwdump example to see what nodes are available.
+    sensor = sensorObj.TZEMT400(13)
 
-# The first thing to do is create options, then lock them when done.
-sensor.optionsCreate()
-sensor.optionsLock()
+    # The first thing to do is create options, then lock them when done.
+    sensor.optionsCreate()
+    sensor.optionsLock()
 
-# Next, initialize it.
-print "Initializing, this may take awhile depending on your ZWave network"
+    # Next, initialize it.
+    print "Initializing, this may take awhile depending on your ZWave network"
 
-sensor.init(defaultDev)
-print "Initialization complete"
+    sensor.init(defaultDev)
+    print "Initialization complete"
 
-print "Querying data..."
+    print "Querying data..."
 
-while (True):
+    while (True):
         sensor.update()
 
         print "Temperature:", sensor.getTemperature(), "C /",
@@ -80,3 +81,6 @@ while (True):
 
         print
         time.sleep(5)
+
+if __name__ == '__main__':
+    main()

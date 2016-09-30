@@ -24,28 +24,32 @@
 import sys, signal, atexit
 import pyupm_nlgpio16 as sensorObj
 
-# Instantiate a NLGPIO16 Module on the default UART (/dev/ttyACM0)
-sensor = sensorObj.NLGPIO16()
+def main():
+    # Instantiate a NLGPIO16 Module on the default UART (/dev/ttyACM0)
+    sensor = sensorObj.NLGPIO16()
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# get the Version
-print "Device Version:", sensor.getVersion()
-# read the gpio at pin 3
-print "GPIO 3 Value:", sensor.gpioRead(3)
-# read the analog voltage at pin 5
-print "Analog 5 Voltage:", sensor.analogReadVolts(5)
-# set the gpio at pin 14 to HIGH
-sensor.gpioSet(14)
+    # get the Version
+    print "Device Version:", sensor.getVersion()
+    # read the gpio at pin 3
+    print "GPIO 3 Value:", sensor.gpioRead(3)
+    # read the analog voltage at pin 5
+    print "Analog 5 Voltage:", sensor.analogReadVolts(5)
+    # set the gpio at pin 14 to HIGH
+    sensor.gpioSet(14)
+
+if __name__ == '__main__':
+    main()

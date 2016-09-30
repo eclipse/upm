@@ -24,28 +24,29 @@
 import time, sys, signal, atexit
 import pyupm_bmi160 as sensorObj
 
-# Instantiate a BMI160 instance using default i2c bus and address
-sensor = sensorObj.BMI160()
+def main():
+    # Instantiate a BMI160 instance using default i2c bus and address
+    sensor = sensorObj.BMI160()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-while (1):
+    while (1):
         sensor.update()
         sensor.getAccelerometer(x, y, z)
         print "Accelerometer: AX: ", sensorObj.floatp_value(x),
@@ -63,4 +64,7 @@ while (1):
         print " MZ: ", sensorObj.floatp_value(z)
 
         print
-	time.sleep(.5)
+        time.sleep(.5)
+
+if __name__ == '__main__':
+    main()

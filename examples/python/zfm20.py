@@ -24,67 +24,69 @@
 import time, sys, signal, atexit
 import pyupm_zfm20 as upmZfm20
 
-# Instantiate a ZFM20 Fingerprint reader on UART 0
-myFingerprintSensor = upmZfm20.ZFM20(0)
+def main():
+    # Instantiate a ZFM20 Fingerprint reader on UART 0
+    myFingerprintSensor = upmZfm20.ZFM20(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myFingerprintSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myFingerprintSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # make sure port is initialized properly.  57600 baud is the default.
+    if (not myFingerprintSensor.setupTty(upmZfm20.cvar.int_B57600)):
+        print "Failed to setup tty port parameters"
+        sys.exit(1)
 
+    # how many valid stored templates (fingerprints) do we have?
+    print "Total stored templates: %d" % myFingerprintSensor.getNumTemplates()
+    print " "
 
-# make sure port is initialized properly.  57600 baud is the default.
-if (not myFingerprintSensor.setupTty(upmZfm20.cvar.int_B57600)):
-	print "Failed to setup tty port parameters"
-	sys.exit(1)
+    # now spin waiting for a fingerprint to successfully image
+    print "Waiting for finger print..."
 
-# how many valid stored templates (fingerprints) do we have?
-print "Total stored templates: %d" % myFingerprintSensor.getNumTemplates()
-print " "
+    while (myFingerprintSensor.generateImage() == upmZfm20.ZFM20.ERR_NO_FINGER):
+        pass
 
-# now spin waiting for a fingerprint to successfully image
-print "Waiting for finger print..."
+    # in theory, we have an image
+    print "Image captured, converting..."
 
-while (myFingerprintSensor.generateImage() == upmZfm20.ZFM20.ERR_NO_FINGER):
-	pass
+    rv = myFingerprintSensor.image2Tz(1)
+    if (rv != upmZfm20.ZFM20.ERR_OK):
+        print "Image conversion failed with error code %d" % rv
+        sys.exit(1)
 
-# in theory, we have an image
-print "Image captured, converting..."
+    print "Image conversion succeeded."
+    print "Searching database..."
 
-rv = myFingerprintSensor.image2Tz(1)
-if (rv != upmZfm20.ZFM20.ERR_OK):
-	print "Image conversion failed with error code %d" % rv
-	sys.exit(1)
+    myid = upmZfm20.uint16Array(0)
+    myid.__setitem__(0, 0)
+    myscore = upmZfm20.uint16Array(0)
+    myscore.__setitem__(0, 0)
 
-print "Image conversion succeeded."
-print "Searching database..."
+    # we search for a print matching slot 1, where we stored our last
+    # converted fingerprint
+    rv = myFingerprintSensor.search(1, myid, myscore)
+    if (rv != upmZfm20.ZFM20.ERR_OK):
+        if (rv == upmZfm20.ZFM20.ERR_FP_NOTFOUND):
+            print "Finger Print not found"
+            sys.exit(0)
+        else:
+            print "Search failed with error code %d" % rv
+            sys.exit(1)
 
-myid = upmZfm20.uint16Array(0)
-myid.__setitem__(0, 0)
-myscore = upmZfm20.uint16Array(0)
-myscore.__setitem__(0, 0)
+    print "Fingerprint found!"
+    print "ID: %d, Score: %d" % (myid.__getitem__(0), myscore.__getitem__(0))
 
-# we search for a print matching slot 1, where we stored our last
-# converted fingerprint
-rv = myFingerprintSensor.search(1, myid, myscore)
-if (rv != upmZfm20.ZFM20.ERR_OK):
-	if (rv == upmZfm20.ZFM20.ERR_FP_NOTFOUND):
-		print "Finger Print not found"
-		sys.exit(0)
-	else:
-		print "Search failed with error code %d" % rv
-		sys.exit(1)
-
-print "Fingerprint found!"
-print "ID: %d, Score: %d" % (myid.__getitem__(0), myscore.__getitem__(0))
+if __name__ == '__main__':
+    main()

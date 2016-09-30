@@ -23,22 +23,25 @@
 from time import sleep
 import pyupm_hmc5883l as hmc5883l
 
-# Create an I2C compass object and set declination
-hmc = hmc5883l.Hmc5883l(0)
-hmc.set_declination(0.2749)
+def main():
+    # Create an I2C compass object and set declination
+    hmc = hmc5883l.Hmc5883l(0)
+    hmc.set_declination(0.2749)
 
-# Loop indefinitely
-while True:
+    # Loop indefinitely
+    while True:
+        hmc.update() # Update the data
+        pos = hmc.coordinates() # Read raw coordinates
+        hdg = hmc.heading() # Read heading
+        dir = hmc.direction() # Read direction
 
-    hmc.update() # Update the data
-    pos = hmc.coordinates() # Read raw coordinates
-    hdg = hmc.heading() # Read heading
-    dir = hmc.direction() # Read direction
+        # Print values
+        print "Coor: %5d %5d %5d" % (pos[0], pos[1], pos[2])
+        print "Heading: %5.2f" % (hdg)
+        print "Direction: %3.2f\n" % (dir)
 
-    # Print values
-    print "Coor: %5d %5d %5d" % (pos[0], pos[1], pos[2])
-    print "Heading: %5.2f" % (hdg)
-    print "Direction: %3.2f\n" % (dir)
+        # Sleep for 1 s
+        sleep(1)
 
-    # Sleep for 1 s
-    sleep(1)
+if __name__ == '__main__':
+    main()

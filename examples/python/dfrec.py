@@ -24,28 +24,29 @@
 import time, sys, signal, atexit
 import pyupm_dfrec as sensorObj
 
-# Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
-# temperature sensor connected to UART 0, and a device index (for
-# the ds1820b uart bus) of 0, and an analog reference voltage of
-# 5.0.
-sensor = sensorObj.DFREC(0, 0, 0, 5.0)
+def main():
+    # Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
+    # temperature sensor connected to UART 0, and a device index (for
+    # the ds1820b uart bus) of 0, and an analog reference voltage of
+    # 5.0.
+    sensor = sensorObj.DFREC(0, 0, 0, 5.0)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every 2 seconds, update and print values
-while (True):
+    # Every 2 seconds, update and print values
+    while (True):
         sensor.update()
 
         print "EC =", sensor.getEC(), "ms/cm"
@@ -53,4 +54,7 @@ while (True):
         print ", Temperature = ", sensor.getTemperature(), "C"
         print
 
-	time.sleep(2)
+        time.sleep(2)
+
+if __name__ == '__main__':
+    main()

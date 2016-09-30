@@ -25,37 +25,41 @@
 import sys
 import pyupm_scam as upmscam
 
-# Instantiate a Serial Camera on UART 0
-camera = upmscam.SCAM(0)
+def main():
+    # Instantiate a Serial Camera on UART 0
+    camera = upmscam.SCAM(0)
 
-# make sure port is initialized properly. 115200 baud is the default.
-if (not camera.setupTty()):
-	print "Failed to setup tty port parameters"
-	sys.exit(1)
+    # make sure port is initialized properly. 115200 baud is the default.
+    if (not camera.setupTty()):
+        print "Failed to setup tty port parameters"
+        sys.exit(1)
 
-if (camera.init()):
+    if (camera.init()):
         print "Initialized..."
-else:
+    else:
         print "init() failed"
 
-if (camera.preCapture()):
+    if (camera.preCapture()):
         print "preCapture succeeded..."
-else:
+    else:
         print "preCapture failed."
 
-if (camera.doCapture()):
+    if (camera.doCapture()):
         print "doCapture succeeded..."
-else:
+    else:
         print "doCapture failed."
 
-print "Image size is", camera.getImageSize(), "bytes"
+    print "Image size is", camera.getImageSize(), "bytes"
 
-if (camera.getImageSize() > 0):
+    if (camera.getImageSize() > 0):
         print "Storing image.jpg..."
         if (camera.storeImage("image.jpg")):
-                print "storeImage succeeded..."
+            print "storeImage succeeded..."
         else:
-                print "storeImage failed."
+            print "storeImage failed."
 
-print "Exiting."
-sys.exit(0)
+    print "Exiting."
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()

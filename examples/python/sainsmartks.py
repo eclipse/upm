@@ -24,31 +24,34 @@
 import time, sys, signal, atexit
 import pyupm_i2clcd as sainsmartObj
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit,
-# including functions from ringCoder
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit,
+    # including functions from ringCoder
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Instantiate a Sainsmart LCD Keypad Shield using default pins
-lcd = sainsmartObj.SAINSMARTKS()
+    # Instantiate a Sainsmart LCD Keypad Shield using default pins
+    lcd = sainsmartObj.SAINSMARTKS()
 
-lcd.setCursor(0,0)
-lcd.write("Sainsmart KS")
-lcd.setCursor(1,2)
-lcd.write("Hello World")
+    lcd.setCursor(0,0)
+    lcd.write("Sainsmart KS")
+    lcd.setCursor(1,2)
+    lcd.write("Hello World")
 
-# output current key value every second.
-while(1):
-    print "Button value: ", lcd.getRawKeyValue()
-    time.sleep(1)
+    # output current key value every second.
+    while(1):
+        print "Button value: ", lcd.getRawKeyValue()
+        time.sleep(1)
 
+if __name__ == '__main__':
+    main()

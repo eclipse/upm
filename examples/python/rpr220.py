@@ -24,33 +24,35 @@
 import time, sys, signal, atexit
 import pyupm_rpr220 as upmRpr220
 
-# This example uses a simple method to determine current status
+def main():
+    # This example uses a simple method to determine current status
 
-# Instantiate an RPR220 digital pin D2
-# This was tested on the Grove IR Reflective Sensor
-myReflectiveSensor = upmRpr220.RPR220(2)
+    # Instantiate an RPR220 digital pin D2
+    # This was tested on the Grove IR Reflective Sensor
+    myReflectiveSensor = upmRpr220.RPR220(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myReflectiveSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myReflectiveSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        if (myReflectiveSensor.blackDetected()):
+            print "Black detected"
+        else:
+            print "Black NOT detected"
 
+        time.sleep(.1)
 
-while(1):
-	if (myReflectiveSensor.blackDetected()):
-		print "Black detected"
-	else:
-		print "Black NOT detected"
-
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

@@ -24,34 +24,38 @@
 import time, sys, signal, atexit
 import pyupm_ds2413 as sensorObj
 
-# Instantiate a DS2413 Module on a Dallas 1-wire bus connected to UART 0
-sensor = sensorObj.DS2413(0)
+def main():
+    # Instantiate a DS2413 Module on a Dallas 1-wire bus connected to UART 0
+    sensor = sensorObj.DS2413(0)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# find all of the DS2413 devices present on the bus
-sensor.init();
+    # find all of the DS2413 devices present on the bus
+    sensor.init();
 
-# how many devices were found?
-print "Found", sensor.devicesFound(), "device(s)"
+    # how many devices were found?
+    print "Found", sensor.devicesFound(), "device(s)"
 
-# read the gpio and latch values from the first device
-# the lower 4 bits are of the form:
-# <gpioB latch> <gpioB value> <gpioA latch> <gpioA value>
-print "GPIO device 0 values:", sensor.readGpios(0)
+    # read the gpio and latch values from the first device
+    # the lower 4 bits are of the form:
+    # <gpioB latch> <gpioB value> <gpioA latch> <gpioA value>
+    print "GPIO device 0 values:", sensor.readGpios(0)
 
-# set the gpio latch values of the first device
-print "Setting GPIO latches to on"
-sensor.writeGpios(0, 0x03);
+    # set the gpio latch values of the first device
+    print "Setting GPIO latches to on"
+    sensor.writeGpios(0, 0x03);
+
+if __name__ == '__main__':
+    main()

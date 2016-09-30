@@ -24,27 +24,28 @@
 import time, sys, signal, atexit
 import pyupm_bmp280 as sensorObj
 
-# Instantiate a BME280 instance using default i2c bus and address
-sensor = sensorObj.BME280()
+def main():
+    # Instantiate a BME280 instance using default i2c bus and address
+    sensor = sensorObj.BME280()
 
-# For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-# BME280(0, -1, 10);
+    # For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+    # BME280(0, -1, 10);
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-while (1):
+    while (1):
         sensor.update()
 
         print "Compensation Temperature:", sensor.getTemperature(), "C /",
@@ -57,4 +58,7 @@ while (1):
         print "Humidity:", sensor.getHumidity(), "%RH"
 
         print
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

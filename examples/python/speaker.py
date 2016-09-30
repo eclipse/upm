@@ -24,11 +24,15 @@
 import time, sys, signal, atexit
 import pyupm_speaker as upmspeaker
 
-# Instantiate a Speaker on digital pin D2
-mySpeaker = upmspeaker.Speaker(2)
+def main():
+    # Instantiate a Speaker on digital pin D2
+    mySpeaker = upmspeaker.Speaker(2)
 
-# Play all 7 of the lowest notes
-mySpeaker.playAll()
+    # Play all 7 of the lowest notes
+    mySpeaker.playAll()
 
-# Play a medium C-sharp
-mySpeaker.playSound('c', True, "med")
+    # Play a medium C-sharp
+    mySpeaker.playSound('c', True, "med")
+
+if __name__ == '__main__':
+    main()

@@ -24,45 +24,49 @@
 import time, sys, signal, atexit
 import pyupm_dfrorp as sensorObj
 
-# Instantiate a DFRobot ORP sensor on analog pin A0 with an analog
-# reference voltage of 5.0.
-sensor = sensorObj.DFRORP(0, 5.0)
+def main():
+    # Instantiate a DFRobot ORP sensor on analog pin A0 with an analog
+    # reference voltage of 5.0.
+    sensor = sensorObj.DFRORP(0, 5.0)
 
-# To calibrate:
-#
-# Disconnect the sensor probe (but leave the sensor interface board
-# connected).  Then run one of the examples while holding down the
-# 'calibrate' button on the device.  Read the ORP value reported
-# (it should be fairly small).
-#
-# This value is what you should supply to setCalibrationOffset().
-# Then reconnect the probe to the interface board and you should be
-# ready to go.
-#
-# DO NOT press the calibrate button on the interface board while
-# the probe is attached or you can permanently damage the probe.
-sensor.setCalibrationOffset(0.97);
+    # To calibrate:
+    #
+    # Disconnect the sensor probe (but leave the sensor interface board
+    # connected).  Then run one of the examples while holding down the
+    # 'calibrate' button on the device.  Read the ORP value reported
+    # (it should be fairly small).
+    #
+    # This value is what you should supply to setCalibrationOffset().
+    # Then reconnect the probe to the interface board and you should be
+    # ready to go.
+    #
+    # DO NOT press the calibrate button on the interface board while
+    # the probe is attached or you can permanently damage the probe.
+    sensor.setCalibrationOffset(0.97);
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every second, update and print values
-while (True):
+    # Every second, update and print values
+    while (True):
         sensor.update()
 
         print "ORP:", sensor.getORP(), "mV"
 
         print
 
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

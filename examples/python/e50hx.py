@@ -24,57 +24,58 @@
 import time, sys, signal, atexit
 import pyupm_e50hx as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# You will need to edit this example to conform to your site and your
-# devices, specifically the Device Object Instance ID passed to the
-# constructor, and the arguments to initMaster() that are
-# appropriate for your BACnet network.
+    # You will need to edit this example to conform to your site and your
+    # devices, specifically the Device Object Instance ID passed to the
+    # constructor, and the arguments to initMaster() that are
+    # appropriate for your BACnet network.
 
-defaultDev = "/dev/ttyUSB0"
+    defaultDev = "/dev/ttyUSB0"
 
-# if an argument was specified, use it as the device instead
-if (len(sys.argv) > 1):
+    # if an argument was specified, use it as the device instead
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-print "Using device", defaultDev
-print "Initializing..."
+    print "Using device", defaultDev
+    print "Initializing..."
 
-# Instantiate an E50HX object for an E50HX device that has 1075425
-# as it's unique Device Object Instance ID.  NOTE: You will
-# certainly want to change this to the correct value for your
-# device(s).
-sensor = sensorObj.E50HX(1075425)
+    # Instantiate an E50HX object for an E50HX device that has 1075425
+    # as it's unique Device Object Instance ID.  NOTE: You will
+    # certainly want to change this to the correct value for your
+    # device(s).
+    sensor = sensorObj.E50HX(1075425)
 
-# Initialize our BACnet master, if it has not already been
-# initialized, with the device and baudrate, choosing 1000001 as
-# our unique Device Object Instance ID, 2 as our MAC address and
-# using default values for maxMaster and maxInfoFrames
-sensor.initMaster(defaultDev, 38400, 1000001, 2)
+    # Initialize our BACnet master, if it has not already been
+    # initialized, with the device and baudrate, choosing 1000001 as
+    # our unique Device Object Instance ID, 2 as our MAC address and
+    # using default values for maxMaster and maxInfoFrames
+    sensor.initMaster(defaultDev, 38400, 1000001, 2)
 
-# Uncomment to enable debugging output
-# sensor.setDebug(True);
+    # Uncomment to enable debugging output
+    # sensor.setDebug(True);
 
-# output the serial number and firmware revision
-print
-print "Device Description:", sensor.getDeviceDescription()
-print "Device Location:", sensor.getDeviceLocation()
-print
+    # output the serial number and firmware revision
+    print
+    print "Device Description:", sensor.getDeviceDescription()
+    print "Device Location:", sensor.getDeviceLocation()
+    print
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         print "System Voltage:",
         print sensor.getAnalogValue(sensorObj.E50HX.AV_System_Voltage),
         print " ",
@@ -92,4 +93,7 @@ while (1):
         print sensor.getAnalogInput(sensorObj.E50HX.AI_Power_Up_Count)
 
         print
-	time.sleep(5)
+        time.sleep(5)
+
+if __name__ == '__main__':
+    main()

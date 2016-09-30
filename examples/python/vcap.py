@@ -24,44 +24,47 @@
 import time, sys, signal, atexit
 import pyupm_vcap as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-defaultDev = "/dev/video0"
+    defaultDev = "/dev/video0"
 
-# if an argument was specified, use it as the device instead
-if (len(sys.argv) > 1):
+    # if an argument was specified, use it as the device instead
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-print "Using device", defaultDev
-print "Initializing..."
+    print "Using device", defaultDev
+    print "Initializing..."
 
-# Instantiate an VCAP instance, using the specified video device
-sensor = sensorObj.VCAP(defaultDev)
+    # Instantiate an VCAP instance, using the specified video device
+    sensor = sensorObj.VCAP(defaultDev)
 
-# enable some debug/verbose output
-sensor.setDebug(True);
+    # enable some debug/verbose output
+    sensor.setDebug(True);
 
-# This is just a hint.  The kernel can change this to a lower
-# resolution that the hardware supports.  Use getWidth() and
-# getHeight() methods to see what the kernel actually chose if you
-# care.
-sensor.setResolution(1920, 1080);
+    # This is just a hint.  The kernel can change this to a lower
+    # resolution that the hardware supports.  Use getWidth() and
+    # getHeight() methods to see what the kernel actually chose if you
+    # care.
+    sensor.setResolution(1920, 1080);
 
-# capture an image
-sensor.captureImage();
+    # capture an image
+    sensor.captureImage();
 
-# convert and save it as a jpeg
-sensor.saveImage("video-img1.jpg");
+    # convert and save it as a jpeg
+    sensor.saveImage("video-img1.jpg");
 
+if __name__ == '__main__':
+    main()

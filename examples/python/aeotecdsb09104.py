@@ -24,65 +24,50 @@
 import time, sys, signal, atexit
 import pyupm_ozw as sensorObj
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+def main():
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
 
-defaultDev = "/dev/ttyACM0"
-if (len(sys.argv) > 1):
+    defaultDev = "/dev/ttyACM0"
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
-print "Using device", defaultDev
+    print "Using device", defaultDev
 
-# Instantiate an Aeotec DSB09104 instance, on device node 12.  You
-# will almost certainly need to change this to reflect your own
-# network.  Use the ozwdump example to see what nodes are available.
-sensor = sensorObj.AeotecDSB09104(12)
+    # Instantiate an Aeotec DSB09104 instance, on device node 12.  You
+    # will almost certainly need to change this to reflect your own
+    # network.  Use the ozwdump example to see what nodes are available.
+    sensor = sensorObj.AeotecDSB09104(12)
 
-# The first thing to do is create options, then lock them when done.
-sensor.optionsCreate()
-sensor.optionsLock()
+    # The first thing to do is create options, then lock them when done.
+    sensor.optionsCreate()
+    sensor.optionsLock()
 
-# Next, initialize it.
-print "Initializing, this may take awhile depending on your ZWave network"
+    # Next, initialize it.
+    print "Initializing, this may take awhile depending on your ZWave network"
 
-sensor.init(defaultDev)
-print "Initialization complete"
+    sensor.init(defaultDev)
+    print "Initialization complete"
 
-print "Querying data..."
+    print "Querying data..."
 
-while (True):
+    while (True):
         sensor.update()
 
-        print "Watts, Channel 1:",
-        print sensor.getWattsC1(),
-        print "W"
+        print "Watts, Channel 1: %0.03f W" % sensor.getWattsC1()
+        print "Watts, Channel 2: %0.03f W" % sensor.getWattsC2()
+        print "Watts, Channel 3: %0.03f W" % sensor.getWattsC3()
 
-        print "Watts, Channel 2:",
-        print sensor.getWattsC2(),
-        print "W"
+        print "Energy, Channel 1: %0.03f kWh" % sensor.getEnergyC1()
+        print "Energy, Channel 2: %0.03f kWh" % sensor.getEnergyC2()
+        print "Energy, Channel 3: %0.03f kWh" % sensor.getEnergyC3()
 
-        print "Watts, Channel 3:",
-        print sensor.getWattsC3(),
-        print "W"
-
-        print "Energy, Channel 1:",
-        print sensor.getEnergyC1(),
-        print "kWh"
-
-        print "Energy, Channel 2:",
-        print sensor.getEnergyC2(),
-        print "kWh"
-
-        print "Energy, Channel 3:",
-        print sensor.getEnergyC3(),
-        print "kWh"
-
-        print "Battery Level:",
-        print sensor.getBatteryLevel(),
-        print "%"
-        print
+        print "Battery Level: %d\n" % sensor.getBatteryLevel()
         time.sleep(3)
+
+if __name__ == '__main__':
+    main()

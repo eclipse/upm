@@ -24,27 +24,31 @@
 import time, sys, signal, atexit
 import pyupm_loudness as sensorObj
 
-# Instantiate a Loudness sensor on analog pin A0, with an analog
-# reference voltage of 5.0
-sensor = sensorObj.Loudness(0, 5.0)
+def main():
+    # Instantiate a Loudness sensor on analog pin A0, with an analog
+    # reference voltage of 5.0
+    sensor = sensorObj.Loudness(0, 5.0)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every tenth of a second, sample the loudness and output it's
-# corresponding analog voltage. 
+    # Every tenth of a second, sample the loudness and output it's
+    # corresponding analog voltage.
 
-while (1):
+    while (1):
         print "Detected loudness (volts): ", sensor.loudness()
-	time.sleep(.1)
+        time.sleep(.1)
+
+if __name__ == '__main__':
+    main()

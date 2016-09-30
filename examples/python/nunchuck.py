@@ -24,50 +24,52 @@
 import time, sys, signal, atexit
 import pyupm_nunchuck as upmNunchuck
 
-# Instantiate a nunchuck controller bus 0 on I2C
-myNunchuck = upmNunchuck.NUNCHUCK(0)
+def main():
+    # Instantiate a nunchuck controller bus 0 on I2C
+    myNunchuck = upmNunchuck.NUNCHUCK(0)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myNunchuck
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myNunchuck
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # always do this first
+    print "Initializing... "
+    if (not myNunchuck.init()):
+        print "nunchuck->init() failed."
+        sys.exit(0);
 
+    def buttonStateStr(buttonState):
+        return "pressed" if buttonState else "not pressed"
 
-# always do this first
-print "Initializing... "
-if (not myNunchuck.init()):
-	print "nunchuck->init() failed."
-	sys.exit(0);
+    # Print the X and Y input values every second
+    while(1):
+        myNunchuck.update()
 
-def buttonStateStr(buttonState):
-	return "pressed" if buttonState else "not pressed"
+        outputStr = "stickX: {0}, stickY: {1}".format(
+        myNunchuck.stickX, myNunchuck.stickY)
+        print outputStr
+        outputStr = "accelX: {0}, accelY: {1}, accelZ: {2}".format(
+        myNunchuck.accelX, myNunchuck.accelY, myNunchuck.accelZ)
+        print outputStr
 
-# Print the X and Y input values every second
-while(1):
-	myNunchuck.update()
+        outputStr = "button C: {0}".format(
+        buttonStateStr(myNunchuck.buttonC))
+        print outputStr
+        outputStr = "button Z: {0}".format(
+        buttonStateStr(myNunchuck.buttonZ))
+        print outputStr
 
-	outputStr = "stickX: {0}, stickY: {1}".format(
-	myNunchuck.stickX, myNunchuck.stickY)
-	print outputStr
-	outputStr = "accelX: {0}, accelY: {1}, accelZ: {2}".format(
-	myNunchuck.accelX, myNunchuck.accelY, myNunchuck.accelZ)
-	print outputStr
+        time.sleep(.1)
 
-	outputStr = "button C: {0}".format(
-	buttonStateStr(myNunchuck.buttonC))
-	print outputStr
-	outputStr = "button Z: {0}".format(
-	buttonStateStr(myNunchuck.buttonZ))
-	print outputStr
-
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

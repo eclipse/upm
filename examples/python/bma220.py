@@ -24,32 +24,36 @@
 import time, sys, signal, atexit
 import pyupm_bma220 as sensorObj
 
-# Instantiate an BMA220 using default parameters (bus 0, addr 0x0a)
-sensor = sensorObj.BMA220()
+def main():
+    # Instantiate an BMA220 using default parameters (bus 0, addr 0x0a)
+    sensor = sensorObj.BMA220()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-while (1):
+    while (1):
         sensor.update()
         sensor.getAccelerometer(x, y, z)
-        print "Accelerometer: AX:", sensorObj.floatp_value(x), 
+        print "Accelerometer: AX:", sensorObj.floatp_value(x),
         print " AY:", sensorObj.floatp_value(y),
         print " AZ:", sensorObj.floatp_value(z)
 
-	time.sleep(.5)
+        time.sleep(.5)
+
+if __name__ == '__main__':
+    main()

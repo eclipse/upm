@@ -21,28 +21,29 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 import time, sys, signal, atexit
 import pyupm_apa102 as mylib
 
-# Instantiate a strip of 30 LEDs on SPI bus 0
-ledStrip = mylib.APA102(30, 0, False)
+def main():
+    # Instantiate a strip of 30 LEDs on SPI bus 0
+    ledStrip = mylib.APA102(30, 0, False)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-    raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# Register exit handlers
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Setting all LEDs to Green"
-ledStrip.setAllLeds(31, 0, 255, 0)
+    print "Setting all LEDs to Green"
+    ledStrip.setAllLeds(31, 0, 255, 0)
 
-print "Setting LEDs between 10 and 20 to Red"
-ledStrip.setLeds(10, 20, 31, 255, 0, 0)
+    print "Setting LEDs between 10 and 20 to Red"
+    ledStrip.setLeds(10, 20, 31, 255, 0, 0)
 
-print "Setting LED 15 to Blue"
-ledStrip.setLed(15, 31, 0, 0, 255)
+    print "Setting LED 15 to Blue"
+    ledStrip.setLed(15, 31, 0, 0, 255)
 
-
+if __name__ == '__main__':
+    main()

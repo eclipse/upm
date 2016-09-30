@@ -24,54 +24,53 @@
 import time, sys, signal, atexit
 import pyupm_grovegprs as sensorObj
 
-# Instantiate a GroveGPRS Module on UART 0
-sensor = sensorObj.GroveGPRS(0)
+def main():
+    # Instantiate a GroveGPRS Module on UART 0
+    sensor = sensorObj.GroveGPRS(0)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Set the baud rate, 19200 baud is the default.
-if (sensor.setBaudRate(19200)):
-	print "Failed to set baud rate"
-	sys.exit(0)
+    # Set the baud rate, 19200 baud is the default.
+    if (sensor.setBaudRate(19200)):
+        print "Failed to set baud rate"
+        sys.exit(0)
 
+    usageStr = ("Usage:\n"
+    "If an argument is supplied on the command line, that argument is\n"
+    "sent to the module and the response is printed out.\n\n"
+    "If no argument is used, then the manufacturer and the current\n"
+    "saved profiles are queried and the results printed out.\n\n")
+    print usageStr
 
-usageStr = ("Usage:\n"
-"If an argument is supplied on the command line, that argument is\n"
-"sent to the module and the response is printed out.\n\n"
-"If no argument is used, then the manufacturer and the current\n"
-"saved profiles are queried and the results printed out.\n\n")
-print usageStr
-
-# simple helper function to send a command and wait for a response
-def sendCommand(sensor, cmd):
+    # simple helper function to send a command and wait for a response
+    def sendCommand(sensor, cmd):
         # commands need to be terminated with a carriage return
         cmd += "\r";
-	sensor.writeDataStr(cmd)
+        sensor.writeDataStr(cmd)
 
-	# wait up to 1 second
-	if (sensor.dataAvailable(1000)):
-                print "Returned: ",
-		print sensor.readDataStr(1024)
-	else:
-		print "Timed out waiting for response"
+        # wait up to 1 second
+        if (sensor.dataAvailable(1000)):
+            print "Returned: ",
+            print sensor.readDataStr(1024)
+        else:
+            print "Timed out waiting for response"
 
-
-if (len(sys.argv) > 1):
-	print "Sending command line argument (" + sys.argv[1] + ")..."
-	sendCommand(sensor, sys.argv[1])
-else:
+    if (len(sys.argv) > 1):
+        print "Sending command line argument (" + sys.argv[1] + ")..."
+        sendCommand(sensor, sys.argv[1])
+    else:
         # query the module manufacturer
         print "Querying module manufacturer (AT+CGMI)..."
         sendCommand(sensor, "AT+CGMI");
@@ -84,3 +83,6 @@ else:
 
         # A comprehensive list is available from the datasheet at:
         # http://www.seeedstudio.com/wiki/images/7/72/AT_Commands_v1.11.pdf
+
+if __name__ == '__main__':
+    main()

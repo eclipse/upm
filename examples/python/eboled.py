@@ -25,17 +25,18 @@ import time, sys
 
 import pyupm_i2clcd as lcdObj
 
-# setup with default values
-lcd = lcdObj.EBOLED();
+def main():
+    # setup with default values
+    lcd = lcdObj.EBOLED();
 
-lcd.clear();
-lcd.setCursor(10, 15);
-lcd.write("Hello");
-lcd.setCursor(30, 15);
-lcd.write("World!");
-lcd.refresh();
-print "Sleeping for 5 seconds..."
-time.sleep(5)
+    lcd.clear();
+    lcd.setCursor(10, 15);
+    lcd.write("Hello");
+    lcd.setCursor(30, 15);
+    lcd.write("World!");
+    lcd.refresh();
+    print "Sleeping for 5 seconds..."
+    time.sleep(5)
 
-
-
+if __name__ == '__main__':
+    main()

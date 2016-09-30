@@ -24,51 +24,50 @@
 import time, sys, atexit
 import pyupm_isd1820 as upmIsd1820
 
-# Instantiate a ISD1820 on digital pins 2 (play) and 3 (record)
-# This example was tested on the Grove Recorder.
-myRecorder = upmIsd1820.ISD1820(2, 3)
+def main():
+    # Instantiate a ISD1820 on digital pins 2 (play) and 3 (record)
+    # This example was tested on the Grove Recorder.
+    myRecorder = upmIsd1820.ISD1820(2, 3)
 
+    doRecord = False
 
-doRecord = False
+    if len(sys.argv) > 1:
+        doRecord = True
 
-if len(sys.argv) > 1:
-	doRecord = True
+    # This lets you run code on exit,
+    # including functions from myRecorder
+    def exitHandler():
+        # turn off whatever we were doing.
+        if (doRecord):
+            myRecorder.record(False)
+        else:
+            myRecorder.play(False)
+        print "Exiting"
+        sys.exit(0)
 
+    # Register exit handlers
+    atexit.register(exitHandler)
 
-# This lets you run code on exit,
-# including functions from myRecorder
-def exitHandler():
-	# turn off whatever we were doing.
-	if (doRecord):
-		myRecorder.record(False)
-	else:
-		myRecorder.play(False)
-	print "Exiting"
-	sys.exit(0)
+    # if an argument was specified (any argument), go into record mode,
+    # else playback a previously recorded sample
 
-# Register exit handlers
-atexit.register(exitHandler)
+    print "Supply any argument to the command line to record."
+    print "Running this example without arguments will play back any "
+    print "previously recorded sound."
+    print "There is approximately 10 seconds of recording time.\n"
 
+    # depending on what was selected, do it, and sleep for 15 seconds
+    if (doRecord):
+        myRecorder.record(True)
+    else:
+        myRecorder.play(True)
 
-# if an argument was specified (any argument), go into record mode,
-# else playback a previously recorded sample
+    # There are about 10 seconds of recording/playback time, so we will
+    # sleep for a little extra time.
+    print "Sleeping for 15 seconds..."
+    time.sleep(15)
 
-print "Supply any argument to the command line to record."
-print "Running this example without arguments will play back any "
-print "previously recorded sound."
-print "There is approximately 10 seconds of recording time.\n"
+    # exitHandler runs automatically
 
-
-# depending on what was selected, do it, and sleep for 15 seconds
-if (doRecord):
-	myRecorder.record(True)
-else:
-	myRecorder.play(True)
-    
-# There are about 10 seconds of recording/playback time, so we will
-# sleep for a little extra time.
-print "Sleeping for 15 seconds..."
-time.sleep(15)
-
-
-# exitHandler runs automatically
+if __name__ == '__main__':
+    main()

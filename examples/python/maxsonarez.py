@@ -24,37 +24,40 @@
 import time, sys, signal, atexit
 import pyupm_maxsonarez as MaxSonarEZ
 
-# Instantiate a MaxSonar-EZ on analog pin A1, with an analog
-# reference voltage of MAXSONAREZ_AREF
-Sonar = MaxSonarEZ.MAXSONAREZ(1)
+def main():
+    # Instantiate a MaxSonar-EZ on analog pin A1, with an analog
+    # reference voltage of MAXSONAREZ_AREF
+    Sonar = MaxSonarEZ.MAXSONAREZ(1)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This lets you run code on exit,
-# including functions from Sonar
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This lets you run code on exit,
+    # including functions from Sonar
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
+    # analog voltage, usually 3.3 or 5.0
+    MAXSONAREZ_AREF = 5.0;
 
-# analog voltage, usually 3.3 or 5.0
-MAXSONAREZ_AREF = 5.0;
+    # Every second, sample the sonar and output the distance to an
+    # object in inches.
 
-# Every second, sample the sonar and output the distance to an
-# object in inches.
+    # With the EZ3 version, the minimum and maximum ranges seemed to be
+    # between 6 and 33 inches
 
-# With the EZ3 version, the minimum and maximum ranges seemed to be
-# between 6 and 33 inches
-
-while (1):
-	print "AREF: {0}, distance in inches: {1}".format(
+    while (1):
+        print "AREF: {0}, distance in inches: {1}".format(
                 MAXSONAREZ_AREF,
                 Sonar.inches())
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

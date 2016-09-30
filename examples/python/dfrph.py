@@ -24,33 +24,37 @@
 import time, sys, signal, atexit
 import pyupm_dfrph as sensorObj
 
-# Instantiate a DFRPH sensor on analog pin A0, with an analog
-# reference voltage of 5.0
-sensor = sensorObj.DFRPH(0, 5.0)
+def main():
+    # Instantiate a DFRPH sensor on analog pin A0, with an analog
+    # reference voltage of 5.0
+    sensor = sensorObj.DFRPH(0, 5.0)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# After calibration, set the offset (based on calibration with a pH
-# 7.0 buffer solution).  See the UPM sensor documentation for
-# calibrations instructions.
-sensor.setOffset(0.065);
+    # After calibration, set the offset (based on calibration with a pH
+    # 7.0 buffer solution).  See the UPM sensor documentation for
+    # calibrations instructions.
+    sensor.setOffset(0.065);
 
-# Every second, sample the pH and output it's corresponding
-# analog voltage.
+    # Every second, sample the pH and output it's corresponding
+    # analog voltage.
 
-while (1):
+    while (1):
         print "Detected volts: ", sensor.volts()
         print "pH value: ", sensor.pH()
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

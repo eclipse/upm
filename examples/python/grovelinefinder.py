@@ -24,28 +24,30 @@
 import time, sys, signal, atexit
 import pyupm_grovelinefinder as upmGrovelinefinder
 
-# Instantiate a Grove line finder sensor on digital pin D2
-myLineFinder = upmGrovelinefinder.GroveLineFinder(2)
+def main():
+    # Instantiate a Grove line finder sensor on digital pin D2
+    myLineFinder = upmGrovelinefinder.GroveLineFinder(2)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myLineFinder
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myLineFinder
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        if (myLineFinder.whiteDetected()):
+            print "White detected."
+        else:
+            print "Black detected."
+        time.sleep(1)
 
-
-while(1):
-	if (myLineFinder.whiteDetected()):
-		print "White detected."
-	else:
-		print "Black detected."
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

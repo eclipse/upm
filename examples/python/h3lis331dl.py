@@ -24,53 +24,55 @@
 import time, sys, signal, atexit
 import pyupm_h3lis331dl as upmH3LIS331DL
 
-# Instantiate an H3LIS331DL on I2C bus 0
-myDigitalAccelerometer = upmH3LIS331DL.H3LIS331DL(
-        upmH3LIS331DL.H3LIS331DL_I2C_BUS, 
-        upmH3LIS331DL.H3LIS331DL_DEFAULT_I2C_ADDR);
+def main():
+    # Instantiate an H3LIS331DL on I2C bus 0
+    myDigitalAccelerometer = upmH3LIS331DL.H3LIS331DL(
+            upmH3LIS331DL.H3LIS331DL_I2C_BUS,
+            upmH3LIS331DL.H3LIS331DL_DEFAULT_I2C_ADDR);
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myDigitalAccelerometer
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myDigitalAccelerometer
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Initialize the device with default values
+    myDigitalAccelerometer.init()
 
+    x = upmH3LIS331DL.new_intp()
+    y = upmH3LIS331DL.new_intp()
+    z = upmH3LIS331DL.new_intp()
 
-# Initialize the device with default values
-myDigitalAccelerometer.init()
+    ax = upmH3LIS331DL.new_floatp()
+    ay = upmH3LIS331DL.new_floatp()
+    az = upmH3LIS331DL.new_floatp()
 
-x = upmH3LIS331DL.new_intp()
-y = upmH3LIS331DL.new_intp()
-z = upmH3LIS331DL.new_intp()
+    while (1):
+        myDigitalAccelerometer.update()
+        myDigitalAccelerometer.getRawXYZ(x, y, z)
+        outputStr = ("Raw: X = {0}"
+        " Y = {1}"
+        " Z = {2}").format(upmH3LIS331DL.intp_value(x),
+        upmH3LIS331DL.intp_value(y),
+        upmH3LIS331DL.intp_value(z))
+        print outputStr
 
-ax = upmH3LIS331DL.new_floatp()
-ay = upmH3LIS331DL.new_floatp()
-az = upmH3LIS331DL.new_floatp()
+        myDigitalAccelerometer.getAcceleration(ax, ay, az)
+        outputStr = ("Acceleration: AX = {0}"
+        " AY = {1}"
+        " AZ = {2}").format(upmH3LIS331DL.floatp_value(ax),
+        upmH3LIS331DL.floatp_value(ay),
+        upmH3LIS331DL.floatp_value(az))
+        print outputStr
+        time.sleep(.5)
 
-while (1):
-	myDigitalAccelerometer.update()
-	myDigitalAccelerometer.getRawXYZ(x, y, z)
-	outputStr = ("Raw: X = {0}"
-	" Y = {1}" 
-	" Z = {2}").format(upmH3LIS331DL.intp_value(x),
-	upmH3LIS331DL.intp_value(y),
-	upmH3LIS331DL.intp_value(z))
-	print outputStr
-
-	myDigitalAccelerometer.getAcceleration(ax, ay, az)
-	outputStr = ("Acceleration: AX = {0}"
-	" AY = {1}"
-	" AZ = {2}").format(upmH3LIS331DL.floatp_value(ax),
-	upmH3LIS331DL.floatp_value(ay),
-	upmH3LIS331DL.floatp_value(az))
-	print outputStr
-	time.sleep(.5)
+if __name__ == '__main__':
+    main()

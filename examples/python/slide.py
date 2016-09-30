@@ -23,17 +23,20 @@
 from time import sleep
 import pyupm_slide as slide
 
-# New Grove Slider on AIO pin 0
-slider = slide.Slide(0)
+def main():
+    # New Grove Slider on AIO pin 0
+    slider = slide.Slide(0)
 
-# Loop indefinitely
-while True:
+    # Loop indefinitely
+    while True:
+        # Read values
+        raw = slider.raw_value()
+        volts = slider.voltage_value()
 
-    # Read values
-    raw = slider.raw_value()
-    volts = slider.voltage_value()
+        print "Slider value: ", raw , " = %.2f" % volts , " V"
 
-    print "Slider value: ", raw , " = %.2f" % volts , " V"
+        # Sleep for 2.5 s
+        sleep(2.5)
 
-    # Sleep for 2.5 s
-    sleep(2.5)
+if __name__ == '__main__':
+    main()

@@ -24,28 +24,30 @@
 import time, sys, signal, atexit
 import pyupm_o2 as upmO2
 
-# This was tested with the O2 Oxygen Concentration Sensor Module
-# Instantiate a O2 on analog pin A0
-myO2 = upmO2.O2(0)
+def main():
+    # This was tested with the O2 Oxygen Concentration Sensor Module
+    # Instantiate a O2 on analog pin A0
+    myO2 = upmO2.O2(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit, including functions from myO2
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This lets you run code on exit, including functions from myO2
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        print "The output voltage is: {0}mV".format(
+        myO2.voltageValue())
 
+        time.sleep(.1)
 
-while(1):
-	print "The output voltage is: {0}mV".format(
-	myO2.voltageValue())
-
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

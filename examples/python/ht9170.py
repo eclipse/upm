@@ -24,31 +24,34 @@
 import time, sys, signal, atexit
 import pyupm_ht9170 as upmHt9170
 
-# Instantiate a DTMF decoder
-myDTMF = upmHt9170.HT9170(12, 11, 10, 9, 8)
+def main():
+    # Instantiate a DTMF decoder
+    myDTMF = upmHt9170.HT9170(12, 11, 10, 9, 8)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This lets you run code on exit, including functions from myDTMF
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This lets you run code on exit, including functions from myDTMF
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
+    # Now we just spin in a loop, sleeping every 100ms, checking to see
+    # if a digit is available.  If so, we decode and print the digit,
+    # and continue looping.
+    while (1):
+        if (dtmf_obj.digitReady()):
+            print "Got DTMF code:", dtmf_obj.decodeDigit()
+            # now spin until digitReady() goes false again
+            while (dtmf.digitReady()):
+                pass
+        time.sleep(.1)
 
-# Now we just spin in a loop, sleeping every 100ms, checking to see
-# if a digit is available.  If so, we decode and print the digit,
-# and continue looping.
-while (1):
-	if (dtmf_obj.digitReady()):
-		print "Got DTMF code:", dtmf_obj.decodeDigit()
-		# now spin until digitReady() goes false again
-		while (dtmf.digitReady()):
-			pass
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

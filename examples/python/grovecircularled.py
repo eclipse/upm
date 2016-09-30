@@ -25,26 +25,30 @@
 import time, sys, signal, atexit
 import pyupm_my9221 as upmGroveCircularLED
 
-# Exit handlers
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    # Exit handlers
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-def exitHandler():
-	circle.setLevel(0, True)
-	print "Exiting"
-	sys.exit(0)
+    def exitHandler():
+        circle.setLevel(0, True)
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit
-atexit.register(exitHandler)
-# This function stops python from printing a stacktrace when you hit control-C
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # This function lets you run code on exit
+    atexit.register(exitHandler)
+    # This function stops python from printing a stacktrace when you hit control-C
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Instantiate a Grove Circular LED on gpio pins 9 and 8
-circle = upmGroveCircularLED.GroveCircularLED(9, 8)
+    # Instantiate a Grove Circular LED on gpio pins 9 and 8
+    circle = upmGroveCircularLED.GroveCircularLED(9, 8)
 
-level = 0
+    level = 0
 
-while(1):
+    while(1):
         circle.setSpinner(level)
         level = (level + 1) % 24
-	time.sleep(.1)
+        time.sleep(.1)
+
+if __name__ == '__main__':
+    main()

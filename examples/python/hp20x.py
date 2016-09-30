@@ -24,31 +24,34 @@
 import time, sys, signal, atexit
 import pyupm_hp20x as barometerObj
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit,
-# including functions from ringCoder
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit,
+    # including functions from ringCoder
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Instantiate an HP20X on default I2C bus and address
-bar = barometerObj.HP20X()
+    # Instantiate an HP20X on default I2C bus and address
+    bar = barometerObj.HP20X()
 
-# Initialize the device with default values
-bar.init()
+    # Initialize the device with default values
+    bar.init()
 
-while(1):
-    print "Temperature:", bar.getTemperature(), "Celsius"
-    print "Pressure:   ", bar.getPressure(), "Millibars"
-    print "Altitude:   ", bar.getAltitude(), "Meters"
-    print 
-    time.sleep(1)
+    while(1):
+        print "Temperature:", bar.getTemperature(), "Celsius"
+        print "Pressure:   ", bar.getPressure(), "Millibars"
+        print "Altitude:   ", bar.getAltitude(), "Meters"
+        print
+        time.sleep(1)
 
+if __name__ == '__main__':
+    main()

@@ -24,51 +24,52 @@
 import time, sys, signal, atexit
 import pyupm_ozw as sensorObj
 
-# This function lets you run code on exit
-def exitHandler():
+def main():
+    # This function lets you run code on exit
+    def exitHandler():
         print "Turning switch off and sleeping for 5 seconds..."
         sensor.off()
         time.sleep(5)
-	print "Exiting"
-	sys.exit(0)
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
 
-defaultDev = "/dev/ttyACM0"
-if (len(sys.argv) > 1):
+    defaultDev = "/dev/ttyACM0"
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
-print "Using device", defaultDev
+    print "Using device", defaultDev
 
-# Instantiate an Aeotec Smart Dimmer Gen2 instance, on device node
-# 9.  You will almost certainly need to change this to reflect your
-# own network.  Use the ozwdump example to see what nodes are
-# available.
-sensor = sensorObj.AeotecSDG2(9)
+    # Instantiate an Aeotec Smart Dimmer Gen2 instance, on device node
+    # 9.  You will almost certainly need to change this to reflect your
+    # own network.  Use the ozwdump example to see what nodes are
+    # available.
+    sensor = sensorObj.AeotecSDG2(9)
 
-# The first thing to do is create options, then lock them when done.
-sensor.optionsCreate()
-sensor.optionsLock()
+    # The first thing to do is create options, then lock them when done.
+    sensor.optionsCreate()
+    sensor.optionsLock()
 
-# Next, initialize it.
-print "Initializing, this may take awhile depending on your ZWave network"
+    # Next, initialize it.
+    print "Initializing, this may take awhile depending on your ZWave network"
 
-sensor.init(defaultDev)
-print "Initialization complete"
+    sensor.init(defaultDev)
+    print "Initialization complete"
 
-# turn light on
-print "Turning switch on, then sleeping for 5 secs"
-sensor.on();
-time.sleep(5);
+    # turn light on
+    print "Turning switch on, then sleeping for 5 secs"
+    sensor.on();
+    time.sleep(5);
 
-print "Querying data..."
-dim = False;
-while (True):
+    print "Querying data..."
+    dim = False;
+    while (True):
         # put on a light show...
         if (dim):
-                sensor.setLevel(25)
+            sensor.setLevel(25)
         else:
-                sensor.on()
+            sensor.on()
 
         dim = not dim;
 
@@ -94,3 +95,6 @@ while (True):
 
         print
         time.sleep(5)
+
+if __name__ == '__main__':
+    main()

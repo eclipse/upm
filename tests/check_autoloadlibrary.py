@@ -31,7 +31,8 @@ class AutoLoadLibrary(u.TestCase):
 
                     with open(os.path.join(subdir, fileName), "r") as f:
                         if  not snippet in f.read():
-                            broken_modules.append(moduleName)
+                            broken_modules.append('%s: %s' % \
+                                    (moduleName, os.path.join(subdir, fileName)))
 
         self.assertEqual( len(broken_modules), 0,
                 "\nThe following modules do not contain the standard auto load library code:\n" + \

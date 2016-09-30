@@ -24,29 +24,31 @@
 import time, sys, signal, atexit
 import pyupm_joystick12 as upmJoystick12
 
-# Instantiate a joystick on analog pins A0 and A1
-myJoystick = upmJoystick12.Joystick12(0, 1)
+def main():
+    # Instantiate a joystick on analog pins A0 and A1
+    myJoystick = upmJoystick12.Joystick12(0, 1)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myJoystick
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myJoystick
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Print the X and Y input values every second
+    while(1):
+        XString = "Driving X:" + str(myJoystick.getXInput())
+        YString = ": and Y:" + str(myJoystick.getYInput())
+        print XString + YString
 
+        time.sleep(1)
 
-# Print the X and Y input values every second
-while(1):
-	XString = "Driving X:" + str(myJoystick.getXInput())
-	YString = ": and Y:" + str(myJoystick.getYInput())
-	print XString + YString
-
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

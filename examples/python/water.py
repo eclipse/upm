@@ -24,28 +24,30 @@
 import time, sys, signal, atexit
 import pyupm_water as upmwater
 
-# Instantiate a Water sensor on digital pin D2
-myWaterSensor = upmwater.Water(2)
+def main():
+    # Instantiate a Water sensor on digital pin D2
+    myWaterSensor = upmwater.Water(2)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myWaterSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myWaterSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        if (myWaterSensor.isWet()):
+            print "Sensor is wet"
+        else:
+            print "Sensor is dry"
+        time.sleep(1)
 
-
-while(1):
-	if (myWaterSensor.isWet()):
-		print "Sensor is wet"
-	else:
-		print "Sensor is dry"
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

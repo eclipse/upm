@@ -24,27 +24,31 @@
 import sys
 import pyupm_sx6119 as upmSx6119
 
-# Instantiate a SX6119 on digital pins 2 (power) and 3 (seek)
-# This example was tested on the Grove FM Receiver.
-myFM_receiver_obj = upmSx6119.SX6119(2, 3)
+def main():
+    # Instantiate a SX6119 on digital pins 2 (power) and 3 (seek)
+    # This example was tested on the Grove FM Receiver.
+    myFM_receiver_obj = upmSx6119.SX6119(2, 3)
 
-# if an argument was specified (any argument), seek to the next
-# station, else just toggle the power.
+    # if an argument was specified (any argument), seek to the next
+    # station, else just toggle the power.
 
-print "Supply any argument to the command line to seek to the"
-print "next station."
-print "Running the example without an argument will toggle the"
-print "power on or off.\n"
+    print "Supply any argument to the command line to seek to the"
+    print "next station."
+    print "Running the example without an argument will toggle the"
+    print "power on or off.\n"
 
-doSeek = False
+    doSeek = False
 
-if (len(sys.argv) > 1):
-	doSeek = True
+    if (len(sys.argv) > 1):
+        doSeek = True
 
-# depending on what was selected, do it
-if (doSeek):
-	myFM_receiver_obj.seek()
-else:
-	myFM_receiver_obj.togglePower()
+    # depending on what was selected, do it
+    if (doSeek):
+        myFM_receiver_obj.seek()
+    else:
+        myFM_receiver_obj.togglePower()
 
-print "Exiting";
+    print "Exiting";
+
+if __name__ == '__main__':
+    main()

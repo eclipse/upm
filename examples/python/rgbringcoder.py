@@ -24,67 +24,70 @@
 import time, sys, signal, atexit
 import pyupm_rgbringcoder as upmRGBRingCoder
 
-# There are a lot of pins to hook up.  These pins are valid for the
-# Edison board, but may need to be adjusted for other platforms.
+def main():
+    # There are a lot of pins to hook up.  These pins are valid for the
+    # Edison board, but may need to be adjusted for other platforms.
 
-# In order:
-# enable      - 4
-# latch       - 10
-# clear       - 11
-# clock       - 2
-# data        - 9
-# switch      - 7
+    # In order:
+    # enable      - 4
+    # latch       - 10
+    # clear       - 11
+    # clock       - 2
+    # data        - 9
+    # switch      - 7
 
-# red pwm     - 3
-# green pwm   - 5
-# blue pwm    - 6
+    # red pwm     - 3
+    # green pwm   - 5
+    # blue pwm    - 6
 
-# encA        - 12
-# encB        - 13
-ringCoder = upmRGBRingCoder.RGBRingCoder(4, 10, 11, 2, 9, 7, 12, 13, 3, 
-                                         5, 6)
+    # encA        - 12
+    # encB        - 13
+    ringCoder = upmRGBRingCoder.RGBRingCoder(4, 10, 11, 2, 9, 7, 12, 13, 3,
+                                             5, 6)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit,
-# including functions from ringCoder
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit,
+    # including functions from ringCoder
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
+    spin = 0x0001;
+    oldState = False;
+    oldPos = 0;
 
-spin = 0x0001;
-oldState = False;
-oldPos = 0;
+    # Lets go green
+    ringCoder.setRGBLED(0.99, 0.01, 0.99);
 
-# Lets go green
-ringCoder.setRGBLED(0.99, 0.01, 0.99);
-
-while(1):
+    while(1):
         # you spin me round...
         if ((spin & 0xffff) == 0):
-                spin = 0x0001
-    
+            spin = 0x0001
+
         ringCoder.setRingLEDS(spin)
         spin <<= 1
 
         # check button state
         bstate = ringCoder.getButtonState()
         if (bstate != oldState):
-                print "Button state changed from", oldState, " to ", bstate
-                oldState = bstate
-    
+            print "Button state changed from", oldState, " to ", bstate
+            oldState = bstate
+
         # check encoder position
         epos = ringCoder.getEncoderPosition()
         if (epos != oldPos):
-                print "Encoder position changed from", oldPos, "to", epos
-                oldPos = epos
+            print "Encoder position changed from", oldPos, "to", epos
+            oldPos = epos
 
         time.sleep(0.1)
+
+if __name__ == '__main__':
+    main()

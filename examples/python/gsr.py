@@ -24,30 +24,32 @@
 import time, sys, signal, atexit
 import pyupm_gsr as upmGsr
 
-# Tested with the GSR Galvanic Skin Response Sensor module.
+def main():
+    # Tested with the GSR Galvanic Skin Response Sensor module.
 
-# Instantiate a GSR on analog pin A0
-myGSR = upmGsr.GSR(0)
+    # Instantiate a GSR on analog pin A0
+    myGSR = upmGsr.GSR(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit, including functions from myGSR
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This lets you run code on exit, including functions from myGSR
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    print "Calibrating...."
+    myGSR.calibrate()
 
+    while (1):
+        print myGSR.value()
+        time.sleep(.5)
 
-print "Calibrating...."
-myGSR.calibrate()
-
-while (1):
-	print myGSR.value()
-	time.sleep(.5)
+if __name__ == '__main__':
+    main()

@@ -24,33 +24,35 @@
 import time, sys, signal, atexit
 import pyupm_guvas12d as upmUV
 
-# Instantiate a UV sensor on analog pin A0
-myUVSensor = upmUV.GUVAS12D(0);
+def main():
+    # Instantiate a UV sensor on analog pin A0
+    myUVSensor = upmUV.GUVAS12D(0);
 
-# analog voltage, usually 3.3 or 5.0
-GUVAS12D_AREF = 5.0;
-SAMPLES_PER_QUERY = 1024;
+    # analog voltage, usually 3.3 or 5.0
+    GUVAS12D_AREF = 5.0;
+    SAMPLES_PER_QUERY = 1024;
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myUVSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myUVSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        s = ("AREF:  {0}, "
+        "Voltage value (higher means more UV): "
+        "{1}".format(GUVAS12D_AREF,
+        myUVSensor.value(GUVAS12D_AREF, SAMPLES_PER_QUERY)))
+        print s
+        time.sleep(1)
 
-
-while(1):
-	s = ("AREF:  {0}, "
-	"Voltage value (higher means more UV): "
-	"{1}".format(GUVAS12D_AREF,
-	myUVSensor.value(GUVAS12D_AREF, SAMPLES_PER_QUERY)))
-	print s
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

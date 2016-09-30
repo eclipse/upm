@@ -24,28 +24,31 @@
 import time, sys, signal, atexit
 import pyupm_nmea_gps as sensorObj
 
-# Instantiate a NMEA_GPS UBLOX based i2c sensor on i2c bus 0 at
-# address 0x42
-sensor = sensorObj.NMEAGPS(0, 0x42)
+def main():
+    # Instantiate a NMEA_GPS UBLOX based i2c sensor on i2c bus 0 at
+    # address 0x42
+    sensor = sensorObj.NMEAGPS(0, 0x42)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# loop, dumping NMEA data out as fast as it comes in
-while (True):
+    # loop, dumping NMEA data out as fast as it comes in
+    while (True):
         if (sensor.dataAvailable(0)):
-                sys.stdout.write(sensor.readStr(256))
+            sys.stdout.write(sensor.readStr(256))
         else:
-                time.sleep(.1)
+            time.sleep(.1)
 
+if __name__ == '__main__':
+    main()

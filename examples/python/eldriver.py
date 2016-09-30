@@ -24,34 +24,36 @@
 import time, sys, signal, atexit
 import pyupm_eldriver as upmeldriver
 
-# The was tested with the  El Driver Module
-# Instantiate a  El Driver on digital pin D2
-myEldriver = upmeldriver.ElDriver(2)
+def main():
+    # The was tested with the  El Driver Module
+    # Instantiate a  El Driver on digital pin D2
+    myEldriver = upmeldriver.ElDriver(2)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myEldriver
+    def exitHandler():
+        print "Exiting"
+        myEldriver.off()
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myEldriver
-def exitHandler():
-	print "Exiting"
-	myEldriver.off()
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    lightState = True
 
+    while(1):
+        if (lightState):
+            myEldriver.on()
+        else:
+            myEldriver.off()
+        lightState = not lightState
 
-lightState = True
+        time.sleep(1)
 
-while(1):
-	if (lightState):
-		myEldriver.on()
-	else:
-		myEldriver.off()
-	lightState = not lightState
-
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

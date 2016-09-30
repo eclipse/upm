@@ -24,26 +24,27 @@
 import time, sys, signal, atexit
 import pyupm_hka5 as sensorObj
 
-# Instantiate a HKA5 sensor on uart 0.  We don't use the set or
-# reset pins, so we pass -1 for them.
-sensor = sensorObj.HKA5(0, -1, -1)
+def main():
+    # Instantiate a HKA5 sensor on uart 0.  We don't use the set or
+    # reset pins, so we pass -1 for them.
+    sensor = sensorObj.HKA5(0, -1, -1)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# update once every 2 seconds and output data
-while (True):
+    # update once every 2 seconds and output data
+    while (True):
         sensor.update()
 
         print "PM 1  :",
@@ -60,3 +61,6 @@ while (True):
 
         print
         time.sleep(2)
+
+if __name__ == '__main__':
+    main()

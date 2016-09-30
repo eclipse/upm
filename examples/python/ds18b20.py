@@ -24,36 +24,37 @@
 import time, sys, signal, atexit
 import pyupm_ds18b20 as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Initializing..."
+    print "Initializing..."
 
-# Instantiate an DS18B20 instance using the default values (uart 0)
-sensor = sensorObj.DS18B20(0)
+    # Instantiate an DS18B20 instance using the default values (uart 0)
+    sensor = sensorObj.DS18B20(0)
 
-# locate and setup our devices
-sensor.init()
+    # locate and setup our devices
+    sensor.init()
 
-print "Found", sensor.devicesFound(), "device(s)"
-print
+    print "Found", sensor.devicesFound(), "device(s)"
+    print
 
-if (not sensor.devicesFound()):
+    if (not sensor.devicesFound()):
         sys.exit(1);
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values for the first sensor
         sensor.update(0)
 
@@ -61,4 +62,7 @@ while (1):
         print "Temperature:", sensor.getTemperature(0), "C /",
         print sensor.getTemperature(0, True), "F"
 
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

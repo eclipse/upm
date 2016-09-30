@@ -24,37 +24,40 @@
 import time, sys, signal, atexit
 import pyupm_ds1307 as upmDs1307
 
-# load RTC clock on i2c bus 0
-myRTCClock = upmDs1307.DS1307(0)
+def main():
+    # load RTC clock on i2c bus 0
+    myRTCClock = upmDs1307.DS1307(0)
 
-def printTime(RTCObj):
-	timeStr = "The time is: {0}/{1}/{2} {3}:{4}:{5}".format(
-	RTCObj.month, RTCObj.dayOfMonth, RTCObj.year,
-	RTCObj.hours, RTCObj.minutes, RTCObj.seconds)
+    def printTime(RTCObj):
+        timeStr = "The time is: {0}/{1}/{2} {3}:{4}:{5}".format(
+        RTCObj.month, RTCObj.dayOfMonth, RTCObj.year,
+        RTCObj.hours, RTCObj.minutes, RTCObj.seconds)
 
-	if (RTCObj.amPmMode):
-		timeStr += (" PM " if RTCObj.pm else " AM ")
+        if (RTCObj.amPmMode):
+            timeStr += (" PM " if RTCObj.pm else " AM ")
 
-	print timeStr
+        print timeStr
 
-	print "Clock is in", ("AM/PM mode"
-	if RTCObj.amPmMode else "24hr mode")
+        print "Clock is in", ("AM/PM mode"
+        if RTCObj.amPmMode else "24hr mode")
 
+    # always do this first
+    print "Loading the current time... "
+    result = myRTCClock.loadTime()
+    if (not result):
+        print "myRTCClock.loadTime() failed."
+        sys.exit(0)
 
-# always do this first
-print "Loading the current time... "
-result = myRTCClock.loadTime()
-if (not result):
-	print "myRTCClock.loadTime() failed."
-	sys.exit(0)
+    printTime(myRTCClock);
 
-printTime(myRTCClock);
+    # set the year as an example
+    print "setting the year to 50"
+    myRTCClock.year = 50
+    myRTCClock.setTime()
 
-# set the year as an example
-print "setting the year to 50"
-myRTCClock.year = 50
-myRTCClock.setTime()
+    # reload the time and print it
+    myRTCClock.loadTime()
+    printTime(myRTCClock)
 
-# reload the time and print it
-myRTCClock.loadTime()
-printTime(myRTCClock)
+if __name__ == '__main__':
+    main()

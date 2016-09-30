@@ -449,7 +449,7 @@ if (BUILDDOC AND BUILDSWIGPYTHON)
 # BUILDDOC not set but still building python modules, generate an empty
 # pyupm_doxy2swig.i file (overwriting if necessary)
 elseif (BUILDSWIGPYTHON)
-  message (STATUS "Generating empty ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i")
+  message (STATUS "BUILDDOC=${BUILDDOC}, python modules will not contain cxx documentation")
   file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i "// Empty doxy2swig stub")
 endif (BUILDDOC AND BUILDSWIGPYTHON)
 

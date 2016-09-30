@@ -24,32 +24,34 @@
 import time, sys, signal, atexit
 import pyupm_adc121c021 as upmAdc121c021
 
-# Instantiate an ADC121C021 on I2C bus 0
-busID = upmAdc121c021.ADC121C021_I2C_BUS
-I2CAddr = upmAdc121c021.ADC121C021_DEFAULT_I2C_ADDR
+def main():
+    # Instantiate an ADC121C021 on I2C bus 0
+    busID = upmAdc121c021.ADC121C021_I2C_BUS
+    I2CAddr = upmAdc121c021.ADC121C021_DEFAULT_I2C_ADDR
 
-myAnalogDigitalConv = upmAdc121c021.ADC121C021(busID, I2CAddr)
+    myAnalogDigitalConv = upmAdc121c021.ADC121C021(busID, I2CAddr)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myAnalogDigitalConv
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myAnalogDigitalConv
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # get the data every 50 milliseconds
+    while(1):
+        val = myAnalogDigitalConv.value()
+        voltsVal = myAnalogDigitalConv.valueToVolts(val)
+        print "ADC value: %s Volts = %s" % (val, voltsVal)
+        time.sleep(.05)
 
-
-# get the data every 50 milliseconds
-while(1):
-	val = myAnalogDigitalConv.value()
-	voltsVal = myAnalogDigitalConv.valueToVolts(val)
-	print "ADC value: %s Volts = %s" % (val, voltsVal)
-	time.sleep(.05)
+if __name__ == '__main__':
+    main()

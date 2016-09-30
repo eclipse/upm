@@ -23,20 +23,24 @@
 import time
 import pyupm_itg3200 as itg3200
 
-# Create an I2C gyro object
-gyro = itg3200.Itg3200(0)
+def main():
+    # Create an I2C gyro object
+    gyro = itg3200.Itg3200(0)
 
-while(1):
-    gyro.update() # Update the data
-    rot = gyro.getRawValues() # Read raw sensor data
-    ang = gyro.getRotation() # Read rotational speed (deg/sec)
-    print "Raw: %6d %6d %6d" % (rot[0], rot[1], rot[2])
-    print "AngX: %5.2f" % (ang[0])
-    print "AngY: %5.2f" % (ang[1])
-    print "AngZ: %5.2f" % (ang[2])
-    print "Temp: %5.2f Raw: %6d" % (gyro.getTemperature(), gyro.getRawTemp())
-    print ' '
-    time.sleep(1)
+    while(1):
+        gyro.update() # Update the data
+        rot = gyro.getRawValues() # Read raw sensor data
+        ang = gyro.getRotation() # Read rotational speed (deg/sec)
+        print "Raw: %6d %6d %6d" % (rot[0], rot[1], rot[2])
+        print "AngX: %5.2f" % (ang[0])
+        print "AngY: %5.2f" % (ang[1])
+        print "AngZ: %5.2f" % (ang[2])
+        print "Temp: %5.2f Raw: %6d" % (gyro.getTemperature(), gyro.getRawTemp())
+        print ' '
+        time.sleep(1)
 
-# Delete the gyro object
-del gyro
+    # Delete the gyro object
+    del gyro
+
+if __name__ == '__main__':
+    main()

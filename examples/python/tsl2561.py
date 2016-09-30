@@ -24,25 +24,27 @@
 import time, sys, signal, atexit
 import pyupm_tsl2561 as upmTsl2561
 
-# Instantiate a digital light sensor TSL2561 on I2C
-myDigitalLightSensor = upmTsl2561.TSL2561()
+def main():
+    # Instantiate a digital light sensor TSL2561 on I2C
+    myDigitalLightSensor = upmTsl2561.TSL2561()
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myDigitalLightSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myDigitalLightSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        print "Light value is " + str(myDigitalLightSensor.getLux())
+        time.sleep(1)
 
-
-while(1):
-	print "Light value is " + str(myDigitalLightSensor.getLux())
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

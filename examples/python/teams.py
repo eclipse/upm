@@ -24,35 +24,36 @@
 import time, sys, signal, atexit
 import pyupm_teams as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Initializing..."
+    print "Initializing..."
 
-# Instantiate an TEAMS instance, using A0 for temperature, and
-# 165.0 ohms for the rResistor value (for the libelium 4-20ma
-# interface)
-sensor = sensorObj.TEAMS(0, 165.0)
+    # Instantiate an TEAMS instance, using A0 for temperature, and
+    # 165.0 ohms for the rResistor value (for the libelium 4-20ma
+    # interface)
+    sensor = sensorObj.TEAMS(0, 165.0)
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values from the sensor
         sensor.update()
 
         # is the sensor connected? (current >= 4ma)
         print "Is Connected:", sensor.isConnected()
-    
+
         # print computed current on the loop.  This includes the offset,
         # if one was set by setOffsetMilliamps().
         print "Milliamps:", sensor.getRawMilliamps()
@@ -62,4 +63,7 @@ while (1):
         print sensor.getTemperature(True), "F"
 
         print
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

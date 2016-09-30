@@ -24,29 +24,30 @@
 import time, sys, signal, atexit
 import pyupm_bmx055 as sensorObj
 
-# Instantiate a BMX055 instance using default i2c bus and address
-sensor = sensorObj.BMX055()
+def main():
+    # Instantiate a BMX055 instance using default i2c bus and address
+    sensor = sensorObj.BMX055()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
+    x = sensorObj.new_floatp()
+    y = sensorObj.new_floatp()
+    z = sensorObj.new_floatp()
 
-# now output data every 250 milliseconds
-while (1):
+    # now output data every 250 milliseconds
+    while (1):
         sensor.update()
 
         sensor.getAccelerometer(x, y, z)
@@ -68,4 +69,7 @@ while (1):
         print " uT"
 
         print
-	time.sleep(.250)
+        time.sleep(.250)
+
+if __name__ == '__main__':
+    main()

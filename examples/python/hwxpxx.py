@@ -24,44 +24,45 @@
 import time, sys, signal, atexit
 import pyupm_hwxpxx as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting..."
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-defaultDev = "/dev/ttyUSB0"
+    defaultDev = "/dev/ttyUSB0"
 
-# if an argument was specified, use it as the device instead
-if (len(sys.argv) > 1):
+    # if an argument was specified, use it as the device instead
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-print "Using device", defaultDev
-print "Initializing..."
+    print "Using device", defaultDev
+    print "Initializing..."
 
-# Instantiate an HWXPXX instance, using MODBUS slave address 3, and
-# default comm parameters (19200, 8, N, 2)
-sensor = sensorObj.HWXPXX(defaultDev, 3)
+    # Instantiate an HWXPXX instance, using MODBUS slave address 3, and
+    # default comm parameters (19200, 8, N, 2)
+    sensor = sensorObj.HWXPXX(defaultDev, 3)
 
-# output the serial number and firmware revision
-print "Slave ID:", sensor.getSlaveID()
+    # output the serial number and firmware revision
+    print "Slave ID:", sensor.getSlaveID()
 
-# stored temperature and humidity offsets
-print "Temperature Offset:", sensor.getTemperatureOffset()
-print "Humidity Offset:", sensor.getHumidityOffset()
+    # stored temperature and humidity offsets
+    print "Temperature Offset:", sensor.getTemperatureOffset()
+    print "Humidity Offset:", sensor.getHumidityOffset()
 
-print
+    print
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values from the sensor
         sensor.update()
 
@@ -76,4 +77,7 @@ while (1):
         print "Override Switch Status:", sensor.getOverrideSwitchStatus()
 
         print
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

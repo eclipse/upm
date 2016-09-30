@@ -24,39 +24,41 @@
 import time, sys, signal, atexit
 import pyupm_gas as upmGAS
 
-# Attach gas sensor to Analog A0
-sensor = upmGAS.MQ4(0)
+def main():
+    # Attach gas sensor to Analog A0
+    sensor = upmGAS.MQ4(0)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from sensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from sensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    threshContext = upmGAS.thresholdContext()
+    threshContext.averageReading = 0
+    threshContext.runningAverage = 0
+    threshContext.averagedOver = 2
 
+    # Infinite loop, ends when script is cancelled
+    # Repeatedly, take a sample every 2 microseconds;
+    # find the average of 128 samples; and
+    # print a running graph of asteriskss as averages
+    mybuffer = upmGAS.uint16Array(128)
+    while(1):
+        samplelen = sensor.getSampledWindow(2, 128, mybuffer)
+        if samplelen:
+            thresh = sensor.findThreshold(threshContext, 30, mybuffer, samplelen)
+            sensor.printGraph(threshContext, 5)
+    #               if(thresh):
+    #                       print "Threshold is ", thresh
 
-threshContext = upmGAS.thresholdContext()
-threshContext.averageReading = 0
-threshContext.runningAverage = 0
-threshContext.averagedOver = 2
-
-# Infinite loop, ends when script is cancelled
-# Repeatedly, take a sample every 2 microseconds;
-# find the average of 128 samples; and
-# print a running graph of asteriskss as averages
-mybuffer = upmGAS.uint16Array(128)
-while(1):
-	samplelen = sensor.getSampledWindow(2, 128, mybuffer)
-	if samplelen:
-		thresh = sensor.findThreshold(threshContext, 30, mybuffer, samplelen)
-		sensor.printGraph(threshContext, 5)
-#		if(thresh):
-#			print "Threshold is ", thresh
+if __name__ == '__main__':
+    main()

@@ -24,66 +24,70 @@
 import time, sys, signal, atexit
 import pyupm_sx1276 as sensorObj
 
-# Instantiate an SX1276 using default parameters
-sensor = sensorObj.SX1276()
+def main():
+    # Instantiate an SX1276 using default parameters
+    sensor = sensorObj.SX1276()
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Specify an argument to go into receive mode.  Default is transmit"
+    print "Specify an argument to go into receive mode.  Default is transmit"
 
-# 915Mhz
-sensor.setChannel(915000000)
+    # 915Mhz
+    sensor.setChannel(915000000)
 
-# FSK configuration (rx and tx must be configured the same):
-# Tx output power = 14 dBm
-# FSK freq deviation = 25000 Hz
-# FSK bandwidth = 50000 bps
-# FSK AFC bandwidth = 83333 Hz
-# FSK datarate = 50000 bps
-# FSK preamble len = 5
-# FSK fixed length payload = false
-# FSK CRC check = true
-# FSK (rx) continuous Rx mode = False
+    # FSK configuration (rx and tx must be configured the same):
+    # Tx output power = 14 dBm
+    # FSK freq deviation = 25000 Hz
+    # FSK bandwidth = 50000 bps
+    # FSK AFC bandwidth = 83333 Hz
+    # FSK datarate = 50000 bps
+    # FSK preamble len = 5
+    # FSK fixed length payload = false
+    # FSK CRC check = true
+    # FSK (rx) continuous Rx mode = False
 
-sensor.setTxConfig(sensor.MODEM_FSK, 14, 25000, 0,
-                   50000, 0, 5, False, True, False, 0, False)
-    
-sensor.setRxConfig(sensor.MODEM_FSK, 50000, 50000,
-                   0, 83333, 5, 0, False, 0, True,
-                   False, 0, False, True)
+    sensor.setTxConfig(sensor.MODEM_FSK, 14, 25000, 0,
+                       50000, 0, 5, False, True, False, 0, False)
 
-count = 0
+    sensor.setRxConfig(sensor.MODEM_FSK, 50000, 50000,
+                       0, 83333, 5, 0, False, 0, True,
+                       False, 0, False, True)
 
-while True:
+    count = 0
+
+    while True:
         if (len(sys.argv) > 1):
-                # receive mode
-                print "Attempting to receive..."
-                rv = sensor.setRx(3000)
-                if (rv):
-                        print "setRx returned ", rv
-                else:
-                        print "Received Buffer: ", sensor.getRxBufferStr();
-                        # go back to sleep when done
+            # receive mode
+            print "Attempting to receive..."
+            rv = sensor.setRx(3000)
+            if (rv):
+                print "setRx returned ", rv
+            else:
+                print "Received Buffer: ", sensor.getRxBufferStr();
+                # go back to sleep when done
 
-                        sensor.setSleep()
-                        time.sleep(.25)
+                sensor.setSleep()
+                time.sleep(.25)
         else:
-                # transmit mode
-                buffer = "Ping " + str(count)
-                count += 1
-                print "Sending..." + buffer
-                sensor.sendStr(buffer, 3000)
-                sensor.setSleep();
-                time.sleep(1);
+            # transmit mode
+            buffer = "Ping " + str(count)
+            count += 1
+            print "Sending..." + buffer
+            sensor.sendStr(buffer, 3000)
+            sensor.setSleep();
+            time.sleep(1);
+
+if __name__ == '__main__':
+    main()

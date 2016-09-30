@@ -24,50 +24,51 @@
 import time, sys, signal, atexit
 import pyupm_mpr121 as upmMpr121
 
-I2C_BUS = upmMpr121.MPR121_I2C_BUS
-DEFAULT_I2C_ADDR = upmMpr121.MPR121_DEFAULT_I2C_ADDR
+def main():
+    I2C_BUS = upmMpr121.MPR121_I2C_BUS
+    DEFAULT_I2C_ADDR = upmMpr121.MPR121_DEFAULT_I2C_ADDR
 
-# Instantiate an MPR121 touch sensor on I2C
-myTouchSensor = upmMpr121.MPR121(I2C_BUS, DEFAULT_I2C_ADDR)
+    # Instantiate an MPR121 touch sensor on I2C
+    myTouchSensor = upmMpr121.MPR121(I2C_BUS, DEFAULT_I2C_ADDR)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myTouchSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myTouchSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
-
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
-
-
-
-def printButtons(touchSensor):
-	buttonPressed = False
-
-	outputStr = "Buttons Pressed: "
-	for i in range(12):
-		if (touchSensor.m_buttonStates & (1 << i)):
-			outputStr += (str(i) + " ")
-			buttonPressed = True
-
-	if (not buttonPressed):
-		outputStr += "None"
-
-	print outputStr
-
-	if (touchSensor.m_overCurrentFault):
-		print "Over Current Fault detected!"
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
 
-while(1):
-	myTouchSensor.readButtons()
-	printButtons(myTouchSensor)
+    def printButtons(touchSensor):
+        buttonPressed = False
 
-	time.sleep(1)
+        outputStr = "Buttons Pressed: "
+        for i in range(12):
+            if (touchSensor.m_buttonStates & (1 << i)):
+                outputStr += (str(i) + " ")
+                buttonPressed = True
+
+        if (not buttonPressed):
+            outputStr += "None"
+
+        print outputStr
+
+        if (touchSensor.m_overCurrentFault):
+            print "Over Current Fault detected!"
+
+    while(1):
+        myTouchSensor.readButtons()
+        printButtons(myTouchSensor)
+
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

@@ -24,33 +24,35 @@
 import time, sys, signal, atexit
 import pyupm_ppd42ns as upmPpd42ns
 
-# Instantiate a dust sensor on digital pin D8
-myDustSensor = upmPpd42ns.PPD42NS(8)
+def main():
+    # Instantiate a dust sensor on digital pin D8
+    myDustSensor = upmPpd42ns.PPD42NS(8)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myDustSensor
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myDustSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    notice = ("This program will give readings "
+    "every 30 seconds until you stop it")
+    print notice
 
+    while(1):
+        data = myDustSensor.getData()
+        # we need to sleep for a bit for the data to print out
+        time.sleep(.1)
+        print "Low pulse occupancy: " + str(data.lowPulseOccupancy)
+        print "Ratio: " + str(data.ratio)
+        print "Concentration: " + str(data.concentration)
 
-notice = ("This program will give readings "
-"every 30 seconds until you stop it")
-print notice
-
-while(1):
-	data = myDustSensor.getData()
-	# we need to sleep for a bit for the data to print out
-	time.sleep(.1)
-	print "Low pulse occupancy: " + str(data.lowPulseOccupancy)
-	print "Ratio: " + str(data.ratio)
-	print "Concentration: " + str(data.concentration)
+if __name__ == '__main__':
+    main()

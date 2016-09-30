@@ -24,60 +24,60 @@
 import time, sys, signal, atexit
 import pyupm_adafruitms1438 as upmAdafruitms1438
 
+def main():
+    # Import header values
+    I2CBus = upmAdafruitms1438.ADAFRUITMS1438_I2C_BUS
+    I2CAddr = upmAdafruitms1438.ADAFRUITMS1438_DEFAULT_I2C_ADDR
 
-# Import header values
-I2CBus = upmAdafruitms1438.ADAFRUITMS1438_I2C_BUS
-I2CAddr = upmAdafruitms1438.ADAFRUITMS1438_DEFAULT_I2C_ADDR
+    M3Motor = upmAdafruitms1438.AdafruitMS1438.MOTOR_M3
+    MotorDirCW = upmAdafruitms1438.AdafruitMS1438.DIR_CW
+    MotorDirCCW = upmAdafruitms1438.AdafruitMS1438.DIR_CCW
 
-M3Motor = upmAdafruitms1438.AdafruitMS1438.MOTOR_M3
-MotorDirCW = upmAdafruitms1438.AdafruitMS1438.DIR_CW
-MotorDirCCW = upmAdafruitms1438.AdafruitMS1438.DIR_CCW
+    # Instantiate an Adafruit MS 1438 on I2C bus 0
+    myMotorShield = upmAdafruitms1438.AdafruitMS1438(I2CBus, I2CAddr)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# Instantiate an Adafruit MS 1438 on I2C bus 0
-myMotorShield = upmAdafruitms1438.AdafruitMS1438(I2CBus, I2CAddr)
+    # This function lets you run code on exit,
+    # including functions from myMotorShield
+    def exitHandler():
+        myMotorShield.disableMotor(M3Motor)
+        print "Exiting"
+        sys.exit(0)
 
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # Setup for use with a DC motor connected to the M3 port
 
-# This function lets you run code on exit,
-# including functions from myMotorShield
-def exitHandler():
-	myMotorShield.disableMotor(M3Motor)
-	print "Exiting"
-	sys.exit(0)
+    # set a PWM period of 50Hz
+    myMotorShield.setPWMPeriod(50)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # disable first, to be safe
+    myMotorShield.disableMotor(M3Motor)
 
+    # set speed at 50%
+    myMotorShield.setMotorSpeed(M3Motor, 50)
+    myMotorShield.setMotorDirection(M3Motor, MotorDirCW)
 
-# Setup for use with a DC motor connected to the M3 port
+    print ("Spin M3 at half speed for 3 seconds, "
+    "then reverse for 3 seconds.")
+    myMotorShield.enableMotor(M3Motor)
 
-# set a PWM period of 50Hz
-myMotorShield.setPWMPeriod(50)
+    time.sleep(3)
 
-# disable first, to be safe
-myMotorShield.disableMotor(M3Motor)
+    print "Reversing M3"
+    myMotorShield.setMotorDirection(M3Motor, MotorDirCCW)
 
-# set speed at 50%
-myMotorShield.setMotorSpeed(M3Motor, 50)
-myMotorShield.setMotorDirection(M3Motor, MotorDirCW)
+    time.sleep(3)
 
-print ("Spin M3 at half speed for 3 seconds, "
-"then reverse for 3 seconds.")
-myMotorShield.enableMotor(M3Motor)
+    print "Stopping M3"
 
-time.sleep(3)
+    # exitHandler runs automatically
 
-print "Reversing M3"
-myMotorShield.setMotorDirection(M3Motor, MotorDirCCW)
-
-time.sleep(3)
-
-print "Stopping M3"
-
-# exitHandler runs automatically
+if __name__ == '__main__':
+    main()

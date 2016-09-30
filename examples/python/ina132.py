@@ -21,31 +21,32 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 import time, sys, signal, atexit
 import pyupm_ina132 as upmIna132
 
-# Tested with the INA132 Differential Amplifier Sensor module.
-# Instantiate an INA132 on analog pin A0
-myDifferentialAmplifier = upmIna132.INA132(0)
+def main():
+    # Tested with the INA132 Differential Amplifier Sensor module.
+    # Instantiate an INA132 on analog pin A0
+    myDifferentialAmplifier = upmIna132.INA132(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myDifferentialAmplifier
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myDifferentialAmplifier
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        print myDifferentialAmplifier.value()
+        time.sleep(1)
 
-
-while(1):
-	print myDifferentialAmplifier.value()
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

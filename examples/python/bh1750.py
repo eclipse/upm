@@ -24,27 +24,31 @@
 import time, sys, signal, atexit
 import pyupm_bh1750 as sensorObj
 
-# Instantiate a BH1750 sensor using defaults (I2C bus (0), using
-# the default I2C address (0x23), and setting the mode to highest
-# resolution, lowest power mode).
-sensor = sensorObj.BH1750()
+def main():
+    # Instantiate a BH1750 sensor using defaults (I2C bus (0), using
+    # the default I2C address (0x23), and setting the mode to highest
+    # resolution, lowest power mode).
+    sensor = sensorObj.BH1750()
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every second, sample the BH1750 and output the measured lux value
+    # Every second, sample the BH1750 and output the measured lux value
 
-while (True):
+    while (True):
         print "Detected Light Level (lux):", sensor.getLux()
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

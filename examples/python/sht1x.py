@@ -24,30 +24,34 @@
 import time, sys, signal, atexit
 import pyupm_sht1x as sensorObj
 
-# Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
-# data pin.
-sensor = sensorObj.SHT1X(2, 3)
+def main():
+    # Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
+    # data pin.
+    sensor = sensorObj.SHT1X(2, 3)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print "Exiting"
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every 2 seconds, update and print values
-while (True):
+    # Every 2 seconds, update and print values
+    while (True):
         sensor.update()
 
         print "Temperature:", sensor.getTemperature(), "C"
         print "Humidity:   ", sensor.getHumidity(), "RH"
         print
 
-	time.sleep(2)
+        time.sleep(2)
+
+if __name__ == '__main__':
+    main()
