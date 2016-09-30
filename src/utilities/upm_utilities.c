@@ -32,7 +32,7 @@ void upm_delay(int time){
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
-    nano_timer_start(&timer, SECONDS(time));
+    nano_timer_start(&timer, SECONDS(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
 #endif
 }
@@ -44,7 +44,7 @@ void upm_delay_ms(int time){
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
-    nano_timer_start(&timer, MSEC(time));
+    nano_timer_start(&timer, MSEC(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
 #endif
 }
@@ -56,7 +56,7 @@ void upm_delay_us(int time){
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
-    nano_timer_start(&timer, USEC(time));
+    nano_timer_start(&timer, USEC(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
 #endif
 }
