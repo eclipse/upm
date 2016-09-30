@@ -62,9 +62,6 @@ static void bmi160_cs_off()
 // i2c bus read and write functions for use with the bmi driver code
 s8 bmi160_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-    printf("%s: ENTER reg %02x cnt %02x.\n", __FUNCTION__,
-           reg_addr, cnt);
-
     if (isSPI)
     {
         if (!spiContext)
@@ -116,9 +113,6 @@ s8 bmi160_bus_read(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 
 s8 bmi160_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt)
 {
-    printf("%s: ENTER reg %02x cnt %02x.\n", __FUNCTION__,
-           reg_addr, cnt);
-
     if (isSPI)
     {
         if (!spiContext)
@@ -227,7 +221,7 @@ bmi160_context bmi160_init(unsigned int bus, int address, int cs_pin,
     {
         // we are doing SPI
         isSPI = true;
-        printf("DOING SPI!\n");//FIXME
+
         if (!(spiContext = mraa_spi_init(bus)))
         {
             printf("%s: mraa_spi_init() failed.\n", __FUNCTION__);
@@ -284,7 +278,6 @@ bmi160_context bmi160_init(unsigned int bus, int address, int cs_pin,
 
     // bmi160_init_bus will read the chip Id and deposit into our
     // interface struct.  So, check it out and make sure it's correct.
-    printf("%s: CHIP_ID = %02x\n", __FUNCTION__, s_bmi160.chip_id);
     if (s_bmi160.chip_id != BMI160_CHIP_ID)
     {
         printf("%s: Error: expected chip id %02x, but got %02x.\n",
