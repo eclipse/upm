@@ -57,9 +57,9 @@ namespace upm {
    * The TB7200 Series PI thermostats are designed for zoning
    * applications, and the TB7300 Series PI thermostats are designed
    * for fan coil control. Both Series are communicating thermostats
-   * with models available in BACnet® MS/TP protocol and can be easily
+   * with models available in BACnet(r) MS/TP protocol and can be easily
    * integrated into a WEBs-AX building automation system based on the
-   * NiagaraAX® platform.
+   * NiagaraAX(r) platform.
    *
    * TB7200 and TB7300 Series thermostats are compatible with the
    * Honeywell Occupancy Sensor Cover. Thermostats equipped with an

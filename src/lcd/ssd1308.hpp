@@ -47,7 +47,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * @brief API for SSD1308 I2C-controlled OLED displays
  *
  * SSD1308 is a 128x64 dot-matrix OLED/PLED segment driver with a
- * controller. This implementation was tested using the Grove LED 128×64
+ * controller. This implementation was tested using the Grove LED 128*64
  * Display module, which is an OLED monochrome display.
  *
  * @image html ssd1308.jpeg

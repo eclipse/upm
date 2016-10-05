@@ -538,7 +538,7 @@ void BMP280::csOff()
 // These functions come from the BMP280 datasheet, section 3.11.3
 
 // Returns temperature in DegC, resolution is 0.01 DegC. Output value
-// of “5123” equals 51.23 DegC.  t_fine carries fine temperature as
+// of "5123" equals 51.23 DegC.  t_fine carries fine temperature as
 // global value
 int32_t BMP280::bmp280_compensate_T_int32(int32_t adc_T)
 {

@@ -91,7 +91,7 @@ namespace upm {
  *
  * The Maxim Integrated
  * [MAX44009](http://datasheets.maximintegrated.com/en/ds/MAX44009.pdf)
- * is Industry’s Lowest-Power Ambient Light Sensor with ADC.
+ * is Industry's Lowest-Power Ambient Light Sensor with ADC.
  *
  * @library max44009
  * @sensor max44009

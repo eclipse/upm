@@ -51,7 +51,7 @@ namespace upm {
    *
    * The BNO055 is a System in Package (SiP), integrating a triaxial
    * 14-bit accelerometer, a triaxial 16-bit gyroscope with a range of
-   * ±2000 degrees per second, a triaxial geomagnetic sensor and a
+   * +/- 2000 degrees per second, a triaxial geomagnetic sensor and a
    * 32-bit cortex M0+ microcontroller running Bosch Sensortec sensor
    * fusion software, in a single package.
    *

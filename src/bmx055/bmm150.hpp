@@ -48,7 +48,7 @@ namespace upm {
    *
    * The BMM150 is a standalone geomagnetic sensor for consumer market
    * applications. It allows measurements of the magnetic field in
-   * three perpendicular axes. Based on Bosch’s proprietary FlipCore
+   * three perpendicular axes. Based on Bosch's proprietary FlipCore
    * technology, performance and features of BMM150 are carefully
    * tuned and perfectly match the demanding requirements of all
    * 3-axis mobile applications such as electronic compass, navigation

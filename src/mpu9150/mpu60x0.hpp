@@ -44,7 +44,7 @@ namespace upm {
    *
    * @brief API for the MPU60X0 3-axis Gyroscope and 3-axis Accelerometer
    *
-   * The MPU60X0 devices provide the world’s first integrated 6-axis
+   * The MPU60X0 devices provide the world's first integrated 6-axis
    * motion processor solution that eliminates the package-level
    * gyroscope and accelerometer cross-axis misalignment associated
    * with discrete solutions. The devices combine a 3-axis gyroscope
@@ -401,7 +401,7 @@ namespace upm {
      *
      * MST_DLY is not enumerated in the register map.  It configures
      * the reduced access rate of i2c slaves relative to the sample
-     * rate. When a slave’s access rate is decreased relative to the
+     * rate. When a slave's access rate is decreased relative to the
      * Sample Rate, the slave is accessed every 
      * 1 / (1 + I2C_MST_DLY) samples
      */

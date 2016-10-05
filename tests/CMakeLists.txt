@@ -2,6 +2,13 @@ add_test (NAME check_consistency COMMAND ${PYTHON_EXECUTABLE}
     ${CMAKE_CURRENT_SOURCE_DIR}/check_consistency.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
+# Check file encodings in src tree
+if (PYTHON2INTERP_FOUND)
+    add_test (NAME check_file_encoding COMMAND ${PYTHON_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/check_file_encoding.py
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src)
+endif (PYTHON2INTERP_FOUND)
+
 if (BUILDSWIGJAVA)
     add_test (NAME check_autoloadlibrary COMMAND ${PYTHON_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/check_autoloadlibrary.py

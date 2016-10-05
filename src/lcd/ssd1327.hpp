@@ -47,7 +47,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL = 0xA4;
  * @brief API for SSD1327 I2C-controlled OLED displays
  *
  * SSD1327 is a 96x96 dot-matrix OLED/PLED segment driver with a controller.
- * This implementation was tested using the Grove LED 96×96 Display module,
+ * This implementation was tested using the Grove LED 96*96 Display module,
  * which is an OLED monochrome display.
  *
  * @image html ssd1327.jpeg

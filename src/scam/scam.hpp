@@ -83,7 +83,7 @@ namespace upm {
 
     typedef enum {
       FORMAT_VGA                   = 7, // 640x480
-      FORMAT_CIF                   = 5, // 352×288
+      FORMAT_CIF                   = 5, // 352*288
       FORMAT_OCIF                  = 3  // ??? (maybe they meant QCIF?)
     } PIC_FORMATS_T;
 

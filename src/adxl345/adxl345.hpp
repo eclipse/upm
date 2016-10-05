@@ -48,7 +48,7 @@ namespace upm {
  *
  * ADXL345 is a 3-axis digital accelerometer.
  * (http://www.seeedstudio.com/wiki/images/2/2c/ADXL345_datasheet.pdf)
- * The sensor has configurable resolutions to measure ±2g, ±4g, ±8g, or ±16g.
+ * The sensor has configurable resolutions to measure +/- 2g, +/- 4g, +/- 8g, or +/- 16g.
  * Note: The Grove* version of the sensor is incompatible with and not detected
  * on the I2C bus by the Intel(R) Edison using an Arduino* breakout board at 5V
  * (3V works fine).

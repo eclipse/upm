@@ -58,8 +58,8 @@ namespace upm {
    * The BMP280 is an absolute barometric pressure sensor especially
    * designed for mobile applications. The sensor module is housed in
    * an extremely compact 8-pin metal-lid LGA package with a footprint
-   * of only 2.0 × 2.5 mm2 and 0.95 mm package height. Its small
-   * dimensions and its low power consumption of 2.7 μA @1Hz allow the
+   * of only 2.0 * 2.5 mm2 and 0.95 mm package height. Its small
+   * dimensions and its low power consumption of 2.7 uA @1Hz allow the
    * implementation in battery driven devices such as mobile phones,
    * GPS modules or watches.
    *  

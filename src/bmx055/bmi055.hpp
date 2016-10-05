@@ -45,7 +45,7 @@ namespace upm {
    * detection of movements and rotations in 6 degrees of freedom
    * (6DoF). It reflects the full functionality of a triaxial, low-g
    * acceleration sensor and at the same time it is capable to measure
-   * angular rates. Both – acceleration and angular rate – in three
+   * angular rates. Both - acceleration and angular rate - in three
    * perpendicular room dimensions, the x-, y- and z-axis.
    *
    * The BMI055 is essentially 2 separate devices in one: the BMA250E

@@ -59,8 +59,8 @@ namespace upm {
    *
    * @brief API for MCP9808 precision temprature sensor
    *
-   * The MCP9808 digital temperature sensor converts temperatures between -20°C and +100°C
-   * to a digital word with ±0.5°C (max.) accuracy. The MCP9808 comes with user-programmable
+   * The MCP9808 digital temperature sensor converts temperatures between -20 deg C and +100 deg C
+   * to a digital word with +/- 0.5 deg C (max.) accuracy. The MCP9808 comes with user-programmable
    * registers that provide flexibility for temperature sensing applications. The registers
    * allow user-selectable settings such as Shutdown or low-power modes and the specification
    * of temperature Event and Critical output boundaries. When the temperature changes beyond
@@ -133,10 +133,10 @@ namespace upm {
              * @var MCP9808_CONFIG::ALERTMODE - Alert Output Mode bit
              *      0 = Comparator output (power-up default)
              *      1 = Interrupt output
-             * @var MCP9808_CONFIG::HYST_0 : 0°C
-             * @var MCP9808_CONFIG::HYST_1_5 : +1.5°C
-             * @var MCP9808_CONFIG::HYST_3_0 : +3.0°C
-             * @var MCP9808_CONFIG::HYST_6_0 : +6.0°C
+             * @var MCP9808_CONFIG::HYST_0 : 0 deg C
+             * @var MCP9808_CONFIG::HYST_1_5 : +1.5 deg C
+             * @var MCP9808_CONFIG::HYST_3_0 : +3.0 deg C
+             * @var MCP9808_CONFIG::HYST_6_0 : +6.0 deg C
              */
             typedef enum
             {
