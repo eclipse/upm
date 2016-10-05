@@ -56,9 +56,11 @@ class loadModule(unittest.TestCase):
             except Exception as x:
                 failures[pyfile] = x
 
+        skeys = list(failures.keys())
+        skeys.sort()
         self.assertEqual(len(failures), 0,
                 '\n\nFailed to load %d modules:\n' % len(failures) +
-                '\n'.join(['%s: %s' % (k, ', '.join(failures[k])) for k in failures.keys()]))
+                '\n'.join(['%s: %s' % (k, failures[k]) for k in skeys]))
 
 if __name__ == '__main__':
     # Allow passing from argv
