@@ -35,7 +35,7 @@
 /**
  * @file collision.h
  * @library collision
- * @brief C API for the MVS0608 - Digital Collision Sensor
+ * @brief C API for the MVS0608 Digital Collision Sensor
  *
  * @include collision.c
  */

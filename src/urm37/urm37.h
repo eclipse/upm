@@ -42,7 +42,7 @@ extern "C" {
 /**
  * @file urm37.h
  * @library urm37
- * @brief C API for the DFRobot URM37 Ultrasonic Ranger
+ * @brief C API for the URM37 Ultrasonic Ranger
  *
  * An example using analog mode
  * @include urm37.c Interesting

@@ -36,7 +36,7 @@ extern "C" {
   /**
    * @file hka5.h
    * @library hka5
-   * @brief C API for the Laser PM2.5 Sensor
+   * @brief C API for the HKA5 Laser PM2.5 Sensor
    *
    * @include hka5.c
    */

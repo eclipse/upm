@@ -55,7 +55,7 @@
 /**
  * @file m24lr64e.h
  * @library m24lr64e
- * @brief C API for M24LR64E-based NFC Tags
+ * @brief C API for M24LR64E based NFC Tags
  *
  * @include m24lr64e.c
  */
