@@ -54,11 +54,23 @@ if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
   include (${SWIG_USE_FILE})
 endif ()
 
-# Python is required for swig generated python and for UPM tests
-# UPM build can generated modules for both python2 AND python3
+# Python is required for swig generated python and for UPM tests.
+# The UPM build can generated modules for both python2 AND python3
+# with the corresponding PYTHONLIBS.  Currently, BUILDTESTS has a
+# hard dependency on the PYTHON2INTERP.
 # OpenCV python detect will attempt to find python2/3
 if (BUILDSWIGPYTHON OR BUILDTESTS)
   include (cmake/modules/OpenCVDetectPython.cmake)
+
+  # Fail if building tests but no python interpreter was found
+  if (BUILDTESTS AND NOT PYTHON2INTERP_FOUND)
+      message(FATAL_ERROR "BUILDTESTS=ON requires the python2 interpreter")
+  endif (BUILDTESTS AND NOT PYTHON2INTERP_FOUND)
+
+  # Fail if no LIBS were found
+  if (NOT PYTHON2LIBS_FOUND AND NOT PYTHON3LIBS_FOUND)
+      message(FATAL_ERROR "At least one python lib is required")
+  endif (NOT PYTHON2LIBS_FOUND AND NOT PYTHON3LIBS_FOUND)
 endif (BUILDSWIGPYTHON OR BUILDTESTS)
 
 # Which versions of python were found?

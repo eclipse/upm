@@ -442,7 +442,7 @@ endmacro(upm_module_init)
 if (BUILDDOC AND BUILDSWIGPYTHON)
   # doxy2swig the doxygen output
   add_custom_target (pyupm_doxy2swig ALL
-    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doxy2swig.py
+    COMMAND ${PYTHON2_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doxy2swig.py
       ${CMAKE_BINARY_DIR}/xml/index.xml
       ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i
       DEPENDS doc)
