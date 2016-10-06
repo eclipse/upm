@@ -126,3 +126,5 @@ add_example (bmi160)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
+add_custom_example (lcm1602-i2c-example-c lcm1602-i2c.c lcm1602)
+add_custom_example (lcm1602-parallel-example-c lcm1602-parallel.c lcm1602)
