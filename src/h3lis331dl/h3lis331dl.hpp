@@ -35,7 +35,7 @@ namespace upm {
   /**
    * @brief H3LIS331DL I2C Accelerometer (400g) library
    * @defgroup h3lis331dl libupm-h3lis331dl
-   * @ingroup seeed i2c accelerometer
+   * @ingroup seeed stmicro i2c accelerometer
    */
 
   /**
@@ -44,7 +44,7 @@ namespace upm {
    * @comname H3LIS331DL 3-Axis Digital Accelerometer
    * @altname Grove 3-Axis Digital Accelerometer (400g)
    * @type accelerometer
-   * @man seeed
+   * @man seeed stmicro
    * @web http://www.seeedstudio.com/depot/Grove-3Axis-Digital-Accelerometer400g-p-1897.html
    * @con i2c
    *

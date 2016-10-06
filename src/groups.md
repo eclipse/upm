@@ -270,9 +270,19 @@ and is not meant to be installed anywhere.
 @brief Adafruit Industries
 
 
-@defgroup emax EMax
+@defgroup amphenol Amphenol
 @ingroup byman
-@brief EMax
+@brief Amphenol
+
+
+@defgroup bosch Bosch
+@ingroup byman
+@brief Bosch
+
+
+@defgroup comet Comet
+@ingroup byman
+@brief Comet System
 
 
 @defgroup dfrobot DFRobot
@@ -280,9 +290,9 @@ and is not meant to be installed anywhere.
 @brief DFRobot
 
 
-@defgroup comet Comet
+@defgroup emax EMax
 @ingroup byman
-@brief Comet System
+@brief EMax
 
 
 @defgroup epict EpicTinker
@@ -310,9 +320,9 @@ and is not meant to be installed anywhere.
 @brief Maxim Integrated
 
 
-@defgroup numatolabs Numato Labs
+@defgroup meas Measurement Specialties
 @ingroup byman
-@brief Numato Labs
+@brief Measurement Specialties
 
 
 @defgroup mouser Mouser
@@ -320,9 +330,19 @@ and is not meant to be installed anywhere.
 @brief Mouser
 
 
+@defgroup numatolabs Numato Labs
+@ingroup byman
+@brief Numato Labs
+
+
 @defgroup omega Omega
 @ingroup byman
 @brief Omega
+
+
+@defgroup openelectrons Open Electrons
+@ingroup byman
+@brief Open Electrons
 
 
 @defgroup seeed SeeedStudio
@@ -330,9 +350,19 @@ and is not meant to be installed anywhere.
 @brief SeeedStudio - Grove Sensors
 
 
+@defgroup silabs Silicon Labs
+@ingroup byman
+@brief Silicon Labs
+
+
 @defgroup sparkfun Sparkfun
 @ingroup byman
 @brief Sparkfun
+
+
+@defgroup stmicro STMicroelectronics
+@ingroup byman
+@brief STMicroelectronics
 
 
 @defgroup ti Texas Instruments
@@ -343,31 +373,6 @@ and is not meant to be installed anywhere.
 @defgroup veris Veris Industries
 @ingroup byman
 @brief Veris Industries
-
-
-@defgroup silabs Silicon Labs
-@ingroup byman
-@brief Silicon Labs
-
-
-@defgroup bosch Bosch
-@ingroup byman
-@brief Bosch
-
-
-@defgroup amphenol Amphenol
-@ingroup byman
-@brief Amphenol
-
-
-@defgroup openelectrons Open Electrons
-@ingroup byman
-@brief Open Electrons
-
-
-@defgroup meas Measurement Specialties
-@ingroup byman
-@brief Measurement Specialties
 
 
 ### Groups for the various Starter Kits ###

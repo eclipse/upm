@@ -63,7 +63,7 @@ namespace upm {
 /**
  * @brief LSM303 Accelerometer/Compass library
  * @defgroup lsm303 libupm-lsm303
- * @ingroup seeed adafruit i2c accelerometer compass
+ * @ingroup seeed adafruit stmicro i2c accelerometer compass
  */
 
 /**
@@ -72,7 +72,7 @@ namespace upm {
  * @comname LSM303 Accelerometer & Compass
  * @altname Grove 6-Axis Accelerometer & Compass
  * @type accelerometer compass
- * @man seeed adafruit
+ * @man seeed adafruit stmicro
  * @web http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass
  * @con i2c
  *

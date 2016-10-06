@@ -43,7 +43,7 @@ namespace upm
 /**
  * @brief L3GD20 Tri-axis Digital Gyroscope
  * @defgroup l3gd20 libupm-l3gd20
- * @ingroup STMicroelectronics iio i2c tri-axis digital gyroscope
+ * @ingroup stmicro iio i2c tri-axis digital gyroscope
  */
 
 /**
@@ -51,7 +51,7 @@ namespace upm
  * @sensor l3gd20
  * @comname L3GD20 Tri-axis Digital Gyroscope
  * @type gyroscope
- * @man STMicroelectronics
+ * @man stmicro
  * @con iio i2c
  *
  * @brief L3GD20 Tri-axis Digital Gyroscope API

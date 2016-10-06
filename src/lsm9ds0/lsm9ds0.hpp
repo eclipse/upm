@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @brief LSM9DS0 accelerometer library
    * @defgroup lsm9ds0 libupm-lsm9ds0
-   * @ingroup i2c gpio accelerometer compass
+   * @ingroup sparkfun stmicro i2c gpio accelerometer compass
    */
 
   /**
@@ -46,7 +46,7 @@ namespace upm {
    * @sensor lsm9ds0
    * @comname LSM9DS0 3-axis Gyroscope, Accelerometer, and Magnetometer
    * @type accelerometer compass
-   * @man sparkfun
+   * @man sparkfun stmicro
    * @con i2c gpio
    * @web https://www.sparkfun.com/products/13033
    *
