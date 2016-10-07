@@ -656,8 +656,8 @@ namespace upm {
 
   private:
     // prevent copying and assignment
-    BACNETMSTP(BACNETMSTP const &) {};
-    BACNETMSTP& operator=(BACNETMSTP const&) {};
+    BACNETMSTP(BACNETMSTP const &) = delete;
+    BACNETMSTP& operator=(BACNETMSTP const&) = delete;
 
     // our class instance
     static BACNETMSTP* m_instance;
