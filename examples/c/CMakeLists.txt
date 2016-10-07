@@ -123,6 +123,7 @@ add_example (water)
 add_example (yg1006)
 add_example (biss0001)
 add_example (bmi160)
+add_example (jhd1313m1)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
