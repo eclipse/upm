@@ -85,8 +85,11 @@ class MLX90614 {
 
         /**
          * Reads the object temperature in Fahrenheit
+         *
+         * @param objAddr Object register for models with dual sensors
+         * Can be MLX90614_TOBJ1 (default) or MLX90614_TOBJ2
          */
-        float readObjectTempF(void);
+        float readObjectTempF(int objAddr=MLX90614_TOBJ1);
 
         /**
          * Reads the ambient temperature in Fahrenheit
@@ -94,8 +97,11 @@ class MLX90614 {
         float readAmbientTempF(void);
         /**
          * Reads the object temperature in Celsius
+         *
+         * @param objAddr Object register for models with dual sensors
+         * Can be MLX90614_TOBJ1 (default) or MLX90614_TOBJ2
          */
-        float readObjectTempC(void);
+        float readObjectTempC(int objAddr=MLX90614_TOBJ1);
 
         /**
          * Reads the ambient temperature in Celsius

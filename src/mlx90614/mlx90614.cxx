@@ -51,8 +51,8 @@ MLX90614::MLX90614 (int bus, int devAddr) : m_i2Ctx(bus) {
 }
 
 float
-MLX90614::readObjectTempF(void) {
-    return (readTemperature(MLX90614_TOBJ1) * 9 / 5) + 32;
+MLX90614::readObjectTempF(int objAddr) {
+    return (readTemperature(objAddr) * 9 / 5) + 32;
 }
 
 float
@@ -61,8 +61,8 @@ MLX90614::readAmbientTempF(void) {
 }
 
 float
-MLX90614::readObjectTempC(void) {
-    return readTemperature(MLX90614_TOBJ1);
+MLX90614::readObjectTempC(int objAddr) {
+    return readTemperature(objAddr);
 }
 
 float
@@ -75,42 +75,7 @@ MLX90614::readAmbientTempC(void) {
  *  private area
  * **************
  */
-uint16_t
-MLX90614::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
-    int readByte = 0;
-
-    m_i2Ctx.address(m_i2cAddr);
-    m_i2Ctx.writeByte(reg);
-
-    readByte = m_i2Ctx.read(buffer, len);
-    return readByte;
-}
-
-mraa::Result
-MLX90614::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
-    mraa::Result error = mraa::SUCCESS;
-
-    error = m_i2Ctx.address(m_i2cAddr);
-    error = m_i2Ctx.write(buffer, len);
-
-    return error;
-}
-
 float
 MLX90614::readTemperature (uint8_t address) {
-    uint8_t     buffer[3];
-    float       temperature = 0;
-
-    /*  Reading temperature from sensor.
-        Answer contained of 3 bytes (TEMP_LSB | TEMP_MSB | PEC)
-     */
-    if (i2cReadReg_N(address, 3, buffer) > 2) {
-        temperature = buffer[0];
-        temperature = buffer[1] << 8;
-
-        temperature *= .02;
-        temperature -= 273.15;
-    }
-
-    return temperature;
+    return m_i2Ctx.readWordReg(address) * 0.02 - 273.15;
 }
