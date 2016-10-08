@@ -1,4 +1,4 @@
-%module javaupm_i2clcd
+%module javaupm_jhd1313m1
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
@@ -31,7 +31,7 @@
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_i2clcd");
+            System.loadLibrary("javaupm_jhd1313m1");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

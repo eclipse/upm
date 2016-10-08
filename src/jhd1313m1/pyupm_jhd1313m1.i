@@ -1,6 +1,6 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_i2clcd
+%module pyupm_jhd1313m1
 %include "../upm.i"
 %include "../carrays_uint8_t.i"
 

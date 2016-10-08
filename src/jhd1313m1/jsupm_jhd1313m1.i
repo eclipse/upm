@@ -1,4 +1,4 @@
-%module jsupm_i2clcd
+%module jsupm_jhd1313m1
 %include "../upm.i"
 %include "../carrays_uint8_t.i"
 
