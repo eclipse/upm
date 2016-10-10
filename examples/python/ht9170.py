@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ht9170 as upmHt9170
+from upm import pyupm_ht9170 as upmHt9170
 
 def main():
     # Instantiate a DTMF decoder
@@ -35,7 +36,7 @@ def main():
 
     # This lets you run code on exit, including functions from myDTMF
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,7 +48,7 @@ def main():
     # and continue looping.
     while (1):
         if (dtmf_obj.digitReady()):
-            print "Got DTMF code:", dtmf_obj.decodeDigit()
+            print("Got DTMF code:", dtmf_obj.decodeDigit())
             # now spin until digitReady() goes false again
             while (dtmf.digitReady()):
                 pass

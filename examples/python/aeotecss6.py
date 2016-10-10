@@ -21,16 +21,17 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ozw as sensorObj
+from upm import pyupm_ozw as sensorObj
 
 def main():
     # This function lets you run code on exit
     def exitHandler():
-        print "Turning switch off and sleeping for 5 seconds..."
+        print("Turning switch off and sleeping for 5 seconds...")
         sensor.off()
         time.sleep(5)
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -39,7 +40,7 @@ def main():
     defaultDev = "/dev/ttyACM0"
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
-    print "Using device", defaultDev
+    print("Using device", defaultDev)
 
     # Instantiate an Aeotec Smart Switch 6 instance, on device node 11.
     # You will almost certainly need to change this to reflect your own
@@ -51,40 +52,40 @@ def main():
     sensor.optionsLock()
 
     # Next, initialize it.
-    print "Initializing, this may take awhile depending on your ZWave network"
+    print("Initializing, this may take awhile depending on your ZWave network")
 
     sensor.init(defaultDev)
-    print "Initialization complete"
+    print("Initialization complete")
 
     # turn light on
-    print "Turning switch on, then sleeping for 5 secs"
+    print("Turning switch on, then sleeping for 5 secs")
     sensor.on();
     time.sleep(5);
 
-    print "Querying data..."
+    print("Querying data...")
 
     while (True):
         sensor.update()
 
-        print "Switch status:",
-        print sensor.isOn()
+        print("Switch status:", end=' ')
+        print(sensor.isOn())
 
-        print "Volts:",
-        print sensor.getVolts(),
-        print "volts"
+        print("Volts:", end=' ')
+        print(sensor.getVolts(), end=' ')
+        print("volts")
 
-        print "Energy Consumption:",
-        print sensor.getEnergy(),
-        print "kWh"
+        print("Energy Consumption:", end=' ')
+        print(sensor.getEnergy(), end=' ')
+        print("kWh")
 
-        print "Watts:",
-        print sensor.getWatts()
+        print("Watts:", end=' ')
+        print(sensor.getWatts())
 
-        print "Current:",
-        print sensor.getCurrent(),
-        print "amps"
+        print("Current:", end=' ')
+        print(sensor.getCurrent(), end=' ')
+        print("amps")
 
-        print
+        print()
         time.sleep(3)
 
 if __name__ == '__main__':

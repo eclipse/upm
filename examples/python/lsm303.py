@@ -23,8 +23,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_lsm303 as lsm303
+from upm import pyupm_lsm303 as lsm303
 
 def main():
     # Instantiate LSM303 compass on I2C
@@ -38,7 +39,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myAccelrCompass
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -57,15 +58,15 @@ def main():
         outputStr = "coor: rX {0} - rY {1} - rZ {2}".format(
         coords.__getitem__(0), coords.__getitem__(1),
         coords.__getitem__(2))
-        print outputStr
+        print(outputStr)
 
         outputStr = "coor: gX {0} - gY {1} - gZ {2}".format(
         myAccelrCompass.getCoorX(), myAccelrCompass.getCoorY(),
         myAccelrCompass.getCoorZ())
-        print outputStr
+        print(outputStr)
 
         # Get and print out the heading
-        print "heading:", myAccelrCompass.getHeading()
+        print("heading:", myAccelrCompass.getHeading())
 
         # Get the acceleration
         myAccelrCompass.getAcceleration();
@@ -75,14 +76,14 @@ def main():
         # using two different methods
         outputStr = "acc: rX {0} - rY {1} - Z {2}".format(
         accel.__getitem__(0), accel.__getitem__(1), accel.__getitem__(2))
-        print outputStr
+        print(outputStr)
 
         outputStr = "acc: gX {0} - gY {1} - gZ {2}".format(
         myAccelrCompass.getAccelX(), myAccelrCompass.getAccelY(),
         myAccelrCompass.getAccelZ())
-        print outputStr
+        print(outputStr)
 
-        print " "
+        print(" ")
         time.sleep(1)
 
 if __name__ == '__main__':

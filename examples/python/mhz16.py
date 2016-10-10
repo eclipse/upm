@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mhz16 as upmMhz16
+from upm import pyupm_mhz16 as upmMhz16
 
 def main():
     # Instantiate a MHZ16 serial CO2 sensor on uart 0.
@@ -37,7 +38,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myCO2
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -46,7 +47,7 @@ def main():
 
     # make sure port is initialized properly.  9600 baud is the default.
     if (not myCO2.setupTty(upmMhz16.cvar.int_B9600)):
-        print "Failed to setup tty port parameters"
+        print("Failed to setup tty port parameters")
         sys.exit(0)
 
     print ("Make sure that the sensor has had "
@@ -59,12 +60,12 @@ def main():
 
     while(1):
         if (not myCO2.getData()):
-            print "Failed to retrieve data"
+            print("Failed to retrieve data")
         else:
             outputStr = ("CO2 concentration: {0} PPM, "
             "Temperature (in C): {1}".format(
             myCO2.getGas(), myCO2.getTemperature()))
-            print outputStr
+            print(outputStr)
 
         time.sleep(2)
 

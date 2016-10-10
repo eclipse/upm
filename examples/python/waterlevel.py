@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_waterlevel as upmWaterlevel
+from upm import pyupm_waterlevel as upmWaterlevel
 
 def main():
     # The was tested with the Water Level Sensor
@@ -37,7 +38,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myWaterLevel
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -46,9 +47,9 @@ def main():
 
     while(1):
         if (myWaterLevel.isSubmerged()):
-            print "Sensor is submerged in liquid"
+            print("Sensor is submerged in liquid")
         else:
-            print "Liquid is below water level sensor"
+            print("Liquid is below water level sensor")
 
         time.sleep(1)
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_t8100 as sensorObj
+from upm import pyupm_t8100 as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,7 +33,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -50,8 +51,8 @@ def main():
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-    print "Using device", defaultDev
-    print "Initializing..."
+    print("Using device", defaultDev)
+    print("Initializing...")
 
     # Instantiate an T8100 object for an T8100 device that has 568000
     # as it's unique Device Object Instance ID.  NOTE: You will
@@ -69,32 +70,32 @@ def main():
     # sensor.setDebug(True);
 
     # output the serial number and firmware revision
-    print
-    print "Device Description:", sensor.getDeviceDescription()
-    print "Device Location:", sensor.getDeviceLocation()
-    print
+    print()
+    print("Device Description:", sensor.getDeviceDescription())
+    print("Device Location:", sensor.getDeviceLocation())
+    print()
 
     # update and print available values every 5 seconds
     while (1):
         # update our values
         sensor.update();
 
-        print "CO2 Concentration:",
-        print sensor.getCO2(),
-        print "ppm"
+        print("CO2 Concentration:", end=' ')
+        print(sensor.getCO2(), end=' ')
+        print("ppm")
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(),
-        print "C /", sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), end=' ')
+        print("C /", sensor.getTemperature(True), "F")
 
-        print "Humidity:",
-        print sensor.getHumidity(),
-        print "%RH"
+        print("Humidity:", end=' ')
+        print(sensor.getHumidity(), end=' ')
+        print("%RH")
 
-        print "Relay State:",
-        print sensor.getRelayState()
+        print("Relay State:", end=' ')
+        print(sensor.getRelayState())
 
-        print
+        print()
         time.sleep(5)
 
 if __name__ == '__main__':

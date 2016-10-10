@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_uln200xa as upmULN200XA
+from upm import pyupm_uln200xa as upmULN200XA
 
 def main():
     # Instantiate a Stepper motor on a ULN200XA Darlington Motor Driver
@@ -39,7 +40,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myUln200xa
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -49,13 +50,13 @@ def main():
     myUln200xa.setSpeed(5) # 5 RPMs
     myUln200xa.setDirection(upmULN200XA.ULN200XA.DIR_CW)
 
-    print "Rotating 1 revolution clockwise."
+    print("Rotating 1 revolution clockwise.")
     myUln200xa.stepperSteps(4096)
 
-    print "Sleeping for 2 seconds..."
+    print("Sleeping for 2 seconds...")
     time.sleep(2)
 
-    print "Rotating 1/2 revolution counter clockwise."
+    print("Rotating 1/2 revolution counter clockwise.")
     myUln200xa.setDirection(upmULN200XA.ULN200XA.DIR_CCW)
     myUln200xa.stepperSteps(2048)
 

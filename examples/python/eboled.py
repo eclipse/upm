@@ -21,9 +21,10 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys
 
-import pyupm_i2clcd as lcdObj
+from upm import pyupm_i2clcd as lcdObj
 
 def main():
     # setup with default values
@@ -35,7 +36,7 @@ def main():
     lcd.setCursor(30, 15);
     lcd.write("World!");
     lcd.refresh();
-    print "Sleeping for 5 seconds..."
+    print("Sleeping for 5 seconds...")
     time.sleep(5)
 
 if __name__ == '__main__':

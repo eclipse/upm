@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_my9221 as upmMy9221
+from upm import pyupm_my9221 as upmMy9221
 
 def main():
     # Instantiate a MY9221, we use D8 for the data, and D9 for the
@@ -35,7 +36,7 @@ def main():
 
     def exitHandler():
         myLEDBar.setBarLevel(0, True)
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # This function lets you run code on exit

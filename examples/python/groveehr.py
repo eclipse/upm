@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_groveehr as upmGroveehr
+from upm import pyupm_groveehr as upmGroveehr
 
 def main():
     # Instantiate a Grove Ear-clip Heart Rate sensor on digital pin D2
@@ -37,7 +38,7 @@ def main():
     # including functions from myHeartRateSensor
     def exitHandler():
         myHeartRateSensor.stopBeatCounter()
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -62,7 +63,7 @@ def main():
         # output milliseconds passed, beat count, and computed heart rate
         outputStr = "Millis: {0} Beats: {1} Heart Rate: {2}".format(
         millis, beats, fr)
-        print outputStr
+        print(outputStr)
         time.sleep(1)
 
 if __name__ == '__main__':

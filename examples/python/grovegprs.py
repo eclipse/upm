@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_grovegprs as sensorObj
+from upm import pyupm_grovegprs as sensorObj
 
 def main():
     # Instantiate a GroveGPRS Module on UART 0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,7 +45,7 @@ def main():
 
     # Set the baud rate, 19200 baud is the default.
     if (sensor.setBaudRate(19200)):
-        print "Failed to set baud rate"
+        print("Failed to set baud rate")
         sys.exit(0)
 
     usageStr = ("Usage:\n"
@@ -52,7 +53,7 @@ def main():
     "sent to the module and the response is printed out.\n\n"
     "If no argument is used, then the manufacturer and the current\n"
     "saved profiles are queried and the results printed out.\n\n")
-    print usageStr
+    print(usageStr)
 
     # simple helper function to send a command and wait for a response
     def sendCommand(sensor, cmd):
@@ -62,23 +63,23 @@ def main():
 
         # wait up to 1 second
         if (sensor.dataAvailable(1000)):
-            print "Returned: ",
-            print sensor.readDataStr(1024)
+            print("Returned: ", end=' ')
+            print(sensor.readDataStr(1024))
         else:
-            print "Timed out waiting for response"
+            print("Timed out waiting for response")
 
     if (len(sys.argv) > 1):
-        print "Sending command line argument (" + sys.argv[1] + ")..."
+        print("Sending command line argument (" + sys.argv[1] + ")...")
         sendCommand(sensor, sys.argv[1])
     else:
         # query the module manufacturer
-        print "Querying module manufacturer (AT+CGMI)..."
+        print("Querying module manufacturer (AT+CGMI)...")
         sendCommand(sensor, "AT+CGMI");
 
         time.sleep(1);
 
         # query the saved profiles
-        print "Querying the saved profiles (AT&V)..."
+        print("Querying the saved profiles (AT&V)...")
         sendCommand(sensor, "AT&V");
 
         # A comprehensive list is available from the datasheet at:

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_groveo2 as upmGroveo2
+from upm import pyupm_groveo2 as upmGroveo2
 
 def main():
     # This was tested with the O2 Oxygen Concentration Sensor Module
@@ -36,7 +37,7 @@ def main():
 
     # This lets you run code on exit, including functions from myGroveO2
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,8 +45,8 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        print "The output voltage is: {0}mV".format(
-        myGroveO2.voltageValue())
+        print("The output voltage is: {0}mV".format(
+        myGroveO2.voltageValue()))
 
         time.sleep(.1)
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_tex00 as sensorObj
+from upm import pyupm_tex00 as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,23 +33,23 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Initializing..."
+    print("Initializing...")
 
     # Instantiate an TEX00 instance, using A0 for the analog input.  In
     # this example, we are using a 10K Ohm balance resistor and a TED
     # (10k type 2) thermistor.
     sensor = sensorObj.TEX00(0, 10000, sensorObj.TEX00.STYPE_THERMISTOR_TED)
 
-    print "Minimum temperature:", sensor.getTemperatureRangeMin(), "C"
-    print "Maximum temperature:", sensor.getTemperatureRangeMax(), "C"
-    print
+    print("Minimum temperature:", sensor.getTemperatureRangeMin(), "C")
+    print("Maximum temperature:", sensor.getTemperatureRangeMax(), "C")
+    print()
 
     # update and print available values every second
     while (1):
@@ -56,13 +57,13 @@ def main():
         sensor.update()
 
         if (sensor.isOutOfRange()):
-            print "Temperature out of range"
+            print("Temperature out of range")
         else:
             # we show both C and F for temperature
-            print "Temperature:", sensor.getTemperature(), "C /",
-            print sensor.getTemperature(True), "F"
+            print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+            print(sensor.getTemperature(True), "F")
 
-        print
+        print()
         time.sleep(1)
 
 if __name__ == '__main__':

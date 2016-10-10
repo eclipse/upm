@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
 def main():
     # Create the button object using GPIO pin 0
@@ -29,7 +30,7 @@ def main():
 
     # Read the input and print, waiting one second between readings
     while 1:
-        print button.name(), ' value is ', button.value()
+        print(button.name(), ' value is ', button.value())
         time.sleep(1)
 
     # Delete the button object

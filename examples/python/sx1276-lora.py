@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_sx1276 as sensorObj
+from upm import pyupm_sx1276 as sensorObj
 
 def main():
     # Instantiate an SX1276 using default parameters
@@ -35,14 +36,14 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Specify an argument to go into receive mode.  Default is transmit"
+    print("Specify an argument to go into receive mode.  Default is transmit")
 
     # 915Mhz
     sensor.setChannel(915000000)
@@ -69,12 +70,12 @@ def main():
     while True:
         if (len(sys.argv) > 1):
             # receive mode
-            print "Attempting to receive..."
+            print("Attempting to receive...")
             rv = sensor.setRx(3000)
             if (rv):
-                print "setRx returned ", rv
+                print("setRx returned ", rv)
             else:
-                print "Received Buffer: ", sensor.getRxBufferStr();
+                print("Received Buffer: ", sensor.getRxBufferStr());
                 # go back to sleep when done
 
                 sensor.setSleep()
@@ -83,7 +84,7 @@ def main():
             # transmit mode
             buffer = "Ping " + str(count)
             count += 1
-            print "Sending..." + buffer
+            print("Sending..." + buffer)
             sensor.sendStr(buffer, 3000)
             sensor.setSleep();
             time.sleep(1);

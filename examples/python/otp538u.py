@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_otp538u as upmOtp538u
+from upm import pyupm_otp538u as upmOtp538u
 
 def main():
     # analog voltage, usually 3.3 or 5.0
@@ -40,7 +41,7 @@ def main():
 
     # This lets you run code on exit, including functions from myTempIR
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -52,7 +53,7 @@ def main():
         " C, Object temp: {1}"
         " C".format(myTempIR.ambientTemperature(),
         myTempIR.objectTemperature()))
-        print outputStr
+        print(outputStr)
 
         time.sleep(1)
 

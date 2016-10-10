@@ -22,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_ili9341 as ili9341
+from upm import pyupm_ili9341 as ili9341
 
 def main():
     # Pins (Edison)

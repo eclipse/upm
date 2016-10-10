@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_moisture as upmMoisture
+from upm import pyupm_moisture as upmMoisture
 
 def main():
     # Instantiate a Grove Moisture sensor on analog pin A0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myMoisture
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -56,7 +57,7 @@ def main():
             result = "Moist"
         else:
             result = "Wet"
-        print "Moisture value: {0}, {1}".format(moisture_val, result)
+        print("Moisture value: {0}, {1}".format(moisture_val, result))
         time.sleep(1)
 
 if __name__ == '__main__':

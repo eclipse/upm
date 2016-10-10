@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: John Van Drasek <john.r.van.drasek@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_mic as upmMicrophone
+from upm import pyupm_mic as upmMicrophone
 
 def main():
     # Attach microphone to analog port A0
@@ -42,7 +43,7 @@ def main():
             thresh = myMic.findThreshold(threshContext, 30, buffer, len)
             myMic.printGraph(threshContext)
             if(thresh):
-                print "Threshold is ", thresh
+                print("Threshold is ", thresh)
 
     # Delete the upmMicrophone object
     del myMic

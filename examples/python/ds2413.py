@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ds2413 as sensorObj
+from upm import pyupm_ds2413 as sensorObj
 
 def main():
     # Instantiate a DS2413 Module on a Dallas 1-wire bus connected to UART 0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -46,15 +47,15 @@ def main():
     sensor.init();
 
     # how many devices were found?
-    print "Found", sensor.devicesFound(), "device(s)"
+    print("Found", sensor.devicesFound(), "device(s)")
 
     # read the gpio and latch values from the first device
     # the lower 4 bits are of the form:
     # <gpioB latch> <gpioB value> <gpioA latch> <gpioA value>
-    print "GPIO device 0 values:", sensor.readGpios(0)
+    print("GPIO device 0 values:", sensor.readGpios(0))
 
     # set the gpio latch values of the first device
-    print "Setting GPIO latches to on"
+    print("Setting GPIO latches to on")
     sensor.writeGpios(0, 0x03);
 
 if __name__ == '__main__':

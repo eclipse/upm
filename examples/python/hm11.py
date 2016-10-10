@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_hm11 as upmHm11
+from upm import pyupm_hm11 as upmHm11
 
 def main():
     # Instantiate a HM11 BLE Module on UART 0
@@ -36,7 +37,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from my_ble_obj
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,7 +48,7 @@ def main():
 
     # make sure port is initialized properly. 9600 baud is the default.
     if (not my_ble_obj.setupTty(upmHm11.cvar.int_B9600)):
-        print "Failed to setup tty port parameters"
+        print("Failed to setup tty port parameters")
         sys.exit(0)
 
     usageStr = ("Usage:\n"
@@ -57,7 +58,7 @@ def main():
     "Running this program without arguments will simply transmit\n"
     "'Hello World!' every second, and output any data received from\n"
     "another radio.\n\n")
-    print usageStr
+    print(usageStr)
 
     # simple helper function to send a command and wait for a response
     def sendCommand(bleObj, cmd):
@@ -75,23 +76,23 @@ def main():
                     break
                 else:
                     bleData += bleBuffer.__getitem__(x)
-            print bleData
+            print(bleData)
         else:
-            print "Timed out waiting for response"
+            print("Timed out waiting for response")
 
     if (len(sys.argv) > 1):
-        print "Sending command line argument (" + sys.argv[1] + ")..."
+        print("Sending command line argument (" + sys.argv[1] + ")...")
         sendCommand(my_ble_obj, sys.argv[1])
     else:
         # query the module address
         addr = "AT+ADDR?";
-        print "Querying module address (" + addr + ")..."
+        print("Querying module address (" + addr + ")...")
 
         sendCommand(my_ble_obj, addr)
         time.sleep(1)
         # query the module address
         pin = "AT+PASS?";
-        print "Querying module PIN (" + pin + ")..."
+        print("Querying module PIN (" + pin + ")...")
         sendCommand(my_ble_obj, pin)
 
         # Other potentially useful commands are:

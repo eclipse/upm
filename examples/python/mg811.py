@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mg811 as sensorObj
+from upm import pyupm_mg811 as sensorObj
 
 def main():
     # Instantiate an MG811 on analog pin A0, and digital pin D2 with an
@@ -37,7 +38,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -48,7 +49,7 @@ def main():
     # detected CO2 concentration in parts per million (ppm)
 
     while (1):
-        print "CO2 concentration in PPM: ", sensor.ppm()
+        print("CO2 concentration in PPM: ", sensor.ppm())
         time.sleep(.1)
 
 if __name__ == '__main__':

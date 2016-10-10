@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_biss0001 as upmMotion
+from upm import pyupm_biss0001 as upmMotion
 
 def main():
     # Instantiate a Grove Motion sensor on GPIO pin D2
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myMotion
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,9 +46,9 @@ def main():
     # Read the value every second and detect motion
     while(1):
         if (myMotion.value()):
-            print "Detecting moving object"
+            print("Detecting moving object")
         else:
-            print "No moving objects detected"
+            print("No moving objects detected")
         time.sleep(1)
 
 if __name__ == '__main__':

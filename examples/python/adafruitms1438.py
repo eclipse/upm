@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_adafruitms1438 as upmAdafruitms1438
+from upm import pyupm_adafruitms1438 as upmAdafruitms1438
 
 def main():
     # Import header values
@@ -45,7 +46,7 @@ def main():
     # including functions from myMotorShield
     def exitHandler():
         myMotorShield.disableMotor(M3Motor)
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -70,12 +71,12 @@ def main():
 
     time.sleep(3)
 
-    print "Reversing M3"
+    print("Reversing M3")
     myMotorShield.setMotorDirection(M3Motor, MotorDirCCW)
 
     time.sleep(3)
 
-    print "Stopping M3"
+    print("Stopping M3")
 
     # exitHandler runs automatically
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_hka5 as sensorObj
+from upm import pyupm_hka5 as sensorObj
 
 def main():
     # Instantiate a HKA5 sensor on uart 0.  We don't use the set or
@@ -36,7 +37,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,19 +48,19 @@ def main():
     while (True):
         sensor.update()
 
-        print "PM 1  :",
-        print sensor.getPM1(),
-        print " ug/m3"
+        print("PM 1  :", end=' ')
+        print(sensor.getPM1(), end=' ')
+        print(" ug/m3")
 
-        print "PM 2.5:",
-        print sensor.getPM2_5(),
-        print " ug/m3"
+        print("PM 2.5:", end=' ')
+        print(sensor.getPM2_5(), end=' ')
+        print(" ug/m3")
 
-        print "PM 10 :",
-        print sensor.getPM10(),
-        print " ug/m3"
+        print("PM 10 :", end=' ')
+        print(sensor.getPM10(), end=' ')
+        print(" ug/m3")
 
-        print
+        print()
         time.sleep(2)
 
 if __name__ == '__main__':

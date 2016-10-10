@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_hmc5883l as hmc5883l
+from upm import pyupm_hmc5883l as hmc5883l
 
 def main():
     # Create an I2C compass object and set declination
@@ -36,9 +37,9 @@ def main():
         dir = hmc.direction() # Read direction
 
         # Print values
-        print "Coor: %5d %5d %5d" % (pos[0], pos[1], pos[2])
-        print "Heading: %5.2f" % (hdg)
-        print "Direction: %3.2f\n" % (dir)
+        print("Coor: %5d %5d %5d" % (pos[0], pos[1], pos[2]))
+        print("Heading: %5.2f" % (hdg))
+        print("Direction: %3.2f\n" % (dir))
 
         # Sleep for 1 s
         sleep(1)

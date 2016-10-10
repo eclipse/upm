@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmp280 as sensorObj
+from upm import pyupm_bmp280 as sensorObj
 
 def main():
     # Instantiate a BME280 instance using default i2c bus and address
@@ -38,7 +39,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -48,16 +49,16 @@ def main():
     while (1):
         sensor.update()
 
-        print "Compensation Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Compensation Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Pressure: ", sensor.getPressure(), "Pa"
+        print("Pressure: ", sensor.getPressure(), "Pa")
 
-        print "Computed Altitude:", sensor.getAltitude(), "m"
+        print("Computed Altitude:", sensor.getAltitude(), "m")
 
-        print "Humidity:", sensor.getHumidity(), "%RH"
+        print("Humidity:", sensor.getHumidity(), "%RH")
 
-        print
+        print()
         time.sleep(1)
 
 if __name__ == '__main__':

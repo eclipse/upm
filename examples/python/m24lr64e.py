@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import sys
-import pyupm_m24lr64e as nfcTagObj
+from upm import pyupm_m24lr64e as nfcTagObj
 
 def main():
     # Instantiate a M24LR64E Grove NFC Tag Module on UART 0
@@ -34,19 +35,19 @@ def main():
 
     # Read the last byte of the EEPROM area
     addr = (nfcTagObj.M24LR64E.EEPROM_I2C_LENGTH - 1)
-    print "Address: ", addr
+    print("Address: ", addr)
     byte = nfcTag.readByte(addr)
 
-    print "Read byte: ", format(byte, '02x')
+    print("Read byte: ", format(byte, '02x'))
 
     # Now change it to it's opposite and write it
     byte = (~byte & 0xff)
     nfcTag.writeByte(addr, byte)
-    print "Wrote inverted byte: ", format(byte, '02x')
+    print("Wrote inverted byte: ", format(byte, '02x'))
 
     # Now read it back.
     byte = nfcTag.readByte(addr)
-    print "Read byte: ", format(byte, '02x')
+    print("Read byte: ", format(byte, '02x'))
 
 if __name__ == '__main__':
     main()

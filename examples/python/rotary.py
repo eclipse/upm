@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
 def main():
     # New knob on AIO pin 0
@@ -38,8 +39,8 @@ def main():
         reldeg = knob.rel_deg()
         relrad = knob.rel_rad()
 
-        print "Abs values: %4d" % int(abs) , " raw %4d" % int(absdeg), "deg = %5.2f" % absrad , " rad ",
-        print "Rel values: %4d" % int(rel) , " raw %4d" % int(reldeg), "deg = %5.2f" % relrad , " rad"
+        print("Abs values: %4d" % int(abs) , " raw %4d" % int(absdeg), "deg = %5.2f" % absrad , " rad ", end=' ')
+        print("Rel values: %4d" % int(rel) , " raw %4d" % int(reldeg), "deg = %5.2f" % relrad , " rad")
 
         # Sleep for 2.5 s
         sleep(2.5)

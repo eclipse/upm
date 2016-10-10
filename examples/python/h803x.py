@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_h803x as sensorObj
+from upm import pyupm_h803x as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,7 +33,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,17 +46,17 @@ def main():
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-    print "Using device", defaultDev
-    print "Initializing..."
+    print("Using device", defaultDev)
+    print("Initializing...")
 
     # Instantiate an H803X instance, using MODBUS slave address 1, and
     # default comm parameters (9600, 8, N, 2)
     sensor = sensorObj.H803X(defaultDev, 1)
 
     # output the serial number and firmware revision
-    print "Slave ID:", sensor.getSlaveID()
+    print("Slave ID:", sensor.getSlaveID())
 
-    print
+    print()
 
     # update and print available values every second
     while (1):
@@ -63,47 +64,47 @@ def main():
         sensor.update()
 
         # H8035 / H8036
-        print "Consumption (kWh):", sensor.getConsumption()
-        print "Real Power (kW):", sensor.getRealPower()
+        print("Consumption (kWh):", sensor.getConsumption())
+        print("Real Power (kW):", sensor.getRealPower())
 
         if (sensor.isH8036()):
             # The H8036 has much more data available...
 
-            print "Reactive Power (kVAR):", sensor.getReactivePower()
-            print "Apparent Power (kVA):", sensor.getApparentPower()
-            print "Power Factor:", sensor.getPowerFactor()
-            print "Volts Line to Line:", sensor.getVoltsLineToLine()
-            print "Volts Line to Neutral:", sensor.getVoltsLineToNeutral()
+            print("Reactive Power (kVAR):", sensor.getReactivePower())
+            print("Apparent Power (kVA):", sensor.getApparentPower())
+            print("Power Factor:", sensor.getPowerFactor())
+            print("Volts Line to Line:", sensor.getVoltsLineToLine())
+            print("Volts Line to Neutral:", sensor.getVoltsLineToNeutral())
 
-            print "Current:", sensor.getCurrent()
+            print("Current:", sensor.getCurrent())
 
-            print "Real Power Phase A (kW):", sensor.getRealPowerPhaseA()
-            print "Real Power Phase B (kW):", sensor.getRealPowerPhaseB()
-            print "Real Power Phase C (kW):", sensor.getRealPowerPhaseC()
+            print("Real Power Phase A (kW):", sensor.getRealPowerPhaseA())
+            print("Real Power Phase B (kW):", sensor.getRealPowerPhaseB())
+            print("Real Power Phase C (kW):", sensor.getRealPowerPhaseC())
 
-            print "Power Factor Phase A:", sensor.getPowerFactorPhaseA()
-            print "Power Factor Phase B:", sensor.getPowerFactorPhaseB()
-            print "Power Factor Phase C:", sensor.getPowerFactorPhaseC()
+            print("Power Factor Phase A:", sensor.getPowerFactorPhaseA())
+            print("Power Factor Phase B:", sensor.getPowerFactorPhaseB())
+            print("Power Factor Phase C:", sensor.getPowerFactorPhaseC())
 
-            print "Volts Phase A to B:", sensor.getVoltsPhaseAToB()
-            print "Volts Phase B to C:", sensor.getVoltsPhaseBToC()
-            print "Volts Phase A to C:", sensor.getVoltsPhaseAToC()
-            print "Volts Phase A to Neutral: ",
-            print sensor.getVoltsPhaseAToNeutral()
-            print "Volts Phase B to Neutral: ",
-            print sensor.getVoltsPhaseBToNeutral()
-            print "Volts Phase C to Neutral: ",
-            print sensor.getVoltsPhaseCToNeutral()
+            print("Volts Phase A to B:", sensor.getVoltsPhaseAToB())
+            print("Volts Phase B to C:", sensor.getVoltsPhaseBToC())
+            print("Volts Phase A to C:", sensor.getVoltsPhaseAToC())
+            print("Volts Phase A to Neutral: ", end=' ')
+            print(sensor.getVoltsPhaseAToNeutral())
+            print("Volts Phase B to Neutral: ", end=' ')
+            print(sensor.getVoltsPhaseBToNeutral())
+            print("Volts Phase C to Neutral: ", end=' ')
+            print(sensor.getVoltsPhaseCToNeutral())
 
-            print "Current Phase A:", sensor.getCurrentPhaseA()
-            print "Current Phase B:", sensor.getCurrentPhaseB()
-            print "Current Phase C:", sensor.getCurrentPhaseC()
+            print("Current Phase A:", sensor.getCurrentPhaseA())
+            print("Current Phase B:", sensor.getCurrentPhaseB())
+            print("Current Phase C:", sensor.getCurrentPhaseC())
 
-            print "Avg Real Power (kW):", sensor.getAvgRealPower()
-            print "Min Real Power (kW):", sensor.getMinRealPower()
-            print "Max Real Power (kW):", sensor.getMaxRealPower()
+            print("Avg Real Power (kW):", sensor.getAvgRealPower())
+            print("Min Real Power (kW):", sensor.getMinRealPower())
+            print("Max Real Power (kW):", sensor.getMaxRealPower())
 
-        print
+        print()
         time.sleep(2)
 
 if __name__ == '__main__':

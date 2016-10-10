@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_apds9002 as upmApds9002
+from upm import pyupm_apds9002 as upmApds9002
 
 def main():
     # Instantiate a Grove Luminance sensor on analog pin A0
@@ -35,7 +36,7 @@ def main():
 
     # This lets you run code on exit, including functions from myLuminance
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -43,8 +44,8 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        print "Luminance value is {0}".format(
-        myLuminance.value())
+        print("Luminance value is {0}".format(
+        myLuminance.value()))
 
         time.sleep(1)
 

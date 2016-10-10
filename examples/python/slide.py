@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_slide as slide
+from upm import pyupm_slide as slide
 
 def main():
     # New Grove Slider on AIO pin 0
@@ -33,7 +34,7 @@ def main():
         raw = slider.raw_value()
         volts = slider.voltage_value()
 
-        print "Slider value: ", raw , " = %.2f" % volts , " V"
+        print("Slider value: ", raw , " = %.2f" % volts , " V")
 
         # Sleep for 2.5 s
         sleep(2.5)

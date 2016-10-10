@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_maxsonarez as MaxSonarEZ
+from upm import pyupm_maxsonarez as MaxSonarEZ
 
 def main():
     # Instantiate a MaxSonar-EZ on analog pin A1, with an analog
@@ -37,7 +38,7 @@ def main():
     # This lets you run code on exit,
     # including functions from Sonar
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -54,9 +55,9 @@ def main():
     # between 6 and 33 inches
 
     while (1):
-        print "AREF: {0}, distance in inches: {1}".format(
+        print("AREF: {0}, distance in inches: {1}".format(
                 MAXSONAREZ_AREF,
-                Sonar.inches())
+                Sonar.inches()))
         time.sleep(1)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ds1307 as upmDs1307
+from upm import pyupm_ds1307 as upmDs1307
 
 def main():
     # load RTC clock on i2c bus 0
@@ -36,22 +37,22 @@ def main():
         if (RTCObj.amPmMode):
             timeStr += (" PM " if RTCObj.pm else " AM ")
 
-        print timeStr
+        print(timeStr)
 
-        print "Clock is in", ("AM/PM mode"
-        if RTCObj.amPmMode else "24hr mode")
+        print("Clock is in", ("AM/PM mode"
+        if RTCObj.amPmMode else "24hr mode"))
 
     # always do this first
-    print "Loading the current time... "
+    print("Loading the current time... ")
     result = myRTCClock.loadTime()
     if (not result):
-        print "myRTCClock.loadTime() failed."
+        print("myRTCClock.loadTime() failed.")
         sys.exit(0)
 
     printTime(myRTCClock);
 
     # set the year as an example
-    print "setting the year to 50"
+    print("setting the year to 50")
     myRTCClock.year = 50
     myRTCClock.setTime()
 

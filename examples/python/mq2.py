@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_gas as upmGas
+from upm import pyupm_gas as upmGas
 
 def main():
     # Attach gas sensor to AIO0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myMQ2
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -58,7 +59,7 @@ def main():
             thresh = myMQ2.findThreshold(threshContext, 30, mybuffer, samplelen)
             myMQ2.printGraph(threshContext, 5)
             if(thresh):
-                print "Threshold is ", thresh
+                print("Threshold is ", thresh)
 
 if __name__ == '__main__':
     main()

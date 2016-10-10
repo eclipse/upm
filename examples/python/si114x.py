@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_si114x as upmSi114x
+from upm import pyupm_si114x as upmSi114x
 
 def main():
     # Instantiate a SI114x UV Sensor on I2C bus 0
@@ -36,7 +37,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myUVSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -46,13 +47,13 @@ def main():
     # First initialize it
     myUVSensor.initialize()
 
-    print "UV Index Scale:"
-    print "---------------"
-    print "11+        Extreme"
-    print "8-10       Very High"
-    print "6-7        High"
-    print "3-5        Moderate"
-    print "0-2        Low\n"
+    print("UV Index Scale:")
+    print("---------------")
+    print("11+        Extreme")
+    print("8-10       Very High")
+    print("6-7        High")
+    print("3-5        Moderate")
+    print("0-2        Low\n")
 
     # update every second and print the currently measured UV Index
     while (1):
@@ -60,7 +61,7 @@ def main():
         myUVSensor.update()
 
         # print detected value
-        print "UV Index:", myUVSensor.getUVIndex()
+        print("UV Index:", myUVSensor.getUVIndex())
 
         time.sleep(1)
 

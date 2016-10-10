@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_guvas12d as upmUV
+from upm import pyupm_guvas12d as upmUV
 
 def main():
     # Instantiate a UV sensor on analog pin A0
@@ -39,7 +40,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myUVSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -51,7 +52,7 @@ def main():
         "Voltage value (higher means more UV): "
         "{1}".format(GUVAS12D_AREF,
         myUVSensor.value(GUVAS12D_AREF, SAMPLES_PER_QUERY)))
-        print s
+        print(s)
         time.sleep(1)
 
 if __name__ == '__main__':

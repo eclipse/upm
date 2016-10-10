@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ppd42ns as upmPpd42ns
+from upm import pyupm_ppd42ns as upmPpd42ns
 
 def main():
     # Instantiate a dust sensor on digital pin D8
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myDustSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,15 +45,15 @@ def main():
 
     notice = ("This program will give readings "
     "every 30 seconds until you stop it")
-    print notice
+    print(notice)
 
     while(1):
         data = myDustSensor.getData()
         # we need to sleep for a bit for the data to print out
         time.sleep(.1)
-        print "Low pulse occupancy: " + str(data.lowPulseOccupancy)
-        print "Ratio: " + str(data.ratio)
-        print "Concentration: " + str(data.concentration)
+        print("Low pulse occupancy: " + str(data.lowPulseOccupancy))
+        print("Ratio: " + str(data.ratio))
+        print("Concentration: " + str(data.concentration))
 
 if __name__ == '__main__':
     main()

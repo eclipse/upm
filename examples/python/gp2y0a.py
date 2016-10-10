@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_gp2y0a as upmGp2y0a
+from upm import pyupm_gp2y0a as upmGp2y0a
 
 def main():
     # Note, for the Grove 80cm version of this sensor, due to the way it is wired,
@@ -39,7 +40,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myIRProximity
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -55,9 +56,9 @@ def main():
     # Every second, print the averaged voltage value
     # (averaged over 20 samples).
     while (1):
-        print "AREF: {0}, Voltage value (higher means closer): {1}".format(
+        print("AREF: {0}, Voltage value (higher means closer): {1}".format(
         GP2Y0A_AREF,
-        myIRProximity.value(GP2Y0A_AREF, SAMPLES_PER_QUERY))
+        myIRProximity.value(GP2Y0A_AREF, SAMPLES_PER_QUERY)))
         time.sleep(1)
 
 if __name__ == '__main__':

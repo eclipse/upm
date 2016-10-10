@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mpu9150 as sensorObj
+from upm import pyupm_mpu9150 as sensorObj
 
 def main():
     # Instantiate an MPU9150 on I2C bus 0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -51,22 +52,22 @@ def main():
     while (1):
         sensor.update()
         sensor.getAccelerometer(x, y, z)
-        print "Accelerometer: AX: ", sensorObj.floatp_value(x),
-        print " AY: ", sensorObj.floatp_value(y),
-        print " AZ: ", sensorObj.floatp_value(z)
+        print("Accelerometer: AX: ", sensorObj.floatp_value(x), end=' ')
+        print(" AY: ", sensorObj.floatp_value(y), end=' ')
+        print(" AZ: ", sensorObj.floatp_value(z))
 
         sensor.getGyroscope(x, y, z)
-        print "Gyroscope:     GX: ", sensorObj.floatp_value(x),
-        print " GY: ", sensorObj.floatp_value(y),
-        print " GZ: ", sensorObj.floatp_value(z)
+        print("Gyroscope:     GX: ", sensorObj.floatp_value(x), end=' ')
+        print(" GY: ", sensorObj.floatp_value(y), end=' ')
+        print(" GZ: ", sensorObj.floatp_value(z))
 
         sensor.getMagnetometer(x, y, z)
-        print "Magnetometer:  MX: ", sensorObj.floatp_value(x),
-        print " MY: ", sensorObj.floatp_value(y),
-        print " MZ: ", sensorObj.floatp_value(z)
+        print("Magnetometer:  MX: ", sensorObj.floatp_value(x), end=' ')
+        print(" MY: ", sensorObj.floatp_value(y), end=' ')
+        print(" MZ: ", sensorObj.floatp_value(z))
 
-        print "Temperature:  ", sensor.getTemperature()
-        print
+        print("Temperature:  ", sensor.getTemperature())
+        print()
 
         time.sleep(.5)
 

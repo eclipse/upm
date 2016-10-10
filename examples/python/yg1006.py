@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_yg1006 as upmYG1006
+from upm import pyupm_yg1006 as upmYG1006
 
 def main():
     # Instantiate a flame sensor on digital pin D2
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myFlameSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,9 +45,9 @@ def main():
 
     while(1):
         if (myFlameSensor.flameDetected()):
-            print "Flame detected."
+            print("Flame detected.")
         else:
-            print "No flame detected."
+            print("No flame detected.")
 
         time.sleep(1)
 

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_ttp223 as ttp223
+from upm import pyupm_ttp223 as ttp223
 
 def main():
     # Create the TTP223 touch sensor object using GPIO pin 0
@@ -31,9 +32,9 @@ def main():
     # print accordingly, waiting one second between readings
     while 1:
         if touch.isPressed():
-            print touch.name(), 'is pressed'
+            print(touch.name(), 'is pressed')
         else:
-            print touch.name(), 'is not pressed'
+            print(touch.name(), 'is not pressed')
         time.sleep(1)
 
     # Delete the touch sensor object

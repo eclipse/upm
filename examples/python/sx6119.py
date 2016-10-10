@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import sys
-import pyupm_sx6119 as upmSx6119
+from upm import pyupm_sx6119 as upmSx6119
 
 def main():
     # Instantiate a SX6119 on digital pins 2 (power) and 3 (seek)
@@ -32,10 +33,10 @@ def main():
     # if an argument was specified (any argument), seek to the next
     # station, else just toggle the power.
 
-    print "Supply any argument to the command line to seek to the"
-    print "next station."
-    print "Running the example without an argument will toggle the"
-    print "power on or off.\n"
+    print("Supply any argument to the command line to seek to the")
+    print("next station.")
+    print("Running the example without an argument will toggle the")
+    print("power on or off.\n")
 
     doSeek = False
 
@@ -48,7 +49,7 @@ def main():
     else:
         myFM_receiver_obj.togglePower()
 
-    print "Exiting";
+    print("Exiting");
 
 if __name__ == '__main__':
     main()

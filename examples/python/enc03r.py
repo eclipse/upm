@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_enc03r as upmEnc03r
+from upm import pyupm_enc03r as upmEnc03r
 
 def main():
     # Instantiate an ENC03R on analog pin A0
@@ -36,7 +37,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myAnalogGyro
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -50,15 +51,15 @@ def main():
     "This may take a couple of minutes.")
 
     myAnalogGyro.calibrate(CALIBRATION_SAMPLES)
-    print "Calibration complete. "
-    print "Reference value: ", myAnalogGyro.calibrationValue()
+    print("Calibration complete. ")
+    print("Reference value: ", myAnalogGyro.calibrationValue())
 
     while(1):
         gyroVal = myAnalogGyro.value();
         outputStr = ("Raw value: {0}, "
         "angular velocity: {1}"
         " deg/s".format(gyroVal, myAnalogGyro.angularVelocity(gyroVal)))
-        print outputStr
+        print(outputStr)
 
         time.sleep(.1)
 

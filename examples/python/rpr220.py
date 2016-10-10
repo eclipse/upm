@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_rpr220 as upmRpr220
+from upm import pyupm_rpr220 as upmRpr220
 
 def main():
     # This example uses a simple method to determine current status
@@ -39,7 +40,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myReflectiveSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -48,9 +49,9 @@ def main():
 
     while(1):
         if (myReflectiveSensor.blackDetected()):
-            print "Black detected"
+            print("Black detected")
         else:
-            print "Black NOT detected"
+            print("Black NOT detected")
 
         time.sleep(.1)
 

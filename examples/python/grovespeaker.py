@@ -22,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_grovespeaker as upmGrovespeaker
+from upm import pyupm_grovespeaker as upmGrovespeaker
 
 def main():
     # Instantiate a Grove Speaker on digital pin D2

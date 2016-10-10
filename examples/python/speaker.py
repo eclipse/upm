@@ -22,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, sys, signal, atexit
-import pyupm_speaker as upmspeaker
+from upm import pyupm_speaker as upmspeaker
 
 def main():
     # Instantiate a Speaker on digital pin D2

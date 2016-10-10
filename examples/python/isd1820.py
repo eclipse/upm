@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, atexit
-import pyupm_isd1820 as upmIsd1820
+from upm import pyupm_isd1820 as upmIsd1820
 
 def main():
     # Instantiate a ISD1820 on digital pins 2 (play) and 3 (record)
@@ -42,7 +43,7 @@ def main():
             myRecorder.record(False)
         else:
             myRecorder.play(False)
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -51,10 +52,10 @@ def main():
     # if an argument was specified (any argument), go into record mode,
     # else playback a previously recorded sample
 
-    print "Supply any argument to the command line to record."
-    print "Running this example without arguments will play back any "
-    print "previously recorded sound."
-    print "There is approximately 10 seconds of recording time.\n"
+    print("Supply any argument to the command line to record.")
+    print("Running this example without arguments will play back any ")
+    print("previously recorded sound.")
+    print("There is approximately 10 seconds of recording time.\n")
 
     # depending on what was selected, do it, and sleep for 15 seconds
     if (doRecord):
@@ -64,7 +65,7 @@ def main():
 
     # There are about 10 seconds of recording/playback time, so we will
     # sleep for a little extra time.
-    print "Sleeping for 15 seconds..."
+    print("Sleeping for 15 seconds...")
     time.sleep(15)
 
     # exitHandler runs automatically

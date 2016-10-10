@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ozw as sensorObj
+from upm import pyupm_ozw as sensorObj
 
 def main():
     # Instantiate an OZW instance
@@ -30,7 +31,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,13 +46,13 @@ def main():
     sensor.optionsLock()
 
     # Next, initialize it.
-    print "Initializing, this may take awhile depending on your ZWave network"
+    print("Initializing, this may take awhile depending on your ZWave network")
 
     sensor.init(defaultDev)
 
-    print "Initialization complete"
+    print("Initialization complete")
 
-    print "Dumping nodes..."
+    print("Dumping nodes...")
 
     sensor.dumpNodes(True)
 

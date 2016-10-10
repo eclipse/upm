@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mma7361 as sensorObj
+from upm import pyupm_mma7361 as sensorObj
 
 def main():
     # Instantiate a MMA7361 sensor on analog pins A0 (X), A1 (Y) A2
@@ -41,7 +42,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -57,16 +58,16 @@ def main():
         sensor.update()
 
         sensor.getAcceleration(x, y, z)
-        print "Accelerometer x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z)
+        print("Accelerometer x:", sensorObj.floatp_value(x), end=' ')
+        print(" y:", sensorObj.floatp_value(y), end=' ')
+        print(" z:", sensorObj.floatp_value(z))
 
         sensor.getVolts(x, y, z)
-        print "Volts x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z)
+        print("Volts x:", sensorObj.floatp_value(x), end=' ')
+        print(" y:", sensorObj.floatp_value(y), end=' ')
+        print(" z:", sensorObj.floatp_value(z))
 
-        print
+        print()
         time.sleep(.100)
 
 if __name__ == '__main__':

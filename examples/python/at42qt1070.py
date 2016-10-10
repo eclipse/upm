@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_at42qt1070 as upmAt42qt1070
+from upm import pyupm_at42qt1070 as upmAt42qt1070
 
 def main():
     # functions
@@ -39,13 +40,13 @@ def main():
         if (not buttonPressed):
             sys.stdout.write("None")
 
-        print " "
+        print(" ")
 
         if (touchObj.isCalibrating()):
-            print "Calibration is occurring."
+            print("Calibration is occurring.")
 
         if (touchObj.isOverflowed()):
-            print "Overflow was detected."
+            print("Overflow was detected.")
 
     # Global code that runs on startup
 
@@ -61,7 +62,7 @@ def main():
         raise SystemExit
 
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # This function lets you run code on exit, including functions from myTouchSensor

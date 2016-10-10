@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time
-import pyupm_grovemd as upmGrovemd
+from upm import pyupm_grovemd as upmGrovemd
 
 def main():
     I2C_BUS = upmGrovemd.GROVEMD_I2C_BUS
@@ -32,18 +33,18 @@ def main():
     myMotorDriver = upmGrovemd.GroveMD(I2C_BUS, I2C_ADDR)
 
     # set direction to CW and set speed to 50%
-    print "Spin M1 and M2 at half speed for 3 seconds"
+    print("Spin M1 and M2 at half speed for 3 seconds")
     myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CW, upmGrovemd.GroveMD.DIR_CW)
     myMotorDriver.setMotorSpeeds(127, 127)
 
     time.sleep(3)
     # counter clockwise
-    print "Reversing M1 and M2 for 3 seconds"
+    print("Reversing M1 and M2 for 3 seconds")
     myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CCW,
     upmGrovemd.GroveMD.DIR_CCW)
     time.sleep(3)
 
-    print "Stopping motors"
+    print("Stopping motors")
     myMotorDriver.setMotorSpeeds(0, 0)
 
 if __name__ == '__main__':

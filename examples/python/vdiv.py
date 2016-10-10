@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_vdiv as upmvdiv
+from upm import pyupm_vdiv as upmvdiv
 
 def main():
     # Instantiate a Voltage Divider sensor on analog pin A0
@@ -36,7 +37,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myVoltageDivider
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,8 +48,8 @@ def main():
         val = myVoltageDivider.value(100)
         gain3val = myVoltageDivider.computedValue(3, val)
         gain10val = myVoltageDivider.computedValue(10, val)
-        print "ADC value: {0} Gain 3: {1}v Gain 10: {2}v".format(
-        val,  gain3val, gain10val)
+        print("ADC value: {0} Gain 3: {1}v Gain 10: {2}v".format(
+        val,  gain3val, gain10val))
 
         time.sleep(1)
 

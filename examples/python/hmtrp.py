@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_hmtrp as upmHmtrp
+from upm import pyupm_hmtrp as upmHmtrp
 
 def main():
     # Instantiate a HMTRP radio device on uart 0
@@ -36,7 +37,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from my_HMTRP_Radio
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -51,7 +52,7 @@ def main():
 
     # make sure port is initialized properly. 9600 baud is the default.
     if (not my_HMTRP_Radio.setupTty(upmHmtrp.cvar.int_B9600)):
-        print "Failed to setup tty port parameters"
+        print("Failed to setup tty port parameters")
         sys.exit(0)
 
     usageStr = ("Usage:\n"
@@ -61,7 +62,7 @@ def main():
     "Running this program without arguments will simply transmit\n"
     "'Hello World!' every second, and output any data received from\n"
     "another radio.\n\n")
-    print usageStr
+    print(usageStr)
 
     '''
     By default, this radio simply transmits data sent via writeData()
@@ -91,23 +92,23 @@ def main():
 
         if (my_HMTRP_Radio.getConfig(freq, dataRate, rxBandwidth,
         modulation, txPower, uartBaud)):
-            print "Radio configuration:"
+            print("Radio configuration:")
             outputStr = ("freq: {0} dataRate: {1} "
             "rxBandwidth: {2}Khz").format(freq.__getitem__(0),
             dataRate.__getitem__(0),
             rxBandwidth.__getitem__(0))
-            print outputStr
+            print(outputStr)
 
             outputStr = "modulation: %d Khz txPower: %d uartBaud: %d" % (
             modulation.__getitem__(0), txPower.__getitem__(0),
             uartBaud.__getitem__(0))
-            print outputStr
+            print(outputStr)
         else:
             errString = ("getConfig() failed.  Make sure the radio "
             "is in CONFIG mode.")
-            print errString
+            print(errString)
     else:
-        print "Running in normal read/write mode."
+        print("Running in normal read/write mode.")
         while (1):
             # we don't want the read to block in this example, so always
             # check to see if data is available first.
@@ -118,17 +119,17 @@ def main():
                     resultStr = "";
                     for x in range(rv):
                         resultStr += radioBuffer.__getitem__(x)
-                    print "Received:", resultStr
+                    print("Received:", resultStr)
 
                 if (rv < 0): # some sort of read error occurred
-                    print "Port read error."
+                    print("Port read error.")
                     sys.exit(0)
             myCounter += 1
             # every second, transmit "Hello World"
             if (myCounter > 10):
                 msg = "Hello World!"
 
-                print "Transmitting %s..." % msg
+                print("Transmitting %s..." % msg)
 
                 # Adding 1 for NULL terminator.
                 # Note that SWIG automatically adds a NULL terminator,

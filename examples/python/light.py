@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_light as light
+from upm import pyupm_light as light
 
 def main():
     # Create the light sensor object using AIO pin 0
@@ -30,8 +31,8 @@ def main():
     # Read the input and print both the raw value and a rough lux value,
     # waiting one second between readings
     while 1:
-        print light.name() + " raw value is %d" % light.raw_value() + \
-            ", which is roughly %d" % light.value() + " lux";
+        print(light.name() + " raw value is %d" % light.raw_value() + \
+            ", which is roughly %d" % light.value() + " lux");
         time.sleep(1)
 
     # Delete the light sensor object

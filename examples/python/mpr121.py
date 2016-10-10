@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mpr121 as upmMpr121
+from upm import pyupm_mpr121 as upmMpr121
 
 def main():
     I2C_BUS = upmMpr121.MPR121_I2C_BUS
@@ -39,7 +40,7 @@ def main():
     # This function lets you run code on exit,
     # including functions from myTouchSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -59,10 +60,10 @@ def main():
         if (not buttonPressed):
             outputStr += "None"
 
-        print outputStr
+        print(outputStr)
 
         if (touchSensor.m_overCurrentFault):
-            print "Over Current Fault detected!"
+            print("Over Current Fault detected!")
 
     while(1):
         myTouchSensor.readButtons()

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_e50hx as sensorObj
+from upm import pyupm_e50hx as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,7 +33,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -50,8 +51,8 @@ def main():
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-    print "Using device", defaultDev
-    print "Initializing..."
+    print("Using device", defaultDev)
+    print("Initializing...")
 
     # Instantiate an E50HX object for an E50HX device that has 1075425
     # as it's unique Device Object Instance ID.  NOTE: You will
@@ -69,30 +70,30 @@ def main():
     # sensor.setDebug(True);
 
     # output the serial number and firmware revision
-    print
-    print "Device Description:", sensor.getDeviceDescription()
-    print "Device Location:", sensor.getDeviceLocation()
-    print
+    print()
+    print("Device Description:", sensor.getDeviceDescription())
+    print("Device Location:", sensor.getDeviceLocation())
+    print()
 
     # update and print available values every second
     while (1):
-        print "System Voltage:",
-        print sensor.getAnalogValue(sensorObj.E50HX.AV_System_Voltage),
-        print " ",
-        print sensor.getAnalogValueUnits(sensorObj.E50HX.AV_System_Voltage)
+        print("System Voltage:", end=' ')
+        print(sensor.getAnalogValue(sensorObj.E50HX.AV_System_Voltage), end=' ')
+        print(" ", end=' ')
+        print(sensor.getAnalogValueUnits(sensorObj.E50HX.AV_System_Voltage))
 
-        print "System Type:",
-        print sensor.getAnalogValue(sensorObj.E50HX.AV_System_Type)
+        print("System Type:", end=' ')
+        print(sensor.getAnalogValue(sensorObj.E50HX.AV_System_Type))
 
-        print "Energy Consumption:",
-        print sensor.getAnalogInput(sensorObj.E50HX.AI_Energy),
-        print " ",
-        print sensor.getAnalogInputUnits(sensorObj.E50HX.AI_Energy)
+        print("Energy Consumption:", end=' ')
+        print(sensor.getAnalogInput(sensorObj.E50HX.AI_Energy), end=' ')
+        print(" ", end=' ')
+        print(sensor.getAnalogInputUnits(sensorObj.E50HX.AI_Energy))
 
-        print "Power Up Counter:",
-        print sensor.getAnalogInput(sensorObj.E50HX.AI_Power_Up_Count)
+        print("Power Up Counter:", end=' ')
+        print(sensor.getAnalogInput(sensorObj.E50HX.AI_Power_Up_Count))
 
-        print
+        print()
         time.sleep(5)
 
 if __name__ == '__main__':

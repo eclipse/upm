@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ta12200 as upmTa12200
+from upm import pyupm_ta12200 as upmTa12200
 
 def main():
     # Instantiate a TA12-200 sensor on analog pin A0
@@ -36,7 +37,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myElectricitySensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -49,7 +50,7 @@ def main():
         current = myElectricitySensor.milliAmps(maxVal)
 
         outputStr = "Max ADC Value: %s, current: %smA" % (maxVal, current)
-        print outputStr
+        print(outputStr)
         time.sleep(.1)
 
 if __name__ == '__main__':

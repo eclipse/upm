@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_gsr as upmGsr
+from upm import pyupm_gsr as upmGsr
 
 def main():
     # Tested with the GSR Galvanic Skin Response Sensor module.
@@ -37,18 +38,18 @@ def main():
 
     # This lets you run code on exit, including functions from myGSR
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Calibrating...."
+    print("Calibrating....")
     myGSR.calibrate()
 
     while (1):
-        print myGSR.value()
+        print(myGSR.value())
         time.sleep(.5)
 
 if __name__ == '__main__':

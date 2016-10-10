@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_grovewater as upmGrovewater
+from upm import pyupm_grovewater as upmGrovewater
 
 def main():
     # Instantiate a Grove Water sensor on digital pin D2
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myWaterSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,9 +45,9 @@ def main():
 
     while(1):
         if (myWaterSensor.isWet()):
-            print "Sensor is wet"
+            print("Sensor is wet")
         else:
-            print "Sensor is dry"
+            print("Sensor is dry")
         time.sleep(1)
 
 if __name__ == '__main__':

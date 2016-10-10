@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_xbee as sensorObj
+from upm import pyupm_xbee as sensorObj
 
 def main():
     # Instantiate a XBee Module on UART 0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,7 +45,7 @@ def main():
 
     # Set the baud rate, 9600 baud is the default.
     if (sensor.setBaudRate(9600)):
-        print "Failed to set baud rate"
+        print("Failed to set baud rate")
         sys.exit(0)
 
     usageStr = ("Usage:\n"
@@ -52,7 +53,7 @@ def main():
     "sent to the module and the response is printed out.\n\n"
     "If no argument is used, then the firmware revision, serial number\n"
     "and the current IP address (if set) are queried.\n\n")
-    print usageStr
+    print(usageStr)
 
     # simple helper function to send a command and wait for a response
     def sendCommand(sensor, cmd):
@@ -65,30 +66,30 @@ def main():
             resp += sensor.readDataStr(1024)
 
         if not resp:
-            print "Timed out waiting for response"
+            print("Timed out waiting for response")
         else:
             resp = sensor.stringCR2LF(resp)
-            print "Returned (", len(resp), "bytes):"
-            print resp
+            print("Returned (", len(resp), "bytes):")
+            print(resp)
 
     if (len(sys.argv) > 1):
         # enable command mode
         sensor.commandMode()
-        print "Sending command line argument (" + sys.argv[1] + ")..."
+        print("Sending command line argument (" + sys.argv[1] + ")...")
         sendCommand(sensor, sys.argv[1])
     else:
         # enable command mode
         sensor.commandMode()
         # query the verbose firmware revision
-        print "Querying verbose firmware revision (ATVL)..."
+        print("Querying verbose firmware revision (ATVL)...")
         sendCommand(sensor, "ATVL")
         # query the number
-        print "Querying Serial Number High (ATSH)..."
+        print("Querying Serial Number High (ATSH)...")
         sendCommand(sensor, "ATSH")
-        print "Querying Serial Number Low (ATSL)..."
+        print("Querying Serial Number Low (ATSL)...")
         sendCommand(sensor, "ATSL")
 
-        print "Querying address, if set (ATMY)..."
+        print("Querying address, if set (ATMY)...")
         sendCommand(sensor, "ATMY");
 
         # For the XBee WiFi S6B

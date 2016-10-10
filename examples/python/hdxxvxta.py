@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_hdxxvxta as sensorObj
+from upm import pyupm_hdxxvxta as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,14 +33,14 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Initializing..."
+    print("Initializing...")
 
     # Instantiate an HDXXVXTA instance, using A1 for humidity and A0
     # for temperature
@@ -51,12 +52,12 @@ def main():
         sensor.update()
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Humidity:", sensor.getHumidity(), "%"
+        print("Humidity:", sensor.getHumidity(), "%")
 
-        print
+        print()
         time.sleep(1)
 
 if __name__ == '__main__':

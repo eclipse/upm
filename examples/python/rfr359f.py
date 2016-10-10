@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_rfr359f as upmRfr359f
+from upm import pyupm_rfr359f as upmRfr359f
 
 def main():
     # Instantiate an RFR359F digital pin D2
@@ -36,7 +37,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myDistInterrupter
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,9 +46,9 @@ def main():
 
     while(1):
         if (myDistInterrupter.objectDetected()):
-            print "Object detected"
+            print("Object detected")
         else:
-            print "Area is clear"
+            print("Area is clear")
         time.sleep(.1)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_apa102 as mylib
+from upm import pyupm_apa102 as mylib
 
 def main():
     # Instantiate a strip of 30 LEDs on SPI bus 0
@@ -36,13 +37,13 @@ def main():
     # Register exit handlers
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Setting all LEDs to Green"
+    print("Setting all LEDs to Green")
     ledStrip.setAllLeds(31, 0, 255, 0)
 
-    print "Setting LEDs between 10 and 20 to Red"
+    print("Setting LEDs between 10 and 20 to Red")
     ledStrip.setLeds(10, 20, 31, 255, 0, 0)
 
-    print "Setting LED 15 to Blue"
+    print("Setting LED 15 to Blue")
     ledStrip.setLed(15, 31, 0, 0, 255)
 
 if __name__ == '__main__':

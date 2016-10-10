@@ -59,7 +59,9 @@ class loadModule(unittest.TestCase):
         skeys = list(failures.keys())
         skeys.sort()
         self.assertEqual(len(failures), 0,
-                '\n\nFailed to load %d modules:\n' % len(failures) +
+                '\n\n%s' % '\n'.join((['%s=%s' % (k, os.environ[k]) for k in list(os.environ.keys())])) +
+                '\npython %s\n' % ' '.join(sys.version.strip().split()) +
+                '\nFailed to load %d modules:\n' % len(failures) +
                 '\n'.join(['%s: %s' % (k, failures[k]) for k in skeys]))
 
 if __name__ == '__main__':

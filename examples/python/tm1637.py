@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time, signal
-import pyupm_tm1637 as tm1637
+from upm import pyupm_tm1637 as tm1637
 
 def main():
     # Register exit handler for normal Ctrl+C exit
@@ -35,7 +36,7 @@ def main():
 
     # Get local time
     myTime = time.localtime(time.time())
-    print time.strftime("System time: %H:%M", myTime)
+    print(time.strftime("System time: %H:%M", myTime))
     print ("You can adjust your time zone by setting the TZ environment variable.")
 
     # Draw a box for 3 seconds using 7-segment encoding

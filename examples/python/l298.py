@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_l298 as upmL298
+from upm import pyupm_l298 as upmL298
 
 def main():
     # Instantiate one of the 2 possible DC motors on a L298 Dual
@@ -38,21 +39,21 @@ def main():
     # This lets you run code on exit,
     # including functions from myHBridge
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Starting motor at 50% for 3 seconds..."
+    print("Starting motor at 50% for 3 seconds...")
     myHBridge.setSpeed(50)
     myHBridge.setDirection(upmL298.L298.DIR_CW)
     myHBridge.enable(True)
 
     time.sleep(3)
 
-    print "Reversing direction..."
+    print("Reversing direction...")
     myHBridge.setDirection(upmL298.L298.DIR_NONE) # fast stop
     myHBridge.setDirection(upmL298.L298.DIR_CCW)
     time.sleep(3);

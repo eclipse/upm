@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_emg as upmEmg
+from upm import pyupm_emg as upmEmg
 
 def main():
     # Tested with the EMG Muscle Signal Reader Sensor Module
@@ -36,18 +37,18 @@ def main():
 
     # This lets you run code on exit, including functions from myEMG
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Calibrating...."
+    print("Calibrating....")
     myEMG.calibrate()
 
     while (1):
-        print myEMG.value()
+        print(myEMG.value())
         time.sleep(.1)
 
 if __name__ == '__main__':

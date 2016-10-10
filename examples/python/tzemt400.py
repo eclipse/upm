@@ -21,13 +21,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ozw as sensorObj
+from upm import pyupm_ozw as sensorObj
 
 def main():
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -36,7 +37,7 @@ def main():
     defaultDev = "/dev/ttyACM0"
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
-    print "Using device", defaultDev
+    print("Using device", defaultDev)
 
     # Instantiate a TZEMT400 instance, on device node 13.  You will
     # almost certainly need to change this to reflect your own network.
@@ -48,38 +49,38 @@ def main():
     sensor.optionsLock()
 
     # Next, initialize it.
-    print "Initializing, this may take awhile depending on your ZWave network"
+    print("Initializing, this may take awhile depending on your ZWave network")
 
     sensor.init(defaultDev)
-    print "Initialization complete"
+    print("Initialization complete")
 
-    print "Querying data..."
+    print("Querying data...")
 
     while (True):
         sensor.update()
 
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Mode:",
-        print sensor.getMode()
+        print("Mode:", end=' ')
+        print(sensor.getMode())
 
-        print "Operating State:",
-        print sensor.getOperatingState()
+        print("Operating State:", end=' ')
+        print(sensor.getOperatingState())
 
-        print "Heating Point:", sensor.getHeatingPointTemperature(), "C /",
-        print sensor.getHeatingPointTemperature(True), "F"
+        print("Heating Point:", sensor.getHeatingPointTemperature(), "C /", end=' ')
+        print(sensor.getHeatingPointTemperature(True), "F")
 
-        print "Cooling Point:", sensor.getCoolingPointTemperature(), "C /",
-        print sensor.getCoolingPointTemperature(True), "F"
+        print("Cooling Point:", sensor.getCoolingPointTemperature(), "C /", end=' ')
+        print(sensor.getCoolingPointTemperature(True), "F")
 
-        print "Fan Mode:",
-        print sensor.getFanMode()
+        print("Fan Mode:", end=' ')
+        print(sensor.getFanMode())
 
-        print "Fan State:",
-        print sensor.getFanState()
+        print("Fan State:", end=' ')
+        print(sensor.getFanState())
 
-        print
+        print()
         time.sleep(5)
 
 if __name__ == '__main__':

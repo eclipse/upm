@@ -22,8 +22,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Load i2clcd display module
+from __future__ import print_function
 import time, signal, sys
-import pyupm_i2clcd as upmLCD
+from upm import pyupm_i2clcd as upmLCD
 
 def main():
     myLCD = upmLCD.SSD1308(0, 0x3C);
@@ -93,7 +94,7 @@ def main():
 
     del intelLogo
     del myLCD
-    print "Exiting"
+    print("Exiting")
 
 if __name__ == '__main__':
     main()

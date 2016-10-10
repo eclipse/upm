@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bma220 as sensorObj
+from upm import pyupm_bma220 as sensorObj
 
 def main():
     # Instantiate an BMA220 using default parameters (bus 0, addr 0x0a)
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -49,9 +50,9 @@ def main():
     while (1):
         sensor.update()
         sensor.getAccelerometer(x, y, z)
-        print "Accelerometer: AX:", sensorObj.floatp_value(x),
-        print " AY:", sensorObj.floatp_value(y),
-        print " AZ:", sensorObj.floatp_value(z)
+        print("Accelerometer: AX:", sensorObj.floatp_value(x), end=' ')
+        print(" AY:", sensorObj.floatp_value(y), end=' ')
+        print(" AZ:", sensorObj.floatp_value(z))
 
         time.sleep(.5)
 

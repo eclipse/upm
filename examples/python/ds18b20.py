@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ds18b20 as sensorObj
+from upm import pyupm_ds18b20 as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,14 +33,14 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Initializing..."
+    print("Initializing...")
 
     # Instantiate an DS18B20 instance using the default values (uart 0)
     sensor = sensorObj.DS18B20(0)
@@ -47,8 +48,8 @@ def main():
     # locate and setup our devices
     sensor.init()
 
-    print "Found", sensor.devicesFound(), "device(s)"
-    print
+    print("Found", sensor.devicesFound(), "device(s)")
+    print()
 
     if (not sensor.devicesFound()):
         sys.exit(1);
@@ -59,8 +60,8 @@ def main():
         sensor.update(0)
 
         # we show both C and F for temperature for the first sensor
-        print "Temperature:", sensor.getTemperature(0), "C /",
-        print sensor.getTemperature(0, True), "F"
+        print("Temperature:", sensor.getTemperature(0), "C /", end=' ')
+        print(sensor.getTemperature(0, True), "F")
 
         time.sleep(1)
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import sys, signal, atexit
-import pyupm_nlgpio16 as sensorObj
+from upm import pyupm_nlgpio16 as sensorObj
 
 def main():
     # Instantiate a NLGPIO16 Module on the default UART (/dev/ttyACM0)
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -43,11 +44,11 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     # get the Version
-    print "Device Version:", sensor.getVersion()
+    print("Device Version:", sensor.getVersion())
     # read the gpio at pin 3
-    print "GPIO 3 Value:", sensor.gpioRead(3)
+    print("GPIO 3 Value:", sensor.gpioRead(3))
     # read the analog voltage at pin 5
-    print "Analog 5 Voltage:", sensor.analogReadVolts(5)
+    print("Analog 5 Voltage:", sensor.analogReadVolts(5))
     # set the gpio at pin 14 to HIGH
     sensor.gpioSet(14)
 

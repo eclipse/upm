@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_gas as upmGAS
+from upm import pyupm_gas as upmGAS
 
 def main():
     # Attach gas sensor to Analog A0
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from sensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers

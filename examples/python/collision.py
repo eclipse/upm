@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_collision as upmcollision
+from upm import pyupm_collision as upmcollision
 
 def main():
     # The was tested with the Collision Sensor
@@ -37,7 +38,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myGrovecollision
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,14 +46,14 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     collisionState = False
-    print "No collision"
+    print("No collision")
 
     while(1):
         if (mycollision.isColliding() and not collisionState):
-            print "Collision!"
+            print("Collision!")
             collisionState = True
         elif (not mycollision.isColliding() and collisionState):
-            print "No collision"
+            print("No collision")
             collisionState = False
 
 if __name__ == '__main__':

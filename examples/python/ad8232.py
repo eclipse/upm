@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ad8232 as upmAD8232
+from upm import pyupm_ad8232 as upmAD8232
 
 def main():
     # Instantiate a AD8232 sensor on digital pins 10 (LO+), 11 (LO-)
@@ -36,7 +37,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myAD8232
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -49,7 +50,7 @@ def main():
     # (https://www.processing.org/) to plot the data just like an
     # EKG you would see in a hospital.
     while(1):
-        print myAD8232.value()
+        print(myAD8232.value())
         time.sleep(.001)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmpx8x as upmBmpx8x
+from upm import pyupm_bmpx8x as upmBmpx8x
 
 def main():
     # Load Barometer module on i2c
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myBarometer
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -54,7 +55,7 @@ def main():
         myBarometer.getAltitude(),
         myBarometer.getSealevelPressure()))
 
-        print outputStr
+        print(outputStr)
         time.sleep(.1)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_h3lis331dl as upmH3LIS331DL
+from upm import pyupm_h3lis331dl as upmH3LIS331DL
 
 def main():
     # Instantiate an H3LIS331DL on I2C bus 0
@@ -37,7 +38,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myDigitalAccelerometer
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -63,7 +64,7 @@ def main():
         " Z = {2}").format(upmH3LIS331DL.intp_value(x),
         upmH3LIS331DL.intp_value(y),
         upmH3LIS331DL.intp_value(z))
-        print outputStr
+        print(outputStr)
 
         myDigitalAccelerometer.getAcceleration(ax, ay, az)
         outputStr = ("Acceleration: AX = {0}"
@@ -71,7 +72,7 @@ def main():
         " AZ = {2}").format(upmH3LIS331DL.floatp_value(ax),
         upmH3LIS331DL.floatp_value(ay),
         upmH3LIS331DL.floatp_value(az))
-        print outputStr
+        print(outputStr)
         time.sleep(.5)
 
 if __name__ == '__main__':

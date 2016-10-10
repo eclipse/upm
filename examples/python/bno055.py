@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bno055 as sensorObj
+from upm import pyupm_bno055 as sensorObj
 
 def main():
     # Instantiate an BNO055 using default parameters (bus 0, addr
@@ -37,7 +38,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -54,24 +55,24 @@ def main():
     y = sensorObj.new_floatp()
     z = sensorObj.new_floatp()
 
-    print "First we need to calibrate.  4 numbers will be output every"
-    print "second for each sensor.  0 means uncalibrated, and 3 means"
-    print "fully calibrated."
-    print "See the UPM documentation on this sensor for instructions on"
-    print "what actions are required to calibrate."
-    print
+    print("First we need to calibrate.  4 numbers will be output every")
+    print("second for each sensor.  0 means uncalibrated, and 3 means")
+    print("fully calibrated.")
+    print("See the UPM documentation on this sensor for instructions on")
+    print("what actions are required to calibrate.")
+    print()
 
     while (not sensor.isFullyCalibrated()):
         sensor.getCalibrationStatus(mag, acc, gyr, syst)
-        print "Magnetometer:", sensorObj.intp_value(mag),
-        print " Accelerometer:", sensorObj.intp_value(acc),
-        print " Gyroscope:", sensorObj.intp_value(gyr),
-        print " System:", sensorObj.intp_value(syst),
+        print("Magnetometer:", sensorObj.intp_value(mag), end=' ')
+        print(" Accelerometer:", sensorObj.intp_value(acc), end=' ')
+        print(" Gyroscope:", sensorObj.intp_value(gyr), end=' ')
+        print(" System:", sensorObj.intp_value(syst), end=' ')
         time.sleep(1)
 
-    print
-    print "Calibration complete."
-    print
+    print()
+    print("Calibration complete.")
+    print()
 
     # now output various fusion data every 250 milliseconds
 
@@ -79,30 +80,30 @@ def main():
         sensor.update()
 
         sensor.getEulerAngles(x, y, z)
-        print "Euler: Heading:", sensorObj.floatp_value(x),
-        print " Roll:", sensorObj.floatp_value(y),
-        print " Pitch:", sensorObj.floatp_value(z),
-        print " degrees"
+        print("Euler: Heading:", sensorObj.floatp_value(x), end=' ')
+        print(" Roll:", sensorObj.floatp_value(y), end=' ')
+        print(" Pitch:", sensorObj.floatp_value(z), end=' ')
+        print(" degrees")
 
         sensor.getQuaternions(w, x, y, z)
-        print "Quaternion: W:", sensorObj.floatp_value(w),
-        print " X:", sensorObj.floatp_value(x),
-        print " Y:", sensorObj.floatp_value(y),
-        print " Z:", sensorObj.floatp_value(z)
+        print("Quaternion: W:", sensorObj.floatp_value(w), end=' ')
+        print(" X:", sensorObj.floatp_value(x), end=' ')
+        print(" Y:", sensorObj.floatp_value(y), end=' ')
+        print(" Z:", sensorObj.floatp_value(z))
 
         sensor.getLinearAcceleration(x, y, z)
-        print "Linear Acceleration: X:", sensorObj.floatp_value(x),
-        print " Y:", sensorObj.floatp_value(y),
-        print " Z:", sensorObj.floatp_value(z),
-        print " m/s^2"
+        print("Linear Acceleration: X:", sensorObj.floatp_value(x), end=' ')
+        print(" Y:", sensorObj.floatp_value(y), end=' ')
+        print(" Z:", sensorObj.floatp_value(z), end=' ')
+        print(" m/s^2")
 
         sensor.getGravityVectors(x, y, z)
-        print "Gravity Vector: X:", sensorObj.floatp_value(x),
-        print " Y:", sensorObj.floatp_value(y),
-        print " Z:", sensorObj.floatp_value(z),
-        print " m/s^2"
+        print("Gravity Vector: X:", sensorObj.floatp_value(x), end=' ')
+        print(" Y:", sensorObj.floatp_value(y), end=' ')
+        print(" Z:", sensorObj.floatp_value(z), end=' ')
+        print(" m/s^2")
 
-        print
+        print()
         time.sleep(.25);
 
 if __name__ == '__main__':

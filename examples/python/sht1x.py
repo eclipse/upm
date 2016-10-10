@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_sht1x as sensorObj
+from upm import pyupm_sht1x as sensorObj
 
 def main():
     # Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
@@ -36,7 +37,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,9 +48,9 @@ def main():
     while (True):
         sensor.update()
 
-        print "Temperature:", sensor.getTemperature(), "C"
-        print "Humidity:   ", sensor.getHumidity(), "RH"
-        print
+        print("Temperature:", sensor.getTemperature(), "C")
+        print("Humidity:   ", sensor.getHumidity(), "RH")
+        print()
 
         time.sleep(2)
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, signal, sys
-import pyupm_wt5001 as upmWt5001
+from upm import pyupm_wt5001 as upmWt5001
 
 def main():
     # Instantiate a WT5001 serial MP3 player on uart 0.
@@ -43,7 +44,7 @@ def main():
         cmd = int(sys.argv[1])
 
     if (not myMP3Player.setupTty(upmWt5001.cvar.int_B9600)):
-        print "Failed to setup tty port parameters"
+        print("Failed to setup tty port parameters")
         sys.exit(0)
 
     if cmd == 0:
@@ -63,19 +64,19 @@ def main():
     # print out some information
     vol = upmWt5001.uint8Array(0)
     myMP3Player.getVolume(vol)
-    print "The current volume is: " + str(vol.__getitem__(0))
+    print("The current volume is: " + str(vol.__getitem__(0)))
 
     ps = upmWt5001.uint8Array(0)
     myMP3Player.getPlayState(ps)
-    print "The current play state is: " + str(ps.__getitem__(0))
+    print("The current play state is: " + str(ps.__getitem__(0)))
 
     numf = upmWt5001.uint16Array(0)
     myMP3Player.getNumFiles(upmWt5001.WT5001.SD, numf)
-    print "The number of files on the SD card is: " + str(numf.__getitem__(0))
+    print("The number of files on the SD card is: " + str(numf.__getitem__(0)))
 
     curf = upmWt5001.uint16Array(0)
     myMP3Player.getCurrentFile(curf)
-    print "The current file is: " + str(curf.__getitem__(0))
+    print("The current file is: " + str(curf.__getitem__(0)))
 
     # set the date
     myMP3Player.setDate(2015, 3, 14)
@@ -91,7 +92,7 @@ def main():
     mp3date = str(month.__getitem__(0)) + "/"
     mp3date += (str(day.__getitem__(0)) + "/")
     mp3date += str(year.__getitem__(0))
-    print "The device date is: " + mp3date
+    print("The device date is: " + mp3date)
 
     hour = upmWt5001.uint8Array(0)
     minute = upmWt5001.uint8Array(0)
@@ -100,7 +101,7 @@ def main():
     mp3time = str(hour.__getitem__(0)) + ":"
     mp3time += (str(minute.__getitem__(0)) + ":")
     mp3time += str(second.__getitem__(0))
-    print "The device time is: " + mp3time
+    print("The device time is: " + mp3time)
 
 if __name__ == '__main__':
     main()

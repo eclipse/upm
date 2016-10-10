@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_nunchuck as upmNunchuck
+from upm import pyupm_nunchuck as upmNunchuck
 
 def main():
     # Instantiate a nunchuck controller bus 0 on I2C
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myNunchuck
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -43,9 +44,9 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     # always do this first
-    print "Initializing... "
+    print("Initializing... ")
     if (not myNunchuck.init()):
-        print "nunchuck->init() failed."
+        print("nunchuck->init() failed.")
         sys.exit(0);
 
     def buttonStateStr(buttonState):
@@ -57,17 +58,17 @@ def main():
 
         outputStr = "stickX: {0}, stickY: {1}".format(
         myNunchuck.stickX, myNunchuck.stickY)
-        print outputStr
+        print(outputStr)
         outputStr = "accelX: {0}, accelY: {1}, accelZ: {2}".format(
         myNunchuck.accelX, myNunchuck.accelY, myNunchuck.accelZ)
-        print outputStr
+        print(outputStr)
 
         outputStr = "button C: {0}".format(
         buttonStateStr(myNunchuck.buttonC))
-        print outputStr
+        print(outputStr)
         outputStr = "button Z: {0}".format(
         buttonStateStr(myNunchuck.buttonZ))
-        print outputStr
+        print(outputStr)
 
         time.sleep(.1)
 

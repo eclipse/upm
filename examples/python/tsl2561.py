@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_tsl2561 as upmTsl2561
+from upm import pyupm_tsl2561 as upmTsl2561
 
 def main():
     # Instantiate a digital light sensor TSL2561 on I2C
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myDigitalLightSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -43,7 +44,7 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        print "Light value is " + str(myDigitalLightSensor.getLux())
+        print("Light value is " + str(myDigitalLightSensor.getLux()))
         time.sleep(1)
 
 if __name__ == '__main__':

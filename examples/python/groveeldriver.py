@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_groveeldriver as upmGroveeldriver
+from upm import pyupm_groveeldriver as upmGroveeldriver
 
 def main():
     # The was tested with the Grove El Driver Module
@@ -36,7 +37,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myEldriver
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         myEldriver.off()
         sys.exit(0)
 

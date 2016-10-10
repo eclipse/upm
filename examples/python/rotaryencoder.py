@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_rotaryencoder as upmRotaryEncoder
+from upm import pyupm_rotaryencoder as upmRotaryEncoder
 
 def main():
     # Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myRotaryEncoder
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,7 +45,7 @@ def main():
 
     # Read the value every second and detect motion
     while(1):
-        print "Position: {0}".format(myRotaryEncoder.position())
+        print("Position: {0}".format(myRotaryEncoder.position()))
         time.sleep(.1)
 
 if __name__ == '__main__':

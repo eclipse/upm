@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ina132 as upmIna132
+from upm import pyupm_ina132 as upmIna132
 
 def main():
     # Tested with the INA132 Differential Amplifier Sensor module.
@@ -37,7 +38,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myDifferentialAmplifier
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,7 +46,7 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        print myDifferentialAmplifier.value()
+        print(myDifferentialAmplifier.value())
         time.sleep(1)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_mma7660 as upmMMA7660
+from upm import pyupm_mma7660 as upmMMA7660
 
 def main():
     # Instantiate an MMA7660 on I2C bus 0
@@ -37,7 +38,7 @@ def main():
 
     # This function lets you run code on exit, including functions from myDigitalAccelerometer
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -68,7 +69,7 @@ def main():
         " z = {2}").format(upmMMA7660.intp_value(x),
         upmMMA7660.intp_value(y),
         upmMMA7660.intp_value(z))
-        print outputStr
+        print(outputStr)
 
         myDigitalAccelerometer.getAcceleration(ax, ay, az)
         outputStr = ("Acceleration: x = {0}"
@@ -76,7 +77,7 @@ def main():
         "g z = {2}g").format(upmMMA7660.floatp_value(ax),
         upmMMA7660.floatp_value(ay),
         upmMMA7660.floatp_value(az))
-        print outputStr
+        print(outputStr)
         time.sleep(.5)
 
 if __name__ == '__main__':

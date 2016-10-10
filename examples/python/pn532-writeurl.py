@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_pn532 as upmPn532
+from upm import pyupm_pn532 as upmPn532
 
 def main():
     # Instantiate an PN532 on I2C bus 0 (default) using gpio 3 for the
@@ -36,7 +37,7 @@ def main():
 
     # This lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -44,15 +45,15 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     if (not myNFC.init()):
-        print "init() failed"
+        print("init() failed")
         sys.exit(0)
 
     vers = myNFC.getFirmwareVersion()
 
     if (vers):
-        print "Got firmware version: %08x" % vers
+        print("Got firmware version: %08x" % vers)
     else:
-        print "Could not identify PN532"
+        print("Could not identify PN532")
         sys.exit(0)
 
     # Now scan and identify any cards that come in range (1 for now)
@@ -77,21 +78,21 @@ def main():
         if (myNFC.readPassiveTargetID(upmPn532.PN532.BAUD_MIFARE_ISO14443A,
                                       uid, uidSize, 2000)):
             # found a card
-            print "Found a card: UID len", uidSize.__getitem__(0)
-            print "UID: ",
+            print("Found a card: UID len", uidSize.__getitem__(0))
+            print("UID: ", end=' ')
             for i in range(uidSize.__getitem__(0)):
-                print "%02x" % uid.__getitem__(i),
-            print
-            print "SAK: %02x" % myNFC.getSAK()
-            print "ATQA: %04x" % myNFC.getATQA()
-            print
+                print("%02x" % uid.__getitem__(i), end=' ')
+            print()
+            print("SAK: %02x" % myNFC.getSAK())
+            print("ATQA: %04x" % myNFC.getATQA())
+            print()
             foundCard = True
         else:
-            print "Waiting for a card...\n"
+            print("Waiting for a card...\n")
 
     if (uidSize.__getitem__(0) != 7):
-        print "This example will only write an NDEF URI to preformatted"
-        print "Mifare Ultralight or NTAG2XX tags"
+        print("This example will only write an NDEF URI to preformatted")
+        print("Mifare Ultralight or NTAG2XX tags")
         sys.exit(1)
 
     # 48 bytes is maximum data area on ultralight cards, so we use that
@@ -99,10 +100,10 @@ def main():
     # card, you can write more data.
     if (not myNFC.ntag2xx_WriteNDEFURI(upmPn532.PN532.NDEF_URIPREFIX_HTTP, url, 48)):
         # failure
-        print "Failed to write NDEF record tag."
+        print("Failed to write NDEF record tag.")
         sys.exit(1)
 
-    print "Success, URL record written to tag."
+    print("Success, URL record written to tag.")
 
 if __name__ == '__main__':
     main()

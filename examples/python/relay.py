@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
 def main():
     # Create the relay switch object using GPIO pin 0
@@ -34,11 +35,11 @@ def main():
     for i in range (0,3):
         relay.on()
         if relay.isOn():
-            print relay.name(), 'is on'
+            print(relay.name(), 'is on')
         time.sleep(1)
         relay.off()
         if relay.isOff():
-            print relay.name(), 'is off'
+            print(relay.name(), 'is off')
         time.sleep(1)
 
     # Delete the relay switch object

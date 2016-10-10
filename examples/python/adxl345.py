@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_adxl345 as adxl345
+from upm import pyupm_adxl345 as adxl345
 
 def main():
     # Create an I2C accelerometer object
@@ -32,10 +33,10 @@ def main():
         adxl.update() # Update the data
         raw = adxl.getRawValues() # Read raw sensor data
         force = adxl.getAcceleration() # Read acceleration force (g)
-        print "Raw: %6d %6d %6d" % (raw[0], raw[1], raw[2])
-        print "ForceX: %5.2f g" % (force[0])
-        print "ForceY: %5.2f g" % (force[1])
-        print "ForceZ: %5.2f g\n" % (force[2])
+        print("Raw: %6d %6d %6d" % (raw[0], raw[1], raw[2]))
+        print("ForceX: %5.2f g" % (force[0]))
+        print("ForceY: %5.2f g" % (force[1]))
+        print("ForceZ: %5.2f g\n" % (force[2]))
 
         # Sleep for 1 s
         sleep(1)

@@ -21,10 +21,11 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
 
 # Load alcohol sensor module
-import pyupm_mq303a as upmMq303a
+from upm import pyupm_mq303a as upmMq303a
 
 def main():
     # Instantiate an mq303a sensor on analog pin A0
@@ -41,21 +42,21 @@ def main():
 
     # This function lets you run code on exit, including functions from myAlcoholSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Enabling heater and waiting 2 minutes for warmup."
+    print("Enabling heater and waiting 2 minutes for warmup.")
 
     # give time updates every 30 seconds until 2 minutes have passed
     # for the alcohol sensor to warm up
     def warmup(iteration):
         totalSeconds = (30 * iteration)
         time.sleep(30)
-        print totalSeconds, "seconds have passed"
+        print(totalSeconds, "seconds have passed")
     warmup(1)
     warmup(2)
     warmup(3)
@@ -63,14 +64,14 @@ def main():
 
     notice = ("This sensor may need to warm "
     "until the value drops below about 450.")
-    print notice
+    print(notice)
 
     # Print the detected alcohol value every second
     while(1):
         val = myAlcoholSensor.value()
         msg = "Alcohol detected "
         msg += "(higher means stronger alcohol): "
-        print msg + str(val)
+        print(msg + str(val))
         time.sleep(1)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_electromagnet as upmelectromagnet
+from upm import pyupm_electromagnet as upmelectromagnet
 
 def main():
     # This was tested with the  Electromagnetic Module
@@ -37,7 +38,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myElectromagnet
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         myElectromagnet.off()
         sys.exit(0)
 
@@ -54,7 +55,7 @@ def main():
             myElectromagnet.on()
         else:
             myElectromagnet.off()
-        print "Turning magnet", ("on" if magnetState else "off")
+        print("Turning magnet", ("on" if magnetState else "off"))
 
         time.sleep(5)
 

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_rhusb as sensorObj
+from upm import pyupm_rhusb as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,7 +33,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting..."
+        print("Exiting...")
         sys.exit(0)
 
     # Register exit handlers
@@ -45,15 +46,15 @@ def main():
     if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-    print "Using device", defaultDev
-    print "Initializing..."
+    print("Using device", defaultDev)
+    print("Initializing...")
 
     # Instantiate an RHUSB instance on defaultDev
     sensor = sensorObj.RHUSB(defaultDev)
 
     # output the firmware ID
-    print "Firmware ID:", sensor.getFirmwareID()
-    print
+    print("Firmware ID:", sensor.getFirmwareID())
+    print()
 
     # update and print available values every second
     while (1):
@@ -61,12 +62,12 @@ def main():
         sensor.update()
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Humidity:", sensor.getHumidity(), "%"
+        print("Humidity:", sensor.getHumidity(), "%")
 
-        print
+        print()
         time.sleep(1)
 
 if __name__ == '__main__':

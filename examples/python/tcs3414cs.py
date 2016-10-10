@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_tcs3414cs as upmTcs3414cs
+from upm import pyupm_tcs3414cs as upmTcs3414cs
 
 def main():
     # Instantiate the color sensor on I2C
@@ -36,7 +37,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myColorSensor
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -48,8 +49,8 @@ def main():
     # Print out the r, g, b, and clr value every 0.5 seconds
     while(1):
         myColorSensor.readRGB(myrgb)
-        print "{0}, {1}, {2}, {3}".format(myrgb.r,
-        myrgb.g, myrgb.b, myrgb.clr)
+        print("{0}, {1}, {2}, {3}".format(myrgb.r,
+        myrgb.g, myrgb.b, myrgb.clr))
 
         time.sleep(.5)
 

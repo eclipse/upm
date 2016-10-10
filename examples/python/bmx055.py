@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmx055 as sensorObj
+from upm import pyupm_bmx055 as sensorObj
 
 def main():
     # Instantiate a BMX055 instance using default i2c bus and address
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -51,24 +52,24 @@ def main():
         sensor.update()
 
         sensor.getAccelerometer(x, y, z)
-        print "Accelerometer x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z),
-        print " g"
+        print("Accelerometer x:", sensorObj.floatp_value(x), end=' ')
+        print(" y:", sensorObj.floatp_value(y), end=' ')
+        print(" z:", sensorObj.floatp_value(z), end=' ')
+        print(" g")
 
         sensor.getGyroscope(x, y, z)
-        print "Gyroscope x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z),
-        print " degrees/s"
+        print("Gyroscope x:", sensorObj.floatp_value(x), end=' ')
+        print(" y:", sensorObj.floatp_value(y), end=' ')
+        print(" z:", sensorObj.floatp_value(z), end=' ')
+        print(" degrees/s")
 
         sensor.getMagnetometer(x, y, z)
-        print "Magnetometer x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z),
-        print " uT"
+        print("Magnetometer x:", sensorObj.floatp_value(x), end=' ')
+        print(" y:", sensorObj.floatp_value(y), end=' ')
+        print(" z:", sensorObj.floatp_value(z), end=' ')
+        print(" uT")
 
-        print
+        print()
         time.sleep(.250)
 
 if __name__ == '__main__':

@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_wfs as upmwfs
+from upm import pyupm_wfs as upmwfs
 
 def main():
     # Instantiate a Water Flow Sensor on digital pin D2
@@ -37,7 +38,7 @@ def main():
     # including functions from myWaterFlow
     def exitHandler():
         myWaterFlow.stopFlowCounter()
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -59,7 +60,7 @@ def main():
         # output milliseconds passed, flow count, and computed flow rate
         outputStr = "Millis: {0} Flow Count: {1} Flow Rate: {2} LPM".format(
         millis, flowCount, fr)
-        print outputStr
+        print(outputStr)
         time.sleep(2)
 
 if __name__ == '__main__':

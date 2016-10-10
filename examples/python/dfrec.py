@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_dfrec as sensorObj
+from upm import pyupm_dfrec as sensorObj
 
 def main():
     # Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
@@ -38,7 +39,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -49,10 +50,10 @@ def main():
     while (True):
         sensor.update()
 
-        print "EC =", sensor.getEC(), "ms/cm"
-        print "Volts =", sensor.getVolts(),
-        print ", Temperature = ", sensor.getTemperature(), "C"
-        print
+        print("EC =", sensor.getEC(), "ms/cm")
+        print("Volts =", sensor.getVolts(), end=' ')
+        print(", Temperature = ", sensor.getTemperature(), "C")
+        print()
 
         time.sleep(2)
 

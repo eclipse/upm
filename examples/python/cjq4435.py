@@ -23,7 +23,7 @@
 
 from __future__ import division
 import time
-import pyupm_cjq4435 as upmCjq4435
+from upm import pyupm_cjq4435 as upmCjq4435
 
 def main():
     # Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3

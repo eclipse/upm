@@ -22,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_md as upmmd
+from upm import pyupm_md as upmmd
 
 def main():
     I2C_BUS = upmmd.MD_I2C_BUS

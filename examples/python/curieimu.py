@@ -22,6 +22,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+from __future__ import print_function
 import mraa
 print (mraa.getVersion())
 
@@ -29,7 +30,7 @@ print (mraa.getVersion())
 mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0")
 
 import time, sys, signal, atexit
-import pyupm_curieimu as curieimu
+from upm import pyupm_curieimu as curieimu
 
 def main():
     sensor = curieimu.CurieImu()
@@ -39,7 +40,7 @@ def main():
         raise SystemExit
 
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -52,7 +53,7 @@ def main():
         outputStr = "acc: gX {0} - gY {1} - gZ {2}".format(
         sensor.getAccelX(), sensor.getAccelY(),
         sensor.getAccelZ())
-        print outputStr
+        print(outputStr)
 
         time.sleep(1)
 

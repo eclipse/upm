@@ -38,25 +38,18 @@ macro (upm_target_link_libraries target_name)
 
     # Call the swig link library method for each library
     if (BUILDSWIGNODE)
-      set_target_properties(${SWIG_MODULE_jsupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
       swig_link_libraries (jsupm_${libname} ${_library})
     endif()
     # Build python2 AND/OR python3 modules
     if (BUILDSWIGPYTHON)
-      # python2?
       if (PYTHON2LIBS_FOUND)
-        set (pymod_target_name pyupm_${target_name}-python${PYTHON2_VERSION_MAJOR})
-        set_target_properties(${SWIG_MODULE_pyupm_${pymod_target_name}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
-        swig_link_libraries (${pymod_target_name} ${_library})
+        swig_link_libraries (pyupm_${libname}-python2 ${_library})
       endif (PYTHON2LIBS_FOUND)
       if (PYTHON3LIBS_FOUND)
-        set (pymod_target_name pyupm_${target_name}-python${PYTHON3_VERSION_MAJOR})
-        set_target_properties(${SWIG_MODULE_pyupm_${pymod_target_name}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
-        swig_link_libraries (${pymod_target_name} ${_library})
+        swig_link_libraries (pyupm_${libname}-python3 ${_library})
       endif (PYTHON3LIBS_FOUND)
     endif()
     if (BUILDSWIGJAVA)
-      set_target_properties(${SWIG_MODULE_javaupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
       swig_link_libraries (javaupm_${libname} ${_library})
     endif()
   endforeach(_library ${ARGN})
@@ -64,9 +57,6 @@ endmacro (upm_target_link_libraries target_name)
 
 # Create a single swig target for python
 macro(_upm_swig_python)
-  # Create a target name which includes python version
-  set (pymod_target_name pyupm_${libname}-python${PYTHON_VERSION_MAJOR})
-
   include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..)
 
   set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
@@ -82,9 +72,14 @@ macro(_upm_swig_python)
   set(CMAKE_SWIG_OUTDIR_SAVED ${CMAKE_SWIG_OUTDIR})
   set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
-  swig_add_module (${pymod_target_name} python pyupm_${libname}.i)
-  swig_link_libraries (${pymod_target_name} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES} ${libname})
-  target_include_directories (${SWIG_MODULE_${pymod_target_name}_REAL_NAME}
+  # Swig module name (example: pyupm_a110x-python2)
+  set (python_wrapper_name pyupm_${libname}-python${PYTHON_VERSION_MAJOR})
+  swig_add_module (${python_wrapper_name} python pyupm_${libname}.i)
+  # Get target library name (example _pyupm_a110x-python2)
+  set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
+
+  swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES} ${libname})
+  target_include_directories (${python_wrapper_target}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
       "${PYTHON_INCLUDE_DIRS}")
@@ -92,26 +87,26 @@ macro(_upm_swig_python)
   # Add C++ comments to ALL python modules (requires doc build)
   if (BUILDDOC)
     # Python module depends on doxy2swig .i file generated from the monolithic doxygen xml file
-    add_dependencies(${SWIG_MODULE_${pymod_target_name}_REAL_NAME} pyupm_doxy2swig )
+    add_dependencies(${python_wrapper_target} pyupm_doxy2swig )
 
     # The pydoc target depends on EACH python module
-    add_dependencies(pydoc ${SWIG_MODULE_${pymod_target_name}_REAL_NAME})
+    add_dependencies(pydoc ${python_wrapper_target})
   endif (BUILDDOC)
 
-  # Python collateral names with be the same for python2/3 w/different library dirs
-  set_target_properties (${SWIG_MODULE_${pymod_target_name}_REAL_NAME} PROPERTIES
+  # Python collateral names will be the same for python2/3 w/different library dirs
+  set_target_properties (${python_wrapper_target} PROPERTIES
       OUTPUT_NAME _pyupm_${libname}
       COMPILE_FLAGS "${CMAKE_C_FLAGS}"
       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
-  # Install py to per-python version site-packages
+  # Install .py's to python packages directory/upm
   install (FILES ${CMAKE_SWIG_OUTDIR}/pyupm_${libname}.py
-      DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
+      DESTINATION ${PYTHON_PACKAGES_PATH}/upm
       COMPONENT ${libname})
 
-  # Install python wrapped library with TARGETS to correctly handle RPATH
-  install (TARGETS ${SWIG_MODULE_${pymod_target_name}_REAL_NAME}
-      DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/)
+  # Install python wrapper module library
+  install (TARGETS ${python_wrapper_target}
+      DESTINATION ${PYTHON_PACKAGES_PATH}/upm)
 
   # Restore OUTDIR
   set(CMAKE_SWIG_OUTDIR ${CMAKE_SWIG_OUTDIR_SAVED})
@@ -119,34 +114,35 @@ endmacro(_upm_swig_python)
 
 # Generate both python2 and python3 modules if possible
 macro(upm_swig_python)
-  # Return if not building python
-  if (NOT BUILDSWIGPYTHON)
-    return ()
-  endif (NOT BUILDSWIGPYTHON)
+  # Skip if the libname is in the blacklist
+  if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
+    # Generate python2 module if python2 libs are available
+    if (PYTHON2LIBS_FOUND)
+      set(PYTHON_INCLUDE_DIRS ${PYTHON2_INCLUDE_DIRS})
+      set(PYTHON_INCLUDE_PATH ${PYTHON2_INCLUDE_PATH})
+      set(PYTHON_LIBRARIES ${PYTHON2_LIBRARIES})
+      set(PYTHON_VERSION_MAJOR ${PYTHON2_VERSION_MAJOR})
+      set(PYTHON_VERSION_MINOR ${PYTHON2_VERSION_MINOR})
+      set(PYTHON_PACKAGES_PATH ${PYTHON2_PACKAGES_PATH})
+      _upm_swig_python()
+    endif (PYTHON2LIBS_FOUND)
 
-  # Generate python2 module if python2 libs are available
-  if (PYTHON2LIBS_FOUND)
-    set(PYTHON_INCLUDE_DIRS ${PYTHON2_INCLUDE_DIRS})
-    set(PYTHON_INCLUDE_PATH ${PYTHON2_INCLUDE_PATH})
-    set(PYTHON_LIBRARIES ${PYTHON2_LIBRARIES})
-    set(PYTHON_VERSION_MAJOR ${PYTHON2_VERSION_MAJOR})
-    set(PYTHON_VERSION_MINOR ${PYTHON2_VERSION_MINOR})
-    _upm_swig_python()
-  endif (PYTHON2LIBS_FOUND)
-
-  # Generate python3 module if python3 libs are available
-  if (PYTHON3LIBS_FOUND)
-    set(PYTHON_INCLUDE_DIRS ${PYTHON3_INCLUDE_DIRS})
-    set(PYTHON_INCLUDE_PATH ${PYTHON3_INCLUDE_PATH})
-    set(PYTHON_LIBRARIES ${PYTHON3_LIBRARIES})
-    set(PYTHON_VERSION_MAJOR ${PYTHON3_VERSION_MAJOR})
-    set(PYTHON_VERSION_MINOR ${PYTHON3_VERSION_MINOR})
-    _upm_swig_python()
-  endif (PYTHON3LIBS_FOUND)
+    # Generate python3 module if python3 libs are available
+    if (PYTHON3LIBS_FOUND)
+      set(PYTHON_INCLUDE_DIRS ${PYTHON3_INCLUDE_DIRS})
+      set(PYTHON_INCLUDE_PATH ${PYTHON3_INCLUDE_PATH})
+      set(PYTHON_LIBRARIES ${PYTHON3_LIBRARIES})
+      set(PYTHON_VERSION_MAJOR ${PYTHON3_VERSION_MAJOR})
+      set(PYTHON_VERSION_MINOR ${PYTHON3_VERSION_MINOR})
+      set(PYTHON_PACKAGES_PATH ${PYTHON3_PACKAGES_PATH})
+      _upm_swig_python()
+    endif (PYTHON3LIBS_FOUND)
+  endif (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
 endmacro(upm_swig_python)
 
 macro(upm_swig_node)
-  if (BUILDSWIGNODE)
+  # Skip if the libname is in the blacklist
+  if (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
     # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
     # required. This hardcodes V8_VERSION to be <10 but I assume that's not going
     # to be a problem for a little while! SWIG uses a padded SWIG_V8 version which
@@ -199,17 +195,17 @@ macro(upm_swig_node)
             set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${UPM_CXX11_WORKAROUND_OPTION} ")
           endif ()
       endif ()
-
     endif()
+
     createpackagejson(${libname})
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
-         DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
-  endif()
+
+    install (TARGETS jsupm_${libname} DESTINATION ${NODE_MODULE_INSTALL_PATH})
+  endif (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
 endmacro(upm_swig_node)
 
 macro(upm_swig_java)
-  if (BUILDSWIGJAVA)
-
+  # Skip if the libname is in the blacklist
+  if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
     FIND_PACKAGE (JNI REQUIRED)
     pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
 
@@ -233,8 +229,12 @@ macro(upm_swig_java)
       PREFIX "lib"
       SUFFIX ".so"
     )
+
     install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
-    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar DESTINATION ${LIB_INSTALL_DIR}/../lib/java)
+    # Java jar always goes under lib.  This fixes the case where LIB_INSTALL_DIR
+    # is lib64, in which case they still install to lib: lib64/../lib
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
+        DESTINATION ${LIB_INSTALL_DIR}/../lib/java)
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
         set (JAVAC $ENV{JAVA_HOME}/bin/javac)
@@ -255,8 +255,7 @@ macro(upm_swig_java)
 
     configure_file (${CMAKE_CURRENT_SOURCE_DIR}/../pom.xml.in
         ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.pom)
-
-  endif()
+  endif (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
 endmacro(upm_swig_java)
 
 macro(upm_doxygen)
@@ -412,17 +411,17 @@ macro(upm_module_init)
   upm_create_install_pkgconfig (${pcname} ${LIB_INSTALL_DIR}/pkgconfig)
 
   # Don't SWIG C
-  if (SWIG_FOUND AND NOT IS_C_LIBRARY)
-    if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
+  if (NOT IS_C_LIBRARY)
+    if (BUILDSWIGPYTHON)
       upm_swig_python()
-    endif()
-    if (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
+    endif (BUILDSWIGPYTHON)
+    if (BUILDSWIGNODE)
       upm_swig_node()
-    endif()
-    if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
+    endif (BUILDSWIGNODE)
+    if (BUILDSWIGJAVA)
       upm_swig_java()
-    endif()
-  endif (SWIG_FOUND AND NOT IS_C_LIBRARY)
+    endif (BUILDSWIGJAVA)
+  endif (NOT IS_C_LIBRARY)
 
   # Skip doxygen run on C (for now)
   if (BUILDDOC AND NOT IS_C_LIBRARY)
@@ -437,6 +436,21 @@ macro(upm_module_init)
     set(CPACK_COMPONENT_${libname}_DESCRIPTION "${libdescription}")
   endif()
 endmacro(upm_module_init)
+
+# Top-level module init
+if (BUILDSWIGPYTHON)
+  file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py "# UPM python modules")
+  if(PYTHON2LIBS_FOUND)
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
+        DESTINATION ${PYTHON2_PACKAGES_PATH}/upm
+        COMPONENT python2)
+  endif(PYTHON2LIBS_FOUND)
+  if(PYTHON3LIBS_FOUND)
+    install (FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
+        DESTINATION ${PYTHON3_PACKAGES_PATH}/upm
+        COMPONENT python3)
+  endif(PYTHON3LIBS_FOUND)
+endif (BUILDSWIGPYTHON)
 
 # Generate python module documentation from doxygen collateral
 if (BUILDDOC AND BUILDSWIGPYTHON)

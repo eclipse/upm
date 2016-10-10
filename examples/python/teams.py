@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_teams as sensorObj
+from upm import pyupm_teams as sensorObj
 
 def main():
     ## Exit handlers ##
@@ -32,14 +33,14 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    print "Initializing..."
+    print("Initializing...")
 
     # Instantiate an TEAMS instance, using A0 for temperature, and
     # 165.0 ohms for the rResistor value (for the libelium 4-20ma
@@ -52,17 +53,17 @@ def main():
         sensor.update()
 
         # is the sensor connected? (current >= 4ma)
-        print "Is Connected:", sensor.isConnected()
+        print("Is Connected:", sensor.isConnected())
 
         # print computed current on the loop.  This includes the offset,
         # if one was set by setOffsetMilliamps().
-        print "Milliamps:", sensor.getRawMilliamps()
+        print("Milliamps:", sensor.getRawMilliamps())
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print
+        print()
         time.sleep(1)
 
 if __name__ == '__main__':

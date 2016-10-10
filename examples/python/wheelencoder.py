@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_wheelencoder as sensorObj
+from upm import pyupm_wheelencoder as sensorObj
 
 def main():
     # Instantiate a DFRobot Wheel Encoder on digital pin D2
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -47,7 +48,7 @@ def main():
     sensor.startCounter();
 
     while (1):
-        print "Millis:", sensor.getMillis(), "Count:", sensor.counter()
+        print("Millis:", sensor.getMillis(), "Count:", sensor.counter())
         time.sleep(1)
 
 if __name__ == '__main__':

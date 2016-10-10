@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_urm37 as sensorObj
+from upm import pyupm_urm37 as sensorObj
 
 def main():
     # Instantiate a URM37 sensor on UART 0, with the reset pin on D2
@@ -35,7 +36,7 @@ def main():
 
     # This function lets you run code on exit
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -46,8 +47,8 @@ def main():
     # distance in cm, and temperature in degrees C
 
     while (1):
-        print "Detected distance (cm):", sensor.getDistance()
-        print "Temperature (C):", sensor.getTemperature()
+        print("Detected distance (cm):", sensor.getDistance())
+        print("Temperature (C):", sensor.getTemperature())
         time.sleep(.5)
 
 if __name__ == '__main__':

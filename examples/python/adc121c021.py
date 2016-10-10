@@ -21,8 +21,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_adc121c021 as upmAdc121c021
+from upm import pyupm_adc121c021 as upmAdc121c021
 
 def main():
     # Instantiate an ADC121C021 on I2C bus 0
@@ -39,7 +40,7 @@ def main():
     # This lets you run code on exit,
     # including functions from myAnalogDigitalConv
     def exitHandler():
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # Register exit handlers
@@ -50,7 +51,7 @@ def main():
     while(1):
         val = myAnalogDigitalConv.value()
         voltsVal = myAnalogDigitalConv.valueToVolts(val)
-        print "ADC value: %s Volts = %s" % (val, voltsVal)
+        print("ADC value: %s Volts = %s" % (val, voltsVal))
         time.sleep(.05)
 
 if __name__ == '__main__':

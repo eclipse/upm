@@ -22,8 +22,9 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_my9221 as upmGroveCircularLED
+from upm import pyupm_my9221 as upmGroveCircularLED
 
 def main():
     # Exit handlers
@@ -32,7 +33,7 @@ def main():
 
     def exitHandler():
         circle.setLevel(0, True)
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
 
     # This function lets you run code on exit
