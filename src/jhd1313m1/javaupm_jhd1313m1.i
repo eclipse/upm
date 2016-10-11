@@ -22,11 +22,11 @@
         JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
 }
 
+%include "jhd1313m1.h"
+%include "jhd1313m1.hpp"
 %{
     #include "jhd1313m1.hpp"
 %}
-
-%include "jhd1313m1.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

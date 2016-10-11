@@ -187,6 +187,14 @@ extern "C" {
     upm_result_t jhd1313m1_backlight_on(const jhd1313m1_context dev, bool on);
 
     /**
+     * Makes the LCD scroll text
+     *
+     * @param direction True if scrolling to the right, false otherwise
+     * @return Result of the operation
+     */
+    upm_result_t jhd1313m1_scroll(const jhd1313m1_context dev, bool direction);
+
+    /**
      * Scroll the display left, without changing the character RAM.
      *
      * @param dev The device context.
