@@ -255,12 +255,26 @@ extern "C" {
      */
     upm_result_t lcm1602_autoscroll_on(const lcm1602_context dev, bool on);
 
-
-    // Add a command() and data() virtual member functions, with a
-    // default implementation in lcm1602.  This is expected to be
-    // implemented by derived classes with different needs (Jhd1313m1,
-    // for example).
+    /**
+     * Send a command byte to the controller.  This is a low level
+     * command and should not be used unless you know what you are
+     * doing.
+     *
+     * @param dev The device context.
+     * @param cmd The command byte to send.
+     * @return UPM result.
+     */
     upm_result_t lcm1602_command(const lcm1602_context dev, uint8_t cmd);
+
+    /**
+     * Send a data byte to the controller.  This is a low level
+     * command and should not be used unless you know what you are
+     * doing.
+     *
+     * @param dev The device context.
+     * @param data The data byte to send.
+     * @return UPM result.
+     */
     upm_result_t lcm1602_data(const lcm1602_context dev, uint8_t data);
 
 

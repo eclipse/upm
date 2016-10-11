@@ -6,6 +6,7 @@
 
 %feature("autodoc", "3");
 
+%include "lcm1602.h"
 %include "lcm1602.hpp"
 %{
     #include "lcm1602.hpp"

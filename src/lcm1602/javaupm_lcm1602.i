@@ -22,11 +22,12 @@
         JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
 }
 
+%include "lcm1602.h"
+%include "lcm1602.hpp"
+
 %{
     #include "lcm1602.hpp"
 %}
-
-%include "lcm1602.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
