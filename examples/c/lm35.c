@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,44 +22,51 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <stdexcept>
-#include "lm35.hpp"
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
+#include "lm35.h"
+#include "upm_utilities.h"
 
-using namespace std;
-using namespace upm;
+bool shouldRun = true;
 
-LM35::LM35(int pin, float aref) :
-    m_lm35(lm35_init(pin, aref))
+void sig_handler(int signo)
 {
-    if (!m_lm35)
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": lm35_init() failed");
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-LM35::~LM35()
+int main()
 {
-    lm35_close(m_lm35);
-}
+  signal(SIGINT, sig_handler);
 
-float LM35::getTemperature()
-{
-    float temp;
-    upm_result_t rv = lm35_get_temperature(m_lm35, &temp);
+//! [Interesting]
 
-    if (rv)
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": lm35_get_temperature() failed");
+  // Instantiate a LM35 on analog pin A0, with a default analog
+  // reference voltage of 5.0
+  lm35_context sensor = lm35_init(0, 5.0);
 
-  return temp;
-}
+  // Every half second, sample the sensor and output the temperature
 
-void LM35::setScale(float scale)
-{
-    lm35_set_scale(m_lm35, scale);
-}
+  while (shouldRun)
+    {
+        float temp;
+        if (lm35_get_temperature(sensor, &temp) != UPM_SUCCESS)
+        {
+            printf("lm35_get_temperature failed\n");
+            return 1;
+        }
 
-void LM35::setOffset(float offset)
-{
-    lm35_set_offset(m_lm35, offset);
+        printf("Temperature: %3.2f C\n", temp);
+
+        upm_delay_ms(500);
+    }
+
+//! [Interesting]
+
+  printf("Exiting\n");
+
+  lm35_close(sensor);
+
+  return 0;
 }
