@@ -291,7 +291,24 @@ if (BUILDSWIGNODE)
     ${NODE_ROOT_DIR}/include/deps/uv/include
   )
   macro(createpackagejson)
+    #Create list of source files
+    foreach (srcfile ${module_src})
+      file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+      set (upm_LIB_SRCS_GYP "'${rel}/${srcfile}',\n${upm_LIB_SRCS_GYP}")
+    endforeach (srcfile)
+    file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+    set (upm_LIB_SRCS_GYP "'${rel}/jsupm_${libname}JAVASCRIPT_wrap.cxx',\n${upm_LIB_SRCS_GYP}")
+    #Create list of include directories
+    foreach (includedir ${UPM_COMMON_HEADER_DIRS})
+      file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${includedir})
+      set (upm_LIB_INCLUDE_DIRS_GYP "'${rel}',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+    endforeach (includedir)
+    file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+    set (upm_LIB_SRCS_GYP "'${rel}',\n${upm_LIB_SRCS_GYP}")
+
     configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
+    configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/binding.gyp @ONLY)
+    configure_file (${PROJECT_SOURCE_DIR}/doxy/README.npm.md ${CMAKE_CURRENT_BINARY_DIR}/README.md)
     # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
     # base on the NODE_ROOT_DIR.
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
