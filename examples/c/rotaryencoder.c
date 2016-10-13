@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,35 +22,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
 
-#include "rotaryencoder.hpp"
+#include "rotaryencoder.h"
+#include "upm_utilities.h"
 
-using namespace upm;
+int shouldRun = true;
 
-RotaryEncoder::RotaryEncoder(int pinA, int pinB) :
-    m_rotaryencoder(rotaryencoder_init(pinA, pinB))
+void sig_handler(int signo)
 {
-    if (!m_rotaryencoder)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": rotaryencoder_init failed");
-}
-
-RotaryEncoder::~RotaryEncoder()
-{
-    rotaryencoder_close(m_rotaryencoder);
-}
-
-void RotaryEncoder::initPosition(int count)
-{
-    rotaryencoder_set_position(m_rotaryencoder, count);
-}
-
-int RotaryEncoder::position()
-{
-    return rotaryencoder_get_position(m_rotaryencoder);
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 
+int main()
+{
+    signal(SIGINT, sig_handler);
+
+//! [Interesting]
+    // Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
+    rotaryencoder_context sensor = rotaryencoder_init(2, 3);
+
+    if (!sensor)
+    {
+        printf("rotaryencoder_init() failed.\n");
+        return 1;
+    }
+
+    while (shouldRun)
+    {
+        printf("Position: %d\n", rotaryencoder_get_position(sensor));
+
+        upm_delay_ms(100);
+    }
+
+
+    printf("Exiting...\n");
+
+    rotaryencoder_close(sensor);
+
+//! [Interesting]
+    return 0;
+}

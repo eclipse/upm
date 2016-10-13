@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,83 +23,73 @@
  */
 #pragma once
 
-#include <string>
-#include <stdint.h>
-#include <sys/time.h>
-#include <mraa/gpio.h>
+#include "rotaryencoder.h"
 
 namespace upm {
 
-/**
- * @brief Grove Rotary Encoder library
- * @defgroup rotaryencoder libupm-rotaryencoder
- * @ingroup seeed gpio other hak
- */
-/**
- * @library rotaryencoder
- * @sensor rotaryencoder
- * @comname Grove Rotary Encoder
- * @type other
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder
- * @con gpio
- * @kit hak
- *
- * @brief API for the Grove Rotary Encoder
- * 
- * UPM module for the Grove rotary encoder. This rotary encoder
- * encodes a rotation signal into electronic pulses that can be used
- * to measure rotation and direction. It is useful in cases where a
- * rotary knob is required, but using a potentiometer is not
- * desirable. A rotary encoder can turn a full 360 degrees
- * without a stop and does not place a resistive load on the
- * circuit, as is the case with a potentiometer.
- *
- * This module maintains a position that is incremented or
- * decremented according to the rotation on the encoder.
- *
- * @image html rotaryencoder.jpg
- * @snippet rotaryencoder.cxx Interesting
- */
-  class RotaryEncoder {
-  public:
     /**
-     * RotaryEncoder constructor
-     *
-     * @param pinA Digital pin to use for signal A
-     * @param pinB Digital pin to use for signal B
+     * @brief Grove Rotary Encoder library
+     * @defgroup rotaryencoder libupm-rotaryencoder
+     * @ingroup seeed gpio other hak
      */
-    RotaryEncoder(int pinA, int pinB);
-    /**
-     * RotaryEncoder destructor
-     */
-    ~RotaryEncoder();
 
     /**
-     * Resets the position to a given number; default is 0. 
+     * @library rotaryencoder
+     * @sensor rotaryencoder
+     * @comname Grove Rotary Encoder
+     * @type other
+     * @man seeed
+     * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder
+     * @con gpio
+     * @kit hak
      *
-     * @param count Integer to initialize the position to
+     * @brief API for the Grove Rotary Encoder
+     *
+     * UPM module for the Grove rotary encoder. This rotary encoder
+     * encodes a rotation signal into electronic pulses that can be used
+     * to measure rotation and direction. It is useful in cases where a
+     * rotary knob is required, but using a potentiometer is not
+     * desirable. A rotary encoder can turn a full 360 degrees
+     * without a stop and does not place a resistive load on the
+     * circuit, as is the case with a potentiometer.
+     *
+     * This module maintains a position that is incremented or
+     * decremented according to the rotation on the encoder.
+     *
+     * @image html rotaryencoder.jpg
+     * @snippet rotaryencoder.cxx Interesting
      */
-    void initPosition(int count=0);
 
-    /**
-     * Gets the position value
-     *
-     */
-    int position();
+    class RotaryEncoder {
+    public:
+        /**
+         * RotaryEncoder constructor
+         *
+         * @param pinA Digital pin to use for signal A
+         * @param pinB Digital pin to use for signal B
+         */
+        RotaryEncoder(int pinA, int pinB);
+        /**
+         * RotaryEncoder destructor
+         */
+        ~RotaryEncoder();
 
-  private:
-    /**
-     * Interrupt service routine (ISR) for signal A
-     *
-     * @param ctx User context for the ISR (*this pointer)
-     */
-    static void signalAISR(void *ctx);
-  
-    volatile int m_position;
-    mraa_gpio_context m_gpioA;
-    mraa_gpio_context m_gpioB;
-  };
+        /**
+         * Resets the position to a given number; default is 0.
+         *
+         * @param count Integer to initialize the position to
+         */
+        void initPosition(int count=0);
+
+        /**
+         * Gets the position value
+         *
+         */
+        int position();
+
+    private:
+        rotaryencoder_context m_rotaryencoder;
+    };
 }
 
 

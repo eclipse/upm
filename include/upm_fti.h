@@ -74,7 +74,8 @@ typedef enum {
     UPM_WIRELESS,
     UPM_STREAM,
     UPM_ORP,
-    UPM_BINARY
+    UPM_BINARY,
+    UPM_ROTARYENCODER
 } upm_sensor_t;
 
 /* Supported IO protocols via MRAA */
@@ -122,6 +123,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <fti/upm_ec.h>
 #include <fti/upm_humidity.h>
 #include <fti/upm_binary.h>
+#include <fti/upm_rotaryencoder.h>
 
 #ifdef __cplusplus
 }

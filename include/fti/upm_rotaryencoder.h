@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,36 +21,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_ROTARYENCODER_H_
+#define UPM_ROTARYENCODER_H_
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include "upm_types.h"
 
-#include "rotaryencoder.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace upm;
-
-RotaryEncoder::RotaryEncoder(int pinA, int pinB) :
-    m_rotaryencoder(rotaryencoder_init(pinA, pinB))
+/* Rotary Encoder function table */
+typedef struct _upm_rotaryencoder_ft
 {
-    if (!m_rotaryencoder)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": rotaryencoder_init failed");
+    /* Set the initial position (count) */
+    upm_result_t (*upm_rotaryencoder_set_position) (const void* dev, int pos);
+    /* Get the current position (count) */
+    upm_result_t (*upm_rotaryencoder_get_position) (const void* dev, int *pos);
+} upm_rotaryencoder_ft;
+
+#ifdef __cplusplus
 }
+#endif
 
-RotaryEncoder::~RotaryEncoder()
-{
-    rotaryencoder_close(m_rotaryencoder);
-}
-
-void RotaryEncoder::initPosition(int count)
-{
-    rotaryencoder_set_position(m_rotaryencoder, count);
-}
-
-int RotaryEncoder::position()
-{
-    return rotaryencoder_get_position(m_rotaryencoder);
-}
-
-
+#endif /* UPM_ROTARYENCODER_H_ */
