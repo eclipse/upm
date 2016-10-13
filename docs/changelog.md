@@ -4,6 +4,21 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### vnext
+
+ * Build both python2 and python3 modules if the corresponding pythonlibs are
+ available and removed cmake BUILDPYTHON3 switch
+ * Converted python examples to run on both python2 and python3
+ * Added 'upm' hierarchy to python module install path which changes the way
+ UPM modules are imported
+    Example:
+        old: import pyupm_dfrph
+        new: from upm import pyupm_dfrph
+             or
+             import upm.pyupm_dfrph
+ * Added ctests for consistancy checking UPM repo as well as sanity checking
+ for python2/3 modules and examples
+
 ### v0.8.0
 
  * Extended l3gd20 driver to support I2C connections in addition to IIO
