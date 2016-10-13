@@ -55,6 +55,9 @@ macro (upm_target_link_libraries target_name)
   endforeach(_library ${ARGN})
 endmacro (upm_target_link_libraries target_name)
 
+# Selectively do not emit warnings from the SWIG-generated wrappers
+set (disabled_flags -Wno-delete-non-virtual-dtor -Wno-unused-function)
+
 # Create a single swig target for python
 macro(_upm_swig_python)
   include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..)
@@ -85,6 +88,15 @@ macro(_upm_swig_python)
       "${PYTHON_INCLUDE_PATH}"
       "${PYTHON_INCLUDE_DIRS}")
 
+  # Turn off flags for wrapper
+  foreach(flag ${disabled_flags})
+    compiler_flag_supported(CXX is_supported ${flag})
+    if (is_supported)
+      target_compile_options(${python_wrapper_target}
+        PRIVATE "${flag}")
+    endif(is_supported)
+  endforeach(flag ${disabled_flags})
+
   # Add C++ comments to ALL python modules (requires doc build)
   if (BUILDDOC)
     # Python module depends on doxy2swig .i file generated from the monolithic doxygen xml file
@@ -97,7 +109,6 @@ macro(_upm_swig_python)
   # Python collateral names will be the same for python2/3 w/different library dirs
   set_target_properties (${python_wrapper_target} PROPERTIES
       OUTPUT_NAME _pyupm_${libname}
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS}"
       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
   # Install .py's to python packages directory/upm
@@ -168,8 +179,17 @@ macro(upm_swig_node)
       "${NODE_INCLUDE_DIRS}"
     )
 
+    # Turn off flags for wrapper
+    foreach(flag ${disabled_flags})
+      compiler_flag_supported(CXX is_supported ${flag})
+      if (is_supported)
+        target_compile_options(${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
+          PRIVATE "${flag}")
+      endif(is_supported)
+    endforeach(flag ${disabled_flags})
+
     set_target_properties (jsupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=${V8_VERSION_HEX}"
+      COMPILE_FLAGS "-DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=${V8_VERSION_HEX}"
       PREFIX ""
       SUFFIX ".node"
     )
@@ -210,10 +230,19 @@ macro(upm_swig_java)
       "${JAVA_INCLUDE_PATH}"
      )
     set_target_properties (javaupm_${libname} PROPERTIES
-      COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -DJAVACALLBACK"
+      COMPILE_FLAGS "-fpermissive -DJAVACALLBACK"
       PREFIX "lib"
       SUFFIX ".so"
     )
+
+    # Turn off flags for wrapper
+    foreach(flag ${disabled_flags})
+      compiler_flag_supported(CXX is_supported ${flag})
+      if (is_supported)
+        target_compile_options(${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
+          PRIVATE "${flag}")
+      endif(is_supported)
+    endforeach(flag ${disabled_flags})
 
     install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
     # Java jar files always need to go under lib/java, regardless of

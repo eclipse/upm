@@ -45,6 +45,11 @@ namespace upm
              * @param h Screen height
              */
             GFX(int16_t w, int16_t h);
+
+            /**
+             * Empyt virtual destructor
+             */
+            virtual ~GFX() {};
              
             /**
              * Sends a pixel color (RGB) to the driver chip. This must be

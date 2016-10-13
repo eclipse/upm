@@ -239,6 +239,8 @@ main(int argc, char **argv)
                                 printf ("Advertising started \n");
                             }
                             break;
+                        default:
+                            break;
                     }
                 }
                 break; // ACI Device Started Event
@@ -335,7 +337,8 @@ main(int argc, char **argv)
                     lib_aci_connect(0/* in seconds, 0 means forever */, 0x0050 /* advertising interval 50ms*/);
                     printf ("Advertising started \n");
                 break;
-
+                default:
+                break;
             }
         }
 

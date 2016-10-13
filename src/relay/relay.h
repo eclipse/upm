@@ -48,8 +48,6 @@ typedef struct _relay_context{
     mraa_gpio_context gpio;
 } *relay_context;
 
-typedef struct _relay_context *relay_context;
-
 relay_context relay_init(int pin);
 
 void relay_close(relay_context dev);

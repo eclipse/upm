@@ -37,11 +37,11 @@
 
 // an internal struct we use to store information on the devices
 // found during initialization
-typedef struct _ds18b20_info_t {
+struct _ds18b20_info_t {
   uint8_t id[ROMCODE_SIZE];          // 8-byte romcode id
   float temperature;
   DS18B20_RESOLUTIONS_T resolution;
-} ds18b20_info_t;
+};
 
 // internal utility function forward to read temperature from a single
 // device
@@ -121,7 +121,7 @@ ds18b20_context ds18b20_init(unsigned int uart)
 
           if (!dsPtr)
             {
-              printf("%s: realloc(%d) failed\n",
+              printf("%s: realloc(%zu) failed\n",
                      __FUNCTION__,
                      sizeof(ds18b20_info_t) * (dev->numDevices + 1));
               ds18b20_close(dev);

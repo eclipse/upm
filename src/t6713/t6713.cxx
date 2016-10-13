@@ -22,11 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
 #include <errno.h>
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+#include <syslog.h>
+#include <unistd.h>
+
 #include <t6713.hpp>
 
 #define T6713_ADDR                                0x15
@@ -103,6 +105,7 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 		     //printf("\nRS485 mode set\n ");
 		break;
 		case I2C:
+                {
 		     //printf("\nI2C mode set\n");
 		     data = 0;
 		     runCommand(cmd);
@@ -113,7 +116,7 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 			 // TODO: need to handle this
 	  	     }
 		     RESPONSE * response  = new RESPONSE ;
-	             if(readBytes = i2c->read((uint8_t*)(response), sizeof(RESPONSE) ) !=  sizeof(RESPONSE))
+	             if((readBytes = i2c->read((uint8_t*)(response), sizeof(RESPONSE) ) !=  sizeof(RESPONSE)))
 		     {
 		     	 UPM_THROW("I2C read failed");
 			 // TODO
@@ -128,6 +131,10 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 		     delete(response); response=NULL;
 	             return(data);
 		break;
+                }
+                default:
+                    syslog(LOG_WARNING, "%s: switch case not defined",
+                        std::string(__FUNCTION__).c_str());
 	}
 	return 0;
 
@@ -218,7 +225,7 @@ STATUS T6713::getStatus()
                 UPM_THROW ("I2C error setting slave address");
 		//need to handle tnis
 	}
-	if(readBytes = i2c->read((uint8_t*) (response), sizeof(RESPONSE)) != sizeof(RESPONSE))
+	if((readBytes = i2c->read((uint8_t*) (response), sizeof(RESPONSE)) != sizeof(RESPONSE)))
 	{
                 UPM_THROW("I2C read failed");
 

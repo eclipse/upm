@@ -25,6 +25,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdexcept>
+#include <syslog.h>
 
 #include "ds18b20.hpp"
 
@@ -214,6 +215,9 @@ float DS18B20::readSingleTemp(int index)
     case RESOLUTION_9BITS: frac &= 0x08; break;
     case RESOLUTION_10BITS: frac &= 0x0c; break;
     case RESOLUTION_11BITS: frac &= 0x0e; break;
+    default:
+        syslog(LOG_WARNING, "%s: switch case not defined",
+            std::string(__FUNCTION__).c_str());
     }
 
   // remove the fractional with extreme prejudice

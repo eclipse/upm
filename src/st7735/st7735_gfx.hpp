@@ -54,7 +54,7 @@ class GFX {
         /**
          * GFX object destructor
          */
-        ~GFX ();
+        virtual ~GFX ();
 
         /**
          * Sets the window address

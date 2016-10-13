@@ -152,7 +152,7 @@ TSL2561::getLux()
     if (channel0 != 0) ratio1 = (channel1 << (LUX_RATIOSCALE+1)) / channel0;
 
     // round the ratio value
-    unsigned long ratio = (ratio1 + 1) >> 1;
+    int64_t ratio = (ratio1 + 1) >> 1;
 
     unsigned int b, m;
 
@@ -175,7 +175,7 @@ TSL2561::getLux()
     else if (ratio > LUX_K8C)
        {b=LUX_B8C; m=LUX_M8C;}
 
-    uint64_t tempLux = 0;
+    int64_t tempLux = 0;
     tempLux = ((channel0 * b) - (channel1 * m));
     // do not allow negative lux value
     if (tempLux < 0) tempLux = 0;

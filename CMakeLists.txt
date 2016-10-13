@@ -13,6 +13,7 @@ option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 option (BUILDTESTS "Generate check-ups for upm" ON)
+option (WERROR "Make all warnings into errors." OFF)
 
 # Warn if building in source root
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -21,6 +22,93 @@ endif ()
 
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+
+# Check if provided compiler supports target flag
+# usage:
+#       compiler_flag_supported(C/CXX is_supported flag)
+#
+# The result of output_variable is set to the sanitized flag name if supported
+# or cleared if the flag is not supported.
+function (compiler_flag_supported compiler output_variable flag)
+  # Currently only C and CXX compile flags
+  if (NOT ${compiler} MATCHES "C|CXX")
+    message (WARNING "Unknown compiler: ${compiler}")
+  else ()
+    string (REPLACE "-" "_" SANITIZED_FLAG_NAME "${flag}")
+    string (REPLACE "/" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+    string (REPLACE "=" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+    string (REPLACE " " "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+
+    # Disable messages from CHECK_C/XX_COMPILER_FLAGS macros
+    set (CMAKE_REQUIRED_QUIET_SAVED ${CMAKE_REQUIRED_QUIET})
+    set (CMAKE_REQUIRED_QUIET ON)
+
+    # C or CXX?
+    if (${compiler} STREQUAL C)
+      CHECK_C_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
+    elseif (${compiler} STREQUAL CXX)
+      CHECK_CXX_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
+    endif ()
+
+    # Restore previous CMAKE_REQUIRED_QUIET state
+    set (CMAKE_REQUIRED_QUIET ${CMAKE_REQUIRED_QUIET_SAVED})
+
+    # Does the compiler support this flag?
+    if (HAS_${SANITIZED_FLAG_NAME})
+      set ("${output_variable}" "${SANITIZED_FLAG_NAME}" PARENT_SCOPE)
+    else ()
+      set ("${output_variable}" "" PARENT_SCOPE)
+    endif()
+  endif()
+endfunction ()
+
+include (CheckCCompilerFlag)
+include (CheckCXXCompilerFlag)
+# Add scoped compile flag/s using add_compile_options.
+# This function checks to see if each flag is supported
+# by the compiler before setting the compile option.
+function (upm_add_compile_flags compiler)
+  # Iterate the flags, check if supported
+  foreach (flag ${ARGN})
+    # Check if this compile flag is supported
+    compiler_flag_supported(${compiler} is_supported ${flag})
+
+    # Add if supported, warn and skip if not supported
+    if (is_supported)
+      set (_TMP_COMPILER_FLAGS "${_TMP_COMPILER_FLAGS} ${flag}")
+    else ()
+      message (WARNING "${compiler} compiler does not support flag \"${flag}\"")
+    endif ()
+  endforeach (flag ${ARGN})
+
+  # Set the variable in the parent scope
+  set (CMAKE_${compiler}_FLAGS ${_TMP_COMPILER_FLAGS} PARENT_SCOPE)
+endfunction ()
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Compiler flags common to both C and CXX
+set (C_CXX_WARNING_FLAGS -Wall)
+
+# Errors as warnings?
+if (WERROR)
+  list (APPEND C_CXX_WARNING_FLAGS -Werror)
+  message (STATUS "Warnings as errors enabled (-Werror), disable with -DWERROR=off")
+endif (WERROR)
+
+# Set C compiler warning flags at top-level scope and emit a warning about
+# unsupported flags
+upm_add_compile_flags(C ${C_CXX_WARNING_FLAGS}
+  -Winit-self
+  -Wimplicit
+  -Wmissing-parameter-type)
+
+# Set CXX compiler warning flags at top-level scope and emit a warning about
+# unsupported flags
+upm_add_compile_flags(CXX ${C_CXX_WARNING_FLAGS}
+  -Wnon-virtual-dtor
+  -Woverloaded-virtual
+  -Wreorder)
 
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)

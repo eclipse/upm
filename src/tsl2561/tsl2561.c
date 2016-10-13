@@ -157,7 +157,7 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data) {
     uint16_t raw_lux_ch_0;
     uint16_t raw_lux_ch_1;
     uint8_t ch0_low, ch0_high, ch1_low, ch1_high;
-	
+
     if (tsl2561_i2c_read_reg(dev, REGISTER_Channal0L, &ch0_low) != UPM_SUCCESS){
         return UPM_ERROR_OPERATION_FAILED;
     }
@@ -208,7 +208,7 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data) {
         ratio_1 = (channel1 << (LUX_RATIOSCALE+1)) / channel0;
 
     // round the ratio value
-    unsigned long ratio = (ratio_1 + 1) >> 1;
+    int64_t ratio = (ratio_1 + 1) >> 1;
     unsigned int b, m;
 
     // CS package
@@ -237,7 +237,7 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data) {
     else if (ratio > LUX_K8C){
         b=LUX_B8C; m=LUX_M8C;
     }
-    uint64_t temp_lux = 0;
+    int64_t temp_lux = 0;
     temp_lux = ((channel0 * b) - (channel1 * m));
     // do not allow negative lux value
     if (temp_lux < 0) temp_lux = 0;

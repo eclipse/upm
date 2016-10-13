@@ -51,8 +51,6 @@ typedef struct _rotary_context {
 
 #define ROTARY_MAX_ANGLE 300
 
-typedef struct _rotary_context* rotary_context;
-
 rotary_context rotary_init(int pin, float aRef);
 
 void rotary_close(rotary_context dev);

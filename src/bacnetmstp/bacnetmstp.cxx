@@ -27,6 +27,7 @@
 #include <stdexcept>
 #include <string>
 #include <sstream>
+#include <syslog.h>
 
 #include "bacnetmstp.hpp"
 #include "handlers.h"
@@ -503,8 +504,10 @@ bool BACNETMSTP::dispatchRequest()
                          << (int)m_invokeID << endl;
 
                   break;
+                default:
+                  syslog(LOG_WARNING, "%s: switch case not defined",
+                          std::string(__FUNCTION__).c_str());
                 }
-
             }
           else if (tsm_invoke_id_free(m_invokeID))
             {

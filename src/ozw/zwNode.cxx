@@ -187,7 +187,7 @@ void zwNode::dumpNode(bool all)
                   valueUnits.c_str(),
                   perms.c_str());
 
-          fprintf(stderr, "\t\t VID: %016" PRIx64 "\n",
+          fprintf(stderr, "\t\t VID: %016llx\n",
                   vid.GetId());
         }
     }

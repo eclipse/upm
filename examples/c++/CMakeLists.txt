@@ -54,6 +54,12 @@ macro(add_example example_name)
   set(example_bin "${example_name}-example-cxx")
   get_module_name(${example_name} module_name)
   set(module_dir "${PROJECT_SOURCE_DIR}/src/${module_name}")
+
+  # nrf examples can flag a warning, make sure this isn't an error, currently
+  # this is done for all examples
+  set_source_files_properties(${example_src}
+      PROPERTIES COMPILE_FLAGS -Wno-tautological-compare)
+
   if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${example_src}"
      AND EXISTS ${module_dir}
      AND IS_DIRECTORY ${module_dir})

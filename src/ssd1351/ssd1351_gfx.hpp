@@ -310,7 +310,7 @@ class GFX {
         /**
          * GFX object destructor
          */
-        ~GFX ();
+        virtual ~GFX ();
 
         /**
          * Sends a pixel color (RGB) to the chip. Must be implemented by the

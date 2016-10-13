@@ -122,6 +122,8 @@ main(int argc, char **argv)
                             lib_aci_broadcast(10/* in seconds */, 0x0100 /* advertising interval 100ms */);
                             printf ("Broadcasting started\n");
                         break;
+                        default:
+                        break;
                     }
                 }
                 break; //ACI Device Started Event
@@ -155,6 +157,8 @@ main(int argc, char **argv)
 
                 case ACI_EVT_HW_ERROR:
                     printf ("ACI_EVT_HW_ERROR\n");
+                    break;
+                default:
                     break;
             }
         }

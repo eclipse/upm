@@ -190,7 +190,6 @@ bool MPR121::configAN3944()
 
 void MPR121::readButtons()
 {
-  uint8_t rv;
   uint8_t buffer[2];
 
   // read in the 2 bytes at register 0x00-0x01, and setup the member
