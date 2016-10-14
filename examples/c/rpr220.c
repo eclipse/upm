@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,47 +22,51 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <signal.h>
 
-#include "rpr220.hpp"
+#include <upm_utilities.h>
+#include <rpr220.h>
 
-using namespace upm;
-using namespace std;
+int shouldRun = true;
 
-RPR220::RPR220(int pin) :
-    m_rpr220(rpr220_init(pin))
+void sig_handler(int signo)
 {
-    if (!m_rpr220)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": rpr220_init() failed");
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-RPR220::~RPR220()
-{
-    rpr220_close(m_rpr220);
-}
 
-bool RPR220::blackDetected()
+int main()
 {
-    return rpr220_black_detected(m_rpr220);
-}
+    signal(SIGINT, sig_handler);
 
-#ifdef JAVACALLBACK
-void RPR220::installISR(jobject runnable)
-{
-    installISR(mraa_java_isr_callback, runnable);
-}
-#endif
+//! [Interesting]
+    // This example uses a simple method to determine current status
 
-void RPR220::installISR(void (*isr)(void *), void *arg)
-{
-    rpr220_install_isr(m_rpr220, isr, arg);
-}
+    // Instantiate an RPR220 digital pin D2
+    // This was tested on the Grove IR Reflective Sensor
+    rpr220_context sensor = rpr220_init(2);
 
-void RPR220::uninstallISR()
-{
-    rpr220_uninstall_isr(m_rpr220);
-}
+    if (!sensor)
+    {
+        printf("rpr220_init() failed\n");
+        return 1;
+    }
 
+    while (shouldRun)
+    {
+        if (rpr220_black_detected(sensor))
+            printf("Black detected\n");
+        else
+            printf("Black NOT detected\n");
+
+        upm_delay_ms(100);           // 100ms
+    }
+
+    printf("Exiting...\n");
+
+    rpr220_close(sensor);
+//! [Interesting]
+    return 0;
+}

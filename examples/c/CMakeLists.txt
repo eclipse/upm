@@ -126,8 +126,10 @@ add_example (bmi160)
 add_example (jhd1313m1)
 add_example (lm35)
 add_example (rotaryencoder)
+add_example (rpr220)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
 add_custom_example (lcm1602-i2c-example-c lcm1602-i2c.c lcm1602)
 add_custom_example (lcm1602-parallel-example-c lcm1602-parallel.c lcm1602)
+add_custom_example (rpr220-intr-example-c rpr220-intr.c rpr220)

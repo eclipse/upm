@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,47 +22,63 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <signal.h>
 
-#include "rpr220.hpp"
+#include <upm_utilities.h>
+#include <rpr220.h>
 
-using namespace upm;
-using namespace std;
+int shouldRun = true;
 
-RPR220::RPR220(int pin) :
-    m_rpr220(rpr220_init(pin))
+void sig_handler(int signo)
 {
-    if (!m_rpr220)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": rpr220_init() failed");
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-RPR220::~RPR220()
+volatile unsigned int counter = 0;
+
+// Our interrupt handler
+void rpr220_isr(void *arg)
 {
-    rpr220_close(m_rpr220);
+    counter++;
 }
 
-bool RPR220::blackDetected()
-{
-    return rpr220_black_detected(m_rpr220);
-}
 
-#ifdef JAVACALLBACK
-void RPR220::installISR(jobject runnable)
+int main()
 {
-    installISR(mraa_java_isr_callback, runnable);
-}
-#endif
+    signal(SIGINT, sig_handler);
 
-void RPR220::installISR(void (*isr)(void *), void *arg)
-{
-    rpr220_install_isr(m_rpr220, isr, arg);
-}
+//! [Interesting]
+    // This example uses an interrupt handler to increment a counter
 
-void RPR220::uninstallISR()
-{
-    rpr220_uninstall_isr(m_rpr220);
-}
+    // Instantiate an RPR220 digital pin D2
+    // This was tested on the Grove IR Reflective Sensor
+    rpr220_context sensor = rpr220_init(2);
 
+    if (!sensor)
+    {
+        printf("rpr220_init() failed\n");
+        return 1;
+    }
+
+    // Here, we setup our Interupt Service Routine (ISR) to count
+    // 'black' pulses detected.  We do not pass an argument to the
+    // interrupt handler (NULL).
+
+    rpr220_install_isr(sensor, rpr220_isr, NULL);
+
+    while (shouldRun)
+    {
+        printf("Counter: %d\n", counter);
+
+        upm_delay(1);
+    }
+
+    printf("Exiting...\n");
+
+    rpr220_close(sensor);
+//! [Interesting]
+
+    return 0;
+}

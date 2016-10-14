@@ -1,5 +1,9 @@
-set (libname "rpr220")
-set (libdescription "upm rpr220 grove IR reflective sensor")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME rpr220
+    DESCRIPTION "RPR220 IR Reflective Sensor"
+    C_HDR rpr220.h
+    C_SRC rpr220.c
+    CPP_HDR rpr220.hpp
+    CPP_SRC rpr220.cxx
+    FTI_SRC rpr220_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)
