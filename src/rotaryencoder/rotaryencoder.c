@@ -50,6 +50,9 @@ rotaryencoder_context rotaryencoder_init(int pin_a, int pin_b)
     if (!dev)
         return NULL;
 
+    dev->gpioA = NULL;
+    dev->gpioB = NULL;
+
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
