@@ -94,9 +94,11 @@ set (LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" CACHE PATH "Installation path for
 # Make a version file containing the current version from git.
 include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
-if ("x_${VERSION}" STREQUAL "x_GIT-NOTFOUND" OR "x_${VERSION}" STREQUAL "x_-128-NOTFOUND")
-  message (WARNING "Install git to compile a production UPM!")
+# If git_describe fails, use a dirty version
+if (${VERSION} MATCHES -NOTFOUND)
   set (VERSION "v0.8.0-dirty")
+  message (WARNING "Failed to retrieve UPM version with 'git describe' (using "
+      "${VERSION}). Check that git is installed and this is a valid git repo.")
 endif ()
 
 message (STATUS "UPM Version ${VERSION}")
