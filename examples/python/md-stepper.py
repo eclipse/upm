@@ -40,13 +40,13 @@ def main():
     myMotorDriver.setStepperSteps(100)
 
     # let it go - clockwise rotation, 10 RPM speed
-    myMotorDriver.enableStepper(upmmd.MD.STEP_DIR_CW, 10)
+    myMotorDriver.enableStepper(upmmd.MD_STEP_DIR_CW, 10)
 
     time.sleep(3)
 
     # Now do it backwards...
     myMotorDriver.setStepperSteps(100)
-    myMotorDriver.enableStepper(upmmd.MD.STEP_DIR_CCW, 10)
+    myMotorDriver.enableStepper(upmmd.MD_STEP_DIR_CCW, 10)
 
     # now disable
     myMotorDriver.disableStepper()

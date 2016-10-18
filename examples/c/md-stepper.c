@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,37 +23,47 @@
  */
 
 #include <unistd.h>
-#include <signal.h>
-#include <iostream>
-#include "md.hpp"
+#include <stdio.h>
 
-using namespace std;
+#include <md.h>
+#include <upm_utilities.h>
 
 int main(int argc, char **argv)
 {
   //! [Interesting]
   // Instantiate an I2C Motor Driver on I2C bus 0
 
-  upm::MD *motors = new upm::MD(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
+  md_context stepper = md_init(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
 
-  // set direction to CW and set speed to 50%
-  cout << "Spin M1 and M2 at half speed for 3 seconds" << endl;
-  motors->setMotorDirections(MD_DIR_CW, MD_DIR_CW);
-  motors->setMotorSpeeds(127, 127);
-  
-  sleep(3);
-  // counter clockwise
-  cout << "Reversing M1 and M2 for 3 seconds" << endl;
-  motors->setMotorDirections(MD_DIR_CCW, MD_DIR_CCW);
-  sleep(3);
+  if (!stepper)
+  {
+      printf("md_init() failed\n");
+      return 1;
+  }
 
+  // This example demonstrates using the MD to drive a stepper motor
+
+  // configure it, for this example, we'll assume 200 steps per rev
+  md_config_stepper(stepper, 200, MD_STEP_MODE1);
+
+  // set for half a rotation
+  md_set_stepper_steps(stepper, 100);
+
+  // let it go - clockwise rotation, 10 RPM speed
+  md_enable_stepper(stepper, MD_STEP_DIR_CW, 10);
+
+  upm_delay(3);
+
+  // Now do it backwards...
+  md_set_stepper_steps(stepper, 100);
+  md_enable_stepper(stepper, MD_STEP_DIR_CCW, 10);
+
+  // now disable
+  md_disable_stepper(stepper);
+
+  printf("Exiting...\n");
+
+  md_close(stepper);
   //! [Interesting]
-
-  cout << "Stopping motors" << endl;
-  motors->setMotorSpeeds(0, 0);
-
-  cout << "Exiting..." << endl;
-
-  delete motors;
   return 0;
 }

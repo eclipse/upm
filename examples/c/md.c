@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,37 +23,42 @@
  */
 
 #include <unistd.h>
-#include <signal.h>
-#include <iostream>
-#include "md.hpp"
+#include <stdio.h>
 
-using namespace std;
+#include <md.h>
+#include <upm_utilities.h>
+
 
 int main(int argc, char **argv)
 {
-  //! [Interesting]
+//! [Interesting]
   // Instantiate an I2C Motor Driver on I2C bus 0
 
-  upm::MD *motors = new upm::MD(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
+  md_context motors = md_init(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
+
+  if (!motors)
+  {
+      printf("md_init() failed\n");
+      return 1;
+  }
 
   // set direction to CW and set speed to 50%
-  cout << "Spin M1 and M2 at half speed for 3 seconds" << endl;
-  motors->setMotorDirections(MD_DIR_CW, MD_DIR_CW);
-  motors->setMotorSpeeds(127, 127);
-  
-  sleep(3);
+  printf("Spin M1 and M2 at half speed for 3 seconds\n");
+  md_set_motor_directions(motors, MD_DIR_CW, MD_DIR_CW);
+  md_set_motor_speeds(motors, 127, 127);
+
+  upm_delay(3);
   // counter clockwise
-  cout << "Reversing M1 and M2 for 3 seconds" << endl;
-  motors->setMotorDirections(MD_DIR_CCW, MD_DIR_CCW);
-  sleep(3);
+  printf("Reversing M1 and M2 for 3 seconds\n");
+  md_set_motor_directions(motors, MD_DIR_CCW, MD_DIR_CCW);
+  upm_delay(3);
 
-  //! [Interesting]
+  printf("Stopping motors\n");
+  md_set_motor_speeds(motors, 0, 0);
 
-  cout << "Stopping motors" << endl;
-  motors->setMotorSpeeds(0, 0);
+  printf("Exiting...\n");
 
-  cout << "Exiting..." << endl;
-
-  delete motors;
+  md_close(motors);
+//! [Interesting]
   return 0;
 }

@@ -5,6 +5,7 @@
     #include "md.hpp"
 %}
 
+%include "md.h"
 %include "md.hpp"
 
 %pragma(java) jniclasscode=%{

@@ -33,15 +33,15 @@ public class MDSample {
 
 		// set direction to clockwise (CW) and set speed to 50%
 		System.out.println("Spin M1 and M2 at half speed for 3 seconds");
-		motors.setMotorDirections(upm_md.MD.DC_DIRECTION_T.DIR_CW,
-				upm_md.MD.DC_DIRECTION_T.DIR_CW);
+		motors.setMotorDirections(upm_md.MD_DC_DIRECTION_T.MD_DIR_CW,
+                                          upm_md.MD_DC_DIRECTION_T.MD_DIR_CW);
 		motors.setMotorSpeeds(speed50, speed50);
 		Thread.sleep(3000);
 
 		// counter clockwise (CCW)
 		System.out.println("Reversing M1 and M2 for 3 seconds");
-		motors.setMotorDirections(upm_md.MD.DC_DIRECTION_T.DIR_CCW,
-				upm_md.MD.DC_DIRECTION_T.DIR_CCW);
+		motors.setMotorDirections(upm_md.MD_DC_DIRECTION_T.MD_DIR_CCW,
+                                          upm_md.MD_DC_DIRECTION_T.MD_DIR_CCW);
 		Thread.sleep(3000);
 
 		// stop motors

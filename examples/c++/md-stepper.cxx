@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,8 +34,7 @@ int main(int argc, char **argv)
   //! [Interesting]
   // Instantiate an I2C Motor Driver on I2C bus 0
 
-  upm::MD *motors = new upm::MD(MD_I2C_BUS, 
-                                          MD_DEFAULT_I2C_ADDR);
+  upm::MD *motors = new upm::MD(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
 
   // This example demonstrates using the MD to drive a stepper motor
   
@@ -46,13 +45,13 @@ int main(int argc, char **argv)
   motors->setStepperSteps(100);
 
   // let it go - clockwise rotation, 10 RPM speed
-  motors->enableStepper(upm::MD::STEP_DIR_CW, 10);
+  motors->enableStepper(MD_STEP_DIR_CW, 10);
 
   sleep(3);
 
   // Now do it backwards...
   motors->setStepperSteps(100);
-  motors->enableStepper(upm::MD::STEP_DIR_CCW, 10);
+  motors->enableStepper(MD_STEP_DIR_CCW, 10);
 
   // now disable
   motors->disableStepper();
