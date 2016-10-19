@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME moisture
-    DESCRIPTION "upm analog moisture module"
+    DESCRIPTION "Moisture sensor"
     C_HDR moisture.h
     C_SRC moisture.c
     CPP_HDR moisture.hpp

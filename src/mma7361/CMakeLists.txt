@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME mma7361
-    DESCRIPTION "upm dfrobot MMA7361 analog accelerometer"
+    DESCRIPTION "Triaxial analog accelerometer"
     C_HDR mma7361.h
     C_SRC mma7361.c
     CPP_HDR mma7361.hpp

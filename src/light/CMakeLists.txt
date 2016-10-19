@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME light
-    DESCRIPTION "upm light sensor module"
+    DESCRIPTION "Analog light sensor"
     C_HDR light.h
     C_SRC light.c
     CPP_HDR light.hpp

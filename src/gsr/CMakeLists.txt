@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME gsr
-    DESCRIPTION "upm gsr galvanic skin response sensor module"
+    DESCRIPTION "Galvanic skin response (GSR) sensor"
     C_HDR gsr.h
     C_SRC gsr.c
     CPP_HDR gsr.hpp

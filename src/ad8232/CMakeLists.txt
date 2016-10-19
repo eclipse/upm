@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ad8232
-    DESCRIPTION "upm ad8232sensor module"
+    DESCRIPTION "Single lead heart rate monitor"
     C_HDR ad8232.h
     C_SRC ad8232.c
     CPP_HDR ad8232.hpp

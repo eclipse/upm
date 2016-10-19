@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME gas
-    DESCRIPTION "Gas sensors"
+    DESCRIPTION "Generic gas detection sensor library"
     C_HDR mqx.h
     C_SRC mqx.c
     CPP_HDR gas.hpp mq2.hpp mq3.hpp mq4.hpp mq5.hpp mq6.hpp mq7.hpp mq8.hpp mq9.hpp tp401.hpp

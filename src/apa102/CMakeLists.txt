@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME apa102
-    DESCRIPTION "UPM driver for DFRobot HKA5 PM2.5 particle sensor"
+    DESCRIPTION "RGB LED with integrated driver"
     C_HDR apa102.h
     C_SRC apa102.c
     CPP_HDR apa102.hpp

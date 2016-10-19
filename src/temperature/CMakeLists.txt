@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME temperature
-    DESCRIPTION "Temperature Sensor"
+    DESCRIPTION "Analog temperature sensor"
     C_HDR temperature.h
     C_SRC temperature.c
     CPP_HDR temperature.hpp

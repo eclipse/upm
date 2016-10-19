@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME md
-    DESCRIPTION "MD - Grove Motor Driver"
+    DESCRIPTION "I2C motor driver"
     C_HDR md.h
     C_SRC md.c
     CPP_HDR md.hpp

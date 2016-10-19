@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME nmea_gps
-    DESCRIPTION "UPM Generic driver for GPS NMEA sensors"
+    DESCRIPTION "Generic driver for GPS NMEA sensors"
     C_HDR nmea_gps.h
     C_SRC nmea_gps.c
     CPP_HDR nmea_gps.hpp

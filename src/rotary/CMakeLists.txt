@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME rotary
-    DESCRIPTION "UPM Relay Module: rotary"
+    DESCRIPTION "Relay angle sensor"
     C_HDR rotary.h
     C_SRC rotary.c
     CPP_HDR rotary.hpp

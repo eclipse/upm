@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME jhd1313m1
-    DESCRIPTION "upm JHD1313M1 RGB LCD display driver"
+    DESCRIPTION "LCD display driver for the JHD1313M1 controller for HD44780-based displays"
     C_HDR jhd1313m1.h
     C_SRC jhd1313m1.c
     CPP_HDR jhd1313m1.hpp

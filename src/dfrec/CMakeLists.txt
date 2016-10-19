@@ -2,7 +2,7 @@
 include_directories("../ds18b20")
 
 upm_mixed_module_init (NAME dfrec
-    DESCRIPTION "upm dfrobot analog EC sensor"
+    DESCRIPTION "DFRobot analog electrical conductivity (EC) sensor"
     C_HDR dfrec.h
     C_SRC dfrec.c
     CPP_HDR dfrec.hpp

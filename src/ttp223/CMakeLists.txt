@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ttp223
-    DESCRIPTION "upm ttp223 touch sensor module"
+    DESCRIPTION "Capacitive touch sensor"
     C_HDR ttp223.h
     C_SRC ttp223.c
     CPP_HDR ttp223.hpp

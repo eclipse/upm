@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ds18b20
-    DESCRIPTION "DS18B20 1-wire Temperature sensor"
+    DESCRIPTION "Programmable resolution 1-wire digital thermometer"
     C_HDR ds18b20.h
     C_SRC ds18b20.c
     CPP_HDR ds18b20.hpp

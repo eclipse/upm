@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME rotaryencoder
-    DESCRIPTION "Rotary Encoder"
+    DESCRIPTION "Rotary encoder"
     C_HDR rotaryencoder.h
     C_SRC rotaryencoder.c
     CPP_HDR rotaryencoder.hpp

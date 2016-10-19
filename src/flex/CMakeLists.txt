@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME flex
-    DESCRIPTION "upm flex sensor module"
+    DESCRIPTION "Resistive flex sensor"
     C_HDR flex.h
     C_SRC flex.c
     CPP_HDR flex.hpp

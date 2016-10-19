@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME biss0001
-    DESCRIPTION "UPM biss0001 PIR motion sensor"
+    DESCRIPTION "Passive Infrared (PIR) motion sensor"
     C_HDR biss0001.h
     C_SRC biss0001.c
     CPP_HDR biss0001.hpp

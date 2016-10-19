@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME hka5
-    DESCRIPTION "UPM driver for DFRobot HKA5 PM2.5 particle sensor"
+    DESCRIPTION "DFRobot laser particulate matter (PM) sensor"
     C_HDR hka5.h
     C_SRC hka5.c
     CPP_HDR hka5.hpp

@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME tsl2561
-    DESCRIPTION "upm tsl2561 Digital Light Sensor"
+    DESCRIPTION "Digital light sensor"
     C_HDR tsl2561.h
     C_SRC tsl2561.c
     CPP_HDR tsl2561.hpp

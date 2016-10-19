@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME dfrorp
-    DESCRIPTION "upm dfrobot analog ORP sensor"
+    DESCRIPTION "DFRobot analog oxidation reduction potential (ORP) sensor"
     C_HDR dfrorp.h
     C_SRC dfrorp.c
     CPP_HDR dfrorp.hpp

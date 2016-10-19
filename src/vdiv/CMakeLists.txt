@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME vdiv
-    DESCRIPTION "upm grove voltage divider module"
+    DESCRIPTION "Analog voltage divider sensor"
     C_HDR vdiv.h
     C_SRC vdiv.c
     CPP_HDR vdiv.hpp

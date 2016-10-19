@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME joystick12
-    DESCRIPTION "ElecFreaks Joystick 1.2"
+    DESCRIPTION "2-axis analog joystick"
     C_HDR joystick12.h
     C_SRC joystick12.c
     CPP_HDR joystick12.hpp

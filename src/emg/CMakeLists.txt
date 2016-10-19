@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME emg
-    DESCRIPTION "upm emg muscle signal reader sensor module"
+    DESCRIPTION "Electromyography (EMG) detector"
     C_HDR emg.h
     C_SRC emg.c
     CPP_HDR emg.hpp

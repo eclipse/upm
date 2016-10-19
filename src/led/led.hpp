@@ -50,8 +50,8 @@ namespace upm {
  * @brief API for the LED
  *
  * UPM module for the LED (or other similar light-emitting diodes).
- * An LED is a small lightbulb that emits light in
- * response to a small current. The longer wire of an LED connects
+ * An LED is a p-n junction semiconductor which emits light in
+ * response to voltage. The longer wire of an LED connects
  * to the positive seat (anode); the shorter wire connects to the
  * negative seat (cathode). The flat side of the bulb corresponds
  * to the cathode, while the rounded side corresponds to the anode.

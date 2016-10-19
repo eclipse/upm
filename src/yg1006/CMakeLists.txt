@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME yg1006
-    DESCRIPTION "UPM flame sensor"
+    DESCRIPTION "Analog flame sensor"
     C_HDR yg1006.h
     C_SRC yg1006.c
     CPP_HDR yg1006.hpp

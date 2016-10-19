@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME mic
-    DESCRIPTION "Simple Microphone API"
+    DESCRIPTION "Simple analog microphone"
     C_HDR mic.h
     C_SRC mic.c
     CPP_HDR mic.hpp

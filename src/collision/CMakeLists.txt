@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME collision
-    DESCRIPTION "upm collisionsensor module"
+    DESCRIPTION "Collision sensor"
     C_HDR collision.h
     C_SRC collision.c
     CPP_HDR collision.hpp

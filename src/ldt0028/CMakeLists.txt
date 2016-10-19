@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ldt0028
-    DESCRIPTION "ldt0028 Piezo Vibration Sensor"
+    DESCRIPTION "Piezo vibration sensor"
     C_HDR ldt0028.h
     C_SRC ldt0028.c
     CPP_HDR ldt0028.hpp
