@@ -231,10 +231,10 @@ macro(upm_swig_java)
     )
 
     install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
-    # Java jar always goes under lib.  This fixes the case where LIB_INSTALL_DIR
-    # is lib64, in which case they still install to lib: lib64/../lib
+    # Java jar files always need to go under lib/java, regardless of
+    # architecture.
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
-        DESTINATION ${LIB_INSTALL_DIR}/../lib/java)
+        DESTINATION lib/java)
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
         set (JAVAC $ENV{JAVA_HOME}/bin/javac)
