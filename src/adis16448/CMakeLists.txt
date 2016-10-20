@@ -1,5 +1,5 @@
 set (libname "adis16448")
-set (libdescription "libupm High-Precision IMU")
+set (libdescription "High-Precision IMU")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init()

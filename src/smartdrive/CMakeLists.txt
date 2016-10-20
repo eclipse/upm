@@ -1,5 +1,5 @@
 set (libname "smartdrive")
-set (libdescription "upm SmartDrive")
+set (libdescription "SmartDrive")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init()

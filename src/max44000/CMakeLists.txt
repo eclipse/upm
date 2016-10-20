@@ -1,5 +1,5 @@
 set (libname "max44000")
-set (libdescription "upm MAX44000")
+set (libdescription "MAX44000")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init()

@@ -1,5 +1,5 @@
 set (libname "apds9930")
-set (libdescription "upm apds9930 sensor module")
+set (libdescription "Apds9930 sensor module")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init()

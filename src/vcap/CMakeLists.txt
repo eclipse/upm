@@ -1,5 +1,5 @@
 set (libname "vcap")
-set (libdescription "upm Video Frame Capture and image save utility")
+set (libdescription "Video Frame Capture and image save utility")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 

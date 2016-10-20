@@ -1,5 +1,5 @@
 set (libname "hwxpxx")
-set (libdescription "upm module for the Veris HWXPXX (HWXPHTX)")
+set (libdescription "Module for the Veris HWXPXX (HWXPHTX)")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 

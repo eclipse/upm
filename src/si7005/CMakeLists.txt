@@ -1,6 +1,6 @@
 include_directories(..)
 set (libname "si7005")
-set (libdescription "upm SI7005")
+set (libdescription "Digital I2C humidity and temperature sensor")
 set (module_src ${libname}.cxx mraa-utils.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init()

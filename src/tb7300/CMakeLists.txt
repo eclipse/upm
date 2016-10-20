@@ -1,5 +1,5 @@
 set (libname "tb7300")
-set (libdescription "upm module for the TB7300 Fan Coil Thermostat")
+set (libdescription "Module for the TB7300 Fan Coil Thermostat")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 

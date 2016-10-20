@@ -1,5 +1,5 @@
 set (libname "bacnetmstp")
-set (libdescription "upm driver module for BACnet MS/TP devices")
+set (libdescription "Driver module for BACnet MS/TP devices")
 set (module_src ${libname}.cxx device-client.c bacnetutil.cxx)
 set (module_hpp ${libname}.hpp bacnetutil.hpp)
 

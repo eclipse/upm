@@ -1,5 +1,5 @@
 set (libname "t3311")
-set (libdescription "upm module for the Comet System T3311")
+set (libdescription "Module for the Comet System T3311")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 
