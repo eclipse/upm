@@ -13,7 +13,6 @@ option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 option (BUILDTESTS "Generate check-ups for upm" ON)
-option (ENABLECXX11 "Enable C++11 standards support" ON)
 
 # Warn if building in source root
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -129,25 +128,21 @@ if (DETECTED_ARCH MATCHES "arm.*" AND NOT CMAKE_CXX_FLAGS MATCHES "-march")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 endif()
 
-# enable c++11 standards support
-if (ENABLECXX11)
-  include(CheckCXXCompilerFlag)
-  if (CMAKE_VERSION VERSION_LESS "3.1")
-    CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-    CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-    if (COMPILER_SUPPORTS_CXX11)
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    elseif (COMPILER_SUPPORTS_CXX0X)
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-    else()
-      message(WARNING "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please update your C++ compiler.")
-    endif()
+# enable c++11 standards support unconditionally
+include(CheckCXXCompilerFlag)
+if (CMAKE_VERSION VERSION_LESS "3.1")
+  CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+  CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+  if (COMPILER_SUPPORTS_CXX11)
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  elseif (COMPILER_SUPPORTS_CXX0X)
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
   else()
-    # 3.1+ uses this generic method to enable c++11
-    set (CMAKE_CXX_STANDARD 11)
+    message(FATAL_ERROR "A C++11 compliant compiler is required to build UPM.")
   endif()
 else()
-  message(WARNING "Some modules require C++11 support, and may not build without it.")
+  # 3.1+ uses this generic method to enable c++11
+  set (CMAKE_CXX_STANDARD 11)
 endif()
 
 # The doc target depends on each sensor target
