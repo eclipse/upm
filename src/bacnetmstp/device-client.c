@@ -55,6 +55,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>     /* for memmove */
+// __USE_XOPEN needed for timezone
+#define __USE_XOPEN
 #include <time.h>       /* for timezone, localtime */
 
 #define BACDL_MSTP 1
