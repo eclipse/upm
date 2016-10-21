@@ -26,6 +26,7 @@
 
 #include "rotary.h"
 #include "upm_fti.h"
+#include "upm_math.h"
 
 /** 
  * This file implements the Function Table Interface (FTI) for this sensor

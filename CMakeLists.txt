@@ -143,6 +143,21 @@ if (CMAKE_VERSION VERSION_LESS "3.1")
 else()
   # 3.1+ uses this generic method to enable c++11
   set (CMAKE_CXX_STANDARD 11)
+  set (CXX_STANDARD_REQUIRED ON)
+endif()
+
+include(CheckCCompilerFlag)
+if (CMAKE_VERSION VERSION_LESS "3.1")
+  CHECK_C_COMPILER_FLAG("-std=c11" COMPILER_SUPPORTS_C11)
+  if (COMPILER_SUPPORTS_C11)
+    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11")
+  else()
+    message(FATAL_ERROR "A C11 compliant C compiler is required to build UPM.")
+  endif()
+else()
+  # 3.1+ uses this generic method to enable c11
+  set (CMAKE_C_STANDARD 11)
+  set (C_STANDARD_REQUIRED ON)
 endif()
 
 # The doc target depends on each sensor target
