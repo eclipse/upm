@@ -96,7 +96,7 @@ macro(_upm_swig_python)
   # Python collateral names will be the same for python2/3 w/different library dirs
   set_target_properties (${python_wrapper_target} PROPERTIES
       OUTPUT_NAME _pyupm_${libname}
-      COMPILE_FLAGS "${CMAKE_C_FLAGS}"
+      COMPILE_FLAGS "${CMAKE_CXX_FLAGS}"
       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
   # Install .py's to python packages directory/upm
