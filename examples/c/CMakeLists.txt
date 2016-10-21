@@ -128,6 +128,7 @@ add_example (lm35)
 add_example (rotaryencoder)
 add_example (rpr220)
 add_example (md)
+add_example (linefinder)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

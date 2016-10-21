@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,34 +22,51 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
 
-#include "linefinder.hpp"
+#include <upm_utilities.h>
+#include "linefinder.h"
 
-using namespace upm;
-using namespace std;
+int shouldRun = true;
 
-LineFinder::LineFinder(int pin) :
-    m_linefinder(linefinder_init(pin))
+void sig_handler(int signo)
 {
-  if (!m_linefinder)
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": linefinder_init() failed");
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-LineFinder::~LineFinder()
-{
-    linefinder_close(m_linefinder);
-}
 
-bool LineFinder::whiteDetected()
+int main ()
 {
-    return linefinder_white_detected(m_linefinder);
-}
+    signal(SIGINT, sig_handler);
 
-bool LineFinder::blackDetected()
-{
-    return linefinder_black_detected(m_linefinder);
+//! [Interesting]
+    // Instantiate a  Line Finder sensor on digital pin D2
+    linefinder_context sensor = linefinder_init(2);
+
+    if (!sensor)
+    {
+        printf("linefinder_init() failed\n");
+        return 1;
+    }
+
+    // check every second for the presence of white or black detection
+    while (shouldRun)
+    {
+        if (linefinder_white_detected(sensor))
+            printf("White detected.\n");
+        else
+            printf("Black detected.\n");
+
+        upm_delay(1);
+    }
+
+    printf("Exiting...\n");
+
+    linefinder_close(sensor);
+
+//! [Interesting]
+    return 0;
 }

@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,35 +21,57 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
 
-#include "linefinder.hpp"
+#include <mraa/gpio.h>
 
-using namespace upm;
-using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-LineFinder::LineFinder(int pin) :
-    m_linefinder(linefinder_init(pin))
-{
-  if (!m_linefinder)
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": linefinder_init() failed");
+    /**
+     * Device context
+     */
+    typedef struct _linefinder_context {
+        mraa_gpio_context gpio;
+    } *linefinder_context;
+
+    /**
+     *  Line Finder inititialization
+     *
+     * @param pin Digital pin to use
+     * @return device context
+     */
+    linefinder_context linefinder_init(int pin);
+
+    /**
+     * LineFinder close
+     *
+     * @param Device context
+     */
+    void linefinder_close(linefinder_context dev);
+
+    /**
+     * Determines whether white has been detected
+     *
+     * @param Device context
+     * @return True if white is detected
+     */
+    bool linefinder_white_detected(const linefinder_context dev);
+
+    /**
+     * Determines whether black has been detected
+     *
+     * @param Device context
+     * @return True if black is detected
+     */
+    bool linefinder_black_detected(const linefinder_context dev);
+
+
+#ifdef __cplusplus
 }
-
-LineFinder::~LineFinder()
-{
-    linefinder_close(m_linefinder);
-}
-
-bool LineFinder::whiteDetected()
-{
-    return linefinder_white_detected(m_linefinder);
-}
-
-bool LineFinder::blackDetected()
-{
-    return linefinder_black_detected(m_linefinder);
-}
+#endif
