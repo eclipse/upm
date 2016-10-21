@@ -67,10 +67,11 @@ macro(_upm_swig_python)
       ${CMAKE_CURRENT_BINARY_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
 
   # Make sure swig places wrapper/.py collateral under python2/3 directory
-  # Do do this, save the original outdir, set a new outdir, then restore at the
-  # end of this macro.
-  set(CMAKE_SWIG_OUTDIR_SAVED ${CMAKE_SWIG_OUTDIR})
-  set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
+  # Save the original BINARY_DIR, set a new BINARY_DIR, then restore at
+  # the end of this macro. This works for cmake > 3 and works AROUND a bug in
+  # cmake < 3 (#13173,#13772,#14459).
+  set(CMAKE_CURRENT_BINARY_DIR_SAVED ${CMAKE_CURRENT_BINARY_DIR})
+  set(CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
   # Swig module name (example: pyupm_a110x-python2)
   set (python_wrapper_name pyupm_${libname}-python${PYTHON_VERSION_MAJOR})
@@ -100,7 +101,7 @@ macro(_upm_swig_python)
       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_PYTHON_BINARY_DIR})
 
   # Install .py's to python packages directory/upm
-  install (FILES ${CMAKE_SWIG_OUTDIR}/pyupm_${libname}.py
+  install (FILES ${swig_extra_generated_files}
       DESTINATION ${PYTHON_PACKAGES_PATH}/upm
       COMPONENT ${libname})
 
@@ -108,8 +109,8 @@ macro(_upm_swig_python)
   install (TARGETS ${python_wrapper_target}
       DESTINATION ${PYTHON_PACKAGES_PATH}/upm)
 
-  # Restore OUTDIR
-  set(CMAKE_SWIG_OUTDIR ${CMAKE_SWIG_OUTDIR_SAVED})
+  # Restore CMAKE_CURRENT_BINARY_DIR
+  set(CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR_SAVED})
 endmacro(_upm_swig_python)
 
 # Generate both python2 and python3 modules if possible
