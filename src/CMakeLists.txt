@@ -204,6 +204,12 @@ macro(upm_swig_node)
 
     createpackagejson(${libname})
 
+    if (NPM)
+      add_custom_command (TARGET jsupm_${libname} POST_BUILD
+                          COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}JAVASCRIPT_wrap.cxx
+                                                           ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+    endif ()
+
     install (TARGETS jsupm_${libname} DESTINATION ${NODE_MODULE_INSTALL_PATH})
   endif (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
 endmacro(upm_swig_node)
@@ -279,6 +285,14 @@ macro(upm_doxygen)
   endif ()
 endmacro(upm_doxygen)
 
+if (NPM)
+add_custom_target (npmpkg)
+add_custom_command (TARGET npmpkg POST_BUILD COMMAND echo "Creating NPM tarballs..."
+                                             COMMAND find . -maxdepth 2 -type d -name "jsupm_*" -print0 |
+                                                     xargs -0 -I {} tar czf `basename {}`.tar.gz -C {} .
+)
+endif (NPM)
+
 if (BUILDSWIGNODE)
   if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
     message(WARNING "WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
@@ -291,24 +305,43 @@ if (BUILDSWIGNODE)
     ${NODE_ROOT_DIR}/include/deps/uv/include
   )
   macro(createpackagejson)
-    #Create list of source files
-    foreach (srcfile ${module_src})
-      file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-      set (upm_LIB_SRCS_GYP "'${rel}/${srcfile}',\n${upm_LIB_SRCS_GYP}")
-    endforeach (srcfile)
-    file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-    set (upm_LIB_SRCS_GYP "'${rel}/jsupm_${libname}JAVASCRIPT_wrap.cxx',\n${upm_LIB_SRCS_GYP}")
-    #Create list of include directories
-    foreach (includedir ${UPM_COMMON_HEADER_DIRS})
-      file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${includedir})
-      set (upm_LIB_INCLUDE_DIRS_GYP "'${rel}',\n${upm_LIB_INCLUDE_DIRS_GYP}")
-    endforeach (includedir)
-    file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-    set (upm_LIB_SRCS_GYP "'${rel}',\n${upm_LIB_SRCS_GYP}")
+    if (NPM)
+        # Grab all module sources and headers, also add sources to gyp list
+        file (GLOB srcfiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.cxx"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/*.hxx")
+        foreach (srcfile ${srcfiles})
+          file (COPY ${CMAKE_CURRENT_SOURCE_DIR}/${srcfile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+          if (${srcfile} MATCHES ".c" OR ${srcfile} MATCHES ".cxx" OR ${srcfile} MATCHES ".cpp")
+            set (upm_LIB_SRCS_GYP "'${srcfile}',\n${upm_LIB_SRCS_GYP}")
+          endif ()
+        endforeach ()
+        set (upm_LIB_SRCS_GYP "'jsupm_${libname}JAVASCRIPT_wrap.cxx',\n${upm_LIB_SRCS_GYP}")
 
+        # Create list of include directories and copy them
+        foreach (includedir ${UPM_COMMON_HEADER_DIRS})
+          file (RELATIVE_PATH rel ${CMAKE_SOURCE_DIR} ${includedir})
+          set (upm_LIB_INCLUDE_DIRS_GYP "'${rel}',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+        endforeach (includedir)
+        file (COPY ${CMAKE_SOURCE_DIR}/include DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+        set (upm_LIB_INCLUDE_DIRS_GYP "'.',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+
+        # Dependency to generate wrappers before packing
+        add_dependencies (npmpkg jsupm_${libname})
+
+        # Add readme for NPM and node-gyp config file
+        configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
+        configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/package.json @ONLY)
+        configure_file (${PROJECT_SOURCE_DIR}/doxy/README.npm.md ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/README.md)
+    endif (NPM)
+
+    # package.json is required for any kind of install
     configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
-    configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/binding.gyp @ONLY)
-    configure_file (${PROJECT_SOURCE_DIR}/doxy/README.npm.md ${CMAKE_CURRENT_BINARY_DIR}/README.md)
+
     # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
     # base on the NODE_ROOT_DIR.
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
