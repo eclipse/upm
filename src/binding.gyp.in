@@ -12,7 +12,7 @@
       'variables': {
         'node_mraa': '<!(node -p -e "require(\'path\').dirname(require.resolve(\'mraa\'))")',
         'mraa_include_dir': [
-          '<(node_mraa)/api'
+          '<(node_mraa)/../../api'
         ],
         'mraa_libraries': [
           '<(node_mraa)/mraa.node',
