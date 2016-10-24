@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # Author:  Jon Trulson <jtrulson@ics.com>
-# Copyright (c) 2015 Intel Corporation.
+# Copyright (c) 2015-2016 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -48,7 +48,7 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     myUln200xa.setSpeed(5) # 5 RPMs
-    myUln200xa.setDirection(upmULN200XA.ULN200XA.DIR_CW)
+    myUln200xa.setDirection(upmULN200XA.ULN200XA_DIR_CW)
 
     print("Rotating 1 revolution clockwise.")
     myUln200xa.stepperSteps(4096)
@@ -57,7 +57,7 @@ def main():
     time.sleep(2)
 
     print("Rotating 1/2 revolution counter clockwise.")
-    myUln200xa.setDirection(upmULN200XA.ULN200XA.DIR_CCW)
+    myUln200xa.setDirection(upmULN200XA.ULN200XA_DIR_CCW)
     myUln200xa.stepperSteps(2048)
 
     # release

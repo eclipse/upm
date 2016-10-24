@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,40 +23,47 @@
  */
 
 #include <unistd.h>
-#include <iostream>
-#include "uln200xa.hpp"
+#include <stdio.h>
 
-using namespace std;
+#include <upm_utilities.h>
+#include "uln200xa.h"
 
 int main ()
 {
-  //! [Interesting]
+//! [Interesting]
 
-  // Instantiate a Stepper motor on a ULN200XA Darlington controller.
+    // Instantiate a Stepper motor on a ULN200XA Darlington controller.
 
-  // This was tested with the Grove Gear Stepper Motor with Driver
+    // This was tested with the Grove Gear Stepper Motor with Driver
 
-  // Wire the pins so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
-  // I4 is pin D11
-  upm::ULN200XA* uln200xa = new upm::ULN200XA(4096, 8, 9, 10, 11);
+    // Wire the pins so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
+    // I4 is pin D11
+    uln200xa_context motor = uln200xa_init(4096, 8, 9, 10, 11);
 
-  uln200xa->setSpeed(5);
-  uln200xa->setDirection(ULN200XA_DIR_CW);
-  cout << "Rotating 1 revolution clockwise." << endl;
-  uln200xa->stepperSteps(4096);
-  cout << "Sleeping for 2 seconds..." << endl;
-  sleep(2);
-  cout << "Rotating 1/2 revolution counter clockwise." << endl;
-  uln200xa->setDirection(ULN200XA_DIR_CCW);
-  uln200xa->stepperSteps(2048);
+    if (!motor)
+    {
+        printf("uln200xa_init() failed\n");
+        return 1;
+    }
 
-  // turn off the power
-  uln200xa->release();
+    uln200xa_set_speed(motor, 5);
+    uln200xa_set_direction(motor, ULN200XA_DIR_CW);
+    printf("Rotating 1 revolution clockwise.\n");
+    uln200xa_stepper_steps(motor, 4096);
 
-  //! [Interesting]
-  cout << "Exiting..." << endl;
+    printf("Sleeping for 2 seconds...\n");
+    upm_delay(2);
 
-  delete uln200xa;
+    printf("Rotating 1/2 revolution counter clockwise.\n");
+    uln200xa_set_direction(motor, ULN200XA_DIR_CCW);
+    uln200xa_stepper_steps(motor, 2048);
+
+    // turn off the power
+    uln200xa_release(motor);
+
+    printf("Exiting...\n");
+
+    uln200xa_close(motor);
+//! [Interesting]
   return 0;
 }
-

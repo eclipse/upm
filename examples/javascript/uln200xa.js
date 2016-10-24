@@ -1,6 +1,6 @@
 /*
 * Author:  Jon Trulson <jtrulson@ics.com>
-* Copyright (c) 2015 Intel Corporation.
+* Copyright (c) 2015-2016 Intel Corporation.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -33,7 +33,7 @@ var myUln200xa_obj = new Uln200xa_lib.ULN200XA(4096, 8, 9, 10, 11);
 myUln200xa_obj.goForward = function()
 {
     myUln200xa_obj.setSpeed(5); // 5 RPMs
-    myUln200xa_obj.setDirection(Uln200xa_lib.ULN200XA.DIR_CW);
+    myUln200xa_obj.setDirection(Uln200xa_lib.ULN200XA_DIR_CW);
     console.log("Rotating 1 revolution clockwise.");
     myUln200xa_obj.stepperSteps(4096);
 };
@@ -41,7 +41,7 @@ myUln200xa_obj.goForward = function()
 myUln200xa_obj.reverseDirection = function()
 {
 	console.log("Rotating 1/2 revolution counter clockwise.");
-	myUln200xa_obj.setDirection(Uln200xa_lib.ULN200XA.DIR_CCW);
+	myUln200xa_obj.setDirection(Uln200xa_lib.ULN200XA_DIR_CCW);
 	myUln200xa_obj.stepperSteps(2048);
 };
 
