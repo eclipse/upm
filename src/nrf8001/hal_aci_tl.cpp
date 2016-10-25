@@ -233,10 +233,10 @@ static bool m_aci_spi_transfer(hal_aci_data_t * data_to_send, hal_aci_data_t * r
     max_bytes = HAL_ACI_MAX_LENGTH;
   }
 
-  // Transmit/receive the rest of the packet
-  for (byte_cnt = 0; byte_cnt < max_bytes; byte_cnt++)
+  // Transmit/receive the rest of the packet (skip first byte - cmd)
+  for (byte_cnt = 1; byte_cnt < max_bytes; byte_cnt++)
   {
-    received_data->buffer[byte_cnt+1] =  spi_readwrite(data_to_send->buffer[byte_sent_cnt++]);
+    received_data->buffer[byte_cnt] =  spi_readwrite(data_to_send->buffer[byte_sent_cnt++]);
   }
 
   // RDYN should follow the REQN line in approx 100ns
