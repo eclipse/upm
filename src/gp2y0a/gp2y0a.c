@@ -33,8 +33,17 @@ gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref){
         return NULL;
     }
 
-    gp2y0a_context dev = (gp2y0a_context) malloc(sizeof(struct _gp2y0a_context));
+    gp2y0a_context dev =
+        (gp2y0a_context) malloc(sizeof(struct _gp2y0a_context));
 
+    if (!dev)
+    {
+        printf("%s: device context allocation failed (%d).\n",
+               __FUNCTION__, mraa_rv);
+        return NULL;
+    }
+
+    memset((void *)dev, 0, sizeof(struct _gp2y0a_context));
     dev->pin = pin;
     dev->aio = mraa_aio_init(dev->pin);
     if(dev->aio == NULL){
