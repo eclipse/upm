@@ -55,6 +55,8 @@ lcm1602_context lcm1602_i2c_init(int bus, int address, bool is_expander,
     if (!dev)
         return NULL;
 
+    memset((void *)dev, 0, sizeof(struct _lcm1602_context));
+
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
@@ -63,8 +65,6 @@ lcm1602_context lcm1602_i2c_init(int bus, int address, bool is_expander,
         lcm1602_close(dev);
         return NULL;
     }
-
-    memset((void *)dev, 0, sizeof(struct _lcm1602_context));
 
     // initialize the MRAA context
 
@@ -146,6 +146,8 @@ lcm1602_context lcm1602_gpio_init(uint8_t rs, uint8_t enable,
     if (!dev)
         return NULL;
 
+    memset((void *)dev, 0, sizeof(struct _lcm1602_context));
+
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
@@ -154,8 +156,6 @@ lcm1602_context lcm1602_gpio_init(uint8_t rs, uint8_t enable,
         lcm1602_close(dev);
         return NULL;
     }
-
-    memset((void *)dev, 0, sizeof(struct _lcm1602_context));
 
     // initialize the MRAA contexts
 
