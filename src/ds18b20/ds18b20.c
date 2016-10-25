@@ -144,7 +144,7 @@ ds18b20_context ds18b20_init(unsigned int uart)
       rv = mraa_uart_ow_rom_search(dev->ow, 0, id);
     }
 
-  if (!dev->numDevices)
+  if (!dev->numDevices || !dev->devices)
     {
       printf("%s: no DS18B20 devices found on bus\n", __FUNCTION__);
       ds18b20_close(dev);
