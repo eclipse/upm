@@ -38,8 +38,8 @@ gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref){
 
     if (!dev)
     {
-        printf("%s: device context allocation failed (%d).\n",
-               __FUNCTION__, mraa_rv);
+        printf("%s: device context allocation failed.\n",
+               __FUNCTION__);
         return NULL;
     }
 
