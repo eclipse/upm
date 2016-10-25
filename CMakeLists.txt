@@ -232,6 +232,7 @@ else()
   # 3.1+ uses this generic method to enable c++11
   set (CMAKE_CXX_STANDARD 11)
   set (CXX_STANDARD_REQUIRED ON)
+  set (CXX_EXTENSIONS OFF)
 endif()
 
 include(CheckCCompilerFlag)
@@ -246,6 +247,7 @@ else()
   # 3.1+ uses this generic method to enable c11
   set (CMAKE_C_STANDARD 11)
   set (C_STANDARD_REQUIRED ON)
+  set (C_EXTENSIONS OFF)
 endif()
 
 # The doc target depends on each sensor target
