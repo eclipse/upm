@@ -34,6 +34,7 @@ apa102_context apa102_init(int ledcount, int bus, int cs) {
     if(!dev)
         return NULL;
 
+    memset(dev, 0, sizeof(struct _apa102_context));
     dev->leds = ledcount;
 
     // Try to allocate and zero out buffer
