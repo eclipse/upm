@@ -43,6 +43,8 @@ jhd1313m1_context jhd1313m1_init(int bus, int lcd_addr, int rgb_addr)
     if (!dev)
         return NULL;
 
+    memset((void *)dev, 0, sizeof(struct _jhd1313m1_context));
+
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
@@ -51,8 +53,6 @@ jhd1313m1_context jhd1313m1_init(int bus, int lcd_addr, int rgb_addr)
         jhd1313m1_close(dev);
         return NULL;
     }
-
-    memset((void *)dev, 0, sizeof(struct _jhd1313m1_context));
 
     // initialize the MRAA contexts
 
