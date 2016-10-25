@@ -23,6 +23,7 @@
  */
 
 #include <assert.h>
+#include <string.h>
 #include "lm35.h"
 
 lm35_context lm35_init(int pin, float aref)
@@ -32,6 +33,8 @@ lm35_context lm35_init(int pin, float aref)
 
     if (!dev)
         return NULL;
+
+    memset((void *)dev, 0, sizeof(struct _lm35_context));
 
     // make sure MRAA is initialized
     int mraa_rv;
