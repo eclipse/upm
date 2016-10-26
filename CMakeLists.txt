@@ -12,7 +12,7 @@ option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
 option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
-option (BUILDTESTS "Generate check-ups for upm" ON)
+option (BUILDTESTS "Generate check-ups for upm" OFF)
 option (WERROR "Make all warnings into errors." OFF)
 
 # Warn if building in source root
