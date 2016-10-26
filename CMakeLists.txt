@@ -30,35 +30,37 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_
 # The result of output_variable is set to the sanitized flag name if supported
 # or cleared if the flag is not supported.
 function (compiler_flag_supported compiler output_variable flag)
-  # Currently only C and CXX compile flags
+  # Currently only C and CXX compile flags, clear and return if not supported
   if (NOT ${compiler} MATCHES "C|CXX")
     message (WARNING "Unknown compiler: ${compiler}")
+    set ("${output_variable}" "" PARENT_SCOPE)
+    return ()
+  endif (NOT ${compiler} MATCHES "C|CXX")
+
+  string (REPLACE "-" "_" SANITIZED_FLAG_NAME "${flag}")
+  string (REPLACE "/" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+  string (REPLACE "=" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+  string (REPLACE " " "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
+
+  # Disable messages from CHECK_C/XX_COMPILER_FLAGS macros
+  set (CMAKE_REQUIRED_QUIET_SAVED ${CMAKE_REQUIRED_QUIET})
+  set (CMAKE_REQUIRED_QUIET ON)
+
+  # C or CXX?
+  if (${compiler} STREQUAL C)
+    CHECK_C_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
+  elseif (${compiler} STREQUAL CXX)
+    CHECK_CXX_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
+  endif ()
+
+  # Restore previous CMAKE_REQUIRED_QUIET state
+  set (CMAKE_REQUIRED_QUIET ${CMAKE_REQUIRED_QUIET_SAVED})
+
+  # Does the compiler support this flag?
+  if (HAS_${SANITIZED_FLAG_NAME})
+    set ("${output_variable}" "${SANITIZED_FLAG_NAME}" PARENT_SCOPE)
   else ()
-    string (REPLACE "-" "_" SANITIZED_FLAG_NAME "${flag}")
-    string (REPLACE "/" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
-    string (REPLACE "=" "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
-    string (REPLACE " " "_" SANITIZED_FLAG_NAME "${SANITIZED_FLAG_NAME}")
-
-    # Disable messages from CHECK_C/XX_COMPILER_FLAGS macros
-    set (CMAKE_REQUIRED_QUIET_SAVED ${CMAKE_REQUIRED_QUIET})
-    set (CMAKE_REQUIRED_QUIET ON)
-
-    # C or CXX?
-    if (${compiler} STREQUAL C)
-      CHECK_C_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
-    elseif (${compiler} STREQUAL CXX)
-      CHECK_CXX_COMPILER_FLAG("${flag}" HAS_${SANITIZED_FLAG_NAME})
-    endif ()
-
-    # Restore previous CMAKE_REQUIRED_QUIET state
-    set (CMAKE_REQUIRED_QUIET ${CMAKE_REQUIRED_QUIET_SAVED})
-
-    # Does the compiler support this flag?
-    if (HAS_${SANITIZED_FLAG_NAME})
-      set ("${output_variable}" "${SANITIZED_FLAG_NAME}" PARENT_SCOPE)
-    else ()
-      set ("${output_variable}" "" PARENT_SCOPE)
-    endif()
+    set ("${output_variable}" "" PARENT_SCOPE)
   endif()
 endfunction ()
 
@@ -84,8 +86,6 @@ function (upm_add_compile_flags compiler)
   # Set the variable in the parent scope
   set (CMAKE_${compiler}_FLAGS ${_TMP_COMPILER_FLAGS} PARENT_SCOPE)
 endfunction ()
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Compiler flags common to both C and CXX
 set (C_CXX_WARNING_FLAGS -Wall)
