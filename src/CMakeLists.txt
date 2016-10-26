@@ -306,6 +306,11 @@ if (BUILDSWIGNODE)
   )
   macro(createpackagejson)
     if (NPM)
+      # Dependency to generate wrappers before packing, skip modules that depend on 3rd party libs
+      if (NOT DEFINED reqlibname)
+        set (reqlibname "")
+      endif ()
+      if (reqlibname STREQUAL "" OR reqlibname MATCHES "mraa")
         # Grab all module sources and headers, also add sources to gyp list
         file (GLOB srcfiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
                                      "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
@@ -330,16 +335,25 @@ if (BUILDSWIGNODE)
         file (COPY ${CMAKE_SOURCE_DIR}/include DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_INCLUDE_DIRS_GYP "'.',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
-        # Dependency to generate wrappers before packing
-        add_dependencies (npmpkg jsupm_${libname})
+        # Utilities and interfaces
+        file (COPY ${CMAKE_SOURCE_DIR}/src/utilities DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+        file (COPY ${CMAKE_SOURCE_DIR}/src/upm DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+        set (upm_LIB_SRCS_GYP "'utilities/upm_utilities.c',\n${upm_LIB_SRCS_GYP}")
+        set (upm_LIB_INCLUDE_DIRS_GYP "'utilities',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+        set (upm_LIB_INCLUDE_DIRS_GYP "'upm',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
-        # Add readme for NPM and node-gyp config file
+        # Add readme, package.json for NPM and node-gyp config file
         configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
-        configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/package.json @ONLY)
+        configure_file (${PROJECT_SOURCE_DIR}/src/package.json.npm.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/package.json @ONLY)
         configure_file (${PROJECT_SOURCE_DIR}/doxy/README.npm.md ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/README.md)
+
+        add_dependencies (npmpkg jsupm_${libname})
+      else ()
+          message ("Skipping jsupm_${libname}, needs ${reqlibname}")
+      endif ()
     endif (NPM)
 
-    # package.json is required for any kind of install
+    # package.json for regular install
     configure_file (${PROJECT_SOURCE_DIR}/src/package.json.in ${CMAKE_CURRENT_BINARY_DIR}/package.json @ONLY)
 
     # If a CMAKE_INSTALL_PREFIX has NOT been provided, set NODE_MODULE_INSTALL_PATH
