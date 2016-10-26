@@ -6,15 +6,33 @@ used sensors and actuators. These software drivers interact with the underlying
 hardware platform (or microcontroller), as well as with the attached sensors,
 through calls to [MRAA](https://github.com/intel-iot-devkit/mraa) APIs.
 
-These bindings are precompiled with Node.js 4.4.
+These packages contain sources for the respective UPM modules and will compile
+locally on the target using node-gyp when installed. They support Node.js 0.10
+or newer.
 
 ### Installing
-To install a UPM module using npm simply type:
+The UPM modules have a hard dependency on MRAA, thus you will have to install
+it first. Also, make sure Node can find MRAA by updating the `NODE_PATH`
+variable if necessary. A global installation is preferred:
 
-`npm install jsupm_<module-name>`
+`npm install mraa -g`
+
+After this, to install a UPM module using npm simply type:
+
+`npm install jsupm_<module-name> -g`
+
+### Usage
+Unfortunately, due to the way node-gyp builds MRAA and UPM, the platform
+initialization hooks are lost. This means you will have to do it manually,
+and require MRAA *before* you load a UPM module:
+
+```
+require('mraa');
+var lib = require('jsupm_<module-name>');
+```
 
 ### Supported Sensors
-The full list is available on [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
+The full list is available on [Intel® IoT Developer Zone](https://software.intel.com/en-us/iot/hardware/sensors).
 
 ### IDE Integration
 Intel® XDK IoT Edition is the recommended IDE for Node.js development. Visit
