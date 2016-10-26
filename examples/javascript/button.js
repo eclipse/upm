@@ -26,7 +26,7 @@
 var groveSensor = require('jsupm_grove');
 
 // Create the button object using GPIO pin 0
-var button = new groveSensor.Button(0);
+var button = new groveSensor.GroveButton(0);
 
 // Read the input and print, waiting one second between readings
 function readButtonValue() {
