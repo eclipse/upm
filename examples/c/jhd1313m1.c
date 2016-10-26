@@ -24,10 +24,22 @@
 
 #include "jhd1313m1.h"
 #include "upm_utilities.h"
+#include "signal.h"
+#include "string.h"
+
+bool shouldRun = true;
+
+void sig_handler(int signo)
+{
+    if (signo == SIGINT)
+        shouldRun = false;
+}
 
 int main(int argc, char **argv)
 {
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+
+    //! [Interesting]
     // initialize a JHD1313m1 on I2C bus 0, LCD address 0x3e, RGB
     // address 0x62
     jhd1313m1_context lcd = jhd1313m1_init(0, 0x3e, 0x62);
@@ -38,18 +50,32 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    jhd1313m1_set_cursor(lcd, 0, 0);
-    jhd1313m1_write(lcd, "Hello World 1", 13);
+    int ndx = 0;
+    char str[20];
+    uint8_t rgb[7][3] = {
+        {0xd1, 0x00, 0x00},
+        {0xff, 0x66, 0x22},
+        {0xff, 0xda, 0x21},
+        {0x33, 0xdd, 0x00},
+        {0x11, 0x33, 0xcc},
+        {0x22, 0x00, 0x66},
+        {0x33, 0x00, 0x44}};
+    while (shouldRun)
+    {
+        snprintf(str, sizeof(str), "Hello World %d", ndx);
+        // Alternate rows on the LCD
+        jhd1313m1_set_cursor(lcd, ndx%2, 0);
+        jhd1313m1_write(lcd, str, strlen(str));
+        // Change the color
+        uint8_t r = rgb[ndx%7][0];
+        uint8_t g = rgb[ndx%7][1];
+        uint8_t b = rgb[ndx%7][2];
+        jhd1313m1_set_color(lcd, r, g, b);
+        // Echo via printf
+        printf("Hello World %d rgb: 0x%02x%02x%02x\n", ndx++, r, g, b);
 
-    upm_delay(3);
-
-    // change background color to a dimmer pure green
-    jhd1313m1_set_color(lcd, 0, 128, 0);
-
-    jhd1313m1_set_cursor(lcd, 1, 0);
-    jhd1313m1_write(lcd, "Hello World 2", 13);
-
-    upm_delay(3);
+        upm_delay(1);
+    }
 
     jhd1313m1_close(lcd);
 //! [Interesting]
