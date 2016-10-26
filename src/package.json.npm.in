@@ -15,6 +15,6 @@
     "url" : "http://github.com/intel-iot-devkit/upm/issues"
   },
   "license": "MIT",
-  "version" : "@upm_VERSION_STRING@",
+  "version" : "@upm_VERSION_STRING@-src",
   "authors": "See http://github.com/intel-iot-devkit/upm/graphs/contributors"
 }
