@@ -130,6 +130,7 @@ add_example (rpr220)
 add_example (md)
 add_example (linefinder)
 add_example (uln200xa)
+add_example (mma7660)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

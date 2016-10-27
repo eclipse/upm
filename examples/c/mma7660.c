@@ -23,57 +23,61 @@
  */
 
 #include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <signal.h>
-#include <iostream>
-#include "mma7660.hpp"
 
-using namespace std;
+#include "upm_utilities.h"
+#include "mma7660.h"
 
 int shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 int main(int argc, char **argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate an MMA7660 on I2C bus 0
+    // Instantiate an MMA7660 on I2C bus 0
 
-  upm::MMA7660 *accel = new upm::MMA7660(MMA7660_DEFAULT_I2C_BUS,
+    mma7660_context accel = mma7660_init(MMA7660_DEFAULT_I2C_BUS,
                                          MMA7660_DEFAULT_I2C_ADDR);
 
-  // place device in standby mode so we can write registers
-  accel->setModeStandby();
-
-  // enable 64 samples per second
-  accel->setSampleRate(MMA7660_AUTOSLEEP_64);
-
-  // place device into active mode
-  accel->setModeActive();
-
-  while (shouldRun)
+    if (!accel)
     {
-      float ax, ay, az;
-
-      accel->getAcceleration(&ax, &ay, &az);
-      cout << "Acceleration: x = " << ax
-           << "g y = " << ay
-           << "g z = " << az
-           << "g" << endl;
-
-      cout << endl;
-      usleep(500000);
+        printf("mma7660_init() failed\n");
+        return 1;
     }
 
+    // place device in standby mode so we can write registers
+    mma7660_set_mode_standby(accel);
+
+    // enable 64 samples per second
+    mma7660_set_sample_rate(accel, MMA7660_AUTOSLEEP_64);
+
+    // place device into active mode
+    mma7660_set_mode_active(accel);
+
+    while (shouldRun)
+    {
+        float ax, ay, az;
+
+        mma7660_get_acceleration(accel, &ax, &ay, &az);
+        printf("Acceleration: x = %f y = %f z = %f\n\n",
+               ax, ay, az);
+
+        upm_delay_ms(500);
+    }
+
+    printf("Exiting...\n");
+
+    mma7660_close(accel);
+
 //! [Interesting]
-
-  cout << "Exiting..." << endl;
-
-  delete accel;
-  return 0;
+    return 0;
 }

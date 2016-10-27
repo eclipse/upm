@@ -2,13 +2,11 @@
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
+%include "arrays_java.i";
+%include "../java_buffer.i"
 
 %apply int *OUTPUT { int *x, int *y, int *z };
 %apply float *OUTPUT { float *ax, float *ay, float *az  };
-
-%{
-    #include "mma7660.hpp"
-%}
 
 %typemap(jni) float* "jfloatArray"
 %typemap(jstype) float* "float[]"
@@ -21,7 +19,6 @@
 %typemap(out) float *getAcceleration {
     $result = JCALL1(NewFloatArray, jenv, 3);
     JCALL4(SetFloatArrayRegion, jenv, $result, 0, 3, $1);
-    delete [] $1;
 }
 
 
@@ -36,13 +33,16 @@
 %typemap(out) int *getRawValues {
     $result = JCALL1(NewIntArray, jenv, 3);
     JCALL4(SetIntArrayRegion, jenv, $result, 0, 3, (const signed int*)$1);
-    delete [] $1;
 }
 
 %ignore getRawValues(int *, int *, int *);
 %ignore getAcceleration(float *, float *, float *);
 
+%include "mma7660_regs.h"
 %include "mma7660.hpp"
+%{
+    #include "mma7660.hpp"
+%}
 
 %pragma(java) jniclasscode=%{
     static {
