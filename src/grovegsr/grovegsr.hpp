@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-gsr
    * @brief Grove GSR Galvanic Skin Response Sensor library
    * @defgroup grovegsr libupm-grovegsr
    * @ingroup seeed analog electric
@@ -40,6 +41,7 @@ namespace upm {
    * @type electric
    * @man seeed
    * @con analog
+   * @deprecated This class is being replaced by GSR
    *
    * @brief API for the Grove GSR Galvanic Skin Response Sensor
    * 

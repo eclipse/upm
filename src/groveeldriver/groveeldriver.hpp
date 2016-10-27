@@ -30,6 +30,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-eldriver
    * @brief Grove EL Driver Module library
    * @defgroup groveeldriver libupm-groveeldriver
    * @ingroup seeed gpio electric
@@ -42,6 +43,7 @@ namespace upm {
    * @type electric
    * @man seeed
    * @con gpio
+   * @deprecated This class is being replaced by ElDriver
    *
    * @brief API for the Grove EL Driver Module
    * 

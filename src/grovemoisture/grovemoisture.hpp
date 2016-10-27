@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-moisture
    * @brief Grove Moisture Sensor library
    * @defgroup grovemoisture libupm-grovemoisture
    * @ingroup seeed analog liquid eak hak
@@ -41,6 +42,7 @@ namespace upm {
    * @man seeed
    * @con analog
    * @kit eak hak
+   * @deprecated This class is being replaced by Moisture
    *
    * @brief API for the Grove Moisture Sensor
    *

@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-water
    * @brief Grove Water Sensor library
    * @defgroup grovewater libupm-grovewater
    * @ingroup seeed gpio liquid eak
@@ -41,6 +42,7 @@ namespace upm {
    * @man seeed
    * @con gpio
    * @kit eak
+   * @deprecated This class is being replaced by Water
    *
    * @brief API for the Grove Water Sensor
    *

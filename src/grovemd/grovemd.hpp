@@ -34,6 +34,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-md
    * @brief Grove I2C Motor Driver library
    * @defgroup grovemd libupm-grovemd
    * @ingroup seeed i2c motor robok
@@ -47,6 +48,7 @@ namespace upm {
    * @man seeed
    * @con i2c
    * @kit robok
+   * @deprecated This class is being replaced by MD
    *
    * @brief API for the Grove I2C Motor Driver 
    *

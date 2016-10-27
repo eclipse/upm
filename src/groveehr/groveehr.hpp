@@ -30,6 +30,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-ehr
    * @brief Grove Ear-clip Heart Rate Sensor library
    * @defgroup groveehr libupm-groveehr
    * @ingroup seeed gpio medical
@@ -42,6 +43,7 @@ namespace upm {
    * @type medical
    * @man seeed
    * @con gpio
+   * @deprecated This class is being replaced by EHR
    *
    * @brief API for the Grove Ear-clip Heart Rate Sensor
    *

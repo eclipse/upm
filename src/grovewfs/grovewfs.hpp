@@ -31,6 +31,7 @@
 namespace upm {
 
   /**
+   * @deprecated This library is being replaced by libupm-wfs
    * @brief Grove Water Flow Sensor library
    * @defgroup grovewfs libupm-grovewfs
    * @ingroup seeed gpio liquid eak
@@ -45,7 +46,8 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor
    * @con gpio
    * @kit eak
-
+   * @deprecated This class is being replaced by WFS
+   *
    * @brief API for the Grove Water Flow Sensor
    *
    * This sensor is used to measure water flow in liters per
