@@ -4,6 +4,13 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+ * **grove** As of UPM 1.0 the Grove classes for sensors in the starter kit are
+ being separated into individual libraries. The old classes will be deprecated
+ over time and eventually removed. Corresponding libraries have the grove
+ prefix removed. Affected classes are GroveButton, GroveLed, GroveLight,
+ GroveRelay, GroveRotary, GroveSlide and GroveTemp.
+ * **grove** Binary compatibility was broken for the GroveTemp class as of UPM
+ v0.7.3. C++ samples and code using this class has to be recompiled.
  * The Ublox6 driver has been removed and replaced with a generic
  implementation called nmea_gps.  This driver should handle all
  generic serial GPS devices that output NMEA data going forward.  This

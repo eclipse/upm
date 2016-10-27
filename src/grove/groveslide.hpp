@@ -39,6 +39,8 @@ namespace upm {
  * @type ainput
  * @man seeed
  * @con analog
+ * @deprecated This class is being replaced by the upm-slide library and the
+ * Slide class.
  *
  * @brief API for the Grove Slide Potentiometer
  *

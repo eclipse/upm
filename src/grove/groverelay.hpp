@@ -40,9 +40,11 @@ namespace upm {
  * @man seeed
  * @con gpio
  * @kit gsk eak hak
+ * @deprecated This class is being replaced by the upm-relay library and the
+ * Relay class.
  *
  * @brief API for the Grove Relay
- *
+ * 
  * UPM module for the Grove relay switch. The Grove relay is a
  * digital normally-open switch that uses low voltage or current to
  * control a higher voltage and/or higher current.  When closed,

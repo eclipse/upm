@@ -41,6 +41,8 @@ namespace upm {
  * @man seeed
  * @con analog
  * @kit gsk
+ * @deprecated This class is being replaced by the upm-rotary library and the
+ * Rotary class.
  *
  * @brief API for the Grove Rotary Angle Sensor (Knob)
  *

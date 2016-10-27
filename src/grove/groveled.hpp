@@ -40,6 +40,8 @@ namespace upm {
  * @man seeed
  * @con gpio
  * @kit gsk
+ * @deprecated This class is being replaced by the upm-led library and the
+ * Led class.
  *
  * @brief API for the Grove LED
  *
