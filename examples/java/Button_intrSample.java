@@ -41,8 +41,9 @@ public class Button_intrSample {
 	}
 }
 
-class ButtonISR implements Runnable {
-	public ButtonISR() {
+class ButtonISR extends upm_button.UpmCallback {
+	public ButtonISR()
+	{
 		super();
 	}
 

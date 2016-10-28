@@ -1,12 +1,9 @@
-%module javaupm_button
+%module(directors="1") javaupm_button
 %include "../upm.i"
-
-%apply int {mraa::Edge}
-
+%include "../java_isr.i"
 %{
     #include "button.hpp"
 %}
-
 %include "button.hpp"
 
 %pragma(java) jniclasscode=%{

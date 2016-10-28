@@ -220,7 +220,6 @@ macro(upm_swig_java)
   # Skip if the libname is in the blacklist
   if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
     FIND_PACKAGE (JNI REQUIRED)
-    pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
 
     include_directories (
       ${JAVA_INCLUDE_PATH}
@@ -231,7 +230,7 @@ macro(upm_swig_java)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i)
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname})
+    swig_link_libraries (javaupm_${libname}  ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
