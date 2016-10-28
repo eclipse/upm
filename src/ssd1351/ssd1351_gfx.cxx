@@ -4,6 +4,8 @@
  *
  * Copyright (c) 2016 Intel Corporation.
  *
+ * Based on GFX interface by Yevgeniy Kiveisha and Adafruit Industries.
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
