@@ -1,5 +1,9 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * based on original C++ driver by
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,40 +25,13 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-var upmBuzzer = require("jsupm_buzzer");
-// Initialize on GPIO 5
-var myBuzzer = new upmBuzzer.Buzzer(5);
-var chords = [];
-chords.push(upmBuzzer.BUZZER_DO);
-chords.push(upmBuzzer.BUZZER_RE);
-chords.push(upmBuzzer.BUZZER_MI);
-chords.push(upmBuzzer.BUZZER_FA);
-chords.push(upmBuzzer.BUZZER_SOL);
-chords.push(upmBuzzer.BUZZER_LA);
-chords.push(upmBuzzer.BUZZER_SI);
-var chordIndex = 0;
-
-// Print sensor name
-console.log(myBuzzer.name());
-
-function melody()
-{
-    if (chords.length != 0)
-    {
-        //Play sound for one half second
-        console.log( myBuzzer.playSound(chords[chordIndex], 500000) );
-        chordIndex++;
-        //Reset the sound to start from the beginning. 
-        if (chordIndex > chords.length - 1)
-			chordIndex = 0;
-    }
-}
-setInterval(melody, 100);
-
-// Print message when exiting
-process.on('SIGINT', function()
-{
-	console.log("Exiting...");
-	process.exit(0);
-});
+// Hz = 1000000 / N
+#define  BUZZER_DO     3800    // 262 Hz - C4
+#define  BUZZER_RE     3400    // 294 Hz - D
+#define  BUZZER_MI     3000    // 330 Hz - E
+#define  BUZZER_FA     2900    // 349 Hz - F
+#define  BUZZER_SOL    2550    // 392 Hz - G
+#define  BUZZER_LA     2270    // 440 Hz - A
+#define  BUZZER_SI     2000    // 494 Hz - B

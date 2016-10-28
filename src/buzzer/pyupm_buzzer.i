@@ -5,6 +5,7 @@
 
 %feature("autodoc", "3");
 
+%include "buzzer_tones.h"
 %include "buzzer.hpp"
 %{
     #include "buzzer.hpp"
