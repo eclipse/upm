@@ -288,7 +288,7 @@ public:
 
 private:
     void writeByte(uint8_t addr, uint8_t value);
-    void writeArray(uint8_t* array);
+    void writeArray(uint8_t* array, uint8_t len);
     uint8_t readByte(uint8_t addr);
     uint16_t readInteger(uint8_t addr);
     uint32_t readLongSigned(uint8_t addr);
