@@ -331,7 +331,7 @@ namespace upm {
      * Set a general usage mode.  This function can be used to
      * configure the filters and oversampling for a particular use
      * case.  These setting are documented in the BMP280 datasheet.
-     * The default mode set in the contructor is
+     * The default mode set in the constructor is
      * USAGE_MODE_INDOOR_NAV, the highest resolution mode.
      *
      * @param mode One of the USAGE_MODE_T values.

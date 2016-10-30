@@ -961,7 +961,7 @@ namespace upm {
     void fifoConfig(FIFO_MODE_T mode, FIFO_DATA_SEL_T axes);
 
     /**
-     * Return the Interrupt Enables 0 register.  These resgisters
+     * Return the Interrupt Enables 0 register.  These registers
      * allow you to enable various interrupt conditions.  See the
      * datasheet for details.
      *

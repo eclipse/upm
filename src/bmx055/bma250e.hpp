@@ -1127,7 +1127,7 @@ namespace upm {
     void setSelfTest(bool sign, bool amp, SELFTTEST_AXIS_T axis);
 
     /**
-     * Return the Interrupt Enables 0 register.  These resgisters
+     * Return the Interrupt Enables 0 register.  These registers
      * allow you to enable various interrupt conditions.  See the
      * datasheet for details.
      *

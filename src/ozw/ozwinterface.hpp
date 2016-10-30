@@ -72,7 +72,7 @@ namespace upm {
 
     /**
      * Start configuration with basic options.  This must be called
-     * prior to init(), after the OZW() contructor is called.
+     * prior to init(), after the OZW() constructor is called.
      *
      * @param configPath Set the location of the OpenZWave config
      * directory, default is /etc/openzwave

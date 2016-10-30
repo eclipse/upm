@@ -48,7 +48,7 @@ namespace upm {
     typedef std::list<OpenZWave::ValueID> valueList_t;
 
     /**
-     * zwNode contructor.
+     * zwNode constructor.
      *
      * @param homeId the homeId os the network controller
      * @param nodeId the node index

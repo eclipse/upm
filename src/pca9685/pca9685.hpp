@@ -304,7 +304,7 @@ namespace upm {
   private:
     /**
      * Enables the I2C register auto-increment. This needs to be enabled
-     * for write/readWord() to work. The contructor enables this by
+     * for write/readWord() to work. The constructor enables this by
      * default.
      *
      * @param ai True to enable, false otherwise
