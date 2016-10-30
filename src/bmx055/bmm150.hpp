@@ -430,7 +430,7 @@ namespace upm {
     OPERATION_MODE_T getOpmode();
 
     /**
-     * Return the Interrupt Enables register.  This resgister
+     * Return the Interrupt Enables register.  This register
      * allows you to enable various interrupt conditions.  See the
      * datasheet for details.
      *
@@ -476,7 +476,7 @@ namespace upm {
     uint8_t getInterruptStatus();
 
     /**
-     * Set the repetion counter for the X and Y axes.  This allows the
+     * Set the repetition counter for the X and Y axes.  This allows the
      * device to average a number of measurements for a more stable
      * output.  See the datasheet for details.
      *
@@ -486,7 +486,7 @@ namespace upm {
     void setRepetitionsXY(uint8_t reps);
 
     /**
-     * Set the repetion counter for the Z axis.  This allows the
+     * Set the repetition counter for the Z axis.  This allows the
      * device to average a number of measurements for a more stable
      * output.  See the datasheet for details.
      *

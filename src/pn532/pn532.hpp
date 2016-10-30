@@ -241,7 +241,7 @@ namespace upm {
     /**
      * configures the SAM (Secure Access Module)
      *
-     * @return true if successfully configured
+     * @return true if successfuly configured
      */
     bool SAMConfig(void);
 
@@ -421,8 +421,8 @@ namespace upm {
                                uint8_t dataLen);
 
     /**
-     * return the ATQA (Answer to Request Acknowlege) value.  This
-     * value is only valid after a successfull call to
+     * return the ATQA (Answer to Request Acknowledge) value.  This
+     * value is only valid after a successful call to
      * readPassiveTargetID()
      * 
      * @return ATQA value
@@ -430,8 +430,8 @@ namespace upm {
     uint16_t getATQA() { return m_ATQA; };
 
     /**
-     * return the SAK (Select Acknowlege) value.  This
-     * value is only valid after a successfull call to
+     * return the SAK (Select Acknowledge) value.  This
+     * value is only valid after a successful call to
      * readPassiveTargetID()
      * 
      * @return SAK value
@@ -491,9 +491,9 @@ namespace upm {
     uint8_t m_key[6];       // Mifare Classic key
     uint8_t m_inListedTag;  // Tg number of inlisted tag.
 
-    uint16_t m_ATQA;        // ATQA (Answer to Request Acknowlege - ISO14443)
+    uint16_t m_ATQA;        // ATQA (Answer to Request Acknowledge - ISO14443)
                             // for currently inlisted card
-    uint8_t m_SAK;          // SAK (Select Acknowlege) 
+    uint8_t m_SAK;          // SAK (Select Acknowledge) 
                             // for currently inlisted card
 
     // debugables
