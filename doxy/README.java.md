@@ -29,7 +29,7 @@ Multi-sensor samples for the starter and specialized kits can be found in the
 
 Supported [sensor list](http://iotdk.intel.com/docs/master/upm/java/modules.html) from API documentation.
 
-You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/sensors).
+You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/hardware/sensors).
 
 ### IDE Compatibility
 
@@ -37,7 +37,7 @@ If you would like to create Eclipse IDE projects using the UPM Java samples,
 please follow the instructions provided on the Intel Developer Zone IDE page.
 
 @htmlonly
-<a href="https://software.intel.com/iot/software/ide"><img src="../docs/icons/eclipse.png"/></a>
+<a href="https://software.intel.com/iot/software/ide"><img src="../docs/icons/iss.png"/></a>
 @endhtmlonly
 
 ### Building UPM
