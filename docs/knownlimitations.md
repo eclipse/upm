@@ -61,6 +61,18 @@ such sensors and known workarounds if they exist.
  * **Adafruit Motor Shield** (1438) is not detected on the I2C bus when
  connected to the Intel Edison with an Arduino breakout.
 
+#### One Wire Sensors
+
+Please note that our 1-Wire protocol implementation is only compatible with
+Dallas 1-Wire devices and uses both the RX and TX pins of a UART bus for
+communication. It will also require the following external circuit:
+
+![1-Wire Circuit Diagram](images/1wire.png)
+
+The principle of operation is discussed [here]
+(https://www.maximintegrated.com/en/app-notes/index.mvp/id/214).
+This affects the **DS18B20**, **DS2413** and **DFREC** drivers.
+
 #### Other Sensors
 
  * **MLX90614** is not compatible with the Intel Galileo due to the inability
