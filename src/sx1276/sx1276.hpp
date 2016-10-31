@@ -126,7 +126,7 @@ namespace upm {
      * same as they were last set during the last RX_DONE event.
      */
     typedef enum {
-      REVENT_DONE                       = 0, // operation completed successfuly
+      REVENT_DONE                       = 0, // operation completed successfully
       REVENT_EXEC,                           // runninsg something
       REVENT_ERROR,                          // failed, crc error, sync timeout
       REVENT_TIMEOUT                         // timed out
@@ -1807,8 +1807,8 @@ namespace upm {
 
     /**
      * Start a receive operation.  The method will return when
-     * completed, either successfuly, or in error (crc, or other
-     * issue).  If completed successfuly, the returned buffer can be
+     * completed, either successfully, or in error (crc, or other
+     * issue).  If completed successfully, the returned buffer can be
      * read via getRxBuffer() or getRxBufferStr().  In addition,
      * values for RSSI and SNR (Lora only) can be retrieved.
      *
