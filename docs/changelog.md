@@ -4,9 +4,15 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
-### vnext
+### v1.0.0
 
- * Build both python2 and python3 modules if the corresponding pythonlibs are
+ * Added approximately 50 C sources for UPM drivers that can be used on both
+ Unix and RTOS boards
+ * Provided generic alternatives to the Grove set of classes as they will be
+ deprecated over time and eventually removed
+ * UPM modules are now being packed and published on NPM as sources rather than
+ binaries to enhance compatibility with various boards and systems
+ * Build both python2 and python3 modules if the corresponding python libs are
  available and removed cmake BUILDPYTHON3 switch
  * Converted python examples to run on both python2 and python3
  * Added 'upm' hierarchy to python module install path which changes the way
@@ -18,6 +24,8 @@ from earlier versions:
              import upm.pyupm_dfrph
  * Added ctests for consistancy checking UPM repo as well as sanity checking
  for python2/3 modules and examples
+ * Various documentation and driver fixes throughout
+ * New sensors: nmea_gps, mma7361, bh1750, hka5, dfrorp, dfrec, sht1x
 
 ### v0.8.0
 
