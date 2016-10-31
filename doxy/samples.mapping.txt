@@ -6,7 +6,7 @@ adxl345.cxx	Adxl345Sample.java	adxl345.js	adxl345.py
 biss0001.cxx	BISS0001Sample.java	biss0001.js	biss0001.py
 bmpx8x.cxx	BMPX8XSample.java	bmpx8x.js	bmpx8x.py
 button.cxx	ButtonSample.java	button.js	button.py
-buzzer-sound.cxx	Buzzer_soundSample.java	buzzer-sound.js	buzzer-sound.py
+buzzer.cxx	BuzzerSample.java	buzzer.js	buzzer.py
 cjq4435.cxx	CJQ4435Sample.java	cjq4435.js	cjq4435.py
 ds1307.cxx	DS1307Sample.java	ds1307.js	ds1307.py
 enc03r.cxx	ENC03RSample.java	enc03r.js	enc03r.py
