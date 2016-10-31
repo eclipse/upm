@@ -241,7 +241,7 @@ namespace upm {
     /**
      * configures the SAM (Secure Access Module)
      *
-     * @return true if successfuly configured
+     * @return true if successfully configured
      */
     bool SAMConfig(void);
 
