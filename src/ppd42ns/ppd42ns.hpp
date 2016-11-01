@@ -33,7 +33,9 @@ typedef struct
 {
 	int lowPulseOccupancy;
 	double ratio;
-	double concentration;
+	double concentration; // pcs/0.01cf
+    double ugm3; // μg/m3
+    int aqi; // Air Quality Index
 } dustData;
 
   /**
