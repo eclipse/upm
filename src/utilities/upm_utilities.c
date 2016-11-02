@@ -23,12 +23,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <upm_platform.h>
 #include <upm_utilities.h>
 
 void upm_delay(int time){
-#if defined(linux)
+#if defined(UPM_PLATFORM_LINUX)
     sleep(time);
-#elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#elif defined(UPM_PLATFORM_ZEPHYR)
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
@@ -38,9 +39,9 @@ void upm_delay(int time){
 }
 
 void upm_delay_ms(int time){
-#if defined(linux)
+#if defined(UPM_PLATFORM_LINUX)
     usleep(1000 * time);
-#elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#elif defined(UPM_PLATFORM_ZEPHYR)
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
@@ -50,13 +51,113 @@ void upm_delay_ms(int time){
 }
 
 void upm_delay_us(int time){
-#if defined(linux)
+#if defined(UPM_PLATFORM_LINUX)
     usleep(time);
-#elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#elif defined(UPM_PLATFORM_ZEPHYR)
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
     nano_timer_start(&timer, USEC(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
+#endif
+}
+
+void upm_clock_init(upm_clock_t *clock)
+{
+#if defined(UPM_PLATFORM_LINUX)
+
+    gettimeofday(clock, NULL);
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+    *clock = sys_cycle_get_32();
+#endif
+}
+
+uint32_t upm_elapsed_ms(upm_clock_t *clock)
+{
+#if defined(UPM_PLATFORM_LINUX)
+
+    struct timeval elapsed, now;
+    uint32_t elapse;
+
+    // get current time
+    gettimeofday(&now, NULL);
+
+    struct timeval startTime = *clock;
+
+    // compute the delta since startTime
+    if( (elapsed.tv_usec = now.tv_usec - startTime.tv_usec) < 0 )
+    {
+        elapsed.tv_usec += 1000000;
+        elapsed.tv_sec = now.tv_sec - startTime.tv_sec - 1;
+    }
+    else
+    {
+        elapsed.tv_sec = now.tv_sec - startTime.tv_sec;
+    }
+
+    elapse = (uint32_t)((elapsed.tv_sec * 1000) + (elapsed.tv_usec / 1000));
+
+    // never return 0
+    if (elapse == 0)
+        elapse = 1;
+
+    return elapse;
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+    uint32_t now = sys_cycle_get_32();
+
+    uint32_t elapsed =
+        (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000000);
+
+    if (elapsed == 0)
+        elapsed = 1;
+
+    return elapsed;
+#endif
+}
+
+uint32_t upm_elapsed_us(upm_clock_t *clock)
+{
+#if defined(UPM_PLATFORM_LINUX)
+
+    struct timeval elapsed, now;
+    uint32_t elapse;
+
+    // get current time
+    gettimeofday(&now, NULL);
+
+    struct timeval startTime = *clock;
+
+    // compute the delta since startTime
+    if( (elapsed.tv_usec = now.tv_usec - startTime.tv_usec) < 0 )
+    {
+        elapsed.tv_usec += 1000000;
+        elapsed.tv_sec = now.tv_sec - startTime.tv_sec - 1;
+    }
+    else
+    {
+        elapsed.tv_sec = now.tv_sec - startTime.tv_sec;
+    }
+
+    elapse = (uint32_t)((elapsed.tv_sec * 1000000) + elapsed.tv_usec);
+
+    // never return 0
+    if (elapse == 0)
+        elapse = 1;
+
+    return elapse;
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+    uint32_t now = sys_cycle_get_32();
+
+    uint32_t elapsed =
+        (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000);
+
+    // never return 0
+    if (elapsed == 0)
+        elapsed = 1;
+
+    return elapsed;
 #endif
 }
