@@ -1,6 +1,6 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,10 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
-#include "ppd42ns.hpp"
 
-using namespace std;
+#include <ppd42ns.h>
 
 int shouldRun = true;
 
@@ -38,29 +37,30 @@ void sig_handler(int signo)
 }
 
 
-int main ()
+int main()
 {
     signal(SIGINT, sig_handler);
 
 //! [Interesting]
     // Instantiate a dust sensor on GPIO pin D8
-    upm::PPD42NS* dust = new upm::PPD42NS(8);
+    ppd42ns_context dust = ppd42ns_init(8);
+
     ppd42ns_dust_data data;
-    cout << "This program will give readings every 30 seconds until "
-         << "you stop it"
-         << endl;
+    printf("This program will give readings every 30 seconds until "
+           "you stop it\n");
+
     while (shouldRun)
     {
-        data = dust->getData();
-        cout << "Low pulse occupancy: " << data.lowPulseOccupancy << endl;
-        cout << "Ratio: " << data.ratio << endl;
-        cout << "Concentration: " << data.concentration << endl;
-        cout << endl;
+        data = ppd42ns_get_data(dust);
+        printf("Low pulse occupancy: %d\n", data.lowPulseOccupancy);
+        printf("Ratio: %f\n", data.ratio);
+        printf("Concentration: %f\n\n", data.concentration);
     }
+
+    printf("Exiting...\n");
+
+    ppd42ns_close(dust);
+
 //! [Interesting]
-
-    cout << "Exiting" << endl;
-
-    delete dust;
     return 0;
 }

@@ -24,22 +24,22 @@
 
 public class PPD42NSSample {
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a dust sensor on GPIO pin D8
-		upm_ppd42ns.PPD42NS dust = new upm_ppd42ns.PPD42NS(8);
-		upm_ppd42ns.dustData data;
+    public static void main(String[] args) throws InterruptedException {
+        // ! [Interesting]
+        // Instantiate a dust sensor on GPIO pin D8
+        upm_ppd42ns.PPD42NS dust = new upm_ppd42ns.PPD42NS(8);
+        upm_ppd42ns.ppd42ns_dust_data data;
 
-		System.out.println("This program will give readings every 30 seconds until you stop it");
+        System.out.println("This program will give readings every 30 seconds until you stop it");
 
-		while (true) {
-			data = dust.getData();
+        while (true) {
+            data = dust.getData();
 
-			System.out.println("Low pulse occupancy: " + data.getLowPulseOccupancy());
-			System.out.println("Ratio:  " + data.getRatio());
-			System.out.println("Concentration: " + data.getConcentration());
-		}
-		// ! [Interesting]
-	}
+            System.out.println("Low pulse occupancy: " + data.getLowPulseOccupancy());
+            System.out.println("Ratio: " + data.getRatio());
+            System.out.println("Concentration: " + data.getConcentration());
+        }
+        // ! [Interesting]
+    }
 
 }

@@ -1,7 +1,10 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * Based on original C++ driver written by:
  * Author: Zion Orent <sorent@ics.com>
- *         Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,59 +27,56 @@
  */
 #pragma once
 
-#include <string>
-#include <ppd42ns.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
 
-namespace upm {
+#include <mraa/gpio.h>
+#include <ppd42ns_data.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
     /**
-     * @brief PPD42NS Dust Sensor library
-     * @defgroup ppd42ns libupm-ppd42ns
-     * @ingroup seeed gpio other eak
-     */
-    /**
+     * @file ppd42ns.h
      * @library ppd42ns
-     * @sensor ppd42ns
-     * @comname PPD42NS Dust Sensor
-     * @altname Grove Dust Sensor
-     * @type other
-     * @man seeed
-     * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
-     * @con gpio
-     * @kit eak
+     * @brief C API for the ppd42ns driver
      *
-     * @brief API for the PPD42NS Dust Sensor
-     *
-     * UPM module for the PPD42NS dust sensor
-     *
-     * @image html ppd42ns.jpg
-     * @snippet ppd42ns.cxx Interesting
+     * @include ppd42ns.c
      */
-    class PPD42NS {
-    public:
 
-        /**
-         * PPD42NS constructor
-         *
-         * @param pin Digital pin to use
-         */
-        PPD42NS(int pin);
+    /**
+     * Device context
+     */
+    typedef struct _ppd42ns_context {
+        mraa_gpio_context gpio;
 
-        /**
-         * PPD42NS destructor
-         */
-        ~PPD42NS();
+    } *ppd42ns_context;
 
-        /**
-         * Prints dust concentration
-         *
-         * @return struct ppd42ns_dust_data Contains data from the dust sensor
-         */
-        ppd42ns_dust_data getData();
+    /**
+     * PPD42NS initialization
+     *
+     * @param pin Digital pin to use
+     * @return ppd42ns device context
+     */
+    ppd42ns_context ppd42ns_init(int pin);
 
-    private:
-        ppd42ns_context m_ppd42ns;
-    };
+    /**
+     * PPD42NS close
+     *
+     * @param dev Device context.
+     */
+    void ppd42ns_close(ppd42ns_context dev);
+
+    /**
+     * Prints dust concentration
+     *
+     * @param dev Device context.
+     * @return ppd42ns_dust_data Contains data from the dust sensor
+     */
+    ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev);
+
+#ifdef __cplusplus
 }
-
-
+#endif

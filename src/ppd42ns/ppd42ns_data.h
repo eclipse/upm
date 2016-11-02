@@ -1,5 +1,9 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * Based on original C++ driver written by:
+ * Author: Zion Orent <sorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,46 +25,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <unistd.h>
-#include <iostream>
-#include <signal.h>
-#include "ppd42ns.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace std;
-
-int shouldRun = true;
-
-void sig_handler(int signo)
-{
-    if (signo == SIGINT)
-        shouldRun = false;
-}
-
-
-int main ()
-{
-    signal(SIGINT, sig_handler);
-
-//! [Interesting]
-    // Instantiate a dust sensor on GPIO pin D8
-    upm::PPD42NS* dust = new upm::PPD42NS(8);
-    ppd42ns_dust_data data;
-    cout << "This program will give readings every 30 seconds until "
-         << "you stop it"
-         << endl;
-    while (shouldRun)
+    // This is a data struct used by the ppd42ns (dust sensor) driver.
+    typedef struct
     {
-        data = dust->getData();
-        cout << "Low pulse occupancy: " << data.lowPulseOccupancy << endl;
-        cout << "Ratio: " << data.ratio << endl;
-        cout << "Concentration: " << data.concentration << endl;
-        cout << endl;
-    }
-//! [Interesting]
+	unsigned int lowPulseOccupancy;
+	double ratio;
+	double concentration;
+    } ppd42ns_dust_data;
 
-    cout << "Exiting" << endl;
-
-    delete dust;
-    return 0;
+#ifdef __cplusplus
 }
+#endif
