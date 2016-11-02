@@ -1,5 +1,6 @@
 /*
  * Authors:
+ *          Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,11 +25,13 @@
 #ifndef UPM_MATH_H_
 #define UPM_MATH_H_
 
+#include <upm_platform.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef linux
+#if defined(UPM_PLATFORM_LINUX) || defined(UPM_PLATFORM_ZEPHYR)
 #include <math.h>
 #endif
 
