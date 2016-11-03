@@ -78,7 +78,7 @@ namespace upm {
     /**
      * GroveLEDBar destructor
      */
-    ~GroveLEDBar();
+    virtual ~GroveLEDBar();
 
     /**
      * Sets the bar level

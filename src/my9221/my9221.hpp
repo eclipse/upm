@@ -63,7 +63,7 @@ namespace upm {
     /**
      * MY9221 destructor
      */
-    ~MY9221();
+    virtual ~MY9221();
 
     /**
      * Enable or disable auto refresh.  When auto refresh is enabled,

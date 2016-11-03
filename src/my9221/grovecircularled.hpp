@@ -72,7 +72,7 @@ namespace upm {
     /**
      * GroveCircularLED destructor
      */
-    ~GroveCircularLED();
+    virtual ~GroveCircularLED();
 
     /**
      * Sets the spinner (turns off all LEDs but selected one)

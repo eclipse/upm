@@ -75,7 +75,7 @@ namespace upm {
     /**
      * MPU9150 destructor
      */
-    ~MPU9150 ();
+    virtual ~MPU9150 ();
 
     /**
      * Set up initial values and start operation

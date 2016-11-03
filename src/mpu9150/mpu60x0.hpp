@@ -661,8 +661,8 @@ namespace upm {
     /**
      * MPU60X0 Destructor
      */
-    ~MPU60X0();
-    
+    virtual ~MPU60X0();
+
     /**
      * set up initial values and start operation
      *
