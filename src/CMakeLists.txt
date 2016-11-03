@@ -1,3 +1,8 @@
+# Selectively disable certain CXX warnings for SWIG wrappers
+# SWIG wrappers emit -Wdelete-non-virtual-dtor and -Wunused-function warnings
+set (SWIG_CXX_DISABLE_WARNINGS -Wno-delete-non-virtual-dtor
+                               -Wno-unused-function)
+
 macro (file_to_list readfile outlist)
   FILE(READ "${readfile}" contents)
   STRING(REGEX REPLACE ";" "\\\\;" contents "${contents}")
@@ -55,9 +60,6 @@ macro (upm_target_link_libraries target_name)
   endforeach(_library ${ARGN})
 endmacro (upm_target_link_libraries target_name)
 
-# Selectively do not emit warnings from the SWIG-generated wrappers
-set (disabled_flags -Wno-delete-non-virtual-dtor -Wno-unused-function)
-
 # Create a single swig target for python
 macro(_upm_swig_python)
   include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..)
@@ -89,13 +91,13 @@ macro(_upm_swig_python)
       "${PYTHON_INCLUDE_DIRS}")
 
   # Turn off flags for wrapper
-  foreach(flag ${disabled_flags})
+  foreach(flag ${SWIG_CXX_DISABLE_WARNINGS})
     compiler_flag_supported(CXX is_supported ${flag})
     if (is_supported)
       target_compile_options(${python_wrapper_target}
         PRIVATE "${flag}")
     endif(is_supported)
-  endforeach(flag ${disabled_flags})
+  endforeach(flag ${SWIG_CXX_DISABLE_WARNINGS})
 
   # Add C++ comments to ALL python modules (requires doc build)
   if (BUILDDOC)
@@ -180,13 +182,13 @@ macro(upm_swig_node)
     )
 
     # Turn off flags for wrapper
-    foreach(flag ${disabled_flags})
+    foreach(flag ${SWIG_CXX_DISABLE_WARNINGS})
       compiler_flag_supported(CXX is_supported ${flag})
       if (is_supported)
         target_compile_options(${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
           PRIVATE "${flag}")
       endif(is_supported)
-    endforeach(flag ${disabled_flags})
+    endforeach(flag ${SWIG_CXX_DISABLE_WARNINGS})
 
     set_target_properties (jsupm_${libname} PROPERTIES
       COMPILE_FLAGS "-DBUILDING_NODE_EXTENSION -DSWIG_V8_VERSION=${V8_VERSION_HEX}"
@@ -242,13 +244,13 @@ macro(upm_swig_java)
     )
 
     # Turn off flags for wrapper
-    foreach(flag ${disabled_flags})
+    foreach(flag ${SWIG_CXX_DISABLE_WARNINGS})
       compiler_flag_supported(CXX is_supported ${flag})
       if (is_supported)
         target_compile_options(${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
           PRIVATE "${flag}")
       endif(is_supported)
-    endforeach(flag ${disabled_flags})
+    endforeach(flag ${SWIG_CXX_DISABLE_WARNINGS})
 
     install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
     # Java jar files always need to go under lib/java, regardless of

@@ -12,6 +12,6 @@ if (OPENZWAVE_FOUND)
   # openzwave/aes/aes.h has unknown pragmas, disable warning -Wunknown-pragmas
   compiler_flag_supported(CXX is_supported -Wno-unknown-pragmas)
   if (is_supported)
-      target_compile_options(${libname} PRIVATE -Wno-unknown-pragmas)
+      target_compile_options(${libname} PUBLIC -Wno-unknown-pragmas)
   endif (is_supported)
 endif ()
