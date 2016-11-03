@@ -8,4 +8,10 @@ if (OPENZWAVE_FOUND)
   include_directories(${OPENZWAVE_INCLUDE_DIRS})
   upm_module_init()
   upm_target_link_libraries(${libname} ${OPENZWAVE_LIBRARIES})
+
+  # openzwave/aes/aes.h has unknown pragmas, disable warning -Wunknown-pragmas
+  compiler_flag_supported(CXX is_supported -Wno-unknown-pragmas)
+  if (is_supported)
+      target_compile_options(${libname} PRIVATE -Wno-unknown-pragmas)
+  endif (is_supported)
 endif ()
