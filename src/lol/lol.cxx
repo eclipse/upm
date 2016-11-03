@@ -36,8 +36,6 @@ using namespace upm;
 static mraa_gpio_context *m_Ctx;
 static unsigned char *buffer;
 
-static mraa_gpio_context c1, c2, c3, c4;
-
 static int charlie_pairs [12][22] = {
 {3,124, 4,110, 5,96,  6,82,  7,68, 8,54, 9,40, 10,26, 11,12, -1,-1, -1,-1},
 {3,122, 4,108, 5,94,  6,80,  7,66, 8,52, 9,38, 10,24, 11,10, -1,-1, -1,-1},
