@@ -29,3 +29,6 @@ void cleanUp();
 %typemap(jtype) jobject runnable "java.lang.Runnable"
 %typemap(jstype) jobject runnable "java.lang.Runnable"
 #endif
+
+// Disable nested struct warnings
+#pragma SWIG nowarn=312,325
