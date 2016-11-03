@@ -141,7 +141,6 @@ class T6713 : public ICO2Sensor {
 	uint16_t getSensorData (t6713_co2::MODBUS_COMMANDS cmd);
         t6713_co2::STATUS getStatus();
 
-        int bus;
         mraa::I2c* i2c;
         mraa::Result status;
 };

@@ -154,7 +154,7 @@ TSL2561::getLux()
     // round the ratio value
     int64_t ratio = (ratio1 + 1) >> 1;
 
-    unsigned int b, m;
+    unsigned int b = 0, m = 0;
 
     // CS package
     // Check if ratio <= eachBreak ?

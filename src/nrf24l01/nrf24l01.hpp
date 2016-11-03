@@ -420,7 +420,6 @@ class NRF24L01 {
         uint8_t                 m_power;
         uint8_t                 m_ptx;
         uint8_t                 m_payload;
-        uint8_t                 m_localAddress[5];
 
         mraa::Gpio              m_csnPinCtx;
         mraa::Gpio              m_cePinCtx;

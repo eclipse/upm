@@ -210,7 +210,7 @@ unsigned Device_Count(
 uint32_t Device_Index_To_Instance(
     unsigned index)
 {
-    index = index;
+    //index = index;
     return Object_Instance_Number;
 }
 

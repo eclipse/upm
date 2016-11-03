@@ -594,8 +594,6 @@ namespace upm {
 
   private:
     bool m_isSPI;
-    // use the FIFO by default?
-    bool m_useFIFO;
 
     // return a reference to a gpio pin pointer depending on intr
     mraa::Gpio*& getPin(INTERRUPT_PINS_T intr);

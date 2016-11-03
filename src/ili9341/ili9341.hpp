@@ -330,8 +330,6 @@ namespace upm {
             mraa::Result rstLow();
 
         private:
-            uint8_t     m_spiBuffer[32];
-
             mraa::Gpio  m_csLCDPinCtx;
             mraa::Gpio  m_csSDPinCtx;
             mraa::Gpio  m_dcPinCtx;

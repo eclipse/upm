@@ -209,7 +209,7 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data) {
 
     // round the ratio value
     int64_t ratio = (ratio_1 + 1) >> 1;
-    unsigned int b, m;
+    unsigned int b = 0, m = 0;
 
     // CS package
     // Check if ratio <= eachBreak ?

@@ -196,7 +196,6 @@ class BMPX8X : public IPressureSensor, public ITemperatureSensor {
         std::string m_name;
 
         int m_controlAddr;
-        int m_bus;
         mraa::I2c m_i2ControlCtx;
 
         uint8_t oversampling;

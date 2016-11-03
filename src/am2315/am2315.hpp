@@ -197,7 +197,6 @@ class AM2315 {
         time_t    m_last_time;
 
         int       m_base_priority;
-        pthread_t this_thread;
 };
 
 }

@@ -29,8 +29,6 @@
 using namespace upm;
 using namespace std;
 
-static const int defaultDelay = 100;     // max wait time for read
-
 GPRS::GPRS(int uart) :
   m_uart(uart)
 {

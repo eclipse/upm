@@ -31,8 +31,6 @@
 using namespace upm;
 using namespace std;
 
-static const int defaultDelay = 100;     // max wait time for read
-
 HM11::HM11(int uart)
 {
   m_ttyFd = -1;
