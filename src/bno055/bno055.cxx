@@ -481,7 +481,7 @@ string BNO055::readCalibrationData()
 
 void BNO055::writeCalibrationData(string calibData)
 {
-  if (calibData.size() != calibrationDataNumBytes)
+  if (static_cast<int>(calibData.size()) != calibrationDataNumBytes)
     {
       throw std::invalid_argument(std::string(__FUNCTION__)
                                   + ": calibData string must be exactly "

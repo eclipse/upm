@@ -183,7 +183,7 @@ bool VCAP::setResolution(int width, int height)
     }
 
   // G_FMT will have adjusted these if neccessary, so verify
-  if (m_format.fmt.pix.width != m_width)
+  if (static_cast<int>(m_format.fmt.pix.width) != m_width)
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Warning: Selected width "
@@ -195,7 +195,7 @@ bool VCAP::setResolution(int width, int height)
       m_width = m_format.fmt.pix.width;
     }
   
-  if (m_format.fmt.pix.height != m_height)
+  if (static_cast<int>(m_format.fmt.pix.height) != m_height)
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Warning: Selected height "

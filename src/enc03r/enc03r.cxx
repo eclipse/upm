@@ -59,10 +59,10 @@ unsigned int ENC03R::value()
 
 void ENC03R::calibrate(unsigned int samples)
 {
-  unsigned int val;
+  int val;
   float total = 0.0;
 
-  for (int i=0; i<samples; i++)
+  for (unsigned int i=0; i<samples; i++)
     {
       val = mraa_aio_read(m_aio);
       if (val == -1) throw std::out_of_range(std::string(__FUNCTION__) +

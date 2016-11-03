@@ -312,7 +312,7 @@ void SX1276::init()
 
   setOpMode(MODE_Sleep);
 
-  for (int i = 0; i < sizeof(radioRegsInit) / sizeof(radioRegisters_t); i++ )
+  for (size_t i = 0; i < sizeof(radioRegsInit) / sizeof(radioRegisters_t); i++ )
     {
       setModem(radioRegsInit[i].Modem);
       writeReg(radioRegsInit[i].Addr, radioRegsInit[i].Value);
@@ -515,7 +515,7 @@ uint8_t SX1276::lookupFSKBandWidth(uint32_t bw)
 
   // See Table 40 in the datasheet
 
-  for (int i=0; i<(sizeof(FskBandwidths)/sizeof(FskBandwidth_t)) - 1; i++)
+  for (size_t i=0; i<(sizeof(FskBandwidths)/sizeof(FskBandwidth_t)) - 1; i++)
     {
       if ( (bw >= FskBandwidths[i].bandwidth) && 
            (bw < FskBandwidths[i + 1].bandwidth) )
@@ -1263,7 +1263,7 @@ SX1276::RADIO_EVENT_T SX1276::setTx(int timeout)
   setOpMode(MODE_TxMode);
 
   initClock();
-  while ((getMillis() < timeout) && m_radioEvent == REVENT_EXEC)
+  while ((getMillis() < static_cast<uint32_t>(timeout)) && m_radioEvent == REVENT_EXEC)
     usleep(100);
 
   if (m_radioEvent == REVENT_EXEC)

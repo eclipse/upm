@@ -84,7 +84,7 @@ int
 Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
                                 uint16_t * buffer, int len) {
     long sum = 0;
-    for (unsigned int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         sum += buffer[i];
     }
 

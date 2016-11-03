@@ -61,7 +61,7 @@ void GroveLEDBar::setBarLevel(uint8_t level, bool greenToRed, int barNumber)
   if (level > 10)
     level = 10;
 
-  if (barNumber >= m_instances)
+  if (barNumber >= static_cast<int>(m_instances))
     barNumber = m_instances - 1;
 
   int start = barNumber * LEDS_PER_INSTANCE;

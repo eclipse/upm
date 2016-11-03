@@ -51,7 +51,7 @@ float GUVAS12D::value(float aref, unsigned int samples)
   int val;
   unsigned long sum = 0;
 
-  for (int i=0; i<samples; i++)
+  for (unsigned int i=0; i<samples; i++)
     {
       val = mraa_aio_read(m_aio);
       if (val == -1) return -1;

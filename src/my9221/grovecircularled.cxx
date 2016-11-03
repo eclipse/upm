@@ -77,12 +77,12 @@ void GroveCircularLED::setLevel(uint8_t level, bool direction)
 
   if (!direction)
     {
-      for (int i=0; i<(LEDS_PER_INSTANCE * m_instances); i++)
+      for (int i=0; i < static_cast<int>(LEDS_PER_INSTANCE * m_instances); i++)
         m_bitStates[i] = (i < level) ? m_highIntensity : m_lowIntensity;
     }
   else
     {
-      for (int i=0; i<(LEDS_PER_INSTANCE * m_instances); i++)
+      for (int i=0; i< static_cast<int>(LEDS_PER_INSTANCE * m_instances); i++)
         m_bitStates[i] = (((LEDS_PER_INSTANCE * m_instances) - i) <= level)
           ? m_highIntensity : m_lowIntensity;
     }

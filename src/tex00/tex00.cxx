@@ -179,7 +179,7 @@ float TEX00::thermistor(float ohms)
   else
     {
       // PTC
-      for (int i=0; i<m_tempVector.size(); i++)
+      for (size_t i=0; i<m_tempVector.size(); i++)
         if (ohms < m_tempVector[i].ohms)
           {
             found = i;
@@ -189,7 +189,8 @@ float TEX00::thermistor(float ohms)
     }
 
   if (found < 0 || next < 0 || 
-      found >= m_tempVector.size() || next >= m_tempVector.size())
+      found >= static_cast<int>(m_tempVector.size()) ||
+      next >= static_cast<int>(m_tempVector.size()))
     {
       m_outOfRange = true;
       // return last measured temperature

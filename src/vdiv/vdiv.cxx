@@ -48,9 +48,9 @@ VDiv::~VDiv()
 
 unsigned int VDiv::value(unsigned int samples)
 {
-  unsigned int sum = 0;
+  int sum = 0;
 
-  for (int i=0; i<samples; i++)
+  for (unsigned int i=0; i<samples; i++)
     {
       sum += mraa_aio_read(m_aio);
       if (sum == -1) return 0;

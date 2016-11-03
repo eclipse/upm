@@ -84,7 +84,7 @@ string SM130::sendCommand(CMD_T cmd, string data)
   // now the data if any
   if (!data.empty())
     {
-      for (int i=0; i<data.size(); i++)
+      for (size_t i=0; i<data.size(); i++)
         {
           command.push_back(data[i]);
           cksum += (uint8_t)data[i];
@@ -129,7 +129,7 @@ string SM130::sendCommand(CMD_T cmd, string data)
     }
     
   // check size - 2 header bytes + len + cksum.
-  if (resp.size() != ((uint8_t)resp[2] + 2 + 1 + 1))
+  if (resp.size() != static_cast<size_t>((uint8_t)resp[2] + 2 + 1 + 1))
     {
       cerr << __FUNCTION__ << ": invalid packet length, expected " 
            << int((uint8_t)resp[2] + 2 + 1 + 1) 
@@ -139,7 +139,7 @@ string SM130::sendCommand(CMD_T cmd, string data)
 
   // verify the cksum
   cksum = 0;
-  for (int i=2; i<(resp.size() - 1); i++)
+  for (size_t i=2; i<(resp.size() - 1); i++)
     cksum += (uint8_t)resp[i];
 
   if (cksum != (uint8_t)resp[resp.size() - 1])

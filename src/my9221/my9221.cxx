@@ -121,7 +121,7 @@ void MY9221::setHighIntensityValue(int intensity)
 
 void MY9221::setAll()
 {
-  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
     m_bitStates[i] = m_highIntensity;
 
   if (m_autoRefresh)
@@ -130,7 +130,7 @@ void MY9221::setAll()
 
 void MY9221::clearAll()
 {
-  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
     m_bitStates[i] = m_lowIntensity;
 
   if (m_autoRefresh)
@@ -139,7 +139,7 @@ void MY9221::clearAll()
 
 void MY9221::refresh()
 {
-  for (int i=0; i<(m_instances * LEDS_PER_INSTANCE); i++)
+  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
     {
       if (i % 12 == 0)
         {
