@@ -22,28 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//setup/Initialization
-var upm_grove = require('jsupm_grove');
+//initialization
+var upm = require('jsupm_rotary');
 
 //setup access analog input Analog pin #0 (A0)
-var groveRotary = new upm_grove.Rotary(0);
+var rotary = new upm.Rotary(0);
 
 loop();
 
-function loop()
-{
-    var abs = groveRotary.abs_value();
-    var absdeg = groveRotary.abs_deg();
-    var absrad = groveRotary.abs_rad();
+function loop() {
+    var abs = rotary.abs_value();
+    var absdeg = rotary.abs_deg();
+    var absrad = rotary.abs_rad();
 
-    var rel = groveRotary.rel_value();
-    var reldeg = groveRotary.rel_deg();
-    var relrad = groveRotary.rel_rad();
+    var rel = rotary.rel_value();
+    var reldeg = rotary.rel_deg();
+    var relrad = rotary.rel_rad();
 
     //write the knob value to the console in different formats
     console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3));
     console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
 
-    //wait 2 s and call function again
+    //wait 2s and call function again
     setTimeout(loop, 2000);
 }
