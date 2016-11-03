@@ -200,8 +200,6 @@ uint32_t PN532::getFirmwareVersion()
 bool PN532::sendCommandCheckAck(uint8_t *cmd, uint8_t cmdlen, 
                                 uint16_t timeout)
 {
-  uint16_t timer = 0;
-
   // clear any outstanding irq's
   isReady();
   
@@ -747,7 +745,6 @@ bool PN532::mifareclassic_AuthenticateBlock (uint8_t * uid, uint8_t uidLen,
                                              uint8_t keyNumber,
                                              uint8_t * keyData)
 {
-  uint8_t len;
   uint8_t i;
   
   // Hang on to the key and uid data

@@ -109,7 +109,6 @@ Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
   m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3)),
   m_numColumns(numColumns), m_numRows(numRows)
 {
-    mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (4-bit GPIO)";
     m_isI2C = false;
     m_backlight = LCD_BACKLIGHT;
@@ -202,7 +201,6 @@ Lcm1602::write(std::string msg)
 mraa::Result
 Lcm1602::setCursor(int row, int column)
 {
-    mraa::Result error = mraa::SUCCESS;
     column = column % m_numColumns;
     uint8_t offset = column;
 

@@ -144,8 +144,7 @@ void MS5611::setOverSampling(OsrMode osrMode)
 
 void MS5611::delayms(int millisecs)
 {
-   struct timespec sleepTime, rem;
-   uint64_t nanosecs = 1000ULL * millisecs;
+   struct timespec sleepTime;
    sleepTime.tv_sec = millisecs / 1000;
    sleepTime.tv_nsec = (millisecs % 1000) * 1000000;
    while ((nanosleep( &sleepTime, &sleepTime ) != 0 ) && ( errno == EINTR ) );

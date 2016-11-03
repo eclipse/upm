@@ -179,7 +179,6 @@ KXCJK1013::extract3Axis(char* data, float* x, float* y, float* z)
 {
     mraa_iio_channel* channels = mraa_iio_get_channels(m_iio);
     float tmp[3];
-    int i = 0;
     int iio_x, iio_y, iio_z;
 
     iio_x = getChannelValue((unsigned char*) (data + channels[0].location), &channels[0]);

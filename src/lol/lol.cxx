@@ -136,7 +136,6 @@ void *do_draw(void *arg)
 
 LoL::LoL() {
     int i = 0;
-    mraa_result_t error;
     for (i = 0; i < 12; i++)
       {
         if ( !(m_LoLCtx[i] = mraa_gpio_init(i+2)) ) 
@@ -159,7 +158,6 @@ LoL::LoL() {
 
 LoL::~LoL() {
     int i = 0;
-    mraa_result_t error;
     for (i = 0; i < 12; i++)
         mraa_gpio_close(m_LoLCtx[i]);
 }

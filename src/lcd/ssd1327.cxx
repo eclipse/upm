@@ -215,7 +215,6 @@ SSD1327::setCursor(int row, int column)
 mraa::Result
 SSD1327::clear()
 {
-    mraa::Result error = mraa::SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     for (rowIdx = 0; rowIdx < 12; rowIdx++) {

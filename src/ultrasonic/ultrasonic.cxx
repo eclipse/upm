@@ -34,7 +34,6 @@
 using namespace upm;
 
 UltraSonic::UltraSonic (uint8_t pin) {
-    mraa_result_t error = MRAA_SUCCESS;
     m_name = "UltraSonic";
 
     mraa_init();

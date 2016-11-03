@@ -34,7 +34,6 @@
 using namespace upm;
 
 GroveUltraSonic::GroveUltraSonic (uint8_t pin) {
-    mraa_result_t error = MRAA_SUCCESS;
     m_name = "GroveUltraSonic";
 
     mraa_init();

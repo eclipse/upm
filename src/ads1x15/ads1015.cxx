@@ -149,7 +149,6 @@ ADS1015::setDelay(){
 
 ADS1X15::ADSMUXMODE
 ADS1015::getMuxMode(unsigned int input) {
-    ADS1X15::ADSMUXMODE mode;
     switch (input) {
     case 0:
         return SINGLE_0;

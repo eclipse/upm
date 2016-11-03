@@ -39,7 +39,6 @@
 using namespace upm;
 
 HCSR04::HCSR04 (uint8_t triggerPin, uint8_t echoPin) {
-    mraa_result_t error  = MRAA_SUCCESS;
     m_name              = "HCSR04";
 
     m_triggerPinCtx     = mraa_gpio_init (triggerPin);

@@ -53,7 +53,6 @@ ECS1030::~ECS1030 () {
 double
 ECS1030::getCurrency_A () {
     int     sensorValue  = 0;
-    float   rLoad        = 0;
     float   volt         = 0;
     float   rms          = 0;
 

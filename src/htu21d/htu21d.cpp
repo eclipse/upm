@@ -174,7 +174,7 @@ HTU21D::getDewPoint(int bSampleData)
 int
 HTU21D::getHumidityData(float* pfHum, float* pfHumTemp, float* pfDewPt)
 {
-    float fHum   = getHumidity(true);
+    getHumidity(true);
     float fTemp  = getTemperature(false);
     float fDewPt = getDewPoint(false);
     float fCHum  = getCompRH(false);
@@ -271,7 +271,6 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
 
 uint16_t
 HTU21D::i2cReadReg_16 (int reg) {
-    uint16_t data;
     m_i2ControlCtx.address(m_controlAddr);
     return m_i2ControlCtx.readWordReg(reg);
 }

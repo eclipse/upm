@@ -98,7 +98,6 @@ bool GROVESCAM::dataAvailable(unsigned int millis)
       timeout.tv_usec = (millis % 1000) * 1000;
     }
 
-  int nfds;  
   fd_set readfds;
 
   FD_ZERO(&readfds);

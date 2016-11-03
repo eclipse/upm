@@ -78,15 +78,12 @@ SSD1308::draw(uint8_t* data, int bytes)
 mraa::Result
 SSD1308::write(std::string msg)
 {
-    mraa::Result error = mraa::SUCCESS;
-    uint8_t data[2] = { 0x40, 0 };
-
     setAddressingMode(PAGE);
     for (std::string::size_type i = 0; i < msg.size(); ++i) {
         writeChar(msg[i]);
     }
 
-    return error;
+    return mraa::SUCCESS;
 }
 
 mraa::Result
@@ -108,7 +105,6 @@ SSD1308::setCursor(int row, int column)
 mraa::Result
 SSD1308::clear()
 {
-    mraa::Result error = mraa::SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off
