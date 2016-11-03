@@ -100,7 +100,7 @@ Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
 
 void
 Microphone::printGraph (thresholdContext* ctx) {
-    for (int i = 0; i < ctx->runningAverage; i++)
+    for (unsigned int i = 0; i < ctx->runningAverage; i++)
         std::cout << ".";
     std::cout << std::endl;
 }

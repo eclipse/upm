@@ -29,7 +29,7 @@
 
 struct thresholdContext {
     long averageReading;
-    long runningAverage;
+    unsigned long runningAverage;
     int averagedOver;
 };
 
