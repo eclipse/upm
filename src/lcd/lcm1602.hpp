@@ -251,10 +251,20 @@ class Lcm1602 : public LCD
     uint8_t m_displayControl;
     uint8_t m_entryDisplayMode;
 
+    mraa::I2c* m_i2c_lcd_control;
+
+    // gpio operation
+    mraa::Gpio* m_gpioRS;
+    mraa::Gpio* m_gpioEnable;
+    mraa::Gpio* m_gpioD0;
+    mraa::Gpio* m_gpioD1;
+    mraa::Gpio* m_gpioD2;
+    mraa::Gpio* m_gpioD3;
+
     // Display size
     uint8_t m_numColumns;
     uint8_t m_numRows;
-    
+
     // Backlight
     uint8_t m_backlight;
 
@@ -266,19 +276,10 @@ class Lcm1602 : public LCD
     virtual mraa::Result data(uint8_t data);
 
     int m_lcd_control_address;
-    mraa::I2c* m_i2c_lcd_control;
 
   private:
 
     // true if using i2c, false otherwise (gpio)
     bool m_isI2C;
-
-    // gpio operation
-    mraa::Gpio* m_gpioRS;
-    mraa::Gpio* m_gpioEnable;
-    mraa::Gpio* m_gpioD0;
-    mraa::Gpio* m_gpioD1;
-    mraa::Gpio* m_gpioD2;
-    mraa::Gpio* m_gpioD3;
 };
 }

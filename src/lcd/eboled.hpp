@@ -364,10 +364,9 @@ namespace upm
     mraa::Result setAddressingMode(displayAddressingMode mode);
 
   private:
+    mraa::Spi m_spi;
     mraa::Gpio m_gpioCD;        // command(0)/data(1)
     mraa::Gpio m_gpioRST;       // reset pin
-
-    mraa::Spi m_spi;
 
     uint8_t m_cursorX;
     uint8_t m_cursorY;

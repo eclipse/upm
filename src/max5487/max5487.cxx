@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-MAX5487::MAX5487 (int csn) : m_csnPinCtx(csn), m_spi(0) {
+MAX5487::MAX5487 (int csn) :m_spi(0), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "MAX5487";
 
