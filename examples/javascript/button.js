@@ -22,11 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
-var groveSensor = require('jsupm_grove');
+// Load UPM module
+var upm = require('jsupm_button');
 
 // Create the button object using GPIO pin 0
-var button = new groveSensor.Button(0);
+var button = new upm.Button(0);
 
 // Read the input and print, waiting one second between readings
 function readButtonValue() {
