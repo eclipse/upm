@@ -30,7 +30,6 @@
 
 int main (int argc, char **argv)
 {
-    mraa_result_t error = MRAA_SUCCESS;
     upm::TSL2561 *sensor = NULL;
     int loopCount = 100;
 

@@ -80,7 +80,6 @@ Used to test the UART TX characteristic notification
 static uart_over_ble_t uart_over_ble;
 static uint8_t         uart_buffer[20];
 static uint8_t         uart_buffer_len = 0;
-static uint8_t         dummychar = 0;
 
 void
 sig_handler(int signo)
