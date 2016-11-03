@@ -627,11 +627,11 @@ class ST7735 : public GFX {
     private:
         uint8_t        m_spiBuffer[32];
 
+        mraa::Spi      m_spi;
         mraa::Gpio     m_csLCDPinCtx;
         mraa::Gpio     m_cSDPinCtx;
         mraa::Gpio     m_rSTPinCtx;
         mraa::Gpio     m_rSPinCtx;
-        mraa::Spi      m_spi;
 
         std::string    m_name;
 };
