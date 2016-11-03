@@ -130,6 +130,7 @@ void *do_draw(void *arg)
         }
 
     }
+    return NULL;
 }
 
 LoL::LoL() {
