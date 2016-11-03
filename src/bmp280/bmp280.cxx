@@ -42,11 +42,6 @@ using namespace std;
 
 // conversion from fahrenheit to celsius and back
 
-static float f2c(float f)
-{
-  return ((f - 32.0) / (9.0 / 5.0));
-}
-
 static float c2f(float c)
 {
   return (c * (9.0 / 5.0) + 32.0);
