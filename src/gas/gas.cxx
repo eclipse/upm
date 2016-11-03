@@ -92,7 +92,7 @@ Gas::getSample () {
 void
 Gas::printGraph (thresholdContext* ctx, uint8_t resolution) {
     std::cout << "(" << ctx->runningAverage << ") | ";
-    for (int i = 0; i < ctx->runningAverage / resolution; i++)
+    for (unsigned int i = 0; i < ctx->runningAverage / resolution; i++)
         std::cout << "*";
     std::cout << std::endl;
 }
