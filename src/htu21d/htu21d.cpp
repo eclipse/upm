@@ -203,14 +203,13 @@ HTU21D::testSensor(void)
     float fTemp, fHum;
     float fTempMax, fTempMin;
     float fHumMax, fHumMin;
-    float fHumFirst, fTempFirst;
+    float fTempFirst;
 
     fprintf(stdout, "Executing Sensor Test\n" );
 
     fHum  = getHumidity(true);
     fTemp = getTemperature(false);
     fTempFirst = fTempMax = fTempMin = fTemp;
-    fHumFirst  = fHumMax  = fHumMin  = fHum;
 
     // Turn on the heater to make a sensor change
     setHeater(true);
