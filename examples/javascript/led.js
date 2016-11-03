@@ -22,10 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load Grove module
+// Load UPM module
 var ledSensor = require('jsupm_led');
 
-// Create the Grove LED object using GPIO pin 2
+// Create the LED object using GPIO pin 2
 var led = new ledSensor.Led(2);
 
 // Print the name
