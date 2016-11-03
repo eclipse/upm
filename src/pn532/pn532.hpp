@@ -469,9 +469,9 @@ namespace upm {
     TAG_TYPE_T tagType();
 
   protected:
-    mraa::I2c m_i2c;
     mraa::Gpio m_gpioIRQ;
     mraa::Gpio m_gpioReset;
+    mraa::I2c m_i2c;
 
     bool readAck();
     bool isReady();

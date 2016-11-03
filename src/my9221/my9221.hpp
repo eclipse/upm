@@ -136,15 +136,15 @@ namespace upm {
 
     unsigned int m_instances;
 
+    mraa::Gpio m_gpioData;
+    mraa::Gpio m_gpioClk;
+
     // an array of uint16_t's representing our bit states (on/off)
     // intensities.  Only the low 8 bits are used, but in the future
     // 16bit support can work here as well.
     uint16_t *m_bitStates;
 
     uint16_t m_commandWord;
-
-    mraa::Gpio m_gpioClk;
-    mraa::Gpio m_gpioData;
 
   private:
   };

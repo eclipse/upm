@@ -38,7 +38,7 @@ using namespace std;
   (((_val) < (_min)) ? (_min) : (((_val) > (_max)) ? (_max) : (_val)))
 
 VCAP::VCAP(string videoDev) :
-  m_buffer(0), m_fd(-1)
+    m_fd(-1), m_buffer(0)
 {
   memset(&m_caps, 0, sizeof(struct v4l2_capability));
   memset(&m_format, 0, sizeof(struct v4l2_format));

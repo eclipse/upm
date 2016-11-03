@@ -1418,11 +1418,11 @@ namespace upm {
     mraa::I2c *m_i2c;
     mraa::Spi *m_spi;
 
-    // spi chip select
-    mraa::Gpio *m_gpioCS;
-
     mraa::Gpio *m_gpioIntr1;
     mraa::Gpio *m_gpioIntr2;
+
+    // spi chip select
+    mraa::Gpio *m_gpioCS;
 
     uint8_t m_addr;
     RESOLUTION_T m_resolution;

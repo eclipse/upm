@@ -511,7 +511,7 @@ const unsigned char font[] = {
  * @con spi
  *
  * @brief API for the ST7735 LCD
- * 
+ *
  * This module defines the interface for the ST7735 display library
  *
  * @image html st7735.jpg
@@ -625,13 +625,13 @@ class ST7735 : public GFX {
 
         uint8_t m_map[160 * 128 * 2]; /**< Screens buffer */
     private:
-        mraa::Spi      m_spi;
         uint8_t        m_spiBuffer[32];
-        
+
         mraa::Gpio     m_csLCDPinCtx;
         mraa::Gpio     m_cSDPinCtx;
         mraa::Gpio     m_rSTPinCtx;
         mraa::Gpio     m_rSPinCtx;
+        mraa::Spi      m_spi;
 
         std::string    m_name;
 };

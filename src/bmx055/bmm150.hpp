@@ -552,11 +552,11 @@ namespace upm {
     mraa::I2c *m_i2c;
     mraa::Spi *m_spi;
 
-    // spi chip select
-    mraa::Gpio *m_gpioCS;
-
     mraa::Gpio *m_gpioIntr;
     mraa::Gpio *m_gpioDR;
+
+    // spi chip select
+    mraa::Gpio *m_gpioCS;
 
     uint8_t m_addr;
 

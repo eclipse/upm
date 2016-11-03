@@ -97,9 +97,9 @@ namespace upm {
     int value();
 
   private:
-    mraa::Aio m_aioOUT;
     mraa::Gpio m_gpioLOPlus;
     mraa::Gpio m_gpioLOMinus;
+    mraa::Aio m_aioOUT;
 
     float m_aref;
     int m_ares;

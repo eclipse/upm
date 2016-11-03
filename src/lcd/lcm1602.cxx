@@ -42,10 +42,10 @@ using namespace upm;
 
 Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
                  uint8_t numColumns, uint8_t numRows) :
+  m_numColumns(numColumns), m_numRows(numRows),
   m_i2c_lcd_control(new mraa::I2c(bus_in)),
   m_gpioRS(0), m_gpioEnable(0), m_gpioD0(0),
-  m_gpioD1(0), m_gpioD2(0), m_gpioD3(0),
-  m_numColumns(numColumns), m_numRows(numRows)
+  m_gpioD1(0), m_gpioD2(0), m_gpioD3(0)
 {
     mraa::Result error = mraa::SUCCESS;
     m_name = "Lcm1602 (I2C)";
@@ -103,11 +103,11 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
 Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0, 
                  uint8_t d1, uint8_t d2, uint8_t d3,
                  uint8_t numColumns, uint8_t numRows) :
+  m_numColumns(numColumns), m_numRows(numRows),
   m_i2c_lcd_control(0),  
   m_gpioRS(new mraa::Gpio(rs)), m_gpioEnable(new mraa::Gpio(enable)), 
   m_gpioD0(new mraa::Gpio(d0)), m_gpioD1(new mraa::Gpio(d1)),
-  m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3)),
-  m_numColumns(numColumns), m_numRows(numRows)
+  m_gpioD2(new mraa::Gpio(d2)), m_gpioD3(new mraa::Gpio(d3))
 {
     m_name = "Lcm1602 (4-bit GPIO)";
     m_isI2C = false;

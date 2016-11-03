@@ -141,10 +141,10 @@ namespace upm {
 
 
   protected:
+    mraa::Aio m_aioHum;
+
     // temperature is an optional feature of the humidity transmitter
     mraa::Aio *m_aioTemp;
-
-    mraa::Aio m_aioHum;
 
   private:
     float m_aref;

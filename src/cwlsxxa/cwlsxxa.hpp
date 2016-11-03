@@ -156,12 +156,13 @@ namespace upm {
 
 
   protected:
-    // temperature and humidity are optional features of this transmitter
-    mraa::Aio *m_aioTemp;
-    mraa::Aio *m_aioHum;
-
     // CO2 reporting is always supported
     mraa::Aio m_aioCO2;
+
+    // temperature and humidity are optional features of this transmitter
+    mraa::Aio *m_aioHum;
+    mraa::Aio *m_aioTemp;
+
 
   private:
     float m_aref;

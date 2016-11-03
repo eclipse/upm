@@ -163,7 +163,7 @@ namespace upm {
     {
       m_debugging = enable;
     };
-    
+
   protected:
     // open the device and check that it meats minimum requirements
     bool initVideoDevice();
@@ -180,13 +180,13 @@ namespace upm {
 
     // does the actual capture
     bool doCaptureImage();
-    
+
   private:
     // internal ioctl
     int xioctl(int fd, int request, void* argp);
-               
+
     std::string m_videoDevice;
-    
+
     // our file descriptor to the video device
     int m_fd;
 
@@ -210,5 +210,3 @@ namespace upm {
     bool m_debugging;
   };
 }
-
-
