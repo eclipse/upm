@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,36 +31,63 @@
 using namespace upm;
 using namespace std;
 
-GUVAS12D::GUVAS12D(int pin)
+GUVAS12D::GUVAS12D(int pin, float aref) :
+    m_guvas12d(guvas12d_init(pin, aref))
 {
-  if ( !(m_aio = mraa_aio_init(pin)) )
+    if (!m_guvas12d)
     {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": guvas12d_init() failed");
       return;
     }
 }
 
 GUVAS12D::~GUVAS12D()
 {
-  mraa_aio_close(m_aio);
+    guvas12d_close(m_guvas12d);
 }
 
 float GUVAS12D::value(float aref, unsigned int samples)
 {
-  int val;
-  unsigned long sum = 0;
+    (void)(samples); // unused, this method is deprecated.
 
-  for (unsigned int i=0; i<samples; i++)
+    // this is a hack, but this function should go away anyway
+    if (aref != m_guvas12d->aref)
+        m_guvas12d->aref = aref;
+
+    return volts();
+}
+
+float GUVAS12D::volts()
+{
+    float volts;
+    if (guvas12d_get_volts(m_guvas12d, &volts))
     {
-      val = mraa_aio_read(m_aio);
-      if (val == -1) return -1;
-      sum += val;
-      usleep(2000);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": guvas12d_get_volts() failed");
     }
 
-  sum = sum / samples;
-  float volts = (float)sum * aref / 1024.0;
+    return volts;
+}
 
-  return volts;
+float GUVAS12D::intensity()
+{
+    float i;
+    if (guvas12d_get_intensity(m_guvas12d, &i))
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": guvas12d_get_intensity() failed");
+    }
+
+    return i;
+}
+
+void GUVAS12D::setScale(float scale)
+{
+    guvas12d_set_scale(m_guvas12d, scale);
+}
+
+void GUVAS12D::setOffset(float offset)
+{
+    guvas12d_set_offset(m_guvas12d, offset);
 }

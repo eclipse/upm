@@ -1,6 +1,7 @@
 /*
  * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ *         Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,24 +24,26 @@
  */
 
 public class GUVAS12DSample {
-	// analog voltage, usually 3.3 or 5.0
-	private static final float GUVAS12D_AREF = 5;
-	private static final int SAMPLES_PER_QUERY = 1024;
+    // analog voltage, usually 3.3 or 5.0
+    private static final float GUVAS12D_AREF = 5;
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a GUVAS12D on analog pin A3
-		upm_guvas12d.GUVAS12D volts = new upm_guvas12d.GUVAS12D(3);
+    public static void main(String[] args) throws InterruptedException {
+        // ! [Interesting]
+        // Instantiate a GUVAS12D on analog pin A0
+        upm_guvas12d.GUVAS12D volts = new upm_guvas12d.GUVAS12D(0,
+                                                                GUVAS12D_AREF);
 
-		while (true) {
-			float value = volts.value(GUVAS12D_AREF, SAMPLES_PER_QUERY);
+        while (true)
+        {
+            System.out.println("Volts: "
+                               + volts.volts()
+                               + ", Intensity: "
+                               + volts.intensity()
+                               + " mW/m^2");
 
-			System.out.println("AREF: " + GUVAS12D_AREF
-					+ ", Voltage value (higher means more UV): " + value);
-
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
-	}
+            Thread.sleep(1000);
+        }
+        // ! [Interesting]
+    }
 
 }

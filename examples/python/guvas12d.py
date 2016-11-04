@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Author: Zion Orent <zorent@ics.com>
-# Copyright (c) 2015 Intel Corporation.
+#         Jon Trulson <jtrulson@ics.com>
+# Copyright (c) 2015-2016 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -26,12 +27,11 @@ import time, sys, signal, atexit
 from upm import pyupm_guvas12d as upmUV
 
 def main():
-    # Instantiate a UV sensor on analog pin A0
-    myUVSensor = upmUV.GUVAS12D(0);
-
     # analog voltage, usually 3.3 or 5.0
     GUVAS12D_AREF = 5.0;
-    SAMPLES_PER_QUERY = 1024;
+
+    # Instantiate a UV sensor on analog pin A0
+    myUVSensor = upmUV.GUVAS12D(0, GUVAS12D_AREF);
 
     ## Exit handlers ##
     # This function stops python from printing a stacktrace when you hit control-C
@@ -48,10 +48,8 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        s = ("AREF:  {0}, "
-        "Voltage value (higher means more UV): "
-        "{1}".format(GUVAS12D_AREF,
-        myUVSensor.value(GUVAS12D_AREF, SAMPLES_PER_QUERY)))
+        s = ("Volts:  {0}, Intensity: {1} mW/m^2".format(myUVSensor.volts(),
+                                                         myUVSensor.intensity()))
         print(s)
         time.sleep(1)
 

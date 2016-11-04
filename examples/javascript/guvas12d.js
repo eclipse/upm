@@ -1,6 +1,7 @@
 /*
 * Author: Zion Orent <zorent@ics.com>
-* Copyright (c) 2014 Intel Corporation.
+*         Jon Trulson <jtrulson@ics.com>
+* Copyright (c) 2014-2016 Intel Corporation.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -24,26 +25,22 @@
 
 var UVSensor = require('jsupm_guvas12d');
 
-// Instantiate a UV sensor on analog pin A0
-var myUVSensor = new UVSensor.GUVAS12D(0);
-
 // analog voltage, usually 3.3 or 5.0
 var g_GUVAS12D_AREF = 5.0;
-var g_SAMPLES_PER_QUERY = 1024;
+
+// Instantiate a UV sensor on analog pin A0
+var myUVSensor = new UVSensor.GUVAS12D(0, g_GUVAS12D_AREF);
 
 setInterval(function()
 {
-	var outputStr = "AREF: " + g_GUVAS12D_AREF 
-					+ ", Voltage value (higher means more UV): "
-					+ roundNum(myUVSensor.value(g_GUVAS12D_AREF, g_SAMPLES_PER_QUERY), 6);
-	console.log(outputStr);
-}, 1000);
+    var outputStr = "Volts: "
+        + myUVSensor.volts()
+	+ ", Intensity: "
+        + myUVSensor.intensity()
+        + " mW/m^2";
 
-function roundNum(num, decimalPlaces)
-{
-	var extraNum = (1 / (Math.pow(10, decimalPlaces) * 1000));
-	return (Math.round((num + extraNum) * (Math.pow(10, decimalPlaces))) / Math.pow(10, decimalPlaces));
-}
+    console.log(outputStr);
+}, 1000);
 
 // Print message when exiting
 process.on('SIGINT', function()

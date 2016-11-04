@@ -133,6 +133,7 @@ add_example (uln200xa)
 add_example (mma7660)
 add_example (buzzer)
 add_example (ppd42ns)
+add_example (guvas12d)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

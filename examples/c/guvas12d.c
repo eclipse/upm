@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,11 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
-#include "guvas12d.hpp"
 
-using namespace std;
+#include <upm_utilities.h>
+#include <guvas12d.h>
 
 bool shouldRun = true;
 
@@ -50,23 +50,40 @@ int main()
     // response is around 320-360nm.
 
     // Instantiate a GUVAS12D on analog pin A0
-    upm::GUVAS12D *volts = new upm::GUVAS12D(0);
+    guvas12d_context uv = guvas12d_init(0, GUVAS12D_AREF);
+
+    if (!uv)
+    {
+        printf("guvas12d_init() failed\n");
+        return 1;
+    }
 
     // The higher the voltage the more intense the UV radiation.
-
     while (shouldRun)
     {
-        cout << "Volts: " << volts->volts()
-             << ", Intensity: " << volts->intensity()
-             << " mW/m^2"
-             << endl;
+        float volts = 0;
+        float intensity = 0;
 
-        sleep(1);
+        if (guvas12d_get_volts(uv, &volts))
+        {
+            printf("guvas12d_get_volts() failed\n");
+            return 1;
+        }
+
+        if (guvas12d_get_intensity(uv, &intensity))
+        {
+            printf("guvas12d_get_intensity() failed\n");
+            return 1;
+        }
+
+        printf("Volts: %f, Intensity %f mW/m^2\n", volts, intensity);
+
+        upm_delay(1);
     }
+
+    printf("Exiting\n");
+
+    guvas12d_close(uv);
 //! [Interesting]
-
-    cout << "Exiting" << endl;
-
-    delete volts;
     return 0;
 }
