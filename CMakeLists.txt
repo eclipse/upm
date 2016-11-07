@@ -89,9 +89,11 @@ function (upm_add_compile_flags compiler)
 endfunction ()
 
 # Compiler flags common to both C and CXX
-set (C_CXX_WARNING_FLAGS -Wall)
+# Enable -Wall
+# GCC-6 added -Wmisleading-indentation to -Wall, skip these for now
+set (C_CXX_WARNING_FLAGS -Wall -Wno-misleading-indentation)
 
-# Errors as warnings?
+# Warnings as errors?
 if (WERROR)
   list (APPEND C_CXX_WARNING_FLAGS -Werror)
   message (STATUS "Warnings as errors enabled (-Werror), disable with -DWERROR=off")
