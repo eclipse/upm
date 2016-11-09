@@ -44,148 +44,47 @@
 using namespace upm;
 using namespace std;
 
-MY9221::MY9221 (uint8_t dataPin, uint8_t clockPin, int instances)
-  : m_gpioData(dataPin), m_gpioClk(clockPin), m_bitStates(0)
+MY9221::MY9221 (uint8_t dataPin, uint8_t clockPin, int instances) :
+    m_my9221(my9221_init(dataPin, clockPin, instances))
 {
-  if (instances < 1)
-    {
-      throw std::out_of_range(std::string(__FUNCTION__) +
-                              ": instances must be at least 1");
-    }
+    if (!m_my9221)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": my9221_init() failed");
 
-  // set directions
-  m_gpioClk.dir(mraa::DIR_OUT);
-  m_gpioData.dir(mraa::DIR_OUT);
-  
-  // we warn if these fail, since it may not be possible to handle
-  // more than one instance
-
-  if (m_gpioClk.useMmap(true) != mraa::SUCCESS)
-    cerr << __FUNCTION__
-         << ": Warning: mmap of Clk pin failed, correct operation "
-         << "may be affected."
-         << endl;
-
-  if (m_gpioData.useMmap(true) != mraa::SUCCESS)
-    cerr << __FUNCTION__
-         << ": Warning: mmap of Data pin failed, correct operation "
-         << "may be affected."
-         << endl;
-
-  setLowIntensityValue(0x00);   // full off
-  setHighIntensityValue(0xff);  // full brightness
-
-  m_commandWord = 0x0000;       // all defaults
-  m_instances = instances;
-
-  m_bitStates = new uint16_t[instances * LEDS_PER_INSTANCE];
-
-  setAutoRefresh(true);
-  clearAll();
 }
 
 MY9221::~MY9221()
 {
-  clearAll();
-
-  if (!m_autoRefresh)
-    refresh();
-
-  delete m_bitStates;
+    my9221_close(m_my9221);
 }
 
 void MY9221::setLED(int led, bool on)
 {
-  int maxLed = (LEDS_PER_INSTANCE * m_instances) - 1;
-
-  if (led > maxLed)
-    led = maxLed;
-  if (led < 0)
-    led = 0;
-
-  m_bitStates[led] = (on) ? m_highIntensity : m_lowIntensity;
-
-  if (m_autoRefresh)
-    refresh();
+    my9221_set_led(m_my9221, led, on);
 }
 
 void MY9221::setLowIntensityValue(int intensity)
 {
-  m_lowIntensity = (intensity & 0xff);
+    my9221_set_low_intensity_value(m_my9221, intensity);
 }
 
 void MY9221::setHighIntensityValue(int intensity)
 {
-  m_highIntensity = (intensity & 0xff);
+    my9221_set_high_intensity_value(m_my9221, intensity);
 }
 
 void MY9221::setAll()
 {
-  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
-    m_bitStates[i] = m_highIntensity;
-
-  if (m_autoRefresh)
-    refresh();
+    my9221_set_all(m_my9221);
 }
 
 void MY9221::clearAll()
 {
-  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
-    m_bitStates[i] = m_lowIntensity;
-
-  if (m_autoRefresh)
-    refresh();
+    my9221_clear_all(m_my9221);
 }
 
 void MY9221::refresh()
 {
-  for (int i=0; i< static_cast<int>(m_instances * LEDS_PER_INSTANCE); i++)
-    {
-      if (i % 12 == 0)
-        {
-          send16bitBlock(m_commandWord);
-        }
-      send16bitBlock(m_bitStates[i]);
-    }
-
-  lockData();
+    my9221_refresh(m_my9221);
 }
 
-void MY9221::lockData()
-{
-  m_gpioData.write(0);
-  usleep(220);
-
-  for(int idx = 0; idx < 4; idx++)
-    {
-      m_gpioData.write(1);
-      m_gpioData.write(0);
-    }
-
-  // in reality, we only need > 200ns + (m_instances * 10ns), so the
-  // following should be good for up to m_instances < 80), if the
-  // datasheet is to be believed :)
-  usleep(1);
-
-  return;
-}
-
-void MY9221::send16bitBlock(uint16_t data)
-{
-  for (uint8_t bit_idx = 0; bit_idx < 16; bit_idx++)
-    {
-      uint32_t state = (data & 0x8000) ? 1 : 0;
-      m_gpioData.write(state);
-      state = m_gpioClk.read();
-
-      if (state)
-        state = 0;
-      else
-        state = 1;
-      
-      m_gpioClk.write(state);
-      
-      data <<= 1;
-    }
-  return;
-}

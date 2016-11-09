@@ -1,5 +1,8 @@
-set (libname "my9221")
-set (libdescription "12-channel (RBG x 4) constant current LED driver with grayscale")
-set (module_src ${libname}.cxx groveledbar.cxx grovecircularled.cxx)
-set (module_hpp ${libname}.hpp groveledbar.hpp grovecircularled.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME my9221
+    DESCRIPTION "12-channel constant current LED driver with grayscale"
+    C_HDR my9221.h
+    C_SRC my9221.c
+    CPP_HDR my9221.hpp groveledbar.hpp grovecircularled.hpp
+    CPP_SRC my9221.cxx groveledbar.cxx grovecircularled.cxx
+    CPP_WRAPS_C
+    REQUIRES mraa)

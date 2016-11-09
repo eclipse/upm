@@ -45,11 +45,11 @@ using namespace upm;
 using namespace std;
 
 GroveCircularLED::GroveCircularLED (uint8_t dataPin, uint8_t clockPin)
-  : MY9221(dataPin, clockPin, 2)
+    : MY9221(dataPin, clockPin, 2)
 {
-  // auto refresh by default
-  setAutoRefresh(true);
-  clearAll();
+    // auto refresh by default
+    setAutoRefresh(true);
+    clearAll();
 }
 
 GroveCircularLED::~GroveCircularLED()
@@ -58,37 +58,44 @@ GroveCircularLED::~GroveCircularLED()
 
 void GroveCircularLED::setSpinner(uint8_t position)
 {
-  if (position > 23)
-    position = 23;
+    if (position > 23)
+        position = 23;
 
-  for (uint8_t i=0; i<(LEDS_PER_INSTANCE * m_instances); i++)
-    m_bitStates[i] = (i == position) ? m_highIntensity : m_lowIntensity;
+    unsigned int ledsPerInstance = m_my9221->max_leds_per_instance;
 
-  if (m_autoRefresh)
-    refresh();
+    for (uint8_t i=0; i<(ledsPerInstance * m_my9221->instances); i++)
+        m_my9221->bitStates[i] =
+            (i == position) ? m_my9221->highIntensity : m_my9221->lowIntensity;
 
-  return;
+    if (m_my9221->autoRefresh)
+        refresh();
+
+    return;
 }
 
 void GroveCircularLED::setLevel(uint8_t level, bool direction)
 {
-  if (level > 23)
-    level = 23;
+    if (level > 23)
+        level = 23;
 
-  if (!direction)
+    unsigned int ledsPerInstance = m_my9221->max_leds_per_instance;
+
+    if (!direction)
     {
-      for (int i=0; i < static_cast<int>(LEDS_PER_INSTANCE * m_instances); i++)
-        m_bitStates[i] = (i < level) ? m_highIntensity : m_lowIntensity;
+        for (unsigned int i=0; i < (ledsPerInstance * m_my9221->instances); i++)
+            m_my9221->bitStates[i] =
+                (i < level) ? m_my9221->highIntensity : m_my9221->lowIntensity;
     }
-  else
+    else
     {
-      for (int i=0; i< static_cast<int>(LEDS_PER_INSTANCE * m_instances); i++)
-        m_bitStates[i] = (((LEDS_PER_INSTANCE * m_instances) - i) <= level)
-          ? m_highIntensity : m_lowIntensity;
+        for (unsigned int i=0; i<(ledsPerInstance * m_my9221->instances); i++)
+            m_my9221->bitStates[i] =
+                (((ledsPerInstance * m_my9221->instances) - i) <= level)
+                ? m_my9221->highIntensity : m_my9221->lowIntensity;
     }
 
-  if (m_autoRefresh)
-    refresh();
+    if (m_my9221->autoRefresh)
+        refresh();
 
-  return;
+    return;
 }

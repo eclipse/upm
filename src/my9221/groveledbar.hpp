@@ -90,7 +90,8 @@ namespace upm {
      * together, this argument selects a specific bar starting at 0.
      * The default is 0.
      */
-    void setBarLevel(uint8_t level, bool greenToRed=true, int barNumber=0);
+    void setBarLevel(uint8_t level, bool greenToRed=true,
+                     unsigned int barNumber=0);
 
   protected:
   private:
