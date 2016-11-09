@@ -547,12 +547,23 @@ elseif (BUILDSWIGPYTHON)
   file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i "// Empty doxy2swig stub")
 endif (BUILDDOC AND BUILDSWIGPYTHON)
 
+# Add subdirectories from MODULE_LIST if defined
+# Example -DMODULE_LIST="dfrph;rotaryencoder"
 if (MODULE_LIST)
   set(SUBDIRS ${MODULE_LIST})
   set(SUBDIRS ${SUBDIRS} upm)
 else()
+  # Otherwise, add all subdirectories
   subdirlist(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
+
+# If the SUBDIRS list does NOT include the utilities directory, add it since
+# most sensor library targets depend on utilities
+if (NOT "${SUBDIRS}" MATCHES utilities)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/src/utilities)
+endif()
+
+# Iterate over each directory in SUBDIRS
 foreach(subdir ${SUBDIRS})
     if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/CMakeLists.txt)
         add_subdirectory(${subdir})
