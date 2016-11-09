@@ -202,7 +202,7 @@ HTU21D::testSensor(void)
     int iError = 0;
     float fTemp, fHum;
     float fTempMax, fTempMin;
-    float fHumMax, fHumMin;
+    float fHumMax = 0.0, fHumMin = 0.0;
     float fTempFirst;
 
     fprintf(stdout, "Executing Sensor Test\n" );

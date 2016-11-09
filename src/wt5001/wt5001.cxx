@@ -493,7 +493,7 @@ uint8_t WT5001::getPlayState()
 bool WT5001::getNumFiles(WT5001_PLAYSOURCE_T psrc, uint16_t *numf)
 {
   char pkt[4];
-  WT5001_OPCODE_T opcode;
+  WT5001_OPCODE_T opcode = NONE;
 
   pkt[0] = WT5001_START;
   pkt[1] = 0x02;                // length

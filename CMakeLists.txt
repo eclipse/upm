@@ -71,6 +71,7 @@ include (CheckCXXCompilerFlag)
 # This function checks to see if each flag is supported
 # by the compiler before setting the compile option.
 function (upm_add_compile_flags compiler)
+  set (_TMP_COMPILER_FLAGS "")
   # Iterate the flags, check if supported
   foreach (flag ${ARGN})
     # Check if this compile flag is supported
@@ -85,7 +86,7 @@ function (upm_add_compile_flags compiler)
   endforeach (flag ${ARGN})
 
   # Set the variable in the parent scope
-  set (CMAKE_${compiler}_FLAGS ${_TMP_COMPILER_FLAGS} PARENT_SCOPE)
+  set (CMAKE_${compiler}_FLAGS "${CMAKE_${compiler}_FLAGS} ${_TMP_COMPILER_FLAGS}" PARENT_SCOPE)
 endfunction ()
 
 # Compiler flags common to both C and CXX
@@ -95,7 +96,7 @@ set (C_CXX_WARNING_FLAGS -Wall -Wno-misleading-indentation)
 
 # Warnings as errors?
 if (WERROR)
-  list (APPEND C_CXX_WARNING_FLAGS -Werror)
+  set (C_CXX_WARNING_FLAGS "-Werror ${C_CXX_WARNING_FLAGS}")
   message (STATUS "Warnings as errors enabled (-Werror), disable with -DWERROR=off")
 endif (WERROR)
 

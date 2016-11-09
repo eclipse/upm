@@ -145,7 +145,7 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 {
 
     COMMAND * cmdPacket = new COMMAND ;
-    mraa::Result ret;
+    mraa::Result ret = mraa::SUCCESS;
 
 	switch(cmd)
 	{
