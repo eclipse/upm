@@ -141,6 +141,7 @@ add_example (ms5803)
 add_example (ims)
 add_example (ecezo)
 add_example (mb704x)
+add_example (mcp2515)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
@@ -149,3 +150,4 @@ add_custom_example (lcm1602-parallel-example-c lcm1602-parallel.c lcm1602)
 add_custom_example (rpr220-intr-example-c rpr220-intr.c rpr220)
 add_custom_example (md-stepper-example-c md-stepper.c md)
 add_custom_example (button_intr-example-c button_intr.c button)
+add_custom_example (mcp2515-txrx-example-c mcp2515-txrx.c mcp2515)
