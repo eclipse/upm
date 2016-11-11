@@ -1,7 +1,9 @@
 # Selectively disable certain CXX warnings for SWIG wrappers
 # SWIG wrappers emit -Wdelete-non-virtual-dtor and -Wunused-function warnings
 set (SWIG_CXX_DISABLE_WARNINGS -Wno-delete-non-virtual-dtor
-                               -Wno-unused-function)
+                               -Wno-unused-function
+                               -Wno-maybe-uninitialized
+                               -Wno-strict-aliasing)
 
 macro (file_to_list readfile outlist)
   FILE(READ "${readfile}" contents)

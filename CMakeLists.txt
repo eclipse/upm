@@ -92,7 +92,7 @@ endfunction ()
 # Compiler flags common to both C and CXX
 # Enable -Wall
 # GCC-6 added -Wmisleading-indentation to -Wall, skip these for now
-set (C_CXX_WARNING_FLAGS -Wall -Wno-misleading-indentation)
+set (C_CXX_WARNING_FLAGS -Wall -Wno-misleading-indentation -Wno-strict-aliasing)
 
 # Warnings as errors?
 if (WERROR)

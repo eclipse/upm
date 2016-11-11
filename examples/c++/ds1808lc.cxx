@@ -23,7 +23,7 @@ void printState(upm::ILightController *lightController)
 int main( int argc, char **argv )
 {
    int status = 0;
-   upm::ILightController* lightController;
+   upm::ILightController* lightController = nullptr;
 
    try {
       lightController = new upm::DS1808LC(DS1808_GPIO_PWR, EDISON_I2C_BUS);
