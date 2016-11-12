@@ -321,6 +321,7 @@ add_example (hka5)
 add_example (dfrorp)
 add_example (dfrec)
 add_example (sht1x)
+add_example (ms5803)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
