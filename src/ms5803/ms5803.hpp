@@ -50,16 +50,16 @@ namespace upm {
      * sensors with SPI and I2C bus interface. It is optimized for
      * depth measurement systems with a water depth resolution of 1cm
      * and below. The sensor module includes a high linear pressure
-     * sensor and an ultra low power 24 bit ΔΣ ADC with internal
-     * factory calibrated coefficients. It provides a precise digital
-     * 24 Bit pressure and temperature value and different operation
-     * modes that allow the user to optimize for conversion speed and
-     * current consumption. A high resolution temperature output
-     * allows the implementation of a depth measurement systems and
-     * thermometer function without any additional sensor.
+     * sensor and an ultra low power 24 bit delta-sigma ADC with
+     * internal factory calibrated coefficients. It provides a precise
+     * digital 24 bit pressure and temperature value and different
+     * operation modes that allow the user to optimize for conversion
+     * speed and current consumption. A high resolution temperature
+     * output allows the implementation of a depth measurement systems
+     * and thermometer function without any additional sensor.
      *
      * The device is driven at 3.3vdc, and has a pressure range of
-     * between 0 and 14 Bar, and a temperature range fo between -40
+     * between 0 and 14 Bar, and a temperature range of between -40
      * and +85C.
      *
      * @snippet ms5803.cxx Interesting
