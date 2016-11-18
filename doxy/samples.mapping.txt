@@ -24,6 +24,7 @@ hcsr04.cxx	HCSR04Sample.java	hcsr04.js	hcsr04.py
 hm11.cxx	HM11Sample.java	hm11.js	hm11.py
 hmc5883l.cxx	Hmc5883lSample.java	hmc5883l.js	hmc5883l.py
 htu21d.cxx	HTU21DSample.java	htu21d.js	htu21d.py
+ims.cxx	IMS_Example.java	ims.js	ims.py
 itg3200.cxx	Itg3200Sample.java	itg3200.js	itg3200.py
 jhd1313m1-lcd.cxx	Jhd1313m1_lcdSample.java	jhd1313m1-lcd.js	jhd1313m1-lcd.py
 joystick12.cxx	Joystick12Sample.java	joystick12.js	joystick12.py
