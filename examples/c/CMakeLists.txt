@@ -140,6 +140,7 @@ add_example (button_intr)
 add_example (my9221)
 add_example (ms5803)
 add_example (ims)
+add_example (ecezo)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
