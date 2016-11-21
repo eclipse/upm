@@ -4,6 +4,13 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.0.1
+
+ * Warnings as errors enabled for C/CXX (fixed warnings from -Wall and others)
+ * Fix for C/CXX compile flag append issue #485
+ * C sensor libraries for: my9221, otp538u, guvas12d, ppd42ns
+ * New sensor: ms5803
+
 ### v1.0.0
 
  * Added approximately 50 C sources for UPM drivers that can be used on both
