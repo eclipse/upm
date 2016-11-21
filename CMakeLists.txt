@@ -89,7 +89,7 @@ function (upm_add_compile_flags compiler)
   endforeach (flag ${ARGN})
 
   # Set the variable in the parent scope
-  set (CMAKE_${compiler}_FLAGS "${CMAKE_${compiler}_FLAGS} ${_TMP_COMPILER_FLAGS}" PARENT_SCOPE)
+  list (APPEND CMAKE_${compiler}_FLAGS ${_TMP_COMPILER_FLAGS} PARENT_SCOPE)
 endfunction ()
 
 # Compiler flags common to both C and CXX
