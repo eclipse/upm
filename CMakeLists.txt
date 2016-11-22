@@ -187,7 +187,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 # If git_describe fails, use a dirty version
 if (${VERSION} MATCHES -NOTFOUND)
-  set (VERSION "v1.0.1-dirty")
+  set (VERSION "v1.0.1")
   message (WARNING "Failed to retrieve UPM version with 'git describe' (using "
       "${VERSION}). Check that git is installed and this is a valid git repo.")
 endif ()
@@ -381,7 +381,6 @@ endif()
 
 if (RPM)
   message (STATUS "RPM packaging enabled for ${DETECTED_ARCH}")
-  set(CPACK_PACKAGE_VERSION ${VERSION})
   set(CPACK_GENERATOR "RPM")
   set(CPACK_PACKAGE_NAME "upm")
   set(upm_PACKAGE_ON_TAG ".")
