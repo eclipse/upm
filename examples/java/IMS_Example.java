@@ -31,7 +31,7 @@ public class IMS_Example
         // ! [Interesting]
 
         // Instantiate a IMS instance using bus 0 and default i2c address
-        IMS sensor = new IMS(0);
+        IMS sensor = new IMS((short)0);
 
         while (true)
         {

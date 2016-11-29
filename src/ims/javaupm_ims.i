@@ -5,6 +5,7 @@
     #include "ims.hpp"
 %}
 
+%include "ims.h"
 %include "ims.hpp"
 
 %pragma(java) jniclasscode=%{
