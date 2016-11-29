@@ -34,18 +34,18 @@
  */
 
 const char upm_ims_name[] = "IMS";
-const char upm_ims_description[] = "Analog pH Meter Pro";
-const upm_protocol_t upm_ims_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_ims_category[] = {UPM_PH};
+const char upm_ims_description[] = "Catnip Electronics I2C moisture sensor";
+const upm_protocol_t upm_ims_protocol[] = {UPM_I2C};
+const upm_sensor_t upm_ims_category[] = {UPM_LIGHT, UPM_TEMPERATURE, UPM_MOISTURE};
 
 // forward declarations
 const void* upm_ims_get_ft(upm_sensor_t sensor_type);
 void* upm_ims_init_str(const char* protocol, const char* params);
 void upm_ims_close(void* dev);
 const upm_sensor_descriptor_t upm_ims_get_descriptor();
-upm_result_t upm_ims_set_offset(const void* dev, float offset);
-upm_result_t upm_ims_set_scale(const void* dev, float scale);
-upm_result_t upm_ims_get_value(const void* dev, float *value);
+upm_result_t upm_ims_get_light(const void* dev, float *value);
+upm_result_t upm_ims_get_temperature(void* dev, float *value, upm_temperature_u unit);
+upm_result_t upm_ims_get_moisture(void* dev, int *value);
 
 /* This sensor implementes 2 function tables */
 /* 1. Generic base function table */
@@ -56,12 +56,26 @@ static const upm_sensor_ft ft_gen =
     .upm_sensor_get_descriptor = &upm_ims_get_descriptor
 };
 
-/* 2. PH function table */
-static const upm_ph_ft ft_ph =
+/* 2. Light function table */
+static const upm_light_ft ft_light =
 {
-    .upm_ph_set_offset = &upm_ims_set_offset,
-    .upm_ph_set_scale = &upm_ims_set_scale,
-    .upm_ph_get_value = &upm_ims_get_value
+    .upm_light_set_offset = NULL,
+    .upm_light_set_scale = NULL,
+    .upm_light_get_value = &upm_ims_get_light
+};
+
+/* 3. Light function table */
+static const upm_temperature_ft ft_temperature =
+{
+    .upm_temperature_set_offset = NULL,
+    .upm_temperature_set_scale = NULL,
+    .upm_temperature_get_value = &upm_ims_get_temperature
+};
+
+/* 4. Light function table */
+static const upm_moisture_ft ft_moisture =
+{
+    .upm_moisture_sensor_get_moisture = &upm_ims_get_moisture
 };
 
 const void* upm_ims_get_ft(upm_sensor_t sensor_type)
@@ -70,8 +84,12 @@ const void* upm_ims_get_ft(upm_sensor_t sensor_type)
     {
         case UPM_SENSOR:
             return &ft_gen;
-        case UPM_PH:
-            return &ft_ph;
+        case UPM_LIGHT:
+            return &ft_light;
+        case UPM_TEMPERATURE:
+            return &ft_temperature;
+        case UPM_MOISTURE:
+            return &ft_moisture;
         default:
             return NULL;
     }
@@ -79,8 +97,9 @@ const void* upm_ims_get_ft(upm_sensor_t sensor_type)
 
 void* upm_ims_init_str(const char* protocol, const char* params)
 {
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return ims_init(0);
+    fprintf(stderr,
+            "String initialization - not implemented, using i2c bus 0, addr: 0x20: %s\n", __FILENAME__);
+    return ims_init(0, 0x20);
 }
 
 void upm_ims_close(void* dev)
@@ -96,23 +115,32 @@ const upm_sensor_descriptor_t upm_ims_get_descriptor()
     usd.description = upm_ims_description;
     usd.protocol_size = 1;
     usd.protocol = upm_ims_protocol;
-    usd.category_size = 1;
+    usd.category_size = 3;
     usd.category = upm_ims_category;
 
     return usd;
 }
 
-upm_result_t upm_ims_set_offset(const void* dev, float offset)
+upm_result_t upm_ims_get_light(const void* dev, float *value)
 {
-    return ims_set_offset((ims_context)dev, offset);
+    uint16_t data;
+    upm_result_t result = ims_get_light((ims_context*)dev, &data);
+    *value = data;
+    return result;
 }
 
-upm_result_t upm_ims_set_scale(const void* dev, float scale)
+upm_result_t upm_ims_get_temperature(void* dev, float *value, upm_temperature_u unit)
 {
-    return ims_set_scale((ims_context)dev, scale);
+    uint16_t data;
+    upm_result_t result = ims_get_temperature((ims_context*)dev, &data);
+    *value = data;
+    return result;
 }
 
-upm_result_t upm_ims_get_value(const void* dev, float *value)
+upm_result_t upm_ims_get_moisture(void* dev, int *value)
 {
-    return ims_get_ph((ims_context)dev, value);
+    uint16_t data;
+    upm_result_t result = ims_get_moisture((ims_context*)dev, &data);
+    *value = data;
+    return result;
 }

@@ -158,6 +158,7 @@ add_example(DFREC_Example dfrec)
 add_example(SHT1X_Example sht1x)
 add_example(MS5803_Example ms5803)
 add_example(ECEZO_Example ecezo)
+add_example(IMS_Example ecezo)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd i2clcd)
 add_example_with_path(Jhd1313m1Sample lcd i2clcd)
