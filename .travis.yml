@@ -36,7 +36,7 @@ script:
   - sudo make install
   - sudo ldconfig
   # Build/install UPM
-  - cd $UPM_ROOT && mkdir $UPM_BUILD && cd $_ && cmake -DNODE_ROOT_DIR:PATH="${NODE_ROOT_DIR}" -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDEXAMPLES=ON -DBUILDJAVAEXAMPLES=$BUILDJAVA -DBUILDTESTS=ON .. && sudo make install && sudo ldconfig && ctest --output-on-failure -E examplenames_js
+  - cd $UPM_ROOT && mkdir $UPM_BUILD && cd $_ && cmake -DNODE_ROOT_DIR:PATH="${NODE_ROOT_DIR}" -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDEXAMPLES=ON -DBUILDJAVAEXAMPLES=$BUILDJAVA -DBUILDTESTS=ON -DBUILDFTI=ON .. && sudo make install && sudo ldconfig && ctest --output-on-failure -E examplenames_js
 addons:
   apt:
     sources:
