@@ -8,8 +8,7 @@ option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF
 option (BUILDSWIGPYTHON "Build swig python modules" ON)
 option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
-option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
-option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
+option (BUILDEXAMPLES "Build C/C++/JAVA examples" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 option (NPM "Generate NPM/GYP tarballs" OFF)
@@ -138,6 +137,13 @@ find_package (JPEG)
 if (BUILDSWIGNODE)
   find_package (Node REQUIRED)
 endif (BUILDSWIGNODE)
+
+# Find JAVA/JNI
+if (BUILDSWIGJAVA)
+  find_package (Java REQUIRED)
+  find_package (JNI REQUIRED)
+  pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
+endif (BUILDSWIGJAVA)
 
 # Find swig if any wrapper is enabled
 if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
@@ -417,7 +423,8 @@ if(BUILDEXAMPLES)
   endif(BUILDCPP)
 endif()
 
-if(BUILDJAVAEXAMPLES)
+# Build java examples
+if(BUILDSWIGJAVA AND BUILDEXAMPLES)
   add_subdirectory (examples/java)
 endif()
 
