@@ -80,13 +80,9 @@ Building documentation
 ~~~~~~~~~~~~~
 -DBUILDDOC=ON
 ~~~~~~~~~~~~~
-Build C++ example binaries
+Build C/C++/JAVA examples
 ~~~~~~~~~~~~~
 -DBUILDEXAMPLES=ON
-~~~~~~~~~~~~~
-Build Java examples
-~~~~~~~~~~~~~
--DBUILDJAVAEXAMPLES=ON
 ~~~~~~~~~~~~~
 
 If you intend to turn on all the options and build everything at once

@@ -8,8 +8,7 @@ option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF
 option (BUILDSWIGPYTHON "Build swig python modules" ON)
 option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
-option (BUILDEXAMPLES "Build C/C++ example binaries" OFF)
-option (BUILDJAVAEXAMPLES "Build java example jars" OFF)
+option (BUILDEXAMPLES "Build C/C++/JAVA examples" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
 option (NPM "Generate NPM/GYP tarballs" OFF)
@@ -417,7 +416,8 @@ if(BUILDEXAMPLES)
   endif(BUILDCPP)
 endif()
 
-if(BUILDJAVAEXAMPLES)
+# Build java examples
+if(BUILDSWIGJAVA AND BUILDEXAMPLES)
   add_subdirectory (examples/java)
 endif()
 
