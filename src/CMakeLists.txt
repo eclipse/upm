@@ -221,9 +221,6 @@ endmacro(upm_swig_node)
 macro(upm_swig_java)
   # Skip if the libname is in the blacklist
   if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
-    FIND_PACKAGE (JNI REQUIRED)
-    pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
-
     include_directories (
       ${JAVA_INCLUDE_PATH}
       ${JAVA_INCLUDE_PATH2}

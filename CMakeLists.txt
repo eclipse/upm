@@ -138,6 +138,13 @@ if (BUILDSWIGNODE)
   find_package (Node REQUIRED)
 endif (BUILDSWIGNODE)
 
+# Find JAVA/JNI
+if (BUILDSWIGJAVA)
+  find_package (Java REQUIRED)
+  find_package (JNI REQUIRED)
+  pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
+endif (BUILDSWIGJAVA)
+
 # Find swig if any wrapper is enabled
 if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
   find_package (SWIG 3.0.5 REQUIRED)
