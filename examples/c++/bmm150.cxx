@@ -44,8 +44,25 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   // Instantiate an BMM150 using default I2C parameters
-  upm::BMM150 *sensor = new upm::BMM150();
+  upm::BMM150 *sensor = NULL;
 
+  for (int i = 0; i < 4 && sensor == NULL; ++i)
+  {
+    try
+    {
+      cout << "Trying i2c address " << hex << showbase << BMM150_DEFAULT_ADDR + i << endl;
+      sensor = new upm::BMM150(BMM150_I2C_BUS, BMM150_DEFAULT_ADDR + i);
+    }
+    catch (std::exception& e)
+    {
+    }
+
+  }
+
+  if (sensor == NULL)
+  {
+    cout << "Sensor not detected." << endl;
+  }
   // For SPI, bus 0, you would pass -1 as the address, and a valid pin
   // for CS: BMM150(0, -1, 10);
 
