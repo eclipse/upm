@@ -23,6 +23,7 @@
  */
 
 #include <unistd.h>
+#include <string>
 #include <iostream>
 #include <signal.h>
 #include "bmi160.hpp"
@@ -41,10 +42,30 @@ void sig_handler(int signo)
 int main(int argc, char **argv)
 {
   signal(SIGINT, sig_handler);
+  upm::BMI160 *sensor = NULL;
 //! [Interesting]
 
-  // Instantiate a BMI160 instance using default i2c bus and address
-  upm::BMI160 *sensor = new upm::BMI160();
+  // Instantiate a BMI160 instance using default i2c bus and address.
+  // If that fails, try default spi bus.
+  try
+  {
+    sensor = new upm::BMI160();
+  }
+  catch (std::exception& e)
+  {
+    std::cout << "Failed to connect via I2C, trying default SPI bus" << std::endl;
+  }
+
+  try
+  {
+    if (sensor == NULL)
+      sensor = new upm::BMI160(0, -1);
+  }
+  catch (std::exception& e)
+  {
+    std::cout << "Failed to connect via SPI, exiting." << std::endl;
+    return -1;
+  }
 
   while (shouldRun)
     {
