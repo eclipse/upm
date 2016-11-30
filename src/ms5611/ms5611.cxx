@@ -54,7 +54,7 @@ using namespace upm;
 MS5611::MS5611(int i2cBus, int address)
 {
     status = mraa::ERROR_INVALID_RESOURCE;
-    i2c = new mraa::I2c(2);
+    i2c = new mraa::I2c(i2cBus);
     this->address = address;
     i2c->address(address);
     prom = new uint16_t[MS5611_PROM_SIZE];
