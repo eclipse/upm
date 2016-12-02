@@ -324,6 +324,7 @@ add_example (sht1x)
 add_example (ms5803)
 add_example (ims)
 add_example (ecezo)
+add_example (mb704x)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
