@@ -30,11 +30,24 @@ void upm_delay(int time){
 #if defined(UPM_PLATFORM_LINUX)
     sleep(time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+
+    struct k_timer timer;
+    k_timer_init(&timer, NULL, NULL);
+    k_timer_start(&timer, SECONDS(time) + 1, 0);
+    k_timer_status_sync(&timer);
+
+# else
+
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
     nano_timer_start(&timer, SECONDS(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
+
+# endif
+
 #endif
 }
 
@@ -42,11 +55,23 @@ void upm_delay_ms(int time){
 #if defined(UPM_PLATFORM_LINUX)
     usleep(1000 * time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+
+    struct k_timer timer;
+    k_timer_init(&timer, NULL, NULL);
+    k_timer_start(&timer, MSEC(time) + 1, 0);
+    k_timer_status_sync(&timer);
+
+# else
+
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
     nano_timer_start(&timer, MSEC(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
+
+# endif
 #endif
 }
 
@@ -54,11 +79,24 @@ void upm_delay_us(int time){
 #if defined(UPM_PLATFORM_LINUX)
     usleep(time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+
+    struct k_timer timer;
+    k_timer_init(&timer, NULL, NULL);
+    k_timer_start(&timer, USEC(time) + 1, 0);
+    k_timer_status_sync(&timer);
+
+# else
+
     struct nano_timer timer;
     void *timer_data[1];
     nano_timer_init(&timer, timer_data);
     nano_timer_start(&timer, USEC(time) + 1);
     nano_timer_test(&timer, TICKS_UNLIMITED);
+
+# endif
+
 #endif
 }
 

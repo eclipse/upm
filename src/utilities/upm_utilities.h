@@ -45,6 +45,8 @@ typedef struct timeval upm_clock_t;
 #include <zephyr.h>
 #include <device.h>
 #include <sys_clock.h>
+#include <version.h>
+#include <kernel_version.h>
 
 #if defined(CONFIG_STDOUT_CONSOLE)
 #include <stdio.h>
