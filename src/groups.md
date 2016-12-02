@@ -315,9 +315,14 @@ and is not meant to be installed anywhere.
 @brief Honeywell
 
 
-@defgroup maxim Maxim Integrated
+@defgroup sparkfun Sparkfun
 @ingroup byman
-@brief Maxim Integrated
+@brief Sparkfun
+
+
+@defgroup maxbotix MaxBotixs
+@ingroup byman
+@brief MaxBotixs
 
 
 @defgroup meas Measurement Specialties
