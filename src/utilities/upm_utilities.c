@@ -26,16 +26,17 @@
 #include <upm_platform.h>
 #include <upm_utilities.h>
 
-void upm_delay(int time){
-#if defined(UPM_PLATFORM_LINUX)
-    sleep(time);
-#elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
-     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
-
+void upm_delay(int time)
+{
     if (time <= 0)
         time = 1;
+
+#if defined(UPM_PLATFORM_LINUX)
+
+    sleep(time);
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
 
     struct k_timer timer;
     k_timer_init(&timer, NULL, NULL);
@@ -55,16 +56,17 @@ void upm_delay(int time){
 #endif
 }
 
-void upm_delay_ms(int time){
-#if defined(UPM_PLATFORM_LINUX)
-    usleep(1000 * time);
-#elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
-     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
-
+void upm_delay_ms(int time)
+{
     if (time <= 0)
         time = 1;
+
+#if defined(UPM_PLATFORM_LINUX)
+
+    usleep(1000 * time);
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
 
     struct k_timer timer;
     k_timer_init(&timer, NULL, NULL);
@@ -83,19 +85,19 @@ void upm_delay_ms(int time){
 #endif
 }
 
-void upm_delay_us(int time){
-#if defined(UPM_PLATFORM_LINUX)
-    usleep(time);
-#elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
-     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
-
-    // we will use a upm_clock to do microsecond timings here as k_timer has
-    // only a millisecond resolution.  So we init a clock and spin.
-
+void upm_delay_us(int time)
+{
     if (time <= 0)
         time = 1;
+
+#if defined(UPM_PLATFORM_LINUX)
+
+    usleep(time);
+
+#elif defined(UPM_PLATFORM_ZEPHYR)
+# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
+    // we will use a upm_clock to do microsecond timings here as k_timer has
+    // only a millisecond resolution.  So we init a clock and spin.
 
     upm_clock_t timer;
     upm_clock_init(&timer);
