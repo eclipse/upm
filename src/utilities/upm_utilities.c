@@ -30,12 +30,16 @@ void upm_delay(int time){
 #if defined(UPM_PLATFORM_LINUX)
     sleep(time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
+     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
+
+    if (time <= 0)
+        time = 1;
 
     struct k_timer timer;
     k_timer_init(&timer, NULL, NULL);
-    k_timer_start(&timer, SECONDS(time) + 1, 0);
+    k_timer_start(&timer, time * 1000, 0);
     k_timer_status_sync(&timer);
 
 # else
@@ -55,12 +59,16 @@ void upm_delay_ms(int time){
 #if defined(UPM_PLATFORM_LINUX)
     usleep(1000 * time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
+     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
+
+    if (time <= 0)
+        time = 1;
 
     struct k_timer timer;
     k_timer_init(&timer, NULL, NULL);
-    k_timer_start(&timer, MSEC(time) + 1, 0);
+    k_timer_start(&timer, time, 0);
     k_timer_status_sync(&timer);
 
 # else
@@ -79,13 +87,20 @@ void upm_delay_us(int time){
 #if defined(UPM_PLATFORM_LINUX)
     usleep(time);
 #elif defined(UPM_PLATFORM_ZEPHYR)
-# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 1 && \
-     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) >= 6
+# if SYS_KERNEL_VER_MAJOR(KERNEL_VERSION_NUMBER) == 0 &&         \
+     SYS_KERNEL_VER_MINOR(KERNEL_VERSION_NUMBER) == 1 &&         \
+     SYS_KERNEL_VER_PATCHLEVEL(KERNEL_VERSION_NUMBER) >= 6
 
-    struct k_timer timer;
-    k_timer_init(&timer, NULL, NULL);
-    k_timer_start(&timer, USEC(time) + 1, 0);
-    k_timer_status_sync(&timer);
+    // we will use a upm_clock to do microsecond timings here as k_timer has
+    // only a millisecond resolution.  So we init a clock and spin.
+
+    if (time <= 0)
+        time = 1;
+
+    upm_clock_t timer;
+    upm_clock_init(&timer);
+    while (upm_elapsed_us(&timer) < time)
+        ; // spin
 
 # else
 
