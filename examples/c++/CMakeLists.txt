@@ -325,6 +325,8 @@ add_example (ms5803)
 add_example (ims)
 add_example (ecezo)
 add_example (mb704x)
+add_example (rf22-server)
+add_example (rf22-client)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
