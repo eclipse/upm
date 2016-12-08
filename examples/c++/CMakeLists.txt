@@ -328,6 +328,7 @@ add_example (mb704x)
 add_example (rf22-server)
 add_example (rf22-client)
 add_example (mcp2515)
+add_example (max30100)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
