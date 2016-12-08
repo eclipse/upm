@@ -4,6 +4,15 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.0.2
+
+ * Minor cmake changes for Java builds and Java examples are now toggled with
+ the same BUILDEXAMPLES cmake switch
+ * Made some improvements in the utilities class for our C drivers
+ * Fixed issue with some drivers not being usable on subplatforms due to pin
+ numbers using uint8 type
+ * New sensors: ims, ecezo, mb704x, rf22
+
 ### v1.0.1
 
  * Warnings as errors enabled for C/CXX (fixed warnings from -Wall and others)
