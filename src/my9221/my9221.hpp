@@ -54,7 +54,7 @@ namespace upm {
          * @param clockPin Clock pin
          * @param instances Number of daisy-chained my9221s, default 1
          */
-        MY9221(uint8_t dataPin, uint8_t clockPin, int instances=1);
+        MY9221(int dataPin, int clockPin, int instances=1);
 
         /**
          * MY9221 destructor

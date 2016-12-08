@@ -69,9 +69,9 @@ namespace upm
      * @param d3 data 3 pin
      * @param keypad analog pin of the keypad
      */
-    SAINSMARTKS(uint8_t rs=8,  uint8_t enable=9,
-                uint8_t d0=4, uint8_t d1=5, uint8_t d2=6, uint8_t d3=7,
-                uint8_t keypad=0);
+    SAINSMARTKS(int rs=8,  int enable=9,
+                int d0=4, int d1=5, int d2=6, int d3=7,
+                int keypad=0);
     /**
      * SAINSMARTKS destructor
      */

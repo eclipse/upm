@@ -33,7 +33,7 @@
 
 using namespace upm;
 
-GroveUltraSonic::GroveUltraSonic (uint8_t pin) {
+GroveUltraSonic::GroveUltraSonic (int pin) {
     m_name = "GroveUltraSonic";
 
     mraa_init();

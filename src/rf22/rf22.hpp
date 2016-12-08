@@ -521,7 +521,7 @@ public:
      * accessing it. Default is 10 or the normal SS pin for Arduino
      * @param[in] interruptPin The interrupt pin number to use. Default is 2
      */
-    RF22(uint8_t spiBus = 0, uint8_t slaveSelectPin = 10, uint8_t interruptPin = 2);
+    RF22(int spiBus = 0, int slaveSelectPin = 10, int interruptPin = 2);
 
     /**
      * Destructor.

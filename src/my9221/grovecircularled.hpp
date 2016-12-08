@@ -67,7 +67,7 @@ namespace upm {
      * @param dataPin Data pin
      * @param clockPin Clock pin
      */
-    GroveCircularLED(uint8_t dataPin, uint8_t clockPin);
+    GroveCircularLED(int dataPin, int clockPin);
 
     /**
      * GroveCircularLED destructor

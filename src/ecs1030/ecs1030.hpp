@@ -83,7 +83,7 @@ class ECS1030 {
          *
          * @param pinNumber Number of the data pin
          */
-        ECS1030 (uint8_t pinNumber);
+        ECS1030 (int pinNumber);
 
         /**
          * ECS1030 object destructor; basically, it closes the GPIO.

@@ -97,8 +97,8 @@ class Lcm1602 : public LCD
      * @param numColumns Number of columns the display has. Default 16.
      * @param numRows Number of rows the display has. Default 2.
      */
-    Lcm1602(uint8_t rs,  uint8_t enable,
-            uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
+    Lcm1602(int rs,  int enable,
+            int d0, int d1, int d2, int d3,
             uint8_t numColumns = 16, uint8_t numRows = 2);
 
     /**

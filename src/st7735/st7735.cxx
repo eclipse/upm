@@ -34,7 +34,7 @@
 
 using namespace upm;
 
-ST7735::ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst)
+ST7735::ST7735 (int csLCD, int cSD, int rs, int rst)
     : GFX (160, 128, m_map, font), m_spi(0), m_csLCDPinCtx(csLCD), m_cSDPinCtx(cSD),
       m_rSTPinCtx(rst), m_rSPinCtx(rs) {
 

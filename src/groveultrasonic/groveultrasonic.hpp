@@ -69,7 +69,7 @@ class GroveUltraSonic {
          *
          * @param pin pin for triggering the sensor for distance and for receiving pulse response
          */
-        GroveUltraSonic (uint8_t pin);
+        GroveUltraSonic (int pin);
 
         /**
          * GroveUltraSonic object destructor.

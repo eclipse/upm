@@ -75,7 +75,7 @@ static const RF22::ModemConfig MODEM_CONFIG_TABLE[] =
 
 };
 
-RF22::RF22(uint8_t spiBus, uint8_t slaveSelectPin, uint8_t interruptPin)
+RF22::RF22(int spiBus, int slaveSelectPin, int interruptPin)
 {
     _idleMode = RF22_XTON; // Default idle state is READY mode
     _mode = RF22_MODE_IDLE; // We start up in idle mode

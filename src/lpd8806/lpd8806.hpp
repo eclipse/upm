@@ -65,7 +65,7 @@ class LPD8806 {
          * @param pixelCount Number of pixels in the strip
          * @param csn Chip select pin
          */
-        LPD8806 (uint16_t pixelCount, uint8_t csn);
+        LPD8806 (uint16_t pixelCount, int csn);
 
         /**
          * LPD8806 object destructor; basically, it frees the allocated

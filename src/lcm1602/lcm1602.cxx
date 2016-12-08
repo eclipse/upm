@@ -49,8 +49,8 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
                                  ": lcm1602_i2c_init failed");
 }
 
-Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0,
-                 uint8_t d1, uint8_t d2, uint8_t d3,
+Lcm1602::Lcm1602(int rs,  int enable, int d0,
+                 int d1, int d2, int d3,
                  uint8_t numColumns, uint8_t numRows) :
     m_lcm1602(lcm1602_gpio_init(rs, enable, d0, d1, d2, d3, numColumns,
                                 numRows))

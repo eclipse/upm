@@ -33,7 +33,7 @@
 
 using namespace upm;
 
-UltraSonic::UltraSonic (uint8_t pin) {
+UltraSonic::UltraSonic (int pin) {
     m_name = "UltraSonic";
 
     mraa_init();

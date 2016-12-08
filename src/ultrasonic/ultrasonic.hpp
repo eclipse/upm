@@ -67,7 +67,7 @@ class UltraSonic {
          *
          * @param pin pin for triggering the sensor for distance and for receiving pulse response
          */
-        UltraSonic (uint8_t pin);
+        UltraSonic (int pin);
 
         /**
          * UltraSonic object destructor.

@@ -35,7 +35,7 @@
 using namespace upm;
 using namespace std;
 
-SSD1351::SSD1351 (uint8_t oc, uint8_t dc, uint8_t rst) :
+SSD1351::SSD1351 (int oc, int dc, int rst) :
         GFX(SSD1351WIDTH, SSD1351HEIGHT),
         m_spi(0), m_oc(oc), m_dc(dc), m_rst(rst) {
 

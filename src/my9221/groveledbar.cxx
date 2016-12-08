@@ -44,7 +44,7 @@
 using namespace upm;
 using namespace std;
 
-GroveLEDBar::GroveLEDBar (uint8_t dataPin, uint8_t clockPin, int instances)
+GroveLEDBar::GroveLEDBar (int dataPin, int clockPin, int instances)
     : MY9221(dataPin, clockPin, instances)
 {
     // auto refresh by default

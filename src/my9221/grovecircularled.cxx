@@ -44,7 +44,7 @@
 using namespace upm;
 using namespace std;
 
-GroveCircularLED::GroveCircularLED (uint8_t dataPin, uint8_t clockPin)
+GroveCircularLED::GroveCircularLED (int dataPin, int clockPin)
     : MY9221(dataPin, clockPin, 2)
 {
     // auto refresh by default

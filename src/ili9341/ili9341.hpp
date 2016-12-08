@@ -159,7 +159,7 @@ namespace upm {
              * @param dc Data/command pin
              * @param rst Reset pin
              */
-            ILI9341(uint8_t csLCD, uint8_t csSD, uint8_t dc, uint8_t rst);
+            ILI9341(int csLCD, int csSD, int dc, int rst);
 
             /**
              * Returns the name of the component

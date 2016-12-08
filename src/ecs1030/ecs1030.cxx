@@ -32,7 +32,7 @@
 
 using namespace upm;
 
-ECS1030::ECS1030 (uint8_t pinNumber) {
+ECS1030::ECS1030 (int pinNumber) {
     m_dataPinCtx = mraa_aio_init(pinNumber);
     if (m_dataPinCtx == NULL) {
       throw std::invalid_argument(std::string(__FUNCTION__) + 

@@ -44,7 +44,7 @@
 using namespace upm;
 using namespace std;
 
-MY9221::MY9221 (uint8_t dataPin, uint8_t clockPin, int instances) :
+MY9221::MY9221 (int dataPin, int clockPin, int instances) :
     m_my9221(my9221_init(dataPin, clockPin, instances))
 {
     if (!m_my9221)

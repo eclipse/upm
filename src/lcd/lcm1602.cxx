@@ -100,8 +100,8 @@ Lcm1602::Lcm1602(int bus_in, int addr_in, bool isExpander,
     home();
 }
 
-Lcm1602::Lcm1602(uint8_t rs,  uint8_t enable, uint8_t d0, 
-                 uint8_t d1, uint8_t d2, uint8_t d3,
+Lcm1602::Lcm1602(int rs,  int enable, int d0, 
+                 int d1, int d2, int d3,
                  uint8_t numColumns, uint8_t numRows) :
   m_numColumns(numColumns), m_numRows(numRows),
   m_i2c_lcd_control(0),  

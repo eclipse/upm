@@ -73,7 +73,7 @@ namespace upm {
      * @param clockPin Clock pin
      * @param instances Number of daisy-chained Grove LED Bars, default 1
      */
-    GroveLEDBar(uint8_t dataPin, uint8_t clockPin, int instances=1);
+    GroveLEDBar(int dataPin, int clockPin, int instances=1);
 
     /**
      * GroveLEDBar destructor

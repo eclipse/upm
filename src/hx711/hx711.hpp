@@ -63,7 +63,7 @@ namespace upm {
             * @param gain Defines the gain factor
             * Valid values are 128 or 64 for channel A; channel B works with a 32-gain factor only
             */
-            HX711(uint8_t data, uint8_t sck, uint8_t gain = 128);
+            HX711(int data, int sck, uint8_t gain = 128);
 
             /**
             * HX711 destructor

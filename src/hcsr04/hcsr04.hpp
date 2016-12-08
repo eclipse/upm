@@ -65,7 +65,7 @@ class HCSR04 {
          * @param fptr Function pointer to handle rising-edge and
          * falling-edge interrupts
          */
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin);
+        HCSR04 (int triggerPin, int echoPin);
         /**
          * HCSR04 object destructor
          */

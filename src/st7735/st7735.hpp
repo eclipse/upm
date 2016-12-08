@@ -527,7 +527,7 @@ class ST7735 : public GFX {
          * @param rs Data/command pin
          * @param rst Reset pin
          */
-        ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst);
+        ST7735 (int csLCD, int cSD, int rs, int rst);
 
         /**
          * Returns the name of the component

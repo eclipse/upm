@@ -112,7 +112,7 @@ class SSD1351 : public GFX{
          * @param dc Data/command pin
          * @param rst Reset pin
          */
-        SSD1351 (uint8_t oc, uint8_t dc, uint8_t rst);
+        SSD1351 (int oc, int dc, int rst);
 
         /**
          * SSD1351 object destructor

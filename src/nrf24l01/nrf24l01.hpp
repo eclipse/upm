@@ -192,7 +192,7 @@ class NRF24L01 {
          *
          * @param cs Chip select pin
          */
-        NRF24L01 (uint8_t cs, uint8_t ce);
+        NRF24L01 (int cs, int ce);
 
         /**
          * Returns the name of the component
@@ -208,7 +208,7 @@ class NRF24L01 {
          * @param chipSelect Sets up the chip select pin
          * @param chipEnable Sets up the chip enable pin
          */
-        void    init (uint8_t chipSelect, uint8_t chipEnable);
+        void    init (int chipSelect, int chipEnable);
 
         /**
          * Configures the NRF24L01 transceiver
