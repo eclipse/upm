@@ -44,10 +44,11 @@ namespace upm
  *
  * @library hlg150h
  * @sensor hlg150h
- * @comname HLG150H lighting controller
+ * @comname 150W Constant Voltage/current LED Driver
  * @altname HLG150H
  * @type light
  * @con pwm
+ * @web https://www.meanwell-web.com/en/product-info/ac-dc-power-supply/led-driver/101-180-w-led-driver/hlg-150h/product/HLG-150H-24B
  * @if ilightcontroller
  */
 

@@ -33,7 +33,7 @@ namespace upm {
 
   /**
    * @library bacnetmstp
-   * @comname UPM Utility API for BACnet
+   * @comname Utility API for BACnet
    * @con uart
    *
    * @brief UPM Utility API for BACnet

@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME mma7361
-    DESCRIPTION "Triaxial analog accelerometer"
+    DESCRIPTION "Triaxial Analog Accelerometer"
     C_HDR mma7361.h
     C_SRC mma7361.c
     CPP_HDR mma7361.hpp

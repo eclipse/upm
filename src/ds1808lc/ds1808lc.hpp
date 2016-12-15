@@ -43,7 +43,7 @@ namespace upm
  *
  * @library ds1808lc
  * @sensor ds1808lc
- * @comname Maxim  DS1808 as lighting controller
+ * @comname Lighting Controller
  * @altname DS1808LC
  * @type light
  * @man maxim

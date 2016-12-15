@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME lm35
-    DESCRIPTION "Analog temperature sensor"
+    DESCRIPTION "Analog Temperature Sensor"
     C_HDR lm35.h
     C_SRC lm35.c
     CPP_HDR lm35.hpp

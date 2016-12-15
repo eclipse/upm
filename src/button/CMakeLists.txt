@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME button
-    DESCRIPTION "Momentary on/off button"
+    DESCRIPTION "Button"
     C_HDR button.h
     C_SRC button.c
     CPP_HDR button.hpp

@@ -37,7 +37,7 @@ namespace upm {
 /**
  * @library ims
  * @sensor ims
- * @comname Catnip Electronics I2C moisture sensor
+ * @comname I2C Moisture Sensor
  * @type liquid light temp
  * @man catnip
  * @web https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/

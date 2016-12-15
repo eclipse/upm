@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library h803x
    * @sensor h803x
-   * @comname Veris H803X Energy Meter
+   * @comname Veris H803X Energy Meter Module
    * @type electic
    * @man veris
    * @con uart

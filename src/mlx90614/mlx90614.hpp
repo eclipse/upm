@@ -60,10 +60,11 @@ namespace upm {
 /**
  * @library mlx90614
  * @sensor mlx90614
- * @comname MLX90614 Temperature Sensor
+ * @comname Digital No-contact Infrared Thermometer
  * @type temp
  * @man generic
  * @con i2c
+ * @web https://www.melexis.com/en/product/MLX90614/Digital-Plug-Play-Infrared-Thermometer-TO-Can
  *
  * @brief API for the MLX90614 Temperature Sensor
  *

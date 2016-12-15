@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library tex00
      * @sensor tex00
-     * @comname Veris TEX00 Temperature Sensor
+     * @comname Veris TEX00 Temperature Sensors
      * @type temp
      * @man veris
      * @con ainput

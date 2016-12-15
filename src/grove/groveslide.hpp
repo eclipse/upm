@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor groveslide
- * @comname Grove Slide Potentiometer
+ * @comname Slide Potentiometer
  * @type ainput
  * @man seeed
  * @con analog
@@ -47,7 +47,7 @@ namespace upm {
  * Basic UPM module for the Grove slide potentiometer on analog that
  * returns either a raw value or a scaled voltage value.
  *
- * @image html groveslide.jpeg
+ * @image html slide.jpg
  * @snippet groveslide.cxx Interesting
  */
 class GroveSlide: public Grove {

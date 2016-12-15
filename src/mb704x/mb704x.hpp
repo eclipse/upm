@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library mb704x
      * @sensor mb704x
-     * @comname MB704x MaxSonar-WR Ultrasonic Ranger
+     * @comname I2C MaxSonar WR Ultrasonic Ranger
      * @altname MB7040 MB7047 MB7247
      * @type sound
      * @man maxbotix

@@ -1,5 +1,5 @@
 set (libname "stepmotor")
-set (libdescription "Stepper motor module")
+set (libdescription "Stepper Motor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

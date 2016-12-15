@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library ecezo
      * @sensor ecezo
-     * @comname EC-EZO EC Sensor
+     * @comname Electrical Conductivity (EC) Circuit
      * @type liquid
      * @man sparkfun
      * @con uart i2c

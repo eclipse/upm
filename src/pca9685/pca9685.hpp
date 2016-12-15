@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library pca9685
    * @sensor pca9685
-   * @comname PCA9685 PWM Controller
+   * @comname I2C 16-channel 12-bit PWM LED Controller
    * @type led motor
    * @man adafruit
    * @web http://www.adafruit.com/products/815

@@ -157,10 +157,11 @@ typedef union {
 /**
  * @library mma7455
  * @sensor mma7455
- * @comname MMA7455 Accelerometer Sensor
+ * @comname Three Axis +/- 2/4/8 g Digital Accelerometer
  * @type accelerometer
  * @man generic
  * @con i2c
+ * @web http://www.nxp.com/products/sensors/accelerometers/3-axis-accelerometers/2g-4g-8g-low-g-digital-accelerometer:MMA745xL
  *
  * @brief API for the MMA7455 Accelerometer
  *

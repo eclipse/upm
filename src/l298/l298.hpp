@@ -42,7 +42,7 @@ namespace upm {
   /**
    * @library l298
    * @sensor l298
-   * @comname L298 Dual H-Bridge Motor Driver
+   * @comname Dual H-bridge Motor Driver
    * @type motor
    * @man seeed sparkfun
    * @web https://www.sparkfun.com/products/9670

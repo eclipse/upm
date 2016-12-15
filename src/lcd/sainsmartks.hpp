@@ -32,7 +32,7 @@ namespace upm
   /**
    * @library i2clcd
    * @sensor sainsmartks
-   * @comname SainSmart LCD Keypad Shield
+   * @comname LCD Keypad Shield
    * @type display
    * @man sainsmart dfrobot sparkfun
    * @web http://www.sainsmart.com/sainsmart-1602-lcd-keypad-shield-for-arduino-duemilanove-uno-mega2560-mega1280.html

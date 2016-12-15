@@ -69,7 +69,7 @@ namespace upm {
 /**
  * @library lsm303
  * @sensor lsm303
- * @comname LSM303 Accelerometer & Compass
+ * @comname Triaxial Accelerometer/magnetometer
  * @altname Grove 6-Axis Accelerometer & Compass
  * @type accelerometer compass
  * @man seeed adafruit stmicro

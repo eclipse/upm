@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME apa102
-    DESCRIPTION "RGB LED with integrated driver"
+    DESCRIPTION "LED Strip"
     C_HDR apa102.h
     C_SRC apa102.c
     CPP_HDR apa102.hpp

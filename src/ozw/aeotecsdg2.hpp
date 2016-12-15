@@ -31,8 +31,12 @@ namespace upm {
 
   /**
    * @library ozw
+   * @sensor dg2
    * @comname Aeotec Smart Dimmer Gen 2
    * @con uart
+   * @type wifi
+   * @man aeon
+   * @web http://aeotec.com/z-wave-in-wall-switches/877-micro-sei-2e-manual-instructions.html
    *
    * @brief UPM API for Aeotec Smart Dimmer Gen 2
    *

@@ -38,11 +38,12 @@ namespace upm {
   /**
    * @library bmx050
    * @sensor bmm150
-   * @comname BMM150 3-Axis Geomagnetic Sensor
+   * @comname 3-axis Geomagnetic Sensor
    * @altname bmm050
    * @type compass
    * @man bosch
    * @con i2c spi gpio
+   * @web https://www.bosch-sensortec.com/bst/products/all_products/bmm150
    *
    * @brief API for the BMM150 3-Axis Geomagnetic Sensor
    *

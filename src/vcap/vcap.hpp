@@ -49,7 +49,7 @@ namespace upm {
     /**
      * @library vcap
      * @sensor vcap
-     * @comname Video Capture
+     * @comname Video Frame Capture and Image Save Utility
      * @type video
      *
      * @brief API for the Video Capture driver

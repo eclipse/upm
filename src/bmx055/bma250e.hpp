@@ -38,12 +38,13 @@ namespace upm {
   /**
    * @library bmx050
    * @sensor bma250e
-   * @comname BMA250E 10 bit Trixial Accelerometer
+   * @comname Digital Triaxial Acceleration Sensor
    * @type accelerometer
    * @man bosch
    * @con i2c spi gpio
+   * @web https://www.bosch-sensortec.com/bst/products/all_products/bma250e
    *
-   * @brief API for the BMA250E 10 bit Trixial Accelerometer
+   * @brief API for the BMA250E 10 bit Triaxial Accelerometer
    *
    * The BMA250E is a triaxial, low-g acceleration sensor with digital
    * output for consumer applications. It allows measurements of

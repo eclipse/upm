@@ -41,7 +41,7 @@ namespace upm {
   /**
    * @library bno055
    * @sensor bno055
-   * @comname BNO055 Absolute Orientation 9DOF Fusion Hub
+   * @comname Intelligent 9-axis Absolute Orientation Sensor
    * @type accelerometer compass
    * @man adafruit
    * @con i2c gpio

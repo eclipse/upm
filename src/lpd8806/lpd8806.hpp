@@ -44,10 +44,11 @@ namespace upm {
 /**
  * @library lpd8806
  * @sensor lpd8806
- * @comname LPD8806 RGB LED Strip Controller
+ * @comname Digital RGB LED Strip Controller
  * @type led
  * @man adafruit
  * @con spi
+ * @web https://www.adafruit.com/product/306
  *
  * @brief API for the LPD8806 RGB LED Strip Controller
  *

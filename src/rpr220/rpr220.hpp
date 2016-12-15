@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @library rpr220
      * @sensor rpr220
-     * @comname RPR220 IR Reflective Sensor
+     * @comname Infrared (IR) Reflective Sensor
      * @altname Grove IR Reflective Sensor
      * @type light
      * @man seeed

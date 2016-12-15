@@ -45,7 +45,7 @@ namespace upm {
   /**
    * @library my9221
    * @sensor groveledbar
-   * @comname Grove LED Bar
+   * @comname LED Bar
    * @altname MY9221 LED Bar
    * @type display
    * @man seeed

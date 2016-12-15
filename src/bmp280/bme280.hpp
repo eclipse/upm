@@ -42,7 +42,7 @@ namespace upm {
   /**
    * @library bmp280
    * @sensor bme280
-   * @comname BME280 Digital Humidity, Pressure, and Temperature Sensor
+   * @comname Digital Humidity, Pressure, and Temperature Sensor
    * @type pressure humidity
    * @man adafruit
    * @con i2c spi gpio

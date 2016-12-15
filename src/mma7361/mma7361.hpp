@@ -42,7 +42,7 @@ namespace upm {
   /**
    * @library mma7361
    * @sensor mma7361
-   * @comname DFRobot MMA7361 Analog Accelerometer
+   * @comname Triaxial Analog Accelerometer
    * @type accelerometer
    * @man dfrobot
    * @con ainput gpio

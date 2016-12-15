@@ -136,7 +136,7 @@ namespace upm {
     /**
      * @library ili9341
      * @sensor ili9341
-     * @comname ILI9341 LCD
+     * @comname SPI Based LCD
      * @type display
      * @man adafruit
      * @web http://www.adafruit.com/product/2090

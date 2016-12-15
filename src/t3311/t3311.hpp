@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library t3311
    * @sensor t3311
-   * @comname T3311 Temperature and Humidity Sensor
+   * @comname Temperature and Humidity Probe
    * @type temp
    * @man comet
    * @con uart

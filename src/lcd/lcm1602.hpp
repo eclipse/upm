@@ -45,7 +45,7 @@ namespace upm
 /**
  * @library i2clcd
  * @sensor lcm1602
- * @comname LCM1602 Display
+ * @comname 16x2 and 20x4 LCD Display
  * @type display
  * @man adafruit sparkfun seeed
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf

@@ -58,7 +58,7 @@ struct IMUDataItem {
 /**
  * @library curieimu
  * @sensor curieimu
- * @comname Curie IMU Sensor with Firmata
+ * @comname Curie IMU Sensor using Firmata
  * @altname Curie IMU Sensor for Arduino/Genuino 101 running Firmata
  * @type accelerometer compass
  * @man bosch

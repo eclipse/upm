@@ -46,10 +46,11 @@ namespace upm {
  *
  * @library si1132
  * @sensor si1132
- * @comname Si1132 Light Sensor
+ * @comname UV and Ambient Light Sensor
  * @altname Si1132
  * @type light
  * @man silabs
+ * @web http://www.silabs.com/products/sensors/infraredsensors/Pages/si1132.aspx
  * @con i2c
  * @if ilightsensor
 

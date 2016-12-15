@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME loudness
-    DESCRIPTION "Loudness sensor"
+    DESCRIPTION "Loudness Sensor"
     C_HDR loudness.h
     C_SRC loudness.c
     CPP_SRC loudness.cxx

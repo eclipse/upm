@@ -1,6 +1,6 @@
 if (BACNET_FOUND)
     set (libname "t8100")
-    set (libdescription "Module for the Telaire T8100 Ventostat")
+    set (libdescription "Wall Mount CO2, Humidity and Temperature Transmitter")
     set (module_src ${libname}.cxx)
     set (module_hpp ${libname}.hpp)
 

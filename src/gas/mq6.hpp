@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq6
-   * @comname DFRobot MQ6 LPG Gas Sensor
+   * @comname MQ6 Liquefied Petroleum Gas (LPG) and Butane Sensor
    * @type gaseous
    * @man dfrobot
    * @con analog
+   * @web https://www.dfrobot.com/wiki/index.php/LPG_Gas_Sensor(MQ6)_(SKU:SEN0131)
    *
    * @brief API for the DFRobot MQ6 LPG Gas Sensor
    *

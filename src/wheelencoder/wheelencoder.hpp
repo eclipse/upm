@@ -39,7 +39,7 @@ namespace upm {
   /**
    * @library wheelencoder
    * @sensor wheelencoder
-   * @comname DFRobot Wheel Encoder
+   * @comname Wheel Encoder
    * @type other
    * @man dfrobot
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=98

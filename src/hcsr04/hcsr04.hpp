@@ -43,10 +43,11 @@ namespace upm {
 /**
  * @library hcsr04
  * @sensor hcsr04
- * @comname HC-SR04 Ultrasonic Sensor
+ * @comname Ultrasonic Distance Measuring Sensor
  * @type sound
  * @man generic
  * @con gpio
+ * @web https://www.sparkfun.com/products/13959
  *
  * @brief API for the HC-SR04 Ultrasonic Sensor
  *

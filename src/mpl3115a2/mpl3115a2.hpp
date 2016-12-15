@@ -63,7 +63,7 @@ namespace upm {
 /**
  * @library mpl3115a2
  * @sensor mpl3115a2
- * @comname MPL3115A2 Atmospheric Pressure Sensor
+ * @comname I2C Precision Altimeter
  * @type pressure
  * @man freescale
  * @web http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MPL3115A2

@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library gsr
    * @sensor gsr
-   * @comname Grove GSR Sensor
+   * @comname Galvanic Skin Response (GSR) Sensor
    * @type electric
    * @man seeed
    * @con analog

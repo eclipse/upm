@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ms5803
-    DESCRIPTION "MS5803 Pressure and temperature sensor"
+    DESCRIPTION "I2C Barometric Pressure and Temperature Sensor"
     C_HDR ms5803.h ms5803_defs.h
     C_SRC ms5803.c
     CPP_HDR ms5803.hpp

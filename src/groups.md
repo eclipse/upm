@@ -360,11 +360,6 @@ and is not meant to be installed anywhere.
 @brief Silicon Labs
 
 
-@defgroup sparkfun Sparkfun
-@ingroup byman
-@brief Sparkfun
-
-
 @defgroup stmicro STMicroelectronics
 @ingroup byman
 @brief STMicroelectronics
@@ -378,6 +373,51 @@ and is not meant to be installed anywhere.
 @defgroup veris Veris Industries
 @ingroup byman
 @brief Veris Industries
+
+
+@defgroup aeon Aeon Labs
+@ingroup byman
+@brief Aeon Labs
+
+
+@defgroup trane Trane
+@ingroup byman
+@brief Trane Incorporated
+
+
+@defgroup avago Avago Technologies
+@ingroup byman
+@brief Avago Technologies
+
+
+@defgroup catnip Catnip Electronics
+@ingroup byman
+@brief Catnip Electronics
+
+
+@defgroup kionix Kionix Incorporated
+@ingroup byman
+@brief Kionix Incorporated
+
+
+@defgroup maxbotix Maxbotix
+@ingroup byman
+@brief Maxbotix
+
+
+@defgroup maxim Maxim Integrated
+@ingroup byman
+@brief Maxim Integrated
+
+
+@defgroup sainsmart sainSMART
+@ingroup byman
+@brief sainSMART
+
+
+@defgroup semtech Semtech Corporation
+@ingroup byman
+@brief Semtech Corporation
 
 
 ### Groups for the various Starter Kits ###

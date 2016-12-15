@@ -56,11 +56,12 @@ namespace upm {
     /**
      * @library mhz16
      * @sensor mhz16
-     * @comname Grove CO2 Sensor
+     * @comname CO2 Sensor
      * @altname MHZ16 Serial CO2 Sensor
      * @type gaseous
      * @man seeed
      * @con uart
+     * @web http://wiki.seeed.cc/Grove-CO2_Sensor/
      *
      * @brief API support for the Grove CO2 sensor
      *

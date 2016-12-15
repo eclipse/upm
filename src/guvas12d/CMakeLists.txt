@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME guvas12d
-    DESCRIPTION "Guvas12d analog UV sensor"
+    DESCRIPTION "Analog UV Sensor"
     C_HDR guvas12d.h
     C_SRC guvas12d.c
     CPP_HDR guvas12d.hpp

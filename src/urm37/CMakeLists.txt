@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME urm37
-    DESCRIPTION "Ultrasonic range finder"
+    DESCRIPTION "Ultrasonic Range Finder"
     C_HDR urm37.h
     C_SRC urm37.c
     CPP_HDR urm37.hpp

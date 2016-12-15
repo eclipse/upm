@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME uln200xa
-    DESCRIPTION "Uln200xa darlington stepper driver"
+    DESCRIPTION "Darlington Stepper Driver"
     C_HDR uln200xa.h
     C_SRC uln200xa.c
     CPP_HDR uln200xa.hpp

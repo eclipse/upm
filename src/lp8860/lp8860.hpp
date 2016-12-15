@@ -42,11 +42,12 @@ namespace upm
  *
  * @library lp8860
  * @sensor lp8860
- * @comname TI LP8860 LED lighting controller
+ * @comname LED Lighting Controller
  * @altname LP8860
  * @type light
  * @man ti
  * @con i2c
+ * @web http://www.ti.com/product/LP8860-Q1
  * @if ilightcontroller
  *
  */

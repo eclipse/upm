@@ -41,9 +41,9 @@ namespace upm {
   /**
    * @library nmea_gps
    * @sensor nmea_gps
-   * @comname Generic Serial GPS NMEA device
+   * @comname Generic Serial Interface for GPS NMEA Devices
    * @type gps
-   * @man dfrobot seed
+   * @man dfrobot seeed
    * @con uart gpio
    * @altname VK2828u7 ublox LEA-6H
    *

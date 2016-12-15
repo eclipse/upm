@@ -44,7 +44,7 @@ namespace upm {
   /**
    * @library lsm9ds0
    * @sensor lsm9ds0
-   * @comname LSM9DS0 3-axis Gyroscope, Accelerometer, and Magnetometer
+   * @comname Triaxial Gyroscope/accelerometer/magnetometer Sensor
    * @type accelerometer compass
    * @man sparkfun stmicro
    * @con i2c gpio

@@ -36,11 +36,12 @@ namespace upm {
   /**
    * @library o2
    * @sensor o2
-   * @comname O2 Sensor
+   * @comname Oxygen (O2) Concentration Sensor
    * @altname Grove O2 Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-O2/
    *
    * @brief API for the Grove O2 Oxygen Gas Sensor
    *

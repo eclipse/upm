@@ -1,6 +1,6 @@
 if (BACNET_FOUND)
   set (libname "bacnetmstp")
-  set (libdescription "Driver module for BACnet MS/TP devices")
+  set (libdescription "Driver Module for BACnet MS/TP Devices")
   set (module_src ${libname}.cxx device-client.c bacnetutil.cxx)
   set (module_hpp ${libname}.hpp bacnetutil.hpp device.h)
 

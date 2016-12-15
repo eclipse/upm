@@ -44,10 +44,11 @@ namespace upm {
 /**
  * @library si7005
  * @sensor si7005
- * @comname Silicon Labs Si7005 Humidity And Temperature Sensor
+ * @comname Digital I2C Humidity and Temperature Sensor
  * @altname Si7005
  * @type temp
  * @man silabs
+ * @web http://www.silabs.com/products/sensors/humidity-sensors/Pages/Si7005.aspx
  * @con i2c
  * @if itemperaturesensor
  *

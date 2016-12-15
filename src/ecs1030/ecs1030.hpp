@@ -50,7 +50,7 @@ namespace upm {
   /**
    * @library ecs1030
    * @sensor ecs1030
-   * @comname ECS1030 Non-Invasive Current Sensor
+   * @comname Non-invasive Current Sensor
    * @type electric
    * @man sparkfun
    * @web https://www.sparkfun.com/products/11005

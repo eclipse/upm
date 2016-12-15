@@ -45,7 +45,7 @@ namespace upm {
     /**
      * @library urm37
      * @sensor urm37
-     * @comname DFRobot URM37 Ultrasonic Ranger
+     * @comname Ultrasonic Range Finder
      * @type sound
      * @man dfrobot
      * @con uart ainput gpio

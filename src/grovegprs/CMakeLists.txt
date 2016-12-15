@@ -1,5 +1,5 @@
 set (libname "grovegprs")
-set (libdescription "Grove GPRS module")
+set (libdescription "GPRS Module")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

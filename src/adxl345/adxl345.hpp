@@ -38,11 +38,12 @@ namespace upm {
 /**
  * @library adxl345
  * @sensor adxl345
- * @comname ADXL345 3-Axis Digital Accelerometer
+ * @comname 3-axis, +/- 2/4/8/16 g Digital Accelerometer
  * @altname Grove 3-Axis Digital Accelerometer (16g)
  * @type accelerometer
  * @man seeed
  * @con i2c
+ * @web http://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf
  *
  * @brief API for the ADXL345 3-Axis Digital Accelerometer
  *

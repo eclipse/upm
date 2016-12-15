@@ -38,10 +38,11 @@ namespace upm {
 /**
  * @library temperature
  * @sensor temperature
- * @comname Temperature Sensor
+ * @comname Analog Temperature Sensor
  * @altname Grove Temperature Sensor
  * @type temp
  * @man seeed
+ * @web http://wiki.seeed.cc/Grove-Temperature_Sensor_V1.2/
  * @con analog
  * @kit gsk
  *

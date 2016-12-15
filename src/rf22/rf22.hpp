@@ -404,7 +404,7 @@ namespace upm {
 /**
  * @library rf22
  * @sensor rf22
- * @comname RF22 Transceiver
+ * @comname ISM Band Radio Transceiver
  * @altname RFM22B
  * @type wifi
  * @man sparkfun

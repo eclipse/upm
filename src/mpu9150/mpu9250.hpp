@@ -35,7 +35,7 @@ namespace upm {
   /**
    * @library mpu9150
    * @sensor mpu9250
-   * @comname MPU9250 Inertial Measurement Unit
+   * @comname Inertial Measurement Unit
    * @altname Grove IMU 9DOF V2
    * @type accelerometer compass
    * @man seeed

@@ -134,7 +134,7 @@ namespace upm {
 /**
  * @library smartdrive
  * @sensor smartdrive
- * @comname SmartDrive advanced motor controller
+ * @comname SmartDrive Advanced Motor Controller
  * @altname smartdrive
  * @type motor
  * @man openelectrons

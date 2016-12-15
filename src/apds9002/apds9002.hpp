@@ -26,22 +26,23 @@
 #include <string>
 #include <mraa/aio.h>
 
-namespace upm { 
+namespace upm {
   /**
    * @brief APDS-9002 Luminance Sensor library
    * @defgroup apds9002 libupm-apds9002
    * @ingroup seeed analog light
-   */   
-   
+   */
+
   /**
    * @library apds9002
    * @sensor apds9002
-   * @comname APDS-9002 Luminance Sensor
+   * @comname Ambient Light Photo Sensor
    * @altname Grove Luminance Sensor
    * @type light
    * @man seeed
    * @con analog
-   * 
+   * @web https://www.seeedstudio.com/Grove-Luminance-Sensor-p-1941.html
+   *
    * @brief UPM module for the APDS-9002 Luminance Sensor
    *
    * This sensor transforms luminous intensity to output analog values.
@@ -50,7 +51,7 @@ namespace upm {
    * @image html apds9002.jpg
    * @snippet apds9002.cxx Interesting
    */
-   
+
   class APDS9002 {
   public:
     /**

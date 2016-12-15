@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME speaker
-    DESCRIPTION "Speaker module"
+    DESCRIPTION "Speaker"
     C_HDR speaker.h
     C_SRC speaker.c
     CPP_HDR speaker.hpp

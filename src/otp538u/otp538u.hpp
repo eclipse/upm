@@ -36,11 +36,12 @@ namespace upm {
     /**
      * @library otp538u
      * @sensor otp538u
-     * @comname OTP538U IR Temperature Sensor
+     * @comname Analog IR Temperature Sensor
      * @altname Grove IR Temperature Sensor
      * @type light
      * @man generic
      * @con analog
+     * @web http://wiki.seeed.cc/Grove-Infrared_Temperature_Sensor/
      * @kit hak
      *
      * @brief API for the OTP538U IR Temperature Sensor

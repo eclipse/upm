@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library grovecollision
    * @sensor grovecollision
-   * @comname Grove Collision Sensor
+   * @comname Collision Sensor
    * @type accelerometer
    * @man seeed
    * @con gpio

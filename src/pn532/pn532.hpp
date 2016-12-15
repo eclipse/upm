@@ -58,7 +58,7 @@ namespace upm {
   /**
    * @library pn532
    * @sensor pn532
-   * @comname PN532 NFC/RFID reader/writer
+   * @comname NFC/RFID Reader/Writer
    * @type rfid
    * @man adafruit
    * @web http://www.adafruit.com/products/364

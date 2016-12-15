@@ -1,5 +1,5 @@
 set (libname "adxl335")
-set (libdescription "Adxl335 grove 3-axis anaolog accelerometer")
+set (libdescription "Low-power, 3-axis +/- 3 g Accelerometer")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

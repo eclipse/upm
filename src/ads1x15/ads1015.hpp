@@ -57,11 +57,11 @@ namespace upm {
   /**
    * @library ads1x15
    * @sensor ADS1015
-   * @comname ADS1015 ADC
+   * @comname 12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
    * @type electric
    * @man ti adafruit
    * @con i2c
-   * @web web http://www.ti.com/lit/ds/symlink/ads1015.pdf
+   * @web http://www.ti.com/lit/ds/symlink/ads1015.pdf
    *
    * @brief API for ADS1015
    *

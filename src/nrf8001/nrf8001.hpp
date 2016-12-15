@@ -30,7 +30,7 @@
 /**
  * @library nrf8001
  * @sensor nrf8001
- * @comname NRF8001 Bluetooth Low Energy
+ * @comname Bluetooth Low Energy (BLE) Module
  * @type wifi
  * @man adafruit
  * @web https://learn.adafruit.com/getting-started-with-the-nrf8001-bluefruit-le-breakout/introduction

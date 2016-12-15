@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME nunchuck
-    DESCRIPTION "I2C nunchuck driver"
+    DESCRIPTION "Wii Nunchuk"
     C_HDR nunchuck.h
     C_SRC nunchuck.c
     CPP_HDR nunchuck.hpp

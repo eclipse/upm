@@ -38,7 +38,7 @@ namespace upm {
     /**
      * @library mcp2515
      * @sensor mcp2515
-     * @comname MCP2515 CAN bus controller
+     * @comname CAN Bus Controller
      * @man seeed
      * @con spi gpio
      * @web https://www.seeedstudio.com/CANBUS-Shield-p-2256.html

@@ -31,9 +31,13 @@ namespace upm {
 
   /**
    * @library ozw
+   * @sensor DSB29
    * @comname Aeotec Door/Window Sensor 2nd Edition
    * @altname DSB29
+   * @type wifi
    * @con uart
+   * @man aeon
+   * @web http://aeotec.com/z-wave-door-window-sensor
    *
    * @brief UPM API for Aeotec Door/Window Sensor 2nd Edition
    *

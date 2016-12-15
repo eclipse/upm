@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME m24lr64e
-    DESCRIPTION "Dynamic NFC/RFID tag module"
+    DESCRIPTION "Dynamic NFC/RFID Tag Module"
     C_HDR m24lr64e.h
     C_SRC m24lr64e.c
     CPP_HDR m24lr64e.hpp

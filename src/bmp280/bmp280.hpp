@@ -47,7 +47,7 @@ namespace upm {
   /**
    * @library bmp280
    * @sensor bmp280
-   * @comname BMP280 Digital Pressure Sensor
+   * @comname Digital Pressure Sensor
    * @type pressure
    * @man adafruit
    * @con i2c spi gpio

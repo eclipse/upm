@@ -77,6 +77,9 @@ namespace upm {
  * @type pressure
  * @man seeed adafruit sparkfun
  * @con i2c
+ * @web https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf
+ * @web https://www.bosch-sensortec.com/bst/products/all_products/bmp180
+ * @web https://cdn-shop.adafruit.com/datasheets/1900_BMP183.pdf
  *
  * @brief API for the GY65/BMP085 and BMP180 Atmospheric Pressure Sensors
  *

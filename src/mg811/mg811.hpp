@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library mg811
    * @sensor mg811
-   * @comname DFRobot CO2 Sensor
+   * @comname CO2 Sensor
    * @altname MG811
    * @type gaseous
    * @man dfrobot

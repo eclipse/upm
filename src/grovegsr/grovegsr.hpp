@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library grovegsr
    * @sensor grovegsr
-   * @comname Grove GSR Sensor
+   * @comname Galvanic Skin Response (GSR) Sensor
    * @type electric
    * @man seeed
    * @con analog
@@ -50,7 +50,7 @@ namespace upm {
    * In other words, it measures sweat on your fingers
    * as an indicator of strong emotional reactions.
    *
-   * @image html grovegsr.jpg
+   * @image html gsr.jpg
    * @snippet grovegsr.cxx Interesting
    */
   class GroveGSR {

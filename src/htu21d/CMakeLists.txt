@@ -1,5 +1,5 @@
 set (libname "htu21d")
-set (libdescription "Humidity Sensor")
+set (libdescription "Digital Relative Humidity Sensor with Temperature")
 set (module_src ${libname}.cpp)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library hdxxvxta
      * @sensor hdxxvxta
-     * @comname Veris HDXXVXTA Humidity Transmitter family
+     * @comname Veris HDXXVXTA Temperature/humidity Transmitter
      * @type temp
      * @man veris
      * @con ainput

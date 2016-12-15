@@ -32,7 +32,11 @@ namespace upm {
   /**
    * @library ozw
    * @comname Aeotec Home Energy Meter Gen 1
+   * @sensor dsb09104
+   * @type wifi
    * @con uart
+   * @man aeon
+   * @web http://aeotec.com/z-wave-home-energy-measure/918-home-energy-meter-instructions.html
    *
    * @brief UPM API for Aeotec Home Energy Meter Gen 1
    *

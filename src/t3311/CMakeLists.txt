@@ -1,6 +1,6 @@
 if (MODBUS_FOUND)
   set (libname "t3311")
-  set (libdescription "Module for the Comet System T3311")
+  set (libdescription "Temperature and Humidity Probe")
   set (module_src ${libname}.cxx)
   set (module_hpp ${libname}.hpp)
 

@@ -39,7 +39,7 @@ namespace upm {
   /**
    * @library groveelectromagnet
    * @sensor groveelectromagnet
-   * @comname Grove Electromagnet
+   * @comname Electromagnet
    * @type electric
    * @man seeed
    * @con gpio

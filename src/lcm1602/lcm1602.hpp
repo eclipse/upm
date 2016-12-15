@@ -47,7 +47,7 @@ namespace upm
 /**
  * @library lcm1602
  * @sensor lcm1602
- * @comname LCM1602 Display
+ * @comname LCD Display Driver for the LCM1602 Controller for HD44780-based Displays
  * @type display
  * @man adafruit sparkfun seeed
  * @web https://www.adafruit.com/datasheets/TC1602A-01T.pdf

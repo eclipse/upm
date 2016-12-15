@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME sht1x
-    DESCRIPTION "Temperature and humidity sensor"
+    DESCRIPTION "Temperature and Humidity Sensor"
     C_HDR sht1x.h
     C_SRC sht1x.c
     CPP_HDR sht1x.hpp

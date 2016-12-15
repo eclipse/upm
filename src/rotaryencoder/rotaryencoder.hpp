@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @library rotaryencoder
      * @sensor rotaryencoder
-     * @comname Grove Rotary Encoder
+     * @comname Rotary Encoder
      * @type other
      * @man seeed
      * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder

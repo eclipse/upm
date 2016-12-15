@@ -56,7 +56,7 @@ namespace upm
   /**
    * @library i2clcd
    * @sensor eboled
-   * @comname Sparkfun Edison Block OLED Display
+   * @comname SparkFun Block for Intel Edison - OLED
    * @altname ssd1306
    * @type display
    * @man sparkfun

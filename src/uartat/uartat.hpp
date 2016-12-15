@@ -38,7 +38,7 @@ namespace upm {
     /**
      * @library uartat
      * @sensor uartat
-     * @comname Generic AT command based UART device
+     * @comname Generic AT Command Based UART Device
      * @type other
      * @con uart
      *

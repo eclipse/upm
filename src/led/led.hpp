@@ -40,7 +40,7 @@ namespace upm {
 /**
  * @library ledlib
  * @sensor led
- * @comname LED
+ * @comname Light-emitting Diode (LED)
  * @altname Grove LED
  * @type led
  * @man seeed

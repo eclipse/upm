@@ -38,7 +38,7 @@ namespace upm {
     /**
      * @library ms5803
      * @sensor ms5803
-     * @comname MS5803 Pressure and Temperature sensor
+     * @comname I2C Barometric Pressure and Temperature Sensor
      * @type temperature pressure
      * @man sparkfun
      * @con i2c spi

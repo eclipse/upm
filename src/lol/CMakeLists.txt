@@ -1,5 +1,5 @@
 set (libname "lol")
-set (libdescription "LoL Olimex LoL rev A")
+set (libdescription "Lots of LEDs (LoL) Array Rev A")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

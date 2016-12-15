@@ -50,7 +50,7 @@ namespace upm {
   /**
    * @library mcp9808
    * @sensor MCP9808
-   * @comname MCP9808 Temperature Sensor
+   * @comname High Accuracy I2C Temperature Sensor
    * @type temp
    * @man adafruit
    * @con i2c

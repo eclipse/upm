@@ -45,7 +45,7 @@ namespace upm {
   /**
    * @library si114x
    * @sensor si114x
-   * @comname SI1145 UV Light Sensor
+   * @comname UV/IR/visible Light Sensor
    * @altname SI1146, SI1147
    * @type light
    * @man adafruit

@@ -44,9 +44,10 @@ namespace upm {
 /**
  * @library ultrasonic
  * @sensor ultrasonic
- * @comname Grove Ultrasonic Ranger
+ * @comname Ultrasonic Proximity Sensor
  * @type sound
  * @man seeed
+ * @web http://wiki.seeed.cc/Grove-Ultrasonic_Ranger/
  * @con gpio
  *
  * @brief API for Grove Ultrasonic Ranger

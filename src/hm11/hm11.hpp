@@ -55,13 +55,13 @@ namespace upm {
     /**
      * @library hm11
      * @sensor hm11
-     * @comname HM-11 Bluetooth Low Energy
+     * @comname Bluetooth Low Energy Module
      * @altname Grove BLE
      * @altid HM-10, HM-12
      * @type wifi
      * @man seeed
      * @con uart
-     * @web http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf
+     * @web http://wiki.seeed.cc/Bluetooth_V4.0_HM_11_BLE_Module/
      *
      * @brief API for the HM-11 4.0 Bluetooth Low Energy Module
      *

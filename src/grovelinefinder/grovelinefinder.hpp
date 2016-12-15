@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library grovelinefinder
    * @sensor grovelinefinder
-   * @comname Grove Line Finder
+   * @comname Line Finder
    * @type color
    * @man seeed
    * @con gpio

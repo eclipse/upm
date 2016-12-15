@@ -1,5 +1,5 @@
 set (libname "interfaces")
-set (libdescription "CXX interface library")
+set (libdescription "CXX Interface Library")
 set (module_src ${libname}.cxx)
 
 upm_module_init()

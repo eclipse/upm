@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME dfrec
-    DESCRIPTION "DFRobot analog electrical conductivity (EC) sensor"
+    DESCRIPTION "Analog Electrical Conductivity (EC) Sensor"
     C_HDR dfrec.h
     C_SRC dfrec.c
     CPP_HDR dfrec.hpp

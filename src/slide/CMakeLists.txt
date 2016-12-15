@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME slide
-    DESCRIPTION "Slide potentiometer sensor"
+    DESCRIPTION "Slide Potentiometer"
     C_HDR slide.h
     C_SRC slide.c
     CPP_HDR slide.hpp

@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library emg
    * @sensor emg
-   * @comname EMG Sensor
+   * @comname Electromyography (EMG) Sensor
    * @altname Grove EMG Sensor
    * @type electric
    * @man seeed

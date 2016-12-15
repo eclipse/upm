@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME rpr220
-    DESCRIPTION "Infrared (IR) reflective sensor"
+    DESCRIPTION "Infrared (IR) Reflective Sensor"
     C_HDR rpr220.h
     C_SRC rpr220.c
     CPP_HDR rpr220.hpp

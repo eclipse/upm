@@ -1,5 +1,5 @@
 set (libname "mcp9808")
-set (libdescription "Precision I2C temperature sensor")
+set (libdescription "High Accuracy I2C Temperature Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

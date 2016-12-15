@@ -1,5 +1,5 @@
 set (libname "waterlevel")
-set (libdescription "Waterlevel sensor module")
+set (libdescription "Water Level Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME led
-    DESCRIPTION "LED module"
+    DESCRIPTION "Light-emitting Diode (LED)"
     C_HDR led.h
     C_SRC led.c
     CPP_HDR led.hpp

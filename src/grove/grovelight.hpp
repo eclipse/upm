@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor grovelight
- * @comname Grove Light Sensor
+ * @comname Light Sensor
  * @type light
  * @man seeed
  * @con analog

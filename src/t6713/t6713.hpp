@@ -37,10 +37,11 @@ namespace upm {
 /**
  * @library t6713
  * @sensor t6713
- * @comname Telaire 6713 Series CO2 Module
+ * @comname I2C/UART High Accuracy CO2 Sensor
  * @altname T6713
  * @type gaseous
  * @man amphenol
+ * @web http://amphenol-sensors.com/en/products/co2/co2-modules/3215-t6700
  * @con i2c
  * @if ico2sensor
  *

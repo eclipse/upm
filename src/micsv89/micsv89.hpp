@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library micsv89
    * @sensor micsv89
-   * @comname MICS-VZ89 Gas Sensor
+   * @comname Low-power Air Quality Sensor
    * @type gaseous
    * @man generic
    * @con i2c

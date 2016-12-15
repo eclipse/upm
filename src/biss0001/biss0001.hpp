@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @library biss0001
      * @sensor biss0001
-     * @comname BISS0001 Motion Sensor
+     * @comname Passive Infrared (PIR) Motion Sensor
      * @altname Grove PIR Motion Sensor
      * @type light
      * @man seeed

@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME mq303a
-    DESCRIPTION "Alcohol detection sensor"
+    DESCRIPTION "Alcohol Detection Sensor"
     C_HDR mq303a.h
     C_SRC mq303a.c
     CPP_HDR mq303a.hpp

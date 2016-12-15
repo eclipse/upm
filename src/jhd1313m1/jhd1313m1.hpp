@@ -47,7 +47,7 @@ namespace upm
 /**
  * @library jhd1313m1
  * @sensor jhd1313m1
- * @comname JHD1313M1 Display
+ * @comname LCD Display Driver for the JHD1313M1 Controller for HD44780-based Displays
  * @altname Grove RGB LCD
  * @type display
  * @man seeed adafruit sparkfun

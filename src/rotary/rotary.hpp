@@ -46,6 +46,7 @@ namespace upm {
  * @altname Rotary Potentiometer
  * @type ainput
  * @man seeed
+ * @web http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/
  * @con analog
  * @kit gsk
  *

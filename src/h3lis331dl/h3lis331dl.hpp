@@ -41,7 +41,7 @@ namespace upm {
   /**
    * @library h3lis331dl
    * @sensor h3lis331dl
-   * @comname H3LIS331DL 3-Axis Digital Accelerometer
+   * @comname I2C 3-axis Digital Accelerometer (400g)
    * @altname Grove 3-Axis Digital Accelerometer (400g)
    * @type accelerometer
    * @man seeed stmicro

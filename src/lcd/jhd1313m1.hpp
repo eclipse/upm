@@ -33,7 +33,7 @@ namespace upm
 /**
  * @library i2clcd
  * @sensor jhd1313m1
- * @comname JHD1313M1 Display
+ * @comname RGB Backlight 16x2 LCD Display
  * @altname Grove RGB LCD
  * @type display
  * @man seeed adafruit sparkfun

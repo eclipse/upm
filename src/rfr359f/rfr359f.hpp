@@ -36,11 +36,11 @@ namespace upm {
   /**
    * @library rfr359f
    * @sensor rfr359f
-   * @comname RFR359F Distance Interrupter
+   * @comname Infrared Distance Interrupter
    * @altname Grove Distance Interrupter
    * @type light
    * @man seeed
-   * @web http://www.seeedstudio.com/wiki/Grove_-_IR_Distance_Interrupt
+   * @web https://www.seeedstudio.com/Grove-IR-Distance-Interrupter-p-1278.html
    * @con gpio
    * @kit robok tsk
    *

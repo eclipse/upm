@@ -1,5 +1,5 @@
 set (libname "grovecollision")
-set (libdescription "Grovecollision sensor module")
+set (libdescription "Collision Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
 upm_module_init(mraa)

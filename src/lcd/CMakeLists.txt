@@ -1,5 +1,5 @@
 set (libname "i2clcd")
-set (libdescription "Lcd/oled displays")
+set (libdescription "LCD and OLED Display Library")
 set (module_src lcd.cxx lcm1602.cxx jhd1313m1.cxx ssd1308.cxx eboled.cxx ssd1327.cxx sainsmartks.cxx ssd1306.cxx)
 set (module_hpp lcd.hpp lcm1602.hpp jhd1313m1.hpp ssd1308.hpp eboled.hpp ssd1327.hpp ssd.hpp sainsmartks.hpp ssd1306.hpp)
 upm_module_init(mraa)

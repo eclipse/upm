@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME servo
-    DESCRIPTION "Servo controller"
+    DESCRIPTION "Servo Controller"
     C_HDR es08a.h es9257.h
     C_SRC es08a.c es9257.c
     CPP_HDR servo.hpp es08a.hpp es9257.hpp
