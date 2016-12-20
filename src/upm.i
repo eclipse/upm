@@ -5,6 +5,7 @@
 %apply int { speed_t };
 %apply int { mraa_result_t };
 %apply int { mraa::Result };
+%apply int { upm_result_t };
 
 #if (SWIG_JAVASCRIPT_V8)
 %{
