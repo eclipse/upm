@@ -869,7 +869,7 @@ MCP2515_FILTERMATCH_T mcp2515_rx_status_filtermatch(const mcp2515_context dev)
     uint8_t rx_status_byte;
     if (mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
                                &rx_status_byte, 1))
-        return MCP2515_RX_FILTER0; // not really, but....
+        return MCP2515_FILTERMATCH_RXF0; // not really, but....
 
     MCP2515_FILTERMATCH_T fm =
         (rx_status_byte &
