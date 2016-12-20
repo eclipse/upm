@@ -832,11 +832,10 @@ MCP2515_RXMSG_T mcp2515_rx_status_msgs(const mcp2515_context dev)
 {
     assert(dev != NULL);
 
-    upm_result_t rv;
     uint8_t rx_status_byte;
-    if ((rv = mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
-                               &rx_status_byte, 1)))
-        return rv;
+    if (mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
+                               &rx_status_byte, 1))
+        return MCP2515_RXMSG_NONE;
 
     MCP2515_RXMSG_T buffers =
         (rx_status_byte &
@@ -850,11 +849,10 @@ MCP2515_MSGTYPE_T mcp2515_rx_status_msg_type(const mcp2515_context dev)
 {
     assert(dev != NULL);
 
-    upm_result_t rv;
     uint8_t rx_status_byte;
-    if ((rv = mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
-                               &rx_status_byte, 1)))
-        return rv;
+    if (mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
+                               &rx_status_byte, 1))
+        return MCP2515_MSGTYPE_STD; // not really, but....
 
     MCP2515_MSGTYPE_T msgtype =
         (rx_status_byte &
@@ -868,11 +866,10 @@ MCP2515_FILTERMATCH_T mcp2515_rx_status_filtermatch(const mcp2515_context dev)
 {
     assert(dev != NULL);
 
-    upm_result_t rv;
     uint8_t rx_status_byte;
-    if ((rv = mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
-                               &rx_status_byte, 1)))
-        return rv;
+    if (mcp2515_bus_read(dev, MCP2515_CMD_RX_STATUS, NULL, 0,
+                               &rx_status_byte, 1))
+        return MCP2515_RX_FILTER0; // not really, but....
 
     MCP2515_FILTERMATCH_T fm =
         (rx_status_byte &
