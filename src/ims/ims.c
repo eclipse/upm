@@ -163,7 +163,7 @@ upm_result_t ims_get_light(const ims_context* dev, uint16_t* rd_data)
     upm_result_t res = ims_write(dev, IMS_MEASURE_LIGHT, 0);
     if (res != UPM_SUCCESS) return res;
 
-    /* Technical data for the ISM specifies a 3 second wait.  Check the BUSY
+    /* Technical data for the IMS specifies a 3 second wait.  Check the BUSY
      * command every 100 ms for 3 seconds.  The sensor will return quickly in
      * bright light and much slower in less light. */
     int retry = 30;
