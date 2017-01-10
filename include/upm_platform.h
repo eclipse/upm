@@ -29,7 +29,7 @@
 extern "C" {
 #endif
 
-#if defined(linux)
+#if defined(__linux__)
 # define UPM_PLATFORM_LINUX (1)
 #elif defined(CONFIG_BOARD_ARDUINO_101) || \
     defined(CONFIG_BOARD_ARDUINO_101_SSS) || \
