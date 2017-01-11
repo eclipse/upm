@@ -397,9 +397,15 @@ static void _internal_sample_rdy(void *arg)
      * log an error in syslog and attempt to stop sampling
      * Handle all failing cases here */
     max30100_sample_rdy_fail:
-        syslog(LOG_CRIT, "%s: _internal_sample_rdy() failed, attempting to stop sampling...\n",
+        syslog(LOG_CRIT,
+                "%s: _internal_sample_rdy() failed, attempting to restart sampling...\n",
                 __FUNCTION__);
-        max30100_sample_stop(dev);
+
+        /* Read FIFO AND status register in a last attempt to continue
+         * sampling, ignore result */
+        max30100_read(dev, MAX30100_REG_FIFO_WR_PTR, &tmp);
+        max30100_read(dev, MAX30100_REG_INTERRUPT_STATUS, &tmp);
+
         return;
 }
 
