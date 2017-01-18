@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -49,9 +49,6 @@ int main(int argc, char **argv)
   // Instantiate an DS18B20 instance using the default values (uart 0)
   upm::DS18B20 sensor;
 
-  // locate and setup our devices
-  sensor.init();
-
   cout << "Found " << sensor.devicesFound() << " device(s)" << endl;
   cout << endl;
 
@@ -59,18 +56,26 @@ int main(int argc, char **argv)
   if (!sensor.devicesFound())
     return 1;
 
-  // update and print available values every second
+  // update and print available values every 2 seconds
   while (shouldRun)
     {
-      // update our values for the first sensor
-      sensor.update(0);
+      // update our values for all of the detected sensors
+      sensor.update(-1);
 
-      // we show both C and F for temperature for the first sensor
-      cout << "Temperature: " << sensor.getTemperature(0)
-           << " C / " << sensor.getTemperature(0, true) << " F"
-           << endl;
+      // we show both C and F for temperature for the sensors
+      int i;
+      for (i=0; i<sensor.devicesFound(); i++)
+      {
+          cout << "Device "
+               << i
+               << ": Temperature: "
+               << sensor.getTemperature(i)
+               << " C / " << sensor.getTemperature(i, true) << " F"
+               << endl;
+      }
+      cout << endl;
 
-      sleep(1);
+      sleep(2);
     }
 
   cout << "Exiting..." << endl;

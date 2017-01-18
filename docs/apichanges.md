@@ -4,6 +4,9 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+ * **ds18b20** The C++ interface init() function has been deprecated.
+ It is still present, but currently does nothing.  It will be removed
+ in a future release.
  * **grove<name>** Starting with UPM 1.0 the Grove libraries have been renamed
  from *upm-grove<name>* to simply *upm-<name>*. Class names also match this new
  format, with old classes marked as deprecated throughout the documentation.

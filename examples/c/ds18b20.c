@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
     printf("Found %d device(s)\n\n", ds18b20_devices_found(sensor));
 
-    // update and print available values every second
+    // update and print available values every 2 seconds
     while (shouldRun)
     {
         // update our values for all sensors

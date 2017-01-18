@@ -3,11 +3,12 @@
 %include "carrays.i"
 %include "std_string.i"
 
+%include "ds18b20_defs.h"
+%include "ds18b20.hpp"
 %{
     #include "ds18b20.hpp"
 %}
 
-%include "ds18b20.hpp"
 %array_class(char, charArray);
 
 %pragma(java) jniclasscode=%{

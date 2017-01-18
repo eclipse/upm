@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -33,9 +33,6 @@ console.log("Initializing...");
 // Instantiate an DS18B20 instance using the default values (uart 0)
 var sensor = new sensorObj.DS18B20(0);
 
-// locate and setup our devices
-sensor.init();
-
 console.log("Found", sensor.devicesFound(), "device(s)");
 console.log("");
 
@@ -44,17 +41,21 @@ if (!sensor.devicesFound())
     process.exit(1);
 }
 
-// update and print available values every second
+// update and print available values every 2 seconds
 setInterval(function()
 {
-    // update our values for the first sensor
-    sensor.update(0);
+    // update our values for all of the detected sensors
+    sensor.update(-1);
 
-    // we show both C and F for temperature for the first sensor
-    console.log("Temperature:", sensor.getTemperature(0),
-                "C /", sensor.getTemperature(0, true), "F");
+    // we show both C and F for temperature for the sensors
+    for (var i=0; i<sensor.devicesFound(); i++)
+    {
+        console.log("Device:", i, "Temperature:", sensor.getTemperature(i),
+                    "C /", sensor.getTemperature(i, true), "F");
+    }
 
-}, 1000);
+    console.log();
+}, 2000);
 
 
 process.on('SIGINT', function()

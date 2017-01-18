@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -33,6 +33,8 @@
 
 #include <mraa/common.hpp>
 #include <mraa/uart_ow.hpp>
+
+#include <ds18b20.h>
 
 #define DS18B20_DEFAULT_UART 0
 
@@ -112,158 +114,103 @@ namespace upm {
   class DS18B20 {
   public:
 
-    // The family code for these devices.  We handle all of them that
-    // are found on the bus.
-    static const uint8_t DS18B20_FAMILY_CODE = 0x28;
+      /**
+       * DS18B20 object constructor
+       *
+       * This method will search the 1-wire bus and store information on
+       * each device detected on the bus.  If no devices are found, an
+       * exception is thrown.  Once this function completes
+       * successfully, you can use devicesFound() to determine how many
+       * devices were detected.
+       *
+       * @param uart Default UART to use (0 or 1). Default is 0.
+       */
+      DS18B20(int uart=DS18B20_DEFAULT_UART);
 
-    // commands
-    typedef enum {
-      CMD_CONVERT                         = 0x44, // start a temp conversion
-      CMD_WRITE_SCRATCHPAD                = 0x4e,
-      CMD_READ_SCRATCHPAD                 = 0xbe,
-      CMD_COPY_SCRATCHPAD                 = 0x48, // copy scratchpad to EEPROM
-      CMD_RECALL_EEPROM                   = 0xb8, // copy EEPROM to scratchpad
-      CMD_READ_POWER_SUPPLY               = 0xb4  // parasitically powered?
-    } CMD_T;
+      /**
+       * DS18B20 object destructor
+       */
+      ~DS18B20();
 
-    // config register (scratchpad[4])
-    typedef enum {
-      CFG_RESOLUTION_R0                   = 0x20,
-      CFG_RESOLUTION_R1                   = 0x40,
-      _CFG_RESOLUTION_MASK                = 3,
-      _CFG_RESOLUTION_SHIFT               = 5
+      /**
+       * @deprecated This method is deprecated.  It's functionality is
+       * handled in the constructor now.
+       */
+      void init();
 
-      // all other bits reserved and non-writable
-    } CFG_BITS_T;
+      /**
+       * Update our stored temperature for a device.  This method must
+       * be called prior to getTemperature().
+       *
+       * @param index The device index to access (starts at 0).  Specify
+       * -1 to query all detected devices.  Default: -1
+       */
+      void update(int index=-1);
 
-    typedef enum {
-      RESOLUTION_9BITS                    = 0, // 93.75ms (tconv/8)
-      RESOLUTION_10BITS                   = 1, // 187.5 (tconv/4)
-      RESOLUTION_11BITS                   = 2, // 375ms (tconv/2)
-      RESOLUTION_12BITS                   = 3  // 750ms (tconv)
-    } RESOLUTIONS_T;
+      /**
+       * Get the current temperature.  update() must have been called
+       * prior to calling this method.
+       *
+       * @param index The device index to access (starts at 0).
+       * @param fahrenheit true to return the temperature in degrees
+       * fahrenheit, false to return the temperature in degrees celsius.
+       * The default is false (degrees Celsius).
+       * @return The last temperature reading in Celsius or Fahrenheit
+       */
+      float getTemperature(unsigned int index, bool fahrenheit=false);
 
-    /**
-     * DS18B20 object constructor
-     *
-     * @param uart Default UART to use (0 or 1). Default is 0.
-     */
-    DS18B20(int uart=DS18B20_DEFAULT_UART);
+      /**
+       * Set the device resolution for a device.  These devices support
+       * 9, 10, 11, and 12 bits of resolution, with the default from the
+       * factory at 12 bits.
+       *
+       * @param index The device index to access (starts at 0).
+       * @param res One of the RESOLUTIONS_T values
+       */
+      void setResolution(unsigned int index, DS18B20_RESOLUTIONS_T res);
 
-    /**
-     * DS18B20 object destructor
-     */
-    ~DS18B20();
+      /**
+       * Copy the device's scratchpad memory to the EEPROM.  This
+       * includes the configuration byte (resolution).
+       *
+       * @param index The device index to access (starts at 0).
+       */
+      void copyScratchPad(unsigned int index);
 
-    /**
-     * This method will search the 1-wire bus and store information on
-     * each device detected on the bus.  If no devices are found, an
-     * exception is thrown.  Once this function completes
-     * successfully, you can use devicesFound() to determine how many
-     * devices were detected.  This method must be executed first
-     * before any others below.
-     */
-    void init();
+      /**
+       * Copy the device's EEPROM memory to the scratchpad.  This method
+       * will return when the copy completes.  This operation is
+       * performed by the device automatically on power up, so it is
+       * rarely needed.
+       *
+       * @param index The device index to access (starts at 0).
+       */
+      void recallEEPROM(unsigned int index);
 
-    /**
-     * Update our stored temperature for a device.  This method must
-     * be called prior to getTemperature().
-     *
-     * @param index The device index to access (starts at 0).  Specify
-     * -1 to query all detected devices.  Default: -1
-     */
-    void update(int index=-1);
+      /**
+       * This method will return the number of DS18B20 devices that were
+       * found on the bus by init().
+       *
+       * @return number of DS18B20's that were found on the bus
+       */
+      int devicesFound()
+          {
+              return ds18b20_devices_found(m_ds18b20);
+          }
 
-    /**
-     * Get the current temperature.  update() must have been called
-     * prior to calling this method.
-     *
-     * @param index The device index to access (starts at 0).
-     * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celsius.
-     * The default is false (degrees Celsius).
-     * @return The last temperature reading in Celsius or Fahrenheit
-     */
-    float getTemperature(int index, bool fahrenheit=false);
-
-    /**
-     * Set the device resolution for a device.  These devices support
-     * 9, 10, 11, and 12 bits of resolution, with the default from the
-     * factory at 12 bits.
-     *
-     * @param index The device index to access (starts at 0).
-     * @param res One of the RESOLUTIONS_T values
-     */
-    void setResolution(int index, RESOLUTIONS_T res);
-
-    /**
-     * Copy the device's scratchpad memory to the EEPROM.  This
-     * includes the configuration byte (resolution).
-     *
-     * @param index The device index to access (starts at 0).
-     */
-    void copyScratchPad(int index);
-
-    /**
-     * Copy the device's EEPROM memory to the scratchpad.  This method
-     * will return when the copy completes.  This operation is
-     * performed by the device automatically on power up, so it is
-     * rarely needed.
-     *
-     * @param index The device index to access (starts at 0).
-     */
-    void recallEEPROM(int index);
-
-    /**
-     * This method will return the number of DS18B20 devices that were
-     * found on the bus by init().
-     *
-     * @return number of DS18B20's that were found on the bus
-     */
-    int devicesFound()
-    {
-      return m_devicesFound;
-    }
-
-    /**
-     * Return an 8 byte string representing the unique device ID
-     * (1-wire romcode) for a given device index.
-     *
-     * @param index The device index to access (starts at 0).
-     * @return 8 byte string representing the 1-wire device's unique
-     * romcode.
-     */
-    std::string getId(int index)
-    {
-      if (index < 0 || index >= m_devicesFound)
-        {
-          throw std::out_of_range(std::string(__FUNCTION__) +
-                                  ": device index out of range");
-        }
-      return m_deviceMap[index].id;
-    }
+      /**
+       * Return an 8 byte string representing the unique device ID
+       * (1-wire romcode) for a given device index.
+       *
+       * @param index The device index to access (starts at 0).
+       * @return 8 byte string representing the 1-wire device's unique
+       * romcode.
+       */
+      std::string getId(unsigned int index);
 
   protected:
-    mraa::UartOW m_uart;
-
-    // the total number of devices found
-    int m_devicesFound;
-
-    // this struct will generate SWIG warnings on build, but as it's not
-    // exposed outside the class, they can be safely ignored
-
-    // data we need to store for each sensor we are dealing with
-    typedef struct {
-      std::string id;           // 8-byte romcode id
-      float temperature;
-      RESOLUTIONS_T resolution;
-    } sensor_info_t;
-
-    std::map<int, sensor_info_t> m_deviceMap;
+      ds18b20_context m_ds18b20;
 
   private:
-    // internal utility function to read temperature from a single
-    // device
-    float readSingleTemp(int index);
   };
 }
