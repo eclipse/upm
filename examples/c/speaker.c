@@ -2,10 +2,6 @@
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2017 Intel Corporation.
  *
- * Based on original C++ driver by:
- * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
- *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -26,34 +22,34 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <stdio.h>
+#include "speaker.h"
 
-#include "speaker.hpp"
-
-using namespace upm;
-
-Speaker::Speaker(int pin) :
-    m_speaker(speaker_init(pin))
+int main ()
 {
-  if (!m_speaker)
-    throw std::runtime_error(std::string(__FUNCTION__) +
-                             ": speaker_init() failed.");
-}
+//! [Interesting]
 
-Speaker::~Speaker()
-{
-    speaker_close(m_speaker);
-}
+    // Instantiate a Speaker on digital pin D2
+    speaker_context speaker = speaker_init(2);
 
-void Speaker::playAll()
-{
-    speaker_play_all(m_speaker);
-}
+    if (!speaker)
+    {
+        printf("speaker_init() failed\n");
+        return 1;
+    }
 
-void Speaker::playSound(char letter, bool sharp, std::string vocalWeight)
-{
-    speaker_play_sound(m_speaker, letter, sharp, vocalWeight.c_str());
-}
+    // Play all 7 of the lowest notes
+    speaker_play_all(speaker);
 
+    // Play a medium C-sharp
+    speaker_play_sound(speaker, 'c', true, "med");
+
+    printf("Exiting\n");
+
+    speaker_close(speaker);
+
+//! [Interesting]
+
+    return 0;
+}

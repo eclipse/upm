@@ -1,5 +1,9 @@
 upm_mixed_module_init (NAME speaker
-    DESCRIPTION "UPM speaker module"
+    DESCRIPTION "Speaker module"
+    C_HDR speaker.h
+    C_SRC speaker.c
     CPP_HDR speaker.hpp
     CPP_SRC speaker.cxx
-    REQUIRES mraa)
+#    FTI_SRC speaker_fti.c
+    CPP_WRAPS_C
+    REQUIRES upmc-utilities mraa)

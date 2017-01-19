@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * Based on original C++ driver by:
  * Author: Zion Orent <sorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -24,84 +28,70 @@
 #pragma once
 
 #include <string>
-#include <map>
-#include <unistd.h>
-#include <mraa/gpio.h>
 
-#define HIGH      1
-#define LOW       0
+#include "speaker.h"
 
 namespace upm {
 
-typedef struct
-{
-    int delayTimeLow;
-    int delayTimeLowSharp;
-    int delayTimeMed;
-    int delayTimeMedSharp;
-    int delayTimeHigh;
-    int delayTimeHighSharp;
-} NoteData;
+    /**
+     * @brief Speaker library
+     * @defgroup speaker libupm-speaker
+     * @ingroup seeed gpio sound hak
+     */
 
-  /**
-   * @brief Speaker library
-   * @defgroup speaker libupm-speaker
-   * @ingroup seeed gpio sound hak
-   */
+    /**
+     * @library speaker
+     * @sensor speaker libupm-speaker
+     * @comname Speaker
+     * @altname Grove Speaker
+     * @type sound
+     * @man seeed
+     * @con gpio
+     * @kit hak
+     *
+     * @brief API for the Speaker
+     *
+     * UPM module for the Speaker.
+     * This sensor can generate different tones and sounds depending on the
+     * frequency of the input signal.
+     *
+     * @image html speaker.jpg
+     * @snippet speaker.cxx Interesting
+     */
+    class Speaker {
+    public:
+        /**
+         * Speaker constructor
+         *
+         * @param pin Digital pin to use
+         */
+        Speaker(int pin);
 
-  /**
-   * @library speaker
-   * @sensor speaker libupm-speaker
-   * @comname Speaker
-   * @altname Grove Speaker 
-   * @type sound
-   * @man seeed
-   * @con gpio
-   * @kit hak
-   *
-   * @brief API for the Speaker
-   *
-   * UPM module for the Speaker.
-   * This sensor can generate different tones and sounds depending on the
-   * frequency of the input signal.
-   *
-   * @image html speaker.jpg
-   * @snippet speaker.cxx Interesting
-   */
-  class Speaker {
-  public:
-    /**
-     * Speaker constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Speaker(int pin);
-    /**
-     * Speaker destructor
-     */
-    ~Speaker();
-    /**
-     * Plays all alto notes (lowest notes)
-     *
-     */
-    void playAll();
-    /**
-     * Plays a sound and a note whether it's sharp or not
-     *
-     * @param letter Character name of the note
-     * ('a', 'b', 'c', 'd', 'e', 'f', or 'g')
-     * @param sharp If true, plays a sharp version of the note; otherwise, does not play the note
-     * @param vocalWeight String to determine whether to play a low ("low"),
-     * a medium ("med"), or a high ("high") note
-     */
-    void playSound(char letter, bool sharp, std::string vocalWeight);
+        /**
+         * Speaker destructor
+         */
+        ~Speaker();
+        /**
+         * Plays all alto notes (lowest notes)
+         *
+         */
 
-  private:
-        mraa_gpio_context m_gpio;
-        std::map <char, NoteData> m_note_list;
-        void sound(int note_delay);
-        NoteData storeNote(int noteDelayLow, int noteDelayLowSharp,
-                           int noteDelayMed, int noteDelayMedSharp,
-                           int noteDelayHigh, int noteDelayHighSharp);
-  };
+        void playAll();
+        /**
+         * Plays a sound and a note whether it's sharp or not
+         *
+         * @param letter Character name of the note
+         * ('a', 'b', 'c', 'd', 'e', 'f', or 'g')
+         * @param sharp If true, plays a sharp version of the note;
+         * otherwise, does not play the note
+         * @param vocalWeight String to determine whether to play a
+         * low ("low"), a medium ("med"), or a high ("high") note
+         */
+        void playSound(char letter, bool sharp, std::string vocalWeight);
+
+    protected:
+        speaker_context m_speaker;
+
+    private:
+    };
 }
