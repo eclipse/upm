@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,10 @@
  */
 
 #include <unistd.h>
-#include <iostream>
 #include <signal.h>
-#include "cjq4435.hpp"
 
-using namespace std;
+#include <upm_utilities.h>
+#include "cjq4435.h"
 
 int shouldRun = true;
 
@@ -44,34 +43,40 @@ int main ()
 
 //! [Interesting]
     // Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
-    upm::CJQ4435* mosfet = new upm::CJQ4435(3);
+    cjq4435_context mosfet = cjq4435_init(3);
 
-    mosfet->setPeriodMS(10);
-    mosfet->enable(true);
+    if (!mosfet)
+    {
+        printf("cjq4435_init() failed.\n");
+        return 1;
+    }
+
+    cjq4435_set_period_ms(mosfet, 10);
+    cjq4435_enable(mosfet, true);
 
     while (shouldRun)
     {
         // start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
         for (float i=0.0; i <= 1.0; i+=0.1)
         {
-            mosfet->setDutyCycle(i);
-            usleep(100000);
+            cjq4435_set_duty_cycle(mosfet, i);
+            upm_delay_ms(100);
         }
-        sleep(1);
-        // Now take it back down
+        upm_delay(1);
+
+        // Now bring it back down
         // start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
         for (float i=1.0; i >= 0.0; i-=0.1)
         {
-            mosfet->setDutyCycle(i);
-            usleep(100000);
+            cjq4435_set_duty_cycle(mosfet, i);
+            upm_delay_ms(100);
         }
-        sleep(1);
+        upm_delay(1);
     }
 
+    printf("Exiting...\n");
+
+    cjq4435_close(mosfet);
 //! [Interesting]
-
-    cout << "Exiting..." << endl;
-
-    delete mosfet;
     return 0;
 }
