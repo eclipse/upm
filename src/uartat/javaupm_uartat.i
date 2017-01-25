@@ -4,6 +4,7 @@
 %include "stdint.i"
 %include "typemaps.i"
 
+%include "uartat_defs.h"
 %include "uartat.hpp"
 %{
     #include "uartat.hpp"

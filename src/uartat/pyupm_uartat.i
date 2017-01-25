@@ -6,6 +6,7 @@
 
 %feature("autodoc", "3");
 
+%include "uartat_defs.h"
 %include "uartat.hpp"
 %{
     #include "uartat.hpp"
