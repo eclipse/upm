@@ -125,6 +125,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <fti/upm_binary.h>
 #include <fti/upm_rotaryencoder.h>
 #include <fti/upm_pressure.h>
+#include <fti/upm_compass.h>
 
 #ifdef __cplusplus
 }

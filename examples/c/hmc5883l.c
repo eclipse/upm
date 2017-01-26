@@ -27,55 +27,56 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
-#include <stdexcept>
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
 
-#include "hmc5883l.hpp"
+#include <upm_utilities.h>
 
+#include "hmc5883l.h"
 
-using namespace upm;
-using namespace std;
+bool shouldRun = true;
 
-Hmc5883l::Hmc5883l(int bus) :
-    m_hmc5883l(hmc5883l_init(bus))
+void sig_handler(int signo)
 {
-    if (!m_hmc5883l)
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": hmc5883l_init() failed");
+  if (signo == SIGINT)
+    shouldRun = false;
 }
 
-upm_result_t Hmc5883l::update(void)
+int main(int argc, char **argv)
 {
-    if (hmc5883l_update(m_hmc5883l))
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": hmc5883l_update() failed");
+    signal(SIGINT, sig_handler);
 
-    // kind of pointless, but want to maintain some compatibility with
-    // original code.
-    return UPM_SUCCESS;
-}
+//! [Interesting]
+    // Instantiate an HMC8883L on I2C bus 0
+    hmc5883l_context sensor = hmc5883l_init(0);
 
-float Hmc5883l::direction(void)
-{
-    return hmc5883l_direction(m_hmc5883l);
-}
+    if (!sensor)
+    {
+        printf("%s: hmc5883l_init() failed\n", __FUNCTION__);
+        return 1;
+    }
 
-float Hmc5883l::heading(void)
-{
-    return hmc5883l_heading(m_hmc5883l);
-}
+    hmc5883l_set_declination(sensor, 0.2749); // Set your declination
+                                              // from true north in
+                                              // radians
 
-const int16_t *Hmc5883l::coordinates(void)
-{
-    return hmc5883l_coordinates(m_hmc5883l);
-}
+    // Print out the coordinates, heading, and direction every second
+    while (shouldRun)
+    {
+        hmc5883l_update(sensor); // Update the coordinates
+        const int16_t *pos = hmc5883l_coordinates(sensor);
 
-void Hmc5883l::set_declination(float dec)
-{
-    return hmc5883l_set_declination(m_hmc5883l, dec);
-}
+        printf("coor: %5d %5d %5d ", pos[0], pos[1], pos[2]);
+        printf("heading: %5.2f direction: %3.2f\n",
+               hmc5883l_heading(sensor), hmc5883l_direction(sensor));
 
-float Hmc5883l::get_declination()
-{
-    return hmc5883l_get_declination(m_hmc5883l);
+        upm_delay(1);
+    }
+
+    hmc5883l_close(sensor);
+
+//! [Interesting]
+
+    return 0;
 }

@@ -1,7 +1,6 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,30 +21,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_COMPASS_H_
+#define UPM_COMPASS_H_
 
-#include <unistd.h>
-#include "hmc5883l.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-int
-main(int argc, char **argv)
-{
-//! [Interesting]
-    // Instantiate on I2C
-    upm::Hmc5883l* compass = new upm::Hmc5883l(0);
+// Compass function table
+typedef struct _upm_compass_ft {
+    upm_result_t (*upm_compass_set_scale) (void* dev, float scale);
+    upm_result_t (*upm_compass_set_offset) (void* dev, float offset);
+    // returns a heading in degrees
+    upm_result_t (*upm_compass_get_value) (void* dev, float *value);
+} upm_compass_ft;
 
-    compass->set_declination(0.2749); // Set your declination from
-                                      // true north in radians
-
-    // Print out the coordinates, heading, and direction every second
-    while(true){
-        compass->update(); // Update the coordinates
-        const int16_t *pos = compass->coordinates();
-        fprintf(stdout, "coor: %5d %5d %5d ", pos[0], pos[1], pos[2]);
-        fprintf(stdout, "heading: %5.2f direction: %3.2f\n",
-                compass->heading(), compass->direction());
-        sleep(1);
-    }
-//! [Interesting]
-
-    return 0;
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* UPM_COMPASS_H_ */
