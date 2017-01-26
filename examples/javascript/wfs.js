@@ -24,7 +24,8 @@
 
 var waterFlow_lib = require('jsupm_wfs');
 
-// Instantiate a Water Flow Sensor on digital pin D2
+// Instantiate a Water Flow Sensor on digital pin D2.  This must be an
+// interrupt capable pin.
 var myWaterFlow_obj = new waterFlow_lib.WFS(2);
 
 // set the flow counter to 0 and start counting

@@ -25,20 +25,23 @@
 //NOT TESTED!!!
 public class WFSSample {
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate a Water Flow Sensor on digital pin D2
-		upm_wfs.WFS flow = new upm_wfs.WFS(2);
+    public static void main(String[] args) throws InterruptedException {
+// ! [Interesting]
 
-		flow.clearFlowCounter();
-		flow.startFlowCounter();
+        // Instantiate a Water Flow Sensor on
+        // digital pin D2.  This must be an
+        // interrupt capable pin.
+        upm_wfs.WFS flow = new upm_wfs.WFS(2);
 
-		while (true) {
-			System.out.print("Millis: " + flow.getMillis() + " FlowCount: " + flow.flowCounter());
-			System.out.println(" Flow Rate: " + flow.flowRate() + " LPM");
+        flow.clearFlowCounter();
+        flow.startFlowCounter();
 
-			Thread.sleep(2000);
-		}
-		// ! [Interesting]
-	}
+        while (true) {
+            System.out.print("Millis: " + flow.getMillis() + " FlowCount: " + flow.flowCounter());
+            System.out.println(" Flow Rate: " + flow.flowRate() + " LPM");
+
+            Thread.sleep(2000);
+        }
+// ! [Interesting]
+    }
 }

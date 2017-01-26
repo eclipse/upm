@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,94 +31,42 @@
 using namespace upm;
 using namespace std;
 
-WFS::WFS(int pin)
+WFS::WFS(int pin) :
+    m_wfs(wfs_init(pin))
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-
-  initClock();
-  m_flowCounter = 0;
-  m_isrInstalled = false;
+    if (!m_wfs)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": wfs_init() failed");
 }
 
 WFS::~WFS()
 {
-  if (m_isrInstalled)
-    stopFlowCounter();
-
-  mraa_gpio_close(m_gpio);
+    wfs_close(m_wfs);
 }
 
 void WFS::initClock()
 {
-  gettimeofday(&m_startTime, NULL);
+    wfs_init_clock(m_wfs);
 }
 
 uint32_t WFS::getMillis()
 {
-  struct timeval elapsed, now;
-  uint32_t elapse;
-
-  // get current time
-  gettimeofday(&now, NULL);
-
-  // compute the delta since m_startTime
-  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 ) 
-    {
-      elapsed.tv_usec += 1000000;
-      elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec - 1;
-    } 
-  else 
-    {
-      elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec;
-    }
-
-  elapse = (uint32_t)((elapsed.tv_sec * 1000) + (elapsed.tv_usec / 1000));
-
-  // never return 0
-  if (elapse == 0)
-    elapse = 1;
-
-  return elapse;
+    return wfs_get_millis(m_wfs);
 }
 
 void WFS::startFlowCounter()
 {
-  initClock();
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
-                &flowISR, this);
-
-  m_isrInstalled = true;
+    if (wfs_start_flow_counter(m_wfs))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": wfs_start_flow_counter() failed");
 }
 
 void WFS::stopFlowCounter()
 {
-  // remove the interrupt handler
-  mraa_gpio_isr_exit(m_gpio);
-
-  m_isrInstalled = false;
-}
-
-void WFS::flowISR(void *ctx)
-{
-  upm::WFS *This = (upm::WFS *)ctx;
-  This->m_flowCounter++;
+    wfs_stop_flow_counter(m_wfs);
 }
 
 float WFS::flowRate()
 {
-  uint32_t millis = getMillis();
-  uint32_t flow = flowCounter();
-  
-  // 7.5 comes from the seeedstudio page, see the confusing datasheet :)
-  float flowRate = (float(flow) * 7.5) / ((float(millis) / 1000.0) * 60.0);
-
-  return flowRate;
+    return wfs_flow_rate(m_wfs);
 }

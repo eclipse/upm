@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-02017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,11 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
-#include "wfs.hpp"
 
-using namespace std;
+#include <upm_utilities.h>
+#include "wfs.h"
 
 int shouldRun = true;
 
@@ -38,42 +38,54 @@ void sig_handler(int signo)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
     signal(SIGINT, sig_handler);
 
 //! [Interesting]
     // Instantiate a Water Flow Sensor on digital pin D2.  This must
     // be an interrupt capable pin.
-    upm::WFS* flow = new upm::WFS(2);
+
+    wfs_context sensor = wfs_init(2);
+    if (!sensor)
+    {
+        printf("%s: wfs_init() failed\n", __FUNCTION__);
+        return 1;
+    }
 
     // set the flow counter to 0 and start counting
-    flow->clearFlowCounter();
-    flow->startFlowCounter();
+    wfs_clear_flow_counter(sensor);
+    if (wfs_start_flow_counter(sensor))
+    {
+        printf("%s: wfs_start_flow_counter() failed\n", __FUNCTION__);
+        wfs_close(sensor);
+        return 1;
+    }
 
     while (shouldRun)
     {
         // we grab these (millis and flowCount) just for display
         // purposes in this example
-        uint32_t millis = flow->getMillis();
-        uint32_t flowCount = flow->flowCounter();
+        uint32_t millis = wfs_get_millis(sensor);
+        uint32_t flowCount = wfs_flow_counter(sensor);
 
-        float fr = flow->flowRate();
+        float fr = wfs_flow_rate(sensor);
 
         // output milliseconds passed, flow count, and computed flow rate
-        cout << "Millis: " << millis << " Flow Count: " << flowCount;
-        cout << " Flow Rate: " << fr << " LPM" << endl;
+        printf("Millis: %8d Flow Count: %5d Flow Rate: %f LPM\n",
+               millis, flowCount, fr);
 
         // best to gather data for at least one second for reasonable
         // results.
-        sleep(2);
+        upm_delay(2);
     }
 
-    flow->stopFlowCounter();
+    wfs_stop_flow_counter(sensor);
+
+    printf("Exiting...\n");
+
+    wfs_close(sensor);
+
 //! [Interesting]
-
-    cout << "Exiting..." << endl;
-
-    delete flow;
     return 0;
 }

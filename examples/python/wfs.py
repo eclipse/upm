@@ -26,7 +26,8 @@ import time, sys, signal, atexit
 from upm import pyupm_wfs as upmwfs
 
 def main():
-    # Instantiate a Water Flow Sensor on digital pin D2
+    # Instantiate a Water Flow Sensor on digital pin D2.  This must be
+    # an interrupt capable GPIO.
     myWaterFlow = upmwfs.WFS(2)
 
     ## Exit handlers ##

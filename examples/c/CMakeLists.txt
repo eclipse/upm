@@ -146,6 +146,7 @@ add_example (max30100)
 add_example (speaker)
 add_example (cjq4435)
 add_example (hmc5883l)
+add_example (wfs)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
