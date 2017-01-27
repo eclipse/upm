@@ -37,33 +37,13 @@ macro (upm_create_install_pkgconfig generated_file install_location)
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} DESTINATION ${install_location})
 endmacro(upm_create_install_pkgconfig)
 
-# Provides a means to call target_link_libraries AND the necessary
-# swig_link_libaries.  This iterates over all additional parameters AFTER
-# the target name calling target_link_libraries/swig_link_libraries
-# as necessary accordingly
+# Provide a wrapper to call target_link_libraries AND add any additional
+# functionality necessary for upm modules.  This was being used to add
+# link dependencies for the swig wrappers (swig_link_libraries).  This has
+# been removed.  Leaving the wrapper call to minimize changes.
 macro (upm_target_link_libraries target_name)
-  # For each additional argument to upm_target_link_libraries...
-  foreach(_library ${ARGN})
-    # Add the dependency
-    target_link_libraries(${target_name} ${_library})
-
-    # Call the swig link library method for each library
-    if (BUILDSWIGNODE)
-      swig_link_libraries (jsupm_${libname} ${_library})
-    endif()
-    # Build python2 AND/OR python3 modules
-    if (BUILDSWIGPYTHON)
-      if (PYTHON2LIBS_FOUND)
-        swig_link_libraries (pyupm_${libname}-python2 ${_library})
-      endif (PYTHON2LIBS_FOUND)
-      if (PYTHON3LIBS_FOUND)
-        swig_link_libraries (pyupm_${libname}-python3 ${_library})
-      endif (PYTHON3LIBS_FOUND)
-    endif()
-    if (BUILDSWIGJAVA)
-      swig_link_libraries (javaupm_${libname} ${_library})
-    endif()
-  endforeach(_library ${ARGN})
+  # Add the dependencies
+  target_link_libraries(${target_name} ${ARGN})
 endmacro (upm_target_link_libraries target_name)
 
 # Create a single swig target for python
@@ -398,6 +378,9 @@ function (UPM_MIXED_MODULE_INIT)
   # C_SRC -> List of C source files
   # FTI_SRC -> List of C FTI source files
   # REQUIRES -> List requires libraries for pkg-config
+  # Exports to PARENT scope:
+  #     libname -> CXX target name
+  #     libnamec -> C target name (if used)
   set (options CPP_WRAPS_C)
   set (oneValueArgs NAME DESCRIPTION)
   set (multiValueArgs CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
@@ -468,18 +451,20 @@ function (UPM_MIXED_MODULE_INIT)
 
     ## "export" the logical C++ lib target for the calling module's
     ## CMakeLists.txt
-    set (libnamecxx ${libname} PARENT_SCOPE)
+    set (libname ${libname} PARENT_SCOPE)
 
   endif (BUILDCPP AND UPM_MIXED_MODULE_INIT_CPP_HDR)
 
 endfunction (UPM_MIXED_MODULE_INIT)
 
-macro(upm_module_init)
+function(upm_module_init)
   set (basename ${libname})
 
   # If this is a C library, handle different collateral naming
   if (IS_C_LIBRARY)
     set (libname ${libname}-c)
+    # If this is a C library, export C library target name to parent's libname
+    set (libname ${libname} PARENT_SCOPE)
     set (libprefix upmc-)
     set (pcname upmc-${basename}.pc)
   else ()
@@ -528,7 +513,7 @@ macro(upm_module_init)
     cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
     set(CPACK_COMPONENT_${libname}_DESCRIPTION "${libdescription}")
   endif()
-endmacro(upm_module_init)
+endfunction(upm_module_init)
 
 # Top-level module init
 if (BUILDSWIGPYTHON)
