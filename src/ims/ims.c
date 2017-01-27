@@ -63,7 +63,9 @@ ims_context* ims_init(int16_t i2c_bus, int16_t i2c_address)
     /* This device must run at 100kHz */
     if (mraa_i2c_frequency(dev->_i2c_context, MRAA_I2C_STD))
     {
-        syslog(LOG_ERR, "%s: mraa_i2c_frequency() failed\n", __FUNCTION__);
+        syslog(LOG_ERR, "%s: mraa_i2c_frequency() failed.  %s\n",
+                __FUNCTION__,
+                "This device requires I2C standard mode (100 kb/s)");
         goto ims_init_fail;
     }
 
