@@ -1,6 +1,6 @@
 /*
- * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,36 +21,22 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_GYROSCOPE_H_
+#define UPM_GYROSCOPE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-public class ENC03RSample {
-	private static final long CALIBRATION_SAMPLES = 1000;
+// Gyroscope function table
+typedef struct _upm_gyroscope_ft {
+    upm_result_t (*upm_gyroscope_set_scale) (void* dev, float* scale);
+    upm_result_t (*upm_gyroscope_set_offset) (void* dev, float* offset);
+    upm_result_t (*upm_gyroscope_get_value) (void* dev, float* value);
+} upm_gyroscope_ft;
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-
-		// Instantiate a ENC03R on analog pin A0
-		upm_enc03r.ENC03R gyro = new upm_enc03r.ENC03R(0);
-
-		System.out.println("Please place the sensor in a stable location, and do not");
-		System.out.println("move it while calibration takes place");
-		System.out.println("This may take a couple of minutes.");
-
-		gyro.calibrate(CALIBRATION_SAMPLES);
-		System.out.println("Calibration complete.  Reference value: " + gyro.calibrationValue());
-
-		// Read the input and print both the raw value and the angular velocity,
-		// waiting 1 second between readings
-		while (true) {
-			gyro.update();
-
-			System.out.println("Angular velocity: "
-                                           +  gyro.angularVelocity()
-                                           + " deg/s");
-
-			Thread.sleep(100);
-		}
-		// ! [Interesting]
-	}
-
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* UPM_GYROSCOPE_H_ */

@@ -23,16 +23,22 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
-#include "enc03r.hpp"
 
-using namespace std;
+#include <upm_utilities.h>
+#include <upm_platform.h>
+
+#include "enc03r.h"
 
 bool shouldRun = true;
 
-// analog voltage, usually 3.3 or 5.0
-#define CALIBRATION_SAMPLES 1000
+// The number of samples used for calibration
+#if defined(UPM_PLATFORM_ZEPHYR)
+# define CALIBRATION_SAMPLES 500
+#else
+# define CALIBRATION_SAMPLES 1000
+#endif
 
 void sig_handler(int signo)
 {
@@ -47,34 +53,38 @@ int main()
 //! [Interesting]
 
     // Instantiate a ENC03R on analog pin A0
-    upm::ENC03R *gyro = new upm::ENC03R(0);
+    enc03r_context sensor = enc03r_init(0, 5.0);
+
+    if (!sensor)
+    {
+        printf("%s: enc03r_init() failed\n", __FUNCTION__);
+        return 1;
+    }
 
     // The first thing we need to do is calibrate the sensor.
-    cout << "Please place the sensor in a stable location, and do not" << endl;
-    cout << "move it while calibration takes place." << endl;
-    cout << "This may take a couple of minutes." << endl;
+    printf("Please place the sensor in a stable location, and do not\n");
+    printf("move it while calibration takes place.\n");
+    printf("This may take a little time to complete.\n");
 
-    gyro->calibrate(CALIBRATION_SAMPLES);
-    cout << "Calibration complete.  Reference value: "
-         << gyro->calibrationValue() << endl;
+    enc03r_calibrate(sensor, CALIBRATION_SAMPLES);
+    printf("Calibration complete.  Reference value: %f\n\n",
+           enc03r_calibration_value(sensor));
 
     // Read the input and print both the raw value and the angular velocity,
     // waiting 0.1 seconds between readings
     while (shouldRun)
     {
-        gyro->update();
+        enc03r_update(sensor);
 
-        cout << "Angular velocity: "
-             << gyro->angularVelocity()
-             << " deg/s"
-             << endl;
+        printf("Angular velocity: %f deg/s\n",
+               enc03r_angular_velocity(sensor));
 
-        usleep(100000);
+        upm_delay_ms(100);
     }
+
+    printf("Exiting\n");
+
+    enc03r_close(sensor);
 //! [Interesting]
-
-    cout << "Exiting" << endl;
-
-    delete gyro;
     return 0;
 }

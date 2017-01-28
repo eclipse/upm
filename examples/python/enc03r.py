@@ -55,10 +55,9 @@ def main():
     print("Reference value: ", myAnalogGyro.calibrationValue())
 
     while(1):
-        gyroVal = myAnalogGyro.value();
-        outputStr = ("Raw value: {0}, "
-        "angular velocity: {1}"
-        " deg/s".format(gyroVal, myAnalogGyro.angularVelocity(gyroVal)))
+        myAnalogGyro.update();
+        outputStr = ("Angular velocity: {0}"
+        " deg/s".format(myAnalogGyro.angularVelocity()))
         print(outputStr)
 
         time.sleep(.1)
