@@ -24,6 +24,7 @@
 
 
 #include "ads1x15.hpp"
+#include "mraa/i2c.hpp"
 
 #include <unistd.h>
 #include <syslog.h>

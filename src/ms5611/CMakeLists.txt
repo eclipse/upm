@@ -1,4 +1,3 @@
-include_directories(..)
 set (libname "ms5611")
 set (libdescription "Pressure and temperature sensor")
 set (module_src ${libname}.cxx)

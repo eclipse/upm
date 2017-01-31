@@ -8,6 +8,8 @@
     #include "ads1115.hpp"
 %}
 
+%include "iModuleStatus.hpp"
+%include "iADC.hpp"
 %include "ads1x15.hpp"
 %include "ads1015.hpp"
 %include "ads1115.hpp"

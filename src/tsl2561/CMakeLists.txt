@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME tsl2561
     CPP_SRC tsl2561.cxx
     FTI_SRC tsl2561_fti.c
     CPP_WRAPS_C
-    REQUIRES libmraa)
+    REQUIRES mraa)

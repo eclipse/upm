@@ -1,4 +1,3 @@
-include_directories(..)
 set (libname "si7005")
 set (libdescription "Digital I2C humidity and temperature sensor")
 set (module_src ${libname}.cxx mraa-utils.cxx)

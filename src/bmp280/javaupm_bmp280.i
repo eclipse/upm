@@ -5,6 +5,10 @@
 %include "arrays_java.i";
 %include "../java_buffer.i"
 
+%include "iModuleStatus.hpp"
+%include "iHumiditySensor.hpp"
+%include "iPressureSensor.hpp"
+%include "iTemperatureSensor.hpp"
 %include "bmp280.hpp"
 %{
     #include "bmp280.hpp"

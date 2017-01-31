@@ -32,7 +32,7 @@
 #include <mraa/spi.h>
 #include <mraa/gpio.h>
 
-#include <ms5803_defs.h>
+#include "ms5803_defs.h"
 
 #ifdef __cplusplus
 extern "C" {

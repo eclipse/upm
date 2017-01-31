@@ -1,4 +1,3 @@
-include_directories(..)
 set (libname "si1132")
 set (libdescription "UV and ambient light sensor")
 set (module_src ${libname}.cxx)

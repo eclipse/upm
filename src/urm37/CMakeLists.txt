@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME urm37
     CPP_SRC urm37.cxx
     FTI_SRC urm37_fti.c
     CPP_WRAPS_C
-    REQUIRES upmc-utilities mraa)
+    REQUIRES mraa)

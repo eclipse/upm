@@ -26,7 +26,7 @@
 #pragma once
 
 #include "ads1x15.hpp"
-#include "upm/iADC.hpp"
+#include "interfaces/iADC.hpp"
 
 #define ADS1015_VREF 2.048
 

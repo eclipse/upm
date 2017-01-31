@@ -26,8 +26,8 @@
 
 #include <iostream>
 #include <string>
-#include "mraa.hpp"
-#include "mraa/i2c.hpp"
+
+namespace mraa { class I2c;}
 
 namespace upm {
   /**

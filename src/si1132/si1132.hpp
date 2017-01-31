@@ -25,7 +25,7 @@
 
 #include <string>
 #include "mraa/i2c.hpp"
-#include "upm/iLightSensor.hpp"
+#include "interfaces/iLightSensor.hpp"
 
 
 namespace upm {

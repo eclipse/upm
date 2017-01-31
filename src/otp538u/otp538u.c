@@ -28,7 +28,7 @@
 #include <upm_utilities.h>
 #include <upm_platform.h>
 
-#include <otp538u.h>
+#include "otp538u.h"
 
 #include "thermopile_vt_table.h"
 #include "thermister_rt_table.h"

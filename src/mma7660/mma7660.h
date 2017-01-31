@@ -30,7 +30,7 @@
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
-#include <mma7660_regs.h>
+#include "mma7660_regs.h"
 
 #ifdef __cplusplus
 extern "C" {

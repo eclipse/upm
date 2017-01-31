@@ -28,7 +28,7 @@
 #include <cstring>
 #include <cmath>
 #include <sys/time.h>
-#include <rf22.hpp>
+#include "rf22.hpp"
 
 using namespace upm;
 

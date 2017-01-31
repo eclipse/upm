@@ -28,8 +28,6 @@
 
 #include <iostream>
 #include <string>
-#include "mraa.hpp"
-#include "mraa/i2c.hpp"
 
 #define MCP9808_REG_CONFIG  0x01
 #define MCP9808_REG_AMBIENT_TEMP 0x05
@@ -40,6 +38,8 @@
 #define MCP9808_CONFIG_CRITLOCKED 0x8000
 #define MCP9808_CONFIG_WINLOCKED 0x4000
 #define MCP9808_CONFIG_INTCLR 0x2000
+
+namespace mraa { class I2c;}
 
 namespace upm {
   /**

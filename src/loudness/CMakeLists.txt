@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME loudness
     CPP_HDR loudness.hpp
     FTI_SRC loudness_fti.c
     CPP_WRAPS_C
-    REQUIRES libmraa)
+    REQUIRES mraa)

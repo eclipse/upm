@@ -3,11 +3,11 @@ exec_prefix=${prefix}
 libdir=${exec_prefix}/lib@LIB_SUFFIX@
 includedir=${prefix}/include
 
-Name: @libprefix@@basename@
+Name: @libname@
 Description: @libdescription@
 Version: @upm_VERSION_STRING@
 
-Libs: -L${libdir} -l@libprefix@@basename@
+Libs: -L${libdir} -l@libname@
 Cflags: -I${includedir}/upm
 
 Requires: @reqlibname@

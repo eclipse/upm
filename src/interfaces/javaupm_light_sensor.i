@@ -5,7 +5,7 @@
 %}
 
 /*
-%include "../upm/iModuleStatus.hpp"
+%include "../iModuleStatus.hpp"
 */
 %include "iLightSensor.hpp"
 

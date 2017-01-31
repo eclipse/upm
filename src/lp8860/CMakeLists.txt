@@ -1,4 +1,3 @@
-include_directories(..)
 set (libname "lp8860")
 set (libdescription "LED lighting controller")
 set (module_src ${libname}.cxx mraa-utils.cxx)

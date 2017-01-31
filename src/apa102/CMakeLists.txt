@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME apa102
     CPP_HDR apa102.hpp
     CPP_SRC apa102.cxx
     FTI_SRC apa102_fti.c
-    REQUIRES upmc-utilities mraa)
+    REQUIRES mraa)

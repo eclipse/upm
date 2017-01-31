@@ -37,18 +37,88 @@ macro (upm_create_install_pkgconfig generated_file install_location)
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} DESTINATION ${install_location})
 endmacro(upm_create_install_pkgconfig)
 
-# Provide a wrapper to call target_link_libraries AND add any additional
-# functionality necessary for upm modules.  This was being used to add
-# link dependencies for the swig wrappers (swig_link_libraries).  This has
-# been removed.  Leaving the wrapper call to minimize changes.
-macro (upm_target_link_libraries target_name)
-  # Add the dependencies
-  target_link_libraries(${target_name} ${ARGN})
-endmacro (upm_target_link_libraries target_name)
+# This function iterates over all target names stored in CACHE variable
+# UPM_LIBRARY_TARGETS and writes a .pc file to each build directory
+function (_gen_pkg_config_per_target)
+  list(LENGTH UPM_LIBRARY_TARGETS n_targets)
+  message(STATUS "Generating pkg-config files for ${n_targets} libraries...")
+  set (n_ctargets 0)
+  set (n_cxxtargets 0)
+  # Iterate over the targets an build package config (.pc) files
+  foreach (target ${UPM_LIBRARY_TARGETS})
+    if (TARGET ${target})
+      get_target_property(libname ${target} PKG_CONFIG_NAME)
+      get_target_property(libdescription ${target} PKG_CONFIG_DESCRIPTION)
+      get_target_property(reqlibname ${target} PKG_EXT_REQ_LIBS)
+      get_target_property(BINARY_DIR ${target} BINARY_DIR)
+      get_target_property(DEPLIBS ${target} LINK_LIBRARIES)
+      # Remove this libname from the DEPLIBS (if it's there)
+      list(REMOVE_ITEM DEPLIBS ${libname})
+      # Check if any of the LINK_LIBRARIES are targets in this project,
+      # if so, add them to reqlibname
+      foreach (deplib ${DEPLIBS})
+        # If this target exists, get the actual library name (which equates
+        # to it's .pc filename, example: target dfrph = <upm-dfrph>.pc
+        if (TARGET ${deplib})
+          get_target_property(deplibname ${deplib} PKG_CONFIG_NAME)
+          list(APPEND reqlibname ${deplibname})
+          # If the deplib is mraa, add that verbatim (mraa's .pc file is mraa.pc)
+        elseif (${deplib} MATCHES mraa)
+          list(APPEND reqlibname mraa)
+        endif (TARGET ${deplib})
+      endforeach (deplib ${DEPLIBS})
+      # Make sure no dups exist
+      separate_arguments(reqlibname)
+      list(REMOVE_DUPLICATES reqlibname)
+      # Switch to comma separated Requires: field (per pkg-config docs)
+      string(REPLACE ";" "," reqlibname "${reqlibname}")
+
+      # Keep some stats
+      string(REGEX MATCH "-c$" _isC ${target})
+      if (_isC)
+          MATH(EXPR n_ctargets "${n_ctargets}+1")
+      else ()
+          MATH(EXPR n_cxxtargets "${n_cxxtargets}+1")
+      endif()
+      upm_create_install_pkgconfig (${libname}.pc ${LIB_INSTALL_DIR}/pkgconfig)
+    endif (TARGET ${target})
+  endforeach (target ${UPM_LIBRARY_TARGETS})
+  message(STATUS "\tFound C   libraries: ${n_ctargets}")
+  message(STATUS "\tFound CXX libraries: ${n_cxxtargets}")
+  message(STATUS "Generating pkg-config files for ${n_targets} libraries... Complete")
+endfunction (_gen_pkg_config_per_target)
+
+function (_get_target_dependency_interface_include_dirs target varIncludeDirs)
+  set (${varIncludeDirs} "")
+
+  # For each LINK_LIBRARIES of target
+  get_property(_targets TARGET ${target} PROPERTY LINK_LIBRARIES)
+  foreach (_target ${_targets})
+    # If the target currently exists, use its include directories
+    if (TARGET ${_target})
+      get_property(_tmp_prop_val TARGET ${_target} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+      list(APPEND ${varIncludeDirs} ${_tmp_prop_val})
+    # It's possible that the target does NOT exist yet, attempt to build an include directory
+    else ()
+        # Guess at a src dir name
+        file (TO_CMAKE_PATH "${CMAKE_SOURCE_DIR}/src/${_target}" _dirname)
+        if (EXISTS ${_dirname})
+            list(APPEND ${varIncludeDirs} ${_dirname})
+        else ()
+        endif (EXISTS ${_dirname})
+    endif (TARGET ${_target})
+  endforeach (_target ${_targets})
+  set(${varIncludeDirs} "${${varIncludeDirs}}" PARENT_SCOPE)
+endfunction (_get_target_dependency_interface_include_dirs target varIncludeDirs)
 
 # Create a single swig target for python
 macro(_upm_swig_python)
-  include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..)
+  # Transitive headers don't appear to get picked up by swig_add_module call for
+  # wrapper generation.  Get them manually and add them here.
+  _get_target_dependency_interface_include_dirs(${libname} DEPEND_DIRS)
+
+  include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..
+                       ${DEPEND_DIRS})
 
   set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
   set_source_files_properties (pyupm_${libname}.i PROPERTIES SWIG_FLAGS "-I${CMAKE_CURRENT_BINARY_DIR}/..")
@@ -74,7 +144,8 @@ macro(_upm_swig_python)
   target_include_directories (${python_wrapper_target}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
-      "${PYTHON_INCLUDE_DIRS}")
+      "${PYTHON_INCLUDE_DIRS}"
+      ${DEPEND_DIRS})
 
   # Turn off flags for wrapper
   foreach(flag ${SWIG_CXX_DISABLE_WARNINGS})
@@ -154,8 +225,13 @@ macro(upm_swig_node)
       string (LENGTH "${V8_VERSION_HEX}" V8_VERSION_HEX_length)
     endwhile ()
 
+    # Transitive headers don't appear to get picked up by swig_add_module call for
+    # wrapper generation.  Get them manually and add them here.
+    _get_target_dependency_interface_include_dirs(${libname} DEPEND_DIRS)
+
     include_directories (
       ${CMAKE_CURRENT_SOURCE_DIR}/..
+      ${DEPEND_DIRS}
     )
 
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
@@ -165,6 +241,7 @@ macro(upm_swig_node)
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
       "${NODE_INCLUDE_DIRS}"
+      ${DEPEND_DIRS}
     )
 
     # Turn off flags for wrapper
@@ -205,10 +282,15 @@ endmacro(upm_swig_node)
 macro(upm_swig_java)
   # Skip if the libname is in the blacklist
   if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
+    # Transitive headers don't appear to get picked up by swig_add_module call for
+    # wrapper generation.  Get them manually and add them here.
+    _get_target_dependency_interface_include_dirs(${libname} DEPEND_DIRS)
+
     include_directories (
       ${JAVA_INCLUDE_PATH}
       ${JAVA_INCLUDE_PATH2}
       ${CMAKE_CURRENT_SOURCE_DIR}/..
+      ${DEPEND_DIRS}
     )
 
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
@@ -220,11 +302,12 @@ macro(upm_swig_java)
     # See issue #518
     # TODO: Fix this somehow
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname})
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname} interfaces)
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
       "${JAVA_INCLUDE_PATH}"
+      ${DEPEND_DIRS}
      )
     set_target_properties (javaupm_${libname} PROPERTIES
       COMPILE_FLAGS "-fpermissive -DJAVACALLBACK"
@@ -332,10 +415,10 @@ if (BUILDSWIGNODE)
 
         # Utilities and interfaces
         file (COPY ${CMAKE_SOURCE_DIR}/src/utilities DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
-        file (COPY ${CMAKE_SOURCE_DIR}/src/upm DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+        file (COPY ${CMAKE_SOURCE_DIR}/src/interfaces DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_SRCS_GYP "'utilities/upm_utilities.c',\n${upm_LIB_SRCS_GYP}")
         set (upm_LIB_INCLUDE_DIRS_GYP "'utilities',\n${upm_LIB_INCLUDE_DIRS_GYP}")
-        set (upm_LIB_INCLUDE_DIRS_GYP "'upm',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+        set (upm_LIB_INCLUDE_DIRS_GYP "'interfaces',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
         # Add readme, package.json for NPM and node-gyp config file
         configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
@@ -390,6 +473,9 @@ function (UPM_MIXED_MODULE_INIT)
   # Set the description
   set (libdescription ${UPM_MIXED_MODULE_INIT_DESCRIPTION})
 
+  # Make sure REQUIRES is a list
+  separate_arguments(UPM_MIXED_MODULE_INIT_REQUIRES)
+
   # Always build C libs first
   if (UPM_MIXED_MODULE_INIT_C_SRC)
     set (libname ${UPM_MIXED_MODULE_INIT_NAME})
@@ -397,11 +483,9 @@ function (UPM_MIXED_MODULE_INIT)
     set (module_src ${UPM_MIXED_MODULE_INIT_C_SRC})
     set (module_hpp ${UPM_MIXED_MODULE_INIT_C_HDR})
 
-    # Create the reqlibname list
-    string(REPLACE ";" " " reqlibname "${UPM_MIXED_MODULE_INIT_REQUIRES}")
-    # Append upmc-utilities to the reqlibs (but not on upm-utilities itself)
+    # Append the utilities-c target to each c target
     if (NOT ${libname} MATCHES "utilities")
-      set (reqlibname "${reqlibname} upmc-utilities")
+        list (APPEND UPM_MIXED_MODULE_INIT_REQUIRES utilities-c)
     endif()
 
     # If building FTI, and FTI src exists, add it in
@@ -416,7 +500,7 @@ function (UPM_MIXED_MODULE_INIT)
 
     # Set a flag to tell upm_module_init that it's building a C library
     set (IS_C_LIBRARY TRUE)
-    upm_module_init()
+    upm_module_init(${UPM_MIXED_MODULE_INIT_REQUIRES})
 
     # add upmc-utilities as a dependancy to all C libs (but NOT to the
     # utilities lib itself)
@@ -436,13 +520,10 @@ function (UPM_MIXED_MODULE_INIT)
     set (module_src ${UPM_MIXED_MODULE_INIT_CPP_SRC})
     set (module_hpp ${UPM_MIXED_MODULE_INIT_CPP_HDR})
 
-    # Create the reqlibname list
-    string(REPLACE ";" " " reqlibname "${UPM_MIXED_MODULE_INIT_REQUIRES}")
-
     # Reset the libname (upm_module_init can change it)
     set (libname ${UPM_MIXED_MODULE_INIT_NAME})
     unset (IS_C_LIBRARY)
-    upm_module_init()
+    upm_module_init(${UPM_MIXED_MODULE_INIT_REQUIRES})
 
     # If the C++ wraps the C target, add the C target as a dependency
     if (UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
@@ -466,19 +547,30 @@ function(upm_module_init)
     # If this is a C library, export C library target name to parent's libname
     set (libname ${libname} PARENT_SCOPE)
     set (libprefix upmc-)
-    set (pcname upmc-${basename}.pc)
   else ()
     set (libprefix upm-)
-    set (pcname upm-${basename}.pc)
   endif (IS_C_LIBRARY)
 
-  link_directories (${MRAA_LIBDIR})
+  # Create the target library from src/hdrs
   add_library (${libname} SHARED ${module_src} ${module_hpp})
+
+  # Specify the current source directory as an INTERFACE include dir.
+  # This allows for transitive header dependencies via target_link_libraries
+  target_include_directories(${libname} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+
+  # Iterate over all arguments passed to upm_module_init.
+  #     1. Add them via target_link_libraries
+  #     2. If the argument is a target, 
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} . ..)
-  target_link_libraries (${libname} ${MRAA_LIBRARIES})
+
+  # Always add a dependency to MRAA libs
+  target_link_libraries (${libname} ${MRAA_LDFLAGS})
+
+  # Always add a dependency to MRAA include dirs
+  target_include_directories (${libname} PUBLIC ${MRAA_INCLUDE_DIRS})
+
   set_target_properties(
     ${libname}
     PROPERTIES PREFIX lib${libprefix}
@@ -486,7 +578,6 @@ function(upm_module_init)
     SOVERSION ${upm_VERSION_MAJOR}
     VERSION ${upm_VERSION_STRING}
   )
-  upm_create_install_pkgconfig (${pcname} ${LIB_INSTALL_DIR}/pkgconfig)
 
   # Don't SWIG C
   if (NOT IS_C_LIBRARY)
@@ -501,12 +592,21 @@ function(upm_module_init)
     endif (BUILDSWIGJAVA)
   endif (NOT IS_C_LIBRARY)
 
+  # Add this target to the list of library target names
+  set(UPM_LIBRARY_TARGETS ${UPM_LIBRARY_TARGETS} ${libname} CACHE INTERNAL "List of ALL target names")
+  set_target_properties(${libname} PROPERTIES PKG_CONFIG_NAME "${libprefix}${basename}")
+  set_target_properties(${libname} PROPERTIES PKG_CONFIG_DESCRIPTION "${libdescription}")
+  set_target_properties(${libname} PROPERTIES PKG_EXT_REQ_LIBS "${reqlibname}")
+
   # Skip doxygen run on C (for now)
   if (BUILDDOC AND NOT IS_C_LIBRARY)
     upm_doxygen()
   endif()
 
+  # Install target library to lib dir
   install (TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
+
+  # Install header files to include/upm/
   install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
 
   if (IPK)
@@ -545,11 +645,15 @@ elseif (BUILDSWIGPYTHON)
   file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i "// Empty doxy2swig stub")
 endif (BUILDDOC AND BUILDSWIGPYTHON)
 
+# Provide a cached variable to save a list of library target names
+set(UPM_LIBRARY_TARGETS "" CACHE INTERNAL "List of ALL target names")
+
 # Add subdirectories from MODULE_LIST if defined
 # Example -DMODULE_LIST="dfrph;rotaryencoder"
 if (MODULE_LIST)
   set(SUBDIRS ${MODULE_LIST})
-  set(SUBDIRS ${SUBDIRS} upm)
+  # Add interfaces directory
+  set(SUBDIRS ${SUBDIRS} interfaces)
 else()
   # Otherwise, add all subdirectories
   subdirlist(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
@@ -567,3 +671,6 @@ foreach(subdir ${SUBDIRS})
         add_subdirectory(${subdir})
     endif()
 endforeach()
+
+# Generate a pkg-config file (.pc) per target
+_gen_pkg_config_per_target()

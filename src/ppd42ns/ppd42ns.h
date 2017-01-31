@@ -32,7 +32,7 @@
 #include <upm.h>
 
 #include <mraa/gpio.h>
-#include <ppd42ns_data.h>
+#include "ppd42ns_data.h"
 
 #ifdef __cplusplus
 extern "C" {

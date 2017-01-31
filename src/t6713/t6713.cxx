@@ -29,7 +29,7 @@
 #include <syslog.h>
 #include <unistd.h>
 
-#include <t6713.hpp>
+#include "t6713.hpp"
 
 #define T6713_ADDR                                0x15
 

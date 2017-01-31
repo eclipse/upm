@@ -159,5 +159,5 @@ int main()
 
 	}while (command != -1 );
 //! [Interesting]
-	return MRAA_SUCCESS;
+	return 0;
 }

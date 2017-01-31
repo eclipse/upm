@@ -6,6 +6,8 @@
 
 %feature("autodoc", "3");
 
+%include "iModuleStatus.hpp"
+%include "iLightController.hpp"
 %include "ds1808lc.hpp"
 %{
     #include "ds1808lc.hpp"

@@ -6,6 +6,4 @@ upm_mixed_module_init (NAME jhd1313m1
     CPP_SRC jhd1313m1.cxx
 #    FTI_SRC jhd1313m1_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
-# We need hd44780_bits.h from lcm1602
-include_directories("../lcm1602")
+    REQUIRES mraa lcm1602)

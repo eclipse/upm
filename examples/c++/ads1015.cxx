@@ -30,6 +30,8 @@
 #include <fstream>
 #include <string>
 #include <thread>
+#include <unistd.h>
+
 #include "ads1015.hpp"
 
 using namespace std;

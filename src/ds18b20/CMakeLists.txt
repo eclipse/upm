@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME ds18b20
     CPP_SRC ds18b20.cxx
     FTI_SRC ds18b20_fti.c
     CPP_WRAPS_C
-    REQUIRES upmc-utilities mraa)
+    REQUIRES mraa)

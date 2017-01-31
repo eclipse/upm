@@ -26,6 +26,9 @@
 #include <cmath>
 #include <syslog.h>
 
+#include "mraa.hpp"
+#include "mraa/i2c.hpp"
+
 using namespace upm;
 
 MCP9808::MCP9808 (int bus, uint8_t address){

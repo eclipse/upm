@@ -1,4 +1,3 @@
-include_directories(..)
 set (libname "hlg150h")
 set (libdescription "Lighting power supply")
 set (module_src ${libname}.cxx mraa-utils.cxx)

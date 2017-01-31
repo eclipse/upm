@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 
-#include "upm/iLightSensor.hpp"
+#include "interfaces/iLightSensor.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define MAX44009_ADDRESS                    ( 0x4A )

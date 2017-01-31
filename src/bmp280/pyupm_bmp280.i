@@ -12,6 +12,10 @@
 %include "bmp280_doc.i"
 #endif
 
+%include "iModuleStatus.hpp"
+%include "iHumiditySensor.hpp"
+%include "iPressureSensor.hpp"
+%include "iTemperatureSensor.hpp"
 %include "bmp280.hpp"
 %{
     #include "bmp280.hpp"

@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME mma7361
     CPP_SRC mma7361.cxx
     FTI_SRC mma7361_fti.c
     CPP_WRAPS_C
-    REQUIRES upmc-utilities mraa)
+    REQUIRES mraa)

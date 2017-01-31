@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "upm/iLightController.hpp"
+#include "interfaces/iLightController.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm

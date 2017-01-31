@@ -55,8 +55,8 @@
 #include <mraa/gpio.h>
 #include <mraa/spi.h>
 
-#include <lib_aci.h>
-#include <aci_setup.h>
+#include "lib_aci.h"
+#include "aci_setup.h"
 
 void init_local_interfaces (aci_state_t* aci, uint8_t reqn, uint8_t rdyn, uint8_t rst);
 void close_local_interfaces (aci_state_t* aci);

@@ -2,8 +2,8 @@
 %include "../upm.i"
 
 %{
-    #include "../upm/iLightSensor.hpp"
-    #include "../upm/iLightController.hpp"
+    #include "iLightSensor.hpp"
+    #include "iLightController.hpp"
 %}
 
 %include "iModuleStatus.hpp"
