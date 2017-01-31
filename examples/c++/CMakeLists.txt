@@ -333,6 +333,7 @@ add_example (sensortemplate)
 add_example (p9813)
 add_example (abpdrrt005pg2a5)
 add_example (lcdks)
+add_example (mmc35240)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
