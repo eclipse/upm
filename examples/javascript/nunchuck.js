@@ -24,16 +24,8 @@
 
 var nunchuck_lib = require('jsupm_nunchuck');
 
-// Instantiate a nunchuck controller bus 0
-var nunchuck_obj = new nunchuck_lib.NUNCHUCK(0);
-
-// always do this first
-console.log("Initializing... ");
-if (!nunchuck_obj.init())
-{
-	console.log("nunchuck->init() failed.");
-	process.exit(0);
-}
+// Instantiate a nunchuck controller bus 3
+var nunchuck_obj = new nunchuck_lib.NUNCHUCK(3);
 
 setInterval(function()
 {

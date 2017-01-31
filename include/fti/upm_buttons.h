@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2017 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,39 +21,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_BUTTONS_H_
+#define UPM_BUTTONS_H_
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
-#include <unistd.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "nunchuck.hpp"
+// Buttons function table
+typedef struct _upm_buttons_ft {
+    // This function is used to query button state.  The num_button
+    // specifies the total number of buttons present, and the values
+    // indicates each button's current value as an array of bools.
+    upm_result_t (*upm_buttons_get_num_buttons) (const void *dev,
+                                                 unsigned int *num_buttons);
+    upm_result_t (*upm_buttons_get_values) (const void *dev,
+                                            bool *values);
+} upm_buttons_ft;
 
-using namespace upm;
-using namespace std;
-
-
-NUNCHUCK::NUNCHUCK(int bus) :
-    m_nunchuck(nunchuck_init(bus))
-{
-    if (!m_nunchuck)
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": nunchuck_init() failed");
+#ifdef __cplusplus
 }
+#endif
 
-NUNCHUCK::~NUNCHUCK()
-{
-    nunchuck_close(m_nunchuck);
-}
-
-void NUNCHUCK::update()
-{
-    if (nunchuck_update(m_nunchuck))
-        throw std::runtime_error(string(__FUNCTION__)
-                                 + ": nunchuck_update() failed");
-
-    nunchuck_get_stick(m_nunchuck, &stickX, &stickY);
-    nunchuck_get_acceleration(m_nunchuck, &accelX, &accelY, &accelZ);
-    nunchuck_get_buttons(m_nunchuck, &buttonC, &buttonZ);
-}
-
+#endif /* UPM_BUTTONS_H_ */

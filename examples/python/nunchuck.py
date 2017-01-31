@@ -26,8 +26,8 @@ import time, sys, signal, atexit
 from upm import pyupm_nunchuck as upmNunchuck
 
 def main():
-    # Instantiate a nunchuck controller bus 0 on I2C
-    myNunchuck = upmNunchuck.NUNCHUCK(0)
+    # Instantiate a nunchuck controller bus 3 on I2C
+    myNunchuck = upmNunchuck.NUNCHUCK(3)
 
     ## Exit handlers ##
     # This function stops python from printing a stacktrace when you hit control-C
@@ -42,12 +42,6 @@ def main():
     # Register exit handlers
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
-
-    # always do this first
-    print("Initializing... ")
-    if (not myNunchuck.init()):
-        print("nunchuck->init() failed.")
-        sys.exit(0);
 
     def buttonStateStr(buttonState):
         return "pressed" if buttonState else "not pressed"
