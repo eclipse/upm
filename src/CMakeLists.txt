@@ -1,9 +1,13 @@
 # Selectively disable certain CXX warnings for SWIG wrappers
 # SWIG wrappers emit -Wdelete-non-virtual-dtor and -Wunused-function warnings
-set (SWIG_CXX_DISABLE_WARNINGS -Wno-delete-non-virtual-dtor
-                               -Wno-unused-function
-                               -Wno-maybe-uninitialized
-                               -Wno-strict-aliasing)
+# Unfortunaly this quick fix for issue #518, adds a .c file to the
+# java swig wrapper which then failes on CXX compiler warnings.  For
+# now, turn off warnings as errors for all the swig wrappers.
+set (SWIG_CXX_DISABLE_WARNINGS -Wno-error)
+#set (SWIG_CXX_DISABLE_WARNINGS -Wno-delete-non-virtual-dtor
+#                               -Wno-unused-function
+#                               -Wno-maybe-uninitialized
+#                               -Wno-strict-aliasing)
 
 macro (file_to_list readfile outlist)
   FILE(READ "${readfile}" contents)
@@ -229,7 +233,13 @@ macro(upm_swig_java)
 
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
-    swig_add_module (javaupm_${libname} java javaupm_${libname}.i)
+    # NOTE, ${module_src} is ONLY needed when swig'ing to JAVA.  This is
+    # because *some* upm libraries have ifdef's for JAVA and SWIG in their
+    # source (cxx) which builds in different functionality.  Because of this,
+    # the source must be added when building the JAVA wrapper.
+    # See issue #518
+    # TODO: Fix this somehow
+    swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
     swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
