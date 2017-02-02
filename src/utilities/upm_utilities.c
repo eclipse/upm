@@ -23,6 +23,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef _POSIX_C_SOURCE
+// We need at least 199309L for nanosleep()
+# define _POSIX_C_SOURCE 200809L
+#endif
 #include <time.h>
 #include <errno.h>
 #include <upm_platform.h>
