@@ -62,7 +62,7 @@ static noteData_t note_list[7] = {       // index, note
 // forward decl
 static void speaker_sound(const speaker_context dev, int note_delay);
 
-speaker_context speaker_init(int pin)
+static speaker_context _common_init()
 {
     // make sure MRAA is initialized
     int mraa_rv;
@@ -81,6 +81,17 @@ speaker_context speaker_init(int pin)
     // zero out context
     memset((void *)dev, 0, sizeof(struct _speaker_context));
 
+    return dev;
+}
+
+speaker_context speaker_init(int pin)
+{
+    speaker_context dev = NULL;
+    if (!(dev = _common_init()))
+        return NULL;
+
+    dev->is_pwm = false;
+
     if (!(dev->gpio = mraa_gpio_init(pin)))
     {
         printf("%s: mraa_gpio_init() failed.\n", __FUNCTION__);
@@ -98,6 +109,28 @@ speaker_context speaker_init(int pin)
     return dev;
 }
 
+// initialization of PWM uasage
+speaker_context speaker_init_pwm(int pin)
+{
+    speaker_context dev = NULL;
+    if (!(dev = _common_init()))
+        return NULL;
+
+    dev->is_pwm = true;
+
+    if (!(dev->pwm = mraa_pwm_init(pin)))
+    {
+        printf("%s: mraa_pwm_init() failed.\n", __FUNCTION__);
+        speaker_close(dev);
+        return NULL;
+    }
+
+    // set the default frequency to 1Khz
+    dev->default_freq = 1000;
+
+    return dev;
+}
+
 void speaker_close(speaker_context dev)
 {
     assert(dev != NULL);
@@ -105,12 +138,113 @@ void speaker_close(speaker_context dev)
     if (dev->gpio)
         mraa_gpio_close(dev->gpio);
 
+    if (dev->pwm)
+    {
+        speaker_off(dev);
+        mraa_pwm_close(dev->pwm);
+    }
+
     free(dev);
+}
+
+upm_result_t speaker_set_frequency(const speaker_context dev,
+                                   unsigned int freq)
+{
+    assert(dev != NULL);
+
+    if (!dev->is_pwm)
+        return UPM_ERROR_NO_RESOURCES;
+
+    if (freq < 50 || freq > 32000)
+    {
+        printf("%s: freq must be between 50 and 32000.\n", __FUNCTION__);
+
+        return UPM_ERROR_OPERATION_FAILED;
+    }
+
+    float period = 1.0 / (float)freq;
+
+    // printf("PERIOD: %f (freq %d)\n", period, freq);
+
+    if (period >= 0.001) // ms range
+    {
+        if (mraa_pwm_period(dev->pwm, period))
+        {
+            printf("%s: mraa_pwm_period() failed.\n", __FUNCTION__);
+
+            return UPM_ERROR_OPERATION_FAILED;
+        }
+    }
+    else // us range.  With a max of 32KHz, no less than 3.125 us.
+    {
+        if (mraa_pwm_period_us(dev->pwm, (int)(period * 1000000)))
+        {
+            printf("%s: mraa_pwm_period_us() failed.\n", __FUNCTION__);
+
+            return UPM_ERROR_OPERATION_FAILED;
+        }
+    }
+
+    // save it for later if needed
+    dev->default_freq = freq;
+
+    // A 10% duty cycle enables better results at high frequencies
+    mraa_pwm_write(dev->pwm, 0.1);
+
+    return UPM_SUCCESS;
+}
+
+upm_result_t speaker_emit(const speaker_context dev, unsigned int freq,
+                          unsigned int emit_ms)
+{
+    assert(dev != NULL);
+
+    if (!dev->is_pwm)
+        return UPM_ERROR_NO_RESOURCES;
+
+    if (speaker_set_frequency(dev, freq))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    upm_clock_t clock;
+    upm_clock_init(&clock);
+
+    mraa_pwm_enable(dev->pwm, 1);
+    while (upm_elapsed_ms(&clock) < emit_ms)
+        ; // loop until finished
+
+    mraa_pwm_enable(dev->pwm, 0);
+
+    return UPM_SUCCESS;
+}
+
+void speaker_on(const speaker_context dev)
+{
+    assert(dev != NULL);
+
+    if (!dev->is_pwm)
+        return;
+
+    speaker_set_frequency(dev, dev->default_freq);
+
+    mraa_pwm_enable(dev->pwm, 1);
+}
+
+void speaker_off(const speaker_context dev)
+{
+    assert(dev != NULL);
+
+    if (!dev->is_pwm)
+        return;
+
+    mraa_pwm_enable(dev->pwm, 0);
 }
 
 void speaker_play_all(const speaker_context dev)
 {
     assert(dev != NULL);
+
+    if (dev->is_pwm)
+        return;
 
     speaker_play_sound(dev, 'c', false, "low");
     upm_delay_us(200000);
@@ -132,6 +266,9 @@ void speaker_play_sound(const speaker_context dev, char letter, bool sharp,
                         const char *vocal_weight)
 {
     assert(dev != NULL);
+
+    if (dev->is_pwm)
+        return;
 
     int index = 0;
     switch (letter)
