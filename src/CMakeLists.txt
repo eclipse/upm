@@ -3,11 +3,11 @@
 # Unfortunaly this quick fix for issue #518, adds a .c file to the
 # java swig wrapper which then failes on CXX compiler warnings.  For
 # now, turn off warnings as errors for all the swig wrappers.
-set (SWIG_CXX_DISABLE_WARNINGS -Wno-error)
-#set (SWIG_CXX_DISABLE_WARNINGS -Wno-delete-non-virtual-dtor
-#                               -Wno-unused-function
-#                               -Wno-maybe-uninitialized
-#                               -Wno-strict-aliasing)
+set (SWIG_CXX_DISABLE_WARNINGS -Wno-error
+                               -Wno-delete-non-virtual-dtor
+                               -Wno-unused-function
+                               -Wno-maybe-uninitialized
+                               -Wno-strict-aliasing)
 
 macro (file_to_list readfile outlist)
   FILE(READ "${readfile}" contents)
