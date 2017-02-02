@@ -23,17 +23,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <time.h>
+#include <errno.h>
 #include <upm_platform.h>
 #include <upm_utilities.h>
 
-void upm_delay(int time)
+void upm_delay(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    sleep(time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time;
+    delay_time.tv_nsec = 0;
+    // The advantage over sleep(3) here is that it will not use
+    // an alarm signal or handler.
+
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -56,14 +68,21 @@ void upm_delay(int time)
 #endif
 }
 
-void upm_delay_ms(int time)
+void upm_delay_ms(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    usleep(1000 * time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time / 1000;
+    delay_time.tv_nsec = (time % 1000) * 1000000;
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -85,14 +104,21 @@ void upm_delay_ms(int time)
 #endif
 }
 
-void upm_delay_us(int time)
+void upm_delay_us(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    usleep(time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time / 1000000;
+    delay_time.tv_nsec = (time % 1000000) * 1000;
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6

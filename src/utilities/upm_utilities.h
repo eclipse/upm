@@ -69,21 +69,21 @@ typedef uint32_t upm_clock_t;
  *
  * @param time The number of seconds to delay for
  */
-void upm_delay(int time);
+void upm_delay(unsigned int time);
 
 /**
  * Delay for a number of milliseconds
  *
  * @param time The number of milliseconds to delay for
  */
-void upm_delay_ms(int time);
+void upm_delay_ms(unsigned int time);
 
 /**
  * Delay for a number of microseconds
  *
  * @param time The number of microseconds to delay for
  */
-void upm_delay_us(int time);
+void upm_delay_us(unsigned int time);
 
 /**
  * Initialize a clock.  This can be used with upm_elapsed_ms() and
