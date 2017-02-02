@@ -130,7 +130,6 @@ namespace upm {
          * with setFrequency() or emit().  This function only operates
          * when in PWM mode.
          *
-         * @param dev Device context
          */
         void on();
 
@@ -138,7 +137,6 @@ namespace upm {
          * Turn the speaker off.  This function only operates when in
          * PWM mode.
          *
-         * @param dev Device context
          */
         void off();
 

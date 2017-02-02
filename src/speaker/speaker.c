@@ -84,6 +84,7 @@ static speaker_context _common_init()
     return dev;
 }
 
+// initialization in GPIO mode
 speaker_context speaker_init(int pin)
 {
     speaker_context dev = NULL;
@@ -109,7 +110,7 @@ speaker_context speaker_init(int pin)
     return dev;
 }
 
-// initialization of PWM uasage
+// initialization in PWM mode
 speaker_context speaker_init_pwm(int pin)
 {
     speaker_context dev = NULL;
