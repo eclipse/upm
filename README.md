@@ -82,6 +82,10 @@ please refer to the Intel Developer Zone IDE page.
 
 <a href="https://software.intel.com/iot/software/ide"><img src="docs/icons/allides.png"/></a>
 
+### Installing UPM
+
+Find notes on how to install UPM on various OS'es on this [page](docs/installing.md).
+
 ### Building UPM
 
 See building documentation [here](docs/building.md).
