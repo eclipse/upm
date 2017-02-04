@@ -9,6 +9,11 @@ if (PYTHON_DEFAULT_AVAILABLE)
     add_test (NAME check_file_encoding COMMAND ${PYTHON_DEFAULT_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/check_file_encoding.py
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src)
+
+    # Check for duplicate headers
+    add_test (NAME check_duplicate_headers COMMAND ${PYTHON_DEFAULT_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/check_duplicate_headers.py
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif (PYTHON_DEFAULT_AVAILABLE)
 
 # Add some java tests

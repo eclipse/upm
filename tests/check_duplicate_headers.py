@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+import unittest
+import os
+
+class DuplicateHeadersTests(unittest.TestCase):
+    '''Checks for duplicate header names. Since all sensor headers get
+      installed as part of the API, duplicate headers can cause bad linking,
+      namespace class collisions and so on.'''
+
+    def test_duplicate_headers(self):
+        # Keep a list of all the header files in library
+        header_files = []
+
+        # Recusively search cwd for headers and add them to the list
+        for root, dirs, files in os.walk(os.curdir):
+            for file in files:
+                if file.endswith(('.h', '.hpp', '.hxx')):
+                    header_files.append(file)
+
+        # Test for duplicates
+        duplicates = len(header_files) - len(set(header_files))
+        self.assertEqual(duplicates, 0,
+                "\nDuplicate headers: %d\n" % duplicates)
+
+if __name__ == '__main__':
+    unittest.main()
