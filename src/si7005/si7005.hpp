@@ -32,7 +32,6 @@
 #define SI7005_ADDRESS                     ( 0x40 )
 #define SI7005_NOT_FOUND                   ( 0x00 )
 
-
 namespace upm {
 
 /**
@@ -99,7 +98,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         /**
          * Returns sensor module name
          */
-        const char* getModuleName() { return "si7005"; }
+        virtual const char* getModuleName() { return "si7005"; }
 
         /**
          * Detects the sensor to ensure it is connected as required.

@@ -41,7 +41,7 @@ namespace upm
  * @snippet light-controllers.cxx Interesting 
  */
 
-    class ILightController : public IModuleStatus
+    class ILightController : virtual public IModuleStatus
     {
     public:
       /**

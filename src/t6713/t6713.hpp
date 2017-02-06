@@ -125,7 +125,7 @@ class T6713 : public ICO2Sensor {
         /**
          * Returns sensor module name
          */
-        const char* getModuleName();
+        virtual const char* getModuleName() { return "t6713"; }
 
         /**
          * Get relative humidity measurement.

@@ -56,7 +56,6 @@ public:
    DS1808LC(int gpioPower, int i2cBus);
    ~DS1808LC();
 
-protected:
    const char* getModuleName() { return "ds1808lc"; }
    bool isPowered();
    void setPowerOn();

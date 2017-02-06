@@ -80,7 +80,7 @@ class SI1132 : public ILightSensor {
          */
         double getVisibleLux();
 
-        const char* getModuleName() { return "si1132"; }
+        virtual const char* getModuleName() { return "si1132"; }
 
     private:
         mraa::Result reset();

@@ -1,5 +1,10 @@
 %module javaupm_ds1808lc
 %include "../upm.i"
+
+#if SWIG_VERSION >= 0x030009
+%include "../interfaces/javaupm_iLightController.i"
+#endif
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"
@@ -9,8 +14,6 @@
     #include "ds1808lc.hpp"
 %}
 
-%include "iModuleStatus.hpp"
-%include "iLightController.hpp"
 %include "ds1808lc.hpp"
 
 %pragma(java) jniclasscode=%{

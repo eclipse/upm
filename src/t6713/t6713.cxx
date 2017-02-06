@@ -65,11 +65,6 @@ T6713::~T6713()
         delete i2c;
 }
 
-const char* T6713::getModuleName()
-{
-        return "t6713";
-}
-
 uint16_t T6713::getFirmwareRevision()
 {
 	return(getSensorData(T6713_COMMAND_GET_FIRMWARE_REVISION));

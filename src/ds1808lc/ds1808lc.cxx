@@ -26,7 +26,6 @@ DS1808LC::~DS1808LC()
 {
 }
 
-
 bool DS1808LC::isPowered()
 {
    return static_cast<bool>(MraaUtils::getGpio(pinPower));

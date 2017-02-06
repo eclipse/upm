@@ -35,7 +35,7 @@ namespace upm
  * @brief Interface for ADC Sensors
  */
 
-   class IADC : public IModuleStatus
+   class IADC : virtual public IModuleStatus
    {
    public:
        virtual unsigned int getResolutionInBits() = 0;

@@ -172,6 +172,11 @@ add_example_with_path(Lcm1602_parallelSample lcd i2clcd)
 add_example_with_path(SSD1308_oledSample lcd i2clcd)
 add_example_with_path(SSD1327_oledSample lcd i2clcd)
 add_example_with_path(BME280_Example bmp280 bmp280)
+
+if(SWIG_VERSION VERSION_GREATER 3.0.8)
+  add_example_with_path(BME280_InterfaceExample bmp280 bmp280)
+endif()
+
 add_example_with_path(BMA250E_Example bmx055 bmx055)
 add_example_with_path(BMG160_Example bmx055 bmx055)
 add_example_with_path(BMM150_Example bmx055 bmx055)

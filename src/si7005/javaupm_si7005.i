@@ -1,5 +1,11 @@
 %module javaupm_si7005
 %include "../upm.i"
+
+#if SWIG_VERSION >= 0x030009
+%include "../interfaces/javaupm_iTemperatureSensor.i"
+%include "../interfaces/javaupm_iHumiditySensor.i"
+#endif
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"

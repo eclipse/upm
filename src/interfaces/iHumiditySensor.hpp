@@ -31,7 +31,7 @@ namespace upm
  * @brief Interface for Humidity Sensors
  */
 
-   class IHumiditySensor : public IModuleStatus
+   class IHumiditySensor : virtual public IModuleStatus
    {
    public:
        virtual int getHumidityRelative () = 0;
