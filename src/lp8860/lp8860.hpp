@@ -56,7 +56,7 @@ class LP8860 : public upm::ILightController
 public:
    LP8860(int gpioPower, int i2cBus);
    ~LP8860();
-   const char* getModuleName() { return "lp8860"; }
+   virtual const char* getModuleName() { return "lp8860"; }
    bool isPowered();
    void setPowerOn();
    void setPowerOff();

@@ -1,4 +1,5 @@
 %module jsupm_interfaces
+/*
 %include "../upm.i"
 
 %{
@@ -9,3 +10,4 @@
 %include "iModuleStatus.hpp"
 %include "iLightSensor.hpp"
 %include "iLightController.hpp"
+*/

@@ -43,7 +43,7 @@ namespace upm
  * @snippet light-sensor.cxx Interesting
  */
 
-   class ILightSensor : public IModuleStatus
+   class ILightSensor : virtual public IModuleStatus
    {
    public:
 

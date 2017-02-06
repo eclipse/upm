@@ -131,7 +131,7 @@ class MAX44009 : public ILightSensor {
          */
         double getVisibleLux();
 
-        const char* getModuleName() { return "max44009"; }
+        virtual const char* getModuleName() { return "max44009"; }
 
     private:
         mraa::Result reset();

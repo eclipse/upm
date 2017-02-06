@@ -1,6 +1,11 @@
 %module javaupm_bmpx8x
 %include "../upm.i"
 
+#if SWIG_VERSION >= 0x030009
+%include "../interfaces/javaupm_iTemperatureSensor.i"
+%include "../interfaces/javaupm_iPressureSensor.i"
+#endif
+
 %{
     #include "bmpx8x.hpp"
 %}

@@ -1,4 +1,9 @@
 %module javaupm_lp8860
+
+#if SWIG_VERSION >= 0x030009
+%include "../interfaces/javaupm_iLightController.i"
+#endif
+
 %include "../upm.i"
 
 %{

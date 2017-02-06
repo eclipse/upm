@@ -58,13 +58,12 @@ public:
    HLG150H(int pinRelay, int pinPWM);
    ~HLG150H();
 
-protected:
+   virtual int getBrightness();
    const char* getModuleName() { return "hlg150h"; }
    void setPowerOn();
    void setPowerOff();
    bool isPowered();
    void setBrightness(int dutyPercent);
-   int getBrightness();
 
 private:
    mraa::Result status;

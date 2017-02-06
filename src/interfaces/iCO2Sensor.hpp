@@ -26,14 +26,13 @@
 #pragma once
 #include "iModuleStatus.hpp"
 
-
 namespace upm
 {
 /**
  * @brief Interface for CO Sensor
  */
 
-   class ICO2Sensor : public IModuleStatus
+   class ICO2Sensor : virtual public IModuleStatus
    {
    public:
        virtual uint16_t getPpm() = 0;

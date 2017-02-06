@@ -1,6 +1,11 @@
 %module javaupm_ms5611
 %include "../upm.i"
 
+#if SWIG_VERSION >= 0x030009
+%include "../interfaces/javaupm_iTemperatureSensor.i"
+%include "../interfaces/javaupm_iPressureSensor.i"
+#endif
+
 %{
     #include "ms5611.hpp"
 %}

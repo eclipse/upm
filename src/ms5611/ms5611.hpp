@@ -68,7 +68,7 @@ public:
 
    MS5611(int i2cBus = 0, int address = MS5611_ADDRESS);
    ~MS5611();
-   const char* getModuleName() { return "ms5611"; }
+   virtual const char* getModuleName() { return "ms5611"; }
    void setOverSampling(OsrMode osrMode);
    int getTemperatureCelsius();
    int getPressurePa();

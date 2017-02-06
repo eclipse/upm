@@ -1,19 +1,4 @@
-%module(directors="1") javaupm_interfaces
-
-%feature("director") IModuleStatus;
-%feature("director") ILightSensor;
-%feature("director") ILightController;
-
-
-%{
-    #include "iModuleStatus.hpp"
-    #include "iLightSensor.hpp"
-    #include "iLightController.hpp"
-%}
-
-%include "iModuleStatus.hpp"
-%include "iLightSensor.hpp"
-%include "iLightController.hpp"
+%module javaupm_interfaces
 
 %pragma(java) jniclasscode=%{
     static {

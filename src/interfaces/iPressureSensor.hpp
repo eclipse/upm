@@ -31,11 +31,11 @@
 
 namespace upm
 {
-/**
+/*
  * @brief Interface for Pressue Sensors
  */
 
-   class IPressureSensor : public IModuleStatus
+   class IPressureSensor : virtual public IModuleStatus
    {
    public:
        virtual int getPressurePa() = 0;
