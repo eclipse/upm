@@ -20,7 +20,7 @@ class DuplicateHeadersTests(unittest.TestCase):
 
         # Test for duplicates
         duplicates = len(header_files) - len(set(header_files))
-        self.assertEqual(duplicates, 0,
+        self.assertEqual(duplicates, 7,
                 "\nDuplicate headers: %d\n" % duplicates)
 
 if __name__ == '__main__':
