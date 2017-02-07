@@ -23,10 +23,10 @@
 }
 
 %include "lcm1602.h"
-%include "lcm1602.hpp"
+%include "lcm1602.hxx"
 
 %{
-    #include "lcm1602.hpp"
+    #include "lcm1602.hxx"
 %}
 
 %pragma(java) jniclasscode=%{

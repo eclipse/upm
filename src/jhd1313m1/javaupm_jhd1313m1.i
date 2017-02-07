@@ -23,9 +23,9 @@
 }
 
 %include "jhd1313m1.h"
-%include "jhd1313m1.hpp"
+%include "jhd1313m1.hxx"
 %{
-    #include "jhd1313m1.hpp"
+    #include "jhd1313m1.hxx"
 %}
 
 %pragma(java) jniclasscode=%{

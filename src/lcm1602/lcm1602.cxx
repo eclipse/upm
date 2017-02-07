@@ -35,7 +35,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "lcm1602.hpp"
+#include "lcm1602.hxx"
 
 using namespace upm;
 

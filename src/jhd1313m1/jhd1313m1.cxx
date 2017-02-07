@@ -35,7 +35,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "jhd1313m1.hpp"
+#include "jhd1313m1.hxx"
 
 using namespace upm;
 
