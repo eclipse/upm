@@ -120,6 +120,8 @@ find_package (PkgConfig REQUIRED)
 unset(MRAA_FOUND CACHE)
 set(MRAA_MINIMUM 1.4.0)
 pkg_check_modules (MRAA REQUIRED mraa>=${MRAA_MINIMUM})
+# Also, get full path to the mraa library
+find_library(MRAA_LIBRARY NAMES mraa PATHS ${MRAA_LIBDIR} NO_DEFAULT_PATH)
 
 # Check for BACNET
 pkg_check_modules (BACNET libbacnet)
@@ -143,6 +145,8 @@ if (BUILDSWIGJAVA)
   find_package (Java REQUIRED)
   find_package (JNI REQUIRED)
   pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
+  # Also, get full path to the mraajava library
+  find_library(MRAAJAVA_LIBRARY NAMES mraajava PATHS ${MRAA_LIBDIR} NO_DEFAULT_PATH)
 endif (BUILDSWIGJAVA)
 
 # Find swig if any wrapper is enabled

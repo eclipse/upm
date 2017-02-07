@@ -140,7 +140,7 @@ macro(_upm_swig_python)
   # Get target library name (example _pyupm_a110x-python2)
   set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
 
-  swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${MRAA_LIBRARIES} ${libname})
+  swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${libname})
   target_include_directories (${python_wrapper_target}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
@@ -237,7 +237,7 @@ macro(upm_swig_node)
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i)
-    swig_link_libraries (jsupm_${libname} ${MRAA_LIBRARIES} ${NODE_LIBRARIES} ${libname})
+    swig_link_libraries (jsupm_${libname} ${NODE_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
       "${NODE_INCLUDE_DIRS}"
@@ -302,7 +302,7 @@ macro(upm_swig_java)
     # See issue #518
     # TODO: Fix this somehow
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARIES} ${MRAA_LIBRARIES} ${JAVA_LIBRARIES} ${libname} interfaces)
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname} interfaces)
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
@@ -560,16 +560,18 @@ function(upm_module_init)
 
   # Iterate over all arguments passed to upm_module_init.
   #     1. Add them via target_link_libraries
-  #     2. If the argument is a target, 
+  #     2. If mraa, then add a link and include dependency
   foreach (linkflag ${ARGN})
-    target_link_libraries (${libname} ${linkflag})
+    # Add necessary MRAA components IF the target requires it
+    if (${linkflag} MATCHES mraa)
+      target_link_libraries (${libname} ${MRAA_LIBRARY})
+      # Always add a PUBLIC dependency to MRAA include dirs
+      target_include_directories (${libname} PUBLIC ${MRAA_INCLUDE_DIRS})
+    else ()
+      # Else, add the linkflag directly
+      target_link_libraries (${libname} ${linkflag})
+    endif (${linkflag} MATCHES mraa)
   endforeach ()
-
-  # Always add a dependency to MRAA libs
-  target_link_libraries (${libname} ${MRAA_LDFLAGS})
-
-  # Always add a dependency to MRAA include dirs
-  target_include_directories (${libname} PUBLIC ${MRAA_INCLUDE_DIRS})
 
   set_target_properties(
     ${libname}

@@ -4,6 +4,9 @@ set (module_src ${libname}.cxx)
 
 upm_module_init()
 
+# Add a PUBLIC include directory to the CMAKE src dir
+target_include_directories (${libname} PUBLIC ${CMAKE_SOURCE_DIR}/src)
+
 # Don't add the hpp files with upm_module_init, this allows
 # them to be installed separately
 set (module_hpp iADC.hpp
