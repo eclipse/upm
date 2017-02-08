@@ -42,7 +42,7 @@ namespace upm {
    * @web http://www.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v2.0
    * @con i2c gpio
    *
-   * @brief API for MPU9250 chip (Accelerometer, Gyro and Magnometer Sensor)
+   * @brief API for MPU9250 chip (Accelerometer, Gyro and Magnetometer Sensor)
    *
    * This module defines the MPU9250 interface for libmpu9150
    *

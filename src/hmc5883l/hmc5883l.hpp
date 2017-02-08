@@ -33,7 +33,7 @@
 namespace upm {
 
 /**
- * @brief HMC5883L Magnometer library
+ * @brief HMC5883L Magnetometer library
  * @defgroup hmc5883l libupm-hmc5883l
  * @ingroup seeed i2c compass robok
  */

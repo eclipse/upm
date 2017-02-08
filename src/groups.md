@@ -81,7 +81,7 @@ and is not meant to be installed anywhere.
 @brief Light sensors with special function: Color recognition
 
 
-@defgroup compass Compass/Gyro/Magnometers
+@defgroup compass Compass/Gyro/Magnetometers
 @ingroup bycat
 @brief Measure magnetic field to give rotation or heading
 
