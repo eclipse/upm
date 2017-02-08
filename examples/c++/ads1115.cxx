@@ -22,10 +22,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/* This example demonstrates how to use one the ADS1015 ADC on the Grove Joule
- * Shield or the Sparkfun ADC Block for Edison with devices that output a small
- * differential voltage (e.g. geophones, piezoelectric bands or pads,
- * thermocouples).
+/* This example demonstrates how to use one of the ADS1115 ADCs on the
+ * DFRobot Joule Shield with devices that output a small differential
+ * voltage (e.g. geophones, piezoelectric bands or pads, thermocouples).
  */
 
 #include <fstream>
@@ -33,7 +32,7 @@
 #include <thread>
 #include <unistd.h>
 
-#include "ads1015.hpp"
+#include "ads1115.hpp"
 
 using namespace std;
 using namespace upm;
@@ -50,24 +49,28 @@ void stop()
 int main()
 {
     long id = 0; // Sample number
-    string fileName = "./ads1015.data"; // Output filename
+    string fileName = "./ads1115.data"; // Output filename
     ofstream f;
 
-    // Initialize and configure the ADS1015
-    ADS1015 *ads1015 = new upm::ADS1015(0, 0x48);
+    // Initialize and configure the ADS1115 for the SM-24 Geophone
+    // There are two ADS1115 chips on the DFRobot Joule Shield on the same I2C bus
+    //     - 0x48 gives access to pins A0 - A3
+    //     - 0x49 gives access to pins A4 - A7
+    ADS1115 *ads1115 = new upm::ADS1115(0, 0x48);
 
-    // Put the ADC into differential mode for pins A0 and A1
-    ads1015->getSample(ADS1X15::DIFF_0_1);
+    // Put the ADC into differential mode for pins A0 and A1,
+    // the SM-24 Geophone is connected to these pins
+    ads1115->getSample(ADS1X15::DIFF_0_1);
 
     // Set the gain based on expected VIN range to -/+ 2.048 V
     // Can be adjusted based on application to as low as -/+ 0.256 V, see API
     // documentation for details
-    ads1015->setGain(ADS1X15::GAIN_TWO);
+    ads1115->setGain(ADS1X15::GAIN_TWO);
 
-    // Set the sample rate to 3300 samples per second (max) and turn on continuous
+    // Set the sample rate to 860 samples per second (max) and turn on continuous
     // sampling
-    ads1015->setSPS(ADS1015::SPS_3300);
-    ads1015->setContinuous(true);
+    ads1115->setSPS(ADS1115::SPS_860);
+    ads1115->setContinuous(true);
 
     // Enable exceptions from the output stream
     f.exceptions(ofstream::failbit | ofstream::badbit);
@@ -84,14 +87,14 @@ int main()
 
         // Read sensor data and write it to the output file every ms
         while(running){
-            f << id++ << " " << ads1015->getLastSample() << endl;
+            f << id++ << " " << ads1115->getLastSample() << endl;
             usleep(1000);
         }
 
         // Clean-up and exit
         timer.join();
         f.close();
-        delete ads1015;
+        delete ads1115;
     } catch (ios_base::failure &e) {
         cout << "Failed to write to file: " << e.what() << endl;
         return 1;
