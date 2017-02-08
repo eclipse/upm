@@ -1,4 +1,9 @@
-%module(directors="1") javaupm_si1132
+#ifdef ANDROID
+    %module javaupm_si1132
+#else
+    %module(directors="1") javaupm_si1132
+#endif
+
 %include "../upm.i"
 
 %include "../interfaces/javaupm_iLightSensor.i"

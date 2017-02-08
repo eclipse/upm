@@ -50,6 +50,11 @@ function (add_example example_src)
     # Parse function parameters
     cmake_parse_arguments(add_example "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
+    # Attempt to remove this example source file from a list of example
+    # sources.  This allows for handling special case examples.
+    list (REMOVE_ITEM example_src_list ${example_src})
+    set (example_src_list ${example_src_list} PARENT_SCOPE)
+
     # Get the base filename from the full filename
     # For file /some/path/to/sensorfoo-bar.c, example_name = sensorfoo-bar
     get_filename_component(example_name ${example_src} NAME_WE)
@@ -84,7 +89,7 @@ function (add_example example_src)
     # If a dependency target does NOT exist, print a warning and skip
     foreach(_dep_target ${lib_target_names})
         if (NOT TARGET ${_dep_target})
-            message(STATUS "Missing CMake target (${_dep_target}), skipping example ${example_src}")
+            message(STATUS "Example ${example_src} is missing a required CMake target (${_dep_target}), skipping...")
             return()
         endif ()
     endforeach ()
@@ -96,10 +101,6 @@ function (add_example example_src)
     foreach(_dep_target ${lib_target_names})
         target_link_libraries(${this_target_name} ${_dep_target} ${CMAKE_THREAD_LIBS_INIT})
     endforeach ()
-
-    # Special case...
-    list (REMOVE_ITEM example_src_list ${example_src})
-    set (example_src_list ${example_src_list} PARENT_SCOPE)
 endfunction (add_example example_src)
 
 # Add subdirectories if BUILDEXAMPLES=on

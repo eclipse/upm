@@ -1,4 +1,9 @@
-%module(directors="1") javaupm_rf22
+#ifdef ANDROID
+    %module javaupm_rf22
+#else
+    %module(directors="1") javaupm_rf22
+#endif
+
 %include "../upm.i"
 %include "arrays_java.i"
 %include "typemaps.i"

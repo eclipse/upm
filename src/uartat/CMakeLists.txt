@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME uartat
     CPP_HDR uartat.hpp
     CPP_SRC uartat.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

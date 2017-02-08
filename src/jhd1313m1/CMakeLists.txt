@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME jhd1313m1
     CPP_HDR jhd1313m1.hpp
     CPP_SRC jhd1313m1.cxx
     CPP_WRAPS_C
-    REQUIRES mraa lcm1602)
+    REQUIRES mraa lcm1602 utilities-c)

@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME ms5803
     CPP_SRC ms5803.cxx
     FTI_SRC ms5803_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

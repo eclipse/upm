@@ -27,7 +27,6 @@
 
 #include <string>
 
-#include <mraa/common.hpp>
 #include <mraa/gpio.hpp>
 #include <mraa/spi.hpp>
 #include "ssd1351_gfx.hpp"

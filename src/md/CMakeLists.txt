@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME md
     CPP_HDR md.hpp
     CPP_SRC md.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

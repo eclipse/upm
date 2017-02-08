@@ -22,10 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <stdexcept>
+#include <string>
+
 #include "mraa-utils.hpp"
 #include "mraa/gpio.hpp"
 
- #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
 void MraaUtils::setGpio(int pin, int level)
 {

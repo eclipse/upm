@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME nunchuck
     CPP_SRC nunchuck.cxx
     FTI_SRC nunchuck_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

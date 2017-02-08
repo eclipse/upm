@@ -23,6 +23,8 @@
  */
 
 #include <stdexcept>
+#include <string>
+
 #include "max30100.hpp"
 
 using namespace upm;

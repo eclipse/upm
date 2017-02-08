@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME uln200xa
     CPP_HDR uln200xa.hpp
     CPP_SRC uln200xa.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

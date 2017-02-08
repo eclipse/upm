@@ -34,13 +34,14 @@ public class MPU9150Sample {
 		while (true) {
 			sensor.update();
 
-			float[] accel = sensor.getAccelerometer();
-			System.out.println("Accelerometer: " + "AX: " + accel[0] + " AY: " + accel[1] + " AZ: "
-					+ accel[2]);
-
-			float[] gyro = sensor.getGyroscope();
-			System.out.println("Gryoscope: " + "GX: " + gyro[0] + " GY: " + gyro[1] + " GZ: "
-					+ gyro[2]);
+// These don't exist
+//			float[] accel = sensor.getAccelerometer();
+//			System.out.println("Accelerometer: " + "AX: " + accel[0] + " AY: " + accel[1] + " AZ: "
+//					+ accel[2]);
+//
+//			float[] gyro = sensor.getGyroscope();
+//			System.out.println("Gryoscope: " + "GX: " + gyro[0] + " GY: " + gyro[1] + " GZ: "
+//					+ gyro[2]);
 
 			float[] magn = sensor.getMagnetometer();
 			System.out.println("Magnetometer: " + "MX: " + magn[0] + " MY: " + magn[1] + " MZ: "

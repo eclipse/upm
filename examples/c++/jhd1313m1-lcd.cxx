@@ -23,7 +23,10 @@
  */
 
 #include <signal.h>
+#include <string>
+
 #include "jhd1313m1.hpp"
+#include "upm_utilities.h"
 
 int shouldRun = true;
 
@@ -64,7 +67,7 @@ main(int argc, char **argv)
         // Echo via printf
         printf("Hello World %d rgb: 0x%02x%02x%02x\n", ndx++, r, g, b);
 
-        sleep(1);
+        upm_delay(1);
     }
 
     //! [Interesting]

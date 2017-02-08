@@ -285,7 +285,7 @@ BACNETMSTP* BACNETMSTP::instance()
   return m_instance;
 }
 
-void BACNETMSTP::initMaster(std::string port, int baudRate,
+void BACNETMSTP::initMaster(string port, int baudRate,
                             int deviceInstanceID, int macAddr, int maxMaster,
                             int maxInfoFrames)
 {
@@ -305,7 +305,7 @@ void BACNETMSTP::initMaster(std::string port, int baudRate,
   if ( !(baudRate == 9600 || baudRate == 19200 || baudRate == 38400
          || baudRate == 57600 || baudRate == 76800 || baudRate == 115200) )
     {
-      throw std::invalid_argument(std::string(__FUNCTION__)
+      throw invalid_argument(string(__FUNCTION__)
                                   + ": baudRate must be 9600, 19200, 38400, "
                                   + " 57600, 76800, or 115200");
     }
@@ -314,26 +314,26 @@ void BACNETMSTP::initMaster(std::string port, int baudRate,
   // maxMaster must be less than or equal to 127
   if (maxMaster < 0 || maxMaster > DEFAULT_MAX_MASTER)
     {
-      throw std::out_of_range(std::string(__FUNCTION__)
+      throw out_of_range(string(__FUNCTION__)
                               + ": maxMaster must be between 0 and "
-                              + std::to_string(DEFAULT_MAX_MASTER));
+                              + to_string(DEFAULT_MAX_MASTER));
     }
 
   // As a master ourselves, we must have a MAC address also within the
   // constraints of maxMaster
   if (macAddr < 0 || macAddr > DEFAULT_MAX_MASTER)
     {
-      throw std::out_of_range(std::string(__FUNCTION__)
+      throw out_of_range(string(__FUNCTION__)
                               + ": macAddr must be between 0 and "
-                              + std::to_string(DEFAULT_MAX_MASTER));
+                              + to_string(DEFAULT_MAX_MASTER));
     }
 
   // this should be unique on the network
   if (deviceInstanceID >= BACNET_MAX_INSTANCE)
     {
-      throw std::out_of_range(std::string(__FUNCTION__)
+      throw out_of_range(string(__FUNCTION__)
                               + ": deviceInstanceID must be less than "
-                              + std::to_string(BACNET_MAX_INSTANCE)
+                              + to_string(BACNET_MAX_INSTANCE)
                               + ", and must be unique on the network");
     }
 
@@ -506,7 +506,7 @@ bool BACNETMSTP::dispatchRequest()
                   break;
                 default:
                   syslog(LOG_WARNING, "%s: switch case not defined",
-                          std::string(__FUNCTION__).c_str());
+                          string(__FUNCTION__).c_str());
                 }
             }
           else if (tsm_invoke_id_free(m_invokeID))
@@ -584,9 +584,9 @@ bool BACNETMSTP::readProperty(uint32_t targetDeviceInstanceID,
   // some sanity checking...
   if (objInstance >= BACNET_MAX_INSTANCE)
     {
-      throw std::out_of_range(std::string(__FUNCTION__)
+      throw out_of_range(string(__FUNCTION__)
                               + ": objInstance must be less than "
-                              + std::to_string(BACNET_MAX_INSTANCE));
+                              + to_string(BACNET_MAX_INSTANCE));
     }
 
   // fill in the command structure and dispatch
@@ -620,9 +620,9 @@ bool BACNETMSTP::writeProperty(uint32_t targetDeviceInstanceID,
   // some sanity checking...
   if (objInstance >= BACNET_MAX_INSTANCE)
     {
-      throw std::out_of_range(std::string(__FUNCTION__)
+      throw out_of_range(string(__FUNCTION__)
                               + ": objInstance must be less than "
-                              + std::to_string(BACNET_MAX_INSTANCE));
+                              + to_string(BACNET_MAX_INSTANCE));
     }
 
   // fill in the command structure and dispatch
@@ -681,9 +681,9 @@ float BACNETMSTP::getDataTypeReal(int index)
         case BACNET_APPLICATION_TAG_SIGNED_INT:
           return float(getDataTypeSignedInt(index));
         default:
-          throw std::invalid_argument(std::string(__FUNCTION__)
+          throw invalid_argument(string(__FUNCTION__)
                                       + ": data type ("
-                                      + std::to_string(int(getDataType(index)))
+                                      + to_string(int(getDataType(index)))
                                       + ") is not convertible to Real");
         }
     }
@@ -694,9 +694,9 @@ bool BACNETMSTP::getDataTypeBoolean(int index)
   if (getDataType(index) == BACNET_APPLICATION_TAG_BOOLEAN)
     return ((m_returnedValue.at(index).type.Boolean) ? true : false);
   else
-    throw std::invalid_argument(std::string(__FUNCTION__)
+    throw invalid_argument(string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType(index)))
+                                + to_string(int(getDataType(index)))
                                 + ") is not convertible to Bool");
 }
 
@@ -705,9 +705,9 @@ unsigned int BACNETMSTP::getDataTypeUnsignedInt(int index)
   if (getDataType(index) == BACNET_APPLICATION_TAG_UNSIGNED_INT)
     return m_returnedValue.at(index).type.Unsigned_Int;
   else
-    throw std::invalid_argument(std::string(__FUNCTION__)
+    throw invalid_argument(string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType(index)))
+                                + to_string(int(getDataType(index)))
                                 + ") is not convertible to UnsignedInt");
 }
 
@@ -716,9 +716,9 @@ int BACNETMSTP::getDataTypeSignedInt(int index)
   if (getDataType(index) == BACNET_APPLICATION_TAG_SIGNED_INT)
     return m_returnedValue.at(index).type.Signed_Int;
   else
-    throw std::invalid_argument(std::string(__FUNCTION__)
+    throw invalid_argument(string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType(index)))
+                                + to_string(int(getDataType(index)))
                                 + ") is not convertible to SignedInt");
 }
 
@@ -744,9 +744,9 @@ double BACNETMSTP::getDataTypeDouble(int index)
         case BACNET_APPLICATION_TAG_SIGNED_INT:
           return double(getDataTypeSignedInt(index));
         default:
-          throw std::invalid_argument(std::string(__FUNCTION__)
+          throw invalid_argument(string(__FUNCTION__)
                                       + ": data type ("
-                                      + std::to_string(int(getDataType(index)))
+                                      + to_string(int(getDataType(index)))
                                       + ") is not convertible to Double");
         }
     }
@@ -758,35 +758,35 @@ unsigned int BACNETMSTP::getDataTypeEnum(int index)
   if (getDataType(index) == BACNET_APPLICATION_TAG_ENUMERATED)
     return m_returnedValue.at(index).type.Enumerated;
   else
-    throw std::invalid_argument(std::string(__FUNCTION__)
+    throw invalid_argument(string(__FUNCTION__)
                                 + ": data type ("
-                                + std::to_string(int(getDataType(index)))
+                                + to_string(int(getDataType(index)))
                                 + ") is not convertible to Enum");
 }
 
-std::string BACNETMSTP::getDataTypeString(int index)
+string BACNETMSTP::getDataTypeString(int index)
 {
-  string retval;
+    string retval;
 
   // Here, we can try to accomodate all the types
   switch(getDataType(index))
     {
     case BACNET_APPLICATION_TAG_REAL:
-      retval = std::to_string(getDataTypeReal(index));
+      retval = to_string(getDataTypeReal(index));
       break;
 
 #if defined(BACAPP_DOUBLE)
     case BACNET_APPLICATION_TAG_DOUBLE:
-      retval = std::to_string(getDataTypeDouble(index));
+      retval = to_string(getDataTypeDouble(index));
       break;
 #endif // BACAPP_DOUBLE
 
     case BACNET_APPLICATION_TAG_UNSIGNED_INT:
-      retval = std::to_string(getDataTypeUnsignedInt(index));
+      retval = to_string(getDataTypeUnsignedInt(index));
       break;
 
     case BACNET_APPLICATION_TAG_SIGNED_INT:
-      retval = std::to_string(getDataTypeSignedInt(index));
+      retval = to_string(getDataTypeSignedInt(index));
       break;
 
     case BACNET_APPLICATION_TAG_BOOLEAN:
@@ -801,7 +801,7 @@ std::string BACNETMSTP::getDataTypeString(int index)
 
     case BACNET_APPLICATION_TAG_OCTET_STRING:
       {
-        string tmpstr((char *)octetstring_value(&m_returnedValue.at(index).type.Octet_String),
+          string tmpstr((char *)octetstring_value(&m_returnedValue.at(index).type.Octet_String),
 
                       octetstring_length(&m_returnedValue.at(index).type.Octet_String));
         retval = string2HexString(tmpstr);
@@ -829,9 +829,9 @@ std::string BACNETMSTP::getDataTypeString(int index)
       break;
 
     default:
-      throw std::invalid_argument(std::string(__FUNCTION__)
+      throw invalid_argument(string(__FUNCTION__)
                                   + ": data type ("
-                                  + std::to_string(int(getDataType(index)))
+                                  + to_string(int(getDataType(index)))
                                   + ") is not convertible to String");
       break;
     }
@@ -891,9 +891,9 @@ BACNET_APPLICATION_DATA_VALUE BACNETMSTP::createDataString(string value)
 {
   if (value.size() > (MAX_CHARACTER_STRING_BYTES - 1))
     {
-      throw std::invalid_argument(std::string(__FUNCTION__)
+      throw invalid_argument(string(__FUNCTION__)
                                   + ": value must be less than or equal to "
-                                  + std::to_string(MAX_CHARACTER_STRING_BYTES - 1)
+                                  + to_string(MAX_CHARACTER_STRING_BYTES - 1)
                                   + " characters long");
     }
 

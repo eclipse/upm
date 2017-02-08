@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+
 #include "mraa-utils.hpp"
 #include "mraa/gpio.hpp"
 

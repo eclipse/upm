@@ -28,6 +28,7 @@
  */
 
 #include <stdexcept>
+#include <string>
 #include <syslog.h>
 
 #include "hal_platform.h"

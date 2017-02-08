@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME cjq4435
     CPP_HDR cjq4435.hpp
     CPP_SRC cjq4435.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

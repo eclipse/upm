@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME mb704x
     CPP_SRC mb704x.cxx
     FTI_SRC mb704x_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

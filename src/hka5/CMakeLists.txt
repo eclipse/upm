@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME hka5
     CPP_SRC hka5.cxx
     FTI_SRC hka5_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

@@ -1,9 +1,16 @@
-%module(directors="1") javaupm_pulsensor
+#ifdef ANDROID
+    %module javaupm_pulsensor
+#else
+    %module(directors="1") javaupm_pulsensor
+#endif
+
 %include "../upm.i"
 %include "arrays_java.i"
 
-%feature("director") Callback;
-SWIG_DIRECTOR_OWNED(Callback)
+#ifndef ANDROID
+    %feature("director") Callback;
+    SWIG_DIRECTOR_OWNED(Callback)
+#endif
 
 %ignore sample_thread;
 %ignore pin_ctx;

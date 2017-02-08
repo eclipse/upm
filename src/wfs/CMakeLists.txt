@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME wfs
     CPP_HDR wfs.hpp
     CPP_SRC wfs.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

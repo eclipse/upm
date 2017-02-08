@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME lcm1602
     CPP_HDR lcm1602.hpp
     CPP_SRC lcm1602.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

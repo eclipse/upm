@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME ims
     CPP_SRC ims.cxx
     FTI_SRC ims_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

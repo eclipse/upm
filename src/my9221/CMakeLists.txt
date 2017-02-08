@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME my9221
     CPP_HDR my9221.hpp groveledbar.hpp grovecircularled.hpp
     CPP_SRC my9221.cxx groveledbar.cxx grovecircularled.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

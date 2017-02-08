@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME guvas12d
     CPP_SRC guvas12d.cxx
     FTI_SRC guvas12d_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

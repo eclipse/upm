@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME ecezo
     CPP_SRC ecezo.cxx
     FTI_SRC ecezo_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

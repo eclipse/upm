@@ -29,7 +29,7 @@
 
 #include "temperature.h"
 #include "upm_fti.h"
-#include "upm_sensor.h"
+#include "fti/upm_sensor.h"
 
 /** 
  * This file implements the Function Table Interface (FTI) for this sensor

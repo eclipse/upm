@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME buzzer
     CPP_SRC buzzer.cxx
 #    FTI_SRC buzzer_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

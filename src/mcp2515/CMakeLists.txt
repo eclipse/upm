@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME mcp2515
     CPP_HDR mcp2515.hpp
     CPP_SRC mcp2515.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

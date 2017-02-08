@@ -138,11 +138,11 @@ L3GD20::L3GD20(int bus, int addr)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": Invalid Chip ID: expected "
-                               + std::to_string(L3GD20_DEFAULT_CHIP_ID)
+                               + to_string(L3GD20_DEFAULT_CHIP_ID)
                                + " or "
-                               + std::to_string(L3GD20H_DEFAULT_CHIP_ID)
+                               + to_string(L3GD20H_DEFAULT_CHIP_ID)
                                + ", got "
-                               + std::to_string(int(cid)));
+                               + to_string(int(cid)));
       return;
     }
 
@@ -282,7 +282,7 @@ void L3GD20::update()
     {
       throw std::runtime_error(std::string(__FUNCTION__)
                                + ": readRegs() failed to read "
-                               + std::to_string(bufLen)
+                               + to_string(bufLen)
                                + " bytes");
     }
 

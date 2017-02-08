@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME sht1x
     CPP_SRC sht1x.cxx
     FTI_SRC sht1x_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

@@ -23,6 +23,7 @@
  */
 
 #include <stdexcept>
+#include <string>
 
 #include "ims.hpp"
 

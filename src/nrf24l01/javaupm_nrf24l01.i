@@ -1,8 +1,13 @@
-%module(directors="1") javaupm_nrf24l01
 %include "../upm.i"
 
-%feature("director") Callback;
-SWIG_DIRECTOR_OWNED(Callback)
+#ifdef ANDROID
+    %module javaupm_nrf24l01
+#else
+    %module(directors="1") javaupm_nrf24l01
+    %feature("director") Callback;
+    SWIG_DIRECTOR_OWNED(Callback)
+#endif
+
 
 %include "arrays_java.i";
 %apply signed char[] {uint8_t *};

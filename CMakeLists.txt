@@ -95,7 +95,7 @@ set (C_CXX_WARNING_FLAGS -Wall -Wno-misleading-indentation -Wno-strict-aliasing)
 
 # Warnings as errors?
 if (WERROR)
-  set (C_CXX_WARNING_FLAGS "-Werror ${C_CXX_WARNING_FLAGS}")
+  list (APPEND C_CXX_WARNING_FLAGS -Werror)
   message (STATUS "Warnings as errors enabled (-Werror), disable with -DWERROR=off")
 endif (WERROR)
 
@@ -113,6 +113,11 @@ upm_add_compile_flags(CXX ${C_CXX_WARNING_FLAGS}
   -Woverloaded-virtual
   -Wreorder)
 
+# Allow exception error handling for Android C++
+if (ANDROID)
+  upm_add_compile_flags(CXX -fexceptions)
+endif (ANDROID)
+
 find_package (Threads REQUIRED)
 find_package (PkgConfig REQUIRED)
 
@@ -121,7 +126,13 @@ unset(MRAA_FOUND CACHE)
 set(MRAA_MINIMUM 1.6.1)
 pkg_check_modules (MRAA REQUIRED mraa>=${MRAA_MINIMUM})
 # Also, get full path to the mraa library
-find_library(MRAA_LIBRARY NAMES mraa PATHS ${MRAA_LIBDIR} NO_DEFAULT_PATH)
+find_library(MRAA_LIBRARY NAMES mraa PATHS ${MRAA_LIBDIR})
+
+# Test MRAA for various compile options
+include (CheckLibraryExists)
+check_library_exists (${MRAA_LIBRARIES} mraa_iio_init "${MRAA_LIBDIR}" MRAA_IIO_FOUND)
+check_library_exists (${MRAA_LIBRARIES} mraa_firmata_init "${MRAA_LIBDIR}" MRAA_FIRMATA_FOUND)
+check_library_exists (${MRAA_LIBRARIES} mraa_uart_ow_init "${MRAA_LIBDIR}" MRAA_OW_FOUND)
 
 # Check for BACNET
 pkg_check_modules (BACNET libbacnet)
@@ -146,7 +157,7 @@ if (BUILDSWIGJAVA)
   find_package (JNI REQUIRED)
   pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
   # Also, get full path to the mraajava library
-  find_library(MRAAJAVA_LIBRARY NAMES mraajava PATHS ${MRAA_LIBDIR} NO_DEFAULT_PATH)
+  find_library(MRAAJAVA_LIBRARY NAMES mraajava PATHS ${MRAA_LIBDIR})
 endif (BUILDSWIGJAVA)
 
 # Find swig if any wrapper is enabled
@@ -415,12 +426,10 @@ if (RPM)
 endif()
 
 # UPM common headers
-set (UPM_COMMON_HEADER_DIRS
-    ${CMAKE_HOME_DIRECTORY}/include
-    ${CMAKE_HOME_DIRECTORY}/include/fti
-    ${CMAKE_BINARY_DIR}/src)
+set (UPM_COMMON_HEADER_DIRS ${CMAKE_HOME_DIRECTORY}/include)
 
-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/version.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/src/version.hpp @ONLY)
+# Generate a build-only C++ header to add functionality to SWIG'ed modules
+configure_file (${PROJECT_SOURCE_DIR}/cmake/modules/version.hpp.in ${PROJECT_BINARY_DIR}/src/version.hpp @ONLY)
 
 # UPM source
 add_subdirectory (src)

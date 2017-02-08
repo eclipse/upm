@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME speaker
     CPP_SRC speaker.cxx
 #    FTI_SRC speaker_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

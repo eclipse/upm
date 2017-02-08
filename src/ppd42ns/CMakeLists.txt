@@ -5,5 +5,5 @@ upm_mixed_module_init (NAME ppd42ns
     CPP_HDR ppd42ns.hpp
     CPP_SRC ppd42ns.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)
 target_link_libraries(${libnamec} m)

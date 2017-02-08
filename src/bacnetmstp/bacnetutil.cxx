@@ -70,7 +70,7 @@ BACNETUTIL::~BACNETUTIL()
 {
 }
 
-void BACNETUTIL::initMaster(std::string port, int baudRate,
+void BACNETUTIL::initMaster(string port, int baudRate,
                             int deviceInstanceID, int macAddr, int maxMaster,
                             int maxInfoFrames)
 {
@@ -109,7 +109,7 @@ float BACNETUTIL::getAnalogValue(uint32_t objInstance)
             cerr << __FUNCTION__ << ": (reliability): " << getAllErrorString()
                  << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + getAllErrorString());
         }
 
@@ -121,7 +121,7 @@ float BACNETUTIL::getAnalogValue(uint32_t objInstance)
           if (m_debugging)
             cerr << __FUNCTION__ << ": Reliability check failed" << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + ": Reliability check failed");
         }
     }
@@ -134,7 +134,7 @@ float BACNETUTIL::getAnalogValue(uint32_t objInstance)
         cerr << __FUNCTION__ << ": (value): " << getAllErrorString()
              << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -158,7 +158,7 @@ void BACNETUTIL::setAnalogValue(uint32_t objInstance,
       if (m_debugging)
         cerr << __FUNCTION__ << ": " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -201,7 +201,7 @@ float BACNETUTIL::getAnalogInput(uint32_t objInstance)
             cerr << __FUNCTION__ << ": (reliability): "
                  << getAllErrorString() << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + getAllErrorString());
         }
 
@@ -213,7 +213,7 @@ float BACNETUTIL::getAnalogInput(uint32_t objInstance)
           if (m_debugging)
             cerr << __FUNCTION__ << ": Reliability check failed" << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + ": Reliability check failed");
         }
     }
@@ -225,7 +225,7 @@ float BACNETUTIL::getAnalogInput(uint32_t objInstance)
       if (m_debugging)
         cerr << __FUNCTION__ << ": (value): " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -248,7 +248,7 @@ bool BACNETUTIL::getBinaryInput(uint32_t objInstance)
             cerr << __FUNCTION__ << ": (reliability): "
                  << getAllErrorString() << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + getAllErrorString());
         }
 
@@ -260,7 +260,7 @@ bool BACNETUTIL::getBinaryInput(uint32_t objInstance)
           if (m_debugging)
             cerr << __FUNCTION__ << ": Reliability check failed" << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + ": Reliability check failed");
         }
     }
@@ -272,7 +272,7 @@ bool BACNETUTIL::getBinaryInput(uint32_t objInstance)
       if (m_debugging)
         cerr << __FUNCTION__ << ": (value): " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -298,7 +298,7 @@ bool BACNETUTIL::getBinaryValue(uint32_t objInstance)
             cerr << __FUNCTION__ << ": (reliability): "
                  << getAllErrorString() << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + getAllErrorString());
         }
 
@@ -310,7 +310,7 @@ bool BACNETUTIL::getBinaryValue(uint32_t objInstance)
           if (m_debugging)
             cerr << __FUNCTION__ << ": Reliability check failed" << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + ": Reliability check failed");
         }
     }
@@ -322,7 +322,7 @@ bool BACNETUTIL::getBinaryValue(uint32_t objInstance)
       if (m_debugging)
         cerr << __FUNCTION__ << ": (value): " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -351,7 +351,7 @@ void BACNETUTIL::setBinaryValue(uint32_t objInstance,
       if (m_debugging)
         cerr << __FUNCTION__ << ": " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -398,7 +398,7 @@ unsigned int BACNETUTIL::getMultiStateValue(uint32_t objInstance)
             cerr << __FUNCTION__ << ": (reliability): "
                  << getAllErrorString() << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + getAllErrorString());
         }
 
@@ -410,7 +410,7 @@ unsigned int BACNETUTIL::getMultiStateValue(uint32_t objInstance)
           if (m_debugging)
             cerr << __FUNCTION__ << ": Reliability check failed" << endl;
 
-          throw std::runtime_error(std::string(__FUNCTION__)
+          throw runtime_error(string(__FUNCTION__)
                                    + ": Reliability check failed");
         }
     }
@@ -423,7 +423,7 @@ unsigned int BACNETUTIL::getMultiStateValue(uint32_t objInstance)
       if (m_debugging)
         cerr << __FUNCTION__ << ": (value): " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -451,7 +451,7 @@ void BACNETUTIL::updateMultiStateValueInfo(uint32_t objInstance)
              << getAllErrorString()
              << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -525,10 +525,10 @@ string BACNETUTIL::lookupMultiStateValueText(uint32_t objInstance,
 
   // verify that value is valid for this object
   if (value == 0 || value > m_msvInfo[objInstance].numStates)
-    throw std::out_of_range(std::string(__FUNCTION__)
+    throw out_of_range(string(__FUNCTION__)
                             + ": value supplied is invalid. Maximum "
                             + "allowed values are 1 to "
-                            + std::to_string(m_msvInfo[objInstance].numStates)
+                            + to_string(m_msvInfo[objInstance].numStates)
                             + " for this object");
 
 
@@ -549,7 +549,7 @@ string BACNETUTIL::lookupMultiStateValueText(uint32_t objInstance,
     }
 
   // no stateList text available, so just return value as a string
-  return std::to_string(value);
+  return to_string(value);
 }
 
 unsigned int BACNETUTIL::getMultiStateValueMaxStates(uint32_t objInstance)
@@ -576,10 +576,10 @@ void BACNETUTIL::setMultiStateValue(uint32_t objInstance,
   // Check value against the valid limits
 
   if (value == 0 || value > m_msvInfo[objInstance].numStates)
-    throw std::invalid_argument(std::string(__FUNCTION__)
+    throw invalid_argument(string(__FUNCTION__)
                                 + ": value supplied is invalid. Maximum "
                                 + "allowed values are 1 to "
-                                + std::to_string(m_msvInfo[objInstance].numStates)
+                                + to_string(m_msvInfo[objInstance].numStates)
                                 + " for this object");
 
   // Write the value
@@ -596,7 +596,7 @@ void BACNETUTIL::setMultiStateValue(uint32_t objInstance,
       if (m_debugging)
         cerr << __FUNCTION__ << ": " << getAllErrorString() << endl;
 
-      throw std::runtime_error(std::string(__FUNCTION__)
+      throw runtime_error(string(__FUNCTION__)
                                + ": "
                                + getAllErrorString());
     }
@@ -772,7 +772,7 @@ uint8_t BACNETUTIL::getRejectReason()
   return m_instance->getRejectReason();
 }
 
-std::string BACNETUTIL::getRejectString()
+string BACNETUTIL::getRejectString()
 {
   return m_instance->getRejectString();
 }
@@ -782,7 +782,7 @@ uint8_t BACNETUTIL::getAbortReason()
   return m_instance->getAbortReason();
 }
 
-std::string BACNETUTIL::getAbortString()
+string BACNETUTIL::getAbortString()
 {
   return m_instance->getAbortString();
 }
@@ -797,12 +797,12 @@ BACNET_ERROR_CODE BACNETUTIL::getErrorCode()
   return m_instance->getErrorCode();
 }
 
-std::string BACNETUTIL::getUPMErrorString()
+string BACNETUTIL::getUPMErrorString()
 {
   return m_instance->getUPMErrorString();
 }
 
-std::string BACNETUTIL::getErrorString()
+string BACNETUTIL::getErrorString()
 {
   return m_instance->getErrorString();
 };
@@ -904,7 +904,7 @@ bool BACNETUTIL::setDeviceName(string name)
 {
   if (name.size() < 1)
     {
-      throw std::invalid_argument(std::string(__FUNCTION__)
+      throw invalid_argument(string(__FUNCTION__)
                                   + ": name must have at least one character");
     }
 

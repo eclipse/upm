@@ -51,7 +51,7 @@ void DFRORP::update()
     {
       throw std::runtime_error(string(__FUNCTION__)
                                + ": dfrorp_update() failed with UPM error "
-                               + std::to_string(int(rv)) );
+                               + to_string(int(rv)) );
     }
 }
 

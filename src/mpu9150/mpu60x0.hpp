@@ -801,23 +801,6 @@ namespace upm {
      */
     void getGyroscope(float *x, float *y, float *z);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    /**
-     * get the accelerometer values
-     *
-     * @return Array containing X, Y, Z accelerometer values
-     */
-    float *getAccelerometer();
-
-    /**
-     * get the gyroscope values
-     *
-     * @return Array containing X, Y, Z gyroscope values
-     */
-    float *getGyroscope();
-#endif
-
-
     /**
      * get the temperature value
      *

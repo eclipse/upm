@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME m24lr64e
     CPP_SRC m24lr64e.cxx
     FTI_SRC m24lr64e_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME bmi160
     CPP_SRC bmi160.cxx
 #    FTI_SRC bmi160_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

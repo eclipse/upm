@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME max30100
     CPP_SRC max30100.cxx
     FTI_SRC max30100_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)
