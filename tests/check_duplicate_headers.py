@@ -14,13 +14,14 @@ class DuplicateHeadersTests(unittest.TestCase):
 
         # Recusively search cwd for headers and add them to the list
         for root, dirs, files in os.walk(os.curdir):
+            dirs[:] = [d for d in dirs if d not in ['build']]
             for file in files:
                 if file.endswith(('.h', '.hpp', '.hxx')):
                     header_files.append(file)
 
         # Test for duplicates
         duplicates = len(header_files) - len(set(header_files))
-        self.assertEqual(duplicates, 7,
+        self.assertEqual(duplicates, 4,
                 "\nDuplicate headers: %d\n" % duplicates)
 
 if __name__ == '__main__':
