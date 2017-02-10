@@ -94,23 +94,33 @@ See building documentation [here](docs/building.md).
 
 ### Making your own UPM module
 
-Porting [link](docs/porting.md) has more information on making new UPM modules.
+A quick way to add a new sensor driver is to port existing code from another
+platform (e.g. Arduino) and swap the IO calls to the MRAA API. This of course
+assumes either ownership of the original code or licensing that allows
+unrestricted redistribution.
 
-There is also an example available gfor max31855 [sensor](docs/max31855.md).
+The [porting](docs/porting.md) section has more information on this process,
+and there is an example available based on the max31855 [sensor](docs/max31855.md).
 
-Guide on creating Java [bindings](docs/creating_java_bindings.md).
+Read more on creating Java [bindings](docs/creating_java_bindings.md) for your
+new driver.
 
-### Naming conventions and rules for new UPM contributions
+### Guidelines and rules for new UPM contributions
 
 Before you begin development, take a look at our naming [conventions](docs/naming.md).
+The name you pick for a newly added sensor needs to be unique in the UPM library.
 
-Also, please read the guidelines for contributions [to UPM](docs/contributions.md).
-
-Don't forget to check the documentation [section](docs/documentation.md).
-
+Then, please go over this short set of rules for new [contributions](docs/contributions.md).
 Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
 as a contributor. Signing-off your commits is mandatory.
+
+Documenting your code is also a big part of the task. We have a strict set of
+tags used to classify our sensors and their capabilities. You can find out more
+about this in our [section](docs/documentation.md) on documenting a sensor API.
+Finally, if you really want to ensure consistency with the rest of the library,
+and the intel-iot-devkit repositories in general, take a look at our extensive
+[author guide](docs/guidelines.md).
 
 API Documentation
 ==============
