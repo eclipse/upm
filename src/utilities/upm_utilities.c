@@ -1,7 +1,9 @@
 /*
  * Authors:
  *          Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,6 +33,22 @@
 #include <errno.h>
 #include <upm_platform.h>
 #include <upm_utilities.h>
+
+// https://airnow.gov/index.cfm?action=aqibasics.aqi
+static struct aqi {
+    float clow;
+    float chigh;
+    int llow;
+    int lhigh;
+} aqi[] = {
+  {0.0,    12.4,   0, 50},
+  {12.1,   35.4,  51, 100},
+  {35.5,   55.4, 101, 150},
+  {55.5,  150.4, 151, 200},
+  {150.5, 250.4, 201, 300},
+  {250.5, 350.4, 301, 350},
+  {350.5, 500.4, 401, 500},
+};
 
 void upm_delay(unsigned int time)
 {
@@ -245,4 +263,20 @@ uint32_t upm_elapsed_us(upm_clock_t *clock)
 
     return elapsed;
 #endif
+}
+
+int upm_ugm3_to_aqi (double ugm3)
+{
+  int i;
+
+  for (i = 0; i < 7; i++) {
+    if (ugm3 >= aqi[i].clow &&
+        ugm3 <= aqi[i].chigh) {
+        // Ip =  [(Ihi-Ilow)/(BPhi-BPlow)] (Cp-BPlow)+Ilow,
+        return ((aqi[i].lhigh - aqi[i].llow) / (aqi[i].chigh - aqi[i].clow)) * 
+            (ugm3 - aqi[i].clow) + aqi[i].llow;
+    }
+  }
+
+  return 0;
 }

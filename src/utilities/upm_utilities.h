@@ -1,7 +1,9 @@
 /*
  * Authors:
  *          Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -112,6 +114,15 @@ uint32_t upm_elapsed_ms(upm_clock_t *clock);
  * was called on the clock parameter.
  */
 uint32_t upm_elapsed_us(upm_clock_t *clock);
+
+/**
+ * Return the AQI (based on EPA standards) using the ugm3 value
+ * calculated by the sensor module.
+ *
+ * @param ugm3 micrograms per cubic meter
+ * @return calculated AQI
+ */
+int upm_ugm3_to_aqi (double ugm3);
 
 #ifdef __cplusplus
 }
