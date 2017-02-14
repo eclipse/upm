@@ -74,3 +74,4 @@ yg1006.cxx	YG1006Sample.java	yg1006.js	yg1006.py
 tcs37727.cxx tcs37727.py
 tmp006.cxx tmp006.py
 mma8x5x.cxx mma8x5x.py
+mag3110.cxx mag3110.py
