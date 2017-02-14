@@ -330,6 +330,7 @@ add_example (rf22-client)
 add_example (mcp2515)
 add_example (max30100)
 add_example (tcs37727)
+add_example (tmp006)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
