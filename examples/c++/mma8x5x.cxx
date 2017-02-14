@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     params.offsetZ  = <z-axis offset>;    between 0 and 255
   */
 
-  cout << "Initializing test-application..." << endl;
+  std::cout << "Initializing test-application..." << std::endl;
 
   // Instantiate an MMA8X5X instance on bus 1 with default parameters
   // The sensor-type will be detected by reading out the device-id
@@ -73,16 +73,16 @@ int main(int argc, char **argv)
   while (run)
     {
       mySensor->getData (&data, true);
-        cout << "x: " << (int)data.x << endl
-             << "y: " << (int)data.y << endl
-             << "z: " << (int)data.z << endl;
+        std::cout << "x: " << (int)data.x << std::endl
+                  << "y: " << (int)data.y << std::endl
+                  << "z: " << (int)data.z << std::endl;
 
-        cout << endl;
+        std::cout << std::endl;
 
         sleep(1);
     }
 
-  cout << "Exiting test-application..." << endl;
+  std::cout << "Exiting test-application..." << std::endl;
 
   delete mySensor;
 //! [Interesting]

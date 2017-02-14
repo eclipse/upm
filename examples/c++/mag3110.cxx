@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 //! [Interesting]
   upm::mag3110_data_t data;
 
-  cout << "Initializing test-application..." << endl;
+  std::cout << "Initializing test-application..." << std::endl;
 
   // Instantiate an MAG3110 instance on bus 1
   upm::MAG3110 *mySensor = new upm::MAG3110(1);
@@ -56,18 +56,18 @@ int main(int argc, char **argv)
   while (run)
     {
       mySensor->getData (&data, true);
-        cout << "x: " << data.x << endl
-             << "y: " << data.y << endl
-             << "z: " << data.z << endl
-             << "Status: " << data.status << endl
-             << "Die temperature: " << data.dtemp << endl;
+        std::cout << "x: " << data.x << std::endl
+                  << "y: " << data.y << std::endl
+                  << "z: " << data.z << std::endl
+                  << "Status: " << data.status << std::endl
+                  << "Die temperature: " << data.dtemp << std::endl;
 
-        cout << endl;
+        std::cout << std::endl;
 
         sleep(1);
     }
 
-  cout << "Exiting test-application..." << endl;
+  std::cout << "Exiting test-application..." << std::endl;
 
   delete mySensor;
 //! [Interesting]
