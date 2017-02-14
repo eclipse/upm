@@ -197,7 +197,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 # If git_describe fails, use a dirty version
 if (${VERSION} MATCHES -NOTFOUND)
-  set (VERSION "v1.0.2")
+  set (VERSION "v1.1.0")
   message (WARNING "Failed to retrieve UPM version with 'git describe' (using "
       "${VERSION}). Check that git is installed and this is a valid git repo.")
 endif ()

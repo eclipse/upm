@@ -4,6 +4,17 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.1.0
+
+ * Reworked cmake handling of internal and external dependencies
+ * Documentation improvements for sensor names, sensor descriptions, external
+ contributor guides and added new section on installing UPM on a supported OS
+ * Fixed issues with C11 builds on some WRLinux gateways and Debian systems
+ * New examples and functionality for speaker and ads1x15 modules
+ * Modified JAVA builds to ensure the SWIG generated wrappers include all
+ functionality and typemaps
+ * New sensors: mcp2515, max30100, uartat, le910
+
 ### v1.0.2
 
  * Minor cmake changes for Java builds and Java examples are now toggled with
