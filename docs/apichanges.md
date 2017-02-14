@@ -4,13 +4,20 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+ * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are
+ being separated into individual libraries. The APIs will be preserved, but
+ we recommend changing your code to use the new libraries as they become
+ available. Once this transition is complete, the i2clcd module will be
+ deprecated. So far, the following libraries have been made available
+ separately: jhd1313m1, lcm1602.
+
  * **nunchuck** This driver no longer supports the init() function.
-   All initialization is now done in the C nunchuck_init() function,
-   or the C++ constructor.  In addition, the *NUNCHUCK_I2C_ADDR*
-   define is no longer exposed, as it is not possible to use any other
-   I2C address than *0x52*.  The readBytes() and writeByte() functions
-   are also no longer exposed, since aside from what the driver does
-   to initialize and read data, there are no other options available.
+ All initialization is now done in the C nunchuck_init() function,
+ or the C++ constructor.  In addition, the *NUNCHUCK_I2C_ADDR*
+ define is no longer exposed, as it is not possible to use any other
+ I2C address than *0x52*.  The readBytes() and writeByte() functions
+ are also no longer exposed, since aside from what the driver does
+ to initialize and read data, there are no other options available.
 
  * **enc03r** This driver no longer supports the value() function.  In
  addition, an update() function has been added.  This function must be
