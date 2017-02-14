@@ -42,7 +42,7 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  cout << "Initializing test-application..." << endl;
+  std::cout << "Initializing test-application..." << std::endl;
 
   // Instantiate an HDC1000 instance on bus 1
   upm::HDC1000 *mySensor = new upm::HDC1000(1);
@@ -50,15 +50,15 @@ int main(int argc, char **argv)
   // update and print available values every second
   while (run)
     {
-        cout << "Humidity: " << mySensor->getHumidity(true) << endl
-             << "Temperature: " << mySensor->getTemperature(true) << endl;
+        std::cout << "Humidity: " << mySensor->getHumidity(true) << std::endl
+             << "Temperature: " << mySensor->getTemperature(true) << std::endl;
 
-        cout << endl;
+        std::cout << std::endl;
 
         sleep(1);
     }
 
-  cout << "Exiting test-application..." << endl;
+  std::cout << "Exiting test-application..." << std::endl;
 
   delete mySensor;
 //! [Interesting]

@@ -42,7 +42,7 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  cout << "Initializing test-application..." << endl;
+  std::cout << "Initializing test-application..." << std::endl;
 
   // Instantiate an TMP006 instance on bus 1
   upm::TMP006 *mySensor = new upm::TMP006(1);
@@ -54,13 +54,13 @@ int main(int argc, char **argv)
   while (run)
     {
       // Print out temperature value in °C
-      cout << "Temperature: " << mySensor->getTemperature(true) << " °C"
-           << endl;
+      std::cout << "Temperature: " << mySensor->getTemperature(true) << " °C"
+           << std::endl;
 
       sleep(1);
     }
 
-  cout << "Exiting test-application..." << endl;
+  std::cout << "Exiting test-application..." << std::endl;
 
   delete mySensor;
 //! [Interesting]

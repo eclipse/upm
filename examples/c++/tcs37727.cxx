@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 //! [Interesting]
   upm::tcs37727_data_t data;
 
-  cout << "Initializing test-application..." << endl;
+  std::cout << "Initializing test-application..." << std::endl;
 
   // Instantiate an TCS37727 instance on bus 1
   upm::TCS37727 *mySensor = new upm::TCS37727(1);
@@ -56,19 +56,19 @@ int main(int argc, char **argv)
   while (run)
     {
       mySensor->getData (&data, true);
-        cout << "Red: " << (int)data.red << endl
-             << "Green: " << (int)data.green << endl
-             << "Blue: " << (int)data.blue << endl
-             << "Clear: " << (int)data.clear << endl
-             << "Lux: " << (int)data.lux << endl
-             << "Color temperature: " << (int)data.ct << endl;
+        std::cout << "Red: " << (int)data.red << std::endl
+                  << "Green: " << (int)data.green << std::endl
+                  << "Blue: " << (int)data.blue << std::endl
+                  << "Clear: " << (int)data.clear << std::endl
+                  << "Lux: " << (int)data.lux << std::endl
+                  << "Color temperature: " << (int)data.ct << std::endl;
 
-        cout << endl;
+        std::cout << std::endl;
 
         sleep(1);
     }
 
-  cout << "Exiting test-application..." << endl;
+  std::cout << "Exiting test-application..." << std::endl;
 
   delete mySensor;
 //! [Interesting]
