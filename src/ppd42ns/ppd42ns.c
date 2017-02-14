@@ -179,13 +179,13 @@ static uint32_t ppd42ns_pulse_in(const ppd42ns_context dev,
 //
 // This method does not use the correction factors, based on the presence of humidity and rain in the paper.
 //
-// convert from particles/0.01 ft3 to µg/m3
+// convert from particles/0.01 ft3 to ug/m3
 double pcs2ugm3 (double concentration_pcs)
 {
     double pi = 3.14159;
-    // All particles are spherical, with a density of 1.65E12 µg/m3
+    // All particles are spherical, with a density of 1.65E12 ug/m3
     double density = 1.65 * pow (10, 12);
-    // The radius of a particle in the PM2.5 channel is .44 µm
+    // The radius of a particle in the PM2.5 channel is .44 um
     double r25 = 0.44 * pow (10, -6);
     double vol25 = (4/3) * pi * pow (r25, 3);
     double mass25 = density * vol25; // ug
