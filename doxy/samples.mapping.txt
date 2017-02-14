@@ -75,3 +75,4 @@ yg1006.cxx	YG1006Sample.java	yg1006.js	yg1006.py
 sensortemplate.cxx	SensorTemplateSample.java	sensortemplate.js	sensortemplate.py
 p9813.cxx	P9813Sample.java	p9813.js	p9813.py
 tcs37727.cxx tcs37727.py
+tmp006.cxx tmp006.py

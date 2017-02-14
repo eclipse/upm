@@ -335,6 +335,7 @@ add_example (abpdrrt005pg2a5)
 add_example (lcdks)
 add_example (mmc35240)
 add_example (tcs37727)
+add_example (tmp006)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
