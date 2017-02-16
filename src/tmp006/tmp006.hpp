@@ -115,9 +115,9 @@ namespace upm {
  * SMBus-compatible interface. With this data, the target object temperature
  * can be calculated by an external processor.
  * The Infrared thermopile sensor is specified to operate from 
- * –40 to +125 [degC]. It is possible to measure an object temperature beyond
+ * -40 to +125 [degC]. It is possible to measure an object temperature beyond
  * the device operating range as long as the device itself does not exceed the
- * operating temperature range (–40 to +125 [degC]).
+ * operating temperature range (-40 to +125 [degC]).
  *
  * @snippet tmp006.cxx Interesting
  */
