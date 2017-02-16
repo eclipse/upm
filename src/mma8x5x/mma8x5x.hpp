@@ -337,7 +337,7 @@ typedef struct {
  * accelerometer with 10/12/14 bits of resolution. These accelerometer
  * are packed with embedded functions with flexible user-programmable
  * options configurable to two interrupt pins. The MMA8X5X have user-selectable
- * full scales of ±2g/±4g/±8g.
+ * full scales of +-2g/+-4g/+-8g.
  *
  * @snippet mma8x5x.cxx Interesting
  */

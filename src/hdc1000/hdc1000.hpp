@@ -83,7 +83,7 @@ namespace upm {
  * of an ultra-compact package. The sensing element of the HDC1000 is placed on
  * the bottom part of the device, which makes the HDC1000 more robust against
  * dirt, dust, and other environmental contaminants. The HDC1000 is functional
- * within the full -40°C to +125 °C temperature range.
+ * within the full -40 to +125 [degC] temperature range.
  *
  * @snippet hdc1000.cxx Interesting
  */
