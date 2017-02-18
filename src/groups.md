@@ -320,9 +320,9 @@ and is not meant to be installed anywhere.
 @brief Sparkfun
 
 
-@defgroup maxbotix MaxBotixs
+@defgroup maxbotix MaxBotix
 @ingroup byman
-@brief MaxBotixs
+@brief MaxBotix
 
 
 @defgroup meas Measurement Specialties
@@ -398,11 +398,6 @@ and is not meant to be installed anywhere.
 @defgroup kionix Kionix Incorporated
 @ingroup byman
 @brief Kionix Incorporated
-
-
-@defgroup maxbotix Maxbotix
-@ingroup byman
-@brief Maxbotix
 
 
 @defgroup maxim Maxim Integrated
