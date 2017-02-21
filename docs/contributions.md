@@ -94,3 +94,40 @@ then you just add a line to each of your commits with `--signoff` saying
 
 using your real name (sorry, no pseudonyms or anonymous contributions.)
 Unsigned commits will not be accepted.
+
+
+Creating a new sensor library using the sensortemplate
+=======================================
+
+A stubbed-out sensor library is available which can be leveraged to get
+up-and-running quickly when writing a new sensor library.  Use the shell
+commands below to generate collateral files for your new sensor library.
+
+
+```shell
+# Set SensorName to your new library name, example: 'MyNewSensor1234'
+export SensorName=MyNewSensor1234
+
+# Copy/paste the below commands into a bash shell...
+# Get a lowercase version of the string
+export sensorname=${SensorName,,}
+# Copy sensortemplate files to ${sensorname}
+find docs/ examples/ src/ -name '*sensortemplate*' -exec bash -c 'cp -r $0 ${0/sensortemplate/${sensorname}}' {} \;
+# Copy SensorTemplate files to ${SensorName}
+find examples/ src/ -name '*SensorTemplate*' -exec bash -c 'cp -r $0 ${0/SensorTemplate/${SensorName}}' {} \;
+# Rename sernsortemplate src files
+rename "s/sensortemplate/${sensorname}/" src/${sensorname}/*
+# Search/replace the new files, replacing all instances of sensortemplate
+perl -p -i -e "s/SensorTemplate/${SensorName}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
+perl -p -i -e "s/sensortemplate/${sensorname}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
+# Add mynewmodule example target for c++
+perl -p -i -e "s/^((.*)sensortemplate(.*))/\1\n\2${sensorname}\3/g" examples/c++/CMakeLists.txt
+# Add mynewmodule example target for java
+perl -p -i -e "s/^((.*)SensorTemplateSample sensortemplate(.*))/\1\n\2${SensorName}Sample ${sensorname}\3/g" examples/java/CMakeLists.txt
+# Add mynewmodule example mappings for doxygen
+perl -p -i -e "s/^(.*SensorTemplateSample.*)$/\1\n${sensorname}.cxx\t${SensorName}Sample.java\t${sensorname}.js\t${sensorname}.py/g" doxy/samples.mapping.txt
+```
+
+Once all files have been created, they can be used as a starting-point for your
+new library.  They will need additional customization (your name/email address,
+documentation, sensor images, etc).
