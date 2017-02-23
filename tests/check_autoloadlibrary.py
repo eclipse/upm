@@ -34,7 +34,7 @@ class AutoLoadLibrary(u.TestCase):
                             broken_modules.append('%s: %s' % \
                                     (moduleName, os.path.join(subdir, fileName)))
 
-        self.assertEqual( len(broken_modules), 0,
+        self.assertEqual( len(broken_modules), 0, \
                 "\nThe following modules do not contain the standard auto load library code:\n" + \
                 "\n".join(broken_modules) + \
                 "\nConsider adding the following snippet to the SWIG interface file:\n" + \
