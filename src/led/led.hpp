@@ -28,7 +28,7 @@
 
 #include <string>
 #include <mraa/gpio.hpp>
-#include "led.hpp"
+#include "led.h"
 
 namespace upm {
 /**
