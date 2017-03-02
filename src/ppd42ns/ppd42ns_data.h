@@ -36,11 +36,11 @@ extern "C" {
     // This is a data struct used by the ppd42ns (dust sensor) driver.
     typedef struct
     {
-	unsigned int lowPulseOccupancy;
-	double ratio;
-	double concentration;
-    double ugm3;
-	int aqi;
+        unsigned int lowPulseOccupancy;
+        double ratio;
+        double concentration;
+        double ugm3;
+        int aqi;
     } ppd42ns_dust_data;
 
 #ifdef __cplusplus
