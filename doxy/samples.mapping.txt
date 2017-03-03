@@ -71,3 +71,4 @@ vdiv.cxx	VDivSample.java	vdiv.js	vdiv.py
 water.cxx	WaterSample.java	water.js	water.py
 wt5001.cxx	WT5001Sample.java	wt5001.js	wt5001.py
 yg1006.cxx	YG1006Sample.java	yg1006.js	yg1006.py
+sensortemplate.cxx	SensorTemplateSample.java	sensortemplate.js	sensortemplate.py
