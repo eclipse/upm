@@ -1,9 +1,7 @@
 %module javaupm_hlg150h
 %include "../upm.i"
 
-#if SWIG_VERSION >= 0x030009
 %include "../interfaces/javaupm_iLightController.i"
-#endif
 
 %include "arrays_java.i";
 %include "../java_buffer.i"

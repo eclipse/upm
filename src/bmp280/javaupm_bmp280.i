@@ -1,16 +1,9 @@
 %module javaupm_bmp280
 %include "../upm.i"
 
-#if SWIG_VERSION >= 0x030009
 %include "../interfaces/javaupm_iTemperatureSensor.i"
 %include "../interfaces/javaupm_iHumiditySensor.i"
 %include "../interfaces/javaupm_iPressureSensor.i"
-#else
-%include "iModuleStatus.hpp"
-%include "iTemperatureSensor.hpp"
-%include "iPressureSensor.hpp"
-%include "iHumiditySensor.hpp"
-#endif
 
 %include "cpointer.i"
 %include "typemaps.i"

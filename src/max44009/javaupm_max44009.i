@@ -1,9 +1,7 @@
 %module javaupm_max44009
 %include "../upm.i"
 
-#if SWIG_VERSION >= 0x030009
 %include "../interfaces/javaupm_iLightSensor.i"
-#endif
 
 %include "arrays_java.i";
 %include "../java_buffer.i"

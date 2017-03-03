@@ -1,9 +1,7 @@
 %module(directors="1") javaupm_si1132
 %include "../upm.i"
 
-#if SWIG_VERSION >= 0x030009
 %include "../interfaces/javaupm_iLightSensor.i"
-#endif
 
 %pragma(java) jniclasscode=%{
     static {

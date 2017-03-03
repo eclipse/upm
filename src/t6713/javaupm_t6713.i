@@ -1,9 +1,7 @@
 %module javaupm_t6713
 %include "../upm.i"
 
-#if SWIG_VERSION >= 0x030009
 %include "../interfaces/javaupm_iCO2Sensor.i"
-#endif
 
 %include "arrays_java.i";
 %include "../java_buffer.i"
