@@ -275,6 +275,11 @@ and is not meant to be installed anywhere.
 @brief Amphenol
 
 
+@defgroup ams ams AG
+@ingroup byman
+@brief ams AG
+
+
 @defgroup bosch Bosch
 @ingroup byman
 @brief Bosch

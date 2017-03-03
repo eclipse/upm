@@ -71,3 +71,8 @@ vdiv.cxx	VDivSample.java	vdiv.js	vdiv.py
 water.cxx	WaterSample.java	water.js	water.py
 wt5001.cxx	WT5001Sample.java	wt5001.js	wt5001.py
 yg1006.cxx	YG1006Sample.java	yg1006.js	yg1006.py
+tcs37727.cxx tcs37727.py
+tmp006.cxx tmp006.py
+mma8x5x.cxx mma8x5x.py
+mag3110.cxx mag3110.py
+hdc1000.cxx hdc1000.py

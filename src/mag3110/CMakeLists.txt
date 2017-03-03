@@ -1,0 +1,5 @@
+set (libname "mag3110")
+set (libdescription "Three-Axis Digital Magnetometer")
+set (module_src ${libname}.cpp)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)
