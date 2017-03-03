@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 #if SWIG_VERSION >= 0x030009
-%include"../interfaces/javaupm_iADC.i"
+%include "../interfaces/javaupm_iADC.i"
 #endif
 
 %include "typemaps.i"
