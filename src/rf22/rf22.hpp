@@ -41,7 +41,7 @@
 // Can be pre-defined to a smaller size (to save SRAM) prior to including this header
 #ifndef RF22_MAX_MESSAGE_LEN
 //#define RF22_MAX_MESSAGE_LEN 255
-#define RF22_MAX_MESSAGE_LEN 50
+#define RF22_MAX_MESSAGE_LEN 64
 #endif
 
 // Max number of octets the RF22 Rx and Tx FIFOs can hold
