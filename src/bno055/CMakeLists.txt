@@ -1,5 +1,8 @@
-set (libname "bno055")
-set (libdescription "Intelligent 9-axis Absolute Orientation Sensor")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init(mraa)
+upm_mixed_module_init (NAME bno055
+    DESCRIPTION "Intelligent 9-axis Absolute Orientation Sensor"
+    C_HDR bno055.h bno055_regs.h
+    C_SRC bno055.c
+    CPP_HDR bno055.hpp
+    CPP_SRC bno055.cxx
+    CPP_WRAPS_C
+    REQUIRES mraa)

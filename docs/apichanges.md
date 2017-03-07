@@ -4,6 +4,22 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# current master
+
+ * **bno055** This module no longer uses std::strings to pass around
+ binary data (*read/writeCalibrationData()*).  Rather, now *std::vectors* of
+ the appropriate type are used.  In addition, methods that previously
+ returned certain data in the form of an array, like *getEulerAngles()*,
+ now return a *std::vector* instead.  This simplifies the Python,
+ Javascript, and Java bindings considerably, and leads to more
+ "natural" looking Python/Javascript/Java code.  For Javascript, Java,
+ and Python, the examples have been modified to use these methods
+ rather than the methods that return data in argument pointers or
+ arrays.  The "old style" C pointer API's are still present for
+ backwards compatibility, but may be removed in the future.
+
+# v1.1.0
+
  * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are
  being separated into individual libraries. The APIs will be preserved, but
  we recommend changing your code to use the new libraries as they become
