@@ -1,7 +1,13 @@
 %module javaupm_uln200xa
 %include "../upm.i"
+%include "enums.swg"
 
-%include "uln200xa.h"
+%javaconst(1);
+enum ULN200XA_DIRECTION_T {
+	ULN200XA_DIR_CW   = 0x01,
+    ULN200XA_DIR_CCW  = 0x02
+};
+
 %include "uln200xa.hpp"
 %{
     #include "uln200xa.hpp"

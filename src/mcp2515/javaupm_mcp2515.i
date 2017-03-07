@@ -4,14 +4,11 @@
 %include "arrays_java.i"
 %include "../java_buffer.i"
 %include "std_string.i"
-%include "../carrays_uint8_t.i"
-
 %include "mcp2515_regs.h"
 %include "mcp2515.hpp"
 %{
     #include "mcp2515.hpp"
 %}
-
 
 %pragma(java) jniclasscode=%{
     static {
