@@ -165,6 +165,7 @@ add_example(Ads1015Sample ads1x15)
 add_example(MAX30100_Example max30100)
 add_example(Ads1115Sample ads1x15)
 add_example(SensorTemplateSample sensortemplate)
+add_example(P9813Sample p9813)
 
 add_example_with_path(Jhd1313m1_lcdSample lcd i2clcd)
 add_example_with_path(Jhd1313m1Sample lcd i2clcd)
