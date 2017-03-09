@@ -331,6 +331,7 @@ add_example (mcp2515)
 add_example (max30100)
 add_example (sensortemplate)
 add_example (p9813)
+add_example (abpdrrt005pg2a5)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
