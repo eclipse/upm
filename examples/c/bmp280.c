@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,56 +25,62 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
 
-#include "bme280.hpp"
-
-using namespace std;
-using namespace upm;
+#include "upm_utilities.h"
+#include "bmp280.h"
 
 bool shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 
 int main(int argc, char **argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 //! [Interesting]
 
-  // Instantiate a BME280 instance using default i2c bus and address
-  upm::BME280 *sensor = new upm::BME280();
+    // Instantiate a BMP280 instance using default i2c bus and address
+    bmp280_context sensor = bmp280_init(BMP280_DEFAULT_I2C_BUS,
+                                        BMP280_DEFAULT_ADDR, -1);
 
-  // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-  // BME280(0, -1, 10);
-
-  while (shouldRun)
+    if (!sensor)
     {
-      // update our values from the sensor
-      sensor->update();
-
-      // we show both C and F for temperature
-      cout << "Compensation Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
-           << endl;
-      cout << "Pressure: " << sensor->getPressure() << " Pa" << endl;
-      cout << "Computed Altitude: " << sensor->getAltitude() << " m" << endl;
-      cout << "Humidity: " << sensor->getHumidity() << " %RH" << endl;
-
-      cout << endl;
-
-      sleep(1);
+        printf("bmp280_init() failed\n");
+        return 1;
     }
+
+    // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+    // bmp280_init(BMP280_DEFAULT_SPI_BUS,
+    //             -1, 10)
+
+    while (shouldRun)
+    {
+        // update our values from the sensor
+        if (bmp280_update(sensor))
+        {
+            printf("bmp280_update() failed\n");
+            bmp280_close(sensor);
+            return 1;
+        }
+
+        printf("Compensation Temperature: %f C\n",
+               bmp280_get_temperature(sensor));
+        printf("Pressure: %f Pa\n", bmp280_get_pressure(sensor));
+        printf("Computed Altitude: %f m\n\n", bmp280_get_altitude(sensor));
+
+        upm_delay(1);
+    }
+
+    printf("Exiting...\n");
+
+    bmp280_close(sensor);
+
 //! [Interesting]
-
-  cout << "Exiting..." << endl;
-
-  delete sensor;
-
-  return 0;
+    return 0;
 }

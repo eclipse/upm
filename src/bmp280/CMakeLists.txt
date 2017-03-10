@@ -1,5 +1,9 @@
-set (libname "bmp280")
-set (libdescription "Bosch Atmospheric Sensor Library (bmp280 and Bme280)")
-set (module_src ${libname}.cxx bme280.cxx)
-set (module_hpp ${libname}.hpp bme280.hpp)
-upm_module_init(interfaces mraa)
+upm_mixed_module_init (NAME bmp280
+    DESCRIPTION "Bosch Atmospheric Sensor Library (BMP280 and BME280)"
+    C_HDR bmp280.h bmp280_regs.h
+    C_SRC bmp280.c
+    CPP_HDR bmp280.hpp bme280.hpp
+    CPP_SRC bmp280.cxx bme280.cxx
+    CPP_WRAPS_C
+    REQUIRES mraa interfaces)
+target_link_libraries(${libnamec} m)

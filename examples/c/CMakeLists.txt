@@ -150,6 +150,7 @@ add_example (wfs)
 add_example (enc03r)
 add_example (nunchuck)
 add_example (bno055)
+add_example (bmp280)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
@@ -161,3 +162,4 @@ add_custom_example (button_intr-example-c button_intr.c button)
 add_custom_example (mcp2515-txrx-example-c mcp2515-txrx.c mcp2515)
 add_custom_example (le910-example-c le910.c uartat)
 add_custom_example (speaker_pwm-example-c speaker_pwm.c speaker)
+add_custom_example (bme280-example-c bme280.c bmp280)

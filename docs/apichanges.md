@@ -6,6 +6,11 @@ compatibility between releases:
 
 # current master
 
+ * **bmp280/bme280** Some private methods are no longer exposed
+ (such as the calibration and compensation routines).  In addition,
+ the *getHumidity()* method no longer accepts an argument representing
+ pressure at sea level.  A separate method is provided to set this now.
+
  * **bno055** This module no longer uses std::strings to pass around
  binary data (*read/writeCalibrationData()*).  Rather, now *std::vectors* of
  the appropriate type are used.  In addition, methods that previously

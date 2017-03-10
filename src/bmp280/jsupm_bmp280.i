@@ -6,6 +6,8 @@
 %include "iHumiditySensor.hpp"
 %include "iPressureSensor.hpp"
 %include "iTemperatureSensor.hpp"
+
+%include "bmp280_regs.h"
 %include "bmp280.hpp"
 %{
     #include "bmp280.hpp"
