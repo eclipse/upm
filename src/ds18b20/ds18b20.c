@@ -215,7 +215,7 @@ void ds18b20_update(const ds18b20_context dev, int index)
         mraa_uart_ow_command(dev->ow, DS18B20_CMD_CONVERT, dev->devices[index].id);
 
     // wait for conversion(s) to finish
-    upm_delay_ms(750000); // 750ms max
+    upm_delay_ms(750); // 750ms max
 
     if (doAll)
     {
