@@ -1,8 +1,12 @@
 %module javaupm_bmpx8x
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iTemperatureSensor.i"
-%include "../interfaces/javaupm_iPressureSensor.i"
+%import "../interfaces/javaupm_iTemperatureSensor.i"
+%import "../interfaces/javaupm_iPressureSensor.i"
+
+%typemap(javaimports) SWIGTYPE %{
+	import upm_interfaces.*;
+%}
 
 %{
     #include "bmpx8x.hpp"

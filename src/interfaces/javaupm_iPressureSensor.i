@@ -7,3 +7,6 @@
 %include "javaupm_iModuleStatus.i"
 
 %include "iPressureSensor.hpp"
+%{
+	#include "iPressureSensor.hpp"
+%}

@@ -1,7 +1,11 @@
 %module(directors="1") javaupm_si1132
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iLightSensor.i"
+%import "../interfaces/javaupm_iLightSensor.i"
+
+%typemap(javaimports) SWIGTYPE %{
+	import upm_interfaces.*;
+%}
 
 %pragma(java) jniclasscode=%{
     static {
@@ -14,17 +18,9 @@
     }
 %}
 
+%include "si1132.hpp"
 %{
     #include "si1132.hpp"
 %}
 
-/*
-%include "../iModuleStatus.hpp"
-%include "../iLightSensor.hpp"
-
-%feature("director") IModuleStatus;
-%feature("director") ILightSensor;
-*/
-
-%include "si1132.hpp"
 

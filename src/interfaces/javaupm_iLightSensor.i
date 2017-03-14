@@ -7,3 +7,6 @@
 %include "javaupm_iModuleStatus.i"
 
 %include "iLightSensor.hpp"
+%{
+	#include "iLightSensor.hpp"
+%}

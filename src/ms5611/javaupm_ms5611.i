@@ -1,8 +1,12 @@
 %module javaupm_ms5611
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iTemperatureSensor.i"
-%include "../interfaces/javaupm_iPressureSensor.i"
+%import "../interfaces/javaupm_iTemperatureSensor.i"
+%import "../interfaces/javaupm_iPressureSensor.i"
+
+%typemap(javaimports) SWIGTYPE %{
+	import upm_interfaces.*;
+%}
 
 %{
     #include "ms5611.hpp"

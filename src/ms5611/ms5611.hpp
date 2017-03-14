@@ -58,7 +58,7 @@ namespace upm
  * @snippet ms5611.cxx Interesting
  */
 
-class MS5611 : public IPressureSensor, ITemperatureSensor
+class MS5611 : public IPressureSensor, public ITemperatureSensor
 {
 public:
    enum OsrMode
