@@ -4,6 +4,8 @@
 %include "typemaps.i"
 %include "arrays_java.i";
 
+%typedef char lcm1602_custom_char_t[8];
+
 %apply signed char[] {uint8_t []};
 %ignore BasicFont;
 
@@ -22,7 +24,6 @@
         JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
 }
 
-%include "lcm1602.h"
 %include "lcm1602.hxx"
 
 %{

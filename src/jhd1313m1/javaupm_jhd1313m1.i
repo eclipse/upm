@@ -2,7 +2,11 @@
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"
-%include "arrays_java.i";
+%include "carrays.i"
+%include "arrays_java.i"
+%include "typemaps.i"
+
+%typedef char jhd1313m1_custom_char_t[8];
 
 %apply signed char[] {uint8_t []};
 %ignore BasicFont;
@@ -22,7 +26,6 @@
         JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *)$1, 0);
 }
 
-%include "jhd1313m1.h"
 %include "jhd1313m1.hxx"
 %{
     #include "jhd1313m1.hxx"

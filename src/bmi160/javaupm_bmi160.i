@@ -4,11 +4,11 @@
 %include "arrays_java.i"
 %include "../java_buffer.i"
 %include "std_string.i"
+%include "enums.swg"
 
 %{
     #include "bmi160.hpp"
 %}
-
 
 %typemap(jni) float * "jfloatArray"
 %typemap(jstype) float * "float[]"
@@ -28,6 +28,22 @@
 %ignore getMagnetometer(float *, float *, float *);
 
 %include "bmi160.hpp"
+
+%javaconst(1);
+enum BMI160_ACC_RANGE_T {
+    BMI160_ACC_RANGE_2G = 0, // 2 Gravities
+    BMI160_ACC_RANGE_4G,
+    BMI160_ACC_RANGE_8G,
+    BMI160_ACC_RANGE_16G
+};
+
+enum BMI160_GYRO_RANGE_T {
+	  BMI160_GYRO_RANGE_125 = 0, // 125 degrees/sec
+    BMI160_GYRO_RANGE_250,
+    BMI160_GYRO_RANGE_500,
+    BMI160_GYRO_RANGE_1000,
+    BMI160_GYRO_RANGE_2000
+};
 
 %pragma(java) jniclasscode=%{
     static {
