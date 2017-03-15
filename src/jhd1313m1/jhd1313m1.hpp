@@ -34,6 +34,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "jhd1313m1.h"
 
 namespace upm
@@ -140,11 +141,11 @@ namespace upm
          * Create a custom character
          *
          * @param charSlot the character slot to write, only 8 are available
-         * @param charData The character data (8 bytes) making up the character
+         * @param charData A vector containing 8 bytes making up the character
          * @return Result of operation
          */
         upm_result_t createChar(uint8_t charSlot,
-                                jhd1313m1_custom_char_t charData);
+                                std::vector<uint8_t> charData);
 
         /**
          * Turn the display on

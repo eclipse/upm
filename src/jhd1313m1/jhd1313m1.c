@@ -216,7 +216,7 @@ upm_result_t jhd1313m1_home(const jhd1313m1_context dev)
 
 upm_result_t jhd1313m1_create_char(const jhd1313m1_context dev,
                                  unsigned int slot,
-                                 jhd1313m1_custom_char_t data)
+                                 char *data)
 {
     assert(dev != NULL);
 

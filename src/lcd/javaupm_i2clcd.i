@@ -29,9 +29,6 @@
     #include "ssd1308.hpp"
     #include "ssd1306.hpp"
     #include "eboled.hpp"
-    #include "lcm1602.hpp"
-    #include "jhd1313m1.hpp"
-    #include "sainsmartks.hpp"
 %}
 
 %include "lcd.hpp"
@@ -40,9 +37,6 @@
 %include "ssd1308.hpp"
 %include "ssd1306.hpp"
 %include "eboled.hpp"
-%include "lcm1602.hpp"
-%include "jhd1313m1.hpp"
-%include "sainsmartks.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -82,11 +82,6 @@ extern "C" {
     } *lcm1602_context;
 
     /**
-     * Custom character.
-     */
-    typedef char lcm1602_custom_char_t[8];
-
-    /**
      * LCM1602 I2C initialization.  This is used for those devices
      * using an I2C expander, or other I2C interface.  If you are
      * using an expander, you must specify true for the is_expander
@@ -181,7 +176,7 @@ extern "C" {
      */
     upm_result_t lcm1602_create_char(const lcm1602_context dev,
                                      unsigned int slot,
-                                     lcm1602_custom_char_t data);
+                                     char *data);
 
     /**
      * Turn the display on.

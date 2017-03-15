@@ -35,7 +35,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "lcm1602.hxx"
+#include "lcm1602.hpp"
 
 using namespace upm;
 
@@ -86,9 +86,9 @@ upm_result_t Lcm1602::home()
 }
 
 upm_result_t Lcm1602::createChar(uint8_t charSlot,
-                                 lcm1602_custom_char_t charData)
+                                 std::vector<uint8_t> charData)
 {
-    return lcm1602_create_char(m_lcm1602, charSlot, charData);
+    return lcm1602_create_char(m_lcm1602, charSlot, (char *)charData.data());
 }
 
 upm_result_t Lcm1602::displayOn()
