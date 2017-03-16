@@ -6,8 +6,9 @@
 
 %feature("autodoc", "3");
 
+%include "bh1750_defs.h"
+%include "bh1750.hpp"
 %{
     #include "bh1750.hpp"
 %}
-%include "bh1750.hpp"
 
