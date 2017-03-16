@@ -33,8 +33,7 @@ extern "C" {
 #endif
 
 #include "bosch_bmi160.h"
-
-#define BMI160_CHIP_ID 0xd1
+#include "bmi160_defs.h"
 
   /**
    * @brief BMI160 3-axis Accelerometer, Gyroscope and (optionally) a
@@ -88,21 +87,6 @@ extern "C" {
         bool magEnabled;
 
     } *bmi160_context;
-
-    typedef enum {
-      BMI160_ACC_RANGE_2G                        = 0, // 2 Gravities
-      BMI160_ACC_RANGE_4G,
-      BMI160_ACC_RANGE_8G,
-      BMI160_ACC_RANGE_16G
-    } BMI160_ACC_RANGE_T;
-
-    typedef enum {
-      BMI160_GYRO_RANGE_125                      = 0, // 125 degrees/sec
-      BMI160_GYRO_RANGE_250,
-      BMI160_GYRO_RANGE_500,
-      BMI160_GYRO_RANGE_1000,
-      BMI160_GYRO_RANGE_2000
-    } BMI160_GYRO_RANGE_T;
 
     /**
      * bmi160 constructor
