@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,29 +24,50 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var sainsmartObj = require('jsupm_i2clcd');
+#include <unistd.h>
+#include <signal.h>
+#include <iostream>
 
-// Instantiate a Sainsmart LCD Keypad Shield using default pins
-var lcd = new sainsmartObj.SAINSMARTKS();
+#include "lcdks.hpp"
 
-lcd.setCursor(0,0);
-lcd.write("Sainsmart KS");
-lcd.setCursor(1,2);
-lcd.write("Hello World");
+using namespace std;
 
-// output current key value every second.
-setInterval(function()
+bool shouldRun = true;
+
+void sig_handler(int signo)
 {
-    console.log("Button value: " + lcd.getRawKeyValue());
-}, 1000);
+    if (signo == SIGINT)
+        shouldRun = false;
+}
 
-// exit on ^C
-process.on('SIGINT', function()
+
+int main(int argc, char **argv)
 {
-    lcd = null;
-    sainsmartObj.cleanUp();
-    sainsmartObj = null;
-    console.log("Exiting.");
-    process.exit(0);
-});
+    signal(SIGINT, sig_handler);
 
+//! [Interesting]
+
+    // Instantiate a LCDKS (LCD Keypad Shield) using default pins
+
+    // NOTE: The default pins do not include support for a gpio
+    // controlled backlight.  If you need one, you will need to specify
+    // all neccessary pins to the constructor.
+    upm::LCDKS* lcd = new upm::LCDKS();
+
+    lcd->setCursor(0,0);
+    lcd->write("LCDKS driver");
+    lcd->setCursor(1,2);
+    lcd->write("Hello World");
+
+    // output current key value every second.
+    while (shouldRun)
+    {
+        cout << "Button value: " << lcd->getKeyValue() << endl;
+        sleep(1);
+    }
+
+    delete lcd;
+
+//! [Interesting]
+    return 0;
+}

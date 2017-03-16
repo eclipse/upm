@@ -6,6 +6,33 @@ compatibility between releases:
 
 # current master
 
+ * **sainsmartks** This driver has been renamed to *lcdks* (LCD Keypad
+ Shield) and moved into it's own library.  It uses the *lcm1602*
+ library to do most of it's work.  In addition, an additional argument
+ was added to the constructor to optionally allow specifying a GPIO
+ pin to be used to control the backlight.  This driver supports the
+ SainsmartKS and DFRobot LCD Keypad Shields.  Similiar devices from
+ other manufacturers should also work with this driver.
+
+ * **lcm1602/jhd1313m1** These drivers had been rewritten in C, with
+ C++ wrappers and placed into their own libraries in the previous
+ version of UPM, however, the original C++ implementation was kept in
+ the lcd/i2clcd library for compatibility reasons with existing code.
+ To avoid collisions with the header files, the new *lcm1602* and
+ *jhd1313m1* drivers had their C++ headers renamed to use a **.hxx**
+ suffix.
+
+ In this version of UPM, the *lcm1602* and *jhd1313m1* drivers have
+ been removed from the lcd/i2clcd library.  In addition, the header
+ files for the new implementation have been renamed from their **.hxx**
+ suffix to the normal **.hpp** suffix.
+
+ A change was also made to the new *lcm1602* and *jhd1313m1* C++
+ drivers.  The *createChar()* function now accepts a byte vector
+ *std::vector<uint8_t>* rather than the *char ** pointer that was
+ used previously.  This should make it easier to use with the SWIG
+ language bindings (Python, Javascript, and especially Java).
+
  * **bmp280/bme280** Some private methods are no longer exposed
  (such as the calibration and compensation routines).  In addition,
  the *getHumidity()* method no longer accepts an argument representing
@@ -20,8 +47,7 @@ compatibility between releases:
  "natural" looking Python/Javascript/Java code.  For Javascript, Java,
  and Python, the examples have been modified to use these methods
  rather than the methods that return data in argument pointers or
- arrays.  The "old style" C pointer API's are still present for
- backwards compatibility, but may be removed in the future.
+ arrays.
 
 # v1.1.0
 
