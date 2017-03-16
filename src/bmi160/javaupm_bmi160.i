@@ -5,6 +5,7 @@
 %include "../java_buffer.i"
 %include "std_string.i"
 
+%include "bmi160_defs.h"
 %{
     #include "bmi160.hpp"
 %}

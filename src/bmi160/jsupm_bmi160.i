@@ -5,6 +5,7 @@
 
 %pointer_functions(float, floatp);
 
+%include "bmi160_defs.h"
 %include "bmi160.hpp"
 %{
     #include "bmi160.hpp"
