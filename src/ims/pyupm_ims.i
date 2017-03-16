@@ -9,5 +9,5 @@
     #include "ims.hpp"
 %}
 
-%include "ims.h"
+%include "ims_defs.h"
 %include "ims.hpp"

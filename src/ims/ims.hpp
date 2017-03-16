@@ -24,7 +24,6 @@
 
 #pragma once
 
-#include "mraa/i2c.h"
 #include "ims.h"
 
 namespace upm {
