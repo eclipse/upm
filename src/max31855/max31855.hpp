@@ -37,10 +37,11 @@ namespace upm {
 /**
  * @library max31855
  * @sensor max31855
- * @comname MAX31855 Thermocouple Amplifier
+ * @comname Thermocouple-to-Digital Converter
  * @type other
  * @man maxim adafruit
  * @con spi
+ * @web https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX31855.html
  *
  * @brief API for the MAX31855 Thermocouple Amplifier
  *

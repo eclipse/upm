@@ -72,7 +72,7 @@ namespace upm {
   /**
    * @library adc121c021
    * @sensor adc121c021
-   * @comname ADC121C021 Analog-to-Digital Converter
+   * @comname I2C 12-bit Analog to Digital Converter with Alert Pin
    * @altname Grove I2C ADC
    * @type electric
    * @man seeed

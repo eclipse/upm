@@ -1,7 +1,9 @@
 /*
  * Authors:
  *          Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,17 +25,49 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef _POSIX_C_SOURCE
+// We need at least 199309L for nanosleep()
+# define _POSIX_C_SOURCE 200809L
+#endif
+#include <time.h>
+#include <errno.h>
 #include <upm_platform.h>
 #include <upm_utilities.h>
 
-void upm_delay(int time)
+// https://airnow.gov/index.cfm?action=aqibasics.aqi
+static struct aqi {
+    float clow;
+    float chigh;
+    int llow;
+    int lhigh;
+} aqi[] = {
+  {0.0,    12.4,   0, 50},
+  {12.1,   35.4,  51, 100},
+  {35.5,   55.4, 101, 150},
+  {55.5,  150.4, 151, 200},
+  {150.5, 250.4, 201, 300},
+  {250.5, 350.4, 301, 350},
+  {350.5, 500.4, 401, 500},
+};
+
+void upm_delay(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    sleep(time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time;
+    delay_time.tv_nsec = 0;
+    // The advantage over sleep(3) here is that it will not use
+    // an alarm signal or handler.
+
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -56,14 +90,21 @@ void upm_delay(int time)
 #endif
 }
 
-void upm_delay_ms(int time)
+void upm_delay_ms(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    usleep(1000 * time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time / 1000;
+    delay_time.tv_nsec = (time % 1000) * 1000000;
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -85,14 +126,21 @@ void upm_delay_ms(int time)
 #endif
 }
 
-void upm_delay_us(int time)
+void upm_delay_us(unsigned int time)
 {
     if (time <= 0)
         time = 1;
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    usleep(time);
+    struct timespec delay_time;
+
+    delay_time.tv_sec  = time / 1000000;
+    delay_time.tv_nsec = (time % 1000000) * 1000;
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
+        ; // loop
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -215,4 +263,20 @@ uint32_t upm_elapsed_us(upm_clock_t *clock)
 
     return elapsed;
 #endif
+}
+
+int upm_ugm3_to_aqi (double ugm3)
+{
+  int i;
+
+  for (i = 0; i < 7; i++) {
+    if (ugm3 >= aqi[i].clow &&
+        ugm3 <= aqi[i].chigh) {
+        // Ip =  [(Ihi-Ilow)/(BPhi-BPlow)] (Cp-BPlow)+Ilow,
+        return ((aqi[i].lhigh - aqi[i].llow) / (aqi[i].chigh - aqi[i].clow)) * 
+            (ugm3 - aqi[i].clow) + aqi[i].llow;
+    }
+  }
+
+  return 0;
 }

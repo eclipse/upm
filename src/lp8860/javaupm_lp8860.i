@@ -1,4 +1,7 @@
 %module javaupm_lp8860
+
+%include "../interfaces/javaupm_iLightController.i"
+
 %include "../upm.i"
 
 %{

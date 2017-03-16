@@ -43,7 +43,7 @@ namespace upm {
 /**
  * @library mic
  * @sensor microphone
- * @comname Analog Microphone
+ * @comname Simple Analog Microphone
  * @altname Grove Sound Sensor
  * @type sound
  * @man seeed

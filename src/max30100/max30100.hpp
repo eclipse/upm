@@ -82,7 +82,7 @@ class MAX30100 {
          * is 0x57.
          * @param i2c_bus Target I2C bus
          * @return sensor context pointer
-         * @throws std::runtime_error if sensor initializate fails
+         * @throws std::runtime_error if sensor initialization fails
          */
         MAX30100(int16_t i2c_bus);
 

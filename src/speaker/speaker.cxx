@@ -34,12 +34,17 @@
 
 using namespace upm;
 
-Speaker::Speaker(int pin) :
-    m_speaker(speaker_init(pin))
+Speaker::Speaker(int pin, bool usePWM) :
+    m_speaker(nullptr)
 {
-  if (!m_speaker)
-    throw std::runtime_error(std::string(__FUNCTION__) +
-                             ": speaker_init() failed.");
+    if (usePWM)
+        m_speaker = speaker_init_pwm(pin);
+    else
+        m_speaker = speaker_init(pin);
+
+    if (!m_speaker)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": speaker_init()/speaker_init_pwm() failed.");
 }
 
 Speaker::~Speaker()
@@ -57,3 +62,26 @@ void Speaker::playSound(char letter, bool sharp, std::string vocalWeight)
     speaker_play_sound(m_speaker, letter, sharp, vocalWeight.c_str());
 }
 
+void Speaker::emit(unsigned int freq, unsigned int emit_ms)
+{
+    if (speaker_emit(m_speaker, freq, emit_ms))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": speaker_emit() failed.");
+}
+
+void Speaker::setFrequency(unsigned int freq)
+{
+    if (speaker_set_frequency(m_speaker, freq))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": speaker_set_frequency() failed.");
+}
+
+void Speaker::on()
+{
+    speaker_on(m_speaker);
+}
+
+void Speaker::off()
+{
+    speaker_off(m_speaker);
+}

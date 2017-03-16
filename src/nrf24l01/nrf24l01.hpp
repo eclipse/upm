@@ -169,7 +169,7 @@ typedef enum {
 /**
  * @library nrf24l01
  * @sensor nrf24l01
- * @comname NRF24L01 Transceiver
+ * @comname NRF Transceiver
  * @type wifi
  * @man seeed sparkfun
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html

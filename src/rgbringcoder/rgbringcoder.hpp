@@ -43,7 +43,7 @@ namespace upm {
   /**
    * @library rgbringcoder
    * @sensor rgbringcoder
-   * @comname SparkFun RGB Ringcoder
+   * @comname RGB RingCoder
    * @type led
    * @web https://www.sparkfun.com/products/11040
    * @man sparkfun

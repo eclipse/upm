@@ -22,9 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/* This example demonstrates how to use one of the ADS1015 ADCs on the
- * DFRobot Joule Shield with devices that output a small differential
- * voltage (e.g. geophones, piezoelectric bands or pads, thermocouples).
+/* This example demonstrates how to use one the ADS1015 ADC on the Grove Joule
+ * Shield or the Sparkfun ADC Block for Edison with devices that output a small
+ * differential voltage (e.g. geophones, piezoelectric bands or pads,
+ * thermocouples).
  */
 import java.io.*;
 import java.util.concurrent.*;
@@ -35,7 +36,7 @@ public class Ads1015Sample
     static boolean running = true;
     static int id = 0; // Sample number
     static String fileName = "./ads1015.data"; // Output filename
-    
+
     public static void main(String[] args) throws InterruptedException
     {
         // Open the output file
@@ -48,22 +49,18 @@ public class Ads1015Sample
             System.out.println("Failed to open output file for writing: " + e.toString());
             System.exit(1);
         }
-        
-        // Initialize and configure the ADS1015 for the SM-24 Geophone
-        // There are two ADS1015 chips on the DFRobot Joule Shield on the same I2C bus
-        //     - 0x48 gives access to pins A0 - A3
-        //     - 0x49 gives access to pins A4 - A7
+
+        // Initialize and configure the ADS1015
         ADS1015 ads1015 = new ADS1015(0, (short)0x48);
-        
-        // Put the ADC into differential mode for pins A0 and A1,
-        // the SM-24 Geophone is connected to these pins
+
+        // Put the ADC into differential mode for pins A0 and A1
         ads1015.getSample(ADS1X15.ADSMUXMODE.DIFF_0_1);
 
         // Set the gain based on expected VIN range to -/+ 2.048 V
         // Can be adjusted based on application to as low as -/+ 0.256 V, see API
-        // documentation for details        
+        // documentation for details
         ads1015.setGain(ADS1X15.ADSGAIN.GAIN_TWO);
-        
+
         // Set the sample rate to 3300 samples per second (max) and turn on continuous
         // sampling
         ads1015.setSPS(ADS1015.ADSSAMPLERATE.SPS_3300);
@@ -71,24 +68,24 @@ public class Ads1015Sample
 
         // Schedule a task to stop logging after 10 seconds
         Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {
-            @Override 
+            @Override
             public void run() {
                 running = false;
             }
         }, 10, TimeUnit.SECONDS);
-        
+
         // Read from sensor and write to file every ms
         while(running){
             try {
                 bw.write(id + " " + String.format("%.7f", ads1015.getLastSample()) + "\n");
             } catch (IOException e) {
                 System.out.println("Failed to write sample " + id + " to file: "+ e.toString());
-                System.exit(1);                
+                System.exit(1);
             }
             id++;
             Thread.sleep(1);
         }
-        
+
         // Close and exit
         try {
             bw.close();

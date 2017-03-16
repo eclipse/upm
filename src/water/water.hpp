@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library water
    * @sensor water
-   * @comname Water Sensor
+   * @comname Water Detection Sensor
    * @type liquid
    * @man seeed
    * @con gpio

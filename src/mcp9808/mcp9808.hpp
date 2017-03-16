@@ -28,8 +28,6 @@
 
 #include <iostream>
 #include <string>
-#include "mraa.hpp"
-#include "mraa/i2c.hpp"
 
 #define MCP9808_REG_CONFIG  0x01
 #define MCP9808_REG_AMBIENT_TEMP 0x05
@@ -41,6 +39,8 @@
 #define MCP9808_CONFIG_WINLOCKED 0x4000
 #define MCP9808_CONFIG_INTCLR 0x2000
 
+namespace mraa { class I2c;}
+
 namespace upm {
   /**
    * @brief MCP9808 precision temperature sensor library
@@ -50,7 +50,7 @@ namespace upm {
   /**
    * @library mcp9808
    * @sensor MCP9808
-   * @comname MCP9808 Temperature Sensor
+   * @comname High Accuracy I2C Temperature Sensor
    * @type temp
    * @man adafruit
    * @con i2c

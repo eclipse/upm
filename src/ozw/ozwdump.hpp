@@ -31,7 +31,7 @@ namespace upm {
 
   /**
    * @library ozw
-   * @comname UPM Interface API for ozwdump
+   * @comname Interface API for Ozwdump
    * @con uart
    *
    * @brief UPM Utility driver for OZW.

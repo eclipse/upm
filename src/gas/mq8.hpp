@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq8
-   * @comname DFRobot MQ8 CO Gas Sensor
+   * @comname MQ8 Flammable (Hydrogen) Gas Sensor
    * @type gaseous
    * @man dfrobot
    * @con analog
+   * @web https://www.dfrobot.com/wiki/index.php/Hydrogen_Gas_Sensor(MQ8)_(SKU:SEN0133)
    *
    * @brief API for the DFRobot MQ8 Hydrogen (H2) Gas Sensor
    *

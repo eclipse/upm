@@ -51,11 +51,12 @@ namespace upm {
   /**
    * @library ds1307
    * @sensor ds1307
-   * @comname Grove RTC (Real-Time Clock)
+   * @comname Real Time Clock (RTC) Module
    * @altname DS1307 RTC
    * @type time
    * @man seeed
    * @con i2c
+   * @web https://www.maximintegrated.com/en/products/digital/real-time-clocks/DS1307.html
    *
    * @brief API for the DS1307 Real-Time CLock
    *

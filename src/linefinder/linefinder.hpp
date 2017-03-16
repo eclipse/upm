@@ -35,10 +35,10 @@ namespace upm {
     /**
      * @library linefinder
      * @sensor linefinder
-     * @comname Line Finder
+     * @comname Infrared (IR) Based Line Finder
      * @altname Grove Line Finder, DFRobot Line Tracking sensor
      * @type color
-     * @man seeed, dfrobot
+     * @man seeed dfrobot
      * @con gpio
      * @kit robok
      *

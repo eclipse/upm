@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library eldriver
    * @sensor eldriver
-   * @comname  EL Driver
+   * @comname Electroluminescent Wire (EL) Driver
    * @type electric
    * @man seeed
    * @con gpio

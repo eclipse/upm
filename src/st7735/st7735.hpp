@@ -504,7 +504,7 @@ const unsigned char font[] = {
 /**
  * @library st7735
  * @sensor st7735
- * @comname ST7735 LCD
+ * @comname SPI-based 262K Color Single-Chip TFT-LCD
  * @type display
  * @man adafruit
  * @web http://www.adafruit.com/product/358

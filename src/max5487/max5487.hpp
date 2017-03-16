@@ -42,10 +42,11 @@ namespace upm {
 /**
  * @library max5487
  * @sensor max5487
- * @comname MAX5487 Digital Potentiometer
+ * @comname Digital Potentiometer
  * @type digipot
  * @man maxim
  * @con spi
+ * @web https://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/MAX5487.html
  *
  * @brief API for the MAX5487 SPI Digital Potentiometer
  *

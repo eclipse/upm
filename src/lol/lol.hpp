@@ -42,7 +42,7 @@ namespace upm {
 /**
  * @library lol
  * @sensor lol
- * @comname Olimex LoL Array
+ * @comname Lots of LEDs (LoL) Array Rev A
  * @type display
  * @man adafruit
  * @con gpio

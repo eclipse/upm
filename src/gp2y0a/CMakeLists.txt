@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME gp2y0a
-    DESCRIPTION "Analog Infrared (IR) based distance sensor"
+    DESCRIPTION "Analog Infrared (IR) Based Distance Sensor"
     C_HDR gp2y0a.h
     C_SRC gp2y0a.c
     CPP_HDR gp2y0a.hpp

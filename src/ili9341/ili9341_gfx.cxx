@@ -25,6 +25,7 @@
  */
 
 #include "ili9341_gfx.hpp"
+#include "mraa.hpp"
 
 using namespace upm;
 

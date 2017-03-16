@@ -57,7 +57,7 @@ namespace upm {
     /**
      * @library grovescam
      * @sensor grovescam
-     * @comname Grove Serial Camera
+     * @comname Serial Camera Module
      * @type other
      * @man seeed
      * @con uart

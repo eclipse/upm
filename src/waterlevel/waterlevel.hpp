@@ -34,7 +34,7 @@ namespace upm {
   /**
    * @library waterlevel
    * @sensor waterlevel
-   * @comname Grove Water Level Sensor
+   * @comname Water Level Sensor
    * @type liquid
    * @man seeed
    * @con gpio

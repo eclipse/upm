@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME max30100
-    DESCRIPTION "Pulse oximeter and heart-rate sensor"
+    DESCRIPTION "Pulse Oximeter and Heart-rate Sensor"
     C_HDR max30100.h
     C_SRC max30100.c
     CPP_HDR max30100.hpp

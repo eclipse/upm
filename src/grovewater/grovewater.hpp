@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library grovewater
    * @sensor grovewater
-   * @comname Grove Water Sensor
+   * @comname Water Sensor
    * @type liquid
    * @man seeed
    * @con gpio
@@ -48,7 +48,7 @@ namespace upm {
    *
    * UPM module for the Grove Water sensor
    *
-   * @image html grovewater.jpg
+   * @image html water.jpg
    * @snippet grovewater.cxx Interesting
    */
   class GroveWater {

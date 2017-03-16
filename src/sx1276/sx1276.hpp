@@ -60,7 +60,7 @@ namespace upm {
   /**
    * @library sx1276
    * @sensor sx1276
-   * @comname SX1276 LoRa/FSK modem
+   * @comname SX1276 LoRa/FSK Modem
    * @altname SX1277 SX1278 SX1279
    * @type wifi
    * @man semtech

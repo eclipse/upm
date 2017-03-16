@@ -1,5 +1,5 @@
 set (libname "l3gd20")
-set (libdescription "L3gd20 sensor module")
+set (libdescription "Tri-axis Digital Gyroscope")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

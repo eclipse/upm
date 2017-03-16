@@ -36,12 +36,11 @@ const uint8_t DISPLAY_CMD_SET_NORMAL = 0xA4;
 /**
  * @library i2clcd
  * @sensor ssd1327
- * @comname SSD1327 OLED Display
+ * @comname OLED Display
  * @altname Grove OLED Display 1.12"
  * @type display
  * @man seeed adafruit
- * @web http://garden.seeedstudio.com/images/8/82/SSD1327_datasheet.pdf
- * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22
+ * @web http://wiki.seeed.cc/Grove-OLED_Display_1.12inch/
  * @con i2c
  *
  * @brief API for SSD1327 I2C-controlled OLED displays

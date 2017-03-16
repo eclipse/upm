@@ -57,7 +57,7 @@ namespace upm {
   /**
    * @library ads1x15
    * @sensor ADS1115
-   * @comname ADS1115 ADC
+   * @comname 16-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
    * @type electric
    * @man ti adafruit
    * @con i2c

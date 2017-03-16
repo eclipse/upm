@@ -1,6 +1,5 @@
-include_directories(..)
 set (libname "hlg150h")
-set (libdescription "Lighting power supply")
+set (libdescription "150W Constant Voltage/current LED Driver")
 set (module_src ${libname}.cxx mraa-utils.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa interfaces)

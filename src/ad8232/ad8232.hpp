@@ -43,7 +43,7 @@ namespace upm {
   /**
    * @library ad8232
    * @sensor ad8232
-   * @comname AD8232 Heart Rate Monitor
+   * @comname Single Lead Heart Rate Monitor
    * @type medical
    * @man sparkfun
    * @web https://www.sparkfun.com/products/12650

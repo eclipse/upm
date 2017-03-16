@@ -35,7 +35,7 @@ namespace upm {
     /**
      * @library cjq4435
      * @sensor cjq4435
-     * @comname Grove MOSFET
+     * @comname MOSFET
      * @altname CJQ4435
      * @type electric
      * @man seeed

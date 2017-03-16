@@ -62,7 +62,7 @@ namespace upm {
 /**
  * @library pulsensor
  * @sensor pulsensor
- * @comname Pulse Sensor
+ * @comname 3-wire Pulse Sensor
  * @type medical
  * @man seeed
  * @web http://www.adafruit.com/products/1093

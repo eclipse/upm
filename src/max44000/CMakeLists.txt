@@ -1,5 +1,5 @@
 set (libname "max44000")
-set (libdescription "MAX44000")
+set (libdescription "Ambient and Infrared Proximity Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

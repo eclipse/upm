@@ -37,7 +37,7 @@ namespace upm {
     /**
      * @library ppd42ns
      * @sensor ppd42ns
-     * @comname PPD42NS Dust Sensor
+     * @comname Dust Sensor
      * @altname Grove Dust Sensor
      * @type other
      * @man seeed

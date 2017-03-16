@@ -59,7 +59,7 @@ namespace upm {
   /**
    * @library bacnetmstp
    * @sensor bacnetmstp
-   * @comname UPM API for BACNET MS/TP communications
+   * @comname UPM API for BACNET MS/TP Communications
    * @con uart
    * @web http://bacnet.sourceforge.net/
    * @brief UPM API for BACNETMSTP

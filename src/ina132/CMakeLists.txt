@@ -1,5 +1,5 @@
 set (libname "ina132")
-set (libdescription "Ina132 differential amplifier sensor module")
+set (libdescription "Differential Amplifier")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

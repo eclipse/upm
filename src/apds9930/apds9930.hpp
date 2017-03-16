@@ -37,10 +37,11 @@ namespace upm
 /**
  * @library apds9930
  * @sensor apds9930
- * @comname APDS9930 Digital Proximity and Ambient Light Sensor
+ * @comname Digital Ambient Light and Proximity Sensor
  * @type light proximity
- * @man Avago Technologies
+ * @man avago
  * @con iio i2c
+ * @web https://www.broadcom.com/products/optical-sensors/integrated-ambient-light-proximity-sensors/apds-9930
  *
  * @brief APDS9930 Digital Proximity and Ambient Light Sensor
  *

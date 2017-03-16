@@ -31,11 +31,12 @@ namespace upm {
   /**
    * @library gas
    * @sensor tp401
-   * @comname Grove Air Quality Sensor
+   * @comname Air Quality Sensor
    * @altname TP401 Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web https://www.seeedstudio.com/Grove-Air-quality-sensor-p-1065.html
    * @kit hak
    *
    * @brief API for the Grove TP401 Air Quality Sensor

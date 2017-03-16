@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library moisture
    * @sensor moisture
-   * @comname Moisture Sensor
+   * @comname Analog Moisture Sensor
    * @altname Grove Moisture Sensor
    * @type liquid
    * @man seeed

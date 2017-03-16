@@ -42,7 +42,7 @@ namespace upm {
     /**
      * @library bh1750
      * @sensor bh1750
-     * @comname DFRobot Light Sensor
+     * @comname Digital Light Sensor
      * @type light
      * @man dfrobot
      * @con i2c

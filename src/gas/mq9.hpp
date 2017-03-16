@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq9
-   * @comname Grove MQ9 Gas Sensor
+   * @comname MQ9 Carbon Monoxide (CO) and Flammable Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ9/
    *
    * @brief API for the MQ9 Gas Sensor
    *

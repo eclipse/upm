@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library uln200xa
    * @sensor uln200xa
-   * @comname ULN200XA Stepper Driver
+   * @comname Darlington Stepper Driver
    * @altname ULN2001A ULN2002A ULN2003A ULN2004A
    * @type motor
    * @man seeed

@@ -1,5 +1,5 @@
 set (libname "grovelinefinder")
-set (libdescription "Grove line finder sensor module")
+set (libdescription "Line Finder")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

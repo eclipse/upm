@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library flex
    * @sensor flex
-   * @comname Flex Sensor
+   * @comname Resistive Flex Sensor
    * @type flexfor
    * @man sparkfun
    * @web https://www.sparkfun.com/products/8606

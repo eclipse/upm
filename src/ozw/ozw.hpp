@@ -45,7 +45,7 @@ namespace upm {
   /**
    * @library ozw
    * @sensor ozw
-   * @comname UPM wrapper for the OpenZWave library
+   * @comname Wrapper for the OpenZWave Library
    * @type wifi
    * @man other
    * @con uart

@@ -32,7 +32,7 @@
 #include <mraa/spi.h>
 #include <mraa/gpio.h>
 
-#include <mcp2515_regs.h>
+#include "mcp2515_regs.h"
 
 #ifdef __cplusplus
 extern "C" {

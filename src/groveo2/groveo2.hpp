@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library groveo2
    * @sensor groveo2
-   * @comname Grove O2 Sensor
+   * @comname Oxygen (O2) Concentration Sensor
    * @type gaseous
    * @man seeed
    * @con analog

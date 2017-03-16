@@ -377,7 +377,7 @@ upm_result_t lcm1602_home(const lcm1602_context dev)
 
 upm_result_t lcm1602_create_char(const lcm1602_context dev,
                                  unsigned int slot,
-                                 lcm1602_custom_char_t data)
+                                 char *data)
 {
     assert(dev != NULL);
 

@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq4
-   * @comname DFRobot MQ4 Gas Sensor
+   * @comname MQ4 Methane and Connecticut Natural Gas (CNG) Sensor
    * @type gaseous
    * @man dfrobot
    * @con analog
+   * @web https://www.dfrobot.com/index.php?route=product/product&product_id=683
    *
    * @brief API for the DFRobot MQ4 Gas Sensor
    *

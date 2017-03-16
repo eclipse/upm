@@ -42,7 +42,7 @@ namespace upm {
   /**
    * @library bma220
    * @sensor bma220
-   * @comname BMA220 3-axis Accelerometer
+   * @comname Digital Triaxial Acceleration Sensor
    * @type accelerometer
    * @man dfrobot
    * @con i2c gpio

@@ -1,5 +1,7 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Rewritten Based on original C++ driver written by:
@@ -39,6 +41,7 @@
 // from LOW to HIGH
 static uint32_t ppd42ns_pulse_in(const ppd42ns_context dev,
                                  bool high_low_value);
+double pcs2ugm3 (double concentration_pcs);
 
 ppd42ns_context ppd42ns_init(int pin)
 {
@@ -112,6 +115,8 @@ ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev)
     data.lowPulseOccupancy = low_pulse_occupancy;
     data.ratio = ratio;
     data.concentration = concentration;
+    data.ugm3 = pcs2ugm3(data.concentration);
+    data.aqi = upm_ugm3_to_aqi(data.ugm3);
 
     return data;
 }
@@ -164,4 +169,27 @@ static uint32_t ppd42ns_pulse_in(const ppd42ns_context dev,
     }
 
     return total_pulse_time;
+}
+
+// Assumes density, shape, and size of dust to estimate mass concentration from particle count.
+//
+// This method was described in a 2009 paper
+// Preliminary Screening System for Ambient Air Quality in Southeast Philadelphia by Uva, M., Falcone, R., McClellan, A., and Ostapowicz, E.
+// https://www.yumpu.com/en/document/view/31692906/preliminary-screening-system-for-ambient-air-quality-in-southeast-
+//
+// This method does not use the correction factors, based on the presence of humidity and rain in the paper.
+//
+// convert from particles/0.01 ft3 to ug/m3
+double pcs2ugm3 (double concentration_pcs)
+{
+    double pi = 3.14159;
+    // All particles are spherical, with a density of 1.65E12 ug/m3
+    double density = 1.65 * pow (10, 12);
+    // The radius of a particle in the PM2.5 channel is .44 um
+    double r25 = 0.44 * pow (10, -6);
+    double vol25 = (4/3) * pi * pow (r25, 3);
+    double mass25 = density * vol25; // ug
+    double K = 3531.5; // per m^3 
+
+    return concentration_pcs * K * mass25;
 }

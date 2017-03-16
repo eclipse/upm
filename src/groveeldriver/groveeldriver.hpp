@@ -39,7 +39,7 @@ namespace upm {
   /**
    * @library groveeldriver
    * @sensor groveeldriver
-   * @comname Grove EL Driver
+   * @comname Electroluminescent (EL) Driver
    * @type electric
    * @man seeed
    * @con gpio

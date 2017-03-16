@@ -1,6 +1,7 @@
 %module(directors="1") javaupm_si1132
 %include "../upm.i"
-%include "../upm/javaupm_interfaces.i"
+
+%include "../interfaces/javaupm_iLightSensor.i"
 
 %pragma(java) jniclasscode=%{
     static {
@@ -18,8 +19,8 @@
 %}
 
 /*
-%include "../upm/iModuleStatus.hpp"
-%include "../upm/iLightSensor.hpp"
+%include "../iModuleStatus.hpp"
+%include "../iLightSensor.hpp"
 
 %feature("director") IModuleStatus;
 %feature("director") ILightSensor;

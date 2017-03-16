@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME linefinder
-    DESCRIPTION "Infrared (IR) based line finder"
+    DESCRIPTION "Infrared (IR) Based Line Finder"
     C_HDR linefinder.h
     C_SRC linefinder.c
     CPP_HDR linefinder.hpp

@@ -1,11 +1,10 @@
-set (libname "t3311")
-set (libdescription "Module for the Comet System T3311")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-
 if (MODBUS_FOUND)
+  set (libname "t3311")
+  set (libdescription "Temperature and Humidity Probe")
+  set (module_src ${libname}.cxx)
+  set (module_hpp ${libname}.hpp)
+
   set (reqlibname "libmodbus")
-  include_directories(${MODBUS_INCLUDE_DIRS})
-  upm_module_init()
-  upm_target_link_libraries(${libname} ${MODBUS_LIBRARIES})
+  upm_module_init(${MODBUS_LIBRARIES})
+  target_include_directories(${libname} PUBLIC ${MODBUS_INCLUDE_DIRS})
 endif ()

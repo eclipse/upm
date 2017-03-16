@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME dfrph
-    DESCRIPTION "DFRobot pH sensor"
+    DESCRIPTION "Analog pH Sensor"
     C_HDR dfrph.h
     C_SRC dfrph.c
     CPP_HDR dfrph.hpp

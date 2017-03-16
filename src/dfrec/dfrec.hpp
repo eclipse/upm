@@ -42,7 +42,7 @@ namespace upm {
   /**
    * @library dfrec
    * @sensor dfrec
-   * @comname DFRobot EC Meter
+   * @comname Analog Electrical Conductivity (EC) Sensor
    * @type liquid
    * @man dfrobot
    * @con ainput uart

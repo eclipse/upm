@@ -1,5 +1,9 @@
 %module javaupm_si7005
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iTemperatureSensor.i"
+%include "../interfaces/javaupm_iHumiditySensor.i"
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"

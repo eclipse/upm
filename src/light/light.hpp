@@ -34,7 +34,7 @@ namespace upm {
 /**
  * @library light
  * @sensor light
- * @comname  Light Sensor
+ * @comname Analog Light Sensor
  * @type light
  * @man seeed
  * @con analog

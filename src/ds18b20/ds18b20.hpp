@@ -48,7 +48,7 @@ namespace upm {
     /**
      * @library ds18b20
      * @sensor ds18b20
-     * @comname DS18B20 1-Wire Temperature Sensor
+     * @comname Programmable Resolution 1-Wire Digital Thermometer
      * @type uart
      * @man maxim
      * @con uart

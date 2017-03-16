@@ -37,10 +37,11 @@ namespace upm {
     /**
      * @sensor sx6119
      * @library sx6119
-     * @comname Grove FM Receiver
+     * @comname FM Receiver
      * @altname SX6119 FM Receiver
      * @type sound
      * @man seeed
+     * @web http://wiki.seeed.cc/Grove-FM_Receiver/
      * @con gpio
      *
      * @brief API support for the SX6119-based Grove FM Receiver

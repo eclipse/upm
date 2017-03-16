@@ -112,7 +112,7 @@ typedef struct {
 /**
  * @library tcs3414cs
  * @sensor tcs3414cs
- * @comname TCS3414CS Color Sensor
+ * @comname I2C Color Sensor
  * @altname Grove Color Sensor
  * @type color
  * @man seeed

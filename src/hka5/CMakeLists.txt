@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME hka5
-    DESCRIPTION "DFRobot laser particulate matter (PM) sensor"
+    DESCRIPTION "Laser Particulate Matter (PM) Sensor"
     C_HDR hka5.h
     C_SRC hka5.c
     CPP_HDR hka5.hpp

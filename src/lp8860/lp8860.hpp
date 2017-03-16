@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "upm/iLightController.hpp"
+#include "interfaces/iLightController.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm
@@ -42,11 +42,12 @@ namespace upm
  *
  * @library lp8860
  * @sensor lp8860
- * @comname TI LP8860 LED lighting controller
+ * @comname LED Lighting Controller
  * @altname LP8860
  * @type light
  * @man ti
  * @con i2c
+ * @web http://www.ti.com/product/LP8860-Q1
  * @if ilightcontroller
  *
  */
@@ -55,7 +56,7 @@ class LP8860 : public upm::ILightController
 public:
    LP8860(int gpioPower, int i2cBus);
    ~LP8860();
-   const char* getModuleName() { return "lp8860"; }
+   virtual const char* getModuleName() { return "lp8860"; }
    bool isPowered();
    void setPowerOn();
    void setPowerOff();

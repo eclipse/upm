@@ -1,6 +1,5 @@
-include_directories(..)
 set (libname "ms5611")
-set (libdescription "Pressure and temperature sensor")
+set (libdescription "Barometric Pressure and Temperature Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa interfaces)

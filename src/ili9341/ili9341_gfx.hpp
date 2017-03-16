@@ -26,7 +26,8 @@
 
 #pragma once
 
-#include <mraa.hpp>
+#include <cstdint>
+#include <string>
 
 #define adagfxswap(a, b) { int16_t t = a; a = b; b = t; }
 

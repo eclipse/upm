@@ -32,17 +32,18 @@
 namespace upm {
  /**
   * @brief Slide Sensor library
-  * @defgroup slide libupm-slide 
-  * @ingroup seeed analog ainput 
+  * @defgroup slide libupm-slide
+  * @ingroup seeed analog ainput
   */
 
  /**
   * @library slide
   * @sensor slide
   * @comname Slide Potentiometer
-  * @altname Grove Slide 
+  * @altname Grove Slide
   * @type ainput
   * @man seeed
+  * @web http://wiki.seeed.cc/Grove-Slide_Potentiometer/
   * @con analog
   *
   * @brief API for the Slide Potentiometer

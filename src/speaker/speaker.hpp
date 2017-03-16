@@ -55,6 +55,14 @@ namespace upm {
      * This sensor can generate different tones and sounds depending on the
      * frequency of the input signal.
      *
+     * It can operate in one of two modes: GPIO (default) and PWM.
+     *
+     * Depending on which mode is selected, some methods may not be
+     * usable.  In GPIO mode, the playAll() and playSound() methods
+     * are supported.  In PWM mode, setFrequency(), emit(), on() and
+     * off() are supported.  Calling a method not appropriate for the
+     * mode will have no effect.
+     *
      * @image html speaker.jpg
      * @snippet speaker.cxx Interesting
      */
@@ -64,13 +72,16 @@ namespace upm {
          * Speaker constructor
          *
          * @param pin Digital pin to use
+         * @param usePWM If true, PWM mode will be used, otherwise
+         * GPIO mode (default) is used.
          */
-        Speaker(int pin);
+        Speaker(int pin, bool usePWM=false);
 
         /**
          * Speaker destructor
          */
-        ~Speaker();
+
+        virtual ~Speaker();
         /**
          * Plays all alto notes (lowest notes)
          *
@@ -88,6 +99,46 @@ namespace upm {
          * low ("low"), a medium ("med"), or a high ("high") note
          */
         void playSound(char letter, bool sharp, std::string vocalWeight);
+
+        /**
+         * Emit a specific frequency for a given period of time and
+         * return.  This function only operates when in PWM mode.  The
+         * frequency is limited to between 50-32000Hz.  In addition,
+         * the allowable frequencies may be restricted further by the
+         * capabilities of your PWM hardware.
+         *
+         * @param freq The frequency to emit. Must be between 50 and 32000Hz
+         * inclusive.
+         * @param emit_ms The number of milliseconds to emit the frequency.
+         */
+        void emit(unsigned int freq, unsigned int emit_ms);
+
+        /**
+         * Set a default frequency to be used with on() and off().
+         * This function only operates when in PWM mode.
+         * The frequency is limited to between 50-32000Hz.  In
+         * addition, the allowable frequencies may be restricted
+         * further by the capabilities of your PWM hardware.
+         *
+         * @param freq The frequency to emit. Must be between 50 and 32000Hz
+         * inclusive.
+         */
+        void setFrequency(unsigned int freq);
+
+        /**
+         * Turn the speaker on, and emit the frequency last specified
+         * with setFrequency() or emit().  This function only operates
+         * when in PWM mode.
+         *
+         */
+        void on();
+
+        /**
+         * Turn the speaker off.  This function only operates when in
+         * PWM mode.
+         *
+         */
+        void off();
 
     protected:
         speaker_context m_speaker;

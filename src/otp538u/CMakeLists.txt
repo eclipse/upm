@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME otp538u
-    DESCRIPTION "OTP538U Analog IR temperature sensor"
+    DESCRIPTION "Analog IR Temperature Sensor"
     C_HDR otp538u.h
     C_SRC otp538u.c
     CPP_HDR otp538u.hpp

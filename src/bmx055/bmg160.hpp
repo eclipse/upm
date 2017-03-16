@@ -38,12 +38,13 @@ namespace upm {
   /**
    * @library bmx050
    * @sensor bmg160
-   * @comname BMG160 16 bit Trixial Gyroscope
+   * @comname 3-axis Gyroscope Sensor
    * @type gyro
    * @man bosch
    * @con i2c spi gpio
+   * @web https://www.bosch-sensortec.com/bst/products/all_products/bmg160
    *
-   * @brief API for the BMG160 16 bit Trixial Gyroscope
+   * @brief API for the BMG160 16 bit Triaxial Gyroscope
    *
    * The BMG160 is a 3-axis angular rate sensor that is made of a
    * surface micro machined sensing element and an evaluation ASIC.

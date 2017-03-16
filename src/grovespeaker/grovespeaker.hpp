@@ -50,7 +50,7 @@ typedef struct
   /**
    * @library grovespeaker
    * @sensor grovespeaker
-   * @comname Grove Speaker
+   * @comname Speaker Module
    * @type sound
    * @man seeed
    * @con gpio

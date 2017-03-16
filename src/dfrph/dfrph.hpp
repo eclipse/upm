@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library dfrph
    * @sensor dfrph
-   * @comname DFRobot pH Sensors
+   * @comname Analog pH Sensor
    * @type liquid
    * @man dfrobot 
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1110

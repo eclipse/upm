@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library adxrs610
    * @sensor adxrs610
-   * @comname DFRobot ADXRS610 Gyro Breakout Board
+   * @comname Gyro Breakout Board (300 Degrees/second)
    * @altname ADXRS610
    * @type compass
    * @man dfrobot

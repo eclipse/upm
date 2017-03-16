@@ -44,7 +44,7 @@ namespace upm {
   /**
    * @library my9221
    * @sensor grovecircularled
-   * @comname Grove Circular LED
+   * @comname Circular LED
    * @type display
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Circular_LED

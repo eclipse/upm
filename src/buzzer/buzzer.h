@@ -32,7 +32,7 @@
 #include <upm.h>
 
 #include <mraa/pwm.h>
-#include <buzzer_tones.h>
+#include "buzzer_tones.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,5 +1,5 @@
 set (libname "adxrs610")
-set (libdescription "ADXRS610 gyroscope")
+set (libdescription "Gyro Breakout Board (300 Degrees/second)")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

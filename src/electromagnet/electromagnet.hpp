@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library electromagnet
    * @sensor electromagnet
-   * @comname  Electromagnet
+   * @comname Electromagnet
    * @type electric
    * @man seeed
    * @con gpio

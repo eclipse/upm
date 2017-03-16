@@ -46,7 +46,7 @@ namespace upm {
     /**
      * @library ds2413
      * @sensor ds2413
-     * @comname DS2413 1-Wire Dual Channel Addressable Switch
+     * @comname 1-Wire Dual Channel Addressable Switch
      * @type gpio
      * @man maxim
      * @con uart

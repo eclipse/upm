@@ -1,5 +1,8 @@
 %module javaupm_hlg150h
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iLightController.i"
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"

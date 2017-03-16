@@ -42,6 +42,7 @@ namespace upm {
      * @type motor
      * @man seeed
      * @con i2c
+     * @web http://wiki.seeed.cc/Grove-I2C_Motor_Driver_V1.3/
      * @kit robok
      *
      * @brief API for the I2C Motor Driver

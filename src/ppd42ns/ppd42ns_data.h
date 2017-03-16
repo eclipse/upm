@@ -1,5 +1,7 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Based on original C++ driver written by:
@@ -34,9 +36,11 @@ extern "C" {
     // This is a data struct used by the ppd42ns (dust sensor) driver.
     typedef struct
     {
-	unsigned int lowPulseOccupancy;
-	double ratio;
-	double concentration;
+        unsigned int lowPulseOccupancy;
+        double ratio;
+        double concentration;
+        double ugm3;
+        int aqi;
     } ppd42ns_dust_data;
 
 #ifdef __cplusplus

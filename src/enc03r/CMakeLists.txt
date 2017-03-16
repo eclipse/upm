@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME enc03r
-    DESCRIPTION "Single-axis Analog Gyroscope"
+    DESCRIPTION "Single-axis Analog Gyro Module"
     C_HDR enc03r.h
     C_SRC enc03r.c
     CPP_HDR enc03r.hpp

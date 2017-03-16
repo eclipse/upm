@@ -31,11 +31,11 @@ namespace upm {
 /**
  * @library servo
  * @sensor es08a
- * @comname ES08A Servo
+ * @comname High-sensitivity Mini Servo
  * @altname Grove Servo
  * @type servos
  * @man emax
- * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
+ * @web https://www.seeedstudio.com/EMAX-9g-ES08A-High-Sensitive-Mini-Servo-p-760.html
  * @con pwm
  * @kit gsk
  *

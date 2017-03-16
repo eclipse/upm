@@ -57,7 +57,7 @@ namespace upm {
 /**
  * @library htu21d
  * @sensor htu21d
- * @comname HTU21D Temperature & Humidity Sensor
+ * @comname Digital Relative Humidity Sensor with Temperature
  * @type temp
  * @man seeed adafruit sparkfun
  * @web http://www.meas-spec.com/downloads/HTU21D.pdf

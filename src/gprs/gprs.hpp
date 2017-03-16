@@ -48,7 +48,7 @@ namespace upm {
     /**
      * @library gprs
      * @sensor gprs
-     * @comname GPRS Module
+     * @comname General Packet Radio Service (GPRS) Module
      * @altname Grove GPRS Module
      * @type wifi
      * @man seeed

@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library buzzer
      * @sensor buzzer
-     * @comname Grove Buzzer
+     * @comname Buzzer
      * @type sound
      * @man seeed
      * @con pwm

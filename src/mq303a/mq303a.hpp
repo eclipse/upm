@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library mq303a
    * @sensor mq303a
-   * @comname MQ303A Alcohol Sensor
+   * @comname Alcohol Detection Sensor
    * @altname Grove Alcohol Sensor
    * @type gaseous
    * @man seeed

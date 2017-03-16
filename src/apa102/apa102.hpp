@@ -41,10 +41,11 @@ namespace upm
 /**
  * @library apa102
  * @sensor apa102
- * @comname APA102/DotStar LED Strip
+ * @comname LED Strip
  * @type led
  * @man adafruit
  * @con spi
+ * @web https://www.adafruit.com/product/2343
  *
  * @brief API for controlling APA102/DotStar RGB LED Strips
  *

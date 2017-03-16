@@ -35,21 +35,22 @@ namespace upm {
   /**
    * @library ina132
    * @sensor ina132
-   * @comname Grove Differential Amplifier
+   * @comname Differential Amplifier
    * @altname INA132
    * @type electric
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Differential_Amplifier_v1.2/
    *
    * @brief API for the INA132 Differential Amplifier Sensor
-   * 
+   *
    * The INA132 Differential Amplifier Sensor is designed
    * for precise differential-input amplification.
-   * 
+   *
    * This sensor was tested amplifying the signal
    * from a Weight Sensor (Load Cell) 0-500g
-   * 
-   * @image html ina132.jpg 
+   *
+   * @image html ina132.jpg
    * @snippet ina132.cxx Interesting
    */
   class INA132 {

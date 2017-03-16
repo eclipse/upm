@@ -33,14 +33,15 @@
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68
 
 namespace upm {
-  
+
   /**
    * @library mpu9150
    * @sensor mpu60x0
-   * @comname MPU60X0 3-axis Gyroscope and 3-axis Accelerometer
+   * @comname 3-axis Gyroscope and 3-axis Accelerometer
    * @type accelerometer compass
    * @man seeed
    * @con i2c gpio
+   * @web https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/
    *
    * @brief API for the MPU60X0 3-axis Gyroscope and 3-axis Accelerometer
    *
@@ -206,7 +207,7 @@ namespace upm {
 
       REG_WHO_AM_I              = 0x75
     } MPU60X0_REG_T;
-    
+
     /**
      * CONFIG bits
      */
@@ -402,7 +403,7 @@ namespace upm {
      * MST_DLY is not enumerated in the register map.  It configures
      * the reduced access rate of i2c slaves relative to the sample
      * rate. When a slave's access rate is decreased relative to the
-     * Sample Rate, the slave is accessed every 
+     * Sample Rate, the slave is accessed every
      * 1 / (1 + I2C_MST_DLY) samples
      */
     typedef enum {
@@ -433,7 +434,7 @@ namespace upm {
       I2C_SLV4_DONE                    = 0x40,
       PASS_THROUGH                     = 0x80
     } I2C_MST_STATUS_BITS_T;
-    
+
     /**
      * REG_INT_PIN_CFG bits
      */
@@ -452,7 +453,7 @@ namespace upm {
       INT_OPEN                         = 0x40,
       INT_LEVEL                        = 0x80
     } INT_PIN_CFG_BITS_T;
-    
+
     /**
      * REG_INT_ENABLE bits
      */
@@ -469,7 +470,7 @@ namespace upm {
       MOT_EN                           = 0x40,
       FF_EN                            = 0x80  // *freefall
     } INT_ENABLE_BITS_T;
-    
+
     /**
      * REG_INT_STATUS bits
      */
@@ -486,7 +487,7 @@ namespace upm {
       MOT_INT                          = 0x40,
       FF_INT                           = 0x80  // *freefall
     } INT_STATUS_BITS_T;
-    
+
     /**
      * REG_MOT_DETECT_STATUS bits (mpu9150 only)
      */
@@ -504,7 +505,7 @@ namespace upm {
       MOT_XPOS                         = 0x40, // *
       MOT_XNEG                         = 0x80, // *
     } MOT_DETECT_STATUS_BITS_T;
-    
+
     /**
      * REG_MST_DELAY_CTRL bits
      */
@@ -519,7 +520,7 @@ namespace upm {
 
       DELAY_ES_SHADOW                  = 0x80
     } MST_DELAY_CTRL_BITS_T;
-    
+
     /**
      * REG_SIGNAL_PATH_RESET bits
      */
@@ -530,7 +531,7 @@ namespace upm {
 
       // 0x08-0x80 reserved
     } SIGNAL_PATH_RESET_BITS_T;
-    
+
     /**
      * REG_MOT_DETECT_CTRL bits
      */
@@ -551,7 +552,7 @@ namespace upm {
       _ACCEL_ON_DELAY_MASK             = 3
       // 0x40,0x80 reserved
     } MOT_DETECT_CTRL_BITS_T;
-    
+
     /**
      * MOT_COUNT or FF_COUNT values (mpu9150 only)
      */
@@ -588,7 +589,7 @@ namespace upm {
 
       /// 0x80 reserved
     } USER_CTRL_BITS_T;
-    
+
     /**
      * REG_PWR_MGMT_1 bits
      */
@@ -607,7 +608,7 @@ namespace upm {
       PWR_SLEEP                        = 0x40,
       DEVICE_RESET                     = 0x80
     } PWR_MGMT_1_BITS_T;
-    
+
     /**
      * CLKSEL values
      */
@@ -638,7 +639,7 @@ namespace upm {
       _LP_WAKE_CTRL_SHIFT              = 6,
       _LP_WAKE_CTRL_MASK               = 3
     } PWR_MGMT_2_BITS_T;
-    
+
     /**
      * LP_WAKE_CTRL values
      */
@@ -905,7 +906,7 @@ namespace upm {
      * @return bitmask of INT_PIN_CFG_BITS_T values
      */
     uint8_t getInterruptPinConfig();
-    
+
     /**
      * install an interrupt handler.
      *

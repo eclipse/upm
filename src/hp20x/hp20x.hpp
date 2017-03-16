@@ -41,7 +41,7 @@ namespace upm {
   /**
    * @library hp20x
    * @sensor hp20x
-   * @comname Grove Barometer (High-Accuracy)
+   * @comname High-accuracy Barometer
    * @altname HP20X Barometer (High-Accuracy)
    * @type pressure
    * @man seeed

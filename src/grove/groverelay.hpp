@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor groverelay
- * @comname Grove Relay
+ * @comname Relay
  * @type relay
  * @man seeed
  * @con gpio

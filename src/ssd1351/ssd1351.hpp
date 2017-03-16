@@ -84,7 +84,7 @@ namespace upm {
 /**
  * @library ssd1351
  * @sensor ssd1351
- * @comname SSD1351 OLED
+ * @comname SPI-based OLED Display
  * @type display
  * @man adafruit
  * @web http://www.adafruit.com/products/1431

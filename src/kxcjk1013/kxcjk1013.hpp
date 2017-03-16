@@ -37,10 +37,11 @@ namespace upm
 /**
  * @library kxcjk1013
  * @sensor kxcjk1013
- * @comname KXCJK1013 Tri-axis Digital Accelerometer
+ * @comname Tri-axis Digital Accelerometer
  * @type accelerometer
- * @man Kionix
+ * @man kionix
  * @con iio i2c
+ * @web http://kionixfs.kionix.com/en/datasheet/KXCJK-1013%20Specifications%20Rev%202.pdf
  *
  * @brief KXCJK1013 Tri-axis Digital Accelerometer API
  *

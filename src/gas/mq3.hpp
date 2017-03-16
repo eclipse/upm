@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq3
-   * @comname Grove MQ3 Gas Sensor
+   * @comname MQ3 Alcohol, Ethanol, Smoke Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ3/
    *
    * @brief API for the MQ3 Gas Sensor
    *

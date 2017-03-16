@@ -64,11 +64,6 @@ extern "C" {
     } *jhd1313m1_context;
 
     /**
-     * Custom character.
-     */
-    typedef char jhd1313m1_custom_char_t[8];
-
-    /**
      * JHD1313M1 I2C initialization.
      *
      * @param bus I2C bus to use.
@@ -147,7 +142,7 @@ extern "C" {
      */
     upm_result_t jhd1313m1_create_char(const jhd1313m1_context dev,
                                        unsigned int slot,
-                                       jhd1313m1_custom_char_t data);
+                                       char *data);
 
     /**
      * Turn the display on.

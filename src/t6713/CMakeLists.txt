@@ -1,5 +1,5 @@
 set (libname "t6713")
-set (libdescription "Amphenol Telaire 6713 Series CO2 Module")
+set (libdescription "I2C/UART High Accuracy CO2 Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa interfaces)

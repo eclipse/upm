@@ -41,10 +41,11 @@ namespace upm {
   /**
    * @library hka5
    * @sensor hka5
-   * @comname DFRobot Laser PM2.5 Sensor
+   * @comname Laser Particulate Matter (PM) Sensor
    * @type gaseous
    * @man dfrobot
    * @con uart gpio
+   * @web https://www.dfrobot.com/wiki/index.php/DFRobot_LM35_Linear_Temperature_Sensor_(SKU:DFR0023)
    *
    * @brief API for theDFRobot Laser PM2.5 Sensor
    *

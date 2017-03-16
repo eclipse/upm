@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq5
-   * @comname Grove MQ5 Gas Sensor
+   * @comname MQ5 Natural Gas and Liquefied Petroleum Gas (LPG) Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ5/
    * @kit eak
    *
    * @brief API for the MQ5 Gas Sensor

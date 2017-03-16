@@ -1,5 +1,5 @@
 set (libname "hcsr04")
-set (libdescription "Proximity sensor")
+set (libdescription "Ultrasonic Distance Measuring Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

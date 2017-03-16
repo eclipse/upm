@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor groveled
- * @comname Grove LED
+ * @comname LED
  * @type led
  * @man seeed
  * @con gpio

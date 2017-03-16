@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME mcp2515
-    DESCRIPTION "CAN bus controller"
+    DESCRIPTION "CAN Bus Controller"
     C_HDR mcp2515.h mcp2515_regs.h
     C_SRC mcp2515.c
     CPP_HDR mcp2515.hpp

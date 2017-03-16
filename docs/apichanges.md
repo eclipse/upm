@@ -4,6 +4,68 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# current master
+
+ * **sainsmartks** This driver has been renamed to *lcdks* (LCD Keypad
+ Shield) and moved into it's own library.  It uses the *lcm1602*
+ library to do most of it's work.  In addition, an additional argument
+ was added to the constructor to optionally allow specifying a GPIO
+ pin to be used to control the backlight.  This driver supports the
+ SainsmartKS and DFRobot LCD Keypad Shields.  Similiar devices from
+ other manufacturers should also work with this driver.
+
+ * **lcm1602/jhd1313m1** These drivers had been rewritten in C, with
+ C++ wrappers and placed into their own libraries in the previous
+ version of UPM, however, the original C++ implementation was kept in
+ the lcd/i2clcd library for compatibility reasons with existing code.
+ To avoid collisions with the header files, the new *lcm1602* and
+ *jhd1313m1* drivers had their C++ headers renamed to use a **.hxx**
+ suffix.
+
+ In this version of UPM, the *lcm1602* and *jhd1313m1* drivers have
+ been removed from the lcd/i2clcd library.  In addition, the header
+ files for the new implementation have been renamed from their **.hxx**
+ suffix to the normal **.hpp** suffix.
+
+ A change was also made to the new *lcm1602* and *jhd1313m1* C++
+ drivers.  The *createChar()* function now accepts a byte vector
+ *std::vector<uint8_t>* rather than the *char ** pointer that was
+ used previously.  This should make it easier to use with the SWIG
+ language bindings (Python, Javascript, and especially Java).
+
+ * **bmp280/bme280** Some private methods are no longer exposed
+ (such as the calibration and compensation routines).  In addition,
+ the *getHumidity()* method no longer accepts an argument representing
+ pressure at sea level.  A separate method is provided to set this now.
+
+ * **bno055** This module no longer uses std::strings to pass around
+ binary data (*read/writeCalibrationData()*).  Rather, now *std::vectors* of
+ the appropriate type are used.  In addition, methods that previously
+ returned certain data in the form of an array, like *getEulerAngles()*,
+ now return a *std::vector* instead.  This simplifies the Python,
+ Javascript, and Java bindings considerably, and leads to more
+ "natural" looking Python/Javascript/Java code.  For Javascript, Java,
+ and Python, the examples have been modified to use these methods
+ rather than the methods that return data in argument pointers or
+ arrays.
+
+# v1.1.0
+
+ * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are
+ being separated into individual libraries. The APIs will be preserved, but
+ we recommend changing your code to use the new libraries as they become
+ available. Once this transition is complete, the i2clcd module will be
+ deprecated. So far, the following libraries have been made available
+ separately: jhd1313m1, lcm1602.
+
+ * **nunchuck** This driver no longer supports the init() function.
+ All initialization is now done in the C nunchuck_init() function,
+ or the C++ constructor.  In addition, the *NUNCHUCK_I2C_ADDR*
+ define is no longer exposed, as it is not possible to use any other
+ I2C address than *0x52*.  The readBytes() and writeByte() functions
+ are also no longer exposed, since aside from what the driver does
+ to initialize and read data, there are no other options available.
+
  * **enc03r** This driver no longer supports the value() function.  In
  addition, an update() function has been added.  This function must be
  called prior to calling angularVelocity().  angularVelocity() no

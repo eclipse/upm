@@ -1,7 +1,9 @@
 /*
  * Authors:
  *          Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Contributions: Rex Tsai <rex.cc.tsai@gmail.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -69,21 +71,21 @@ typedef uint32_t upm_clock_t;
  *
  * @param time The number of seconds to delay for
  */
-void upm_delay(int time);
+void upm_delay(unsigned int time);
 
 /**
  * Delay for a number of milliseconds
  *
  * @param time The number of milliseconds to delay for
  */
-void upm_delay_ms(int time);
+void upm_delay_ms(unsigned int time);
 
 /**
  * Delay for a number of microseconds
  *
  * @param time The number of microseconds to delay for
  */
-void upm_delay_us(int time);
+void upm_delay_us(unsigned int time);
 
 /**
  * Initialize a clock.  This can be used with upm_elapsed_ms() and
@@ -112,6 +114,15 @@ uint32_t upm_elapsed_ms(upm_clock_t *clock);
  * was called on the clock parameter.
  */
 uint32_t upm_elapsed_us(upm_clock_t *clock);
+
+/**
+ * Return the AQI (based on EPA standards) using the ugm3 value
+ * calculated by the sensor module.
+ *
+ * @param ugm3 micrograms per cubic meter
+ * @return calculated AQI
+ */
+int upm_ugm3_to_aqi (double ugm3);
 
 #ifdef __cplusplus
 }

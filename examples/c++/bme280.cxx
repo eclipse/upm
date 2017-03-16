@@ -31,7 +31,7 @@
 using namespace std;
 using namespace upm;
 
-int shouldRun = true;
+bool shouldRun = true;
 
 void sig_handler(int signo)
 {

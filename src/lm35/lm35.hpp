@@ -37,7 +37,7 @@ namespace upm {
     /**
      * @library lm35
      * @sensor lm35
-     * @comname DFRobot LM35 Linear Temperature Sensor
+     * @comname Analog Temperature Sensor
      * @altname LM35
      * @type temp
      * @man dfrobot

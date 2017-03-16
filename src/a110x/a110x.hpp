@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @library a110x
    * @sensor a110x
-   * @comname A110X Hall Effect Sensor
+   * @comname Hall Effect Sensor
    * @altname Grove Hall Sensor
    * @altid A1101, A1102, A1103, A1004, A1106
    * @type electric

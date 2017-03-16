@@ -25,13 +25,12 @@
 
 #include <mraa/i2c.hpp>
 
-#include "upm/iTemperatureSensor.hpp"
-#include "upm/iHumiditySensor.hpp"
+#include "interfaces/iTemperatureSensor.hpp"
+#include "interfaces/iHumiditySensor.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define SI7005_ADDRESS                     ( 0x40 )
 #define SI7005_NOT_FOUND                   ( 0x00 )
-
 
 namespace upm {
 
@@ -44,10 +43,11 @@ namespace upm {
 /**
  * @library si7005
  * @sensor si7005
- * @comname Silicon Labs Si7005 Humidity And Temperature Sensor
+ * @comname Digital I2C Humidity and Temperature Sensor
  * @altname Si7005
  * @type temp
  * @man silabs
+ * @web http://www.silabs.com/products/sensors/humidity-sensors/Pages/Si7005.aspx
  * @con i2c
  * @if itemperaturesensor
  *
@@ -98,7 +98,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         /**
          * Returns sensor module name
          */
-        const char* getModuleName() { return "si7005"; }
+        virtual const char* getModuleName() { return "si7005"; }
 
         /**
          * Detects the sensor to ensure it is connected as required.

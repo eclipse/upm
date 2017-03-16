@@ -37,11 +37,12 @@ namespace upm {
 /**
  * @library ldt0028
  * @sensor ldt0028
- * @comname LDT0-028 Piezo Vibration Sensor
+ * @comname Piezo Vibration Sensor
  * @altname Grove Piezo Vibration Sensor
  * @type flexfor
  * @man seeed
  * @con analog
+ * @web http://wiki.seeed.cc/Grove-Piezo_Vibration_Sensor/
  *
  * @brief API for LDT0-028 PZT film-based sensors,
  * such as a Grove Piezo Vibration sensor

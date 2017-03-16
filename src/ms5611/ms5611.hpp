@@ -22,8 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "upm/iPressureSensor.hpp"
-#include "upm/iTemperatureSensor.hpp"
+#include "interfaces/iPressureSensor.hpp"
+#include "interfaces/iTemperatureSensor.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm
@@ -39,11 +39,12 @@ namespace upm
 /**
  * @library ms5611
  * @sensor ms5611
- * @comname Meas-Spec MS5611 Barometric Pressure Sensor library
+ * @comname Barometric Pressure and Temperature Sensor
  * @altname MS5611
  * @type temp pressure
  * @man meas
  * @con i2c
+ * @web http://www.amsys.info/products/ms5611.htm
  * @if ipressuresensor itemperaturesensor
  *
  * @brief API for MS5611 Barometric Pressure Sensor library
@@ -67,7 +68,7 @@ public:
 
    MS5611(int i2cBus = 0, int address = MS5611_ADDRESS);
    ~MS5611();
-   const char* getModuleName() { return "ms5611"; }
+   virtual const char* getModuleName() { return "ms5611"; }
    void setOverSampling(OsrMode osrMode);
    int getTemperatureCelsius();
    int getPressurePa();

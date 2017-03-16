@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor grovebutton
- * @comname Grove Button
+ * @comname Button
  * @altname Grove Touch Sensor
  * @type button touch
  * @man seeed

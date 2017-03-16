@@ -37,11 +37,11 @@ namespace upm {
   /**
    * @library bmx055
    * @sensor bmc150
-   * @comname BMC150 6-axis eCompass
+   * @comname 6-axis Ecompass
    * @type accelerometer compass
-   * @man mouser
+   * @man bosch
    * @con i2c gpio spi
-   * @web http://www.mouser.com/ProductDetail/Bosch-Sensortec/0330SB0156/?qs=sGAEpiMZZMsrChSOYEGTCd8nwjostN1SWavW0HYOOXw%3d
+   * @web http://www.bosch-sensortec.com/en/bst/products/all_products/homepage_1_ohne_marginalspalte_52
    *
    * @brief API for the BMC150 6-axis eCompass
    *

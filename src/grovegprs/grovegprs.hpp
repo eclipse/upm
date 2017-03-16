@@ -49,7 +49,7 @@ namespace upm {
     /**
      * @library grovegprs
      * @sensor grovegprs
-     * @comname Grove GPRS Module
+     * @comname GPRS Module
      * @type wifi
      * @man seeed
      * @con uart
@@ -67,7 +67,7 @@ namespace upm {
      *
      * It is connected via a UART at 19200 baud.
      *
-     * @image html grovegprs.jpg
+     * @image html gprs.jpg
      * @snippet grovegprs.cxx Interesting
      */
 

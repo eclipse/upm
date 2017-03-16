@@ -1,5 +1,5 @@
 upm_mixed_module_init (NAME ecezo
-    DESCRIPTION "EC EZO Atlas Scientific EC circuit"
+    DESCRIPTION "Electrical Conductivity (EC) Circuit"
     C_HDR ecezo.h ecezo_defs.h
     C_SRC ecezo.c
     CPP_HDR ecezo.hpp

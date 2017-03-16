@@ -36,11 +36,11 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
 /**
  * @library i2clcd
  * @sensor ssd1308
- * @comname SSD1308 OLED Display
+ * @comname OLED Display
  * @altname Grove OLED Display 0.96"
  * @type display
  * @man seeed adafruit
- * @web http://garden.seeedstudio.com/images/4/46/SSD1308_1.0.pdf
+ * @web http://wiki.seeed.cc/Grove-OLED_Display_0.96inch/
  * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_0.96%22
  * @con i2c
  *

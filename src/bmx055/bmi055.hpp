@@ -33,11 +33,11 @@ namespace upm {
   /**
    * @library bmx055
    * @sensor bmi055
-   * @comname BMI055 6-axis Sensor Module
+   * @comname 6DoF Sensor Module
    * @type accelerometer compass
-   * @man mouser
+   * @man bosch
    * @con i2c gpio spi
-   * @web http://www.mouser.com/ProductDetail/Bosch-Sensortec/0330SB0134/?qs=sGAEpiMZZMsrChSOYEGTCVIRbo47L7ys6GxSnxRPEhU%3d
+   * @web https://www.bosch-sensortec.com/bst/products/all_products/bmi055
    *
    * @brief API for the BMI055 6-axis Sensor Module
    *

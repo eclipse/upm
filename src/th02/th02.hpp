@@ -52,7 +52,7 @@ namespace upm {
 /**
  * @library th02
  * @sensor th02
- * @comname TH02 Temperature & Humidity Sensor
+ * @comname Temperature and Humidity Sensor Pro
  * @altname Grove Temperature & Humidity Sensor (High-Accuracy & Mini)
  * @type temp
  * @man seeed

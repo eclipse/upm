@@ -1,8 +1,7 @@
 %module jsupm_lcm1602
 %include "../upm.i"
-%include "../carrays_uint8_t.i"
+%include "../upm_vectortypes.i"
 
-%include "lcm1602.h"
 %include "lcm1602.hpp"
 %{
     #include "lcm1602.hpp"

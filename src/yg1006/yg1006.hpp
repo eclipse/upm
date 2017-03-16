@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @library yg1006
      * @sensor yg1006
-     * @comname YG1006 Flame Sensor
+     * @comname Flame Sensor
      * @altname Grove Flame Sensor
      * @type light
      * @man seeed

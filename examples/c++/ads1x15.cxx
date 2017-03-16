@@ -316,5 +316,5 @@ int main()
 
      delete ads;
 
-     return MRAA_SUCCESS;
+     return 0;
 }

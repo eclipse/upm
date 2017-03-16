@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library grove
  * @sensor grovetemp
- * @comname Grove Temperature Sensor
+ * @comname Temperature Sensor
  * @type temp
  * @man seeed
  * @con analog

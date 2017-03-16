@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library ehr
    * @sensor ehr
-   * @comname  Ear-clip Heart Rate Sensor
+   * @comname Ear-clip Heart Rate Sensor
    * @type medical
    * @man seeed
    * @con gpio

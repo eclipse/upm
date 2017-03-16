@@ -38,11 +38,12 @@ namespace upm {
 /**
  * @library itg3200
  * @sensor itg3200
- * @comname ITG-3200 3-Axis Digital Gyroscope
+ * @comname 3-axis Digital Gyroscope
  * @altname Grove 3-Axis Digital Gyroscope
  * @type compass
  * @man seeed
  * @con i2c
+ * @web http://wiki.seeed.cc/Grove-3-Axis_Digital_Gyro/
  *
  * @brief API for the ITG-3200 3-Axis Digital Gyroscope
  *

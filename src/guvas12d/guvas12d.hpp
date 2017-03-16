@@ -35,11 +35,12 @@ namespace upm {
     /**
      * @library guvas12d
      * @sensor guvas12d
-     * @comname Grove UV Sensor
+     * @comname Analog UV Sensor
      * @altname GUVA-S12D UV Sensor
      * @type light
      * @man seeed
      * @con analog
+     * @web http://wiki.seeed.cc/Grove-UV_Sensor/
      * @kit eak
      *
      * @brief API for the GUVA-S12D UV Sensor

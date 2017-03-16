@@ -28,7 +28,7 @@
 #include <cstring>
 #include <cmath>
 #include <sys/time.h>
-#include <rf22.hpp>
+#include "rf22.hpp"
 
 using namespace upm;
 
@@ -187,7 +187,7 @@ uint8_t RF22::init()
 // C++ level interrupt handler for this instance
 void RF22::handleInterrupt()
 {
-    uint8_t _lastInterruptFlags[2];
+    uint8_t _lastInterruptFlags[2] = {};
     // Read the interrupt flags which clears the interrupt
     spiBurstRead(RF22_REG_03_INTERRUPT_STATUS1, _lastInterruptFlags, 2);
 
@@ -282,7 +282,7 @@ void RF22::reset()
 
 uint8_t RF22::spiRead(uint8_t reg)
 {
-    uint8_t data;
+    uint8_t data = 0;
     spiBurstRead (reg, &data, 1);
     return data;
 }
@@ -294,52 +294,42 @@ void RF22::spiWrite(uint8_t reg, uint8_t val)
 
 void RF22::spiBurstRead(uint8_t reg, uint8_t* dest, uint8_t len)
 {
-    uint8_t *request;
-    uint8_t *response;
-    
-    request =  (uint8_t *) malloc(sizeof(uint8_t) * (len + 1));
-    response = (uint8_t *) malloc(sizeof(uint8_t) * (len + 1));
-    memset(request,  0x00, len + 1);
-    memset(response, 0x00, len + 1);
-    
+    uint8_t *request = new uint8_t[len + 1]();
+    uint8_t *response = new uint8_t[len + 1]();
+
     request[0] = reg & ~RF22_SPI_WRITE_MASK;
     memcpy (&request[1], dest, len);
-    
+
     mraa_gpio_write(_cs, 0x1);
     mraa_gpio_write(_cs, 0x0);
     usleep(100);
     mraa_spi_transfer_buf(_spi, request, response, len + 1);
     usleep(100);
     mraa_gpio_write(_cs, 0x1);
-    
+
     memcpy (dest, &response[1], len);
-    
-    free (request);
-    free (response);
+
+    delete[] request;
+    delete[] response;
 }
 
 void RF22::spiBurstWrite(uint8_t reg, const uint8_t* src, uint8_t len)
 {
-    uint8_t *request;
-    uint8_t *response;
-    
-    request =  (uint8_t *) malloc(sizeof(uint8_t) * (len + 1));
-    response = (uint8_t *) malloc(sizeof(uint8_t) * (len + 1));
-    memset(request,  0x00, len + 1);
-    memset(response, 0x00, len + 1);
-    
+    uint8_t *request = new uint8_t[len + 1]();
+    uint8_t *response = new uint8_t[len + 1]();
+
     request[0] = reg | RF22_SPI_WRITE_MASK;
     memcpy (&request[1], src, len);
-    
+
     mraa_gpio_write(_cs, 0x1);
     mraa_gpio_write(_cs, 0x0);
     usleep(100);
     mraa_spi_transfer_buf(_spi, request, response, len + 1);
     usleep(100);
     mraa_gpio_write(_cs, 0x1);
-    
-    free (request);
-    free (response);
+
+    delete[] request;
+    delete[] response;
 }
 
 uint8_t RF22::statusRead()
@@ -373,7 +363,7 @@ uint8_t RF22::temperatureRead(uint8_t tsrange, uint8_t tvoffs)
 
 uint16_t RF22::wutRead()
 {
-    uint8_t buf[2];
+    uint8_t buf[2] = {};
     spiBurstRead(RF22_REG_17_WAKEUP_TIMER_VALUE1, buf, 2);
     return ((uint16_t)buf[0] << 8) | buf[1]; // Dont rely on byte order
 }

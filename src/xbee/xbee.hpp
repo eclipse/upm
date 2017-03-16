@@ -48,7 +48,7 @@ namespace upm {
     /**
      * @library xbee
      * @sensor xbee
-     * @comname XBee modules
+     * @comname XBee Serial Module
      * @type wifi
      * @man sparkfun
      * @con uart

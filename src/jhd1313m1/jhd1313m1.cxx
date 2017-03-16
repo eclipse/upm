@@ -83,9 +83,10 @@ upm_result_t Jhd1313m1::home()
 }
 
 upm_result_t Jhd1313m1::createChar(uint8_t charSlot,
-                                 jhd1313m1_custom_char_t charData)
+                                   std::vector<uint8_t> charData)
 {
-    return jhd1313m1_create_char(m_jhd1313m1, charSlot, charData);
+    return jhd1313m1_create_char(m_jhd1313m1, charSlot,
+                                 (char *)charData.data());
 }
 
 upm_result_t Jhd1313m1::displayOn()

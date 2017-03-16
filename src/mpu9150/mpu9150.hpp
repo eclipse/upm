@@ -42,14 +42,14 @@ namespace upm {
   /**
    * @library mpu9150
    * @sensor mpu9150
-   * @comname MPU9150 Inertial Measurement Unit
+   * @comname Inertial Measurement Unit
    * @altname Grove IMU 9DOF
    * @type accelerometer compass
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v1.0
    * @con i2c gpio
    *
-   * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnometer Sensor)
+   * @brief API for MPU9150 chip (Accelerometer, Gyro and Magnetometer Sensor)
    *
    * This module defines the MPU9150 interface for libmpu9150
    *

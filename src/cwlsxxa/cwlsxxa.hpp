@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library cwlsxxa
      * @sensor cwlsxxa
-     * @comname Veris CWLSXXA CO2 Sensor Family
+     * @comname CO2/temperature/humidity Transmitter
      * @type temp gaseous
      * @man veris
      * @con ainput

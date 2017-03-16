@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library t8100
    * @sensor t8100
-   * @comname Amphenol Telaire Ventostat T8100
+   * @comname Wall Mount CO2, Humidity and Temperature Transmitter
    * Ventilation Controller
    * @type gaseous temp
    * @man amphenol

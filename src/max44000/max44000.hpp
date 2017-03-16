@@ -60,10 +60,11 @@ namespace upm {
 /**
  * @library max44000
  * @sensor max44000
- * @comname MAX44000 Proximity Sensor
+ * @comname Ambient and Infrared Proximity Sensor
  * @type light
  * @man maxim
  * @con i2c
+ * @web https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44000.html
  *
  * @brief API for the MAX44000 Ambient and Infrared Proximity Sensor
  *

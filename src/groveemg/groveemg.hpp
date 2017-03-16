@@ -37,18 +37,18 @@ namespace upm {
   /**
    * @library groveemg
    * @sensor groveemg
-   * @comname Grove EMG Sensor
+   * @comname Electromyography (EMG) Sensor
    * @type electric
    * @man seeed
    * @con analog
    * @deprecated This class is being replaced by EMG
    *
    * @brief API for the Grove EMG Muscle Signal Reader
-   * 
+   *
    * Grove EMG muscle signal reader gathers small muscle signals,
    * then processes them, and returns the result
    *
-   * @image html groveemg.jpg 
+   * @image html emg.jpg
    * @snippet groveemg.cxx Interesting
    */
   class GroveEMG {

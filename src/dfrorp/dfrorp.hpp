@@ -43,7 +43,7 @@ namespace upm {
   /**
    * @library dfrorp
    * @sensor dfrorp
-   * @comname DFRobot ORP (Oxidation/Reduction Potential) Sensor
+   * @comname Analog Oxidation Reduction Potential (ORP) Sensor
    * @type liquid
    * @man dfrobot
    * @con ainput

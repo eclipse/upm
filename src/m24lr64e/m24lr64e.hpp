@@ -51,7 +51,7 @@ namespace upm {
   /**
    * @library m24lr64e
    * @sensor m24lr64e
-   * @comname Grove NFC Tag
+   * @comname Dynamic NFC/RFID Tag Module
    * @type other
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_NFC_Tag

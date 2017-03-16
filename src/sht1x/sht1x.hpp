@@ -41,9 +41,10 @@ namespace upm {
   /**
    * @library sht1x
    * @sensor sht1x
-   * @comname SHT1X Temperature and Humidity Sensor
+   * @comname Temperature and Humidity Sensor
    * @type temp
    * @man dfrobot
+   * @web https://www.dfrobot.com/wiki/index.php/SHT1x_Humidity_and_Temperature_Sensor_(SKU:_DFR0066)
    * @con gpio
    *
    * @brief SHT1X Temperature and Humidity Sensor
