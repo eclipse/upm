@@ -1,6 +1,6 @@
 upm_mixed_module_init (NAME bh1750
     DESCRIPTION "Digital Light Sensor"
-    C_HDR bh1750.h
+    C_HDR bh1750.h bh1750_defs.h
     C_SRC bh1750.c
     CPP_HDR bh1750.hpp
     CPP_SRC bh1750.cxx
