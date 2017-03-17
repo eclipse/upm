@@ -9,7 +9,7 @@
 %include "md_doc.i"
 #endif
 
-%include "md.h"
+%include "md_defs.h"
 %include "md.hpp"
 %{
     #include "md.hpp"
