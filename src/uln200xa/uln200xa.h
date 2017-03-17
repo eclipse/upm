@@ -29,6 +29,8 @@
 
 #include <mraa/gpio.h>
 
+#include "uln200xa_defs.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -57,14 +59,6 @@ extern "C" {
         int      stepDirection;
 
     } *uln200xa_context;
-
-    /**
-     * Enum to specify the direction of a motor
-     */
-    typedef enum {
-      ULN200XA_DIR_CW   = 0x01,
-      ULN200XA_DIR_CCW  = 0x02
-    } ULN200XA_DIRECTION_T;
 
     /**
      * ULN200XA constructor
