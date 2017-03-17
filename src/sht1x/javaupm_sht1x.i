@@ -4,6 +4,7 @@
 %include "stdint.i"
 %include "typemaps.i"
 
+%include "sht1x_defs.h"
 %include "sht1x.hpp"
 %{
     #include "sht1x.hpp"
