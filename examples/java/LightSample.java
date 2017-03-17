@@ -25,13 +25,13 @@
 public class LightSample {
     public static void main(String args[]) throws InterruptedException {
         // ! [Interesting]
-        upm_light.Light gl = new upm_light.Light(2);
+        upm_light.Light gl = new upm_light.Light(0);
 
         while (true) {
-            float raw_value = gl.raw_value();
+            float raw_value = gl.getNormalized();
             float value = gl.value();
 
-            System.out.println("raw value: " + raw_value);
+            System.out.println("normalized: " + raw_value);
             System.out.println("value: " + value);
 
             Thread.sleep(1000);

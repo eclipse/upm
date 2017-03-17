@@ -2,7 +2,8 @@
  * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
  *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ *          Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,54 +28,134 @@
 #pragma once
 
 #include <string>
-#include <mraa/aio.hpp>
+
+#include "light.h"
 
 namespace upm {
 
-/**
- * @library light
- * @sensor light
- * @comname Analog Light Sensor
- * @type light
- * @man seeed
- * @con analog
- * @kit gsk
- *
- * @brief API for the  Light Sensor
- *
- * The  light sensor detects the intensity of the ambient light.
- * As the light intensity of the environment increases, the resistance
- * of the sensor decreases. This means the raw value from the
- * analog pin is larger in bright light and smaller in the dark.
- * An approximate lux value can also be returned.
- *
- * @image html light.jpg
- * @snippet light.cxx Interesting
- */
-class Light {
+    /**
+     * @library light
+     * @sensor light
+     * @comname Analog Light Sensor
+     * @type light
+     * @man seeed
+     * @con analog
+     * @kit gsk
+     *
+     * @brief API for the  Light Sensor
+     *
+     * The light sensor detects the intensity of the ambient light.
+     * As the light intensity of the environment increases, the resistance
+     * of the sensor decreases. This means the raw value from the
+     * analog pin is larger in bright light and smaller in the dark.
+     * A very approximate lux value can also be returned.
+     *
+     * @image html light.jpg
+     * @snippet light.cxx Interesting
+     */
+    class Light {
     public:
         /**
          *  analog light sensor constructor
          *
          * @param pin Analog pin to use
+         * @throws std::runtime_error on initialization error
          */
         Light(unsigned int pin);
+
         /**
          * Light destructor
          */
         ~Light();
+
         /**
          * Gets the raw value from the AIO pin
          *
+         * @deprecated This function is deprecated use
+         * getNormalized() instead.
          * @return Raw value from the ADC
+         * @throws std::runtime_error on error
          */
         float raw_value();
+
         /**
-         * Gets an approximate light value, in lux, from the sensor
+         * Gets an approximate light value in lux from the sensor
          *
-         * @return Normalized light reading in lux
+         * @return Approximate light reading in lux
+         * @throws std::runtime_error on error
          */
         int value();
+
+        /**
+         * Set ADC reference voltage
+         *
+         * @param dev sensor context pointer
+         * @param aref ADC reference voltage
+         */
+        void setAref(float aref);
+
+        /**
+         * Set sensor scale.  This scale is applied to the return value:
+         *     counts = counts * scale
+         *
+         * @param dev sensor context pointer
+         * @param scale count scale value used
+         */
+        void setScale(float scale);
+
+        /**
+         * Set sensor offset.  This offset is applied to the return value:
+         *     value = value + offset
+         *
+         * @param dev sensor context pointer
+         * @param offset count offset value used
+         * @return Function result code
+         */
+        void setOffset(float offset);
+
+        /**
+         * Get sensor aref
+         *
+         * @param dev sensor context pointer
+         * @return Sensor ADC reference voltage
+         */
+        float getAref();
+
+        /**
+         * Get sensor scale
+         *
+         * @param dev sensor context pointer
+         * @return Sensor scale
+         */
+        float getScale();
+
+        /**
+         * Get sensor offset
+         *
+         * @param dev sensor context pointer
+         * @return Sensor offset
+         */
+        float getOffset();
+
+        /**
+         * Read normalized value for sensor
+         *
+         * @param dev sensor context pointer
+         * @param *value Normalized value (0.0 -> 1.0)
+         * @return Function result code
+         * @throws std::runtime_error on error
+         */
+        float getNormalized();
+
+        /**
+         * Read raw voltage from the sensor
+         *
+         * @param dev sensor context pointer
+         * @param *value Raw sensor voltage
+         * @return Function result code
+         * @throws std::runtime_error on error
+         */
+        float getRawVolts();
 
         /* Sensor name
          *
@@ -82,11 +163,12 @@ class Light {
          */
         std::string name()
         {
-            return m_name;
+            return std::string("Light Sensor");
         }
 
+    protected:
+        light_context m_light;
+
     private:
-        mraa_aio_context m_aio;
-        const std::string m_name = "Light Sensor";
-};
+    };
 }

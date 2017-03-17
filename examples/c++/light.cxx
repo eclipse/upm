@@ -34,10 +34,11 @@ main(int argc, char **argv)
     // Create the light sensor object using AIO pin 0
     upm::Light* light = new upm::Light(0);
 
-    // Read the input and print both the raw value and a rough lux value,
-    // waiting one second between readings
+    // Read the input and print both the normalized ADC value and a
+    // rough lux value, waiting one second between readings
     while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
+        std::cout << light->name() << " normalized value is "
+                  << light->getNormalized() <<
             ", which is roughly " << light->value() << " lux" << std::endl;
         sleep(1);
     }

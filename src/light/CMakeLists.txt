@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME light
     CPP_HDR light.hpp
     CPP_SRC light.cxx
     FTI_SRC light_fti.c
-    REQUIRES mraa grove m)
+    CPP_WRAPS_C
+    REQUIRES mraa m)
 target_link_libraries(light-c m)

@@ -2,7 +2,8 @@
  * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
  *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  *          Sarah Knepper <sarah.knepper@intel.com>
- * Copyright (c) 2014 - 2016 Intel Corporation.
+ *          Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,34 +30,90 @@
 #include <stdexcept>
 
 #include "light.hpp"
-#include "math.h"
 
 using namespace upm;
 
-Light::Light(unsigned int pin)
+Light::Light(unsigned int pin) :
+    m_light(light_init(pin))
 {
-    if ( !(m_aio = mraa_aio_init(pin)) ) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_aio_init() failed, invalid pin?");
-        return;
-    }
+    if ( !m_light )
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": light_init() failed.");
 }
 
 Light::~Light()
 {
-    mraa_aio_close(m_aio);
+    light_close(m_light);
 }
 
 int Light::value()
 {
-    // rough conversion to lux, using formula from  Starter Kit booklet
-    float a = (float) mraa_aio_read(m_aio);
-    if (a == -1.0) return -1;
-    a = 10000.0/pow(((1023.0-a)*10.0/a)*15.0,4.0/3.0);
-    return (int) round(a);
+    float value;
+
+    if (light_get_lux(m_light, &value))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": light_get_normalized() failed.");
+
+    return (int)roundf(value);
 }
 
 float Light::raw_value()
 {
-    return (float) mraa_aio_read(m_aio);
+    // This is a hack.  Deprecated.  Should be removed ASAP.
+   int value =  mraa_aio_read(m_light->aio);
+   if (value < 0)
+       throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_aio_read() failed.");
+
+   return (float)value; // ?? why a float?
+}
+
+void Light::setAref(float aref)
+{
+    light_set_aref(m_light, aref);
+}
+
+void Light::setScale(float scale)
+{
+    light_set_scale(m_light, scale);
+}
+
+void Light::setOffset(float offset)
+{
+    light_set_aref(m_light, offset);
+}
+
+float Light::getAref()
+{
+    return light_get_aref(m_light);
+}
+
+float Light::getScale()
+{
+    return light_get_scale(m_light);
+}
+
+float Light::getOffset()
+{
+    return light_get_offset(m_light);
+}
+
+float Light::getNormalized()
+{
+    float value;
+
+    if (light_get_normalized(m_light, &value))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": light_get_normalized() failed.");
+    return value;
+}
+
+float Light::getRawVolts()
+{
+    float value;
+
+    if (light_get_raw_volts(m_light, &value))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": light_get_raw_volts() failed.");
+    return value;
 }
