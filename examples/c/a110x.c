@@ -15,7 +15,7 @@ int main()
     bool abc = 0;
     while(1){
         if(a110x_magnet_detected(dev, &abc) != UPM_SUCCESS){
-            printf("an error has occured\n");
+            printf("an error has occurred\n");
         }
         upm_delay(1);
         printf("value retrieved: %d\n", abc);
