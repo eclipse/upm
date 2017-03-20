@@ -37,7 +37,7 @@ ims_context* ims_init(int16_t i2c_bus, int16_t i2c_address)
         goto ims_init_fail;
     }
 
-    /* Initilize mraa */
+    /* Initialize mraa */
     mraa_result_t result = mraa_init();
     if (result != MRAA_SUCCESS)
     {
