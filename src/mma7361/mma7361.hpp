@@ -50,7 +50,7 @@ namespace upm {
    *
    * @brief API for the DFRobot MMA7361 Analog Accelerometer
    *
-   * The driver was tested with the DFRobot MMA7361 Analog
+   * This library was tested with the DFRobot MMA7361 Analog
    * Accelerometer.  It supports 3 Axes with a selectable 1.5G and 6G
    * sensitivity.
    *

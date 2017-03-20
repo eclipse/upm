@@ -53,7 +53,7 @@ namespace upm {
      *
      * @brief API for the DFRobot URM37 Ultrasonic Ranger
      *
-     * The driver was tested with the DFRobot URM37 Ultrasonic Ranger,
+     * This library was tested with the DFRobot URM37 Ultrasonic Ranger,
      * V4.  It has a range of between 5 and 500 centimeters (cm).  It
      * supports both analog distance measurement, and UART based
      * temperature and distance measurements.  This driver does not

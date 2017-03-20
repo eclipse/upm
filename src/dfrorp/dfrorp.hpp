@@ -51,7 +51,7 @@ namespace upm {
    *
    * @brief API for the DFRobot ORP (Oxidation/Reduction Potential) Sensor
    *
-   * The driver was tested with the DFRobot ORP (Oxidation/Reduction
+   * This library was tested with the DFRobot ORP (Oxidation/Reduction
    * Potential) Sensor.
    *
    * To calibrate:

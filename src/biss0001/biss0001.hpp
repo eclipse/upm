@@ -46,7 +46,12 @@ namespace upm {
      *
      * @brief API for the BISS0001 Motion Sensor
      *
-     * UPM module for the BISS0001 Motion Sensor
+     * PIR sensors allow you to sense motion, almost always used to detect
+     * whether a human has moved in or out of the sensors range. They are
+     * small, inexpensive, low-power, easy to use and don't wear out. For that
+     * reason they are commonly found in appliances and gadgets used in homes
+     * or businesses. They are often referred to as PIR, "Passive Infrared",
+     * "Pyroelectric", or "IR motion" sensors.
      *
      * @image html biss0001.jpg
      * @snippet biss0001.cxx Interesting
