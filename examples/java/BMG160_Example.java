@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_bmx055.BMG160;
+import upm_bmg160.BMG160;
 
 public class BMG160_Example
 {
@@ -42,11 +42,11 @@ public class BMG160_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float dataA[] = sensor.getGyroscope();
+                upm_bmg160.floatVector data = sensor.getGyroscope();
 
-                System.out.println("Gyroscope x: " + dataA[0]
-                                   + " y: " + dataA[1]
-                                   + " z: " + dataA[2]
+                System.out.println("Gyroscope x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " degrees/s");
 
                 System.out.println("Compensation Temperature: "

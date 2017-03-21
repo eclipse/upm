@@ -23,7 +23,7 @@
 
 from __future__ import print_function
 import time, sys, signal, atexit
-from upm import pyupm_bmx055 as sensorObj
+from upm import pyupm_bmg160 as sensorObj
 
 def main():
     # Instantiate a BMP250E instance using default i2c bus and address
@@ -46,18 +46,14 @@ def main():
     atexit.register(exitHandler)
     signal.signal(signal.SIGINT, SIGINTHandler)
 
-    x = sensorObj.new_floatp()
-    y = sensorObj.new_floatp()
-    z = sensorObj.new_floatp()
-
     # now output data every 250 milliseconds
     while (1):
         sensor.update()
 
-        sensor.getGyroscope(x, y, z)
-        print("Gyroscope x:", sensorObj.floatp_value(x), end=' ')
-        print(" y:", sensorObj.floatp_value(y), end=' ')
-        print(" z:", sensorObj.floatp_value(z), end=' ')
+        gyroData = sensor.getGyroscope()
+        print("Gyroscope x:", gyroData[0], end=' ')
+        print(" y:", gyroData[1], end=' ')
+        print(" z:", gyroData[2], end=' ')
         print(" degrees/s")
 
         # we show both C and F for temperature
