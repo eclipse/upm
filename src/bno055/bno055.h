@@ -35,9 +35,6 @@
 
 #include "bno055_regs.h"
 
-#define BNO055_DEFAULT_I2C_BUS 0
-#define BNO055_DEFAULT_ADDR 0x28
-
 #ifdef __cplusplus
 extern "C" {
 #endif
