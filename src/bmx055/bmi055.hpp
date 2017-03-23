@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "bma250e.hpp"
 #include "bmg160.hpp"
@@ -87,7 +88,7 @@ namespace upm {
     BMI055(int accelBus=BMA250E_I2C_BUS,
            int accelAddr=BMA250E_DEFAULT_ADDR,
            int accelCS=-1,
-           int gyroBus=BMG160_I2C_BUS,
+           int gyroBus=BMG160_DEFAULT_I2C_BUS,
            int gyroAddr=BMG160_DEFAULT_ADDR,
            int gyroCS=-1);
 
@@ -131,9 +132,9 @@ namespace upm {
      * @param bw One of the filtering BMG160::BW_T values.  The default is
      * BMG160::BW_400_47.
      */
-    void initGyroscope(BMG160::POWER_MODE_T pwr=BMG160::POWER_MODE_NORMAL,
-                       BMG160::RANGE_T range=BMG160::RANGE_250,
-                       BMG160::BW_T bw=BMG160::BW_400_47);
+    void initGyroscope(BMG160_POWER_MODE_T pwr=BMG160_POWER_MODE_NORMAL,
+                       BMG160_RANGE_T range=BMG160_RANGE_250,
+                       BMG160_BW_T bw=BMG160_BW_400_47);
 
     /**
      * Return accelerometer data in gravities.  update() must have
@@ -174,14 +175,13 @@ namespace upm {
 
     /**
      * Return gyroscope data in degrees per second in the form of a
-     * floating point array.  The pointer returned by this function is
-     * statically allocated and will be rewritten on each call.
-     * update() must have been called prior to calling this method.
+     * floating point vector.  update() must have been called prior to
+     * calling this method.
      *
-     * @return A floating point array containing x, y, and z in
+     * @return A floating point vector containing x, y, and z in
      * that order.
      */
-    float *getGyroscope();
+    std::vector<float> getGyroscope();
 
 
   protected:

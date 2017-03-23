@@ -45,13 +45,12 @@ public class BMX055_Example
                                    + " z: " + data[2]
                                    + " g");
 
-                data = sensor.getGyroscope();
+                upm_bmx055.floatVector dataG = sensor.getGyroscope();
 
-                System.out.println("Gyroscope x: " + data[0]
-                                   + " y: " + data[1]
-                                   + " z: " + data[2]
+                System.out.println("Gyroscope x: " + dataG.get(0)
+                                   + " y: " + dataG.get(1)
+                                   + " z: " + dataG.get(2)
                                    + " degrees/s");
-
 
                 data = sensor.getMagnetometer();
 

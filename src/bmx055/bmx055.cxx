@@ -80,9 +80,9 @@ void BMX055::initAccelerometer(BMA250E::POWER_MODE_T pwr,
     m_accel->init(pwr, range, bw);
 }
 
-void BMX055::initGyroscope(BMG160::POWER_MODE_T pwr,
-                           BMG160::RANGE_T range,
-                           BMG160::BW_T bw)
+void BMX055::initGyroscope(BMG160_POWER_MODE_T pwr,
+                           BMG160_RANGE_T range,
+                           BMG160_BW_T bw)
 {
   if (m_gyro)
     m_gyro->init(pwr, range, bw);
@@ -110,6 +110,15 @@ void BMX055::getAccelerometer(float *x, float *y, float *z)
 {
   if (m_accel)
     m_accel->getAccelerometer(x, y, z);
+  else
+  {
+      if (x)
+          *x = 0;
+      if (y)
+          *y = 0;
+      if (z)
+          *z = 0;
+  }
 }
 
 float *BMX055::getAccelerometer()
@@ -127,23 +136,38 @@ void BMX055::getGyroscope(float *x, float *y, float *z)
 {
   if (m_gyro)
     m_gyro->getGyroscope(x, y, z);
+  else
+  {
+      if (x)
+          *x = 0;
+      if (y)
+          *y = 0;
+      if (z)
+          *z = 0;
+  }
 }
 
-float *BMX055::getGyroscope()
+std::vector<float> BMX055::getGyroscope()
 {
   if (m_gyro)
     return m_gyro->getGyroscope();
   else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+      return {0, 0, 0};
 }
 
 void BMX055::getMagnetometer(float *x, float *y, float *z)
 {
   if (m_mag)
     m_mag->getMagnetometer(x, y, z);
+  else
+  {
+      if (x)
+          *x = 0;
+      if (y)
+          *y = 0;
+      if (z)
+          *z = 0;
+  }
 }
 
 float *BMX055::getMagnetometer()

@@ -70,9 +70,9 @@ void BMI055::initAccelerometer(BMA250E::POWER_MODE_T pwr,
     m_accel->init(pwr, range, bw);
 }
 
-void BMI055::initGyroscope(BMG160::POWER_MODE_T pwr,
-                           BMG160::RANGE_T range,
-                           BMG160::BW_T bw)
+void BMI055::initGyroscope(BMG160_POWER_MODE_T pwr,
+                           BMG160_RANGE_T range,
+                           BMG160_BW_T bw)
 {
   if (m_gyro)
     m_gyro->init(pwr, range, bw);
@@ -110,13 +110,10 @@ void BMI055::getGyroscope(float *x, float *y, float *z)
     m_gyro->getGyroscope(x, y, z);
 }
 
-float *BMI055::getGyroscope()
+std::vector<float> BMI055::getGyroscope()
 {
   if (m_gyro)
     return m_gyro->getGyroscope();
   else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    return {0, 0, 0};
 }

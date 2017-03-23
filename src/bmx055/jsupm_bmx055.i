@@ -11,11 +11,6 @@
     #include "bma250e.hpp"
 %}
 
-%include "bmg160.hpp"
-%{
-    #include "bmg160.hpp"
-%}
-
 %include "bmm150.hpp"
 %{
     #include "bmm150.hpp"
