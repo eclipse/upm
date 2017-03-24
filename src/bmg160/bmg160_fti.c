@@ -31,7 +31,7 @@
 
 const char upm_bmg160_name[] = "BMG160";
 const char upm_bmg160_description[] = "Triple Axis Digital Gyroscope";
-const upm_protocol_t upm_bmg160_protocol[] = {UPM_I2C, UPM_SPI};
+const upm_protocol_t upm_bmg160_protocol[] = {UPM_I2C, UPM_SPI, UPM_GPIO};
 const upm_sensor_t upm_bmg160_category[] = {UPM_GYROSCOPE};
 
 // forward declarations
@@ -45,7 +45,7 @@ const upm_sensor_descriptor_t upm_bmg160_get_descriptor()
     upm_sensor_descriptor_t usd;
     usd.name = upm_bmg160_name;
     usd.description = upm_bmg160_description;
-    usd.protocol_size = 2;
+    usd.protocol_size = 3;
     usd.protocol = upm_bmg160_protocol;
     usd.category_size = 1;
     usd.category = upm_bmg160_category;

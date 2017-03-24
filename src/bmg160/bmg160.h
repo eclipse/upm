@@ -87,7 +87,7 @@ extern "C" {
      *
      * @param bus I2C or SPI bus to use.
      * @param addr The address for this device, or -1 for SPI.
-     * @param cs The gpio pin to use for the SPI Chip Select.  -Use 1 for
+     * @param cs The gpio pin to use for the SPI Chip Select.  Use -1 for
      * I2C or for SPI with a hardware controlled pin.
      * @return The device context, or NULL on error.
      */
@@ -196,7 +196,7 @@ extern "C" {
      * Set the power mode of the device.  Care must be taken when
      * setting a low power or suspend mode.  See the datasheet for
      * details.  In certain power modes, register write must be
-     * drastically slowed down. which we cannot support.
+     * drastically slowed down, which we cannot support.
      *
      * @param dev The device context.
      * @param power One of the BMG160_POWER_MODE_T values.
@@ -457,14 +457,14 @@ extern "C" {
      * install an interrupt handler.
      *
      * @param dev The device context.
-     * @param intr one of the INTERRUPT_PINS_T values specifying which
-     * interrupt pin you are installing.
-     * @param gpio gpio pin to use as interrupt pin
-     * @param level the interrupt trigger level (one of mraa_gpio_edge_t
+     * @param intr One of the BMG160_INTERRUPT_PINS_T values
+     * specifying which interrupt pin you are installing.
+     * @param gpio GPIO pin to use as interrupt pin
+     * @param level The interrupt trigger level (one of mraa_gpio_edge_t
      * values).  Make sure that you have configured the interrupt pin
      * properly for whatever level you choose.
-     * @param isr the interrupt handler, accepting a void * argument
-     * @param arg the argument to pass the the interrupt handler
+     * @param isr The interrupt handler, accepting a void * argument
+     * @param arg The argument to pass the the interrupt handler
      * @return UPM result.
      */
     upm_result_t bmg160_install_isr(const bmg160_context dev,
@@ -476,8 +476,8 @@ extern "C" {
      * uninstall a previously installed interrupt handler
      *
      * @param dev The device context.
-     * @param intr one of the INTERRUPT_PINS_T values specifying which
-     * interrupt pin you are removing.
+     * @param intr One of the BMG160_INTERRUPT_PINS_T values
+     * specifying which interrupt pin you are removing.
      */
     void bmg160_uninstall_isr(const bmg160_context dev,
                               BMG160_INTERRUPT_PINS_T intr);
