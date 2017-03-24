@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_bmx055.BMA250E;
+import upm_bma250e.BMA250E;
 
 public class BMA250E_Example
 {
@@ -42,11 +42,11 @@ public class BMA250E_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float dataA[] = sensor.getAccelerometer();
+                upm_bma250e.floatVector dataA = sensor.getAccelerometer();
 
-                System.out.println("Accelerometer x: " + dataA[0]
-                                   + " y: " + dataA[1]
-                                   + " z: " + dataA[2]
+                System.out.println("Accelerometer x: " + dataA.get(0)
+                                   + " y: " + dataA.get(1)
+                                   + " z: " + dataA.get(2)
                                    + " g");
 
                 System.out.println("Compensation Temperature: "
