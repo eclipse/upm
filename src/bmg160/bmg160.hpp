@@ -28,12 +28,13 @@
 #include <string>
 #include <vector>
 
+#include <mraa/gpio.hpp>
 #include "bmg160.h"
 
 namespace upm {
 
     /**
-     * @library bmx050
+     * @library bmg160
      * @sensor bmg160
      * @comname 3-axis Gyroscope Sensor
      * @type gyro
@@ -410,7 +411,7 @@ namespace upm {
 
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa_gpio_edge_t level, jobject runnable)
+                        mraa::Edge level, jobject runnable)
         {
             installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
         }
@@ -418,19 +419,19 @@ namespace upm {
         /**
          * install an interrupt handler.
          *
-         * @param intr one of the BMG160_INTERRUPT_PINS_T values
+         * @param intr One of the BMG160_INTERRUPT_PINS_T values
          * specifying which interrupt pin you are installing.
-         * @param gpio gpio pin to use as interrupt pin
-         * @param level the interrupt trigger level (one of the
-         * mraa_gpio_edge_t values).  Make sure that you have
+         * @param gpio GPIO pin to use as interrupt pin.
+         * @param level The interrupt trigger level (one of the
+         * mraa::Edge values).  Make sure that you have
          * configured the interrupt pin properly for whatever level
          * you choose.
-         * @param isr the interrupt handler, accepting a void * argument
-         * @param arg the argument to pass the the interrupt handler
+         * @param isr The interrupt handler, accepting a void * argument.
+         * @param arg The argument to pass the the interrupt handler.
          * @throws std::runtime_error on failure.
          */
         void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa_gpio_edge_t level,
+                        mraa::Edge level,
                         void (*isr)(void *), void *arg);
 #endif
 
@@ -476,7 +477,7 @@ namespace upm {
         // needs to be private for SWIG Java builds
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa_gpio_edge_t level,
+                        mraa::Edge level,
                         void (*isr)(void *), void *arg);
 #endif
     };

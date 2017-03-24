@@ -279,10 +279,11 @@ uint8_t BMG160::getInterruptStatus3()
 }
 
 void BMG160::installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa_gpio_edge_t level,
+                        mraa::Edge level,
                         void (*isr)(void *), void *arg)
 {
-    if (bmg160_install_isr(m_bmg160, intr, gpio, level, isr, arg))
+    if (bmg160_install_isr(m_bmg160, intr, gpio,
+                           (mraa_gpio_edge_t)level, isr, arg))
         throw std::runtime_error(string(__FUNCTION__)
                                  + ": bmg160_install_isr() failed");
 }
