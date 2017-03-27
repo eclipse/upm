@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,6 +31,8 @@
 #include "bma250e.hpp"
 #include "bmg160.hpp"
 #include "bmm150.hpp"
+
+#define BMX055_DEFAULT_MAG_I2C_ADDR 0x12
 
 namespace upm {
 
@@ -100,14 +104,14 @@ namespace upm {
      * @param magCS The gpio pin to use for the SPI Chip Select.  -1 for
      * I2C or for SPI with a hardware controlled pin.
      */
-    BMX055(int accelBus=BMA250E_I2C_BUS,
+    BMX055(int accelBus=BMA250E_DEFAULT_I2C_BUS,
            int accelAddr=BMA250E_DEFAULT_ADDR,
            int accelCS=-1,
            int gyroBus=BMG160_DEFAULT_I2C_BUS,
            int gyroAddr=BMG160_DEFAULT_ADDR,
            int gyroCS=-1,
            int magBus=BMM150_I2C_BUS,
-           int magAddr=BMM150_DEFAULT_ADDR,
+           int magAddr=BMX055_DEFAULT_MAG_I2C_ADDR,
            int magCS=-1);
 
     /**
@@ -126,16 +130,16 @@ namespace upm {
      * need to be called by a user unless the device is reset or you
      * want to change these values.
      *
-     * @param pwr One of the BMA250E::POWER_MODE_T values.  The default is
-     * BMA250E::POWER_MODE_NORMAL.
-     * @param range One of the BMA250E::RANGE_T values.  The default is
-     * BMA250E::RANGE_2G.
-     * @param bw One of the filtering BMA250E::BW_T values.  The default is
-     * BMA250E::BW_250.
+     * @param pwr One of the BMA250E_POWER_MODE_T values.  The default is
+     * BMA250E_POWER_MODE_NORMAL.
+     * @param range One of the BMA250E_RANGE_T values.  The default is
+     * BMA250E_RANGE_2G.
+     * @param bw One of the filtering BMA250E_BW_T values.  The default is
+     * BMA250E_BW_250.
      */
-    void initAccelerometer(BMA250E::POWER_MODE_T pwr=BMA250E::POWER_MODE_NORMAL,
-                           BMA250E::RANGE_T range=BMA250E::RANGE_2G,
-                           BMA250E::BW_T bw=BMA250E::BW_250);
+    void initAccelerometer(BMA250E_POWER_MODE_T pwr=BMA250E_POWER_MODE_NORMAL,
+                           BMA250E_RANGE_T range=BMA250E_RANGE_2G,
+                           BMA250E_BW_T bw=BMA250E_BW_250);
 
     /**
      * Initialize the gyroscope and start operation.  This function is
@@ -143,12 +147,12 @@ namespace upm {
      * called by a user unless the device is reset or you want to
      * change these values.
      *
-     * @param pwr One of the BMG160::POWER_MODE_T values.  The default is
-     * BMG160::POWER_MODE_NORMAL.
-     * @param range One of the BMG160::RANGE_T values.  The default is
-     * BMG160::RANGE_250.
-     * @param bw One of the filtering BMG160::BW_T values.  The default is
-     * BMG160::BW_400_47.
+     * @param pwr One of the BMG160_POWER_MODE_T values.  The default is
+     * BMG160_POWER_MODE_NORMAL.
+     * @param range One of the BMG160_RANGE_T values.  The default is
+     * BMG160_RANGE_250.
+     * @param bw One of the filtering BMG160_BW_T values.  The default is
+     * BMG160_BW_400_47.
      */
     void initGyroscope(BMG160_POWER_MODE_T pwr=BMG160_POWER_MODE_NORMAL,
                        BMG160_RANGE_T range=BMG160_RANGE_250,
@@ -181,14 +185,13 @@ namespace upm {
 
     /**
      * Return accelerometer data in gravities in the form of a
-     * floating point array.  The pointer returned by this function is
-     * statically allocated and will be rewritten on each call.
-     * update() must have been called prior to calling this method.
+     * floating point vector.  update() must have been called prior to
+     * calling this method.
      *
-     * @return A floating point array containing x, y, and z in
+     * @return A floating point vector containing x, y, and z in
      * that order.
      */
-    float *getAccelerometer();
+    std::vector<float> getAccelerometer();
 
     /**
      * Return gyroscope data in degrees per second.  update() must

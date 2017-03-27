@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -38,14 +40,14 @@ public class BMC150_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float data[] = sensor.getAccelerometer();
+                upm_bmx055.floatVector dataA = sensor.getAccelerometer();
 
-                System.out.println("Accelerometer x: " + data[0]
-                                   + " y: " + data[1]
-                                   + " z: " + data[2]
+                System.out.println("Accelerometer x: " + dataA.get(0)
+                                   + " y: " + dataA.get(1)
+                                   + " z: " + dataA.get(2)
                                    + " g");
 
-                data = sensor.getMagnetometer();
+                float data[] = sensor.getMagnetometer();
 
                 System.out.println("Magnetometer x: " + data[0]
                                    + " y: " + data[1]

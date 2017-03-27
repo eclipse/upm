@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -62,9 +64,9 @@ BMI055::~BMI055()
     delete m_gyro;
 }
 
-void BMI055::initAccelerometer(BMA250E::POWER_MODE_T pwr,
-                               BMA250E::RANGE_T range,
-                               BMA250E::BW_T bw)
+void BMI055::initAccelerometer(BMA250E_POWER_MODE_T pwr,
+                               BMA250E_RANGE_T range,
+                               BMA250E_BW_T bw)
 {
   if (m_accel)
     m_accel->init(pwr, range, bw);
@@ -93,15 +95,12 @@ void BMI055::getAccelerometer(float *x, float *y, float *z)
     m_accel->getAccelerometer(x, y, z);
 }
 
-float *BMI055::getAccelerometer()
+std::vector<float> BMI055::getAccelerometer()
 {
   if (m_accel)
     return m_accel->getAccelerometer();
   else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    return {0, 0, 0};
 }
 
 void BMI055::getGyroscope(float *x, float *y, float *z)

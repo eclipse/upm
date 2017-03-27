@@ -17,11 +17,6 @@
     return $jnicall;
 }
 
-%typemap(out) float *getAccelerometer {
-    $result = JCALL1(NewFloatArray, jenv, 3);
-    JCALL4(SetFloatArrayRegion, jenv, $result, 0, 3, $1);
-}
-
 %typemap(out) float *getMagnetometer {
     $result = JCALL1(NewFloatArray, jenv, 3);
     JCALL4(SetFloatArrayRegion, jenv, $result, 0, 3, $1);
@@ -31,10 +26,8 @@
 %ignore getMagnetometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
 
-%include "bma250e.hpp"
-%{
-    #include "bma250e.hpp"
-%}
+%include "bmg160_defs.h"
+%include "bma250e_defs.h"
 
 %include "bmm150.hpp"
 %{

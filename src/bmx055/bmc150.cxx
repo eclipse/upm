@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,87 +36,84 @@ using namespace std;
 
 BMC150::BMC150(int accelBus, int accelAddr, int accelCS,
                int magBus, int magAddr, int magCS) :
-  m_accel(0), m_mag(0)
+    m_accel(0), m_mag(0)
 {
-  // if -1 is supplied as a bus for any of these, we will not
-  // instantiate them
+    // if -1 is supplied as a bus for any of these, we will not
+    // instantiate them
 
-  if (accelBus >= 0)
-    m_accel = new BMA250E(accelBus, accelAddr, accelCS);
+    if (accelBus >= 0)
+        m_accel = new BMA250E(accelBus, accelAddr, accelCS);
 
-  if (magBus >= 0)
-    m_mag = new BMM150(magBus, magAddr, magCS);
+    if (magBus >= 0)
+        m_mag = new BMM150(magBus, magAddr, magCS);
 
-  // now initialize them...
-  if (m_accel)
-    m_accel->init();
+    // now initialize them...
+    if (m_accel)
+        m_accel->init();
 
-  if (m_mag)
-    m_mag->init();
+    if (m_mag)
+        m_mag->init();
 }
 
 BMC150::~BMC150()
 {
-  if (m_accel)
-    delete m_accel;
+    if (m_accel)
+        delete m_accel;
 
-  if (m_mag)
-    delete m_mag;
+    if (m_mag)
+        delete m_mag;
 }
 
-void BMC150::initAccelerometer(BMA250E::POWER_MODE_T pwr,
-                               BMA250E::RANGE_T range,
-                               BMA250E::BW_T bw)
+void BMC150::initAccelerometer(BMA250E_POWER_MODE_T pwr,
+                               BMA250E_RANGE_T range,
+                               BMA250E_BW_T bw)
 {
-  if (m_accel)
-    m_accel->init(pwr, range, bw);
+    if (m_accel)
+        m_accel->init(pwr, range, bw);
 }
 
 void BMC150::initMagnetometer(BMM150::USAGE_PRESETS_T usage)
 {
-  if (m_mag)
-    m_mag->init(usage);
+    if (m_mag)
+        m_mag->init(usage);
 }
 
 void BMC150::update()
 {
-  if (m_accel)
-    m_accel->update();
+    if (m_accel)
+        m_accel->update();
 
-  if (m_mag)
-    m_mag->update();
+    if (m_mag)
+        m_mag->update();
 }
 
 void BMC150::getAccelerometer(float *x, float *y, float *z)
 {
-  if (m_accel)
-    m_accel->getAccelerometer(x, y, z);
+    if (m_accel)
+        m_accel->getAccelerometer(x, y, z);
 }
 
-float *BMC150::getAccelerometer()
+std::vector<float> BMC150::getAccelerometer()
 {
-  if (m_accel)
-    return m_accel->getAccelerometer();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_accel)
+        return m_accel->getAccelerometer();
+    else
+        return {0, 0, 0};
 }
 
 void BMC150::getMagnetometer(float *x, float *y, float *z)
 {
-  if (m_mag)
-    m_mag->getMagnetometer(x, y, z);
+    if (m_mag)
+        m_mag->getMagnetometer(x, y, z);
 }
 
 float *BMC150::getMagnetometer()
 {
-  if (m_mag)
-    return m_mag->getMagnetometer();
-  else
+    if (m_mag)
+        return m_mag->getMagnetometer();
+    else
     {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
+        static float v[3] = {0.0f, 0.0f, 0.0f};
+        return v;
     }
 }

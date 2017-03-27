@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -38,25 +40,25 @@ public class BMX055_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float data[] = sensor.getAccelerometer();
+                upm_bmx055.floatVector data = sensor.getAccelerometer();
 
-                System.out.println("Accelerometer x: " + data[0]
-                                   + " y: " + data[1]
-                                   + " z: " + data[2]
+                System.out.println("Accelerometer x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " g");
 
-                upm_bmx055.floatVector dataG = sensor.getGyroscope();
+                data = sensor.getGyroscope();
 
-                System.out.println("Gyroscope x: " + dataG.get(0)
-                                   + " y: " + dataG.get(1)
-                                   + " z: " + dataG.get(2)
+                System.out.println("Gyroscope x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " degrees/s");
 
-                data = sensor.getMagnetometer();
+                float dataM[] = sensor.getMagnetometer();
 
-                System.out.println("Magnetometer x: " + data[0]
-                                   + " y: " + data[1]
-                                   + " z: " + data[2]
+                System.out.println("Magnetometer x: " + dataM[0]
+                                   + " y: " + dataM[1]
+                                   + " z: " + dataM[2]
                                    + " uT");
 
                 System.out.println();
