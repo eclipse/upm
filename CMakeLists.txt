@@ -297,6 +297,9 @@ endif()
 if (BUILDDOC)
   # Add a target to generate API documentation with Doxygen
   find_package (Doxygen REQUIRED)
+  # Set the full path to documenation (used by Doxygen STRIP_FROM_PATH) to
+  # generate html documentation with relative paths
+  set (DOXYGEN_STRIP_FROM_PATH ${PROJECT_SOURCE_DIR})
   configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
   if (BUILDSWIGJAVA)
       configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.java.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile-java @ONLY)
