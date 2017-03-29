@@ -38,9 +38,9 @@ sig_handler (int signo) {
 int
 main (int argc, char ** argv) {
     // SPI bus 0, CS pin 10, INTR pin 2
-    upm::RF22* rf22 = new upm::RF22 (0, 10, 2);
+    upm::RF22 rf22(0, 10, 2);
 
-    if (!rf22->init()) {
+    if (!rf22.init()) {
         std::cout << "RF22 init failed" << std::endl;
         return 0x1;
     }
@@ -50,23 +50,22 @@ main (int argc, char ** argv) {
     
     signal (SIGINT, sig_handler);
     while (amWorking) {
-        // rf22->waitAvailable();
-        rf22->waitAvailableTimeout (500);
+        // rf22.waitAvailable();
+        rf22.waitAvailableTimeout (500);
 
         // Should be a message for us now   
-        if (rf22->recv(buf, &len)) {
+        if (rf22.recv(buf, &len)) {
             std::cout << "got request: " << (char*)buf << std::endl;
 
             // Send a reply
             uint8_t data[] = "And hello back to you";
-            rf22->send(data, sizeof(data));
-            rf22->waitPacketSent();
+            rf22.send(data, sizeof(data));
+            rf22.waitPacketSent();
         } else {
             // Do whatever you need.
         }
     }
 
-    delete rf22;
     std::cout << "Exit 'rfm22-server'" << std::endl;
     return 0;
 }
