@@ -40,18 +40,18 @@ public class BMC150_Example
                 // update our values from the sensor
                 sensor.update();
 
-                upm_bmx055.floatVector dataA = sensor.getAccelerometer();
+                upm_bmx055.floatVector data = sensor.getAccelerometer();
 
-                System.out.println("Accelerometer x: " + dataA.get(0)
-                                   + " y: " + dataA.get(1)
-                                   + " z: " + dataA.get(2)
+                System.out.println("Accelerometer x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " g");
 
-                float data[] = sensor.getMagnetometer();
+                data = sensor.getMagnetometer();
 
-                System.out.println("Magnetometer x: " + data[0]
-                                   + " y: " + data[1]
-                                   + " z: " + data[2]
+                System.out.println("Magnetometer x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " uT");
 
                 System.out.println();

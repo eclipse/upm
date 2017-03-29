@@ -123,9 +123,10 @@ namespace upm {
          * @param bw One of the filtering BMA250E_BW_T values.  The default is
          * BMA250E_BW_250.
          */
-        void initAccelerometer(BMA250E_POWER_MODE_T pwr=BMA250E_POWER_MODE_NORMAL,
-                               BMA250E_RANGE_T range=BMA250E_RANGE_2G,
-                               BMA250E_BW_T bw=BMA250E_BW_250);
+        void initAccelerometer(
+            BMA250E_POWER_MODE_T pwr=BMA250E_POWER_MODE_NORMAL,
+            BMA250E_RANGE_T range=BMA250E_RANGE_2G,
+            BMA250E_BW_T bw=BMA250E_BW_250);
 
         /**
          * Initialize the magnetometer and start operation.  This function
@@ -134,10 +135,11 @@ namespace upm {
          * change these values.  This method will call
          * BMM150::setPresetMode() with the passed parameter.
          *
-         * @param usage One of the BMM150::USAGE_PRESETS_T values.  The default is
-         * BMM150::USAGE_HIGH_ACCURACY.
+         * @param usage One of the BMM150_USAGE_PRESETS_T values.
+         * The default is BMM150_USAGE_HIGH_ACCURACY.
          */
-        void initMagnetometer(BMM150::USAGE_PRESETS_T usage=BMM150::USAGE_HIGH_ACCURACY);
+        void initMagnetometer(
+            BMM150_USAGE_PRESETS_T usage=BMM150_USAGE_HIGH_ACCURACY);
 
         /**
          * Return accelerometer data in gravities.  update() must have
@@ -176,15 +178,14 @@ namespace upm {
         void getMagnetometer(float *x, float *y, float *z);
 
         /**
-         * Return magnetometer data in micro-Teslas (uT) in the form of a
-         * floating point array.  The pointer returned by this function is
-         * statically allocated and will be rewritten on each call.
-         * update() must have been called prior to calling this method.
+         * Return magnetometer data in micro-Teslas (uT) in the form
+         * of a floating point vector.  update() must have been called
+         * prior to calling this method.
          *
-         * @return A floating point array containing x, y, and z in
+         * @return A floating point vector containing x, y, and z in
          * that order.
          */
-        float *getMagnetometer();
+        std::vector<float> getMagnetometer();
 
 
     protected:

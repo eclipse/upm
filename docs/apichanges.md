@@ -6,6 +6,24 @@ compatibility between releases:
 
 # current master
 
+ * **bmx055, bmi055, bmc150, bma250e, bmg160, bmm150** This driver has
+ been split up.  The *bma250e*, *bmg160*, *bmm150* drivers have been
+ rewritten in C (with C++ wrappers) and now reside in their own
+ libraries.  The versions of these drivers that used to be present in
+ *bmx055* have been removed, and *bmx055* now uses the new libraries
+ for it's functionality.  The other two composite devices, *bmi055*,
+ and *bmc150* are still contained within the *bmx055* library, and
+ also use the new libraries for their functionality.
+
+ In addition, for all of these drivers some private methods are no
+ longer exposed (such as the compensation routines).
+
+ The C++ driver methods that once returned pointers to a floating
+ point array now return *std::vectors* of the appropriate type.  The
+ SWIG language examples for these drivers have been modified to use
+ these methods instead of the C pointer based SWIG methods previously
+ used.
+
  * **sainsmartks** This driver has been renamed to *lcdks* (LCD Keypad
  Shield) and moved into it's own library.  It uses the *lcm1602*
  library to do most of it's work.  In addition, an additional argument
@@ -33,8 +51,8 @@ compatibility between releases:
  used previously.  This should make it easier to use with the SWIG
  language bindings (Python, Javascript, and especially Java).
 
- * **bmp280/bme280** Some private methods are no longer exposed
- (such as the calibration and compensation routines).  In addition,
+ * **bmp280/bme280** Some private methods are no longer exposed (such
+ as the calibration and compensation routines).  In addition,
  the *getHumidity()* method no longer accepts an argument representing
  pressure at sea level.  A separate method is provided to set this now.
 

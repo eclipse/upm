@@ -72,7 +72,7 @@ void BMC150::initAccelerometer(BMA250E_POWER_MODE_T pwr,
         m_accel->init(pwr, range, bw);
 }
 
-void BMC150::initMagnetometer(BMM150::USAGE_PRESETS_T usage)
+void BMC150::initMagnetometer(BMM150_USAGE_PRESETS_T usage)
 {
     if (m_mag)
         m_mag->init(usage);
@@ -107,13 +107,10 @@ void BMC150::getMagnetometer(float *x, float *y, float *z)
         m_mag->getMagnetometer(x, y, z);
 }
 
-float *BMC150::getMagnetometer()
+std::vector<float> BMC150::getMagnetometer()
 {
     if (m_mag)
         return m_mag->getMagnetometer();
     else
-    {
-        static float v[3] = {0.0f, 0.0f, 0.0f};
-        return v;
-    }
+        return {0, 0, 0};
 }

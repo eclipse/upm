@@ -50,16 +50,6 @@ BMX055::BMX055(int accelBus, int accelAddr, int accelCS,
 
     if (magBus >= 0)
         m_mag = new BMM150(magBus, magAddr, magCS);
-
-    // now initialize them...
-    if (m_accel)
-        m_accel->init();
-
-    if (m_gyro)
-        m_gyro->init();
-
-    if (m_mag)
-        m_mag->init();
 }
 
 BMX055::~BMX055()
@@ -90,7 +80,7 @@ void BMX055::initGyroscope(BMG160_POWER_MODE_T pwr,
         m_gyro->init(pwr, range, bw);
 }
 
-void BMX055::initMagnetometer(BMM150::USAGE_PRESETS_T usage)
+void BMX055::initMagnetometer(BMM150_USAGE_PRESETS_T usage)
 {
     if (m_mag)
         m_mag->init(usage);
@@ -169,13 +159,10 @@ void BMX055::getMagnetometer(float *x, float *y, float *z)
     }
 }
 
-float *BMX055::getMagnetometer()
+std::vector<float> BMX055::getMagnetometer()
 {
     if (m_mag)
         return m_mag->getMagnetometer();
     else
-    {
-        static float v[3] = {0.0f, 0.0f, 0.0f};
-        return v;
-    }
+        return {0, 0, 0};
 }

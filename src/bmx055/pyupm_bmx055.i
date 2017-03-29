@@ -17,6 +17,7 @@
 
 %include "bmg160_defs.h"
 %include "bma250e_defs.h"
+%include "bmm150_defs.h"
 
 %include "bmm150.hpp"
 %{

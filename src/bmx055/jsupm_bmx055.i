@@ -9,11 +9,7 @@
 
 %include "bmg160_defs.h"
 %include "bma250e_defs.h"
-
-%include "bmm150.hpp"
-%{
-    #include "bmm150.hpp"
-%}
+%include "bmm150_defs.h"
 
 %include "bmx055.hpp"
 %{

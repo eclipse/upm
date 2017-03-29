@@ -54,11 +54,11 @@ public class BMX055_Example
                                    + " z: " + data.get(2)
                                    + " degrees/s");
 
-                float dataM[] = sensor.getMagnetometer();
+                data = sensor.getMagnetometer();
 
-                System.out.println("Magnetometer x: " + dataM[0]
-                                   + " y: " + dataM[1]
-                                   + " z: " + dataM[2]
+                System.out.println("Magnetometer x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " uT");
 
                 System.out.println();
