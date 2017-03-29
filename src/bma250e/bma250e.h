@@ -95,6 +95,7 @@ extern "C" {
      * @param addr The address for this device, or -1 for SPI.
      * @param cs The gpio pin to use for the SPI Chip Select.  Use -1
      * for I2C or for SPI with a hardware controlled pin.
+     * @return The device context, or NULL if an error occurred.
      */
     bma250e_context bma250e_init(int bus, int addr, int cs);
 
@@ -575,9 +576,9 @@ extern "C" {
      * @param intr One of the BMA250E_INTERRUPT_PINS_T values
      * specifying which interrupt pin you are installing.
      * @param gpio GPIO pin to use as interrupt pin
-     * @param level The interrupt trigger level (one of mraa_gpio_edge_t
-     * values).  Make sure that you have configured the interrupt pin
-     * properly for whatever level you choose.
+     * @param level The interrupt trigger level (one of the
+     * mraa_gpio_edge_t values).  Make sure that you have configured
+     * the interrupt pin properly for whatever level you choose.
      * @param isr The interrupt handler, accepting a void * argument
      * @param arg The argument to pass to the interrupt handler
      * @return UPM result.

@@ -381,7 +381,7 @@ upm_result_t bma250e_write_reg(const bma250e_context dev,
         if (mraa_spi_transfer_buf(dev->spi, pkt, NULL, 2))
         {
             _csOff(dev);
-            printf("%s: mraa_spi_transfer_buf() failed.",
+            printf("%s: mraa_spi_transfer_buf() failed.\n",
                    __FUNCTION__);
 
             return UPM_ERROR_OPERATION_FAILED;
@@ -392,7 +392,7 @@ upm_result_t bma250e_write_reg(const bma250e_context dev,
     {
         if (mraa_i2c_write_byte_data(dev->i2c, val, reg))
         {
-            printf("%s: mraa_i2c_write_byte_data() failed.",
+            printf("%s: mraa_i2c_write_byte_data() failed.\n",
                    __FUNCTION__);
             return UPM_ERROR_OPERATION_FAILED;
         }
