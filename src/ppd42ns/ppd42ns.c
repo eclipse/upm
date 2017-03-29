@@ -82,6 +82,8 @@ void ppd42ns_close(ppd42ns_context dev)
 
     if (dev->gpio)
         mraa_gpio_close(dev->gpio);
+
+    free(dev);
 }
 
 ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev)
