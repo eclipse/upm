@@ -352,6 +352,8 @@ void bmp280_close(bmp280_context dev)
 
     if (dev->gpio)
         mraa_gpio_close(dev->gpio);
+
+    free(dev);
 }
 
 upm_result_t bmp280_update(const bmp280_context dev)
