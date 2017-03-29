@@ -76,7 +76,8 @@ typedef enum {
     UPM_ORP,
     UPM_BINARY,
     UPM_ROTARYENCODER,
-    UPM_BUTTONS
+    UPM_BUTTONS,
+    UPM_MAGNETOMETER
 } upm_sensor_t;
 
 /* Supported IO protocols via MRAA */
@@ -130,6 +131,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <fti/upm_gyroscope.h>
 #include <fti/upm_buttons.h>
 #include <fti/upm_joystick.h>
+#include <fti/upm_magnetometer.h>
 
 #ifdef __cplusplus
 }

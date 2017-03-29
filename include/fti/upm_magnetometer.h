@@ -1,8 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
- *
- * The MIT License
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,38 +21,22 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#ifndef UPM_MAGNETOMETER_H_
+#define UPM_MAGNETOMETER_H_
 
-var sensorObj = require('jsupm_bmm150');
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// Instantiate a BMM150 instance using default i2c bus and address
-var sensor = new sensorObj.BMM150();
+// Magnetometer function table
+typedef struct _upm_magnetometer_ft {
+    upm_result_t (*upm_magnetometer_set_scale) (void* dev, float* scale);
+    upm_result_t (*upm_magnetometer_set_offset) (void* dev, float* offset);
+    upm_result_t (*upm_magnetometer_get_value) (void* dev, float* value);
+} upm_magnetometer_ft;
 
-// For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-// BMM150(0, -1, 10);
+#ifdef __cplusplus
+}
+#endif
 
-// now output data every 250 milliseconds
-setInterval(function()
-{
-    // update our values from the sensor
-    sensor.update();
-
-    var data = sensor.getMagnetometer();
-    console.log("Magnetometer x: "
-                + data.get(0)
-                + " y: " + data.get(1)
-                + " z: " + data.get(2)
-                + " uT");
-
-    console.log();
-
-}, 250);
-
-// exit on ^C
-process.on('SIGINT', function()
-{
-    sensor = null;
-    sensorObj.cleanUp();
-    sensorObj = null;
-    console.log("Exiting.");
-    process.exit(0);
-});
+#endif /* UPM_MAGNETOMETER_H_ */

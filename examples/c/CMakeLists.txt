@@ -155,6 +155,7 @@ add_example (abpdrrt005pg2a5)
 add_example (lcdks)
 add_example (bmg160)
 add_example (bma250e)
+add_example (bmm150)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)
