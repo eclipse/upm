@@ -100,7 +100,7 @@ P9813::pushState(void)
     sendByte(0x00);
     sendByte(0x00);
 
-    for (uint16_t i = 0; i <= m_leds.size(); i++) {
+    for (uint16_t i = 0; i < m_leds.size(); i++) {
 	uint8_t red = m_leds[i].red;
         uint8_t green = m_leds[i].green;
         uint8_t blue = m_leds[i].blue;
