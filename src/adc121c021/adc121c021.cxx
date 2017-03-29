@@ -36,7 +36,7 @@ ADC121C021::ADC121C021(int bus, uint8_t address, float vref)
 {
   // setup our i2c link
   m_i2c = mraa_i2c_init(bus);
-  if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+  if (!m_i2c)
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_i2c_init() failed");
