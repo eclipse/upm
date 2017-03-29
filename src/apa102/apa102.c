@@ -125,10 +125,14 @@ upm_result_t apa102_set_leds_brightness(apa102_context dev, uint16_t s_index, ui
 upm_result_t apa102_refresh(apa102_context dev) {
     assert(dev != NULL);
     if(!dev->cs) {
-        mraa_spi_write_buf(dev->spi, dev->buffer, dev->framelength);
+        uint8_t* recv =
+            mraa_spi_write_buf(dev->spi, dev->buffer, dev->framelength);
+        if (recv != NULL) free(recv);
     } else {
         mraa_gpio_write(dev->cs, 1);
-        mraa_spi_write_buf(dev->spi, dev->buffer, dev->framelength);
+        uint8_t* recv =
+            mraa_spi_write_buf(dev->spi, dev->buffer, dev->framelength);
+        if (recv != NULL) free(recv);
         mraa_gpio_write(dev->cs, 0);
     }
     return UPM_SUCCESS;

@@ -165,7 +165,8 @@ void
 APA102::pushState(void)
 {
     CSOn();
-    m_spi->write(m_leds, m_frameLength);
+    uint8_t* recv = m_spi->write(m_leds, m_frameLength);
+    if (recv != NULL) free(recv);
     CSOff();
 }
 
