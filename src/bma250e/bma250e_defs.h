@@ -380,7 +380,10 @@ extern "C" {
 
         // 0x01-0x10 reserved
         BMA250E_LOW_POWER_SLEEPTIMER_MODE        = 0x20,
-        BMA250E_LOW_POWER_LOWPOWER_MODE          = 0x40  // LPM1 or LPM2 mode. see DS.
+        BMA250E_LOW_POWER_LOWPOWER_MODE          = 0x40  // LPM1 or
+                                                         // LPM2
+                                                         // mode. see
+                                                         // DS.
         // 0x80 reserved
     } BMA250E_LOW_POWER_BITS_T;
 
@@ -920,7 +923,7 @@ extern "C" {
     } BMA250E_INTERRUPT_PINS_T;
 
     // Different variants of this chip support different resolutions.
-    // The 0xf9 variant supports 10b, while the 0xfa variant (bmx050)
+    // The 0xf9 variant supports 10b, while the 0xfa variant (bmx055)
     // supports 12 bits.
     typedef enum {
         BMA250E_RESOLUTION_10BITS,
