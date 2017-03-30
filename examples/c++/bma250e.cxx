@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   // Instantiate an BMA250E using default I2C parameters
-  upm::BMA250E *sensor = new upm::BMA250E();
+  upm::BMA250E sensor;
 
   // For SPI, bus 0, you would pass -1 as the address, and a valid pin
   // for CS: BMA250E(0, -1, 10);
@@ -54,9 +54,9 @@ int main(int argc, char **argv)
     {
       float x, y, z;
 
-      sensor->update();
+      sensor.update();
 
-      sensor->getAccelerometer(&x, &y, &z);
+      sensor.getAccelerometer(&x, &y, &z);
       cout << "Accelerometer x: " << x
            << " y: " << y
            << " z: " << z
@@ -64,8 +64,8 @@ int main(int argc, char **argv)
            << endl;
 
       // we show both C and F for temperature
-      cout << "Compensation Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
+      cout << "Compensation Temperature: " << sensor.getTemperature()
+           << " C / " << sensor.getTemperature(true) << " F"
            << endl;
 
       cout << endl;
@@ -76,8 +76,6 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   cout << "Exiting..." << endl;
-
-  delete sensor;
 
   return 0;
 }

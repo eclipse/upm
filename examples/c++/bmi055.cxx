@@ -44,23 +44,23 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   // Instantiate an BMI055 using default I2C parameters
-  upm::BMI055 *sensor = new upm::BMI055();
+  upm::BMI055 sensor;
 
   // now output data every 250 milliseconds
   while (shouldRun)
     {
       float x, y, z;
 
-      sensor->update();
+      sensor.update();
 
-      sensor->getAccelerometer(&x, &y, &z);
+      sensor.getAccelerometer(&x, &y, &z);
       cout << "Accelerometer x: " << x
            << " y: " << y
            << " z: " << z
            << " g"
            << endl;
 
-      sensor->getGyroscope(&x, &y, &z);
+      sensor.getGyroscope(&x, &y, &z);
       cout << "Gyroscope x: " << x
            << " y: " << y
            << " z: " << z
@@ -75,8 +75,6 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   cout << "Exiting..." << endl;
-
-  delete sensor;
 
   return 0;
 }

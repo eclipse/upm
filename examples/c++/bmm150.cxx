@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   // Instantiate an BMM150 using default I2C parameters
-  upm::BMM150 *sensor = new upm::BMM150();
+  upm::BMM150 sensor;
 
   // For SPI, bus 0, you would pass -1 as the address, and a valid pin
   // for CS: BMM150(0, -1, 10);
@@ -54,9 +54,9 @@ int main(int argc, char **argv)
     {
       float x, y, z;
 
-      sensor->update();
+      sensor.update();
 
-      sensor->getMagnetometer(&x, &y, &z);
+      sensor.getMagnetometer(&x, &y, &z);
       cout << "Magnetometer x: " << x
            << " y: " << y
            << " z: " << z
@@ -71,8 +71,6 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   cout << "Exiting..." << endl;
-
-  delete sensor;
 
   return 0;
 }

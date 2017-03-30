@@ -44,23 +44,23 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   // Instantiate an BMC150 using default I2C parameters
-  upm::BMC150 *sensor = new upm::BMC150();
+  upm::BMC150 sensor;
 
   // now output data every 250 milliseconds
   while (shouldRun)
     {
       float x, y, z;
 
-      sensor->update();
+      sensor.update();
 
-      sensor->getAccelerometer(&x, &y, &z);
+      sensor.getAccelerometer(&x, &y, &z);
       cout << "Accelerometer x: " << x
            << " y: " << y
            << " z: " << z
            << " g"
            << endl;
 
-      sensor->getMagnetometer(&x, &y, &z);
+      sensor.getMagnetometer(&x, &y, &z);
       cout << "Magnetometer x: " << x
            << " y: " << y
            << " z: " << z
@@ -75,8 +75,6 @@ int main(int argc, char **argv)
 //! [Interesting]
 
   cout << "Exiting..." << endl;
-
-  delete sensor;
 
   return 0;
 }
