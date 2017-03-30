@@ -31,8 +31,14 @@ int main(int argc, char **argv)
 {
 //! [Interesting]
 
+#if defined(CONFIG_BOARD_ARDUINO_101)
+    // ARDUINO_101 (Quark core) where you must use SPI
+    // Instantiate a MCP2515 instance using default SPI bus and pin 10 as CS
+    mcp2515_context sensor = mcp2515_init(0, 10);
+#else
     // Instantiate a MCP2515 on SPI bus 0 using a hw CS pin (-1).
     mcp2515_context sensor = mcp2515_init(0, -1);
+#endif
 
     if (!sensor)
     {
