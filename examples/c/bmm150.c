@@ -80,7 +80,7 @@ int main(int argc, char **argv)
         }
 
         bmm150_get_magnetometer(sensor, &x, &y, &z);
-        printf("Magnetometer x: %f y: %f z: %f g\n",
+        printf("Magnetometer x: %f y: %f z: %f uT\n",
                x, y, z);
 
         upm_delay_ms(250);
