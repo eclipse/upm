@@ -342,6 +342,7 @@ add_example (hdc1000)
 add_example (bmg160)
 add_example (bma250e)
 add_example (bmm150)
+add_example (rsc)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
