@@ -21,7 +21,6 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
 #include "rsc.h"
 
 upm_result_t rsc_eeprom_read(rsc_context dev, uint16_t address, uint8_t* buf, int len, uint8_t arglen);
@@ -286,6 +285,7 @@ upm_result_t rsc_retrieve_coefficients(rsc_context dev) {
         base_address = RSC_OFFSET_COEFFICIENT_0_LSB + i*80;
         rsc_eeprom_read(dev, base_address, l_coeffs, (RSC_COEFF_ADDRESS_SPACE_SIZE), RSC_EEPROM_STANDARD_ARGUMENT_LENGTH);
 
+        // storing all the coefficients
         for(j=0; j<RSC_COEFF_T_COL_NO; j++) {
             temp = l_coeffs[j*4+0] | 
                    (l_coeffs[j*4+1]<<8) |
@@ -308,6 +308,8 @@ upm_result_t rsc_adc_write(rsc_context dev, uint8_t reg, uint8_t num_bytes, uint
         return UPM_ERROR_UNSPECIFIED;
 
     uint8_t tx[num_bytes+1];
+    // The ADC REG Write command is as follows: 0100 RRNN
+    // R - Register Number (0,1,2,3) N - Number of Bytes (0,1,2,3) (0 means 1)
     tx[0] = RSC_ADC_WREG|((reg<<2)&RSC_ADC_REG_MASK)|((num_bytes-1)&RSC_ADC_NUM_BYTES_MASK);
     int cnt = 0;
     for(cnt=0; cnt<num_bytes; cnt++)
@@ -381,6 +383,7 @@ upm_result_t rsc_adc_read(rsc_context dev, READING_T type, uint8_t* data) {
     uint8_t tx[2]={0};
     tx[0] = RSC_ADC_WREG|((1<<2)&RSC_ADC_REG_MASK);
 
+    // Composing tx[1], which includes Mode, DataRate, Pressure/Temperature choice
     tx[1] = (((dev->data_rate << RSC_DATA_RATE_SHIFT)&RSC_DATA_RATE_MASK) |
             ((dev->mode << RSC_OPERATING_MODE_SHIFT)&RSC_OPERATING_MODE_MASK) |
             (((type&0x01)<<1)|RSC_SET_BITS_MASK));
@@ -471,6 +474,7 @@ upm_result_t rsc_setup_adc(rsc_context dev, uint8_t* adc_init_values) {
 
 upm_result_t rsc_add_dr_delay(rsc_context dev) {
     float delay = 0;
+    // calculating delay based on the Data Rate
     switch(dev->data_rate){
         case N_DR_20_SPS:
             delay = MSEC_PER_SEC/20;
