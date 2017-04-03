@@ -40,7 +40,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "adis16448.h"
+#include "adis16448.hpp"
 
 int
 main(int argc, char **argv)

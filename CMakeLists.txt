@@ -419,18 +419,11 @@ set (UPM_COMMON_HEADER_DIRS
     ${CMAKE_HOME_DIRECTORY}/include
     ${CMAKE_HOME_DIRECTORY}/include/fti)
 
+# UPM source
 add_subdirectory (src)
-if(BUILDEXAMPLES)
-  add_subdirectory (examples/c)
-  if(BUILDCPP)
-    add_subdirectory (examples/c++)
-  endif(BUILDCPP)
-endif()
 
-# Build java examples
-if(BUILDSWIGJAVA AND BUILDEXAMPLES)
-  add_subdirectory (examples/java)
-endif()
+# UPM examples
+add_subdirectory (examples)
 
 # Python interp is previously found if BUILDTESTS=ON
 if (BUILDTESTS)

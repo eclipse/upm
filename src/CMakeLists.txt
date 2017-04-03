@@ -510,6 +510,11 @@ function (UPM_MIXED_MODULE_INIT)
       target_link_libraries (${libname} utilities-c)
     endif()
 
+    # Add include directories for C
+    target_include_directories (${libname} PUBLIC
+        ${UPM_COMMON_HEADER_DIRS}
+        ${CMAKE_SOURCE_DIR}/src/utilities)
+
     ## "export" the logical C lib target for the calling module's
     ## CMakeLists.txt
     set (libnamec ${libname} PARENT_SCOPE)
