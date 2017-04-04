@@ -8,6 +8,7 @@
     #include "bmpx8x.hpp"
 %}
 
+%include "bmpx8x_defs.h"
 %include "bmpx8x.hpp"
 
 %pragma(java) jniclasscode=%{

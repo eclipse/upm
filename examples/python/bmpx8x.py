@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Author: Zion Orent <zorent@ics.com>
-# Copyright (c) 2015 Intel Corporation.
+# Author: Jon Trulson <jtrulson@ics.com>
+# Copyright (c) 2014-2017 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -26,15 +27,18 @@ import time, sys, signal, atexit
 from upm import pyupm_bmpx8x as upmBmpx8x
 
 def main():
-    # Load Barometer module on i2c
-    myBarometer = upmBmpx8x.BMPX8X(0, upmBmpx8x.ADDR);
+    # Load Barometer module on i2c using default values
+    sensor = upmBmpx8x.BMPX8X(0);
 
     ## Exit handlers ##
-    # This function stops python from printing a stacktrace when you hit control-C
+
+    # This function stops python from printing a stacktrace when you hit
+    # control-C
     def SIGINTHandler(signum, frame):
         raise SystemExit
 
-    # This function lets you run code on exit, including functions from myBarometer
+    # This function lets you run code on exit, including functions
+    # from sensor
     def exitHandler():
         print("Exiting")
         sys.exit(0)
@@ -46,17 +50,19 @@ def main():
     # Print the pressure, altitude, sea level, and
     # temperature values every 0.1 seconds
     while(1):
-        outputStr = ("pressure value = {0}"
-        ", altitude value = {1}"
-        ", sealevel value = {2}"
-        ", temperature = {3}".format(
-        myBarometer.getPressure(),
-        myBarometer.getTemperature(),
-        myBarometer.getAltitude(),
-        myBarometer.getSealevelPressure()))
+        sensor.update()
+
+        outputStr = ("Pressure: {0}"
+        " Pa, Temperature: {1}"
+        " C, Altitude: {2}"
+        " m, Sea Level: {3} Pa".format(
+        sensor.getPressure(),
+        sensor.getTemperature(),
+        sensor.getAltitude(),
+        sensor.getSealevelPressure()))
 
         print(outputStr)
-        time.sleep(.1)
+        time.sleep(.5)
 
 if __name__ == '__main__':
     main()

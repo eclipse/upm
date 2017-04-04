@@ -157,6 +157,7 @@ add_example (bmg160)
 add_example (bma250e)
 add_example (bmm150)
 add_example (rsc)
+add_example (bmpx8x)
 
 # Custom examples
 add_custom_example (nmea_gps_i2c-example-c nmea_gps_i2c.c nmea_gps)

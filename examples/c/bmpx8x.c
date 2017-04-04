@@ -2,9 +2,6 @@
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2017 Intel Corporation.
  *
- * This driver was rewritten based on the original driver written by:
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- *
  * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,12 +25,11 @@
  */
 
 #include <unistd.h>
-#include <iostream>
+#include <stdio.h>
 #include <signal.h>
 
-#include "bmpx8x.hpp"
-
-using namespace std;
+#include "upm_utilities.h"
+#include "bmpx8x.h"
 
 bool shouldRun = true;
 
@@ -43,35 +39,49 @@ void sig_handler(int signo)
         shouldRun = false;
 }
 
+
 int main(int argc, char **argv)
 {
     signal(SIGINT, sig_handler);
 //! [Interesting]
 
-    // Instantiate a BMPX8X sensor on I2C using defaults.
-    upm::BMPX8X sensor;
+    // Instantiate a BMPX8X instance using default i2c bus and address
+    bmpx8x_context sensor = bmpx8x_init(BMPX8X_DEFAULT_I2C_BUS,
+                                        BMPX8X_DEFAULT_I2C_ADDR);
+
+    if (!sensor)
+    {
+        printf("bmpx8x_init() failed.\n");
+        return 1;
+    }
 
     // Print the pressure, altitude, sea level, and
     // temperature values every 0.5 seconds
     while (shouldRun)
     {
-        sensor.update();
+        if (bmpx8x_update(sensor))
+        {
+            printf("bmpx8x_update() failed\n");
+            bmpx8x_close(sensor);
+            return 1;
+        }
 
-        cout << "Pressure: "
-             << sensor.getPressure()
-             << " Pa, Temperature: "
-             << sensor.getTemperature()
-             << " C, Altitude: "
-             << sensor.getAltitude()
-             << " m, Sea level: "
-             << sensor.getSealevelPressure()
-             << " Pa"
-             << endl;
+        // assume sea level pressure is 101325 Pa.
+        float altitude = bmpx8x_get_altitude(sensor, 101325);
+        int   sealevel = bmpx8x_get_sealevel_pressure(sensor, altitude);
 
-        usleep(500000);
+        printf("Pressure: %d Pa, Temperature: %f C, "
+               "Altitude %f m, Sea level %d Pa\n",
+               bmpx8x_get_pressure(sensor),
+               bmpx8x_get_temperature(sensor),
+               altitude,
+               sealevel);
+
+        upm_delay_ms(500);
     }
 
-    cout << "Exiting..." << endl;
+    printf("Exiting...\n");
+    bmpx8x_close(sensor);
 
 //! [Interesting]
     return 0;

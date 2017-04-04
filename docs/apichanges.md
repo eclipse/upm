@@ -6,6 +6,54 @@ compatibility between releases:
 
 # current master
 
+ * **bmpx8x** This driver has been rewritten from scratch in C, with a
+ C++ wrapper.
+
+    All exported symbols have been renamed for consistancy and to
+    avoid symbol collisions by having a *BMPX8X_* prefix. As an example,
+    *ADDR* has been renamed to *BMPX8X_DEFAULT_I2C_ADDR*.  Most C
+    ported drivers follow this rule.
+
+    The *getPressureRaw()* and *getTemperatureRaw()* functions have
+    been removed.  This functionality was only needed internally to
+    the driver.
+
+    The constructor no longer accepts a mode argument.  Only the I2C
+    bus and I2C address are accepted.  By default, the device will be
+    configured for it's maximum resolution *BMPX8X_OSS_ULTRAHIGHRES*,
+    the previous default.  You can use the new method
+    *setOversampling()* to change the mode to something else if
+    desired.
+
+    The methods related to calibration, like *computeB5()* are no
+    longer exposed.
+
+    New methods, *init()* and *reset()* have been added.  *reset()*
+    resets the device to a freshly powered up state.  *init()* can be
+    used to re-initialize the device after a reset (reload calibration
+    data) and set a default oversampling mode.
+
+    A new method, *update()* has been added.  This method will update
+    all internal state from the device, and **must** be called before
+    querying the pressure, temperature, sealevel and altitude values.
+
+    The *getSeaLevelPressure()* method has been split into two
+    overloaded methods.  One which **requires** an argument in meters
+    (previously, a default was provided), and another which does not
+    accept arguments at all and computes the sea level pressure based
+    on current altitude.
+
+    The *i2cReadReg_16()*, *i2CWriteReg()* and *i2cReadReg_8()* have
+    been replaced with *readReg()*, *readRegs()*, and *writeReg()*, in
+    line with other I2C/SPI drivers of this type.  They are marked
+    protected (in C++) now as well.  Please see the updated
+    documentation and examples for this driver.
+
+ * **mma7660** This driver has been rewritten in C.  Some exported
+ symbols have been changed, for example, *MMA7660_I2C_BUS* was renamed
+ to *MMA7660_DEFAULT_I2C_BUS*.  See updated documentation and examples
+ for other changes.
+
  * **bmx055, bmi055, bmc150, bma250e, bmg160, bmm150** This driver has
  been split up.  The *bma250e*, *bmg160*, *bmm150* drivers have been
  rewritten in C (with C++ wrappers) and now reside in their own
@@ -15,14 +63,14 @@ compatibility between releases:
  and *bmc150* are still contained within the *bmx055* library, and
  also use the new libraries for their functionality.
 
- In addition, for all of these drivers some private methods are no
- longer exposed (such as the compensation routines).
+    In addition, for all of these drivers some private methods are no
+    longer exposed (such as the compensation routines).
 
- The C++ driver methods that once returned pointers to a floating
- point array now return *std::vectors* of the appropriate type.  The
- SWIG language examples for these drivers have been modified to use
- these methods instead of the C pointer based SWIG methods previously
- used.
+    The C++ driver methods that once returned pointers to a floating
+    point array now return *std::vectors* of the appropriate type.
+    The SWIG language examples for these drivers have been modified to
+    use these methods instead of the C pointer based SWIG methods
+    previously used.
 
  * **sainsmartks** This driver has been renamed to *lcdks* (LCD Keypad
  Shield) and moved into it's own library.  It uses the *lcm1602*
@@ -40,16 +88,16 @@ compatibility between releases:
  *jhd1313m1* drivers had their C++ headers renamed to use a **.hxx**
  suffix.
 
- In this version of UPM, the *lcm1602* and *jhd1313m1* drivers have
- been removed from the lcd/i2clcd library.  In addition, the header
- files for the new implementation have been renamed from their **.hxx**
- suffix to the normal **.hpp** suffix.
+    In this version of UPM, the *lcm1602* and *jhd1313m1* drivers have
+    been removed from the lcd/i2clcd library.  In addition, the header
+    files for the new implementation have been renamed from their
+    **.hxx** suffix to the normal **.hpp** suffix.
 
- A change was also made to the new *lcm1602* and *jhd1313m1* C++
- drivers.  The *createChar()* function now accepts a byte vector
- *std::vector<uint8_t>* rather than the *char ** pointer that was
- used previously.  This should make it easier to use with the SWIG
- language bindings (Python, Javascript, and especially Java).
+    A change was also made to the new *lcm1602* and *jhd1313m1* C++
+    drivers.  The *createChar()* function now accepts a byte vector
+    *std::vector<uint8_t>* rather than the *char ** pointer that was
+    used previously.  This should make it easier to use with the SWIG
+    language bindings (Python, Javascript, and especially Java).
 
  * **bmp280/bme280** Some private methods are no longer exposed (such
  as the calibration and compensation routines).  In addition,

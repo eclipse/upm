@@ -1,10 +1,11 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Contributions: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
- * Credits to Adafruit.
- * Based on Adafruit BMP085 library.
+ * This driver was rewritten based on the original driver written by:
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,182 +29,218 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.hpp>
-#include <math.h>
+
+#include "bmpx8x.h"
+
 #include "interfaces/iPressureSensor.hpp"
 #include "interfaces/iTemperatureSensor.hpp"
 
-#define ADDR               0x77 // device address
-
-// registers address
-#define BMP085_ULTRALOWPOWER 0
-#define BMP085_STANDARD      1
-#define BMP085_HIGHRES       2
-#define BMP085_ULTRAHIGHRES  3
-#define BMP085_CAL_AC1           0xAA  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC2           0xAC  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC3           0xAE  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC4           0xB0  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC5           0xB2  // R   Calibration data (16 bits)
-#define BMP085_CAL_AC6           0xB4  // R   Calibration data (16 bits)
-#define BMP085_CAL_B1            0xB6  // R   Calibration data (16 bits)
-#define BMP085_CAL_B2            0xB8  // R   Calibration data (16 bits)
-#define BMP085_CAL_MB            0xBA  // R   Calibration data (16 bits)
-#define BMP085_CAL_MC            0xBC  // R   Calibration data (16 bits)
-#define BMP085_CAL_MD            0xBE  // R   Calibration data (16 bits)
-
-#define BMP085_CONTROL           0xF4
-#define BMP085_TEMPDATA          0xF6
-#define BMP085_PRESSUREDATA      0xF6
-#define BMP085_READTEMPCMD       0x2E
-#define BMP085_READPRESSURECMD   0x34
-
-#define HIGH               1
-#define LOW                0
-
 namespace upm {
 
-/**
- * @brief Bosch BMP & GY65 Atmospheric Pressure Sensor library
- * @defgroup bmpx8x libupm-bmpx8x
- * @ingroup seeed adafruit sparkfun i2c pressure
- */
+    /**
+     * @brief Bosch BMP & GY65 Atmospheric Pressure Sensor library
+     * @defgroup bmpx8x libupm-bmpx8x @ingroup seeed adafruit sparkfun i2c
+     * pressure
+     */
 
-/**
- * @library bmpx8x
- * @sensor bmpx8x
- * @comname BMP Atmospheric Pressure Sensor
- * @altname GY65 BMP085 BMP180 BMP183
- * @type pressure
- * @man seeed adafruit sparkfun
- * @con i2c
- * @web https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf
- * @web https://www.bosch-sensortec.com/bst/products/all_products/bmp180
- * @web https://cdn-shop.adafruit.com/datasheets/1900_BMP183.pdf
- *
- * @brief API for the GY65/BMP085 and BMP180 Atmospheric Pressure Sensors
- *
- * Bosch GY65/BMP085 and BMP180 are high-precision, ultra-low
- * power consumption pressure sensors. They operate in the range of
- * 30,000-110,000 Pa.
- *
- * This module has been tested on the GY65/BMP085 and BMP180 sensors.
- *
- * @image html bmp085.jpeg
- * @snippet bmpx8x.cxx Interesting
- */
+    /**
+     * @library bmpx8x
+     * @sensor bmpx8x
+     * @comname BMP Atmospheric Pressure Sensor
+     * @altname GY65 BMP085 BMP180 BMP183
+     * @type pressure
+     * @man seeed adafruit sparkfun
+     * @con i2c
+     * @web https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf
+     * @web https://www.bosch-sensortec.com/bst/products/all_products/bmp180
+     * @web https://cdn-shop.adafruit.com/datasheets/1900_BMP183.pdf
+     *
+     * @brief API for the GY65/BMP085 and BMP180 Atmospheric Pressure Sensors
+     *
+     * Bosch GY65/BMP085 and BMP180 are high-precision, ultra-low
+     * power consumption pressure sensors. They operate in the range of
+     * 30,000-110,000 Pa.
+     *
+     * This module has been tested on the GY65/BMP085 and BMP180 sensors.
+     *
+     * @image html bmp085.jpeg
+     * @snippet bmpx8x.cxx Interesting
+     */
 
-class BMPX8X : public IPressureSensor, public ITemperatureSensor {
+    class BMPX8X : public IPressureSensor, public ITemperatureSensor {
     public:
         /**
          * Instantiates a BMPX8X object
          *
-         * @param bus Number of the used bus
-         * @param devAddr Address of the used I2C device
-         * @param mode BMP085 mode
+         * @param bus I2C bus to use.
+         * @param addr The I2C address of the device.
+         * @throws std::runtime_error on failure.
          */
-        BMPX8X (int bus, int devAddr=0x77, uint8_t mode=BMP085_ULTRAHIGHRES);
+        BMPX8X(int bus=BMPX8X_DEFAULT_I2C_BUS,
+               int addr=BMPX8X_DEFAULT_I2C_ADDR);
 
         /**
-         * BMPX8X object destructor; basically, it closes the I2C connection.
-         * ~BMPX8X ();
-         * LE: there is no need for the destructor, as the I2C connection
-         * will be closed when the m_i2ControlCtx variable will go out of
-         * scope (when all the BMPX8X objects will be destroyed)
+         * BMPX8X object destructor.
          */
-        /**
-         * Returns the calculated pressure
-         */
-        int32_t getPressure ();
+        virtual ~BMPX8X();
 
         /**
+         * Query the device and update the internal state.  This
+         * method must be called before calling getPressure(),
+         * getTemperature(), getSealevelPressure(), and getAltitude()
+         * to retrieve values.
          *
-         * Gets raw pressure data
+         * @throws std::runtime_error on failure.
          */
-        int32_t getPressureRaw ();
+        void update();
 
         /**
-         * Gets raw temperature data from the sensor
-         */
-        int16_t getTemperatureRaw ();
-
-        /**
-         * Returns the calculated temperature
-         */
-        float getTemperature ();
-
-        /**
-         * With a given absolute altitude, sea level can be calculated
+         * Reset the device to power-on defaults.  All calibration
+         * data is lost when the device is reset, so you should call
+         * init() before attempting to use the device.
          *
-         * @param altitudeMeters Altitude
+         * @throws std::runtime_error on failure.
          */
-        int32_t getSealevelPressure(float altitudeMeters = 0);
+        void reset();
 
         /**
-         * With a given sea level, altitude in meters can be calculated
+         * Initialize the device, read calibration data, and start
+         * operation.  This function is called from the constructor,
+         * so it will not typically need to be called by a user unless
+         * the device is reset.
          *
-         * @param sealevelPressure Sea level
+         * @param oss One of the BMPX8X_OSS_T values.  The
+         * default is BMPX8X_OSS_ULTRAHIGHRES.
+         * @throws std::runtime_error on failure.
          */
-        float getAltitude (float sealevelPressure = 101325);
+        void init(BMPX8X_OSS_T oss=BMPX8X_OSS_ULTRAHIGHRES);
 
         /**
-         * Return latest calculated temperature value in Celsius
-         * See ITemperatureSensor
-         */
-        int getTemperatureCelsius();
-
-        /**
-         * Return latest calculated pressure value in Pascals
-         * See IPressureSensor
-         */
-        int getPressurePa() { return getPressure(); };
-
-        /**
-         * Returns name of module. This is the string in library name
-         * after libupm_
-
-         * @return name of module
-         */
-        const char* getModuleName();
-
-        /**
-         * Calculates B5 (check the spec for more information)
+         * Set the oversampling (precision mode) of the device.
+         * Higher precision requires more time to complete.  This call
+         * takes effect the next time update() is called.
          *
-         * @param UT
+         * @param oss One of the BMPX8X_OSS_T values.  The
+         * default is BMPX8X_OSS_ULTRAHIGHRES.
          */
-        int32_t computeB5 (int32_t UT);
+        void setOversampling(BMPX8X_OSS_T oss=BMPX8X_OSS_ULTRAHIGHRES);
 
         /**
-         * Reads a two-byte register
+         * Returns the calculated pressure in Pascals.  update() must
+         * have been called prior to calling this function.
          *
-         * @param reg Address of the register
+         * @returns The pressure in Pascals.
          */
-        uint16_t i2cReadReg_16 (int reg);
+        int getPressure();
 
         /**
-         * Writes to a one-byte register
+         * Returns the calculated temperature in Celsius.  update()
+         * must have been called prior to calling this function.
          *
-         * @param reg Address of the register
-         * @param value Byte to be written
+         * @returns The temperature in Celsius.
          */
-        mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
+        float getTemperature();
 
         /**
-         * Reads a one-byte register
+         * Using the supplied altitude in meters, compute the pressure
+         * at sea level in Pascals.  update() must have been called
+         * prior to calling this function.
          *
-         * @param reg Address of the register
+         * @param meters The altitude in meters.
+         * @returns The computed sea level pressure in Pascals.
          */
-        uint8_t i2cReadReg_8 (int reg);
+        int getSealevelPressure(float meters);
+
+        /**
+         * Using the current calculated altitude, compute the pressure
+         * at sea level in Pascals.  update() must have been called
+         * prior to calling this function.
+         *
+         * @returns The computed sea level pressure in Pascals.
+         */
+        int getSealevelPressure()
+        {
+            return getSealevelPressure(getAltitude());
+        }
+
+        /**
+         * Calculate the current altitude in meters, given a sea level
+         * pressure in Pascals.  The default sea level pressure is
+         * 101325 Pascals.  update() must have been called prior to
+         * calling this function.
+         *
+         * @param sealevelPressure The pressure at sea level in
+         * Pascals.  The default is 101325 Pascals.
+         * @returns the computed altitude in meters.
+         */
+        float getAltitude(int sealevelPressure = 101325);
+
+        /**
+         * Return latest calculated temperature value in Celsius.  See
+         * ITemperatureSensor.
+         *
+         * @return The current temperature in Celsius.
+         */
+        int getTemperatureCelsius()
+        {
+            update();
+            return (int)getTemperature();
+        }
+
+        /**
+         * Return latest calculated pressure value in Pascals.  See
+         * IPressureSensor.
+         *
+         * @return The current pressure in Pascals.
+         */
+        int getPressurePa()
+        {
+            update();
+            return getPressure();
+        }
+
+        /**
+         * Returns the name of module.
+         *
+         * @return The name of the module.
+         */
+        const char *getModuleName()
+        {
+            return "BMPX8X";
+        }
+
+    protected:
+        // our underlying C context.
+        bmpx8x_context m_bmpx8x;
+
+        /**
+         * Read a register.
+         *
+         * @param reg The register to read.
+         * @return The value of the register.
+         */
+        uint8_t readReg(uint8_t reg);
+
+        /**
+         * Read contiguous registers into a buffer.
+         *
+         * @param buffer The buffer to store the results.
+         * @param len The number of registers to read.
+         * @return The number of bytes read.
+         * @throws std::runtime_error on failure.
+         */
+        int readRegs(uint8_t reg, uint8_t *buffer, int len);
+
+        /**
+         * Write to a register.
+         *
+         * @param reg The register to write to.
+         * @param val The value to write.
+         * @throws std::runtime_error on failure.
+         */
+        void writeReg(uint8_t reg, uint8_t val);
 
     private:
-        std::string m_name;
-
-        int m_controlAddr;
-        mraa::I2c m_i2ControlCtx;
-
-        uint8_t oversampling;
-        int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
-        uint16_t ac4, ac5, ac6;
-};
+    };
 
 }
