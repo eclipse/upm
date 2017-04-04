@@ -30,7 +30,7 @@ sensors and actuators and provide feedback on interface design.
 A sensor/actuator is expected to work as such (here is the MMA7660 accelerometer API):
 ```C++
   // Instantiate an MMA7660 on I2C bus 0
-  upm::MMA7660 *accel = new upm::MMA7660(MMA7660_I2C_BUS,
+  upm::MMA7660 *accel = new upm::MMA7660(MMA7660_DEFAULT_I2C_BUS,
                                          MMA7660_DEFAULT_I2C_ADDR);
 
   // place device in standby mode so we can write registers
@@ -136,7 +136,8 @@ our API in a way that will break backwards compatibility. If you find yourself
 unable to compile code that was working fine before a library update, make sure
 you check the [API changes](docs/apichanges.md) section first.
 
-**NOTE** - Our **C++ header files** changed extension from *.h* to *.hpp*!
+**NOTE** - Several important API changes are currently underway for some of our
+widely used libraries including `libupm-grove` and `libupm-i2clcd`!
 
 ### Changelog
 Version changelog [here](docs/changelog.md).
