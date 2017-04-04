@@ -49,6 +49,7 @@ void stop()
 
 int main()
 {
+    //! [Interesting]
     long id = 0; // Sample number
     string fileName = "./ads1015.data"; // Output filename
     ofstream f;
@@ -97,6 +98,7 @@ int main()
         return 1;
     }
     cout << "Wrote " << id << " samples to file: " << fileName << endl;
+    //! [Interesting]
     return 0;
 }
 
