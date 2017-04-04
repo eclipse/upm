@@ -137,10 +137,7 @@ string RSC::getPressureType()
 uint8_t *RSC::getInitialADCState()
 {
     uint8_t initialState[4]={0,0,0,0};
-    if(rsc_get_initial_adc_values(m_rsc, initialState) != UPM_SUCCESS) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-            ": Unable to read the ADC state from the eeprom");
-    }
+    rsc_get_initial_adc_values(m_rsc, initialState);
     int cnt = 0;
     for (cnt = 0; cnt<4; cnt++)
         m_adc_coeff[cnt]=initialState[cnt];
@@ -176,16 +173,10 @@ float RSC::getPressure()
 
 void RSC::setMode(RSC_MODE mode)
 {
-    if(rsc_set_mode(m_rsc, mode) != UPM_SUCCESS){
-        throw std::runtime_error(std::string(__FUNCTION__) +
-            ": Unable to set the ADC mode");
-    }
+    rsc_set_mode(m_rsc, mode);
 }
 
 void RSC::setDataRate(RSC_DATA_RATE dr)
 {
-    if(rsc_set_data_rate(m_rsc, dr) != UPM_SUCCESS) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-            ": Unable to set the ADC data rate");
-    }
+    rsc_set_data_rate(m_rsc, dr);
 }

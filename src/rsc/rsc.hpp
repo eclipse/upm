@@ -242,6 +242,7 @@ namespace upm {
 
     private:
         rsc_context m_rsc;
+        RSC(const RSC& src) { /* do not create copied */}
         uint8_t m_adc_coeff[4];
     };
 }

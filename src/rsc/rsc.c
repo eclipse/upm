@@ -161,7 +161,9 @@ upm_result_t rsc_eeprom_read(rsc_context dev, uint16_t address, uint8_t* buf, in
 
 upm_result_t rsc_get_sensor_name(rsc_context dev, uint8_t* sensor_name) {
     rsc_set_access_type(dev, EEPROM);
-    rsc_eeprom_read(dev, RSC_CATALOG_LISTING_MSB, sensor_name, RSC_SENSOR_NAME_LEN, RSC_EEPROM_STANDARD_ARGUMENT_LENGTH);
+    if(rsc_eeprom_read(dev, RSC_CATALOG_LISTING_MSB, sensor_name, RSC_SENSOR_NAME_LEN, RSC_EEPROM_STANDARD_ARGUMENT_LENGTH) != UPM_SUCCESS) {
+        return UPM_ERROR_OPERATION_FAILED;
+    }
 
     sensor_name[RSC_SENSOR_NAME_LEN-1]='\0'; 
 
@@ -170,7 +172,9 @@ upm_result_t rsc_get_sensor_name(rsc_context dev, uint8_t* sensor_name) {
 
 upm_result_t rsc_get_sensor_serial_number(rsc_context dev, uint8_t* rsc_number) {
     rsc_set_access_type(dev, EEPROM);
-    rsc_eeprom_read(dev, RSC_SERIAL_NO_YYYY_MSB, rsc_number, RSC_SENSOR_NUMBER_LEN, RSC_EEPROM_STANDARD_ARGUMENT_LENGTH);
+    if(rsc_eeprom_read(dev, RSC_SERIAL_NO_YYYY_MSB, rsc_number, RSC_SENSOR_NUMBER_LEN, RSC_EEPROM_STANDARD_ARGUMENT_LENGTH) != UPM_SUCCESS) {
+        return UPM_ERROR_OPERATION_FAILED;
+    }
 
     rsc_number[RSC_SENSOR_NUMBER_LEN-1]='\0';
 
@@ -283,7 +287,9 @@ upm_result_t rsc_retrieve_coefficients(rsc_context dev) {
         // of the address spaces of all the 3 coefficient groups
         // refer the datasheet for more info
         base_address = RSC_OFFSET_COEFFICIENT_0_LSB + i*80;
-        rsc_eeprom_read(dev, base_address, l_coeffs, (RSC_COEFF_ADDRESS_SPACE_SIZE), RSC_EEPROM_STANDARD_ARGUMENT_LENGTH);
+        if(rsc_eeprom_read(dev, base_address, l_coeffs, (RSC_COEFF_ADDRESS_SPACE_SIZE), RSC_EEPROM_STANDARD_ARGUMENT_LENGTH) != UPM_SUCCESS) {
+            return UPM_ERROR_OPERATION_FAILED;
+        }
 
         // storing all the coefficients
         for(j=0; j<RSC_COEFF_T_COL_NO; j++) {
@@ -304,7 +310,7 @@ upm_result_t rsc_adc_write(rsc_context dev, uint8_t reg, uint8_t num_bytes, uint
         return UPM_ERROR_UNSPECIFIED;
 
     // the ADC registers are 0,1,2,3
-    if(reg < 0 || reg >3)
+    if(reg >3)
         return UPM_ERROR_UNSPECIFIED;
 
     uint8_t tx[num_bytes+1];
