@@ -1,11 +1,11 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
-%module pyupm_abpdrrt005pg2a5
+%module pyupm_abp
 %include "../upm.i"
 
 %feature("autodoc", "3");
 
-%include "abpdrrt005pg2a5.hpp"
+%include "abp.hpp"
 %{
-    #include "abpdrrt005pg2a5.hpp"
+    #include "abp.hpp"
 %}

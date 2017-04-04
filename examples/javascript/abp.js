@@ -22,14 +22,16 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var abpdrrt005pg2a5 = require("jsupm_abpdrrt005pg2a5");
+var abp = require("jsupm_abp");
 
 // Instantiate a Honeywell ABP Pressure Sensor at bus 0
-var abp_sensor = new abpdrrt005pg2a5.ABPDRRT005PG2A5(0, 0x28);
+var abp_sensor = new abp.ABP(0, 0x28);
 
 var myInterval = setInterval(function()
 {
-	console.log("Pressure Pascal: " + abp_sensor.get_pressure_pascal());
+	abp_sensor.update();
+	console.log("Pressure: " + abp_sensor.getPressure());
+	console.log("Temperature: " + abp_sensor.getTemperature());
 }, 100);
 
 // When exiting: clear interval and print message

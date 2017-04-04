@@ -23,11 +23,11 @@
 
 from __future__ import print_function
 import time, sys, signal, atexit
-from upm import pyupm_abpdrrt005pg2a5 as abpdrrt005pg2a5
+from upm import pyupm_abp as abp
 
 def main():
     # Instantiate a Honeywell ABP Pressure sensor on the I2C bus 0
-    abp_sensor = abpdrrt005pg2a5.ABPDRRT005PG2A5(0, 0x28);
+    abp_sensor = abp.ABP(0, 0x28);
 
     ## Exit handlers ##
     # This function stops python from printing a stacktrace when you hit control-C
@@ -45,9 +45,10 @@ def main():
 
     # Read the value every second and detect the pressure
     while(1):
-        print("Pressure PSI: {0}".format(abp_sensor.get_pressure_psi()))
-        print("Pressure Pascal: {0}".format(abp_sensor.get_pressure_pascal()))
-        time.sleep(.1)
+        abp_sensor.update()
+        print("Pressure: {0}".format(abp_sensor.getPressure()))
+        print("Temperature: {0}".format(abp_sensor.getTemperature()))
+        time.sleep(1)
 
 if __name__ == '__main__':
     main()

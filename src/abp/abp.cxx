@@ -26,43 +26,45 @@
 #include <string>
 #include <stdexcept>
 
-#include "abpdrrt005pg2a5.hpp"
+#include "abp.hpp"
 
 using namespace upm;
 
-ABPDRRT005PG2A5::ABPDRRT005PG2A5(int bus, int devAddress) :
-    m_abpdrrt005pg2a5(abpdrrt005pg2a5_init(bus, devAddress))
+ABP::ABP(int bus, int devAddress) :
+    m_abp(abp_init(bus, devAddress))
 {
-    if(!m_abpdrrt005pg2a5)
+    if(!m_abp)
         throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": abpdrrt005pg2a5_init failed");
+                                ": abp_init failed");
 }
 
-ABPDRRT005PG2A5::~ABPDRRT005PG2A5()
+ABP::~ABP()
 {
-    abpdrrt005pg2a5_close(m_abpdrrt005pg2a5);
+    abp_close(m_abp);
 }
 
-float ABPDRRT005PG2A5::get_pressure_psi()
+void ABP::update()
 {
-    float psi_pressure;
-	if(abpdrrt005pg2a5_get_pressure_psi(m_abpdrrt005pg2a5, &psi_pressure) != UPM_SUCCESS) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": abpdrrt005pg2a5_get_pressure_psi unable to get " + 
-                                "pressure from sensor");
-    }
-
-    return psi_pressure;
+    if(abp_update(m_abp) != UPM_SUCCESS)
+        std::cout << " ABP sensor unable to update data" << std::endl;
 }
 
-float ABPDRRT005PG2A5::get_pressure_pascal()
+float ABP::getPressure()
 {
-    float pascal_pressure;
-    if(abpdrrt005pg2a5_get_pressure_pascal(m_abpdrrt005pg2a5, &pascal_pressure) != UPM_SUCCESS) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": abpdrrt005pg2a5_get_pressure_pascal unable to get " + 
-                                "pressure from sensor");
-    }
+    return abp_get_pressure(m_abp);
+}
 
-    return pascal_pressure;
+float ABP::getTemperature()
+{
+    return abp_get_temperature(m_abp);
+}
+
+void ABP::setMaxPressure(int max)
+{
+    abp_set_max_pressure(m_abp, max);
+}
+
+void ABP::setMinPressure(int min)
+{
+    abp_set_min_pressure(m_abp, min);
 }

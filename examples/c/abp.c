@@ -27,28 +27,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "abpdrrt005pg2a5.h"
+#include "abp.h"
 
 #include "upm_utilities.h"
 
 int main()
 {
-    abpdrrt005pg2a5_context dev = abpdrrt005pg2a5_init(0, ABPDRRT005PG2A5_ADDRESS);
+    abp_context dev = abp_init(0, ABP_DEFAULT_ADDRESS);
     if(dev == NULL) {
         printf("Unable to initialize sensor\n");
         return 0;
     }
-    float psi = 0;
-    float pascal = 0;
+
     while(1){
-        if(abpdrrt005pg2a5_get_pressure_psi(dev, &psi) != UPM_SUCCESS){
-            printf("error in retrieving the psi value\n");
-        }
-        if(abpdrrt005pg2a5_get_pressure_pascal(dev, &pascal) != UPM_SUCCESS){
-            printf("error in retrieving the pascal value\n");
-        }
+        abp_update(dev);
+        printf("Retrieved pressure value: %f\n", abp_get_pressure(dev));
+        printf("Retrieved temperature value: %f\n", abp_get_temperature(dev));
         upm_delay(1);
-        printf("PSI Value: %f and Pascal Value: %f\n", psi, pascal);
     }
 
     return 0;
