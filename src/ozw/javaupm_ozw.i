@@ -7,10 +7,6 @@
 
 %apply unsigned char *OUTPUT { uint8_t *val };
 
-%inline %{
-    extern void setValueAsBytes(int nodeId, int index, uint8_t *val, uint8_t len);
-%}
-
 %include "ozw.hpp"
 %{
     #include "ozw.hpp"
