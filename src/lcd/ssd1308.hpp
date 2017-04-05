@@ -51,7 +51,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * Display module, which is an OLED monochrome display.
  *
  * @image html ssd1308.jpeg
- * @snippet ssd1308-oled.cxx Interesting
+ * @snippet i2clcd-ssd1308-oled.cxx Interesting
  */
 class SSD1308 : public LCD
 {

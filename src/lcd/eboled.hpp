@@ -79,7 +79,7 @@ namespace upm
    * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
    * CC BY-NC-SA-3.0</a>.</em>
    *
-   * @snippet eboled.cxx Interesting
+   * @snippet i2clcd-eboled.cxx Interesting
    */
   class EBOLED : public LCD
   {

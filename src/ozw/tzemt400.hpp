@@ -34,6 +34,7 @@ namespace upm {
    * @sensor tzemt400
    * @comname Trane TZEMT400 Z-Wave Thermostat.
    * @con uart
+   * @snippet ozw-tzemt400.cxx Interesting
    * @man trane
    *
    * @brief UPM API for Trane TZEMT400 Z-Wave Thermostat

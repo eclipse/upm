@@ -81,6 +81,7 @@ namespace upm {
    *
    * @image html ads1115.jpg
    * @snippet ads1x15.cxx Interesting
+   * @snippet ads1x15-ads1115.cxx Interesting
    */
     class ADS1115 : public ADS1X15 {
 

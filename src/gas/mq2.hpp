@@ -46,7 +46,7 @@ namespace upm {
    * sensor with a detection range of 300-10,000 ppm.
    *
    * @image html mq2-5.jpeg
-   * @snippet mq2.cxx Interesting
+   * @snippet gas-mq2.cxx Interesting
    */
     class MQ2 : public Gas {
         public:

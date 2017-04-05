@@ -61,7 +61,7 @@ namespace upm {
      * simply initializes both devices, and provides a mechanism to
      * read accelerometer and gyroscope data from them.
      *
-     * @snippet bmi055.cxx Interesting
+     * @snippet bmx055-bmi055.cxx Interesting
      */
 
     class BMI055 {

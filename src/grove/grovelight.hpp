@@ -52,7 +52,7 @@ namespace upm {
  * An approximate lux value can also be returned.
  *
  * @image html grovelight.jpg
- * @snippet grovelight.cxx Interesting
+ * @snippet grove-grovelight.cxx Interesting
  */
 class GroveLight: public Grove {
     public:

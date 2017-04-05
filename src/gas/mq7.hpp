@@ -47,7 +47,7 @@ namespace upm {
    * 48 hours.  See the datasheet for details.
    *
    * @image html mq3-9.jpeg
-   * @snippet mq7.cxx Interesting
+   * @snippet gas-mq7.cxx Interesting
    */
     class MQ7 : public Gas {
         public:

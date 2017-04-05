@@ -51,7 +51,7 @@ namespace upm {
  * to do the same relative to the center of the knob's range.
  *
  * @image html rotaryencoder.jpg
- * @snippet groverotary.cxx Interesting
+ * @snippet grove-groverotary.cxx Interesting
  */
 class GroveRotary: public Grove {
     public:

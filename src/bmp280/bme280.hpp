@@ -54,7 +54,7 @@ namespace upm {
      * performance compatible to the Bosch Sensortec BMP280 digital
      * pressure sensor.
      *
-     * @snippet bme280.cxx Interesting
+     * @snippet bmp280-bme280.cxx Interesting
      */
 
     class BME280 : public BMP280, public IHumiditySensor {

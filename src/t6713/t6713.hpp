@@ -51,7 +51,7 @@ namespace upm {
  * is a CO2 Module sensor.
  *
  * @snippet t6713.cxx Interesting
- * @snippet co2-sensor.cxx Interesting
+ * @snippet t6713-co2-sensor.cxx Interesting
  */
 
 namespace t6713_co2

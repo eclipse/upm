@@ -36,6 +36,7 @@ namespace upm {
    * @altname DSB29
    * @type wifi
    * @con uart
+   * @snippet ozw-aeotecdw2e.cxx Interesting
    * @man aeon
    * @web http://aeotec.com/z-wave-door-window-sensor
    *

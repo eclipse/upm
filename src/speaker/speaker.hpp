@@ -65,6 +65,7 @@ namespace upm {
      *
      * @image html speaker.jpg
      * @snippet speaker.cxx Interesting
+     * @snippet speaker-pwm.cxx Interesting
      */
     class Speaker {
     public:

@@ -56,7 +56,7 @@ namespace upm {
      * frequencies based on the input voltage.
      *
      * @image html buzzer.jpg
-     * @snippet buzzer-sound.cxx Interesting
+     * @snippet buzzer.cxx Interesting
      */
 
     class Buzzer {

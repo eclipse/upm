@@ -48,7 +48,7 @@ namespace upm {
  * maximum period.
  *
  * @image html es08a.jpg
- * @snippet es08a.cxx Interesting
+ * @snippet servo-es08a.cxx Interesting
  */
  class ES08A : public Servo {
     public:

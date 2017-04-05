@@ -48,6 +48,7 @@ namespace upm
  * @type light
  * @man maxim
  * @con i2c
+ * @snippet ds1808lc.cxx Interesting
  * @if ilightcontroller
  */
 class DS1808LC : public upm::ILightController

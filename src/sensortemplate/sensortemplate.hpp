@@ -59,7 +59,7 @@ namespace upm
  * board-specifics, testing, etc...
  *
  * @image html sensortemplate.png
- * @snippet <example-name.cxx> Interesting
+ * @snippet sensortemplate.cxx Interesting
  */
 
 class SensorTemplate

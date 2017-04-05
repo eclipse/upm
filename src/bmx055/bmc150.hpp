@@ -67,7 +67,7 @@ namespace upm {
      * initializes both devices, and provides a mechanism to read
      * accelerometer and magnetometer data from them.
      *
-     * @snippet bmc150.cxx Interesting
+     * @snippet bmx055-bmc150.cxx Interesting
      */
 
     class BMC150 {

@@ -57,7 +57,7 @@ namespace upm {
    * required.
    *
    * @image html mpu60x0.jpg
-   * @snippet mpu60x0.cxx Interesting
+   * @snippet mpu9150-mpu60x0.cxx Interesting
    */
   class MPU60X0 {
   public:

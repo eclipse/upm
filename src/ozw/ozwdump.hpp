@@ -41,7 +41,7 @@ namespace upm {
    * (ozwdump), which initializes OZW on a Z-Wave network, and then
    * prints out all Nodes (devices) and their associated valueids.
    *
-   * @snippet ozwdump.cxx
+   * @snippet ozw-ozwdump.cxx Interesting
    */
 
   class OZWDUMP : public ozwInterface {

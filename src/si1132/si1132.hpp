@@ -52,6 +52,7 @@ namespace upm {
  * @man silabs
  * @web http://www.silabs.com/products/sensors/infraredsensors/Pages/si1132.aspx
  * @con i2c
+ * @snippet si1132.cxx Interesting
  * @if ilightsensor
 
  */

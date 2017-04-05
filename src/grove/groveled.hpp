@@ -53,8 +53,8 @@ namespace upm {
  * to the cathode, while the rounded side corresponds to the anode.
  *
  * @image html groveled.jpg
- * @snippet groveled.cxx Interesting
- * @snippet groveled-multi.cxx Interesting
+ * @snippet grove-groveled.cxx Interesting
+ * @snippet grove-groveled-multi.cxx Interesting
  */
 class GroveLed: public Grove {
     public:

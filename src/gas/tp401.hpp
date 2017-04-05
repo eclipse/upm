@@ -50,7 +50,7 @@ namespace upm {
    * operation to stabilize completely.
    *
    * @image html tp401.jpeg
-   * @snippet tp401.cxx Interesting
+   * @snippet gas-tp401.cxx Interesting
    */
     class TP401 : public Gas {
         public:

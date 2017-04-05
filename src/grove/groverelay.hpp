@@ -51,7 +51,7 @@ namespace upm {
  * the indicator LED lights up and current is allowed to flow.
  *
  * @image html groverelay.jpg
- * @snippet groverelay.cxx Interesting
+ * @snippet grove-groverelay.cxx Interesting
  */
 class GroveRelay: public Grove {
     public:

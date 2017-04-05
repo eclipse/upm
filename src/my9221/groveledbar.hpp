@@ -60,7 +60,7 @@ namespace upm {
    * so that this module can control multiple LED bars.
    *
    * @image html my9221.jpg
-   * @snippet groveledbar.cxx Interesting
+   * @snippet my9221-groveledbar.cxx Interesting
    */
 
   class GroveLEDBar : public MY9221 {

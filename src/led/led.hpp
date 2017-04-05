@@ -57,8 +57,7 @@ namespace upm {
  * to the cathode, while the rounded side corresponds to the anode.
  *
  * @image html led.jpg
- * @snippet groveled.cxx Interesting
- * @snippet groveled-multi.cxx Interesting
+ * @snippet led.cxx Interesting
  */
 class Led {
     public:

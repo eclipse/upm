@@ -48,7 +48,7 @@ namespace upm {
  * returns either a raw value or a scaled voltage value.
  *
  * @image html slide.jpg
- * @snippet groveslide.cxx Interesting
+ * @snippet grove-groveslide.cxx Interesting
  */
 class GroveSlide: public Grove {
     public:

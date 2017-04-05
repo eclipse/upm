@@ -49,7 +49,7 @@ namespace upm {
  * Basic UPM module for the Grove button
  *
  * @image html grovebutton.jpg
- * @snippet grovebutton.cxx Interesting
+ * @snippet grove-grovebutton.cxx Interesting
  */
 class GroveButton: public Grove {
     public:

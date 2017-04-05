@@ -103,7 +103,7 @@ namespace upm {
  * @web https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44009.html
  * @if ilightsensor
  *
- * @snippet iLightSensor.hpp Interesting
+ * @snippet max44009.cxx Interesting
  *
  */
 class MAX44009 : public ILightSensor {

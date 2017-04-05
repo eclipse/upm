@@ -52,7 +52,7 @@ namespace upm {
  * device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.
  *
  * @image html grovetemp.jpg
- * @snippet grovetemp.cxx Interesting
+ * @snippet grove-grovetemp.cxx Interesting
  */
 class GroveTemp: public Grove {
     public:

@@ -56,7 +56,7 @@ namespace upm {
    * with a rotary encoder and has 24 controllable LEDs.
    *
    * @image html grovecircularled.jpg
-   * @snippet grovecircularled.cxx Interesting
+   * @snippet my9221-grovecircularled.cxx Interesting
    */
 
   class GroveCircularLED : public MY9221 {

@@ -47,6 +47,7 @@ namespace upm
  * @type light
  * @man ti
  * @con i2c
+ * @snippet lp8860.cxx Interesting
  * @web http://www.ti.com/product/LP8860-Q1
  * @if ilightcontroller
  *

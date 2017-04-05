@@ -82,6 +82,8 @@ namespace upm {
    *
    * @image html ads1015.jpg
    * @snippet ads1x15.cxx Interesting
+   * @snippet ads1x15-ads1015.cxx Interesting
+   * @snippet ads1x15-adc-sensor.cxx Interesting
    */
     class ADS1015 : public ADS1X15, public IADC {
 

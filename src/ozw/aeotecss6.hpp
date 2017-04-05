@@ -34,6 +34,7 @@ namespace upm {
    * @sensor ss6
    * @comname Aeotec Smart Switch 6
    * @con uart
+   * @snippet ozw-aeotecss6.cxx Interesting
    * @type wifi
    * @man aeon
    * @web http://aeotec.com/z-wave-plug-in-switch

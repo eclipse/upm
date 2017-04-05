@@ -41,6 +41,7 @@ namespace upm {
      * @comname Generic AT Command Based UART Device
      * @type other
      * @con uart
+     * @snippet uartat-le910.cxx Interesting
      *
      * @brief API for a Generic AT command based UART device
      *

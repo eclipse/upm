@@ -45,7 +45,7 @@ namespace upm {
    * detection range is 0.04-4 mg/L Alcohol.
    *
    * @image html mq3-9.jpeg
-   * @snippet mq3.cxx Interesting
+   * @snippet gas-mq3.cxx Interesting
    */
     class MQ3 : public Gas {
         public:

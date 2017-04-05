@@ -52,7 +52,7 @@ namespace upm {
  * This module defines the LoL API and implementation for a simple framebuffer.
  *
  * @image html lolshield.jpg
- * @snippet lol-example.cxx Interesting
+ * @snippet lol.cxx Interesting
  */
 class LoL {
     public:

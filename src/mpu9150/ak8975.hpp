@@ -48,7 +48,7 @@ namespace upm {
    * coupled with another device (such as the mcu9150 9-axis motion
    * sensor).
    *
-   * @snippet ak8975.cxx Interesting
+   * @snippet mpu9150-ak8975.cxx Interesting
    */
   class AK8975 {
   public:

@@ -61,7 +61,7 @@ namespace upm {
    * An example using the UART.
    * @snippet nmea_gps.cxx Interesting
    * An example using I2C.
-   * @snippet nmea_gps_i2c.cxx Interesting
+   * @snippet nmea_gps-i2c.cxx Interesting
    */
 
   class NMEAGPS {

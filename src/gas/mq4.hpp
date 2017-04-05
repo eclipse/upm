@@ -47,7 +47,7 @@ namespace upm {
    * at least 24 hours.  See the datasheet for details.
    *
    * @image html mq2-5.jpeg
-   * @snippet mq4.cxx Interesting
+   * @snippet gas-mq4.cxx Interesting
    */
     class MQ4 : public Gas {
         public:

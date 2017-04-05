@@ -52,7 +52,7 @@ namespace upm {
  * 2-axis analog joystick.
  *
  * @image html joystick12.jpg
- * @snippet joystick12-example.cxx Interesting
+ * @snippet joystick12.cxx Interesting
  */
 class Joystick12 {
     public:
