@@ -122,6 +122,7 @@ int main(int argc, char **argv)
   cout << "Exiting..." << endl;
 
   delete sensor;
+//! [Interesting]
 
   return 0;
 }

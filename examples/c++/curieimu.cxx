@@ -76,6 +76,7 @@ main(int argc, char **argv)
     printf("motion is: %d, %d, %d, %d, %d, %d\n", m, n, o, p, q, r);
 
     delete sensor;
+    //! [Interesting]
 
     return 0;
 }

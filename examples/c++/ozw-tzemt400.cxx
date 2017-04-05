@@ -110,5 +110,6 @@ int main(int argc, char **argv)
 
   delete sensor;
 
+//! [Interesting]
   return 0;
 }

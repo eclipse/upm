@@ -31,6 +31,7 @@
 using namespace std;
 using namespace upm;
 
+//! [Interesting]
 int main(int argc, char **argv)
 {
   // Instantiate a NLGPIO16 Module on the default UART (/dev/ttyACM0)

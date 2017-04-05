@@ -30,6 +30,7 @@
 #define EDISON_GPIO_SI7005_CS 20
 
 
+//! [Interesting]
 int main ()
 {
    try {
@@ -47,5 +48,4 @@ int main ()
    }
    return 0;
 }
-
 //! [Interesting]
