@@ -36,9 +36,9 @@ namespace upm {
     /**
      * @library rsc
      * @sensor rsc
-     * @comname Honeywell TruStability Boardmount Pressure Sensors
-     * @altname TruStability Pressure and Temperature Sensors
-     * @type pressure temperature
+     * @comname Honeywell RSC TruStability Pressure and Temperature Sensors
+     * @altname Honeywell RSC TruStability Boardmount Pressure Sensors
+     * @type pressure temp
      * @man honeywell
      * @con spi
      * @snippet rsc.cxx Interesting
@@ -244,6 +244,7 @@ namespace upm {
     private:
         rsc_context m_rsc;
         RSC(const RSC& src) { /* do not create copied */}
+        RSC& operator=(const RSC&) {return *this;}
         uint8_t m_adc_coeff[4];
     };
 }

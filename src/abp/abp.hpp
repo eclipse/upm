@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library abp
  * @sensor abp
- * @comname ABP Honeywell Pressure and Temperature Sensor
+ * @comname Honeywell ABP Pressure and Temperature Sensor
  * @type other
  * @man Honeywell
  * @web https://sensing.honeywell.com/honeywell-sensing-basic-board-mount-pressure-sensors-abp-series-datasheet-323005128-c-en.pdf
