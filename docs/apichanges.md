@@ -6,10 +6,46 @@ compatibility between releases:
 
 # current master
 
+ * **Note for all drivers ported to C** As a general note concerning
+ all of the drivers that have been ported to C: **external constants
+ have likely been renamed**.  Previously in C++, most these constants
+ were defined as enums in the *upm::classname* namespace.
+
+    For drivers written in C, all of these constants are no longer in
+    a class (or UPM) namespace, and instead have the driver name
+    prefixed to the original value.
+
+    The driver name is prefixed to these constants to avoid name
+    collisions when using multiple drivers in a given application, and
+    to make it clear which constants belong to which driver.
+
+    For drivers that used *#define* for constants, only the prefix has
+    been added if not already present.  In some cases, names that were
+    not very descriptive were changed, for example *ADDR* renamed to
+    *BMPX8X_DEFAULT_I2C_ADDR*.
+
+    So for example, a constant that might once have been referred to
+    in a C++ example as *upm::MMA7660::AUTOSLEEP_64*, would now be
+    referenced as *MMA7660_AUTOSLEEP_64*.
+
+    This holds true for most, if not all drivers that have been ported
+    to C.  Not all of these changes are listed in this file due to the
+    sheer number of them.
+
+    If you run into problems with constants that were working
+    previously, and now cannot be found, this is likely the reason.
+    Check the driver documentation and the source code to see what the
+    new name is.
+
+    In C, constants are now usually implemented in a separate header
+    file named *drivername_defs.h* or *drivername_regs.h*, for easier
+    integration into the SWIG languages, and shared use between C++ and
+    C implementations.
+
  * **bmpx8x** This driver has been rewritten from scratch in C, with a
  C++ wrapper.
 
-    All exported symbols have been renamed for consistancy and to
+    All exported symbols have been renamed for consistency and to
     avoid symbol collisions by having a *BMPX8X_* prefix. As an example,
     *ADDR* has been renamed to *BMPX8X_DEFAULT_I2C_ADDR*.  Most C
     ported drivers follow this rule.
@@ -35,7 +71,7 @@ compatibility between releases:
 
     A new method, *update()* has been added.  This method will update
     all internal state from the device, and **must** be called before
-    querying the pressure, temperature, sealevel and altitude values.
+    querying the pressure, temperature, sea level and altitude values.
 
     The *getSeaLevelPressure()* method has been split into two
     overloaded methods.  One which **requires** an argument in meters
@@ -51,8 +87,9 @@ compatibility between releases:
 
  * **mma7660** This driver has been rewritten in C.  Some exported
  symbols have been changed, for example, *MMA7660_I2C_BUS* was renamed
- to *MMA7660_DEFAULT_I2C_BUS*.  See updated documentation and examples
- for other changes.
+ to *MMA7660_DEFAULT_I2C_BUS*.
+
+    See updated documentation and examples for other changes.
 
  * **bmx055, bmi055, bmc150, bma250e, bmg160, bmm150** This driver has
  been split up.  The *bma250e*, *bmg160*, *bmm150* drivers have been
@@ -77,7 +114,7 @@ compatibility between releases:
  library to do most of it's work.  In addition, an additional argument
  was added to the constructor to optionally allow specifying a GPIO
  pin to be used to control the backlight.  This driver supports the
- SainsmartKS and DFRobot LCD Keypad Shields.  Similiar devices from
+ SainsmartKS and DFRobot LCD Keypad Shields.  Similar devices from
  other manufacturers should also work with this driver.
 
  * **lcm1602/jhd1313m1** These drivers had been rewritten in C, with
@@ -97,7 +134,7 @@ compatibility between releases:
     drivers.  The *createChar()* function now accepts a byte vector
     *std::vector<uint8_t>* rather than the *char ** pointer that was
     used previously.  This should make it easier to use with the SWIG
-    language bindings (Python, Javascript, and especially Java).
+    language bindings (Python, JavaScript, and especially Java).
 
  * **bmp280/bme280** Some private methods are no longer exposed (such
  as the calibration and compensation routines).  In addition,
@@ -109,8 +146,8 @@ compatibility between releases:
  the appropriate type are used.  In addition, methods that previously
  returned certain data in the form of an array, like *getEulerAngles()*,
  now return a *std::vector* instead.  This simplifies the Python,
- Javascript, and Java bindings considerably, and leads to more
- "natural" looking Python/Javascript/Java code.  For Javascript, Java,
+ JavaScript, and Java bindings considerably, and leads to more
+ "natural" looking Python/JavaScript/Java code.  For JavaScript, Java,
  and Python, the examples have been modified to use these methods
  rather than the methods that return data in argument pointers or
  arrays.
