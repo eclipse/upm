@@ -7,3 +7,6 @@
 %include "javaupm_iModuleStatus.i"
 
 %include "iHumiditySensor.hpp"
+%{
+	#include "iHumiditySensor.hpp"
+%}

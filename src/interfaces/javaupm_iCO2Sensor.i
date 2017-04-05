@@ -3,7 +3,11 @@
     %interface_impl(upm::ICO2Sensor);
 #endif
 
+%include "stdint.i"
 %include "javaupm_interfaces.i"
 %include "javaupm_iModuleStatus.i"
 
 %include "iCO2Sensor.hpp"
+%{
+	#include "iCO2Sensor.hpp"
+%}

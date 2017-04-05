@@ -1,8 +1,12 @@
 %module javaupm_lp8860
 
-%include "../interfaces/javaupm_iLightController.i"
+%import "../interfaces/javaupm_iLightController.i"
 
 %include "../upm.i"
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
 
 %{
     #include "lp8860.hpp"

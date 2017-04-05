@@ -24,6 +24,7 @@
  */
 
 import upm_bmp280.*;
+import upm_interfaces.*;
 
 public class BME280_InterfaceExample
 {

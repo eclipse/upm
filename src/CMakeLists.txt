@@ -431,8 +431,13 @@ macro(upm_swig_java)
     # See issue #518
     # TODO: Fix this somehow
     swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+
+    # If the C++ target depends on C++ interfaces, make the JAVA target
+    # depend on the JAVA interfaces
+    if ("${_c_cxx_dependency_list}" MATCHES interfaces)
+      add_dependencies(javaupm_${libname} javaupm_interfaces)
+    endif ()
     swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname})
-    add_dependencies(javaupm_${libname} ${libname})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
@@ -472,7 +477,8 @@ macro(upm_swig_java)
         POST_BUILD
         COMMAND cmake -E echo "Compiling java.."
         COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
-        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar:.
+
         COMMAND cmake -E echo "Creating jar"
         COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
     )
@@ -667,6 +673,9 @@ endfunction (UPM_MIXED_MODULE_INIT)
 
 function(upm_module_init)
   set (basename ${libname})
+
+  # Save off ARGN as target dependency list for use in any macros below
+  set (_c_cxx_dependency_list ${ARGN})
 
   # If this is a C library, handle different collateral naming
   if (IS_C_LIBRARY)

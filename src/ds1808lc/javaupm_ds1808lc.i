@@ -1,7 +1,11 @@
 %module javaupm_ds1808lc
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iLightController.i"
+%import "../interfaces/javaupm_iLightController.i"
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
 
 %include "arrays_java.i";
 %include "../java_buffer.i"

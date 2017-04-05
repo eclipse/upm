@@ -4,3 +4,6 @@
 #endif
 
 %include "iModuleStatus.hpp"
+%{
+	#include "iModuleStatus.hpp"
+%}

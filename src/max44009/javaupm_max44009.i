@@ -1,12 +1,16 @@
 %module javaupm_max44009
+
 %include "../upm.i"
-
-%include "../interfaces/javaupm_iLightSensor.i"
-
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"
 %include "typemaps.i"
+
+%import "../interfaces/javaupm_iLightSensor.i"
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
 
 %{
     #include "max44009.hpp"
