@@ -29,6 +29,7 @@
 #include <lib_aci.h>
 #include <aci_setup.h>
 #include <signal.h>
+#include <assert.h>
 #include "uart_over_ble.h"
 
 /*
@@ -95,11 +96,11 @@ init_aci_setup () {
     /**
      * Point ACI data structures to the the setup data that the nRFgo studio generated for the nRF8001
      */
-    if (NULL != services_pipe_type_mapping) {
-        aci_state.aci_setup_info.services_pipe_type_mapping = &services_pipe_type_mapping[0];
-    } else {
-        aci_state.aci_setup_info.services_pipe_type_mapping = NULL;
-    }
+    // abort if this is NULL
+    assert(services_pipe_type_mapping != NULL);
+
+    aci_state.aci_setup_info.services_pipe_type_mapping =
+        &services_pipe_type_mapping[0];
 
     aci_state.aci_setup_info.number_of_pipes    = NUMBER_OF_PIPES;
     aci_state.aci_setup_info.setup_msgs         = setup_msgs;
