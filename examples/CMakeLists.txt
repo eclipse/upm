@@ -9,8 +9,8 @@
 #       <library>-[additional].c(xx)
 #       library: Name of UPM library required by example
 #       -additional: Any other string used to identify the example
-#   TARGETS - If TARGETS is set, ignore the <library>-[additional] syntax and
-#       use only the provided TARGETS as target name dependencies
+#   TARGETS - Additional dependency target/s required to BUILD/RUN this example.  If TARGETS is
+#       set, these are in addition to the dependency library provided by the example filename.
 #   SUFFIX - Provide a means to differentiate between C/C++ dependency targets and
 #       example names.  Leave empty for CXX examples. Use '-c' for c targets.
 #           SUFFIX  Example file  Dependency target  Example binary
@@ -59,12 +59,13 @@ function (add_example example_src)
     string (REPLACE "-" ";" split_name ${example_name})
     list (GET split_name 0 library_name)
 
-    # If TARGETS is not provided, parse dependency target name from example_src
-    if (NOT add_example_TARGETS)
-        # For sensorfoo, lib_target_names = sensorfoo-c
-        set (lib_target_names "${library_name}${add_example_SUFFIX}")
-    else ()
-        set (lib_target_names "${add_example_TARGETS}")
+    # Parse dependency target name from example_src filename (add on suffix)
+    # For sensorfoo, lib_target_names = sensorfoo-c
+    set (lib_target_names "${library_name}${add_example_SUFFIX}")
+
+    # If TARGETS is provided, add additional dependency targets
+    if (add_example_TARGETS)
+        list (APPEND lib_target_names "${add_example_TARGETS}")
     endif ()
 
     # Unfortunately, c++ and c library targets are not named the same. If
