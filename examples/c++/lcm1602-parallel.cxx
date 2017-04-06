@@ -23,7 +23,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <lcm1602.hpp>
+#include "lcm1602.hpp"
+#include "upm_utilities.h"
 
 int
 main(int argc, char **argv)
@@ -47,7 +48,7 @@ main(int argc, char **argv)
     lcd->write("Hello World");
 
     printf("Sleeping for 5 seconds\n");
-    sleep(5);
+    upm_delay(5);
     delete lcd;
 //! [Interesting]
     return 0;

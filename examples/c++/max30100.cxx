@@ -27,6 +27,7 @@
 #include <signal.h>
 
 #include "max30100.hpp"
+#include "upm_utilities.h"
 
 using namespace upm;
 

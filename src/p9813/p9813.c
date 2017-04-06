@@ -26,6 +26,7 @@
 #include <assert.h>
 
 #include "p9813.h"
+#include "upm_utilities.h"
 
 p9813_context p9813_init(int ledcount, int clk, int data) {
 
@@ -100,9 +101,9 @@ upm_result_t p9813_send_byte(p9813_context dev, uint8_t data)
         mraa_gpio_write(dev->data, (data & 0x80) >> 7);
         // Pulse the clock
         mraa_gpio_write(dev->clk, 1);
-        usleep(20);
+        upm_delay_us(20);
         mraa_gpio_write(dev->clk, 0);
-        usleep(20);
+        upm_delay_us(20);
 
         // Shift to the next data bit
         data <<= 1;

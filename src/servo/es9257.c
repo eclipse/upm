@@ -23,6 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "es9257.h"
+#include "upm_utilities.h"
 
 es9257_context es9257_init(int32_t pin, int32_t min_pulse_width,
                          int32_t max_pulse_width) {

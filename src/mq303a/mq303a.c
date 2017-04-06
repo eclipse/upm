@@ -24,6 +24,7 @@
  */
 
 #include "mq303a.h"
+#include <stdlib.h>
 
 mq303a_context mq303a_init(int pin, int heater_pin) {
     // make sure MRAA is initialized

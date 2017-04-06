@@ -28,6 +28,7 @@
 #include <assert.h>
 
 #include "nunchuck.h"
+#include "upm_utilities.h"
 
 // This is not changeable
 #define NUNCHUCK_I2C_ADDR    0x52

@@ -22,6 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "rsc.h"
+#include "upm_utilities.h"
 
 upm_result_t rsc_eeprom_read(rsc_context dev, uint16_t address, uint8_t* buf, int len, uint8_t arglen);
 

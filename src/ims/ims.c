@@ -26,6 +26,7 @@
 #include <syslog.h>
 
 #include "ims.h"
+#include "upm_utilities.h"
 
 ims_context* ims_init(int16_t i2c_bus, int16_t i2c_address)
 {

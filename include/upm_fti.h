@@ -32,6 +32,9 @@
 extern "C" {
 #endif
 
+/* Get filename w/o path */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
 /**
  * The UPM Function Table Interface (FTI)
  */

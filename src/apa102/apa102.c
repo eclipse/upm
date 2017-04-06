@@ -26,6 +26,7 @@
 #include <assert.h>
 
 #include "apa102.h"
+#include "upm_utilities.h"
 
 apa102_context apa102_init(int ledcount, int bus, int cs) {
 

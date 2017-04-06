@@ -28,6 +28,7 @@
  */
 
 #include "tsl2561.h"
+#include "upm_utilities.h"
 
 // forward declaration
 upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data);

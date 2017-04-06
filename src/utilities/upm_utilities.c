@@ -31,8 +31,8 @@
 #endif
 #include <time.h>
 #include <errno.h>
-#include <upm_platform.h>
-#include <upm_utilities.h>
+#include "upm_platform.h"
+#include "upm_utilities.h"
 
 // https://airnow.gov/index.cfm?action=aqibasics.aqi
 static struct aqi {

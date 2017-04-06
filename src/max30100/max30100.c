@@ -28,6 +28,7 @@
 #include <math.h>
 
 #include "max30100.h"
+#include "upm_utilities.h"
 
 max30100_context* max30100_init(int16_t i2c_bus)
 {

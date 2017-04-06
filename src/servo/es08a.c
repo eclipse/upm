@@ -23,6 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "es08a.h"
+#include "upm_utilities.h"
 
 es08a_context es08a_init(int32_t pin, int32_t min_pulse_width,
                          int32_t max_pulse_width) {

@@ -62,10 +62,6 @@ typedef uint32_t upm_clock_t;
 
 #endif /* UPM_PLATFORM_ZEPHYR */
 
-
-/* Get filename w/o path */
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-
 /**
  * Delay for a number of seconds
  *

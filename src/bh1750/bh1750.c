@@ -26,6 +26,7 @@
 #include <assert.h>
 
 #include "bh1750.h"
+#include "upm_utilities.h"
 
 bh1750_context bh1750_init(int bus, uint8_t addr, BH1750_OPMODES_T mode)
 {

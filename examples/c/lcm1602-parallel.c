@@ -23,6 +23,7 @@
  */
 
 #include "lcm1602.h"
+#include "upm_utilities.h"
 
 int main(int argc, char **argv)
 {

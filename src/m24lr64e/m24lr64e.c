@@ -33,6 +33,7 @@
  */
 
 #include "m24lr64e.h"
+#include "upm_utilities.h"
 
 // forward declarations - these were protected methods in original C++
 // code.  Might need to expose them?

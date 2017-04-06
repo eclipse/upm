@@ -27,6 +27,7 @@
 #include <assert.h>
 
 #include "enc03r.h"
+#include "upm_utilities.h"
 
 enc03r_context enc03r_init(int pin, float aref)
 {

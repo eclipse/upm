@@ -23,6 +23,7 @@
  */
 
 #include "lcm1602.hpp"
+#include "upm_utilities.h"
 
 int
 main(int argc, char **argv)
@@ -32,16 +33,16 @@ main(int argc, char **argv)
     lcd->setCursor(0,0);
     lcd->write("Hello World");
 //! [Interesting]
-    sleep(3);
+    upm_delay(3);
     lcd->setCursor(1,2);
     lcd->write("Hello World");
-    sleep(3);
+    upm_delay(3);
     lcd->setCursor(2,4);
     lcd->write("Hello World");
-    sleep(3);
+    upm_delay(3);
     lcd->setCursor(3,6);
     lcd->write("Hello World");
-    sleep(3);
+    upm_delay(3);
     delete lcd;
 
     return 0;

@@ -4,4 +4,4 @@ upm_mixed_module_init (NAME p9813
     C_SRC p9813.c
     CPP_HDR p9813.hpp
     CPP_SRC p9813.cxx
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)
