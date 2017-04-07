@@ -1,0 +1,5 @@
+set (libname "lidarlitev3")
+set (libdescription "Optical Distance Measurement Sensor")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)
