@@ -136,7 +136,7 @@ namespace upm {
     /**
      * @library ili9341
      * @sensor ili9341
-     * @comname ILI9341 LCD
+     * @comname SPI Based LCD
      * @type display
      * @man adafruit
      * @web http://www.adafruit.com/product/2090
@@ -159,27 +159,27 @@ namespace upm {
              * @param dc Data/command pin
              * @param rst Reset pin
              */
-            ILI9341(uint8_t csLCD, uint8_t csSD, uint8_t dc, uint8_t rst);
-            
+            ILI9341(int csLCD, int csSD, int dc, int rst);
+
             /**
              * Returns the name of the component
              */
             std::string name() {
                 return m_name;
             }
-            
+
             /**
              * Initializes GPIOs used to talk to the LCD
              */
             void initModule();
-            
+
             /**
              * Configures the LCD driver chip via SPI
              */
             void configModule();
-            
+
             /**
-             * Sets the window size inside the screen where pixel data is 
+             * Sets the window size inside the screen where pixel data is
              * written. Concrete implementation from GFX interface.
              *
              * @param x0 First coordinate
@@ -187,11 +187,11 @@ namespace upm {
              * @param x1 Second coordinate
              * @param y1 Second coordinate
              */
-            void setAddrWindow(uint16_t x0, 
-                               uint16_t y0, 
-                               uint16_t x1, 
+            void setAddrWindow(uint16_t x0,
+                               uint16_t y0,
+                               uint16_t x1,
                                uint16_t y1);
-            
+
             /**
              * Sends a pixel color (RGB) to the driver chip. Concrete
              * implementation from GFX interface.
@@ -211,7 +211,7 @@ namespace upm {
              * @param color RGB (16-bit) color (R[0-4], G[5-10], B[11-15]
              */
             void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-            
+
             /**
              * Draws a horizontal line using  minimal SPI writes.
              *
@@ -221,7 +221,7 @@ namespace upm {
              * @param color RGB (16-bit) color (R[0-4], G[5-10], B[11-15]
              */
             void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-            
+
             /**
              * Draw a filled rectangle.
              *
@@ -231,33 +231,33 @@ namespace upm {
              * @param h Height of rectangle in pixels
              * @param color RGB (16-bit) color (R[0-4], G[5-10], B[11-15]
              */
-            void fillRect(int16_t x, 
-                          int16_t y, 
-                          int16_t w, 
+            void fillRect(int16_t x,
+                          int16_t y,
+                          int16_t w,
                           int16_t h,
                           uint16_t color);
-                          
+
             /**
              * Fill the screen with a single color.
              *
              * @param color RGB (16-bit) color (R[0-4], G[5-10], B[11-15]
              */
             void fillScreen(uint16_t color);
-            
+
             /**
              * Sets the screen to one of four 90 deg rotations.
              *
              * @param r Rotation setting: 0, 1, 2, 3
              */
             void setRotation(uint8_t r);
-            
+
             /**
              * Invert colors on the display.
              *
              * @param i True or false to invert colors
              */
             void invertDisplay(bool i);
-            
+
             /**
              * Pass 8-bit R, G, B values and get back 16-bit packed color.
              *
@@ -267,77 +267,76 @@ namespace upm {
              * @return 16-bit packed color (RGB) value
              */
             uint16_t color565(uint8_t r, uint8_t g, uint8_t b);
-                        
+
             /**
              * Executes a set of commands and data.
              *
              * @param addr Pointer to the start of the commands/data section
              */
             void executeCMDList(const uint8_t *addr);
-            
+
             /**
              * Sends a command to the display driver via SPI.
              *
              * @param c Command to be written
              */
             void writecommand(uint8_t c);
-            
+
             /**
              * Sends data to the display driver via SPI
              *
              * @param d Data to be written
              */
             void writedata(uint8_t d);
-            
+
             /**
              * Set LCD chip select to LOW
              */
             mraa::Result lcdCSOn();
-            
+
             /**
              * Set LCD chip select to HIGH
              */
             mraa::Result lcdCSOff();
-            
+
             /**
              * Set SD card chip select to LOW
              */
             mraa::Result sdCSOn();
-            
+
             /**
              * Set SD card chip select to HIGH
              */
             mraa::Result sdCSOff();
-            
+
             /**
              * Set data/command line to HIGH
              */
             mraa::Result dcHigh();
-            
+
             /**
              * Set data/command line to LOW
              */
             mraa::Result dcLow();
-            
+
             /**
              * Set reset line to HIGH
              */
             mraa::Result rstHigh();
-            
+
             /**
              * Set reset line to LOW
              */
             mraa::Result rstLow();
-            
+
         private:
-            mraa::Spi   m_spi;
-            uint8_t     m_spiBuffer[32];
-            
             mraa::Gpio  m_csLCDPinCtx;
             mraa::Gpio  m_csSDPinCtx;
             mraa::Gpio  m_dcPinCtx;
             mraa::Gpio  m_rstPinCtx;
-            
+
+            mraa::Spi   m_spi;
+
             std::string m_name;
     };
 }

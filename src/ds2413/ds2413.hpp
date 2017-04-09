@@ -46,7 +46,7 @@ namespace upm {
     /**
      * @library ds2413
      * @sensor ds2413
-     * @comname DS2413 1-Wire Dual Channel Addressable Switch
+     * @comname 1-Wire Dual Channel Addressable Switch
      * @type gpio
      * @man maxim
      * @con uart
@@ -54,7 +54,7 @@ namespace upm {
      *
      * @brief API for the DS2413 1-Wire Dual Channel Addressable Switch
      *
-     * The DS2413 is a dual-channel programmable I/O 1-Wire® chip. The
+     * The DS2413 is a dual-channel programmable I/O 1-Wire(r) chip. The
      * PIO outputs are configured as open-drain and provide up to 20mA
      * continuous sink capability and off-state operating voltage up
      * to 28V.  Control and sensing of the PIO pins is performed with

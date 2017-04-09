@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -36,44 +36,45 @@ bool shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 int main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
 //! [Interesting]
 
-  // Instantiate a ENC03R on analog pin A0
-  upm::ENC03R *gyro = new upm::ENC03R(0);
-  
-  // The first thing we need to do is calibrate the sensor.
-  cout << "Please place the sensor in a stable location, and do not" << endl;
-  cout << "move it while calibration takes place." << endl;
-  cout << "This may take a couple of minutes." << endl;
+    // Instantiate a ENC03R on analog pin A0
+    upm::ENC03R *gyro = new upm::ENC03R(0);
 
-  gyro->calibrate(CALIBRATION_SAMPLES);
-  cout << "Calibration complete.  Reference value: " 
-       << gyro->calibrationValue() << endl;
+    // The first thing we need to do is calibrate the sensor.
+    cout << "Please place the sensor in a stable location, and do not" << endl;
+    cout << "move it while calibration takes place." << endl;
+    cout << "This may take a couple of minutes." << endl;
 
-  // Read the input and print both the raw value and the angular velocity,
-  // waiting 0.1 seconds between readings
-  while (shouldRun)
+    gyro->calibrate(CALIBRATION_SAMPLES);
+    cout << "Calibration complete.  Reference value: "
+         << gyro->calibrationValue() << endl;
+
+    // Read the input and print both the raw value and the angular velocity,
+    // waiting 0.1 seconds between readings
+    while (shouldRun)
     {
-      unsigned int val = gyro->value();
-      double av = gyro->angularVelocity(val);
+        gyro->update();
 
-      cout << "Raw value: " << val << ", "  
-           << "angular velocity: " << av << " deg/s" << endl;
-      
-      usleep(100000);
+        cout << "Angular velocity: "
+             << gyro->angularVelocity()
+             << " deg/s"
+             << endl;
+
+        usleep(100000);
     }
 //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete gyro;
-  return 0;
+    delete gyro;
+    return 0;
 }

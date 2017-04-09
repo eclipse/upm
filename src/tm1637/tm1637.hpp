@@ -52,10 +52,11 @@ namespace upm
 /**
  * @library tm1637
  * @sensor tm1637
- * @comname TM1637 7-Segment Display
+ * @comname 7-segment Display
  * @altname Grove 4-Digit Display
  * @type display
  * @man seeed
+ * @web http://wiki.seeed.cc/Grove-4-Digit_Display/
  * @con gpio
  *
  * @brief API for the TM1637 7-Segment Display

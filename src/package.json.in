@@ -9,13 +9,13 @@
   "url": "https://github.com/intel-iot-devkit/upm"
   },
   "engines" : {
-    "node": ">= 4.4.x"
+    "node": ">= 0.10.x"
   },
   "bugs": {
     "url" : "http://github.com/intel-iot-devkit/upm/issues"
   },
   "dependencies": {
-  "mraa": ">=@MRAA_VERSION@"
+    "mraa": ">=@MRAA_MINIMUM@"
   },
   "license": "MIT",
   "version" : "@upm_VERSION_STRING@",

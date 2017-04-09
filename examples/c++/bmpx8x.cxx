@@ -1,6 +1,11 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * This driver was rewritten based on the original driver written by:
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,57 +29,50 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "bmpx8x.hpp"
 #include <signal.h>
 
-int doWork = 0;
-upm::BMPX8X *sensor = NULL;
+#include "bmpx8x.hpp"
 
-void
-sig_handler(int signo)
+using namespace std;
+
+bool shouldRun = true;
+
+void sig_handler(int signo)
 {
-    printf("got signal\n");
-    if (signo == SIGINT) {
-        printf("exiting application\n");
-        doWork = 1;
-    }
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-    //! [Interesting]
-    uint32_t presure = 0;
-    float temperature = 0;
-    float altitude = 0;
-    uint32_t sealevel = 0;
+    signal(SIGINT, sig_handler);
+//! [Interesting]
 
-    // Instantiate a BMPX8X sensor on I2C
-    sensor = new upm::BMPX8X(0, ADDR);
+    // Instantiate a BMPX8X sensor on I2C using defaults.
+    upm::BMPX8X sensor;
 
     // Print the pressure, altitude, sea level, and
-    // temperature values every 0.1 seconds
-    while (!doWork) {
-        presure = sensor->getPressure ();
-        temperature = sensor->getTemperature ();
-        altitude = sensor->getAltitude ();
-        sealevel = sensor->getSealevelPressure ();
+    // temperature values every 0.5 seconds
+    while (shouldRun)
+    {
+        sensor.update();
 
-        std::cout << "pressure value = " <<
-                    presure <<
-                    ", altitude value = " <<
-                    altitude <<
-                    ", sealevel value = " <<
-                    sealevel <<
-                    ", temperature = " <<
-                    temperature << std::endl;
-        usleep (100000);
+        cout << "Pressure: "
+             << sensor.getPressure()
+             << " Pa, Temperature: "
+             << sensor.getTemperature()
+             << " C, Altitude: "
+             << sensor.getAltitude()
+             << " m, Sea level: "
+             << sensor.getSealevelPressure()
+             << " Pa"
+             << endl;
+
+        usleep(500000);
     }
-    //! [Interesting]
 
-    std::cout << "exiting application" << std::endl;
+    cout << "Exiting..." << endl;
 
-    delete sensor;
-
+//! [Interesting]
     return 0;
 }

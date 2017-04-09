@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq3
-   * @comname Grove MQ3 Gas Sensor
+   * @comname MQ3 Alcohol, Ethanol, Smoke Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ3/
    *
    * @brief API for the MQ3 Gas Sensor
    *
@@ -44,7 +45,7 @@ namespace upm {
    * detection range is 0.04-4 mg/L Alcohol.
    *
    * @image html mq3-9.jpeg
-   * @snippet mq3.cxx Interesting
+   * @snippet gas-mq3.cxx Interesting
    */
     class MQ3 : public Gas {
         public:

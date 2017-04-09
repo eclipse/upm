@@ -1,5 +1,5 @@
 set (libname "micsv89")
-set (libdescription "upm micsv89 environmental sensor module")
+set (libdescription "Low-power Air Quality Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

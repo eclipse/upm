@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,11 +23,7 @@
  */
 #pragma once
 
-#include <stdint.h>
-#include <sys/time.h>
-
-#include <mraa/gpio.h>
-#include <mraa/pwm.h>
+#include <uln200xa.h>
 
 namespace upm {
 
@@ -40,7 +36,7 @@ namespace upm {
   /**
    * @library uln200xa
    * @sensor uln200xa
-   * @comname ULN200XA Stepper Driver
+   * @comname Darlington Stepper Driver
    * @altname ULN2001A ULN2002A ULN2003A ULN2004A
    * @type motor
    * @man seeed
@@ -63,14 +59,6 @@ namespace upm {
   public:
 
     /**
-     * Enum to specify the direction of a motor
-     */
-    typedef enum {
-      DIR_CW   = 0x01,
-      DIR_CCW  = 0x02
-    } ULN200XA_DIRECTION_T;
-
-    /**
      * ULN200XA constructor
      *
      * @param stepsPerRev Number of steps per full revolution
@@ -79,7 +67,8 @@ namespace upm {
      * @param i3 Digital pin to use for stepper input 3
      * @param i4 Digital pin to use for stepper input 4
      */
-    ULN200XA(int stepsPerRev, int i1, int i2, int i3, int i4);
+    ULN200XA(int stepsPerRev, unsigned int i1, unsigned int i2,
+             unsigned int i3, unsigned int i4);
 
     /**
      * ULN200XA destructor
@@ -87,25 +76,11 @@ namespace upm {
     ~ULN200XA();
 
     /**
-     * Returns the number of milliseconds elapsed since initClock()
-     * was last called.
-     *
-     * @return Elapsed milliseconds
-     */
-    uint32_t getMillis();
-
-    /**
-     * Resets the clock
-     *
-     */
-    void initClock();
-
-    /**
      * Sets the speed of the stepper motor in revolutions per minute (RPM)
      *
      * @param speed Speed to set the motor to, in RPM
      */
-    void setSpeed(int speed);
+    void setSpeed(unsigned int speed);
 
     /**
      * Sets the direction of the motor, clockwise or counterclockwise
@@ -127,31 +102,10 @@ namespace upm {
      */
     void release();
 
+  protected:
+      uln200xa_context m_uln200xa;
+
   private:
-    struct timeval m_startTime;
-
-    // stepper (4-wire)
-    mraa_gpio_context m_stepI1;
-    mraa_gpio_context m_stepI2;
-    mraa_gpio_context m_stepI3;
-    mraa_gpio_context m_stepI4;
-
-    // steps per revolution
-    int m_stepsPerRev;
-    int m_currentStep;
-    uint32_t m_stepDelay;
-
-    /**
-     * Steps the stepper motor one tick
-     *
-     */
-    void stepperStep();
-
-    /**
-     * Defines the step direction: 1 = forward, -1 = backward
-     *
-     */
-    int m_stepDirection;
   };
 }
 

@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,6 +24,8 @@
 
 #include <stdint.h>
 #include <string>
+#include <cinttypes>
+
 #include "zwNode.hpp"
 
 #include "Node.h"
@@ -38,6 +40,9 @@ zwNode::zwNode(uint32_t homeId, uint8_t nodeId)
   m_nodeId = nodeId;
 
   m_vindex = 0;
+  m_list.clear();
+  m_values.clear();
+  m_autoUpdate = false;
 }
 
 zwNode::~zwNode()
@@ -56,23 +61,33 @@ uint32_t zwNode::homeId()
 
 void zwNode::addValueID(ValueID vid) 
 {
-  // We need to use insert since ValueID's default ctor is private
-  m_values.insert(std::pair<int, ValueID>(m_vindex++, vid));
+  m_list.push_back(vid);
+
+  if (m_autoUpdate)
+    updateVIDMap();
 }
 
 void zwNode::removeValueID(ValueID vid) 
 {
-  //we have to get a little complicated here since we need to delete
-  //the value id, but the map is indexed by m_vindex
-  for (valueMap_t::iterator it = m_values.begin();
-       it != m_values.end(); ++it)
+  m_list.remove(vid);
+
+  if (m_autoUpdate)
+    updateVIDMap();
+}
+
+void zwNode::updateVIDMap()
+{
+  m_values.clear();
+  m_vindex = 0;
+
+  m_list.sort();
+
+  for (auto it = m_list.cbegin(); it != m_list.cend(); ++it)
     {
-      if ((*it).second == vid)
-        {
-          m_values.erase((*it).first);
-          break;
-        }
+      // We need to use insert since ValueID's default ctor is private
+      m_values.insert(std::pair<int, ValueID>(m_vindex++, *it));
     }
+
 }
 
 bool zwNode::indexToValueID(int index, ValueID *vid)
@@ -94,17 +109,25 @@ bool zwNode::indexToValueID(int index, ValueID *vid)
 
 void zwNode::dumpNode(bool all)
 {
-  for (valueMap_t::iterator it = m_values.begin();
-       it != m_values.end(); ++it)
+  for (auto it = m_values.cbegin();
+       it != m_values.cend(); ++it)
     {
-      int vindex = (*it).first;
-      ValueID vid = (*it).second;
+      int vindex = it->first;
+      ValueID vid = it->second;
       string label = Manager::Get()->GetValueLabel(vid);
       string valueAsStr;
       Manager::Get()->GetValueAsString(vid, &valueAsStr);
       string valueUnits = Manager::Get()->GetValueUnits(vid);
       ValueID::ValueType vType = vid.GetType();
       string vTypeStr;
+      string perms;
+
+      if (Manager::Get()->IsValueWriteOnly(vid))
+        perms = "WO";
+      else if (Manager::Get()->IsValueReadOnly(vid))
+        perms = "RO";
+      else
+        perms = "RW";
 
       switch (vType)
         {
@@ -155,12 +178,18 @@ void zwNode::dumpNode(bool all)
 
       // by default we only want user values, unless 'all' is true
       if (all || (vid.GetGenre() == ValueID::ValueGenre_User))
-          fprintf(stderr, "\t Index: %2d, Type: %s, Label: %s, Value: %s %s\n", 
+        {
+          fprintf(stderr, "\t Index: %d, Type: %s, Label: %s, Value: %s %s (%s)\n",
                   vindex,
                   vTypeStr.c_str(),
                   label.c_str(),
                   valueAsStr.c_str(),
-                  valueUnits.c_str());
+                  valueUnits.c_str(),
+                  perms.c_str());
+
+          fprintf(stderr, "\t\t VID: %016llx\n",
+                  vid.GetId());
+        }
     }
 }
 

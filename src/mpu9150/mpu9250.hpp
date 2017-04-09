@@ -35,19 +35,19 @@ namespace upm {
   /**
    * @library mpu9150
    * @sensor mpu9250
-   * @comname MPU9250 Inertial Measurement Unit
+   * @comname Inertial Measurement Unit
    * @altname Grove IMU 9DOF V2
    * @type accelerometer compass
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v2.0
    * @con i2c gpio
    *
-   * @brief API for MPU9250 chip (Accelerometer, Gyro and Magnometer Sensor)
+   * @brief API for MPU9250 chip (Accelerometer, Gyro and Magnetometer Sensor)
    *
    * This module defines the MPU9250 interface for libmpu9150
    *
    * @image html mpu9250.jpg
-   * @snippet mpu9250.cxx Interesting
+   * @snippet mpu9150-mpu9250.cxx Interesting
    */
 
   class MPU9250: public MPU9150
@@ -73,7 +73,7 @@ namespace upm {
     /**
      * get the temperature value
      *
-     * @return the temperature value in degrees Celcius
+     * @return the temperature value in degrees Celsius
      */
     float getTemperature();
 

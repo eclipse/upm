@@ -26,8 +26,8 @@
 
 #include <iostream>
 #include <string>
-#include "mraa.hpp"
-#include "mraa/i2c.hpp"
+
+namespace mraa {class I2c;}
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -419,6 +419,6 @@ namespace upm {
             void updateConfigRegister(uint16_t update, bool read = false);
             uint16_t swapWord(uint16_t value);
 
-               mraa::I2c* i2c;
+            mraa::I2c* i2c;
 
     };}

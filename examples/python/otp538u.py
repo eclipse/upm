@@ -21,38 +21,41 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_otp538u as upmOtp538u
+from upm import pyupm_otp538u as upmOtp538u
 
-# analog voltage, usually 3.3 or 5.0
-OTP538U_AREF = 5.0
+def main():
+    # analog voltage, usually 3.3 or 5.0
+    OTP538U_AREF = 5.0
 
-# Instantiate a OTP538U on analog pins A0 and A1
-# A0 is used for the Ambient Temperature and A1 is used for the
-# Object temperature.
-myTempIR = upmOtp538u.OTP538U(0, 1, OTP538U_AREF)
+    # Instantiate a OTP538U on analog pins A0 and A1
+    # A0 is used for the Ambient Temperature and A1 is used for the
+    # Object temperature.
+    myTempIR = upmOtp538u.OTP538U(0, 1, OTP538U_AREF)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit, including functions from myTempIR
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit, including functions from myTempIR
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        outputStr = ("Ambient temp: {0}"
+        " C, Object temp: {1}"
+        " C".format(myTempIR.ambientTemperature(),
+        myTempIR.objectTemperature()))
+        print(outputStr)
 
+        time.sleep(1)
 
-while(1):
-	outputStr = ("Ambient temp: {0}"
-	" C, Object temp: {1}"
-	" C".format(myTempIR.ambientTemperature(),
-	myTempIR.objectTemperature()))
-	print outputStr
-
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

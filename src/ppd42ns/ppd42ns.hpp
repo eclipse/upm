@@ -1,6 +1,7 @@
 /*
  * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ *         Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,70 +25,58 @@
 #pragma once
 
 #include <string>
-#include <time.h>
-#include <mraa/aio.h>
+#include <ppd42ns.h>
 
 namespace upm {
 
-typedef struct
-{
-	int lowPulseOccupancy;
-	double ratio;
-	double concentration;
-} dustData;
-
-  /**
-   * @brief PPD42NS Dust Sensor library
-   * @defgroup ppd42ns libupm-ppd42ns
-   * @ingroup seeed gpio other eak
-   */
-  /**
-   * @library ppd42ns
-   * @sensor ppd42ns
-   * @comname PPD42NS Dust Sensor
-   * @altname Grove Dust Sensor
-   * @type other
-   * @man seeed
-   * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the PPD42NS Dust Sensor
-   *
-   * UPM module for the PPD42NS dust sensor
-   *
-   * @image html ppd42ns.jpg
-   * @snippet ppd42ns.cxx Interesting
-   */
-  class PPD42NS {
-  public:
     /**
-     * PPD42NS constructor
+     * @brief PPD42NS Dust Sensor library
+     * @defgroup ppd42ns libupm-ppd42ns
+     * @ingroup seeed gpio other eak
+     */
+    /**
+     * @library ppd42ns
+     * @sensor ppd42ns
+     * @comname Dust Sensor
+     * @altname Grove Dust Sensor
+     * @type other
+     * @man seeed
+     * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
+     * @con gpio
+     * @kit eak
      *
-     * @param pin Digital pin to use
-     */
-    PPD42NS(int pin);
-    /**
-     * PPD42NS destructor
-     */
-    ~PPD42NS();
-    /**
-     * Prints dust concentration
+     * @brief API for the PPD42NS Dust Sensor
      *
-     * @return struct dustData  Contains data from the dust sensor
+     * UPM module for the PPD42NS dust sensor
+     *
+     * @image html ppd42ns.jpg
+     * @snippet ppd42ns.cxx Interesting
      */
-     dustData getData();
+    class PPD42NS {
+    public:
 
-  private:
-        mraa_gpio_context m_gpio;
-		/**
-		 * Returns the amount of time it takes a pin to go from HIGH to LOW or from LOW to HIGH
-		 *
-		 * @param highLowValue int Do we measure movements from HIGH to LOW or from LOW to HIGH? highLowValue is the "from" value
-		 */
-		double pulseIn_polyfill(bool highLowValue, double endTime);
-		double m_timediff(timespec time1, timespec time2);
-	};
+        /**
+         * PPD42NS constructor
+         *
+         * @param pin Digital pin to use
+         */
+        PPD42NS(int pin);
+
+        /**
+         * PPD42NS destructor
+         */
+        ~PPD42NS();
+
+        /**
+         * Prints dust concentration
+         *
+         * @return struct ppd42ns_dust_data Contains data from the dust sensor
+         */
+        ppd42ns_dust_data getData();
+
+    private:
+        ppd42ns_context m_ppd42ns;
+    };
 }
 
 

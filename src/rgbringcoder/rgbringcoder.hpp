@@ -43,7 +43,7 @@ namespace upm {
   /**
    * @library rgbringcoder
    * @sensor rgbringcoder
-   * @comname SparkFun RGB Ringcoder
+   * @comname RGB RingCoder
    * @type led
    * @web https://www.sparkfun.com/products/11040
    * @man sparkfun
@@ -57,7 +57,7 @@ namespace upm {
    *
    * The device requires 11 pins, 3 of which must be PWM-capable
    * (for the RGB LEDs).
-   * 
+   *
    * @image html rgbringcoder.jpg
    * @snippet rgbringcoder.cxx Interesting
    */
@@ -80,7 +80,7 @@ namespace upm {
      * @param green RGB green LED PWM
      * @param blue RGB blue LED PWM
      */
-    RGBRingCoder(int en, int latch, int clear, int clk, int dat, int sw, 
+    RGBRingCoder(int en, int latch, int clear, int clk, int dat, int sw,
                  int encA, int encB, int red, int green, int blue);
 
     /**
@@ -98,26 +98,26 @@ namespace upm {
      */
     void setRingLEDS(uint16_t bits);
 
-    /* 
+    /**
      * Returns the state of the button
      *
      * @return True if the button is pressed, false otherwise
      */
     bool getButtonState();
 
-    /* 
+    /*
      * Gets the current rotary encoder counter value
      *
      * @return Current counter value
      */
     int getEncoderPosition() { return m_counter; };
 
-    /* 
+    /**
      * Sets the encoder counter to 0
      */
     void clearEncoderPosition() { m_counter = 0; };
 
-    /* 
+    /**
      * Sets the intensity of the red, green, and blue LEDs. Values can
      * be between 0.0 and 1.0. Lower is brighter, higher is dimmer.
      *
@@ -128,7 +128,7 @@ namespace upm {
     void setRGBLED(float r, float g, float b);
 
   private:
-    
+
     mraa::Gpio m_gpioEn;
 
     mraa::Gpio m_gpioLatch;
@@ -138,17 +138,15 @@ namespace upm {
 
     mraa::Gpio m_gpioSwitch;
 
+    mraa::Gpio m_gpioEncA;
+    mraa::Gpio m_gpioEncB;
+
     mraa::Pwm m_pwmRed;
     mraa::Pwm m_pwmGreen;
     mraa::Pwm m_pwmBlue;
-
-    mraa::Gpio m_gpioEncA;
-    mraa::Gpio m_gpioEncB;
 
     static void interruptHandler(void *ctx);
     volatile int m_counter;
 
   };
 }
-
-

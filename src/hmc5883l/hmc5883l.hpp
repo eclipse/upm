@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * Ported based on original C++ code by:
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
@@ -24,14 +28,12 @@
  */
 #pragma once
 
-#include <mraa/i2c.hpp>
-
-#define MAX_BUFFER_LENGTH 6
+#include "hmc5883l.h"
 
 namespace upm {
 
 /**
- * @brief HMC5883L Magnometer library
+ * @brief HMC5883L Magnetometer library
  * @defgroup hmc5883l libupm-hmc5883l
  * @ingroup seeed i2c compass robok
  */
@@ -39,11 +41,12 @@ namespace upm {
 /**
  * @library hmc5883l
  * @sensor hmc5883l
- * @comname HMC5883L 3-Axis Digital Compass
+ * @comname 3-axis Digital Compass
  * @altname Grove 3-Axis Digital Compass
  * @type compass
  * @man seeed
  * @con i2c
+ * @web http://wiki.seeed.cc/Grove-3-Axis_Compass_V1.0/
  * @kit robok
  *
  * @brief API for the HMC5883L 3-Axis Digital Compass
@@ -58,54 +61,54 @@ namespace upm {
  * @snippet hmc5883l.cxx Interesting
  */
 class Hmc5883l {
-public:
-    /**
-     * Creates an Hmc5883l object
-     *
-     * @param bus Number of the used I2C bus
-     */
-    Hmc5883l(int bus);
+    public:
+        /**
+            * Creates an Hmc5883l object. The I2C address cannot be
+            * changed, and is always 0x1e (7-bit).
+            *
+            * @param bus I2C bus number
+            */
+        Hmc5883l(int bus);
 
-    /*
-     * Returns the direction
-     */
-    float direction();
+        /*
+            * Returns the direction
+            */
+        float direction();
 
-    /*
-     * Returns the heading
-     */
-    float heading();
+        /*
+            * Returns the heading
+            */
+        float heading();
 
-    /**
-     * Returns a pointer to an int[3] that contains the coordinates as ints
-     *
-     * @return *int to an int[3]
-     */
-    int16_t* coordinates();
+        /**
+            * Returns a pointer to an int[3] that contains the coordinates as ints
+            *
+            * @return *int to an int[3]
+            */
+        const int16_t* coordinates();
 
-    /**
-     * Updates the values by reading from I2C
-     *
-     * @return 0 if successful
-     */
-    mraa::Result update();
+        /**
+            * Updates the values by reading from I2C
+            *
+            * @return 0 if successful
+            */
+        upm_result_t update();
 
-    /**
-     * Sets the magnetic declination for better calibration
-     */
-    void set_declination(float dec);
+        /**
+            * Sets the magnetic declination for better calibration
+            */
+        void set_declination(float dec);
 
-    /**
-     * Gets the current magnetic declination value
-     *
-     * @return Magnetic declination as a floating-point value
-     */
-    float get_declination();
-private:
-    int16_t m_coor[3];
-    float m_declination;
-    uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    mraa::I2c m_i2c;
+        /**
+            * Gets the current magnetic declination value
+            *
+            * @return Magnetic declination as a floating-point value
+            */
+        float get_declination();
+
+    protected:
+        hmc5883l_context m_hmc5883l;
+
+    private:
 };
-
 }

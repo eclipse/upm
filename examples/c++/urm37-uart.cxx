@@ -53,7 +53,8 @@ int main()
     {
       cout << "Detected distance (cm): " << sensor->getDistance() << endl;
       cout << "Temperature (C): " << sensor->getTemperature() << endl;
-      
+      cout << endl;
+
       usleep(500000);
     }
 

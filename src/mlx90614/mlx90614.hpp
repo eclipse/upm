@@ -55,15 +55,16 @@ namespace upm {
 /**
  * @brief MLX90614 Temperature Sensor library
  * @defgroup mlx90614 libupm-mlx90614
- * @ingroup generic i2c temperature
+ * @ingroup generic i2c temp
  */
 /**
  * @library mlx90614
  * @sensor mlx90614
- * @comname MLX90614 Temperature Sensor
- * @type temperature
+ * @comname Digital No-contact Infrared Thermometer
+ * @type temp
  * @man generic
  * @con i2c
+ * @web https://www.melexis.com/en/product/MLX90614/Digital-Plug-Play-Infrared-Thermometer-TO-Can
  *
  * @brief API for the MLX90614 Temperature Sensor
  *
@@ -85,8 +86,11 @@ class MLX90614 {
 
         /**
          * Reads the object temperature in Fahrenheit
+         *
+         * @param objAddr Object register for models with dual sensors
+         * Can be MLX90614_TOBJ1 (default) or MLX90614_TOBJ2
          */
-        float readObjectTempF(void);
+        float readObjectTempF(int objAddr=MLX90614_TOBJ1);
 
         /**
          * Reads the ambient temperature in Fahrenheit
@@ -94,8 +98,11 @@ class MLX90614 {
         float readAmbientTempF(void);
         /**
          * Reads the object temperature in Celsius
+         *
+         * @param objAddr Object register for models with dual sensors
+         * Can be MLX90614_TOBJ1 (default) or MLX90614_TOBJ2
          */
-        float readObjectTempC(void);
+        float readObjectTempC(int objAddr=MLX90614_TOBJ1);
 
         /**
          * Reads the ambient temperature in Celsius

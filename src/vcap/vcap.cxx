@@ -38,7 +38,7 @@ using namespace std;
   (((_val) < (_min)) ? (_min) : (((_val) > (_max)) ? (_max) : (_val)))
 
 VCAP::VCAP(string videoDev) :
-  m_buffer(0), m_fd(-1)
+    m_fd(-1), m_buffer(0)
 {
   memset(&m_caps, 0, sizeof(struct v4l2_capability));
   memset(&m_format, 0, sizeof(struct v4l2_format));
@@ -183,7 +183,7 @@ bool VCAP::setResolution(int width, int height)
     }
 
   // G_FMT will have adjusted these if neccessary, so verify
-  if (m_format.fmt.pix.width != m_width)
+  if (static_cast<int>(m_format.fmt.pix.width) != m_width)
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Warning: Selected width "
@@ -195,7 +195,7 @@ bool VCAP::setResolution(int width, int height)
       m_width = m_format.fmt.pix.width;
     }
   
-  if (m_format.fmt.pix.height != m_height)
+  if (static_cast<int>(m_format.fmt.pix.height) != m_height)
     {
       if (m_debugging)
         cerr << __FUNCTION__ << ": Warning: Selected height "

@@ -38,15 +38,15 @@ namespace upm {
   /**
    * @brief LSM9DS0 accelerometer library
    * @defgroup lsm9ds0 libupm-lsm9ds0
-   * @ingroup i2c gpio accelerometer compass
+   * @ingroup sparkfun stmicro i2c gpio accelerometer compass
    */
 
   /**
    * @library lsm9ds0
    * @sensor lsm9ds0
-   * @comname LSM9DS0 3-axis Gyroscope, Accelerometer, and Magnetometer
+   * @comname Triaxial Gyroscope/accelerometer/magnetometer Sensor
    * @type accelerometer compass
-   * @man sparkfun
+   * @man sparkfun stmicro
    * @con i2c gpio
    * @web https://www.sparkfun.com/products/13033
    *
@@ -1294,7 +1294,7 @@ namespace upm {
      * the correct value, so I made a 'guess'.  If it's wrong, and you
      * figure it out, send a patch!
      *
-     * @return the temperature value in degrees Celcius
+     * @return the temperature value in degrees Celsius
      */
     float getTemperature();
 

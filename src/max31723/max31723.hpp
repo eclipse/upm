@@ -38,15 +38,16 @@ namespace upm {
 /**
  * @brief MAX31723 Temperature Sensor library
  * @defgroup max31723 libupm-max31723
- * @ingroup maxim spi temperature
+ * @ingroup maxim spi temp
  */
 /**
  * @library max31723
  * @sensor max31723
- * @comname MAX31723 Temperature Sensor
- * @type temperature
+ * @comname SPI/3-wire Digital Thermometer
+ * @type temp
  * @man maxim
  * @con spi
+ * @web https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX31723.html
  *
  * @brief API for the MAX31723 Temperature Sensor
  *

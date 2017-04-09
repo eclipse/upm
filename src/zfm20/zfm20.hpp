@@ -67,10 +67,11 @@ namespace upm {
     /**
      * @library zfm20
      * @sensor zfm20
-     * @comname ZFM-20 Fingerprint Sensor
+     * @comname Fingerprint Sensor Module
      * @altname Grove Fingerprint Sensor
      * @type touch
      * @man seeed
+     * @web http://wiki.seeed.cc/Grove-Fingerprint_Sensor/
      * @con uart
      *
      * @brief API for the ZFM-20 Fingerprint Sensor Module

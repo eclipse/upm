@@ -58,7 +58,7 @@ namespace upm {
   /**
    * @library pn532
    * @sensor pn532
-   * @comname PN532 NFC/RFID reader/writer
+   * @comname NFC/RFID Reader/Writer
    * @type rfid
    * @man adafruit
    * @web http://www.adafruit.com/products/364
@@ -421,8 +421,8 @@ namespace upm {
                                uint8_t dataLen);
 
     /**
-     * return the ATQA (Answer to Request Acknowlege) value.  This
-     * value is only valid after a successfull call to
+     * return the ATQA (Answer to Request Acknowledge) value.  This
+     * value is only valid after a successful call to
      * readPassiveTargetID()
      * 
      * @return ATQA value
@@ -430,8 +430,8 @@ namespace upm {
     uint16_t getATQA() { return m_ATQA; };
 
     /**
-     * return the SAK (Select Acknowlege) value.  This
-     * value is only valid after a successfull call to
+     * return the SAK (Select Acknowledge) value.  This
+     * value is only valid after a successful call to
      * readPassiveTargetID()
      * 
      * @return SAK value
@@ -469,9 +469,9 @@ namespace upm {
     TAG_TYPE_T tagType();
 
   protected:
-    mraa::I2c m_i2c;
     mraa::Gpio m_gpioIRQ;
     mraa::Gpio m_gpioReset;
+    mraa::I2c m_i2c;
 
     bool readAck();
     bool isReady();
@@ -491,9 +491,9 @@ namespace upm {
     uint8_t m_key[6];       // Mifare Classic key
     uint8_t m_inListedTag;  // Tg number of inlisted tag.
 
-    uint16_t m_ATQA;        // ATQA (Answer to Request Acknowlege - ISO14443)
+    uint16_t m_ATQA;        // ATQA (Answer to Request Acknowledge - ISO14443)
                             // for currently inlisted card
-    uint8_t m_SAK;          // SAK (Select Acknowlege) 
+    uint8_t m_SAK;          // SAK (Select Acknowledge) 
                             // for currently inlisted card
 
     // debugables

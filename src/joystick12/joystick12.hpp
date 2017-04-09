@@ -38,7 +38,7 @@ namespace upm {
 /**
  * @library joystick12
  * @sensor joystick12
- * @comname Analog Joystick
+ * @comname 2-axis Analog Joystick
  * @type ainput
  * @man generic
  * @con analog
@@ -52,7 +52,7 @@ namespace upm {
  * 2-axis analog joystick.
  *
  * @image html joystick12.jpg
- * @snippet joystick12-example.cxx Interesting
+ * @snippet joystick12.cxx Interesting
  */
 class Joystick12 {
     public:

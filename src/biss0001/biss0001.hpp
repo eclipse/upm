@@ -1,6 +1,7 @@
 /*
- * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Zion Orent <zorent@ics.com>
+ *         Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,55 +24,71 @@
  */
 #pragma once
 
-#include <string>
-#include <mraa/aio.h>
+#include <biss0001.h>
 
 namespace upm {
-  /**
-   * @brief BISS0001 Motion Sensor library
-   * @defgroup biss0001 libupm-biss0001
-   * @ingroup seeed gpio light tsk
-   */
+    /**
+     * @brief BISS0001 Motion Sensor library
+     * @defgroup biss0001 libupm-biss0001
+     * @ingroup seeed gpio light tsk
+     */
 
-  /**
-   * @library biss0001
-   * @sensor biss0001
-   * @comname BISS0001 Motion Sensor
-   * @altname Grove PIR Motion Sensor
-   * @type light
-   * @man seeed
-   * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
-   * @con gpio
-   * @kit tsk
-   *
-   * @brief API for the BISS0001 Motion Sensor
-   *
-   * UPM module for the BISS0001 Motion Sensor
-   *
-   * @image html biss0001.jpg
-   * @snippet biss0001.cxx Interesting
-   */
+    /**
+     * @library biss0001
+     * @sensor biss0001
+     * @comname Passive Infrared (PIR) Motion Sensor
+     * @altname Grove PIR Motion Sensor
+     * @type light
+     * @man seeed
+     * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
+     * @con gpio
+     * @kit tsk
+     *
+     * @brief API for the BISS0001 Motion Sensor
+     *
+     * PIR sensors allow you to sense motion, almost always used to detect
+     * whether a human has moved in or out of the sensors range. They are
+     * small, inexpensive, low-power, easy to use and don't wear out. For that
+     * reason they are commonly found in appliances and gadgets used in homes
+     * or businesses. They are often referred to as PIR, "Passive Infrared",
+     * "Pyroelectric", or "IR motion" sensors.
+     *
+     * @image html biss0001.jpg
+     * @snippet biss0001.cxx Interesting
+     */
+
   class BISS0001 {
   public:
-    /**
-     * BISS0001 motion sensor constructor
-     *
-     * @param pin Digital pin to use
-     */
-    BISS0001(int pin);
-    /**
-     * BISS0001 destructor
-     */
-    ~BISS0001();
-    /**
-     * Gets the motion value from the sensor
-     *
-     * @return Motion reading
-     */
-    bool value();
+      /**
+       * BISS0001 motion sensor constructor
+       *
+       * @param pin Digital pin to use
+       */
+      BISS0001(unsigned int pin);
+
+      /**
+       * BISS0001 destructor
+       */
+      ~BISS0001();
+
+      /**
+       * Gets the motion value from the sensor.
+       *
+       * @return true if motion was detected, false otherwise.
+       */
+      bool value();
+
+      /**
+       * Gets the motion value from the sensor.  This is a more
+       * informative method name, but we want to keep compatibility
+       * with the original for now.
+       *
+       * @return true if motion was detected, false otherwise.
+       */
+      bool motionDetected() { return value(); };
 
   private:
-        mraa_gpio_context m_gpio;
+      biss0001_context m_biss0001;
   };
 }
 

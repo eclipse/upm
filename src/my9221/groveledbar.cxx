@@ -44,45 +44,48 @@
 using namespace upm;
 using namespace std;
 
-GroveLEDBar::GroveLEDBar (uint8_t dataPin, uint8_t clockPin, int instances)
-  : MY9221(dataPin, clockPin, instances)
+GroveLEDBar::GroveLEDBar (int dataPin, int clockPin, int instances)
+    : MY9221(dataPin, clockPin, instances)
 {
-  // auto refresh by default
-  setAutoRefresh(true);
-  clearAll();
+    // auto refresh by default
+    setAutoRefresh(true);
+    clearAll();
 }
 
 GroveLEDBar::~GroveLEDBar()
 {
 }
 
-void GroveLEDBar::setBarLevel(uint8_t level, bool greenToRed, int barNumber)
+void GroveLEDBar::setBarLevel(uint8_t level, bool greenToRed,
+                              unsigned int barNumber)
 {
-  if (level > 10)
-    level = 10;
+    // here we manipulate the my9221 context struct directly
+    if (level > 10)
+        level = 10;
 
-  if (barNumber >= m_instances)
-    barNumber = m_instances - 1;
+    if (barNumber >= m_my9221->instances)
+        barNumber = m_my9221->instances - 1;
 
-  int start = barNumber * LEDS_PER_INSTANCE;
-  int end = start + LEDS_PER_INSTANCE;
+    unsigned int ledsPerInstance = m_my9221->max_leds_per_instance;
+    unsigned int start = barNumber * ledsPerInstance;
+    unsigned int end = start + ledsPerInstance;
 
-  if (!greenToRed)
+    if (!greenToRed)
     {
-      for (int i=start; i<end; i++)
-        m_bitStates[i] = (i < (level + start)) ?
-          m_highIntensity : m_lowIntensity;
+        for (unsigned int i=start; i<end; i++)
+            m_my9221->bitStates[i] = (i < (level + start)) ?
+                m_my9221->highIntensity : m_my9221->lowIntensity;
     }
-  else
+    else
     {
-      for (int i=start; i<end; i++)
-        m_bitStates[i] = ( ((start + LEDS_PER_INSTANCE) - i) <=
-                           (level + 2 + start)) ?
-                           m_highIntensity : m_lowIntensity;
+        for (unsigned int i=start; i<end; i++)
+            m_my9221->bitStates[i] = ( ((start + ledsPerInstance) - i) <=
+                               (level + 2 + start)) ?
+                m_my9221->highIntensity : m_my9221->lowIntensity;
     }
 
-  if (m_autoRefresh)
-    refresh();
+    if (m_my9221->autoRefresh)
+        refresh();
 
-  return;
+    return;
 }

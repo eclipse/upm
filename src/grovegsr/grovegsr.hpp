@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-gsr
    * @brief Grove GSR Galvanic Skin Response Sensor library
    * @defgroup grovegsr libupm-grovegsr
    * @ingroup seeed analog electric
@@ -36,10 +37,11 @@ namespace upm {
   /**
    * @library grovegsr
    * @sensor grovegsr
-   * @comname Grove GSR Sensor
+   * @comname Galvanic Skin Response (GSR) Sensor
    * @type electric
    * @man seeed
    * @con analog
+   * @deprecated This class is being replaced by GSR
    *
    * @brief API for the Grove GSR Galvanic Skin Response Sensor
    * 
@@ -48,7 +50,7 @@ namespace upm {
    * In other words, it measures sweat on your fingers
    * as an indicator of strong emotional reactions.
    *
-   * @image html grovegsr.jpg
+   * @image html gsr.jpg
    * @snippet grovegsr.cxx Interesting
    */
   class GroveGSR {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.mraa.upm</groupId>
+  <artifactId>upm_@libname@</artifactId>
+  <version>@VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@</version>
+  <packaging>jar</packaging>
+
+  <name>@libname@</name>
+  <description>High level repository for sensors that use mraa</description>
+  <url>http://upm.mraa.io</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/intel-iot-devkit/upm/blob/master/LICENSE</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Upm contributors https://github.com/intel-iot-devkit/upm/graphs/contributors</name>
+      <email>mraa@lists.01.org</email>
+      <organization>Intel IoT Developer kit</organization>
+      <organizationUrl>https://github.com/intel-iot-devkit</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/intel-iot-devkit/upm.git</connection>
+    <developerConnection>scm:git:ssh://github.com:intel-iot-devkit/upm.git</developerConnection>
+    <url>https://github.com/intel-iot-devkit/upm/tree/master</url>
+  </scm>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.mraa</groupId>
+      <artifactId>mraa</artifactId>
+      <version>[@MRAA_MINIMUM@, )</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+</project>

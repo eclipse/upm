@@ -1,9 +1,8 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,7 +24,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var sensorObj = require('jsupm_bmx055');
+var sensorObj = require('jsupm_bmm150');
 
 // Instantiate a BMM150 instance using default i2c bus and address
 var sensor = new sensorObj.BMM150();
@@ -33,21 +32,17 @@ var sensor = new sensorObj.BMM150();
 // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
 // BMM150(0, -1, 10);
 
-var x = new sensorObj.new_floatp();
-var y = new sensorObj.new_floatp();
-var z = new sensorObj.new_floatp();
-
 // now output data every 250 milliseconds
 setInterval(function()
 {
     // update our values from the sensor
     sensor.update();
 
-    sensor.getMagnetometer(x, y, z);
+    var data = sensor.getMagnetometer();
     console.log("Magnetometer x: "
-                + sensorObj.floatp_value(x)
-                + " y: " + sensorObj.floatp_value(y)
-                + " z: " + sensorObj.floatp_value(z)
+                + data.get(0)
+                + " y: " + data.get(1)
+                + " z: " + data.get(2)
                 + " uT");
 
     console.log();

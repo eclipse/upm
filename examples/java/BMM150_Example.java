@@ -2,6 +2,8 @@
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
+ * The MIT License
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -22,7 +24,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_bmx055.BMM150;
+import upm_bmm150.BMM150;
 
 public class BMM150_Example
 {
@@ -42,11 +44,11 @@ public class BMM150_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float dataA[] = sensor.getMagnetometer();
+                upm_bmm150.floatVector data = sensor.getMagnetometer();
 
-                System.out.println("Magnetometer x: " + dataA[0]
-                                   + " y: " + dataA[1]
-                                   + " z: " + dataA[2]
+                System.out.println("Magnetometer x: " + data.get(0)
+                                   + " y: " + data.get(1)
+                                   + " z: " + data.get(2)
                                    + " uT");
 
                 System.out.println();

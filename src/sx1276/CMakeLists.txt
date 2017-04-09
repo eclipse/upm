@@ -1,5 +1,5 @@
 set (libname "sx1276")
-set (libdescription "SZ1276 LoRa/FSK/OOK radio")
+set (libdescription "SZ1276 LoRa/FSK/OOK Radio")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

@@ -29,6 +29,7 @@
 #include <lib_aci.h>
 #include <aci_setup.h>
 #include <signal.h>
+#include <assert.h>
 #include "uart_over_ble.h"
 
 /*
@@ -80,7 +81,6 @@ Used to test the UART TX characteristic notification
 static uart_over_ble_t uart_over_ble;
 static uint8_t         uart_buffer[20];
 static uint8_t         uart_buffer_len = 0;
-static uint8_t         dummychar = 0;
 
 void
 sig_handler(int signo)
@@ -96,11 +96,11 @@ init_aci_setup () {
     /**
      * Point ACI data structures to the the setup data that the nRFgo studio generated for the nRF8001
      */
-    if (NULL != services_pipe_type_mapping) {
-        aci_state.aci_setup_info.services_pipe_type_mapping = &services_pipe_type_mapping[0];
-    } else {
-        aci_state.aci_setup_info.services_pipe_type_mapping = NULL;
-    }
+    // abort if this is NULL
+    assert(services_pipe_type_mapping != NULL);
+
+    aci_state.aci_setup_info.services_pipe_type_mapping =
+        &services_pipe_type_mapping[0];
 
     aci_state.aci_setup_info.number_of_pipes    = NUMBER_OF_PIPES;
     aci_state.aci_setup_info.setup_msgs         = setup_msgs;
@@ -239,6 +239,8 @@ main(int argc, char **argv)
                                 printf ("Advertising started \n");
                             }
                             break;
+                        default:
+                            break;
                     }
                 }
                 break; // ACI Device Started Event
@@ -335,7 +337,8 @@ main(int argc, char **argv)
                     lib_aci_connect(0/* in seconds, 0 means forever */, 0x0050 /* advertising interval 50ms*/);
                     printf ("Advertising started \n");
                 break;
-
+                default:
+                break;
             }
         }
 

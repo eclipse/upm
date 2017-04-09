@@ -57,7 +57,7 @@ namespace upm {
 /**
  * @library htu21d
  * @sensor htu21d
- * @comname HTU21D Temperature & Humidity Sensor
+ * @comname Digital Relative Humidity Sensor with Temperature
  * @type temp
  * @man seeed adafruit sparkfun
  * @web http://www.meas-spec.com/downloads/HTU21D.pdf
@@ -86,12 +86,11 @@ class HTU21D {
          *
          * @param bus Number of the used bus
          * @param devAddr Address of the used I2C device
-         * @param mode HTU21D oversampling
          */
         HTU21D (int bus, int devAddr=HTU21D_I2C_ADDRESS);
 
         /**
-         * Initiates a temperature/pressure mesasurement and waits for the function
+         * Initiates a temperature/pressure mesasurement and waits
          * to complete. The humidity and temperature registers can be read
          * after this call.
          */
@@ -99,11 +98,17 @@ class HTU21D {
 
         /**
          * Gets the current measured humidity [RH]
+         *
+         * @param bSampleData Flag to read sensor
+         * @return The humidity sensor temp in degC
          */
         float getHumidity(int bSampleData = false);
 
         /**
          * Gets the humidity cell temperature [degC]
+         *
+         * @param bSampleData Flag to read sensor
+         * @return The humidity sensor temp in degC
          */
         float getTemperature(int bSampleData = false);
 
@@ -111,8 +116,31 @@ class HTU21D {
          * Using the current humidity and temperature, the function
          * calculates the compensated RH using the equation from
          * the datasheet.
+         *
+         * @param bSampleData Flag to read sensor
          */
-        float getCompRH(int bSampleData = true);
+        float getCompRH(int bSampleData = false);
+
+        /**
+         * Using the current humidity and temperature the function
+         * will calculate the dew point in degreeC based on equation
+         * from the datasheet.
+         *
+         * @param bSampleData Flag to read sensor
+         */
+        float getDewPoint(int bSampleData = false);
+
+        /**
+         * Function will attempt to get the best measurement for humidity
+         * using the heater in cases where humidity is high to keep the
+         * sesnsor dry.  The heater setting is returned
+         *
+         * @param fHum pointer to float for relative humidity %RH
+         * @param fHumTemp pointer to float for temperature degC
+         * @param fDewPt pointer to float for calculated dew point degC
+         * @return 0 if success or 1 if sensor is not functioning
+         */
+        int getHumidityData(float* fHum, float* fHumTemp, float* fDewPt);
 
         /**
          * Sets the heater state. The heater is used to test
@@ -120,7 +148,8 @@ class HTU21D {
          * 0.5 to 1.5 degC, and the humidity should decrease. The
          * testSensor() function below uses the heater.
          *
-         * @param bEnable Sets to non-zero to turn the heater on 
+         * @param bEnable Sets to non-zero to turn the heater on
+         * @return 0 on success
          */
          int setHeater(int bEnable = false);
 
@@ -147,9 +176,11 @@ class HTU21D {
         mraa::Result i2cWriteReg (uint8_t reg, uint8_t value);
 
         /**
-         * Reads a two-byte register
+         * Reads a two-byte register.
+         * Note: byte ordering is hardware specific.
          *
          * @param reg Address of the register
+         * @return Value returned from register
          */
         uint16_t i2cReadReg_16 (int reg);
 
@@ -157,6 +188,7 @@ class HTU21D {
          * Reads a one-byte register
          *
          * @param reg Address of the register
+         * @return Value returned from register
          */
         uint8_t i2cReadReg_8 (int reg);
 

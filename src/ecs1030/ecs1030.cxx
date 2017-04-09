@@ -32,7 +32,7 @@
 
 using namespace upm;
 
-ECS1030::ECS1030 (uint8_t pinNumber) {
+ECS1030::ECS1030 (int pinNumber) {
     m_dataPinCtx = mraa_aio_init(pinNumber);
     if (m_dataPinCtx == NULL) {
       throw std::invalid_argument(std::string(__FUNCTION__) + 
@@ -53,7 +53,6 @@ ECS1030::~ECS1030 () {
 double
 ECS1030::getCurrency_A () {
     int     sensorValue  = 0;
-    float   rLoad        = 0;
     float   volt         = 0;
     float   rms          = 0;
 

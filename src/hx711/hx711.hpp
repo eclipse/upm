@@ -37,7 +37,7 @@ namespace upm {
      /**
       * @library hx711
       * @sensor hx711
-      * @comname HX711 Analog-to-Digital Converter
+      * @comname 24-bit Analog-to-digital Converter
       * @type electric
       * @man generic
       * @web http://www.dfrobot.com/image/data/SEN0160/hx711_english.pdf
@@ -63,7 +63,7 @@ namespace upm {
             * @param gain Defines the gain factor
             * Valid values are 128 or 64 for channel A; channel B works with a 32-gain factor only
             */
-            HX711(uint8_t data, uint8_t sck, uint8_t gain = 128);
+            HX711(int data, int sck, uint8_t gain = 128);
 
             /**
             * HX711 destructor

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,17 +22,21 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
-# Create the light sensor object using AIO pin 0
-light = grove.GroveLight(0)
+def main():
+    # Create the light sensor object using AIO pin 0
+    light = grove.GroveLight(0)
 
-# Read the input and print both the raw value and a rough lux value,
-# waiting one second between readings
-while 1:
-    print light.name() + " raw value is %d" % light.raw_value() + \
-        ", which is roughly %d" % light.value() + " lux";
-    time.sleep(1)
+    # Read the input and print both the raw value and a rough lux value,
+    # waiting one second between readings
+    while 1:
+        print(light.name() + " raw value is %d" % light.raw_value() + \
+            ", which is roughly %d" % light.value() + " lux");
+        time.sleep(1)
 
-# Delete the light sensor object
-del light
+    # Delete the light sensor object
+    del light
+
+if __name__ == '__main__':
+    main()

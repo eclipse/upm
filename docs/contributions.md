@@ -94,3 +94,55 @@ then you just add a line to each of your commits with `--signoff` saying
 
 using your real name (sorry, no pseudonyms or anonymous contributions.)
 Unsigned commits will not be accepted.
+
+
+Creating a new sensor library using the sensortemplate
+=======================================
+
+A stubbed-out sensor library is available which can be leveraged to get
+up-and-running quickly when writing a new sensor library.  Use the shell
+commands below to generate collateral files for your new sensor library.
+
+
+```shell
+#!/bin/bash
+
+function make_new_sensor {
+    SensorName=$1
+    # Make sure this is run from the root UPM directory
+    if ! grep -q 'UPM ' README.md; then echo "Please run from the root UPM directory"; return -1; fi
+
+    # Copy/paste the below commands into a bash shell...
+    # Get a lowercase version of the string
+    sensorname=${SensorName,,}
+    # Copy sensortemplate files to ${sensorname}
+    find docs/ examples/ src/ -name '*sensortemplate*' -exec bash -c 'cp -r $0 ${0/sensortemplate/${sensorname}}' {} \;
+    # Copy SensorTemplate files to ${SensorName}
+    find examples/ src/ -name '*SensorTemplate*' -exec bash -c 'cp -r $0 ${0/SensorTemplate/${SensorName}}' {} \;
+    # Rename sernsortemplate src files
+    rename "s/sensortemplate/${sensorname}/" src/${sensorname}/*
+    # Search/replace the new files, replacing all instances of sensortemplate
+    perl -p -i -e "s/SensorTemplate/${SensorName}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
+    perl -p -i -e "s/sensortemplate/${sensorname}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
+    # Add mynewmodule example target for java
+    perl -p -i -e "s/^((.*)SensorTemplateSample sensortemplate(.*))/\1\n\2${SensorName}Sample ${sensorname}\3/g" examples/java/CMakeLists.txt
+    # Add mynewmodule example mappings for doxygen
+    perl -p -i -e "s/^(.*SensorTemplateSample.*)$/\1\n${sensorname}.cxx\t${SensorName}Sample.java\t${sensorname}.js\t${sensorname}.py/g" doxy/samples.mapping.txt
+    # Display TODO's
+    printf "Generation complete for sensor library: ${SensorName}\n"
+    printf "TODO's:\n"
+    printf "\t1. Update src/hdr files: src/${sensorname}/${sensorname}.hpp src/${sensorname}/${sensorname}.cxx\n"
+    printf "\t\tChange the Author\n"
+    printf "\t\tChange the Copyright\n"
+    printf "\t\tUpdate all doxygen tags (follow directions for @tags)\n"
+    printf "\t2. Update examples: examples/*/${sensorname}.* examples/java/*${SensorName}*.java\n"
+    printf "\t3. Overwrite docs/images/${sensorname}.png with a valid image of your sensor\n"
+}
+
+# Call make_new_sensor with your new sensor name, example: 'MyNewSensor1234'
+make_new_sensor MyNewSensor1234
+```
+
+Once all files have been created, they can be used as a starting-point for your
+new library.  They will need additional customization (your name/email address,
+documentation, sensor images, etc).

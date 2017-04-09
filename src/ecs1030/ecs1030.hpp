@@ -50,7 +50,7 @@ namespace upm {
   /**
    * @library ecs1030
    * @sensor ecs1030
-   * @comname ECS1030 Non-Invasive Current Sensor
+   * @comname Non-invasive Current Sensor
    * @type electric
    * @man sparkfun
    * @web https://www.sparkfun.com/products/11005
@@ -83,7 +83,7 @@ class ECS1030 {
          *
          * @param pinNumber Number of the data pin
          */
-        ECS1030 (uint8_t pinNumber);
+        ECS1030 (int pinNumber);
 
         /**
          * ECS1030 object destructor; basically, it closes the GPIO.

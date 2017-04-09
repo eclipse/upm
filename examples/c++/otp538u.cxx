@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <signal.h>
 #include "otp538u.hpp"
 
@@ -52,14 +53,24 @@ int main()
   // Object temperature.
   upm::OTP538U *temps = new upm::OTP538U(0, 1, OTP538U_AREF);
   
+  // enable debugging if you would like
+  // temps->setDebug(true);
+
   // Output ambient and object temperatures
   while (shouldRun)
     {
-      cout << "Ambient temp: " << std::fixed << setprecision(2) 
-           << temps->ambientTemperature() 
-           << " C, Object temp: " << temps->objectTemperature() 
-           << " C" << endl;
-      
+      try {
+        cout << "Ambient temp: " << std::fixed << setprecision(2)
+             << temps->ambientTemperature()
+             << " C, Object temp: " << temps->objectTemperature()
+             << " C" << endl;
+      }
+      catch (std::out_of_range& e) {
+        cerr << "Temperature(s) are out of range: " << e.what()
+             << endl;
+      }
+
+      cout << endl;
       sleep(1);
     }
 //! [Interesting]

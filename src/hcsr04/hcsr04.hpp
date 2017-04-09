@@ -43,10 +43,11 @@ namespace upm {
 /**
  * @library hcsr04
  * @sensor hcsr04
- * @comname HC-SR04 Ultrasonic Sensor
+ * @comname Ultrasonic Distance Measuring Sensor
  * @type sound
  * @man generic
  * @con gpio
+ * @web https://www.sparkfun.com/products/13959
  *
  * @brief API for the HC-SR04 Ultrasonic Sensor
  *
@@ -65,7 +66,7 @@ class HCSR04 {
          * @param fptr Function pointer to handle rising-edge and
          * falling-edge interrupts
          */
-        HCSR04 (uint8_t triggerPin, uint8_t echoPin);
+        HCSR04 (int triggerPin, int echoPin);
         /**
          * HCSR04 object destructor
          */

@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library pca9685
    * @sensor pca9685
-   * @comname PCA9685 PWM Controller
+   * @comname I2C 16-channel 12-bit PWM LED Controller
    * @type led motor
    * @man adafruit
    * @web http://www.adafruit.com/products/815
@@ -304,7 +304,7 @@ namespace upm {
   private:
     /**
      * Enables the I2C register auto-increment. This needs to be enabled
-     * for write/readWord() to work. The contructor enables this by
+     * for write/readWord() to work. The constructor enables this by
      * default.
      *
      * @param ai True to enable, false otherwise

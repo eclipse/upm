@@ -41,7 +41,7 @@ namespace upm {
 /**
  * @library ta12200
  * @sensor ta12200
- * @comname TA12-200 Current Transformer
+ * @comname AC Current Sensor
  * @altname Grove Electricity Sensor
  * @type electric
  * @man seeed

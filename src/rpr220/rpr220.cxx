@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,54 +31,38 @@
 using namespace upm;
 using namespace std;
 
-RPR220::RPR220(int pin)
+RPR220::RPR220(int pin) :
+    m_rpr220(rpr220_init(pin))
 {
-  m_isrInstalled = false;
-
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-   {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+    if (!m_rpr220)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": rpr220_init() failed");
 }
 
 RPR220::~RPR220()
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  mraa_gpio_close(m_gpio);
+    rpr220_close(m_rpr220);
 }
 
 bool RPR220::blackDetected()
 {
-  return (mraa_gpio_read(m_gpio) ? true : false);
+    return rpr220_black_detected(m_rpr220);
 }
 
 #ifdef JAVACALLBACK
 void RPR220::installISR(jobject runnable)
 {
-  installISR(mraa_java_isr_callback, runnable);
+    installISR(mraa_java_isr_callback, runnable);
 }
 #endif
 
 void RPR220::installISR(void (*isr)(void *), void *arg)
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
-                isr, arg);
-  m_isrInstalled = true;
+    rpr220_install_isr(m_rpr220, isr, arg);
 }
 
 void RPR220::uninstallISR()
 {
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
+    rpr220_uninstall_isr(m_rpr220);
 }
 

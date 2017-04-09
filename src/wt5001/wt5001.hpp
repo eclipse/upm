@@ -56,7 +56,7 @@ namespace upm {
     /**
      * @library wt5001
      * @sensor wt5001
-     * @comname WT5001 Serial MP3 Module
+     * @comname Serial MP3 Module
      * @altname Grove Serial MP3 Player
      * @type sound
      * @man seeed

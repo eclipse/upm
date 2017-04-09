@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library ht9170
    * @sensor ht9170
-   * @comname HT9170 DTMF Decoder
+   * @comname Dual Tone Multi Frequency (DTMF) Decoder
    * @altname HT9170B, HT9170D
    * @type other
    * @man seeed 

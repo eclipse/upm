@@ -56,7 +56,7 @@ namespace upm
   /**
    * @library i2clcd
    * @sensor eboled
-   * @comname Sparkfun Edison Block OLED Display
+   * @comname SparkFun Block for Intel Edison - OLED
    * @altname ssd1306
    * @type display
    * @man sparkfun
@@ -79,7 +79,7 @@ namespace upm
    * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
    * CC BY-NC-SA-3.0</a>.</em>
    *
-   * @snippet eboled.cxx Interesting
+   * @snippet i2clcd-eboled.cxx Interesting
    */
   class EBOLED : public LCD
   {
@@ -364,10 +364,9 @@ namespace upm
     mraa::Result setAddressingMode(displayAddressingMode mode);
 
   private:
+    mraa::Spi m_spi;
     mraa::Gpio m_gpioCD;        // command(0)/data(1)
     mraa::Gpio m_gpioRST;       // reset pin
-
-    mraa::Spi m_spi;
 
     uint8_t m_cursorX;
     uint8_t m_cursorY;

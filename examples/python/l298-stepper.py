@@ -21,47 +21,49 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_l298 as upmL298
+from upm import pyupm_l298 as upmL298
 
-# Instantiate a Stepper motor on a L298 Dual H-Bridge.
-# This was tested with the NEMA-17 12V, 350mA, with 200 steps per rev.
-myHBridge = upmL298.L298(200, 3, 4, 7, 8, 9)
+def main():
+    # Instantiate a Stepper motor on a L298 Dual H-Bridge.
+    # This was tested with the NEMA-17 12V, 350mA, with 200 steps per rev.
+    myHBridge = upmL298.L298(200, 3, 4, 7, 8, 9)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myHBridge
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myHBridge
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    myHBridge.setSpeed(10) # 10 RPMs
+    myHBridge.setDirection(upmL298.L298.DIR_CW)
+    myHBridge.enable(True)
 
+    print("Rotating 1 full revolution at 10 RPM speed.")
+    # move 200 steps, a full rev
+    myHBridge.stepperSteps(200)
 
-myHBridge.setSpeed(10) # 10 RPMs
-myHBridge.setDirection(upmL298.L298.DIR_CW)
-myHBridge.enable(True)
+    print("Sleeping for 2 seconds...")
+    time.sleep(2)
 
-print "Rotating 1 full revolution at 10 RPM speed."
-# move 200 steps, a full rev
-myHBridge.stepperSteps(200)
+    print("Rotating 1/2 revolution in opposite direction at 10 RPM speed.")
+    myHBridge.setDirection(upmL298.L298.DIR_CCW)
+    myHBridge.stepperSteps(100)
 
-print "Sleeping for 2 seconds..."
-time.sleep(2)
+    # release
+    myHBridge.enable(False)
 
-print "Rotating 1/2 revolution in opposite direction at 10 RPM speed."
-myHBridge.setDirection(upmL298.L298.DIR_CCW)
-myHBridge.stepperSteps(100)
+    # exitHandler is called automatically
 
-# release
-myHBridge.enable(False)
-
-# exitHandler is called automatically
+if __name__ == '__main__':
+    main()

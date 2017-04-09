@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Marc Graham <marc@m2ag.net>
  * Copyright (c) 2015 Intel Corporation.
  *
@@ -57,7 +57,7 @@ namespace upm {
   /**
    * @library ads1x15
    * @sensor ADS1115
-   * @comname ADS1115 ADC
+   * @comname 16-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
    * @type electric
    * @man ti adafruit
    * @con i2c
@@ -71,16 +71,17 @@ namespace upm {
    * an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1113/4/5 operate from a single power
    * supply ranging from 2.0V to 5.5V.
    * The ADS1113/4/5 can perform conversions at rates up to 860 samples per second (SPS). An onboard PGA is available on
-   * the ADS1114 and ADS1115 that offers input ranges from the supply to as low as ±256mV, allowing both large and small
+   * the ADS1114 and ADS1115 that offers input ranges from the supply to as low as +/- 256mV, allowing both large and small
    * signals to be measured with high resolution. The ADS1115 also features an input multiplexer (MUX) that provides two
    * differential or four single-ended inputs.
    * The ADS1113/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down after
-   * a conversion and greatly reduces current consumption during idle periods. The ADS1113/4/5 are specified from –40°C to +125°C.
+   * a conversion and greatly reduces current consumption during idle periods. The ADS1113/4/5 are specified from -40 deg C to +125 deg C.
    *
    * Tested with DIYMall ADS1115 board. Also available from Adafruit: https://www.adafruit.com/products/1085
    *
    * @image html ads1115.jpg
    * @snippet ads1x15.cxx Interesting
+   * @snippet ads1x15-ads1115.cxx Interesting
    */
     class ADS1115 : public ADS1X15 {
 

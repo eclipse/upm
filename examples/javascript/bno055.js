@@ -1,9 +1,8 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -33,16 +32,6 @@ var sensorObj = require('jsupm_bno055');
 // mode.
 var sensor = new sensorObj.BNO055();
 
-var mag = new sensorObj.new_intp();
-var acc = new sensorObj.new_intp();
-var gyr = new sensorObj.new_intp();
-var syst = new sensorObj.new_intp();
-
-var w = new sensorObj.new_floatp();
-var x = new sensorObj.new_floatp();
-var y = new sensorObj.new_floatp();
-var z = new sensorObj.new_floatp();
-
 console.log("First we need to calibrate.  4 numbers will be output every");
 console.log("second for each sensor.  0 means uncalibrated, and 3 means");
 console.log("fully calibrated.");
@@ -64,11 +53,11 @@ var calInterval = setInterval(function()
     }
     else
     {
-        sensor.getCalibrationStatus(mag, acc, gyr, syst);
-        console.log("Magnetometer: " + sensorObj.intp_value(mag) +
-                    " Accelerometer: " + sensorObj.intp_value(acc) +
-                    " Gyroscope: " + sensorObj.intp_value(gyr) +
-                    " System: " + sensorObj.intp_value(syst));
+        var intData = sensor.getCalibrationStatus();
+        console.log("Magnetometer: " + intData.get(0) +
+                    " Accelerometer: " + intData.get(1) +
+                    " Gyroscope: " + intData.get(2) +
+                    " System: " + intData.get(3));
     }
 
 }, 1000);
@@ -79,29 +68,29 @@ function outputData()
 {
     sensor.update();
 
-    sensor.getEulerAngles(x, y, z);
-    console.log("Euler: Heading: " + sensorObj.floatp_value(x) +
-                " Roll: " + sensorObj.floatp_value(y) +
-                " Pitch: " + sensorObj.floatp_value(z) +
-                " degrees");
+    var floatData = sensor.getEulerAngles();
+    console.log("Euler: Heading: " + floatData.get(0)
+                + " Roll: " + floatData.get(1)
+                + " Pitch: " + floatData.get(2)
+                + " degrees");
 
-    sensor.getQuaternions(w, x, y, z);
-    console.log("Quaternion: W: " + sensorObj.floatp_value(w) +
-                " X:" + sensorObj.floatp_value(x) +
-                " Y: " + sensorObj.floatp_value(y) +
-                " Z: " + sensorObj.floatp_value(z));
+    floatData = sensor.getQuaternions();
+    console.log("Quaternion: W: " + floatData.get(0)
+                + " X:" + floatData.get(1)
+                + " Y: " + floatData.get(2)
+                + " Z: " + floatData.get(3));
 
-    sensor.getLinearAcceleration(x, y, z);
-    console.log("Linear Acceleration: X: " + sensorObj.floatp_value(x) +
-                " Y: " + sensorObj.floatp_value(y) +
-                " Z: " + sensorObj.floatp_value(z) +
-                " m/s^2");
+    floatData = sensor.getLinearAcceleration();
+    console.log("Linear Acceleration: X: " + floatData.get(0)
+                + " Y: " + floatData.get(1)
+                + " Z: " + floatData.get(2)
+                + " m/s^2");
 
-    sensor.getGravityVectors(x, y, z);
-    console.log("Gravity Vector: X: " + sensorObj.floatp_value(x) +
-                " Y: " + sensorObj.floatp_value(y) +
-                " Z: " + sensorObj.floatp_value(z) +
-                " m/s^2");
+    floatData = sensor.getGravityVectors();
+    console.log("Gravity Vector: X: " + floatData.get(0)
+                + " Y: " + floatData.get(1)
+                + " Z: " + floatData.get(2)
+                + " m/s^2");
 
     console.log("");
 };

@@ -32,15 +32,15 @@ namespace upm {
   /**
    * @brief DFRobot CO2 Sensor
    * @defgroup mg811 libupm-mg811
-   * @ingroup dfrobot analog gas
+   * @ingroup dfrobot analog gaseous
    */
 
   /**
    * @library mg811
    * @sensor mg811
-   * @comname DFRobot CO2 Sensor
+   * @comname CO2 Sensor
    * @altname MG811
-   * @type gas
+   * @type gaseous
    * @man dfrobot
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1023
    * @con analog

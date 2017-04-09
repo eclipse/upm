@@ -1,9 +1,7 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-/*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
-* Copyright (c) 2014 Intel Corporation.
+* Author: Jon Trulson <jtrulson@ics.com>
+* Copyright (c) 2014-2017 Intel Corporation.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -25,31 +23,34 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//Load Barometer module
-var bmpx8x = require('jsupm_bmpx8x');
-// load this on i2c
-var myBarometerObj = new bmpx8x.BMPX8X(0, bmpx8x.ADDR);
-var pressure, temperature, altitude, sealevel;
+var sensorObj = require('jsupm_bmpx8x');
+
+// Instantiate a BMPX8X sensor on I2C using defaults.
+var sensor = new sensorObj.BMPX8X();
 
 // Print the pressure, altitude, sea level, and
-// temperature values every 0.1 seconds
+// temperature values every 0.5 seconds
 setInterval(function()
 {
-	var pressure = myBarometerObj.getPressure();
-	var temperature = myBarometerObj.getTemperature();
-	var altitude = myBarometerObj.getAltitude();
-	var sealevel = myBarometerObj.getSealevelPressure();
+    sensor.update();
 
-	var BMPX8Xresults = "pressure value = " + pressure;
-	BMPX8Xresults += ", altitude value = " + altitude;
-	BMPX8Xresults += ", sealevel value = " + sealevel;
-	BMPX8Xresults += ", temperature = " + temperature;
-	console.log(BMPX8Xresults);
-}, 100);
+    console.log("Pressure: "
+                + sensor.getPressure()
+                + " Pa, Temperature: "
+                + sensor.getTemperature()
+                + " C, Altitude: "
+                + sensor.getAltitude()
+                + " m, Sea level: "
+                + sensor.getSealevelPressure()
+                + " Pa");
+}, 500);
 
-// Print message when exiting
+// exit on ^C
 process.on('SIGINT', function()
 {
-	console.log("Exiting...");
-	process.exit(0);
+    sensor = null;
+    sensorObj.cleanUp();
+    sensorObj = null;
+    console.log("Exiting.");
+    process.exit(0);
 });

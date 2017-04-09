@@ -212,10 +212,10 @@ float ADIS16448::gyroScale(int16_t sensorData)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Converts temperature data output from the sensorRead() function and returns temperature
-// in degrees Celcius
+// in degrees Celsius
 /////////////////////////////////////////////////////////////////////////////////////////////
 // sensorData - data output from sensorRead()
-// return - (float) signed/scaled temperature in degrees Celcius
+// return - (float) signed/scaled temperature in degrees Celsius
 /////////////////////////////////////////////////////////////////////////////////////////
 float ADIS16448::tempScale(int16_t sensorData)
 {
@@ -226,7 +226,7 @@ float ADIS16448::tempScale(int16_t sensorData)
 // Converts barometer data output from sensorRead() function and returns pressure in bar
 /////////////////////////////////////////////////////////////////////////////////////////////
 // sensorData - data output from sensorRead()
-// return - (float) signed/scaled temperature in degrees Celcius
+// return - (float) signed/scaled temperature in degrees Celsius
 /////////////////////////////////////////////////////////////////////////////////////////
 float ADIS16448::pressureScale(int16_t sensorData)
 {
@@ -238,7 +238,7 @@ float ADIS16448::pressureScale(int16_t sensorData)
 // reading in Gauss
 /////////////////////////////////////////////////////////////////////////////////////////////
 // sensorData - data output from sensorRead()
-// return - (float) signed/scaled temperature in degrees Celcius
+// return - (float) signed/scaled temperature in degrees Celsius
 /////////////////////////////////////////////////////////////////////////////////////////
 float ADIS16448::magnetometerScale(int16_t sensorData)
 {

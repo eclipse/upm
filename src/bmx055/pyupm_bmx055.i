@@ -3,8 +3,7 @@
 %module pyupm_bmx055
 %include "../upm.i"
 %include "cpointer.i"
-
-%include "stdint.i"
+%include "../upm_vectortypes.i"
 
 /* Send "int *" and "float *" to python as intp and floatp */
 %pointer_functions(int, intp);
@@ -16,15 +15,9 @@
 %include "bmx055_doc.i"
 #endif
 
-%include "bma250e.hpp"
-%{
-    #include "bma250e.hpp"
-%}
-
-%include "bmg160.hpp"
-%{
-    #include "bmg160.hpp"
-%}
+%include "bmg160_defs.h"
+%include "bma250e_defs.h"
+%include "bmm150_defs.h"
 
 %include "bmm150.hpp"
 %{

@@ -37,7 +37,7 @@ namespace upm {
   /**
    * @library rhusb
    * @sensor rhusb
-   * @comname UPM API for the Omega RH-USB Temperature and Humidity Sensor
+   * @comname Omega RH-USB Temperature and Humidity Sensor
    * @type temp
    * @man omega
    * @con uart
@@ -79,9 +79,9 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 

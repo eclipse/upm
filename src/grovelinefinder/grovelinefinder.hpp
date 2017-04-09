@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-linefinder
    * @brief Grove Line Finder Sensor library
    * @defgroup grovelinefinder libupm-grovelinefinder
    * @ingroup seeed gpio color robok
@@ -36,11 +37,12 @@ namespace upm {
   /**
    * @library grovelinefinder
    * @sensor grovelinefinder
-   * @comname Grove Line Finder
+   * @comname Line Finder
    * @type color
    * @man seeed
    * @con gpio
    * @kit robok
+   * @deprecated This class is being replaced by LineFinder
    *
    * @brief API for the Grove Line Finder Sensor
    *

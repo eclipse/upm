@@ -36,22 +36,21 @@ const uint8_t DISPLAY_CMD_SET_NORMAL = 0xA4;
 /**
  * @library i2clcd
  * @sensor ssd1327
- * @comname SSD1327 OLED Display
+ * @comname OLED Display
  * @altname Grove OLED Display 1.12"
  * @type display
  * @man seeed adafruit
- * @web http://garden.seeedstudio.com/images/8/82/SSD1327_datasheet.pdf
- * @web http://www.seeedstudio.com/wiki/Grove_-_OLED_Display_1.12%22
+ * @web http://wiki.seeed.cc/Grove-OLED_Display_1.12inch/
  * @con i2c
  *
  * @brief API for SSD1327 I2C-controlled OLED displays
  *
  * SSD1327 is a 96x96 dot-matrix OLED/PLED segment driver with a controller.
- * This implementation was tested using the Grove LED 96×96 Display module,
+ * This implementation was tested using the Grove LED 96*96 Display module,
  * which is an OLED monochrome display.
  *
  * @image html ssd1327.jpeg
- * @snippet ssd1327-oled.cxx Interesting
+ * @snippet i2clcd-ssd1327-oled.cxx Interesting
  */
 class SSD1327 : public LCD
 {

@@ -22,6 +22,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+from __future__ import print_function
 import mraa
 print (mraa.getVersion())
 
@@ -29,28 +30,32 @@ print (mraa.getVersion())
 mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0")
 
 import time, sys, signal, atexit
-import pyupm_curieimu as curieimu
-sensor = curieimu.CurieImu()
+from upm import pyupm_curieimu as curieimu
 
-## Exit handlers ##
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    sensor = curieimu.CurieImu()
 
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    ## Exit handlers ##
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-while(1):
-	sensor.updateAccel();
+    while(1):
+        sensor.updateAccel();
 
-	outputStr = "acc: gX {0} - gY {1} - gZ {2}".format(
-	sensor.getAccelX(), sensor.getAccelY(),
-	sensor.getAccelZ())
-	print outputStr
+        outputStr = "acc: gX {0} - gY {1} - gZ {2}".format(
+        sensor.getAccelX(), sensor.getAccelY(),
+        sensor.getAccelZ())
+        print(outputStr)
 
-	time.sleep(1)
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

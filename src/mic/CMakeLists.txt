@@ -1,5 +1,8 @@
-set (libname "mic")
-set (libdescription "Microphone simple API")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME mic
+    DESCRIPTION "Simple Analog Microphone"
+    C_HDR mic.h
+    C_SRC mic.c
+    CPP_HDR mic.hpp
+    CPP_SRC mic.cxx
+    FTI_SRC mic_fti.c
+    REQUIRES mraa)

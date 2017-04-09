@@ -1,6 +1,7 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ *         Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -38,8 +39,15 @@
 #define GYRO_DENOISE_NUM_FIELDS 3
 
 using namespace upm;
+using namespace std;
 
-L3GD20::L3GD20(int device)
+static float c2f(float c)
+{
+  return (c * (9.0 / 5.0) + 32.0);
+}
+
+L3GD20::L3GD20(int device) :
+  m_i2c(0)
 {
     float gyro_scale;
     char trigger[64];
@@ -49,6 +57,7 @@ L3GD20::L3GD20(int device)
                                     ": mraa_iio_init() failed, invalid device?");
         return;
     }
+
     m_scale = 1;
     m_iio_device_num = device;
     sprintf(trigger, "hrtimer-l3gd20-hr-dev%d", device);
@@ -56,7 +65,7 @@ L3GD20::L3GD20(int device)
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
         fprintf(stderr, "Create trigger %s failed\n", trigger);
 
-    if (mraa_iio_get_mounting_matrix(m_iio, m_mount_matrix) == MRAA_SUCCESS)
+    if (mraa_iio_get_mount_matrix(m_iio, "in_mount_matrix", m_mount_matrix) == MRAA_SUCCESS)
         m_mount_matrix_exist = true;
     else
         m_mount_matrix_exist = false;
@@ -82,23 +91,257 @@ L3GD20::L3GD20(int device)
     m_filter.idx = 0;
 }
 
+L3GD20::L3GD20(int bus, int addr)
+{
+  m_i2c = new mraa::I2c(bus);
+
+  if (m_i2c->address(addr) != mraa::SUCCESS)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": I2c.address() failed");
+    }
+
+  m_scale = 1.0;
+  m_iio_device_num = 0;
+
+  m_gyrScale = 1.0;
+  m_gyrX = 0.0;
+  m_gyrY = 0.0;
+  m_gyrZ = 0.0;
+  m_temperature = 0.0;
+
+  m_mount_matrix_exist = false;
+  m_event_count = 0;
+
+  // initial calibrate data
+  initCalibrate();
+
+  // initial denoise data
+  m_filter.buff =
+    (float*) calloc(GYRO_DENOISE_MAX_SAMPLES,
+                    sizeof(float) * GYRO_DENOISE_NUM_FIELDS);
+
+  if (m_filter.buff == NULL)
+    {
+      throw std::bad_alloc();
+      return;
+    }
+
+  m_filter.sample_size = GYRO_DENOISE_MAX_SAMPLES;
+  m_filter.count = 0;
+  m_filter.idx = 0;
+
+  // check ChipID
+
+  uint8_t cid = getChipID();
+  if (!(cid == L3GD20_DEFAULT_CHIP_ID || cid == L3GD20H_DEFAULT_CHIP_ID))
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": Invalid Chip ID: expected "
+                               + std::to_string(L3GD20_DEFAULT_CHIP_ID)
+                               + " or "
+                               + std::to_string(L3GD20H_DEFAULT_CHIP_ID)
+                               + ", got "
+                               + std::to_string(int(cid)));
+      return;
+    }
+
+  // set a normal power mode (with all axes enabled)
+  setPowerMode(POWER_NORMAL);
+
+  // enable block update mode
+  enableBDU(true);
+
+  // Set range to 250 degrees/sec/
+  setRange(FS_250);
+
+  // Set ODR to 95Hz, 25Hz cut-off
+  setODR(ODR_CUTOFF_95_25);
+}
+
 L3GD20::~L3GD20()
 {
     if (m_filter.buff) {
         free(m_filter.buff);
         m_filter.buff = NULL;
     }
-    if(m_iio)
+    if (m_iio)
         mraa_iio_close(m_iio);
 }
 
-#ifdef JAVACALLBACK
-void
-L3GD20::installISR(IsrCallback* cb)
+uint8_t L3GD20::readReg(uint8_t reg)
 {
-    installISR(generic_callback_isr, cb);
+  return m_i2c->readReg(reg);
 }
-#endif
+
+int L3GD20::readRegs(uint8_t reg, uint8_t *buffer, int len)
+{
+  // For multi-byte reads, the reg must have the MSb set
+  return m_i2c->readBytesReg(reg | 0x80, buffer, len);
+}
+
+void L3GD20::writeReg(uint8_t reg, uint8_t val)
+{
+  if (m_i2c->writeReg(reg, val) != mraa::SUCCESS)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__)
+                               + ": I2c.writeReg() failed");
+    }
+}
+
+uint8_t L3GD20::getChipID()
+{
+  return readReg(REG_WHO_AM_I);
+}
+
+void L3GD20::setPowerMode(POWER_MODES_T mode)
+{
+  uint8_t reg = readReg(REG_CTRL_REG1);
+
+  // setting the power modes involves setting certain combinations of
+  // the PD, and the X, Y, and Zen bitfields.
+
+  switch(mode)
+    {
+    case POWER_DOWN:
+      // clear PD
+      reg &= ~(CTRL_REG1_PD);
+      break;
+
+    case POWER_SLEEP:
+      // set PD, clear X, Y, and Zen.
+      reg |= CTRL_REG1_PD;
+      reg &= ~(CTRL_REG1_YEN | CTRL_REG1_XEN | CTRL_REG1_ZEN);
+      break;
+
+    case POWER_NORMAL:
+      // set PD, X, Y, and Zen.
+      reg |= (CTRL_REG1_PD | CTRL_REG1_YEN | CTRL_REG1_XEN | CTRL_REG1_ZEN);
+      break;
+    }
+
+  writeReg(REG_CTRL_REG1, reg);
+}
+
+void L3GD20::setRange(FS_T range)
+{
+  switch(range)
+    {
+    case FS_250:
+      m_gyrScale = 8.75; // milli-degrees
+      break;
+
+    case FS_500:
+      m_gyrScale = 17.50;
+      break;
+
+    case FS_2000:
+      m_gyrScale = 70.0;
+      break;
+    }
+
+  uint8_t reg = readReg(REG_CTRL_REG4) & ~(_CTRL_REG4_RESERVED_BITS);
+  // mask off current FS
+  reg &= ~(_CTRL_REG4_FS_MASK << _CTRL_REG4_FS_SHIFT);
+  // add our new FS
+  reg |= (range << _CTRL_REG4_FS_SHIFT);
+
+  writeReg(REG_CTRL_REG4, reg);
+}
+
+void L3GD20::enableBDU(bool enable)
+{
+  uint8_t reg = readReg(REG_CTRL_REG4) & ~(_CTRL_REG4_RESERVED_BITS);
+
+  if (enable)
+    reg |= CTRL_REG4_BDU;
+  else
+    reg &= ~CTRL_REG4_BDU;
+
+  writeReg(REG_CTRL_REG4, reg);
+}
+
+void L3GD20::getGyroscope(float *x, float *y, float *z)
+{
+  if (x)
+    *x = m_gyrX;
+
+  if (y)
+    *y = m_gyrY;
+
+  if (z)
+    *z = m_gyrZ;
+}
+
+void L3GD20::update()
+{
+  int bufLen = 6;
+  uint8_t buf[bufLen];
+
+  if (readRegs(REG_OUT_X_L, buf, bufLen) != bufLen)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__)
+                               + ": readRegs() failed to read "
+                               + std::to_string(bufLen)
+                               + " bytes");
+    }
+
+  int16_t val;
+
+  // The calibration and denoise algorithms depend on the use of
+  // radians rather than degrees, so we convert to radians here.
+
+  val = int16_t(buf[1] << 8 | buf[0]);
+  m_gyrX = ((float(val) * m_gyrScale) / 1000.0) * (M_PI/180.0);
+  m_gyrX = m_gyrX - m_cal_data.bias_x;
+
+  // y
+  val = int16_t(buf[3] << 8 | buf[2]);
+  m_gyrY = ((float(val) * m_gyrScale) / 1000.0) * (M_PI/180.0);
+  m_gyrY = m_gyrY - m_cal_data.bias_y;
+
+  // z
+  val = int16_t(buf[5] << 8 | buf[4]);
+  m_gyrZ = ((float(val) * m_gyrScale) / 1000.0) * (M_PI/180.0);
+  m_gyrZ = m_gyrZ - m_cal_data.bias_z;
+
+  if (m_calibrated == false)
+    m_calibrated = gyroCollect(m_gyrX, m_gyrY, m_gyrZ);
+
+  if (m_event_count++ >= GYRO_MIN_SAMPLES)
+    {
+      gyroDenoiseMedian(&m_gyrX, &m_gyrY, &m_gyrZ);
+      clampGyroReadingsToZero(&m_gyrX, &m_gyrY, &m_gyrZ);
+    }
+
+  // get the temperature...
+  uint8_t temp = readReg(REG_OUT_TEMPERATURE);
+  m_temperature = (float)temp;
+}
+
+float L3GD20::getTemperature(bool fahrenheit)
+{
+  if (fahrenheit)
+    return c2f(m_temperature);
+  else
+    return m_temperature;
+}
+
+void L3GD20::setODR(ODR_CUTOFF_T odr)
+{
+  uint8_t reg = readReg(REG_CTRL_REG1);
+
+  reg &= ~(_CTRL_REG1_ODR_CUTOFF_MASK << _CTRL_REG1_ODR_CUTOFF_SHIFT);
+  reg |= (odr << _CTRL_REG1_ODR_CUTOFF_SHIFT);
+
+  writeReg(REG_CTRL_REG1, reg);
+}
+
+uint8_t L3GD20::getStatusBits()
+{
+  return readReg(REG_STATUS_REG);
+}
+
 
 void
 L3GD20::installISR(void (*isr)(char*), void* arg)
@@ -177,6 +420,8 @@ L3GD20::disableBuffer()
 bool
 L3GD20::setScale(float scale)
 {
+    m_scale = scale;
+
     mraa_iio_write_float(m_iio, "in_anglvel_x_scale", scale);
     mraa_iio_write_float(m_iio, "in_anglvel_y_scale", scale);
     mraa_iio_write_float(m_iio, "in_anglvel_z_scale", scale);
@@ -224,6 +469,8 @@ L3GD20::extract3Axis(char* data, float* x, float* y, float* z)
     iio_y = getChannelValue((unsigned char*) (data + channels[1].location), &channels[1]);
     iio_z = getChannelValue((unsigned char*) (data + channels[2].location), &channels[2]);
 
+    // Raw data is x, y, z axis angular velocity. Units after application of scale are radians per
+    // second
     *x = (iio_x * m_scale);
     *y = (iio_y * m_scale);
     *z = (iio_z * m_scale);

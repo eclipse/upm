@@ -25,13 +25,12 @@
 
 #include <mraa/i2c.hpp>
 
-#include "upm/iTemperatureSensor.hpp"
-#include "upm/iHumiditySensor.hpp"
+#include "interfaces/iTemperatureSensor.hpp"
+#include "interfaces/iHumiditySensor.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define SI7005_ADDRESS                     ( 0x40 )
 #define SI7005_NOT_FOUND                   ( 0x00 )
-
 
 namespace upm {
 
@@ -42,21 +41,23 @@ namespace upm {
  */
 
 /**
+ * @library si7005
+ * @sensor si7005
+ * @comname Digital I2C Humidity and Temperature Sensor
+ * @altname Si7005
+ * @type temp
+ * @man silabs
+ * @web http://www.silabs.com/products/sensors/humidity-sensors/Pages/Si7005.aspx
+ * @con i2c
+ * @if itemperaturesensor
+ *
  * @brief C++ API for SI7005 sensor (Humidity And Temperature Sensor)
  *
  * The Silicon Labs Si7005
  * [SI7005](https://www.silabs.com/Support%20Documents/TechnicalDocs/Si7005.pdf)
  * is a digital relative humidity and temperature sensor.
  *
- * @library si7005
- * @sensor si7005
- * @comname Silicon Labs Si7005 LED lighting controller
- * @altname Si7005
- * @type temp
- * @man silabs
- * @con i2c
- * @if itemperaturesensor
-
+ * @snippet si7005.cxx Interesting
  */
 class SI7005 : public ITemperatureSensor, public IHumiditySensor {
     public:
@@ -82,7 +83,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         /**
          * Get temperature measurement.
          */
-        int getTemperatureCelcius ();
+        int getTemperatureCelsius ();
 
         /**
          * Get relative humidity measurement.
@@ -97,7 +98,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         /**
          * Returns sensor module name
          */
-        const char* getModuleName() { return "si7005"; }
+        virtual const char* getModuleName() { return "si7005"; }
 
         /**
          * Detects the sensor to ensure it is connected as required.

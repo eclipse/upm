@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -32,91 +34,85 @@
 using namespace upm;
 using namespace std;
 
-BMI055::BMI055(int accelBus, uint8_t accelAddr, int accelCS,
-               int gyroBus, uint8_t gyroAddr, int gyroCS) :
-  m_accel(0), m_gyro(0)
+BMI055::BMI055(int accelBus, int accelAddr, int accelCS,
+               int gyroBus, int gyroAddr, int gyroCS) :
+    m_accel(0), m_gyro(0)
 {
-  // if -1 is supplied as a bus for any of these, we will not
-  // instantiate them
+    // if -1 is supplied as a bus for any of these, we will not
+    // instantiate them
 
-  if (accelBus >= 0)
-    m_accel = new BMA250E(accelBus, accelAddr, accelCS);
+    if (accelBus >= 0)
+        m_accel = new BMA250E(accelBus, accelAddr, accelCS);
 
-  if (gyroBus >= 0)
-    m_gyro = new BMG160(gyroBus, gyroAddr, gyroCS);
+    if (gyroBus >= 0)
+        m_gyro = new BMG160(gyroBus, gyroAddr, gyroCS);
 
-  // now initialize them...
-  if (m_accel)
-    m_accel->init();
+    // now initialize them...
+    if (m_accel)
+        m_accel->init();
 
-  if (m_gyro)
-    m_gyro->init();
+    if (m_gyro)
+        m_gyro->init();
 }
 
 BMI055::~BMI055()
 {
-  if (m_accel)
-    delete m_accel;
+    if (m_accel)
+        delete m_accel;
 
-  if (m_gyro)
-    delete m_gyro;
+    if (m_gyro)
+        delete m_gyro;
 }
 
-void BMI055::initAccelerometer(BMA250E::POWER_MODE_T pwr,
-                               BMA250E::RANGE_T range,
-                               BMA250E::BW_T bw)
+void BMI055::initAccelerometer(BMA250E_POWER_MODE_T pwr,
+                               BMA250E_RANGE_T range,
+                               BMA250E_BW_T bw)
 {
-  if (m_accel)
-    m_accel->init(pwr, range, bw);
+    if (m_accel)
+        m_accel->init(pwr, range, bw);
 }
 
-void BMI055::initGyroscope(BMG160::POWER_MODE_T pwr,
-                           BMG160::RANGE_T range,
-                           BMG160::BW_T bw)
+void BMI055::initGyroscope(BMG160_POWER_MODE_T pwr,
+                           BMG160_RANGE_T range,
+                           BMG160_BW_T bw)
 {
-  if (m_gyro)
-    m_gyro->init(pwr, range, bw);
+    if (m_gyro)
+        m_gyro->init(pwr, range, bw);
 }
 
 void BMI055::update()
 {
-  if (m_accel)
-    m_accel->update();
+    if (m_accel)
+        m_accel->update();
 
-  if (m_gyro)
-    m_gyro->update();
+    if (m_gyro)
+        m_gyro->update();
 }
 
 void BMI055::getAccelerometer(float *x, float *y, float *z)
 {
-  if (m_accel)
-    m_accel->getAccelerometer(x, y, z);
+    if (m_accel)
+        m_accel->getAccelerometer(x, y, z);
 }
 
-float *BMI055::getAccelerometer()
+std::vector<float> BMI055::getAccelerometer()
 {
-  if (m_accel)
-    return m_accel->getAccelerometer();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_accel)
+        return m_accel->getAccelerometer();
+    else
+        return {0, 0, 0};
 }
 
 void BMI055::getGyroscope(float *x, float *y, float *z)
 {
-  if (m_gyro)
-    m_gyro->getGyroscope(x, y, z);
+    if (m_gyro)
+        m_gyro->getGyroscope(x, y, z);
 }
 
-float *BMI055::getGyroscope()
+std::vector<float> BMI055::getGyroscope()
 {
-  if (m_gyro)
-    return m_gyro->getGyroscope();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_gyro)
+        return m_gyro->getGyroscope();
+    else
+        return {0, 0, 0};
 }

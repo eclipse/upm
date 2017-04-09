@@ -97,6 +97,12 @@ APA102::setLed(uint16_t ledIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_
 }
 
 void
+APA102::setLedBrightness(uint16_t ledIdx, uint8_t brightness)
+{
+    setLedsBrightness(ledIdx, ledIdx, brightness);
+}
+
+void
 APA102::setAllLeds(uint8_t brightness, uint8_t r, uint8_t g, uint8_t b)
 {
     setLeds(0, m_ledCount - 1, brightness, r, g, b);
@@ -121,6 +127,21 @@ APA102::setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t 
 }
 
 void
+APA102::setLedsBrightness(uint16_t startIdx, uint16_t endIdx, uint8_t brightness)
+{
+    uint16_t s_idx = (startIdx + 1) * 4;
+    uint16_t e_idx = (endIdx + 1) * 4;
+
+    for (uint16_t i = s_idx; i <= e_idx; i += 4) {
+        m_leds[i] = brightness | 224;
+    }
+
+    if (!m_batchMode) {
+        pushState();
+    }
+}
+
+void
 APA102::setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t* colors)
 {
     uint16_t s_idx = (startIdx + 1) * 4;
@@ -132,10 +153,20 @@ APA102::setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t* colors)
 }
 
 void
+APA102::setBusSpeed(int hz)
+{
+    if (m_spi->frequency(hz) != mraa::SUCCESS) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": Failed to change SPI bus speed");
+    }
+}
+
+void
 APA102::pushState(void)
 {
     CSOn();
-    m_spi->write(m_leds, m_frameLength);
+    uint8_t* recv = m_spi->write(m_leds, m_frameLength);
+    if (recv != NULL) free(recv);
     CSOff();
 }
 

@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library mpr121
    * @sensor mpr121
-   * @comname MPR121 Touch Sensor
+   * @comname Digital Capacitive Touch Sensor Controller
    * @altname Grove I2C Touch Sensor
    * @type touch
    * @man seeed

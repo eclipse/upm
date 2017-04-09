@@ -1,5 +1,9 @@
-set (libname "rotaryencoder")
-set (libdescription "upm grove rotary encoder module")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME rotaryencoder
+    DESCRIPTION "Rotary Encoder"
+    C_HDR rotaryencoder.h
+    C_SRC rotaryencoder.c
+    CPP_HDR rotaryencoder.hpp
+    CPP_SRC rotaryencoder.cxx
+    FTI_SRC rotaryencoder_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)

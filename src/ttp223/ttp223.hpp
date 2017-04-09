@@ -35,7 +35,7 @@ namespace upm {
 /**
  * @library ttp223
  * @sensor ttp223
- * @comname TTP223 Touch Sensor
+ * @comname Capacitive Touch Sensor
  * @altname Grove Touch Sensor
  * @type touch
  * @man seeed

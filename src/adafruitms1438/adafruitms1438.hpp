@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library adafruitms1438
    * @sensor adafruitms1438
-   * @comname Adafruit Motor Shield
+   * @comname Module for the Adafruit Motor Shield 1438
    * @type motor
    * @man adafruit
    * @web http://www.adafruit.com/products/1438

@@ -4,6 +4,90 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.1.0
+
+ * Reworked cmake handling of internal and external dependencies
+ * Documentation improvements for sensor names, sensor descriptions, external
+ contributor guides and added new section on installing UPM on a supported OS
+ * Fixed issues with C11 builds on some WRLinux gateways and Debian systems
+ * New examples and functionality for speaker and ads1x15 modules
+ * Modified JAVA builds to ensure the SWIG generated wrappers include all
+ functionality and typemaps
+ * New sensors: mcp2515, max30100, uartat, le910
+
+### v1.0.2
+
+ * Minor cmake changes for Java builds and Java examples are now toggled with
+ the same BUILDEXAMPLES cmake switch
+ * Made some improvements in the utilities class for our C drivers
+ * Fixed issue with some drivers not being usable on subplatforms due to pin
+ numbers using uint8 type
+ * New sensors: ims, ecezo, mb704x, rf22
+
+### v1.0.1
+
+ * Warnings as errors enabled for C/CXX (fixed warnings from -Wall and others)
+ * Fix for C/CXX compile flag append issue #485
+ * C sensor libraries for: my9221, otp538u, guvas12d, ppd42ns
+ * New sensor: ms5803
+
+### v1.0.0
+
+ * Added approximately 50 C sources for UPM drivers that can be used on both
+ Unix and RTOS boards
+ * Provided generic alternatives to the Grove set of classes as they will be
+ deprecated over time and eventually removed
+ * UPM modules are now being packed and published on NPM as sources rather than
+ binaries to enhance compatibility with various boards and systems
+ * Build both python2 and python3 modules if the corresponding python libs are
+ available and removed cmake BUILDPYTHON3 switch
+ * Converted python examples to run on both python2 and python3
+ * Added 'upm' hierarchy to python module install path which changes the way
+ UPM modules are imported
+    Example:
+        old: import pyupm_dfrph
+        new: from upm import pyupm_dfrph
+             or
+             import upm.pyupm_dfrph
+ * Added ctests for consistancy checking UPM repo as well as sanity checking
+ for python2/3 modules and examples
+ * Various documentation and driver fixes throughout
+ * New sensors: nmea_gps, mma7361, bh1750, hka5, dfrorp, dfrec, sht1x
+
+### v0.8.0
+
+ * Extended l3gd20 driver to support I2C connections in addition to IIO
+ * Updated ads1x15, mcp9808 and ssd1306 I2C drivers to not throw a fatal
+ exception if they fail to set a different I2C speed
+ * Added extra functionality to apa102 driver, backlight control to jhd1313m1
+ LCDs and fixed htu21d
+ * Improved documentation with build dependencies, refreshed the list of known
+ limitations and simplified the component name for a few sensors
+
+### v0.7.3
+
+ * Fixed several existing drivers and updated Grove Temperature sensor to use
+ new formula for v1.1+ by default
+ * Separated codebase for upm_grove module that bundles some of the starter kit
+ sensors into individual source files
+ * Documentation and doxygen tag updates with correct spelling for Celsius in
+ several places, this also affects API compatibility
+ * Removed superfluous BUILDSWIG option, some build recipes might be impacted
+ * New sensor: ms5611
+
+### v0.7.2
+
+ * Mraa 1.1.1 required changes to UPM drivers and examples for IIO core
+ kernel support
+ * Rev'ed libmraa requirement to 1.1.1
+
+### v0.7.1
+
+ * Fix for building python2 vs python3 bindings
+ * Fixes for jhd1313m1 row/font size and reset
+ * Added bacnet utility class
+ * New sensors: bmx055, bmi055, bmc160, bma250e, bmg150, bmm150, t8100, tb7300
+
 ### v0.7.0
 
  * C++ header files have been renamed from *.h to *.hpp along with all Intel

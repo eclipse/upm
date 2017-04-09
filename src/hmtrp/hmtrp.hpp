@@ -52,11 +52,12 @@ namespace upm {
 /**
  * @library hmtrp
  * @sensor hmtrp
- * @comname Grove Serial RF Pro
+ * @comname Serial RF Pro Module
  * @altname HMTRP-433 HMTRP-470 HMTRP-868 HMTRP-915
  * @type wifi
  * @man seeed
  * @con uart
+ * @web http://wiki.seeed.cc/Grove-Serial_RF_Pro/
  *
  * @brief API for the HM-TRP Serial RF Pro transceiver
  *

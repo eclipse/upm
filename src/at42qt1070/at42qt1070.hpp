@@ -43,11 +43,12 @@ namespace upm
 /**
  * @library at42qt1070
  * @sensor at42qt1070
- * @comname AT42QT1070 QTouch Sensor
+ * @comname Seven-channel QTouch Touch Sensor
  * @altname Grove QTouch Sensor
  * @type touch
  * @man seeed
  * @con i2c
+ * @web http://wiki.seeed.cc/Grove-Q_Touch_Sensor/
  *
  * @brief API for the Atmel AT42QT1070 QTouch Sensor
  *

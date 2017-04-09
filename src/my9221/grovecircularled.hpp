@@ -44,7 +44,7 @@ namespace upm {
   /**
    * @library my9221
    * @sensor grovecircularled
-   * @comname Grove Circular LED
+   * @comname Circular LED
    * @type display
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_Circular_LED
@@ -56,7 +56,7 @@ namespace upm {
    * with a rotary encoder and has 24 controllable LEDs.
    *
    * @image html grovecircularled.jpg
-   * @snippet grovecircularled.cxx Interesting
+   * @snippet my9221-grovecircularled.cxx Interesting
    */
 
   class GroveCircularLED : public MY9221 {
@@ -67,12 +67,12 @@ namespace upm {
      * @param dataPin Data pin
      * @param clockPin Clock pin
      */
-    GroveCircularLED(uint8_t dataPin, uint8_t clockPin);
+    GroveCircularLED(int dataPin, int clockPin);
 
     /**
      * GroveCircularLED destructor
      */
-    ~GroveCircularLED();
+    virtual ~GroveCircularLED();
 
     /**
      * Sets the spinner (turns off all LEDs but selected one)

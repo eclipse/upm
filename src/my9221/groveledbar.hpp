@@ -45,7 +45,7 @@ namespace upm {
   /**
    * @library my9221
    * @sensor groveledbar
-   * @comname Grove LED Bar
+   * @comname LED Bar
    * @altname MY9221 LED Bar
    * @type display
    * @man seeed
@@ -60,7 +60,7 @@ namespace upm {
    * so that this module can control multiple LED bars.
    *
    * @image html my9221.jpg
-   * @snippet groveledbar.cxx Interesting
+   * @snippet my9221-groveledbar.cxx Interesting
    */
 
   class GroveLEDBar : public MY9221 {
@@ -73,12 +73,12 @@ namespace upm {
      * @param clockPin Clock pin
      * @param instances Number of daisy-chained Grove LED Bars, default 1
      */
-    GroveLEDBar(uint8_t dataPin, uint8_t clockPin, int instances=1);
+    GroveLEDBar(int dataPin, int clockPin, int instances=1);
 
     /**
      * GroveLEDBar destructor
      */
-    ~GroveLEDBar();
+    virtual ~GroveLEDBar();
 
     /**
      * Sets the bar level
@@ -90,7 +90,8 @@ namespace upm {
      * together, this argument selects a specific bar starting at 0.
      * The default is 0.
      */
-    void setBarLevel(uint8_t level, bool greenToRed=true, int barNumber=0);
+    void setBarLevel(uint8_t level, bool greenToRed=true,
+                     unsigned int barNumber=0);
 
   protected:
   private:

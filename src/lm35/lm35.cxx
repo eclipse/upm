@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,29 +23,43 @@
  */
 
 #include <iostream>
+#include <stdexcept>
 #include "lm35.hpp"
 
 using namespace std;
 using namespace upm;
 
 LM35::LM35(int pin, float aref) :
-  m_aio(pin)
+    m_lm35(lm35_init(pin, aref))
 {
-  m_aRes = m_aio.getBit();
-  m_aref = aref;
+    if (!m_lm35)
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": lm35_init() failed");
 }
 
 LM35::~LM35()
 {
+    lm35_close(m_lm35);
 }
 
 float LM35::getTemperature()
 {
-  int val = m_aio.read();
+    float temp;
+    upm_result_t rv = lm35_get_temperature(m_lm35, &temp);
 
-  // convert to mV
-  float temp = (float(val) * (m_aref / float(1 << m_aRes))) * 1000.0;
+    if (rv)
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": lm35_get_temperature() failed");
 
-  // 10mV/degree C
-  return(temp / 10.0);
+  return temp;
+}
+
+void LM35::setScale(float scale)
+{
+    lm35_set_scale(m_lm35, scale);
+}
+
+void LM35::setOffset(float offset)
+{
+    lm35_set_offset(m_lm35, offset);
 }

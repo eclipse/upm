@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-MAX31723::MAX31723 (int csn) : m_csnPinCtx(csn), m_spi(0) {
+MAX31723::MAX31723 (int csn) : m_spi(0), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "MAX31723";
 
@@ -51,11 +51,10 @@ MAX31723::MAX31723 (int csn) : m_csnPinCtx(csn), m_spi(0) {
 
 short
 MAX31723::getTemperature () {
-    uint8_t lsb = 0;
     uint8_t msb = 0;
     short temperature = 0;
 
-    lsb = readRegister (R_TEMPERATURE_LSB);
+    readRegister (R_TEMPERATURE_LSB);
     msb = readRegister (R_TEMPERATURE_MSB);
 
     if ((msb & 0x80) != 0) {
@@ -91,12 +90,11 @@ MAX31723::readRegister (uint8_t reg) {
 void
 MAX31723::writeRegister (uint8_t reg, uint8_t data) {
     uint8_t     buffer[2]   = { 0x00, 0x00 };
-    uint8_t*    sensorData  = NULL;
 
     CSOn ();
     buffer[0] = reg;
     buffer[1] = data;
-    sensorData = m_spi.write(buffer, 2);
+    m_spi.write(buffer, 2);
     CSOff ();
 }
 

@@ -21,40 +21,45 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmp280 as sensorObj
+from upm import pyupm_bmp280 as sensorObj
 
-# Instantiate a BME280 instance using default i2c bus and address
-sensor = sensorObj.BME280()
+def main():
+    # Instantiate a BME280 instance using default i2c bus and address
+    sensor = sensorObj.BME280()
 
-# For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-# BME280(0, -1, 10);
+    # For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+    # BME280(0, -1, 10);
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-while (1):
+    while (1):
         sensor.update()
 
-        print "Compensation Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Compensation Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Pressure: ", sensor.getPressure(), "Pa"
+        print("Pressure: ", sensor.getPressure(), "Pa")
 
-        print "Computed Altitude:", sensor.getAltitude(), "m"
+        print("Computed Altitude:", sensor.getAltitude(), "m")
 
-        print "Humidity:", sensor.getHumidity(), "%RH"
+        print("Humidity:", sensor.getHumidity(), "%RH")
 
-        print
-	time.sleep(1)
+        print()
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

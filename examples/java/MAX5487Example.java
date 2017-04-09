@@ -49,7 +49,7 @@ public class MAX5487Example {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following Exception occured: "+e.getMessage());
+				System.out.println("The following Exception occurred: "+e.getMessage());
 			}
 		}
 
@@ -60,7 +60,7 @@ public class MAX5487Example {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following exception occured: "+e.getMessage());
+				System.out.println("The following exception occurred: "+e.getMessage());
 			}
 		}
 

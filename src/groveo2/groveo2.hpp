@@ -28,6 +28,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-o2
    * @brief Grove O2 Oxygen Gas Sensor library
    * @defgroup groveo2 libupm-groveo2
    * @ingroup seeed analog gaseous
@@ -36,16 +37,17 @@ namespace upm {
   /**
    * @library groveo2
    * @sensor groveo2
-   * @comname Grove O2 Sensor
+   * @comname Oxygen (O2) Concentration Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @deprecated This class is being replaced by O2
    *
    * @brief API for the Grove O2 Oxygen Gas Sensor
    *
    * The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air
    *
-   * @image html groveo2.jpg    
+   * @image html groveo2.jpg
    * @snippet groveo2.cxx Interesting
    */
   class GroveO2 {

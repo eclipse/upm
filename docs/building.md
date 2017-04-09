@@ -5,10 +5,21 @@ UPM uses cmake in order to make compilation relatively painless. Cmake runs
 build out of tree so the recommended way is to clone from git and make a build/
 directory.
 
+**Dependencies**
+ * basic: libmraa, cmake, swig, pkgconfig, pthreads, librt
+ * bindings: python-dev, nodejs-dev, openjdk
+ * documentation: doxygen, graphviz, sphinx, yuidoc
+ * sensor specific: bacnet-mstp, modbus, openzwave, jpeg
+
 This project depends on libmraa, so that needs to be installed first. Append
 the install location of mraa pkgconfig to the following environment variable:
 
-    PKG_CONFIG_PATH=$PKG_CONFIG_PATH:.../mraa/build/lib/pkgconfig
+~~~~~~~~~~~~~
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:.../mraa/build/lib/pkgconfig
+~~~~~~~~~~~~~
+
+If you are building the Java or Node.js bindings make sure you set the
+`JAVA_HOME` and `NODE_PATH` environment variables respectively.
 
 UPM will attempt to build all directories inside src/ and they must contain
 individual CMakeLists.txt files.
@@ -45,9 +56,17 @@ Cross-compiling on a different system:
 -DCMAKE_CXX_FLAGS:STRING=-m32 -march=i586
 -DCMAKE_C_FLAGS:STRING=-m32 -march=i586
 ~~~~~~~~~~~~~
+Enabling Java module building
+~~~~~~~~~~~~~
+-DBUILDSWIGJAVA=ON
+~~~~~~~~~~~~~
 Building with an older version of swig (swig 2.0+) requires the disabling of javascript:
 ~~~~~~~~~~~~~
 -DBUILDSWIGNODE=OFF
+~~~~~~~~~~~~~
+Generating python3 modules instead of python2.7
+~~~~~~~~~~~~~
+-DBUILDPYTHON3=ON
 ~~~~~~~~~~~~~
 Disabling python module building
 ~~~~~~~~~~~~~
@@ -57,20 +76,20 @@ Setting the python library to use:
 ~~~~~~~~~~~~~
 -DPYTHON_LIBRARY:FILEPATH=/usr/lib/libpython2.7.so.1.0
 ~~~~~~~~~~~~~
-Building doxygen doc
+Building documentation
 ~~~~~~~~~~~~~
 -DBUILDDOC=ON
 ~~~~~~~~~~~~~
-Build C++ example binaries
+Build C/C++/JAVA examples
 ~~~~~~~~~~~~~
 -DBUILDEXAMPLES=ON
 ~~~~~~~~~~~~~
 
-If you intend to turn on all the options and build everything at once (C++,
-Node, Python and Documentation) you will have to edit the src/doxy2swig.py file
-and change the line endings from Windows style to Linux format. This has to be
-repeated every time to sync with the master branch since our Github repository
-stores files using CR LF line breaks.
+If you intend to turn on all the options and build everything at once
+(C++, Java, Node, Python and Documentation) you will have to edit the
+src/doxy2swig.py file and change the line endings from Windows style to Linux
+format. This has to be repeated every time to sync with the master branch since
+our Github repository stores files using CR LF line breaks.
 
 You can also generate the include and lib directories containing all the sensor
 headers and library files respectively with *make install*. Further, you may

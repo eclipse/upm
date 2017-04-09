@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq7
-   * @comname DFRobot MQ7 CO Gas Sensor
+   * @comname MQ7 Carbon Monoxide Sensor
    * @type gaseous
    * @man dfrobot
    * @con analog
+   * @web https://www.dfrobot.com/wiki/index.php/Carbon_Monoxide_Gas_Sensor(MQ7)_(SKU:SEN0132)
    *
    * @brief API for the DFRobot MQ7 CO Gas Sensor
    *
@@ -46,7 +47,7 @@ namespace upm {
    * 48 hours.  See the datasheet for details.
    *
    * @image html mq3-9.jpeg
-   * @snippet mq7.cxx Interesting
+   * @snippet gas-mq7.cxx Interesting
    */
     class MQ7 : public Gas {
         public:

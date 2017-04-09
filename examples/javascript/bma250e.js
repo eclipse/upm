@@ -1,9 +1,6 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var sensorObj = require('jsupm_bmx055');
+var sensorObj = require('jsupm_bma250e');
 
 // Instantiate a BMA250E instance using default i2c bus and address
 var sensor = new sensorObj.BMA250E();
@@ -33,21 +30,17 @@ var sensor = new sensorObj.BMA250E();
 // For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
 // BMA250E(0, -1, 10);
 
-var x = new sensorObj.new_floatp();
-var y = new sensorObj.new_floatp();
-var z = new sensorObj.new_floatp();
-
 // now output data every 250 milliseconds
 setInterval(function()
 {
     // update our values from the sensor
     sensor.update();
 
-    sensor.getAccelerometer(x, y, z);
+    var data = sensor.getAccelerometer();
     console.log("Accelerometer x: "
-                + sensorObj.floatp_value(x)
-                + " y: " + sensorObj.floatp_value(y)
-                + " z: " + sensorObj.floatp_value(z)
+                + data.get(0)
+                + " y: " + data.get(1)
+                + " z: " + data.get(2)
                 + " g");
 
     // we show both C and F for temperature

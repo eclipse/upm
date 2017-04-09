@@ -28,7 +28,7 @@
 
 struct thresholdContext {
     long averageReading;
-    long runningAverage;
+    unsigned long runningAverage;
     int averagedOver;
 };
 
@@ -54,7 +54,7 @@ class Gas {
         /**
          * Gas object destructor
          */
-        ~Gas();
+        virtual ~Gas();
 
         /**
          * Gets samples from the gas sensor according to the provided window and

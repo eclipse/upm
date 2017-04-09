@@ -59,7 +59,7 @@ namespace upm {
   /**
    * @library bacnetmstp
    * @sensor bacnetmstp
-   * @comname UPM API for BACNET MS/TP communications
+   * @comname UPM API for BACNET MS/TP Communications
    * @con uart
    * @web http://bacnet.sourceforge.net/
    * @brief UPM API for BACNETMSTP
@@ -656,8 +656,8 @@ namespace upm {
 
   private:
     // prevent copying and assignment
-    BACNETMSTP(BACNETMSTP const &) {};
-    BACNETMSTP& operator=(BACNETMSTP const&) {};
+    BACNETMSTP(BACNETMSTP const &) = delete;
+    BACNETMSTP& operator=(BACNETMSTP const&) = delete;
 
     // our class instance
     static BACNETMSTP* m_instance;

@@ -40,7 +40,7 @@ void printUsage(char *progname)
        << endl;
   cout << "sent to the module and the response is printed out." << endl;
   cout << endl;
-  cout << "If no argument is used, then the address and PIN of the module" 
+  cout << "If no argument is used, then the address and PIN of the module"
        << endl;
   cout << "are queried and the results printed out." << endl;
   cout << endl;
@@ -52,12 +52,12 @@ void sendCommand(upm::HM11* ble, char *cmd)
 {
   char buffer[BUFSIZ];
   ble->writeData(cmd, strlen(cmd));
-  
+
   // wait up to 1 second
   if (ble->dataAvailable(1000))
     {
       memset(buffer, 0, BUFSIZ);
-      
+
       ble->readData(buffer, BUFSIZ - 1);
       cout << "Returned: " << buffer << endl;
     }
@@ -71,7 +71,6 @@ void sendCommand(upm::HM11* ble, char *cmd)
 int main (int argc, char **argv)
 {
 //! [Interesting]
-  char buffer[BUFSIZ];
   // Instantiate a HM11 BLE Module on UART 0
 
   upm::HM11* ble = new upm::HM11(0);

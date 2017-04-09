@@ -1,10 +1,11 @@
 %module javaupm_bmp280
 %include "../upm.i"
-%include "cpointer.i"
-%include "typemaps.i"
-%include "arrays_java.i";
-%include "../java_buffer.i"
 
+%include "../interfaces/javaupm_iTemperatureSensor.i"
+%include "../interfaces/javaupm_iHumiditySensor.i"
+%include "../interfaces/javaupm_iPressureSensor.i"
+
+%include "bmp280_regs.h"
 %include "bmp280.hpp"
 %{
     #include "bmp280.hpp"

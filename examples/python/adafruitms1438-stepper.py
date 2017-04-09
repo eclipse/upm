@@ -21,68 +21,69 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_adafruitms1438 as upmAdafruitms1438
+from upm import pyupm_adafruitms1438 as upmAdafruitms1438
 
+def main():
+    # Import header values
+    I2CBus = upmAdafruitms1438.ADAFRUITMS1438_I2C_BUS
+    I2CAddr = upmAdafruitms1438.ADAFRUITMS1438_DEFAULT_I2C_ADDR
 
-# Import header values
-I2CBus = upmAdafruitms1438.ADAFRUITMS1438_I2C_BUS
-I2CAddr = upmAdafruitms1438.ADAFRUITMS1438_DEFAULT_I2C_ADDR
+    M12Motor = upmAdafruitms1438.AdafruitMS1438.STEPMOTOR_M12
+    MotorDirCW = upmAdafruitms1438.AdafruitMS1438.DIR_CW
+    MotorDirCCW = upmAdafruitms1438.AdafruitMS1438.DIR_CCW
 
-M12Motor = upmAdafruitms1438.AdafruitMS1438.STEPMOTOR_M12
-MotorDirCW = upmAdafruitms1438.AdafruitMS1438.DIR_CW
-MotorDirCCW = upmAdafruitms1438.AdafruitMS1438.DIR_CCW
+    # Instantiate an Adafruit MS 1438 on I2C bus 0
+    myMotorShield = upmAdafruitms1438.AdafruitMS1438(I2CBus, I2CAddr)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# Instantiate an Adafruit MS 1438 on I2C bus 0
-myMotorShield = upmAdafruitms1438.AdafruitMS1438(I2CBus, I2CAddr)
+    # This function lets you run code on exit,
+    # including functions from myMotorShield
+    def exitHandler():
+        myMotorShield.disableStepper(M12Motor)
+        print("Exiting")
+        sys.exit(0)
 
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # Setup for use with a stepper motor connected to the M1 & M2 ports
 
-# This function lets you run code on exit,
-# including functions from myMotorShield
-def exitHandler():
-	myMotorShield.disableStepper(M12Motor)
-	print "Exiting"
-	sys.exit(0)
+    # set a PWM period of 50Hz
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # disable first, to be safe
+    myMotorShield.disableStepper(M12Motor)
 
+    # configure for a NEMA-17, 200 steps per revolution
+    myMotorShield.stepConfig(M12Motor, 200)
 
-# Setup for use with a stepper motor connected to the M1 & M2 ports
+    # set speed at 10 RPM's
+    myMotorShield.setStepperSpeed(M12Motor, 10);
+    myMotorShield.setStepperDirection(M12Motor, MotorDirCW)
 
-# set a PWM period of 50Hz
+    # enable
+    print("Enabling...")
+    myMotorShield.enableStepper(M12Motor)
 
-# disable first, to be safe
-myMotorShield.disableStepper(M12Motor)
+    print("Rotating 1 full revolution at 10 RPM speed.")
+    myMotorShield.stepperSteps(M12Motor, 200)
 
-# configure for a NEMA-17, 200 steps per revolution
-myMotorShield.stepConfig(M12Motor, 200)
+    print("Sleeping for 2 seconds...")
+    time.sleep(2)
+    print("Rotating 1/2 revolution in opposite direction at 10 RPM speed.")
 
-# set speed at 10 RPM's
-myMotorShield.setStepperSpeed(M12Motor, 10);
-myMotorShield.setStepperDirection(M12Motor, MotorDirCW)
+    myMotorShield.setStepperDirection(M12Motor, MotorDirCCW)
+    myMotorShield.stepperSteps(M12Motor, 100)
 
-# enable
-print "Enabling..."
-myMotorShield.enableStepper(M12Motor)
+    print("Disabling...")
 
-print "Rotating 1 full revolution at 10 RPM speed."
-myMotorShield.stepperSteps(M12Motor, 200)
+    # exitHandler runs automatically
 
-print "Sleeping for 2 seconds..."
-time.sleep(2)
-print "Rotating 1/2 revolution in opposite direction at 10 RPM speed." 
-
-myMotorShield.setStepperDirection(M12Motor, MotorDirCCW)
-myMotorShield.stepperSteps(M12Motor, 100)
-
-print "Disabling..."
-
-# exitHandler runs automatically
+if __name__ == '__main__':
+    main()

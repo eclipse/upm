@@ -1,6 +1,8 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
+ *
+ * The MIT License
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -32,127 +34,135 @@
 using namespace upm;
 using namespace std;
 
-BMX055::BMX055(int accelBus, uint8_t accelAddr, int accelCS,
-               int gyroBus, uint8_t gyroAddr, int gyroCS,
-               int magBus, uint8_t magAddr, int magCS) :
-  m_accel(0), m_gyro(0), m_mag(0)
+BMX055::BMX055(int accelBus, int accelAddr, int accelCS,
+               int gyroBus, int gyroAddr, int gyroCS,
+               int magBus, int magAddr, int magCS) :
+    m_accel(0), m_gyro(0), m_mag(0)
 {
-  // if -1 is supplied as a bus for any of these, we will not
-  // instantiate them
+    // if -1 is supplied as a bus for any of these, we will not
+    // instantiate them
 
-  if (accelBus >= 0)
-    m_accel = new BMA250E(accelBus, accelAddr, accelCS);
+    if (accelBus >= 0)
+        m_accel = new BMA250E(accelBus, accelAddr, accelCS);
 
-  if (gyroBus >= 0)
-    m_gyro = new BMG160(gyroBus, gyroAddr, gyroCS);
+    if (gyroBus >= 0)
+        m_gyro = new BMG160(gyroBus, gyroAddr, gyroCS);
 
-  if (magBus >= 0)
-    m_mag = new BMM150(magBus, magAddr, magCS);
-
-  // now initialize them...
-  if (m_accel)
-    m_accel->init();
-
-  if (m_gyro)
-    m_gyro->init();
-
-  if (m_mag)
-    m_mag->init();
+    if (magBus >= 0)
+        m_mag = new BMM150(magBus, magAddr, magCS);
 }
 
 BMX055::~BMX055()
 {
-  if (m_accel)
-    delete m_accel;
+    if (m_accel)
+        delete m_accel;
 
-  if (m_gyro)
-    delete m_gyro;
+    if (m_gyro)
+        delete m_gyro;
 
-  if (m_mag)
-    delete m_mag;
+    if (m_mag)
+        delete m_mag;
 }
 
-void BMX055::initAccelerometer(BMA250E::POWER_MODE_T pwr,
-                               BMA250E::RANGE_T range,
-                               BMA250E::BW_T bw)
+void BMX055::initAccelerometer(BMA250E_POWER_MODE_T pwr,
+                               BMA250E_RANGE_T range,
+                               BMA250E_BW_T bw)
 {
-  if (m_accel)
-    m_accel->init(pwr, range, bw);
+    if (m_accel)
+        m_accel->init(pwr, range, bw);
 }
 
-void BMX055::initGyroscope(BMG160::POWER_MODE_T pwr,
-                           BMG160::RANGE_T range,
-                           BMG160::BW_T bw)
+void BMX055::initGyroscope(BMG160_POWER_MODE_T pwr,
+                           BMG160_RANGE_T range,
+                           BMG160_BW_T bw)
 {
-  if (m_gyro)
-    m_gyro->init(pwr, range, bw);
+    if (m_gyro)
+        m_gyro->init(pwr, range, bw);
 }
 
-void BMX055::initMagnetometer(BMM150::USAGE_PRESETS_T usage)
+void BMX055::initMagnetometer(BMM150_USAGE_PRESETS_T usage)
 {
-  if (m_mag)
-    m_mag->init(usage);
+    if (m_mag)
+        m_mag->init(usage);
 }
 
 void BMX055::update()
 {
-  if (m_accel)
-    m_accel->update();
+    if (m_accel)
+        m_accel->update();
 
-  if (m_gyro)
-    m_gyro->update();
+    if (m_gyro)
+        m_gyro->update();
 
-  if (m_mag)
-    m_mag->update();
+    if (m_mag)
+        m_mag->update();
 }
 
 void BMX055::getAccelerometer(float *x, float *y, float *z)
 {
-  if (m_accel)
-    m_accel->getAccelerometer(x, y, z);
+    if (m_accel)
+        m_accel->getAccelerometer(x, y, z);
+    else
+    {
+        if (x)
+            *x = 0;
+        if (y)
+            *y = 0;
+        if (z)
+            *z = 0;
+    }
 }
 
-float *BMX055::getAccelerometer()
+std::vector<float> BMX055::getAccelerometer()
 {
-  if (m_accel)
-    return m_accel->getAccelerometer();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_accel)
+        return m_accel->getAccelerometer();
+    else
+        return {0, 0, 0};
 }
 
 void BMX055::getGyroscope(float *x, float *y, float *z)
 {
-  if (m_gyro)
-    m_gyro->getGyroscope(x, y, z);
+    if (m_gyro)
+        m_gyro->getGyroscope(x, y, z);
+    else
+    {
+        if (x)
+            *x = 0;
+        if (y)
+            *y = 0;
+        if (z)
+            *z = 0;
+    }
 }
 
-float *BMX055::getGyroscope()
+std::vector<float> BMX055::getGyroscope()
 {
-  if (m_gyro)
-    return m_gyro->getGyroscope();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_gyro)
+        return m_gyro->getGyroscope();
+    else
+        return {0, 0, 0};
 }
 
 void BMX055::getMagnetometer(float *x, float *y, float *z)
 {
-  if (m_mag)
-    m_mag->getMagnetometer(x, y, z);
+    if (m_mag)
+        m_mag->getMagnetometer(x, y, z);
+    else
+    {
+        if (x)
+            *x = 0;
+        if (y)
+            *y = 0;
+        if (z)
+            *z = 0;
+    }
 }
 
-float *BMX055::getMagnetometer()
+std::vector<float> BMX055::getMagnetometer()
 {
-  if (m_mag)
-    return m_mag->getMagnetometer();
-  else
-    {
-      static float v[3] = {0.0f, 0.0f, 0.0f};
-      return v;
-    }
+    if (m_mag)
+        return m_mag->getMagnetometer();
+    else
+        return {0, 0, 0};
 }

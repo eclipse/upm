@@ -1,6 +1,7 @@
 /*
  * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ *         Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -30,23 +31,20 @@
 
 using namespace upm;
 
-BISS0001::BISS0001(int pin)
+BISS0001::BISS0001(unsigned int pin) :
+    m_biss0001(biss0001_init(pin))
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_init() failed, invalid pin?");
-        return;
-      }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+    if (!m_biss0001)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": biss0001_init() failed");
 }
 
 BISS0001::~BISS0001()
 {
-    mraa_gpio_close(m_gpio);
+    biss0001_close(m_biss0001);
 }
 
 bool BISS0001::value()
 {
-    return (mraa_gpio_read(m_gpio) ? true : false);
+    return biss0001_motion_detected(m_biss0001);
 }

@@ -55,6 +55,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>     /* for memmove */
+// __USE_XOPEN needed for timezone
+#define __USE_XOPEN
 #include <time.h>       /* for timezone, localtime */
 
 #define BACDL_MSTP 1
@@ -208,7 +210,7 @@ unsigned Device_Count(
 uint32_t Device_Index_To_Instance(
     unsigned index)
 {
-    index = index;
+    //index = index;
     return Object_Instance_Number;
 }
 

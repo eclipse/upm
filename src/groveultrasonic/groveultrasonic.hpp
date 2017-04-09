@@ -36,18 +36,20 @@
 namespace upm {
 
 /**
+ * @deprecated This library is being replaced by libupm-ultrasonic
  * @brief Grove ultrasonic sensor library
  * @defgroup groveultrasonic libupm-groveultrasonic
- * @ingroup grove gpio sound
+ * @ingroup seeed gpio sound
  */
 
 /**
  * @library groveultrasonic
  * @sensor groveultrasonic
- * @comname Grove Ultrasonic Ranger
+ * @comname Ultrasonic Proximity Sensor
  * @type sound
  * @man seeed
  * @con gpio
+ * @deprecated This class is being replaced by UltraSonic
  *
  * @brief API for Grove Ultrasonic Ranger
  *
@@ -67,7 +69,7 @@ class GroveUltraSonic {
          *
          * @param pin pin for triggering the sensor for distance and for receiving pulse response
          */
-        GroveUltraSonic (uint8_t pin);
+        GroveUltraSonic (int pin);
 
         /**
          * GroveUltraSonic object destructor.

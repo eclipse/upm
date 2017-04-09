@@ -44,10 +44,11 @@ namespace upm {
 /**
  * @library lpd8806
  * @sensor lpd8806
- * @comname LPD8806 RGB LED Strip Controller
+ * @comname Digital RGB LED Strip Controller
  * @type led
  * @man adafruit
  * @con spi
+ * @web https://www.adafruit.com/product/306
  *
  * @brief API for the LPD8806 RGB LED Strip Controller
  *
@@ -65,7 +66,7 @@ class LPD8806 {
          * @param pixelCount Number of pixels in the strip
          * @param csn Chip select pin
          */
-        LPD8806 (uint16_t pixelCount, uint8_t csn);
+        LPD8806 (uint16_t pixelCount, int csn);
 
         /**
          * LPD8806 object destructor; basically, it frees the allocated

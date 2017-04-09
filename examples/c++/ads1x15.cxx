@@ -37,6 +37,7 @@ int main()
      using namespace std;
      using namespace upm;
      int command;
+     //! [Interesting]
      //Select the device you are testing here and adjust case 6 for the correct sample rates.
      //upm::ADS1015 *ads = new upm::ADS1015(1);
      upm::ADS1115 *ads = new upm::ADS1115(1, 0x49);
@@ -315,6 +316,7 @@ int main()
      }while (command != -1 );
 
      delete ads;
+     //! [Interesting]
 
-     return MRAA_SUCCESS;
+     return 0;
 }

@@ -34,7 +34,7 @@ namespace upm {
   /**
    * @library waterlevel
    * @sensor waterlevel
-   * @comname Grove Water Level Sensor
+   * @comname Water Level Sensor
    * @type liquid
    * @man seeed
    * @con gpio
@@ -45,7 +45,7 @@ namespace upm {
    * it may actuate a pump, an indicator, an alarm, or other devices.
    *
    * @image html waterlevel.jpg 
-   * @snippet apds9002.cxx Interesting
+   * @snippet waterlevel.cxx Interesting
    */
   class WaterLevel {
   public:

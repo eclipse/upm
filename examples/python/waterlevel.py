@@ -21,34 +21,37 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_waterlevel as upmWaterlevel
+from upm import pyupm_waterlevel as upmWaterlevel
 
-# The was tested with the Water Level Sensor
-# Instantiate a Water Level Sensor on digital pin D2
-myWaterLevel = upmWaterlevel.WaterLevel(2)
+def main():
+    # The was tested with the Water Level Sensor
+    # Instantiate a Water Level Sensor on digital pin D2
+    myWaterLevel = upmWaterlevel.WaterLevel(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myWaterLevel
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myWaterLevel
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        if (myWaterLevel.isSubmerged()):
+            print("Sensor is submerged in liquid")
+        else:
+            print("Liquid is below water level sensor")
 
+        time.sleep(1)
 
-while(1):
-	if (myWaterLevel.isSubmerged()):
-		print "Sensor is submerged in liquid"
-	else:
-		print "Liquid is below water level sensor"
-
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

@@ -48,6 +48,7 @@
 
 namespace upm {
     /**
+     * @deprecated This library is being replaced by libupm-scam
      * @brief Grove Serial Camera library
      * @defgroup grovescam libupm-grovescam
      * @ingroup seeed uart other
@@ -56,11 +57,12 @@ namespace upm {
     /**
      * @library grovescam
      * @sensor grovescam
-     * @comname Grove Serial Camera
+     * @comname Serial Camera Module
      * @type other
      * @man seeed
      * @con uart
      * @web http://www.seeedstudio.com/wiki/Grove_-_Serial_Camera_Kit
+     * @deprecated This class is being replaced by SCAM
      *
      * @brief API for the Grove Serial Camera
      *
@@ -82,7 +84,7 @@ namespace upm {
 
     typedef enum {
       FORMAT_VGA                   = 7, // 640x480
-      FORMAT_CIF                   = 5, // 352×288
+      FORMAT_CIF                   = 5, // 352*288
       FORMAT_OCIF                  = 3  // ??? (maybe they meant QCIF?)
     } PIC_FORMATS_T;
 

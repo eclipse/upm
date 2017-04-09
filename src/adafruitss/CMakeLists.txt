@@ -1,5 +1,5 @@
 set (libname "adafruitss")
-set (libdescription "upm Adafruit pca9685 based 16-channel servo shield")
+set (libdescription "Adafruit Servo Shield")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

@@ -30,12 +30,13 @@
 #define EDISON_GPIO_SI7005_CS 20
 
 
+//! [Interesting]
 int main ()
 {
    try {
       upm::SI7005* sensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
       while (true) {
-         int temperature = sensor->getTemperatureCelcius();
+         int temperature = sensor->getTemperatureCelsius();
          int humidity = sensor->getHumidityRelative();
          std::cout << "Temperature = " << temperature << "C" << std::endl;
          std::cout << "Humidity    = " << humidity << "%" << std::endl;
@@ -47,5 +48,4 @@ int main ()
    }
    return 0;
 }
-
 //! [Interesting]

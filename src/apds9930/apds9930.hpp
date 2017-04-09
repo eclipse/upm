@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -37,10 +37,11 @@ namespace upm
 /**
  * @library apds9930
  * @sensor apds9930
- * @comname APDS9930 Digital Proximity and Ambient Light Sensor
+ * @comname Digital Ambient Light and Proximity Sensor
  * @type light proximity
- * @man Avago Technologies
+ * @man avago
  * @con iio i2c
+ * @web https://www.broadcom.com/products/optical-sensors/integrated-ambient-light-proximity-sensors/apds-9930
  *
  * @brief APDS9930 Digital Proximity and Ambient Light Sensor
  *
@@ -75,6 +76,16 @@ class APDS9930
      * @return Proximity value
      */
     int getProximity();
+    /**
+     * Enable proximity
+     * @param enable state
+     */
+    bool enableProximity(bool enable);
+    /**
+     * Enable illuminance
+     * @param enable state
+     */
+    bool enableIlluminance(bool enable);
 
   private:
     mraa_iio_context m_iio;

@@ -21,37 +21,40 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_grovecollision as upmGrovecollision
+from upm import pyupm_grovecollision as upmGrovecollision
 
-# The was tested with the Grove Collision Sensor
-# Instantiate a Grove Collision on digital pin D2
-myGrovecollision = upmGrovecollision.GroveCollision(2)
+def main():
+    # The was tested with the Grove Collision Sensor
+    # Instantiate a Grove Collision on digital pin D2
+    myGrovecollision = upmGrovecollision.GroveCollision(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myGrovecollision
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myGrovecollision
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    collisionState = False
+    print("No collision")
 
+    while(1):
+        if (myGrovecollision.isColliding() and not collisionState):
+            print("Collision!")
+            collisionState = True
+        elif (not myGrovecollision.isColliding() and collisionState):
+            print("No collision")
+            collisionState = False
 
-collisionState = False
-print "No collision"
-
-while(1):
-	if (myGrovecollision.isColliding() and not collisionState):
-		print "Collision!"
-		collisionState = True
-	elif (not myGrovecollision.isColliding() and collisionState):
-		print "No collision"
-		collisionState = False
+if __name__ == '__main__':
+    main()

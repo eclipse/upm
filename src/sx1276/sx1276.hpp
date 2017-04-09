@@ -60,7 +60,7 @@ namespace upm {
   /**
    * @library sx1276
    * @sensor sx1276
-   * @comname SX1276 LoRa/FSK modem
+   * @comname SX1276 LoRa/FSK Modem
    * @altname SX1277 SX1278 SX1279
    * @type wifi
    * @man semtech
@@ -2011,7 +2011,7 @@ namespace upm {
 
     uint8_t lookupFSKBandWidth(uint32_t bw);
 
-    // received data (on successfull completion)
+    // received data (on successful completion)
     volatile int m_rxRSSI;
     volatile int m_rxSNR;
     volatile int m_rxLen;

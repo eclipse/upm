@@ -31,23 +31,24 @@
 #define AK8975_DEFAULT_I2C_ADDR 0x0c
 
 namespace upm {
-  
+
   /**
    * @library mpu9150
    * @sensor ak8975
-   * @comname AK8975 3-axis Magnetometer
+   * @comname 3-axis Magnetometer
    * @altname AK9875
    * @type compass
    * @man seeed
    * @con i2c
+   * @web http://www.akm.com/akm/en/file/datasheet/AK8975.pdf
    *
    * @brief API for the AK8975 magnetometer
    *
    * This is a 3-axis magnetometer, which can be used alone, or
    * coupled with another device (such as the mcu9150 9-axis motion
-   * sensor). 
+   * sensor).
    *
-   * @snippet ak8975.cxx Interesting
+   * @snippet mpu9150-ak8975.cxx Interesting
    */
   class AK8975 {
   public:
@@ -90,14 +91,14 @@ namespace upm {
       REG_ASAY                  = 0x11,
       REG_ASAZ                  = 0x12
     } AK8975_REG_T;
-    
+
     /**
      * ST1 bits
      */
     typedef enum {
       ST1_DRDY                  = 0x01 // data ready bit
     } ST1_BITS_T;
-    
+
     /**
      * ST2 bits
      */
@@ -105,7 +106,7 @@ namespace upm {
       ST2_DERR                  = 0x04, // data error
       ST2_HOFL                  = 0x08  // measurement overflow
     } ST2_BITS_T;
-    
+
     /**
      * CNTL register, operating mode values
      */
@@ -115,7 +116,7 @@ namespace upm {
       CNTL_SELFTEST             = 0x08,
       CNTL_FUSE_ACCESS          = 0x0f  // access fuse (coeff) registers
     } CNTL_MODES_T;
-    
+
     /**
      * ASTC (self test control) bits
      */
@@ -135,7 +136,7 @@ namespace upm {
      * AK8975 Destructor
      */
     ~AK8975();
-    
+
     /**
      * set up initial values and start operation
      *
@@ -209,7 +210,7 @@ namespace upm {
      * that was read and stored at init() time.
      *
      * @param value the raw axis value to compensate
-     * @param adj the adjustment coefficient 
+     * @param adj the adjustment coefficient
      * @return true if successful
      */
     float adjustValue(float value, float adj);

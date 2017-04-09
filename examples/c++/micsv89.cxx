@@ -74,5 +74,5 @@ int main()
     delete sensor;
 //! [Interesting]
 
-    return MRAA_SUCCESS;
+    return 0;
 }

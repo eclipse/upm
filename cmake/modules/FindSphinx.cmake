@@ -23,7 +23,7 @@ if (SPHINX_EXECUTABLE)
                     OUTPUT_VARIABLE SPHINX_VERSION)
     if(SPHINX_VERSION)
       string(REGEX MATCH "([0-9]\\.[0-9]\\.[0-9])" SPHINX_VERSION_STR ${SPHINX_VERSION})
-      message ("INFO - Sphinx version is " ${SPHINX_VERSION_STR})
+      message (STATUS "Sphinx version is ${SPHINX_VERSION_STR}")
     endif()
 endif ()
 

@@ -37,11 +37,12 @@ namespace upm {
     /**
      * @library isd1820
      * @sensor isd1820
-     * @comname Grove Recorder
+     * @comname Voice Recording and Playback Module
      * @altname ISD1820 Recorder
      * @type sound
      * @man seeed
      * @con gpio
+     * @web http://wiki.seeed.cc/Grove_Recorder/
      *
      * @brief API support for the ISD1820-based Grove Voice Recorder
      *

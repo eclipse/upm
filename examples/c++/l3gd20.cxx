@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,8 +22,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+#include <iomanip>
+#include <unistd.h>
 #include <signal.h>
 #include "l3gd20.hpp"
 
@@ -43,8 +44,10 @@ void
 data_callback(char* data)
 {
     float x, y, z;
-    if (gyroscope->extract3Axis(data, &x, &y, &z))
-        printf("% .2f               % .2f               % .2f\n", x, y, z);
+    if (gyroscope->extract3Axis(data, &x, &y, &z)) {
+        cout << fixed << setprecision(1);
+        cout << x << '\t' << y << '\t' << z << "[rad/sec]" << endl;
+    }
 }
 
 int
@@ -54,7 +57,9 @@ main()
     //! [Interesting]
     // Instantiate a L3GD20 Gyroscope Sensor on iio device 3
     gyroscope = new upm::L3GD20(3);
+    // Available scales are 0.000153(250dps), 0.000305(500dps), and 0.001222(2000dps)
     gyroscope->setScale(0.001222);
+    // Available sampling frequency are 95, 190, 380, and 760
     gyroscope->setSamplingFrequency(95.0);
     gyroscope->enable3AxisChannel();
     gyroscope->installISR(data_callback, NULL);

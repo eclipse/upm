@@ -5,6 +5,7 @@
 
 %feature("autodoc", "3");
 
+%include "uln200xa_defs.h"
 %include "uln200xa.hpp"
 %{
     #include "uln200xa.hpp"

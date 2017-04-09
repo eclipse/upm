@@ -33,6 +33,7 @@
 
 namespace upm {
   /**
+   * @deprecated This library is being replaced by libupm-speaker
    * @brief Grove Speaker library
    * @defgroup grovespeaker libupm-grovespeaker
    * @ingroup seeed gpio sound hak
@@ -49,11 +50,12 @@ typedef struct
   /**
    * @library grovespeaker
    * @sensor grovespeaker
-   * @comname Grove Speaker
+   * @comname Speaker Module
    * @type sound
    * @man seeed
    * @con gpio
    * @kit hak
+   * @deprecated This class is being replaced by Speaker
    *
    * @brief API for the Grove Speaker
    *

@@ -54,7 +54,7 @@ namespace upm {
     /**
      * @library nlgpio16
      * @sensor nlgpio16
-     * @comname NLGPIO16 16 channel USB GPIO Module
+     * @comname 16-channel USB GPIO Module
      * @type other
      * @man numatolabs
      * @con uart

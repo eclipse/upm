@@ -21,49 +21,54 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_rhusb as sensorObj
+from upm import pyupm_rhusb as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting..."
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting...")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-defaultDev = "/dev/ttyUSB0"
+    defaultDev = "/dev/ttyUSB0"
 
-# if an argument was specified, use it as the device instead
-if (len(sys.argv) > 1):
+    # if an argument was specified, use it as the device instead
+    if (len(sys.argv) > 1):
         defaultDev = sys.argv[1]
 
-print "Using device", defaultDev
-print "Initializing..."
+    print("Using device", defaultDev)
+    print("Initializing...")
 
-# Instantiate an RHUSB instance on defaultDev
-sensor = sensorObj.RHUSB(defaultDev)
+    # Instantiate an RHUSB instance on defaultDev
+    sensor = sensorObj.RHUSB(defaultDev)
 
-# output the firmware ID
-print "Firmware ID:", sensor.getFirmwareID()
-print
+    # output the firmware ID
+    print("Firmware ID:", sensor.getFirmwareID())
+    print()
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values from the sensor
         sensor.update()
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Humidity:", sensor.getHumidity(), "%"
+        print("Humidity:", sensor.getHumidity(), "%")
 
-        print
-	time.sleep(1)
+        print()
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

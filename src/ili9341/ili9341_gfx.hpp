@@ -26,7 +26,8 @@
 
 #pragma once
 
-#include <mraa.hpp>
+#include <cstdint>
+#include <string>
 
 #define adagfxswap(a, b) { int16_t t = a; a = b; b = t; }
 
@@ -45,6 +46,11 @@ namespace upm
              * @param h Screen height
              */
             GFX(int16_t w, int16_t h);
+
+            /**
+             * Empyt virtual destructor
+             */
+            virtual ~GFX() {};
              
             /**
              * Sends a pixel color (RGB) to the driver chip. This must be

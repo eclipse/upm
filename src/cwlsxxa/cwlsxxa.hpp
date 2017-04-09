@@ -41,7 +41,7 @@ namespace upm {
     /**
      * @library cwlsxxa
      * @sensor cwlsxxa
-     * @comname Veris CWLSXXA CO2 Sensor Family
+     * @comname CO2/temperature/humidity Transmitter
      * @type temp gaseous
      * @man veris
      * @con ainput
@@ -130,9 +130,9 @@ namespace upm {
      * constructor) then this function will always return 0C/32F.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -156,12 +156,13 @@ namespace upm {
 
 
   protected:
-    // temperature and humidity are optional features of this transmitter
-    mraa::Aio *m_aioTemp;
-    mraa::Aio *m_aioHum;
-
     // CO2 reporting is always supported
     mraa::Aio m_aioCO2;
+
+    // temperature and humidity are optional features of this transmitter
+    mraa::Aio *m_aioHum;
+    mraa::Aio *m_aioTemp;
+
 
   private:
     float m_aref;
@@ -174,7 +175,7 @@ namespace upm {
     bool m_hasTemp;
     bool m_hasHum;
 
-    // in Celcius
+    // in Celsius
     float m_temperature;
 
     float m_humidity;

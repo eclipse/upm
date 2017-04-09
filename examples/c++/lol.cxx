@@ -48,7 +48,6 @@ main(int argc, char **argv)
     sensor = new upm::LoL();
     signal(SIGINT, sig_handler);
 
-    unsigned char *buffer;
     //buffer = sensor->getFramebuffer();
     int x = 0, y = 0;
     while (!is_running) {

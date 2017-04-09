@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -37,10 +37,11 @@ namespace upm
 /**
  * @library kxcjk1013
  * @sensor kxcjk1013
- * @comname KXCJK1013 Tri-axis Digital Accelerometer
+ * @comname Tri-axis Digital Accelerometer
  * @type accelerometer
- * @man Kionix
+ * @man kionix
  * @con iio i2c
+ * @web http://kionixfs.kionix.com/en/datasheet/KXCJK-1013%20Specifications%20Rev%202.pdf
  *
  * @brief KXCJK1013 Tri-axis Digital Accelerometer API
  *
@@ -85,7 +86,7 @@ class KXCJK1013
 
     /**
      * Enable trigger buffer
-     * @param trigger buffer length in string
+     * @param trigger buffer length in integer
      */
     bool enableBuffer(int length);
 
@@ -96,13 +97,18 @@ class KXCJK1013
 
     /**
      * Set scale
-     * @param scale in string
+     * @param scale in float
+     * Available scales are 0.009582(2g), 0.019163(4g), and 0.038326(8g)
+     * Default scale is 0.019163
      */
     bool setScale(const float scale);
 
     /**
      * Set sampling frequency
-     * @param sampling frequency in string
+     * @param sampling frequency in float
+     * Available sampling frequency are 0.781000, 1.563000, 3.125000, 6.250000, 12.500000, 25, 50,
+     * 100, 200, 400, 800, and 1600
+     * Default sampling frequency is 25
      */
     bool setSamplingFrequency(const float sampling_frequency);
 
@@ -124,7 +130,7 @@ class KXCJK1013
     mraa_iio_context m_iio;
     int m_iio_device_num;
     bool m_mount_matrix_exist; // is mount matrix exist
-    float m_mount_matrix[9]; // mount matrix
-    float m_scale; // accelerometer data scale
+    float m_mount_matrix[9];   // mount matrix
+    float m_scale;             // accelerometer data scale
 };
 }

@@ -1,5 +1,5 @@
 set (libname "mma7455")
-set (libdescription "upm MMA7455")
+set (libdescription "Three Axis +/- 2/4/8 g Digital Accelerometer")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

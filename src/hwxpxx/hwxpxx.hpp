@@ -38,7 +38,7 @@ namespace upm {
   /**
    * @library hwxpxx
    * @sensor hwxpxx
-   * @comname UPM API for the Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor
+   * @comname Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor
    * @type temp
    * @man veris
    * @con uart
@@ -124,9 +124,9 @@ namespace upm {
      * the scale the device is operating in natively.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -173,7 +173,7 @@ namespace upm {
     /**
      * Return the current temperature offset stored on the device.
      * This is a value between -50 and +50, specified in tenths of a
-     * degree in whatever scale (Celcius or Fahrenheit) is in use.
+     * degree in whatever scale (Celsius or Fahrenheit) is in use.
      * This offset is applied to the returned temperature reading by the
      * device.
      *
@@ -194,7 +194,7 @@ namespace upm {
     /**
      * Set the stored temperature offset on the device.  This is a
      * value between -50 and +50, specified in tenths of a degree in
-     * what ever scale (Celcius or Fahrenheit) is in use.  This offset
+     * what ever scale (Celsius or Fahrenheit) is in use.  This offset
      * is applied to the returned temperature reading by the device.
      *
      * @param offset Offset in tenths of a degree with a range of -50 to +50
@@ -216,10 +216,10 @@ namespace upm {
      * detects this setting automatically and adjusts itself
      * accordingly, so this is generally never needed.  It is used to
      * set the native reporting scale of the temperature either in
-     * degrees Celcius or Fahrenheit.  Its setting will not affect
+     * degrees Celsius or Fahrenheit.  Its setting will not affect
      * the operation of getTemperature().
      *
-     * @param fahrenheit true to set Fahrenheit, false to set Celcius
+     * @param fahrenheit true to set Fahrenheit, false to set Celsius
      */
     void setTemperatureScale(bool fahrenheit);
 
@@ -269,7 +269,7 @@ namespace upm {
     modbus_t *m_mbContext;
 
     // is the device reporting in C or F?
-    bool m_isCelcius;
+    bool m_isCelsius;
 
   private:
     bool m_debugging;

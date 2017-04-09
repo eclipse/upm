@@ -31,10 +31,11 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq9
-   * @comname Grove MQ9 Gas Sensor
+   * @comname MQ9 Carbon Monoxide (CO) and Flammable Gas Sensor
    * @type gaseous
    * @man seeed
    * @con analog
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ9/
    *
    * @brief API for the MQ9 Gas Sensor
    *
@@ -43,7 +44,7 @@ namespace upm {
    * liquefied gas. Its sensitivity is 10-1,000 ppm CO, and 100-10,000 ppm Gas.
    *
    * @image html mq3-9.jpeg
-   * @snippet mq9.cxx Interesting
+   * @snippet gas-mq9.cxx Interesting
    */
     class MQ9 : public Gas {
         public:

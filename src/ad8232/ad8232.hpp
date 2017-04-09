@@ -43,7 +43,7 @@ namespace upm {
   /**
    * @library ad8232
    * @sensor ad8232
-   * @comname AD8232 Heart Rate Monitor
+   * @comname Single Lead Heart Rate Monitor
    * @type medical
    * @man sparkfun
    * @web https://www.sparkfun.com/products/12650
@@ -97,9 +97,9 @@ namespace upm {
     int value();
 
   private:
-    mraa::Aio m_aioOUT;
     mraa::Gpio m_gpioLOPlus;
     mraa::Gpio m_gpioLOMinus;
+    mraa::Aio m_aioOUT;
 
     float m_aref;
     int m_ares;

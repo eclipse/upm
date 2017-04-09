@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library tb7300
    * @sensor tb7300
-   * @comname UPM API for the Honeywell TB7300 Communicating Fan Coil
+   * @comname Communicating Fan Coil Thermostat
    * Thermostat
    * @type temp
    * @man honeywell
@@ -57,9 +57,9 @@ namespace upm {
    * The TB7200 Series PI thermostats are designed for zoning
    * applications, and the TB7300 Series PI thermostats are designed
    * for fan coil control. Both Series are communicating thermostats
-   * with models available in BACnet® MS/TP protocol and can be easily
+   * with models available in BACnet(r) MS/TP protocol and can be easily
    * integrated into a WEBs-AX building automation system based on the
-   * NiagaraAX® platform.
+   * NiagaraAX(r) platform.
    *
    * TB7200 and TB7300 Series thermostats are compatible with the
    * Honeywell Occupancy Sensor Cover. Thermostats equipped with an
@@ -222,27 +222,27 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit.
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 
     /**
-     * Set the device temperature scale to Celcius of Fahrenheit.  For
+     * Set the device temperature scale to Celsius of Fahrenheit.  For
      * devices with an LCD display, this will affect which scale is
      * displayed.  When changing the scale, it may take several
      * seconds for the setting to take effect.
      *
      * @param fahrenheit true to set the scale to fahrenheit, false
-     * for celcius.
+     * for celsius.
      */
     void setTemperatureScale(bool fahrenheit);
 
     /**
      * Get the device temperature scale.
      *
-     * @return true if scale is fahrenheit, false for celcius.
+     * @return true if scale is fahrenheit, false for celsius.
      */
     bool getTemperatureScale();
 
@@ -251,7 +251,7 @@ namespace upm {
     float m_temperature;
 
     bool m_isTempInitialized;
-    bool m_isCelcius;
+    bool m_isCelsius;
 
   private:
   };

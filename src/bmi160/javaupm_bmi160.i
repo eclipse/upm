@@ -3,7 +3,9 @@
 %include "typemaps.i"
 %include "arrays_java.i"
 %include "../java_buffer.i"
+%include "std_string.i"
 
+%include "bmi160_defs.h"
 %{
     #include "bmi160.hpp"
 %}
@@ -20,7 +22,6 @@
 %typemap(out) float * {
     $result = JCALL1(NewFloatArray, jenv, 3);
     JCALL4(SetFloatArrayRegion, jenv, $result, 0, 3, $1);
-    delete [] $1;
 }
 
 %ignore getAccelerometer(float *, float *, float *);

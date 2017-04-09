@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-MAX5487::MAX5487 (int csn) : m_csnPinCtx(csn), m_spi(0) {
+MAX5487::MAX5487 (int csn) :m_spi(0), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "MAX5487";
 
@@ -57,7 +57,7 @@ MAX5487::setWiperA (uint8_t wiper) {
     data[0] = R_WR_WIPER_A;
     data[1] = wiper;
 
-    uint8_t* retData = m_spi.write(data, 2);
+    m_spi.write(data, 2);
 
     CSOff ();
 }
@@ -71,7 +71,7 @@ MAX5487::setWiperB (uint8_t wiper) {
     data[0] = R_WR_WIPER_B;
     data[1] = wiper;
 
-    uint8_t* retData = m_spi.write(data, 2);
+    m_spi.write(data, 2);
 
     CSOff ();
 }

@@ -18,7 +18,7 @@ int main()
 		cout << "1 - read temp \t" ;
 		cout << "2 - sleep mode \t";
 		cout << "3 - wake up" << endl;
-		cout << "4 - set mode to " << (temp->isCelsius() == true ? "Fahrenheit" : "Celcius") << endl;
+		cout << "4 - set mode to " << (temp->isCelsius() == true ? "Fahrenheit" : "Celsius") << endl;
 		cout << "5 - show status bits" << endl;
 		cout << "6 - Set Tcrit \t" ;
 		cout << "7 - Set Tupper \t" ;
@@ -53,7 +53,7 @@ int main()
 			temp->shutDown(false);
 			break;
 		case 4:
-			cout << "set mode to " << (temp->isCelsius() ? "Fahrenheit" : "Celcius") << endl;
+			cout << "set mode to " << (temp->isCelsius() ? "Fahrenheit" : "Celsius") << endl;
 			temp->setMode(!temp->isCelsius());
 			break;
 		case 5:
@@ -159,5 +159,5 @@ int main()
 
 	}while (command != -1 );
 //! [Interesting]
-	return MRAA_SUCCESS;
+	return 0;
 }

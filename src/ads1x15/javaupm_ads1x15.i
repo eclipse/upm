@@ -1,5 +1,8 @@
 %module javaupm_ads1x15
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iADC.i"
+
 %include "typemaps.i"
 
 %{
@@ -8,11 +11,10 @@
     #include "ads1115.hpp"
 %}
 
+%include "iADC.hpp"
 %include "ads1x15.hpp"
 %include "ads1015.hpp"
 %include "ads1115.hpp"
-
-
 
 %pragma(java) jniclasscode=%{
     static {

@@ -21,6 +21,8 @@ class Clean(u.TestCase):
                 if not ok:
                     break
                 for fileName in files:
+                    # Only look at JAVA wrappers
+                    if not fileName.endswith('JAVA_wrap.cxx'): continue
                     if swigtypeStr in fileName:
                         unclean.append(dirName)
                         ok = False

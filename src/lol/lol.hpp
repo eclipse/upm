@@ -42,7 +42,7 @@ namespace upm {
 /**
  * @library lol
  * @sensor lol
- * @comname Olimex LoL Array
+ * @comname Lots of LEDs (LoL) Array Rev A
  * @type display
  * @man adafruit
  * @con gpio
@@ -52,7 +52,7 @@ namespace upm {
  * This module defines the LoL API and implementation for a simple framebuffer.
  *
  * @image html lolshield.jpg
- * @snippet lol-example.cxx Interesting
+ * @snippet lol.cxx Interesting
  */
 class LoL {
     public:

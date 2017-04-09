@@ -40,7 +40,7 @@ namespace upm {
   /**
    * @library t8100
    * @sensor t8100
-   * @comname UPM API for the Amphenol Telaire Ventostat T8100
+   * @comname Wall Mount CO2, Humidity and Temperature Transmitter
    * Ventilation Controller
    * @type gaseous temp
    * @man amphenol
@@ -167,9 +167,9 @@ namespace upm {
      * prior to calling this method.
      *
      * @param fahrenheit true to return the temperature in degrees
-     * fahrenheit, false to return the temperature in degrees celcius.
-     * The default is false (degrees Celcius).
-     * @return The last temperature reading in Celcius or Fahrenheit.
+     * fahrenheit, false to return the temperature in degrees celsius.
+     * The default is false (degrees Celsius).
+     * @return The last temperature reading in Celsius or Fahrenheit.
      */
     float getTemperature(bool fahrenheit=false);
 
@@ -186,20 +186,20 @@ namespace upm {
     }
 
     /**
-     * Set the device temperature scale to Celcius of Fahrenheit.  For
+     * Set the device temperature scale to Celsius of Fahrenheit.  For
      * devices with an LCD display, this will affect which scale is
      * displayed.  When changing the scale, it may take several
      * seconds for the setting to take effect.
      *
      * @param fahrenheit true to set the scale to fahrenheit, false
-     * for celcius.
+     * for celsius.
      */
     void setTemperatureScale(bool fahrenheit);
 
     /**
      * Get the device temperature scale.
      *
-     * @return true if scale is fahrenheit, false for celcius.
+     * @return true if scale is fahrenheit, false for celsius.
      */
     bool getTemperatureScale();
 
@@ -213,7 +213,7 @@ namespace upm {
     /**
      * Set the device temperature offset.  The offset is applied by
      * the device internally to the temperature reading.  The offset
-     * must always be specified in degrees Celcius.  Valid values must
+     * must always be specified in degrees Celsius.  Valid values must
      * be between -50 and 50.
      *
      * @param value The temperature offset to configure.
@@ -373,7 +373,7 @@ namespace upm {
     // Have we checked the device's temperature unit setting yet
     bool m_isTempInitialized;
 
-    // Is the device configured for Celcius?
-    bool m_isCelcius;
+    // Is the device configured for Celsius?
+    bool m_isCelsius;
   };
 }

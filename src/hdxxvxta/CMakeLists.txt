@@ -1,5 +1,5 @@
 set (libname "hdxxvxta")
-set (libdescription "upm Veris HDXXVXTA Temperature/Humidity transmitter")
+set (libdescription "Veris HDXXVXTA Temperature/Humidity Transmitter")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)

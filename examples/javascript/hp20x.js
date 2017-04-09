@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
@@ -37,7 +34,7 @@ bar.init();
 // Output data every second until interrupted
 setInterval(function()
 {
-    console.log("Temperature: " + bar.getTemperature() + " Celcius");
+    console.log("Temperature: " + bar.getTemperature() + " Celsius");
     console.log("Pressure:    " + bar.getPressure() + " Millibars");
     console.log("Altitude:    " + bar.getAltitude() + " Meters");
     console.log("");

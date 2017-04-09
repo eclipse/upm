@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Marc Graham <marc@m2ag.net>
  * Copyright (c) 2015 Intel Corporation.
  *
@@ -26,7 +26,7 @@
 #pragma once
 
 #include "ads1x15.hpp"
-#include "upm/iADC.hpp"
+#include "interfaces/iADC.hpp"
 
 #define ADS1015_VREF 2.048
 
@@ -57,11 +57,11 @@ namespace upm {
   /**
    * @library ads1x15
    * @sensor ADS1015
-   * @comname ADS1015 ADC
+   * @comname 12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
    * @type electric
    * @man ti adafruit
    * @con i2c
-   * @web web http://www.ti.com/lit/ds/symlink/ads1015.pdf
+   * @web http://www.ti.com/lit/ds/symlink/ads1015.pdf
    *
    * @brief API for ADS1015
    *
@@ -71,17 +71,19 @@ namespace upm {
    * Data is transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5
    * operate from a single power supply ranging from 2.0V to 5.5V.
    * The ADS1013/4/5 can perform conversions at rates up to 3300 samples per second (SPS). An onboard PGA is available
-   * on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as ±256mV, allowing both large and small
+   * on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as +/- 256mV, allowing both large and small
    * signals to be measured with high resolution. The ADS1015 also features an input multiplexer (MUX) that provides two
    * differential or four single-ended inputs.
    * The ADS1013/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down
    * after a conversion and greatly reduces current consumption during idle periods. The ADS1013/4/5 are specified from
-   * –40°C to +125°C.
+   * -40 deg C to +125 deg C.
    *
    * Tested with Adafriut ADS1015 board: https://www.adafruit.com/products/1083
    *
    * @image html ads1015.jpg
    * @snippet ads1x15.cxx Interesting
+   * @snippet ads1x15-ads1015.cxx Interesting
+   * @snippet ads1x15-adc-sensor.cxx Interesting
    */
     class ADS1015 : public ADS1X15, public IADC {
 

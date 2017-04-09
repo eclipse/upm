@@ -238,6 +238,9 @@ void L298::setSpeed(int speed)
 
   if (m_stepper)
     {
+      // prevent a possible divide by 0
+      if (!speed)
+         speed = 1;
       m_stepDelay = 60 * 1000 / m_stepsPerRev / speed;
     }
 }

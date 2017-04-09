@@ -27,6 +27,8 @@
  * @brief Implementation of the acilib module.
  */
 
+#include <stdexcept>
+#include <syslog.h>
 
 #include "hal_platform.h"
 #include "aci.h"
@@ -438,6 +440,9 @@ void acil_decode_evt_command_response(uint8_t *buffer_in, aci_evt_params_cmd_rsp
       p_dtm_evt->evt_msb = (uint8_t)*(buffer_in + OFFSET_ACI_EVT_T_CMD_RSP + OFFSET_ACI_EVT_PARAMS_CMD_RSP_T_DTM_CMD + OFFSET_ACI_EVT_CMD_RSP_PARAMS_DTM_CMD_T_EVT_MSB);
       p_dtm_evt->evt_lsb = (uint8_t)*(buffer_in + OFFSET_ACI_EVT_T_CMD_RSP + OFFSET_ACI_EVT_PARAMS_CMD_RSP_T_DTM_CMD + OFFSET_ACI_EVT_CMD_RSP_PARAMS_DTM_CMD_T_EVT_LSB);
       break;
+    default:
+      syslog(LOG_WARNING, "%s: switch case not defined",
+        std::string(__FUNCTION__).c_str());
   }
 }
 

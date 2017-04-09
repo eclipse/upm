@@ -41,10 +41,11 @@ namespace upm
 /**
  * @library apa102
  * @sensor apa102
- * @comname APA102/DotStar LED Strip
+ * @comname LED Strip
  * @type led
  * @man adafruit
  * @con spi
+ * @web https://www.adafruit.com/product/2343
  *
  * @brief API for controlling APA102/DotStar RGB LED Strips
  *
@@ -74,7 +75,7 @@ class APA102
     ~APA102();
 
     /**
-     * Change the color for a single led
+     * Change the color and brightness for a single led
      *
      * @param ledIdx        Index of the LED in the strip (0 based)
      * @param brightness    Brightness value (0-31)
@@ -85,7 +86,15 @@ class APA102
     void setLed(uint16_t ledIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
-     * Change the color for all leds
+     * Change the brightness for a single led
+     *
+     * @param ledIdx        Index of the LED in the strip (0 based)
+     * @param brightness    Brightness value (0-31)
+     */
+    void setLedBrightness(uint16_t ledIdx, uint8_t brightness);
+
+    /**
+     * Change the color and brightness for all leds
      *
      * @param brightness    Brightness value (0-31)
      * @param r             Red component (0-255)
@@ -95,7 +104,7 @@ class APA102
     void setAllLeds(uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
-     * Change the color for a range of leds
+     * Change the color and brightness for a range of leds
      *
      * @param startIdx      Start index of the range of LEDs in the strip (0 based)
      * @param endIdx        End index of the range of LEDs in the strip (0 based)
@@ -108,7 +117,17 @@ class APA102
     setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
-     * (Advanced) Manually control the colors of a range of LEDS
+     * Change the brightness for a range of leds
+     *
+     * @param startIdx      Start index of the range of LEDs in the strip (0 based)
+     * @param endIdx        End index of the range of LEDs in the strip (0 based)
+     * @param brightness    Brightness value (0-31)
+     */
+    void
+    setLedsBrightness(uint16_t startIdx, uint16_t endIdx, uint8_t brightness);
+
+    /**
+     * (Advanced) Manually control the colors and brightness of a range of LEDS
      * Best used to maximize performance
      *
      * @param startIdx      Start index of the range of LEDs to update (0 based)
@@ -119,6 +138,15 @@ class APA102
      *                      No check done on the boundaries
      */
     void setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t* colors);
+
+    /**
+     * Change the speed/frequency of the SPI bus
+     * Note: Slower speeds will allow driving longer strips without having to
+     * condition the clock signal with extra hardware
+     *
+     * @param hz    Desired bus speed in Hz
+     */
+    void setBusSpeed(int hz);
 
     /**
      * Outputs the current LED data to the SPI bus

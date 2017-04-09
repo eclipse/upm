@@ -21,30 +21,35 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_urm37 as sensorObj
+from upm import pyupm_urm37 as sensorObj
 
-# Instantiate a URM37 sensor on analog pin A0, reset pin on D2,
-# trigger pin on D3 with an analog reference voltage of 5.0
-sensor = sensorObj.URM37(0, 2, 3, 5.0)
+def main():
+    # Instantiate a URM37 sensor on analog pin A0, reset pin on D2,
+    # trigger pin on D3 with an analog reference voltage of 5.0
+    sensor = sensorObj.URM37(0, 2, 3, 5.0)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Every half a second, sample the URM37 and output the measured
-# distance in cm.
+    # Every half a second, sample the URM37 and output the measured
+    # distance in cm.
 
-while (1):
-        print "Detected distance (cm):", sensor.getDistance()
-	time.sleep(.5)
+    while (1):
+        print("Detected distance (cm):", sensor.getDistance())
+        time.sleep(.5)
+
+if __name__ == '__main__':
+    main()

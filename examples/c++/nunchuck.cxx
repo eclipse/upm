@@ -43,37 +43,29 @@ int main(int argc, char **argv)
   signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate a nunchuck controller bus 0
-  upm::NUNCHUCK *nunchuck = new upm::NUNCHUCK(0);
-  
-  // always do this first
-  cout << "Initializing... " << endl;
-  if (!nunchuck->init())
-    {
-      cerr << "nunchuck->init() failed." << endl;
-      return 0;
-    }
-  
+  // Instantiate a nunchuck controller bus 3
+  upm::NUNCHUCK *nunchuck = new upm::NUNCHUCK(3);
+
   while (shouldRun)
     {
       nunchuck->update();
 
-      cout << "stickX: " << nunchuck->stickX 
+      cout << "stickX: " << nunchuck->stickX
            << ", stickY: " << nunchuck->stickY << endl;
-      cout << "accelX: " << nunchuck->accelX 
-           << ", accelY: " << nunchuck->accelY 
+      cout << "accelX: " << nunchuck->accelX
+           << ", accelY: " << nunchuck->accelY
            << ", accelZ: " << nunchuck->accelZ << endl;
-      
-      cout << "button C: " 
+
+      cout << "button C: "
            << ((nunchuck->buttonC) ? "pressed" : "not pressed") << endl;
-      cout << "button Z: " 
+      cout << "button Z: "
            << ((nunchuck->buttonZ) ? "pressed" : "not pressed") << endl;
       cout << endl;
 
       usleep(100000);
     }
   //! [Interesting]
-  
+
   delete nunchuck;
   return 0;
 }

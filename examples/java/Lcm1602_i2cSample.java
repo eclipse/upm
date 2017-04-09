@@ -25,25 +25,18 @@
 //NOT TESTED!!!
 public class Lcm1602_i2cSample {
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		upm_i2clcd.Lcm1602 lcd = new upm_i2clcd.Lcm1602(0, 0x27);
+    public static void main(String[] args) throws InterruptedException {
+        // ! [Interesting]
+        upm_lcm1602.Lcm1602 lcd = new upm_lcm1602.Lcm1602(0, 0x27);
 
-		lcd.setCursor(0, 0);
-		lcd.write("Hello World");
-		Thread.sleep(3000);
+        lcd.setCursor(0, 0);
+        lcd.write("Hello World");
+        Thread.sleep(3000);
 
-		lcd.setCursor(1, 2);
-		lcd.write("Hello World");
-		Thread.sleep(3000);
+        lcd.setCursor(1, 2);
+        lcd.write("Hello World");
+        Thread.sleep(3000);
 
-		lcd.setCursor(2, 4);
-		lcd.write("Hello World");
-		Thread.sleep(3000);
-
-		lcd.setCursor(3, 6);
-		lcd.write("Hello World");
-		Thread.sleep(3000);
-		// ! [Interesting]
-	}
+        // ! [Interesting]
+    }
 }

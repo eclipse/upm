@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # Author: Jon Trulson <jtrulson@ics.com>
-# Copyright (c) 2016 Intel Corporation.
+# Copyright (c) 2016-2017 Intel Corporation.
+#
+# The MIT License
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -21,42 +23,43 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmx055 as sensorObj
+from upm import pyupm_bmm150 as sensorObj
 
-# Instantiate a BMP250E instance using default i2c bus and address
-sensor = sensorObj.BMM150()
+def main():
+    # Instantiate a BMP250E instance using default i2c bus and address
+    sensor = sensorObj.BMM150()
 
-# For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
-# BMM150(0, -1, 10);
+    # For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
+    # BMM150(0, -1, 10);
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-x = sensorObj.new_floatp()
-y = sensorObj.new_floatp()
-z = sensorObj.new_floatp()
-
-# now output data every 250 milliseconds
-while (1):
+    # now output data every 250 milliseconds
+    while (1):
         sensor.update()
 
-        sensor.getMagnetometer(x, y, z)
-        print "Magnetometer x:", sensorObj.floatp_value(x),
-        print " y:", sensorObj.floatp_value(y),
-        print " z:", sensorObj.floatp_value(z),
-        print " uT"
+        data = sensor.getMagnetometer()
+        print("Magnetometer x:", data[0], end=' ')
+        print(" y:", data[1], end=' ')
+        print(" z:", data[2], end=' ')
+        print(" uT")
 
-        print
-	time.sleep(.250)
+        print()
+        time.sleep(.250)
+
+if __name__ == '__main__':
+    main()

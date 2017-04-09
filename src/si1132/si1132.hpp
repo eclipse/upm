@@ -25,7 +25,7 @@
 
 #include <string>
 #include "mraa/i2c.hpp"
-#include "upm/iLightSensor.hpp"
+#include "interfaces/iLightSensor.hpp"
 
 
 namespace upm {
@@ -46,11 +46,13 @@ namespace upm {
  *
  * @library si1132
  * @sensor si1132
- * @comname Si1132 Light Sensor
+ * @comname UV and Ambient Light Sensor
  * @altname Si1132
  * @type light
  * @man silabs
+ * @web http://www.silabs.com/products/sensors/infraredsensors/Pages/si1132.aspx
  * @con i2c
+ * @snippet si1132.cxx Interesting
  * @if ilightsensor
 
  */
@@ -79,7 +81,7 @@ class SI1132 : public ILightSensor {
          */
         double getVisibleLux();
 
-        const char* getModuleName() { return "si1132"; }
+        virtual const char* getModuleName() { return "si1132"; }
 
     private:
         mraa::Result reset();

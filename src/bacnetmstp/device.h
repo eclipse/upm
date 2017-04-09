@@ -435,6 +435,7 @@ extern "C" {
 }
 #endif /* __cplusplus */
 /** @defgroup ObjFrmwk Object Framework
+ * @ingroup bacnetmstp
  * The modules in this section describe the BACnet-stack's framework for
  * BACnet-defined Objects (Device, Analog Input, etc). There are two submodules
  * to describe this arrangement:

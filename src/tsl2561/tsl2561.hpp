@@ -99,7 +99,7 @@ namespace upm {
 /**
  * @library tsl2561
  * @sensor tsl2561
- * @comname TSL2561 Light Sensor
+ * @comname Digital Light Sensor
  * @altname Grove Digital Light Sensor
  * @type light
  * @man seeed

@@ -1,7 +1,8 @@
 /*
- * Place-holder Header for Documentation and future API change
- *
- * Copyright (c) 2014 Intel Corporation.
+ * Authors: Brendan Le Foll <brendan.le.foll@intel.com>
+ *          Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ *          Sarah Knepper <sarah.knepper@intel.com>
+ * Copyright (c) 2014 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,15 +23,25 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
+#pragma once
+
+#include <string>
+#include <mraa/aio.hpp>
+#include "grovebase.hpp"
+
+namespace upm {
+
 /**
  * @library grove
  * @sensor grovelight
- * @comname Grove Light Sensor
+ * @comname Light Sensor
  * @type light
  * @man seeed
  * @con analog
  * @kit gsk
+ * @deprecated This class is being replaced by the upm-light library and the
+ * Light class.
  *
  * @brief API for the Grove Light Sensor
  *
@@ -41,6 +52,33 @@
  * An approximate lux value can also be returned.
  *
  * @image html grovelight.jpg
- * @snippet grovelight.cxx Interesting
+ * @snippet grove-grovelight.cxx Interesting
  */
- 
+class GroveLight: public Grove {
+    public:
+        /**
+         * Grove analog light sensor constructor
+         *
+         * @param pin Analog pin to use
+         */
+        GroveLight(unsigned int pin);
+        /**
+         * GroveLight destructor
+         */
+        ~GroveLight();
+        /**
+         * Gets the raw value from the AIO pin
+         *
+         * @return Raw value from the ADC
+         */
+        float raw_value();
+        /**
+         * Gets an approximate light value, in lux, from the sensor
+         *
+         * @return Normalized light reading in lux
+         */
+        int value();
+    private:
+        mraa_aio_context m_aio;
+};
+}

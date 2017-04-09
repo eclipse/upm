@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,9 +24,8 @@
 #pragma once
 
 #include <string>
-#include <mraa/i2c.h>
+#include "nunchuck.h"
 
-#define NUNCHUCK_I2C_ADDR    0x52
 
 namespace upm {
 
@@ -48,17 +47,16 @@ namespace upm {
    * @brief API for the Wii* Nunchuk controller
    *
    * UPM module for the Wii Nunchuk controller. This module was tested with
-   * Wii Nunchuk connected to I2C via a Grove Wii Nunchuk adapter.
+   * Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter.
    *
    * See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and
    * http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck
    * for more details on the controller and its protocol.
    *
-   * A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one
-   * side, and 3 traces on the other.  Do not match these up with the
-   * Nunchuk connector's traces. The connector's 'Grove'
-   * should be on the same side as the Grove interface socket on the
-   * adapter.
+   * A warning for the Grove Wii Nunchuk adapter: it has 2 traces on
+   * one side, and 3 traces on the other.  Do not match these up with
+   * the Nunchuk connector's traces. The connector's 'groove' should
+   * be on the same side as the Grove interface socket on the adapter.
    *
    * @image html nunchuck.jpg
    * @snippet nunchuck.cxx Interesting
@@ -71,39 +69,12 @@ namespace upm {
      * @param bus I2C bus to use
      * @param addr I2C address to use
      */
-    NUNCHUCK(int bus, uint8_t addr=NUNCHUCK_I2C_ADDR);
+    NUNCHUCK(int bus);
 
     /**
      * NUNCHUCK destructor
      */
-    ~NUNCHUCK();
-
-    /**
-     * Writes value(s) into registers
-     *
-     * @param reg Register location to start writing into
-     * @param byte Byte to write
-     * @return True if successful
-     */
-    bool writeByte(uint8_t reg, uint8_t byte);
-
-    /**
-     * Reads value(s) from registers
-     *
-     * @param reg Register location to start reading from
-     * @param buffer Buffer for data storage
-     * @param len Number of bytes to read
-     * @return Number of bytes read
-     */
-    int readBytes(uint8_t reg, uint8_t *buffer, int len);
-
-    /**
-     * Initializes the controller. Here, we disable encryption after
-     * delaying for a time to ensure the controller is ready.
-     *
-     * @return True if initialization is successful
-     */
-    bool init();
+    virtual ~NUNCHUCK();
 
     /**
      * Reads and updates the current state of the controller.
@@ -153,8 +124,10 @@ namespace upm {
      */
     bool buttonZ;
 
+  protected:
+      nunchuck_context m_nunchuck;
+
   private:
-    mraa_i2c_context m_i2c;
   };
 }
 

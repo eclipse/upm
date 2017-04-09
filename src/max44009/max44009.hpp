@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 
-#include "upm/iLightSensor.hpp"
+#include "interfaces/iLightSensor.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define MAX44009_ADDRESS                    ( 0x4A )
@@ -91,18 +91,19 @@ namespace upm {
  *
  * The Maxim Integrated
  * [MAX44009](http://datasheets.maximintegrated.com/en/ds/MAX44009.pdf)
- * is Industry’s Lowest-Power Ambient Light Sensor with ADC.
+ * is Industry's Lowest-Power Ambient Light Sensor with ADC.
  *
  * @library max44009
  * @sensor max44009
- * @comname MAX44009 Ambient Light Sensor
+ * @comname I2C Low-power Digital Ambient Light Sensor
  * @altname MAX44009
  * @type light
  * @man maxim
  * @con i2c
+ * @web https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44009.html
  * @if ilightsensor
  *
- * @snippet iLightSensor.hpp Interesting
+ * @snippet max44009.cxx Interesting
  *
  */
 class MAX44009 : public ILightSensor {
@@ -130,7 +131,7 @@ class MAX44009 : public ILightSensor {
          */
         double getVisibleLux();
 
-        const char* getModuleName() { return "max44009"; }
+        virtual const char* getModuleName() { return "max44009"; }
 
     private:
         mraa::Result reset();

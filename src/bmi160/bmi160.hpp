@@ -22,230 +22,225 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #pragma once
-
-#include <stdint.h>
+#include <string>
+#include "bmi160.h"
 
 #define BMI160_I2C_BUS 0
 #define BMI160_DEFAULT_I2C_ADDR 0x69
 
 namespace upm {
 
-  /**
-   * @brief BMI160 3-axis Accelerometer, Gyroscope and Magnetometer
-   * @defgroup bmi160 libupm-bmi160
-   * @ingroup i2c accelerometer compass
-   */
+    /**
+     * @brief BMI160 3-axis Accelerometer, Gyroscope and Magnetometer
+     * @defgroup bmi160 libupm-bmi160
+     * @ingroup i2c accelerometer compass
+     */
 
-
-  /**
-   * @library bmi160
-   * @sensor bmi160
-   * @comname UPM API for the BMI160 3-axis Accelerometer, Gyroscope
-   * and Magnetometer
-   * @type accelerometer compass
-   * @man mouser
-   * @con i2c
-   * @web http://www.mouser.com/ProductDetail/Bosch-Sensortec/0330SB2187/?qs=sGAEpiMZZMvi6wO7nhr1L9JELKA6cYRX60mAGNTn0fQ%3d
-   *
-   * @brief UPM API for the BMI160 3-axis Accelerometer, Gyroscope and
-   * Magnetometer
-   *
-   * The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope.
-   * Additionally it supports an external Magnetometer, accessed
-   * through the BMI160's register interface.  This driver was
-   * developed with a BMI160 "Shuttle" board, which included a BMM150
-   * Magnetometer.
-   *
-   * The device is driven by either 1.8v or 3.3vdc.  This driver
-   * incorporates the Bosch BMI160 driver code at
-   * https://github.com/BoschSensortec/BMI160_driver .
-   *
-   * While not all of the functionality of this device is supported
-   * initially, the inclusion of the Bosch driver in the source code
-   * makes it possible to support whatever features are required that
-   * the driver can support.
-   *
-   * @snippet bmi160.cxx Interesting
-   */
-  class BMI160 {
-  public:
-
-    typedef enum {
-      ACCEL_RANGE_2G                      = 0, // 2 Gravities
-      ACCEL_RANGE_4G,
-      ACCEL_RANGE_8G,
-      ACCEL_RANGE_16G
-    } ACCEL_RANGE_T;
-
-    typedef enum {
-      GYRO_RANGE_125                      = 0, // 125 degrees/sec
-      GYRO_RANGE_250,
-      GYRO_RANGE_500,
-      GYRO_RANGE_1000,
-      GYRO_RANGE_2000
-    } GYRO_RANGE_T;
 
     /**
-     * bmi160 constructor
+     * @library bmi160
+     * @sensor bmi160
+     * @comname Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)
+     * and Magnetometer
+     * @type accelerometer compass
+     * @man mouser
+     * @con i2c
+     * @web https://www.bosch-sensortec.com/bst/products/all_products/bmi160
      *
-     * @param bus i2c bus to use
-     * @param address the address for this device
+     * @brief UPM API for the BMI160 3-axis Accelerometer, Gyroscope and
+     * Magnetometer
+     *
+     * The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope.
+     * Additionally it supports an external Magnetometer, accessed
+     * through the BMI160's register interface.  This driver was
+     * developed with a BMI160 "Shuttle" board, which included a BMM150
+     * Magnetometer.
+     *
+     * The device is driven by either 1.8v or 3.3vdc.  This driver
+     * incorporates the Bosch BMI160 driver code at
+     * https://github.com/BoschSensortec/BMI160_driver
+     *
+     * The Bosch driver code does not provide a mechanism for passing
+     * user data around (like the device context).  For this reason,
+     * only one instance of this driver can be used in a given process,
+     * due to the use of static data in the driver.
+     *
+     * While not all of the functionality of this device is supported
+     * initially, the inclusion of the Bosch driver in the source code
+     * makes it possible to support whatever features are required that
+     * the driver can support.
+     *
+     * @snippet bmi160.cxx Interesting
      */
-    BMI160(int bus=BMI160_I2C_BUS, uint8_t address=BMI160_DEFAULT_I2C_ADDR);
+    class BMI160 {
+    public:
 
-    /**
-     * BMI160 Destructor
-     */
-    ~BMI160();
+        /**
+         * BMI160 constructor.  The default arguments inititialize I2C
+         * operation and the default I2C address.
+         *
+         * @param bus i2c bus to use
+         * @param address The address for this device if using I2C.  If
+         * using SPI, supply -1 for this parameter.
+         * @param cs_pin The GPIO to use for Chip Select (CS).  This is
+         * only needed for SPI, and only if your SPI implementation
+         * requires it.  Otherwise, just pass -1 if not using SPI, or your
+         * CS is handled automatically by your SPI implementation.
+         * @param enableMag true to enable the magnetometer, false otherwise
+         */
+        BMI160(int bus=BMI160_I2C_BUS, int address=BMI160_DEFAULT_I2C_ADDR,
+               int csPin=-1, bool enableMag=true);
 
-    /**
-     * Take a measurement and store the current sensor values
-     * internally.  This function must be called prior to retrieving
-     * any sensor values, for example getAccelerometer().
-     *
-     */
-    void update();
+        /**
+         * BMI160 Destructor
+         */
+        ~BMI160();
 
-    /**
-     * set the scaling mode of the accelerometer
-     *
-     * @param scale one of the ACCEL_RANGE_T values
-     */
-    void setAccelerometerScale(ACCEL_RANGE_T scale);
+        /**
+         * Take a measurement and store the current sensor values
+         * internally.  This function must be called prior to retrieving
+         * any sensor values, for example getAccelerometer().
+         *
+         */
+        void update();
 
-    /**
-     * set the scaling mode of the gyroscope
-     *
-     * @param scale one of the GYRO_RANGE_T values
-     */
-    void setGyroscopeScale(GYRO_RANGE_T scale);
+        /**
+         * set the scaling mode of the accelerometer
+         *
+         * @param scale one of the ACCEL_RANGE_T values
+         */
+        void setAccelerometerScale(BMI160_ACC_RANGE_T scale);
 
-    /**
-     * Get the Accelerometer values.  This function returns a pointer
-     * to 3 floating point values: X, Y, and Z, in that order.  The
-     * values returned are in gravities.  update() must have been
-     * called prior to calling this method.
-     *
-     * The caller is reponsible for freeing the returned pointer.
-     *
-     * @return Pointer to 3 floating point values: X, Y, and Z in
-     * gravities.
-     */
-    float *getAccelerometer();
+        /**
+         * set the scaling mode of the gyroscope
+         *
+         * @param scale one of the GYRO_RANGE_T values
+         */
+        void setGyroscopeScale(BMI160_GYRO_RANGE_T scale);
 
-    /**
-     * Get the Accelerometer values.  The values returned are in
-     * gravities.  update() must have been called prior to calling
-     * this method.
-     *
-     * @param x A pointer into which the X value will be returned
-     * @param y A pointer into which the Y value will be returned
-     * @param z A pointer into which the Z value will be returned
-     */
-    void getAccelerometer(float *x, float *y, float *z);
+        /**
+         * Get the Accelerometer values.  This function returns a pointer
+         * to 3 floating point values: X, Y, and Z, in that order.  The
+         * values returned are in gravities.  update() must have been
+         * called prior to calling this method.
+         *
+         * The caller is reponsible for freeing the returned pointer.
+         *
+         * @return Pointer to 3 floating point values: X, Y, and Z in
+         * gravities.
+         */
+        float *getAccelerometer();
 
-    /**
-     * Get the Gyroscope values.  This function returns a pointer to 3
-     * floating point values: X, Y, and Z, in that order.  The values
-     * values returned are in degrees per second.  update() must have
-     * been called prior to calling this method.
-     *
-     * The caller is reponsible for freeing the returned pointer.
-     *
-     * @return Pointer to 3 floating point values: X, Y, and Z in
-     * degrees per second.
-     */
-    float *getGyroscope();
+        /**
+         * Get the Accelerometer values.  The values returned are in
+         * gravities.  update() must have been called prior to calling
+         * this method.
+         *
+         * @param x A pointer into which the X value will be returned
+         * @param y A pointer into which the Y value will be returned
+         * @param z A pointer into which the Z value will be returned
+         */
+        void getAccelerometer(float *x, float *y, float *z);
 
-    /**
-     * Get the Gyroscope values.  The values returned are in degrees
-     * per second.  update() must have been called prior to calling
-     * this method.
-     *
-     * @param x A pointer into which the X value will be returned
-     * @param y A pointer into which the Y value will be returned
-     * @param z A pointer into which the Z value will be returned
-     */
-    void getGyroscope(float *x, float *y, float *z);
+        /**
+         * Get the Gyroscope values.  This function returns a pointer to 3
+         * floating point values: X, Y, and Z, in that order.  The values
+         * values returned are in degrees per second.  update() must have
+         * been called prior to calling this method.
+         *
+         * The caller is reponsible for freeing the returned pointer.
+         *
+         * @return Pointer to 3 floating point values: X, Y, and Z in
+         * degrees per second.
+         */
+        float *getGyroscope();
 
-    /**
-     * Get the Magnetometer values.  This function returns a pointer
-     * to 3 floating point values: X, Y, and Z, in that order.  The
-     * values values returned are in micro Teslas.  update() must have
-     * been called prior to calling this method.  If the Magnetometer
-     * has been disabled, the return values will always be 0, 0, and
-     * 0.
-     *
-     * The caller is reponsible for freeing the returned pointer.
-     *
-     * @return Pointer to 3 floating point values: X, Y, and Z in
-     * micro Teslas.
-     */
-    float *getMagnetometer();
+        /**
+         * Get the Gyroscope values.  The values returned are in degrees
+         * per second.  update() must have been called prior to calling
+         * this method.
+         *
+         * @param x A pointer into which the X value will be returned
+         * @param y A pointer into which the Y value will be returned
+         * @param z A pointer into which the Z value will be returned
+         */
+        void getGyroscope(float *x, float *y, float *z);
 
-    /**
-     * Get the Magnetometer values.  The values returned are in micro
-     * Teslas.  update() must have been called prior to calling this
-     * method.
-     *
-     * @param x A pointer into which the X value will be returned
-     * @param y A pointer into which the Y value will be returned
-     * @param z A pointer into which the Z value will be returned
-     */
-    void getMagnetometer(float *x, float *y, float *z);
+        /**
+         * Get the Magnetometer values.  This function returns a pointer
+         * to 3 floating point values: X, Y, and Z, in that order.  The
+         * values values returned are in micro Teslas.  update() must have
+         * been called prior to calling this method.  If the Magnetometer
+         * has been disabled, the return values will always be 0, 0, and
+         * 0.
+         *
+         * The caller is reponsible for freeing the returned pointer.
+         *
+         * @return Pointer to 3 floating point values: X, Y, and Z in
+         * micro Teslas.
+         */
+        float *getMagnetometer();
 
-    /**
-     * Enable or disable the Magnetometer.  By default, the
-     * magnetometer is enabled.
-     *
-     * @param enable true to enable the magnetometer, false to disable.
-     */
-    void enableMagnetometer(bool enable);
+        /**
+         * Get the Magnetometer values.  The values returned are in micro
+         * Teslas.  update() must have been called prior to calling this
+         * method.
+         *
+         * @param x A pointer into which the X value will be returned
+         * @param y A pointer into which the Y value will be returned
+         * @param z A pointer into which the Z value will be returned
+         */
+        void getMagnetometer(float *x, float *y, float *z);
 
-    /**
-     * Return the sensor time.  This is a 24bit value that increments
-     * every 39us.  It will wrap around once the 24b resolution is
-     * exceeded.
-     *
-     * @return The current sensor time.
-     */
-    unsigned int getSensorTime();
+        /**
+         * Enable or disable the Magnetometer.  By default, the
+         * magnetometer is enabled.
+         *
+         * @param enable true to enable the magnetometer, false to disable.
+         */
+        void enableMagnetometer(bool enable);
 
-  protected:
-    // uncompensated accelerometer and gyroscope values
-    float m_accelX;
-    float m_accelY;
-    float m_accelZ;
+        /**
+         * Return the sensor time.  This is a 24bit value that increments
+         * every 39us.  It will wrap around once the 24b resolution is
+         * exceeded.
+         *
+         * @return The current sensor time.
+         */
+        unsigned int getSensorTime();
 
-    float m_gyroX;
-    float m_gyroY;
-    float m_gyroZ;
+    protected:
+        bmi160_context m_bmi160;
 
-    float m_magX;
-    float m_magY;
-    float m_magZ;
+        /**
+         * Perform a bus read.  This function is bus agnostic, and is used
+         * by the bosch code to perform bus reads.  It is exposed here for
+         * those users wishing to perform their own low level accesses.
+         * This is a low level function, and should not be used unless you
+         * know what you are doing.
+         *
+         * @param addr For I2C operation, this is the I2C address.
+         * For SPI, this argument is ignored.
+         * @param reg The register address to access.
+         * @param cnt The number of bytes to read.
+         * @return The data read
+         */
+        std::string busRead(int addr, int reg, int len);
 
-    unsigned int m_sensorTime;
+        /**
+         * Perform a bus write.  This function is bus agnostic, and is used
+         * by the bosch code to perform bus writes.  It is exposed here for
+         * those users wishing to perform their own low level accesses.
+         * This is a low level function, and should not be used unless you
+         * know what you are doing.
+         *
+         * @param addr For I2C operation, this is the I2C address.
+         * For SPI, this argument is ignored.
+         * @param addr The register address to access.
+         * @param data The string containing the data to write
+         */
+        void busWrite(int addr, int reg, std::string data);
 
-    // accelerometer and gyro scaling factors, depending on their Full
-    // Scale (Range) settings.
-    float m_accelScale;
-    float m_gyroScale;
-
-    // is the magnetometer enabled?
-    bool m_magEnabled;
-
-    /**
-     * set up initial values and start operation
-     *
-     * @return true if successful
-     */
-    virtual bool init();
-
-  private:
-    // due to the way we need to 'hook' into the bmi driver, the i2c
-    // context is a static variable defined in the .cxx implmentation.
-
-    uint8_t m_addr;
-  };
+    private:
+    };
 }

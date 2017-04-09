@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-/*global */
 /*
  * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
@@ -29,15 +26,13 @@ var upmBuzzer = require("jsupm_buzzer");
 // Initialize on GPIO 5
 var myBuzzer = new upmBuzzer.Buzzer(5);
 var chords = [];
-chords.push(upmBuzzer.DO);
-chords.push(upmBuzzer.RE);
-chords.push(upmBuzzer.MI);
-chords.push(upmBuzzer.FA);
-chords.push(upmBuzzer.SOL);
-chords.push(upmBuzzer.LA);
-chords.push(upmBuzzer.SI);
-chords.push(upmBuzzer.DO);
-chords.push(upmBuzzer.SI);
+chords.push(upmBuzzer.BUZZER_DO);
+chords.push(upmBuzzer.BUZZER_RE);
+chords.push(upmBuzzer.BUZZER_MI);
+chords.push(upmBuzzer.BUZZER_FA);
+chords.push(upmBuzzer.BUZZER_SOL);
+chords.push(upmBuzzer.BUZZER_LA);
+chords.push(upmBuzzer.BUZZER_SI);
 var chordIndex = 0;
 
 // Print sensor name
@@ -47,8 +42,8 @@ function melody()
 {
     if (chords.length != 0)
     {
-        //Play sound for one second
-        console.log( myBuzzer.playSound(chords[chordIndex], 1000000) );
+        //Play sound for one half second
+        console.log( myBuzzer.playSound(chords[chordIndex], 500000) );
         chordIndex++;
         //Reset the sound to start from the beginning. 
         if (chordIndex > chords.length - 1)

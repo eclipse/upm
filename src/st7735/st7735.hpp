@@ -504,14 +504,14 @@ const unsigned char font[] = {
 /**
  * @library st7735
  * @sensor st7735
- * @comname ST7735 LCD
+ * @comname SPI-based 262K Color Single-Chip TFT-LCD
  * @type display
  * @man adafruit
  * @web http://www.adafruit.com/product/358
  * @con spi
  *
  * @brief API for the ST7735 LCD
- * 
+ *
  * This module defines the interface for the ST7735 display library
  *
  * @image html st7735.jpg
@@ -527,7 +527,7 @@ class ST7735 : public GFX {
          * @param rs Data/command pin
          * @param rst Reset pin
          */
-        ST7735 (uint8_t csLCD, uint8_t cSD, uint8_t rs, uint8_t rst);
+        ST7735 (int csLCD, int cSD, int rs, int rst);
 
         /**
          * Returns the name of the component
@@ -625,9 +625,9 @@ class ST7735 : public GFX {
 
         uint8_t m_map[160 * 128 * 2]; /**< Screens buffer */
     private:
-        mraa::Spi      m_spi;
         uint8_t        m_spiBuffer[32];
-        
+
+        mraa::Spi      m_spi;
         mraa::Gpio     m_csLCDPinCtx;
         mraa::Gpio     m_cSDPinCtx;
         mraa::Gpio     m_rSTPinCtx;

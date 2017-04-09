@@ -46,7 +46,7 @@ namespace upm {
   /**
    * @library adxrs610
    * @sensor adxrs610
-   * @comname DFRobot ADXRS610 Gyro Breakout Board
+   * @comname Gyro Breakout Board (300 Degrees/second)
    * @altname ADXRS610
    * @type compass
    * @man dfrobot
@@ -138,7 +138,7 @@ namespace upm {
     float getZeroPoint() { return m_zeroPoint; };
 
     /**
-     * Return the measured temperature in Celcius.  Note, the
+     * Return the measured temperature in Celsius.  Note, the
      * datasheet says that this value is very repeatable, but is not
      * an accurate absolute temperature.
      *

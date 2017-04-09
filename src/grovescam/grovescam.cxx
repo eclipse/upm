@@ -98,7 +98,6 @@ bool GROVESCAM::dataAvailable(unsigned int millis)
       timeout.tv_usec = (millis % 1000) * 1000;
     }
 
-  int nfds;  
   fd_set readfds;
 
   FD_ZERO(&readfds);
@@ -468,6 +467,7 @@ bool GROVESCAM::storeImage(const char *fname)
             goto retry;
           else
             {
+              fclose(file);
               throw std::runtime_error(std::string(__FUNCTION__) +
                                        ": cksum error, maximum retries exceeded");
               return false;

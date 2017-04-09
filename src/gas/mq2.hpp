@@ -31,11 +31,12 @@ namespace upm {
   /**
    * @library gas
    * @sensor mq2
-   * @comname Grove MQ2 Gas Sensor
+   * @comname MQ2 Methane, Butane, Liquefied Petroleum Gas (LPG), and Smoke Sensor
    * @type gaseous
    * @man seeed
    * @con analog
    * @kit hak
+   * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ2/
    *
    * @brief API for the Grove MQ2 Gas Sensor
    *
@@ -45,7 +46,7 @@ namespace upm {
    * sensor with a detection range of 300-10,000 ppm.
    *
    * @image html mq2-5.jpeg
-   * @snippet mq2.cxx Interesting
+   * @snippet gas-mq2.cxx Interesting
    */
     class MQ2 : public Gas {
         public:

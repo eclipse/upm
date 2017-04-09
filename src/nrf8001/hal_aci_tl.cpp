@@ -39,7 +39,7 @@ static const uint8_t reverse_lookup[] = { 0, 8,  4, 12, 2, 10, 6, 14,1, 9, 5, 13
 
 static void m_aci_data_print(hal_aci_data_t *p_data);
 static void m_aci_event_check(void);
-static void m_aci_isr(void);
+//static void m_aci_isr(void);
 static void m_aci_pins_set(aci_pins_t *a_pins_ptr);
 static inline void m_aci_reqn_disable (void);
 static inline void m_aci_reqn_enable (void);
@@ -72,48 +72,49 @@ void m_aci_data_print(hal_aci_data_t *p_data)
 /*
   Interrupt service routine called when the RDYN line goes low. Runs the SPI transfer.
 */
-static void m_aci_isr(void)
-{
-  hal_aci_data_t data_to_send;
-  hal_aci_data_t received_data;
-
-  // Receive from queue
-  if (!aci_queue_dequeue_from_isr(&aci_tx_q, &data_to_send))
-  {
-    /* queue was empty, nothing to send */
-    data_to_send.status_byte = 0;
-    data_to_send.buffer[0] = 0;
-  }
-
-  // Receive and/or transmit data
-  m_aci_spi_transfer(&data_to_send, &received_data);
-
-  if (!aci_queue_is_full_from_isr(&aci_rx_q) && !aci_queue_is_empty_from_isr(&aci_tx_q))
-  {
-    m_aci_reqn_enable();
-  }
-
-  // Check if we received data
-  if (received_data.buffer[0] > 0)
-  {
-    if (!aci_queue_enqueue_from_isr(&aci_rx_q, &received_data))
-    {
-      /* Receive Buffer full.
-         Should never happen.
-         Spin in a while loop.
-      */
-      while(1);
-    }
-
-    // Disable ready line interrupt until we have room to store incoming messages
-    if (aci_queue_is_full_from_isr(&aci_rx_q))
-    {
-      // detachInterrupt(a_pins_local_ptr->interrupt_number);
-    }
-  }
-
-  return;
-}
+// Not used, commenting out.  Noel Eck 2016/11/02
+//static void m_aci_isr(void)
+//{
+//  hal_aci_data_t data_to_send;
+//  hal_aci_data_t received_data;
+//
+//  // Receive from queue
+//  if (!aci_queue_dequeue_from_isr(&aci_tx_q, &data_to_send))
+//  {
+//    /* queue was empty, nothing to send */
+//    data_to_send.status_byte = 0;
+//    data_to_send.buffer[0] = 0;
+//  }
+//
+//  // Receive and/or transmit data
+//  m_aci_spi_transfer(&data_to_send, &received_data);
+//
+//  if (!aci_queue_is_full_from_isr(&aci_rx_q) && !aci_queue_is_empty_from_isr(&aci_tx_q))
+//  {
+//    m_aci_reqn_enable();
+//  }
+//
+//  // Check if we received data
+//  if (received_data.buffer[0] > 0)
+//  {
+//    if (!aci_queue_enqueue_from_isr(&aci_rx_q, &received_data))
+//    {
+//      /* Receive Buffer full.
+//         Should never happen.
+//         Spin in a while loop.
+//      */
+//      while(1);
+//    }
+//
+//    // Disable ready line interrupt until we have room to store incoming messages
+//    if (aci_queue_is_full_from_isr(&aci_rx_q))
+//    {
+//      // detachInterrupt(a_pins_local_ptr->interrupt_number);
+//    }
+//  }
+//
+//  return;
+//}
 
 /*
   Checks the RDYN line and runs the SPI transfer if required.
@@ -233,10 +234,10 @@ static bool m_aci_spi_transfer(hal_aci_data_t * data_to_send, hal_aci_data_t * r
     max_bytes = HAL_ACI_MAX_LENGTH;
   }
 
-  // Transmit/receive the rest of the packet
-  for (byte_cnt = 0; byte_cnt < max_bytes; byte_cnt++)
+  // Transmit/receive the rest of the packet (skip first byte - cmd)
+  for (byte_cnt = 1; byte_cnt < max_bytes; byte_cnt++)
   {
-    received_data->buffer[byte_cnt+1] =  spi_readwrite(data_to_send->buffer[byte_sent_cnt++]);
+    received_data->buffer[byte_cnt] =  spi_readwrite(data_to_send->buffer[byte_sent_cnt++]);
   }
 
   // RDYN should follow the REQN line in approx 100ns

@@ -1,5 +1,9 @@
-set (libname "enc03r")
-set (libdescription "upm enc03r single axis analog gyro module")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_mixed_module_init (NAME enc03r
+    DESCRIPTION "Single-axis Analog Gyro Module"
+    C_HDR enc03r.h
+    C_SRC enc03r.c
+    CPP_HDR enc03r.hpp
+    CPP_SRC enc03r.cxx
+    FTI_SRC enc03r_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)

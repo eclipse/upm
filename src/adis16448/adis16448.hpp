@@ -92,7 +92,7 @@ namespace upm {
  /**
   * @library adis16448
   * @sensor adis16448
-  * @comname ADIS16448 Accelerometer
+  * @comname Industrial Grade Ten Degrees of Freedom Inertial Sensor
   * @type accelerometer
   * @man generic
   * @web http://www.analog.com/en/products/sensors/isensor-mems-inertial-measurement-units/adis16448.html

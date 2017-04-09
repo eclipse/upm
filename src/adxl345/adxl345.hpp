@@ -38,17 +38,18 @@ namespace upm {
 /**
  * @library adxl345
  * @sensor adxl345
- * @comname ADXL345 3-Axis Digital Accelerometer
+ * @comname 3-axis, +/- 2/4/8/16 g Digital Accelerometer
  * @altname Grove 3-Axis Digital Accelerometer (16g)
  * @type accelerometer
  * @man seeed
  * @con i2c
+ * @web http://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf
  *
  * @brief API for the ADXL345 3-Axis Digital Accelerometer
  *
  * ADXL345 is a 3-axis digital accelerometer.
  * (http://www.seeedstudio.com/wiki/images/2/2c/ADXL345_datasheet.pdf)
- * The sensor has configurable resolutions to measure ±2g, ±4g, ±8g, or ±16g.
+ * The sensor has configurable resolutions to measure +/- 2g, +/- 4g, +/- 8g, or +/- 16g.
  * Note: The Grove* version of the sensor is incompatible with and not detected
  * on the I2C bus by the Intel(R) Edison using an Arduino* breakout board at 5V
  * (3V works fine).

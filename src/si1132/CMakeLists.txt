@@ -1,6 +1,5 @@
-include_directories(..)
 set (libname "si1132")
-set (libdescription "upm Si1132")
+set (libdescription "UV and Ambient Light Sensor")
 set (module_src ${libname}.cxx)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa interfaces)

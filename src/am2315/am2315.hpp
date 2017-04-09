@@ -58,7 +58,7 @@ namespace upm {
 /**
  * @library am2315
  * @sensor am2315
- * @comname AM2315 Temperature & Humidity Sensor
+ * @comname Digital Temperature and Humidity Sensor
  * @type temp
  * @man adafruit
  * @web http://www.adafruit.com/products/1293
@@ -197,7 +197,6 @@ class AM2315 {
         time_t    m_last_time;
 
         int       m_base_priority;
-        pthread_t this_thread;
 };
 
 }

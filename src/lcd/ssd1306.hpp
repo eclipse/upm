@@ -87,7 +87,7 @@ const uint8_t  SSD1306_LCDHEIGHT = 64;
 /**
  * @library i2clcd
  * @sensor ssd1306
- * @comname SSD1306 OLED Display
+ * @comname OLED Display
  * @altname Adafruit SSD1306 OLED Display 0.96"
  * @type display
  * @man adafruit
@@ -103,7 +103,7 @@ const uint8_t  SSD1306_LCDHEIGHT = 64;
  * SSD1306 device from eBay.
  *
  * @image html ssd1306.jpeg
- * @snippet ssd1306-oled.cxx Interesting
+ * @snippet i2clcd-ssd1306-oled.cxx Interesting
  */
 class SSD1306 : public LCD
 {

@@ -169,7 +169,7 @@ typedef enum {
 /**
  * @library nrf24l01
  * @sensor nrf24l01
- * @comname NRF24L01 Transceiver
+ * @comname NRF Transceiver
  * @type wifi
  * @man seeed sparkfun
  * @web http://www.seeedstudio.com/depot/nRF24L01Module-p-1394.html
@@ -192,7 +192,7 @@ class NRF24L01 {
          *
          * @param cs Chip select pin
          */
-        NRF24L01 (uint8_t cs, uint8_t ce);
+        NRF24L01 (int cs, int ce);
 
         /**
          * Returns the name of the component
@@ -208,7 +208,7 @@ class NRF24L01 {
          * @param chipSelect Sets up the chip select pin
          * @param chipEnable Sets up the chip enable pin
          */
-        void    init (uint8_t chipSelect, uint8_t chipEnable);
+        void    init (int chipSelect, int chipEnable);
 
         /**
          * Configures the NRF24L01 transceiver
@@ -420,7 +420,6 @@ class NRF24L01 {
         uint8_t                 m_power;
         uint8_t                 m_ptx;
         uint8_t                 m_payload;
-        uint8_t                 m_localAddress[5];
 
         mraa::Gpio              m_csnPinCtx;
         mraa::Gpio              m_cePinCtx;

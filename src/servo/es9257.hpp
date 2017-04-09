@@ -31,11 +31,11 @@ namespace upm {
 /**
  * @library servo
  * @sensor es9257
- * @comname ES9257 Servo
+ * @comname Micro Digital 3D Tail Servo
  * @altname Grove Servo
  * @type servos
  * @man emax
- * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
+ * @web https://www.seeedstudio.com/EMAX-ES9257-2.5kg%26amp%3B-.05-sec-Micro-Digital-3D-Tail-Servo-p-762.html
  * @con pwm
  * @kit gsk
  *

@@ -70,10 +70,11 @@ struct Time3231 {
 /**
  * @library maxds3231m
  * @sensor maxds3231m
- * @comname MAXDS3231M Real-Time Clock
+ * @comname Realtime Clock (RTC) Sensor Library
  * @type light
  * @man maxim
  * @con i2c
+ * @web https://www.maximintegrated.com/en/products/digital/real-time-clocks/DS3231.html
  *
  * @brief API for the MAXDS3231M I2C Real-Time Clock
  *

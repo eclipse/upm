@@ -831,6 +831,8 @@ string BACNETUTIL::getAllErrorString()
       return string("UPM Error: ") + getUPMErrorString();
       break;
     }
+
+  return string("Internal Error: Unknown ErrorType");
 }
 
 string BACNETUTIL::getDeviceDescription()

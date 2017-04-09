@@ -1,5 +1,5 @@
 set (libname "mpl3115a2")
-set (libdescription "libupm Pressure/Temperature Sensor")
+set (libdescription "I2C Precision Altimeter")
 set (module_src ${libname}.cpp)
 set (module_hpp ${libname}.hpp)
-upm_module_init()
+upm_module_init(mraa)
