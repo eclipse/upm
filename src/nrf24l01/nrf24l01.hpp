@@ -218,7 +218,7 @@ class NRF24L01 {
         /**
          * Sends the buffer data
          *
-         * @param *value Pointer to the buffer
+         * @param value Pointer to the buffer
          */
         void    send (uint8_t * value);
 
@@ -285,7 +285,7 @@ class NRF24L01 {
         /**
          * Sinks all the arrived data into a provided buffer
          *
-         * @param load Size of the payload (MAX 32)
+         * @param data Pointer to the buffer
          */
         void    getData (uint8_t * data);
 

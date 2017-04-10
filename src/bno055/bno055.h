@@ -558,7 +558,7 @@ extern "C" {
      * interrupts if they are enabled.
      *
      * @param dev The device context.
-     * @param a bitmask of INT_STA_BITS_T bits to set in the interrupt
+     * @param mask A bitmask of INT_STA_BITS_T bits to set in the interrupt
      * mask register.
      */
     void bno055_set_interrupt_mask(const bno055_context dev, uint8_t mask);

@@ -126,20 +126,20 @@ extern "C" {
     float enc03r_angular_velocity(const enc03r_context dev);
 
     /**
-     * Set sensor offset.  The offste is applied to the return value
+     * Set sensor offset.  The offset is applied to the return value
      * before scaling. Default is 0.
      *
      * @param dev Device context
-     * @param scale Scale to apply to value
+     * @param offset Offset to apply to value
      */
     void enc03r_set_offset(const enc03r_context dev, float offset);
 
     /**
      * Set sensor scale.  The return value is scaled by this value
-     * before the offset is applied.  Default is 1.0.
+     * after the offset is applied.  Default is 1.0.
      *
      * @param dev Device context
-     * @param scale Offset to apply to value
+     * @param scale Scale to apply to value
      */
     void enc03r_set_scale(const enc03r_context dev, float scale);
 

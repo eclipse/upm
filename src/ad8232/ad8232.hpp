@@ -80,6 +80,7 @@ namespace upm {
      * @param loPlus Digital pin to use for LO+
      * @param loMinus Digital pin to use for LO-
      * @param output Analog pin to read the data
+     * @param aref Analog voltage reference
      */
     AD8232(int loPlus, int loMinus, int output, float aref=AD8232_DEFAULT_AREF);
 

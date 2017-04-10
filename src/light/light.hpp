@@ -89,7 +89,6 @@ namespace upm {
         /**
          * Set ADC reference voltage
          *
-         * @param dev sensor context pointer
          * @param aref ADC reference voltage
          */
         void setAref(float aref);
@@ -98,7 +97,6 @@ namespace upm {
          * Set sensor scale.  This scale is applied to the return value:
          *     counts = counts * scale
          *
-         * @param dev sensor context pointer
          * @param scale count scale value used
          */
         void setScale(float scale);
@@ -107,7 +105,6 @@ namespace upm {
          * Set sensor offset.  This offset is applied to the return value:
          *     value = value + offset
          *
-         * @param dev sensor context pointer
          * @param offset count offset value used
          * @return Function result code
          */

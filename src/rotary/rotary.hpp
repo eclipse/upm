@@ -34,7 +34,7 @@
 namespace upm {
 
 /**
- * @brief Rotary library
+ * @brief Rotary Angle Sensor library
  * @defgroup rotary libupm-rotary
  * @ingroup seeed analog ainput gsk
  */
@@ -43,7 +43,7 @@ namespace upm {
  * @library rotary
  * @sensor rotary
  * @comname Rotary Angle Sensor
- * @altname Rotary Potentiometer
+ * @altname Rotary Potentiometer, Grove Rotary Angle Sensor
  * @type ainput
  * @man seeed
  * @web http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/
@@ -52,9 +52,9 @@ namespace upm {
  *
  * @brief API for the Rotary Angle Sensor (Knob)
  *
- * Basic UPM module for the rotary angle sensor (knob) on analog. Provides
- * a set of functions to read the absolute pin value, degrees or radians, and another set
- * to do the same relative to the center of the knob's range.
+ * Basic UPM module for the rotary angle sensor (knob) on analog. Provides a
+ * set of functions to read the absolute pin value, degrees or radians, and
+ * another set to do the same relative to the center of the knob's range.
  *
  * @image html rotary.jpg
  * @snippet rotary.cxx Interesting
@@ -62,7 +62,7 @@ namespace upm {
 class Rotary{
     public:
         /**
-         * Grove rotary angle sensor constructor
+         * Rotary angle sensor constructor
          *
          * @param pin Number of the analog pin to use
          */

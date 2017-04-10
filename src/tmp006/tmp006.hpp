@@ -169,7 +169,7 @@ class TMP006 {
          *
          * @param rawv Object voltage value
          * @param rawt Raw die temperature value
-         * @param tamp Converted ambient temperature
+         * @param tamb Converted ambient temperature
          * @param tobj Converted object temperature
          */
         void convert_data(int16_t rawv,int16_t rawt, float *tamb, float *tobj);

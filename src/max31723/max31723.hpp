@@ -73,7 +73,7 @@ class MAX31723 {
          * Instantiates an MAX31723 object
          *
          * @param bus Number of the used bus
-         * @param devAddr Address of the used I2C device
+         * @param csn Chip select (slave select) pin to use
          */
         MAX31723 (int csn);
 

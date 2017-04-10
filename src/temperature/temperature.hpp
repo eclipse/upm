@@ -46,14 +46,14 @@ namespace upm {
  * @con analog
  * @kit gsk
  *
- * @brief API for the Grove Temperature Sensor
+ * @brief API for NTC Temperature Sensors
  *
- * Basic UPM module for the Grove temperature sensor on analog. This sensor
- * uses a NTC thermistor to measure ambient temperature. The conversion formula
- * has been updated to work with versions 1.1 and 1.2 of the sensor. For the
- * older v1.0 sensor you will have to specify R0 and B values when initializing
- * the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5
- * C.
+ * Basic UPM module for analog temperature sensors. These sensors use a NTC
+ * thermistor to measure ambient temperature. This driver was developed using
+ * the Grove Temperature Sensor. The conversion formula has been updated
+ * to work with versions 1.1 and 1.2 of the sensor. For the older v1.0
+ * sensor you will have to specify R0 and B values when initializing the
+ * device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.
  *
  * @image html temp.jpg
  * @snippet temperature.cxx Interesting
@@ -61,7 +61,7 @@ namespace upm {
 class Temperature {
     public:
         /**
-         * Grove analog temperature sensor constructor
+         * Analog temperature sensor constructor
          *
          * @param pin Analog pin to use
          * @param scale Scaling factor for raw analog value from the ADC,
@@ -73,7 +73,7 @@ class Temperature {
          */
         Temperature(unsigned int pin, float scale = 1.0, int r0 = 100000, int b = 4275);
         /**
-         * Temperature destructor
+         * Analog temperature sensor destructor
          */
         ~Temperature();
         /**
@@ -82,7 +82,7 @@ class Temperature {
          * @return Raw value from the ADC
          */
         float raw_value();
-        /* Provided for compatibility with old grove base class
+        /** Provided for compatibility with old grove base class
          *
          * @return Sensor name
          */

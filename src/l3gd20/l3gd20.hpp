@@ -442,7 +442,7 @@ class L3GD20
     /**
      * L3GD20 Tri-axis Digital Gyroscope Contructor for IIO operation
      *
-     * @param iio device number
+     * @param device iio device number
      */
     L3GD20(int device);
 
@@ -482,7 +482,7 @@ class L3GD20
     /**
      * Set the power mode of the device.  I2C only.
      *
-     * @param power One of the POWER_MODES_T values.
+     * @param mode One of the POWER_MODES_T values.
      */
     void setPowerMode(POWER_MODES_T mode);
 
@@ -543,8 +543,7 @@ class L3GD20
      * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs.  IIO only.
      *
-     * @param interrupt channel
-     * @param fptr Pointer to a function to be called on interrupt
+     * @param isr Pointer to a function to be called on interrupt
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
@@ -561,7 +560,7 @@ class L3GD20
     /**
      * Enable trigger buffer.  IIO only.
      *
-     * @param trigger buffer length in integer
+     * @param length buffer length in integer
      */
     bool enableBuffer(int length);
 
@@ -584,7 +583,7 @@ class L3GD20
      * Set sampling frequency.  IIO only.  For I2C operation, use the
      * setODR() method with the appropriate ODR_CUTOFF_T value.
      *
-     * @param sampling frequency in float
+     * @param sampling_frequency sampling frequency in float
      * Available sampling frequency are 95, 190, 380, and 760
      * Default sampling frequency is 95
      */

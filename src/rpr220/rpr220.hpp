@@ -90,7 +90,7 @@ namespace upm {
          * Installs an ISR to be called when
          * black is detected
          *
-         * @param fptr Pointer to a function to be called on interrupt
+         * @param isr Pointer to a function to be called on interrupt
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */

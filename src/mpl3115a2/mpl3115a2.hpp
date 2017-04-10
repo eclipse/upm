@@ -205,7 +205,7 @@ class MPL3115A2 {
         /**
          * Converts temperature from degC*1000 to degF*1000
          *
-         * @param iTemp Temperature in degC
+         * @param fTemp Temperature in degC
          */
         float convertTempCtoF(float fTemp);
 
@@ -214,7 +214,7 @@ class MPL3115A2 {
          * This is set for 15degC (Pa = 0.0002961 in Hg)
          * TODO: Change the function to add temperature calibration
          *
-         * @param iPressure Pressure in Pa
+         * @param fPressure Pressure in Pa
          */
         float convertPaToinHg(float fPressure);
 

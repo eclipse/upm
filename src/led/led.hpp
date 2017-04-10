@@ -64,7 +64,7 @@ class Led {
         /**
          * LED constructor
          *
-         * @param gpio Pin to use
+         * @param pin Pin to use
          */
         Led(int pin);
         /**

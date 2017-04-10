@@ -123,7 +123,7 @@ class TSL2561{
         * @param bus Number of the used bus
         * @param devAddr Address of the used I2C device
         * @param gain Correct gain to use
-        * @param integration Time to use
+        * @param integrationTime Time to keep the shutter open
         */
         TSL2561(int bus=0, uint8_t devAddr=TSL2561_Address, uint8_t gain=GAIN_0X, uint8_t integrationTime=INTEGRATION_TIME1_101MS);
 

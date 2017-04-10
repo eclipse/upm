@@ -372,7 +372,7 @@ namespace upm
             /**
              * Prints a string to the screen.
              *
-             * @param s Message to print
+             * @param msg Message to print
              */
             void print(std::string msg);
             

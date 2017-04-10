@@ -68,7 +68,7 @@ typedef struct _button_context {
 /**
  * button init function
  *
- * @param gpio Pin to use
+ * @param pin Pin to use
  */
 button_context button_init(int pin);
 

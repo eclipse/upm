@@ -56,7 +56,7 @@ class GroveButton: public Grove {
         /**
          * Grove button constructor
          *
-         * @param gpio Pin to use
+         * @param pin Pin to use
          */
         GroveButton(unsigned int pin);
         /**

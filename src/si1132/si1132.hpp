@@ -62,7 +62,6 @@ class SI1132 : public ILightSensor {
          * Instanciates a Si1132 object
          *
          * @param bus number of used bus
-         * @param devAddr address of used i2c device
          */
         SI1132 (int bus);
 

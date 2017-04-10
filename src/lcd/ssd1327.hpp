@@ -78,7 +78,7 @@ class SSD1327 : public LCD
     /**
      * Sets the gray level for the LCD panel
      *
-     * @param gray level from 0 to 255
+     * @param level level from 0 to 255
      * @return Result of the operation
      */
     void setGrayLevel(uint8_t level);

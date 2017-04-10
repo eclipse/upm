@@ -236,7 +236,7 @@ extern "C" {
      * bmp280_set_usage_mode().
      *
      * @param dev Device context.
-     * @param mode One of the BMP280_OSRS_T_T values.
+     * @param rate One of the BMP280_OSRS_T_T values.
      */
     void bmp280_set_oversample_rate_temperature(const bmp280_context dev,
                                                 BMP280_OSRS_T_T rate);
@@ -248,7 +248,7 @@ extern "C" {
      * bmp280_set_usage_mode().
      *
      * @param dev Device context.
-     * @param mode One of the BMP280_OSRS_P_T values.
+     * @param rate One of the BMP280_OSRS_P_T values.
      */
     void bmp280_set_oversample_rate_pressure(const bmp280_context dev,
                                              BMP280_OSRS_P_T rate);
@@ -260,7 +260,7 @@ extern "C" {
      * predefined modes for bmp280_set_usage_mode().
      *
      * @param dev Device context.
-     * @param mode One of the BME280_OSRS_H_T values.
+     * @param rate One of the BME280_OSRS_H_T values.
      */
     void bmp280_set_oversample_rate_humidity(const bmp280_context dev,
                                              BME280_OSRS_H_T rate);
@@ -271,7 +271,7 @@ extern "C" {
      * performing a measurement.  See the data sheet for details.
      *
      * @param dev Device context.
-     * @param mode One of the BMP280_T_SB_T values.
+     * @param tsb One of the BMP280_T_SB_T values.
      */
     void bmp280_set_timer_standby(const bmp280_context dev,
                                   BMP280_T_SB_T tsb);
@@ -283,7 +283,7 @@ extern "C" {
      * bmp280_set_usage_mode().
      *
      * @param dev Device context.
-     * @param mode One of the BMP280_FILTER_T values.
+     * @param filter One of the BMP280_FILTER_T values.
      */
     void bmp280_set_filter(const bmp280_context dev, BMP280_FILTER_T filter);
 

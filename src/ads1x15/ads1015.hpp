@@ -120,8 +120,8 @@ namespace upm {
              * to set gain so it matches full scale value of input
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Optional device address. Default is 0x48.
-             * @param vref. Optional reference (i.e. half full swing) voltage. Default is 2.048V
+             * @param address Optional device address. Default is 0x48.
+             * @param vref Optional reference (i.e. half full swing) voltage. Default is 2.048V
              */
             ADS1015 (int bus, uint8_t address = 0x48, float vref = ADS1015_VREF);
 
@@ -135,7 +135,7 @@ namespace upm {
              * needs to be overridden in subclasses as the ADS1115 and
              * ADS1015 have different sample rates.
              *
-             * @param ADSSAMPLERATE enum
+             * @param rate ADSSAMPLERATE enum
              */
             void setSPS(ADSSAMPLERATE rate = SPS_1600);
 

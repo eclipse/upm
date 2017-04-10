@@ -58,7 +58,7 @@ class GroveRelay: public Grove {
         /**
          * Grove relay constructor
          *
-         * @param gpio Pin to use
+         * @param pin Pin to use
          */
         GroveRelay(unsigned int pin);
         /**

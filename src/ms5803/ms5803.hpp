@@ -108,7 +108,7 @@ namespace upm {
          * The default set at device intialization is the highest
          * precision supported: MS5803_OSR_4096
          *
-         * @param dev One of the MS5803_OSR_T values.
+         * @param osr One of the MS5803_OSR_T values.
          */
         void setTemperatureOSR(MS5803_OSR_T osr);
 
@@ -119,7 +119,7 @@ namespace upm {
          * The default set at device intialization is the highest
          * precision supported: MS5803_OSR_4096
          *
-         * @param dev One of the MS5803_OSR_T values.
+         * @param osr One of the MS5803_OSR_T values.
          */
         void setPressureOSR(MS5803_OSR_T osr);
 

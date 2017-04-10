@@ -103,7 +103,7 @@ namespace upm {
          * Set the default time, in milliseconds, to wait for data to
          * arrive after sending a command.
          *
-         * @param wait_ms The response delay to set, in milliseconds.
+         * @param wait_time The response delay to set, in milliseconds.
          */
         void setResponseWaitTime(unsigned int wait_time);
 
@@ -192,7 +192,7 @@ namespace upm {
          * return ("\r").
          * @param resp_len The maximum number of characters to read from the
          * device.
-         * @param wait_string The string to look for.  If found, the
+         * @param waitString The string to look for.  If found, the
          * response will be returned immediately regardless of the
          * timeout setting.
          * @param millis The maximum number of milliseconds to wait

@@ -104,7 +104,7 @@ namespace upm {
      * range of 0C-50C.  The constructor sets a default of
      * RANGE_MINUS40_50.
      *
-     * @param One of the RANGE_T values, default is RANGE_MINUS40_50
+     * @param range One of the RANGE_T values, default is RANGE_MINUS40_50
      */
     void setRange(RANGE_T range=RANGE_MINUS40_50)
     {

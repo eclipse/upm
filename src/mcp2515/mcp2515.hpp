@@ -63,7 +63,7 @@ namespace upm {
          * MCP2515 constructor.
          *
          * @param bus spi bus to use
-         * @param cs_pin The GPIO pin to use for Chip Select (CS).  Pass
+         * @param csPin The GPIO pin to use for Chip Select (CS).  Pass
          * pass -1 if your CS is handled automatically by your SPI
          * implementation (Edison).
          */
@@ -335,7 +335,7 @@ namespace upm {
          * an interrupt occurs.
          *
          * @param pin GPIO pin to use as the interrupt pin.
-         * @param fptr Pointer to a function to be called on interrupt.
+         * @param isr Pointer to a function to be called on interrupt.
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */

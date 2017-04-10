@@ -48,12 +48,28 @@ typedef struct _temperature_context {
     int16_t m_aRes;
 } *temperature_context;
 
-
+/**
+ * Analog temperature sensor initialization function
+ *
+ * @param pin analog pin to use
+ * @return sensor context
+ */
 temperature_context temperature_init(int pin);
 
+/**
+ * Analog temperature sensor destructor
+ *
+ * @param dev sensor context pointer
+ */
 void temperature_close(temperature_context dev);
 
-// Celsius
+/**
+ * Gets the temperature in Celsius from the sensor
+ *
+ * @param dev sensor context pointer
+ * @param tempval temperature value in Celsius
+ * @return result of the operation
+ */
 upm_result_t temperature_get_value(temperature_context dev,
                                    float* tempval);
 

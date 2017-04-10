@@ -155,7 +155,7 @@ namespace upm {
              * MCP9808 constructor
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Device address. Default is 0x18.
+             * @param address Device address. Default is 0x18.
              */
             MCP9808 (int bus, uint8_t address = 0x18);
 
@@ -180,14 +180,14 @@ namespace upm {
             /**
              *  Will cause the devices to either sleep or wakeup.
              *
-             *  @param sleep . Bool, default true to sleep. false to wake.
+             *  @param sleep Bool, default true to sleep. false to wake.
              */
              void shutDown(bool sleep = true);
 
             /**
              *  setMode - sets temperature reporting mode.
              *
-             *  @param celsius. Default is true. If false all
+             *  @param celsius Default is true. If false all
              *  temps will be reported in fahrenheit.
              */
             void setMode(bool celsius = true)
@@ -275,7 +275,7 @@ namespace upm {
             /**
              * Sets hysteresis value.
              *
-             * @param MCP9808_CONFIG enum value HYST_0, HYST_1_5,
+             * @param value MCP9808_CONFIG enum value HYST_0, HYST_1_5,
              *  HYST_3_0 or HYST_6_0
              */
             void setHysteresis(MCP9808_CONFIG value);

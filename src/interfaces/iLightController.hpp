@@ -70,7 +70,7 @@ namespace upm
       /**
        * Set brightness
        *
-       * @param brightness as percentage
+       * @param percent brightness as percentage
        *
        * @throws std::runtime_error
        */

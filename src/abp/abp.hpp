@@ -105,7 +105,7 @@ namespace upm {
          * not explicitly called to the set the min value, then a default max
          * value of 5 will be set.
          *
-         * @param min int minimum pressure value possible
+         * @param max int maximum pressure value possible
          */
         void setMaxPressure(int max);
 

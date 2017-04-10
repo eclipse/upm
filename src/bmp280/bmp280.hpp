@@ -85,7 +85,7 @@ namespace upm {
          * operating mode is I2C.
          *
          * @param bus I2C or SPI bus to use.
-         * @param address The I2C address for this device.  Use -1 for SPI.
+         * @param addr The I2C address for this device.  Use -1 for SPI.
          * @param cs The gpio pin to use for the SPI Chip Select.  Use -1
          * for I2C, or for SPI with a hardware controlled pin.
          * @throws std::runtime_error on failure.
@@ -174,7 +174,7 @@ namespace upm {
          * a suitable value by using one of the predefined modes for
          * setUsageMode().
          *
-         * @param mode One of the BMP280_OSRS_T_T values.
+         * @param rate One of the BMP280_OSRS_T_T values.
          */
         void setOversampleRateTemperature(BMP280_OSRS_T_T rate);
 
@@ -184,7 +184,7 @@ namespace upm {
          * a suitable value by using one of the predefined modes for
          * setUsageMode().
          *
-         * @param mode One of the BMP280_OSRS_P_T values.
+         * @param rate One of the BMP280_OSRS_P_T values.
          */
         void setOversampleRatePressure(BMP280_OSRS_P_T rate);
 
@@ -193,7 +193,7 @@ namespace upm {
          * this timer governs how long the chip will wait before
          * performing a measurement.  See the data sheet for details.
          *
-         * @param mode One of the BMP280_T_SB_T values.
+         * @param tsb One of the BMP280_T_SB_T values.
          */
         void setTimerStandby(BMP280_T_SB_T tsb);
 
@@ -202,7 +202,7 @@ namespace upm {
          * details.  This value can be automatically set to a suitable
          * value by using one of the predefined modes for setUsageMode().
          *
-         * @param mode One of the BMP280_FILTER_T values.
+         * @param filter One of the BMP280_FILTER_T values.
          */
         void setFilter(BMP280_FILTER_T filter);
 

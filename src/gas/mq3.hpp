@@ -39,7 +39,7 @@ namespace upm {
    *
    * @brief API for the MQ3 Gas Sensor
    *
-   * The Grove MQ3 Gas Sensor module is useful for gas leakage detection (in
+   * The MQ3 Gas Sensor module is useful for gas leakage detection (in
    * home and industry). It can detect alcohol vapors and benzine. It's
    * highly sensitive but has a long warm-up time of about 1 minute. It's
    * detection range is 0.04-4 mg/L Alcohol.

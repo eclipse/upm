@@ -134,7 +134,7 @@ class StepMotor {
          * Sets the current position. Useful if the motor is not at 0 when the
          * driver is initialized.
          *
-         * @param step Current position
+         * @param pos Current position
          */
         void setPosition (int pos);
 

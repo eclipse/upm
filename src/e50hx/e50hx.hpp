@@ -291,7 +291,7 @@ namespace upm {
      * Set the Phase Loss Voltage Threshold.  See the datasheet for
      * details.  This method will throw on error.
      *
-     * @param dispUnits A floating point value between 1.0-99.0
+     * @param phaseLoss A floating point value between 1.0-99.0
      */
     void writePhaseLossVT(float phaseLoss);
 
@@ -299,7 +299,7 @@ namespace upm {
      * Set the Phase Loss Imbalance Threshold.  See the datasheet for
      * details.  This method will throw on error.
      *
-     * @param dispUnits A floating point value between 1.0-99.0
+     * @param phaseLoss A floating point value between 1.0-99.0
      */
     void writePhaseLossIT(float phaseLoss);
 

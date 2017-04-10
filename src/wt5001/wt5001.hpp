@@ -172,7 +172,7 @@ namespace upm {
     /**
      * Gets a command response and returns its validity
      *
-     * @param index Opcode to verify
+     * @param opcode Opcode to verify
      * @return True if successful
      */
     bool checkResponse(WT5001_OPCODE_T opcode);

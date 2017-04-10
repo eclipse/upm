@@ -154,7 +154,8 @@ class SmartDrive {
 public:
     /**
      * Initialize the class with the i2c address of your SmartDrive
-     * @param SmartDrive_address Address of your SmartDrive.
+     * @param i2c_bus I2C bus to use.
+     * @param address Address of your SmartDrive.
      */
     SmartDrive(int i2c_bus, int address = SmartDrive_DefaultAddress);
 
@@ -238,7 +239,6 @@ public:
     /**
      * Turns the specified motor(s) for given absolute tacheometer count
      * @param motor_id Number of the motor(s) you wish to turn.
-     * @param direction The direction you wish to turn the motor(s).
      * @param speed The speed at which you wish to turn the motor(s).
      * @param tacho_count The absolute tacheometer count you wish to turn the motor(s).
      * @param wait_for_completion Tells the program when to handle the next line of code.

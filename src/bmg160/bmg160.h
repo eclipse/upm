@@ -284,7 +284,7 @@ extern "C" {
      * pin.  See the datasheet for details.
      *
      * @param dev The device context.
-     * @param A bitmask of BMG160_INT_MAP_0_BITS_T bits.
+     * @param bits A bitmask of BMG160_INT_MAP_0_BITS_T bits.
      * @return UPM result.
      */
     upm_result_t bmg160_set_interrupt_map0(const bmg160_context dev,
@@ -304,7 +304,7 @@ extern "C" {
      * details.
      *
      * @param dev The device context.
-     * @param A bitmask of BMG160_INT_MAP_1_BITS_T bits.
+     * @param bits A bitmask of BMG160_INT_MAP_1_BITS_T bits.
      * @return UPM result.
      */
     upm_result_t bmg160_set_interrupt_map1(const bmg160_context dev,

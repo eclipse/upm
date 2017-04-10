@@ -749,7 +749,7 @@ namespace upm {
      * set the Low Pass Digital filter.  This enables filtering (if
      * non-0) of the accelerometer and gyro outputs.
      *
-     * @param scale one of the DLPF_CFG_T values
+     * @param dlp one of the DLPF_CFG_T values
      * @return true if successful, false otherwise
      */
     bool setDigitalLowPassFilter(DLPF_CFG_T dlp);
@@ -769,7 +769,7 @@ namespace upm {
      * (DLPF) is 0 or 7 (DLPF_260_256 or DLPF_RESERVED), and 1Khz
      * otherwise.
      *
-     * @param scale one of the DLPF_CFG_T values
+     * @param div one of the DLPF_CFG_T values
      * @return true if successful, false otherwise
      */
     bool setSampleRateDivider(uint8_t div);

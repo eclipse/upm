@@ -84,7 +84,6 @@ class AM2315 {
          *
          * @param bus Number of the used bus
          * @param devAddr Address of the used I2C device
-         * @param mode AM2315 oversampling
          */
         AM2315 (int bus, int devAddr=AM2315_I2C_ADDRESS);
 

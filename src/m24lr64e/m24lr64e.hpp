@@ -43,7 +43,7 @@
 namespace upm {
   
   /**
-   * @brief Grove NFC Tag
+   * @brief M24LR64E NFC Tag library
    * @defgroup m24lr64e libupm-m24lr64e
    * @ingroup seeed i2c other
    */
@@ -52,15 +52,17 @@ namespace upm {
    * @library m24lr64e
    * @sensor m24lr64e
    * @comname Dynamic NFC/RFID Tag Module
+   * @altname Grove NFC Tag
    * @type other
    * @man seeed
    * @web http://www.seeedstudio.com/wiki/Grove_-_NFC_Tag
    * @con i2c
    *
-   * @brief C++ API for the M24LR64E-based Grove NFC Tag
+   * @brief C++ API for the M24LR64E NFC Tag
    *
-   * Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM)
-   * that can be written to or read from using I2C and NFC-equipped devices.
+   * The M24LR64E NFC tag is an 8KB electrically erasable programmable
+   * read-only memory (EEPROM) that can be written to or read from using
+   * I2C and NFC-equipped devices.
    *
    * The user mode (default) allows read and write access to all 8KB
    * of space, provided the sector security status (SSS) allows it.
@@ -246,8 +248,8 @@ namespace upm {
      * Writes bytes to the EEPROM
      *
      * @param address Address to write to
-     * @param data Data to write
-     * @param data Length of the data buffer
+     * @param buffer Data to write
+     * @param len Length of the data buffer
      */
     mraa::Result writeBytes(unsigned int address, uint8_t* buffer, int len);
 
