@@ -4,7 +4,7 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
-# current master
+# v1.2.0
 
  * **Note for all drivers ported to C** As a general note concerning
  all of the drivers that have been ported to C: **external constants
@@ -151,7 +151,7 @@ compatibility between releases:
  and Python, the examples have been modified to use these methods
  rather than the methods that return data in argument pointers or
  arrays.
- 
+
  * **lpd8806** The constructor for this driver was updated to allow specifying
  a SPI bus number. This is now the first parameter, the number of LEDs on the
  strip is now the last (3rd) parameter instead.
@@ -162,7 +162,7 @@ compatibility between releases:
  * **tcs3414cs** The constructor for this can now accept an I2C bus and
  address.
 
-# v1.1.0
+# v1.1.0 and prior
 
  * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are
  being separated into individual libraries. The APIs will be preserved, but

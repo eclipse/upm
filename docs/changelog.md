@@ -4,6 +4,20 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.2.0
+
+ * Improved JAVA binding compiler compatibility and added JAVA interfaces that
+ match existing C++ interfaces
+ * Ported Bosch drivers to C thus now they can be used on supported MCUs
+ * Completely redesigned C/C++ example handling by cmake to avoid maintaining
+ a list by hand
+ * Fixed several existing drivers, mostly based on static code analysis reports
+ * Added a sensor driver template plus bash script that can be easily used by
+ developers to start writing their own sensor driver
+ * Numerous documentation improvements
+ * New sensors: p9813, abp, rsc, mmc35240, tcs37727, tmp006, mma8x6x, mag3110,
+ hdc1000
+
 ### v1.1.0
 
  * Reworked cmake handling of internal and external dependencies
