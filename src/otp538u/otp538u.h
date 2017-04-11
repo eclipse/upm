@@ -143,7 +143,7 @@ extern "C" {
      * Enable debugging output (linux platforms only).
      *
      * @param dev Device context
-     * @param true to enable some debug output, false otherwise
+     * @param enable true to enable some debug output, false otherwise
      */
     void otp538u_set_debug(const otp538u_context dev, bool enable);
 

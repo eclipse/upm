@@ -156,7 +156,7 @@ namespace upm {
         /**
          * Enable debugging output.
          *
-         * @param true to enable some debug output, false otherwise
+         * @param enable true to enable some debug output, false otherwise
          */
         void setDebug(bool enable)
         {

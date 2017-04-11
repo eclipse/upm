@@ -44,7 +44,7 @@ int
 main(int argc, char **argv)
 {
     //! [Interesting]
-    sensor = new upm::MAX31723(7);
+    sensor = new upm::MAX31723(0, 7);
     usleep (1000000);
 
     while (!doWork) {

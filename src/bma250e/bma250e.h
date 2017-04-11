@@ -354,7 +354,7 @@ extern "C" {
      * pin.  See the datasheet for details.
      *
      * @param dev The device context.
-     * @param A bitmask of BMA250E_INT_MAP_0_BITS_T bits.
+     * @param bits A bitmask of BMA250E_INT_MAP_0_BITS_T bits.
      * @return UPM result.
      */
     upm_result_t bma250e_set_interrupt_map0(const bma250e_context dev,
@@ -374,7 +374,7 @@ extern "C" {
      * details.
      *
      * @param dev The device context.
-     * @param A bitmask of BMA250E_INT_MAP_1_BITS_T bits.
+     * @param bits A bitmask of BMA250E_INT_MAP_1_BITS_T bits.
      * @return UPM result.
      */
     upm_result_t bma250e_set_interrupt_map1(const bma250e_context dev,
@@ -394,7 +394,7 @@ extern "C" {
      * details.
      *
      * @param dev The device context.
-     * @param A bitmask of BMA250E_INT_MAP_2_BITS_T bits.
+     * @param bits A bitmask of BMA250E_INT_MAP_2_BITS_T bits.
      * @return UPM result.
      */
     upm_result_t bma250e_set_interrupt_map2(const bma250e_context dev,

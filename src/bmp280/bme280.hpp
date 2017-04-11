@@ -75,7 +75,7 @@ namespace upm {
          * operating mode is I2C.
          *
          * @param bus I2C or SPI bus to use.
-         * @param address The I2C address for this device.  Use -1 for SPI.
+         * @param addr The I2C address for this device.  Use -1 for SPI.
          * @param cs The gpio pin to use for the SPI Chip Select.  Use -1
          * for I2C, or for SPI with a hardware controlled pin.
          * @throws std::runtime_error on failure.
@@ -104,7 +104,7 @@ namespace upm {
          * suitable value by using one of the predefined modes for
          * setUsageMode().
          *
-         * @param mode One of the OSRS_H_T values.
+         * @param rate One of the OSRS_H_T values.
          */
         void setOversampleRateHumidity(BME280_OSRS_H_T rate);
 

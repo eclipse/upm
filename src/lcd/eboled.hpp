@@ -121,7 +121,6 @@ namespace upm
      * @param spi spi bus to use
      * @param CD Command/Data select pin
      * @param reset reset pin
-     * @param address the slave address the lcd is registered on
      */
     EBOLED(int spi=EBOLED_DEFAULT_SPI_BUS, int CD=EBOLED_DEFAULT_CD,
            int reset=EBOLED_DEFAULT_RESET);
@@ -150,8 +149,8 @@ namespace upm
     /**
      * Set cursor to a coordinate
      *
-     * @param y Axis on the vertical scale. This device supports 6 rows.
-     * @param x Axis on the horizontal scale This device supports 64 columns
+     * @param row Axis on the vertical scale. This device supports 6 rows.
+     * @param column Axis on the horizontal scale This device supports 64 columns
      *
      * @return result of operation
      */
@@ -185,7 +184,6 @@ namespace upm
       * @param y Axis on the vertical scale
       * @param data Character to write
       * @param color Character color
-      * @param bg Character background color
       * @param size Size of the font
       */
     void drawChar (uint8_t x, uint8_t y, uint8_t data, uint8_t color, uint8_t size);
@@ -242,7 +240,7 @@ namespace upm
      *
      * @param x the x position of the beginning of the line
      * @param y the y position of the beginning of the line
-     * @param width is the vertical length of the line
+     * @param height is the vertical length of the line
      * @param color line is COLOR_WHITE, COLOR_BLACK or COLOR_XOR
      */
     void drawLineVertical (int8_t x, int8_t y, uint8_t height, uint8_t color = COLOR_WHITE);

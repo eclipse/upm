@@ -28,7 +28,7 @@
 namespace upm {
 
 /**
- * @brief Grove Water Flow Sensor library
+ * @brief Water Flow Sensor library
  * @defgroup wfs libupm-wfs
  * @ingroup seeed gpio liquid eak
  */
@@ -44,7 +44,7 @@ namespace upm {
  * @con gpio
  * @kit eak
 
- * @brief API for the Grove Water Flow Sensor
+ * @brief API for the Water Flow Sensor
  *
  * This sensor is used to measure water flow in liters per
  * minute (LPM). It incorporates a Hall Effect sensor. The UPM module
@@ -65,64 +65,64 @@ namespace upm {
 class WFS {
     public:
         /**
-            * Grove Water Flow sensor constructor
-            *
-            * @param pin Digital pin to use
-            */
+         * Water Flow Sensor constructor
+         *
+         * @param pin Digital pin to use
+         */
         WFS(int pin);
         /**
-            * WFS destructor
-            */
+         * WFS destructor
+         */
         ~WFS();
 
         /**
-            * Returns the number of milliseconds elapsed since initClock()
-            * was last called.
-            *
-            * @return Elapsed milliseconds
-            */
+         * Returns the number of milliseconds elapsed since initClock()
+         * was last called.
+         *
+         * @return Elapsed milliseconds
+         */
         uint32_t getMillis();
 
         /**
-            * Resets the clock
-            *
-            */
+         * Resets the clock
+         *
+         */
         void initClock();
 
         /**
-            * Resets the flow counter to 0. The flow counter should be
-            * stopped via stopFlowCounter() prior to calling this function.
-            *
-            */
+         * Resets the flow counter to 0. The flow counter should be
+         * stopped via stopFlowCounter() prior to calling this function.
+         *
+         */
         void clearFlowCounter() { wfs_clear_flow_counter(m_wfs); };
 
         /**
-            * Starts the flow counter
-            *
-            */
+         * Starts the flow counter
+         *
+         */
         void startFlowCounter();
 
         /**
-            * Stops the flow counter
-            *
-            */
+         * Stops the flow counter
+         *
+         */
         void stopFlowCounter();
 
         /**
-            * Gets the flow counter
-            *
-            * @return Flow counter
-            */
+         * Gets the flow counter
+         *
+         * @return Flow counter
+         */
         uint32_t flowCounter() { return wfs_flow_counter(m_wfs); };
 
         /**
-            * Computes the flow rate in liters per minute (LPM).  Note, this
-            * is for the Grove WFS.  If you are using some other WFS, you
-            * should compute the flow rate on your own based on the data for
-            * your sensor.
-            *
-            * @return Computed flow rate
-            */
+         * Computes the flow rate in liters per minute (LPM).  Note, this
+         * is for the Grove WFS.  If you are using some other WFS, you
+         * should compute the flow rate on your own based on the data for
+         * your sensor.
+         *
+         * @return Computed flow rate
+         */
         float flowRate();
 
     protected:

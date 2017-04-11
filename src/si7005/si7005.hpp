@@ -65,8 +65,7 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
          * Instantiates a SI7005 object
          *
          * @param bus number of used bus
-         * @param devAddr address of used i2c device
-         * @param pin mraa gpio number for chip select pin
+         * @param pin gpio number for chip select pin
          */
         SI7005 (int bus, int pin);
 

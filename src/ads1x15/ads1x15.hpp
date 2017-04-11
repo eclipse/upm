@@ -212,7 +212,7 @@ namespace upm {
              * ADS1X15 constructor
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Device address. Default is 0x48.
+             * @param address Device address. Default is 0x48.
              */
             ADS1X15(int bus, uint8_t address);
 

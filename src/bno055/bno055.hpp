@@ -261,7 +261,7 @@ namespace upm {
          * Write previously saved calibration data to the calibration
          * registers.
          *
-         * @param calibData A vector of uint8_t (bytes) representing
+         * @param calibrationData A vector of uint8_t (bytes) representing
          * calibration data as returned by readCalibrationData().
          * It's length must always be exactly BNO055_CALIBRATION_DATA_SIZE.
          * @throws std::length_error if the vector size is not equal to
@@ -572,7 +572,7 @@ namespace upm {
          * interrupt.  The interrupt status register can still be used
          * to detect masked interrupts if they are enabled.
          *
-         * @param a bitmask of BNO055_INT_STA_BITS_T bits to set in
+         * @param mask A bitmask of BNO055_INT_STA_BITS_T bits to set in
          * the interrupt mask register.
          */
         void setInterruptMask(uint8_t mask);

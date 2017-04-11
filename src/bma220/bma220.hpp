@@ -477,7 +477,7 @@ namespace upm {
      * BMA220 constructor
      *
      * @param bus i2c bus to use
-     * @param address the address for this device
+     * @param addr the address for this device
      */
     BMA220(int bus=BMA220_I2C_BUS, uint8_t addr=BMA220_DEFAULT_ADDR);
 
@@ -494,7 +494,6 @@ namespace upm {
     /**
      * read a register
      *
-     * @param dev the device to access (XM or G)
      * @param reg the register to read
      * @return the value of the register
      */
@@ -503,7 +502,6 @@ namespace upm {
     /**
      * write to a register
      *
-     * @param dev the device to access (XM or G)
      * @param reg the register to write to
      * @param val the value to write
      * @return true if successful, false otherwise

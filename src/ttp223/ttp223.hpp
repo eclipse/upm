@@ -91,7 +91,7 @@ class TTP223 {
          * Installs an interrupt service routine (ISR) to be called when
          * the button is activated or deactivated.
          *
-         * @param fptr Pointer to a function to be called on interrupt
+         * @param isr Pointer to a function to be called on interrupt
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */

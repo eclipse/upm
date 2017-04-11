@@ -31,17 +31,17 @@ namespace upm {
   /**
    * @library gas
    * @sensor tp401
-   * @comname Air Quality Sensor
-   * @altname TP401 Gas Sensor
+   * @comname TP401 Gas Sensor
+   * @altname Grove Air Quality Sensor
    * @type gaseous
    * @man seeed
    * @con analog
    * @web https://www.seeedstudio.com/Grove-Air-quality-sensor-p-1065.html
    * @kit hak
    *
-   * @brief API for the Grove TP401 Air Quality Sensor
+   * @brief API for the TP401 Gas Sensor
    *
-   * The Grove TP401 Air Quality Sensor module is useful for monitoring air purity indoors.
+   * The TP401 Gas Sensor module is useful for monitoring air purity indoors.
    * It can detect CO and a wide range of other harmful gases, but, due to a limited detection
    * range, it should be used only when qualitative results are needed. Example applications
    * are air recirculation, ventilation systems, and refreshing sprayers.

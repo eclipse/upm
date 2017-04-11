@@ -72,10 +72,10 @@ class MAX31723 {
         /**
          * Instantiates an MAX31723 object
          *
-         * @param bus Number of the used bus
-         * @param devAddr Address of the used I2C device
+         * @param bus Number of the SPI bus used
+         * @param csn Chip select (slave select) pin to use
          */
-        MAX31723 (int csn);
+        MAX31723 (int bus, int csn);
 
         /**
          * MAXDS3231M object destructor; basically, it closes the I2C connection.

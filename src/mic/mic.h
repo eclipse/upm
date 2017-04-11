@@ -50,10 +50,28 @@ typedef struct _mic_context {
     uint16_t analog_pin;
 } *mic_context;
 
+/**
+ * Microphone sensor initialization function
+ *
+ * @param pin analog pin to use
+ * @return sensor context
+ */
 mic_context mic_init(int pin);
 
+/**
+ * Microphone sensor destructor
+ *
+ * @param dev sensor context pointer
+ */
 void mic_close(mic_context dev);
 
+/**
+ * Gets a sample from the microphone
+ *
+ * @param dev sensor context pointer
+ * @param micval microphone value in ADC counts
+ * @return result of the operation
+ */
 upm_result_t mic_get_value(mic_context dev, float* micval);
 
 #endif /* MIC_H_ */

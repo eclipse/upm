@@ -91,9 +91,10 @@ class LSM303 {
          /**
          * Instantiates an LSM303 object
          *
-         * @param i2c bus
-         * @param addr Magnetometer
-         * @param addr Accelerometer
+         * @param bus I2C bus to use
+         * @param addrMag I2C address of the Magnetometer (default 0x1E)
+         * @param addrAcc I2C address of the Accelerometer (default 0x19)
+         * @param accScale Accelerometer scale, can be 2, 4 or 8 (default 8)
          */
         LSM303 (int bus,
                 int addrMag=LSM303_MAG,

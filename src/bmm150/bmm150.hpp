@@ -192,7 +192,7 @@ namespace upm {
          * Set the operating mode of the device.  See the datasheet for
          * details.
          *
-         * @param power One of the BMM150_POWER_MODE_T values.
+         * @param opmode One of the BMM150_OPERATION_MODE_T values.
          * @throws std::runtime_error on failure.
          */
         void setOpmode(BMM150_OPERATION_MODE_T opmode);

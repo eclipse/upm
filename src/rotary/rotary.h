@@ -51,13 +51,38 @@ typedef struct _rotary_context {
 
 #define ROTARY_MAX_ANGLE 300
 
+/**
+ * Rotary angle sensor initialization function
+ *
+ * @param pin analog pin to use
+ * @param aRef reference voltage
+ * @return sensor context
+ */
 rotary_context rotary_init(int pin, float aRef);
 
+/**
+ * Rotary destructor
+ *
+ * @param dev sensor context pointer
+ */
 void rotary_close(rotary_context dev);
 
+/**
+ * Gets the voltage value from the analog pin
+ *
+ * @param dev sensor context pointer
+ * @param volts sensor voltage value
+ * @return result of the operation
+ */
 upm_result_t rotary_get_value_voltage(const rotary_context dev, float* volts);
 
-// degrees only
+/**
+ * Gets the position of the rotary angle sensor in degrees
+ *
+ * @param dev sensor context pointer
+ * @param rotval sensor position in degrees
+ * @return result of the operation
+ */
 upm_result_t rotary_get_value_angle(rotary_context dev, float* rotval);
 
 #endif /* ROTARY_H_ */

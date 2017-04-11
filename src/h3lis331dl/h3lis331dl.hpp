@@ -324,7 +324,7 @@ namespace upm {
     /**
      * Sets the output data rate
      *
-     * @param One of the DR_BITS_T values
+     * @param odr One of the DR_BITS_T values
      * @return True if successful
      */
     bool setDataRate(DR_BITS_T odr);
@@ -332,7 +332,7 @@ namespace upm {
     /**
      * Sets the power mode
      *
-     * @param One of the PM_BITS_T values
+     * @param pm One of the PM_BITS_T values
      * @return True if successful
      */
     bool setPowerMode(PM_BITS_T pm);

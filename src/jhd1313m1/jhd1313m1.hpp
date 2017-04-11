@@ -76,8 +76,8 @@ namespace upm
          * Jhd1313m1 constructor
          *
          * @param bus I2C bus to use
-         * @param address Slave address the LCD is registered on
-         * @param address Slave address the RGB backlight is registered on
+         * @param lcdAddress Slave address the LCD is registered on
+         * @param rgbAddress Slave address the RGB backlight is registered on
          */
         Jhd1313m1(int bus, int lcdAddress = 0x3E, int rgbAddress = 0x62);
 

@@ -67,7 +67,6 @@ class P9813
      * @param dataPin   Data Pin
      * @param batchMode (optional) Immediately write to the LED controllers (false, default) or wait for a pushState
      * call (true)
-     * @param csn       (optional) Chip Select Pin
      */
     P9813(uint16_t ledCount, uint16_t clkPin, uint16_t dataPin, bool batchMode = false);
 

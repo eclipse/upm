@@ -91,7 +91,7 @@ class MMC35240
     /**
      * MMC35240 Tri-axis Magnetic Sensor
      *
-     * @param iio device number
+     * @param device iio device number
      */
     MMC35240(int device);
 
@@ -104,8 +104,7 @@ class MMC35240
      * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs
      *
-     * @param interrupt channel
-     * @param fptr Pointer to a function to be called on interrupt
+     * @param isr Pointer to a function to be called on interrupt
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
@@ -120,7 +119,7 @@ class MMC35240
 
     /**
      * Enable trigger buffer
-     * @param trigger buffer length in integer
+     * @param length buffer length in integer
      */
     bool enableBuffer(int length);
 
@@ -139,7 +138,7 @@ class MMC35240
 
     /**
      * Set sampling frequency
-     * @param sampling frequency in float
+     * @param sampling_frequency sampling frequency in float
      * Available sampling frequency are 1.5, 13, 25, 50
      * Default sampling frequency is 1.500000
      */

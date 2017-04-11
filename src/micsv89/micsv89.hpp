@@ -65,7 +65,7 @@ namespace upm {
              * MICSV89 constructor
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Device address. Default is 0x70.
+             * @param address Device address. Default is 0x70.
              */
             MICSV89 (int bus, uint8_t address = 0x70);
 

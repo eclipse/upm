@@ -259,7 +259,7 @@ namespace upm {
     /**
      *  waits for an ISO14443A target to enter the field
      *
-     * @param  cardbaudbate  baud rate of the card, one of the BAUD_T values
+     * @param  cardbaudrate  baud rate of the card, one of the BAUD_T values
      * @param  uid Pointer to the array that will be populated with the
      * cards UID, up to 7 bytes
      * @param  uidLength Pointer to the variable that will hold the

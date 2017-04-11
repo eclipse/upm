@@ -38,9 +38,9 @@ namespace upm {
    * @kit hak
    * @web http://wiki.seeed.cc/Grove-Gas_Sensor-MQ2/
    *
-   * @brief API for the Grove MQ2 Gas Sensor
+   * @brief API for the MQ2 Gas Sensor
    *
-   * The Grove MQ2 Gas Sensor module is useful for gas leakage detection
+   * The MQ2 Gas Sensor module is useful for gas leakage detection
    * (in home and industry). It can detect LPG, i-butane, methane, alcohol,
    * hydrogen, smoke, and other combustible gases. It's a medium-sensitivity
    * sensor with a detection range of 300-10,000 ppm.

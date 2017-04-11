@@ -1577,7 +1577,7 @@ namespace upm {
      * @param chipRev chip revision, default is 0x12
      * @param bus spi bus to use
      * @param cs GPIO pin to use as SPI Chip Select
-     * @param reset GPIO pin to use as reset (A0=GPIO14)
+     * @param resetPin GPIO pin to use as reset (A0=GPIO14)
      * @param dio0 GPIO pin to use as reset DIO0 intr
      * @param dio1 GPIO pin to use as reset DIO1 intr
      * @param dio2 GPIO pin to use as reset DIO2 intr
@@ -1685,7 +1685,7 @@ namespace upm {
      *
      * @param modem One of the MODEM_T values
      * @param freq The channel to check
-     * @param rssiThreshold The RSSI threshold, over which the channel
+     * @param rssiThresh The RSSI threshold, over which the channel
      * os considerd in use.
      */
     bool isChannelFree(RADIO_MODEM_T modem, uint32_t freq, int16_t rssiThresh);
@@ -1742,10 +1742,10 @@ namespace upm {
      * @param fixLen Fixed length packets [false: variable, true: fixed]
      * @param payloadLen Sets payload length when fixed length is used
      * @param crcOn Enables/Disables the CRC [false: OFF, true: ON]
-     * @param FreqHopOn Enables disables the intra-packet frequency hopping
+     * @param freqHopOn Enables disables the intra-packet frequency hopping
      *                          FSK : N/A ( set to 0 )
      *                          LoRa: [false: OFF, true: ON]
-     * @param HopPeriod Number of symbols bewteen each hop
+     * @param hopPeriod Number of symbols bewteen each hop
      *                          FSK : N/A ( set to 0 )
      *                          LoRa: Number of symbols
      * @param  iqInverted Inverts IQ signals (LoRa only)
@@ -1789,10 +1789,10 @@ namespace upm {
      *                                4 more symbols)
      * @param fixLen Fixed length packets [false: variable, true: fixed]
      * @param crcOn Enables disables the CRC [false: OFF, true: ON]
-     * @param FreqHopOn Enables disables the intra-packet frequency hopping
+     * @param freqHopOn Enables disables the intra-packet frequency hopping
      *                          FSK : N/A ( set to 0 )
      *                          LoRa: [false: OFF, true: ON]
-     * @param HopPeriod Number of symbols bewteen each hop
+     * @param hopPeriod Number of symbols bewteen each hop
      *                          FSK : N/A ( set to 0 )
      *                          LoRa: Number of symbols
      * @param iqInverted Inverts IQ signals (LoRa only)

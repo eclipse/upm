@@ -79,7 +79,7 @@ class CurieImu {
       /**
       * Instantiates a CurieImu object
       *
-      * @param subplatformoffset Subplatform offset
+      * @param subplatform_offset Subplatform offset
       */
       CurieImu (int subplatform_offset=512);
 

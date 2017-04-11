@@ -121,7 +121,7 @@ extern "C" {
      * precision supported: MS5803_OSR_4096
      *
      * @param dev Device context.
-     * @param dev One of the MS5803_OSR_T values.
+     * @param osr One of the MS5803_OSR_T values.
      */
     void ms5803_set_temperature_osr(const ms5803_context dev,
                                     MS5803_OSR_T osr);
@@ -134,7 +134,7 @@ extern "C" {
      * precision supported: MS5803_OSR_4096
      *
      * @param dev Device context.
-     * @param dev One of the MS5803_OSR_T values.
+     * @param osr One of the MS5803_OSR_T values.
      */
     void ms5803_set_pressure_osr(const ms5803_context dev,
                                  MS5803_OSR_T osr);

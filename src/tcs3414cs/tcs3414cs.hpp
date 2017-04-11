@@ -30,7 +30,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 
-#define ADDR                        0x39 // device address
+#define DEFAULT_ADDR                0x39 // device address
 
 #define REG_CTL                     0x80
 #define REG_TIMING                  0x81
@@ -132,8 +132,9 @@ class TCS3414CS {
          * Instantiates a TCS3414CS object
          *
          * @param bus Number of the used bus
+         * @param addr I2C address of the device
          */
-        TCS3414CS ();
+        TCS3414CS (int bus = 0, int addr = DEFAULT_ADDR);
 
         /**
          * Gets the RGB value from the sensor.

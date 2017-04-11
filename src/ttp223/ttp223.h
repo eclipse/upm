@@ -75,15 +75,26 @@ void ttp223_close(ttp223_context dev);
 upm_result_t ttp223_is_pressed(ttp223_context dev, bool* value);
 
 /**
+ * Installs an interrupt service routine (ISR) to be called when
+ * the button is activated or deactivated.
  *
+ * @param dev pointer to the sensor struct
+ * @param edge_level one of mraa_gpio_edge_t values
+ * @param isr pointer to a function to be called on interrupt
+ * @param arg pointer to an object to be supplied as an
+ * argument to the ISR.
+ * @result upm_result_t UPM success/error code
  */
 upm_result_t ttp223_install_isr(ttp223_context dev,
                                 mraa_gpio_edge_t edge_level,
                                 void (*isr)(void *), void *arg);
 
 /**
+ * Uninstall a previously installed interrupt handler
  *
+ * @param dev pointer to the sensor struct
+ * @result upm_result_t UPM success/error code
  */
-upm_result_t ttp223_uninstall_isr(ttp223_context);
+upm_result_t ttp223_uninstall_isr(ttp223_context dev);
 
 #endif /* TTP223_H_ */

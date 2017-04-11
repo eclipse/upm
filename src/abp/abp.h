@@ -111,7 +111,7 @@ float abp_get_temperature(abp_context dev);
  * value of 5 will be set.
  *
  * @param dev abp_context pointer
- * @param min int maximum pressure value possible
+ * @param max int maximum pressure value possible
  */
 void abp_set_max_pressure(abp_context dev, int max);
 

@@ -37,7 +37,7 @@ namespace upm {
    * @con analog
    * @web https://www.dfrobot.com/index.php?route=product/product&product_id=683
    *
-   * @brief API for the DFRobot MQ4 Gas Sensor
+   * @brief API for the MQ4 Gas Sensor
    *
    * The MQ4 Gas Sensor module is useful for detecting CH4 (Methane),
    * and natural gas concentrations in the air.  It has a

@@ -37,7 +37,7 @@ namespace upm {
    * @con analog
    * @web https://www.dfrobot.com/wiki/index.php/LPG_Gas_Sensor(MQ6)_(SKU:SEN0131)
    *
-   * @brief API for the DFRobot MQ6 LPG Gas Sensor
+   * @brief API for the MQ6 LPG Gas Sensor
    *
    * The MQ6 Gas Sensor module is useful for detecting LPG,
    * iso-butane, propane, and LNG concentrations in the air.  It has a

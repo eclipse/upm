@@ -57,7 +57,7 @@ class APDS9930
     /**
      * APDS-9930 digital proximity and ambient light sensor constructor
      *
-     * @param iio device number
+     * @param device iio device number
      */
     APDS9930(int device);
     /**

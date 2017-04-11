@@ -60,7 +60,7 @@ class ENC03R {
             * ENC03R sensor constructor
             *
             * @param pin Analog pin to use
-            * @param vref Reference voltage to use; default is 5.0 V
+            * @param aref Reference voltage to use; default is 5.0 V
             */
         ENC03R(int pin, float aref=5.0);
 
@@ -104,19 +104,18 @@ class ENC03R {
         float angularVelocity();
 
         /**
-            * Set sensor offset.  The offste is applied to the return value
+            * Set sensor offset.  The offset is applied to the return value
             * before scaling. Default is 0.
             *
-            * @param scale Scale to apply to value
+            * @param offset Offset to apply to value
             */
         void setOffset(float offset);
 
         /**
             * Set sensor scale.  The return value is scaled by this value
-            * before the offset is applied.  Default is 1.0.
+            * after the offset is applied.  Default is 1.0.
             *
-            * @param dev Device context
-            * @param scale Offset to apply to value
+            * @param scale Scale to apply to value
             */
         void setScale(float scale);
 

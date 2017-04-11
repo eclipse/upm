@@ -57,7 +57,7 @@ class KXCJK1013
     /**
      * KXCJK1013 Tri-axis Digital Accelerometer
      *
-     * @param iio device number
+     * @param device iio device number
      */
     KXCJK1013(int device);
 
@@ -70,8 +70,7 @@ class KXCJK1013
      * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs
      *
-     * @param interrupt channel
-     * @param fptr Pointer to a function to be called on interrupt
+     * @param isr Pointer to a function to be called on interrupt
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
@@ -86,7 +85,7 @@ class KXCJK1013
 
     /**
      * Enable trigger buffer
-     * @param trigger buffer length in integer
+     * @param length buffer length in integer
      */
     bool enableBuffer(int length);
 
@@ -105,7 +104,7 @@ class KXCJK1013
 
     /**
      * Set sampling frequency
-     * @param sampling frequency in float
+     * @param sampling_frequency sampling frequency in float
      * Available sampling frequency are 0.781000, 1.563000, 3.125000, 6.250000, 12.500000, 25, 50,
      * 100, 200, 400, 800, and 1600
      * Default sampling frequency is 25

@@ -302,7 +302,7 @@ extern "C" {
      *
      * @param dev Device context.
      * @param pin GPIO pin to use as the interrupt pin.
-     * @param fptr Pointer to a function to be called on interrupt.
+     * @param isr Pointer to a function to be called on interrupt.
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      * @return UPM result.

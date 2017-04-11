@@ -119,7 +119,7 @@ namespace upm {
              * ADS1X15 constructor
              *
              * @param bus i2c bus the sensor is attached to.
-             * @param address. Device address. Default is 0x48.
+             * @param address Device address. Default is 0x48.
              */
             ADS1115 (int bus, uint8_t address = 0x48);
 
@@ -133,7 +133,7 @@ namespace upm {
              * needs to be overridden in subclasses as the ADS1115 and
              * ADS1015 have different sample rates.
              *
-             * @param ADSSAMPLERATE enum
+             * @param rate ADSSAMPLERATE enum
              */
             void setSPS(ADSDATARATE rate = ADS1115::SPS_128);
 

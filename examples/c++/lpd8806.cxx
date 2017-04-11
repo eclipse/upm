@@ -46,7 +46,7 @@ int
 main(int argc, char **argv)
 {
     //! [Interesting]
-    sensor = new upm::LPD8806(10, 7);
+    sensor = new upm::LPD8806(0, 7, 10);
     usleep (1000000);
 
     sensor->show ();

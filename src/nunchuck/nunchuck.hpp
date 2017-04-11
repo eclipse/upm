@@ -67,7 +67,6 @@ namespace upm {
      * NUNCHUCK constructor
      *
      * @param bus I2C bus to use
-     * @param addr I2C address to use
      */
     NUNCHUCK(int bus);
 

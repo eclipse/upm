@@ -82,7 +82,7 @@ namespace upm {
          * @param bus i2c bus to use
          * @param address The address for this device if using I2C.  If
          * using SPI, supply -1 for this parameter.
-         * @param cs_pin The GPIO to use for Chip Select (CS).  This is
+         * @param csPin The GPIO to use for Chip Select (CS).  This is
          * only needed for SPI, and only if your SPI implementation
          * requires it.  Otherwise, just pass -1 if not using SPI, or your
          * CS is handled automatically by your SPI implementation.

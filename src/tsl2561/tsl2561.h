@@ -116,7 +116,7 @@ typedef struct _tsl2561_context {
  * @param bus I2C bus
  * @param dev_address I2C address
  * @param gain Gain associated with the driver
- * @param integration_time
+ * @param integration_time Time to keep the shutter open
  * @return void* pointer to the sensor struct
  */
 tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,

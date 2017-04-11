@@ -37,7 +37,7 @@ namespace upm {
    * @con analog
    * @web https://www.dfrobot.com/wiki/index.php/Hydrogen_Gas_Sensor(MQ8)_(SKU:SEN0133)
    *
-   * @brief API for the DFRobot MQ8 Hydrogen (H2) Gas Sensor
+   * @brief API for the MQ8 Hydrogen (H2) Gas Sensor
    *
    * The MQ8 Gas Sensor module is useful for detecting Hydrogen gas
    * concentrations in the air.  It has a detection range of 100-10000

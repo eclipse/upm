@@ -263,7 +263,7 @@ namespace upm {
          * to map specific interrupts to the interrupt 1 or interrupt 2
          * pin.  See the datasheet for details.
          *
-         * @param A bitmask of BMG160_INT_MAP_0_BITS_T bits.
+         * @param bits A bitmask of BMG160_INT_MAP_0_BITS_T bits.
          * @throws std::runtime_error on failure.
          */
         void setInterruptMap0(uint8_t bits);
@@ -280,7 +280,7 @@ namespace upm {
          * Set the Interrupt Map 1 register.  See the datasheet for
          * details.
          *
-         * @param A bitmask of BMG160_INT_MAP_1_BITS_T bits.
+         * @param bits A bitmask of BMG160_INT_MAP_1_BITS_T bits.
          * @throws std::runtime_error on failure.
          */
         void setInterruptMap1(uint8_t bits);

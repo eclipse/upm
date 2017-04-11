@@ -63,8 +63,6 @@ class HCSR04 {
          *
          * @param triggerPin Pin to trigger the sensor for distance
          * @param echoPin Pulse response to triggering
-         * @param fptr Function pointer to handle rising-edge and
-         * falling-edge interrupts
          */
         HCSR04 (int triggerPin, int echoPin);
         /**
@@ -74,6 +72,8 @@ class HCSR04 {
 
         /**
          * Gets the distance from the sensor
+         *
+         * @param sys Selects units for measurement: 0 = inch, 1 = cm
          */
         double getDistance (int sys);
 

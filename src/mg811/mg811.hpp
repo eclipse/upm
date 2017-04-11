@@ -98,7 +98,7 @@ namespace upm {
      * specify those voltages here for more accurate results.
      *
      * @param ppm400 The measured reference voltage at 400 ppm
-     * @param ppm40000 The measured reference voltage at 1000 ppm
+     * @param ppm1000 The measured reference voltage at 1000 ppm
      */
     void setCalibration(float ppm400, float ppm1000);
 

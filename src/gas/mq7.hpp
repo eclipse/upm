@@ -37,7 +37,7 @@ namespace upm {
    * @con analog
    * @web https://www.dfrobot.com/wiki/index.php/Carbon_Monoxide_Gas_Sensor(MQ7)_(SKU:SEN0132)
    *
-   * @brief API for the DFRobot MQ7 CO Gas Sensor
+   * @brief API for the MQ7 CO Gas Sensor
    *
    * The Grove MQ7 Gas Sensor module is useful for detecting Carbon
    * Monoxide (CO) concentrations in the air.  It has a detection

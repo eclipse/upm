@@ -63,10 +63,11 @@ class LPD8806 {
         /**
          * Instantiates an LPD8806 object
          *
-         * @param pixelCount Number of pixels in the strip
+         * @param bus SPI bus to use
          * @param csn Chip select pin
+         * @param pixelCount Number of pixels in the strip
          */
-        LPD8806 (uint16_t pixelCount, int csn);
+        LPD8806 (int bus, int csn, uint16_t pixelCount);
 
         /**
          * LPD8806 object destructor; basically, it frees the allocated
