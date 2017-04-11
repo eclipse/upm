@@ -33,8 +33,8 @@
 #include "upm.h"
 #include "mraa/pwm.h"
 
-#define ES9257_MIN_PULSE_WIDTH             600
-#define ES9257_MAX_PULSE_WIDTH             2200
+#define ES9257_MIN_PULSE_WIDTH             475
+#define ES9257_MAX_PULSE_WIDTH             2100
 #define ES9257_PERIOD                      20000
 #define ES9257_MAX_ANGLE                   180.0
 
@@ -62,9 +62,6 @@ typedef struct _es9257_context {
  * @param pin Servo pin number
  * @param minPulseWidth Minimum pulse width, in microseconds
  * @param maxPulseWidth Maximum pulse width, in microseconds
- * @param waitAndDisablePwm If 1, PWM is enabled only during the
- * setAngle() execution for a period of 1 second, and then turned back
- * off. If 0, PWM remains on afterward.
  */
 
 
