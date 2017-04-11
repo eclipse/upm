@@ -31,7 +31,7 @@
 
 using namespace upm;
 
-MAX31723::MAX31723 (int csn) : m_spi(0), m_csnPinCtx(csn) {
+MAX31723::MAX31723 (int bus, int csn) : m_spi(bus), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "MAX31723";
 

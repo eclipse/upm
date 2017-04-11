@@ -156,6 +156,9 @@ compatibility between releases:
  a SPI bus number. This is now the first parameter, the number of LEDs on the
  strip is now the last (3rd) parameter instead.
 
+ * **max31723** The constructor for this driver was updated to allow specifying
+ a SPI bus number. This is now the first parameter, CS pin second.
+
 # v1.1.0
 
  * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are
