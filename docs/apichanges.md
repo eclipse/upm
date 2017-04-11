@@ -151,6 +151,10 @@ compatibility between releases:
  and Python, the examples have been modified to use these methods
  rather than the methods that return data in argument pointers or
  arrays.
+ 
+ * **lpd8806** The constructor for this driver was updated to allow specifying
+ a SPI bus number. This is now the first parameter, the number of LEDs on the
+ strip is now the last (3rd) parameter instead.
 
 # v1.1.0
 

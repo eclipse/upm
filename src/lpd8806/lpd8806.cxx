@@ -32,7 +32,7 @@
 
 using namespace upm;
 
-LPD8806::LPD8806 (uint16_t pixelCount, int csn) :m_spi(0), m_csnPinCtx(csn) {
+LPD8806::LPD8806 (int bus, int csn, uint16_t pixelCount) :m_spi(bus), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "LPD8806";
 
