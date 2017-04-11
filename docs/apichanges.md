@@ -159,6 +159,9 @@ compatibility between releases:
  * **max31723** The constructor for this driver was updated to allow specifying
  a SPI bus number. This is now the first parameter, CS pin second.
 
+ * **tcs3414cs** The constructor for this can now accept an I2C bus and
+ address.
+
 # v1.1.0
 
  * **i2clcd/jhd1313m1/lcm1602** LCD devices supported by the i2clcd module are

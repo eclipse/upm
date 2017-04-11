@@ -35,10 +35,10 @@
 
 using namespace upm;
 
-TCS3414CS::TCS3414CS () : m_i2Ctx(0) {
+TCS3414CS::TCS3414CS (int bus, int addr) : m_i2Ctx(bus) {
     m_name = "TCS3414CS";
 
-    mraa::Result ret = m_i2Ctx.address(ADDR);
+    mraa::Result ret = m_i2Ctx.address(addr);
     if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) + 
                                     ": m_i2Ctx.address() failed");
@@ -82,7 +82,6 @@ void
 TCS3414CS::clearInterrupt () {
     mraa::Result error = mraa::SUCCESS;
 
-    error = m_i2Ctx.address (ADDR);
     error = m_i2Ctx.writeByte (CLR_INT);
 
     if (error != mraa::SUCCESS) {
@@ -100,10 +99,8 @@ uint16_t
 TCS3414CS::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    m_i2Ctx.address(ADDR);
     m_i2Ctx.writeByte(reg);
 
-    m_i2Ctx.address(ADDR);
     readByte = m_i2Ctx.read(buffer, len);
     return readByte;
 }
@@ -112,7 +109,6 @@ mraa::Result
 TCS3414CS::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
     mraa::Result error = mraa::SUCCESS;
 
-    error = m_i2Ctx.address (ADDR);
     error = m_i2Ctx.writeByte (reg);
     error = m_i2Ctx.write (buffer, len);
 
@@ -123,7 +119,6 @@ mraa::Result
 TCS3414CS::i2cWriteReg (uint8_t reg, uint8_t data) {
     mraa::Result error = mraa::SUCCESS;
 
-    error = m_i2Ctx.address (ADDR);
     error = m_i2Ctx.writeByte (reg);
     error = m_i2Ctx.writeByte (data);
 
