@@ -1,8 +1,8 @@
-%module javaupm_lsm303
+%module javaupm_lsm303dlh
 %include "../upm.i"
 
 %{
-    #include "lsm303.hpp"
+    #include "lsm303dlh.hpp"
 %}
 
 %typemap(jni) int16_t* "jshortArray"
@@ -18,12 +18,12 @@
     JCALL4(SetShortArrayRegion, jenv, $result, 0, 3, (jshort*)$1);
 }
 
-%include "lsm303.hpp"
+%include "lsm303dlh.hpp"
 
 %pragma(java) jniclasscode=%{
     static {
         try {
-            System.loadLibrary("javaupm_lsm303");
+            System.loadLibrary("javaupm_lsm303dlh");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load. \n" + e);
             System.exit(1);

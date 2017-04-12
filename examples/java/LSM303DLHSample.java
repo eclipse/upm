@@ -23,12 +23,12 @@
  */
 
 //NOT TESTED!!!
-public class LSM303Sample {
+public class LSM303DLHSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		// Instantiate LSM303 compass on I2C
-		upm_lsm303.LSM303 sensor = new upm_lsm303.LSM303(0);
+		// Instantiate LSM303DLH compass on I2C
+		upm_lsm303dlh.LSM303DLH sensor = new upm_lsm303dlh.LSM303DLH(0);
 
 		// Get the coordinate data
 		sensor.getCoordinates();

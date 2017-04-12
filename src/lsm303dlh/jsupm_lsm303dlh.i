@@ -1,4 +1,4 @@
-%module jsupm_lsm303
+%module jsupm_lsm303dlh
 %include "../upm.i"
 %include "../carrays_int16_t.i"
 
@@ -9,7 +9,7 @@
 }
 
 %{
-    #include "lsm303.hpp"
+    #include "lsm303dlh.hpp"
 %}
 
-%include "lsm303.hpp"
+%include "lsm303dlh.hpp"

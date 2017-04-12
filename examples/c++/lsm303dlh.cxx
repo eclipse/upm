@@ -25,19 +25,19 @@
 #include <iostream>
 
 //! [Interesting]
-#include "lsm303.hpp"
+#include "lsm303dlh.hpp"
 
 int
 main(int argc, char **argv)
 {
-	// Instantiate LSM303 compass on I2C
-    upm::LSM303 *sensor = new upm::LSM303(0);
+	// Instantiate LSM303DLH compass on I2C
+    upm::LSM303DLH *sensor = new upm::LSM303DLH(0);
 
     // Get the coordinate data
     sensor->getCoordinates();
-    int16_t* coor = sensor->getRawCoorData(); // in XYZ order. 
+    int16_t* coor = sensor->getRawCoorData(); // in XYZ order.
     // The sensor returns XZY, but the driver compensates and makes it XYZ
-    
+
     // Print out the X, Y, and Z coordinate data using two different methods
     std::cout << "coor: rX " << (int)coor[0]
               << " - rY " << (int)coor[1]

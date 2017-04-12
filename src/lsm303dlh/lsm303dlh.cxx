@@ -31,11 +31,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "lsm303.hpp"
+#include "lsm303dlh.hpp"
 
 using namespace upm;
 
-LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale) : m_i2c(bus)
+LSM303DLH::LSM303DLH(int bus, int addrMag, int addrAcc, int accScale) :
+    m_i2c(bus)
 {
     m_addrMag = addrMag;
     m_addrAcc = addrAcc;
@@ -45,11 +46,11 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale) : m_i2c(bus)
 
     // scale can be 2, 4 or 8
     if (2 == accScale) {
-      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
+        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
     } else if (4 == accScale) {
-      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x10);
+        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x10);
     } else { // default; equivalent to 8g
-      setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x30);
+        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x30);
     }
 
     // 0x10 = minimum datarate ~15Hz output rate
@@ -65,7 +66,7 @@ LSM303::LSM303(int bus, int addrMag, int addrAcc, int accScale) : m_i2c(bus)
 }
 
 float
-LSM303::getHeading()
+LSM303DLH::getHeading()
 {
     if (getCoordinates() != mraa::SUCCESS) {
         return -1;
@@ -80,37 +81,37 @@ LSM303::getHeading()
 }
 
 int16_t*
-LSM303::getRawAccelData()
+LSM303DLH::getRawAccelData()
 {
     return &accel[0];
 }
 
 int16_t*
-LSM303::getRawCoorData()
+LSM303DLH::getRawCoorData()
 {
     return &coor[0];
 }
 
 int16_t
-LSM303::getAccelX()
+LSM303DLH::getAccelX()
 {
-  return accel[X];
+    return accel[X];
 }
 
 int16_t
-LSM303::getAccelY()
+LSM303DLH::getAccelY()
 {
-  return accel[Y];
+    return accel[Y];
 }
 
 int16_t
-LSM303::getAccelZ()
+LSM303DLH::getAccelZ()
 {
-  return accel[Z];
+    return accel[Z];
 }
 
 mraa::Result
-LSM303::getCoordinates()
+LSM303DLH::getCoordinates()
 {
     mraa::Result ret = mraa::SUCCESS;
 
@@ -125,7 +126,7 @@ LSM303::getCoordinates()
     // convert to coordinates
     for (int i=0; i<3; i++) {
         coor[i] = (int16_t(buf[2*i] << 8))
-                |  int16_t(buf[(2*i)+1]);
+            |  int16_t(buf[(2*i)+1]);
     }
     // swap elements 1 and 2 to get things in natural XYZ order
     int16_t t = coor[2];
@@ -137,24 +138,24 @@ LSM303::getCoordinates()
 }
 
 int16_t
-LSM303::getCoorX() {
-  return coor[X];
+LSM303DLH::getCoorX() {
+    return coor[X];
 }
 
 int16_t
-LSM303::getCoorY() {
-  return coor[Y];
+LSM303DLH::getCoorY() {
+    return coor[Y];
 }
 
 int16_t
-LSM303::getCoorZ() {
-  return coor[Z];
+LSM303DLH::getCoorZ() {
+    return coor[Z];
 }
 
 // helper function that writes a value to the acc and then reads
 // FIX: shouldn't this be write-then-read?
 int
-LSM303::readThenWrite(uint8_t reg)
+LSM303DLH::readThenWrite(uint8_t reg)
 {
     m_i2c.address(m_addrAcc);
     m_i2c.writeByte(reg);
@@ -163,16 +164,16 @@ LSM303::readThenWrite(uint8_t reg)
 }
 
 mraa::Result
-LSM303::getAcceleration()
+LSM303DLH::getAcceleration()
 {
     mraa::Result ret = mraa::SUCCESS;
 
     accel[X] = (int16_t(readThenWrite(OUT_X_H_A)) << 8)
-             |  int16_t(readThenWrite(OUT_X_L_A));
+        |  int16_t(readThenWrite(OUT_X_L_A));
     accel[Y] = (int16_t(readThenWrite(OUT_Y_H_A)) << 8)
-             |  int16_t(readThenWrite(OUT_Y_L_A));
+        |  int16_t(readThenWrite(OUT_Y_L_A));
     accel[Z] = (int16_t(readThenWrite(OUT_Z_H_A)) << 8)
-             |  int16_t(readThenWrite(OUT_Z_L_A));
+        |  int16_t(readThenWrite(OUT_Z_L_A));
     //printf("X=%x, Y=%x, Z=%x\n", accel[X], accel[Y], accel[Z]);
 
     return ret;
@@ -180,7 +181,7 @@ LSM303::getAcceleration()
 
 // helper function that sets a register and then checks the set was succesful
 mraa::Result
-LSM303::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
+LSM303DLH::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
 {
     buf[0] = sregister;
     buf[1] = data;

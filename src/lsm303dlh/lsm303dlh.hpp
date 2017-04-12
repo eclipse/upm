@@ -32,11 +32,11 @@
 
 namespace upm {
 
-/* LSM303 Address definitions */
-#define LSM303_MAG 0x1E
-#define LSM303_ACC 0x19
+/* LSM303DLH Address definitions */
+#define LSM303DLH_MAG 0x1E
+#define LSM303DLH_ACC 0x19
 
-/* LSM303 Register definitions */
+/* LSM303DLH Register definitions */
 #define CTRL_REG1_A 0x20
 #define CTRL_REG2_A 0x21
 #define CTRL_REG3_A 0x22
@@ -61,14 +61,14 @@ namespace upm {
 #define Z 2
 
 /**
- * @brief LSM303 Accelerometer/Compass library
- * @defgroup lsm303 libupm-lsm303
+ * @brief LSM303DLH Accelerometer/Compass library
+ * @defgroup lsm303dlh libupm-lsm303dlh
  * @ingroup seeed adafruit stmicro i2c accelerometer compass
  */
 
 /**
- * @library lsm303
- * @sensor lsm303
+ * @library lsm303dlh
+ * @sensor lsm303dlh
  * @comname Triaxial Accelerometer/magnetometer
  * @altname Grove 6-Axis Accelerometer & Compass
  * @type accelerometer compass
@@ -76,36 +76,36 @@ namespace upm {
  * @web http://www.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass
  * @con i2c
  *
- * @brief API for the LSM303 Accelerometer & Compass
+ * @brief API for the LSM303DLH Accelerometer & Compass
  *
- * This module defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer.
+ * This module defines the LSM303DLHDLH 3-axis magnetometer/3-axis accelerometer.
  * This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass
  * module used over I2C. The magnetometer and acceleromter are accessed
  * at two seperate I2C addresses.
  *
- * @image html lsm303.jpeg
- * @snippet lsm303.cxx Interesting
+ * @image html lsm303dlh.jpeg
+ * @snippet lsm303dlh.cxx Interesting
  */
-class LSM303 {
+    class LSM303DLH {
     public:
-         /**
-         * Instantiates an LSM303 object
+        /**
+         * Instantiates an LSM303DLH object
          *
          * @param bus I2C bus to use
          * @param addrMag I2C address of the Magnetometer (default 0x1E)
          * @param addrAcc I2C address of the Accelerometer (default 0x19)
          * @param accScale Accelerometer scale, can be 2, 4 or 8 (default 8)
          */
-        LSM303 (int bus,
-                int addrMag=LSM303_MAG,
-                int addrAcc=LSM303_ACC,
-                int accScale=8);
+        LSM303DLH (int bus,
+                   int addrMag=LSM303DLH_MAG,
+                   int addrAcc=LSM303DLH_ACC,
+                   int accScale=8);
 
         /**
-         * LSM303 object destructor
+         * LSM303DLH object destructor
          * where is no more need for this here - I2c connection will be stopped
          * automatically when m_i2c variable will go out of scope
-         * ~LSM303 ();
+         * ~LSM303DLH ();
          **/
 
         /**
@@ -172,10 +172,10 @@ class LSM303 {
 
         mraa::I2c m_i2c;
         int m_addrMag;
-    int m_addrAcc;
+        int m_addrAcc;
         uint8_t buf[6];
         int16_t coor[3];
         int16_t accel[3];
-};
+    };
 
 }

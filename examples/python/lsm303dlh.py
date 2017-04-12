@@ -25,11 +25,11 @@
 
 from __future__ import print_function
 import time, sys, signal, atexit
-from upm import pyupm_lsm303 as lsm303
+from upm import pyupm_lsm303dlh as lsm303dlh
 
 def main():
-    # Instantiate LSM303 compass on I2C
-    myAccelrCompass = lsm303.LSM303(0)
+    # Instantiate LSM303DLH compass on I2C
+    myAccelrCompass = lsm303dlh.LSM303DLH(0)
 
     ## Exit handlers ##
     # This stops python from printing a stacktrace when you hit control-C
@@ -47,7 +47,7 @@ def main():
     signal.signal(signal.SIGINT, SIGINTHandler)
 
     while(1):
-        # Load coordinates into LSM303 object
+        # Load coordinates into LSM303DLH object
         successFail = myAccelrCompass.getCoordinates()
         # in XYZ order. The sensor returns XZY,
         # but the driver compensates and makes it XYZ

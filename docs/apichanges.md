@@ -4,11 +4,23 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# current UPM master
+
+ * **The lsm303 driver has been renamed** There are a variety of
+ LSM303 devices out there with various incompatibilities and differing
+ capabilities.  The current lsm303 driver in UPM only supports the
+ LSM303DLH variant, so it has been renamed to lsm303dlh to avoid
+ confusion and to make it clear which variant is actually supported.
+
+    All examples and source files have been renamed, including header
+    files.  In addition, the class name, LSM303, has been renamed to
+    LSM303DLH.  No other functionality or behavior has been changed.
+
 # v1.2.0
 
  * **Note for all drivers ported to C** As a general note concerning
  all of the drivers that have been ported to C: **external constants
- have likely been renamed**.  Previously in C++, most these constants
+ have likely been renamed**.  Previously in C++, most of these constants
  were defined as enums in the *upm::classname* namespace.
 
     For drivers written in C, all of these constants are no longer in

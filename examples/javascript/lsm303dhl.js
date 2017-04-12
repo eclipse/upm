@@ -22,15 +22,15 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var accelrCompassSensor = require('jsupm_lsm303');
+var accelrCompassSensor = require('jsupm_lsm303dlh');
 
-// Instantiate LSM303 compass on I2C
-var myAccelrCompass = new accelrCompassSensor.LSM303(0);
+// Instantiate LSM303DLH compass on I2C
+var myAccelrCompass = new accelrCompassSensor.LSM303DLH(0);
 
 var successFail, coords, outputStr, accel;
 var myInterval = setInterval(function()
 {
-	// Load coordinates into LSM303 object
+	// Load coordinates into LSM303DLH object
 	successFail = myAccelrCompass.getCoordinates();
 	// in XYZ order. The sensor returns XZY,
 	// but the driver compensates and makes it XYZ
