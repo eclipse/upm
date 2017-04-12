@@ -1,5 +1,0 @@
-set (libname "tca9548a")
-set (libdescription "i2c multiplexer 8 channels")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init(mraa)
