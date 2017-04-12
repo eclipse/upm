@@ -21,44 +21,47 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_grovewfs as upmGrovewfs
+from upm import pyupm_grovewfs as upmGrovewfs
 
-# Instantiate a Grove Water Flow Sensor on digital pin D2
-myWaterFlow = upmGrovewfs.GroveWFS(2)
+def main():
+    # Instantiate a Grove Water Flow Sensor on digital pin D2
+    myWaterFlow = upmGrovewfs.GroveWFS(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myWaterFlow
+    def exitHandler():
+        myWaterFlow.stopFlowCounter()
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myWaterFlow
-def exitHandler():
-	myWaterFlow.stopFlowCounter()
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # set the flow counter to 0 and start counting
+    myWaterFlow.clearFlowCounter()
+    myWaterFlow.startFlowCounter()
 
+    while (1):
+        # we grab these (millis and flowCount) just for display
+        # purposes in this example
+        millis = myWaterFlow.getMillis()
+        flowCount = myWaterFlow.flowCounter()
 
-# set the flow counter to 0 and start counting
-myWaterFlow.clearFlowCounter()
-myWaterFlow.startFlowCounter()
+        fr = myWaterFlow.flowRate()
 
-while (1):
-	# we grab these (millis and flowCount) just for display
-	# purposes in this example
-	millis = myWaterFlow.getMillis()
-	flowCount = myWaterFlow.flowCounter()
+        # output milliseconds passed, flow count, and computed flow rate
+        outputStr = "Millis: {0} Flow Count: {1} Flow Rate: {2} LPM".format(
+        millis, flowCount, fr)
+        print(outputStr)
+        time.sleep(2)
 
-	fr = myWaterFlow.flowRate()
-
-	# output milliseconds passed, flow count, and computed flow rate
-	outputStr = "Millis: {0} Flow Count: {1} Flow Rate: {2} LPM".format(
-	millis, flowCount, fr)
-	print outputStr
-	time.sleep(2)
+if __name__ == '__main__':
+    main()

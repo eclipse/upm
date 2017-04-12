@@ -27,7 +27,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "ak8975.h"
+#include "ak8975.hpp"
 
 using namespace upm;
 using namespace std;

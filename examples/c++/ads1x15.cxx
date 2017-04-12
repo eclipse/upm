@@ -26,8 +26,8 @@
 
 #include <iostream>
 #include <unistd.h>
-#include "ads1015.h"
-#include "ads1115.h"
+#include "ads1015.hpp"
+#include "ads1115.hpp"
 
 
 
@@ -37,6 +37,7 @@ int main()
      using namespace std;
      using namespace upm;
      int command;
+     //! [Interesting]
      //Select the device you are testing here and adjust case 6 for the correct sample rates.
      //upm::ADS1015 *ads = new upm::ADS1015(1);
      upm::ADS1115 *ads = new upm::ADS1115(1, 0x49);
@@ -286,7 +287,7 @@ int main()
                 else ads->setCompMode();
                break;
           case 18:
-               cout << ads->getCompLatch() << cout;
+               cout << ads->getCompLatch() << endl;
                break;
           case 19:
                cout << "select one of the following:" << endl;
@@ -296,7 +297,7 @@ int main()
                 else ads->setCompLatch();
                break;
           case 20:
-               cout << ads->getContinuous() << cout;
+               cout << ads->getContinuous() << endl;
                break;
           case 21:
                cout << "select one of the following:" << endl;
@@ -315,6 +316,7 @@ int main()
      }while (command != -1 );
 
      delete ads;
+     //! [Interesting]
 
-     return MRAA_SUCCESS;
+     return 0;
 }

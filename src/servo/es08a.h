@@ -1,6 +1,7 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ *         Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,48 +22,101 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <string>
-#include "servo.h"
+#ifndef ES08A_H_
+#define ES08A_H_
 
-namespace upm {
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "upm.h"
+#include "mraa/pwm.h"
+
+#define ES08A_MIN_PULSE_WIDTH             600
+#define ES08A_MAX_PULSE_WIDTH             2200
+#define ES08A_PERIOD                      20000
+#define ES08A_MAX_ANGLE                   180.0
 
 /**
+ * @file es08a.h
  * @library servo
- * @sensor es08a
- * @comname ES08A Servo
- * @altname Grove Servo
- * @type servos
- * @man emax
- * @web http://www.seeedstudio.com/wiki/Grove_-_Servo
- * @con pwm
- * @kit gsk
+ * @brief C API for the ES08A Servo
  *
- * @brief API for the ES08A Servo
- * 
- * This module defines the ES08A interface for ES08A servos.
- * Like other servos, the ES08A servo has a shaft that can be controlled
- * by setting the desired angle. There are also routines for setting
- * and getting the minimum and maximum pulse width as well as the
- * maximum period.
- *
- * @image html es08a.jpg
- * @snippet es08a.cxx Interesting
+ * @include es08a.c
  */
- class ES08A : public Servo {
-    public:
-        /**
-         * Instantiates an ES08A object
-         *
-         * @param pin Servo pin number
-         */
-        ES08A (int pin);
 
-        /**
-         * ES08A object destructor
-         */
-        ~ES08A ();
-};
+/**
+ * device context
+ */
+typedef struct _es08a_context {
+    mraa_pwm_context    pwm;
+    uint16_t            servo_pin;
+    uint32_t            max_pulse_width;
+    uint32_t            min_pulse_width;
+} *es08a_context;
 
-}
+/**
+ * Instantiates a the servo at the given pin
+ *
+ * @param pin Servo pin number
+ * @param minPulseWidth Minimum pulse width, in microseconds
+ * @param maxPulseWidth Maximum pulse width, in microseconds
+ * @param waitAndDisablePwm If 1, PWM is enabled only during the
+ * setAngle() execution for a period of 1 second, and then turned back
+ * off. If 0, PWM remains on afterward.
+ */
+
+
+es08a_context es08a_init(int32_t pin, int32_t min_pulse_width,
+                         int32_t max_pulse_width);
+
+/**
+ * Halts PWM for this servo and allows it to move freely.
+ */
+void es08a_halt(es08a_context dev);
+
+/**
+ * Sets the angle of the servo engine.
+ *
+ * @param angle Number between 0 and 180
+ * @return 0 if successful, non-zero otherwise
+ */
+upm_result_t es08a_set_angle(es08a_context dev, int32_t angle);
+
+/*
+ * Calculating relative pulse time to the value.
+ * */
+upm_result_t es08a_calc_pulse_travelling(const es08a_context dev,
+                                         int32_t* ret_val,
+                                         int32_t value);
+
+/**
+ * Sets the minimum pulse width
+ *
+ * @param width Minimum HIGH signal width
+ */
+void es08a_set_min_pulse_width (es08a_context dev, int width);
+
+/**
+ * Sets the maximum pulse width
+ *
+ * @param width Maximum HIGH signal width
+ */
+void es08a_set_max_pulse_width (es08a_context dev, int width);
+
+/**
+ * Returns the minimum pulse width
+ *
+ * @return Minimum pulse width
+ */
+int es08a_get_min_pulse_width (es08a_context dev);
+
+/**
+ * Returns the maximum pulse width
+ *
+ * @return Maximum pulse width
+ */
+int es08a_get_max_pulse_width (es08a_context dev);
+
+#endif /* ES08A_H_ */

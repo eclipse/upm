@@ -1,6 +1,7 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ *         Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,90 +22,64 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <stdint.h>
-#include <sys/time.h>
+#ifndef AD8232_H_
+#define AD8232_H_
 
-#include <mraa/gpio.hpp>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
-#include <mraa/aio.hpp>
+#include "upm.h"
+#include "mraa/aio.h"
+#include "mraa/gpio.h"
 
 #define AD8232_DEFAULT_AREF  3.3
 
-namespace upm {
+/**
+ * @file ad8232.h
+ * @library ad8232
+ * @brief C API for the AD8232 Heart Rate Monitor
+ *
+ * @include ad8232.c
+ */
 
-  /**
-   * @brief AD8232 Heart Rate Monitor library
-   * @defgroup ad8232 libupm-ad8232
-   * @ingroup sparkfun gpio medical
-   */
+/**
+ * device context
+ */
+typedef struct _ad8232_context {
+    mraa_aio_context        aio;
+    mraa_gpio_context       gpio_lo_plus;
+    mraa_gpio_context       gpio_lo_minus;
+    uint8_t                 aio_pin;
+    uint8_t                 gpio_lo_plus_pin;
+    uint8_t                 gpio_lo_minus_pin;
+    int                     a_res;
+} *ad8232_context;
 
-  /**
-   * @library ad8232
-   * @sensor ad8232
-   * @comname AD8232 Heart Rate Monitor
-   * @type medical
-   * @man sparkfun
-   * @web https://www.sparkfun.com/products/12650
-   * @con gpio aio
-   *
-   * @brief UPM module for the AD8232 Heart Rate Monitor
-   *
-   * Note: this sensor must be driven at 3.3V only.
-   *
-   * This module simply spits out the ADC values reported by the sensor, with
-   * the intent to send that data, via serial or network port, somewhere to
-   * another piece of software running on a computer that plots the data for
-   * you, like an EKG.
-   * 
-   * Processing (https://www.processing.org/) is software
-   * that should work, using information from the SparkFun* website.
-   *
-   * This example just dumps the raw data:
-   *
-   * @image html ad8232.jpg
-   * <br><em>AD8232 Heart Rate Monitor image provided by SparkFun under
-   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
-   * CC BY-NC-SA-3.0</a>.</em>
-   *
-   * @snippet ad8232.cxx Interesting
-   */
+/**
+ * Sensor init function
+ *
+ * @param lo_plus Digital pin to use for LO+
+ * @param lo_minus Digital pin to use for LO-
+ * @param output Analog pin to read the data
+ * @param a_ref Analog voltage reference
+ */
+ad8232_context ad8232_init(int lo_plus, int lo_minus, int output, float a_ref);
 
-  class AD8232 {
-  public:
-
-    /**
-     * AD8232 constructor
-     *
-     * @param loPlus Digital pin to use for LO+
-     * @param loMinus Digital pin to use for LO-
-     * @param output Analog pin to read the data
-     */
-    AD8232(int loPlus, int loMinus, int output, float aref=AD8232_DEFAULT_AREF);
-
-    /**
-     * AD8232 destructor
-     */
-    ~AD8232();
+/**
+ * Sensor destructor
+ */
+void ad8232_close(ad8232_context dev);
 
     /**
      * Returns the current ADC value for the device output pin.  If an
      * LO (leads off) event is detected, 0 is returned.
      *
-     * @return ADC value
+     * @param dev sensor context pointer
+     * @param value ADC value
+     * @return result status code
      */
-    int value();
+upm_result_t ad8232_get_value(ad8232_context dev, int* value);
 
-  private:
-    mraa::Aio m_aioOUT;
-    mraa::Gpio m_gpioLOPlus;
-    mraa::Gpio m_gpioLOMinus;
-
-    float m_aref;
-    int m_ares;
-
-  };
-}
-
-
+#endif /* AD8232_H_ */

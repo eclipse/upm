@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "zfm20.h"
+#include "zfm20.hpp"
 
 using namespace upm;
 using namespace std;
@@ -90,7 +90,6 @@ bool ZFM20::dataAvailable(unsigned int millis)
   timeout.tv_sec = 0;
   timeout.tv_usec = millis * 1000;
 
-  int nfds;  
   fd_set readfds;
 
   FD_ZERO(&readfds);
@@ -281,7 +280,6 @@ bool ZFM20::getResponse(uint8_t *pkt, int len)
   int idx = 0;
   int timer = 0;
   int rv;
-  int plen = 0;
 
   while (idx < len)
     {

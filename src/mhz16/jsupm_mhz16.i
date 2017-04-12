@@ -5,9 +5,9 @@
 /* Send "int *" to JavaScript as intp */
 %pointer_functions(int, intp);
 %{
-    #include "mhz16.h"
+    #include "mhz16.hpp"
     speed_t int_B9600 = B9600;
 %}
 
-%include "mhz16.h"
+%include "mhz16.hpp"
 speed_t int_B9600 = B9600;

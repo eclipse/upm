@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "mraa-utils.h"
-#include "si7005.h"
+#include "mraa-utils.hpp"
+#include "si7005.hpp"
 
 /* REGISTER ADDRESSES */
 #define SI7005_REG_STATUS                  ( 0x00 )
@@ -95,7 +95,7 @@ SI7005::getTemperatureRaw () {
 }
 
 int
-SI7005::getTemperatureCelcius () {
+SI7005::getTemperatureCelsius () {
     uint16_t rawTemperature = getTemperatureRaw();
     rawTemperature = ((rawTemperature >> 2) & 0xFFFF);
     last_temperature = ((float)rawTemperature) / SI7005_TEMPERATURE_SLOPE - SI7005_TEMPERATURE_OFFSET;

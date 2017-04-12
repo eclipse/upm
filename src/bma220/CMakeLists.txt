@@ -1,5 +1,5 @@
 set (libname "bma220")
-set (libdescription "accelerometer sensor based on bma220")
+set (libdescription "Digital Triaxial Acceleration Sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

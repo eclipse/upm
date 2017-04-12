@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "micsv89.h"
+%include "micsv89.hpp"
 %{
-    #include "micsv89.h"
+    #include "micsv89.hpp"
 %}

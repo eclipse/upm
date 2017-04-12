@@ -1,5 +1,5 @@
 set (libname "tex00")
-set (libdescription "upm Veris TEX00 Temperature thermistors")
+set (libdescription "Veris TEX00 Temperature Sensors")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

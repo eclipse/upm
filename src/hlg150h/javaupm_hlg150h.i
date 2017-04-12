@@ -1,15 +1,18 @@
 %module javaupm_hlg150h
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iLightController.i"
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"
 %include "typemaps.i"
 
 %{
-    #include "hlg150h.h"
+    #include "hlg150h.hpp"
 %}
 
-%include "hlg150h.h"
+%include "hlg150h.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

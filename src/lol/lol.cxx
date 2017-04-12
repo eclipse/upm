@@ -29,14 +29,12 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "lol.h"
+#include "lol.hpp"
 
 using namespace upm;
 
 static mraa_gpio_context *m_Ctx;
 static unsigned char *buffer;
-
-static mraa_gpio_context c1, c2, c3, c4;
 
 static int charlie_pairs [12][22] = {
 {3,124, 4,110, 5,96,  6,82,  7,68, 8,54, 9,40, 10,26, 11,12, -1,-1, -1,-1},
@@ -132,11 +130,11 @@ void *do_draw(void *arg)
         }
 
     }
+    return NULL;
 }
 
 LoL::LoL() {
     int i = 0;
-    mraa_result_t error;
     for (i = 0; i < 12; i++)
       {
         if ( !(m_LoLCtx[i] = mraa_gpio_init(i+2)) ) 
@@ -159,7 +157,6 @@ LoL::LoL() {
 
 LoL::~LoL() {
     int i = 0;
-    mraa_result_t error;
     for (i = 0; i < 12; i++)
         mraa_gpio_close(m_LoLCtx[i]);
 }

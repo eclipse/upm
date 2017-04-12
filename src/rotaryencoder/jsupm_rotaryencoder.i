@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "rotaryencoder.h"
+    #include "rotaryencoder.hpp"
 %}
 
-%include "rotaryencoder.h"
+%include "rotaryencoder.hpp"

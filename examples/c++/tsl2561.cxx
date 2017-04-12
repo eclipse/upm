@@ -26,11 +26,10 @@
 
 
 #include <unistd.h>
-#include "tsl2561.h"
+#include "tsl2561.hpp"
 
 int main (int argc, char **argv)
 {
-    mraa_result_t error = MRAA_SUCCESS;
     upm::TSL2561 *sensor = NULL;
     int loopCount = 100;
 

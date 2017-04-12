@@ -28,7 +28,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "rhusb.h"
+#include "rhusb.hpp"
 
 using namespace upm;
 using namespace std;
@@ -37,7 +37,7 @@ static const int maxBuffer = 1024;
 // baud rate is always 9600
 static const int baudRate = 9600;
 
-// conversion from celcius to fahrenheit 
+// conversion from celsius to fahrenheit
 
 static float c2f(float c)
 {

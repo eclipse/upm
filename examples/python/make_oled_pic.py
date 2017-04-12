@@ -27,48 +27,52 @@ from __future__ import print_function
 from PIL import Image
 import sys
 
-# Pixels are arranged in one byte for 8 vertical pixels and not addressed individually
-# We convert the image to greysacle and end up making it monochrome where we
-# consider that every pixel that is '40' is black.
+def main():
+    # Pixels are arranged in one byte for 8 vertical pixels and not addressed individually
+    # We convert the image to greysacle and end up making it monochrome where we
+    # consider that every pixel that is '40' is black.
 
-width = 128
-height = 64
+    width = 128
+    height = 64
 
-if len(sys.argv) != 2:
-  print('Please specify an image to use as the only argument')
-  exit(1)
+    if len(sys.argv) != 2:
+        print('Please specify an image to use as the only argument')
+        exit(1)
 
-im = Image.open(sys.argv[1])
-im = im.convert('L').resize((width, height))
+    im = Image.open(sys.argv[1])
+    im = im.convert('L').resize((width, height))
 
-data = list(im.getdata())
+    data = list(im.getdata())
 
-byteblock = [0 for i in range(width)]
-widthblock = [list(byteblock) for i in range(int(height/8))]
-numblock = 0
-pixcount = 0
-i = 0
+    byteblock = [0 for i in range(width)]
+    widthblock = [list(byteblock) for i in range(int(height/8))]
+    numblock = 0
+    pixcount = 0
+    i = 0
 
-# we split the list by width * 8, to create data chunks of 8rows
-datachunks=[data[x:x+(width*8)] for x in range(0, len(data), (width*8))]
+    # we split the list by width * 8, to create data chunks of 8rows
+    datachunks=[data[x:x+(width*8)] for x in range(0, len(data), (width*8))]
 
-# grab every pixel of image (or datachunk)
-while i < len(widthblock):
-  pixcount = 0
-  for y in datachunks[i]:
-    xcoor = pixcount % width
-    ycoor = int(pixcount/width)
-    blknum = xcoor % len(widthblock)
-    blkycoor = ycoor
+    # grab every pixel of image (or datachunk)
+    while i < len(widthblock):
+        pixcount = 0
+        for y in datachunks[i]:
+            xcoor = pixcount % width
+            ycoor = int(pixcount/width)
+            blknum = xcoor % len(widthblock)
+            blkycoor = ycoor
 
-    # 40 is what we consider 'black'
-    if y > 40:
-      widthblock[i][xcoor] |= (1 << blkycoor)
+            # 40 is what we consider 'black'
+            if y > 40:
+                widthblock[i][xcoor] |= (1 << blkycoor)
 
-    pixcount += 1
-  i += 1
+            pixcount += 1
+        i += 1
 
-flatlist = [y for x in widthblock for y in x]
+    flatlist = [y for x in widthblock for y in x]
 
-carray = 'static uint8_t image[] = {\n' + ', '.join(str(x) for x in flatlist)
-print(carray + '\n};')
+    carray = 'static uint8_t image[] = {\n' + ', '.join(str(x) for x in flatlist)
+    print(carray + '\n};')
+
+if __name__ == '__main__':
+    main()

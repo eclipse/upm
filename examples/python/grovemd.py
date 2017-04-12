@@ -21,27 +21,31 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time
-import pyupm_grovemd as upmGrovemd
+from upm import pyupm_grovemd as upmGrovemd
 
-I2C_BUS = upmGrovemd.GROVEMD_I2C_BUS
-I2C_ADDR = upmGrovemd.GROVEMD_DEFAULT_I2C_ADDR
+def main():
+    I2C_BUS = upmGrovemd.GROVEMD_I2C_BUS
+    I2C_ADDR = upmGrovemd.GROVEMD_DEFAULT_I2C_ADDR
 
-# Instantiate an I2C Grove Motor Driver on I2C bus 0
-myMotorDriver = upmGrovemd.GroveMD(I2C_BUS, I2C_ADDR)
+    # Instantiate an I2C Grove Motor Driver on I2C bus 0
+    myMotorDriver = upmGrovemd.GroveMD(I2C_BUS, I2C_ADDR)
 
+    # set direction to CW and set speed to 50%
+    print("Spin M1 and M2 at half speed for 3 seconds")
+    myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CW, upmGrovemd.GroveMD.DIR_CW)
+    myMotorDriver.setMotorSpeeds(127, 127)
 
-# set direction to CW and set speed to 50%
-print "Spin M1 and M2 at half speed for 3 seconds"
-myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CW, upmGrovemd.GroveMD.DIR_CW)
-myMotorDriver.setMotorSpeeds(127, 127)
+    time.sleep(3)
+    # counter clockwise
+    print("Reversing M1 and M2 for 3 seconds")
+    myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CCW,
+    upmGrovemd.GroveMD.DIR_CCW)
+    time.sleep(3)
 
-time.sleep(3)
-# counter clockwise
-print "Reversing M1 and M2 for 3 seconds"
-myMotorDriver.setMotorDirections(upmGrovemd.GroveMD.DIR_CCW,
-upmGrovemd.GroveMD.DIR_CCW)
-time.sleep(3)
+    print("Stopping motors")
+    myMotorDriver.setMotorSpeeds(0, 0)
 
-print "Stopping motors"
-myMotorDriver.setMotorSpeeds(0, 0)
+if __name__ == '__main__':
+    main()

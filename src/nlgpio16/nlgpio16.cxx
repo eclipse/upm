@@ -25,7 +25,7 @@
 #include <iostream>
 #include <time.h>
 
-#include "nlgpio16.h"
+#include "nlgpio16.hpp"
 
 using namespace upm;
 using namespace std;

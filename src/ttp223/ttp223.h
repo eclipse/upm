@@ -1,5 +1,6 @@
 /*
  * Author: Sarah Knepper <sarah.knepper@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,98 +22,79 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <string>
-#include <mraa/gpio.hpp>
+#ifndef TTP223_H_
+#define TTP223_H_
 
-namespace upm {
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+#include "upm.h"
+#include "mraa/gpio.h"
+
 /**
- * @brief TTP223 Touch Detector Sensor library
- * @defgroup ttp223 libupm-ttp223
- * @ingroup seeed gpio touch
- */
-/**
+ * @file ttp223.h
  * @library ttp223
- * @sensor ttp223
- * @comname TTP223 Touch Sensor
- * @altname Grove Touch Sensor
- * @type touch
- * @man seeed
- * @web http://www.seeedstudio.com/depot/Grove-Touch-Sensor-p-747.html
- * @con gpio
+ * @brief C API for the TTP223 Touch Detector Sensor
  *
- * @brief API for the TTP223 Touch Sensor
- * 
- *   This touch sensor detects when a finger is near the metallic pad
- *   by the change in capacitance. It can replace a more traditional push
- *   button. The touch sensor can still function when placed under a 
- *   non-metallic surface like glass or plastic.
- *
- * @image html ttp223.jpg
- * @snippet ttp223.cxx Interesting
+ * @include ttp223.c
  */
-class TTP223 {
-    public:
-        /**
-         * TTP223 constructor
-         *
-         * @param pin GPIO pin where the sensor is connected
-         */
-        TTP223(unsigned int pin);
 
-        /**
-         * TTP223 destructor
-         */
-        ~TTP223();
+/**
+ * device context
+ */
+typedef struct _ttp223_context {
+    mraa_gpio_context       gpio;
+    uint8_t                 gpio_pin;
+    bool                    isr_installed;
+} *ttp223_context;
 
-        /**
-         * Returns the name of this sensor
-         *
-         * @return Name of this sensor
-         */
-        std::string name();
+/**
+ * Sensor Init function
+ *
+ * @param pin The pin number the sensor is attached to
+ * @return void* pointer to the sensor struct
+ */
+ttp223_context ttp223_init(int pin);
 
-        /**
-         * Gets the value from the GPIO pin
-         *
-         * @return Value from the GPIO pin
-         */
-        int value();
+/**
+ * Sensor Module close function
+ *
+ * @param dev pointer to the sensor struct
+ */
+void ttp223_close(ttp223_context dev);
 
-        /**
-         * Determines whether the touch sensor is being touched
-         *
-         * @return True if touched, false otherwise
-         */
-        bool isPressed();
+/**
+ * Function to tell if the sensor is pressed
+ *
+ * @param dev pointer to the sensor struct
+ * @param value pointer to store whether the sensor is pressed or not
+ * @result upm_result_t UPM success/error code
+ */
+upm_result_t ttp223_is_pressed(ttp223_context dev, bool* value);
 
-        /**
-         * Installs an interrupt service routine (ISR) to be called when
-         * the button is activated or deactivated.
-         *
-         * @param fptr Pointer to a function to be called on interrupt
-         * @param arg Pointer to an object to be supplied as an
-         * argument to the ISR.
-         */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, jobject runnable);
-#else
-        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
-        /**
-         * Uninstalls the previously installed ISR
-         *
-         */
-        void uninstallISR();
+/**
+ * Installs an interrupt service routine (ISR) to be called when
+ * the button is activated or deactivated.
+ *
+ * @param dev pointer to the sensor struct
+ * @param edge_level one of mraa_gpio_edge_t values
+ * @param isr pointer to a function to be called on interrupt
+ * @param arg pointer to an object to be supplied as an
+ * argument to the ISR.
+ * @result upm_result_t UPM success/error code
+ */
+upm_result_t ttp223_install_isr(ttp223_context dev,
+                                mraa_gpio_edge_t edge_level,
+                                void (*isr)(void *), void *arg);
 
-    protected:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
-        std::string         m_name; //!< name of this sensor
-        mraa_gpio_context   m_gpio; //!< GPIO pin
-        bool                m_isrInstalled;
-};
+/**
+ * Uninstall a previously installed interrupt handler
+ *
+ * @param dev pointer to the sensor struct
+ * @result upm_result_t UPM success/error code
+ */
+upm_result_t ttp223_uninstall_isr(ttp223_context dev);
 
-}
+#endif /* TTP223_H_ */

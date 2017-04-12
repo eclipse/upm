@@ -30,7 +30,7 @@
 #include <functional>
 #include <string.h>
 
-#include "max31855.h"
+#include "max31855.hpp"
 
 using namespace upm;
 

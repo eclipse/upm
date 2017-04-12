@@ -28,32 +28,6 @@
 #include <mraa/firmata.h>
 #include <queue>
 
-namespace upm {
-
-/**
- * @brief CurieIMU sensor for Genuino 101 running Firmata
- * @defgroup curieimu libupm-curieimu
- * @ingroup firmata
- */
-
-/**
- * @library curieimu
- * @sensor curieimu
- * @comname Curie IMU sensor over Genuino 101 running Firmata
- * @altname Curie Firmata IMU
- * @type firmata
- * @man firmata imu genuino
- * @con firmata
- *
- * @brief API for the Curie IMU via Firmata
- *
- * Curie IMU is a 6-axxis acclerometer
- *
- * This module has been tested on an Genuino 101 running ConfigurableFirmata with CurieIMU
- *
- * @snippet curieimu.cxx Interesting
- */
-
 #define FIRMATA_START_SYSEX                 0xF0
 #define FIRMATA_END_SYSEX                   0xF7
 #define FIRMATA_CURIE_IMU                   0x11
@@ -69,18 +43,43 @@ namespace upm {
 #define Y 1
 #define Z 2
 
+namespace upm {
+/**
+ * @brief CurieIMU sensor for Arduino/Genuino 101 running Firmata
+ * @defgroup curieimu libupm-curieimu
+ * @ingroup firmata accelerometer compass bosch
+ */
+
 struct IMUDataItem {
     int axis;
     int direction;
 };
 
+/**
+ * @library curieimu
+ * @sensor curieimu
+ * @comname Curie IMU Sensor using Firmata
+ * @altname Curie IMU Sensor for Arduino/Genuino 101 running Firmata
+ * @type accelerometer compass
+ * @man bosch
+ * @con firmata
+ *
+ * @brief API for the Curie IMU via Firmata
+ *
+ * Curie IMU is a 6-axis accelerometer
+ *
+ * This module has been tested on an Arduino/Genuino 101 running
+ * ConfigurableFirmata with CurieIMU
+ *
+ * @snippet curieimu.cxx Interesting
+ */
 class CurieImu {
     public:
 
       /**
       * Instantiates a CurieImu object
       *
-      * @param subplatformoffset Subplatform offset
+      * @param subplatform_offset Subplatform offset
       */
       CurieImu (int subplatform_offset=512);
 

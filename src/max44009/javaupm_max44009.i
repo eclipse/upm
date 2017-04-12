@@ -1,15 +1,18 @@
 %module javaupm_max44009
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iLightSensor.i"
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"
 %include "typemaps.i"
 
 %{
-    #include "max44009.h"
+    #include "max44009.hpp"
 %}
 
-%include "max44009.h"
+%include "max44009.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "joystick12.h"
+    #include "joystick12.hpp"
 %}
 
-%include "joystick12.h"
+%include "joystick12.hpp"

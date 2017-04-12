@@ -1,5 +1,5 @@
 set (libname "pulsensor")
-set (libdescription "upm PULSENSOR")
+set (libdescription "3-wire Pulse Sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-/*global */
 /*
 * Author: Zion Orent <zorent@ics.com>
 * Copyright (c) 2014 Intel Corporation.
@@ -33,8 +30,8 @@ var myGyro = new analogGyro.ENC03R(0);
 var CALIBRATION_SAMPLES = 1000;
 
 console.log("Please place the sensor in a stable location,\n" +
-			"and do not move it while calibration takes place.\n" +
-			"This may take a couple of minutes.");
+	    "and do not move it while calibration takes place.\n" +
+	    "This may take a couple of minutes.");
 
 myGyro.calibrate(CALIBRATION_SAMPLES);
 console.log("Calibration complete.  Reference value: " +
@@ -44,23 +41,22 @@ console.log("Calibration complete.  Reference value: " +
 // waiting 0.1 seconds between readings
 setInterval(function()
 {
-	var gyroVal = myGyro.value();
-	var outputStr = "Raw value: " + gyroVal + ", "  +
-					"angular velocity: " +
-					roundNum(myGyro.angularVelocity(gyroVal), 5) + " deg/s";
-	console.log(outputStr);
+    myGyro.update();
+    var outputStr = "Angular velocity: " +
+	roundNum(myGyro.angularVelocity(), 5) + " deg/s";
+    console.log(outputStr);
 }, 100);
 
 function roundNum(num, decimalPlaces)
 {
-	var extraNum = (1 / (Math.pow(10, decimalPlaces) * 1000));
-	return (Math.round((num + extraNum) * (Math.pow(10, decimalPlaces))) / 
+    var extraNum = (1 / (Math.pow(10, decimalPlaces) * 1000));
+    return (Math.round((num + extraNum) * (Math.pow(10, decimalPlaces))) /
             Math.pow(10, decimalPlaces));
 }
 
 // Print message when exiting
 process.on('SIGINT', function()
 {
-	console.log("Exiting...");
-	process.exit(0);
+    console.log("Exiting...");
+    process.exit(0);
 });

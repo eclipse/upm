@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,56 +23,51 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
 #include <mraa/gpio.h>
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
+
     /**
-     * @brief YG1006 Flame Sensor library
-     * @defgroup yg1006 libupm-yg1006
-     * @ingroup seeed gpio light hak
-     */
-    /**
+     * @file yg1006.h
      * @library yg1006
-     * @sensor yg1006
-     * @comname YG1006 Flame Sensor
-     * @altname Grove Flame Sensor
-     * @type light
-     * @man seeed
-     * @web http://www.seeedstudio.com/wiki/Grove_-_Flame_Sensor
-     * @con gpio
-     * @kit hak
+     * @brief C API for the YG1006 Flame Sensor
      *
-     * @brief API for the YG1006 Flame Sensor
-     *
-     *   UPM module for the YG1006 flame sensor. It detects a flame or any
-     *   other light source in the 760-1,100 nm wavelength range.
-     *
-     * @image html yg1006.jpg
-     * @snippet yg1006.cxx Interesting
+     * @include yg1006.c
      */
-  class YG1006 {
-  public:
+
     /**
-     * YG1006 constructor
+     * Device context
+     */
+    typedef struct _yg1006_context {
+        mraa_gpio_context        gpio;
+    } *yg1006_context;
+
+    /**
+     * YG1006 initializer
      *
      * @param pin Digital pin to use
+     * @return an initialized device context on success, NULL on error.
      */
-    YG1006(int pin);
+    yg1006_context yg1006_init(unsigned int pin);
+
     /**
-     * YG1006 destructor
+     * YG1006 close function
      */
-    ~YG1006();
+    void yg1006_close(yg1006_context dev);
+
     /**
      * Determines whether a flame has been detected
      *
-     * @return True if a flame or another comparable light source has been detected
+     * @return true if a flame or another comparable light source has
+     * been detected
      */
-    bool flameDetected();
+    bool yg1006_flame_detected(const yg1006_context dev);
 
-  private:
-    mraa_gpio_context m_gpio;
-  };
+#ifdef __cplusplus
 }
-
-
+#endif

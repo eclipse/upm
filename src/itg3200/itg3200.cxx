@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <unistd.h>
 #include "math.h"
-#include "itg3200.h"
+#include "itg3200.hpp"
 
 #define READ_BUFFER_LENGTH 8
 

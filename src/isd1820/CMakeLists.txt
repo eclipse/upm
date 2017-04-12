@@ -1,5 +1,5 @@
 set (libname "isd1820")
-set (libdescription "upm grove recorder")
+set (libdescription "Voice Recording and Playback Module")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,6 +1,7 @@
 /*
- * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Jon Trulson <jtrulson@ics.com>
+ *         Zion Orent <zorent@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,56 +24,53 @@
  */
 #pragma once
 
-#include <string>
-#include <mraa/aio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+#include <mraa/gpio.h>
 
-namespace upm {
-  /**
-   * @brief BISS0001 Motion Sensor library
-   * @defgroup biss0001 libupm-biss0001
-   * @ingroup seeed gpio light tsk
-   */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-  /**
-   * @library biss0001
-   * @sensor biss0001
-   * @comname BISS0001 Motion Sensor
-   * @altname Grove PIR Motion Sensor
-   * @type light
-   * @man seeed
-   * @web http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html
-   * @con gpio
-   * @kit tsk
-   *
-   * @brief API for the BISS0001 Motion Sensor
-   *
-   * UPM module for the BISS0001 Motion Sensor
-   *
-   * @image html biss0001.jpg
-   * @snippet biss0001.cxx Interesting
-   */
-  class BISS0001 {
-  public:
     /**
-     * BISS0001 motion sensor constructor
+     * @file biss0001.h
+     * @library biss0001
+     * @brief C API for the BISS0001 Motion Sensor
      *
-     * @param pin Digital pin to use
+     * @include biss0001.c
      */
-    BISS0001(int pin);
+
     /**
-     * BISS0001 destructor
+     * Device context
      */
-    ~BISS0001();
+    typedef struct _biss0001_context {
+        mraa_gpio_context        gpio;
+    } *biss0001_context;
+
+    /**
+     * BISS0001 initilaizer
+     *
+     * @param pin Digital pin to use.
+     * @return an initialized device context on success, NULL on error.
+     */
+    biss0001_context biss0001_init(unsigned int pin);
+
+    /**
+     * BISS0001 close function
+     *
+     * @param dev The device context.
+     */
+    void biss0001_close(biss0001_context dev);
+
     /**
      * Gets the motion value from the sensor
      *
-     * @return Motion reading
+     * @param dev The device context.
+     * @return true if motion was detected, false otherwise
      */
-    bool value();
+    bool biss0001_motion_detected(const biss0001_context dev);
 
-  private:
-        mraa_gpio_context m_gpio;
-  };
+#ifdef __cplusplus
 }
-
-
+#endif

@@ -21,7 +21,11 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#include "ads1015.h"
+
+#include <unistd.h>
+
+#include "ads1015.hpp"
+#include "mraa/i2c.hpp"
 
 using namespace upm;
 
@@ -149,7 +153,6 @@ ADS1015::setDelay(){
 
 ADS1X15::ADSMUXMODE
 ADS1015::getMuxMode(unsigned int input) {
-    ADS1X15::ADSMUXMODE mode;
     switch (input) {
     case 0:
         return SINGLE_0;

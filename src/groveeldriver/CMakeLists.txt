@@ -1,5 +1,5 @@
 set (libname "groveeldriver")
-set (libdescription "upm groveeldriver sensor module")
+set (libdescription "Electroluminescent (EL) Driver")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init("-lrt")
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -23,52 +23,54 @@
  */
 
 #include <iostream>
+#include <stdexcept>
 
-#include "dfrph.h"
+#include "dfrph.hpp"
 
-using namespace std;
 using namespace upm;
 
-DFRPH::DFRPH(int pin, float aref) :
-  m_aio(pin)
+DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin))
 {
-  m_aRes = (1 << m_aio.getBit());
-  m_aref = aref;
-
-  m_offset = 0.0;
+    if (_dev == NULL)
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": dfrph_init() failed, invalid pin?");
 }
 
 DFRPH::~DFRPH()
 {
-}
-
-float DFRPH::volts()
-{
-  int val = m_aio.read();
-
-  return(val * (m_aref / m_aRes));
+    dfrph_close(_dev);
 }
 
 void DFRPH::setOffset(float offset)
 {
-  m_offset = offset;
+    dfrph_set_offset(_dev, offset);
+}
+
+void DFRPH::setScale(float scale)
+{
+    dfrph_set_scale(_dev, scale);
+}
+
+float DFRPH::volts()
+{
+    float volts = 0.0;
+    dfrph_get_raw_volts(_dev, &volts);
+    return volts;
 }
 
 float DFRPH::pH(unsigned int samples)
 {
-  if (!samples)
-    samples = 1;
+    float ph_avg = 0.0;
 
-  float sum = 0.0;
+    // Read at least 1 sample
+    if (samples == 0) samples = 1;
 
-  for (int i=0; i<samples; i++)
+    float ph = 0.0;
+    for (unsigned int i = 0; i < samples; i++)
     {
-      sum += volts();
-      usleep(20000);
+        dfrph_get_ph(_dev, &ph);
+        ph_avg += ph;
     }
 
-  sum /= samples;
-
-  // 3.5 is a 'magic' DFRobot number. Seems to work though :)
-  return (3.5 * sum + m_offset);
+    return ph_avg/samples;
 }

@@ -28,11 +28,11 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "lpd8806.h"
+#include "lpd8806.hpp"
 
 using namespace upm;
 
-LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) : m_csnPinCtx(csn), m_spi(0) {
+LPD8806::LPD8806 (int bus, int csn, uint16_t pixelCount) :m_spi(bus), m_csnPinCtx(csn) {
     mraa::Result error = mraa::SUCCESS;
     m_name = "LPD8806";
 
@@ -60,13 +60,11 @@ LPD8806::LPD8806 (uint16_t pixelCount, uint8_t csn) : m_csnPinCtx(csn), m_spi(0)
 
     uint8_t  latchBytes;
     uint16_t dataBytes, totalBytes;
-    uint16_t numBytes = 0;
 
     dataBytes  = m_pixelsCount * 3;
     latchBytes = (m_pixelsCount + 31) / 32;
     totalBytes = dataBytes + latchBytes;
     if ((m_pixels = (uint8_t *) malloc(totalBytes))) {
-        numBytes = totalBytes;
         memset ( m_pixels           , 0x80, dataBytes);  // Init to RGB 'off' state
         memset (&m_pixels[dataBytes], 0   , latchBytes); // Clear latch bytes
     }

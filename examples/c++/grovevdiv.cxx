@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovevdiv.h"
+#include "grovevdiv.hpp"
 
 using namespace std;
 

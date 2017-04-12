@@ -21,30 +21,33 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_apds9002 as upmApds9002
+from upm import pyupm_apds9002 as upmApds9002
 
-# Instantiate a Grove Luminance sensor on analog pin A0
-myLuminance = upmApds9002.APDS9002(0)
+def main():
+    # Instantiate a Grove Luminance sensor on analog pin A0
+    myLuminance = upmApds9002.APDS9002(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit, including functions from myLuminance
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit, including functions from myLuminance
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        print("Luminance value is {0}".format(
+        myLuminance.value()))
 
+        time.sleep(1)
 
-while(1):
-	print "Luminance value is {0}".format(
-	myLuminance.value())
-
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

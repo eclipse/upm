@@ -1,12 +1,13 @@
 %module jsupm_st7735
 %include "../upm.i"
+%include "../carrays_uint8_t.i"
 
-%include "gfx.h"
+%include "st7735_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "st7735_gfx.hpp"
 %}
 
-%include "st7735.h"
+%include "st7735.hpp"
 %{
-    #include "st7735.h"
+    #include "st7735.hpp"
 %}

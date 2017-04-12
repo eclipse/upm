@@ -1,6 +1,6 @@
 /*
  * Author: Lay, Kuan Loon <kuan.loon.lay@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "apds9930.h"
+#include "apds9930.hpp"
 
 using namespace std;
 
@@ -46,6 +46,15 @@ main()
     // Instantiate a Digital Proximity and Ambient Light sensor on iio device 4
     upm::APDS9930* light_proximity = new upm::APDS9930(4);
 
+    // Kernel driver implement sleep 5000-5100us after enable illuminance sensor
+    light_proximity->enableIlluminance(true);
+
+    // Kernel driver implement sleep 5000-5100us after enable proximity sensor
+    light_proximity->enableProximity(true);
+
+    // Tested this value works. Please change it on your platform
+    usleep(120000);
+
     while (shouldRun) {
         float lux = light_proximity->getAmbient();
         cout << "Luminance value is " << lux << endl;
@@ -53,6 +62,8 @@ main()
         cout << "Proximity value is " << proximity << endl;
         sleep(1);
     }
+    light_proximity->enableProximity(false);
+    light_proximity->enableIlluminance(false);
     //! [Interesting]
 
     cout << "Exiting" << endl;

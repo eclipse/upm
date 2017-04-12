@@ -6,7 +6,7 @@
 
 %feature("autodoc", "3");
 
-%include "hwxpxx.h"
+%include "hwxpxx.hpp"
 %{
-    #include "hwxpxx.h"
+    #include "hwxpxx.hpp"
 %}

@@ -9,7 +9,7 @@
 %include "adc121c021_doc.i"
 #endif
 
-%include "adc121c021.h"
+%include "adc121c021.hpp"
 %{
-    #include "adc121c021.h"
+    #include "adc121c021.hpp"
 %}

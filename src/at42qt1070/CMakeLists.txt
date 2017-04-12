@@ -1,5 +1,5 @@
 set (libname "at42qt1070")
-set (libdescription "upm module for the Atmel AT42QT1070 QTouch sensor")
+set (libdescription "Seven-channel QTouch Touch Sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

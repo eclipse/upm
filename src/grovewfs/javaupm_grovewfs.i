@@ -4,10 +4,10 @@
 %ignore flowISR;
 
 %{
-    #include "grovewfs.h"
+    #include "grovewfs.hpp"
 %}
 
-%include "grovewfs.h"
+%include "grovewfs.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

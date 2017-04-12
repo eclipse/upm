@@ -2,8 +2,8 @@
 %include "../upm.i"
 
 %{
-    #include "sx6119.h"
+    #include "sx6119.hpp"
 %}
 
-%include "sx6119.h"
+%include "sx6119.hpp"
 

@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * based on original C++ driver by
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -27,51 +31,45 @@
 #include <stdexcept>
 #include <unistd.h>
 
-#include "buzzer.h"
+#include "buzzer.hpp"
 
 using namespace upm;
 using namespace std;
 
-Buzzer::Buzzer(int pinNumber) {
-    m_pwm_context = mraa_pwm_init(pinNumber);
-    if(m_pwm_context == 0)
-    {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_pwm_init() failed, invalid pin?");
-        return;
-    }
-    m_name = "Buzzer";
-    mraa_pwm_enable (m_pwm_context, 1);
-    Buzzer::setVolume(1.0);
+Buzzer::Buzzer(int pinNumber) : m_buzzer(buzzer_init(pinNumber))
+{
+    if (!m_buzzer)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": buzzer_init() failed");
 }
 
-void Buzzer::setVolume(float vol){
-    m_volume = vol;
+Buzzer::~Buzzer()
+{
+    buzzer_close(m_buzzer);
 }
 
-float Buzzer::getVolume(){
-    return m_volume;
+void Buzzer::setVolume(float vol)
+{
+    buzzer_set_volume(m_buzzer, vol);
 }
 
-int Buzzer::playSound(int note, int delay) {
-    mraa_pwm_period_us(m_pwm_context, note);
-    mraa_pwm_write(m_pwm_context, m_volume * 0.5);
-    if(delay){
-        usleep(delay);
-        Buzzer::stopSound();
-    }
+float Buzzer::getVolume()
+{
+    return buzzer_get_volume(m_buzzer);
+}
+
+int Buzzer::playSound(int note, int delay)
+{
+    if (buzzer_play_sound(m_buzzer, note, delay))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": buzzer_play_sound() failed");
     return note;
 }
 
-void Buzzer::stopSound(){
-    // Has to be checked out on a scope and make sure it's flat 0
-    mraa_pwm_period_us(m_pwm_context, 1);
-    mraa_pwm_write(m_pwm_context, 0);
-}
-
-Buzzer::~Buzzer() {
-    Buzzer::stopSound();
-    mraa_pwm_enable(m_pwm_context, 0);
-    mraa_pwm_close(m_pwm_context);
+void Buzzer::stopSound()
+{
+    if (buzzer_stop_sound(m_buzzer))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": buzzer_stop_sound() failed");
 }
 

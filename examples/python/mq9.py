@@ -21,42 +21,45 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_gas as upmGas
+from upm import pyupm_gas as upmGas
 
-# Attach gas sensor to AIO0
-myMQ9 = upmGas.MQ9(0)
+def main():
+    # Attach gas sensor to AIO0
+    myMQ9 = upmGas.MQ9(0)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myMQ9
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myMQ9
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    threshContext = upmGas.thresholdContext()
+    threshContext.averageReading = 0
+    threshContext.runningAverage = 0
+    threshContext.averagedOver = 2
 
+    # Infinite loop, ends when script is cancelled
+    # Repeatedly, take a sample every 2 microseconds;
+    # find the average of 128 samples; and
+    # print a running graph of dots as averages
+    mybuffer = upmGas.uint16Array(128)
+    while(1):
+        samplelen = myMQ9.getSampledWindow(2, 128, mybuffer)
+        if samplelen:
+            thresh = myMQ9.findThreshold(threshContext, 30, mybuffer, samplelen)
+            myMQ9.printGraph(threshContext, 5)
+            if(thresh):
+                print("Threshold is ", thresh)
 
-threshContext = upmGas.thresholdContext()
-threshContext.averageReading = 0
-threshContext.runningAverage = 0
-threshContext.averagedOver = 2
-
-# Infinite loop, ends when script is cancelled
-# Repeatedly, take a sample every 2 microseconds;
-# find the average of 128 samples; and
-# print a running graph of dots as averages
-mybuffer = upmGas.uint16Array(128)
-while(1):
-	samplelen = myMQ9.getSampledWindow(2, 128, mybuffer)
-	if samplelen:
-		thresh = myMQ9.findThreshold(threshContext, 30, mybuffer, samplelen)
-		myMQ9.printGraph(threshContext, 5)
-		if(thresh):
-			print "Threshold is ", thresh
+if __name__ == '__main__':
+    main()

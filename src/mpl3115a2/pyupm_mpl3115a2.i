@@ -9,7 +9,7 @@
 %include "mpl3115a2_doc.i"
 #endif
 
-%include "mpl3115a2.h"
+%include "mpl3115a2.hpp"
 %{
-    #include "mpl3115a2.h"
+    #include "mpl3115a2.hpp"
 %}

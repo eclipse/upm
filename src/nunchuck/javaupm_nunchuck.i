@@ -3,10 +3,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "nunchuck.h"
+    #include "nunchuck.hpp"
 %}
 
-%include "nunchuck.h"
+%include "nunchuck.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -25,12 +25,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdexcept>
-#include "hx711.h"
+#include "hx711.hpp"
 
 using namespace upm;
 using namespace std;
 
-HX711::HX711(uint8_t data, uint8_t sck, uint8_t gain) {
+HX711::HX711(int data, int sck, uint8_t gain) {
     mraa_result_t error = MRAA_SUCCESS;
 
     this->m_dataPinCtx = mraa_gpio_init(data);

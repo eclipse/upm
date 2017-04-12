@@ -24,23 +24,19 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "si1132.h"
+#include "si1132.hpp"
 
 #define FT4222_I2C_BUS 1
 
 int main ()
 {
-   try {
-      upm::SI1132* lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
-      while (true) {
-         float value = lightSensor->getVisibleLux();
-         std::cout << "Light level = " << value << " lux" << std::endl;
-         sleep(1);
-      }
-      delete lightSensor;
-   } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-      return 1;
-   }
-   return 0;
+    //! [Interesting]
+    upm::SI1132 lightSensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+    while (true) {
+        float value = lightSensor.getVisibleLux();
+        std::cout << "Light level = " << value << " lux" << std::endl;
+        sleep(1);
+    }
+    //! [Interesting]
+    return 0;
 }

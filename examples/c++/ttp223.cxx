@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "ttp223.h"
+#include "ttp223.hpp"
 
 int
 main(int argc, char **argv)

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,24 +22,28 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
-# Create the relay switch object using GPIO pin 0
-relay = grove.GroveRelay(0)
+def main():
+    # Create the relay switch object using GPIO pin 0
+    relay = grove.GroveRelay(0)
 
-# Close and then open the relay switch 3 times,
-# waiting one second each time.  The LED on the relay switch
-# will light up when the switch is on (closed).
-# The switch will also make a noise between transitions.
-for i in range (0,3):
-    relay.on()
-    if relay.isOn():
-        print relay.name(), 'is on'
-    time.sleep(1)
-    relay.off()
-    if relay.isOff():
-        print relay.name(), 'is off'
-    time.sleep(1)
+    # Close and then open the relay switch 3 times,
+    # waiting one second each time.  The LED on the relay switch
+    # will light up when the switch is on (closed).
+    # The switch will also make a noise between transitions.
+    for i in range (0,3):
+        relay.on()
+        if relay.isOn():
+            print(relay.name(), 'is on')
+        time.sleep(1)
+        relay.off()
+        if relay.isOff():
+            print(relay.name(), 'is off')
+        time.sleep(1)
 
-# Delete the relay switch object
-del relay
+    # Delete the relay switch object
+    del relay
+
+if __name__ == '__main__':
+    main()

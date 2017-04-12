@@ -30,7 +30,7 @@
 #include <sched.h>
 #include <time.h>
 
-#include "am2315.h"
+#include "am2315.hpp"
 
 using namespace upm;
 
@@ -199,7 +199,12 @@ AM2315::i2cWriteReg(uint8_t reg, uint8_t* data, uint8_t ilen)
     tdata[ilen+3] = crc;
     tdata[ilen+4] = (crc >> 8);
 
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    if (mraa_i2c_address(m_i2ControlCtx, m_controlAddr) != MRAA_SUCCESS)
+    {
+        fprintf(stdout, "Error, setting i2c address.\n");
+        return -1;
+    }
+
     int iLoops = 5;
     mraa_set_priority(HIGH_PRIORITY);
     do {

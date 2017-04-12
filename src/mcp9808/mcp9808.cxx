@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
-#include "mcp9808.h"
+#include "mcp9808.hpp"
 #include <cmath>
+#include <syslog.h>
 
+#include "mraa.hpp"
+#include "mraa/i2c.hpp"
 
 using namespace upm;
 
@@ -47,8 +48,7 @@ MCP9808::MCP9808 (int bus, uint8_t address){
 	}
 
 	if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS){
-		throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.frequency(I2C_STD) failed");
-	    return;
+          syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
 	}
 }
 

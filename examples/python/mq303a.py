@@ -21,55 +21,58 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
 
 # Load alcohol sensor module
-import pyupm_mq303a as upmMq303a
+from upm import pyupm_mq303a as upmMq303a
 
-# Instantiate an mq303a sensor on analog pin A0
-# This device uses a heater powered from an analog I/O pin. 
-# If using A0 as the data pin, then you need to use A1, as the heater
-# pin (if using a grove mq303a).  For A1, we can use the D15 gpio, 
-# setup as an output, and drive it low to power the heater.
-myAlcoholSensor = upmMq303a.MQ303A(0, 15)
+def main():
+    # Instantiate an mq303a sensor on analog pin A0
+    # This device uses a heater powered from an analog I/O pin.
+    # If using A0 as the data pin, then you need to use A1, as the heater
+    # pin (if using a grove mq303a).  For A1, we can use the D15 gpio,
+    # setup as an output, and drive it low to power the heater.
+    myAlcoholSensor = upmMq303a.MQ303A(0, 15)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myAlcoholSensor
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myAlcoholSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    print("Enabling heater and waiting 2 minutes for warmup.")
 
+    # give time updates every 30 seconds until 2 minutes have passed
+    # for the alcohol sensor to warm up
+    def warmup(iteration):
+        totalSeconds = (30 * iteration)
+        time.sleep(30)
+        print(totalSeconds, "seconds have passed")
+    warmup(1)
+    warmup(2)
+    warmup(3)
+    warmup(4)
 
-print "Enabling heater and waiting 2 minutes for warmup."
+    notice = ("This sensor may need to warm "
+    "until the value drops below about 450.")
+    print(notice)
 
-# give time updates every 30 seconds until 2 minutes have passed
-# for the alcohol sensor to warm up
-def warmup(iteration):
-	totalSeconds = (30 * iteration)
-	time.sleep(30)
-	print totalSeconds, "seconds have passed"
-warmup(1)
-warmup(2)
-warmup(3)
-warmup(4)
+    # Print the detected alcohol value every second
+    while(1):
+        val = myAlcoholSensor.value()
+        msg = "Alcohol detected "
+        msg += "(higher means stronger alcohol): "
+        print(msg + str(val))
+        time.sleep(1)
 
-notice = ("This sensor may need to warm "
-"until the value drops below about 450.")
-print notice
-
-# Print the detected alcohol value every second
-while(1):
-	val = myAlcoholSensor.value()
-	msg = "Alcohol detected "
-	msg += "(higher means stronger alcohol): "
-	print msg + str(val)
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

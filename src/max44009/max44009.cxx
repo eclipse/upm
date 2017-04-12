@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "max44009.h"
+#include "max44009.hpp"
 
 using namespace upm;
 
@@ -64,7 +64,6 @@ MAX44009::reset() {
 
 uint16_t
 MAX44009::getVisibleRaw() {
-    uint8_t exponent, mantissa;
     uint8_t data[MAX44009_LUX_LENGTH];
     uint16_t* value = reinterpret_cast<uint16_t*>(&data[0]);
 

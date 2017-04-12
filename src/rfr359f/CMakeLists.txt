@@ -1,5 +1,5 @@
 set (libname "rfr359f")
-set (libdescription "upm rfr359f grove distance interrupter")
+set (libdescription "Infrared Distance Interrupter")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

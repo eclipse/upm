@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovelinefinder.h"
+%include "grovelinefinder.hpp"
 %{
-    #include "grovelinefinder.h"
+    #include "grovelinefinder.hpp"
 %}

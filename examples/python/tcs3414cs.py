@@ -21,35 +21,38 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_tcs3414cs as upmTcs3414cs
+from upm import pyupm_tcs3414cs as upmTcs3414cs
 
-# Instantiate the color sensor on I2C
-myColorSensor = upmTcs3414cs.TCS3414CS()
+def main():
+    # Instantiate the color sensor on I2C
+    myColorSensor = upmTcs3414cs.TCS3414CS()
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myColorSensor
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myColorSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    myrgb = upmTcs3414cs.tcs3414sc_rgb_t()
 
+    # Print out the r, g, b, and clr value every 0.5 seconds
+    while(1):
+        myColorSensor.readRGB(myrgb)
+        print("{0}, {1}, {2}, {3}".format(myrgb.r,
+        myrgb.g, myrgb.b, myrgb.clr))
 
-myrgb = upmTcs3414cs.tcs3414sc_rgb_t()
+        time.sleep(.5)
 
-# Print out the r, g, b, and clr value every 0.5 seconds
-while(1):
-	myColorSensor.readRGB(myrgb)
-	print "{0}, {1}, {2}, {3}".format(myrgb.r,
-	myrgb.g, myrgb.b, myrgb.clr)
-
-	time.sleep(.5)
+if __name__ == '__main__':
+    main()

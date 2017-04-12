@@ -6,10 +6,10 @@
 %include "../java_buffer.i"
 
 %{
-    #include "t3311.h"
+    #include "t3311.hpp"
 %}
 
-%include "t3311.h"
+%include "t3311.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

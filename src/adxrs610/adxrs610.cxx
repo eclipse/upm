@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "adxrs610.h"
+#include "adxrs610.hpp"
 
 using namespace std;
 using namespace upm;
@@ -66,7 +66,7 @@ float ADXRS610::calibrateZeroPoint(unsigned int samples)
   // The gyro should be in a stable, non-moving state
 
   float sum = 0;
-  for (int i=0; i<samples; i++)
+  for (unsigned int i=0; i<samples; i++)
     sum += getDataVolts();
 
   return sum / samples;

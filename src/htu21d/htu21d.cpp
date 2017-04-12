@@ -27,8 +27,9 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <endian.h>
 
-#include "htu21d.h"
+#include "htu21d.hpp"
 
 using namespace upm;
 
@@ -52,7 +53,7 @@ HTU21D::HTU21D(int bus, int devAddr) : m_i2ControlCtx(bus) {
 void
 HTU21D::resetSensor(void)
 {
-    uint8_t data;
+    uint8_t data = HTU21D_SOFT_RESET;
     m_i2ControlCtx.address (m_controlAddr);
     m_i2ControlCtx.write (&data, 1);
     usleep(20000);
@@ -71,7 +72,7 @@ HTU21D::convertTemp(int32_t regval)
  * Convert register value to %RH * 1000
  */
 int32_t
-HTU21D::convertRH(int regval)
+HTU21D::convertRH(int32_t regval)
 {
     return ((15625 * (regval & 0xFFFC)) >> 13) - 6000;
 }
@@ -81,13 +82,13 @@ HTU21D::sampleData(void)
 {
     uint32_t itemp;
 
-    itemp = i2cReadReg_16(HTU21D_READ_TEMP_HOLD);
+    itemp = be16toh(i2cReadReg_16(HTU21D_READ_TEMP_HOLD));
     m_temperature = convertTemp(itemp);
 
-    itemp = i2cReadReg_16(HTU21D_READ_HUMIDITY_HOLD);
+    itemp = be16toh(i2cReadReg_16(HTU21D_READ_HUMIDITY_HOLD));
     m_humidity = convertRH(itemp);
 
-    return 0;
+    return itemp == 0xFFFF;
 }
 
 float
@@ -140,6 +141,55 @@ HTU21D::setHeater(int bEnable)
 }
 
 /*
+ * Use the equation from the datasheet to calculate the partial pressure
+ * and then calculate the dew point temperature in degree C.  Typical
+ * use would be after reading the temp and humidity the partial
+ * pressure can be caculated using the previously read values.
+ */
+
+float
+HTU21D::getDewPoint(int bSampleData)
+{
+    if (bSampleData) {
+        sampleData();
+    }
+
+	float fA  = 8.1332;
+	float fB  = 1762.39;
+	float fC  = 235.66;
+	float fT  = getTemperature(false);
+	float fRH = getHumidity(false);
+    float fPP = exp10(fA - (fB / (fT + fC)));
+    float fDP = -(fB / (log10(fRH * fPP / 100) - fA) + fC);
+
+    return (fDP);
+}
+
+/*
+ * Function to optimize reading of values from the device.
+ * This function will always initiate a read from the sensor
+ * and return the values and dew point calculated value
+ */
+
+int
+HTU21D::getHumidityData(float* pfHum, float* pfHumTemp, float* pfDewPt)
+{
+    getHumidity(true);
+    float fTemp  = getTemperature(false);
+    float fDewPt = getDewPoint(false);
+    float fCHum  = getCompRH(false);
+
+    if (pfHum)
+        *pfHum     = fCHum;
+    if (pfHumTemp)
+        *pfHumTemp = fTemp;
+    if (pfDewPt)
+        *pfDewPt   = fDewPt;
+
+    return 0;
+}
+
+/*
  * Test function: when reading the HTU21D many times rapidly should
  * result in a temperature increase.  This test will verify that the
  * value is changing from read to read
@@ -152,15 +202,14 @@ HTU21D::testSensor(void)
     int iError = 0;
     float fTemp, fHum;
     float fTempMax, fTempMin;
-    float fHumMax, fHumMin;
-    float fHumFirst, fTempFirst;
+    float fHumMax = 0.0, fHumMin = 0.0;
+    float fTempFirst;
 
     fprintf(stdout, "Executing Sensor Test\n" );
 
     fHum  = getHumidity(true);
     fTemp = getTemperature(false);
     fTempFirst = fTempMax = fTempMin = fTemp;
-    fHumFirst  = fHumMax  = fHumMin  = fHum;
 
     // Turn on the heater to make a sensor change
     setHeater(true);
@@ -221,11 +270,8 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
 
 uint16_t
 HTU21D::i2cReadReg_16 (int reg) {
-    uint16_t data;
     m_i2ControlCtx.address(m_controlAddr);
-    data  = (uint16_t)m_i2ControlCtx.readReg(reg) << 8;
-    data |= (uint16_t)m_i2ControlCtx.readReg(reg+1);
-    return data;
+    return m_i2ControlCtx.readWordReg(reg);
 }
 
 uint8_t

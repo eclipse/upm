@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "si7005.h"
+    #include "si7005.hpp"
 %}
 
-%include "si7005.h"
+%include "si7005.hpp"

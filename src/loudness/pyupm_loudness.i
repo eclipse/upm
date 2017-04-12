@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "loudness.h"
+%include "loudness.hpp"
 %{
-    #include "loudness.h"
+    #include "loudness.hpp"
 %}

@@ -23,9 +23,11 @@
  */
 
 
-#include "ads1x15.h"
+#include "ads1x15.hpp"
+#include "mraa/i2c.hpp"
 
 #include <unistd.h>
+#include <syslog.h>
 
 using namespace upm;
 
@@ -37,13 +39,12 @@ ADS1X15::ADS1X15(int bus, uint8_t address){
      }
 
      if((i2c->address(address) != mraa::SUCCESS)){
-           throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.address() failed");
+           throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.address() failed");
            return;
      }
 
      if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS){
-          throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.frequency(I2C_FAST) failed");
-         return;
+           syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
      }
      //Will be reset by sub class.
      m_bitShift = 0;
@@ -125,11 +126,11 @@ ADS1X15::setThresh(ADSTHRESH reg, float value){
      switch((int)reg){
      case 4: //set conversion_rdy operation
           if(i2c->writeWordReg(ADS1X15_REG_POINTER_LOWTHRESH, 0x0000) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
           }
           if(i2c->writeWordReg(ADS1X15_REG_POINTER_HITHRESH, 0x0080) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
           }
           break;
@@ -138,18 +139,18 @@ ADS1X15::setThresh(ADSTHRESH reg, float value){
           set_value = value / getMultiplier();
          set_value = set_value << m_bitShift;
           if(i2c->writeWordReg(reg, swapWord(set_value)) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
           }
           break;
      case 5: //set default
      default:
           if(i2c->writeWordReg(ADS1X15_REG_POINTER_LOWTHRESH, 0x0080) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
           }
           if(i2c->writeWordReg(ADS1X15_REG_POINTER_HITHRESH, 0xF07F) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
           }
           break;
@@ -171,7 +172,7 @@ ADS1X15::updateConfigRegister(uint16_t update, bool read){
      //Mask out read bit if we are just updating the configuration.
      if(!read) temp = update & 0x7FFF;
      if(i2c->writeWordReg(ADS1X15_REG_POINTER_CONFIG, swapWord(temp)) != mraa::SUCCESS){
-            throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.write() failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
      }
      //If we update the configuration re-set the in memory copy.

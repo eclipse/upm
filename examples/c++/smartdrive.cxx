@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "smartdrive.h"
+#include "smartdrive.hpp"
 #include <signal.h>
 
 upm::SmartDrive *drive = NULL;
@@ -44,8 +44,6 @@ sig_handler(int signo)
 int
 main(int argc, char **argv)
 {
-    float voltage = 0;
-
     std::cout << "SmartDrive demo is starting. Please make sure drive is connected to board" << std::endl;
     sleep(2); //Wait for 2 seconds in case you want to fix your h/w setup
     

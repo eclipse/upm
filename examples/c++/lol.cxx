@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "lol.h"
+#include "lol.hpp"
 #include <stdlib.h>
 #include <sys/time.h>
 
@@ -48,7 +48,6 @@ main(int argc, char **argv)
     sensor = new upm::LoL();
     signal(SIGINT, sig_handler);
 
-    unsigned char *buffer;
     //buffer = sensor->getFramebuffer();
     int x = 0, y = 0;
     while (!is_running) {

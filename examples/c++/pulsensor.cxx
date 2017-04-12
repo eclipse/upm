@@ -24,7 +24,7 @@
 
 #include <string.h>
 #include <unistd.h>
-#include "pulsensor.h"
+#include "pulsensor.hpp"
 #include <signal.h>
 
 using namespace upm;
@@ -43,7 +43,7 @@ sig_handler(int signo)
 
 void
 handler (clbk_data data) {
-    printf ("callback data (%d)\n", data);
+    printf ("callback data (%d)\n", data.is_heart_beat);
 }
 
 int
@@ -51,7 +51,7 @@ main(int argc, char **argv)
 {
 //! [Interesting]
     Pulsensor *sensor = new Pulsensor(handler);
-    
+
     sensor->start_sampler();
     while (!doWork) {
         usleep (5);

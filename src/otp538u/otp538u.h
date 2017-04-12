@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,80 +23,76 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
 #include <mraa/aio.h>
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-  /**
-   * @brief OTP538U IR Temperature Sensor library
-   * @defgroup otp538u libupm-otp538u
-   * @ingroup seeed analog light hak
-   */
-  /**
-   * @library otp538u
-   * @sensor otp538u
-   * @comname OTP538U IR Temperature Sensor
-   * @altname Grove IR Temperature Sensor
-   * @type light
-   * @man generic
-   * @con analog
-   * @kit hak
-   *
-   * @brief API for the OTP538U IR Temperature Sensor
-   *
-   * UPM module for the OTP538U IR temperature sensor
-   *
-   * This module was tested with the Grove IR non-contact temperature
-   * sensor.
-   *
-   * The sensor provides 2 analog outputs: one for the thermistor
-   * that measures the ambient temperature, and the other for the thermopile
-   * that measures the object temperature.
-   *
-   * Much of the code depends on analyzing Seeed Studio* examples
-   * and the circuit design. As a result, there are several 'magic'
-   * numbers derived from their circuit design. These values are used
-   * by default.
-   *
-   * The tables used came from the "538U VT
-   * Table__20_200(v1.3).pdf" and "538RT_table.pdf" datasheets.
-   *
-   * These tables assume the object to be measured is 9 cm (3.54
-   * inches) from the sensor.
-   *
-   * @image html otp538u.jpg
-   * @snippet otp538u.cxx Interesting
-   */
-  class OTP538U {
-  public:
+    /**
+     * @file otp538u.h
+     * @library otp538u
+     * @brief C API for the OTP538U IR Temperature Sensor
+     *
+     * @include otp538u.c
+     */
+
+    /**
+     * device context
+     */
+    typedef struct _otp538u_context
+    {
+        mraa_aio_context aioA;
+        mraa_aio_context aioO;
+
+        bool             debug;
+        float            internalVRef;
+        float            aref;
+        int              vResistance;
+        float            offsetVoltage;
+        int              adcResolution;
+    } *otp538u_context;
+
+
     /**
      * OTP538U constructor
      *
      * @param pinA Analog pin to use for the ambient temperature
      * @param pinO Analog pin to use for the object temperature
-     * @param aref Analog reference voltage; default is 5.0 V
+     * @param aref Analog reference voltage
+     * @return intialized context, or NULL if error
      */
-    OTP538U(int pinA, int pinO, float aref = 5.0);
+    otp538u_context otp538u_init(int pinA, int pinO, float aref);
 
     /**
      * OTP538U destructor
+     *
+     * @param dev Device context
      */
-    ~OTP538U();
+    void otp538u_close(otp538u_context dev);
 
     /**
      * Gets the ambient temperature in Celsius
      *
-     * @return Ambient temperature
+     * @param dev Device context
+     * @param temp Ambient temperature
+     * @return UPM status
      */
-    float ambientTemperature();
+    upm_result_t otp538u_get_ambient_temperature(const otp538u_context dev,
+                                                 float *temperature);
 
     /**
      * Gets the object temperature in Celsius
      *
-     * @return Object temperature
+     * @param dev Device context
+     * @param temp Object temperature
+     * @return UPM status
      */
-    float objectTemperature();
+    upm_result_t otp538u_get_object_temperature(const otp538u_context dev,
+                                                float *temperature);
 
     /**
      * Sets the offset voltage
@@ -106,9 +102,10 @@ namespace upm {
      * default value is set, but you can use the function to set one
      * of your own.
      *
+     * @param dev Device context
      * @param vOffset Desired offset voltage
      */
-    void setVoltageOffset(float vOffset) { m_offsetVoltage = vOffset; };
+    void otp538u_set_voltage_offset(const otp538u_context dev, float offset);
 
     /**
      * Sets the output resistance value
@@ -119,10 +116,11 @@ namespace upm {
      * SIG2 output. This was 'decoded' by looking at the EAGLE* files
      * containing their schematics for this device.
      *
+     * @param dev Device context
      * @param outResistance Value of the output resistor; default is 2M Ohm
      */
-    void setOutputResistence(int outResistance) { 
-      m_vResistance = outResistance; };
+    void otp538u_set_output_resistence(const otp538u_context dev,
+                                       int resistance);
 
     /**
      * Sets the reference voltage of the internal Seeed Studio voltage
@@ -135,20 +133,21 @@ namespace upm {
      * looking at the EAGLE files containing their schematics for this
      * device.
      *
-     * @param vref Reference voltage of the internal sensor; default is 2.5 V
+     * @param dev Device context
+     * @param vref Reference voltage of the internal sensor; default
+     * is 2.5
      */
-    void setVRef(float vref) { m_vref = vref; };
+    void otp538u_set_ivref(const otp538u_context dev, float vref);
+
+    /**
+     * Enable debugging output (linux platforms only).
+     *
+     * @param dev Device context
+     * @param enable true to enable some debug output, false otherwise
+     */
+    void otp538u_set_debug(const otp538u_context dev, bool enable);
 
 
-  private:
-    float m_vref;
-    float m_aref;
-    int m_vResistance;
-    float m_offsetVoltage;
-    int m_adcResolution;
-    mraa_aio_context m_aioA;
-    mraa_aio_context m_aioO;
-  };
+#ifdef __cplusplus
 }
-
-
+#endif

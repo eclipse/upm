@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,29 +26,25 @@
 #include <string>
 #include <stdexcept>
 
-#include "yg1006.h"
+#include "yg1006.hpp"
 
 using namespace upm;
 using namespace std;
 
-YG1006::YG1006(int pin)
+YG1006::YG1006(unsigned int pin) :
+    m_yg1006(yg1006_init(pin))
 {
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+    if (!m_yg1006)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": water_init() failed");
 }
 
 YG1006::~YG1006()
 {
-  mraa_gpio_close(m_gpio);
+    yg1006_close(m_yg1006);
 }
 
 bool YG1006::flameDetected()
 {
-  return (!mraa_gpio_read(m_gpio) ? true : false);
+    return yg1006_flame_detected(m_yg1006);
 }

@@ -27,7 +27,7 @@
 #include <string>
 #include <signal.h>
 #include <stdio.h>
-#include "sm130.h"
+#include "sm130.hpp"
 
 using namespace std;
 using namespace upm;

@@ -33,11 +33,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ili9341.h"
+#include "ili9341.hpp"
 
 using namespace upm;
 
-ILI9341::ILI9341(uint8_t csLCD, uint8_t csSD, uint8_t dc, uint8_t rst) :
+ILI9341::ILI9341(int csLCD, int csSD, int dc, int rst) :
     GFX(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT), m_csLCDPinCtx(csLCD), 
     m_csSDPinCtx(csSD), m_dcPinCtx(dc), m_rstPinCtx(rst), m_spi(0) {
     

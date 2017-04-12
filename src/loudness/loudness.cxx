@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "loudness.h"
+#include "loudness.hpp"
 
 using namespace std;
 using namespace upm;

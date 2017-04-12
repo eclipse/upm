@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "max5487.h"
+#include "max5487.hpp"
 #include <signal.h>
 
 upm::MAX5487 *sensor = NULL;

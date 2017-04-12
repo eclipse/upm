@@ -1,5 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
 /*
 * Author:  Yannick Adam <yannick.adam@gmail.com>
 * Copyright (c) 2016 Yannick Adam

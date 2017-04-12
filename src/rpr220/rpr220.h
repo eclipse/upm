@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,93 +23,76 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+
 #include <mraa/gpio.h>
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/**
- * @brief RPR220 IR Reflective Sensor library
- * @defgroup rpr220 libupm-rpr220
- * @ingroup seeed gpio light tsk hak
- */
-/**
- * @library rpr220
- * @sensor rpr220
- * @comname RPR220 IR Reflective Sensor
- * @altname Grove IR Reflective Sensor
- * @type light
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Infrared_Reflective_Sensor
- * @con gpio
- * @kit tsk hak
- *
- * @brief API for the RPR220-based Grove IR Reflective Sensor
- * 
- * UPM module for the Grove IR reflective sensor. The sensitivity
- * can be adjusted with the potentiometer on the sensor module. It
- * has a range of approximately 15 mm, and a quick response time.
- *
- * It detects high-contrast dark areas on a light background.
- *
- * This module allows the user to determine the current status
- * (black detected or not). Additionally, if desired, an interrupt
- * service routine (ISR) can be installed that is called when
- * black is detected. Either method can be used, depending on your
- * use case.
- *
- * @image html rpr220.jpg
- * @snippet rpr220.cxx Interesting
- * @snippet rpr220-intr.cxx Interesting
- */
-  class RPR220 {
-  public:
     /**
-     * RPR220 constructor
+     * @file rpr220.h
+     * @library rpr220
+     * @brief C API for the rpr220 driver
      *
-     * @param pin Digital pin to use
+     * @include rpr220.c
      */
-    RPR220(int pin);
+
+    /**
+     * Device context
+     */
+    typedef struct _rpr220_context {
+        mraa_gpio_context gpio;
+
+        bool isrInstalled;
+    } *rpr220_context;
+
+    /**
+     * RPR220 initialization.
+     *
+     * @param pin Digital pin to use.
+     * @return rpr220 device context
+     */
+    rpr220_context rpr220_init(int pin);
 
     /**
      * RPR220 destructor
+     *
+     * @param dev Device context.
      */
-    ~RPR220();
+    void rpr220_close(rpr220_context dev);
 
     /**
      * Gets the status of the pin; true means black has been detected
      *
+     * @param dev Device context.
      * @return True if the sensor has detected black
      */
-    bool blackDetected();
+    bool rpr220_black_detected(const rpr220_context dev);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(jobject runnable);
-#else
     /**
      * Installs an ISR to be called when
      * black is detected
      *
-     * @param fptr Pointer to a function to be called on interrupt
+     * @param dev Device context.
+     * @param isr Pointer to a function to be called on interrupt
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
-    void installISR(void (*isr)(void *), void *arg);
-#endif
+    void rpr220_install_isr(const rpr220_context dev,
+                            void (*isr)(void *), void *arg);
 
     /**
      * Uninstalls the previously installed ISR
      *
+     * @param dev Device context.
      */
-    void uninstallISR();
+    void rpr220_uninstall_isr(const rpr220_context dev);
 
-  private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(void (*isr)(void *), void *arg);
-#endif
-    bool m_isrInstalled;
-    mraa_gpio_context m_gpio;
-  };
+
+#ifdef __cplusplus
 }
-
-
+#endif

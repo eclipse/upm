@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,52 +26,54 @@
 #include <string>
 #include <stdexcept>
 
-#include "enc03r.h"
+#include "enc03r.hpp"
 
 using namespace upm;
 using namespace std;
 
-ENC03R::ENC03R(int pin, float vref)
+ENC03R::ENC03R(int pin, float aref) :
+    m_enc03r(enc03r_init(pin, aref))
 {
-  if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-
-  m_vref = vref;
-  m_calibrationValue = 0;
+    if (!m_enc03r)
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": enc03r_init() failed");
 }
 
 ENC03R::~ENC03R()
 {
-  mraa_aio_close(m_aio);
-}
-
-unsigned int ENC03R::value()
-{
-  return mraa_aio_read(m_aio);
+    enc03r_close(m_enc03r);
 }
 
 void ENC03R::calibrate(unsigned int samples)
 {
-  unsigned int val;
-  float total = 0.0;
-
-  for (int i=0; i<samples; i++)
-    {
-      val = mraa_aio_read(m_aio);
-      total += (float)val;
-      usleep(2000);
-    }
-
-  m_calibrationValue = total / (float)samples;
+    if (enc03r_calibrate(m_enc03r, samples))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": enc03r_calibrate() failed");
 }
 
-double ENC03R::angularVelocity(unsigned int val)
+void ENC03R::update()
 {
-  // from seeed studio example
-  //return (((double)(val-m_calibrationValue)*(m_vref*1000.0))/1023.0/0.67);
-  return (((double)(val-m_calibrationValue)*(m_vref*1000.0))/685.41);
+    if (enc03r_update(m_enc03r))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": enc03r_update() failed");
+}
+
+float ENC03R::angularVelocity()
+{
+    return enc03r_angular_velocity(m_enc03r);
+}
+
+void ENC03R::setOffset(float offset)
+{
+    enc03r_set_offset(m_enc03r, offset);
+}
+
+void ENC03R::setScale(float scale)
+{
+    enc03r_set_scale(m_enc03r, scale);
+}
+
+float ENC03R::getNormalized()
+{
+    return enc03r_get_normalized(m_enc03r);
 }

@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,252 +26,167 @@
 #include <stdexcept>
 #include <string>
 
-#include "mma7660.h"
+#include "mma7660.hpp"
 
 using namespace upm;
 using namespace std;
 
 
-MMA7660::MMA7660(int bus, uint8_t address)
+MMA7660::MMA7660(int bus, uint8_t address) :
+    m_mma7660(mma7660_init(bus, address))
 {
-  m_addr = address;
-  m_isrInstalled = false;
-
-  // setup our i2c link
-  if ( !(m_i2c = mraa_i2c_init(bus)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_i2c_init() failed");
-      return;
-    }
-      
-  mraa_result_t rv;
-  
-  if ( (rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS)
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_i2c_address() failed");
-      return;
-    }
+    if (!m_mma7660)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_init() failed");
 }
 
 MMA7660::~MMA7660()
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  setModeStandby();
-  mraa_i2c_stop(m_i2c);
+    mma7660_close(m_mma7660);
 }
 
 bool MMA7660::writeByte(uint8_t reg, uint8_t byte)
 {
-  mraa_result_t rv = mraa_i2c_write_byte_data(m_i2c, byte, reg);
-
-  if (rv != MRAA_SUCCESS)
-    {
-      cerr << __FUNCTION__ << ": mraa_i2c_write_byte() failed." << endl;
-      mraa_result_print(rv);
-      return false;
-    }
-
-  return true;
+    if (mma7660_write_byte(m_mma7660, reg, byte))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_write_byte() failed");
+    return true;
 }
 
 uint8_t MMA7660::readByte(uint8_t reg)
 {
-  return mraa_i2c_read_byte_data(m_i2c, reg);
+    uint8_t val = 0;
+    if (mma7660_read_byte(m_mma7660, reg, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_read_byte() failed");
+
+    return val;
 }
 
 void MMA7660::getRawValues(int *x, int *y, int *z)
 {
-  *x = getVerifiedAxis(REG_XOUT);
-  *y = getVerifiedAxis(REG_YOUT);
-  *z = getVerifiedAxis(REG_ZOUT);
+    if (mma7660_get_raw_values(m_mma7660, x, y, z))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_get_raw_values() failed");
 }
-
-#ifdef JAVACALLBACK
-int *MMA7660::getRawValues()
-{
-  int *values = new int[3];
-  getRawValues(&values[0], &values[1], &values[2]);
-  return values;
-}
-#endif
 
 void MMA7660::setModeActive()
 {
-  uint8_t modeReg = readByte(REG_MODE);
-
-  // The D2 (TON bit) should be cleared, and the MODE bit set
-
-  modeReg &= ~MODE_TON;
-  modeReg |= MODE_MODE;
-
-  writeByte(REG_MODE, modeReg);
+    if (mma7660_set_mode_active(m_mma7660))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_set_mode_active() failed");
 }
 
 void MMA7660::setModeStandby()
 {
-  uint8_t modeReg = readByte(REG_MODE);
-
-  // the D0 (mode bit) and D2 (TON bit) should be cleared.
-
-  modeReg &= ~MODE_TON;
-  modeReg &= ~MODE_MODE;
-
-  writeByte(REG_MODE, modeReg);
+    if (mma7660_set_mode_standby(m_mma7660))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_set_mode_standby() failed");
 }
 
 // read an axis value, verifying it's validity
 int MMA7660::getVerifiedAxis(MMA7660_REG_T axis)
 {
-  // We only want one of the 3 axes
+    // We only want one of the 3 axes
 
-  if (axis > 2)
+    if (axis > 2)
     {
-      throw std::out_of_range(std::string(__FUNCTION__) +
-                              ": axis must be 0, 1, or 2.");
-      return 0;
+        throw std::out_of_range(std::string(__FUNCTION__) +
+                                ": axis must be 0, 1, or 2.");
+        return 0;
     }
 
-  // we need to check the alert bit and sign bits if the alert bit is
-  // set, this means that the register was being updated when the
-  // register was read, so re-read until it's clear.
-  
-  uint8_t val;
-  do {
-    val = readByte(axis);
+    int val;
+    if (mma7660_get_verified_axis(m_mma7660, axis, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_get_verified_axis() failed");
 
-    // check alert bit
-  } while (val & 0x40);
-
-  // shift the sign bit over, and compensate
-  return (char(val << 2) / 4);
+    return val;
 }
 
 // read the tilt register, verifying it's validity
 uint8_t MMA7660::getVerifiedTilt()
 {
-  // we need to check the alert bit and sign bits if the alert bit is
-  // set, this means that the register was being updated when the
-  // register was read, so re-read until it's clear.
-  
-  uint8_t val;
-  do {
-    val = readByte(REG_TILT);
+    uint8_t val;
+    if (mma7660_get_verified_tilt(m_mma7660, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_get_verified_axis() failed");
 
-    // check alert bit
-  } while (val & 0x40);
-
-  return val;
+    return val;
 }
 
 uint8_t MMA7660::tiltBackFront()
 {
-  uint8_t val = getVerifiedTilt();
+    uint8_t val;
+    if (mma7660_tilt_back_front(m_mma7660, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_tilt_back_front() failed");
 
-  // mask off the bits we don't care about
-  val &= 0x03;
-  return val;
+    return val;
 }
 
 uint8_t MMA7660::tiltLandscapePortrait()
 {
-  uint8_t val = getVerifiedTilt();
+    uint8_t val;
+    if (mma7660_tilt_landscape_portrait(m_mma7660, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_tilt_landscape_portrait() failed");
 
-  // mask off the bits we don't care about
-  val >>= 2;
-  val &= 0x07;
-  return val;
+    return val;
 }
 
 bool MMA7660::tiltTap()
 {
-  uint8_t val = getVerifiedTilt();
+    bool val;
+    if (mma7660_tilt_tap(m_mma7660, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_tilt_tap_portrait() failed");
 
-  if (val & 0x20)
-    return true;
-  else
-    return false;
+    return val;
 }
 
 bool MMA7660::tiltShake()
 {
-  uint8_t val = getVerifiedTilt();
+    bool val;
+    if (mma7660_tilt_shake(m_mma7660, &val))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_tilt_tap_shake() failed");
 
-  if (val & 0x80)
-    return true;
-  else
-    return false;
+    return val;
 }
-
-#ifdef JAVACALLBACK
-void MMA7660::installISR(int pin, jobject runnable)
-{
-        installISR(pin, mraa_java_isr_callback, runnable);
-}
-#endif
 
 void MMA7660::installISR(int pin, void (*isr)(void *), void *arg)
 {
-  if (m_isrInstalled)
-    uninstallISR();
-
-  if ( !(m_gpio = mraa_gpio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init() failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
-
-  // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
-                isr, arg);
-  m_isrInstalled = true;
+    if (mma7660_install_isr(m_mma7660, pin, isr, arg))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_install_isr() failed");
 }
 
 void MMA7660::uninstallISR()
 {
-  if (!m_isrInstalled)
-    return;
-
-  mraa_gpio_isr_exit(m_gpio);
-  m_isrInstalled = false;
-  mraa_gpio_close(m_gpio);
+    mma7660_uninstall_isr(m_mma7660);
 }
 
 bool MMA7660::setInterruptBits(uint8_t ibits)
 {
-  return writeByte(REG_INTSU, ibits);
+    if (mma7660_set_interrupt_bits(m_mma7660, ibits))
+        return false;
+    else
+        return true;
 }
 
 bool MMA7660::setSampleRate(MMA7660_AUTOSLEEP_T sr)
 {
-  return writeByte(REG_SR, sr);
+    if (mma7660_set_sample_rate(m_mma7660, sr))
+        return false;
+    else
+        return true;
 }
 
 void MMA7660::getAcceleration(float *ax, float *ay, float *az)
 {
-  int x, y, z;
-
-  getRawValues(&x, &y, &z);
-
-  // 21.33, typical counts/g
-
-  *ax = x/21.33;
-  *ay = y/21.33;
-  *az = z/21.33;
+    if (mma7660_get_acceleration(m_mma7660, ax, ay, az))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_get_acceleration() failed");
 }
-
-#ifdef JAVACALLBACK
-float *MMA7660::getAcceleration()
-{
-  float *values = new float[3];
-  getAcceleration(&values[0], &values[1], &values[2]);
-  return values;
-}
-#endif
 

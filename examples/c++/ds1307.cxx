@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "ds1307.h"
+#include "ds1307.hpp"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ void printTime(upm::DS1307 *rtc)
        << rtc->hours << ":" << rtc->minutes << ":" << rtc->seconds;
 
   if (rtc->amPmMode)
-    cout << (rtc->pm) ? " PM " : " AM ";
+    cout << ((rtc->pm) ? " PM " : " AM ");
 
   cout << endl;
 

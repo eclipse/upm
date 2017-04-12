@@ -10,7 +10,7 @@
 %include "pn532_doc.i"
 #endif
 
-%include "pn532.h"
+%include "pn532.hpp"
 %{
-    #include "pn532.h"
+    #include "pn532.hpp"
 %}

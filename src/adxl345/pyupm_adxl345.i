@@ -19,7 +19,7 @@
 %include "adxl345_doc.i"
 #endif
 
-%include "adxl345.h"
+%include "adxl345.hpp"
 %{
-    #include "adxl345.h"
+    #include "adxl345.hpp"
 %}

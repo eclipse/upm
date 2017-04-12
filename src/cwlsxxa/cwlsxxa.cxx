@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "cwlsxxa.h"
+#include "cwlsxxa.hpp"
 
 using namespace upm;
 using namespace std;
@@ -33,7 +33,7 @@ using namespace std;
 // several aio reads.
 static const int maxSamples = 50;
 
-// conversion from celcius to fahrenheit
+// conversion from celsius to fahrenheit
 
 static float c2f(float c)
 {

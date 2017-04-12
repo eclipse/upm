@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovegsr.h"
+#include "grovegsr.hpp"
 
 using namespace std;
 

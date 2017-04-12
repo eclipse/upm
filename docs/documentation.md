@@ -4,7 +4,7 @@ Writing sensor documentation                        {#documentation}
 It is highly encouraged to provide at least some basic documentation for the
 sensors that you want to add to UPM:
 
-- If you don't add documentation, the code review will take very long and 
+- If you don't add documentation, the code review will take very long and
   your contribution could be rejected.
 - Try to have no warnings in doxygen, this is generally fairly easy.
 - Have the specific sensor manufacturer/model & version that you used, if you
@@ -15,7 +15,7 @@ sensors that you want to add to UPM:
 
 ####The sensor block
 
-This is added just before the class declaration in your header(.h) file and has 
+This is added just before the class declaration in your header(.h) file and has
 mandatory fields. For single sensor libraries, this block will actually
 follow immediately after the library block. If you have multiple physical
 sensors, add this to every one.
@@ -36,7 +36,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
  * @kit <component-kit>
  *
  * @brief Short class/sensor description
- * 
+ *
  *   Then add a longer
  *   description here.
  *
@@ -52,8 +52,9 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 - `<chip-id>` Usually the chip number used by the sensor. When this is not
   available or relevant, use a unique descriptor that makes sense. Must match
   class name. *Mandatory*
-- `<component-name>` A short name for your sensor, try to avoid including the
-  manufacturer's name here. *Mandatory*
+- `<component-name>` Title Case descriptive name for your sensor, try to avoid
+  including the manufacturer's name here.  Examples: Digital Pressure Sensor,
+  Serial MP3 Module, etc... *Mandatory*
 - `<alt-name>` Alternative names that your sensor driver might have. This may
   include manufacturer's name. *Optional*
 - `<alt-id>` Alternative chip-ids that your sensor driver supports. *Optional*
@@ -66,7 +67,7 @@ Here's an example (disregard the "@verbatim" tags in your actual code):
 - `<component-kit>` Specifies if the sensor is part of a kit. *Optional*
 
 Existing groups that can be used for the manufacturer, connection, category and
-kit tags are found in the src/upm.h file.
+kit tags are found in the *src/groups.md* file.
 
 Optionally, a small representative image can be placed in the "docs/images"
 subfolder and linked with the "@image" tag.

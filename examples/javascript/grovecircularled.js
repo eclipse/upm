@@ -1,5 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
 /*
  * Author: Jun Kato
  * Contributions: Jon Trulson <jtrulson@ics.com>

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "adafruitss.h"
+%include "adafruitss.hpp"
 %{
-    #include "adafruitss.h"
+    #include "adafruitss.hpp"
 %}

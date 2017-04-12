@@ -27,14 +27,14 @@
 #include <stdexcept>
 #include <string.h>
 
-#include "lsm9ds0.h"
+#include "lsm9ds0.hpp"
 
 using namespace upm;
 using namespace std;
 
 
-LSM9DS0::LSM9DS0(int bus, uint8_t gAddress, uint8_t xmAddress) :
-  m_i2cG(bus), m_i2cXM(bus), m_gpioG_INT(0), m_gpioG_DRDY(0),
+LSM9DS0::LSM9DS0(int bus, bool raw, uint8_t gAddress, uint8_t xmAddress) :
+  m_i2cG(bus, raw), m_i2cXM(bus, raw), m_gpioG_INT(0), m_gpioG_DRDY(0),
   m_gpioXM_GEN1(0), m_gpioXM_GEN2(0)
 {
   m_gAddr = gAddress;

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #
@@ -21,19 +22,22 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
-# New Grove Slider on AIO pin 0
-slider = grove.GroveSlide(0)
+def main():
+    # New Grove Slider on AIO pin 0
+    slider = grove.GroveSlide(0)
 
-# Loop indefinitely
-while True:
+    # Loop indefinitely
+    while True:
+        # Read values
+        raw = slider.raw_value()
+        volts = slider.voltage_value()
 
-    # Read values
-    raw = slider.raw_value()
-    volts = slider.voltage_value()
+        print("Slider value: ", raw , " = %.2f" % volts , " V")
 
-    print "Slider value: ", raw , " = %.2f" % volts , " V"
+        # Sleep for 2.5 s
+        sleep(2.5)
 
-    # Sleep for 2.5 s
-    sleep(2.5)
+if __name__ == '__main__':
+    main()

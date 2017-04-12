@@ -3,7 +3,7 @@
 %include "../carrays_uint16_t.i"
 
 %{
-    #include "mic.h"
+    #include "mic.hpp"
 %}
 
-%include "mic.h"
+%include "mic.hpp"

@@ -1,12 +1,12 @@
 %module jsupm_ssd1351
 %include "../upm.i"
 
-%include "gfx.h"
+%include "ssd1351_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "ssd1351_gfx.hpp"
 %}
 
-%include "ssd1351.h"
+%include "ssd1351.hpp"
 %{
-    #include "ssd1351.h"
+    #include "ssd1351.hpp"
 %}

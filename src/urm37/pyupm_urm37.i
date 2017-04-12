@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "urm37.h"
+    #include "urm37.hpp"
 %}
-%include "urm37.h"
+%include "urm37.hpp"
 

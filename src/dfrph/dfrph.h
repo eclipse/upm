@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,123 +21,100 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <mraa/aio.hpp>
+#include "upm.h"
+#include "mraa/aio.h"
 
-namespace upm {
-  /**
-   * @brief DFRobot pH sensors
-   * @defgroup dfrph libupm-dfrph
-   * @ingroup dfrobot liquid analog
-   */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-  /**
-   * @library dfrph
-   * @sensor dfrph
-   * @comname DFRobot pH Sensors
-   * @type liquid
-   * @man dfrobot 
-   * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1110
-   * @con analog
-   *
-   * @brief API for the DFRobot pH Sensors
-   *
-   * This sensor family returns an analog voltage proportional to the
-   * acidity or alkalinity of a liquid -- it's pH value.
-   *
-   * This driver was developed using the DFRobot Analog pH meter and
-   * the DFRobot Analog pH Meter Pro.
-   *
-   *
-   * Calibration instructions, taken and slightly reworded from the
-   *  DFRobot wiki at:
-   *  http://dfrobot.com/wiki/index.php/PH_meter%28SKU:_SEN0161%29
-   *
-   *  1) Connect equipment: the pH electrode is connected to the BNC
-   *  connector on the pH meter board, and then the pH meter board is
-   *  connected to the analog port 0 of the controller. When the
-   *  controller gets power, you will see the blue LED on board is on.
-   *
-   *  2) Put the pH electrode into the standard solution whose pH
-   *  value is 7.00.  Run the dfrph example and note the pH output
-   *  value.  Compare the value with 7.00, and calculate the
-   *  difference.  This is the value you should supply to the
-   *  setOffset() method.
-   *
-   *  3) Put the pH electrode into the pH standard solution whose
-   *  value is 4.00. Then wait about one minute, and adjust the
-   *  potentiometer on the interface board.  Let the value stabilise
-   *  at around 4.00. At this time,the acidic calibration has been
-   *  completed and you can measure the pH value of an acidic
-   *  solution.
-   *
-   *  4) According to the linear characteristics of pH electrode
-   *  itself, after the above calibration,you can directly measure the
-   *  pH value of the alkaline solution. If you want to get better
-   *  accuracy, you can recalibrate it. Alkaline calibration use the
-   *  standard solution whose pH value is 9.18.  Also adjust the
-   *  potentiometer and let the value stabilise at around 9.18. After
-   *  this calibration, you can measure the pH value of an alkaline
-   *  solution.
-   *
-   * @image html dfrph.jpg
-   * @snippet dfrph.cxx Interesting
-   */
+/**
+ * @file dfrph.h
+ * @library dfrph
+ * @brief C API for the DFRobot pH Sensors
+ *
+ * @include dfrph.c
+ */
 
-  class DFRPH {
-  public:
-
-    /**
-     * DFRPH constructor
-     *
-     * @param pin Analog pin to use
-     * @param aref Analog reference voltage; default is 5.0 V
-     */
-    DFRPH(int pin, float aref=5.0);
-
-    /**
-     * DFRPH destructor
-     */
-    ~DFRPH();
-
-    /**
-     * Returns the voltage detected on the analog pin
-     *
-     * @return The detected voltage
-     */
-    float volts();
-
-    /**
-     * Specifies the offset determined from calibration.  The default
-     * is 0.0.
-     *
-     * @param offset The offset value to use
-     */
-    void setOffset(float offset);
-
-    /**
-     * Take a number of samples and return the detected pH value.  The
-     * default number of samples is 15.
-     *
-     * @param samples The number of samples to average over, default 15
-     * @return The pH value detected
-     */
-    float pH(unsigned int samples=15);
-
-  protected:
-    mraa::Aio m_aio;
-
-  private:
+/**
+ * device context
+ */
+typedef struct _dfrph_context {
+    /* mraa aio pin context */
+    mraa_aio_context aio;
+    /* ADC reference */
     float m_aref;
-    // ADC resolution
-    int m_aRes;
-
-    // voltage offset
+    /* Raw count offset */
     float m_offset;
-  };
+    /* Raw count scale */
+    float m_scale;
+} *dfrph_context;
+
+/**
+ * Initialize analog sensor
+ * @param pin is Analog pin
+ * @return sensor context as void pointer
+ */
+dfrph_context dfrph_init(int16_t pin);
+
+/**
+ * Analog sensor destructor
+ * @param sensor context pointer deallocate memory
+ */
+void dfrph_close(dfrph_context dev);
+
+/**
+ * Set ADC reference voltage
+ * @param dev sensor context pointer
+ * @param aref ADC reference voltage
+ * @return Function result code
+ */
+upm_result_t dfrph_set_aref(const dfrph_context dev, float aref);
+
+/**
+ *  Get sensor aref
+ *  @param dev sensor context pointer
+ *  @return Sensor ADC reference voltage
+ */
+float dfrph_get_aref(const dfrph_context dev);
+
+/**
+ * Set sensor offset.  This offset is applied to the return value:
+ *     counts = counts + offset
+ * @param dev sensor context pointer
+ * @param offset count offset value used
+ * @return Function result code
+ */
+upm_result_t dfrph_set_offset(const dfrph_context dev, float offset);
+
+/**
+ * Set sensor scale.  This scale is applied to the return value:
+ *     counts = counts * scale
+ * @param dev sensor context pointer
+ * @param scale count scale value used
+ * @return Function result code
+ */
+upm_result_t dfrph_set_scale(const dfrph_context dev, float scale);
+
+/**
+ * Get raw volts
+ * @param dev sensor context pointer
+ * @param volts Raw sensor voltage
+ * @return Function result code
+ */
+upm_result_t dfrph_get_raw_volts(const dfrph_context dev, float *volts);
+
+/**
+ * Read value from sensor
+ * @param dev sensor context pointer
+ * @param value pointer to returned pH value from sensor
+ * @return Function result code
+ */
+upm_result_t dfrph_get_ph(const dfrph_context dev, float *value);
+
+#ifdef __cplusplus
 }
-
-
+#endif

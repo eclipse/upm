@@ -24,11 +24,12 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "nrf8001.h"
-#include "nrf8001-broadcast.h"
+#include "nrf8001.hpp"
+#include "nrf8001-broadcast.hpp"
 #include <lib_aci.h>
 #include <aci_setup.h>
 #include <signal.h>
+#include <assert.h>
 
 #ifdef SERVICES_PIPE_TYPE_MAPPING_CONTENT
     static services_pipe_type_mapping_t
@@ -77,11 +78,11 @@ init_aci_setup () {
     /**
      * Point ACI data structures to the the setup data that the nRFgo studio generated for the nRF8001
      */
-    if (NULL != services_pipe_type_mapping) {
-        aci_state.aci_setup_info.services_pipe_type_mapping = &services_pipe_type_mapping[0];
-    } else {
-        aci_state.aci_setup_info.services_pipe_type_mapping = NULL;
-    }
+    // abort if this is NULL
+    assert(services_pipe_type_mapping != NULL);
+
+    aci_state.aci_setup_info.services_pipe_type_mapping =
+        &services_pipe_type_mapping[0];
 
     aci_state.aci_setup_info.number_of_pipes    = NUMBER_OF_PIPES;
     aci_state.aci_setup_info.setup_msgs         = setup_msgs;
@@ -122,6 +123,8 @@ main(int argc, char **argv)
                             lib_aci_broadcast(10/* in seconds */, 0x0100 /* advertising interval 100ms */);
                             printf ("Broadcasting started\n");
                         break;
+                        default:
+                        break;
                     }
                 }
                 break; //ACI Device Started Event
@@ -155,6 +158,8 @@ main(int argc, char **argv)
 
                 case ACI_EVT_HW_ERROR:
                     printf ("ACI_EVT_HW_ERROR\n");
+                    break;
+                default:
                     break;
             }
         }

@@ -1,6 +1,6 @@
 /*
- * Author: Alexander Komarov <alexander.komarov@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Noel Eck <noel.eck@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,77 +21,139 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #pragma once
 
-#include <string>
-#include <mraa/gpio.h>
-#include <mraa/aio.h>
+#include "upm.h"
+#include "mraa/aio.h"
 
-namespace upm {
-
-/**
- * @brief Analog Joystick library
- * @defgroup joystick12 libupm-joystick12
- * @ingroup generic analog ainput robok
- */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
+ * @file joystick12.h
  * @library joystick12
- * @sensor joystick12
- * @comname Analog Joystick
- * @type ainput
- * @man generic
- * @con analog
- * @kit robok
+ * @brief C API for Analog 2-Axis Joysticks
  *
- * @brief API for the ElecFreaks* Joystick v 1.2-1.4 Breakout
- *
- * This module defines the Joystick API, and implementation for the X and Y
- * buttons could be treated as normal GPIO - this enables easier
- * interrupt support. This driver should be compatible with any
- * 2-axis analog joystick.
- *
- * @image html joystick12.jpg
- * @snippet joystick12-example.cxx Interesting
+ * @include joystick12.c
  */
-class Joystick12 {
-    public:
-        /**
-         * Instantiates a Joystick object
-         *
-         * @param pinX Analog pin where the X input is connected
-         * @param pinY Analog pin where the Y input is connected
-         */
-        Joystick12(int pinX, int pinY);
 
-        /**
-         * Joystick object destructor
-         */
-        ~Joystick12();
+/**
+ * device context
+ */
+typedef struct _joystick12_context {
+    /* mraa ai_x pin context */
+    mraa_aio_context ai_x;
+    /* mraa ai_y pin context */
+    mraa_aio_context ai_y;
+    /* Raw count offset - x axis */
+    float m_count_offset_x;
+    /* Raw count offset - y axis */
+    float m_count_offset_y;
+    /* Raw count scale - x axis */
+    float m_count_scale_x;
+    /* Raw count scale - y axis */
+    float m_count_scale_y;
+} *joystick12_context;
 
-        /**
-         * Gets the X input
-         * @return float X value, ranging from -1 to 1; 0 is mid
-         */
-        float getXInput();
+/**
+ * Initialize analog sensor
+ * @param pin is Analog pin
+ * @return sensor context as void pointer
+ */
+joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y);
 
-        /**
-         * Gets the Y input
-         *
-         * @return float Y value, ranging from -1 to 1; 0 is mid
-         */
-        float getYInput();
+/**
+ * Analog sensor destructor
+ * @param sensor context pointer deallocate memory
+ */
+void joystick12_close(joystick12_context dev);
 
-    private:
-        mraa_aio_context    m_joystickCtxX;
-        mraa_aio_context    m_joystickCtxY;
+/**
+ * Generic read joystick data method
+ * @param dev sensor device context pointer
+ * @param value pointer to an int[2] in which data is returned
+ */
+upm_result_t joystick12_read_data(const joystick12_context dev, int* values);
 
-        static const int X_left;
-        static const int X_center;
-        static const int X_right;
-        static const int Y_left;
-        static const int Y_center;
-        static const int Y_right;
-};
-};
+/**
+ * Set sensor offset.  This offset is applied to the return value:
+ *     counts = counts + offset
+ * @param dev sensor context pointer
+ * @param offset count offset value used
+ * @return Function result code
+ */
+upm_result_t joystick12_set_offset_x(const joystick12_context dev,
+                                     float offset);
 
+/**
+ * Set sensor offset.  This offset is applied to the return value:
+ *     counts = counts + offset
+ * @param dev sensor context pointer
+ * @param offset count offset value used
+ * @return Function result code
+ */
+upm_result_t joystick12_set_offset_y(const joystick12_context dev,
+                                     float offset);
+
+/**
+ * Set sensor scale.  This scale is applied to the return value:
+ *     counts = counts * scale
+ * @param dev sensor context pointer
+ * @param scale count scale value used
+ * @return Function result code
+ */
+upm_result_t joystick12_set_scale_x(const joystick12_context dev, float scale);
+
+/**
+ * Set sensor scale.  This scale is applied to the return value:
+ *     counts = counts * scale
+ * @param dev sensor context pointer
+ * @param scale count scale value used
+ * @return Function result code
+ */
+upm_result_t joystick12_set_scale_y(const joystick12_context dev, float scale);
+
+/**
+ * Read value from sensor
+ * @param dev sensor context pointer
+ * @param *value normalized value from sensor, units depend on unit enum
+ * @param unit Enum which specifies units returned in *value
+ * @return Function result code
+ */
+upm_result_t joystick12_get_value_x(const joystick12_context dev, float *value);
+
+/**
+ * Read value from sensor
+ * @param dev sensor context pointer
+ * @param *value normalized value from sensor, units depend on unit enum
+ * @param unit Enum which specifies units returned in *value
+ * @return Function result code
+ */
+upm_result_t joystick12_get_value_y(const joystick12_context dev, float *value);
+
+/**
+ * Zero out the sensor x and y axis
+ * @param dev sensor context pointer
+ * @return Function result code
+ */
+upm_result_t joystick12_zero(const joystick12_context dev);
+
+/**
+ * Set x scale.  Move joystick to min or max x and call calibrate
+ * @param dev sensor context pointer
+ * @return Function result code
+ */
+upm_result_t joystick12_calibrate_x(const joystick12_context dev);
+
+/**
+ * Set y scale.  Move joystick to min or max y and call calibrate
+ * @param dev sensor context pointer
+ * @return Function result code
+ */
+upm_result_t joystick12_calibrate_y(const joystick12_context dev);
+
+#ifdef __cplusplus
+}
+#endif

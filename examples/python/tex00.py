@@ -21,45 +21,50 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_tex00 as sensorObj
+from upm import pyupm_tex00 as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Initializing..."
+    print("Initializing...")
 
-# Instantiate an TEX00 instance, using A0 for the analog input.  In
-# this example, we are using a 10K Ohm balance resistor and a TED
-# (10k type 2) thermistor.
-sensor = sensorObj.TEX00(0, 10000, sensorObj.TEX00.STYPE_THERMISTOR_TED)
+    # Instantiate an TEX00 instance, using A0 for the analog input.  In
+    # this example, we are using a 10K Ohm balance resistor and a TED
+    # (10k type 2) thermistor.
+    sensor = sensorObj.TEX00(0, 10000, sensorObj.TEX00.STYPE_THERMISTOR_TED)
 
-print "Minimum temperature:", sensor.getTemperatureRangeMin(), "C"
-print "Maximum temperature:", sensor.getTemperatureRangeMax(), "C"
-print
+    print("Minimum temperature:", sensor.getTemperatureRangeMin(), "C")
+    print("Maximum temperature:", sensor.getTemperatureRangeMax(), "C")
+    print()
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values from the sensor
         sensor.update()
 
         if (sensor.isOutOfRange()):
-                print "Temperature out of range"
+            print("Temperature out of range")
         else:
-                # we show both C and F for temperature
-                print "Temperature:", sensor.getTemperature(), "C /",
-                print sensor.getTemperature(True), "F"
+            # we show both C and F for temperature
+            print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+            print(sensor.getTemperature(True), "F")
 
-        print
-	time.sleep(1)
+        print()
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "grovevdiv.h"
+%include "grovevdiv.hpp"
 %{
-    #include "grovevdiv.h"
+    #include "grovevdiv.hpp"
 %}

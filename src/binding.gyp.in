@@ -1,0 +1,37 @@
+{
+  'targets': [
+    {
+      'target_name': 'jsupm_@libname@',
+      'sources': [
+        @upm_LIB_SRCS_GYP@
+      ],
+      'include_dirs': [
+        '<@(mraa_include_dir)',
+        @upm_LIB_INCLUDE_DIRS_GYP@
+      ],
+      'variables': {
+        'node_mraa': '<!(node -p -e "require(\'path\').dirname(require.resolve(\'mraa\'))")',
+        'mraa_include_dir': [
+          '<(node_mraa)/../../api'
+        ],
+        'mraa_libraries': [
+          '<(node_mraa)/mraa.node',
+          '-Wl,-rpath,<(node_mraa)',
+        ],
+        "v8_version%": "<!(node -e 'console.log(process.versions.v8)' | sed 's/\.//g' | cut -c 1-5)",
+        "arch%": "<!(node -e 'console.log(process.arch)')"
+      },
+      'link_settings': {
+        'libraries' : [ '<@(mraa_libraries)' ]
+      },
+      'cflags_cc!': [ '-fno-rtti', '-fno-exceptions' ],
+      'cflags!': [ '-fno-exceptions' ],
+      'defines' : [
+        'SWIG',
+        'BUILDING_NODE_EXTENSION=1',
+        'SWIG_V8_VERSION=0x0<(v8_version)',
+        'V8_VERSION=0x0<(v8_version)'
+      ]
+    }
+  ]
+}

@@ -31,13 +31,12 @@
 #include <pthread.h>
 #include <math.h>
 
-#include "mma7455.h"
+#include "mma7455.hpp"
 
 using namespace upm;
 
 MMA7455::MMA7455 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     unsigned char data   = 0;
-    int           nBytes = 0;
 
     m_name = "MMA7455";
 
@@ -98,7 +97,6 @@ MMA7455::calibrate () {
 mraa::Result
 MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     accelData xyz;
-    unsigned char data = 0;
     int nBytes = 0;
 
     /*do {

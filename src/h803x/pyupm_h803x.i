@@ -6,7 +6,7 @@
 
 %feature("autodoc", "3");
 
-%include "h803x.h"
+%include "h803x.hpp"
 %{
-    #include "h803x.h"
+    #include "h803x.hpp"
 %}

@@ -28,7 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "pca9685.h"
+#include "pca9685.hpp"
 
 using namespace upm;
 using namespace std;
@@ -107,12 +107,20 @@ bool PCA9685::writeWord(uint8_t reg, uint16_t word)
 
 uint8_t PCA9685::readByte(uint8_t reg)
 {
-  return mraa_i2c_read_byte_data(m_i2c, reg);
+  int x = mraa_i2c_read_byte_data(m_i2c, reg);
+  if (x != -1) {
+    return (uint8_t) x;
+  }
+  return 0;
 }
 
 uint16_t PCA9685::readWord(uint8_t reg)
 {
-  return mraa_i2c_read_word_data(m_i2c, reg);
+  int x = mraa_i2c_read_word_data(m_i2c, reg);
+  if (x != -1) {
+    return (uint16_t) x;
+  }
+  return 0;
 }
 
 bool PCA9685::setModeSleep(bool sleep)

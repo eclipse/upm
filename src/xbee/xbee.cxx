@@ -25,7 +25,7 @@
 #include <iostream>
 #include <time.h>
 
-#include "xbee.h"
+#include "xbee.hpp"
 
 using namespace upm;
 using namespace std;
@@ -94,7 +94,7 @@ bool XBee::commandMode(std::string cmdChars, int guardTimeMS)
 
 string XBee::stringCR2LF(string str)
 {
-  for (int i=0; i<str.size(); i++)
+  for (size_t i=0; i<str.size(); i++)
     if (str[i] == '\r')
       str[i] = '\n';
   

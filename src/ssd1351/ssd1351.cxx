@@ -30,12 +30,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "ssd1351.h"
+#include "ssd1351.hpp"
 
 using namespace upm;
 using namespace std;
 
-SSD1351::SSD1351 (uint8_t oc, uint8_t dc, uint8_t rst) :
+SSD1351::SSD1351 (int oc, int dc, int rst) :
         GFX(SSD1351WIDTH, SSD1351HEIGHT),
         m_spi(0), m_oc(oc), m_dc(dc), m_rst(rst) {
 
@@ -44,7 +44,7 @@ SSD1351::SSD1351 (uint8_t oc, uint8_t dc, uint8_t rst) :
 
     // Setup SPI bus
     m_spi.frequency(8 * 1000000);
-    m_spi.mode(mraa::SPI_MODE3);
+    m_spi.mode(mraa::SPI_MODE0);
     m_spi.writeByte(0x00); // Need to bring clk high before init
 
     // Init pins

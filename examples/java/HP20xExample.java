@@ -42,7 +42,7 @@ public class HP20xExample {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following exception occured: "+e.getMessage());
+				System.out.println("The following exception occurred: "+e.getMessage());
 			}
 		}
 		//! [Interesting]

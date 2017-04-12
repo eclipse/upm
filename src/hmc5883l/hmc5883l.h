@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2017 Intel Corporation.
+ *
+ * Ported based on original C++ code by:
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Copyright (c) 2014 Intel Corporation.
@@ -24,88 +28,105 @@
  */
 #pragma once
 
-#include <mraa/i2c.hpp>
+#include <stdint.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#define MAX_BUFFER_LENGTH 6
+#include <upm.h>
+#include <mraa/i2c.h>
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/**
- * @brief HMC5883L Magnometer library
- * @defgroup hmc5883l libupm-hmc5883l
- * @ingroup seeed i2c compass robok
- */
-
-/**
- * @library hmc5883l
- * @sensor hmc5883l
- * @comname HMC5883L 3-Axis Digital Compass
- * @altname Grove 3-Axis Digital Compass
- * @type compass
- * @man seeed
- * @con i2c
- * @kit robok
- *
- * @brief API for the HMC5883L 3-Axis Digital Compass
- *
- * Honeywell [HMC5883L]
- * (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)
- * is a 3-axis digital compass. Communication with HMC5883L is simple and
- * all done through an I2C interface. Different breakout boards are available.
- * Typically, a 3V supply is all that is needed to power the sensor.
- *
- * @image html hmc5883l.jpeg
- * @snippet hmc5883l.cxx Interesting
- */
-class Hmc5883l {
-public:
     /**
-     * Creates an Hmc5883l object
+     * @file hmc5883l.h
+     * @library hmc5883l
+     * @brief HMC5883L 3-Axis Digital Compass
+     *
+     */
+
+    /**
+     * Device context
+     */
+    typedef struct _hmc5883l_context {
+        mraa_i2c_context i2c;
+
+        int16_t coords[3];
+        float   declination;
+    } *hmc5883l_context;
+
+
+    /**
+     * Initialize an Hmc5883l device
      *
      * @param bus Number of the used I2C bus
+     * @return Device context, or NULL on error
      */
-    Hmc5883l(int bus);
-
-    /*
-     * Returns the direction
-     */
-    float direction();
-
-    /*
-     * Returns the heading
-     */
-    float heading();
+    hmc5883l_context hmc5883l_init(int bus);
 
     /**
-     * Returns a pointer to an int[3] that contains the coordinates as ints
+     * Close the device
      *
-     * @return *int to an int[3]
+     * @param Device context
      */
-    int16_t* coordinates();
+    void hmc5883l_close(hmc5883l_context dev);
 
     /**
      * Updates the values by reading from I2C
      *
-     * @return 0 if successful
+     * @param Device context
+     * @return UPM result
      */
-    mraa::Result update();
+    upm_result_t hmc5883l_update(const hmc5883l_context dev);
 
-    /**
-     * Sets the magnetic declination for better calibration
-     */
-    void set_declination(float dec);
-
-    /**
-     * Gets the current magnetic declination value
+    /*
+     * Returns the direction.  hmc5883l_update() must have been called
+     * prior to calling this function.
      *
+     * @param Device context
+     * @return Direction
+     */
+    float hmc5883l_direction(const hmc5883l_context dev);
+
+    /*
+     * Returns the heading.  hmc5883l_update() must have been called
+     * prior to calling this function.
+     *
+     * @param Device context
+     * @return Heading
+     */
+    float hmc5883l_heading(const hmc5883l_context dev);
+
+    /**
+     * Returns a pointer to an int[3] that contains the coordinates as
+     * integers.  hmc5883l_update() must have been called prior to calling
+     * this function.
+     *
+     * @param Device context
+     * @return *int to an int[3] (X, Y, Z)
+     */
+    const int16_t *hmc5883l_coordinates(const hmc5883l_context dev);
+
+    /**
+     * Sets the magnetic declination for better accuracy.
+     * hmc5883l_update() must have been called prior to calling this
+     * function.
+     *
+     * @param Device context
+     * @param dec The magnetic declination
+     */
+    void hmc5883l_set_declination(const hmc5883l_context dev, float dec);
+
+    /**
+     * Gets the current magnetic declination value.  hmc5883l_update()
+     * must have been called prior to calling this function.
+     *
+     * @param Device context
      * @return Magnetic declination as a floating-point value
      */
-    float get_declination();
-private:
-    int16_t m_coor[3];
-    float m_declination;
-    uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
-    mraa::I2c m_i2c;
-};
+    float hmc5883l_get_declination(const hmc5883l_context dev);
 
+#ifdef __cplusplus
 }
+#endif

@@ -1,0 +1,5 @@
+set (libname "mma8x5x")
+set (libdescription "Tri-axis Accelerometer Sensor")
+set (module_src ${libname}.cpp)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

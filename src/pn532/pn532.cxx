@@ -36,7 +36,7 @@
 #undef JAVACALLBACK
 #endif
 
-#include "pn532.h"
+#include "pn532.hpp"
 
 using namespace upm;
 using namespace std;
@@ -192,16 +192,14 @@ uint32_t PN532::getFirmwareVersion()
   @param  cmdlen    The size of the command in bytes 
   @param  timeout   timeout before giving up
     
-  @returns  1 if everything is OK, 0 if timeout occured before an
-  ACK was recieved
+  @returns  1 if everything is OK, 0 if timeout occurred before an
+  ACK was received
 */
 /**************************************************************************/
 // default timeout of one second
 bool PN532::sendCommandCheckAck(uint8_t *cmd, uint8_t cmdlen, 
                                 uint16_t timeout)
 {
-  uint16_t timer = 0;
-
   // clear any outstanding irq's
   isReady();
   
@@ -747,7 +745,6 @@ bool PN532::mifareclassic_AuthenticateBlock (uint8_t * uid, uint8_t uidLen,
                                              uint8_t keyNumber,
                                              uint8_t * keyData)
 {
-  uint8_t len;
   uint8_t i;
   
   // Hang on to the key and uid data

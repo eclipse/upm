@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "mlx90614.h"
+#include "mlx90614.hpp"
 #include <signal.h>
 
 int doWork = 0;

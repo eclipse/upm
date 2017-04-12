@@ -12,8 +12,8 @@
   $1 = (uint8_t*) node::Buffer::Data($input);
 }
 
-%include "apa102.h" 
+%include "apa102.hpp" 
 
 %{
-    #include "apa102.h"
+    #include "apa102.hpp"
 %}

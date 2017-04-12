@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Author: Zion Orent <zorent@ics.com>
-# Copyright (c) 2015 Intel Corporation.
+# Author: Jon Trulson <jtrulson@ics.com>
+# Copyright (c) 2014-2017 Intel Corporation.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -21,39 +22,47 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_bmpx8x as upmBmpx8x
+from upm import pyupm_bmpx8x as upmBmpx8x
 
-# Load Barometer module on i2c
-myBarometer = upmBmpx8x.BMPX8X(0, upmBmpx8x.ADDR);
+def main():
+    # Load Barometer module on i2c using default values
+    sensor = upmBmpx8x.BMPX8X(0);
 
+    ## Exit handlers ##
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function stops python from printing a stacktrace when you hit
+    # control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit, including functions from myBarometer
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit, including functions
+    # from sensor
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
+    # Print the pressure, altitude, sea level, and
+    # temperature values every 0.1 seconds
+    while(1):
+        sensor.update()
 
-# Print the pressure, altitude, sea level, and
-# temperature values every 0.1 seconds
-while(1):
-	outputStr = ("pressure value = {0}"
-	", altitude value = {1}"
-	", sealevel value = {2}"
-	", temperature = {3}".format(
-	myBarometer.getPressure(),
-	myBarometer.getTemperature(),
-	myBarometer.getAltitude(),
-	myBarometer.getSealevelPressure()))
+        outputStr = ("Pressure: {0}"
+        " Pa, Temperature: {1}"
+        " C, Altitude: {2}"
+        " m, Sea Level: {3} Pa".format(
+        sensor.getPressure(),
+        sensor.getTemperature(),
+        sensor.getAltitude(),
+        sensor.getSealevelPressure()))
 
-	print outputStr
-	time.sleep(.1)
+        print(outputStr)
+        time.sleep(.5)
+
+if __name__ == '__main__':
+    main()

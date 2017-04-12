@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * based on original C++ driver by
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -23,105 +27,89 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+
 #include <mraa/pwm.h>
+#include "buzzer_tones.h"
 
-#define  DO     3300    // 261 Hz 3830
-#define  RE     2930    // 294 Hz
-#define  MI     2600    // 329 Hz
-#define  FA     2460    // 349 Hz
-#define  SOL    2190    // 392 Hz
-#define  LA     1960    // 440 Hz
-#define  SI     1750    // 493 Hz
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-namespace upm {
+    /**
+     * @file buzzer.h
+     * @library buzzer
+     * @brief C API for the buzzer driver
+     *
+     * @include buzzer.c
+     */
 
-/**
- * @brief Buzzer library
- * @defgroup buzzer libupm-buzzer
- * @ingroup seeed pwm sound gsk
- */
+    /**
+     * Device context
+     */
+    typedef struct _buzzer_context {
+        mraa_pwm_context pwm;
 
-/**
- * @library buzzer
- * @sensor buzzer
- * @comname Grove Buzzer
- * @type sound
- * @man seeed
- * @con pwm
- * @kit gsk
- *
- * @brief API for the Buzzer component
- *
- * This module defines the Buzzer interface for libbuzzer.
- * This sensor can make different tones when connected to
- * a pin capable of analog pulse-width modulation. It emits
- * sound using a piezoelectric material that vibrates at different
- * frequencies based on the input voltage.
- *
- * @image html buzzer.jpg
- * @snippet buzzer-sound.cxx Interesting
- */
-class Buzzer {
-    public:
-        /**
-         * Instantiates a Buzzer object.
-         *
-         * @param pinNumber Buzzer pin number
-         */
-        Buzzer (int pinNumber);
+        float volume;
+        bool initialized;
+    } *buzzer_context;
 
-        /**
-         * Buzzer object destructor.
-         */
-        ~Buzzer ();
+    /**
+     * Initialize a buzzer context.
+     *
+     * @param pin Buzzer pin number (pwm capable)
+     * @return buzzer device context
+     */
+    buzzer_context buzzer_init(int pin);
 
-        /**
-         * Plays a tone for a certain amount of time or indefinitely. When delay
-         * is not used, the sound can be stopped by calling stopSound().
-         *
-         * @param note Note to play (C, D, E, etc.) or frequency
-         * @param delay Time in microseconds for which to play the sound; if the value is
-         * 0, the sound is played indefinitely
-         *
-         * @return Note played
-         */
-        int playSound (int note, int delay);
+    /**
+     * Buzzer object destructor.
+     *
+     * @param dev Device context.
+     */
+    void buzzer_close(buzzer_context dev);
 
-        /**
-         * Stops the sound currently playing. Should be called when playSound()
-         * does not have a delay value.
-         */
-        void stopSound();
+    /**
+     * Plays a tone for a certain amount of time or indefinitely. When delay
+     * is not used, the sound can be stopped by calling stopSound().
+     *
+     * @param dev Device context.
+     * @param note Note to play (DO, RE, MI, etc.) or frequency
+     * @param delay Time in microseconds for which to play the sound;
+     * if the value is 0, the sound is played indefinitely
+     * @return UPM result
+     */
+    upm_result_t buzzer_play_sound(const buzzer_context dev, int note,
+                                   int delay);
 
-        /**
-         * Sets the volume for the buzzer, but may affect the sound timbre.
-         * Works best with halved values; e.g., 1.0, 0.5, 0.25, etc.
-         *
-         * @param vol Value to set the volume to, from 0.0 to 1.0
-         */
-        void setVolume(float vol);
+    /**
+     * Stops the sound currently playing. Should be called when playSound()
+     * does not have a delay value.
+     *
+     * @param dev Device context.
+     * @return UPM result
+     */
+    upm_result_t buzzer_stop_sound(const buzzer_context dev);
 
-        /**
-         * Gets the buzzer volume.
-         *
-         * @return Value the volume was set to
-         */
-        float getVolume();
+    /**
+     * Sets the volume for the buzzer, but may affect the sound timbre.
+     * Works best with halved values; e.g., 1.0, 0.5, 0.25, etc.
+     *
+     * @param dev Device context.
+     * @param vol Value to set the volume to, from 0.0 to 1.0
+     */
+    void buzzer_set_volume(const buzzer_context dev, float vol);
 
-        /**
-         * Returns the name of the sensor.
-         *
-         * @return Name of the sensor
-         */
-        std::string name()
-        {
-            return m_name;
-        }
-    protected:
-        std::string m_name;
-    private:
-        mraa_pwm_context m_pwm_context;
-        float m_volume;
-};
+    /**
+     * Gets the buzzer volume.
+     *
+     * @param dev Device context.
+     * @return Value the volume was set to
+     */
+    float buzzer_get_volume(const buzzer_context dev);
+
+#ifdef __cplusplus
 }
+#endif

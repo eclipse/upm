@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "wheelencoder.h"
+%include "wheelencoder.hpp"
 %{
-    #include "wheelencoder.h"
+    #include "wheelencoder.hpp"
 %}

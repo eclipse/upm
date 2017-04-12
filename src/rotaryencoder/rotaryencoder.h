@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,83 +23,62 @@
  */
 #pragma once
 
-#include <string>
-#include <stdint.h>
-#include <sys/time.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+
 #include <mraa/gpio.h>
 
-namespace upm {
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/**
- * @brief Grove Rotary Encoder library
- * @defgroup rotaryencoder libupm-rotaryencoder
- * @ingroup seeed gpio other hak
- */
-/**
- * @library rotaryencoder
- * @sensor rotaryencoder
- * @comname Grove Rotary Encoder
- * @type other
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Encoder
- * @con gpio
- * @kit hak
- *
- * @brief API for the Grove Rotary Encoder
- * 
- * UPM module for the Grove rotary encoder. This rotary encoder
- * encodes a rotation signal into electronic pulses that can be used
- * to measure rotation and direction. It is useful in cases where a
- * rotary knob is required, but using a potentiometer is not
- * desirable. A rotary encoder can turn a full 360 degrees
- * without a stop and does not place a resistive load on the
- * circuit, as is the case with a potentiometer.
- *
- * This module maintains a position that is incremented or
- * decremented according to the rotation on the encoder.
- *
- * @image html rotaryencoder.jpg
- * @snippet rotaryencoder.cxx Interesting
- */
-  class RotaryEncoder {
-  public:
     /**
-     * RotaryEncoder constructor
+     * @file rotaryencoder.h
+     * @library rotaryencoder
+     * @brief C API for the rotaryencoder driver
+     *
+     * @include rotaryencoder.c
+     */
+
+    /**
+     * Device context
+     */
+    typedef struct _rotaryencoder_context {
+        mraa_gpio_context gpioA;
+        mraa_gpio_context gpioB;
+
+        volatile int position;
+    } *rotaryencoder_context;
+
+    /**
+     * RotaryEncoder initialization
      *
      * @param pinA Digital pin to use for signal A
      * @param pinB Digital pin to use for signal B
      */
-    RotaryEncoder(int pinA, int pinB);
-    /**
-     * RotaryEncoder destructor
-     */
-    ~RotaryEncoder();
+    rotaryencoder_context rotaryencoder_init(int pin_a, int pin_b);
 
     /**
-     * Resets the position to a given number; default is 0. 
+     * RotaryEncoder close function
+     */
+    void rotaryencoder_close(rotaryencoder_context dev);
+
+    /**
+     * Resets the position to a given number.
      *
      * @param count Integer to initialize the position to
      */
-    void initPosition(int count=0);
+    void rotaryencoder_set_position(const rotaryencoder_context dev,
+                                    int count);
 
     /**
-     * Gets the position value
+     * Gets the position value.
      *
      */
-    int position();
+    int rotaryencoder_get_position(const rotaryencoder_context dev);
 
-  private:
-    /**
-     * Interrupt service routine (ISR) for signal A
-     *
-     * @param ctx User context for the ISR (*this pointer)
-     */
-    static void signalAISR(void *ctx);
-  
-    volatile int m_position;
-    mraa_gpio_context m_gpioA;
-    mraa_gpio_context m_gpioB;
-  };
+
+#ifdef __cplusplus
 }
-
-
+#endif

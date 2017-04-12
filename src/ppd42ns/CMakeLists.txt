@@ -1,5 +1,9 @@
-set (libname "ppd42ns")
-set (libdescription "upm ppd42ns dust sensor module")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init("-lrt")
+upm_mixed_module_init (NAME ppd42ns
+    DESCRIPTION "Dust Sensor"
+    C_HDR ppd42ns.h ppd42ns_data.h
+    C_SRC ppd42ns.c
+    CPP_HDR ppd42ns.hpp
+    CPP_SRC ppd42ns.cxx
+    CPP_WRAPS_C
+    REQUIRES mraa)
+target_link_libraries(${libnamec} m)

@@ -27,7 +27,7 @@
 #ifdef JAVACALLBACK
 #undef JAVACALLBACK
 #endif
-#include "wheelencoder.h"
+#include "wheelencoder.hpp"
 
 using namespace upm;
 using namespace std;

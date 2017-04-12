@@ -24,12 +24,10 @@
 
 #include <iostream>
 
-#include "grovegprs.h"
+#include "grovegprs.hpp"
 
 using namespace upm;
 using namespace std;
-
-static const int defaultDelay = 100;     // max wait time for read
 
 GroveGPRS::GroveGPRS(int uart) :
   m_uart(uart)

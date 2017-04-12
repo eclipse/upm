@@ -9,7 +9,7 @@
 %include "adafruitms1438_doc.i"
 #endif
 
-%include "adafruitms1438.h"
+%include "adafruitms1438.hpp"
 %{
-    #include "adafruitms1438.h"
+    #include "adafruitms1438.hpp"
 %}

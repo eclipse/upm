@@ -1,5 +1,5 @@
 set (libname "grovespeaker")
-set (libdescription "upm grovespeaker speaker module")
+set (libdescription "Speaker Module")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

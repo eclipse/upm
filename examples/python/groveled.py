@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #
@@ -21,21 +22,25 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-import pyupm_grove as grove
+from upm import pyupm_grove as grove
 
-# Create the Grove LED object using GPIO pin 2
-led = grove.GroveLed(2)
+def main():
+    # Create the Grove LED object using GPIO pin 2
+    led = grove.GroveLed(2)
 
-# Print the name
-print led.name()
+    # Print the name
+    print(led.name())
 
-# Turn the LED on and off 10 times, pausing one second
-# between transitions
-for i in range (0,10):
-    led.on()
-    time.sleep(1)
-    led.off()
-    time.sleep(1)
+    # Turn the LED on and off 10 times, pausing one second
+    # between transitions
+    for i in range (0,10):
+        led.on()
+        time.sleep(1)
+        led.off()
+        time.sleep(1)
 
-# Delete the Grove LED object
-del led
+    # Delete the Grove LED object
+    del led
+
+if __name__ == '__main__':
+    main()

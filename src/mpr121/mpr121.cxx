@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "mpr121.h"
+#include "mpr121.hpp"
 
 using namespace upm;
 using namespace std;
@@ -147,7 +147,7 @@ bool MPR121::configAN3944()
   // Section D
   // Filter configuration
   // reg 0x5d
-  uint8_t filterConf = 0x04;
+  uint8_t filterConf = 0x24;
   if ((rv = writeBytes(0x5d, &filterConf, 1)) != mraa::SUCCESS)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
@@ -190,7 +190,6 @@ bool MPR121::configAN3944()
 
 void MPR121::readButtons()
 {
-  uint8_t rv;
   uint8_t buffer[2];
 
   // read in the 2 bytes at register 0x00-0x01, and setup the member

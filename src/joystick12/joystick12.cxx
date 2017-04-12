@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "joystick12.h"
+#include "joystick12.hpp"
 
 using namespace upm;
 
@@ -75,6 +75,7 @@ Joystick12::~Joystick12() {
 
 float Joystick12::getXInput() {
     float in = mraa_aio_read (m_joystickCtxX);
+    if (in == -1.0) return -1;
     if (in < X_left) return -1;
     if (in < X_center) return -(X_center - in) / (X_center - X_left);
     if (in == X_center) return 0;
@@ -86,6 +87,7 @@ float Joystick12::getXInput() {
 
 float Joystick12::getYInput() {
     float  in = mraa_aio_read (m_joystickCtxY);
+    if (in == -1.0) return -1;
     if (in < Y_left) return -1;
     if (in < Y_center) return -(Y_center - in) / (Y_center - Y_left);
     if (in == Y_center) return 0;

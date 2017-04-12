@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "rfr359f.h"
+%include "rfr359f.hpp"
 %{
-    #include "rfr359f.h"
+    #include "rfr359f.hpp"
 %}

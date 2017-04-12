@@ -1,5 +1,6 @@
 /*
- * Author: Nandkishor Sonar <Nandkishor.Sonar@intel.com>
+ * Author: Nandkishor Sonar <Nandkishor.Sonar@intel.com>,
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
@@ -26,13 +27,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+#ifndef TSL2561_H_
+#define TSL2561_H_
 
-#include <string>
-#include <mraa/i2c.hpp>
-#include <math.h>
-
-namespace upm {
+#include <stdint.h>
+#include <upm.h>
+#include <mraa/i2c.h>
 
 #define TSL2561_Address          (0x29)  //Device address
 
@@ -91,81 +91,74 @@ namespace upm {
 #define LUX_B8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
- /**
- * @brief TSL2561 Digital Light Sensor library
- * @defgroup tsl2561 libupm-tsl2561
- * @ingroup seeed i2c light eak
- */
 /**
+ * @file tsl2561.h
  * @library tsl2561
- * @sensor tsl2561
- * @comname TSL2561 Light Sensor
- * @altname Grove Digital Light Sensor
- * @type light
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Digital_Light_Sensor
- * @con i2c
- * @kit eak
+ * @brief C API for the TSL2561 Digital Light Sensor
  *
- * @brief API for the TSL2561 Digital Light Sensor
- * 
- *   TSL2560 and TSL2561 are light-to-digital converters that transform
- *   light intensity to a digital signal output capable of a direct I2C (TSL2561) interface
- *
- * @image html tsl2561.jpg
- * @snippet tsl2561.cxx Interesting
+ * @include tsl2561.c
  */
-class TSL2561{
-    public:
-       /**
-        * Instantiates a TSL2561 object
-        *
-        * @param bus Number of the used bus
-        * @param devAddr Address of the used I2C device
-        * @param gain Correct gain to use
-        * @param integration Time to use
-        */
-        TSL2561(int bus=0, uint8_t devAddr=TSL2561_Address, uint8_t gain=GAIN_0X, uint8_t integrationTime=INTEGRATION_TIME1_101MS);
 
-       /**
-        * GY65 object destructor; powers down TSL2561 and closes the I2C connection.
-        */
-        ~TSL2561();
+/**
+ * device context
+ */
+typedef struct _tsl2561_context {
+    mraa_i2c_context    i2c;
+    int                 bus;
+    uint8_t             address;
+    uint8_t             gain;
+    uint8_t             integration_time;
+} *tsl2561_context;
 
-       /**
-        * Gets the calculated lux reading from TSL2561
-        *
-        * @return Calculated lux value from the sensor
-        */
-        int getLux();
+/**
+ * Sensor Init Function
+ *
+ * @param bus I2C bus
+ * @param dev_address I2C address
+ * @param gain Gain associated with the driver
+ * @param integration_time Time to keep the shutter open
+ * @return void* pointer to the sensor struct
+ */
+tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
+                             uint8_t integration_time);
 
-    private:
-       /**
-        * Writes to a TSL2561 register
-        *
-        * @param reg Addess to write
-        * @param Value to write
-        * @return mraa::Result
-        */
-        mraa::Result i2cWriteReg(uint8_t reg, uint8_t value);
+/**
+ * Closes the sensor module
+ *
+ * @param dev pointer to the sensor struct
+ */
+void tsl2561_close(tsl2561_context dev);
 
-       /**
-        * Reads from a TSL2561 register
-        *
-        * @param reg Addess to read
-        * @param data Byte read from the register
-        * @return mraa::Result
-        */
-        mraa::Result i2cReadReg(uint8_t reg, uint8_t &data);
+/**
+ * Gets the Lux value
+ *
+ * @param dev pointer to the sensor struct
+ * @param lux pointer to store the lux value
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t tsl2561_get_lux(const tsl2561_context, float* lux);
 
-        int m_bus;
-        std::string m_name;
-        int m_controlAddr;
-        mraa::I2c m_i2ControlCtx;
+/**
+ * Write I2C register on the device
+ *
+ * @param dev pointer to the sensor struct
+ * @param reg register to write value to
+ * @param value the value to be written
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
+                                   uint8_t value);
 
-        uint8_t m_gain;
-        uint8_t m_integrationTime;
-};
+/**
+ * Read from an I2C register from the device
+ *
+ * @param dev pointer to the sensor struct
+ * @param reg register to write value to
+ * @param data Data read in  from the register
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t tsl2561_i2c_read_reg(tsl2561_context dev, uint8_t reg,
+                                  uint8_t* data);
 
-}
 
+#endif /* TSL2561_H_ */

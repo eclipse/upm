@@ -22,7 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "micsv89.h"
+#include <unistd.h>
+
+#include "micsv89.hpp"
+
+#include "mraa/i2c.hpp"
 
 using namespace upm;
 

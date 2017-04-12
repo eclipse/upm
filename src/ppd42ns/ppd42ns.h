@@ -1,4 +1,8 @@
 /*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ * Based on original C++ driver written by:
  * Author: Zion Orent <sorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
  *
@@ -23,71 +27,56 @@
  */
 #pragma once
 
-#include <string>
-#include <time.h>
-#include <mraa/aio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
 
-namespace upm {
+#include <mraa/gpio.h>
+#include "ppd42ns_data.h"
 
-typedef struct
-{
-	int lowPulseOccupancy;
-	double ratio;
-	double concentration;
-} dustData;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-  /**
-   * @brief PPD42NS Dust Sensor library
-   * @defgroup ppd42ns libupm-ppd42ns
-   * @ingroup seeed gpio other eak
-   */
-  /**
-   * @library ppd42ns
-   * @sensor ppd42ns
-   * @comname PPD42NS Dust Sensor
-   * @altname Grove Dust Sensor
-   * @type other
-   * @man seeed
-   * @web http://www.seeedstudio.com/wiki/Grove_-_Dust_Sensor
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the PPD42NS Dust Sensor
-   *
-   * UPM module for the PPD42NS dust sensor
-   *
-   * @image html ppd42ns.jpg
-   * @snippet ppd42ns.cxx Interesting
-   */
-  class PPD42NS {
-  public:
     /**
-     * PPD42NS constructor
+     * @file ppd42ns.h
+     * @library ppd42ns
+     * @brief C API for the ppd42ns driver
+     *
+     * @include ppd42ns.c
+     */
+
+    /**
+     * Device context
+     */
+    typedef struct _ppd42ns_context {
+        mraa_gpio_context gpio;
+
+    } *ppd42ns_context;
+
+    /**
+     * PPD42NS initialization
      *
      * @param pin Digital pin to use
+     * @return ppd42ns device context
      */
-    PPD42NS(int pin);
+    ppd42ns_context ppd42ns_init(int pin);
+
     /**
-     * PPD42NS destructor
+     * PPD42NS close
+     *
+     * @param dev Device context.
      */
-    ~PPD42NS();
+    void ppd42ns_close(ppd42ns_context dev);
+
     /**
      * Prints dust concentration
      *
-     * @return struct dustData  Contains data from the dust sensor
+     * @param dev Device context.
+     * @return ppd42ns_dust_data Contains data from the dust sensor
      */
-     dustData getData();
+    ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev);
 
-  private:
-        mraa_gpio_context m_gpio;
-		/**
-		 * Returns the amount of time it takes a pin to go from HIGH to LOW or from LOW to HIGH
-		 *
-		 * @param highLowValue int Do we measure movements from HIGH to LOW or from LOW to HIGH? highLowValue is the "from" value
-		 */
-		double pulseIn_polyfill(bool highLowValue, double endTime);
-		double m_timediff(timespec time1, timespec time2);
-	};
+#ifdef __cplusplus
 }
-
-
+#endif

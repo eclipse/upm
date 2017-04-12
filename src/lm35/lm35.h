@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,72 +23,82 @@
  */
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <mraa/aio.hpp>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+#include <mraa/aio.h>
 
-namespace upm {
-  /**
-   * @brief DFRobot LM35 Linear Temperature Sensor
-   * @defgroup lm35 libupm-lm35
-   * @ingroup dfrobot analog temp
-   */
-
-  /**
-   * @library lm35
-   * @sensor lm35
-   * @comname DFRobot LM35 Linear Temperature Sensor
-   * @altname LM35
-   * @type temp
-   * @man dfrobot
-   * @web http://www.dfrobot.com/index.php?route=product/product&product_id=76
-   * @con analog
-   *
-   * @brief API for the DFRobot LM35 Linear Temperature Sensor
-   *
-   * This sensor returns an analog voltage proportional to the
-   * temperature of the ambient environment.
-   *
-   * It has a range of 2C to 150C.
-   *
-   * This driver was developed using the DFRobot LM35 Linear
-   * Temperature Sensor
-   *
-   * @image html lm35.jpg
-   * @snippet lm35.cxx Interesting
-   */
-
-  class LM35 {
-  public:
+#ifdef __cplusplus
+extern "C" {
+#endif
 
     /**
-     * LM35 constructor
+     * @file lm35.h
+     * @library lm35
+     * @brief C API for the LM35 Temperature Sensor
+     *
+     * @include lm35.c
+     */
+
+    /**
+     * device context
+     */
+    typedef struct _lm35_context
+    {
+        mraa_aio_context    aio;
+
+        // ADC reference voltage
+        float               aref;
+        // ADC resolution
+        float               ares;
+
+        // scale and offset
+        float               scale;
+        float               offset;
+    } *lm35_context;
+
+    /**
+     * LM35 initialization.
      *
      * @param pin Analog pin to use
-     * @param aref Analog reference voltage; default is 5.0 V
+     * @param aref Analog reference voltage
      */
-    LM35(int pin, float aref=5.0);
+    lm35_context lm35_init(int pin, float aref);
 
     /**
-     * LM35 destructor
+     * LM35 close.
      */
-    ~LM35();
+    void lm35_close(lm35_context dev);
 
     /**
-     * Returns the temperature in degrees Celcius
+     * Returns the temperature in degrees Celsius
      *
-     * @return The Temperature in degrees Celcius
+     * @param temperature A pointer to a float that will contain the
+     * measured temperature.
+     * @return UPM status
      */
-    float getTemperature();
+    upm_result_t lm35_get_temperature(const lm35_context dev,
+                                      float *temperature);
 
-  protected:
-    mraa::Aio m_aio;
+    /**
+     * Set sensor offset.  This offset is applied to the return values
+     * before scaling.  Default is 0.0.
+     *
+     * @param dev sensor context pointer
+     * @param offset Offset to apply.
+     */
+    void lm35_set_offset(const lm35_context dev, float offset);
 
-  private:
-    float m_aref;
-    // ADC resolution
-    int m_aRes;
-  };
+    /**
+     * Set sensor scale.  This scale is applied to the return values
+     * before the offset is applied.  Default is 1.0.
+     *
+     * @param dev sensor context pointer
+     * @param scale Scale to apply.
+     */
+    void lm35_set_scale(const lm35_context dev, float scale);
+
+
+#ifdef __cplusplus
 }
-
-
+#endif

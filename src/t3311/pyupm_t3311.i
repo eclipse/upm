@@ -9,7 +9,7 @@
 
 %pointer_functions(float, floatp);
 
-%include "t3311.h"
+%include "t3311.hpp"
 %{
-    #include "t3311.h"
+    #include "t3311.hpp"
 %}

@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "isd1820.h"
+#include "isd1820.hpp"
 
 using namespace upm;
 using namespace std;

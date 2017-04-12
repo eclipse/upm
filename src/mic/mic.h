@@ -1,6 +1,8 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * 	   Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ *
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,88 +23,55 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+#ifndef MIC_H_
+#define MIC_H_
+
 #pragma once
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <string>
-#include <mraa/gpio.h>
-#include <mraa/aio.h>
-
-struct thresholdContext {
-    long averageReading;
-    long runningAverage;
-    int averagedOver;
-};
-
-namespace upm {
+#include "upm.h"
+#include "mraa/aio.h"
 
 /**
- * @brief Analog Microphone library
- * @defgroup mic libupm-mic
- * @ingroup seeed pwm sound gsk
- */
-/**
+ * @file mic.h
  * @library mic
- * @sensor microphone
- * @comname Analog Microphone
- * @altname Grove Sound Sensor
- * @type sound
- * @man seeed
- * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensors
- * @con pwm
- * @kit gsk
+ * @brief C API for the Analog Microphone
  *
- * @brief API for the Analog Microphone
- *
- * This module defines the Analog Microphone sensor
- *
- * @image html mic.jpg
- * @snippet mic.cxx Interesting
+ * @include mic.c
  */
-class Microphone {
-    public:
-        /**
-         * Instantiates a Microphone object
-         *
-         * @param micPin Pin where the microphone is connected
-         */
-        Microphone(int micPin);
 
-        /**
-         * Microphone object destructor
-         */
-        ~Microphone();
+/**
+ * device context
+ */
+typedef struct _mic_context {
+    mraa_aio_context aio;
+    uint16_t analog_pin;
+} *mic_context;
 
-        /**
-         * Gets samples from the microphone according to the provided window and
-         * number of samples
-         *
-         * @param freqMS Time between each sample (in microseconds)
-         * @param numberOfSamples Number of sample to sample for this window
-         * @param buffer Buffer with sampled data
-         */
-        int getSampledWindow (unsigned int freqMS, int numberOfSamples, uint16_t * buffer);
+/**
+ * Microphone sensor initialization function
+ *
+ * @param pin analog pin to use
+ * @return sensor context
+ */
+mic_context mic_init(int pin);
 
-        /**
-         * Given the sampled buffer, this method returns TRUE/FALSE if threshold
-         * is reached
-         *
-         * @param ctx Threshold context
-         * @param threshold Sample threshold
-         * @param buffer Buffer with samples
-         * @param len Buffer length
-         */
-        int findThreshold (thresholdContext* ctx, unsigned int threshold, uint16_t * buffer, int len);
+/**
+ * Microphone sensor destructor
+ *
+ * @param dev sensor context pointer
+ */
+void mic_close(mic_context dev);
 
-        /**
-         *
-         * Prints a running average of the threshold context
-         *
-         * @param ctx Threshold context
-         */
-        void printGraph (thresholdContext* ctx);
+/**
+ * Gets a sample from the microphone
+ *
+ * @param dev sensor context pointer
+ * @param micval microphone value in ADC counts
+ * @return result of the operation
+ */
+upm_result_t mic_get_value(mic_context dev, float* micval);
 
-    private:
-        mraa_aio_context    m_micCtx;
-};
-
-}
+#endif /* MIC_H_ */

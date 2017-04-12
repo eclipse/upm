@@ -3,8 +3,8 @@
 %include "std_string.i"
 
 %{
-    #include "teams.h"
+    #include "teams.hpp"
 %}
 
-%include "teams.h"
+%include "teams.hpp"
 

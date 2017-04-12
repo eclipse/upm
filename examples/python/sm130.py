@@ -21,43 +21,48 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_sm130 as sensorObj
+from upm import pyupm_sm130 as sensorObj
 
-# Instantiate a UART based SM130 RFID Module using defaults
-sensor = sensorObj.SM130()
+def main():
+    # Instantiate a UART based SM130 RFID Module using defaults
+    sensor = sensorObj.SM130()
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Set the baud rate, 19200 baud is the default.
-if (sensor.setBaudRate(19200)):
-	print "Failed to set baud rate"
-	sys.exit(0)
+    # Set the baud rate, 19200 baud is the default.
+    if (sensor.setBaudRate(19200)):
+        print("Failed to set baud rate")
+        sys.exit(0)
 
-print "Resetting..."
-sensor.reset()
+    print("Resetting...")
+    sensor.reset()
 
-print "Firmware revision: " + sensor.getFirmwareVersion()
+    print("Firmware revision: " + sensor.getFirmwareVersion())
 
-print "Waiting up to 5 seconds for a tag..."
+    print("Waiting up to 5 seconds for a tag...")
 
-if (sensor.waitForTag(5000)):
-        print "Found tag, UID:",
-        print sensor.string2HexString(sensor.getUID())
-        print "Tag Type:",
-        print sensor.tag2String(sensor.getTagType())
-else:
+    if (sensor.waitForTag(5000)):
+        print("Found tag, UID:", end=' ')
+        print(sensor.string2HexString(sensor.getUID()))
+        print("Tag Type:", end=' ')
+        print(sensor.tag2String(sensor.getTagType()))
+    else:
         # error
-        print "waitForTag failed: " + sensor.getLastErrorString()
+        print("waitForTag failed: " + sensor.getLastErrorString())
+
+if __name__ == '__main__':
+    main()

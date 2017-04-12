@@ -4,7 +4,7 @@
 %include "../carrays_float.i"
 
 %{
-    #include "adxl345.h"
+    #include "adxl345.hpp"
 %}
 
 %typemap(out) int16_t * {
@@ -15,6 +15,6 @@
     $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_floatArray, 0 | 0 );
 }
 
-%include "adxl345.h"
+%include "adxl345.hpp"
 
 %include <carrays.i>

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 #include <stdlib.h>
-#include "ecs1030.h"
+#include "ecs1030.hpp"
 
 int is_running = 0;
 upm::ECS1030 *sensor = NULL;

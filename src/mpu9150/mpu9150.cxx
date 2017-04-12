@@ -26,13 +26,13 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "mpu9150.h"
+#include "mpu9150.hpp"
 
 using namespace upm;
 using namespace std;
 
 MPU9150::MPU9150 (int bus, int address, int magAddress, bool enableAk8975) :
-  m_mag(0), MPU60X0(bus, address)
+  MPU60X0(bus, address), m_mag(0)
 {
   m_magAddress = magAddress;
   m_i2cBus = bus;

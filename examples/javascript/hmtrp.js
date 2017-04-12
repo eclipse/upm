@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-
 /*
 * Author: Zion Orent <zorent@ics.com>
 * Copyright (c) 2015 Intel Corporation.
@@ -128,7 +125,7 @@ function runRadio()
 			console.log("Received: " + resultStr);
 		}
 
-		if (rv < 0) // some sort of read error occured
+		if (rv < 0) // some sort of read error occurred
 		{
 			console.log("Port read error.");
 			return;

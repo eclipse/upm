@@ -5,16 +5,16 @@
 
 %apply uint8_t *INPUT { uint8_t *addr }
 
-%include "gfx.h"
+%include "ili9341_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "ili9341_gfx.hpp"
 %}
 
 %{
-    #include "ili9341.h"
+    #include "ili9341.hpp"
 %}
 
-%include "ili9341.h"
+%include "ili9341.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

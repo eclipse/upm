@@ -26,7 +26,7 @@
 #include <iostream>
 #include <signal.h>
 
-#include "hwxpxx.h"
+#include "hwxpxx.hpp"
 
 using namespace std;
 

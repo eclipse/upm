@@ -1,73 +1,81 @@
-# Mapping C++ sample files to Java sample files
-a110x-intr.cxx	A110X_intrSample.java
-a110x.cxx	A110XSample.java
-adc121c021.cxx	ADC121C021Sample.java
-adxl345.cxx	Adxl345Sample.java
-biss0001.cxx	BISS0001Sample.java
-bmpx8x.cxx	BMPX8XSample.java
-buzzer-sound.cxx	Buzzer_soundSample.java
-cjq4435.cxx	CJQ4435Sample.java
-ds1307.cxx	DS1307Sample.java
-enc03r.cxx	ENC03RSample.java
-es08a.cxx	ES08ASample.java
-grovebutton.cxx	GroveButtonSample.java
-groveehr.cxx	GroveEHRSample.java
-groveled.cxx	GroveLEDSample.java
-grovelinefinder.cxx	GroveLineFinderSample.java
-grovelight.cxx	GroveLightSample.java
-grovemoisture.cxx	GroveMoistureSample.java
-groverelay.cxx	GroveRelaySample.java
-groverotary.cxx	GroveRotarySample.java
-grovescam.cxx	GROVESCAMSample.java
-groveslide.cxx	GroveSlideSample.java
-grovespeaker.cxx	GroveSpeakerSample.java
-grovevdiv.cxx	GroveVDivSample.java
-grovewater.cxx	GroveWaterSample.java
-grovewfs.cxx	GroveWFSSample.java
-guvas12d.cxx	GUVAS12DSample.java
-h3lis331dl.cxx	H3LIS331DLSample.java
-hcsr04.cxx	HCSR04Sample.java
-hm11.cxx	HM11Sample.java
-hmc5883l.cxx	Hmc5883lSample.java
-htu21d.cxx	HTU21DSample.java
-itg3200.cxx	Itg3200Sample.java
-jhd1313m1-lcd.cxx	Jhd1313m1_lcdSample.java
-joystick12.cxx	Joystick12Sample.java
-lcm1602-i2c.cxx	Lcm1602_i2cSample.java
-ldt0028.cxx	LDT0028Sample.java
-lol.cxx	LoLSample.java
-lsm303.cxx	LSM303Sample.java
-m24lr64e.cxx	M24LR64ESample.java
-max44000.cxx	MAX44000Sample.java
-mic.cxx	MicrophoneSample.java
-mma7455.cxx	MMA7455Sample.java
-mma7660.cxx	MMA7660Sample.java
-mpl3115a2.cxx	MPL3115A2Sample.java
-mpr121.cxx	MPR121Sample.java
-mpu9150.cxx	MPU9150Sample.java
-mq2.cxx	MQ2Sample.java
-mq303a.cxx	MQ303ASample.java
-mq5.cxx	MQ5Sample.java
-groveledbar	GroveLEDBar
-nrf24l01-receiver.cxx	NRF24L01_receiverSample.java
-nrf24l01-transmitter.cxx	NRF24L01_transmitterSample.java
-nunchuck.cxx	NUNCHUCKSample.java
-otp538u.cxx	OTP538USample.java
-ppd42ns.cxx	PPD42NSSample.java
-pulsensor.cxx	PulsensorSample.java
-rfr359f.cxx	RFR359FSample.java
-rotaryencoder.cxx	RotaryEncoderSample.java
-rpr220-intr.cxx	RPR220_intrSample.java
-rpr220.cxx	RPR220Sample.java
-ssd1308-oled.cxx	SSD1308_oledSample.java
-ssd1327-oled.cxx	SSD1327_oledSample.java
-st7735.cxx	ST7735Sample.java
-stepmotor.cxx	StepMotorSample.java
-tm1637.cxx	TM1637Sample.java
-tp401.cxx	TP401Sample.java
-tsl2561.cxx	TSL2561Sample.java
-ttp223.cxx	TTP223Sample.java
-ublox6.cxx	Ublox6Sample.java
-uln200xa.cxx	ULN200XASample.java
-wt5001.cxx	WT5001Sample.java
-yg1006.cxx	YG1006Sample.java
+# Mapping examples across provided languages
+a110x.cxx	A110XSample.java	a110x.js	a110x.py
+a110x-intr.cxx	A110X_intrSample.java	a110x-intr.js	a110x-intr.py
+adc121c021.cxx	ADC121C021Sample.java	adc121c021.js	adc121c021.py
+adxl345.cxx	Adxl345Sample.java	adxl345.js	adxl345.py
+biss0001.cxx	BISS0001Sample.java	biss0001.js	biss0001.py
+bmpx8x.cxx	BMPX8XSample.java	bmpx8x.js	bmpx8x.py
+bno055.cxx	BNO055_Example.java	bno055.js	bno055.py
+button.cxx	ButtonSample.java	button.js	button.py
+buzzer.cxx	BuzzerSample.java	buzzer.js	buzzer.py
+cjq4435.cxx	CJQ4435Sample.java	cjq4435.js	cjq4435.py
+ds1307.cxx	DS1307Sample.java	ds1307.js	ds1307.py
+enc03r.cxx	ENC03RSample.java	enc03r.js	enc03r.py
+servo-es08a.cxx	ES08ASample.java	es08a.js	es08a.py
+groveehr.cxx	GroveEHRSample.java	groveehr.js	groveehr.py
+my9221-groveledbar.cxx	GroveLEDBar.java	groveledbar.js	groveledbar.py
+grove-groveled.cxx	GroveLEDSample.java	groveled.js	groveled.py
+grovelinefinder.cxx	GroveLineFinderSample.java	grovelinefinder.js	grovelinefinder.py
+grovemoisture.cxx	GroveMoistureSample.java	grovemoisture.js	grovemoisture.py
+grovescam.cxx	GROVESCAMSample.java	grovescam.js	grovescam.py
+grovewfs.cxx	GroveWFSSample.java	grovewfs.js	grovewfs.py
+guvas12d.cxx	GUVAS12DSample.java	guvas12d.js	guvas12d.py
+h3lis331dl.cxx	H3LIS331DLSample.java	h3lis331dl.js	h3lis331dl.py
+hcsr04.cxx	HCSR04Sample.java	hcsr04.js	hcsr04.py
+hm11.cxx	HM11Sample.java	hm11.js	hm11.py
+hmc5883l.cxx	Hmc5883lSample.java	hmc5883l.js	hmc5883l.py
+htu21d.cxx	HTU21DSample.java	htu21d.js	htu21d.py
+ims.cxx	IMS_Example.java	ims.js	ims.py
+itg3200.cxx	Itg3200Sample.java	itg3200.js	itg3200.py
+jhd1313m1-lcd.cxx	Jhd1313m1_lcdSample.java	jhd1313m1-lcd.js	jhd1313m1-lcd.py
+joystick12.cxx	Joystick12Sample.java	joystick12.js	joystick12.py
+lcm1602-i2c.cxx	Lcm1602_i2cSample.java	lcm1602-i2c.js	lcm1602-i2c.py
+ldt0028.cxx	LDT0028Sample.java	ldt0028.js	ldt0028.py
+light.cxx	LightSample.java	light.js	light.py
+lol.cxx	LoLSample.java	lol.js	lol.py
+lsm303.cxx	LSM303Sample.java	lsm303.js	lsm303.py
+m24lr64e.cxx	M24LR64ESample.java	m24lr64e.js	m24lr64e.py
+max44000.cxx	MAX44000Sample.java	max44000.js	max44000.py
+mic.cxx	MicrophoneSample.java	mic.js	mic.py
+mma7455.cxx	MMA7455Sample.java	mma7455.js	mma7455.py
+mma7660.cxx	MMA7660Sample.java	mma7660.js	mma7660.py
+mpl3115a2.cxx	MPL3115A2Sample.java	mpl3115a2.js	mpl3115a2.py
+mpr121.cxx	MPR121Sample.java	mpr121.js	mpr121.py
+mpu9150.cxx	MPU9150Sample.java	mpu9150.js	mpu9150.py
+gas-mq2.cxx	MQ2Sample.java	mq2.js	mq2.py
+mq303a.cxx	MQ303ASample.java	mq303a.js	mq303a.py
+gas-mq5.cxx	MQ5Sample.java	mq5.js	mq5.py
+nrf24l01-receiver.cxx	NRF24L01_receiverSample.java	nrf24l01-receiver.js	nrf24l01-receiver.py
+nrf24l01-transmitter.cxx	NRF24L01_transmitterSample.java	nrf24l01-transmitter.js	nrf24l01-transmitter.py
+nunchuck.cxx	NUNCHUCKSample.java	nunchuck.js	nunchuck.py
+otp538u.cxx	OTP538USample.java	otp538u.js	otp538u.py
+ppd42ns.cxx	PPD42NSSample.java	ppd42ns.js	ppd42ns.py
+pulsensor.cxx	PulsensorSample.java	pulsensor.js	pulsensor.py
+relay.cxx	RelaySample.java	relay.js	relay.py
+rfr359f.cxx	RFR359FSample.java	rfr359f.js	rfr359f.py
+rotary.cxx	RotarySample.java	rotary.js	rotary.py
+rotaryencoder.cxx	RotaryEncoderSample.java	rotaryencoder.js	rotaryencoder.py
+rpr220.cxx	RPR220Sample.java	rpr220.js	rpr220.py
+rpr220-intr.cxx	RPR220_intrSample.java	rpr220-intr.js	rpr220-intr.py
+slide.cxx	SlideSample.java	slide.js	slide.py
+speaker.cxx	SpeakerSample.java	speaker.js	speaker.py
+i2clcd-ssd1308-oled.cxx	SSD1308_oledSample.java	ssd1308-oled.js	ssd1308-oled.py
+i2clcd-ssd1327-oled.cxx	SSD1327_oledSample.java	ssd1327-oled.js	ssd1327-oled.py
+st7735.cxx	ST7735Sample.java	st7735.js	st7735.py
+stepmotor.cxx	StepMotorSample.java	stepmotor.js	stepmotor.py
+tm1637.cxx	TM1637Sample.java	tm1637.js	tm1637.py
+gas-tp401.cxx	TP401Sample.java	tp401.js	tp401.py
+tsl2561.cxx	TSL2561Sample.java	tsl2561.js	tsl2561.py
+ttp223.cxx	TTP223Sample.java	ttp223.js	ttp223.py
+uln200xa.cxx	ULN200XASample.java	uln200xa.js	uln200xa.py
+vdiv.cxx	VDivSample.java	vdiv.js	vdiv.py
+water.cxx	WaterSample.java	water.js	water.py
+wt5001.cxx	WT5001Sample.java	wt5001.js	wt5001.py
+yg1006.cxx	YG1006Sample.java	yg1006.js	yg1006.py
+sensortemplate.cxx	SensorTemplateSample.java	sensortemplate.js	sensortemplate.py
+p9813.cxx	P9813Sample.java	p9813.js	p9813.py
+tcs37727.cxx tcs37727.py
+tmp006.cxx tmp006.py
+mma8x5x.cxx mma8x5x.py
+mag3110.cxx mag3110.py
+hdc1000.cxx hdc1000.py

@@ -22,7 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
 public class ULN200XASample {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -34,14 +33,14 @@ public class ULN200XASample {
 
 		uln200xa.setSpeed(5);
 		System.out.println("Rotating 1 revolution clockwise.");
-		uln200xa.setDirection(upm_uln200xa.ULN200XA.ULN200XA_DIRECTION_T.DIR_CW);
+		uln200xa.setDirection(upm_uln200xa.ULN200XA_DIRECTION_T.ULN200XA_DIR_CW);
 		uln200xa.stepperSteps(4096);
 
 		System.out.println("Sleeping for 2 seconds...");
 		Thread.sleep(2000);
 
 		System.out.println("Rotating 1/2 revolution counter clockwise.");
-		uln200xa.setDirection(upm_uln200xa.ULN200XA.ULN200XA_DIRECTION_T.DIR_CCW);
+		uln200xa.setDirection(upm_uln200xa.ULN200XA_DIRECTION_T.ULN200XA_DIR_CCW);
 		uln200xa.stepperSteps(2048);
 
 		// turn off the power

@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,198 +23,129 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
 
-#define MMA7660_I2C_BUS 0
-#define MMA7660_DEFAULT_I2C_ADDR 0x4c
+#include "mma7660_regs.h"
 
-namespace upm {
-
-  /**
-   * @brief MMA7660 I2C 3-Axis Digital Accelerometer library
-   * @defgroup mma7660 libupm-mma7660
-   * @ingroup seeed i2c gpio accelerometer
-   */
-  /**
-   * @library mma7660
-   * @sensor mma7660
-   * @comname MMA7660 3-Axis Digital Accelerometer
-   * @altname Grove 3-Axis Digital Accelerometer (1.5g)
-   * @type accelerometer
-   * @man seeed
-   * @con i2c gpio
-   *
-   * @brief API for the MMA7660 I2C 3-Axis Digital Accelerometer
-   *
-   * UPM module for the MMA7660 I2C 3-axis digital accelerometer.
-   * This device supports a variety of capabilities, including the
-   * generation of interrupts for various conditions, tilt and basic
-   * gesture detection, and X/Y/Z-axis measurements of g-forces
-   * being applied (up to 1.5g)
-   *
-   * This module was tested with the Grove 3-Axis Digital
-   * Accelerometer (1.5g)
-   *
-   * @image html mma7660.jpg
-   * @snippet mma7660.cxx Interesting
-   */
-  class MMA7660 {
-  public:
-
-    // MMA7660 registers
-    typedef enum { REG_XOUT       = 0x00,
-                   REG_YOUT       = 0x01,
-                   REG_ZOUT       = 0x02,
-                   REG_TILT       = 0x03,
-                   REG_SRST       = 0x04, // Sampling Rate Status
-                   REG_SPCNT      = 0x05, // sleep count
-                   REG_INTSU      = 0x06, // Interrupt setup
-                   REG_MODE       = 0x07, // operating mode
-                   REG_SR         = 0x08, // auto-wake/sleep, SPS, and debounce
-                   REG_PDET       = 0x09, // tap detection
-                   REG_PD         = 0x0a  // tap debounce count
-                   // 0x0b-0x1f reserved
-    } MMA7660_REG_T;
-    
-    // interrupt enable register bits
-    typedef enum { INTR_NONE          = 0x00, // disabled
-                   INTR_FBINT         = 0x01, // front/back
-                   INTR_PLINT         = 0x02, // up/down/right/left
-                   INTR_PDINT         = 0x04, // tap detection
-                   INTR_ASINT         = 0x08, // exit auto-sleep
-                   INTR_GINT          = 0x10, // measurement intr
-                   INTR_SHINTZ        = 0x20, // shake on Z
-                   INTR_SHINTY        = 0x40, // shake on Y
-                   INTR_SHINTX        = 0x80 // shake on X
-    } MMA7660_INTR_T;
-    
-    // operating mode register bits
-    typedef enum { MODE_MODE          = 0x01, // determines mode with MODE_TON
-                   // 0x02 reserved
-                   MODE_TON           = 0x04, // determines mode with MODE_MODE
-                   MODE_AWE           = 0x08, // auto-wake
-                   MODE_ASE           = 0x10, // auto-sleep
-                   MODE_SCPS          = 0x20, // sleep count prescale
-                   MODE_IPP           = 0x40, // intr out push-pull/open drain
-                   MODE_IAH           = 0x80  // intr active low/high
-    } MMA7660_MODE_T;
-    
-    // tilt BackFront (BF) bits
-    typedef enum { BF_UNKNOWN          = 0x00,
-                   BF_LYING_FRONT      = 0x01,
-                   BF_LYING_BACK       = 0x02
-    } MMA7660_TILT_BF_T;    
-
-    // tilt LandscapePortrait (LP) bits
-    typedef enum { LP_UNKNOWN          = 0x00,
-                   LP_LANDSCAPE_LEFT   = 0x01,
-                   LP_LANDSCAPE_RIGHT  = 0x02,
-                   LP_VERT_DOWN        = 0x05,
-                   LP_VERT_UP          = 0x06
-    } MMA7660_TILT_LP_T;    
-
-    // sample rate (auto-sleep) values
-    typedef enum { AUTOSLEEP_120   = 0x00,
-                   AUTOSLEEP_64    = 0x01,
-                   AUTOSLEEP_32    = 0x02,
-                   AUTOSLEEP_16    = 0x03,
-                   AUTOSLEEP_8     = 0x04,
-                   AUTOSLEEP_4     = 0x05,
-                   AUTOSLEEP_2     = 0x06,
-                   AUTOSLEEP_1     = 0x07
-    } MMA7660_AUTOSLEEP_T;    
+#ifdef __cplusplus
+extern "C" {
+#endif
 
     /**
-     * MMA7660 constructor
+     * @file mma7660.h
+     * @library mma7660
+     * @brief C API for the mma7660 driver
+     *
+     * @include mma7660.c
+     */
+
+    /**
+     * Device context
+     */
+    typedef struct _mma7660_context {
+        mraa_i2c_context  i2c;
+        mraa_gpio_context gpio;
+
+        bool              isrInstalled;
+    } *mma7660_context;
+
+    /**
+     * MMA7660 initialization.
      *
      * @param bus I2C bus to use
-     * @param address Address for this sensor; default is 0x55
+     * @param address Address for this sensor
      */
-    MMA7660(int bus, uint8_t address = MMA7660_DEFAULT_I2C_ADDR);
+    mma7660_context mma7660_init(int bus, uint8_t address);
 
     /**
      * MMA7660 destructor
+     *
+     * @param dev Device context.
      */
-    ~MMA7660();
+    void mma7660_close(mma7660_context dev);
 
     /**
      * Writes a byte value into a register
      *
+     * @param dev Device context.
      * @param reg Register location to write into
      * @param byte Byte to write
-     * @return True if successful
+     * @return UPM result
      */
-    bool writeByte(uint8_t reg, uint8_t byte);
+    upm_result_t mma7660_write_byte(const mma7660_context dev,
+                                    uint8_t reg, uint8_t byte);
 
     /**
      * Reads a byte value from a register
      *
+     * @param dev Device context.
      * @param reg Register location to read from
-     * @return Value in a specified register
+     * @param byte A pointer to hold the value that was read
+     * @return UPM result
      */
-    uint8_t readByte(uint8_t reg);
+    upm_result_t mma7660_read_byte(const mma7660_context dev, uint8_t reg,
+                                   uint8_t *byte);
 
     /**
      * Reads the current value of conversion
      *
+     * @param dev Device context.
      * @param x Returned x value
      * @param y Returned y value
      * @param z Returned z value
+     * @return UPM result
      */
-    void getRawValues(int *x, int *y, int *z);
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    /**
-     * Reads the current value of conversion
-     *
-     * @return Array containing x, y, z. Free using delete.
-     */
-    int *getRawValues();
-#endif
+    upm_result_t mma7660_get_raw_values(const mma7660_context dev,
+                                        int *x, int *y, int *z);
 
     /**
      * Gets the computed acceleration
      *
+     * @param dev Device context.
      * @param ax Returned computed acceleration of the X-axis
      * @param ay Returned computed acceleration of the Y-axis
      * @param az Returned computed acceleration of the Z-axis
+     * @return UPM result
      */
-    void getAcceleration(float *ax, float *ay, float *az);
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    /**
-     * Gets the computed acceleration
-     *
-     * @return Array containing x, y, z. Free using delete.
-     */
-    float *getAcceleration();
-#endif
+    upm_result_t mma7660_get_acceleration(const mma7660_context dev,
+                                          float *ax, float *ay, float *az);
 
     /**
-     * Reads an axis, verifying its validity. The value passed must
-     * be one of REG_XOUT, REG_YOUT, or REG_ZOUT.
+     * Reads an axis, verifying its validity. The value passed must be
+     * one of MMA7660_REG_XOUT, MMA7660_REG_YOUT, or MMA7660_REG_ZOUT.
      *
+     * @param dev Device context.
      * @param axis Axis to read
-     * @return Axis value
+     * @param val pointer containing returned value
+     * @return UPM result
      */
-    int getVerifiedAxis(MMA7660_REG_T axis);
+    upm_result_t mma7660_get_verified_axis(const mma7660_context dev,
+                                           MMA7660_REG_T axis, int *val);
 
     /**
      * Reads the tilt register, verifying its validity
      *
-     * @return Tilt value
+     * @param dev Device context.
+     * @param val Pointer to returned value
+     * @return UPM result
      */
-    uint8_t getVerifiedTilt();
+    upm_result_t mma7660_get_verified_tilt(const mma7660_context dev,
+                                           uint8_t *val);
 
     /**
      * Puts the device in the active mode. In this mode, register
      * writes are not allowed. Place the device in the standby mode before
      * attempting to write registers.
      *
+     * @param dev Device context.
+     * @return UPM result
      */
-    void setModeActive();
+    upm_result_t mma7660_set_mode_active(const mma7660_context dev);
 
     /**
      * Puts the device in the standby (power saving) mode. Note: when in
@@ -222,90 +153,99 @@ namespace upm {
      * addition, the only way to write a register is to put the
      * device in the standby mode.
      *
+     * @param dev Device context.
+     * @return UPM result
      */
-    void setModeStandby();
+    upm_result_t mma7660_set_mode_standby(const mma7660_context dev);
 
     /**
      * Reads tiltBackFront bits
      *
      * The value returned is one of the MMA7660_TILT_BF_T values
      *
-     * @return Bits corresponding to the BackFront tilt status
+     * @param dev Device context.
+     * @param bits Pointer to returned bits corresponding to the
+     * BackFront tilt status
+     * @return UPM result
      */
-    uint8_t tiltBackFront();
-    
+    upm_result_t mma7660_tilt_back_front(const mma7660_context dev,
+                                         uint8_t *bits);
+
     /**
      * Reads tiltLandscapePortrait bits
      *
      * The value returned is one of the MMA7660_TILT_LP_T values
      *
-     * @return Bits corresponding to the LandscapePortrait tilt status
+     * @param dev Device context.
+     * @param bits Pointer to returned bits corresponding to the
+     * LandscapePortrait tilt status
+     * @return UPM result
      */
-    uint8_t tiltLandscapePortrait();
-    
+    upm_result_t mma7660_tilt_landscape_portrait(const mma7660_context dev,
+                                                 uint8_t *bits);
+
     /**
      * Reads the tiltTap status
      *
-     * @return True if a tap is detected
+     * @param dev Device context.
+     * @param tap Pointer to a bool indicating tap detection
+     * @return UPM result
      */
-    bool tiltTap();
-    
+    upm_result_t mma7660_tilt_tap(const mma7660_context dev, bool *tap);
+
     /**
      * Reads the tiltShake status
      *
-     * @return True if a shake is detected
+     * @param dev Device context.
+     * @param shake Pointer to a bool indicating shake detection
+     * @return UPM result
      */
-    bool tiltShake();
-    
+    upm_result_t mma7660_tilt_shake(const mma7660_context dev, bool *shake);
+
     /**
      * Installs an interrupt service routine (ISR) to be called when
      * an interrupt occurs
      *
+     * @param dev Device context.
      * @param pin GPIO pin to use as the interrupt pin
-     * @param fptr Pointer to a function to be called on interrupt
+     * @param isr Pointer to a function to be called on interrupt
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
+     * @return UPM result
      */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int pin, jobject runnable);
-#else
-    void installISR(int pin, void (*isr)(void *), void *arg);
-#endif
+    upm_result_t mma7660_install_isr(const mma7660_context dev, int pin,
+                                     void (*isr)(void *), void *arg);
+
     /**
      * Uninstalls the previously installed ISR
      *
+     * @param dev Device context.
      */
-    void uninstallISR();
+    void mma7660_uninstall_isr(const mma7660_context dev);
 
     /**
      * Enables interrupt generation based on passed interrupt bits.
      * The bits are a bitmask of the requested MMA7660_INTR_T values.
      * Note: the device must be in the standby mode to set this register.
      *
+     * @param dev Device context.
      * @param ibits Sets the requested interrupt bits
-     * @return True if successful
+     * @return UPM result
      */
-    bool setInterruptBits(uint8_t ibits);
+    upm_result_t mma7660_set_interrupt_bits(const mma7660_context dev,
+                                            uint8_t ibits);
 
     /**
      * Sets the sampling rate of the sensor. The value supplied must
      * be one of the MMA7660_AUTOSLEEP_T values.
      *
+     * @param dev Device context.
      * @param sr One of the MMA7660_AUTOSLEEP_T values
-     * @return True if successful
+     * @return UPM result
      */
-    bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
+    upm_result_t mma7660_set_sample_rate(const mma7660_context dev,
+                                         MMA7660_AUTOSLEEP_T sr);
 
-  private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int pin, void (*isr)(void *), void *arg);
-#endif
-
-    bool m_isrInstalled;
-    mraa_i2c_context m_i2c;
-    mraa_gpio_context m_gpio;
-    uint8_t m_addr;
-  };
+#ifdef __cplusplus
 }
-
-
+#endif

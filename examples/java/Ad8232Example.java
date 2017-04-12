@@ -42,7 +42,7 @@ public class Ad8232Example {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("The following error has occured: "+e.getMessage());
+				System.out.println("The following error has occurred: "+e.getMessage());
 			}
 		}
 	}

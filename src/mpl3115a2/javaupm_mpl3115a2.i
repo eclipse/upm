@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "mpl3115a2.h"
+    #include "mpl3115a2.hpp"
 %}
 
-%include "mpl3115a2.h"
+%include "mpl3115a2.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -32,7 +32,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "mpl3115a2.h"
+#include "mpl3115a2.hpp"
 
 using namespace upm;
 
@@ -72,8 +72,7 @@ MPL3115A2::MPL3115A2 (int bus, int devAddr, uint8_t mode) : m_i2ControlCtx(bus)
 int
 MPL3115A2::testSensor(void)
 {
-    int i, iTries;
-    int iError = 0;
+    int iTries;
     float pressure, temperature;
     float fPMin, fPMax, fTMin, fTMax;
 
@@ -113,7 +112,7 @@ MPL3115A2::testSensor(void)
 void
 MPL3115A2::dumpSensor(void)
 {
-    int i, j, ival;
+    int i, j;
 
     fprintf(stdout, "Dumping i2c block from %s\n", MPL3115A2_NAME);
     for (i=0; i < 256; i+=16) {

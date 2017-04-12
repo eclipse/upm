@@ -4,8 +4,8 @@
 %include "std_string.i"
 
 %{
-    #include "nlgpio16.h"
+    #include "nlgpio16.hpp"
 %}
 
-%include "nlgpio16.h"
+%include "nlgpio16.hpp"
 %array_class(char, charArray);

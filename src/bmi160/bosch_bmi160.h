@@ -3,7 +3,7 @@
 ****************************************************************************
 * Copyright (C) 2014 Bosch Sensortec GmbH
 *
-* File : bmi160.h
+* File : bosch_bmi160.h
 *
 * Date : 2014/10/27
 *
@@ -54,7 +54,7 @@
 * patent rights of the copyright holder.
 **************************************************************************/
 
-/*! \file bmi160.h
+/*! \file bmi160.hpp
     \brief BMI160 Sensor Driver Support Header File */
 /* user defined code to be added here ... */
 #ifndef __BMI160_H__
@@ -3724,7 +3724,8 @@ u8 mag_r_y2_msb;
  *	(Better case don't change the reference value of the parameter)
  *
 */
-BMI160_RETURN_FUNCTION_TYPE bmi160_init(struct bmi160_t *bmi160);
+/* renamed from bmi160_init to avoid conflict with UPM code */
+BMI160_RETURN_FUNCTION_TYPE bmi160_init_bus(struct bmi160_t *bmi160);
 /**************************************************/
 /**\name	 FUNCTION FOR READ AND WRITE REGISTERS  */
 /*************************************************/
@@ -11788,7 +11789,8 @@ u8 v_command_reg_data_u8);
  *
  *
  */
-static void xy1y2_to_xyz(u16 *xy1y2, s32 *xyz);
+/*JET
+static void xy1y2_to_xyz(u16 *xy1y2, s32 *xyz);*/
 /*!
  *	@brief This function used for read the
  *	YAMAHA YAS537 xy1y2 data
@@ -11837,8 +11839,9 @@ u8 *v_ouflow_u8, struct yas_vector *vector_xyz);
  *
  *
  */
+/* JET
 static BMI160_RETURN_FUNCTION_TYPE invalid_magnetic_field(
-u16 *v_cur_u16, u16 *v_last_u16);
+  u16 *v_cur_u16, u16 *v_last_u16);*/
 /***************************************************/
 /**\name	FUNCTIONS FOR FIFO DATA READ */
 /***************************************************/

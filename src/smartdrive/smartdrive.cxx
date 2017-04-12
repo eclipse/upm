@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "smartdrive.h"
+#include "smartdrive.hpp"
 
 
 using namespace upm;
@@ -65,9 +65,9 @@ SmartDrive::readByte(uint8_t addr) {
 }
 
 void
-SmartDrive::writeArray(uint8_t* array) {
+SmartDrive::writeArray(uint8_t* array, uint8_t len) {
     try {
-        m_i2c_smartdrive_control.write(array, sizeof(array)/sizeof(uint8_t));
+        m_i2c_smartdrive_control.write(array, len);
     } catch (int e) {
         std::cout << "Failed to write array values to address " << array[0] << " --> " << e << std::endl;
     }
@@ -144,11 +144,11 @@ SmartDrive::Run_Unlimited(int motor_id, int direction, uint8_t speed) {
             speed = speed * -1;
         if ( motor_id != SmartDrive_Motor_ID_2) {
             uint8_t array [5] = {SmartDrive_SPEED_M1, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id != SmartDrive_Motor_ID_1) {
             uint8_t array [5] = {SmartDrive_SPEED_M2, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id == SmartDrive_Motor_ID_BOTH )
             writeByte(SmartDrive_COMMAND, CMD_S);
@@ -181,11 +181,11 @@ SmartDrive::Run_Seconds(int motor_id, int direction, uint8_t speed, uint8_t dura
             speed = speed * -1;
         if ( motor_id != SmartDrive_Motor_ID_2) {
             uint8_t array[5] = {SmartDrive_SPEED_M1, speed, duration, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id != SmartDrive_Motor_ID_1) {
             uint8_t array[5] = {SmartDrive_SPEED_M2, speed, duration, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id == SmartDrive_Motor_ID_BOTH )
             writeByte(SmartDrive_COMMAND, CMD_S);
@@ -240,11 +240,11 @@ SmartDrive::Run_Degrees(int motor_id, int direction, uint8_t speed, uint32_t deg
             ctrl |= SmartDrive_CONTROL_GO;
         if ( motor_id != SmartDrive_Motor_ID_2) {
             uint8_t array[9] = {SmartDrive_SETPT_M1, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id != SmartDrive_Motor_ID_1){
             uint8_t array[9] = {SmartDrive_SETPT_M2, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id == SmartDrive_Motor_ID_BOTH )
             writeByte(SmartDrive_COMMAND, CMD_S);
@@ -281,11 +281,11 @@ SmartDrive::Run_Rotations(int motor_id, int direction, uint8_t speed, uint32_t r
             ctrl |= SmartDrive_CONTROL_GO;
         if ( motor_id != SmartDrive_Motor_ID_2) {
             uint8_t array[9] = {SmartDrive_SETPT_M1, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id != SmartDrive_Motor_ID_1) {
             uint8_t array[9] = {SmartDrive_SETPT_M2, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id == SmartDrive_Motor_ID_BOTH )
             writeByte(SmartDrive_COMMAND, CMD_S);
@@ -319,11 +319,11 @@ SmartDrive::Run_Tacho(int motor_id, uint8_t speed, uint32_t tacho_count, bool wa
             ctrl |= SmartDrive_CONTROL_GO;
         if ( motor_id != SmartDrive_Motor_ID_2){
             uint8_t array[9]= {SmartDrive_SETPT_M1, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id != SmartDrive_Motor_ID_1){
             uint8_t array[9]= {SmartDrive_SETPT_M2, t1, t2, t3, t4, speed, 0, 0, ctrl};
-            writeArray(array);
+            writeArray(array, sizeof(array));
         }
         if ( motor_id == SmartDrive_Motor_ID_BOTH )
             writeByte(SmartDrive_COMMAND, CMD_S);
@@ -369,7 +369,7 @@ SmartDrive::SetPerformanceParameters( uint16_t Kp_tacho, uint16_t Ki_tacho, uint
     uint8_t Kd_s2 = Kd_speed/0x100;
 
     uint8_t array[15] = {SmartDrive_P_Kp, Kp_t1 , Kp_t2 , Ki_t1, Ki_t2, Kd_t1, Kd_t2, Kp_s1, Kp_s2, Ki_s1, Ki_s2, Kd_s1, Kd_s2, passcount, tolerance};
-    writeArray(array);
+    writeArray(array, sizeof(array));
 }
 
 
@@ -397,7 +397,7 @@ SmartDrive::GetMotorStatus(int motor_id) {
     if (motor_id == SmartDrive_Motor_ID_2)
         status = readByte(SmartDrive_STATUS_M1);
     if (motor_id == SmartDrive_Motor_ID_BOTH) {
-        std::cout << "Please specifiy which motor's status you want to fetch !" << std::endl;
+        std::cout << "Please specify which motor's status you want to fetch !" << std::endl;
     }
     return status;
 }
@@ -425,6 +425,6 @@ SmartDrive::PrintMotorStatus(int motor_id) {
     std::cout << "Motor " << motor_id+1 << " is " <<  ((is_stalled == 0) ? "NOT" : "") << " stalled" << std::endl;
 
     } else {
-        std::cout << "Please specifiy which motor's status you want to fetch !" << std::endl;
+        std::cout << "Please specify which motor's status you want to fetch !" << std::endl;
     }
 }

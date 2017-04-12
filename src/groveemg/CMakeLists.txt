@@ -1,5 +1,5 @@
 set (libname "groveemg")
-set (libdescription "upm groveemg muscle signal reader sensor module")
+set (libdescription "Electromyography (EMG) Sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

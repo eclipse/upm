@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "gp2y0a.h"
+#include "gp2y0a.hpp"
 
 using namespace std;
 using namespace upm;
@@ -57,6 +57,8 @@ float GP2Y0A::value(float aref, uint8_t samples)
   for (int i=0; i<samples; i++)
     {
       val = mraa_aio_read(m_aio);
+      if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                              ": Failed to do an aio read.");
       sum += val;
     }
 

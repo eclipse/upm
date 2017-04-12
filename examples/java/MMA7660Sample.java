@@ -1,5 +1,6 @@
 /*
  * Author: Stefan Andritoiu <stefan.andritoiu@intel.com>
+ *         Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,34 +23,39 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
-public class MMA7660Sample {
+import upm_mma7660.MMA7660;
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		// Instantiate an MMA7660 on I2C bus 0
-		upm_mma7660.MMA7660 accel = new upm_mma7660.MMA7660(0);
+public class MMA7660Sample
+{
+    public static void main(String[] args) throws InterruptedException
+        {
+            // ! [Interesting]
+            // Instantiate an MMA7660 on I2C bus 0
+            MMA7660 accel = new MMA7660(0);
 
-		// place device in standby mode so we can write registers
-		accel.setModeStandby();
+            // place device in standby mode so we can write registers
+            accel.setModeStandby();
 
-		// enable 64 samples per second
-		accel.setSampleRate(upm_mma7660.MMA7660.MMA7660_AUTOSLEEP_T.AUTOSLEEP_64);
+            // enable 64 samples per second
+            accel.setSampleRate(upm_mma7660.MMA7660_AUTOSLEEP_T.MMA7660_AUTOSLEEP_64);
 
-		// place device into active mode
-		accel.setModeActive();
+            // place device into active mode
+            accel.setModeActive();
 
-		while (true) {
-			int[] rawValues = accel.getRawValues();
-			System.out.println("Raw Values: x = " + rawValues[0] + " y = " + rawValues[1] + " x = "
-					+ rawValues[2]);
+            while (true)
+            {
+                float acceleration[] = accel.getAcceleration();
+                System.out.println("Acceleration: x = "
+                                   + acceleration[0]
+                                   + " y = "
+                                   + acceleration[1]
+                                   + " x = "
+                                   + acceleration[2]);
 
-			float[] acceleration = accel.getAcceleration();
-			System.out.println("Raw Values: x = " + acceleration[0] + " y = " + acceleration[1]
-					+ " x = " + acceleration[2]);
+                System.out.println();
 
-			Thread.sleep(1000);
-		}
-		// ! [Interesting]
+                Thread.sleep(500);
+            }
+            // ! [Interesting]
 	}
 }

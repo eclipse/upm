@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "isd1820.h"
+    #include "isd1820.hpp"
 %}
 
-%include "isd1820.h"
+%include "isd1820.hpp"
 
 
 %pragma(java) jniclasscode=%{

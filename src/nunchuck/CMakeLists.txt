@@ -1,5 +1,9 @@
-set (libname "nunchuck")
-set (libdescription "upm wii nunchuck module")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+upm_mixed_module_init (NAME nunchuck
+    DESCRIPTION "Wii Nunchuk"
+    C_HDR nunchuck.h
+    C_SRC nunchuck.c
+    CPP_HDR nunchuck.hpp
+    CPP_SRC nunchuck.cxx
+    FTI_SRC nunchuck_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)

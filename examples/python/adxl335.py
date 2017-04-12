@@ -21,58 +21,61 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_adxl335 as upmAdxl335
+from upm import pyupm_adxl335 as upmAdxl335
 
-myAnalogAccel = upmAdxl335.ADXL335(0, 1, 2)
+def main():
+    myAnalogAccel = upmAdxl335.ADXL335(0, 1, 2)
 
-print "Please make sure the sensor is completely still."
-print "Sleeping for 2 seconds"
-time.sleep(2)
+    print("Please make sure the sensor is completely still.")
+    print("Sleeping for 2 seconds")
+    time.sleep(2)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit,
+    # including functions from myAnalogAccel
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit,
-# including functions from myAnalogAccel
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    print("Calibrating...")
+    myAnalogAccel.calibrate()
 
+    x = upmAdxl335.new_intPointer()
+    y = upmAdxl335.new_intPointer()
+    z = upmAdxl335.new_intPointer()
 
-print "Calibrating..."
-myAnalogAccel.calibrate()
+    aX = upmAdxl335.new_floatPointer()
+    aY = upmAdxl335.new_floatPointer()
+    aZ = upmAdxl335.new_floatPointer()
 
-x = upmAdxl335.new_intPointer()
-y = upmAdxl335.new_intPointer()
-z = upmAdxl335.new_intPointer()
+    while (1):
+        myAnalogAccel.values(x, y, z)
+        outputStr = "Raw Values: X: {0} Y: {1} Z: {2}".format(
+        upmAdxl335.intPointer_value(x), upmAdxl335.intPointer_value(y),
+        upmAdxl335.intPointer_value(z))
+        print(outputStr)
 
-aX = upmAdxl335.new_floatPointer()
-aY = upmAdxl335.new_floatPointer()
-aZ = upmAdxl335.new_floatPointer()
+        myAnalogAccel.acceleration(aX, aY, aZ)
+        outputStr = ("Acceleration: X: {0}g\n"
+        "Acceleration: Y: {1}g\n"
+        "Acceleration: Z: {2}g").format(upmAdxl335.floatPointer_value(aX),
+        upmAdxl335.floatPointer_value(aY),
+        upmAdxl335.floatPointer_value(aZ))
+        print(outputStr)
 
-while (1):
-	myAnalogAccel.values(x, y, z)
-	outputStr = "Raw Values: X: {0} Y: {1} Z: {2}".format(
-	upmAdxl335.intPointer_value(x), upmAdxl335.intPointer_value(y),
-	upmAdxl335.intPointer_value(z))
-	print outputStr
+        print(" ")
 
-	myAnalogAccel.acceleration(aX, aY, aZ)
-	outputStr = ("Acceleration: X: {0}g\n"
-	"Acceleration: Y: {1}g\n"
-	"Acceleration: Z: {2}g").format(upmAdxl335.floatPointer_value(aX),
-	upmAdxl335.floatPointer_value(aY),
-	upmAdxl335.floatPointer_value(aZ))
-	print outputStr
+        time.sleep(.2)
 
-	print " "
-
-	time.sleep(.2)
+if __name__ == '__main__':
+    main()

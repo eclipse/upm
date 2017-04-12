@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "nunchuck.h"
+%include "nunchuck.hpp"
 %{
-    #include "nunchuck.h"
+    #include "nunchuck.hpp"
 %}

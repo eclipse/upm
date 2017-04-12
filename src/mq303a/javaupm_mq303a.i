@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "mq303a.h"
+    #include "mq303a.hpp"
 %}
 
-%include "mq303a.h"
+%include "mq303a.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

@@ -14,16 +14,16 @@ example is explained in detail on @ref max31855
 
 ### CmakeLists.txt
 
-By default you need a header called modulename.h and a C++ file called
+By default you need a header called modulename.hpp and a C++ file called
 modulename.cxx. You can have multiple headers and source files. Only public
-headers need to be added to module_h and all source files need to be in
+headers need to be added to module_hpp and all source files need to be in
 module_src.
 
 ~~~~~~~~~~~
 set (libname "modulename")
 set (libdescription "Module Description")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
+set (module_hpp ${libname}.hpp)
 upm_module_init()
 ~~~~~~~~~~~
 

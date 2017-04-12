@@ -23,24 +23,27 @@
 
 from __future__ import division
 import time
-import pyupm_cjq4435 as upmCjq4435
+from upm import pyupm_cjq4435 as upmCjq4435
 
-# Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
-myMOSFETsensor = upmCjq4435.CJQ4435(3)
+def main():
+    # Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
+    myMOSFETsensor = upmCjq4435.CJQ4435(3)
 
+    myMOSFETsensor.setPeriodMS(10)
+    myMOSFETsensor.enable(True)
 
-myMOSFETsensor.setPeriodMS(10)
-myMOSFETsensor.enable(True)
+    # start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
+    for i in range(11):
+        myMOSFETsensor.setDutyCycle(i / 10)
+        time.sleep(.1)
+    time.sleep(1)
 
-# start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
-for i in range(11):
-	myMOSFETsensor.setDutyCycle(i / 10)
-	time.sleep(.1)
-time.sleep(1)
+    # Now take it back down
+    #        start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
+    for i in range(10, -1, -1):
+        myMOSFETsensor.setDutyCycle(i / 10)
+        time.sleep(.1)
+    time.sleep(1)
 
-# Now take it back down
-#	 start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
-for i in range(10, -1, -1):
-	myMOSFETsensor.setDutyCycle(i / 10)
-	time.sleep(.1)
-time.sleep(1)
+if __name__ == '__main__':
+    main()

@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "bmi160.h"
+#include "bmi160.hpp"
 
 using namespace std;
 

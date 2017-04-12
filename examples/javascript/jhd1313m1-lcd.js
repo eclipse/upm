@@ -1,6 +1,3 @@
-/*jslint node:true, vars:true, bitwise:true, unparam:true */
-/*jshint unused:true */
-/*global */
 /*
  * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2014 Intel Corporation.
@@ -26,7 +23,7 @@
  */
 
 // Load lcd module on I2C
-var LCD = require('jsupm_i2clcd');
+var LCD = require('jsupm_jhd1313m1');
 
 // Initialize Jhd1313m1 at 0x62 (RGB_ADDRESS) and 0x3E (LCD_ADDRESS) 
 var myLcd = new LCD.Jhd1313m1 (0, 0x3E, 0x62);

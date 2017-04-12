@@ -21,31 +21,34 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_a110x as upmA110x
+from upm import pyupm_a110x as upmA110x
 
-# Instantiate a Hall Effect magnet sensor on digital pin D2
-myHallEffectSensor = upmA110x.A110X(2)
+def main():
+    # Instantiate a Hall Effect magnet sensor on digital pin D2
+    myHallEffectSensor = upmA110x.A110X(2)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myHallEffectSensor
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myHallEffectSensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    while(1):
+        if (myHallEffectSensor.magnetDetected()):
+            print("Magnet (south polarity) detected.")
+        else:
+            print("No magnet detected.")
+        time.sleep(1)
 
-
-while(1):
-	if (myHallEffectSensor.magnetDetected()):
-		print "Magnet (south polarity) detected."
-	else:
-		print "No magnet detected."
-	time.sleep(1)
+if __name__ == '__main__':
+    main()

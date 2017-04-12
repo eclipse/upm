@@ -7,7 +7,7 @@
 
 %feature("autodoc", "3");
 
-%include "ecs1030.h"
+%include "ecs1030.hpp"
 %{
-    #include "ecs1030.h"
+    #include "ecs1030.hpp"
 %}

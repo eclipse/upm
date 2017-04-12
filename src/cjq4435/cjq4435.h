@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,78 +23,85 @@
  */
 #pragma once
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
 #include <mraa/pwm.h>
+#include <upm.h>
 
-namespace upm {
-  /**
-   * @brief CJQ4435 MOSFET library
-   * @defgroup cjq4435 libupm-cjq4435
-   * @ingroup seeed gpio pwm electric robok
-   */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-  /**
-   * @library cjq4435
-   * @sensor cjq4435
-   * @comname Grove MOSFET
-   * @altname CJQ4435
-   * @type electric
-   * @man seeed
-   * @con gpio pwm
-   * @kit robok
-   *
-   * @brief API for the CJQ4435 MOSFET
-   *
-   * UPM module for the CJQ4435 MOSFET. It was developed using the
-   * Grove MOSFET module.  A MOSFET is like a switch, but it can
-   * switch much faster than a mechanical relay.  Here, we implement
-   * support via MRAA pulse width modulation (PWM) functions.
-   * Note: available periods vary depending on
-   * the capabilities of your device.
-   *
-   * @image html cjq4435.jpg
-   * @snippet cjq4435.cxx Interesting
-   */
-  class CJQ4435 {
-  public:
     /**
-     * CJQ4435 constructor
+     * @file cjq4435.h
+     * @library cjq4435
+     * @brief API CJQ4435 MOSFET
+     *
+     * @include cjq4435.c
+     */
+
+    /**
+     * Device context
+     */
+    typedef struct _cjq4435_context {
+        mraa_pwm_context pwm;
+
+        bool enabled;
+    } *cjq4435_context;
+
+    /**
+     * CJQ4435 initializer
      *
      * @param pin Digital pin to use; this pin must be PWM-capable
+     * @return Initialized device context, or NULL on error.
      */
-    CJQ4435(int pin);
+    cjq4435_context cjq4435_init(int pin);
 
     /**
      * CJQ4435 destructor
+     *
+     * @param dev Device context
      */
-    ~CJQ4435();
+    void cjq4435_close(cjq4435_context dev);
 
     /**
      * Sets a period in microseconds
      *
+     * @param dev Device context
      * @param us Period in microseconds
+     * @return UPM result
      */
-    void setPeriodUS(int us);
+    upm_result_t cjq4435_set_period_us(const cjq4435_context dev, int us);
 
     /**
      * Sets a period in milliseconds
      *
+     * @param dev Device context
      * @param ms Period in milliseconds
+     * @return UPM result
      */
-    void setPeriodMS(int ms);
+    upm_result_t cjq4435_set_period_ms(const cjq4435_context dev, int us);
 
     /**
      * Sets a period in seconds
      *
+     * @param dev Device context
      * @param seconds Period in seconds
+     * @return UPM result
      */
-    void setPeriodSeconds(float seconds);
+    upm_result_t cjq4435_set_period_seconds(const cjq4435_context dev,
+                                            float seconds);
 
     /**
      * Enables output
      *
+     * @param dev Device context
      * @param enable Enables PWM output if true, disables otherwise
+     * @return UPM result
      */
-    void enable(bool enable);
+    upm_result_t cjq4435_enable(const cjq4435_context dev, bool enable);
 
     /**
      * Sets a duty cycle. Duty cycle is a floating-point number
@@ -102,24 +109,28 @@ namespace upm {
      * proportion of time, per period, during which the output is
      * driven high.
      *
+     * @param dev Device context
      * @param dutyCycle Duty cycle to use
+     * @return UPM result
      */
-    void setDutyCycle(float dutyCycle);
+    upm_result_t cjq4435_set_duty_cycle(const cjq4435_context dev,
+                                        float dutyCycle);
 
     /**
      * Shortcut to turn the output to continuous on (high)
+     *
+     * @param dev Device context
      */
-    void on();
+    void cjq4435_on(const cjq4435_context dev);
 
     /**
      * Shortcut to turn the output to continuous off (low)
+     *
+     * @param dev Device context
      */
-    void off();
+    void cjq4435_off(const cjq4435_context dev);
 
-  private:
-    bool m_enabled;
-    mraa_pwm_context m_pwm;
-  };
+
+#ifdef __cplusplus
 }
-
-
+#endif

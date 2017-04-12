@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "tcs3414cs.h"
+    #include "tcs3414cs.hpp"
 %}
 
-%include "tcs3414cs.h"
+%include "tcs3414cs.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

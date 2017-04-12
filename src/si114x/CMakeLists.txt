@@ -1,5 +1,5 @@
 set (libname "si114x")
-set (libdescription "upm si114x UV/IR/Visible light sensor")
+set (libdescription "UV/IR/visible Light Sensor")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

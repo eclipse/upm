@@ -2,16 +2,17 @@
 %include "pyupm_doxy2swig.i"
 %module pyupm_st7735
 %include "../upm.i"
+%include "../carrays_uint8_t.i"
 
 %feature("autodoc", "3");
 %rename("printString") print(std::string msg);
 
-%include "gfx.h"
+%include "st7735_gfx.hpp"
 %{
-    #include "gfx.h"
+    #include "st7735_gfx.hpp"
 %}
 
-%include "st7735.h"
+%include "st7735.hpp"
 %{
-    #include "st7735.h"
+    #include "st7735.hpp"
 %}

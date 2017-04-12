@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <unistd.h>
-#include "hlg150h.h"
-#include "mraa-utils.h"
+#include "hlg150h.hpp"
+#include "mraa-utils.hpp"
 
 #define PWM_PERIOD 3333
 

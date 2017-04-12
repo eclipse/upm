@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
+
 public class ENC03RSample {
 	private static final long CALIBRATION_SAMPLES = 1000;
 
@@ -42,12 +42,13 @@ public class ENC03RSample {
 		// Read the input and print both the raw value and the angular velocity,
 		// waiting 1 second between readings
 		while (true) {
-			long val = gyro.value();
-			double av = gyro.angularVelocity(val);
+			gyro.update();
 
-			System.out.println("Raw value: " + val + ", angular velocity: " + av + " deg/s");
+			System.out.println("Angular velocity: "
+                                           +  gyro.angularVelocity()
+                                           + " deg/s");
 
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 		// ! [Interesting]
 	}

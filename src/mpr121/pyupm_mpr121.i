@@ -9,7 +9,7 @@
 %include "mpr121_doc.i"
 #endif
 
-%include "mpr121.h"
+%include "mpr121.hpp"
 %{
-    #include "mpr121.h"
+    #include "mpr121.hpp"
 %}

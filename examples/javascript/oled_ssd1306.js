@@ -90,7 +90,7 @@ function exit()
 
 // Load i2clcd module
 var lcdObj = require('jsupm_i2clcd');
-var lcd = new lcdObj.SSD1306(6, 0x3c);
+var lcd = new lcdObj.SSD1306(0, 0x3C);
 var next = 0;
 
 lcd.clear();

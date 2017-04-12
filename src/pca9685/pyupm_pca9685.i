@@ -9,7 +9,7 @@
 %include "pca9685_doc.i"
 #endif
 
-%include "pca9685.h"
+%include "pca9685.hpp"
 %{
-    #include "pca9685.h"
+    #include "pca9685.hpp"
 %}

@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "cjq4435.h"
+#include "cjq4435.hpp"
 
 using namespace std;
 
@@ -33,45 +33,45 @@ int shouldRun = true;
 
 void sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 
 int main ()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
 //! [Interesting]
-  // Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
-  upm::CJQ4435* mosfet = new upm::CJQ4435(3);
-  
-  mosfet->setPeriodMS(10);
-  mosfet->enable(true);
+    // Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
+    upm::CJQ4435* mosfet = new upm::CJQ4435(3);
 
-  while (shouldRun)
+    mosfet->setPeriodMS(10);
+    mosfet->enable(true);
+
+    while (shouldRun)
     {
-      // start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
-      for (float i=0.0; i <= 1.0; i+=0.1)
+        // start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
+        for (float i=0.0; i <= 1.0; i+=0.1)
         {
-          mosfet->setDutyCycle(i);
-          usleep(100000);
+            mosfet->setDutyCycle(i);
+            usleep(100000);
         }
-      sleep(1);
-      // Now take it back down
-      // start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
-      for (float i=1.0; i >= 0.0; i-=0.1)
+        sleep(1);
+        // Now take it back down
+        // start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
+        for (float i=1.0; i >= 0.0; i-=0.1)
         {
-          mosfet->setDutyCycle(i);
-          usleep(100000);
+            mosfet->setDutyCycle(i);
+            usleep(100000);
         }
-      sleep(1);
+        sleep(1);
     }
 
 //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete mosfet;
-  return 0;
+    delete mosfet;
+    return 0;
 }

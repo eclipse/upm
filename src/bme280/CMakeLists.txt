@@ -1,6 +1,0 @@
-include_directories(..)
-set (libname "bme280")
-set (libdescription "upm bme280 temperature humidity pressure sensor module")
-set (module_src ${libname}.cxx bme280driver.cxx)
-set (module_h ${libname}.h bme280driver.h)
-upm_module_init()

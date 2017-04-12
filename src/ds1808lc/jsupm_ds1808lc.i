@@ -2,7 +2,9 @@
 %include "../upm.i"
 
 %{
-    #include "ds1808lc.h"
+    #include "ds1808lc.hpp"
 %}
 
-%include "ds1808lc.h"
+%include "iModuleStatus.hpp"
+%include "iLightController.hpp"
+%include "ds1808lc.hpp"

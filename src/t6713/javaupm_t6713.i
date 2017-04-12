@@ -1,15 +1,18 @@
 %module javaupm_t6713
 %include "../upm.i"
+
+%include "../interfaces/javaupm_iCO2Sensor.i"
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 %include "cpointer.i"
 %include "typemaps.i"
 
 %{
-    #include "t6713.h"
+    #include "t6713.hpp"
 %}
 
-%include "t6713.h"
+%include "t6713.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

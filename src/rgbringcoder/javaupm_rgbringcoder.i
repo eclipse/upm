@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "rgbringcoder.h"
+    #include "rgbringcoder.hpp"
 %}
 
-%include "rgbringcoder.h"
+%include "rgbringcoder.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

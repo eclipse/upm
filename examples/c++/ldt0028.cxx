@@ -26,7 +26,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include "ldt0028.h"
+#include "ldt0028.hpp"
 
 int
 main(int argc, char **argv)
@@ -44,7 +44,7 @@ main(int argc, char **argv)
     std::cout << "For the next " << NUMBER_OF_SECONDS << " seconds, " 
               << SAMPLES_PER_SECOND << " samples will be taken every second." 
               << std::endl << std::endl;
-    uint16_t* buffer = new uint16_t[NUMBER_OF_SECONDS * SAMPLES_PER_SECOND];
+    uint16_t buffer[NUMBER_OF_SECONDS * SAMPLES_PER_SECOND];
     for (int i=0; i < NUMBER_OF_SECONDS * SAMPLES_PER_SECOND; i++) {
         buffer[i] = (uint16_t) sensor->getSample();
         usleep(MICROSECONDS_PER_SECOND / SAMPLES_PER_SECOND);

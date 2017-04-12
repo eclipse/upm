@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "lpd8806.h"
+#include "lpd8806.hpp"
 #include <signal.h>
 
 void scanner(uint8_t r, uint8_t g, uint8_t b, uint8_t wait);
@@ -46,7 +46,7 @@ int
 main(int argc, char **argv)
 {
     //! [Interesting]
-    sensor = new upm::LPD8806(10, 7);
+    sensor = new upm::LPD8806(0, 7, 10);
     usleep (1000000);
 
     sensor->show ();

@@ -1,5 +1,5 @@
 set (libname "itg3200")
-set (libdescription "libupm Digital Gyro")
+set (libdescription "3-axis Digital Gyroscope")
 set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

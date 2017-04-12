@@ -6,52 +6,52 @@
 
 %feature("autodoc", "3");
 
-%include "gas.h"
+%include "gas.hpp"
 %{
-    #include "gas.h"
+    #include "gas.hpp"
 %}
 
-%include "mq2.h"
+%include "mq2.hpp"
 %{
-    #include "mq2.h"
+    #include "mq2.hpp"
 %}
 
-%include "mq3.h"
+%include "mq3.hpp"
 %{
-    #include "mq3.h"
+    #include "mq3.hpp"
 %}
 
-%include "mq4.h"
+%include "mq4.hpp"
 %{
-    #include "mq4.h"
+    #include "mq4.hpp"
 %}
 
-%include "mq5.h"
+%include "mq5.hpp"
 %{
-    #include "mq5.h"
+    #include "mq5.hpp"
 %}
 
-%include "mq6.h"
+%include "mq6.hpp"
 %{
-    #include "mq6.h"
+    #include "mq6.hpp"
 %}
 
-%include "mq7.h"
+%include "mq7.hpp"
 %{
-    #include "mq7.h"
+    #include "mq7.hpp"
 %}
 
-%include "mq8.h"
+%include "mq8.hpp"
 %{
-    #include "mq8.h"
+    #include "mq8.hpp"
 %}
 
-%include "mq9.h"
+%include "mq9.hpp"
 %{
-    #include "mq9.h"
+    #include "mq9.hpp"
 %}
 
-%include "tp401.h"
+%include "tp401.hpp"
 %{
-    #include "tp401.h"
+    #include "tp401.hpp"
 %}

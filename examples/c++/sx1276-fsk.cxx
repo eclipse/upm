@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <signal.h>
-#include "sx1276.h"
+#include "sx1276.hpp"
 
 using namespace std;
 
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
           // receiving
           cout << "Attempting to receive..." << endl;
           int rv;
-          if (rv = sensor->setRx(3000))
+          if ((rv = sensor->setRx(3000)))
             {
               cout << "setRx returned " << rv << endl;
             }

@@ -21,30 +21,35 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_wheelencoder as sensorObj
+from upm import pyupm_wheelencoder as sensorObj
 
-# Instantiate a DFRobot Wheel Encoder on digital pin D2
-sensor = sensorObj.WheelEncoder(2)
+def main():
+    # Instantiate a DFRobot Wheel Encoder on digital pin D2
+    sensor = sensorObj.WheelEncoder(2)
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# set the counter to 0 and start counting
-sensor.clearCounter();
-sensor.startCounter();
+    # set the counter to 0 and start counting
+    sensor.clearCounter();
+    sensor.startCounter();
 
-while (1):
-        print "Millis:", sensor.getMillis(), "Count:", sensor.counter()
-	time.sleep(1)
+    while (1):
+        print("Millis:", sensor.getMillis(), "Count:", sensor.counter())
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

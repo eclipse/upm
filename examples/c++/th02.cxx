@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "th02.h"
+#include "th02.hpp"
 #include <signal.h>
 
 int doWork = 0;

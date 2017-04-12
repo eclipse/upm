@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ad8232.h"
+#include "ad8232.hpp"
 
 using namespace std;
 

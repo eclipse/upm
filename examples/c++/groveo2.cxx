@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "groveo2.h"
+#include "groveo2.hpp"
 
 using namespace std;
 

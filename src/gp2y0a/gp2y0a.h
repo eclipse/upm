@@ -1,6 +1,7 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ *         Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,67 +22,59 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <iostream>
-#include <string>
-#include <mraa/aio.h>
+#ifndef GP2Y0A_GP2Y0A_H_
+#define GP2Y0A_GP2Y0A_H_
 
-namespace upm {
-  /**
-   * @brief GP2Y0A-based IR Proximity Sensor library
-   * @defgroup gp2y0a libupm-gp2y0a
-   * @ingroup seeed analog light
-   */
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <malloc.h>
 
-  /**
-   * @library gp2y0a
-   * @sensor gp2y0a
-   * @comname GP2Y0A IR Proximity Sensor
-   * @altname Grove 80cm IR Proximity Sensor
-   * @type light
-   * @man seeed
-   * @con analog
-   *
-   * @brief API for the GP2Y0A family of IR Proximity Sensors
-   *
-   * Sensors of this family return an analog voltage corresponding to the distance 
-   * of an object from the sensor. The voltage is lower when objects
-   * are far away; the voltage increases as objects get closer
-   * to the sensor.  
-   *
-   * @image html gp2y0a.jpg
-   * @snippet gp2y0a.cxx Interesting
-   */
-  class GP2Y0A {
-  public:
+#include "upm.h"
+#include "mraa/aio.h"
 
-    /**
-     * GP2Y0A sensor constructor
-     *
-     * @param pin Analog pin to use
-     */
-    GP2Y0A(int pin);
+/**
+ * @file gp2y0a.h
+ * @library gp2y0a
+ * @brief C API for GP2Y0A IR Proximity Sensors
+ *
+ * @include gp2y0a.c
+ */
 
-    /**
-     * GP2Y0A destructor
-     */
-    ~GP2Y0A();
+/**
+ * device context
+ */
+typedef struct _gp2y0a_context {
+    mraa_aio_context            aio;
+    uint8_t                     pin;
+    int                         a_res;
+} *gp2y0a_context;
 
-    /**
-     * Gets an average voltage value from the sensor
-     *
-     * @param aref Reference voltage in use (usually 5.0V or 3.3V)
-     * @param samples Number of samples to average over
-     * @return Average voltage reading
-     */
-    float value(float aref, uint8_t samples);
+/**
+ * GP2Y0A sensor init function
+ *
+ * @param pin Analog pin to use
+ * @param a_ref reference voltage
+ */
+gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref);
 
-  private:
-    mraa_aio_context m_aio;
-    // ADC resolution
-    int m_aRes;
-  };
-}
+/**
+ * GP2Y0A close function
+ *
+ * @param dev sensor struct
+ */
+void gp2y0a_close(gp2y0a_context dev);
 
+/**
+ * Gets an average voltage value from the sensor
+ *
+ * @param dev sensor struct
+ * @param aref Reference voltage in use (usually 5.0V or 3.3V)
+ * @param samples Number of samples to average over
+ * @return Average voltage reading
+ */
+upm_result_t gp2y0a_get_value(gp2y0a_context dev, float a_ref, uint8_t samples,
+                              float* val);
 
+#endif /* GP2Y0A_GP2Y0A_H_ */

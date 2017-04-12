@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "mg811.h"
+%include "mg811.hpp"
 %{
-    #include "mg811.h"
+    #include "mg811.hpp"
 %}

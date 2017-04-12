@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <functional>
 #include <string.h>
-#include "mic.h"
+#include "mic.hpp"
 
 using namespace upm;
 
@@ -69,7 +69,11 @@ Microphone::getSampledWindow (unsigned int freqMS, int numberOfSamples,
     }
 
     while (sampleIdx < numberOfSamples) {
-        buffer[sampleIdx++] = mraa_aio_read (m_micCtx);
+        int x = mraa_aio_read (m_micCtx);
+        if (x == -1) {
+            return 0;
+        }
+        buffer[sampleIdx++] = x;
         usleep(freqMS * 1000);
     }
 
@@ -80,7 +84,7 @@ int
 Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
                                 uint16_t * buffer, int len) {
     long sum = 0;
-    for (unsigned int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         sum += buffer[i];
     }
 
@@ -96,7 +100,7 @@ Microphone::findThreshold (thresholdContext* ctx, unsigned int threshold,
 
 void
 Microphone::printGraph (thresholdContext* ctx) {
-    for (int i = 0; i < ctx->runningAverage; i++)
+    for (unsigned int i = 0; i < ctx->runningAverage; i++)
         std::cout << ".";
     std::cout << std::endl;
 }

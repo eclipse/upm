@@ -21,53 +21,50 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_nunchuck as upmNunchuck
+from upm import pyupm_nunchuck as upmNunchuck
 
-# Instantiate a nunchuck controller bus 0 on I2C
-myNunchuck = upmNunchuck.NUNCHUCK(0)
+def main():
+    # Instantiate a nunchuck controller bus 3 on I2C
+    myNunchuck = upmNunchuck.NUNCHUCK(3)
 
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This function lets you run code on exit, including functions from myNunchuck
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This function lets you run code on exit, including functions from myNunchuck
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    def buttonStateStr(buttonState):
+        return "pressed" if buttonState else "not pressed"
 
+    # Print the X and Y input values every second
+    while(1):
+        myNunchuck.update()
 
-# always do this first
-print "Initializing... "
-if (not myNunchuck.init()):
-	print "nunchuck->init() failed."
-	sys.exit(0);
+        outputStr = "stickX: {0}, stickY: {1}".format(
+        myNunchuck.stickX, myNunchuck.stickY)
+        print(outputStr)
+        outputStr = "accelX: {0}, accelY: {1}, accelZ: {2}".format(
+        myNunchuck.accelX, myNunchuck.accelY, myNunchuck.accelZ)
+        print(outputStr)
 
-def buttonStateStr(buttonState):
-	return "pressed" if buttonState else "not pressed"
+        outputStr = "button C: {0}".format(
+        buttonStateStr(myNunchuck.buttonC))
+        print(outputStr)
+        outputStr = "button Z: {0}".format(
+        buttonStateStr(myNunchuck.buttonZ))
+        print(outputStr)
 
-# Print the X and Y input values every second
-while(1):
-	myNunchuck.update()
+        time.sleep(.1)
 
-	outputStr = "stickX: {0}, stickY: {1}".format(
-	myNunchuck.stickX, myNunchuck.stickY)
-	print outputStr
-	outputStr = "accelX: {0}, accelY: {1}, accelZ: {2}".format(
-	myNunchuck.accelX, myNunchuck.accelY, myNunchuck.accelZ)
-	print outputStr
-
-	outputStr = "button C: {0}".format(
-	buttonStateStr(myNunchuck.buttonC))
-	print outputStr
-	outputStr = "button Z: {0}".format(
-	buttonStateStr(myNunchuck.buttonZ))
-	print outputStr
-
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

@@ -25,8 +25,8 @@
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
-#include "lp8860.h"
-#include "mraa-utils.h"
+#include "lp8860.hpp"
+#include "mraa-utils.hpp"
 
 // Used to prevent silent failure in mraa_i2c_write()
 // Value come from I2C_SMBUS_I2C_BLOCK_MAX in i2c driver

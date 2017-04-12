@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "biss0001.h"
+%include "biss0001.hpp"
 %{
-    #include "biss0001.h"
+    #include "biss0001.hpp"
 %}

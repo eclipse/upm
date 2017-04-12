@@ -1,5 +1,9 @@
-set (libname "m24lr64e")
-set (libdescription "upm m24lr64e grove NFC tag")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+upm_mixed_module_init (NAME m24lr64e
+    DESCRIPTION "Dynamic NFC/RFID Tag Module"
+    C_HDR m24lr64e.h
+    C_SRC m24lr64e.c
+    CPP_HDR m24lr64e.hpp
+    CPP_SRC m24lr64e.cxx
+    FTI_SRC m24lr64e_fti.c
+    CPP_WRAPS_C
+    REQUIRES mraa)

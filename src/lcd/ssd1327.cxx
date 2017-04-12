@@ -26,8 +26,8 @@
 #include <string>
 #include <unistd.h>
 
-#include "hd44780_bits.h"
-#include "ssd1327.h"
+#include "hd44780_bits.hpp"
+#include "ssd1327.hpp"
 
 using namespace upm;
 
@@ -215,7 +215,6 @@ SSD1327::setCursor(int row, int column)
 mraa::Result
 SSD1327::clear()
 {
-    mraa::Result error = mraa::SUCCESS;
     uint8_t columnIdx, rowIdx;
 
     for (rowIdx = 0; rowIdx < 12; rowIdx++) {

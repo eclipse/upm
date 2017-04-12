@@ -25,7 +25,7 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "lcd.h"
+#include "lcd.hpp"
 
 using namespace upm;
 

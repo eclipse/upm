@@ -24,25 +24,20 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "t6713.h"
+#include "t6713.hpp"
 
 #define FT4222_I2C_BUS 0
 
 int main ()
 {
+    //! [Interesting]
+    upm::T6713 cO2Sensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
 
-   try {
-      upm::T6713* cO2Sensor = new upm::T6713(mraa_get_sub_platform_id(FT4222_I2C_BUS));
-      while (true) {
-         uint16_t value = cO2Sensor->getPpm();
-         std::cout << "CO2 level = " << value << " ppm" << std::endl;
-         sleep(1);
-      }
-      delete cO2Sensor;
-   } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-      return 1;
-   }
-   return 0;
+    while (true) {
+        uint16_t value = cO2Sensor.getPpm();
+        std::cout << "CO2 level = " << value << " ppm" << std::endl;
+        sleep(1);
+    }
+    //! [Interesting]
+    return 0;
 }
-

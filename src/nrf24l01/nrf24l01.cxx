@@ -29,19 +29,19 @@
 #include <stdexcept>
 #include <stdlib.h>
 
-#include "nrf24l01.h"
+#include "nrf24l01.hpp"
 
 using namespace upm;
 
 
-NRF24L01::NRF24L01 (uint8_t cs, uint8_t ce)
-                            : m_csnPinCtx(cs), m_cePinCtx(ce), m_spi(0)
+NRF24L01::NRF24L01 (int cs, int ce)
+                            :m_spi(0), m_csnPinCtx(cs), m_cePinCtx(ce)
 {
     init (cs, ce);
 }
 
 void
-NRF24L01::init (uint8_t chip_select, uint8_t chip_enable) {
+NRF24L01::init (int chip_select, int chip_enable) {
     mraa::Result error = mraa::SUCCESS;
 
     m_csn       = chip_select;

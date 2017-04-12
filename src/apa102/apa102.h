@@ -1,6 +1,6 @@
 /*
- * Author: Yannick Adam <yannick.adam@gmail.com>
- * Copyright (c) 2016 Yannick Adam
+ * Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
+ * Copyright (c) 2016 Intel Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,121 +23,111 @@
  */
 #pragma once
 
-#include <mraa/gpio.hpp>
-#include <mraa/spi.hpp>
-#include <string>
+#include <stdint.h>
+#include "upm.h"
+#include "mraa/gpio.h"
+#include "mraa/spi.h"
 
-#define HIGH 1
-#define LOW 0
-
-namespace upm
-{
-/**
- * @brief APA102 RGB LED Strip driver library
- * @defgroup apa102 libupm-apa102
- * @ingroup spi led
- */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
+ * @file apa102.h
  * @library apa102
- * @sensor apa102
- * @comname APA102/DotStar LED Strip
- * @type led
- * @man adafruit
- * @con spi
+ * @brief C API for controlling APA102/DotStar RGB LED Strips
  *
- * @brief API for controlling APA102/DotStar RGB LED Strips
- *
- * APA102 LED Strips provide individually controllable LEDs through a SPI interface.
- * For each LED, brightness (0-31) and RGB (0-255) values can be set.
- *
- * @image html apa102.jpg
- * @snippet apa102.cxx Interesting
+ * @include apa102.c
  */
-class APA102
-{
-  public:
-    /**
-     * Instantiates a new APA102 LED Strip
-     *
-     * @param ledCount  Number of APA102 leds in the strip
-     * @param spiBus    SPI Bus number
-     * @param batchMode (optional) Immediatly write to SPI (false, default) or wait for a pushState
-     * call (true)
-     * @param csn       (optional) Chip Select Pin
-     */
-    APA102(uint16_t ledCount, uint8_t spiBus, bool batchMode = false, int8_t csn = -1);
 
-    /**
-     * APA102 destructor
-     */
-    ~APA102();
+/**
+ * Device context
+ */
+typedef struct _apa102_context {
+    mraa_spi_context        spi;
 
-    /**
-     * Change the color for a single led
-     *
-     * @param ledIdx        Index of the LED in the strip (0 based)
-     * @param brightness    Brightness value (0-31)
-     * @param r             Red component (0-255)
-     * @param g             Green component (0-255)
-     * @param b             Blue component (0-255)
-     */
-    void setLed(uint16_t ledIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
+    // optional chip select
+    mraa_gpio_context       cs;
 
-    /**
-     * Change the color for all leds
-     *
-     * @param brightness    Brightness value (0-31)
-     * @param r             Red component (0-255)
-     * @param g             Green component (0-255)
-     * @param b             Blue component (0-255)
-     */
-    void setAllLeds(uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
+    uint8_t*    buffer;
+    int         leds;
+    int         framelength;
+} *apa102_context;
 
-    /**
-     * Change the color for a range of leds
-     *
-     * @param startIdx      Start index of the range of LEDs in the strip (0 based)
-     * @param endIdx        End index of the range of LEDs in the strip (0 based)
-     * @param brightness    Brightness value (0-31)
-     * @param r             Red component (0-255)
-     * @param g             Green component (0-255)
-     * @param b             Blue component (0-255)
-     */
-    void
-    setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
-    /**
-     * (Advanced) Manually control the colors of a range of LEDS
-     * Best used to maximize performance
-     *
-     * @param startIdx      Start index of the range of LEDs to update (0 based)
-     * @param endIdx        End index of the range of LEDs to update (0 based)
-     * @param colors        Pointer to an array of bytes. Each color is described as the following:
-     *                      B1: Brightness (224-255) B2: Blue (0-255) B3: Green (0-255) B4: Red
-     *(0-255)
-     *                      No check done on the boundaries
-     */
-    void setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t* colors);
+/**
+ * Instantiates a new APA102 LED Strip
+ *
+ * @param ledcount  Number of LEDs on the strip
+ * @param bus       SPI bus to use
+ * @param cs        Pin to use for chip select. -1 if not used.
+ * @return an initialized apa102 context on success, NULL on error.
+ */
+apa102_context apa102_init(int ledcount, int bus, int cs);
 
-    /**
-     * Outputs the current LED data to the SPI bus
-     * Note: Only required if batch mode is set to TRUE
-     *
-     */
-    void pushState();
+/**
+ * APA102 close function
+ *
+ * @param dev The apa102_context to close
+ */
+void apa102_close(apa102_context dev);
 
-  private:
-    mraa::Spi* m_spi;
-    mraa::Gpio* m_csnPinCtx;
+/**
+ * Sets the color and brightness for one LED in the buffer
+ *
+ * @param dev           The apa102_context to use
+ * @param index         Index of the LED (0 based)
+ * @param brightness    Brightness value (0-31)
+ * @param r             Red component (0-255)
+ * @param g             Green component (0-255)
+ * @param b             Blue component (0-255)
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t apa102_set_led(apa102_context dev, uint16_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
-    uint16_t m_ledCount;
-    uint8_t* m_leds;
-    uint16_t m_frameLength;
+/**
+ * Sets the brightness for one LED in the buffer
+ *
+ * @param dev           The apa102_context to use
+ * @param index         Index of the LED (0 based)
+ * @param brightness    Brightness value (0-31)
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t apa102_set_led_brightness(apa102_context dev, uint16_t index, uint8_t brightness);
 
-    bool m_batchMode;
+/**
+ * Sets the color and brightness for multiple LEDs in the buffer
+ *
+ * @param dev           The apa102_context to use
+ * @param s_index       The start Index of the LED range (0 based)
+ * @param e_index       The end Index of the LED range (0 based)
+ * @param brightness    Brightness value (0-31)
+ * @param r             Red component (0-255)
+ * @param g             Green component (0-255)
+ * @param b             Blue component (0-255)
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t apa102_set_leds(apa102_context dev, uint16_t s_index, uint16_t e_index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
-    mraa::Result CSOn();
-    mraa::Result CSOff();
-};
+/**
+ * Sets the brightness for multiple LEDs in the buffer
+ *
+ * @param dev           The apa102_context to use
+ * @param s_index       The start Index of the LED range (0 based)
+ * @param e_index       The end Index of the LED range (0 based)
+ * @param brightness    Brightness value (0-31)
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t apa102_set_leds_brightness(apa102_context dev, uint16_t s_index, uint16_t e_index, uint8_t brightness);
+
+/**
+ * Writes the buffer to the SPI bus thus updating the LED Strip
+ *
+ * @param dev The apa102_context to use
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t apa102_refresh(apa102_context dev);
+
+#ifdef __cplusplus
 }
+#endif

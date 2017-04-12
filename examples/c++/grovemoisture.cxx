@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grovemoisture.h"
+#include "grovemoisture.hpp"
 
 using namespace std;
 

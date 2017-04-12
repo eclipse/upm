@@ -26,12 +26,10 @@
 #include <string>
 #include <stdexcept>
 
-#include "hm11.h"
+#include "hm11.hpp"
 
 using namespace upm;
 using namespace std;
-
-static const int defaultDelay = 100;     // max wait time for read
 
 HM11::HM11(int uart)
 {
@@ -82,7 +80,6 @@ bool HM11::dataAvailable(unsigned int millis)
   timeout.tv_sec = 0;
   timeout.tv_usec = millis * 1000;
 
-  int nfds;  
   fd_set readfds;
 
   FD_ZERO(&readfds);

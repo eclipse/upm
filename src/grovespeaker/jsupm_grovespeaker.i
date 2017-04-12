@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "grovespeaker.h"
+    #include "grovespeaker.hpp"
 %}
 
-%include "grovespeaker.h"
+%include "grovespeaker.hpp"

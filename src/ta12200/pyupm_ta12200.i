@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "ta12200.h"
+%include "ta12200.hpp"
 %{
-    #include "ta12200.h"
+    #include "ta12200.hpp"
 %}

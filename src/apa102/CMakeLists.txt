@@ -1,5 +1,8 @@
-set (libname "apa102")
-set (libdescription "upm apa102 led strip spi output module")
-set (module_src ${libname}.cxx)
-set (module_h ${libname}.h)
-upm_module_init()
+upm_mixed_module_init (NAME apa102
+    DESCRIPTION "LED Strip"
+    C_HDR apa102.h
+    C_SRC apa102.c
+    CPP_HDR apa102.hpp
+    CPP_SRC apa102.cxx
+    FTI_SRC apa102_fti.c
+    REQUIRES mraa)

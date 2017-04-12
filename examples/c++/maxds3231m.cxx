@@ -24,7 +24,7 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "maxds3231m.h"
+#include "maxds3231m.hpp"
 #include <signal.h>
 
 int doWork = 0;

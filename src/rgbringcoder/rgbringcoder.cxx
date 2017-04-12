@@ -27,15 +27,15 @@
 #ifdef JAVACALLBACK
 #undef JAVACALLBACK
 #endif
-#include "rgbringcoder.h"
+#include "rgbringcoder.hpp"
 
 using namespace std;
 using namespace upm;
 
-RGBRingCoder::RGBRingCoder(int en, int latch, int clear, int clk, int dat, 
-                           int sw, int encA, int encB, int red, 
+RGBRingCoder::RGBRingCoder(int en, int latch, int clear, int clk, int dat,
+                           int sw, int encA, int encB, int red,
                            int green, int blue) :
-  m_gpioEn(en), m_gpioLatch(latch), m_gpioClear(clear), m_gpioClock(clk), 
+  m_gpioEn(en), m_gpioLatch(latch), m_gpioClear(clear), m_gpioClock(clk),
   m_gpioData(dat), m_gpioSwitch(sw), m_gpioEncA(encA), m_gpioEncB(encB),
   m_pwmRed(red), m_pwmGreen(green), m_pwmBlue(blue)
 {
@@ -48,15 +48,15 @@ RGBRingCoder::RGBRingCoder(int en, int latch, int clear, int clk, int dat,
   // latch
   m_gpioLatch.dir(mraa::DIR_OUT);
   m_gpioLatch.write(0);
-  
+
   // clear, HIGH
   m_gpioClear.dir(mraa::DIR_OUT);
   m_gpioLatch.write(1);
-  
+
   // clock
   m_gpioClock.dir(mraa::DIR_OUT);
   m_gpioClock.write(0);
-  
+
   // data
   m_gpioData.dir(mraa::DIR_OUT);
   m_gpioData.write(0);
@@ -65,7 +65,7 @@ RGBRingCoder::RGBRingCoder(int en, int latch, int clear, int clk, int dat,
   m_gpioSwitch.dir(mraa::DIR_IN);
   m_gpioSwitch.mode(mraa::MODE_HIZ);  // no pullup
   m_gpioSwitch.write(0);
-  
+
   // ecoder A interrupt
   m_gpioEncA.dir(mraa::DIR_IN);
   m_gpioEncA.mode(mraa::MODE_PULLUP);
@@ -136,7 +136,7 @@ void RGBRingCoder::interruptHandler(void *ctx)
    // First, find the newEncoderState. This'll be a 2-bit value
    // the msb is the state of the B pin. The lsb is the state
    // of the A pin on the encoder.
-   newEncoderState = (This->m_gpioEncB.read()<<1) | 
+   newEncoderState = (This->m_gpioEncB.read()<<1) |
      (This->m_gpioEncA.read());
 
    // Now we pair oldEncoderState with new encoder state

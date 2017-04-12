@@ -2,8 +2,8 @@
 %include "../upm.i"
 %include "cpointer.i"
 
-%include "sx1276.h"
+%include "sx1276.hpp"
 %{
-    #include "sx1276.h"
+    #include "sx1276.hpp"
 %}
 

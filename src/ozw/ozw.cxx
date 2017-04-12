@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -30,17 +30,20 @@
 
 #include "platform/Log.h"
 
-#include "zwNode.h"
+#include "zwNode.hpp"
 
-#include "ozw.h"
+#include "ozw.hpp"
 
 using namespace upm;
 using namespace std;
 using namespace OpenZWave;
 
+// our singleton instance
+OZW* OZW::m_instance = 0;
 
 OZW::OZW()
 {
+  m_initialized = false;
   m_mgrCreated = false;
   m_driverFailed = false;
   m_homeId = 0;
@@ -51,6 +54,7 @@ OZW::OZW()
 
   if (pthread_mutex_init(&m_nodeLock, &mutexAttrib))
     {
+      pthread_mutexattr_destroy(&mutexAttrib);
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": pthread_mutex_init(nodeLock) failed");
     }
@@ -98,14 +102,22 @@ OZW::~OZW()
 
   // delete any nodes.  This should be safe after deleting the node
   // mutex since the handler is no longer registered.
-  for (zwNodeMap_t::iterator it = m_zwNodeMap.begin();
-       it != m_zwNodeMap.end(); ++it)
+  for (auto it = m_zwNodeMap.cbegin();
+       it != m_zwNodeMap.cend(); ++it)
     {
       // delete the zwNode pointer
       delete (*it).second;
     }
   // empty the map
   m_zwNodeMap.clear();
+}
+
+OZW* OZW::instance()
+{
+  if (!m_instance)
+    m_instance = new OZW;
+
+  return m_instance;
 }
 
 void OZW::optionsCreate(std::string configPath, 
@@ -117,17 +129,20 @@ void OZW::optionsCreate(std::string configPath,
 
 void OZW::optionAddInt(std::string name, int val)
 {
-  Options::Get()->AddOptionInt(name, val);
+  if (!Options::Get()->AreLocked())
+    Options::Get()->AddOptionInt(name, val);
 }
 
 void OZW::optionAddBool(std::string name, bool val)
 {
-  Options::Get()->AddOptionBool(name, val);
+  if (!Options::Get()->AreLocked())
+    Options::Get()->AddOptionBool(name, val);
 }
 
 void OZW::optionAddString(std::string name, std::string val, bool append)
 {
-  Options::Get()->AddOptionString(name, val, append);
+  if (!Options::Get()->AreLocked())
+    Options::Get()->AddOptionString(name, val, append);
 }
 
 void OZW::optionsLock()
@@ -139,6 +154,16 @@ void OZW::optionsLock()
 
 bool OZW::init(string devicePath, bool isHID)
 {
+  if (m_initialized)
+    {
+      // we are already initialized...
+      if (m_debugging)
+        cerr << __FUNCTION__ << ": Already initialized, continuing..."
+             << endl;
+
+      return true;
+    }
+
   // make sure options are locked
   optionsLock();
 
@@ -174,6 +199,19 @@ bool OZW::init(string devicePath, bool isHID)
       return false;
     }
 
+  // if we succeeded, update (sort) all of the VIDs in each zwNode, and
+  // enable autoupdating from here on out.
+
+  lockNodes();
+  for (auto it = m_zwNodeMap.cbegin();
+       it != m_zwNodeMap.cend(); ++it)
+    {
+      (*it).second->updateVIDMap();
+      (*it).second->setAutoUpdate(true);
+    }
+  unlockNodes();
+
+  m_initialized = true;
   return true;
 }
 
@@ -249,7 +287,7 @@ void OZW::notificationHandler(Notification const* notification, void *ctx)
         // all nodes deleted.  According to OZW docs, this happens
         // when a driver is reset, instead of sending potentially
         // hundreds of ValueRemoved/NodeRemoved events.
-        for (zwNodeMap_t::iterator it = This->m_zwNodeMap.begin();
+        for (auto it = This->m_zwNodeMap.begin();
              it != This->m_zwNodeMap.end(); ++it)
           {
             // delete the zwNode pointer
@@ -314,8 +352,8 @@ void OZW::dumpNodes(bool all)
 
   lockNodes();
 
-  for (zwNodeMap_t::iterator it = m_zwNodeMap.begin();
-       it != m_zwNodeMap.end(); ++it)
+  for (auto it = m_zwNodeMap.cbegin();
+       it != m_zwNodeMap.cend(); ++it)
     {
       uint8_t nodeId = (*it).first;
 
@@ -323,6 +361,43 @@ void OZW::dumpNodes(bool all)
            << ": "
            << Manager::Get()->GetNodeProductName(m_homeId, nodeId)
            << endl;
+      cerr << "\t"
+           << "Type: "
+           << Manager::Get()->GetNodeType(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Product Type: "
+           << Manager::Get()->GetNodeProductType(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Manufacturer ID: "
+           << Manager::Get()->GetNodeManufacturerId(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Product ID: "
+           << Manager::Get()->GetNodeProductId(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Generic Type: "
+           << (int)Manager::Get()->GetNodeGeneric(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Device Type: "
+           << (int)Manager::Get()->GetNodeDeviceType(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Node Basic: "
+           << (int)Manager::Get()->GetNodeBasic(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Node Query Stage: "
+           << Manager::Get()->GetNodeQueryStage(m_homeId, nodeId)
+           << endl;
+      cerr << "\t"
+           << "Is Node Info Rcvd: "
+           << Manager::Get()->IsNodeInfoReceived(m_homeId, nodeId)
+           << endl;
+
       (*it).second->dumpNode(all);
     }
 
@@ -893,6 +968,18 @@ bool OZW::isNodeAwake(int nodeId)
   lockNodes();
 
   bool rv = Manager::Get()->IsNodeAwake(m_homeId, nodeId);
+
+  unlockNodes();
+  return rv;
+}
+
+bool OZW::isNodeInfoReceived(int nodeId)
+{
+  nodeId &= 0xff;
+
+  lockNodes();
+
+  bool rv = Manager::Get()->IsNodeInfoReceived(m_homeId, nodeId);
 
   unlockNodes();
   return rv;

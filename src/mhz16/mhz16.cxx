@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "mhz16.h"
+#include "mhz16.hpp"
 
 using namespace upm;
 using namespace std;
@@ -84,7 +84,6 @@ bool MHZ16::dataAvailable(unsigned int millis)
   timeout.tv_sec = 0;
   timeout.tv_usec = millis * 1000;
 
-  int nfds;  
   fd_set readfds;
 
   FD_ZERO(&readfds);

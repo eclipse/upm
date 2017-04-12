@@ -5,7 +5,7 @@
 
 %feature("autodoc", "3");
 
-%include "mlx90614.h"
+%include "mlx90614.hpp"
 %{
-    #include "mlx90614.h"
+    #include "mlx90614.hpp"
 %}

@@ -2,10 +2,10 @@
 %include "../upm.i"
 
 %{
-    #include "am2315.h"
+    #include "am2315.hpp"
 %}
 
-%include "am2315.h"
+%include "am2315.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

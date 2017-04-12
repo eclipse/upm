@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,139 +23,101 @@
  */
 #pragma once
 
-#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <upm.h>
+
 #include <mraa/i2c.h>
 
-#define NUNCHUCK_I2C_ADDR    0x52
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-namespace upm {
+    /**
+     * @file nunchuck.h
+     * @library nunchuck
+     * @brief C API for the nunchuck driver
+     *
+     * @include nunchuck.c
+     */
 
-  /**
-   * @brief Wii Nunchuk library
-   * @defgroup nunchuck libupm-nunchuck
-   * @ingroup generic i2c accelerometer robok
-   */
-  /**
-   * @library nunchuck
-   * @sensor nunchuck
-   * @comname Wii Nunchuk
-   * @type accelerometer
-   * @man generic
-   * @web http://wiibrew.org/wiki/Wiimote/Extension_Controllers
-   * @con i2c
-   * @kit robok
-   *
-   * @brief API for the Wii* Nunchuk controller
-   *
-   * UPM module for the Wii Nunchuk controller. This module was tested with
-   * Wii Nunchuk connected to I2C via a Grove Wii Nunchuk adapter.
-   *
-   * See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and
-   * http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck
-   * for more details on the controller and its protocol.
-   *
-   * A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one
-   * side, and 3 traces on the other.  Do not match these up with the
-   * Nunchuk connector's traces. The connector's 'Grove'
-   * should be on the same side as the Grove interface socket on the
-   * adapter.
-   *
-   * @image html nunchuck.jpg
-   * @snippet nunchuck.cxx Interesting
-   */
-  class NUNCHUCK {
-  public:
+    /**
+     * Device context
+     */
+    typedef struct _nunchuck_context {
+        mraa_i2c_context  i2c;
+
+        // sticks - x, y
+        int stickX;
+        int stickY;
+
+        // accel
+        int accelX;
+        int accelY;
+        int accelZ;
+
+        // buttons
+        bool buttonC;
+        bool buttonZ;
+
+    } *nunchuck_context;
+
     /**
      * NUNCHUCK constructor
      *
      * @param bus I2C bus to use
-     * @param addr I2C address to use
+     * @return A Device context, or NULL on error
      */
-    NUNCHUCK(int bus, uint8_t addr=NUNCHUCK_I2C_ADDR);
+    nunchuck_context nunchuck_init(int bus);
 
     /**
-     * NUNCHUCK destructor
-     */
-    ~NUNCHUCK();
-
-    /**
-     * Writes value(s) into registers
+     * Close the device and deallocate all resources.
      *
-     * @param reg Register location to start writing into
-     * @param byte Byte to write
-     * @return True if successful
+     * @param dev Device context
      */
-    bool writeByte(uint8_t reg, uint8_t byte);
-
-    /**
-     * Reads value(s) from registers
-     *
-     * @param reg Register location to start reading from
-     * @param buffer Buffer for data storage
-     * @param len Number of bytes to read
-     * @return Number of bytes read
-     */
-    int readBytes(uint8_t reg, uint8_t *buffer, int len);
-
-    /**
-     * Initializes the controller. Here, we disable encryption after
-     * delaying for a time to ensure the controller is ready.
-     *
-     * @return True if initialization is successful
-     */
-    bool init();
+    void nunchuck_close(nunchuck_context dev);
 
     /**
      * Reads and updates the current state of the controller.
      *
+     * @param dev Device context
+     * @return UPM result
      */
-    void update();
+    upm_result_t nunchuck_update(const nunchuck_context dev);
 
     /**
-     * Current analog stick X position
+     * Returns the current analog stick X and Y positions.
+     * nunchuck_update() must have been called prior to calling this
+     * function.
      *
+     * @param dev Device context
+     * @param x Pointer in which the X value will be stored
+     * @param y Pointer in which the Y value will be stored
      */
-    int stickX;
+    void nunchuck_get_stick(const nunchuck_context dev, int *x, int *y);
 
     /**
-     * Current analog stick Y position
+     * Returns the current accelerometer values.  nunchuck_update()
+     * must have been called prior to calling this function.
      *
+     * @param dev Device context
+     * @param x Pointer in which the X value will be stored
+     * @param y Pointer in which the Y value will be stored
+     * @param z Pointer in which the Z value will be stored
      */
-    int stickY;
+    void nunchuck_get_acceleration(const nunchuck_context dev,
+                                   int *x, int *y, int *z);
 
     /**
-     * Current accelerometer X value
+     * Returns the current button values values.  nunchuck_update()
+     * must have been called prior to calling this function.
      *
+     * @param dev Device context
+     * @param c Pointer in which the C button value will be stored
+     * @param z Pointer in which the Z button value will be stored
      */
-    int accelX;
+    void nunchuck_get_buttons(const nunchuck_context dev, bool *c, bool *z);
 
-    /**
-     * Current accelerometer Y value
-     *
-     */
-    int accelY;
-
-    /**
-     * Current accelerometer Z value
-     *
-     */
-    int accelZ;
-
-    /**
-     * Button C pressed?
-     *
-     */
-    bool buttonC;
-
-    /**
-     * Button Z pressed?
-     *
-     */
-    bool buttonZ;
-
-  private:
-    mraa_i2c_context m_i2c;
-  };
+#ifdef __cplusplus
 }
-
-
+#endif

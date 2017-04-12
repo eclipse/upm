@@ -2,7 +2,7 @@
 %include "../upm.i"
 
 %{
-    #include "mpr121.h"
+    #include "mpr121.hpp"
 %}
 
-%include "mpr121.h"
+%include "mpr121.hpp"

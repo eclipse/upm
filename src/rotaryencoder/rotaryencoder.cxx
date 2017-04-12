@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,70 +26,31 @@
 #include <string>
 #include <stdexcept>
 
-#include "rotaryencoder.h"
+#include "rotaryencoder.hpp"
 
 using namespace upm;
-using namespace std;
 
-RotaryEncoder::RotaryEncoder(int pinA, int pinB)
+RotaryEncoder::RotaryEncoder(int pinA, int pinB) :
+    m_rotaryencoder(rotaryencoder_init(pinA, pinB))
 {
-  if ( !(m_gpioA = mraa_gpio_init(pinA)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init(pinA) failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpioA, MRAA_GPIO_IN);
-
-  if ( !(m_gpioB = mraa_gpio_init(pinB)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_gpio_init(pinB) failed, invalid pin?");
-      return;
-    }
-
-  mraa_gpio_dir(m_gpioB, MRAA_GPIO_IN);
-
-  m_position = 0;
-
-  // setup the ISR
-
-  // We would prefer to use MRAA_GPIO_EDGE_BOTH for better resolution,
-  // but that does not appear to be supported
-  mraa_gpio_isr(m_gpioA, MRAA_GPIO_EDGE_RISING, 
-                &signalAISR, this);
+    if (!m_rotaryencoder)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": rotaryencoder_init failed");
 }
 
 RotaryEncoder::~RotaryEncoder()
 {
-  mraa_gpio_isr_exit(m_gpioA);
-
-  mraa_gpio_close(m_gpioA);
-  mraa_gpio_close(m_gpioB);
+    rotaryencoder_close(m_rotaryencoder);
 }
 
 void RotaryEncoder::initPosition(int count)
 {
-  m_position = count;
+    rotaryencoder_set_position(m_rotaryencoder, count);
 }
 
 int RotaryEncoder::position()
 {
-  return m_position;
-}
-
-void RotaryEncoder::signalAISR(void *ctx)
-{
-  upm::RotaryEncoder *This = (upm::RotaryEncoder *)ctx;
-
-  if (mraa_gpio_read(This->m_gpioA))
-    {
-      if (mraa_gpio_read(This->m_gpioB))
-        This->m_position++;      // CW
-      else
-        This->m_position--;      // CCW
-    }
+    return rotaryencoder_get_position(m_rotaryencoder);
 }
 
 

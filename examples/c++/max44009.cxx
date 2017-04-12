@@ -24,23 +24,19 @@
 
 #include <unistd.h>
 #include <iostream>
-#include "max44009.h"
+#include "max44009.hpp"
 
 #define EDISON_I2C_BUS 1
 
 int main ()
 {
-   try {
-      upm::MAX44009* lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
-      while (true) {
-         float value = lightSensor->getVisibleLux();
-         std::cout << "Light level = " << value << " lux" << std::endl;
-         sleep(1);
-      }
-      delete lightSensor;
-   } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-      return 1;
-   }
-   return 0;
+    //! [Interesting]
+    upm::MAX44009 lightSensor(EDISON_I2C_BUS);
+    while (true) {
+        float value = lightSensor.getVisibleLux();
+        std::cout << "Light level = " << value << " lux" << std::endl;
+        sleep(1);
+    }
+    //! [Interesting]
+    return 0;
 }

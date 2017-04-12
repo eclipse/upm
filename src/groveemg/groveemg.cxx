@@ -26,7 +26,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "groveemg.h"
+#include "groveemg.hpp"
 
 using namespace upm;
 using namespace std;
@@ -53,6 +53,8 @@ void GroveEMG::calibrate()
 	for (int i=0; i<1100; i++)
 	{
 		val = mraa_aio_read(m_aio);
+                if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                                        ": Failed to do an aio read.");
 		sum += val;
 		usleep(1000);
 	}

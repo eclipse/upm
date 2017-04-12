@@ -1,5 +1,5 @@
 set (libname "am2315")
-set (libdescription "libupm Humidity Sensor")
+set (libdescription "Digital Temperature and Humidity Sensor")
 set (module_src ${libname}.cpp)
-set (module_h ${libname}.h)
-upm_module_init()
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

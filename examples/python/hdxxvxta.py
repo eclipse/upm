@@ -21,39 +21,44 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_hdxxvxta as sensorObj
+from upm import pyupm_hdxxvxta as sensorObj
 
-## Exit handlers ##
-# This function stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+def main():
+    ## Exit handlers ##
+    # This function stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-# This function lets you run code on exit
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # This function lets you run code on exit
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-print "Initializing..."
+    print("Initializing...")
 
-# Instantiate an HDXXVXTA instance, using A1 for humidity and A0
-# for temperature
-sensor = sensorObj.HDXXVXTA(1, 0)
+    # Instantiate an HDXXVXTA instance, using A1 for humidity and A0
+    # for temperature
+    sensor = sensorObj.HDXXVXTA(1, 0)
 
-# update and print available values every second
-while (1):
+    # update and print available values every second
+    while (1):
         # update our values from the sensor
         sensor.update()
 
         # we show both C and F for temperature
-        print "Temperature:", sensor.getTemperature(), "C /",
-        print sensor.getTemperature(True), "F"
+        print("Temperature:", sensor.getTemperature(), "C /", end=' ')
+        print(sensor.getTemperature(True), "F")
 
-        print "Humidity:", sensor.getHumidity(), "%"
+        print("Humidity:", sensor.getHumidity(), "%")
 
-        print
-	time.sleep(1)
+        print()
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()

@@ -28,11 +28,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "ecs1030.h"
+#include "ecs1030.hpp"
 
 using namespace upm;
 
-ECS1030::ECS1030 (uint8_t pinNumber) {
+ECS1030::ECS1030 (int pinNumber) {
     m_dataPinCtx = mraa_aio_init(pinNumber);
     if (m_dataPinCtx == NULL) {
       throw std::invalid_argument(std::string(__FUNCTION__) + 
@@ -53,12 +53,13 @@ ECS1030::~ECS1030 () {
 double
 ECS1030::getCurrency_A () {
     int     sensorValue  = 0;
-    float   rLoad        = 0;
     float   volt         = 0;
     float   rms          = 0;
 
     for (int i = 0; i < NUMBER_OF_SAMPLES; i++) {
         sensorValue = mraa_aio_read (m_dataPinCtx);
+        if (sensorValue == -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                                        ": Failed to do an aio read.");
         volt = (VOLT_M * sensorValue) - 2.5;
         volt = volt * volt;
         rms = rms + volt;
@@ -77,6 +78,8 @@ ECS1030::getCurrency_B () {
     for (int i = 0; i < NUMBER_OF_SAMPLES; i++) {
         m_lastSample = m_sample;
         m_sample = mraa_aio_read (m_dataPinCtx);
+        if (m_sample == -1) throw std::runtime_error(std::string(__FUNCTION__) +
+                                                     ": Failed to do an aio read.");
         m_lastFilter = m_filteredSample;
         m_filteredSample = 0.996 * (m_lastFilter + m_sample - m_lastSample);
         sumCurrency += (m_filteredSample * m_filteredSample);

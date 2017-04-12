@@ -28,9 +28,10 @@
 
 #include <string>
 #include <unistd.h>
+#include <syslog.h>
 
-#include "hd44780_bits.h"
-#include "ssd1306.h"
+#include "hd44780_bits.hpp"
+#include "ssd1306.hpp"
 
 using namespace upm;
 
@@ -55,9 +56,7 @@ SSD1306::SSD1306(int bus_in, int addr_in) : m_i2c_lcd_control(bus_in)
     error = m_i2c_lcd_control.frequency(mraa::I2C_FAST);
     
     if (error != mraa::SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_i2c_frequency(MRAA_I2C_FAST) failed");
-        return;
+        syslog(LOG_WARNING, "%s: mraa_i2c_frequency(MRAA_I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
     }
 
     m_i2c_lcd_control.writeReg(LCD_CMD, DISPLAY_CMD_OFF); // display off

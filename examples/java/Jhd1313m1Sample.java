@@ -24,19 +24,19 @@
 
 public class Jhd1313m1Sample {
 
-	public static void main(String[] args) throws InterruptedException {
-		// ! [Interesting]
-		upm_i2clcd.Jhd1313m1 lcd = new upm_i2clcd.Jhd1313m1(0);
+    public static void main(String[] args) throws InterruptedException {
+        // ! [Interesting]
+        upm_jhd1313m1.Jhd1313m1 lcd = new upm_jhd1313m1.Jhd1313m1(0);
 
-		lcd.setCursor(0, 0);
-		lcd.write("Hello World");
-		lcd.setCursor(1, 2);
-		lcd.write("Hello World");
+        lcd.setCursor(0, 0);
+        lcd.write("Hello World");
+        lcd.setCursor(1, 2);
+        lcd.write("Hello World");
 
-		System.out.println("Sleeping for 5 seconds");
-		Thread.sleep(5000);
-		lcd.clear();
-		// ! [Interesting]
-	}
+        System.out.println("Sleeping for 5 seconds");
+        Thread.sleep(5000);
+        lcd.clear();
+        // ! [Interesting]
+    }
 
 }

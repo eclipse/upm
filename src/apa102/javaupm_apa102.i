@@ -13,10 +13,10 @@
 }
 
 %{
-    #include "apa102.h"
+    #include "apa102.hpp"
 %}
 
-%include "apa102.h"
+%include "apa102.hpp"
 
 %pragma(java) jniclasscode=%{
     static {

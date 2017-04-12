@@ -9,7 +9,7 @@
 %include "si114x_doc.i"
 #endif
 
-%include "si114x.h"
+%include "si114x.hpp"
 %{
-    #include "si114x.h"
+    #include "si114x.hpp"
 %}

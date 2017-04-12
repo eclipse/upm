@@ -21,34 +21,37 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 import time, sys, signal, atexit
-import pyupm_ta12200 as upmTa12200
+from upm import pyupm_ta12200 as upmTa12200
 
-# Instantiate a TA12-200 sensor on analog pin A0
-myElectricitySensor = upmTa12200.TA12200(0)
+def main():
+    # Instantiate a TA12-200 sensor on analog pin A0
+    myElectricitySensor = upmTa12200.TA12200(0)
 
+    ## Exit handlers ##
+    # This stops python from printing a stacktrace when you hit control-C
+    def SIGINTHandler(signum, frame):
+        raise SystemExit
 
-## Exit handlers ##
-# This stops python from printing a stacktrace when you hit control-C
-def SIGINTHandler(signum, frame):
-	raise SystemExit
+    # This lets you run code on exit,
+    # including functions from myElectricitySensor
+    def exitHandler():
+        print("Exiting")
+        sys.exit(0)
 
-# This lets you run code on exit,
-# including functions from myElectricitySensor
-def exitHandler():
-	print "Exiting"
-	sys.exit(0)
+    # Register exit handlers
+    atexit.register(exitHandler)
+    signal.signal(signal.SIGINT, SIGINTHandler)
 
-# Register exit handlers
-atexit.register(exitHandler)
-signal.signal(signal.SIGINT, SIGINTHandler)
+    # get the data every 50 milliseconds
+    while(1):
+        maxVal = myElectricitySensor.highestValue()
+        current = myElectricitySensor.milliAmps(maxVal)
 
+        outputStr = "Max ADC Value: %s, current: %smA" % (maxVal, current)
+        print(outputStr)
+        time.sleep(.1)
 
-# get the data every 50 milliseconds
-while(1):
-	maxVal = myElectricitySensor.highestValue()
-	current = myElectricitySensor.milliAmps(maxVal)
-
-	outputStr = "Max ADC Value: %s, current: %smA" % (maxVal, current)
-	print outputStr
-	time.sleep(.1)
+if __name__ == '__main__':
+    main()

@@ -30,7 +30,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "si114x.h"
+#include "si114x.hpp"
 
 using namespace upm;
 using namespace std;
@@ -91,12 +91,20 @@ bool SI114X::writeByte(uint8_t reg, uint8_t byte)
 
 uint8_t SI114X::readByte(uint8_t reg)
 {
-  return mraa_i2c_read_byte_data(m_i2c, reg);
+  int x = mraa_i2c_read_byte_data(m_i2c, reg);
+  if (x != -1) {
+    return (uint8_t) x;
+  }
+  return 0;
 }
 
 uint16_t SI114X::readWord(uint8_t reg)
 {
-  return mraa_i2c_read_word_data(m_i2c, reg);
+  int x = mraa_i2c_read_word_data(m_i2c, reg);
+  if (x != -1) {
+    return (uint16_t) x;
+  }
+  return 0;
 }
 
 void SI114X::setUVCalibration(uint8_t uvcoeff0, uint8_t uvcoeff1, 

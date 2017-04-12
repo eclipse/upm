@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,86 +26,66 @@
 #include <string>
 #include <stdexcept>
 
-#include "cjq4435.h"
+#include "cjq4435.hpp"
 
 using namespace upm;
 using namespace std;
 
-CJQ4435::CJQ4435(int pin)
+CJQ4435::CJQ4435(int pin) :
+    m_cjq4435(cjq4435_init(pin))
 {
-  if ( !(m_pwm = mraa_pwm_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_pwm_init() failed, invalid pin?");
-      return;
-    }
-
-  m_enabled = false;
+    if (!m_cjq4435)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_init() failed");
 }
 
 CJQ4435::~CJQ4435()
 {
-  if (m_enabled)
-    mraa_pwm_enable(m_pwm, 0);
-
-  mraa_pwm_close(m_pwm);
+    cjq4435_close(m_cjq4435);
 }
 
 void CJQ4435::setPeriodUS(int us)
 {
-  if (mraa_pwm_period_us(m_pwm, us) != MRAA_SUCCESS)
-    cerr << __FUNCTION__ << ": period specified is not supported" 
-         << endl;
+    if (cjq4435_set_period_us(m_cjq4435, us))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_set_period_us() failed");
 }
 
 void CJQ4435::setPeriodMS(int ms)
 {
-  if (mraa_pwm_period_ms(m_pwm, ms) != MRAA_SUCCESS)
-    cerr << __FUNCTION__ << ": period specified is not supported" 
-         << endl;
+    if (cjq4435_set_period_ms(m_cjq4435, ms))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_set_period_ms() failed");
 }
 
 void CJQ4435::setPeriodSeconds(float seconds)
 {
-  if (mraa_pwm_period(m_pwm, seconds) != MRAA_SUCCESS)
-    cerr << __FUNCTION__ << ": period specified is not supported" 
-         << endl;
+    if (cjq4435_set_period_seconds(m_cjq4435, seconds))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_set_period_seconds() failed");
 }
 
 void CJQ4435::enable(bool enable)
 {
-  m_enabled = enable;
-  mraa_pwm_enable(m_pwm, ((enable) ? 1 : 0));
+    if (cjq4435_enable(m_cjq4435, enable))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_enable() failed");
 }
 
 void CJQ4435::setDutyCycle(float dutyCycle)
 {
-  if (dutyCycle < 0.0)
-    dutyCycle = 0.0;
-
-  if (dutyCycle > 1.0)
-    dutyCycle = 1.0;
-
-  mraa_pwm_write(m_pwm, dutyCycle);
+    if (cjq4435_set_duty_cycle(m_cjq4435, dutyCycle))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": cjq4435_set_duty_cycle() failed");
 }
 
 void CJQ4435::on()
 {
-  // set a 1 second period, with 100% duty cycle
-
-  enable(false);
-  setPeriodUS(1000);
-  setDutyCycle(1.0);
-  enable(true);
+    cjq4435_on(m_cjq4435);
 }
 
 void CJQ4435::off()
 {
-  // set a 1 second period, with 0% duty cycle
-
-  enable(false);
-  setPeriodUS(1000);
-  setDutyCycle(0.0);
-  enable(true);
+    cjq4435_off(m_cjq4435);
 }
 
