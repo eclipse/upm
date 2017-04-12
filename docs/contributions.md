@@ -108,13 +108,14 @@ commands below to generate collateral files for your new sensor library.
 #!/bin/bash
 
 function make_new_sensor {
-    SensorName=$1
+    export SensorName=$1
+    # Get a lowercase version of the string
+    export sensorname=${SensorName,,}
+
     # Make sure this is run from the root UPM directory
     if ! grep -q 'UPM ' README.md; then echo "Please run from the root UPM directory"; return -1; fi
 
-    # Copy/paste the below commands into a bash shell...
-    # Get a lowercase version of the string
-    sensorname=${SensorName,,}
+    printf "Generating new sensor: ${SensorName}\n"
     # Copy sensortemplate files to ${sensorname}
     find docs/ examples/ src/ -name '*sensortemplate*' -exec bash -c 'cp -r $0 ${0/sensortemplate/${sensorname}}' {} \;
     # Copy SensorTemplate files to ${SensorName}
