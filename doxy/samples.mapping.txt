@@ -33,7 +33,7 @@ lcm1602-i2c.cxx	Lcm1602_i2cSample.java	lcm1602-i2c.js	lcm1602-i2c.py
 ldt0028.cxx	LDT0028Sample.java	ldt0028.js	ldt0028.py
 light.cxx	LightSample.java	light.js	light.py
 lol.cxx	LoLSample.java	lol.js	lol.py
-lsm303.cxx	LSM303Sample.java	lsm303.js	lsm303.py
+lsm303dlh.cxx	LSM303DLHSample.java	lsm303dlh.js	lsm303dlh.py
 m24lr64e.cxx	M24LR64ESample.java	m24lr64e.js	m24lr64e.py
 max44000.cxx	MAX44000Sample.java	max44000.js	max44000.py
 mic.cxx	MicrophoneSample.java	mic.js	mic.py
