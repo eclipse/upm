@@ -22,28 +22,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 #pragma once
-#include <stdint.h>
-#include "mraa/common.h"
-#include "iModuleStatus.hpp"
-
+#include "iUPMSensor.hpp"
 
 namespace upm
 {
-/**
- * @brief Interface for ADC Sensors
- */
+    /* @brief Interface for ADC Sensors */
+    class IADC : virtual public IUPMSensor
+    {
+    public:
+        virtual float getVoltage(unsigned int input) = 0;
+        virtual unsigned int getResolutionInBits();
+        virtual unsigned int getNumInputs() ;
+        virtual uint16_t getRawValue(unsigned int input);
 
-   class IADC : virtual public IModuleStatus
-   {
-   public:
-       virtual unsigned int getResolutionInBits() = 0;
-       virtual unsigned int getNumInputs() = 0;
-       virtual uint16_t getRawValue(unsigned int input) = 0;
-       virtual float getVoltage(unsigned int input) = 0;
-       virtual ~IADC() {}
-   };
-
+        virtual ~IADC() {}
+    };
 }
-

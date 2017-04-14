@@ -1,6 +1,6 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,25 +22,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 #pragma once
-
-#include <stdint.h>
-#include "mraa/common.h"
-#include "iModuleStatus.hpp"
+#include "iUPMSensor.hpp"
 
 namespace upm
 {
-/*
- * @brief Interface for Pressue Sensors
- */
+    /* @brief Interface for Distance */
+    class IDistance : virtual public IUPMSensor
+    {
+    public:
+        virtual std::string getunit() = 0;
+        virtual float getDistance();
 
-   class IPressureSensor : virtual public IModuleStatus
-   {
-   public:
-       virtual int getPressurePa() = 0;
-       virtual ~IPressureSensor() {}
+        virtual ~IDistance() {}
    };
-
 }
-

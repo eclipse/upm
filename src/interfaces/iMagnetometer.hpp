@@ -1,5 +1,4 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
  * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
  * Copyright (c) 2017 Intel Corporation.
  *
@@ -24,51 +23,21 @@
  */
 
 #pragma once
-#include "iUPMActuator.hpp"
+#include "iUPMSensor.hpp"
+#include <vector>
 
 namespace upm
 {
-    /* @brief ILightController Interface for Light Controllers */
-    class ILightController : virtual public IUPMActuator
+    /* @brief interface for Magnetometer */
+    class IMagnetometer : virtual public IUPMSensor
     {
     public:
-        /* Turn on power */
-        virtual void setPowerOn() = 0;
+        /* 0Deg=North, 90Deg=East, 180Deg=South, 270Deg=West */
 
-        /* Turn off power */
-        virtual void setPowerOff() = 0;
+        virtual vector<float> getCoordinates() = 0;
+        virtual float getHeading() = 0;
+        virtual void setDeclination(float dec);
 
-<<<<<<< 12c59a6acab89de9a7349f0c198a83d283ca0a69
-      /**
-       * Get power state
-       *
-       * @return true if powered, false otherwise
-       *
-       * @throws std::runtime_error
-       */
-       virtual bool isPowered() = 0;
-
-      /**
-       * Set brightness
-       *
-       * @param percent brightness as percentage
-       *
-       * @throws std::runtime_error
-       */
-       virtual void setBrightness(int percent) = 0;
-
-      /**
-       * Get brightness
-       *
-       * @return brightness as percentage
-       *
-       * @throws std::runtime_error
-       */
-       virtual int getBrightness() = 0;
-       
-       virtual ~ILightController() {}
-=======
-        virtual ~ILightController() {}
->>>>>>> -s
+        virtual ~IMagnetometer() {}
     };
 }

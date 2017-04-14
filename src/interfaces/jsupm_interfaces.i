@@ -7,7 +7,7 @@
     #include "iLightController.hpp"
 %}
 
-%include "iModuleStatus.hpp"
-%include "iLightSensor.hpp"
+%include "iUPMObject.hpp"
+%include "iLight.hpp"
 %include "iLightController.hpp"
 */

@@ -1,6 +1,5 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com> 
  * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,51 +23,21 @@
  */
 
 #pragma once
-#include "iUPMActuator.hpp"
+#include "iUPMObject.hpp"
+#include <stdexcept>
 
 namespace upm
 {
-    /* @brief ILightController Interface for Light Controllers */
-    class ILightController : virtual public IUPMActuator
+/* @brief Interface for UPM Actuator */
+
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
+    class IUPMActuator : virtual public IUPMObject
     {
     public:
-        /* Turn on power */
-        virtual void setPowerOn() = 0;
+        /* write to Actuator */
+        virtual void write() = 0;
 
-        /* Turn off power */
-        virtual void setPowerOff() = 0;
-
-<<<<<<< 12c59a6acab89de9a7349f0c198a83d283ca0a69
-      /**
-       * Get power state
-       *
-       * @return true if powered, false otherwise
-       *
-       * @throws std::runtime_error
-       */
-       virtual bool isPowered() = 0;
-
-      /**
-       * Set brightness
-       *
-       * @param percent brightness as percentage
-       *
-       * @throws std::runtime_error
-       */
-       virtual void setBrightness(int percent) = 0;
-
-      /**
-       * Get brightness
-       *
-       * @return brightness as percentage
-       *
-       * @throws std::runtime_error
-       */
-       virtual int getBrightness() = 0;
-       
-       virtual ~ILightController() {}
-=======
-        virtual ~ILightController() {}
->>>>>>> -s
+        virtual ~IUPMActuator() {}
     };
 }

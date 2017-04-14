@@ -1,6 +1,7 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Contributions: Henry Bruce <henry.bruce@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,40 +23,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 #pragma once
-
-#include <stdint.h>
-#include "iModuleStatus.hpp"
+#include <stdexcept>
 
 namespace upm
 {
 /**
- * @brief ILightSensor Interface for Light Sensors
+ * @brief Interface for UPM Object. Sensor and Actuator Interfaces Derive from this Interface.
  */
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
-/**
- *
- * @brief Interface for Light Sensors
+    class IUPMObject
+    {
+    public:
 
- * This interface is used to represent light sensors
+        virtual string getVersion() = 0;
 
- * @snippet light-sensor.cxx Interesting
- */
-
-   class ILightSensor : virtual public IModuleStatus
-   {
-   public:
-
-	/**
-	 * Get visible illuminance in Lux.
-	 *
-	 * @return double visible illuminance in Lux
-	 */
-       virtual double getVisibleLux() = 0;
-
-
-       virtual ~ILightSensor() {}
-   };
+        virtual ~IUPMObject() {}
+    };
 }
-

@@ -1,6 +1,6 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,20 +23,17 @@
  */
 
 #pragma once
-#include "iModuleStatus.hpp"
+#include "iUPMSensor.hpp"
 
 namespace upm
 {
-/**
- * @brief Interface for Temperature Sensors
- */
+    /* @brief Interface for Current */
+    class ICurrent : virtual public IUPMSensor
+    {
+    public:
+        virtual std::string getUnit() = 0;
+        virtual float getCurrent();
 
-   class ITemperatureSensor : virtual public IModuleStatus
-   {
-   public:
-       virtual int getTemperatureCelsius () = 0;
-       virtual ~ITemperatureSensor() {}
-   };
-
+        virtual ~ICurrent() {}
+    };
 }
-

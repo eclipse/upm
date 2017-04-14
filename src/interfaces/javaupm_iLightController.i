@@ -4,6 +4,6 @@
 #endif
 
 %include "javaupm_interfaces.i"
-%include "javaupm_iModuleStatus.i"
+%include "javaupm_iUPMObject.i"
 
 %include "iLightController.hpp"

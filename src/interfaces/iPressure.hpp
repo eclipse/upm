@@ -23,31 +23,17 @@
  */
 
 #pragma once
-
-#include <stdexcept>
+#include "iUPMSensor.hpp"
 
 namespace upm
 {
-/**
- * @brief Interface for Module Status. Sensor and Actuactor Interfaces Derive from this Interface.
- */
+     /* @brief Interface for Pressue Sensors */
+    class IPressure : virtual public IUPMSensor
+    {
+    public:
+        virtual std::string getUnit() = 0;
+        virtual int getPressure();
 
-#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
-
-class IModuleStatus
-{
-public:
-   /**
-    * Returns name of module. This is the string in library name after libupm_
-
-    * @return name of module
-    */
-    virtual const char* getModuleName() = 0;
-
-   virtual ~IModuleStatus() {}
-};
-
+        virtual ~IPressure() {}
+    };
 }
-
-
-

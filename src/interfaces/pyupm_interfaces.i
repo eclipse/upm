@@ -7,7 +7,7 @@
 %feature("autodoc", "3");
 
 %{
-    #include "iLightSensor.hpp"
+    #include "iLight.hpp"
     #include "iLightController.hpp"
 %}
 

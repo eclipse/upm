@@ -1,6 +1,6 @@
 /*
- * Author: Henry Bruce <henry.bruce@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,22 +22,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 #pragma once
-#include "iModuleStatus.hpp"
+#include "iUPMSensor.hpp"
 
 namespace upm
 {
-/**
- * @brief Interface for CO Sensor
- */
+    /* @brief interface for Flow */ 
+    class IFlow : virtual public IUPMSensor
+    {
+    public:
+        virtual std::string getUnit() = 0;
+        virtual float getFlow();
 
-   class ICO2Sensor : virtual public IModuleStatus
-   {
-   public:
-       virtual uint16_t getPpm() = 0;
-       virtual ~ICO2Sensor() {}
-   };
-
+        virtual ~IFlow() {}
+    };
 }
-
