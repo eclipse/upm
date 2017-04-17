@@ -1,4 +1,4 @@
-%module javaupm_mpu9150
+%module(directors="1") javaupm_mpu9150
 %include "../upm.i"
 %include "typemaps.i"
 %include "arrays_java.i"

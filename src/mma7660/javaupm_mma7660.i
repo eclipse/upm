@@ -1,4 +1,4 @@
-%module javaupm_mma7660
+%module(directors="1") javaupm_mma7660
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
