@@ -34,6 +34,12 @@
 namespace upm {
 
     /**
+     * @brief Bosch 3-axis Gyroscope
+     * @defgroup bmg160 libupm-bmg160
+     * @ingroup i2c spi gpio bosch gyro
+     */
+
+    /**
      * @library bmg160
      * @sensor bmg160
      * @comname 3-axis Gyroscope Sensor

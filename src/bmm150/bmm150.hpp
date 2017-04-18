@@ -34,6 +34,12 @@
 namespace upm {
 
     /**
+     * @brief Bosch 3-axis Magnetometer
+     * @defgroup bmm150 libupm-bmm150
+     * @ingroup i2c spi gpio bosch compass
+     */
+
+    /**
      * @library bmx050
      * @sensor bmm150
      * @comname 3-axis Geomagnetic Sensor
