@@ -181,7 +181,7 @@ extern "C" {
      * mode set at high resolution.
      *
      * @param dev The device context
-     * @param usage One of the LSM303AGR_POWER_MODE_T values.  This
+     * @param mode One of the LSM303AGR_POWER_MODE_T values.  This
      * parameter is passed to a call to lsm303agr_set_power_mode() and
      * will set the appropriate mode for both the accelerometer and
      * magnetometer.  The default set by the constructor is
@@ -196,7 +196,7 @@ extern "C" {
      * power, normal, and high resolution.
      *
      * @param dev The device context
-     * @param usage One of the LSM303AGR_POWER_MODE_T values.  The
+     * @param mode One of the LSM303AGR_POWER_MODE_T values.  The
      * default set at initialization time is
      * LSM303AGR_POWER_HIGH_RESOLUTION.
      * @return UPM result
@@ -208,7 +208,7 @@ extern "C" {
      * Set the accelerometer (acc) output data rate (odr)
      *
      * @param dev The device context
-     * @param usage One of the LSM303AGR_A_ODR_T values.  The default
+     * @param odr One of the LSM303AGR_A_ODR_T values.  The default
      * set at initialization time is LSM303AGR_A_ODR_100HZ.
      * @return UPM result
      */
@@ -219,7 +219,7 @@ extern "C" {
      * Set the magnetometer (mag) output data rate (odr)
      *
      * @param dev The device context
-     * @param usage One of the LSM303AGR_CFG_A_M_ODR_T values.  The default
+     * @param odr One of the LSM303AGR_CFG_A_M_ODR_T values.  The default
      * set at initialization time is LSM303AGR_CFG_A_M_ODR_10HZ.
      * @return UPM result
      */

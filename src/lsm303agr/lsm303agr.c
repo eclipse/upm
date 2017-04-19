@@ -32,6 +32,17 @@
 
 #include "lsm303agr.h"
 
+// some useful macros to save on typing and text wrapping
+#undef _SHIFT
+#define _SHIFT(x) (_LSM303AGR_##x##_SHIFT)
+
+#undef _MASK
+#define _MASK(x) (_LSM303AGR_##x##_MASK)
+
+#undef _SHIFTMASK
+#define _SHIFTMASK(x) (_MASK(x) << _SHIFT(x))
+
+
 // init
 lsm303agr_context lsm303agr_init(int bus, int acc_addr, int mag_addr)
 {
@@ -112,7 +123,7 @@ lsm303agr_context lsm303agr_init(int bus, int acc_addr, int mag_addr)
 
         if (chipID != LSM303AGR_CHIPID_MAG)
         {
-            printf("%s: invalid accelerometer chip id: %02x.  Expected %02x\n",
+            printf("%s: invalid magnetometer chip id: %02x.  Expected %02x\n",
                    __FUNCTION__, chipID, LSM303AGR_CHIPID_MAG);
             lsm303agr_close(dev);
             return NULL;
@@ -157,10 +168,10 @@ upm_result_t lsm303agr_devinit(const lsm303agr_context dev,
         // enable temp compensation and continuous mode
         uint8_t reg = lsm303agr_read_reg(dev, LSM303AGR_REG_CFG_REG_A_M);
 
-        reg &= ~_LSM303AGR_SHIFTMASK(CFG_REG_A_M_MD);
+        reg &= ~_SHIFTMASK(CFG_REG_A_M_MD);
         reg |= LSM303AGR_CFG_REG_A_M_COMP_TEMP_EN;
         reg |= (LSM303AGR_CFG_A_M_MD_CONTINUOUS
-                << _LSM303AGR_SHIFT(CFG_REG_A_M_MD));
+                << _SHIFT(CFG_REG_A_M_MD));
 
         if (lsm303agr_write_reg(dev, LSM303AGR_REG_CFG_REG_A_M, reg))
         {
@@ -206,9 +217,9 @@ upm_result_t lsm303agr_devinit(const lsm303agr_context dev,
 
         // enable temperature measurement
         reg = lsm303agr_read_reg(dev, LSM303AGR_REG_TEMP_CFG_REG_A);
-        reg &= ~_LSM303AGR_SHIFTMASK(TEMP_CFG_REG_A_TEMP_EN);
+        reg &= ~_SHIFTMASK(TEMP_CFG_REG_A_TEMP_EN);
         reg |= (LSM303AGR_TEMP_EN_ON
-                << _LSM303AGR_SHIFT(TEMP_CFG_REG_A_TEMP_EN));
+                << _SHIFT(TEMP_CFG_REG_A_TEMP_EN));
 
         if (lsm303agr_write_reg(dev, LSM303AGR_REG_TEMP_CFG_REG_A, reg))
         {
@@ -311,8 +322,8 @@ upm_result_t lsm303agr_set_full_scale(const lsm303agr_context dev,
     {
         uint8_t reg = lsm303agr_read_reg(dev, LSM303AGR_REG_CTRL_REG4_A);
 
-        reg &= ~_LSM303AGR_SHIFTMASK(CTRL_REG4_A_FS);
-        reg |= (fs << _LSM303AGR_SHIFT(CTRL_REG4_A_FS));
+        reg &= ~_SHIFTMASK(CTRL_REG4_A_FS);
+        reg |= (fs << _SHIFT(CTRL_REG4_A_FS));
 
         if (lsm303agr_write_reg(dev, LSM303AGR_REG_CTRL_REG4_A, reg))
             return UPM_ERROR_OPERATION_FAILED;
@@ -569,8 +580,8 @@ upm_result_t lsm303agr_set_acc_odr(const lsm303agr_context dev,
         return UPM_ERROR_NO_RESOURCES;
 
     uint8_t reg = lsm303agr_read_reg(dev, LSM303AGR_REG_CTRL_REG1_A);
-    reg &= ~_LSM303AGR_SHIFTMASK(CTRL_REG1_A_ODR);
-    reg |= (odr << _LSM303AGR_SHIFT(CTRL_REG1_A_ODR));
+    reg &= ~_SHIFTMASK(CTRL_REG1_A_ODR);
+    reg |= (odr << _SHIFT(CTRL_REG1_A_ODR));
 
     if (lsm303agr_write_reg(dev, LSM303AGR_REG_CTRL_REG1_A, reg))
         return UPM_ERROR_OPERATION_FAILED;
@@ -587,8 +598,8 @@ upm_result_t lsm303agr_set_mag_odr(const lsm303agr_context dev,
         return UPM_ERROR_NO_RESOURCES;
 
     uint8_t reg = lsm303agr_read_reg(dev, LSM303AGR_REG_CFG_REG_A_M);
-    reg &= ~_LSM303AGR_SHIFTMASK(CFG_REG_A_M_ODR);
-    reg |= (odr << _LSM303AGR_SHIFT(CFG_REG_A_M_ODR));
+    reg &= ~_SHIFTMASK(CFG_REG_A_M_ODR);
+    reg |= (odr << _SHIFT(CFG_REG_A_M_ODR));
 
     if (lsm303agr_write_reg(dev, LSM303AGR_REG_CFG_REG_A_M, reg))
         return UPM_ERROR_OPERATION_FAILED;

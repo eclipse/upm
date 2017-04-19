@@ -669,17 +669,6 @@ extern "C" {
         LSM303AGR_POWER_HIGH_RESOLUTION           = 2,
     } LSM303AGR_POWER_MODE_T;
 
-    // some useful macros to save on typing and text wrapping
-#define _LSM303AGR_SHIFT(x) \
-    (_LSM303AGR_##x##_SHIFT)
-
-#define _LSM303AGR_MASK(x) \
-    (_LSM303AGR_##x##_MASK)
-
-#define _LSM303AGR_SHIFTMASK(x) \
-    (_LSM303AGR_MASK(x) << _LSM303AGR_SHIFT(x))
-
-
 
 #ifdef __cplusplus
 }

@@ -194,7 +194,7 @@ namespace upm {
          * Set an operating power mode.  There are 3 modes available: low
          * power, normal, and high resolution.
          *
-         * @param usage One of the LSM303AGR_POWER_MODE_T values.  The
+         * @param mode One of the LSM303AGR_POWER_MODE_T values.  The
          * default set at initialization time is
          * LSM303AGR_POWER_HIGH_RESOLUTION.
          * @throws std::runtime_error on failure
@@ -204,7 +204,7 @@ namespace upm {
         /**
          * Set the accelerometer output data rate (ODR)
          *
-         * @param usage One of the LSM303AGR_A_ODR_T values.  The default
+         * @param odr One of the LSM303AGR_A_ODR_T values.  The default
          * set at initialization time is LSM303AGR_A_ODR_100HZ.
          * @throws std::runtime_error on failure
          */
@@ -213,7 +213,7 @@ namespace upm {
         /**
          * Set the magnetometer output data rate (ODR)
          *
-         * @param usage One of the LSM303AGR_CFG_A_M_ODR_T values.
+         * @param odr One of the LSM303AGR_CFG_A_M_ODR_T values.
          * The default set at initialization time is
          * LSM303AGR_CFG_A_M_ODR_10HZ.
          * @throws std::runtime_error on failure
