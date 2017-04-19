@@ -117,7 +117,7 @@ macro(_upm_swig_python)
   # wrapper generation.  Get them manually and add them here.
   _get_target_dependency_interface_include_dirs(${libname} DEPEND_DIRS)
 
-  include_directories (${CMAKE_CURRENT_SOURCE_DIR}/..
+  include_directories (${UPM_COMMON_HEADER_DIRS}
                        ${DEPEND_DIRS})
 
   set_source_files_properties (pyupm_${libname}.i PROPERTIES CPLUSPLUS ON)
@@ -230,7 +230,7 @@ macro(upm_swig_node)
     _get_target_dependency_interface_include_dirs(${libname} DEPEND_DIRS)
 
     include_directories (
-      ${CMAKE_CURRENT_SOURCE_DIR}/..
+      ${UPM_COMMON_HEADER_DIRS}
       ${DEPEND_DIRS}
     )
 
@@ -289,7 +289,7 @@ macro(upm_swig_java)
     include_directories (
       ${JAVA_INCLUDE_PATH}
       ${JAVA_INCLUDE_PATH2}
-      ${CMAKE_CURRENT_SOURCE_DIR}/..
+      ${UPM_COMMON_HEADER_DIRS}
       ${DEPEND_DIRS}
     )
 
@@ -476,12 +476,6 @@ function (UPM_MIXED_MODULE_INIT)
   # Make sure REQUIRES is a list
   separate_arguments(UPM_MIXED_MODULE_INIT_REQUIRES)
 
-  # Always add the common header dirs to the includes list, even if we
-  # end up only building a C++ module. This is needed for cases where
-  # a C++ only driver depends on a mixed C++/C driver.
-  include_directories (${UPM_COMMON_HEADER_DIRS}
-    ${CMAKE_SOURCE_DIR}/src/utilities)
-
   # Always build C libs first
   if (UPM_MIXED_MODULE_INIT_C_SRC)
     set (libname ${UPM_MIXED_MODULE_INIT_NAME})
@@ -509,11 +503,6 @@ function (UPM_MIXED_MODULE_INIT)
     if (NOT ${libname} MATCHES "utilities-c")
       target_link_libraries (${libname} utilities-c)
     endif()
-
-    # Add include directories for C
-    target_include_directories (${libname} PUBLIC
-        ${UPM_COMMON_HEADER_DIRS}
-        ${CMAKE_SOURCE_DIR}/src/utilities)
 
     ## "export" the logical C lib target for the calling module's
     ## CMakeLists.txt
@@ -560,6 +549,10 @@ function(upm_module_init)
 
   # Create the target library from src/hdrs
   add_library (${libname} SHARED ${module_src} ${module_hpp})
+
+  target_include_directories (${libname} PUBLIC
+    ${UPM_COMMON_HEADER_DIRS}
+    ${CMAKE_SOURCE_DIR}/src/utilities)
 
   # Specify the current source directory as an INTERFACE include dir.
   # This allows for transitive header dependencies via target_link_libraries

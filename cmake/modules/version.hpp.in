@@ -1,0 +1,6 @@
+#include <string>
+
+inline std::string getVersion()
+{
+    return "@upm_VERSION_STRING@";
+}

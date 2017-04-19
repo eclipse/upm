@@ -2,6 +2,11 @@
 %include "stdint.i"
 %include "upm_exception.i"
 
+%{
+#include "version.hpp"
+%}
+%include "version.hpp"
+
 %apply int { speed_t };
 %apply int { mraa_result_t };
 %apply int { mraa::Result };

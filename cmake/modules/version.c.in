@@ -1,4 +1,0 @@
-#include "version.h"
-
-const char* gVERSION = "@VERSION@";
-const char* gVERSION_SHORT = "@VERSION_SHORT@";

@@ -417,7 +417,10 @@ endif()
 # UPM common headers
 set (UPM_COMMON_HEADER_DIRS
     ${CMAKE_HOME_DIRECTORY}/include
-    ${CMAKE_HOME_DIRECTORY}/include/fti)
+    ${CMAKE_HOME_DIRECTORY}/include/fti
+    ${CMAKE_BINARY_DIR}/src)
+
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/version.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/src/version.hpp @ONLY)
 
 # UPM source
 add_subdirectory (src)
