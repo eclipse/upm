@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (upm)
 
+find_package (Threads REQUIRED)
+find_package (PkgConfig REQUIRED)
+
 # Before going any further, define build options
 option (BUILDDOC "Build all doc" OFF)
 option (BUILDCPP "Build CPP sensor libraries" ON)
@@ -85,7 +88,7 @@ function (upm_add_compile_flags compiler)
   endforeach (flag ${ARGN})
 
   # Set the variable in the parent scope
-  set (CMAKE_${compiler}_FLAGS "${CMAKE_${compiler}_FLAGS} ${_TMP_COMPILER_FLAGS}" PARENT_SCOPE)
+  list (APPEND CMAKE_${compiler}_FLAGS ${_TMP_COMPILER_FLAGS} PARENT_SCOPE)
 endfunction ()
 
 # Compiler flags common to both C and CXX
@@ -112,9 +115,6 @@ upm_add_compile_flags(CXX ${C_CXX_WARNING_FLAGS}
   -Wnon-virtual-dtor
   -Woverloaded-virtual
   -Wreorder)
-
-find_package (Threads REQUIRED)
-find_package (PkgConfig REQUIRED)
 
 # Force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
