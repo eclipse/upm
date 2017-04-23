@@ -7,3 +7,6 @@
 %include "javaupm_iModuleStatus.i"
 
 %include "iTemperatureSensor.hpp"
+%{
+	#include "iTemperatureSensor.hpp"
+%}

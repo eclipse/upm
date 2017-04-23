@@ -7,3 +7,6 @@
 %include "javaupm_iModuleStatus.i"
 
 %include "iADC.hpp"
+%{
+	#include "iADC.hpp"
+%}

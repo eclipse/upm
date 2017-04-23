@@ -2,12 +2,7 @@
 %include "../upm.i"
 %include "typemaps.i"
 
-%apply float *OUTPUT {float *fHum};
-%apply float *OUTPUT {float *fHumTemp};
-%apply float *OUTPUT {float *fDewPt};
-%inline %{
-    extern int getHumidityData(float* fHum, float* fHumTemp, float* fDewPt);
-%}
+%ignore getHumidityData(float*, float*, float*);
 
 %{
     #include "htu21d.hpp"
