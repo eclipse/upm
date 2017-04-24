@@ -116,6 +116,9 @@ endfunction (_gen_pkg_config_per_target)
 # This function iterates over all provided target names and
 # writes a pom file to each build directory
 function (_gen_pom_per_target)
+  # Remove targets listed in the JAVA blacklist from pom file generation
+  list(REMOVE_ITEM ARGN ${JAVASWIG_BLACKLIST})
+
   list(LENGTH ARGN n_targets)
   message(STATUS "Generating pom files for ${n_targets} CXX libraries...")
   # Iterate over the targets an build pom files
