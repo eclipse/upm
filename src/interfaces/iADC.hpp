@@ -25,9 +25,7 @@
 
 #pragma once
 #include <stdint.h>
-#include "mraa/common.h"
 #include "iModuleStatus.hpp"
-
 
 namespace upm
 {
