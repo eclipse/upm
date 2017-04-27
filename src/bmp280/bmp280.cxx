@@ -35,13 +35,6 @@ using namespace upm;
 using namespace std;
 
 
-// conversion from Celsius to Fahrenheit.
-
-static float c2f(float c)
-{
-  return (c * (9.0 / 5.0) + 32.0);
-}
-
 BMP280::BMP280(int bus, int addr, int cs) :
     m_bmp280(bmp280_init(bus, addr, cs))
 {
@@ -100,14 +93,9 @@ void BMP280::reset()
 }
 
 
-float BMP280::getTemperature(bool fahrenheit)
+float BMP280::getTemperature()
 {
-    float temperature = bmp280_get_temperature(m_bmp280);
-
-    if (fahrenheit)
-        return c2f(temperature);
-    else
-        return temperature;
+    return bmp280_get_temperature(m_bmp280);
 }
 
 float BMP280::getPressure()

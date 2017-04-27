@@ -102,6 +102,14 @@ namespace upm {
          * @var ADSSAMPLERATE::SPS_2400 = 0x00A0
          * @var ADSSAMPLERATE::SPS_3300 = 0x00C0
          */
+        virtual std::string getVersion()
+        {
+            return "";
+        }
+        virtual void* read()
+        {
+            return NULL;
+        }
         typedef enum ADSSAMPLERATE {
          SPS_128           = ADS1015_DR_128SPS,
          SPS_250           = ADS1015_DR_250SPS,

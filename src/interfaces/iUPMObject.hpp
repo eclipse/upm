@@ -37,7 +37,7 @@ namespace upm
     {
     public:
 
-        virtual string getVersion() = 0;
+        virtual std::string getVersion() = 0;
 
         virtual ~IUPMObject() {}
     };

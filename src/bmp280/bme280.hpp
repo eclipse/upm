@@ -26,7 +26,7 @@
 #pragma once
 
 #include <string>
-#include "interfaces/iHumiditySensor.hpp"
+#include "interfaces/iHumidity.hpp"
 
 #include "bmp280.hpp"
 
@@ -57,7 +57,7 @@ namespace upm {
      * @snippet bmp280-bme280.cxx Interesting
      */
 
-    class BME280 : public BMP280, public IHumiditySensor {
+    class BME280 : public BMP280, public IHumidity {
     public:
 
         /**

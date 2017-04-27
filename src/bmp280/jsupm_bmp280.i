@@ -2,10 +2,10 @@
 %include "../upm.i"
 %include "cpointer.i"
 
-%include "iModuleStatus.hpp"
-%include "iHumiditySensor.hpp"
-%include "iPressureSensor.hpp"
-%include "iTemperatureSensor.hpp"
+%include "iUPMObject.hpp"
+%include "iHumidity.hpp"
+%include "iPressure.hpp"
+%include "iTemperature.hpp"
 
 %include "bmp280_regs.h"
 %include "bmp280.hpp"

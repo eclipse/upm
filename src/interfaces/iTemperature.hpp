@@ -32,7 +32,7 @@ namespace upm
     {
     public:
         virtual std::string getUnit() = 0;
-        virtual int getTemperature();
+        virtual float getTemperature();
 
         virtual ~ITemperature() {}
     };

@@ -28,8 +28,8 @@
 #include <string>
 #include "bmp280.h"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include "interfaces/iPressure.hpp"
+#include "interfaces/iTemperature.hpp"
 
 namespace upm {
 
@@ -67,7 +67,7 @@ namespace upm {
      * @snippet bmp280.cxx Interesting
      */
 
-    class BMP280 : public ITemperatureSensor, public IPressureSensor {
+    class BMP280 : public ITemperature, public IPressure {
     public:
 
         /**
@@ -127,7 +127,7 @@ namespace upm {
          * Celicus.  Celsius is the default.
          * @return The temperature in degrees Celsius or Fahrenheit.
          */
-        float getTemperature(bool fahrenheit=false);
+        float getTemperature();
 
         /**
          * Return the current measured pressure in Pascals (Pa).  update()
@@ -221,16 +221,6 @@ namespace upm {
         const char *getModuleName()
         {
             return "BMP280";
-        };
-
-        int getTemperatureCelsius()
-        {
-            return int(getTemperature(false));
-        };
-
-        int getPressurePa()
-        {
-            return int(getPressure());
         };
 
     protected:
