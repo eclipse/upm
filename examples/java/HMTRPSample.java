@@ -59,7 +59,7 @@ public class HMTRPSample {
 		// device, and periodically transmit "Hello World".
 
 		// If any argument was specified on the command line, do a simple
-		// configuration query and output the results. The radio must be in·
+		// configuration query and output the results. The radio must be in
 		// CONFIG mode for this to work.
 
 		if (args.length > 0) {

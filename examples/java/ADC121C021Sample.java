@@ -31,7 +31,7 @@ public class ADC121C021Sample {
 		upm_adc121c021.ADC121C021 adc = new upm_adc121c021.ADC121C021(0);
 
 		// An analog sensor, such as a Grove light sensor,
-		// must be attached to the adc·
+		// must be attached to the adc
 		// Prints the value and corresponding voltage every 50 milliseconds
 		while (true) {
 			int val = adc.value();

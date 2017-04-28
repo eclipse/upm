@@ -27,9 +27,9 @@ public class MQ303ASample {
 	public static void main(String[] args) throws InterruptedException {
 		// Instantiate an mq303a sensor on analog pin A0
 
-		// This device uses a heater powered from an analog I/O pin.·
+		// This device uses a heater powered from an analog I/O pin.
 		// If using A0 as the data pin, then you need to use A1, as the heater
-		// pin (if using a grove mq303a). For A1, we can use the D15 gpio,·
+		// pin (if using a grove mq303a). For A1, we can use the D15 gpio,
 		// setup as an output, and drive it low to power the heater.
 		upm_mq303a.MQ303A mq303a = new upm_mq303a.MQ303A(1, 15);
 
