@@ -7,6 +7,9 @@ such sensors and known workarounds if they exist.
 
 #### Grove Sensors
 
+ * **RN2903** Click 2 version. This device will not work using the
+ Edison UART on the Arduino breakout.  It does work on Edison using a
+ USB->serial interface.
  * **Grove LCD RGB Backlit** (JHD1313M1) requires 5V and should be used with an
  external power supply connected to the board to function properly. Although
  some high powered USB ports might be enough, in most cases you will encounter
