@@ -155,7 +155,7 @@ endif (BUILDSWIGNODE)
 if (BUILDSWIGJAVA)
   find_package (Java REQUIRED)
   find_package (JNI REQUIRED)
-  pkg_check_modules (MRAAJAVA REQUIRED mraajava>=0.8.0)
+  pkg_check_modules (MRAAJAVA REQUIRED mraajava>=${MRAA_MINIMUM})
   # Also, get full path to the mraajava library
   find_library(MRAAJAVA_LIBRARY NAMES mraajava PATHS ${MRAA_LIBDIR})
 endif (BUILDSWIGJAVA)
