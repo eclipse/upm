@@ -365,7 +365,7 @@ macro(upm_swig_node)
     swig_link_libraries (jsupm_${libname} ${NODE_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
       PUBLIC
-      "${NODE_INCLUDE_DIRS}"
+      "${NODEJS_INCLUDE_DIRS}"
       ${DEPEND_DIRS}
     )
 
@@ -507,13 +507,6 @@ if (BUILDSWIGNODE)
   if(SWIG_VERSION VERSION_LESS 3.0.5 AND NODE_VERSION_STRING VERSION_GREATER 0.12)
     message(WARNING "WARNING - SWIG 3.0.5+ required for building with nodejs 0.12. Current version is ${SWIG_VERSION}")
   endif()
-  find_path (NODE_ROOT_DIR "include/node/node.h")
-  set (NODE_INCLUDE_DIRS
-    ${NODE_ROOT_DIR}/include/src
-    ${NODE_ROOT_DIR}/include/node
-    ${NODE_ROOT_DIR}/include/deps/v8/include
-    ${NODE_ROOT_DIR}/include/deps/uv/include
-  )
   macro(createpackagejson)
     if (NPM)
       # Dependency to generate wrappers before packing, skip modules that depend on 3rd party libs
