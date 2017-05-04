@@ -188,6 +188,7 @@ add_example(BMA250E_Example bma250e)
 add_example(BMM150_Example bmm150)
 add_example(LSM303AGR_Example lsm303agr)
 add_example(LSM303D_Example lsm303d)
+add_example(VEML6070Sample veml6070)
 
 add_example_with_path(Jhd1313m1_lcdSample jhd1313m1 jhd1313m1)
 add_example_with_path(Jhd1313m1Sample jhd1313m1 jhd1313m1)
