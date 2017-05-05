@@ -1,7 +1,7 @@
 %module javaupm_e50hx
 %include "../upm.i"
 %include "typemaps.i"
-%include "carrays_uint32_t.i"
+%include "../carrays_uint32_t.i"
 
 // We need to use this method for enum wrapping since the enum typedefs used
 // by the derived classes (like ANALOG_VALUES_T) are passed to methods

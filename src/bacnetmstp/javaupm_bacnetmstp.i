@@ -1,7 +1,7 @@
 %module javaupm_bacnetmstp
 %include "../upm.i"
 %include "typemaps.i"
-%include "carrays_uint32_t.i"
+%include "../carrays_uint32_t.i"
 
 %{
     #include "bacnetmstp.hpp"
