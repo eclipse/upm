@@ -39,7 +39,7 @@ namespace upm {
    * @library h803x
    * @sensor h803x
    * @comname Veris H803X Energy Meter Module
-   * @type electic
+   * @type electric
    * @man veris
    * @con uart
    * @web http://www.veris.com/Item/H8035-0100-2.aspx

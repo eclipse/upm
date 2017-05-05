@@ -41,7 +41,7 @@ namespace upm {
    * @library e50hx
    * @sensor e50hx
    * @comname Veris E50HX (E50H2/E50H5) Energy Meter Module
-   * @type electic
+   * @type electric
    * @man veris
    * @con uart
    * @web http://www.veris.com/Item/E50H5.aspx
