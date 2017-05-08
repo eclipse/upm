@@ -35,6 +35,10 @@
 #define TMP006_MANUFACTURER_ID 0x5449
 #define TMP006_DEVICE_ID       0x0067
 
+#define TMP007_I2C_ADDRESS     0x40
+// this should actually be split
+#define TMP007_DEVICE_ID       0x0078
+
 #ifndef TMP006_CONVERSION_TIME
 #define TMP006_CONVERSION_TIME 1E6 /**< Default Conversion Time in us */
 #endif
@@ -45,6 +49,9 @@
 #define TMP006_CONFIGURATION       0x02
 #define TMP006_MANUFACTURER_ID_REG 0xFE
 #define TMP006_DEVICE_ID_REG       0xFF
+
+/* TMP007 Register Map */
+#define TMP007_DEVICE_ID_REG       0x1F
 
 /* TMP006 configuration register bitmap */
 #define TMP006_RST_SOFT         (1 << 15)
@@ -85,6 +92,10 @@
 #define TMP006_CCONST_B2       4.63E-9   /* Constant \f$b_{\mathrm{2}}\f$ */
 #define TMP006_CCONST_C2       13.4      /* Constant \f$c_{\mathrm{2}}\f$ */
 #define TMP006_CCONST_LSB_SIZE 156.25E-9 /* Sensor Voltage Register LSB Size */
+
+typedef enum {
+    TMP006_SEN,
+    TMP007_SEN } tmp_t;
 
 namespace upm {
 
@@ -195,6 +206,7 @@ class TMP006 {
         int m_controlAddr;
         int m_bus;
         mraa::I2c m_i2ControlCtx;
+        tmp_t sensorType;
 
         int32_t m_temperature;
 };

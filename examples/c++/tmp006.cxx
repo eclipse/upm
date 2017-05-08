@@ -44,8 +44,13 @@ int main(int argc, char **argv)
 //! [Interesting]
   std::cout << "Initializing test-application..." << std::endl;
 
+  // please make sure that you have the right i2c address for your device
+  // the correct range of addresses is 0x40 - 0x47
   // Instantiate an TMP006 instance on bus 1
-  upm::TMP006 *mySensor = new upm::TMP006(1);
+  upm::TMP006 *mySensor = new upm::TMP006(1, TMP006_CONFIG_CR_DEF, TMP006_I2C_ADDRESS);
+
+  // you can also get basic tmp007 functionality by initializing it as follows
+  //upm::TMP006 *mySensor = new upm::TMP006(1, TMP006_CONFIG_CR_DEF, TMP007_I2C_ADDRESS);
 
   // activate periodic measurements
   mySensor->setActive();

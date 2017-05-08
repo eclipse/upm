@@ -42,9 +42,11 @@ TMP006::TMP006(int bus, uint8_t conv_rate, int devAddr) : m_i2ControlCtx(bus) {
 
     m_temperature = 0;
 
-    m_name = TMP006_NAME;;
+    m_name = TMP006_NAME;
 
     m_controlAddr = devAddr;
+
+    sensorType = TMP006_SEN;
     m_bus = bus;
 
     if (conv_rate > TMP006_CONFIG_CR_AS16) {
@@ -85,20 +87,46 @@ TMP006::checkID(void)
     uint8_t tmp[2];
     uint16_t id;
     int re = 0;
+    int ret = 0;
 
+    tmp[0] = 0;tmp[1] = 0;
+    // Checking if TMP006
     re = m_i2ControlCtx.readBytesReg(TMP006_DEVICE_ID_REG, tmp, 2);
     if (re != 2) {
         /* not enough bytes were read! */
-        return -1;
+        //return -1;
+        ret = -1;
     }
 
     id = ((uint16_t)tmp[0] << 8) | tmp[1];
 
     if (id != TMP006_DEVICE_ID) {
-        return -1;
+        //return -1;
+        ret = -1;
+    } else {
+        sensorType = TMP006_SEN;
+        return 0;
     }
 
-    return 0;
+    // Checking if TMP007
+    re = m_i2ControlCtx.readBytesReg(TMP007_DEVICE_ID_REG, tmp, 2);
+    if (re != 2) {
+        /* not enough bytes were read! */
+        //return -1;
+        ret = -1;
+    }
+
+    id = ((uint16_t)tmp[0] << 8) | tmp[1];
+
+    if (id != TMP007_DEVICE_ID) {
+        //return -1;
+        ret = -1;
+    } else {
+        sensorType = TMP007_SEN;
+        return 0;
+    }
+
+    return ret;
 }
 
 void
@@ -174,9 +202,11 @@ TMP006::sampleData(void)
 
     *drdy = buf[0] & (TMP006_DRDY_DATA_RDY);
 
-    if(! (*drdy)) {
-        /* conversation in progress */
-        return -1;
+    if(sensorType == TMP006_SEN) {
+        if(! (*drdy)) {
+            /* conversation in progress */
+            return -1;
+        }
     }
 
     tmp = m_i2ControlCtx.readWordReg(TMP006_SENSOR_VOLTAGE);
