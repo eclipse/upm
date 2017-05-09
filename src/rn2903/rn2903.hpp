@@ -47,7 +47,7 @@ namespace upm {
      *
      * @brief API for the Microchip RN2903 LoRa radio
      *
-     * Microchip’s RN2903 Low-Power Long Range LoRa Technology
+     * The Microchip RN2903 Low-Power Long Range LoRa Technology
      * Transceiver module provides an easy to use, low-power solution
      * for long range wireless data transmission. The advanced command
      * interface offers rapid time to market.

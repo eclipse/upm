@@ -996,7 +996,7 @@ RN2903_MAC_TX_STATUS_T rn2903_mac_tx(const rn2903_context dev,
     // if it's anything else, we failed :(
     printf("%s: unexpected response to mac tx command\n", __FUNCTION__);
 
-    return RN2903_JOIN_STATUS_UPM_ERROR;
+    return RN2903_MAC_TX_STATUS_UPM_ERROR;
 }
 
 RN2903_RESPONSE_T rn2903_radio_tx(const rn2903_context dev,
@@ -1011,14 +1011,14 @@ RN2903_RESPONSE_T rn2903_radio_tx(const rn2903_context dev,
     if (!validate_hex_str(payload))
     {
         printf("%s: payload is not a valid hex string\n", __FUNCTION__);
-        return RN2903_MAC_TX_STATUS_UPM_ERROR;
+        return RN2903_RESPONSE_UPM_ERROR;
     }
 
     // get the mac status and ensure that we are paused
     if (rn2903_update_mac_status(dev))
     {
         printf("%s: rn2903_update_mac_status() failed\n", __FUNCTION__);
-        return RN2903_MAC_TX_STATUS_UPM_ERROR;
+        return RN2903_RESPONSE_UPM_ERROR;
     }
 
     uint16_t status = rn2903_get_mac_status_word(dev);
@@ -1052,7 +1052,7 @@ RN2903_RESPONSE_T rn2903_radio_rx(const rn2903_context dev,
     if (rn2903_update_mac_status(dev))
     {
         printf("%s: rn2903_update_mac_status() failed\n", __FUNCTION__);
-        return RN2903_MAC_TX_STATUS_UPM_ERROR;
+        return RN2903_RESPONSE_UPM_ERROR;
     }
 
     uint16_t status = rn2903_get_mac_status_word(dev);
