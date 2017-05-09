@@ -3,4 +3,10 @@
     %interface_impl(upm::IUPMSensor);
 #endif
 
+%include "javaupm_interfaces.i"
+%include "javaupm_iUPMObject.i"
+
 %include "iUPMSensor.hpp"
+%{
+	#include "iUPMSensor.hpp"
+%}

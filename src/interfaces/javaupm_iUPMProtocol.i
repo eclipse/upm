@@ -3,4 +3,10 @@
     %interface_impl(upm::IUPMProtocol);
 #endif
 
+%include "javaupm_interfaces.i"
+%include "javaupm_iUPMObject.i"
+
 %include "iUPMProtocol.hpp"
+%{
+	#include "iUPMProtocol.hpp"
+%}
