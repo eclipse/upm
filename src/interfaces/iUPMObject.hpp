@@ -25,6 +25,7 @@
 
 #pragma once
 #include <stdexcept>
+#include "version.hpp"
 
 namespace upm
 {
@@ -37,8 +38,11 @@ namespace upm
     {
     public:
 
-        virtual std::string getVersion() = 0;
-
+        virtual const char* getModuleName() = 0;
+        virtual std::string getVersion()
+        {
+            return ::getVersion();
+        }
         virtual ~IUPMObject() {}
     };
 }
