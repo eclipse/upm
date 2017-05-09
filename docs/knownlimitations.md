@@ -94,10 +94,9 @@ This affects the **DS18B20**, **DS2413** and **DFREC** drivers.
 
 Some *I2C* sensors add too much capacitance to the SDA line of the Intel Edison
 Arduino breakout board, thus the signal sticks to a logic 1. When this happens,
-other sensors connected to the I2C bus are unusable. While there is no generic
-solution for this limitation, in most cases the sensor works on the Intel
-Edison Mini-breakout. When this board is not an option, the sensor can be
-sometimes replaced with the same model from a different vendor.
+other sensors connected to the I2C bus also become unusable. In order to solve
+this problem, an I2C repeater that isolates the capacitance on the bus, such as
+the PCA9517 can be used.
 
 The Intel Edison *SPI* bus can corrupt data being sent across when certain
 sensors are connected to it, if using an old image. This has been resolved with
