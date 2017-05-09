@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iTime.hpp"
+%{
+	#include "iTime.hpp"
+%}

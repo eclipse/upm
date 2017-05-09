@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iMagnetometer.hpp"
+%{
+	#include "iMagnetometer.hpp"
+%}

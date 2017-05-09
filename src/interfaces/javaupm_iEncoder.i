@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iEncoder.hpp"
+%{
+	#include "iEncoder.hpp"
+%}

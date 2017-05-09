@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iMoisture.hpp"
+%{
+	#include "iMoisture.hpp"
+%}

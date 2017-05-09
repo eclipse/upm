@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iPressure.hpp"
+%{
+	#include "iPressure.hpp"
+%}

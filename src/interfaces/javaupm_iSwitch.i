@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iSwitch.hpp"
+%{
+	#include "iSwitch.hpp"
+%}

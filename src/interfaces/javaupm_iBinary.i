@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iBinary.hpp"
+%{
+	#include "iBinary.hpp"
+%}

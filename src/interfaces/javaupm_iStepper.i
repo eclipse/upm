@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iStepper.hpp"
+%{
+	#include "iStepper.hpp"
+%}

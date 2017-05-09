@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iFlow.hpp"
+%{
+	#include "iFlow.hpp"
+%}

@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iAngle.hpp"
+%{
+	#include "iAngle.hpp"
+%}

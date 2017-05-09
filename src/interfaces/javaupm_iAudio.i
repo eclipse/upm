@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iAudio.hpp"
+%{
+	#include "iAudio.hpp"
+%}

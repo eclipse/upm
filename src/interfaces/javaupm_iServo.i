@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iServo.hpp"
+%{
+	#include "iServo.hpp"
+%}

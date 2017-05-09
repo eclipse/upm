@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iGyroscope.hpp"
+%{
+	#include "iGyroscope.hpp"
+%}

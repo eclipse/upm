@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iVoltage.hpp"
+%{
+	#include "iVoltage.hpp"
+%}

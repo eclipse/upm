@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iLight.hpp"
+%{
+	#include "iLight.hpp"
+%}

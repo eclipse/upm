@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iThermostat.hpp"
+%{
+	#include "iThermostat.hpp"
+%}

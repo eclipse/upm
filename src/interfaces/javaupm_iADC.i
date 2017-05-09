@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iADC.hpp"
+%{
+	#include "iADC.hpp"
+%}

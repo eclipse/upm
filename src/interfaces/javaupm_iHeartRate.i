@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iHeartRate.hpp"
+%{
+	#include "iHeartRate.hpp"
+%}

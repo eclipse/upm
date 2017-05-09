@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iAccelerometer.hpp"
+%{
+	#include "iAccelerometer.hpp"
+%}

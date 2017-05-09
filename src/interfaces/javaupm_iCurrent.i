@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iCurrent.hpp"
+%{
+	#include "iCurrent.hpp"
+%}

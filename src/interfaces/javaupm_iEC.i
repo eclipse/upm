@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iEC.hpp"
+%{
+	#include "iEC.hpp"
+%}

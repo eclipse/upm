@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iGas.hpp"
+%{
+	#include "iGas.hpp"
+%}

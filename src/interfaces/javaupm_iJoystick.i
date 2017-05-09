@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iJoystick.hpp"
+%{
+	#include "iJoystick.hpp"
+

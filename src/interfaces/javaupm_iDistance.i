@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iDistance.hpp"
+%{
+	#include "iDistance.hpp"
+%}

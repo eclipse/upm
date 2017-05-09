@@ -7,3 +7,6 @@
 %include "javaupm_iUPMObject.i"
 
 %include "iPotentiometer.hpp"
+%{
+	#include "iPotentiometer.hpp"
+%}
