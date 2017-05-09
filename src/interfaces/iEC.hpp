@@ -31,8 +31,8 @@ namespace upm
     class IEC : virtual public IUPMSensor
     {
     public:
-        virtual int getunit() = 0;
-        virtual int getEC();
+        virtual int getunit();
+        virtual int getEC() = 0;
 
         virtual ~IEC() {}
     };

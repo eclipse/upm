@@ -25,7 +25,7 @@
 
 #include <string>
 #include "mraa/i2c.hpp"
-#include "interfaces/iLightSensor.hpp"
+#include "interfaces/iLight.hpp"
 
 
 namespace upm {
@@ -56,7 +56,7 @@ namespace upm {
  * @if ilightsensor
 
  */
-class SI1132 : public ILightSensor {
+class SI1132 : public ILight {
     public:
         /**
          * Instanciates a Si1132 object
@@ -73,11 +73,18 @@ class SI1132 : public ILightSensor {
         /**
          * Read the raw visible light value
          */
+
+        virtual std::string getVersion();
+
+        virtual void* read();
+
         uint16_t getVisibleRaw();
 
         /**
          * Read the lux value
          */
+        double getLight();
+        
         double getVisibleLux();
 
         virtual const char* getModuleName() { return "si1132"; }

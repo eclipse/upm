@@ -32,8 +32,8 @@ namespace upm
     class ILight : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual double getLight();
+        virtual std::string getUnit();
+        virtual double getLight() = 0;
 
         virtual ~ILight() {}
     };

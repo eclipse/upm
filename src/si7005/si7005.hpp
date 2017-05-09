@@ -25,8 +25,8 @@
 
 #include <mraa/i2c.hpp>
 
-#include "interfaces/iTemperatureSensor.hpp"
-#include "interfaces/iHumiditySensor.hpp"
+#include "interfaces/iTemperature.hpp"
+#include "interfaces/iHumidity.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define SI7005_ADDRESS                     ( 0x40 )
@@ -59,7 +59,7 @@ namespace upm {
  *
  * @snippet si7005.cxx Interesting
  */
-class SI7005 : public ITemperatureSensor, public IHumiditySensor {
+class SI7005 : public ITemperature, public IHumidity {
     public:
         /**
          * Instantiates a SI7005 object
@@ -73,6 +73,8 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
          * SI7005 object destructor.
          */
         ~SI7005 ();
+
+        virtual float getTemperature();
 
         /**
          * Get temperature measurement.

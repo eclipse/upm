@@ -1,8 +1,8 @@
 %module javaupm_ms5611
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iTemperatureSensor.i"
-%include "../interfaces/javaupm_iPressureSensor.i"
+%include "../interfaces/javaupm_iTemperature.i"
+%include "../interfaces/javaupm_iPressure.i"
 
 %{
     #include "ms5611.hpp"

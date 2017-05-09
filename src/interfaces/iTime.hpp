@@ -31,8 +31,8 @@ namespace upm
     class ITime : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getTime();
+        virtual std::string getUnit();
+        virtual float getTime() = 0;
 
         virtual ~ITime() {}
     };

@@ -31,8 +31,8 @@ namespace upm
     class ICurrent : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getCurrent();
+        virtual std::string getUnit();
+        virtual float getCurrent() = 0;
 
         virtual ~ICurrent() {}
     };

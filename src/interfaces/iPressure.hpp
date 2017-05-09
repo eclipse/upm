@@ -31,8 +31,8 @@ namespace upm
     class IPressure : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getPressure();
+        virtual std::string getUnit();
+        virtual float getPressure() = 0;
 
         virtual ~IPressure() {}
     };

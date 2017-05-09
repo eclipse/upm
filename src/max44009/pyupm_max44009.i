@@ -3,7 +3,6 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
 
-
 %include "stdint.i"
 
 %feature("autodoc", "3");

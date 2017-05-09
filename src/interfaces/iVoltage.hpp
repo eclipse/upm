@@ -31,8 +31,8 @@ namespace upm
     class IVoltage : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getVoltage();
+        virtual std::string getUnit();
+        virtual float getVoltage() = 0;
 
         virtual ~IVoltage() {}
     };

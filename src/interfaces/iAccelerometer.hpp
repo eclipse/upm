@@ -36,8 +36,8 @@ namespace upm
         //virtual int getAxis();
         //virtual map<string, float> getAcceleration() = 0;
 
-        virtual std::string getUnit() = 0;
-        virtual vector<float> getAcceleration();
+        virtual std::string getUnit();
+        virtual vector<float> getAcceleration() = 0;
 
         virtual ~IAccelerometer() {}
     };

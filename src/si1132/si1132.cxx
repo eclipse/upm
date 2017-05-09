@@ -70,8 +70,6 @@
 #define SI1132_PARAM_ALS_VIS_RANGE_STD  0x00
 #define SI1132_PARAM_ALS_VIS_RANGE_HI   0x20
 
-
-
 using namespace upm;
 
 SI1132::SI1132 (int bus) {
@@ -136,6 +134,10 @@ mraa::Result SI1132::reset() {
     return status;
 }
 
+std::string SI1132::getVersion()
+{
+    return "";
+}
 
 uint16_t SI1132::getVisibleRaw() {
     status = runCommand(SI1132_COMMAND_ALS_FORCE);
@@ -143,7 +145,6 @@ uint16_t SI1132::getVisibleRaw() {
        UPM_THROW("command failed");
     return i2c->readWordReg(SI1132_REG_ALS_VIS_DATA0);
 }
-
 
 double SI1132::getVisibleLux() {
     uint16_t rawValue = getVisibleRaw();
@@ -154,6 +155,16 @@ double SI1132::getVisibleLux() {
     return static_cast<double>(rawValue);
 }
 
+/*
+void* SI1132::read() {
+    //uint16_t val =  getVisibleRaw();
+    //return &val;
+}
+*/
+
+double SI1132::getLight() {
+    return getVisibleLux();
+}
 
 mraa::Result SI1132::clearResponseRegister()
 {

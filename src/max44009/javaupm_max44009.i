@@ -1,7 +1,7 @@
 %module javaupm_max44009
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iLightSensor.i"
+%include "../interfaces/javaupm_iLight.i"
 
 %include "arrays_java.i";
 %include "../java_buffer.i"

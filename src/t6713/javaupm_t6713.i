@@ -1,7 +1,7 @@
 %module javaupm_t6713
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iCO2Sensor.i"
+%include "../interfaces/javaupm_iGas.i"
 
 %include "arrays_java.i";
 %include "../java_buffer.i"

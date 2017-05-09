@@ -31,8 +31,8 @@ namespace upm
     class IForce : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getForce();
+        virtual std::string getUnit();
+        virtual float getForce() = 0;
 
         virtual ~IForce() {}
    };

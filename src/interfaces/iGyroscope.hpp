@@ -33,8 +33,8 @@ namespace upm
     class IGyroscope : virtual public IUPMSensor
     {
     public:
-        virtual map<string, float> getUnit() = 0;
-        virtual map<string, float> getGyroscope();
+        virtual map<string, float> getUnit();
+        virtual map<string, float> getGyroscope() = 0;
         //virtual map<string, float> getGyroscope(vector<string> axis);
 
         virtual ~IGyroscope() {}

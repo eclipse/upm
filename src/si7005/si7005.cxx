@@ -94,6 +94,11 @@ SI7005::getTemperatureRaw () {
     return getMeasurement( SI7005_CONFIG_TEMPERATURE );
 }
 
+float
+SI7005::getTemperature() {
+    return (float)getTemperatureRaw();
+}
+
 int
 SI7005::getTemperatureCelsius () {
     uint16_t rawTemperature = getTemperatureRaw();

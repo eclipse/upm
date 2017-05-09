@@ -1,9 +1,9 @@
 %module javaupm_bmp280
 %include "../upm.i"
 
-%include "../interfaces/javaupm_iTemperatureSensor.i"
-%include "../interfaces/javaupm_iHumiditySensor.i"
-%include "../interfaces/javaupm_iPressureSensor.i"
+%include "../interfaces/javaupm_iTemperature.i"
+%include "../interfaces/javaupm_iHumidity.i"
+%include "../interfaces/javaupm_iPressure.i"
 
 %include "bmp280_regs.h"
 %include "bmp280.hpp"

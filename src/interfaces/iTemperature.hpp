@@ -31,8 +31,8 @@ namespace upm
     class ITemperature : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getTemperature();
+        virtual std::string getUnit();
+        virtual float getTemperature() = 0;
 
         virtual ~ITemperature() {}
     };

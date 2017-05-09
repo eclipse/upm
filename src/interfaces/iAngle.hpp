@@ -31,8 +31,8 @@ namespace upm
     class IAngle : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getAngle();
+        virtual std::string getUnit();
+        virtual float getAngle() = 0;
 
         virtual ~IAngle() {}
     };

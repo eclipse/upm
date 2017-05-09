@@ -31,8 +31,8 @@ namespace upm
     class IDistance : virtual public IUPMSensor
     {
     public:
-        virtual std::string getunit() = 0;
-        virtual float getDistance();
+        virtual std::string getunit();
+        virtual float getDistance() = 0;
 
         virtual ~IDistance() {}
    };

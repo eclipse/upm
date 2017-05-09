@@ -32,8 +32,8 @@ namespace upm
     class IGas : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual int getGas();
+        virtual std::string getUnit();
+        virtual int getGas() = 0;
 
         virtual ~IGas() {}
     };

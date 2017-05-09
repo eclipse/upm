@@ -31,8 +31,8 @@ namespace upm
     class IHeartRate : virtual public IUPMSensor
     {   
     public:
-        virtual std::string getUnit() = 0;
-        virtual int getHeartRate();
+        virtual std::string getUnit();
+        virtual int getHeartRate() = 0;
 
         virtual ~IHeartRate() {}
     };

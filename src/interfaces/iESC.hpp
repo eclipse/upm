@@ -31,8 +31,8 @@ namespace upm
     class IESC : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getSpeed();
+        virtual std::string getUnit();
+        virtual float getSpeed() = 0;
 
         virtual ~IESC() {}
     };

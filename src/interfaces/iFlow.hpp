@@ -31,8 +31,8 @@ namespace upm
     class IFlow : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getFlow();
+        virtual std::string getUnit();
+        virtual float getFlow() = 0;
 
         virtual ~IFlow() {}
     };

@@ -31,8 +31,8 @@ namespace upm
     class IHumidity : virtual public IUPMSensor
     {
     public:
-        virtual std::string getUnit() = 0;
-        virtual float getHumidity();
+        virtual std::string getUnit();
+        virtual float getHumidity() = 0;
 
         virtual ~IHumidity() {}
     };
