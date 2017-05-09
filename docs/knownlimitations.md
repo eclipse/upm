@@ -53,11 +53,11 @@ such sensors and known workarounds if they exist.
  * **Grove BLE** (HM-11) does not return data on the Intel Galileo board due to
  known UART limitation.
  * **Grove Hall Sensor** (A11X) if the base shield is set to 3V on Intel Edison,
- it will trigger continous callbacks when the sensor is not reading anything.
+ it will trigger continuous callbacks when the sensor is not reading anything.
  * **Grove RTC** (DS1307) is not compatible with the Intel Edison Arduino board
  but will work with the Mini-breakout.
- * **Grove Tempture & Humidity (High-Accuracy & Mini) Sensor** (TH02) only works
- with the Intel Edison Arduino board when powered from the 3.3V rail.
+ * **Grove Temperature & Humidity (High-Accuracy & Mini) Sensor** (TH02) only
+ works with the Intel Edison Arduino board when powered from the 3.3V rail.
 
 #### Adafruit Sensors
 
@@ -78,6 +78,8 @@ This affects the **DS18B20**, **DS2413** and **DFREC** drivers.
 
 #### Other Sensors
 
+ * **HTU21D** is unstable on the Intel Edison with the Arduino breakout and
+ will throw an error when it can't complete an update call.
  * **MLX90614** is not compatible with the Intel Galileo due to the inability
  to change the I2C bus speed to 100 KHz.
  * **MICSV89** is not compatible with the Intel Galileo due to the inability to
