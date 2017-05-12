@@ -4,7 +4,7 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
-# current UPM master
+# v1.3.0
 
  * **The lsm303 driver has been renamed** There are a variety of
  LSM303 devices out there with various incompatibilities and differing

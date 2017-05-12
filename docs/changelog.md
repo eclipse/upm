@@ -4,6 +4,17 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.3.0
+
+ * Finalized all required build system and JAVA binding changes to release the
+ UPM libraries for Android Things targets
+ * Enhanced the modules for lsm303 and tmp006 to support newer variants of the
+ chips
+ * Fixed Node.js detection on Ubuntu when installed with apt using official
+ packages
+ * Minor documentation changes
+ * New sensors: lsm303agr, lsm303d, veml6070, tca9548a, rn2903
+
 ### v1.2.0
 
  * Improved JAVA binding compiler compatibility and added JAVA interfaces that
