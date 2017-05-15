@@ -23,6 +23,8 @@
  */
 
 import upm_bma250e.BMA250E;
+import java.util.AbstractList;
+import java.lang.Float;
 
 public class BMA250E_Example
 {
@@ -42,7 +44,7 @@ public class BMA250E_Example
                 // update our values from the sensor
                 sensor.update();
 
-                upm_bma250e.floatVector dataA = sensor.getAccelerometer();
+                AbstractList<Float> dataA = sensor.getAccelerometer();
 
                 System.out.println("Accelerometer x: " + dataA.get(0)
                                    + " y: " + dataA.get(1)

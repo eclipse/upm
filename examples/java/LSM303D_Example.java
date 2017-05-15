@@ -25,6 +25,8 @@
  */
 
 import upm_lsm303d.LSM303D;
+import java.util.AbstractList;
+import java.lang.Float;
 
 public class LSM303D_Example
 {
@@ -40,7 +42,7 @@ public class LSM303D_Example
                 // update our values from the sensor
                 sensor.update();
 
-                upm_lsm303d.floatVector data = sensor.getAccelerometer();
+                AbstractList<Float> data = sensor.getAccelerometer();
 
                 System.out.println("Accelerometer x: " + data.get(0)
                                    + " y: " + data.get(1)

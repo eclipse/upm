@@ -23,6 +23,8 @@
  */
 
 import upm_bmg160.BMG160;
+import java.util.AbstractList;
+import java.lang.Float;
 
 public class BMG160_Example
 {
@@ -42,7 +44,7 @@ public class BMG160_Example
                 // update our values from the sensor
                 sensor.update();
 
-                upm_bmg160.floatVector data = sensor.getGyroscope();
+                AbstractList<Float> data = sensor.getGyroscope();
 
                 System.out.println("Gyroscope x: " + data.get(0)
                                    + " y: " + data.get(1)
