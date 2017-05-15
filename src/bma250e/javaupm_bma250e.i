@@ -1,9 +1,11 @@
 %module javaupm_bma250e
 %include "../upm.i"
 %include "typemaps.i"
-%include "../upm_vectortypes.i"
+%include "std_vector.i"
 
 %ignore getAccelerometer(float *, float *, float *);
+
+%template(floatVector) std::vector<float>;
 
 %include "bma250e_defs.h"
 %include "bma250e.hpp"

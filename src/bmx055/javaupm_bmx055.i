@@ -2,13 +2,15 @@
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
-%include "../upm_vectortypes.i"
+%include "std_vector.i"
 
 %apply int {mraa::Edge};
 
 %ignore getAccelerometer(float *, float *, float *);
 %ignore getMagnetometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
+
+%template(floatVector) std::vector<float>;
 
 %include "bmg160_defs.h"
 %include "bma250e_defs.h"

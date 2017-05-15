@@ -2,7 +2,8 @@
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
-%include "../upm_vectortypes.i"
+%include "std_vector.i"
+%include "stdint.i"
 
 %ignore getCalibrationStatus(int *, int *, int *, int *);
 %ignore getAccelerometer(float *, float *, float *);
@@ -12,6 +13,10 @@
 %ignore getQuaternions(float *, float *, float *, float *);
 %ignore getLinearAcceleration(float *, float *, float *);
 %ignore getGravityVectors(float *, float *, float *);
+
+%template(floatVector) std::vector<float>;
+%template(byteVector) std::vector<uint8_t>;
+%template(intVector) std::vector<int>;
 
 %include "bno055_regs.h"
 %include "bno055.hpp"
