@@ -25,6 +25,8 @@
  */
 
 import upm_bmm150.BMM150;
+import java.util.AbstractList;
+import java.lang.Float;
 
 public class BMM150_Example
 {
@@ -44,7 +46,7 @@ public class BMM150_Example
                 // update our values from the sensor
                 sensor.update();
 
-                upm_bmm150.floatVector data = sensor.getMagnetometer();
+                AbstractList<Float> data = sensor.getMagnetometer();
 
                 System.out.println("Magnetometer x: " + data.get(0)
                                    + " y: " + data.get(1)
