@@ -1,9 +1,11 @@
 %module javaupm_bmm150
 %include "../upm.i"
 %include "typemaps.i"
-%include "../upm_vectortypes.i"
+%include "std_vector.i"
 
 %ignore getMagnetometer(float *, float *, float *);
+
+%template(floatVector) std::vector<float>;
 
 %include "bmm150_defs.h"
 %include "bmm150.hpp"

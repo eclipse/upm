@@ -1,9 +1,11 @@
 %module javaupm_bmg160
 %include "../upm.i"
 %include "typemaps.i"
-%include "../upm_vectortypes.i"
+%include "std_vector.i"
 
 %ignore getGyroscope(float *, float *, float *);
+
+%template(floatVector) std::vector<float>;
 
 %include "bmg160_defs.h"
 %include "bmg160.hpp"
