@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Author: Oussema Harbi <oussema.elharbi@gmail.com>
+ * Author: Neuber Jose de Sousa <neuberfran@gmail.com>
  * Copyright (c) <2016> <Oussema Harbi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -134,7 +134,7 @@ namespace upm {
 /**
  * @library smartdrive
  * @sensor smartdrive
- * @comname SmartDrive Advanced Motor Controller
+ * @comname SmartDrive advanced motor controller
  * @altname smartdrive
  * @type motor
  * @man openelectrons
@@ -154,8 +154,7 @@ class SmartDrive {
 public:
     /**
      * Initialize the class with the i2c address of your SmartDrive
-     * @param i2c_bus I2C bus to use.
-     * @param address Address of your SmartDrive.
+     * @param SmartDrive_address Address of your SmartDrive.
      */
     SmartDrive(int i2c_bus, int address = SmartDrive_DefaultAddress);
 
@@ -239,6 +238,7 @@ public:
     /**
      * Turns the specified motor(s) for given absolute tacheometer count
      * @param motor_id Number of the motor(s) you wish to turn.
+     * @param direction The direction you wish to turn the motor(s).
      * @param speed The speed at which you wish to turn the motor(s).
      * @param tacho_count The absolute tacheometer count you wish to turn the motor(s).
      * @param wait_for_completion Tells the program when to handle the next line of code.
@@ -288,7 +288,7 @@ public:
 
 private:
     void writeByte(uint8_t addr, uint8_t value);
-    void writeArray(uint8_t* array, uint8_t len);
+    void writeArray(uint8_t* array, int size);
     uint8_t readByte(uint8_t addr);
     uint16_t readInteger(uint8_t addr);
     uint32_t readLongSigned(uint8_t addr);
