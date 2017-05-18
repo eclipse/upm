@@ -30,8 +30,8 @@
 
 using namespace upm;
 
-VEML6070::VEML6070(int bus, int devAddress) :
-    m_veml6070(veml6070_init(bus, devAddress))
+VEML6070::VEML6070(int bus) :
+    m_veml6070(veml6070_init(bus))
 {
     if(!m_veml6070)
         throw std::runtime_error(std::string(__FUNCTION__) +

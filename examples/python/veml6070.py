@@ -27,7 +27,7 @@ from upm import pyupm_veml6070 as veml6070
 
 def main():
     # Instantiate a Vishay UV Sensor on the I2C bus 0
-    veml6070_sensor = veml6070.VEML6070(0, 0x38);
+    veml6070_sensor = veml6070.VEML6070(0);
 
     ## Exit handlers ##
     # This function stops python from printing a stacktrace when you hit control-C

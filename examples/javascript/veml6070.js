@@ -25,7 +25,7 @@
 var veml6070 = require("jsupm_veml6070");
 
 // Instantiate a Vishay UV sensor at bus 0
-var veml6070_sensor = new veml6070.VEML6070(0, 0x38);
+var veml6070_sensor = new veml6070.VEML6070(0);
 
 var myInterval = setInterval(function()
 {

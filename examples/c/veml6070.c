@@ -33,7 +33,7 @@
 
 int main()
 {
-    veml6070_context dev = veml6070_init(0, VEML6070_CTRL_REG);
+    veml6070_context dev = veml6070_init(0);
     if(dev == NULL) {
         printf("Unable to initialize sensor\n");
         return 0;

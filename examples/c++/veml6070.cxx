@@ -44,7 +44,7 @@ int main ()
 
 //! [Interesting]
     // Instantiate an VEML6070 sensor on i2c bus 0
-    upm::VEML6070* veml = new upm::VEML6070(0, VEML6070_CTRL_REG);
+    upm::VEML6070* veml = new upm::VEML6070(0);
     while (shouldRun) {
         cout << "Retrieved UV value: " << veml->getUVIntensity() << endl;
         sleep(1);

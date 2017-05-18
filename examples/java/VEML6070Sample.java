@@ -31,7 +31,7 @@ public class VEML6070Sample {
 
 		//! [Interesting]
 		// Instantiate a VEML6070 UV sensor
-		VEML6070 veml = new VEML6070(0, 0x38);
+		VEML6070 veml = new VEML6070(0);
 		
 		while(true){
 			System.out.println("UV Value: "+veml.getUVIntensity());
