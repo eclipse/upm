@@ -1,7 +1,8 @@
 /*
  * The MIT License (MIT)
  *
- * Author: Neuber Jose de Sousa <neuberfran@gmail.com>
+ * Authors: Oussema Harbi <oussema.elharbi@gmail.com> and
+ *          Neuber Jose de Sousa <neuberfran@gmail.com>
  * Copyright (c) <2016> <Oussema Harbi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
