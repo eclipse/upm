@@ -15,7 +15,7 @@ sensor in order to reduce load when doing multiple reads to sensor data.
 ### Example
 
 A sensor/actuator is expected to work as such (here is the servo ES08A API):
-@snippet es08a.cxx Interesting
+@snippet servo-es08a.cxx Interesting
 
 However implementation and API design is completely up to the developer, some
 enumerable sensors for example may provide much clever instantiation. Displays
