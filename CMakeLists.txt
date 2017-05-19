@@ -126,7 +126,7 @@ unset(MRAA_FOUND CACHE)
 set(MRAA_MINIMUM 1.7.0)
 pkg_check_modules (MRAA REQUIRED mraa>=${MRAA_MINIMUM})
 # Also, get full path to the mraa library
-find_library(MRAA_LIBRARY NAMES mraa PATHS ${MRAA_LIBDIR})
+find_library(MRAA_LIBRARY NAMES mraa HINTS ${MRAA_LIBDIR})
 
 # Test MRAA for various compile options
 include (CheckLibraryExists)
@@ -157,7 +157,7 @@ if (BUILDSWIGJAVA)
   find_package (JNI REQUIRED)
   pkg_check_modules (MRAAJAVA REQUIRED mraajava>=${MRAA_MINIMUM})
   # Also, get full path to the mraajava library
-  find_library(MRAAJAVA_LIBRARY NAMES mraajava PATHS ${MRAA_LIBDIR})
+  find_library(MRAAJAVA_LIBRARY NAMES mraajava HINTS ${MRAA_LIBDIR})
 endif (BUILDSWIGJAVA)
 
 # Find swig if any wrapper is enabled
