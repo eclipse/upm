@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @brief ST Micro 3-axis Accelerometer
      * @defgroup lis2ds12 libupm-lis2ds12
-     * @ingroup i2c spi gpio bosch accelerometer
+     * @ingroup i2c spi gpio stmicro accelerometer
      */
 
     /**
