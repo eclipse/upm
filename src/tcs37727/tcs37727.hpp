@@ -91,10 +91,10 @@
 #define TCS37727_CONTROL_PDRIVE_25   0x08 /* 25 mA LED Drive Strength */
 #define TCS37727_CONTROL_PDRIVE_12   0x0C /* 12.5 mA LED Drive Strength */
 #define TCS37727_CONTROL_PDRIVE_MASK 0x0C /* PDRIVE Mask */
-#define TCS37727_CONTROL_AGAIN_1     0x00 /* 1 × gain RGBC Gain Value */
-#define TCS37727_CONTROL_AGAIN_4     0x01 /* 4 × gain RGBC Gain Value */
-#define TCS37727_CONTROL_AGAIN_16    0x02 /* 16 × gain RGBC Gain Value */
-#define TCS37727_CONTROL_AGAIN_60    0x03 /* 60 × gain RGBC Gain Value */
+#define TCS37727_CONTROL_AGAIN_1     0x00 /* 1 x gain RGBC Gain Value */
+#define TCS37727_CONTROL_AGAIN_4     0x01 /* 4 x gain RGBC Gain Value */
+#define TCS37727_CONTROL_AGAIN_16    0x02 /* 16 x gain RGBC Gain Value */
+#define TCS37727_CONTROL_AGAIN_60    0x03 /* 60 x gain RGBC Gain Value */
 #define TCS37727_CONTROL_AGAIN_MASK  0x03 /* AGAIN Mask */
 
 /* TCS37727 ATIME register values */
