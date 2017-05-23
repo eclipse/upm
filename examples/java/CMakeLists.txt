@@ -192,6 +192,7 @@ add_example(VEML6070Sample veml6070)
 add_example(RN2903_Example rn2903)
 add_example(LIS2DS12_Example lis2ds12)
 add_example(LSM6DS3H_Example lsm6ds3h)
+add_example(LSM6DSL_Example lsm6dsl)
 
 add_example_with_path(Jhd1313m1_lcdSample jhd1313m1 jhd1313m1)
 add_example_with_path(Jhd1313m1Sample jhd1313m1 jhd1313m1)
