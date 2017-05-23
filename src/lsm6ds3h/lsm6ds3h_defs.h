@@ -407,8 +407,8 @@ extern "C" {
         LSM6DS3H_CTRL5_ROUNDING0                  = 0x20,
         LSM6DS3H_CTRL5_ROUNDING1                  = 0x40,
         LSM6DS3H_CTRL5_ROUNDING2                  = 0x80,
-        LSM6DS3H_CTRL5_ROUNDING_MASK              = 7,
-        LSM6DS3H_CTRL5_ROUNDING_SHIFT             = 5,
+        _LSM6DS3H_CTRL5_ROUNDING_MASK             = 7,
+        _LSM6DS3H_CTRL5_ROUNDING_SHIFT            = 5,
     } LSM6DS3H_CTRL5_BITS_T;
 
     /**
@@ -502,18 +502,18 @@ extern "C" {
     } LSM6DS3H_CTRL9_XL_BITS_T;
 
     /**
-     * REG_CTRL10_G bits
+     * REG_CTRL10_C bits
      */
     typedef enum {
-        LSM6DS3H_CTRL10_G_SIGN_MOT_EN            = 0x01,
-        LSM6DS3H_CTRL10_G_PEDO_RST_STEP          = 0x02,
-        LSM6DS3H_CTRL10_G_FUNC_EN                = 0x04,
-        LSM6DS3H_CTRL10_G_XEN                    = 0x08,
-        LSM6DS3H_CTRL10_G_YEN                    = 0x10,
-        LSM6DS3H_CTRL10_G_ZEN                    = 0x20,
+        LSM6DS3H_CTRL10_C_SIGN_MOT_EN            = 0x01,
+        LSM6DS3H_CTRL10_C_PEDO_RST_STEP          = 0x02,
+        LSM6DS3H_CTRL10_C_FUNC_EN                = 0x04,
+        LSM6DS3H_CTRL10_C_XEN                    = 0x08,
+        LSM6DS3H_CTRL10_C_YEN                    = 0x10,
+        LSM6DS3H_CTRL10_C_ZEN                    = 0x20,
 
         // 0x40-0x80 reserved
-    } LSM6DS3H_CTRL10_G_BITS_T;
+    } LSM6DS3H_CTRL10_C_BITS_T;
 
     /**
      * REG_MASTER_CONFIG bits
@@ -529,8 +529,6 @@ extern "C" {
 
         LSM6DS3H_MASTER_CONFIG_DATA_VALID_SEL_FIFO = 0x40,
         LSM6DS3H_MASTER_CONFIG_DRDY_ON_INT1      = 0x80,
-
-        // 0x40-0x80 reserved
     } LSM6DS3H_MASTER_CONFIG_BITS_T;
 
     /**
