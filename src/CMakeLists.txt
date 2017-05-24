@@ -83,7 +83,7 @@ function (_gen_pkg_config_per_target LABEL)
       get_target_property(libname ${target} PKG_CONFIG_NAME)
       get_target_property(libdescription ${target} PKG_CONFIG_DESCRIPTION)
       get_target_property(reqlibname ${target} PKG_EXT_REQ_LIBS)
-      get_target_property(BINARY_DIR ${target} BINARY_DIR)
+      get_target_property(BINARY_DIR ${target} TARGET_BINARY_DIR)
 
       # Get a list of in-project dependency targets for this target
       _get_dependency_targets(${target} DEPLIBS)
@@ -127,7 +127,7 @@ function (_gen_pom_per_target)
       get_target_property(libname ${target} PKG_CONFIG_NAME)
       get_target_property(libdescription ${target} PKG_CONFIG_DESCRIPTION)
       get_target_property(reqlibname ${target} PKG_EXT_REQ_LIBS)
-      get_target_property(BINARY_DIR ${target} BINARY_DIR)
+      get_target_property(BINARY_DIR ${target} TARGET_BINARY_DIR)
 
       # Get a list of in-project dependency targets for this target
       _get_dependency_targets(${target} DEPLIBS)
@@ -730,10 +730,11 @@ function(upm_module_init)
     endif (BUILDSWIGJAVA)
   endif (NOT IS_C_LIBRARY)
 
-  # Add additional properties to this target (used later for .pc file creation)
+  # Add additional properties to this target (used later for .pc/pom file creation)
   set_target_properties(${libname} PROPERTIES PKG_CONFIG_NAME "${libprefix}${basename}")
   set_target_properties(${libname} PROPERTIES PKG_CONFIG_DESCRIPTION "${libdescription}")
   set_target_properties(${libname} PROPERTIES PKG_EXT_REQ_LIBS "${reqlibname}")
+  set_target_properties(${libname} PROPERTIES TARGET_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
   # Skip doxygen run on C (for now)
   if (BUILDDOC AND NOT IS_C_LIBRARY)
