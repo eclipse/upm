@@ -1,7 +1,7 @@
 %module javaupm_lsm303d
 %include "../upm.i"
 %include "typemaps.i"
-%include "../upm_stdvector.i"
+%include "../upm_javastdvector.i"
 
 %ignore getMagnetometer(float *, float *, float *);
 %ignore getAccelerometer(float *, float *, float *);
