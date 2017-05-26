@@ -22,27 +22,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-//NOT TESTED!!!
 public class HTU21DSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		float humidity = 0;
-		float temperature = 0;
-		float compRH = 0;
-
 		upm_htu21d.HTU21D sensor = new upm_htu21d.HTU21D(0);
 		sensor.testSensor();
 
 		while (true) {
-			compRH = sensor.getCompRH();
-			humidity = sensor.getHumidity();
-			temperature = sensor.getTemperature();
+			sensor.sampleData();
 
-			System.out.println("Humidity: " + humidity + ", Temperature: " + temperature
-					+ ", compensated RH: " + compRH);
+			System.out.println("Humidity: " + sensor.getHumidity() + "%");
+			System.out.println("Compensated RH: " + sensor.getCompRH() + "%");
+			System.out.println("Temperature: " + sensor.getTemperature() + "C");
+			System.out.println("Dew Point: " + sensor.getDewPoint() + "C");
 
-			Thread.sleep(5000);
+			Thread.sleep(1000);
 		}
 		// ! [Interesting]
 	}
