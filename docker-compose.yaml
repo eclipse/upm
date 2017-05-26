@@ -1,0 +1,74 @@
+version: '2'
+
+services:
+
+  ubuntu:
+    image: ubuntu:16.04
+    command: bash
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+        - BUILDDOC=OFF
+        - BUILDSWIGPYTHON=OFF
+        - BUILDSWIGJAVA=OFF
+        - BUILDSWIGNODE=OFF
+        - BUILDEXAMPLES=ON
+        - IPK=OFF
+        - RPM=OFF
+        - NPM=OFF
+        - BUILDTESTS=ON
+        - CC=clang-3.8
+        - CXX=clang++-3.8
+        - NODE_VERSION=v4.1.2
+        - WERROR=ON
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+
+  doc:
+    extends: main
+    build:
+      args:
+        - BUILDDOC=ON
+    command: make doc
+
+  python:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGPYTHON=ON
+    command: bash -c "make"
+
+  java:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGJAVA=ON
+        - CC=gcc-4.8
+        - CXX=g++-4.8
+    command: bash -c "make"
+
+  node4:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGNODE=ON
+        - NODE_VERSION=v4.1.2
+    command: bash -c "make"
+
+  node5:
+    extends: node4
+    build:
+      args:
+        - NODE_VERSION=v5.12.0
