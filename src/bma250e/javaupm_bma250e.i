@@ -1,7 +1,7 @@
 %module javaupm_bma250e
 %include "../upm.i"
 %include "typemaps.i"
-%include "../upm_stdvector.i"
+%include "../upm_javastdvector.i"
 
 %ignore getAccelerometer(float *, float *, float *);
 

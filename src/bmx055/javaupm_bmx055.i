@@ -2,7 +2,7 @@
 %include "../upm.i"
 %include "cpointer.i"
 %include "typemaps.i"
-%include "../upm_stdvector.i"
+%include "../upm_javastdvector.i"
 
 %apply int {mraa::Edge};
 
