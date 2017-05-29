@@ -2,14 +2,6 @@ version: '2'
 
 services:
 
-  ubuntu:
-    image: ubuntu:16.04
-    command: bash
-    environment:
-      - http_proxy
-      - https_proxy
-      - no_proxy
-
   main:
     build:
       context: .
@@ -55,11 +47,11 @@ services:
     build:
       args:
         - BUILDSWIGPYTHON=ON
-    command: bash -c "make $$(make help | grep _pyupm_.*-python2 | sed 's/... //' | tr '\n' ' ')"
+    command: bash -c "make $$(make help | grep _pyupm_.*-python2 | sed 's/... //' | tr '\n' ' ') && make test"
 
   python3:
     extends: python2
-    command: bash -c "make $$(make help | grep _pyupm_.*-python3 | sed 's/... //' | tr '\n' ' ')"
+    command: bash -c "make $$(make help | grep _pyupm_.*-python3 | sed 's/... //' | tr '\n' ' ') && make test"
 
   java:
     extends: main
@@ -68,7 +60,7 @@ services:
         - BUILDSWIGJAVA=ON
         - CC=gcc-4.8
         - CXX=g++-4.8
-    command: bash -c "make $$(make help | grep javaupm | sed 's/... //' | tr '\n' ' ')"
+    command: bash -c "make $$(make help | grep javaupm | sed 's/... //' | tr '\n' ' ') && make test"
 
   node4:
     extends: main
@@ -76,7 +68,7 @@ services:
       args:
         - BUILDSWIGNODE=ON
         - NODE_VERSION=v4.1.2
-    command: bash -c "make $$(make help | grep jsupm | sed 's/... //' | tr '\n' ' ')"
+    command: bash -c "make $$(make help | grep jsupm | sed 's/... //' | tr '\n' ' ') && make test"
 
   node5:
     extends: node4
