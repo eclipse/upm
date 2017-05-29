@@ -41,7 +41,6 @@ ENV NVM_DIR /root/.nvm
 RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && \
     npm install -g node-gyp && node-gyp install
 
-
 # Set Workdir
 WORKDIR /usr/src/app
 
