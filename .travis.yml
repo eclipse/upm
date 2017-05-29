@@ -9,7 +9,8 @@ compiler:
 env:
   - TARGET=doc
   - TARGET=examples
-  - TARGET=python
+  - TARGET=python2
+  - TARGET=python3
   - TARGET=java
   - TARGET=node4
   - TARGET=node5
