@@ -50,12 +50,16 @@ services:
         - BUILDEXAMPLES=ON
     command: bash -c "make $$(make help | grep example | sed 's/... //' | tr '\n' ' ')"
 
-  python:
+  python2:
     extends: main
     build:
       args:
         - BUILDSWIGPYTHON=ON
-    command: bash -c "make"
+    command: bash -c "make $$(make help | grep _pyupm_.*-python2 | sed 's/... //' | tr '\n' ' ')"
+
+  python3:
+    extends: python2
+    command: bash -c "make $$(make help | grep _pyupm_.*-python3 | sed 's/... //' | tr '\n' ' ')"
 
   java:
     extends: main
@@ -64,7 +68,7 @@ services:
         - BUILDSWIGJAVA=ON
         - CC=gcc-4.8
         - CXX=g++-4.8
-    command: bash -c "make"
+    command: bash -c "make $$(make help | grep javaupm | sed 's/... //' | tr '\n' ' ')"
 
   node4:
     extends: main
@@ -72,7 +76,7 @@ services:
       args:
         - BUILDSWIGNODE=ON
         - NODE_VERSION=v4.1.2
-    command: bash -c "make"
+    command: bash -c "make $$(make help | grep jsupm | sed 's/... //' | tr '\n' ' ')"
 
   node5:
     extends: node4
