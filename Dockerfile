@@ -20,9 +20,14 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Python Build Dependencies
   python python-dev python3 python3-dev \
   # Java Build Dependencies
-  default-jre default-jdk
+  default-jre default-jdk \
   # Sensor Specific Build Dependencies
-  # TODO: install bacnet-mstp, modbus, openzwave, jpeg
+  libmodbus-dev libjpeg-dev
+  # TODO: install libbacnet
+
+# Install openzwave
+RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
+    git clone https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make && make install && ldconfig /usr/local/lib64
 
 # Swig Build Dependencies
 RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
