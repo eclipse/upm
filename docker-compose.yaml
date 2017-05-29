@@ -22,7 +22,7 @@ services:
         - BUILDSWIGPYTHON=OFF
         - BUILDSWIGJAVA=OFF
         - BUILDSWIGNODE=OFF
-        - BUILDEXAMPLES=ON
+        - BUILDEXAMPLES=OFF
         - IPK=OFF
         - RPM=OFF
         - NPM=OFF
@@ -42,6 +42,13 @@ services:
       args:
         - BUILDDOC=ON
     command: make doc
+
+  examples:
+    extends: main
+    build:
+      args:
+        - BUILDEXAMPLES=ON
+    command: bash -c "make $$(make help | grep example | sed 's/... //' | tr '\n' ' ')"
 
   python:
     extends: main

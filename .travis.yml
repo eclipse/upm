@@ -8,6 +8,7 @@ compiler:
 
 env:
   - TARGET=doc
+  - TARGET=examples
   - TARGET=python
   - TARGET=java
   - TARGET=node4
