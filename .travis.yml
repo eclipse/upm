@@ -1,48 +1,32 @@
+sudo: required
+
 language: cpp
-env:
-  global:
-    - MRAA_ROOT=/tmp/mraa
-    - MRAA_BUILD=$MRAA_ROOT/build
-    - UPM_ROOT=$TRAVIS_BUILD_DIR
-    - UPM_BUILD=$UPM_ROOT/build
-    - JAVA_HOME=/usr/lib/jvm/java-8-oracle
-  matrix:
-    - NODE010=true
-    - NODE012=true
-    - NODE4=true
-    - NODE5=true
+
 compiler:
   - clang
   - gcc
-install:
-  - sudo add-apt-repository --yes ppa:rosmo/swig3.0.7
-  - sudo apt-get update -qq
-  - sudo apt-get install -y --force-yes -qq swig3.0 git
-  - sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
-  - sudo update-java-alternatives -s java-8-oracle
+
+env:
+  - TARGET=doc
+  - TARGET=python
+  - TARGET=java
+  - TARGET=node4
+  - TARGET=node5
+
+matrix:
+  exclude:
+    - compiler: clang
+      env: TARGET=java
+
+services:
+  - docker
+
 before_script:
-  # Turn off JAVA SWIG for clang++, use 4.8 for all g++ builds
-  - if [ "$CC" == "gcc" ]; then export BUILDJAVA=ON; export CC=gcc-4.8; export CXX=g++-4.8; else export BUILDJAVA=OFF; fi
-  - if [ "${NODE012}" ]; then nvm install 0.12; fi
-  - if [ "${NODE4}" ]; then nvm install 4.1; fi
-  - if [ "${NODE5}" ]; then nvm install 5; fi
-  # Handle 0.10 NODE_ROOT_DIR differently than other versions
-  - if [ -z ${NODE010} ]; then export NODE_ROOT_DIR="/home/travis/.nvm/versions/node/`nvm version`"; else export NODE_ROOT_DIR=/home/travis/.nvm/v0.10.36; fi
+  - if [ "$CC" == "gcc" ]; then export CC=gcc-4.8; fi
+  - if [ "$CXX" == "g++" ]; then export CXX=g++-4.8; fi
+  - if [ "$CC" == "clang" ]; then export CC=clang-3.8; fi
+  - if [ "$CXX" == "clang++" ]; then export CXX=clang++-3.8; fi
+  - docker-compose build ${TARGET}
+
 script:
-  # Build/install MRAA
-  - echo "CC=$CC BUILDJAVA=$BUILDJAVA NODE010=$NODE010 NODE012=$NODE012 NODE4=$NODE4 NODE5=$NODE5 NODE_ROOT_DIR=$NODE_ROOT_DIR"
-  - git clone https://github.com/intel-iot-devkit/mraa.git $MRAA_ROOT
-  - mkdir -p $MRAA_BUILD && cd $_ && cmake -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDSWIGNODE=OFF -DBUILDSWIGPYTHON=ON -DFIRMATA=ON -DENABLEEXAMPLES=OFF $MRAA_ROOT
-  - sudo make install
-  - sudo ldconfig
-  # Build/install UPM
-  - cd $UPM_ROOT && mkdir $UPM_BUILD && cd $_ && cmake -DNODE_ROOT_DIR:PATH="${NODE_ROOT_DIR}" -DBUILDSWIGJAVA=$BUILDJAVA -DBUILDEXAMPLES=ON -DBUILDTESTS=ON -DBUILDFTI=ON .. && sudo make install && sudo ldconfig && ctest --output-on-failure -E examplenames_js
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
-    packages:
-      - cmake
-      - cmake-data
-      - g++-4.8
+  - docker-compose run ${TARGET}
