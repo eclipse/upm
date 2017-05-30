@@ -14,7 +14,7 @@ services:
         - BUILDSWIGPYTHON=OFF
         - BUILDSWIGJAVA=OFF
         - BUILDSWIGNODE=OFF
-        - BUILDEXAMPLES=OFF
+        - BUILDEXAMPLES=ON
         - IPK=OFF
         - RPM=OFF
         - NPM=OFF
@@ -33,25 +33,14 @@ services:
     build:
       args:
         - BUILDDOC=ON
-    command: make doc
+    command: make -j8 doc
 
-  examples:
-    extends: main
-    build:
-      args:
-        - BUILDEXAMPLES=ON
-    command: bash -c "make $$(make help | grep example | sed 's/... //' | tr '\n' ' ')"
-
-  python2:
+  python:
     extends: main
     build:
       args:
         - BUILDSWIGPYTHON=ON
-    command: bash -c "make $$(make help | grep _pyupm_.*-python2 | sed 's/... //' | tr '\n' ' ') && make test"
-
-  python3:
-    extends: python2
-    command: bash -c "make $$(make help | grep _pyupm_.*-python3 | sed 's/... //' | tr '\n' ' ') && make test"
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   java:
     extends: main
@@ -60,7 +49,7 @@ services:
         - BUILDSWIGJAVA=ON
         - CC=gcc-4.8
         - CXX=g++-4.8
-    command: bash -c "make $$(make help | grep javaupm | sed 's/... //' | tr '\n' ' ') && make test"
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   node4:
     extends: main
@@ -68,7 +57,7 @@ services:
       args:
         - BUILDSWIGNODE=ON
         - NODE_VERSION=v4.1.2
-    command: bash -c "make $$(make help | grep jsupm | sed 's/... //' | tr '\n' ' ') && make test"
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   node5:
     extends: node4
