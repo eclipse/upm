@@ -390,7 +390,7 @@ namespace upm {
              * @param reg ADSTHRES enum value.
              * Returns 0.0 unless THRESH_HIGH or THRESH_LOW requested.
              */
-            float getThresh(ADSTHRESH reg = THRESH_LOW);
+            float getThresh(ADSTHRESH reg = THRESH_DEFAULT);
 
             /**
              * Sets threshold levels or configures for conversion ready

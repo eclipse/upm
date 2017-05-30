@@ -116,7 +116,7 @@ ADS1X15::setContinuous(bool mode){
 
 float
 ADS1X15::getThresh(ADSTHRESH reg){
-     if( THRESH_HIGH && THRESH_LOW) return getLastSample(reg);
+     if(reg == THRESH_HIGH || reg == THRESH_LOW) return getLastSample(reg);
      else return 0.0;
 }
 
@@ -137,7 +137,7 @@ ADS1X15::setThresh(ADSTHRESH reg, float value){
      case 2:
      case 3:
           set_value = value / getMultiplier();
-         set_value = set_value << m_bitShift;
+          set_value = set_value << m_bitShift;
           if(i2c->writeWordReg(reg, swapWord(set_value)) != mraa::SUCCESS){
             throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.write() failed");
             return;
