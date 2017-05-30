@@ -18,7 +18,7 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Docs Build Dependencies
   python-sphinx doxygen graphviz \
   # Python Build Dependencies
-  python python-dev python3 python3-dev \
+  python python-dev python3 python3-dev python-pip python3-pip \
   # Java Build Dependencies
   default-jre default-jdk \
   # Sensor Specific Build Dependencies
@@ -40,6 +40,9 @@ ARG NODE_VERSION
 ENV NVM_DIR /root/.nvm
 RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && \
     npm install -g node-gyp && node-gyp install
+
+# Install Test Dependencies
+RUN pip install chardet && pip3 install chardet
 
 # Set Workdir
 WORKDIR /usr/src/app
