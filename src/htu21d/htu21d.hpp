@@ -1,6 +1,6 @@
 /*
  * Author: William Penner <william.penner@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Copyright (c) 2014-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -97,18 +97,18 @@ class HTU21D {
         int sampleData(void);
 
         /**
-         * Gets the current measured humidity [RH]
+         * Gets the current measured humidity [%RH]
          *
-         * @param bSampleData Flag to read sensor
-         * @return The humidity sensor temp in degC
+         * @param bSampleData Flag to sample sensor (default false)
+         * @return Relative humidity in %RH
          */
         float getHumidity(int bSampleData = false);
 
         /**
          * Gets the humidity cell temperature [degC]
          *
-         * @param bSampleData Flag to read sensor
-         * @return The humidity sensor temp in degC
+         * @param bSampleData Flag to sample sensor (default false)
+         * @return Temperature in degC
          */
         float getTemperature(int bSampleData = false);
 
@@ -117,7 +117,8 @@ class HTU21D {
          * calculates the compensated RH using the equation from
          * the datasheet.
          *
-         * @param bSampleData Flag to read sensor
+         * @param bSampleData Flag to sample sensor (default false)
+         * @return Compensated relative humidity in %RH
          */
         float getCompRH(int bSampleData = false);
 
@@ -126,7 +127,8 @@ class HTU21D {
          * will calculate the dew point in degreeC based on equation
          * from the datasheet.
          *
-         * @param bSampleData Flag to read sensor
+         * @param bSampleData Flag to sample sensor (default false)
+         * @return Dew point in degC
          */
         float getDewPoint(int bSampleData = false);
 
@@ -164,6 +166,7 @@ class HTU21D {
          * Tests the device and verifies it
          * is operating correctly.
          *
+         * @return 0 on success or error code
          */
         int testSensor(void);
 
