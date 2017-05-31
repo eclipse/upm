@@ -79,11 +79,6 @@ upm_result_t mpr121_write_bytes(mpr121_context dev, uint8_t reg,
     for(i=1; i<(len + 1); i++)
         buf2[i] = buffer[i-1];
 
-    if(mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
-        printf("write byte error address\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
     if(mraa_i2c_write(dev->i2c, buf2, len+1) != MRAA_SUCCESS){
         printf("write byte error while writing\n");
         return UPM_ERROR_OPERATION_FAILED;

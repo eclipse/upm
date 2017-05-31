@@ -240,7 +240,6 @@ void LP8860::allowMaxCurrent()
 
 void LP8860::i2cWriteByte(int reg, int value)
 {
-    i2c->address(LP8860_I2C_ADDR);
     status = i2c->writeReg(static_cast<uint8_t>(reg), static_cast<uint8_t>(value));
     if (status != mraa::SUCCESS)
         UPM_THROW("i2cWriteByte failed");
@@ -250,7 +249,6 @@ void LP8860::i2cWriteByte(int reg, int value)
 uint8_t LP8860::i2cReadByte(uint8_t reg)
 {
     uint8_t value;
-    i2c->address(LP8860_I2C_ADDR);
     if (i2c->readBytesReg(reg, &value, 1) != 1)
         UPM_THROW("i2cReadByte failed");
     return value;
@@ -264,7 +262,6 @@ void LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
         uint8_t* writeBuf = new unsigned char[length + 1];
         writeBuf[0] = reg;
         memcpy(&writeBuf[1], buf, length);
-        i2c->address(LP8860_I2C_ADDR);
         status = i2c->write(writeBuf, length + 1);
         delete[] writeBuf;
     }
@@ -277,7 +274,6 @@ void LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
 
 void LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
 {
-    i2c->address(LP8860_I2C_ADDR);
     if (i2c->readBytesReg(reg, buf, length) != length)
         UPM_THROW("i2cReadBuffer failed");
 }

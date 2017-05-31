@@ -85,13 +85,7 @@ HDC1000::checkID(void)
 void
 HDC1000::resetSensor(void)
 {
-    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
-    if (ret != mraa::SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_address() failed");
-    }
-
-    ret = m_i2ControlCtx.writeByte(0);
+    mraa::Result ret = m_i2ControlCtx.writeByte(0);
     if (ret != mraa::SUCCESS) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_write_byte() failed");
@@ -107,12 +101,6 @@ HDC1000::sampleData(void)
     int re = 0;
 
     resetSensor();
-
-    mraa::Result ret = m_i2ControlCtx.address(m_controlAddr);
-    if (ret != mraa::SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_address() failed");
-    }
 
     re = m_i2ControlCtx.read(itemp, 4);
     if (re != 4) {

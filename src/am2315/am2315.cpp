@@ -199,12 +199,6 @@ AM2315::i2cWriteReg(uint8_t reg, uint8_t* data, uint8_t ilen)
     tdata[ilen+3] = crc;
     tdata[ilen+4] = (crc >> 8);
 
-    if (mraa_i2c_address(m_i2ControlCtx, m_controlAddr) != MRAA_SUCCESS)
-    {
-        fprintf(stdout, "Error, setting i2c address.\n");
-        return -1;
-    }
-
     int iLoops = 5;
     mraa_set_priority(HIGH_PRIORITY);
     do {
@@ -241,7 +235,7 @@ AM2315::i2cReadReg(int reg, uint8_t* data, int ilen)
   uint8_t tdata[16] = { AM2315_READ, static_cast<uint8_t>(reg),
                         static_cast<uint8_t>(ilen) };
 
-    mraa_result_t ret = mraa_i2c_address(m_i2ControlCtx, m_controlAddr);
+    mraa_result_t ret;
     int iLoops = 5;
     mraa_set_priority(HIGH_PRIORITY);
     do {

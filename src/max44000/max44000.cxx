@@ -77,10 +77,8 @@ uint8_t
 MAX44000::i2cReadReg_8 (int reg) {
     uint8_t data;
 
-    m_i2cMaxControlCtx.address(m_maxControlAddr);
     m_i2cMaxControlCtx.writeByte(reg);
 
-    m_i2cMaxControlCtx.address(m_maxControlAddr);
     m_i2cMaxControlCtx.read(&data, 0x1);
 
     return data;
@@ -90,10 +88,8 @@ uint16_t
 MAX44000::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    m_i2cMaxControlCtx.address(m_maxControlAddr);
     m_i2cMaxControlCtx.writeByte(reg);
 
-    m_i2cMaxControlCtx.address(m_maxControlAddr);
     m_i2cMaxControlCtx.read((uint8_t *)&data, 0x2);
 
     return data;
@@ -104,7 +100,6 @@ MAX44000::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = m_i2cMaxControlCtx.address (m_maxControlAddr);
     error = m_i2cMaxControlCtx.write (data, 2);
 
     return error;

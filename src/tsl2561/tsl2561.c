@@ -115,11 +115,6 @@ upm_result_t tsl2561_get_lux(const tsl2561_context dev, float* lux){
 
 upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
                                    uint8_t value){
-    // Start transmission to device
-    if(mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
     // Write register to I2C
     if(mraa_i2c_write_byte(dev->i2c, reg) != MRAA_SUCCESS){
         return UPM_ERROR_OPERATION_FAILED;
@@ -136,11 +131,6 @@ upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
 
 upm_result_t tsl2561_i2c_read_reg(tsl2561_context dev, uint8_t reg,
                                   uint8_t* data){
-   // Start transmission to dev
-    if(mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
     // Send address of register to be read.
     if(mraa_i2c_write_byte(dev->i2c, reg) != MRAA_SUCCESS){
         return UPM_ERROR_OPERATION_FAILED;

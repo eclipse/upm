@@ -98,10 +98,8 @@ uint16_t
 MAXDS3231M::i2cReadReg_N (int reg, unsigned int len, uint8_t * buffer) {
     int readByte = 0;
 
-    m_i2Ctx.address(m_i2cAddr);
     m_i2Ctx.writeByte(reg);
 
-    m_i2Ctx.address(m_i2cAddr);
     readByte = m_i2Ctx.read(buffer, len);
     return readByte;
 }
@@ -110,7 +108,6 @@ mraa::Result
 MAXDS3231M::i2cWriteReg_N (uint8_t reg, unsigned int len, uint8_t * buffer) {
     mraa::Result error = mraa::SUCCESS;
 
-    error = m_i2Ctx.address (m_i2cAddr);
     error = m_i2Ctx.write (buffer, len);
 
     return error;

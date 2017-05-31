@@ -61,13 +61,6 @@ mraa::Result DS1307::writeBytes(uint8_t reg, uint8_t *buffer, int len)
   for (int i=1; i<(len + 1); i++)
     buf2[i] = buffer[i-1];
 
-  mraa::Result ret = m_i2c.address(DS1307_I2C_ADDR);
-  if (ret != mraa::SUCCESS){
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": i2c.address() failed");
-      return ret;
-  }
-
   return m_i2c.write(buf2, len + 1);
 }
 
@@ -76,12 +69,6 @@ int DS1307::readBytes(uint8_t reg, uint8_t *buffer, int len)
   if (!len || !buffer)
     return 0;
 
-  mraa::Result ret = m_i2c.address(DS1307_I2C_ADDR);
-  if (ret != mraa::SUCCESS){
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": i2c.address() failed");
-      return 0;
-  }
   m_i2c.writeByte(reg);
 
   return m_i2c.read(buffer, len);

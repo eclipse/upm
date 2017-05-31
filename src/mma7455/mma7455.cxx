@@ -144,12 +144,6 @@ short *MMA7455::readData() {
 
 int
 MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {
-    if (mraa::SUCCESS != m_i2ControlCtx.address(m_controlAddr)) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": mraa_i2c_address() failed");
-        return 0;
-    }
-
     if (mraa::SUCCESS != m_i2ControlCtx.writeByte(reg)) {
         throw std::runtime_error(std::string(__FUNCTION__) +
                                  ": mraa_i2c_write_byte() failed");
@@ -167,12 +161,6 @@ MMA7455::i2cWriteReg (unsigned char reg, uint8_t *buffer, int len) {
     data[0] = reg;
     memcpy(&data[1], buffer, len);
 
-    error = m_i2ControlCtx.address (m_controlAddr);
-    if (error != mraa::SUCCESS) {
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": mraa_i2c_address() failed");
-        return error;
-    }
     error = m_i2ControlCtx.write (data, len + 1);
     if (error != mraa::SUCCESS) {
         throw std::runtime_error(std::string(__FUNCTION__) +

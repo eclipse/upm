@@ -298,7 +298,6 @@ MPL3115A2::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    m_i2ControlCtx.address (m_controlAddr);
     error = m_i2ControlCtx.write (data, 2);
 
     if (error != mraa::SUCCESS)
@@ -311,7 +310,6 @@ uint16_t
 MPL3115A2::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    m_i2ControlCtx.address(m_controlAddr);
     data  = (uint16_t)m_i2ControlCtx.readReg(reg) << 8;
     data |= (uint16_t)m_i2ControlCtx.readReg(reg+1);
 
@@ -320,7 +318,6 @@ MPL3115A2::i2cReadReg_16 (int reg) {
 
 uint8_t
 MPL3115A2::i2cReadReg_8 (int reg) {
-    m_i2ControlCtx.address(m_controlAddr);
     return m_i2ControlCtx.readReg(reg);
 }
 

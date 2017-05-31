@@ -98,12 +98,6 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
                 //printf("\nI2C mode set\n");
                 data = 0;
                 runCommand(cmd);
-                mraa::Result ret = i2c.address(T6713_ADDR);
-                if (ret != mraa::SUCCESS)
-                {
-                    UPM_THROW ("I2C error setting slave address");
-                    // TODO: need to handle this
-                }
                 RESPONSE response;
                 if((readBytes = i2c.read((uint8_t*)(&response), sizeof(RESPONSE) ) != sizeof(RESPONSE)))
                 {
@@ -152,11 +146,6 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
             cmdPacket.register_address_lsb = (T6713_REG_STATUS & 0xff);
             cmdPacket.input_registers_to_read_msb = 0;
             cmdPacket.input_registers_to_read_lsb = 1;
-            ret = i2c.address(T6713_ADDR);
-            if (ret != mraa::SUCCESS)
-            {
-                UPM_THROW ("I2C error setting slave address");
-            }
 
             if((ret = i2c.write((const uint8_t*) (&cmdPacket), sizeof(COMMAND))) != mraa::SUCCESS)
             {
@@ -180,13 +169,6 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 
             cmdPacket.input_registers_to_read_msb = 0;
             cmdPacket.input_registers_to_read_lsb = 1;
-            ret = i2c.address(T6713_ADDR);
-            if (ret != mraa::SUCCESS)
-            {
-                UPM_THROW ("I2C error setting slave address");
-                //need to handle this
-            }
-
 
             if((ret = i2c.write((const uint8_t*) (&cmdPacket), sizeof(COMMAND))) != mraa::SUCCESS)
             {
@@ -205,12 +187,6 @@ STATUS T6713::getStatus()
     uint16_t responseStatus = 0, readBytes = 0;
     RESPONSE response;
     runCommand(T6713_COMMAND_STATUS);
-    mraa::Result ret = i2c.address(T6713_ADDR);
-    if (ret != mraa::SUCCESS)
-    {
-        UPM_THROW ("I2C error setting slave address");
-        //need to handle tnis
-    }
     if((readBytes = i2c.read((uint8_t*) (&response), sizeof(RESPONSE)) != sizeof(RESPONSE)))
     {
         UPM_THROW("I2C read failed");

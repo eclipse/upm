@@ -54,7 +54,6 @@ void
 HTU21D::resetSensor(void)
 {
     uint8_t data = HTU21D_SOFT_RESET;
-    m_i2ControlCtx.address (m_controlAddr);
     m_i2ControlCtx.write (&data, 1);
     usleep(20000);
 }
@@ -259,7 +258,6 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    m_i2ControlCtx.address (m_controlAddr);
     error = m_i2ControlCtx.write (data, 2);
     if ( error != mraa::SUCCESS)
       throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -270,13 +268,11 @@ HTU21D::i2cWriteReg (uint8_t reg, uint8_t value) {
 
 uint16_t
 HTU21D::i2cReadReg_16 (int reg) {
-    m_i2ControlCtx.address(m_controlAddr);
     return m_i2ControlCtx.readWordReg(reg);
 }
 
 uint8_t
 HTU21D::i2cReadReg_8 (int reg) {
-    m_i2ControlCtx.address(m_controlAddr);
     return m_i2ControlCtx.readReg(reg);
 }
 

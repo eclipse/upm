@@ -195,12 +195,6 @@ TSL2561::i2cWriteReg (uint8_t reg, uint8_t value)
 {
     mraa::Result error = mraa::SUCCESS;
 
-    // Start transmission to device
-    error = m_i2ControlCtx.address (m_controlAddr);
-    if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Error: on i2c bus address setup in i2cWriteReg()\n");
-        return error;
-    }
     // Write register to I2C
     error = m_i2ControlCtx.writeByte (reg);
     if (error != mraa::SUCCESS) {
@@ -224,13 +218,6 @@ mraa::Result
 TSL2561::i2cReadReg(uint8_t reg, uint8_t &data)
 {
     mraa::Result error = mraa::SUCCESS;
-
-    // Start transmission to device
-    error = m_i2ControlCtx.address(m_controlAddr);
-    if (error != mraa::SUCCESS) {
-        fprintf(stderr, "Error: on i2c bus address setup in i2cReadReg()\n");
-        return error;
-    }
 
     // Send address of register to be read.
     error = m_i2ControlCtx.writeByte(reg);

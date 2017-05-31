@@ -104,12 +104,6 @@ Adxl345::Adxl345(int bus) : m_i2c(bus)
         return;
     }
 
-    if ( m_i2c.address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": i2c.address() failed");
-        return;
-    }
-
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
     if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
@@ -148,10 +142,8 @@ Adxl345::getScale(){
 
     uint8_t result;
 
-    m_i2c.address(ADXL345_I2C_ADDR);
     m_i2c.writeByte(ADXL345_DATA_FORMAT);
 
-    m_i2c.address(ADXL345_I2C_ADDR);
     result = m_i2c.readByte();
 
     return pow(2, (result & 0x03) + 1);
@@ -160,10 +152,8 @@ Adxl345::getScale(){
 mraa::Result
 Adxl345::update(void)
 {
-    m_i2c.address(ADXL345_I2C_ADDR);
     m_i2c.writeByte(ADXL345_XOUT_L);
 
-    m_i2c.address(ADXL345_I2C_ADDR);
     m_i2c.read(m_buffer, DATA_REG_SIZE);
 
     // x

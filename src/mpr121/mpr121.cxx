@@ -63,8 +63,6 @@ mraa::Result MPR121::writeBytes(uint8_t reg, uint8_t *buffer, int len)
   for (int i=1; i<(len + 1); i++)
     buf2[i] = buffer[i-1];
 
-  m_i2c.address(m_addr);
-
   return m_i2c.write(buf2, len + 1);
 }
 

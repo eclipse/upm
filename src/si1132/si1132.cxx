@@ -89,8 +89,6 @@ SI1132::~SI1132() {
 }
 
 mraa::Result SI1132::reset() {
-    i2c->address(SI1132_ADDRESS);
-
     // Check version
     uint8_t regValue = i2c->readReg(SI1132_REG_PART_ID);
     if (regValue != SI1132_PART_ID)  {
@@ -175,7 +173,6 @@ mraa::Result SI1132::runCommand(uint8_t command)
     int sleepTimeMs = 5;
     int timeoutMs = 50;
     int waitTimeMs = 0;
-    i2c->address(SI1132_ADDRESS);
     status = clearResponseRegister();
     if (status != mraa::SUCCESS)
         return status;
@@ -196,7 +193,6 @@ mraa::Result SI1132::runCommand(uint8_t command)
 
 mraa::Result SI1132::writeParam(uint8_t param, uint8_t value)
 {
-    i2c->address(SI1132_ADDRESS);
     status = i2c->writeReg(SI1132_REG_PARAM_WR, value);
     if (status != mraa::SUCCESS)
         return status;

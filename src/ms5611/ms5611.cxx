@@ -154,7 +154,6 @@ uint32_t MS5611::readADC(int adcReg)
 {
     uint32_t value;
     uint8_t buf[3];
-    i2c->address(address);
     status = i2c->writeByte(adcReg + osr);
     if (status != mraa::SUCCESS)
        UPM_THROW("Convert D2 failed");

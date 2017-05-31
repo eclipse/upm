@@ -129,10 +129,8 @@ Itg3200::getRawTemp()
 mraa::Result
 Itg3200::update(void)
 {
-    m_i2c.address(ITG3200_I2C_ADDR);
     m_i2c.writeByte(ITG3200_TEMP_H);
 
-    m_i2c.address(ITG3200_I2C_ADDR);
     m_i2c.read(m_buffer, DATA_REG_SIZE);
 
     //temp

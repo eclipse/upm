@@ -131,7 +131,6 @@ uint16_t SI7005::getMeasurement(uint8_t configValue) {
     usleep(SI7005_WAKE_UP_TIME);
 
     // Setup config register
-    m_i2c->address(m_controlAddr);
     status = m_i2c->writeReg(SI7005_REG_CONFIG, SI7005_CONFIG_START | configValue | config_reg);
 
     // FIXME: readReg() returns 0 on failure which is same as "reading ready" status
@@ -169,7 +168,6 @@ SI7005::isAvailable( )
     usleep(SI7005_WAKE_UP_TIME);
 
     // Read id register
-    m_i2c->address(m_controlAddr);
     uint8_t  deviceID = m_i2c->readReg(SI7005_REG_ID);
 
     // Disable the sensor

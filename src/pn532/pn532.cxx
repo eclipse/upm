@@ -1466,12 +1466,6 @@ void PN532::readData(uint8_t* buff, uint8_t n)
 
   memset(buf, 0, n+2);
   usleep(2000); 
-  if (m_i2c.address(m_addr) != mraa::SUCCESS)
-    {
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": mraa_i2c_address() failed");
-      return;
-    }
 
   rv = m_i2c.read(buf, n + 2);
 
@@ -1539,13 +1533,6 @@ void PN532::writeCommand(uint8_t* cmd, uint8_t cmdlen)
   
   buf[offset++] = ~checksum;
   buf[offset] = PN532_POSTAMBLE;
-
-  if (m_i2c.address(m_addr) != mraa::SUCCESS)
-    {
-      throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": mraa_i2c_address() failed");
-      return;
-    }
 
   if (m_i2c.write(buf, cmdlen + 8 - 1) != mraa::SUCCESS)
     {

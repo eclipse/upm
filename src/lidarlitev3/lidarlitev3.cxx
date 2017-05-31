@@ -98,10 +98,8 @@ uint16_t
 LIDARLITEV3::i2cReadReg_16 (int reg) {
     uint16_t data;
 
-    m_i2ControlCtx.address(m_controlAddr);
     m_i2ControlCtx.writeByte(reg);
 
-    m_i2ControlCtx.address(m_controlAddr);
     m_i2ControlCtx.read((uint8_t *)&data, 0x2);
 
     uint8_t high = (data & 0xFF00) >> 8;
@@ -115,10 +113,8 @@ uint8_t
 LIDARLITEV3::i2cReadReg_8 (int reg) {
     uint8_t data;
 
-    m_i2ControlCtx.address(m_controlAddr);
     m_i2ControlCtx.writeByte(reg);
 
-    m_i2ControlCtx.address(m_controlAddr);
     m_i2ControlCtx.read(&data, 0x1);
 
     return data;
@@ -129,7 +125,6 @@ LIDARLITEV3::i2cWriteReg (uint8_t reg, uint8_t value) {
     mraa::Result error = mraa::SUCCESS;
 
     uint8_t data[2] = { reg, value };
-    error = m_i2ControlCtx.address (m_controlAddr);
     error = m_i2ControlCtx.write (data, 2);
     if ( error != mraa::SUCCESS)
       throw std::invalid_argument(std::string(__FUNCTION__) +
