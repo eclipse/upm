@@ -50,6 +50,8 @@ int main()
         return 1;
     }
 
+    int i2c_addr_cur = IMS_ADDRESS_DEFAULT + 1;
+
     // Every second, sample the sensor outputs
     while (shouldRun)
     {
@@ -62,8 +64,19 @@ int main()
             printf("Version: %d light: 0x%04x moisture: 0x%04x temp: %3.2f C\n",
                     version, light, moisture, temp/10.0);
         else
+        {
+            printf("Failed to read IMS sensor data...\n");
             break;
+        }
 
+        // Change the address and continue
+        if (i2c_addr_cur >= 128) i2c_addr_cur = 1;
+        printf("Changing device address to 0x%02x\n", i2c_addr_cur);
+        if (ims_reset_i2c_address(sensor, i2c_addr_cur++) != UPM_SUCCESS)
+        {
+            printf("Failed to change IMS I2C address...\n");
+            break;
+        }
         upm_delay(1);
     }
 

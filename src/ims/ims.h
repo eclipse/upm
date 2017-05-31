@@ -51,6 +51,8 @@ extern "C" {
 typedef struct {
     /* mraa i2c context */
     mraa_i2c_context _i2c_context;
+    /* Save the I2C bus (used when changing the device address) */
+    int16_t _i2c_bus;
 } ims_context;
 
 /**
@@ -136,7 +138,7 @@ upm_result_t ims_reset(const ims_context* dev);
  * @param address_new New I2C for device
  * @return Function result code
  */
-upm_result_t ims_reset_i2c_address(const ims_context* dev, uint8_t address_new);
+upm_result_t ims_reset_i2c_address(ims_context* dev, uint8_t address_new);
 
 /**
  * Put device into low-power mode.  Device wakes on any I2C command.

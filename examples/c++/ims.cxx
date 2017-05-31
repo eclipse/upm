@@ -46,19 +46,25 @@ int main(int argc, char **argv)
     // Instantiate a IMS instance using i2c bus 0 and default address
     upm::IMS sensor(0);
 
+    int i2c_addr_cur = IMS_ADDRESS_DEFAULT + 1;
     while (shouldRun)
     {
-        std::cout << "Version: "
+        std::cout << std::hex << "Version: 0x"
             << sensor.get_version()
-            << " light: "
+            << " light: 0x"
             << sensor.get_light()
-            << " moisture: "
+            << " moisture: 0x"
             << sensor.get_moisture()
             << " temp: "
             << sensor.get_temperature()
             << " C"
             << std::endl;
 
+        // Change the address and continue
+        if (i2c_addr_cur >= 128) i2c_addr_cur = 1;
+        std::cout << "Changing device address to 0x" << i2c_addr_cur
+            << std::endl;
+        sensor.reset_i2c_address(i2c_addr_cur++);
         sleep(1);
     }
     //! [Interesting]
