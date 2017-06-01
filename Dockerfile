@@ -24,9 +24,12 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Sensor Specific Build Dependencies
   libjpeg-dev
 
+# Configure Java Home
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+
 # Install libbacnet 0.3.12
 RUN wget https://downloads.sourceforge.net/project/bacnet/bacnet-stack/bacnet-stack-0.8.3/bacnet-stack-0.8.3.zip && \
-    unzip bacnet-stack-0.8.3.zip && cd bacnet-stack-0.8.3 && \
+    unzip -qq bacnet-stack-0.8.3.zip && cd bacnet-stack-0.8.3 && \
     BACDL_DEFINE=-DBACDL_MSTP=1 MAKE_DEFINE=-fPIC make clean all
 
 # Install libmodbus 3.1.4
@@ -36,7 +39,7 @@ RUN wget http://libmodbus.org/releases/libmodbus-3.1.4.tar.gz && \
 
 # Install openzwave
 RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
-    git clone https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make && make install && ldconfig /usr/local/lib64
+    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make && make install && ldconfig /usr/local/lib64
 
 # Swig Build Dependencies
 RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
@@ -73,7 +76,6 @@ ARG CC
 ARG CXX
 
 # Configure Build Environment
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 ENV CC $CC
 ENV CXX $CXX
 
