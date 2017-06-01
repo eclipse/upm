@@ -84,6 +84,16 @@ See building documentation [here](docs/building.md).
 
 [![Build Status](https://travis-ci.org/intel-iot-devkit/upm.svg?branch=master)](https://travis-ci.org/intel-iot-devkit/upm)
 
+### Installing on Ubuntu
+Here is a PPA for installing on ubuntu:
+https://launchpad.net/~mraa/+archive/ubuntu/mraa
+
+```bash
+sudo add-apt-repository ppa:mraa/mraa
+sudo apt-get update
+sudo apt-get install libupm-dev python-upm python3-upm upm-examples
+```
+
 ### Making your own UPM module
 
 A quick way to add a new sensor driver is to port existing code from another
