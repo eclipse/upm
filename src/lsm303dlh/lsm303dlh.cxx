@@ -36,33 +36,44 @@
 using namespace upm;
 
 LSM303DLH::LSM303DLH(int bus, int addrMag, int addrAcc, int accScale) :
-    m_i2c(bus)
+    m_i2cMag(bus), m_i2cAcc(bus)
 {
     m_addrMag = addrMag;
     m_addrAcc = addrAcc;
 
+
+    if (m_i2cMag.address(m_addrMag) != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+    }
+
+    if (m_i2cAcc.address(m_addrAcc) != mraa::SUCCESS) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_address() failed");
+    }
+
     // 0x27 is the 'normal' mode with X/Y/Z enable
-    setRegisterSafe(m_addrAcc, CTRL_REG1_A, 0x27);
+    setRegisterSafe(LSM303DLH_ACC_T, CTRL_REG1_A, 0x27);
 
     // scale can be 2, 4 or 8
     if (2 == accScale) {
-        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x00);
+        setRegisterSafe(LSM303DLH_ACC_T, CTRL_REG4_A, 0x00);
     } else if (4 == accScale) {
-        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x10);
+        setRegisterSafe(LSM303DLH_ACC_T, CTRL_REG4_A, 0x10);
     } else { // default; equivalent to 8g
-        setRegisterSafe(m_addrAcc, CTRL_REG4_A, 0x30);
+        setRegisterSafe(LSM303DLH_ACC_T, CTRL_REG4_A, 0x30);
     }
 
     // 0x10 = minimum datarate ~15Hz output rate
-    setRegisterSafe(m_addrMag, CRA_REG_M, 0x10);
+    setRegisterSafe(LSM303DLH_MAG_T, CRA_REG_M, 0x10);
 
     // magnetic scale = +/-1.3
     // Gaussmagnetic scale = +/-1.3Gauss (0x20)
     // +-8.1Gauss (0xe0)
-    setRegisterSafe(m_addrMag, CRB_REG_M, 0xe0);
+    setRegisterSafe(LSM303DLH_MAG_T, CRB_REG_M, 0xe0);
 
     // 0x00 = continouous conversion mode
-    setRegisterSafe(m_addrMag, MR_REG_M, 0x00);
+    setRegisterSafe(LSM303DLH_MAG_T, MR_REG_M, 0x00);
 }
 
 float
@@ -116,10 +127,8 @@ LSM303DLH::getCoordinates()
     mraa::Result ret = mraa::SUCCESS;
 
     memset(&buf[0], 0, sizeof(uint8_t)*6);
-    ret = m_i2c.address(m_addrMag);
-    ret = m_i2c.writeByte(OUT_X_H_M);
-    ret = m_i2c.address(m_addrMag);
-    int num = m_i2c.read(buf, 6);
+    ret = m_i2cMag.writeByte(OUT_X_H_M);
+    int num = m_i2cMag.read(buf, 6);
     if (num != 6) {
         return ret;
     }
@@ -157,10 +166,8 @@ LSM303DLH::getCoorZ() {
 int
 LSM303DLH::readThenWrite(uint8_t reg)
 {
-    m_i2c.address(m_addrAcc);
-    m_i2c.writeByte(reg);
-    m_i2c.address(m_addrAcc);
-    return (int) m_i2c.readByte();
+    m_i2cAcc.writeByte(reg);
+    return (int) m_i2cAcc.readByte();
 }
 
 mraa::Result
@@ -181,26 +188,42 @@ LSM303DLH::getAcceleration()
 
 // helper function that sets a register and then checks the set was succesful
 mraa::Result
-LSM303DLH::setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data)
+LSM303DLH::setRegisterSafe(LSM303DLH_SLAVE_T slave, uint8_t sregister, uint8_t data)
 {
     buf[0] = sregister;
     buf[1] = data;
+    uint8_t val;
 
-    if (m_i2c.address(slave) != mraa::SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_address() failed");
-        return mraa::ERROR_INVALID_HANDLE;
+    switch(slave) {
+        case LSM303DLH_MAG_T:
+            if (m_i2cMag.write(buf, 2) != mraa::SUCCESS) {
+                throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_write() failed");
+                return mraa::ERROR_INVALID_HANDLE;
+            }
+            val = m_i2cMag.readReg(sregister);
+            if (val != data) {
+                throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": failed to set register correctly");
+                return mraa::ERROR_UNSPECIFIED;
+            }
+        break;
+	case LSM303DLH_ACC_T:
+            if (m_i2cAcc.write(buf, 2) != mraa::SUCCESS) {
+                throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_write() failed");
+                return mraa::ERROR_INVALID_HANDLE;
+            }
+            val = m_i2cAcc.readReg(sregister);
+            if (val != data) {
+                throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": failed to set register correctly");
+                return mraa::ERROR_UNSPECIFIED;
+            }
+        break;
+	default:
+	    return mraa::ERROR_UNSPECIFIED;
     }
-    if (m_i2c.write(buf, 2) != mraa::SUCCESS) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_i2c_write() failed");
-        return mraa::ERROR_INVALID_HANDLE;
-    }
-    uint8_t val = m_i2c.readReg(sregister);
-    if (val != data) {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": failed to set register correctly");
-        return mraa::ERROR_UNSPECIFIED;
-    }
+
     return mraa::SUCCESS;
 }

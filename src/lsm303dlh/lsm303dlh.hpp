@@ -88,6 +88,9 @@ namespace upm {
  */
     class LSM303DLH {
     public:
+	typedef enum {
+		LSM303DLH_MAG_T = 0,
+		LSM303DLH_ACC_T } LSM303DLH_SLAVE_T;
         /**
          * Instantiates an LSM303DLH object
          *
@@ -168,9 +171,10 @@ namespace upm {
 
     private:
         int readThenWrite(uint8_t reg);
-        mraa::Result setRegisterSafe(uint8_t slave, uint8_t sregister, uint8_t data);
+        mraa::Result setRegisterSafe(LSM303DLH_SLAVE_T slave, uint8_t sregister, uint8_t data);
 
-        mraa::I2c m_i2c;
+        mraa::I2c m_i2cMag;
+        mraa::I2c m_i2cAcc;
         int m_addrMag;
         int m_addrAcc;
         uint8_t buf[6];
