@@ -11,6 +11,8 @@ services:
         - https_proxy
         - no_proxy
         - BUILDDOC=OFF
+        - BUILDCPP=ON
+        - BUILDFTI=ON
         - BUILDSWIGPYTHON=OFF
         - BUILDSWIGJAVA=OFF
         - BUILDSWIGNODE=OFF
@@ -33,7 +35,7 @@ services:
     build:
       args:
         - BUILDDOC=ON
-    command: make -j8 doc
+    command: bash -c "make -j8 doc"
 
   python:
     extends: main
@@ -47,8 +49,6 @@ services:
     build:
       args:
         - BUILDSWIGJAVA=ON
-        - CC=gcc-4.8
-        - CXX=g++-4.8
     command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   node4:
@@ -57,7 +57,7 @@ services:
       args:
         - BUILDSWIGNODE=ON
         - NODE_VERSION=v4.1.2
-    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
 
   node5:
     extends: node4
