@@ -13,11 +13,6 @@ env:
   - TARGET=node4
   - TARGET=node5
 
-matrix:
-  exclude:
-    - compiler: clang
-      env: TARGET=java
-
 services:
   - docker
 
