@@ -35,11 +35,11 @@ RUN wget https://downloads.sourceforge.net/project/bacnet/bacnet-stack/bacnet-st
 # Install libmodbus 3.1.4
 RUN wget http://libmodbus.org/releases/libmodbus-3.1.4.tar.gz && \
     tar xf libmodbus-3.1.4.tar.gz && cd libmodbus-3.1.4 && \
-    ./configure && make && make install
+    ./configure && make -j8 && make install
 
 # Install openzwave
 RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
-    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make && make install && ldconfig /usr/local/lib64
+    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
 
 # Swig Build Dependencies
 RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
@@ -95,6 +95,8 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DSWIG_EXECUTABLE=/usr/bin/swig \
     -DSWIG_DIR:PATH=/usr/share/swig/3.0.10/ \
     -DBUILDDOC=$BUILDDOC \
+    -DBUILDCPP=$BUILDCPP \
+    -DBUILDFTI=$BUILDFTI \
     -DBUILDSWIGPYTHON=$BUILDSWIGPYTHON \
     -DBUILDSWIGNODE=$BUILDSWIGNODE \
     -DBUILDSWIGJAVA=$BUILDSWIGJAVA \
