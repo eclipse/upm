@@ -1,7 +1,8 @@
 /*
  * The MIT License (MIT)
  *
- * Author: Oussema Harbi <oussema.elharbi@gmail.com>
+ * Authors: Oussema Harbi <oussema.elharbi@gmail.com>  and
+ *          Neuber Jose de Sousa <neuberfran@gmail.com>
  * Copyright (c) <2016> <Oussema Harbi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -32,6 +33,8 @@
 #include "smartdrive.hpp"
 
 
+
+
 using namespace upm;
 
 SmartDrive::SmartDrive(int i2c_bus, int address): m_smartdrive_control_address(address), m_i2c_smartdrive_control(i2c_bus)
@@ -48,7 +51,7 @@ SmartDrive::SmartDrive(int i2c_bus, int address): m_smartdrive_control_address(a
 void
 SmartDrive::writeByte(uint8_t addr, uint8_t value) {
     try {
-        m_i2c_smartdrive_control.writeReg(addr, value);
+		m_i2c_smartdrive_control.writeReg(addr, value);
     } catch (int e) {
         std::cout << "Failed to write " << value << " to address " << addr << " --> " << e << std::endl;
     }
@@ -57,7 +60,7 @@ SmartDrive::writeByte(uint8_t addr, uint8_t value) {
 uint8_t
 SmartDrive::readByte(uint8_t addr) {
     try {
-        return m_i2c_smartdrive_control.readReg(addr);
+		return m_i2c_smartdrive_control.readReg(addr);
     } catch (int e) {
         std::cout << "Failed to read byte at address " << addr << " --> " << e << std::endl;
     }
@@ -65,9 +68,9 @@ SmartDrive::readByte(uint8_t addr) {
 }
 
 void
-SmartDrive::writeArray(uint8_t* array, uint8_t len) {
+SmartDrive::writeArray(uint8_t* array, int size) {
     try {
-        m_i2c_smartdrive_control.write(array, len);
+    	m_i2c_smartdrive_control.write(array, size);
     } catch (int e) {
         std::cout << "Failed to write array values to address " << array[0] << " --> " << e << std::endl;
     }
@@ -76,7 +79,7 @@ SmartDrive::writeArray(uint8_t* array, uint8_t len) {
 uint16_t
 SmartDrive::readInteger(uint8_t addr) {
     try {
-        return m_i2c_smartdrive_control.readWordReg(addr);
+	    return m_i2c_smartdrive_control.readWordReg(addr);
     } catch (int e) {
         std::cout << "Failed to read value at address " << addr << " --> " << e << std::endl;
     }
@@ -88,7 +91,7 @@ SmartDrive::readLongSigned(uint8_t addr) {
     uint8_t bytes[4]={0};
 
     try {
-        m_i2c_smartdrive_control.readBytesReg(addr, bytes, sizeof(bytes)/sizeof(uint8_t));
+		m_i2c_smartdrive_control.readBytesReg(addr, bytes, sizeof(bytes)/sizeof(uint8_t));
         return (bytes[0]|(bytes[1]<<8)|(bytes[2]<<16)|(bytes[3]<<24));
     } catch (int e) {
         std::cout << "Failed to read integer value at address " << addr << " --> " << e << std::endl;
@@ -146,7 +149,7 @@ SmartDrive::Run_Unlimited(int motor_id, int direction, uint8_t speed) {
             uint8_t array [5] = {SmartDrive_SPEED_M1, speed, 0, 0, ctrl};
             writeArray(array, sizeof(array));
         }
-        if ( motor_id != SmartDrive_Motor_ID_1) {
+        if (motor_id != SmartDrive_Motor_ID_1) {
             uint8_t array [5] = {SmartDrive_SPEED_M2, speed, 0, 0, ctrl};
             writeArray(array, sizeof(array));
         }
@@ -179,11 +182,11 @@ SmartDrive::Run_Seconds(int motor_id, int direction, uint8_t speed, uint8_t dura
             ctrl |= SmartDrive_CONTROL_GO;
         if ( direction != SmartDrive_Dir_Forward )
             speed = speed * -1;
-        if ( motor_id != SmartDrive_Motor_ID_2) {
+        if ((motor_id & SmartDrive_Motor_ID_2)!= 0) {
             uint8_t array[5] = {SmartDrive_SPEED_M1, speed, duration, 0, ctrl};
             writeArray(array, sizeof(array));
         }
-        if ( motor_id != SmartDrive_Motor_ID_1) {
+        if ((motor_id & SmartDrive_Motor_ID_1)!= 0) {
             uint8_t array[5] = {SmartDrive_SPEED_M2, speed, duration, 0, ctrl};
             writeArray(array, sizeof(array));
         }
