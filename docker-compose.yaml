@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -10,21 +10,21 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-        - BUILDDOC=OFF
-        - BUILDCPP=ON
-        - BUILDFTI=ON
-        - BUILDSWIGPYTHON=OFF
-        - BUILDSWIGJAVA=OFF
-        - BUILDSWIGNODE=OFF
-        - BUILDEXAMPLES=ON
-        - IPK=OFF
-        - RPM=OFF
-        - NPM=OFF
-        - BUILDTESTS=ON
-        - CC=clang-3.8
-        - CXX=clang++-3.8
-        - NODE_VERSION=v4.1.2
-        - WERROR=ON
+        - BUILDDOC=${BUILDDOC:-OFF}
+        - BUILDCPP=${BUILDCPP:-ON}
+        - BUILDFTI=${BUILDFTI:-ON}
+        - BUILDSWIGPYTHON=${BUILDSWIGPYTHON:-OFF}
+        - BUILDSWIGJAVA=${BUILDSWIGJAVA:-OFF}
+        - BUILDSWIGNODE=${BUILDSWIGJAVA:-OFF}
+        - BUILDEXAMPLES=${BUILDEXAMPLE:-ON}
+        - IPK=${IPK:-OFF}
+        - RPM=${RPM:-OFF}
+        - NPM=${NPM:-OFF}
+        - BUILDTESTS=${BUILDTESTS:-ON}
+        - CC=${CC:-clang-3.8}
+        - CXX=${CXX:-clang++-3.8}
+        - NODE_VERSION=${NODE_VERSION:-v4.1.2}
+        - WERROR=${WERROR:-ON}
     environment:
       - http_proxy
       - https_proxy
