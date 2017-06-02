@@ -49,6 +49,9 @@ namespace upm {
    * should also support the ULN2001A, ULN2002A, and ULN2004A devices, when
    * using to drive the 28BYJ-48 unipolar stepper motor.
    *
+   * Vcc goes to the 5V pin on your development board and the Vm pin should
+   * be connected to an external 5V supply.
+   *
    * @image html uln200xa.jpg
    * Example driving a stepper motor
    * @snippet uln200xa.cxx Interesting
