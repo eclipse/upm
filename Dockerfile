@@ -24,6 +24,12 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Sensor Specific Build Dependencies
   libjpeg-dev
 
+# Configure Compiler Environment
+ARG CC
+ARG CXX
+ENV CC $CC
+ENV CXX $CXX
+
 # Configure Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
@@ -72,12 +78,6 @@ ARG RPM
 ARG NPM
 ARG BUILDTESTS
 ARG WERROR
-ARG CC
-ARG CXX
-
-# Configure Build Environment
-ENV CC $CC
-ENV CXX $CXX
 
 # Copy sources
 COPY . .
