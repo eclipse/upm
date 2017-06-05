@@ -48,8 +48,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && 
     git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
 
 # Swig Build Dependencies
-RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
-    tar xf swig-3.0.10.tar.gz && cd swig-3.0.10 && \
+RUN wget https://downloads.sourceforge.net/project/swig/swig/swig-3.0.7/swig-3.0.7.tar.gz && \
+    tar xf swig-3.0.7.tar.gz && cd swig-3.0.7 && \
     ./configure --prefix=/usr/ && make && make install && cd ..
 
 # Node.js Build Dependencies
