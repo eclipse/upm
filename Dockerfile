@@ -44,8 +44,9 @@ RUN wget http://libmodbus.org/releases/libmodbus-3.1.4.tar.gz && \
     ./configure && make -j8 && make install
 
 # Install openzwave
-RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
-    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
+## TODO: Fix openzwave examples build with gcc
+## RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
+##     git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
 
 # Swig Build Dependencies
 RUN wget https://downloads.sourceforge.net/project/swig/swig/swig-3.0.7/swig-3.0.7.tar.gz && \
