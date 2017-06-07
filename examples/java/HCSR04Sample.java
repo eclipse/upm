@@ -23,17 +23,19 @@
  */
 
 //NOT TESTED!!!
+import upm_hcsr04.*;
+
 public class HCSR04Sample {
 
 	// ! [Interesting]
 	public static void main(String[] args) throws InterruptedException {
-		upm_hcsr04.HCSR04 sonar = new upm_hcsr04.HCSR04((short) 5, (short) 6);
+		HCSR04 sonar = new HCSR04((short) 2, (short) 4);
 
 		Thread.sleep(1000);
 
 		while (true) {
 			System.out.println("Get distance");
-			double distance = sonar.getDistance(upm_hcsr04.javaupm_hcsr04Constants.CM);
+			double distance = sonar.getDistance(HCSR04_U.swigToEnum(0));
 			System.out.println("Distance: " + distance);
 
 			Thread.sleep(5000);

@@ -24,14 +24,7 @@
  */
 #pragma once
 
-#include <string>
-#include <mraa/aio.h>
-#include <mraa/gpio.h>
-#include <mraa/pwm.h>
-#include <sys/time.h>
-
-#define CM 1
-#define INC 0
+#include "hcsr04.h"
 
 namespace upm {
 /**
@@ -73,37 +66,13 @@ class HCSR04 {
         /**
          * Gets the distance from the sensor
          *
-         * @param sys Selects units for measurement: 0 = inch, 1 = cm
+         * @param unit Selects units for measurement
          */
-        double getDistance (int sys);
-
-
-        uint8_t m_doWork; /**< Flag to control blocking function while waiting for a falling-edge interrupt */
-
-        /**
-         * Returns the name of the sensor
-         */
-        std::string name()
-        {
-            return m_name;
-        }
+        double getDistance (HCSR04_U unit);
 
     private:
-        /**
-         * On each interrupt, this function detects if the interrupt
-         * was falling-edge or rising-edge.
-         */
-        static void ackEdgeDetected (void *ctx);
-
-        double timing();
-        mraa_gpio_context   m_triggerPinCtx;
-        mraa_gpio_context   m_echoPinCtx;
-
-        long    m_RisingTimeStamp;
-        long    m_FallingTimeStamp;
-        uint8_t m_InterruptCounter;
-
-        std::string         m_name;
-};
-
+        hcsr04_context m_hcsr04;
+        HCSR04(const HCSR04& src) { /* do not create copied constructor */ }
+        HCSR04& operator=(const HCSR04&) {return *this;}
+    };
 }

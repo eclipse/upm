@@ -1,7 +1,6 @@
 /*
- * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Author: Rafael Neri <rafael.neri@gmail.com>
- * Copyright (c) 2014-2015 Intel Corporation.
+ * Author: Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,30 +21,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include "upm_utilities.h"
+#include "hcsr04.h"
 
-#include "hcsr04.hpp"
+int main() {
+    hcsr04_context dev = hcsr04_init(2,4);
+    if(dev == NULL) {
+        printf("Unable to intialize the sensor\n");
+        return 0;
+    }
 
-using namespace upm;
+    double distance;
+    while(1) {
+        distance = hcsr04_get_distance(dev, HCSR04_CM);
+        printf("Distance detected: %f\n", distance);
+        upm_delay(1);
+    }
 
-HCSR04::HCSR04 (int triggerPin, int echoPin) :
-    m_hcsr04(hcsr04_init(triggerPin, echoPin))
-{
-    if(!m_hcsr04)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": hcsr04_init failed");
-}
-
-HCSR04::~HCSR04 ()
-{
-    hcsr04_close(m_hcsr04);
-}
-
-double
-HCSR04::getDistance(HCSR04_U unit)
-{
-    return hcsr04_get_distance(m_hcsr04, unit);
+    return 0;
 }

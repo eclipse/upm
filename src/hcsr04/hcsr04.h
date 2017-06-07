@@ -1,6 +1,8 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
  * Author: Rafael Neri <rafael.neri@gmail.com>
+ * Author: Jun Kato <i@junkato.jp>
+ * Contributions by: Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2014-2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,30 +24,61 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#include <stdio.h>
+#include <string.h>
+#include <mraa/gpio.h>
+#include <sys/time.h>
 
-#include "hcsr04.hpp"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-using namespace upm;
+typedef enum {
+    HCSR04_CM = 0,
+    HCSR04_INCH } HCSR04_U;
 
-HCSR04::HCSR04 (int triggerPin, int echoPin) :
-    m_hcsr04(hcsr04_init(triggerPin, echoPin))
-{
-    if(!m_hcsr04)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": hcsr04_init failed");
+/**
+ * @file hcsr04.h
+ * @library hcsr04
+ * @brief C API for the HCSR04 Ultrasonic Ranger sensor
+ *
+ * @include hcsr04.c
+ */
+
+typedef struct _hcsr04_context {
+    mraa_gpio_context        trigPin;
+    mraa_gpio_context        echoPin;
+    int                      interruptCounter;
+    long                     startTime;
+    long                     endTime;
+} *hcsr04_context;
+
+/**
+ * HCSR04 Initialization function
+ *
+ * @param triggerPin GPIO pin for trigger
+ * @param echoPin GPIO pin used for output from sensor
+ * @return hcsr04_context
+ */
+hcsr04_context hcsr04_init(int triggerPin, int echoPin);
+
+/**
+ * HCSR04 Close function
+ *
+ * @param dev hcsr04_context pointer
+ */
+void hcsr04_close(hcsr04_context dev);
+
+/**
+ * Function to get the distance from the HCSR04 sensor
+ *
+ * @param unit cm/inches
+ * @return distance in specified unit
+ */
+double hcsr04_get_distance(hcsr04_context dev, HCSR04_U unit);
+
+#ifdef __cplusplus
 }
-
-HCSR04::~HCSR04 ()
-{
-    hcsr04_close(m_hcsr04);
-}
-
-double
-HCSR04::getDistance(HCSR04_U unit)
-{
-    return hcsr04_get_distance(m_hcsr04, unit);
-}
+#endif
