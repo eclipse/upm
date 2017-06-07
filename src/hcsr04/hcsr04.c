@@ -46,29 +46,35 @@ hcsr04_context hcsr04_init(int triggerPin, int echoPin) {
     dev->trigPin = mraa_gpio_init(triggerPin);
     if(!dev->trigPin) {
         printf("Unable to initialize the trigger pin\n");
+        free(dev);
         return NULL;
     }
 
     dev->echoPin = mraa_gpio_init(echoPin);
     if(!dev->echoPin) {
         printf("Unable to initialize the echo pin\n");
+        free(dev);
         return NULL;
     }
 
     // Setting direction for the GPIO pins
     if(mraa_gpio_dir(dev->trigPin, MRAA_GPIO_OUT) != MRAA_SUCCESS) {
         printf("Unable to set the direction of the trigger Pin\n");
+        free(dev);
         return NULL;
     }
 
     if(mraa_gpio_dir(dev->echoPin, MRAA_GPIO_IN) != MRAA_SUCCESS) {
         printf("Unable to set the direction of the echo Pin\n");
+        free(dev);
         return NULL;
     }
 
     // Setting the trigger pin to logic level 0
-    if(mraa_gpio_write(dev->trigPin, 0) != MRAA_SUCCESS)
+    if(mraa_gpio_write(dev->trigPin, 0) != MRAA_SUCCESS) {
+        free(dev);
         return NULL;
+    }
 
     // initialize the interrupt counter
     dev->interruptCounter = 0;
