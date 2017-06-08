@@ -81,7 +81,9 @@ SI1132::SI1132 (int bus) {
     // Reset chip to defaults
     status = reset();
     if (status != mraa::SUCCESS)
-        UPM_THROW("config failure");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : config failure");
+
+    AddSource("light", "lux");
 }
 
 SI1132::~SI1132() {
@@ -138,7 +140,7 @@ mraa::Result SI1132::reset() {
 uint16_t SI1132::getVisibleRaw() {
     status = runCommand(SI1132_COMMAND_ALS_FORCE);
     if (status != mraa::SUCCESS)
-       UPM_THROW("command failed");
+       throw std::runtime_error(std::string(__FUNCTION__) + " : command failed");
     return i2c->readWordReg(SI1132_REG_ALS_VIS_DATA0);
 }
 
@@ -220,4 +222,14 @@ void SI1132::sleepMs(int mseconds)
     // Iterate nanosleep in a loop until the total sleep time is the original
     // value of the seconds parameter
     while ( ( nanosleep( &sleepTime, &sleepTime ) != 0 ) && ( errno == EINTR ) );
+}
+
+std::map<std::string, float> SI1132::LightForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "light") != sources.end())
+        ret["light"] = getVisibleLux();
+
+    return ret;
 }

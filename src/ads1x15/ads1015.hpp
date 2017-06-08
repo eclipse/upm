@@ -26,7 +26,7 @@
 #pragma once
 
 #include "ads1x15.hpp"
-#include "interfaces/iADC.hpp"
+#include "iADC.hpp"
 
 #define ADS1015_VREF 2.048
 
@@ -54,63 +54,63 @@
 /*=========================================================================*/
 
 namespace upm {
-  /**
-   * @library ads1x15
-   * @sensor ADS1015
-   * @comname 12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
-   * @type electric
-   * @man ti adafruit
-   * @con i2c
-   * @web http://www.ti.com/lit/ds/symlink/ads1015.pdf
-   *
-   * @brief API for ADS1015
-   *
-   * The ADS1013, ADS1014, and ADS1015 are precision analog-to-digital converters (ADCs) with 12 bits of resolution
-   * offered in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1013/4/5 are designed with
-   * precision, power, and ease of implementation in mind. The ADS1013/4/5 feature an onboard reference and oscillator.
-   * Data is transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5
-   * operate from a single power supply ranging from 2.0V to 5.5V.
-   * The ADS1013/4/5 can perform conversions at rates up to 3300 samples per second (SPS). An onboard PGA is available
-   * on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as +/- 256mV, allowing both large and small
-   * signals to be measured with high resolution. The ADS1015 also features an input multiplexer (MUX) that provides two
-   * differential or four single-ended inputs.
-   * The ADS1013/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down
-   * after a conversion and greatly reduces current consumption during idle periods. The ADS1013/4/5 are specified from
-   * -40 deg C to +125 deg C.
-   *
-   * Tested with Adafriut ADS1015 board: https://www.adafruit.com/products/1083
-   *
-   * @image html ads1015.jpg
-   * @snippet ads1x15.cxx Interesting
-   * @snippet ads1x15-ads1015.cxx Interesting
-   * @snippet ads1x15-adc-sensor.cxx Interesting
-   */
-    class ADS1015 : public ADS1X15, public IADC {
+    /**
+     * @library ads1x15
+     * @sensor ADS1015
+     * @comname 12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference
+     * @type electric
+     * @man ti adafruit
+     * @con i2c
+     * @web http://www.ti.com/lit/ds/symlink/ads1015.pdf
+     *
+     * @brief API for ADS1015
+     *
+     * The ADS1013, ADS1014, and ADS1015 are precision analog-to-digital converters (ADCs) with 12 bits of resolution
+     * offered in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1013/4/5 are designed with
+     * precision, power, and ease of implementation in mind. The ADS1013/4/5 feature an onboard reference and oscillator.
+     * Data is transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5
+     * operate from a single power supply ranging from 2.0V to 5.5V.
+     * The ADS1013/4/5 can perform conversions at rates up to 3300 samples per second (SPS). An onboard PGA is available
+     * on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as +/- 256mV, allowing both large and small
+     * signals to be measured with high resolution. The ADS1015 also features an input multiplexer (MUX) that provides two
+     * differential or four single-ended inputs.
+     * The ADS1013/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down
+     * after a conversion and greatly reduces current consumption during idle periods. The ADS1013/4/5 are specified from
+     * -40 deg C to +125 deg C.
+     *
+     * Tested with Adafriut ADS1015 board: https://www.adafruit.com/products/1083
+     *
+     * @image html ads1015.jpg
+     * @snippet ads1x15.cxx Interesting
+     * @snippet ads1x15-ads1015.cxx Interesting
+     * @snippet ads1x15-adc-sensor.cxx Interesting
+     */
+    class ADS1015 : public ADS1X15, public iADC {
 
         public:
 
-        /**
-         * @enum ADSSAMPLERATE
-         * @brief uint16_t enum containing values
-         * representing the sample rate of the device.
-         *
-         * @var ADSSAMPLERATE::SPS_128  = 0x0000
-         * @var ADSSAMPLERATE::SPS_250  = 0x0020
-         * @var ADSSAMPLERATE::SPS_490  = 0x0040
-         * @var ADSSAMPLERATE::SPS_920  = 0x0060
-         * @var ADSSAMPLERATE::SPS_1600 = 0x0080
-         * @var ADSSAMPLERATE::SPS_2400 = 0x00A0
-         * @var ADSSAMPLERATE::SPS_3300 = 0x00C0
-         */
-        typedef enum ADSSAMPLERATE {
-         SPS_128           = ADS1015_DR_128SPS,
-         SPS_250           = ADS1015_DR_250SPS,
-         SPS_490           = ADS1015_DR_490SPS,
-         SPS_920           = ADS1015_DR_920SPS,
-         SPS_1600          = ADS1015_DR_1600SPS,
-         SPS_2400          = ADS1015_DR_2400SPS,
-         SPS_3300          = ADS1015_DR_3300SPS
-        } ADSSAMPLERATE;
+            /**
+             * @enum ADSSAMPLERATE
+             * @brief uint16_t enum containing values
+             * representing the sample rate of the device.
+             *
+             * @var ADSSAMPLERATE::SPS_128  = 0x0000
+             * @var ADSSAMPLERATE::SPS_250  = 0x0020
+             * @var ADSSAMPLERATE::SPS_490  = 0x0040
+             * @var ADSSAMPLERATE::SPS_920  = 0x0060
+             * @var ADSSAMPLERATE::SPS_1600 = 0x0080
+             * @var ADSSAMPLERATE::SPS_2400 = 0x00A0
+             * @var ADSSAMPLERATE::SPS_3300 = 0x00C0
+             */
+            typedef enum ADSSAMPLERATE {
+                SPS_128           = ADS1015_DR_128SPS,
+                SPS_250           = ADS1015_DR_250SPS,
+                SPS_490           = ADS1015_DR_490SPS,
+                SPS_920           = ADS1015_DR_920SPS,
+                SPS_1600          = ADS1015_DR_1600SPS,
+                SPS_2400          = ADS1015_DR_2400SPS,
+                SPS_3300          = ADS1015_DR_3300SPS
+            } ADSSAMPLERATE;
 
 
             /**
@@ -129,6 +129,9 @@ namespace upm {
              * ADS1X15 destructor
              */
             ~ADS1015 ();
+
+            virtual std::string Name() {return "ADS1015";}
+            virtual std::string Description() {return "12-bit ADC with integrated MUX, PGA, comparator, oscillator, and reference";}
 
             /**
              * Sets the sample rate of the device. This function
@@ -151,7 +154,7 @@ namespace upm {
              *
              * @return current conversion value
              */
-            uint16_t getRawValue(unsigned int input);
+            unsigned int getRawValue(unsigned int input);
 
             /**
              * Read current voltage for current single ended analogue input
@@ -166,14 +169,6 @@ namespace upm {
              * @return current voltage
              */
             unsigned int getResolutionInBits();
-
-            /**
-             * Returns module name
-             *
-             * @return modulename as const char*
-             */
-            const char* getModuleName();
-
 
         protected:
             float getMultiplier(void);

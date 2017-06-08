@@ -46,7 +46,7 @@ void MraaUtils::setGpio(int pin, int level)
    mraa::Gpio gpio(pin);
    gpio.dir(mraa::DIR_OUT);
    if (gpio.write(level) != mraa::SUCCESS)
-      UPM_THROW("gpio write failed");
+      throw std::runtime_error(std::string(__FUNCTION__) + " : gpio write failed");
 }
 
 

@@ -26,7 +26,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 
-#include "interfaces/iLightSensor.hpp"
+#include "iLightSensor.hpp"
 
 /* ADDRESS AND NOT_FOUND VALUE */
 #define MAX44009_ADDRESS                    ( 0x4A )
@@ -106,10 +106,10 @@ namespace upm {
  * @snippet max44009.cxx Interesting
  *
  */
-class MAX44009 : public ILightSensor {
+class MAX44009 : public virtual iLightSensor {
     public:
         /**
-         * Instanciates a MAX44009 object
+         * Instantiate a MAX44009 object
          *
          * @param bus number of used bus
          * @param devAddr address of used i2c device
@@ -131,7 +131,9 @@ class MAX44009 : public ILightSensor {
          */
         double getVisibleLux();
 
-        virtual const char* getModuleName() { return "max44009"; }
+        virtual std::string Name() {return "max44009";}
+        virtual std::string Description() {return "I2C Low-power Digital Ambient Light Sensor";}
+        virtual std::map<std::string, float> LightForSources(std::vector<std::string> sources);
 
     private:
         /* Disable implicit copy and assignment operators */

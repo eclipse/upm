@@ -6,4 +6,4 @@ upm_mixed_module_init (NAME servo
     CPP_SRC servo.cxx es08a.cxx es9257.cxx
     FTI_SRC es08a_fti.c es9257_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa utilities-c)
+    REQUIRES mraa utilities-c core)

@@ -44,6 +44,9 @@ BMPX8X::BMPX8X (int bus, int addr) :
     if (!m_bmpx8x)
         throw std::runtime_error(string(__FUNCTION__)
                                  + ": bmpx8x_init() failed");
+
+    AddSource("temperature", "C");
+    AddSource("pressure", "Pa");
 }
 
 BMPX8X::~BMPX8X()
@@ -118,3 +121,24 @@ float BMPX8X::getAltitude(int sealevelPressure)
 {
     return bmpx8x_get_altitude(m_bmpx8x, sealevelPressure);
 }
+
+std::map<std::string, float> BMPX8X::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+        ret["temperature"] = getTemperatureCelsius();
+
+    return ret;
+}
+
+std::map<std::string, float> BMPX8X::PressureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "pressure") != sources.end())
+        ret["pressure"] = getPressurePa();
+
+    return ret;
+}
+

@@ -29,13 +29,15 @@
 
 using namespace upm;
 
-ES9257::ES9257 (int pin) : Servo(pin) {
-    m_name          = "ES9257";
-    m_maxAngle      = 180.0;
-    m_minPulseWidth = 475;
-    m_maxPulseWidth = 2100;
-}
+ES9257::ES9257 (int pin) : Servo(pin, 475, 2100) {}
 
-ES9257::~ES9257() {
+ES9257::~ES9257() {}
 
+ES9257::ES9257 (const char* init_str): Servo(init_str)
+{
+    /* iMraa string constructor parses Mraa types, left-overs need
+     * additional parsing */
+    if (_pwm.empty())
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                ": One PWM pin is required.");
 }

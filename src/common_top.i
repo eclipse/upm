@@ -2,15 +2,14 @@
 %include "cpointer.i"
 %include "stdint.i"
 %include "typemaps.i"
+
+#if SWIGJAVA
+%include "java_exceptions.i"
+#else
 %include "upm_exception.i"
+#endif
 
-/* Import additional SWIG helps (not exposed in wrapper) */
-%import _upm.i
-
-%{
-#include "version.hpp"
-%}
-%include "version.hpp"
+%import "_upm.i"
 
 %apply int { speed_t };
 %apply int { mraa_result_t };
@@ -35,7 +34,6 @@ void cleanUp()
     {;}
 }
 %}
-void cleanUp();
 #endif
 
 #if (SWIGJAVA)
@@ -43,7 +41,7 @@ void cleanUp();
 %typemap(jstype) jobject runnable "java.lang.Runnable"
 #endif
 
-// Disable nested struct warnings
+/* Disable nested struct warnings */
 #pragma SWIG nowarn=312,325
 
 #if SWIGPYTHON

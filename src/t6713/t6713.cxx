@@ -56,7 +56,9 @@ T6713::T6713 (int bus) : i2c(bus)
     status = i2c.address(T6713_ADDR);
     uint16_t firmwareRevision = getFirmwareRevision();
     if (firmwareRevision != mraa::SUCCESS)
-        UPM_THROW("config failure");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : config failure");
+
+    AddSource("CO2", "ppm");
 }
 
 uint16_t T6713::getFirmwareRevision()
@@ -76,16 +78,16 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
     switch(currStatus = getStatus()) /* handle error conditions */
     {
         case ERROR_CONDITION:
-            UPM_THROW ("error condition");
+            throw std::runtime_error(std::string(__FUNCTION__) + " : error condition");
             break;
         case FLASH_ERROR:
-            UPM_THROW ("flash error");
+            throw std::runtime_error(std::string(__FUNCTION__) + " : flash error");
             break;
         case CALIBRATION_ERROR:
-            UPM_THROW ("calibration error");
+            throw std::runtime_error(std::string(__FUNCTION__) + " : calibration error");
             break;
         case WARMUP_MODE:
-            //UPM_THROW ("warmup mode");
+            //throw std::runtime_error(std::string(__FUNCTION__) + " : warmup mode");
             break;
         case RS232:
             //printf("\nRS232 mode set\n ");
@@ -101,7 +103,7 @@ uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
                 RESPONSE response;
                 if((readBytes = i2c.read((uint8_t*)(&response), sizeof(RESPONSE) ) != sizeof(RESPONSE)))
                 {
-                    UPM_THROW("I2C read failed");
+                    throw std::runtime_error(std::string(__FUNCTION__) + " : I2C read failed");
                     // TODO
                 }
                 if(response.function_code == READ_INPUT_REGISTERS)
@@ -149,7 +151,7 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 
             if((ret = i2c.write((const uint8_t*) (&cmdPacket), sizeof(COMMAND))) != mraa::SUCCESS)
             {
-                UPM_THROW("I2C write failed");
+                throw std::runtime_error(std::string(__FUNCTION__) + " : I2C write failed");
             }
 
 
@@ -172,7 +174,7 @@ mraa::Result T6713::runCommand(MODBUS_COMMANDS cmd)
 
             if((ret = i2c.write((const uint8_t*) (&cmdPacket), sizeof(COMMAND))) != mraa::SUCCESS)
             {
-                UPM_THROW("I2C write failed");
+                throw std::runtime_error(std::string(__FUNCTION__) + " : I2C write failed");
             }
 
             break;
@@ -189,7 +191,7 @@ STATUS T6713::getStatus()
     runCommand(T6713_COMMAND_STATUS);
     if((readBytes = i2c.read((uint8_t*) (&response), sizeof(RESPONSE)) != sizeof(RESPONSE)))
     {
-        UPM_THROW("I2C read failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : I2C read failed");
 
     }
     if(response.function_code == READ_INPUT_REGISTERS)
@@ -200,13 +202,13 @@ STATUS T6713::getStatus()
         }
         else
         {
-            UPM_THROW("I2C read failed");
+            throw std::runtime_error(std::string(__FUNCTION__) + " : I2C read failed");
 
         }
     }
     else
     {
-        UPM_THROW("MODBUS function code failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : MODBUS function code failed");
     }
 
     if(responseStatus & 0x0001)
@@ -241,4 +243,14 @@ STATUS T6713::getStatus()
     {
         return I2C;
     }
+}
+
+std::map<std::string, float> T6713::CO2ForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "CO2") != sources.end())
+        ret["CO2"] = getPpm();
+
+    return ret;
 }

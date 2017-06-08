@@ -32,8 +32,8 @@
 
 #include "bmpx8x.h"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include "iPressureSensor.hpp"
+#include "iTemperatureSensor.hpp"
 
 namespace upm {
 
@@ -68,7 +68,7 @@ namespace upm {
      * @snippet bmpx8x.cxx Interesting
      */
 
-    class BMPX8X : public IPressureSensor, public ITemperatureSensor {
+    class BMPX8X : public iPressureSensor, public iTemperatureSensor {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -84,6 +84,18 @@ namespace upm {
          * BMPX8X object destructor.
          */
         virtual ~BMPX8X();
+
+        /** Return the name of this device */
+        virtual std::string Name () {return "BMPX8X";}
+
+        /** Return the description of this device */
+        virtual std::string Description () {return "Atmospheric pressure sensor";}
+
+        /* Provide an implementation of a method to get sensor values by source */
+        virtual std::map<std::string, float> TemperatureForSources(std::vector<std::string> sources);
+
+        /* Provide an implementation of a method to get sensor values by source */
+        virtual std::map<std::string, float> PressureForSources(std::vector<std::string> sources);
 
         /**
          * Query the device and update the internal state.  This
@@ -178,7 +190,7 @@ namespace upm {
 
         /**
          * Return latest calculated temperature value in Celsius.  See
-         * ITemperatureSensor.
+         * iTemperatureSensor.
          *
          * @return The current temperature in Celsius.
          */
@@ -190,7 +202,7 @@ namespace upm {
 
         /**
          * Return latest calculated pressure value in Pascals.  See
-         * IPressureSensor.
+         * iPressureSensor.
          *
          * @return The current pressure in Pascals.
          */
@@ -198,16 +210,6 @@ namespace upm {
         {
             update();
             return getPressure();
-        }
-
-        /**
-         * Returns the name of module.
-         *
-         * @return The name of the module.
-         */
-        const char *getModuleName()
-        {
-            return "BMPX8X";
         }
 
     protected:

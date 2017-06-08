@@ -1,6 +1,5 @@
-set (libname "rhusb")
-set (libdescription "Omega RH-USB Temperature and Humidity Sensor")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init(mraa)
-
+upm_mixed_module_init (NAME rhusb
+    DESCRIPTION "Omega RH-USB Temperature and Humidity Sensor"
+    CPP_HDR rhusb.hpp
+    CPP_SRC rhusb.cxx
+    REQUIRES mraa core)

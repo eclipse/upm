@@ -18,7 +18,7 @@ HLG150H::HLG150H(int pinRelay, int pinPWM)
    status = pwmBrightness->enable(true);
    status = pwmBrightness->period_us(PWM_PERIOD);
    if (status != mraa::SUCCESS)
-      UPM_THROW("pwm config failed.");
+      throw std::runtime_error(std::string(__FUNCTION__) + " : pwm config failed.");
    dutyPercent = getBrightness();
    isPoweredShadow = dutyPercent > 10;
 }
@@ -65,7 +65,7 @@ void HLG150H::setBrightness(int dutyPercent)
    status = pwmBrightness->pulsewidth_us(dutyUs);
    // std::cout << "Brightness = " << dutyPercent << "%, duty = " << dutyUs << "us" << std::endl;
    if (status != mraa::SUCCESS)
-      UPM_THROW("setBrightness failed");
+      throw std::runtime_error(std::string(__FUNCTION__) + " : setBrightness failed");
 
 }
 

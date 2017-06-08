@@ -47,7 +47,7 @@ main(int argc, char** argv)
     //! [Interesting]
 
     // Instantiate a IMS instance using i2c bus 0 and default address
-    upm::IMS sensor(0);
+    upm::IMS sensor("i:0:0x20");
 
     int i2c_addr_cur = IMS_ADDRESS_DEFAULT + 1;
     while (shouldRun) {

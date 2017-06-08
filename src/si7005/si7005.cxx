@@ -69,24 +69,27 @@
 
 using namespace upm;
 
-SI7005::SI7005 (int bus, int pin) {
+SI7005::SI7005 (const std::string &init_string):
+    iMraa(init_string),
+    config_reg(SI7005_CONFIG_RESET),
+    last_temperature(25)
+{
+    /* Test for the correct resources */
+    if (_i2c.size() < 1)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                " : this devices requires 1 I2c bus. " + Connections());
 
-    m_controlAddr = SI7005_ADDRESS;
-    m_bus = bus;
-    m_pin = pin;
-    last_temperature = 25.0;
-    config_reg = SI7005_CONFIG_RESET;
+    if (_gpio.size() < 1)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                " : this devices requires 1 Gpio pin. " + Connections());
 
-    // Disable chip until we need to do something with it
-    MraaUtils::setGpio(m_pin, 1);
-    m_i2c = new mraa::I2c(m_bus);
-    status = m_i2c->address(m_controlAddr);
+    /* Test to see if the sensor responds */
     if (!isAvailable())
-        UPM_THROW("config failure");
-}
+        throw std::runtime_error(std::string(__FUNCTION__) + " : device is not available");
 
-SI7005::~SI7005() {
-    delete m_i2c;
+   /* Setup the sources available for this sensor */
+    AddSource("temperature", "C");
+    AddSource("humidity-relative", "%");
 }
 
 uint16_t
@@ -125,31 +128,31 @@ uint16_t SI7005::getMeasurement(uint8_t configValue) {
     uint8_t measurementStatus;
 
     // Enable the sensor
-    MraaUtils::setGpio(m_pin, 0);
+    _gpio[0]->write(0);
 
     // Wait for sensor to wake up
     usleep(SI7005_WAKE_UP_TIME);
 
     // Setup config register
-    status = m_i2c->writeReg(SI7005_REG_CONFIG, SI7005_CONFIG_START | configValue | config_reg);
+    status = _i2c[0]->writeReg(SI7005_REG_CONFIG, SI7005_CONFIG_START | configValue | config_reg);
 
     // FIXME: readReg() returns 0 on failure which is same as "reading ready" status
     // FIXME: no timeout if device never gets to "reading ready" status
     // Wait for the measurement to finish
     measurementStatus = SI7005_STATUS_NOT_READY;
     while ( measurementStatus == SI7005_STATUS_NOT_READY ) {
-        measurementStatus = m_i2c->readReg(SI7005_REG_STATUS);
+        measurementStatus = _i2c[0]->readReg(SI7005_REG_STATUS);
     }
 
     // Read data registers
-    int length = m_i2c->readBytesReg(SI7005_REG_DATA_START, data, SI7005_REG_DATA_LENGTH);
+    int length = _i2c[0]->readBytesReg(SI7005_REG_DATA_START, data, SI7005_REG_DATA_LENGTH);
 
     // Disable the sensor
-    MraaUtils::setGpio(m_pin, 1);
+    _gpio[0]->write(1);
 
     // Check we got the data we need
     if(length != SI7005_REG_DATA_LENGTH)
-        UPM_THROW("read error");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : read error");
 
     // Merge MSB and LSB
     rawData  = ((uint16_t)( data[SI7005_REG_DATA_LOW] & 0xFFFF )) + ( (uint16_t)(( data[SI7005_REG_DATA_HIGH] & 0xFFFF ) << 8 ));
@@ -162,16 +165,24 @@ bool
 SI7005::isAvailable( )
 {
     // Enable the sensor
-    MraaUtils::setGpio(m_pin, 0);
+    _gpio[0]->write(0);
 
     // Wait for sensor to wake up
     usleep(SI7005_WAKE_UP_TIME);
 
     // Read id register
-    uint8_t  deviceID = m_i2c->readReg(SI7005_REG_ID);
+    uint8_t deviceID = 0;
+    try { deviceID = _i2c[0]->readReg(SI7005_REG_ID); }
+    catch (...)
+    {
+        std::cerr << "Failed to read from SI7005 device ID register" << std::endl;
+        // Disable the sensor
+        _gpio[0]->write(1);
+        return false;
+    }
 
     // Disable the sensor
-    MraaUtils::setGpio(m_pin, 1);
+    _gpio[0]->write(1);
 
     return (( deviceID & SI7005_ID) == SI7005_ID );
 }
@@ -199,3 +210,24 @@ SI7005::disableFastConversionMode( )
 {
     config_reg ^= SI7005_CONFIG_FAST;
 }
+
+std::map<std::string, float> SI7005::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+        ret["temperature"] = getTemperatureCelsius();
+
+    return ret;
+}
+
+std::map<std::string, float> SI7005::HumidityForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "humidity-relative") != sources.end())
+        ret["humidity-relative"] = getHumidityRelative();
+
+    return ret;
+}
+

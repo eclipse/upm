@@ -111,7 +111,7 @@ LP8860::LP8860(int gpioPower, int i2cBus)
     if (isAvailable())
         status = mraa::SUCCESS;
    if (status != mraa::SUCCESS)
-      UPM_THROW("i2c config failed.");
+      throw std::runtime_error(std::string(__FUNCTION__) + " : i2c config failed.");
 }
 
 LP8860::~LP8860()
@@ -242,7 +242,7 @@ void LP8860::i2cWriteByte(int reg, int value)
 {
     status = i2c->writeReg(static_cast<uint8_t>(reg), static_cast<uint8_t>(value));
     if (status != mraa::SUCCESS)
-        UPM_THROW("i2cWriteByte failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : i2cWriteByte failed");
 }
 
 
@@ -250,7 +250,7 @@ uint8_t LP8860::i2cReadByte(uint8_t reg)
 {
     uint8_t value;
     if (i2c->readBytesReg(reg, &value, 1) != 1)
-        UPM_THROW("i2cReadByte failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : i2cReadByte failed");
     return value;
 }
 
@@ -268,13 +268,13 @@ void LP8860::i2cWriteBuffer(int reg, uint8_t* buf, int length)
     else
         status = mraa::ERROR_INVALID_PARAMETER;
     if (status != mraa::SUCCESS)
-        UPM_THROW("i2cWriteBuffer failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : i2cWriteBuffer failed");
 }
 
 
 void LP8860::i2cReadBuffer(int reg, uint8_t* buf, int length)
 {
     if (i2c->readBytesReg(reg, buf, length) != length)
-        UPM_THROW("i2cReadBuffer failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : i2cReadBuffer failed");
 }
 

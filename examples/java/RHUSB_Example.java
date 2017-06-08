@@ -39,6 +39,12 @@ public class RHUSB_Example {
 		// Instantiate an RHUSB instance on defaultDev
 		upm_rhusb.RHUSB sensor = new upm_rhusb.RHUSB(defaultDev);
 
+		// Print out info from the sensor core
+		System.out.println("UPM Version:" + System.lineSeparator()
+			+ upm_rhusb.javaupm_rhusb.LibraryVersion() + System.lineSeparator());
+		System.out.println("JSON Definition:" + System.lineSeparator()
+			+ sensor.JsonDefinition() + System.lineSeparator());
+
 		// output the firmware ID
 		System.out.println("Firmware ID: " + sensor.getFirmwareID());
 

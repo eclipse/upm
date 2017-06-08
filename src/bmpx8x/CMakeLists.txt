@@ -6,5 +6,5 @@ upm_mixed_module_init (NAME bmpx8x
     CPP_SRC bmpx8x.cxx
     FTI_SRC bmpx8x_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa interfaces utilities-c)
+    REQUIRES mraa core utilities-c)
 target_link_libraries(${libnamec} m)

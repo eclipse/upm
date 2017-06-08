@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "interfaces/iLightController.hpp"
+#include "iLightController.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm
@@ -56,7 +56,6 @@ class LP8860 : public upm::ILightController
 public:
    LP8860(int gpioPower, int i2cBus);
    ~LP8860();
-   virtual const char* getModuleName() { return "lp8860"; }
    bool isPowered();
    void setPowerOn();
    void setPowerOff();

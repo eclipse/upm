@@ -47,7 +47,7 @@ namespace upm {
  * 
  * @image html es9257.jpg
  */
- class ES9257 : public Servo {
+class ES9257 : public Servo {
     public:
         /**
          * Instantiates an ES9257 object
@@ -56,10 +56,17 @@ namespace upm {
          */
         ES9257 (int pin);
 
+        ES9257(const char* init_str);
+
         /**
          * ES9257 object destructor
          */
         ~ES9257 ();
 };
+
+ES9257 * es9257_create(const char* init_str)
+{
+    return new ES9257(init_str);
+}
 
 }

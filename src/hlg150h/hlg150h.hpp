@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "interfaces/iLightController.hpp"
+#include "iLightController.hpp"
 // #include "mraa/gpio.hpp"
 #include "mraa/pwm.hpp"
 
@@ -60,7 +60,6 @@ public:
    ~HLG150H();
 
    virtual int getBrightness();
-   const char* getModuleName() { return "hlg150h"; }
    void setPowerOn();
    void setPowerOff();
    bool isPowered();

@@ -1,10 +1,8 @@
 %include "../common_top.i"
+%include "iLightController.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
-%typemap(javaimports) SWIGTYPE %{import upm_interfaces.*;%}
-%import "../interfaces/javaupm_iLightController.i"
-
 JAVA_JNI_LOADLIBRARY(javaupm_lp8860)
 #endif
 /* END Java syntax */

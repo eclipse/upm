@@ -202,9 +202,9 @@ and is not meant to be installed anywhere.
 ### Groups for the various Sensor C++ Interfaces ###
 
 
-@defgroup ilightsensor ILightSensor
+@defgroup ilightsensor iLightSensor
 @ingroup byif
-@brief Implements ILightSensor
+@brief Implements iLightSensor
 
 
 @defgroup ilightcontroller ILightController
@@ -212,19 +212,19 @@ and is not meant to be installed anywhere.
 @brief Implements ILightController
 
 
-@defgroup ipressuresensor IPressureSensor
+@defgroup ipressuresensor iPressureSensor
 @ingroup byif
-@brief Implements IPressureSensor
+@brief Implements iPressureSensor
 
 
-@defgroup itemperaturesensor ITemperatureSensor
+@defgroup itemperaturesensor iTemperatureSensor
 @ingroup byif
-@brief Implements ITemperatureSensor
+@brief Implements iTemperatureSensor
 
 
-@defgroup iadc IADC
+@defgroup iadc iADC
 @ingroup byif
-@brief Implements IADC
+@brief Implements iADC
 
 
 @defgroup ico2sensor ICOSensor

@@ -31,7 +31,7 @@ int
 main(int argc, char** argv)
 {
     //! [Interesting]
-    upm::ES08A servo(5);
+    upm::ES08A servo("p:5");
 
     // Sets the shaft to 180, then to 90, then to 0,
     // then back to 90, and finally back to 180,

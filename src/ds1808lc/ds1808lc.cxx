@@ -54,7 +54,7 @@ int DS1808LC::getBrightness()
       return getPercentBrightness(values[0], values[1]);
    }
    else
-      UPM_THROW("i2c read error");
+      throw std::runtime_error(std::string(__FUNCTION__) + " : i2c read error");
 }
 
 
@@ -65,7 +65,7 @@ void DS1808LC::setBrightness(int dutyPercent)
    values[1] = getPot2Value(dutyPercent);
    status = i2c->write(values, 2);
    if (status != mraa::SUCCESS)
-       UPM_THROW("i2c write error");
+       throw std::runtime_error(std::string(__FUNCTION__) + " : i2c write error");
 }
 
 //

@@ -51,10 +51,10 @@ RHUSB::RHUSB(std::string device) :
 
   m_temperature = 0.0;
   m_humidity = 0.0;
-}
 
-RHUSB::~RHUSB()
-{
+  /* Setup the sources available for this sensor */
+  //AddSource("temperature", "C");
+  //AddSource("humidity-relative", "%");
 }
 
 void RHUSB::update()
@@ -171,3 +171,26 @@ string RHUSB::getFirmwareID()
 
   return resp;
 }
+
+std::map<std::string, float> RHUSB::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    update();
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+        ret["temperature"] = getTemperature(false);
+
+    return ret;
+}
+
+std::map<std::string, float> RHUSB::HumidityForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    update();
+    if (std::find(sources.begin(), sources.end(), "humidity-relative") != sources.end())
+        ret["humidity-relative"] = getHumidity();
+
+    return ret;
+}
+

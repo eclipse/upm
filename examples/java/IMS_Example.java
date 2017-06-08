@@ -22,8 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import upm_ims.IMS;
-
 public class IMS_Example
 {
     public static void main(String[] args) throws InterruptedException
@@ -31,18 +29,18 @@ public class IMS_Example
         // ! [Interesting]
 
         // Instantiate a IMS instance using bus 0 and default i2c address
-        IMS sensor = new IMS((short)0);
+        upm_ims.IMS sensor = new upm_ims.IMS((short)0);
 
         while (true)
         {
             System.out.println("Version: "
-                    + sensor.get_version()
+                    + upm_ims.javaupm_ims.LibraryVersion()
                     + " light: "
-                    + sensor.get_light()
+                    + sensor.LightForSource("light")
                     + " moisture: "
-                    + sensor.get_moisture()
+                    + sensor.MoistureForSource("moisture")
                     + " temp: "
-                    + sensor.get_temperature()
+                    + sensor.TemperatureForSource("temperature")
                     + " C");
 
             Thread.sleep(1000);

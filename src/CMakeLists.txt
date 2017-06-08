@@ -7,7 +7,8 @@ set (SWIG_CXX_DISABLE_WARNINGS -Wno-error
                                -Wno-delete-non-virtual-dtor
                                -Wno-unused-function
                                -Wno-maybe-uninitialized
-                               -Wno-strict-aliasing)
+                               -Wno-strict-aliasing
+                               -Wno-unused-but-set-variable)
 
 # If building under android, make sure swig gets an ANDROID flag
 if (ANDROID)
@@ -514,13 +515,13 @@ function(upm_swig_java)
       swig_add_library (javaupm_${libname} LANGUAGE java SOURCES ${SWIG_CURRENT_DOT_I_FILE})
     endif ()
 
-    # If the C++ target depends on C++ interfaces, make the JAVA target
-    # depend on the JAVA interfaces
-    if ("${_c_cxx_dependency_list}" MATCHES interfaces)
-      add_dependencies(javaupm_${libname} javaupm_interfaces)
-      # If this target depends on interfaces, include the java interfaces
+    # If the C++ target depends on C++ core, make the JAVA target
+    # depend on the JAVA core
+    if ("${_c_cxx_dependency_list}" MATCHES core)
+      add_dependencies(javaupm_${libname} javaupm_core)
+      # If this target depends on core, include the java core
       # target .jar file in the classpath, otherwise this variable will be empty
-      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
+      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/core/upm_core.jar)
     endif ()
     # For linker to report unresolved symbols.  Note, there is currently no test
     # for linker flags (similar to compile files), so this is it for now.
@@ -564,10 +565,10 @@ function(upm_swig_java)
         set (JAR $ENV{JAVA_HOME_NATIVE}/bin/jar)
     endif ()
 
-    # Only include the upm_interfaces.jar in the classpath for targets which
-    # depend on the interfaces target.  This fixes an issue where javac
-    # complains about an empty upm_interfaces.jar when trying to build a target
-    # which does not depend on javaupm_interfaces.  If not previously set,
+    # Only include the upm_core.jar in the classpath for targets which
+    # depend on the core target.  This fixes an issue where javac
+    # complains about an empty upm_core.jar when trying to build a target
+    # which does not depend on javaupm_core.  If not previously set,
     # INTERFACES_JAR_FILE will be empty, and javac *should* not complain.
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD
@@ -632,12 +633,12 @@ if (BUILDSWIGNODE)
         file (COPY ${CMAKE_SOURCE_DIR}/include DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_INCLUDE_DIRS_GYP "'.',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
-        # Utilities and interfaces
+        # Utilities and core
         file (COPY ${CMAKE_SOURCE_DIR}/src/utilities DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
-        file (COPY ${CMAKE_SOURCE_DIR}/src/interfaces DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
+        file (COPY ${CMAKE_SOURCE_DIR}/src/core DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_SRCS_GYP "'utilities/upm_utilities.c',\n${upm_LIB_SRCS_GYP}")
         set (upm_LIB_INCLUDE_DIRS_GYP "'utilities',\n${upm_LIB_INCLUDE_DIRS_GYP}")
-        set (upm_LIB_INCLUDE_DIRS_GYP "'interfaces',\n${upm_LIB_INCLUDE_DIRS_GYP}")
+        set (upm_LIB_INCLUDE_DIRS_GYP "'core',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
         # Add readme, package.json for NPM and node-gyp config file
         configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
@@ -789,6 +790,22 @@ function(upm_module_init)
   # Create the target library from src/hdrs
   add_library (${libname} SHARED ${module_src} ${module_hpp})
 
+  # Add a upm_library_globals to all C++ libraries
+  if (NOT IS_C_LIBRARY)
+    # Share some GLOBAL (per library) info with the library (UPM version and library base name)
+    target_compile_definitions(${libname}
+        PRIVATE -DUPM_LIBRARY_BASE_NAME=${libname}
+                -DUPM_VERSION_STRING=${upm_VERSION_STRING})
+
+    # Add a source file which contains the shared GLOBAL info
+    target_sources(${libname}
+        PRIVATE ${CMAKE_SOURCE_DIR}/src/upm_library_globals.cxx
+                ${CMAKE_SOURCE_DIR}/src/upm_library_globals.hpp)
+
+    # This source depends on libdl (uses dladdr), make sure to link this
+    target_link_libraries (${libname} ${CMAKE_DL_LIBS})
+  endif()
+
   # Specify the current source directory as an INTERFACE include dir.
   # This allows for transitive header dependencies via target_link_libraries
   target_include_directories(${libname} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
@@ -855,8 +872,14 @@ function(upm_module_init)
       DESTINATION include/upm
       COMPONENT ${CMAKE_PROJECT_NAME}-dev)
 
-  # Install JSON library descriptor files into datadir (if they exist)
+  # Handle build/install for JSON library descriptor file
   if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json")
+    # Copy JSON library descriptor file to binary directory (for testing/running from build dir)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json"
+        "${CMAKE_CURRENT_BINARY_DIR}/${basename}.json"
+        COPYONLY)
+
+    # Install JSON library descriptor files into datadir (if they exist)
     install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json"
       DESTINATION ${CMAKE_INSTALL_DATADIR}/upm/${basename}
       COMPONENT ${CMAKE_PROJECT_NAME})
@@ -908,10 +931,10 @@ if (NOT "${MODULE_LIST}" MATCHES ";utilities;")
   set(MODULE_LIST "utilities;${MODULE_LIST}")
 endif()
 
-# If the module list does NOT include the interfaces directory, prepend it since
-# some sensor library targets depend on interfaces
-if (NOT "${MODULE_LIST}" MATCHES ";interfaces;")
-  set(MODULE_LIST "interfaces;${MODULE_LIST}")
+# If the module list does NOT include the core directory, prepend it since
+# some sensor library targets depend on core
+if (NOT "${MODULE_LIST}" MATCHES ";core;")
+  set(MODULE_LIST "core;${MODULE_LIST}")
 endif()
 
 # Iterate over each directory in MODULE_LIST

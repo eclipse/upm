@@ -43,14 +43,14 @@ main()
     mraa::Gpio gpio(EDISON_GPIO_SI7005_CS);
     gpio.dir(mraa::DIR_OUT_HIGH);
 
-    /* Show usage from the IADC interface */
-    upm::IADC* adc = static_cast<upm::IADC*>(&sensor);
+    /* Show usage from the iADC interface */
+    upm::iADC* adc = static_cast<upm::iADC*>(&sensor);
 
     if (adc == NULL) {
         std::cout << "ADC not detected" << std::endl;
         return 1;
     }
-    std::cout << "ADC " << adc->getModuleName() << " detected. ";
+    std::cout << "ADC " << adc->Name() << " detected. ";
     std::cout << adc->getNumInputs() << " inputs available" << std::endl;
     while (true) {
         for (unsigned int i = 0; i < adc->getNumInputs(); ++i) {

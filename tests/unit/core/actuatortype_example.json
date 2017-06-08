@@ -1,0 +1,39 @@
+{
+    "Library": "core_tests",
+    "Description": "Unit test JSON example",
+    "Sensor Class": {
+        "ServoTest": {
+            "Name": "This is a name",
+            "Description": "This is a description",
+            "Aliases": ["Alias blibbity", "Alias blah"],
+            "Categories": ["servo"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Omega"],
+            "Commands" : {
+                "axis0": {
+                    "unit": "degrees",
+                    "min" : 0.0,
+                    "max" : 180.0,
+                    "accuracy" : 1.0
+                }
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5.0,
+                    "max": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            }
+        },
+        "Urls": {
+            "Product Pages": ["http://www.omega.com/pptst/RH-USB.html"],
+            "Datasheets": ["http://www.omega.com/das/pdf/RH-USB.pdf"]
+        }
+    }
+}

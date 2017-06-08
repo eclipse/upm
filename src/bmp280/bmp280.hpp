@@ -28,8 +28,8 @@
 #include <string>
 #include "bmp280.h"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include "iPressureSensor.hpp"
+#include "iTemperatureSensor.hpp"
 
 namespace upm {
 
@@ -67,7 +67,7 @@ namespace upm {
      * @snippet bmp280.cxx Interesting
      */
 
-    class BMP280 : public ITemperatureSensor, public IPressureSensor {
+    class BMP280 : public virtual iTemperatureSensor, public virtual iPressureSensor {
     public:
 
         /**
@@ -92,6 +92,16 @@ namespace upm {
          */
         BMP280(int bus=BMP280_DEFAULT_I2C_BUS, int addr=BMP280_DEFAULT_ADDR,
                int cs=-1);
+
+        virtual std::string Name () {return "BMP280";}
+
+        virtual std::string Description () {return "Digital absolute pressure sensor";}
+
+        /* Provide an implementation of a method to get sensor values by source */
+        virtual std::map<std::string, float> TemperatureForSources(std::vector<std::string> sources);
+
+        /* Provide an implementation of a method to get sensor values by source */
+        virtual std::map<std::string, float> PressureForSources(std::vector<std::string> sources);
 
         /**
          * BMP280 Destructor.
@@ -216,12 +226,6 @@ namespace upm {
          */
         void setMeasureMode(BMP280_MODES_T mode);
 
-
-        // Interface support
-        const char *getModuleName()
-        {
-            return "BMP280";
-        };
 
         int getTemperatureCelsius()
         {

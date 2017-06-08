@@ -1,5 +1,5 @@
-set (libname "si7005")
-set (libdescription "Digital I2C Humidity and Temperature Sensor")
-set (module_src ${libname}.cxx mraa-utils.cxx)
-set (module_hpp ${libname}.hpp)
-upm_module_init(mraa interfaces)
+upm_mixed_module_init (NAME si7005
+    DESCRIPTION "Digital I2C Humidity and Temperature Sensor"
+    CPP_HDR si7005.hpp
+    CPP_SRC si7005.cxx
+    REQUIRES mraa core utilities-c)

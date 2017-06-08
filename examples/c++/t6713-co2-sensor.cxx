@@ -42,18 +42,18 @@ main()
     /* Create an instance of the T6713 sensor */
     upm::T6713 sensor(EDISON_I2C_BUS);
 
-    /* Show usage from the ICO2Sensor interface */
-    upm::ICO2Sensor* cO2Sensor = static_cast<upm::ICO2Sensor*>(&sensor);
+    /* Show usage from the iCO2Sensor interface */
+    upm::iCO2Sensor* cO2Sensor = static_cast<upm::iCO2Sensor*>(&sensor);
 
     if (cO2Sensor == NULL) {
         std::cout << "CO2 sensor not detected" << std::endl;
         return 1;
     }
-    std::cout << "CO2 sensor " << cO2Sensor->getModuleName() << " detected" << std::endl;
+    std::cout << "CO2 sensor " << cO2Sensor->Name() << " detected" << std::endl;
     while (true) {
         try {
-            uint16_t value = cO2Sensor->getPpm();
-            std::cout << "CO2 level = " << value << " ppm" << std::endl;
+            uint16_t value = cO2Sensor->CO2ForSource(cO2Sensor->Sources()[0]);
+            std::cout << "CO2 level = " << value << cO2Sensor->Units()[0] << std::endl;
         } catch (std::exception& e) {
             std::cerr << e.what() << std::endl;
         }

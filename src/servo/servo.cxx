@@ -34,21 +34,27 @@
 
 using namespace upm;
 
-Servo::Servo (int pin) {
-    init(pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, DEFAULT_WAIT_DISABLE_PWM);
+Servo::Servo (std::string mraa_init_str):iMraa(mraa_init_str) {
+    DEBUG_MSG("XXX");
 }
 
-Servo::Servo (int pin, int minPulseWidth, int maxPulseWidth) {
-    init(pin, minPulseWidth, maxPulseWidth, DEFAULT_WAIT_DISABLE_PWM);
+Servo::Servo (int pin, int min_pw_us, int max_pw_us,
+        int period_us, float max_angle): Servo("p:" + std::to_string(pin)) {
+    DEBUG_MSG("XXX");
+
+    m_min_pw_us = min_pw_us;
+    m_max_pw_us = max_pw_us;
+    m_period_us = period_us;
+    m_max_angle = max_angle;
 }
 
-Servo::Servo (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePwm) {
-    init(pin, minPulseWidth, maxPulseWidth, waitAndDisablePwm);
-}
 
 Servo::~Servo () {
-    haltPwm();
-    mraa_pwm_close (m_pwmServoContext);
+    DEBUG_MSG("XXX");
+
+    /* On a clean exit, disable the target PWM */
+    if (!_pwm.empty())
+        _pwm.front()->enable(false);
 }
 
 /*
@@ -57,14 +63,14 @@ Servo::~Servo () {
  * X usec
  * _______
  *        |_______________________________________
- *                      m_period usec
+ *                      m_period_us usec
  *
  * */
 mraa_result_t Servo::setAngle (int angle) {
-    if (angle > m_maxAngle || angle < 0) {
+    if (angle > m_max_angle || angle < 0) {
         // C++11 std::to_string() would be nice, but...
         std::ostringstream str;
-        str << m_maxAngle;
+        str << m_max_angle;
         throw std::out_of_range(std::string(__FUNCTION__) +
                                 ": angle must be between 0 and " +
                                 str.str());
@@ -72,21 +78,21 @@ mraa_result_t Servo::setAngle (int angle) {
         return MRAA_ERROR_UNSPECIFIED;
     }
 
-    mraa_pwm_enable (m_pwmServoContext, 1);
-    mraa_pwm_period_us (m_pwmServoContext, m_period);
-    mraa_pwm_pulsewidth_us (m_pwmServoContext, calcPulseTraveling(angle));
+    _pwm.front()->enable(true);
+    _pwm.front()->period_us(m_period_us);
+    _pwm.front()->pulsewidth_us(calcPulseTraveling(angle));
 
-    if (m_waitAndDisablePwm) {
-        sleep(1); // we must make sure that we don't turn off PWM before the servo is done moving.
-        haltPwm();
-    }
-
-    m_currAngle = angle;
     return MRAA_SUCCESS;
 }
 
-mraa_result_t Servo::haltPwm () {
-    return mraa_pwm_enable (m_pwmServoContext, 0);
+void Servo::AngleForCommands(std::map<std::string, float> commands)
+{
+    for(std::map<std::string, float>::const_iterator it = commands.begin();
+            it != commands.end(); ++it)
+    {
+        if (std::find(Commands().begin(), Commands().end(), it->first) != Commands().end())
+            setAngle(it->second);
+    }
 }
 
 /*
@@ -94,71 +100,45 @@ mraa_result_t Servo::haltPwm () {
  * */
 int Servo::calcPulseTraveling (int value) {
     // if bigger than the boundaries
-    if (value > m_maxAngle) {
-        return m_maxPulseWidth;
+    if (value > m_max_angle) {
+        return m_max_pw_us;
     }
 
     // if less than the boundaries
     if (value  < 0) {
-        return m_minPulseWidth;
+        return m_min_pw_us;
     }
 
     // the conversion
-    return (int) ((float)m_minPulseWidth + ((float)value / m_maxAngle) * ((float)m_maxPulseWidth - (float)m_minPulseWidth));
+    return (int) ((float)m_min_pw_us + ((float)value / m_max_angle) * ((float)m_max_pw_us - (float)m_min_pw_us));
 }
 
 void
 Servo::setMinPulseWidth (int width) {
-    m_minPulseWidth = width;
+    m_min_pw_us = width;
 }
 
 void
 Servo::setMaxPulseWidth (int width) {
-    m_maxPulseWidth = width;
+    m_max_pw_us = width;
 }
 
 void
 Servo::setPeriod (int period) {
-    m_period = period;
+    m_period_us = period;
 }
 
 int
 Servo::getMinPulseWidth () {
-    return m_minPulseWidth;
+    return m_min_pw_us;
 }
 
 int
 Servo::getMaxPulseWidth () {
-    return m_maxPulseWidth;
+    return m_max_pw_us;
 }
 
 int
 Servo::getPeriod () {
-    return m_period;
-}
-
-/**
- *  private mathod:  would like to use delegating constructors instead but that requires C++11
- */
-void
-Servo::init (int pin, int minPulseWidth, int maxPulseWidth, int waitAndDisablePwm) {
-    m_minPulseWidth   = minPulseWidth;
-    m_maxPulseWidth   = maxPulseWidth;
-    m_period          = PERIOD;
-
-    m_waitAndDisablePwm = waitAndDisablePwm;
-
-    m_maxAngle        = 180.0;
-    m_servoPin        = pin;
-    
-    if ( !(m_pwmServoContext = mraa_pwm_init (m_servoPin)) ) 
-      {
-        throw std::invalid_argument(std::string(__FUNCTION__) +
-                                    ": mraa_pwm_init() failed, invalid pin?");
-        return;
-      }
-
-    m_currAngle = 180;
-
-    setAngle (0);
+    return m_period_us;
 }

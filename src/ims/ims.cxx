@@ -22,6 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <limits>
 #include <stdexcept>
 #include <string>
 
@@ -29,12 +30,74 @@
 
 using namespace upm;
 
+/* Optional serializer */
+static std::string OptionalData(IMS * inst)
+{
+    if (inst == NULL) return "";
+
+    std::stringstream ss;
+    ss << "\"ims version\" : \"" << inst->get_version() << "\"";
+    return "";
+}
+
+IMS::IMS(std::string init_str): iMraa(init_str)
+{
+}
+
 IMS::IMS(int16_t i2c_bus, int16_t i2c_address) :
     _dev(ims_init(i2c_bus, i2c_address))
 {
     if (_dev == NULL)
         throw std::runtime_error(std::string(__FUNCTION__) +
                 ": failed to initialize sensor, check syslog");
+
+    /* Added for interface implementation */
+    AddSource("light", "normalized (0.0->1.0)");
+    AddSource("temperature", "c");
+    AddSource("moisture", "normalized (0.0->1.0)");
+
+    /* Option for interface implementation, can be used to add
+     * additional JsonDefinition serializer methods for this class*/
+    _child_value_serializers[(t_getJson)&OptionalData] = this;
+}
+
+/* Added for interface implementation */
+std::map<std::string, float> IMS::LightForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "light") != sources.end())
+    {
+        uint16_t val = get_light();
+        ret["light"] = (float)val/std::numeric_limits<typeof(val)>::max();
+    }
+
+    return ret;
+}
+
+/* Added for interface implementation */
+std::map<std::string, float> IMS::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+        ret["temperature"] = get_temperature();
+
+    return ret;
+}
+
+/* Added for interface implementation */
+std::map<std::string, float> IMS::MoistureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "moisture") != sources.end())
+    {
+        uint16_t val = get_moisture();
+        ret["light"] = (float)val/std::numeric_limits<typeof(val)>::max();
+    }
+
+    return ret;
 }
 
 uint16_t IMS::get_version()

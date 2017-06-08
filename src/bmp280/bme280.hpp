@@ -26,7 +26,7 @@
 #pragma once
 
 #include <string>
-#include "interfaces/iHumiditySensor.hpp"
+#include "iHumiditySensor.hpp"
 
 #include "bmp280.hpp"
 
@@ -57,7 +57,7 @@ namespace upm {
      * @snippet bmp280-bme280.cxx Interesting
      */
 
-    class BME280 : public BMP280, public IHumiditySensor {
+    class BME280 : public virtual BMP280, public virtual iHumiditySensor {
     public:
 
         /**
@@ -88,6 +88,12 @@ namespace upm {
          */
         virtual ~BME280();
 
+        virtual std::string Name () {return "BME280";}
+        virtual std::string Description () {return "Digital absolute pressure sensor with humidity";}
+
+        /* Provide an implementation of a method to get sensor values by source */
+        virtual std::map<std::string, float> HumidityForSources(std::vector<std::string> sources);
+
         /**
          * Return the current measured relative humidity.  update()
          * must have been called prior to calling this method.  If the
@@ -107,12 +113,6 @@ namespace upm {
          * @param rate One of the OSRS_H_T values.
          */
         void setOversampleRateHumidity(BME280_OSRS_H_T rate);
-
-        // Interface support
-        const char *getModuleName()
-        {
-            return "BME280";
-        };
 
         int getHumidityRelative()
         {

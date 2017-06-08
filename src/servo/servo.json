@@ -18,6 +18,14 @@
                 "Node.js": ["es08a.js"],
                 "C++": ["servo-es08a.cxx"]
             },
+            "Commands" : {
+                "axis0": {
+                    "unit": "degrees",
+                    "min" : 0.0,
+                    "max" : 180.0,
+                    "accuracy" : 1.0
+                }
+            },
             "Specifications": {
                 "Vsource": {
                     "unit": "V",
@@ -62,6 +70,13 @@
                 "Node.js": ["es08a.js"],
                 "C++": ["servo-es08a.cxx"]
             },
+            "Commands" : {
+                "axis0": {
+                    "unit": "degrees",
+                    "min" : 0.0,
+                    "max" : 180.0
+                }
+            },
             "Specifications": {
                 "Vsource": {
                     "unit": "V",
@@ -89,7 +104,7 @@
                 "Product Pages": ["https://www.seeedstudio.com/EMAX-ES9257-2.5kg%26amp%3B-.05-sec-Micro-Digital-3D-Tail-Servo-p-762.html"]
             }
         },
-        "servo": {
+        "Servo": {
             "Name": "Servo library",
             "Description": "This is the UPM Module for the Servo library. The base Servo class provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and  the maximum period.",
             "Aliases": ["servo"],

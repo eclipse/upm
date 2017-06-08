@@ -40,7 +40,7 @@ ADS1015::ADS1015(int bus, uint8_t address, float vref) : ADS1X15(bus, address) {
     m_bitShift = 4;
     ADS1X15::getCurrentConfig();
     if (vref < 0.0 || vref > 6.144)
-        UPM_THROW("vref out of range");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : vref out of range");
     else if (vref > 4.096)
         setGain(GAIN_TWOTHIRDS);
     else if (vref > 2.048)
@@ -57,12 +57,6 @@ ADS1015::ADS1015(int bus, uint8_t address, float vref) : ADS1X15(bus, address) {
 
 ADS1015::~ADS1015(){};
 
-const char*
-ADS1015::getModuleName() {
-    return m_name.c_str();
-}
-
-
 unsigned int
 ADS1015::getNumInputs() {
     return 4;
@@ -73,7 +67,7 @@ ADS1015::getResolutionInBits() {
     return 12;
 }
 
-uint16_t
+unsigned int
 ADS1015::getRawValue(unsigned int input) {
     ADS1X15::ADSMUXMODE mode = getMuxMode(input);
     updateConfigRegister((m_config_reg & ~ADS1X15_MUX_MASK) | mode, true);
@@ -163,7 +157,7 @@ ADS1015::getMuxMode(unsigned int input) {
     case 3:
         return SINGLE_3;
     default:
-        UPM_THROW("Invalid input");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : Invalid input");
     }
 }
 

@@ -48,6 +48,8 @@ BMP280::BMP280(int bus, int addr, int cs) :
     if (!m_bmp280)
         throw std::runtime_error(string(__FUNCTION__)
                                  + ": bmp280_init() failed");
+    AddSource("temperature", "C");
+    AddSource("pressure", "Pa");
 }
 
 BMP280::~BMP280()
@@ -148,5 +150,31 @@ uint8_t BMP280::getStatus()
 void BMP280::setUsageMode(BMP280_USAGE_MODE_T mode)
 {
     bmp280_set_usage_mode(m_bmp280, mode);
+}
+
+std::map<std::string, float> BMP280::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+    {
+        update();
+        ret["temperature"] = getTemperature(false);
+    }
+
+    return ret;
+}
+
+std::map<std::string, float> BMP280::PressureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "pressure") != sources.end())
+    {
+        update();
+        ret["pressure"] = getPressure();
+    }
+
+    return ret;
 }
 

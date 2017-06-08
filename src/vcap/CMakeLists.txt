@@ -1,10 +1,7 @@
-set (libname "vcap")
-set (libdescription "Video Frame Capture and Image Save Utility")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-
 if (JPEG_FOUND)
-    set (reqlibname "jpeg")
-    upm_module_init()
-    target_link_libraries(${libname} jpeg)
+    upm_mixed_module_init (NAME vcap
+        DESCRIPTION "Video Frame Capture and Image Save Utility"
+        CPP_HDR vcap.hpp
+        CPP_SRC vcap.cxx
+        REQUIRES jpeg)
 endif()

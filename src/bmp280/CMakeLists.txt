@@ -5,5 +5,5 @@ upm_mixed_module_init (NAME bmp280
     CPP_HDR bmp280.hpp bme280.hpp
     CPP_SRC bmp280.cxx bme280.cxx
     CPP_WRAPS_C
-    REQUIRES mraa interfaces utilities-c)
+    REQUIRES mraa core utilities-c)
 target_link_libraries(${libnamec} m)

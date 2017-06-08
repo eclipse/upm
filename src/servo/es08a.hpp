@@ -52,6 +52,8 @@ namespace upm {
  */
  class ES08A : public Servo {
     public:
+        ES08A (std::string);
+
         /**
          * Instantiates an ES08A object
          *
@@ -64,5 +66,10 @@ namespace upm {
          */
         ~ES08A ();
 };
+
+ES08A * es08a_create(const char* init_str)
+{
+    return new ES08A(init_str);
+}
 
 }

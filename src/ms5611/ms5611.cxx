@@ -53,18 +53,21 @@ using namespace upm;
 
 MS5611::MS5611(int i2cBus, int address)
 {
+    AddSource("temperature", "C");
+    AddSource("pressure", "Pa");
+
     i2c = new mraa::I2c(i2cBus);
     this->address = address;
     i2c->address(address);
     prom = new uint16_t[MS5611_PROM_SIZE];
     if (i2c->writeByte(MS5611_CMD_RESET != mraa::SUCCESS))
-        UPM_THROW("Reset failed.");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : Reset failed.");
     delayms(5);
     for (int i = 0; i < MS5611_PROM_SIZE; ++i) {
         uint8_t buf[2];
         int bytesRead = i2c->readBytesReg(MS5611_CMD_READ_PROM + 2*i, buf, 2);
         if (bytesRead != 2)
-           UPM_THROW("PROM address failed.");
+           throw std::runtime_error(std::string(__FUNCTION__) + " : PROM address failed.");
         prom[i] = buf[0] << 8;
         prom[i] |= buf[1];
         // printf("Read PROM entry %d = %04x\n", i, prom[i]);
@@ -72,7 +75,7 @@ MS5611::MS5611(int i2cBus, int address)
 
     // printf("CRC = %X\n", promCrc4());
     if (promCrc4() != (prom[7] & 0x000F))
-        UPM_THROW("PROM checksum error.");
+        throw std::runtime_error(std::string(__FUNCTION__) + " : PROM checksum error.");
     setOverSampling(ULTRA_HIGH_RES);
 }
 
@@ -153,11 +156,11 @@ uint32_t MS5611::readADC(int adcReg)
     uint32_t value;
     uint8_t buf[3];
     if (i2c->writeByte(adcReg + osr) != mraa::SUCCESS)
-       UPM_THROW("Convert D2 failed");
+       throw std::runtime_error(std::string(__FUNCTION__) + " : Convert D2 failed");
     delayms(100);
     int bytesRead = i2c->readBytesReg(MS5611_CMD_ADC_READ, buf, 3);
     if (bytesRead != 3)
-       UPM_THROW("ADC read failed");
+       throw std::runtime_error(std::string(__FUNCTION__) + " : ADC read failed");
     // printf("%02X%02X%02X\n", buf[0], buf[1], buf[2]);
     value = ((uint32_t)buf[0] << 16) | ((uint32_t)buf[1] << 8) | buf[2];
     return value;
@@ -206,5 +209,25 @@ int MS5611::getPressurePa()
     }
     int pressure = ((((int64_t)rawPressure * scaler ) >> 21) - offset) / (double) (1 << 15);
     return pressure;
+}
+
+std::map<std::string, float> MS5611::TemperatureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "temperature") != sources.end())
+        ret["temperature"] = getTemperatureCelsius();
+
+    return ret;
+}
+
+std::map<std::string, float> MS5611::PressureForSources(std::vector<std::string> sources)
+{
+    std::map<std::string, float> ret;
+
+    if (std::find(sources.begin(), sources.end(), "pressure") != sources.end())
+        ret["pressure"] = getPressurePa();
+
+    return ret;
 }
 

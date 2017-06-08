@@ -1,4 +1,8 @@
 %include "../common_top.i"
+%include "iMraa.i"
+%include "iLightSensor.i"
+%include "iMoistureSensor.i"
+%include "iTemperatureSensor.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
