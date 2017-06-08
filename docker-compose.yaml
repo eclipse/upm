@@ -1,0 +1,66 @@
+version: '2.1'
+
+services:
+
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+        - BUILDDOC=${BUILDDOC:-OFF}
+        - BUILDCPP=${BUILDCPP:-ON}
+        - BUILDFTI=${BUILDFTI:-ON}
+        - BUILDSWIGPYTHON=${BUILDSWIGPYTHON:-OFF}
+        - BUILDSWIGJAVA=${BUILDSWIGJAVA:-OFF}
+        - BUILDSWIGNODE=${BUILDSWIGNODE:-OFF}
+        - BUILDEXAMPLES=${BUILDEXAMPLE:-ON}
+        - IPK=${IPK:-OFF}
+        - RPM=${RPM:-OFF}
+        - NPM=${NPM:-OFF}
+        - BUILDTESTS=${BUILDTESTS:-ON}
+        - CC=${CC:-clang-3.8}
+        - CXX=${CXX:-clang++-3.8}
+        - NODE_VERSION=${NODE_VERSION:-v4.4.7}
+        - WERROR=${WERROR:-ON}
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+
+  doc:
+    extends: main
+    build:
+      args:
+        - BUILDDOC=ON
+    command: bash -c "make -j8 doc"
+
+  python:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGPYTHON=ON
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
+
+  java:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGJAVA=ON
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
+
+  node4:
+    extends: main
+    build:
+      args:
+        - BUILDSWIGNODE=ON
+        - NODE_VERSION=v4.4.7
+    command: bash -c "make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
+
+  node5:
+    extends: node4
+    build:
+      args:
+        - NODE_VERSION=v5.12.0
