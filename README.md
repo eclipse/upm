@@ -11,8 +11,9 @@ corresponding header file and instantiating the associated sensor class. In the
 typical use case, a constructor initializes the sensor based on parameters that
 identify the sensor, the I/O protocol used and the pin location of the sensor.
 
-C++ interfaces have been defined for the following sensor/actuator types, but
-they are subject to change:
+We endorse additions that implement the generic C and C++ interfaces provided
+with the libraries. Multiple sensor and actuator types have been defined, for
+instance:
 
 * Light controller 
 * Light sensor
@@ -22,8 +23,8 @@ they are subject to change:
 * Gas sensor
 * Analog to digital converter
 
-The developer community is encouraged to help expand the list of supported
-sensors and actuators and provide feedback on interface design.
+The developer community is welcome to submit feedback on existing categories or
+suggest new ones.
 
 ### Example
 
@@ -69,10 +70,10 @@ You can also refer to the [Intel® IoT Developer Zone](https://software.intel.co
 
 ### IDE Integration
 
-If you would like to create projects and run the UPM samples using an Intel recommended IDE,
-please refer to the Intel Developer Zone IDE page.
+If you would like to create projects and run the UPM samples using an Intel® recommended IDE,
+please refer to the Intel® Developer Zone Tools & IDEs page.
 
-<a href="https://software.intel.com/iot/software/ide"><img src="docs/icons/allides.png"/></a>
+<a href="https://software.intel.com/iot/tools"><img src="docs/icons/iss.png"/></a>
 
 ### Installing UPM
 
