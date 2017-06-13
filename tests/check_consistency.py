@@ -14,7 +14,7 @@ class BlacklistConsistency(u.TestCase):
     def test_java_blacklist(self):
 
         with open(javaBlacklistFile) as f:
-            blacklist = [line.rstrip('\n') for line in f]
+            blacklist = [line.rstrip('\r\n') for line in f]
 
             for libraryName in blacklist:
                 files = os.listdir( os.path.join(rootDir, libraryName))
@@ -29,7 +29,7 @@ class BlacklistConsistency(u.TestCase):
     def test_python_blacklist(self):
 
         with open(pythonBlacklistFile) as f:
-            blacklist = [line.rstrip('\n') for line in f]
+            blacklist = [line.rstrip('\r\n') for line in f]
 
             for libraryName in blacklist:
                 files = os.listdir( os.path.join(rootDir, libraryName))
@@ -44,7 +44,7 @@ class BlacklistConsistency(u.TestCase):
     def test_node_blacklist(self):
 
         with open(nodeBlacklistFile) as f:
-            blacklist = [line.rstrip('\n') for line in f]
+            blacklist = [line.rstrip('\r\n') for line in f]
 
             for libraryName in blacklist:
                 files = os.listdir( os.path.join(rootDir, libraryName))

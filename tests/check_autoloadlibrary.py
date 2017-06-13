@@ -29,7 +29,7 @@ class AutoLoadLibrary(u.TestCase):
                     moduleName = fileName[:-2]
                     snippet = prefix + moduleName + suffix
 
-                    with open(os.path.join(subdir, fileName), "r") as f:
+                    with open(os.path.join(subdir, fileName), "rU") as f:
                         #read in entire file
                         data = f.read()
                         #Make sure it is module
