@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Preapare apt-get
+# Prepare apt-get
 RUN apt-get update && apt-get -y --no-install-recommends install software-properties-common
 
 # Add Mraa Repository
@@ -12,7 +12,7 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Install apt-utils
   apt-get -y --no-install-recommends install apt-utils && \
   # Main Build Dependencies
-  apt-get -y --no-install-recommends install git build-essential cmake clang-3.8 g++-4.8 libpthread-stubs0-dev pkg-config wget libpcre3 libpcre3-dev unzip \
+  apt-get -y --no-install-recommends install git build-essential cmake swig clang-3.8 g++-4.8 libpthread-stubs0-dev pkg-config wget unzip \
   # Mraa Build Dependencies
   libmraa1 libmraa-dev mraa-tools python-mraa python3-mraa libmraa-java \
   # Docs Build Dependencies
@@ -44,13 +44,15 @@ RUN wget http://libmodbus.org/releases/libmodbus-3.1.4.tar.gz && \
     ./configure && make -j8 && make install
 
 # Install openzwave
+## TODO: Fix openzwave examples build with gcc-4.8
 RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
     git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
 
-# Swig Build Dependencies
-RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
-    tar xf swig-3.0.10.tar.gz && cd swig-3.0.10 && \
-    ./configure --prefix=/usr/ && make && make install && cd ..
+# Using a custom SWIG version
+# RUN wget https://downloads.sourceforge.net/project/swig/swig/swig-3.0.10/swig-3.0.10.tar.gz && \
+##    tar xf swig-3.0.10.tar.gz && cd swig-3.0.10 && \
+##    apt-get update && apt-get -y --no-install-recommends install libpcre3 libpcre3-dev && \
+##    ./configure --prefix=/usr/ && make && make install && cd ..
 
 # Node.js Build Dependencies
 RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
@@ -93,7 +95,7 @@ WORKDIR /usr/src/app/build
 # Run cmake
 RUN . $NVM_DIR/nvm.sh && cmake \
     -DSWIG_EXECUTABLE=/usr/bin/swig \
-    -DSWIG_DIR:PATH=/usr/share/swig/3.0.10/ \
+#   -DSWIG_DIR:PATH=/usr/share/swig/3.0.10/ \
     -DBUILDDOC=$BUILDDOC \
     -DBUILDCPP=$BUILDCPP \
     -DBUILDFTI=$BUILDFTI \
