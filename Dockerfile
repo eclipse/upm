@@ -12,7 +12,7 @@ RUN add-apt-repository ppa:mraa/mraa && \
   # Install apt-utils
   apt-get -y --no-install-recommends install apt-utils && \
   # Main Build Dependencies
-  apt-get -y --no-install-recommends install git build-essential cmake swig clang-3.8 g++-4.8 libpthread-stubs0-dev pkg-config wget unzip \
+  apt-get -y --no-install-recommends install git build-essential cmake swig clang-3.8 gcc-4.8 g++-4.8 libpthread-stubs0-dev pkg-config wget unzip \
   # Mraa Build Dependencies
   libmraa1 libmraa-dev mraa-tools python-mraa python3-mraa libmraa-java \
   # Docs Build Dependencies
@@ -30,6 +30,11 @@ ARG CXX
 ENV CC $CC
 ENV CXX $CXX
 
+# Install GCC6 too
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get -y --no-install-recommends install gcc-6 g++-6
+
 # Configure Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
@@ -44,9 +49,9 @@ RUN wget http://libmodbus.org/releases/libmodbus-3.1.4.tar.gz && \
     ./configure && make -j8 && make install
 
 # Install openzwave
-## TODO: Fix openzwave examples build with gcc-4.8
 RUN apt-get update && apt-get -y --no-install-recommends install libudev-dev && \
-    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install
+    git clone --depth 1 https://github.com/OpenZWave/open-zwave.git && cd open-zwave && make -j8 install && \
+    echo "/usr/local/lib64" >> /etc/ld.so.conf.d/openzwave.conf
 
 # Using a custom SWIG version
 # RUN wget https://downloads.sourceforge.net/project/swig/swig/swig-3.0.10/swig-3.0.10.tar.gz && \

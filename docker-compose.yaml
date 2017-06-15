@@ -64,3 +64,8 @@ services:
     build:
       args:
         - NODE_VERSION=v5.12.0
+  node6:
+    extends: node4
+    build:
+      args:
+        - NODE_VERSION=v6.11.0
