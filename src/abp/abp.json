@@ -5,14 +5,13 @@
     {
         "ABP":
         {
-            "Brief": "Honeywell ABP Pressure and Temperature Sensors",
+            "Name": "Honeywell ABP Pressure and Temperature Sensors",
             "Description": "This is the UPM Module for the ABP Honeywell Pressure and Temp sensor. This sensor uses an onboard ASIC to output values of pressure that are updated at approximately 2 KHz. It is capable of detecting pressure in the 0-5 psi range and it has an i2c based interface. Temperature calculation using this driver is possible but not all ABP sensors support that functionality.",
-            "Part Numbers": ["abp"],
+            "Aliases": ["abp"],
             "Categories": ["pressure", "temperature"],
             "Connections": ["i2c"],
             "Project Type": ["medical", "industrial", "commercial"],
             "Manufacturers": ["honeywell"],
-            "Image": "abp.jpg",
             "Examples":
             {
                 "Python": ["abp.py"],

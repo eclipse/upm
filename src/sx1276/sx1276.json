@@ -5,14 +5,13 @@
     {
         "SX1276":
         {
-            "Brief": "Semtech SX1276 LoRa/FSK Module",
+            "Name": "Semtech SX1276 LoRa/FSK Module",
             "Description": "The SX1276 is a FSK/OOK/LoRa modem capable of both Low Frequency and High Frequency communication. It requires a 3.3v power supply, do not use 5v. Frequency Hopping Spread Spectrum (FHSS) is not currently supported.",
-            "Part Numbers": ["sx1276"],
+            "Aliases": ["sx1276"],
             "Categories": ["radio"],
             "Connections": ["gpio", "spi"],
             "Project Type": ["industrial"],
             "Manufacturers": ["semtech"],
-            "Image": "sx1276.jpg",
             "Examples":
             {
                 "Python": ["sx1276-fsk.py", "sx1276-lora.py"],
