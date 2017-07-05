@@ -1,0 +1,48 @@
+{
+    "Library": "ms5611",
+    "Description": "Barometric Pressure Sensor library",
+    "Sensor Class":
+    {
+        "MS5611":
+        {
+            "Brief": "Barometric Pressure and Temperature Sensor",
+            "Description": "The MS5611 is a high pressure sensor and temperatre sensor	 module. The main function is to convert the uncompensated analogue voltage from the pressure die to a 24bit digital value, as well as providing a 24 bit value for the temperature ",
+            "Known As": ["ms5611"],
+            "Categories": ["pressure", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["amsys"],
+            "Kits": [],
+            "Image": "",
+            "Examples":
+            {
+                "Java": [""],
+                "Python": [""],
+                "Node.js": ["ms5611.js"],
+                "C++": ["ms5611.cxx"],
+                "C": [""]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.8, "high": 3.6},
+                "Pressure Range": {"unit": "mbar", "low" : 10, "high": 1200},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": [""],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.amsys.info/products/ms5611.htm"],
+                "Datasheets": ["http://www.amsys.info/sheets/amsys.en.ms5611_01ba03.pdf"]
+            }
+        }
+    }
+}
+
+        

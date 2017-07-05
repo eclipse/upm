@@ -1,0 +1,48 @@
+{
+    "Library": "si1132",
+    "Description": "UV and visible light sensor library",
+    "Sensor Class":
+    {
+        "SI1132":
+        {
+            "Brief": "UV and visible light sensor",
+            "Description": "The SI1132 sensor determines real-time UV sun exposure and cumulative UV sun exposure and enables accurate light level monitoring under mixed lightings",
+            "Known As": ["si1132"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["silabs"],
+            "Kits": [],
+            "Image": "",
+            "Examples":
+            {
+                "Java": [""],
+                "Python": [""],
+                "Node.js": [""],
+                "C++": ["si1132.cxx"],
+                "C": [""]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Iavg": {"unit": "µA", "high": 1.2},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": [""],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.silabs.com/products/sensors/optical/si1132"],
+                "Datasheets": ["https://www.silabs.com/documents/public/data-sheets/Si1132.pdf"]
+            }
+        },
+       
+        }
+    }
+}
