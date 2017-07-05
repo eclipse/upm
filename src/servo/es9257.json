@@ -1,18 +1,17 @@
 {
     "Library": "Servo",
     "Description": "Servo Library",
-    "Sensor Class":    
+    "Sensor Class":
     {
         "ES9257":
         {
-            "Brief": "Micro Digital 3D Tail Servo",
+            "Name": "Micro Digital 3D Tail Servo",
             "Description": "The ES9257 servo is a fast, heavy duty servo that is popular for moving control surfaces on RC models.",
-            "Known As": ["ES9257"],
+            "Aliases": ["ES9257"],
             "Categories": ["servos"],
             "Connections": ["pwm"],
             "Project Type": ["prototyping"],
             "Manufacturers": ["emax"],
-            "Kits": ["gsk"],
             "Image": "es9257.jpg",
             "Examples":
             {
@@ -24,14 +23,6 @@
                 "Stall Torque": {"unit": "Kgf.cm", "low": 2.5},
                 "Operating Speed (no load)": {"unit": "sec / 60 deg", "max": 0.08},
                 "Pulse Cycle": {"unit": "ms", "typical": 3}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": [],
-                    "Images": []
-                }
             },
             "Urls" :
             {
