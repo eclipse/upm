@@ -5,9 +5,9 @@
     {
         "WheelEncoder":
         {
-            "Brief": "Wheel Encoder",
+            "Name": "Wheel Encoder",
             "Description": "Wheel encoders use non-contact methods to give rotation information. This sensor was developed for the DFRobot Wheel Encoder, though it could be used for any counting time-based task. When you instantiate a class of this type, the gpio pin specified is connected to an interrupt. Whenever a low to high transition occurs on the gpio pin, the internal counter is incremented by one. This class also includes a millisecond counter, so that you can correlate the number of counts to a time period for calculating an RPM or other value as needed.",
-            "Part Numbers": ["SEN0038"],
+            "Aliases": ["SEN0038"],
             "Categories": ["other"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping"],
@@ -26,14 +26,6 @@
                 "Vdd": {"unit": "v", "constant" : 5},
                 "Itotal" : {"unit": "mA", "high": 20},
                 "Resolution": {"unit": "ppr", "constant" : 20}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": [""],
-                    "Images": [""]
-                }
             },
             "Urls" :
             {

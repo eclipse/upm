@@ -5,9 +5,9 @@
     {
         "MD":
         {
-            "Brief": "I2C Motor Driver",
+            "Name": "I2C Motor Driver",
             "Description": "The Grove I2C Motor Driver is an I2C motor driver that supports a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L298N H-bridge driver chip. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Grove Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
-            "Part Numbers": ["I2C Motor Driver v1.3"],
+            "Aliases": ["I2C Motor Driver v1.3"],
             "Categories": ["motor"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping"],
@@ -29,14 +29,6 @@
                 "Ichannel": {"unit": "mA", "high": 500},
                 "V_i2c_bus": {"unit": "v", "constant": 5},
                 "I2C Bus Speed": {"unit": "KHz", "constant": 100}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": [""],
-                    "Images": [""]
-                }
             },
             "Urls" :
             {

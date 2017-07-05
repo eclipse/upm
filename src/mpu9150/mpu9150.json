@@ -5,9 +5,9 @@
     {
         "MPU9150":
         {
-            "Brief": "Inertial Measurement Unit",
+            "Name": "Inertial Measurement Unit",
             "Description": "The Grove IMU 9DOF is a 9 axis IMU module based on the MPU-9150. The MPU-9150 is an integrated nine degree of freedom motion tracking device designed for the low power, low cost, and high performance requirements of consumer electronics equipment including smartphones, tablets and wearable sensors. MPU-9150 features three 16-bit ADCs for digitizing the gyroscope outputs, three 16-bit ADCs for digitizing the accelerometer outputs, and three 13-bit ADCs for digitizing the magnetometer outputs. It features an I2C interface.",
-            "Part Numbers": ["mpu9150", "IMU 9DOF v1.0"],
+            "Aliases": ["mpu9150", "IMU 9DOF v1.0"],
             "Categories": ["accelerometer", "compass", "gyroscope"],
             "Connections": ["i2c", "gpio"],
             "Project Type": ["prototyping"],
@@ -26,19 +26,11 @@
                 "Vdd": {"unit": "v", "constant": 5},
                 "V_i2c_bus": {"unit": "v", "constant": 5},
                 "I2C Bus Speed": {"unit": "KHz", "typical": 400},
-                "Gyro Full-Scale Range": {"unit":"+/- degrees / sec", "low": 250, "high", 2000},
+                "Gyro Full-Scale Range": {"unit":"+/- degrees / sec", "low": 250, "high": 2000},
                 "Accelerometer Full-Scalse Range": {"unit": "+/- g", "low": 2, "high": 16},
                 "Gyro Resolution": {"unit": "bits", "constant": 16},
                 "Accelerometer Resolution": {"unit": "bits", "constant": 16},
                 "Magnetometer Resolution": {"unit": "bits", "constant": 13}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": [],
-                    "Images": []
-                }
             },
             "Urls" :
             {

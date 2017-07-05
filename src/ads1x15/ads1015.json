@@ -5,9 +5,9 @@
     {
         "ADS1015":
         {
-            "Brief": "12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference",
+            "Name": "12-bit ADC with Integrated MUX, PGA, Comparator, Oscillator, and Reference",
             "Description": "The ADS1013, ADS1014, and ADS1015 are precision analog-to-digital converters (ADCs) with 12 bits of resolution offered in an ultra-small, leadless QFN-10 package or an MSOP-10 package. The ADS1013/4/5 are designed with precision, power, and ease of implementation in mind. The ADS1013/4/5 feature an onboard reference and oscillator. Data is transferred via an I2C-compatible serial interface; four I2C slave addresses can be selected. The ADS1013/4/5 operate from a single power supply ranging from 2.0V to 5.5V. The ADS1013/4/5 can perform conversions at rates up to 3300 samples per second (SPS). An onboard PGA is available on the ADS1014 and ADS1015 that offers input ranges from the supply to as low as +/- 256mV, allowing both large and small signals to be measured with high resolution. The ADS1015 also features an input multiplexer (MUX) that provides two differential or four single-ended inputs. The ADS1013/4/5 operate either in continuous conversion mode or a single-shot mode that automatically powers down after a conversion and greatly reduces current consumption during idle periods. The ADS1013/4/5 are specified from -40 deg C to +125 deg C. Tested with Adafriut ADS1015 board.",
-            "Part Numbers": ["ads1015"],
+            "Aliases": ["ads1015"],
             "Categories": ["electric"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
@@ -26,14 +26,6 @@
                 "Data Rate":{"unit": "sps", "low": 128, "high": 3300},
                 "I (continuous mode)" : {"unit": "uA", "typical": 150},
                 "I2C Addresses": {"unit": "address", "low": "0x48", "high": "0x4B"}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": [],
-                    "Images": []
-                }
             },
             "Urls" :
             {
