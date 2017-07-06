@@ -5,9 +5,9 @@
     {
         "HLG150H":
         {
-            "Brief": "Lighting Power Supply Controller",
+            "Name": "Lighting Power Supply Controller",
             "Description": "HLG series single output LED power supply features universal AC input, protection for short circuit, overload, over voltage and over temperature",
-            "Known As": ["hlg150h"],
+            "Aliases": ["hlg150h"],
             "Categories": ["lightcontroller"],
             "Connections": ["pwm"],
             "Project Type": ["prototyping", "industrial"],
@@ -30,8 +30,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": [""],
-                    "Images": [""]
+                    "Notes": ["Might need pull up resistors"],
                 }
             },
             "Urls" :

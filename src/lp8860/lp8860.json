@@ -5,9 +5,9 @@
     {
         "LP8860":
         {
-            "Brief": "API for LP8860 LED Lighting Controller",
+            "Name": "API for LP8860 LED Lighting Controller",
             "Description": "The LP8860-Q1 is an automotive high-efficiency LED driver with boost controller. It has 4 high-precision current sinks that can be controlled by a PWM input signal, an SPI or I2C master, or both ",
-            "Known As": ["lp8860"],
+            "Aliases": ["lp8860"],
             "Categories": ["light Controller"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
@@ -33,8 +33,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": [""],
-                    "Images": [""]
+                    "Notes": ["Might need pull up resistors"],
                 }
             },
             "Urls" :

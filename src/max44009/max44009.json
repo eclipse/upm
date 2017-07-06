@@ -5,9 +5,9 @@
     {
         "MAX44009":
         {
-            "Brief": "Digital Humidity, Pressure, and Temperature Sensor",
-            "Description": "The MAX44009 ambient light sensor features an i2c digital output that is ideal for a number of portable applications such as smartphones, notebooks and industrial sensors.
-            "Known As": ["max44009"],
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Description": "The MAX44009 ambient light sensor features an i2c digital output that is ideal for a number of portable applications such as smartphones, notebooks and industrial sensors",
+            "Aliases": ["max44009"],
             "Categories": ["light"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
@@ -32,8 +32,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": [""],
-                    "Images": [""]
+                    "Notes": ["might need pull up resistors"],
                 }
             },
             "Urls" :

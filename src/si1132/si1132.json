@@ -5,9 +5,9 @@
     {
         "SI1132":
         {
-            "Brief": "UV and visible light sensor",
+            "Name": "UV and visible light sensor",
             "Description": "The SI1132 sensor determines real-time UV sun exposure and cumulative UV sun exposure and enables accurate light level monitoring under mixed lightings",
-            "Known As": ["si1132"],
+            "Aliases": ["si1132"],
             "Categories": ["light"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
@@ -32,8 +32,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": [""],
-                    "Images": [""]
+                    "Notes": ["might need pull up resistors"],
                 }
             },
             "Urls" :
