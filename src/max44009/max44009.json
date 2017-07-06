@@ -21,7 +21,7 @@
             {
                 "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
                 "Temperature Range": {"unit": "C", "low" : -40, "high": 85},
-                "Dynamic Range": {"unit": "lux", "low" : 0.045, "high": 188,000}
+                "Dynamic Range": {"unit": "lux", "low" : 0.045, "high": 188000}
             },
             "Platforms":
             {

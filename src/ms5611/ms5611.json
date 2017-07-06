@@ -6,7 +6,7 @@
         "MS5611":
         {
             "Name": "Barometric Pressure and Temperature Sensor",
-            "Description": "The MS5611 is a high pressure sensor and temperatre sensor	 module. The main function is to convert the uncompensated analogue voltage from the pressure die to a 24bit digital value, as well as providing a 24 bit value for the temperature ",
+            "Description": "The MS5611 is a high pressure sensor and temperatre sensor module. The main function is to convert the uncompensated analogue voltage from the pressure die to a 24bit digital value, as well as providing a 24 bit value for the temperature ",
             "Aliases": ["ms5611"],
             "Categories": ["pressure", "temperature"],
             "Connections": ["i2c"],

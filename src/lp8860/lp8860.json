@@ -21,7 +21,7 @@
             {
                 "Vdd": {"unit": "v", "low" : 3, "high": 48},
                 "Iavg": {"unit": "mA", "low" : 1, "high": 150},
- 		"Frequency Range": {"unit": "KHz", "low" : 100, "high": 2200},
+                "Frequency Range": {"unit": "KHz", "low" : 100, "high": 2200},
                 "Temperature Range": {"unit": "C", "low" : -40, "high": 125}
             },
             "Platforms":
