@@ -55,10 +55,10 @@
             "Image": "bmp280.jpg",
             "Examples":
             {
-                "Java": ["BMP280_Example.java"],
-                "Python": ["bmp280.py"],
-                "Node.js": ["bmp280.js"],
-                "C++": ["bmp280.cxx"],
+                "Java": ["BME280_Example.java", "BME280_InterfaceExample"],
+                "Python": ["bme280.py"],
+                "Node.js": ["bme280.js"],
+                "C++": ["bmp280-bme280.cxx"],
                 "C": ["bmp280-bme280.c"]
             },
             "Specifications":
