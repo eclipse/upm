@@ -12,28 +12,23 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["Texas Instruments"],
-            "Kits": [],
             "Image": "",
             "Examples":
             {
-                "Java": [""],
-                "Python": [""],
-                "Node.js": [""],
-                "C++": ["lp8860.cxx"],
-                "C": [""]
+                "C++": ["lp8860.cxx"]
             },
             "Specifications":
             {
                 "Vdd": {"unit": "v", "low" : 3, "high": 48},
                 "Iavg": {"unit": "mA", "low" : 1, "high": 150},
- 		"Frequency Range": {"unit": "KHz", "low" : 100, "high": 2200}
+ 		"Frequency Range": {"unit": "KHz", "low" : 100, "high": 2200},
                 "Temperature Range": {"unit": "C", "low" : -40, "high": 125}
             },
             "Platforms":
             {
                 "Intel Joule Module":
                 {
-                    "Notes": ["Might need pull up resistors"],
+                    "Notes": ["Might need pull up resistors"]
                 }
             },
             "Urls" :

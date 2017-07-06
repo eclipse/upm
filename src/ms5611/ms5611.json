@@ -12,15 +12,10 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["amsys"],
-            "Kits": [],
             "Image": "",
             "Examples":
             {
-                "Java": [""],
-                "Python": [""],
-                "Node.js": ["ms5611.js"],
-                "C++": ["ms5611.cxx"],
-                "C": [""]
+                "C++": ["ms5611.cxx"]
             },
             "Specifications":
             {
@@ -32,7 +27,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": ["might need pull up resistors"],
+                    "Notes": ["might need pull up resistors"]
                 }
             },
             "Urls" :

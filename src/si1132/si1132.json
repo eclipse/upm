@@ -16,11 +16,7 @@
             "Image": "",
             "Examples":
             {
-                "Java": [""],
-                "Python": [""],
-                "Node.js": [""],
-                "C++": ["si1132.cxx"],
-                "C": [""]
+                "C++": ["si1132.cxx"]
             },
             "Specifications":
             {
@@ -32,7 +28,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": ["might need pull up resistors"],
+                    "Notes": ["might need pull up resistors"]
                 }
             },
             "Urls" :
@@ -40,8 +36,6 @@
                 "Product Pages": ["http://www.silabs.com/products/sensors/optical/si1132"],
                 "Datasheets": ["https://www.silabs.com/documents/public/data-sheets/Si1132.pdf"]
             }
-        },
-       
         }
     }
 }

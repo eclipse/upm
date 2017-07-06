@@ -12,7 +12,6 @@
             "Connections": ["pwm"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["meanwell"],
-            "Kits": [],
             "Image": "hlg150h.jpg",
             "Examples":
             {
@@ -30,7 +29,7 @@
             {
                 "Intel Joule Module":
                 {
-                    "Notes": ["Might need pull up resistors"],
+                    "Notes": ["Might need pull up resistors"]
                 }
             },
             "Urls" :
@@ -39,6 +38,6 @@
                 "Datasheets": ["http://www.mouser.com/ds/2/260/r1755_3-1109742.pdf"],
                 "Schematics": ["http://www.mouser.com/ds/2/260/HLG-150H-SPEC-806071.pdf"]
             }
-        },
+        }
     }
 }
