@@ -48,7 +48,7 @@ namespace upm {
  * @type sound
  * @man seeed
  * @web http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensor
- * @con pwm
+ * @con analog
  * @kit gsk
  *
  * @brief API for the Analog Microphone

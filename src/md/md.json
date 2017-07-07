@@ -1,41 +1,41 @@
-{
-    "Library": "md",
-    "Description": "I2C Motor Driver Library",
-    "Sensor Class":
-    {
-        "MD":
-        {
-            "Name": "I2C Motor Driver",
-            "Description": "The Grove I2C Motor Driver is an I2C motor driver that supports a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L298N H-bridge driver chip. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Grove Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
-            "Aliases": ["I2C Motor Driver v1.3"],
-            "Categories": ["motor"],
-            "Connections": ["i2c"],
-            "Project Type": ["prototyping"],
-            "Manufacturers": ["seeed"],
-            "Kits": ["robok"],
-            "Image": "md.jpg",
-            "Examples":
-            {
-                "Java": ["MDSample.java"],
-                "Python": ["md.py", "md-stepper.py"],
-                "Node.js": ["md.js", "md-stepper.js"],
-                "C++": ["md.cxx", "md-stepper.cxx"],
-                "C": ["md.c", "md-stepper.c"]
-            },
-            "Specifications":
-            {
-                "Vdd": {"unit": "v", "low" : 6, "high": 15},
-                "Itotal" : {"unit": "A", "high": 1.0},
-                "Ichannel": {"unit": "mA", "high": 500},
+{
+    "Library": "md",
+    "Description": "I2C Motor Driver Library",
+    "Sensor Class":
+    {
+        "MD":
+        {
+            "Name": "I2C Motor Driver",
+            "Description": "The Grove I2C Motor Driver is an I2C motor driver that supports a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L298N H-bridge driver chip. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Grove Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
+            "Aliases": ["I2C Motor Driver v1.3"],
+            "Categories": ["motor"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["robok"],
+            "Image": "md.jpg",
+            "Examples":
+            {
+                "Java": ["MDSample.java"],
+                "Python": ["md.py", "md-stepper.py"],
+                "Node.js": ["md.js", "md-stepper.js"],
+                "C++": ["md.cxx", "md-stepper.cxx"],
+                "C": ["md.c", "md-stepper.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 6, "high": 15},
+                "Itotal" : {"unit": "A", "high": 1.0},
+                "Ichannel": {"unit": "mA", "high": 500},
                 "V_i2c_bus": {"unit": "v", "constant": 5},
-                "I2C Bus Speed": {"unit": "KHz", "constant": 100}
-            },
-            "Urls" :
-            {
-                "Product Pages": ["https://www.seeedstudio.com/Grove-I2C-Motor-Driver-p-907.html"],
-                "Datasheets": ["http://wiki.seeed.cc/Grove-I2C_Motor_Driver_V1.3"],
-                "Schematics": ["https://github.com/SeeedDocument/Grove-I2C_Motor_Driver_V1.3/raw/master/res/Grove%20-%20I2C%20Motor%20Driver%20%20v1.3b.pdf"]
-            }
-        }
-    }
+                "I2C Bus Speed": {"unit": "KHz", "constant": 100}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-I2C-Motor-Driver-p-907.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-I2C_Motor_Driver_V1.3"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-I2C_Motor_Driver_V1.3/raw/master/res/Grove%20-%20I2C%20Motor%20Driver%20%20v1.3b.pdf"]
+            }
+        }
+    }
 }

@@ -1,0 +1,47 @@
+{
+    "Library": "veml6070",
+    "Description": "Vishay VEML6070 UVA Light Sensor Library",
+    "Sensor Class":
+    {
+        "VEML6070":
+        {
+            "Name": "VEML6070 UV Light Sensor",
+            "Description": "VEML6070 is an advanced ultraviolet (UV) light sensor with I2C protocol interface and designed by the CMOS process. It is easily operated via a simple I2C command. The active acknowledge (ACK) feature with threshold windows setting allows the UV sensor to send out a UVI alert message. Under a strong solar UVI condition, the smart ACK signal can be easily implemented by the software programming. VEML6070 incorporates a photodiode, amplifiers, and analog / digital circuits into a single chip. VEML6070's adoption of FiltronTM UV technology provides the best spectral sensitivity to cover UV spectrum sensing. It has an excellent temperature compensation and a robust refresh rate setting that does not use an external RC low pass filter. VEML6070 has linear sensitivity to solar UV light and is easily adjusted by an external resistor. Software shutdown mode is provided, which reduces power consumption to be less than 1 uA. VEML6070's operating voltage ranges from 2.7 V to 5.5 V.",
+            "Aliases": ["veml6070"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["vishay"],
+            "Examples":
+            {
+                "Java": ["VEML6070Sample.java"],
+                "Python": ["veml6070.py"],
+                "Node.js": ["veml6070.js"],
+                "C++": ["veml6070.cxx"],
+                "C": ["veml6070.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "V", "min" : 2.7, "max": 5.5},
+                "Idd" : {"unit": "uA", "typ" : 100, "max": 250},
+                "UVA Detection Power": {"unit": "mW/cm2", "max" : 328}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["NA"]
+                },
+                "Intel Edison":
+                {
+                    "Notes": ["NA"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.vishay.com/ppg?84277"],
+                "Datasheets": ["http://www.vishay.com/docs/84277/veml6070.pdf"]
+            }
+        }
+    }
+}

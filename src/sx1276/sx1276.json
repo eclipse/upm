@@ -1,0 +1,68 @@
+{
+    "Library": "sx1276",
+    "Description": "Semtech SX1276 LoRa/FSK Modem Library",
+    "Sensor Class":
+    {
+        "SX1276":
+        {
+            "Name": "Semtech SX1276 LoRa/FSK Module",
+            "Description": "The SX1276 is a FSK/OOK/LoRa modem capable of both Low Frequency and High Frequency communication. It requires a 3.3v power supply, do not use 5v. Frequency Hopping Spread Spectrum (FHSS) is not currently supported.",
+            "Aliases": ["sx1276"],
+            "Categories": ["radio"],
+            "Connections": ["gpio", "spi"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["semtech"],
+            "Examples":
+            {
+                "Python": ["sx1276-fsk.py", "sx1276-lora.py"],
+                "Node.js": ["sx1276-fsk.js", "sx1276-lora.js"],
+                "C++": ["sx1276-fsk.cxx", "sx1276-lora.cxx"]
+            },
+            "Specifications":
+            {
+                "VDDmr": {"unit": "V", "min" : -0.5, "max": 3.9},
+                "VDDop": {"unit": "V", "min" : 1.8, "max": 3.7},
+                "Tmr" : {"unit": "°C", "min" : -55, "max": 115},
+                "Top" : {"unit": "°C", "min" : -40, "max": 85},
+                "IDDsl": {"unit": "uA", "typ" : 0, "max": 1},
+                "IDDidle": {"unit": "uA", "typ" : 1.5},
+                "IDDst": {"unit": "mA", "typ" : 1.6, "max": 1.8},
+                "IDDfs": {"unit": "mA", "typ" : 5.8},
+                "IDDr": [
+                    {"Conditions" : "LnaBoost Off, band 1", "unit": "mA", "typ" : 10.8},
+                    {"Conditions" : "LnaBoost On, band 1", "unit": "mA", "typ" : 11.5},
+                    {"Conditions" : "bands 2 & 3", "unit": "mA", "typ" : 12.0}
+                ],
+                "IDDt" : [
+                    {"Conditions" : "RFOP +20 dBm on PA_BOOST", "unit": "mA", "typ" : 120},
+                    {"Conditions" : "RFOP +17 dBm on PA_BOOST", "unit": "mA", "typ" : 87},
+                    {"Conditions" : "RFOP +13 dBm on RFO_LH/RH pin", "unit": "mA", "typ" : 29},
+                    {"Conditions" : "RFOP +7 dBm on RFO_LH/RH pin", "unit": "mA", "typ" : 20}
+                ],
+                "LoRaWAN Band" : "US915",
+                "Range" : "Claimed > 10km",
+                "Packet Size" : {"unit" : "bytes", "max" : 256}
+            },
+            "Platforms":
+            {
+                "Intel Edison":
+                {
+                    "Notes": ["Power using 3.3 V"]
+                },
+                "Arduino 101":
+                {
+                    "Notes": ["Power using 3.3 V"]
+                },
+                "Intel C1000":
+                {
+                    "Notes": ["Power using 3.3 V"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.semtech.com/wireless-rf/rf-transceivers/sx1276/"],
+                "Datasheets": ["http://www.semtech.com/images/datasheet/sx1276.pdf"]
+            }
+        }
+    }
+}
