@@ -436,6 +436,9 @@ macro(upm_swig_java)
     # depend on the JAVA interfaces
     if ("${_c_cxx_dependency_list}" MATCHES interfaces)
       add_dependencies(javaupm_${libname} javaupm_interfaces)
+      # If this target depends on interfaces, include the java interfaces
+      # target .jar file in the classpath, otherwise this variable will be empty
+      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
     endif ()
     swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
@@ -473,14 +476,16 @@ macro(upm_swig_java)
         set (JAR $ENV{JAVA_HOME_NATIVE}/bin/jar)
     endif ()
 
+    # Only include the upm_interfaces.jar in the classpath for targets which
+    # depend on the interfaces target.  This fixes an issue where javac
+    # complains about an empty upm_interfaces.jar when trying to build a target
+    # which does not depend on javaupm_interfaces.  If not previously set,
+    # INTERFACES_JAR_FILE will be empty, and javac *should* not complain.
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD
-        COMMAND cmake -E echo "Compiling java.."
         COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
-        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar:.
-
-        COMMAND cmake -E echo "Creating jar"
-        COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:.
+        COMMAND ${JAR} cf upm_${libname}.jar upm_${libname}
     )
 
     # Keep track of all JAVA targets
