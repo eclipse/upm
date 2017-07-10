@@ -132,6 +132,11 @@ namespace upm {
     float pH(unsigned int samples = 15);
 
   private:
+    /**
+     * Don't allow copies of this class
+     */
+    DFRPH(const DFRPH&) {}
+
     dfrph_context _dev;
   };
 }
