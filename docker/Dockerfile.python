@@ -1,0 +1,16 @@
+FROM upm-base
+
+# Update apt-get
+RUN apt-get -y update && \
+    # Python Build Dependencies
+    apt-get -y --no-install-recommends install python-mraa python3-mraa \
+    python python-dev python3 python3-dev python-pip python3-pip
+
+# Install Python Test Dependencies
+RUN pip install chardet && pip3 install chardet
+
+# Set Workdir
+WORKDIR $UPM_SRC_DIR
+
+CMD bash
+
