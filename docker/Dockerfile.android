@@ -1,0 +1,67 @@
+FROM upm-java
+
+WORKDIR /opt
+
+# Install CMake 3.6.2
+RUN wget -q https://cmake.org/files/v3.6/cmake-3.6.2-Linux-x86_64.sh && \
+    mkdir /opt/cmake && \
+    sh /opt/cmake-3.6.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license && \
+    ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake && \
+    cmake --version && \
+    rm -fr /opt/cmake-3.6.2-Linux-x86_64.sh
+
+# Android NDK build Dependencies
+RUN wget -q https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip && \
+    unzip -qq android-ndk-r14b-linux-x86_64.zip && \
+    rm -fr android-ndk-r14b-linux-x86_64.zip
+ENV NDK_HOME /opt/android-ndk-r14b
+ENV NDK_MODULE_PATH /opt/android-ndk-r14b
+
+# Android Things library
+RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/0.4.1-devpreview.tar.gz && \
+    tar xf 0.4.1-devpreview.tar.gz && \
+    rm -fr /opt/0.4.1-devpreview.tar.gz
+ENV ANDROIDTHINGS_NATIVE_LIB /opt/native-libandroidthings-0.4.1-devpreview
+
+# Build Mraa For Android Things
+RUN git clone --depth 1 https://github.com/intel-iot-devkit/mraa.git && \
+    cd mraa && \
+    cmake \
+      -DANDROID_COMPILER_FLAGS_CXX='-std=c++11' \
+      -DANDROID_PIE=1 \
+      -DANDROID_PLATFORM=android-24 \
+      -DANDROID_STL_FORCE_FEATURES=on \
+      -DANDROID_STL=c++_shared \
+      -DANDROID_TOOLCHAIN_NAME=x86-i686 \
+      -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
+      -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
+      -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=BOTH \
+      -DCMAKE_FIND_ROOT_PATH=$NDK_HOME/platforms/android-24/arch-x86/ \
+      -DCMAKE_MODULE_PATH=$ANDROIDTHINGS_NATIVE_LIB \
+      -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
+      -DCMAKE_INSTALL_PREFIX=/opt/mraa/install \
+      -DJAVA_AWT_INCLUDE_PATH=$JAVA_HOME/include \
+      -DJAVA_AWT_LIBRARY=$JAVA_HOME/jre/lib/amd64/libjawt.so \
+      -DJAVA_INCLUDE_PATH=$JAVA_HOME/include \
+      -DJAVA_INCLUDE_PATH2=$JAVA_HOME/include/linux \
+      -DJAVA_JVM_LIBRARY=$JAVA_HOME/jre/lib/amd64/server/libjvm.so \
+      -DBUILDARCH=PERIPHERALMAN \
+      -DJSONPLAT=OFF \
+      -DBUILDDOC=OFF \
+      -DBUILDSWIG=ON \
+      -DBUILDSWIGPYTHON=OFF \
+      -DBUILDSWIGNODE=OFF \
+      -DBUILDSWIGJAVA=ON \
+      -DENABLEEXAMPLES=OFF \
+      -DINSTALLGPIOTOOL=OFF \
+      -DINSTALLTOOLS=OFF \
+      -DBUILDTESTS=OFF \
+      -H. \
+      -Bbuild && \
+    make -j8 -Cbuild install
+ENV MRAA_INSTALL_DIR /opt/mraa/install
+
+# Set Workdir
+WORKDIR $UPM_SRC_DIR
+
+CMD bash
