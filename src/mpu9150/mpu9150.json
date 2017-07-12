@@ -25,11 +25,13 @@
                 "Vdd": {"unit": "v", "constant": 5},
                 "V_i2c_bus": {"unit": "v", "constant": 5},
                 "I2C Bus Speed": {"unit": "KHz", "typical": 400},
+
                 "Gyro Full-Scale Range": {"unit":"+/- degrees / sec", "low": 250, "high": 2000},
                 "Accelerometer Full-Scalse Range": {"unit": "+/- g", "low": 2, "high": 16},
                 "Gyro Resolution": {"unit": "bits", "constant": 16},
                 "Accelerometer Resolution": {"unit": "bits", "constant": 16},
                 "Magnetometer Resolution": {"unit": "bits", "constant": 13}
+
             },
             "Urls" :
             {
