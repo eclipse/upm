@@ -107,7 +107,7 @@ P9813::pushState(void)
         // The first byte is 11 followed by inverted bits 7 and 6 of blue, green, and red
         uint8_t byte0 = 0xFF;
         byte0 ^= (blue >> 2) & 0x30; // XOR bits 4-5
-        byte0 ^= (green >> 4) & 0xC0; // XOR bits 2-3
+        byte0 ^= (green >> 4) & 0x0C; // XOR bits 2-3
         byte0 ^= (red >> 6) & 0x03; // XOR bits 0-1
 	sendByte(byte0);
         sendByte(blue);
