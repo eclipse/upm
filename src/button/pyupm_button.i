@@ -3,8 +3,6 @@
 %module pyupm_button
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "button.hpp"
 %{
     #include "button.hpp"

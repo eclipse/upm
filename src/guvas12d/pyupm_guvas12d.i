@@ -3,8 +3,6 @@
 %module pyupm_guvas12d
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "guvas12d.hpp"
 %{
     #include "guvas12d.hpp"

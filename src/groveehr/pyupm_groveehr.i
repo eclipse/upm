@@ -3,8 +3,6 @@
 %module pyupm_groveehr
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "groveehr.hpp"
 %{
     #include "groveehr.hpp"

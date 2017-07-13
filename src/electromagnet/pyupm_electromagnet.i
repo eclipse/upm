@@ -3,8 +3,6 @@
 %module pyupm_electromagnet
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "electromagnet.hpp"
 %{
     #include "electromagnet.hpp"

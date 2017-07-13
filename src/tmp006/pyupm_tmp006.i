@@ -3,8 +3,6 @@
 %module pyupm_tmp006
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "tmp006_doc.i"
 #endif

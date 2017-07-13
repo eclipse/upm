@@ -3,8 +3,6 @@
 %module pyupm_mpr121
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "mpr121_doc.i"
 #endif

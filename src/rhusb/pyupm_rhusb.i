@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "rhusb.hpp"
 %{
     #include "rhusb.hpp"

@@ -4,8 +4,6 @@
 
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "mmc35240.hpp"
 %{
     #include "mmc35240.hpp"

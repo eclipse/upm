@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "max31855.hpp"
 %{
     #include "max31855.hpp"

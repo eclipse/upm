@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "t6713.hpp"
 %{
     #include "t6713.hpp"

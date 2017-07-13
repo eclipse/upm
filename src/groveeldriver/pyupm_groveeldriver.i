@@ -3,8 +3,6 @@
 %module pyupm_groveeldriver
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "groveeldriver.hpp"
 %{
     #include "groveeldriver.hpp"

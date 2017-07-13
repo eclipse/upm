@@ -3,8 +3,6 @@
 %module pyupm_nrf8001
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "nrf8001.hpp"
 %{
     #include "nrf8001.hpp"

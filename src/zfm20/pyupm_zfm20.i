@@ -7,8 +7,6 @@
 %include "../carrays_uint32_t.i"
 %include "cpointer.i"
 
-%feature("autodoc", "3");
-
 /* Send "int *" to python as intp */
 %pointer_functions(int, intp);
 %{

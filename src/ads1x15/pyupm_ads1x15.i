@@ -3,8 +3,6 @@
 %module pyupm_ads1x15
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "iModuleStatus.hpp"
 %include "iADC.hpp"
 

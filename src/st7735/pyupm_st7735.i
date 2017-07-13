@@ -4,9 +4,6 @@
 %include "../upm.i"
 %include "../carrays_uint8_t.i"
 
-%feature("autodoc", "3");
-%rename("printString") print(std::string msg);
-
 %include "st7735_gfx.hpp"
 %{
     #include "st7735_gfx.hpp"

@@ -3,8 +3,6 @@
 %module pyupm_grovewfs
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "grovewfs.hpp"
 %{
     #include "grovewfs.hpp"

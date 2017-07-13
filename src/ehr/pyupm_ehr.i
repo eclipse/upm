@@ -3,8 +3,6 @@
 %module pyupm_ehr
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "ehr.hpp"
 %{
     #include "ehr.hpp"

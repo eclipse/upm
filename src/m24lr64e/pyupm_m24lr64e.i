@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "m24lr64e_doc.i"
 #endif

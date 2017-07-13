@@ -3,8 +3,6 @@
 %module pyupm_linefinder
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "linefinder.hpp"
 %{
     #include "linefinder.hpp"

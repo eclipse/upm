@@ -3,8 +3,6 @@
 %module pyupm_rgbringcoder
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "rgbringcoder.hpp"
 %{
     #include "rgbringcoder.hpp"

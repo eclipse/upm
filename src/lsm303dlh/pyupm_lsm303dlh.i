@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../carrays_int16_t.i"
 
-%feature("autodoc", "3");
-
 // Adding this typemap because SWIG is converting int16 into a short by default
 // This forces SWIG to convert it correctly
 %typemap(out) int16_t* {

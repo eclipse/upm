@@ -1,9 +1,6 @@
 /* Include global UPM interface file */
 %include "../upm.i"
 
-/* Required for python documentation, ignored for others */
-%feature("autodoc", "3");
-
 %{
     /* SWIG preprocessor copies this directly to the output wrapper*/
     #include "sensortemplate.hpp"

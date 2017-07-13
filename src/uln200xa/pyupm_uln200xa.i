@@ -3,8 +3,6 @@
 %module pyupm_uln200xa
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "uln200xa_defs.h"
 %include "uln200xa.hpp"
 %{

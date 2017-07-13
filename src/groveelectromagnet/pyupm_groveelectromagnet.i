@@ -3,8 +3,6 @@
 %module pyupm_groveelectromagnet
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "groveelectromagnet.hpp"
 %{
     #include "groveelectromagnet.hpp"

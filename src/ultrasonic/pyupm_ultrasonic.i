@@ -3,8 +3,6 @@
 %module pyupm_ultrasonic
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "ultrasonic.hpp"
 %{
     #include "ultrasonic.hpp"

@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "lol.hpp"
 %{
     #include "lol.hpp"

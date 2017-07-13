@@ -7,8 +7,6 @@
 %pointer_functions(int, intPointer);
 %pointer_functions(float, floatPointer);
 
-%feature("autodoc", "3");
-
 %include "adxl335.hpp"
 %{
     #include "adxl335.hpp"

@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../carrays_uint8_t.i"
 
-%feature("autodoc", "3");
-
 %include "ssd.hpp"
 %include "lcd.hpp"
 %{

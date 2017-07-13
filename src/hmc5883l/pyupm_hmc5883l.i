@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../carrays_int16_t.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "hmc5883l_doc.i"
 #endif

@@ -3,8 +3,6 @@
 %module pyupm_grovecollision
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "grovecollision.hpp"
 %{
     #include "grovecollision.hpp"

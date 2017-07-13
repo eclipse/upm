@@ -5,8 +5,6 @@
 %include "stdint.i"
 %include "cpointer.i"
 
-%feature("autodoc", "3");
-
 %pointer_functions(float, floatp);
 
 %include "t3311.hpp"

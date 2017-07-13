@@ -3,8 +3,6 @@
 %module pyupm_scam
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "scam.hpp"
 %}

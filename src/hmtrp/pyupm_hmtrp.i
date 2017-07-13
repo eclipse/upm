@@ -9,8 +9,6 @@
 %rename("getModSignalStrengthNoParam")  getModSignalStrength();
 %rename("getRFSignalStrengthNoParam") getRFSignalStrength();
 
-%feature("autodoc", "3");
-
 %include "hmtrp.hpp"
 %{
     #include "hmtrp.hpp"

@@ -3,8 +3,6 @@
 %module pyupm_emg
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "emg.hpp"
 %{
     #include "emg.hpp"

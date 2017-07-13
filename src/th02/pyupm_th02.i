@@ -3,8 +3,6 @@
 %module pyupm_th02
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "th02.hpp"
 %{
     #include "th02.hpp"

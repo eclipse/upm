@@ -13,8 +13,6 @@
     $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_floatArray, 0 | 0 );
 }
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "itg3200_doc.i"
 #endif

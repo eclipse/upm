@@ -3,8 +3,6 @@
 %module pyupm_buzzer
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "buzzer_tones.h"
 %include "buzzer.hpp"
 %{

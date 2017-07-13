@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "bacnetmstp.hpp"
 %include "bacnetutil.hpp"
 %include "tb7300.hpp"

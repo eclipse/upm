@@ -3,8 +3,6 @@
 %module pyupm_grovescam
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "grovescam.hpp"
 %}

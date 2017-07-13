@@ -3,8 +3,6 @@
 %include "pyupm_doxy2swig.i"
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "max30100.hpp"
 %}

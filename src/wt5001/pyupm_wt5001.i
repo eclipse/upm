@@ -10,8 +10,6 @@
 %rename("getNumFilesOneParam")  getNumFiles(WT5001_PLAYSOURCE_T psrc);
 %rename("getCurrentFileNoParam") getCurrentFile();
 
-%feature("autodoc", "3");
-
 %{
     #include "wt5001.hpp"
     speed_t int_B9600 = B9600;

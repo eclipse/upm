@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../carrays_uint16_t.i"
 
-%feature("autodoc", "3");
-
 %include "gas.hpp"
 %{
     #include "gas.hpp"

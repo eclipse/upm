@@ -3,8 +3,6 @@
 %module pyupm_dfrph
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "dfrph.hpp"
 %{
     #include "dfrph.hpp"

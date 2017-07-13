@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "pulsensor.hpp"
 %{
     #include "pulsensor.hpp"

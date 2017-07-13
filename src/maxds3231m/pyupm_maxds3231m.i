@@ -3,8 +3,6 @@
 %module pyupm_maxds3231m
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "maxds3231m.hpp"
 %{
     #include "maxds3231m.hpp"

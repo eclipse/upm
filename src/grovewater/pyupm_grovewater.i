@@ -3,8 +3,6 @@
 %module pyupm_grovewater
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "grovewater.hpp"
 %{
     #include "grovewater.hpp"

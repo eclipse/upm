@@ -3,8 +3,6 @@
 %module pyupm_slide
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "slide.hpp"
 %{
     #include "slide.hpp"

@@ -3,8 +3,6 @@
 %module pyupm_loudness
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "loudness.hpp"
 %{
     #include "loudness.hpp"

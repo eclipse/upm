@@ -6,8 +6,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "bmp280_doc.i"
 #endif

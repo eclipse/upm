@@ -4,8 +4,6 @@
 // Include doxygen-generated documentation
 %include "pyupm_doxy2swig.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "iLightSensor.hpp"
     #include "iLightController.hpp"

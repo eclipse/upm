@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "std_string.i"
 
-%feature("autodoc", "3");
-
 %include "rn2903_defs.h"
 %include "rn2903.hpp"
 %{

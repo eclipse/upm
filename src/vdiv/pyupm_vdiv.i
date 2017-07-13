@@ -3,8 +3,6 @@
 %module pyupm_vdiv
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "vdiv.hpp"
 %{
     #include "vdiv.hpp"

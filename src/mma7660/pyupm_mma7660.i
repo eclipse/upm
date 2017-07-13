@@ -8,8 +8,6 @@
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "mma7660_doc.i"
 #endif

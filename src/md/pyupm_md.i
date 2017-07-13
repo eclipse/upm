@@ -3,8 +3,6 @@
 %module pyupm_md
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "md_doc.i"
 #endif

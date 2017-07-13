@@ -5,8 +5,6 @@
 %include "carrays.i"
 %include "std_string.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "xbee.hpp"
 %}

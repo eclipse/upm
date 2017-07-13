@@ -3,8 +3,6 @@
 %module pyupm_ina132
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "ina132.hpp"
 %{
     #include "ina132.hpp"

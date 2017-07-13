@@ -3,8 +3,6 @@
 %module pyupm_grove
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "grove.hpp"
 %{
     #include "grove.hpp"

@@ -778,7 +778,7 @@ if (BUILDDOC AND BUILDSWIGPYTHON)
   # doxy2swig the doxygen output
   add_custom_target (pyupm_doxy2swig ALL
     COMMAND ${PYTHON2_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doxy2swig.py
-      ${CMAKE_BINARY_DIR}/xml/index.xml
+      ${CMAKE_BINARY_DIR}/xml/index.xml --quiet
       ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i
       DEPENDS doc)
 # BUILDDOC not set but still building python modules, generate an empty

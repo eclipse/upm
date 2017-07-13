@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "std_string.i"
 
-%feature("autodoc", "3");
-
 %include "mb704x.hpp"
 %{
     #include "mb704x.hpp"

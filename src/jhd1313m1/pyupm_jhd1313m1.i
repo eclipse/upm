@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../upm_vectortypes.i"
 
-%feature("autodoc", "3");
-
 %include "jhd1313m1.hpp"
 %{
     #include "jhd1313m1.hpp"

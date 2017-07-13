@@ -3,8 +3,6 @@
 %module pyupm_mlx90614
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "mlx90614.hpp"
 %{
     #include "mlx90614.hpp"

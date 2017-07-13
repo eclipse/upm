@@ -4,8 +4,6 @@
 %include "pyupm_doxy2swig.i"
 
 
-%feature("autodoc", "3");
-
 %include "iModuleStatus.hpp"
 %include "iLightController.hpp"
 %include "ds1808lc.hpp"

@@ -3,8 +3,6 @@
 %module pyupm_water
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "water.hpp"
 %{
     #include "water.hpp"

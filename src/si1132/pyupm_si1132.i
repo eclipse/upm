@@ -6,8 +6,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "si1132.hpp"
 %{
     #include "si1132.hpp"

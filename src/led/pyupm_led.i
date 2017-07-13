@@ -3,8 +3,6 @@
 %module pyupm_led
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "led.hpp"
 %{
     #include "led.hpp"

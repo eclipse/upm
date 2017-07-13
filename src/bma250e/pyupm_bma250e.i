@@ -9,8 +9,6 @@
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "bma250e_doc.i"
 #endif

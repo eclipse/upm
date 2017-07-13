@@ -3,8 +3,6 @@
 %module pyupm_abp
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "abp.hpp"
 %{
     #include "abp.hpp"

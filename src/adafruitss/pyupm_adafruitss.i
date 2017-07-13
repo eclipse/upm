@@ -3,8 +3,6 @@
 %module pyupm_adafruitss
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %include "adafruitss.hpp"
 %{
     #include "adafruitss.hpp"

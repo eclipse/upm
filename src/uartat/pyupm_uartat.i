@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "std_string.i"
 
-%feature("autodoc", "3");
-
 %include "uartat_defs.h"
 %include "uartat.hpp"
 %{

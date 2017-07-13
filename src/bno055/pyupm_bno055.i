@@ -13,8 +13,6 @@
 %pointer_functions(float, floatp);
 
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "bno055_doc.i"
 #endif

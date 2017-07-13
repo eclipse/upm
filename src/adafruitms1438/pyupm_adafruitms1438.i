@@ -3,8 +3,6 @@
 %module pyupm_adafruitms1438
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "adafruitms1438_doc.i"
 #endif

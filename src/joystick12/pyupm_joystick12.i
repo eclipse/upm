@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "joystick12.hpp"
 %{
     #include "joystick12.hpp"

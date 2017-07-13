@@ -5,8 +5,6 @@
 %include "../carrays_int16_t.i"
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "curieupm_doc.i"
 #endif

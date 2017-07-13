@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "std_string.i"
 
-%feature("autodoc", "3");
-
 %include "hka5.hpp"
 %{
     #include "hka5.hpp"

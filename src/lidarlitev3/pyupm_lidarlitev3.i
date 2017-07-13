@@ -5,8 +5,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "lidarlitev3.hpp"
 %{
     #include "lidarlitev3.hpp"

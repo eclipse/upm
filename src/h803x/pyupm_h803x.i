@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %include "h803x.hpp"
 %{
     #include "h803x.hpp"

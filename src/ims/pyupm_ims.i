@@ -3,8 +3,6 @@
 %module pyupm_ims
 %include "../upm.i"
 
-%feature("autodoc", "3");
-
 %{
     #include "ims.hpp"
 %}

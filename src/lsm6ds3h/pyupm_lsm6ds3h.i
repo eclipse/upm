@@ -4,8 +4,6 @@
 %include "../upm.i"
 %include "../upm_vectortypes.i"
 
-%feature("autodoc", "3");
-
 #ifdef DOXYGEN
 %include "lsm6ds3h_doc.i"
 #endif

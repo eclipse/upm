@@ -6,8 +6,6 @@
 
 %include "stdint.i"
 
-%feature("autodoc", "3");
-
 %pointer_functions(float, floatp);
 
 %include "ozw.hpp"
