@@ -796,28 +796,34 @@ set(UPM_TARGETS_NODEJS "" CACHE INTERNAL "List of NodeJs target names")
 set(UPM_TARGETS_PYTHON2 "" CACHE INTERNAL "List of Python2 target names")
 set(UPM_TARGETS_PYTHON3 "" CACHE INTERNAL "List of Python3 target names")
 
-# Add subdirectories from MODULE_LIST if defined
-# Example -DMODULE_LIST="dfrph;rotaryencoder"
-if (MODULE_LIST)
-  set(SUBDIRS ${MODULE_LIST})
-  # Add interfaces directory
-  set(SUBDIRS ${SUBDIRS} interfaces)
-else()
-  # Otherwise, add all subdirectories
-  subdirlist(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+# MODULE_LIST can be specified on the CMake command line to specify
+# a list of directories under src to include in the build.
+# MODULE_LIST is optional.
+#   If MODULE_LIST is provided, only add the directories specified
+#   If MODULE_LIST is NOT provided, add all subdirectories under src
+# Example (-DMODULE_LIST="dfrph;rotaryencoder")
+if (NOT MODULE_LIST)
+  # If no module list, add all subdirectories
+  subdirlist(MODULE_LIST ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-# If the SUBDIRS list does NOT include the utilities directory, add it since
+# If the module list does NOT include the utilities directory, prepend it since
 # most sensor library targets depend on utilities
-if (NOT "${SUBDIRS}" MATCHES utilities)
-  add_subdirectory(${CMAKE_SOURCE_DIR}/src/utilities)
+if (NOT "${MODULE_LIST}" MATCHES ";utilities;")
+  set(MODULE_LIST "utilities;${MODULE_LIST}")
 endif()
 
-# Iterate over each directory in SUBDIRS
-foreach(subdir ${SUBDIRS})
-    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/CMakeLists.txt)
-        add_subdirectory(${subdir})
-    endif()
+# If the module list does NOT include the interfaces directory, prepend it since
+# some sensor library targets depend on interfaces
+if (NOT "${MODULE_LIST}" MATCHES ";interfaces;")
+  set(MODULE_LIST "interfaces;${MODULE_LIST}")
+endif()
+
+# Iterate over each directory in MODULE_LIST
+foreach(subdir ${MODULE_LIST})
+  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/CMakeLists.txt)
+    add_subdirectory(${subdir})
+  endif()
 endforeach()
 
 # Print stats for all targets
