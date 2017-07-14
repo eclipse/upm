@@ -480,6 +480,10 @@ namespace upm {
         bmg160_context m_bmg160;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMG160(const BMG160&) = delete;
+        BMG160 &operator=(const BMG160&) = delete;
+
         // needs to be private for SWIG Java builds
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,

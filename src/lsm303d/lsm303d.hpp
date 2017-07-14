@@ -238,5 +238,8 @@ namespace upm {
         void writeReg(uint8_t reg, uint8_t val);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LSM303D(const LSM303D&) = delete;
+        LSM303D &operator=(const LSM303D&) = delete;
     };
 }

@@ -180,5 +180,8 @@ namespace upm {
     upm_result_t write8Bits(uint8_t byte);
 
   private:
+    /* Disable implicit copy and assignment operators */
+    SHT1X(const SHT1X&) = delete;
+    SHT1X &operator=(const SHT1X&) = delete;
   };
 }

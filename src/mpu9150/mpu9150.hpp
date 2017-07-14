@@ -126,6 +126,10 @@ namespace upm {
 
 
   private:
+      /* Disable implicit copy and assignment operators */
+      MPU9150(const MPU9150&) = delete;
+      MPU9150 &operator=(const MPU9150&) = delete;
+
     int m_i2cBus;
     uint8_t m_magAddress;
     bool m_enableAk8975;

@@ -156,6 +156,10 @@ class APA102
     void pushState();
 
   private:
+    /* Disable implicit copy and assignment operators */
+    APA102(const APA102&) = delete;
+    APA102 &operator=(const APA102&) = delete;
+
     mraa::Spi* m_spi;
     mraa::Gpio* m_csnPinCtx;
 

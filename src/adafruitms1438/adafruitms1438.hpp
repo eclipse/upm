@@ -208,6 +208,10 @@ namespace upm {
     void stepperSteps(STEPMOTORS_T motor, unsigned int steps);
 
   private:
+    /* Disable implicit copy and assignment operators */
+    AdafruitMS1438(const AdafruitMS1438&) = delete;
+    AdafruitMS1438 &operator=(const AdafruitMS1438&) = delete;
+
     // SWIG will generate a warning for these 'nested structs'; however,
     // it can be ignored as these structs are never exposed.
 

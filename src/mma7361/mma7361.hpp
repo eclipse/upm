@@ -202,6 +202,9 @@ namespace upm {
     mma7361_context m_mma7361;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    MMA7361(const MMA7361&) = delete;
+    MMA7361 &operator=(const MMA7361&) = delete;
   };
 }
 

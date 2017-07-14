@@ -69,6 +69,10 @@ namespace upm {
     bool isWet();
 
   private:
+    /* Disable implicit copy and assignment operators */
+    Water(const Water&) = delete;
+    Water &operator=(const Water&) = delete;
+
     water_context m_water;
   };
 }

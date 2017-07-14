@@ -101,6 +101,10 @@ class LPD8806 {
             return m_name;
         }
     private:
+        /* Disable implicit copy and assignment operators */
+        LPD8806(const LPD8806&) = delete;
+        LPD8806 &operator=(const LPD8806&) = delete;
+
         std::string m_name;
         mraa::Spi        m_spi;
         mraa::Gpio       m_csnPinCtx;

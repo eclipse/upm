@@ -147,6 +147,10 @@ namespace upm {
     mraa::Aio *m_aioTemp;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    HDXXVXTA(const HDXXVXTA&) = delete;
+    HDXXVXTA &operator=(const HDXXVXTA&) = delete;
+
     float m_aref;
     int m_aResTemp;
     int m_aResHum;

@@ -312,6 +312,10 @@ namespace upm {
         lis2ds12_context m_lis2ds12;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LIS2DS12(const LIS2DS12&) = delete;
+        LIS2DS12 &operator=(const LIS2DS12&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(LIS2DS12_INTERRUPT_PINS_T intr, int gpio,

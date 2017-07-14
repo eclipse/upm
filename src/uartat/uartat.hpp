@@ -257,5 +257,8 @@ namespace upm {
         uartat_context m_uartat;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        UARTAT(const UARTAT&) = delete;
+        UARTAT &operator=(const UARTAT&) = delete;
     };
 }

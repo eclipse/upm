@@ -813,6 +813,10 @@ namespace upm {
     float m_accelScale;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    BMA220(const BMA220&) = delete;
+    BMA220 &operator=(const BMA220&) = delete;
+
     /**
      * update the accelerometer values
      */

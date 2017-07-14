@@ -515,6 +515,10 @@ namespace upm {
         void bitModify(uint8_t addr, uint8_t mask, uint8_t value);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        MCP2515(const MCP2515&) = delete;
+        MCP2515 &operator=(const MCP2515&) = delete;
+
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(int pin, void (*isr)(void *), void *arg);
 #endif

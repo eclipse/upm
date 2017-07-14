@@ -133,5 +133,8 @@ class ENC03R {
         enc03r_context m_enc03r;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        ENC03R(const ENC03R&) = delete;
+        ENC03R &operator=(const ENC03R&) = delete;
 };
 }

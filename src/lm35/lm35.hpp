@@ -101,7 +101,8 @@ namespace upm {
         lm35_context m_lm35;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LM35(const LM35&) = delete;
+        LM35 &operator=(const LM35&) = delete;
     };
 }
-
-

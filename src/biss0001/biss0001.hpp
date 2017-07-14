@@ -88,6 +88,10 @@ namespace upm {
       bool motionDetected() { return value(); };
 
   private:
+      /* Disable implicit copy and assignment operators */
+      BISS0001(const BISS0001&) = delete;
+      BISS0001 &operator=(const BISS0001&) = delete;
+
       biss0001_context m_biss0001;
   };
 }

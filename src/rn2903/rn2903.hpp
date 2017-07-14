@@ -632,5 +632,8 @@ namespace upm {
         int write(std::string buffer);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        RN2903(const RN2903&) = delete;
+        RN2903 &operator=(const RN2903&) = delete;
     };
 }

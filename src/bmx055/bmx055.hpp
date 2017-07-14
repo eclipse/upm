@@ -247,5 +247,8 @@ namespace upm {
         BMM150 *m_mag;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMX055(const BMX055&) = delete;
+        BMX055 &operator=(const BMX055&) = delete;
     };
 }

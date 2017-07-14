@@ -241,6 +241,8 @@ namespace upm {
         void writeReg(uint8_t reg, uint8_t val);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMPX8X(const BMPX8X&) = delete;
+        BMPX8X &operator=(const BMPX8X&) = delete;
     };
-
 }

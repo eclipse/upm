@@ -932,6 +932,10 @@ namespace upm {
     float m_gyroScale;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    MPU60X0(const MPU60X0&) = delete;
+    MPU60X0 &operator=(const MPU60X0&) = delete;
+
     mraa::I2c m_i2c;
     uint8_t m_addr;
 

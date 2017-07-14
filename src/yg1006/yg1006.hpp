@@ -76,6 +76,10 @@ namespace upm {
     bool flameDetected();
 
   private:
+    /* Disable implicit copy and assignment operators */
+    YG1006(const YG1006&) = delete;
+    YG1006 &operator=(const YG1006&) = delete;
+
     yg1006_context m_yg1006;
   };
 }

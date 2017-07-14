@@ -83,6 +83,10 @@ class SI1132 : public ILightSensor {
         virtual const char* getModuleName() { return "si1132"; }
 
     private:
+        /* Disable implicit copy and assignment operators */
+        SI1132(const SI1132&) = delete;
+        SI1132 &operator=(const SI1132&) = delete;
+
         mraa::Result reset();
         mraa::Result clearResponseRegister();
         mraa::Result runCommand(uint8_t command);

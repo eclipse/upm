@@ -134,6 +134,10 @@ class MAX44009 : public ILightSensor {
         virtual const char* getModuleName() { return "max44009"; }
 
     private:
+        /* Disable implicit copy and assignment operators */
+        MAX44009(const MAX44009&) = delete;
+        MAX44009 &operator=(const MAX44009&) = delete;
+
         mraa::Result reset();
 
         int m_maxControlAddr;

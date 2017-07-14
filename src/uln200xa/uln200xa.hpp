@@ -106,10 +106,11 @@ namespace upm {
     void release();
 
   protected:
-      uln200xa_context m_uln200xa;
+    uln200xa_context m_uln200xa;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    ULN200XA(const ULN200XA&) = delete;
+    ULN200XA &operator=(const ULN200XA&) = delete;
   };
 }
-
-

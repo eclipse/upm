@@ -154,6 +154,10 @@ class StepMotor {
         int getStep ();
 
     private:
+        /* Disable implicit copy and assignment operators */
+        StepMotor(const StepMotor&) = delete;
+        StepMotor &operator=(const StepMotor&) = delete;
+
         std::string         m_name;
 
         mraa::Gpio          m_dirPinCtx;

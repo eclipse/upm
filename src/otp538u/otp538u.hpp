@@ -166,6 +166,11 @@ namespace upm {
 
     protected:
         otp538u_context m_otp538u;
+
+    private:
+        /* Disable implicit copy and assignment operators */
+        OTP538U(const OTP538U&) = delete;
+        OTP538U &operator=(const OTP538U&) = delete;
     };
 }
 

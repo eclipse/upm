@@ -174,6 +174,10 @@ namespace upm {
         void enableAllPorts();
 
     private:
+        /* Disable implicit copy and assignment operators */
+        TCA9548A(const TCA9548A&) = delete;
+        TCA9548A &operator=(const TCA9548A&) = delete;
+
         std::string m_name;
 
         mraa::I2c* i2c;

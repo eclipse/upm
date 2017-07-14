@@ -369,6 +369,10 @@ namespace upm {
         void writeReg(uint8_t reg, uint8_t val);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LSM303AGR(const LSM303AGR&) = delete;
+        LSM303AGR &operator=(const LSM303AGR&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(LSM303AGR_INTERRUPT_PINS_T intr, int gpio,

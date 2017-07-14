@@ -582,6 +582,10 @@ namespace upm {
         bma250e_context m_bma250e;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMA250E(const BMA250E&) = delete;
+        BMA250E &operator=(const BMA250E&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(BMA250E_INTERRUPT_PINS_T intr, int gpio,

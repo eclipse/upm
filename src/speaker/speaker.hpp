@@ -145,5 +145,8 @@ namespace upm {
         speaker_context m_speaker;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        Speaker(const Speaker&) = delete;
+        Speaker &operator=(const Speaker&) = delete;
     };
 }

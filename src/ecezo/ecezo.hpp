@@ -234,5 +234,8 @@ namespace upm {
         void write(std::string data);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        ECEZO(const ECEZO&) = delete;
+        ECEZO &operator=(const ECEZO&) = delete;
     };
 }

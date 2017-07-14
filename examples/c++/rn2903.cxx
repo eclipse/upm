@@ -42,8 +42,7 @@ int main(int argc, char **argv)
     cout << "Using device: " << defaultDev << endl;
 
     // Instantiate a RN2903 sensor on defaultDev at 57600 baud.
-    upm::RN2903 sensor = upm::RN2903(defaultDev,
-                                     RN2903_DEFAULT_BAUDRATE);
+    upm::RN2903 sensor(defaultDev, RN2903_DEFAULT_BAUDRATE);
 
     // To use an internal UART understood by MRAA, use the following
     // to inititialize rather than the above, which by default uses a

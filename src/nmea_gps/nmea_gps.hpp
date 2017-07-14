@@ -146,6 +146,9 @@ namespace upm {
     nmea_gps_context m_nmea_gps;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    NMEAGPS(const NMEAGPS&) = delete;
+    NMEAGPS &operator=(const NMEAGPS&) = delete;
   };
 }
 

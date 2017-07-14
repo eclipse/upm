@@ -212,5 +212,8 @@ namespace upm {
       ds18b20_context m_ds18b20;
 
   private:
+      /* Disable implicit copy and assignment operators */
+      DS18B20(const DS18B20&) = delete;
+      DS18B20 &operator=(const DS18B20&) = delete;
   };
 }

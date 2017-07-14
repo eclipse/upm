@@ -314,6 +314,10 @@ namespace upm {
             uint16_t getDevicedId();
 
         private:
+            /* Disable implicit copy and assignment operators */
+            MCP9808(const MCP9808&) = delete;
+            MCP9808 &operator=(const MCP9808&) = delete;
+
             std::string m_name;
             bool m_celsius;
             bool m_tcrit;

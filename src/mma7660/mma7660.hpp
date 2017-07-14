@@ -247,6 +247,10 @@ namespace upm {
         mma7660_context m_mma7660;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        MMA7660(const MMA7660&) = delete;
+        MMA7660 &operator=(const MMA7660&) = delete;
+
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(int pin, void (*isr)(void *), void *arg);
 #endif

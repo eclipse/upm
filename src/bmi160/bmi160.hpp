@@ -242,5 +242,8 @@ namespace upm {
         void busWrite(int addr, int reg, std::string data);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMI160(const BMI160&) = delete;
+        BMI160 &operator=(const BMI160&) = delete;
     };
 }

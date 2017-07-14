@@ -158,5 +158,8 @@ namespace upm {
     dfrorp_context m_dfrorp;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    DFRORP(const DFRORP&) = delete;
+    DFRORP &operator=(const DFRORP&) = delete;
   };
 }

@@ -114,6 +114,10 @@ namespace upm {
         void setOffset(float offset);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        GUVAS12D(const GUVAS12D&) = delete;
+        GUVAS12D &operator=(const GUVAS12D&) = delete;
+
         guvas12d_context m_guvas12d;
     };
 }

@@ -118,5 +118,10 @@ namespace upm {
     protected:
         std::string m_name;
         buzzer_context m_buzzer;
+
+    private:
+        /* Disable implicit copy and assignment operators */
+        Buzzer(const Buzzer&) = delete;
+        Buzzer &operator=(const Buzzer&) = delete;
     };
 }

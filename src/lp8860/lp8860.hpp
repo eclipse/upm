@@ -65,6 +65,10 @@ public:
    void setBrightness(int dutyPercent);
 
 private:
+   /* Disable implicit copy and assignment operators */
+   LP8860(const LP8860&) = delete;
+   LP8860 &operator=(const LP8860&) = delete;
+
    void i2cWriteByte(int reg, int value);
    void i2cWriteBuffer(int reg, uint8_t* buf, int length);
    uint8_t i2cReadByte(uint8_t reg);

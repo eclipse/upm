@@ -125,6 +125,10 @@ class SI7005 : public ITemperatureSensor, public IHumiditySensor {
         void disableFastConversionMode();
 
     private:
+        /* Disable implicit copy and assignment operators */
+        SI7005(const SI7005&) = delete;
+        SI7005 &operator=(const SI7005&) = delete;
+
         int m_controlAddr;
         int m_bus;
         int m_pin;

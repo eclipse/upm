@@ -675,6 +675,10 @@ namespace upm {
         void writeRegs(uint8_t reg, uint8_t *buffer, int len);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BNO055(const BNO055&) = delete;
+        BNO055 &operator=(const BNO055&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(int gpio, mraa_gpio_edge_t level,

@@ -152,7 +152,8 @@ namespace upm {
     urm37_context m_urm37;
 
   private:
+    /* Disable implicit copy and assignment operators */
+    URM37(const URM37&) = delete;
+    URM37 &operator=(const URM37&) = delete;
   };
 }
-
-

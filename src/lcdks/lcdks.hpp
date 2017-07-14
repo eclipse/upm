@@ -267,5 +267,9 @@ namespace upm
         lcdks_context m_lcdks;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LCDKS(const LCDKS&) = delete;
+        LCDKS &operator=(const LCDKS&) = delete;
+
     };
 }

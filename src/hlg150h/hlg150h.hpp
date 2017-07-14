@@ -67,6 +67,10 @@ public:
    void setBrightness(int dutyPercent);
 
 private:
+   /* Disable implicit copy and assignment operators */
+   HLG150H(const HLG150H&) = delete;
+   HLG150H &operator=(const HLG150H&) = delete;
+
    mraa::Result status;
    bool isPoweredShadow;
    int pinRelay;

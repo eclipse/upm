@@ -117,6 +117,10 @@ namespace upm {
             }
 
         private:
+            /* Disable implicit copy and assignment operators */
+            MICSV89(const MICSV89&) = delete;
+            MICSV89 &operator=(const MICSV89&) = delete;
+
             std::string m_name;
             bool m_valid;
             uint8_t m_address;

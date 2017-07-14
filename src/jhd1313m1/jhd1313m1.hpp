@@ -252,5 +252,8 @@ namespace upm
         upm_result_t data(uint8_t data);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        Jhd1313m1(const Jhd1313m1&) = delete;
+        Jhd1313m1 &operator=(const Jhd1313m1&) = delete;
     };
 }

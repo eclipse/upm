@@ -80,6 +80,10 @@ namespace upm {
         bool blackDetected();
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LineFinder(const LineFinder&) = delete;
+        LineFinder &operator=(const LineFinder&) = delete;
+
         linefinder_context m_linefinder;
     };
 }

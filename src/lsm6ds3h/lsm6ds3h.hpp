@@ -326,6 +326,10 @@ namespace upm {
         lsm6ds3h_context m_lsm6ds3h;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        LSM6DS3H(const LSM6DS3H&) = delete;
+        LSM6DS3H &operator=(const LSM6DS3H&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(LSM6DS3H_INTERRUPT_PINS_T intr, int gpio,

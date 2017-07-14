@@ -179,5 +179,8 @@ namespace upm {
         void busWrite(int cmd, std::string data);
 
     private:
+        /* Disable implicit copy and assignment operators */
+        MS5803(const MS5803&) = delete;
+        MS5803 &operator=(const MS5803&) = delete;
     };
 }

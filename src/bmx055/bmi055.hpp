@@ -191,5 +191,8 @@ namespace upm {
         BMG160 *m_gyro;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMI055(const BMI055&) = delete;
+        BMI055 &operator=(const BMI055&) = delete;
     };
 }

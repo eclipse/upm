@@ -346,6 +346,10 @@ namespace upm {
         bmm150_context m_bmm150;
 
     private:
+        /* Disable implicit copy and assignment operators */
+        BMM150(const BMM150&) = delete;
+        BMM150 &operator=(const BMM150&) = delete;
+
         // Adding a private function definition for java bindings
 #if defined(SWIGJAVA) || defined(JAVACALLBACK)
         void installISR(BMM150_INTERRUPT_PINS_T intr, int gpio,
