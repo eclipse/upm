@@ -84,7 +84,6 @@ private:
    uint32_t readRawPressure();
    uint32_t readRawTemperature();
 
-   mraa::Result status;
    mraa::I2c* i2c;
    int address;
    uint16_t *prom;

@@ -53,13 +53,11 @@ using namespace upm;
 
 MS5611::MS5611(int i2cBus, int address)
 {
-    status = mraa::ERROR_INVALID_RESOURCE;
-    i2c = new mraa::I2c(2);
+    i2c = new mraa::I2c(i2cBus);
     this->address = address;
     i2c->address(address);
     prom = new uint16_t[MS5611_PROM_SIZE];
-    status = i2c->writeByte(MS5611_CMD_RESET);
-    if (status != mraa::SUCCESS)
+    if (i2c->writeByte(MS5611_CMD_RESET != mraa::SUCCESS))
         UPM_THROW("Reset failed.");
     delayms(5);
     for (int i = 0; i < MS5611_PROM_SIZE; ++i) {
@@ -154,8 +152,7 @@ uint32_t MS5611::readADC(int adcReg)
 {
     uint32_t value;
     uint8_t buf[3];
-    status = i2c->writeByte(adcReg + osr);
-    if (status != mraa::SUCCESS)
+    if (i2c->writeByte(adcReg + osr) != mraa::SUCCESS)
        UPM_THROW("Convert D2 failed");
     delayms(100);
     int bytesRead = i2c->readBytesReg(MS5611_CMD_ADC_READ, buf, 3);
