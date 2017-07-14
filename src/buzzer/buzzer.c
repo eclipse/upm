@@ -103,10 +103,9 @@ upm_result_t buzzer_play_sound(const buzzer_context dev, int note, int delay)
 {
     assert(dev != NULL);
 
-    if (mraa_pwm_period_us(dev->pwm, note))
+    if (mraa_pwm_period_us(dev->pwm, note) != MRAA_SUCCESS)
     {
-        printf("%s: mraa_pwm_period_us() failed\n", __FUNCTION__);
-        return UPM_ERROR_OPERATION_FAILED;
+        printf("%s: mraa_pwm_period_us() did not succeed\n", __FUNCTION__);
     }
 
     if (mraa_pwm_write(dev->pwm, dev->volume * 0.5))
