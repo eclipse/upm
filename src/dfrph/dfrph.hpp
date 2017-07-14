@@ -136,6 +136,7 @@ namespace upm {
      * Don't allow copies of this class
      */
     DFRPH(const DFRPH&) {}
+    DFRPH &operator=(const DFRPH &) {return *this;}
 
     dfrph_context _dev;
   };
