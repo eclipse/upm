@@ -84,7 +84,7 @@ static int32_t _bmp280_compensate_T_int32(const bmp280_context dev,
 
 // Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format
 // (24 integer bits and 8 fractional bits).  Output value of
-// “24674867” represents 24674867/256 = 96386.2 Pa = 963.862 hPa
+// "24674867" represents 24674867/256 = 96386.2 Pa = 963.862 hPa
 static uint32_t _bmp280_compensate_P_int64(const bmp280_context dev,
                                            int32_t adc_P)
 {
@@ -111,7 +111,7 @@ static uint32_t _bmp280_compensate_P_int64(const bmp280_context dev,
 
 // This function comes from the BME280 datasheet, section 4.2.3
 // Returns humidity in %RH as unsigned 32 bit integer in Q22.10 format
-// (22 integer and 10 fractional bits).  Output value of “47445”
+// (22 integer and 10 fractional bits).  Output value of "47445"
 // represents 47445/1024 = 46.333 %RH
 // BME280 only
 static uint32_t _bme280_compensate_H_int32(const bmp280_context dev,
@@ -135,7 +135,7 @@ static upm_result_t _read_calibration_data(const bmp280_context dev)
     assert(dev != NULL);
 
 #if defined(BMP280_USE_TEST_DATA)
-    printf("%s: WARNING: Test data is being used\n", __FUNCTIOM__);
+    printf("%s: WARNING: Test data is being used\n", __FUNCTION__);
 
     // This data is taken from the datasheet, section 3.12
     dev->dig_T1 = 27504;
