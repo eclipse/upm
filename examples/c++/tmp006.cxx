@@ -58,8 +58,8 @@ int main(int argc, char **argv)
   // update and print available values every second
   while (run)
     {
-      // Print out temperature value in °C
-      std::cout << "Temperature: " << mySensor->getTemperature(true) << " °C"
+      // Print out temperature value in *C
+      std::cout << "Temperature: " << mySensor->getTemperature(true) << " *C"
            << std::endl;
 
       sleep(1);

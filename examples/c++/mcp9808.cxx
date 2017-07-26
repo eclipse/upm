@@ -42,7 +42,7 @@ int main()
 		{
 		float t;
 		case 1:
-			std::cout << "Temp: " << temp->getTemp() << "° " <<  (temp->isCelsius()? "Celsius" : "Fahrenheit")<< std::endl;
+			std::cout << "Temp: " << temp->getTemp() << "* " <<  (temp->isCelsius()? "Celsius" : "Fahrenheit")<< std::endl;
 			break;
 		case 2:
 			cout << "shutdown sensor (sleep mode)" << endl;

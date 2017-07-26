@@ -30,7 +30,7 @@ SONAR_TOKEN=${SONAR_TOKEN:?value not provided}
 
 bw_output_path="${UPM_SRC_DIR}/build/bw-output"
 
-sonar_cmd_base="build-wrapper-linux-x86-64 --out-dir ${bw_output_path} make clean all && \
+sonar_cmd_base="build-wrapper-linux-x86-64 --out-dir ${bw_output_path} make -j8 clean all && \
     sonar-scanner \
         --debug \
         -Dsonar.projectKey=${SONAR_PROJ_KEY} \

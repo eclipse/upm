@@ -222,7 +222,7 @@ upm_result_t max30100_get_temperature(const max30100_context* dev, float* temper
     /* This register stores the fractional temperature data in increments of
      * 0.0625C (1/16th of a degree C).  If this fractional temperature is
      * paired with a negative integer, it still adds as a positive fractional
-     * value (e.g., -128°C + 0.5°C = -127.5°C). */
+     * value (e.g., -128 C + 0.5 C = -127.5 C). */
     result = max30100_read(dev, MAX30100_REG_TEMP_FRACTION, (uint8_t*)&tmp_val);
     if (result != UPM_SUCCESS) return result;
 
