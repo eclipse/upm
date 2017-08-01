@@ -1,37 +1,54 @@
 {
     "Library": "max44009",
-    "Description": "Ambient Light Sensor Library",
-    "Sensor Class":
-    {
-        "MAX44009":
-        {
-            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
-            "Description": "The MAX44009 ambient light sensor features an i2c digital output that is ideal for a number of portable applications such as smartphones, notebooks and industrial sensors",
-            "Aliases": ["max44009"],
+    "Description": "max44009 ambient light sensor library",
+    "Sensor Class": {
+        "MAX44009": {
+            "Name": "max44009 ambient light sensor",
+            "Description": "This is the UPM Module for the Maxim Integrated ambient light sensor. This sensor offers i2c interface, with a built in analog to digital converter. It offers a large range from 0.045 to 188,000 Lux. It also offers a very low power consumption.",
+            "Aliases": ["max44009", "MAX44009 Industry's Lowest-Power Ambient Light Sensor with ADC"],
             "Categories": ["light"],
             "Connections": ["i2c"],
-            "Project Type": ["prototyping", "industrial"],
-            "Manufacturers": ["Maxim integrated"],
-            "Image": "",
-            "Examples":
-            {
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["maxim"],
+            "Image": "max44009.jpg",
+            "Examples": {
                 "C++": ["max44009.cxx"]
             },
-            "Specifications":
-            {
-                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
-                "Temperature Range": {"unit": "C", "low" : -40, "high": 85},
-                "Dynamic Range": {"unit": "lux", "low" : 0.045, "high": 188000}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": ["might need pull up resistors"]
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.7,
+                    "max": 3.6
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "uA",
+                        "typ": "0.65"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Detection range": {
+                    "unit": "Lux",
+                    "min" : "0.045",
+                    "max" : "188,000"
                 }
             },
-            "Urls" :
-            {
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
                 "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44009.html"],
                 "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX44009.pdf"]
             }
