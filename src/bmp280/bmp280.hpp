@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @brief BMP280 Digital Pressure Sensor
      * @defgroup bmp280 libupm-bmp280
-     * @ingroup i2c spi gpio pressure
+     * @ingroup i2c spi gpio pressure bosch adafruit
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @sensor bmp280
      * @comname Digital Pressure Sensor
      * @type pressure
-     * @man adafruit
+     * @man bosch adafruit
      * @con i2c spi gpio
      * @web https://www.adafruit.com/products/2651
      *

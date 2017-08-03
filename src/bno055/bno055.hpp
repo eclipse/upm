@@ -33,7 +33,7 @@ namespace upm {
     /**
      * @brief BNO055 Absolute Orientation 9DOF Fusion Hub
      * @defgroup bno055 libupm-bno055
-     * @ingroup i2c gpio accelerometer compass
+     * @ingroup i2c gpio accelerometer compass bosch adafruit
      */
 
     /**
@@ -41,7 +41,7 @@ namespace upm {
      * @sensor bno055
      * @comname Intelligent 9-axis Absolute Orientation Sensor
      * @type accelerometer compass
-     * @man adafruit
+     * @man bosch adafruit
      * @con i2c gpio
      * @web https://www.adafruit.com/products/2472
      *

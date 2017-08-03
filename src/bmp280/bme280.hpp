@@ -37,7 +37,7 @@ namespace upm {
      * @sensor bme280
      * @comname Digital Humidity, Pressure, and Temperature Sensor
      * @type pressure humidity
-     * @man adafruit
+     * @man bosch adafruit
      * @con i2c spi gpio
      * @web https://www.adafruit.com/products/2652
      *

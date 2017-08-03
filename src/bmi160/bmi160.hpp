@@ -33,7 +33,7 @@ namespace upm {
     /**
      * @brief BMI160 3-axis Accelerometer, Gyroscope and Magnetometer
      * @defgroup bmi160 libupm-bmi160
-     * @ingroup i2c accelerometer compass
+     * @ingroup i2c accelerometer compass bosch mouser
      */
 
 
@@ -43,7 +43,7 @@ namespace upm {
      * @comname Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)
      * and Magnetometer
      * @type accelerometer compass
-     * @man mouser
+     * @man bosch mouser
      * @con i2c
      * @web https://www.bosch-sensortec.com/bst/products/all_products/bmi160
      *

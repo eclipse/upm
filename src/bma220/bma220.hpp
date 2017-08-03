@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @brief BMA220 Accelerometer library
    * @defgroup bma220 libupm-bma220
-   * @ingroup i2c gpio accelerometer
+   * @ingroup i2c gpio accelerometer bosch dfrobot
    */
 
   /**
@@ -44,7 +44,7 @@ namespace upm {
    * @sensor bma220
    * @comname Digital Triaxial Acceleration Sensor
    * @type accelerometer
-   * @man dfrobot
+   * @man bosch dfrobot
    * @con i2c gpio
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1085
    *
