@@ -1,0 +1,54 @@
+{
+    "Library": "mg811",
+    "Description": "API for the DFRobot CO2 Sensor",
+    "Sensor Class": {
+        "MG811": {
+            "Name": "DFRobot CO2 Sensor",
+            "Description": "This sensor returns an an analog voltage that falls as the concentration of CO2 increases.  It contains a heater that must be allowed to 'warm' up the sensor before measurements are stable (hours to days is the recommendation).  It requires that the MCU be powered from an external power supply (not USB) at 5v, since the heater will consume significant current. The sensor should be allowed to 'heat' up for some time before beginning use, typically a couple of hours minimum.  It also needs fairly precise calibration at 400ppm and 1000ppm to return meaningful results. The sensor also incorporates a potentiometer that can be adjusted to specific threshold.  Once that threshold is reached, an LED on the sensor will light, and the digital pin will be driven high.",
+            "Aliases": ["mg811", "Gravity: Analog CO2 Gas Sensor For Arduino"],
+            "Categories": ["gaseous"],
+            "Connections": ["analog"],
+            "Project Type": ["prototype", "industrial", "commercial"],
+            "Manufacturers": ["dfrobot"],
+            "Image": "mg811.jpg",
+            "Examples": {
+                "Python": ["mg811.py"],
+                "Node.js": ["mg811.js"],
+                "C++": ["mg811.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 0,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 200
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 50
+                },
+                "Effective Range": {
+                    "unit": "ppm",
+                    "min" : "350",
+                    "max" : "10,000"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Requires the Gravity: IO Expansion Shield for Arduino V7.1"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Requires the Gravity: IO Expansion Shield for Arduino V7.1"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/product-1023.html"],
+                "Datasheets": ["http://image.dfrobot.com/image/data/SEN0159/CO2b%20MG811%20datasheet.pdf"]
+            }
+        }
+    }
+}

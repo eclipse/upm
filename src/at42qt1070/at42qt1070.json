@@ -1,0 +1,57 @@
+{
+    "Library": "at42qt1070",
+    "Description": "Atmel Touch Sensor library",
+    "Sensor Class": {
+        "AT42QT1070": {
+            "Name": "Atmel AT42QT1070 touch sensor",
+            "Description": "This is the UPM Module for the Atmel at42qt1070 touch sensor. This sensor is a single touch capacitive sensor, able to detect when a capacitive load is applied to one of the five pins offered. It has extensive exernal noise and RF suppression built in. When a capacitive load is detected, the corrisponding output is pulled low until the load is eliminated.",
+            "Aliases": ["at42qt1070", "Grove-Q Touch Sensor"],
+            "Categories": ["touch"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Atmel", "Seeed"],
+            "Image": "at42qt1070.jpg",
+            "Examples": {
+                "Python": ["at42qt1070.py"],
+                "Node.js": ["at42qt1070.js"],
+                "C++": ["at42qt1070.cxx"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 1.8,
+                    "max": 5.5
+                },
+                "Supply Current Digital": {
+                    "3.3 Vdc": {
+                        "unit": "mA",
+                        "min": "0.0",
+                        "max": "1.0"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Capacitance": {
+                    "unit": "pF",
+                    "min": 1,
+                    "max": 30
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might require Seeed breakout board"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might require Seeed breakout board"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Q-Touch-Sensor-p-1854.html"],
+                "Datasheets": ["http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9596-AT42-QTouch-BSW-AT42QT1070_Datasheet.pdf"]
+            }
+        }
+    }
+}
