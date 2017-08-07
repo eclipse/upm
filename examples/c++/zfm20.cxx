@@ -38,7 +38,7 @@ main(int argc, char** argv)
     upm::ZFM20 fp(0);
 
     // make sure port is initialized properly.  57600 baud is the default.
-    if (!fp.setupTty(B57600)) {
+    if (!fp.setupTty(57600)) {
         cerr << "Failed to setup tty port parameters" << endl;
         return 1;
     }
@@ -83,7 +83,7 @@ main(int argc, char** argv)
 
     // we search for a print matching slot 1, where we shored our last
     // converted fingerprint
-    if ((rv = fp.search(1, &id, &score)) != ZFM20::ERR_OK) {
+    if ((rv = fp.search(1, id, score)) != ZFM20::ERR_OK) {
         if (rv == ZFM20::ERR_FP_NOTFOUND) {
             cout << "Finger Print not found" << endl;
             return 0;

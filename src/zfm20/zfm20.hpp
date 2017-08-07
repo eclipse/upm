@@ -35,13 +35,12 @@
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
-#include <sys/time.h>
 #include <sys/select.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <mraa/uart.h>
+#include "mraa.hpp"
+#include "upm_utilities.h"
 
 #define ZFM20_DEFAULT_UART 0
 
@@ -153,22 +152,23 @@ namespace upm {
     /**
      * ZFM20 constructor
      *
-     * @param uart Default UART to use (0 or 1)
+     * @param uart Target mraa UART index to use (0 or 1)
+     * @param baud Desired baud rate
      */
-    ZFM20(int uart);
+    ZFM20(int uart, int baud = 57600);
+
+    /**
+     * ZFM20 constructor
+     *
+     * @param uart File path (/dev/ttyXXX to uart
+     * @param baud Desired baud rate
+     */
+    ZFM20(std::string uart_raw, int baud = 57600);
 
     /**
      * ZFM20 destructor
      */
-    ~ZFM20();
-
-    /**
-     * Checks to see if there is data available for reading
-     *
-     * @param millis Number of milliseconds to wait; 0 means no waiting
-     * @return true if there is data available for reading
-     */
-    bool dataAvailable(unsigned int millis);
+    virtual ~ZFM20() {}
 
     /**
      * Reads any available data in a user-supplied buffer. Note: the
@@ -193,12 +193,12 @@ namespace upm {
 
     /**
      * Sets up proper tty I/O modes and the baud rate. For this device,
-     * the default baud rate is 57,600 (B57600).
+     * the default baud rate is 57,600.
      *
      * @param baud Desired baud rate.
      * @return True if successful
      */
-    bool setupTty(speed_t baud=B57600);
+    bool setupTty(uint32_t baud = 57600);
 
     /**
      * Composes and writes a command packet
@@ -353,7 +353,7 @@ namespace upm {
      * @param score Score if found, 0 otherwise
      * @return One of the ZFM20_ERRORS_T values
      */
-    uint8_t search(int slot, uint16_t *id, uint16_t *score);
+    uint8_t search(int slot, uint16_t &id, uint16_t &score);
 
     /**
      * Compares the features in characteristics buffers 1 and 2 and
@@ -362,19 +362,12 @@ namespace upm {
      * @param score Score
      * @return One of the ZFM20_ERRORS_T values
      */
-    uint8_t match(uint16_t *score);
-
-
-  protected:
-    int ttyFd() { return m_ttyFd; };
+    uint8_t match(uint16_t &score);
 
   private:
-    mraa_uart_context m_uart;
-    int m_ttyFd;
+    mraa::Uart m_uart;
     uint32_t m_password;
     uint32_t m_address;
-    struct timeval m_startTime;
+    upm_clock_t m_clock;
   };
 }
-
-
