@@ -1,0 +1,44 @@
+{
+    "Library": "sensortemplate",
+    "Description": "Library block provides a short library description",
+    "Sensor Class": {
+        "sensortemplate": {
+            "Name": "Short class/sensor description",
+            "Description": "Then add a much more detailed description here.  Include items such as board-specifics, testing, etc...",
+            "Aliases": ["sensortemplate"],
+            "Categories": ["One or more of: accelerometer, ainput, button, color, compass, digipot, display, electric, flexfor, gaseous, gps, led, light, liquid, medical, motor, other, pressure, relay, rfid, serial, servos, sound, temp, time, touch, video, wifi"],
+            "Connections": ["analog, gpio, i2c, pwm, spi, uart"],
+            "Project Type": ["General idea of the project this sensor or class would fit in."],
+            "Manufacturers": ["One or more of: Sensor manufacturer. Can be 'generic'."],
+            "Kits": ["gsk, hak, eak, tsk, robok"],
+            "Image": "sensortemplate.jpg",
+            "Examples": {
+                "Java": ["SensorTemplateSample.java"],
+                "Python": ["sensortemplate.py"],
+                "Node.js": ["sensortemplate.js"],
+                "C++": ["sensortemplate.cxx"]
+            },
+            "Specifications": {
+                "Uses": {
+                    "Uses": "Used to display voltage, current, operating temperature, and other basic information a user would want in a glance."
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Notes on usage for the sensor or library with the Intel Joule Module"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Notes on usage for the sensor or library with the Intel Edison"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Notes on usage for the sensor or library with the Arduino 101"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["URL to a product page or pages of the hardware mentioned"],
+                "Datasheets": ["URL to a datasheet or datasheets of the hardware mentioned"],
+                "Schematics": ["URL to a schematic or schematics of the hardware mentioned"]
+            }
+        }
+    }
+}

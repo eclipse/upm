@@ -1,39 +1,49 @@
 {
     "Library": "si1132",
-    "Description": "UV and visible light sensor library",
-    "Sensor Class":
-    {
-        "SI1132":
-        {
-            "Name": "UV and visible light sensor",
-            "Description": "The SI1132 sensor determines real-time UV sun exposure and cumulative UV sun exposure and enables accurate light level monitoring under mixed lightings",
+    "Description": "Silicon Labs Si1132 UV and visible light sensor library",
+    "Sensor Class": {
+        "si1132": {
+            "Name": "API for the Silicon Labs Si1132 UV and Visible Light Sensor",
+            "Description": "This is the UPM Module for the Silicon Labs Si1132 UV and Visible Light Sensor. The Silicon Labs Si1132 is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C digital interface and programmable-event interrupt output.",
             "Aliases": ["si1132"],
             "Categories": ["light"],
             "Connections": ["i2c"],
-            "Project Type": ["prototyping", "industrial"],
-            "Manufacturers": ["silabs"],
-            "Kits": [],
-            "Image": "",
-            "Examples":
-            {
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Silicon Labs"],
+            "Image": "si1132.jpg",
+            "Examples": {
                 "C++": ["si1132.cxx"]
             },
-            "Specifications":
-            {
-                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
-                "Iavg": {"unit": "µA", "high": 1.2},
-                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
-            },
-            "Platforms":
-            {
-                "Intel Joule Module":
-                {
-                    "Notes": ["might need pull up resistors"]
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.71,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "Standby Mode": {
+                        "unit": "uA",
+                        "min": "0.15",
+                        "max": "1.4"
+                    },
+                    "Actively Measuring": {
+                        "unit": "mA",
+                        "min": "4.3",
+                        "max": "5.5"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "Â°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Time": {
+                    "unit": "us",
+                    "typ": 285
                 }
             },
-            "Urls" :
-            {
-                "Product Pages": ["http://www.silabs.com/products/sensors/optical/si1132"],
+            "Urls": {
+                "Product Pages": ["https://www.silabs.com/products/sensors/optical/si1132"],
                 "Datasheets": ["https://www.silabs.com/documents/public/data-sheets/Si1132.pdf"]
             }
         }
