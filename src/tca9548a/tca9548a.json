@@ -1,0 +1,56 @@
+{
+    "Library": "tca9548",
+    "Description": "TI tca9548a multiplexer library",
+    "Sensor Class": {
+        "TCA9548A": {
+            "Name": "API for the TI TCA9548A Multiplexer Breakout",
+            "Description": "This is the UPM Module for the Texas Instruments TCA9548A Multiplexer Breakout.",
+            "Aliases": ["TCA9548A", "TCA9548A I2C Multiplexer"],
+            "Categories": ["multiplexer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Adafruit", "Texas Instruments"],
+            "Image": "tca9548a.jpg",
+            "Examples": {
+                "Node.js": ["tca9548.js"],
+                "C++": ["tca9548a.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.65,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 2,
+                    "max" : 80
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Supported Same Address i2c Devices": {
+                    "unit": "Devices",
+                    "devices": 8
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/2717", "https://learn.adafruit.com/adafruit-tca9548a-1-to-8-i2c-multiplexer-breakout/overview"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/tca9548a.pdf"]
+            }
+        }
+    }
+}

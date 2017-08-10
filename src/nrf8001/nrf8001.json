@@ -1,0 +1,55 @@
+{
+    "Library": "nrf8001",
+    "Description": "Nordic Semiconductor NRF8001 Bluetooth Low Energy library",
+    "Sensor Class": {
+        "nrf8001": {
+            "Name": "API for the Nordic Semiconductor NRF8001 Bluetooth Low Energy Module",
+            "Description": "This is the UPM Module for the Nordic Semiconductor NRF8001 Bluetooth Low Energy Module. These files define the NRF8001 interface for lib-nrf8001. Interaction with this device is done through the ACI routines included with the library. You can use the nRF UART app in Apple* App Store and Google* Play* on Samsung* Galaxy S*4 running Android* 4.3 to interact with a microcontroller running the 'hello world' example.",
+            "Aliases": ["nrf8001", "Bluefruit LE - Bluetooth Low Energy (BLE 4.0) - nRF8001 Breakout - v1.0"],
+            "Categories": ["wifi"],
+            "Connections": ["spi", "gpio", "analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Nordic Semiconductor", "Adafruit"],
+            "Image": "nrf8001.jpg",
+            "Examples": {
+                "C++": ["nrf8001-broadcast.cxx", "nrf8001-helloworld.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.9,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 2,
+                    "max" : 14000
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Bluetooth Version": {
+                    "unit": "version number",
+                    "version": "BLE V4.0"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/1697", "http://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF8001"],
+                "Datasheets": ["https://learn.adafruit.com/getting-started-with-the-nrf8001-bluefruit-le-breakout/introduction", "http://www.nordicsemi.com/eng/nordic/download_resource/17534/16/64902106/2981"]
+            }
+        }
+    }
+}

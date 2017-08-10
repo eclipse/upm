@@ -1,0 +1,59 @@
+{
+    "Library": "bma220",
+    "Description": "Bosch Sensortec accelerometer library",
+    "Sensor Class": {
+        "BMA220": {
+            "Name": "Bosch BMA220 accelerometer",
+            "Description": "This is the UPM Module for the Bosch BMA220 accelerometer. A triaxis accelerometer which measures acceleration in three perpendicular axes. It offers interruption pins, as well as motion interrupts, which can be triggered via orientation, shock, or taps. DFRobot offers this on an evaluation board, known as SEN0168.",
+            "Aliases": ["BMA220", "DFRobot SEN0168"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c", "gpio"],
+            "Project Type": ["industrial", "commercial", "prototyping"],
+            "Manufacturers": ["bosch"],
+            "Image": "bma220.jpg",
+            "Examples": {
+                "Python": ["bma220.py"],
+                "Node.js": ["bma220.js"],
+                "C++": ["bma220.cxx"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 1.62,
+                    "max": 1.98
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "uA",
+                        "typ" : "250"
+                    },
+                    "Low power mode": {
+                        "unit": "uA",
+                        "typ" : "10"
+                    },
+                    "Suspend mode": {
+                        "unit": "uA",
+                        "min" : "<1"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Wake-up time": {
+                    "unit": "ms",
+                    "max" : 1.2
+                },
+                "Start-up time": {
+                    "unit": "ms",
+                    "typ" : 1.5
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.mouser.com/ProductDetail/Bosch-Sensortec/BMA220/?qs=d72FGnIDsgT670fCZvhfag%3D%3D"],
+                "Datasheets": ["http://www.mouser.com/ds/2/783/BST-BMA220-DS003-08-838368.pdf"]
+            }
+        }
+    }
+}
