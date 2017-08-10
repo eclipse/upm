@@ -318,7 +318,7 @@ if (BUILDDOC)
     COMMENT "Generating API documentation with Doxygen" VERBATIM
   )
 
-  # Check if Sphinx is installed and add target to generate API documentationa
+  # Check if Sphinx is installed and add target to generate API documentation
   # Currently, the per-module documentation for python is generated from the
   # python2 modules.
   if(BUILDSWIGPYTHON)
@@ -343,14 +343,10 @@ if (BUILDDOC)
   # Check if Yuidoc is installed and add target for API documentation
   if(BUILDSWIGNODE)
     find_package(Yuidoc REQUIRED)
-    file(GLOB_RECURSE JSDOC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/doxy/node doxy/node/*)
-    foreach(JSDOC_FILE ${JSDOC_FILES})
-      configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxy/node/${JSDOC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${JSDOC_FILE} COPYONLY)
-    endforeach()
     add_custom_target(jsdoc ALL
-      COMMAND ${NODEJS_EXECUTABLE} docgen -m upm -i xml -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
-      COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers generators/yuidoc/helper.js --themedir generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
-      COMMAND ${NODEJS_EXECUTABLE} tolower -i html/node
+      COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/docgen.js -m upm -i xml -o jsdoc -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
+      COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/helper.js --themedir ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
+      COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/tolower.js -i html/node
       DEPENDS doc
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Generating API documentation with Yuidoc" VERBATIM

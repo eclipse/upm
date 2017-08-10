@@ -1,0 +1,6 @@
+[submodule "doxy/doxygen2jsdoc"]
+	path = doxy/doxygen2jsdoc
+	url = https://github.com/intel-iot-devkit/doxygen2jsdoc
+[submodule "doxy/doxyport"]
+	path = doxy/doxyport
+	url = https://github.com/intel-iot-devkit/doxyport

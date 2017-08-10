@@ -3,14 +3,7 @@ version: '2.1'
 services:
 
   base:
-    image: upm-base
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.base
-      args:
-        - http_proxy
-        - https_proxy
-        - no_proxy
+    image: dnoliver/upm-base
     environment:
       - http_proxy
       - https_proxy
@@ -35,17 +28,38 @@ services:
 
   doc:
     extends: base
+    image: dnoliver/upm-all
     environment:
+      - BUILDSWIGPYTHON=ON
+      - BUILDSWIGJAVA=ON
+      - BUILDSWIGNODE=ON
       - BUILDDOC=ON
-    command: bash -c "./scripts/run-cmake.sh && make -j8 -Cbuild doc"
+    command: bash -c "./scripts/run-cmake.sh && ./scripts/build-doc.sh"
+
+  ipk:
+    extends: base
+    environment:
+      - IPK=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
+
+  rpm:
+    extends: doc
+    environment:
+      - RPM=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
+
+  npm:
+    extends: doc
+    environment:
+      - NPM=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 npmpkg"
 
   sonar-scan:
     extends: base
-    image: upm-sonar
-    build:
-      dockerfile: docker/Dockerfile.sonar
-      args:
-        - NODE_VERSION=v5.12.0
+    image: dnoliver/upm-all
     environment:
       - BUILDSWIGPYTHON=ON
       - BUILDSWIGNODE=ON
@@ -63,52 +77,36 @@ services:
 
   python:
     extends: base
-    image: upm-python
-    build:
-      dockerfile: docker/Dockerfile.python
+    image: dnoliver/upm-python
     environment:
       - BUILDSWIGPYTHON=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   java:
     extends: base
-    image: upm-java
-    build:
-      dockerfile: docker/Dockerfile.java
+    image: dnoliver/upm-java
     environment:
       - BUILDSWIGJAVA=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   android:
     extends: java
-    image: upm-android
-    build:
-      dockerfile: docker/Dockerfile.android
+    image: dnoliver/upm-android
     environment:
       - BUILDTESTS=OFF
     command: bash -c "./scripts/build-android.sh"
 
   node4:
     extends: base
-    image: upm-node4
-    build:
-      dockerfile: docker/Dockerfile.node
-      args:
-        - NODE_VERSION=v4.4.7
+    image: dnoliver/upm-node4
     environment:
       - BUILDSWIGNODE=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
 
   node5:
     extends: node4
-    image: upm-node5
-    build:
-      args:
-        - NODE_VERSION=v5.12.0
+    image: dnoliver/upm-node5
 
   node6:
     extends: node4
-    image: upm-node6
-    build:
-      args:
-        - NODE_VERSION=v6.11.0
+    image: dnoliver/upm-node6
