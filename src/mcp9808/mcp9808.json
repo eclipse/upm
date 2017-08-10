@@ -1,0 +1,62 @@
+{
+    "Library": "mcp9808",
+    "Description": "MCP9808 precision temperature sensor library",
+    "Sensor Class": {
+        "MCP9808": {
+            "Name": "Microchip MCP9808 precision temperature sensor",
+            "Description": "This is the UPM Module for the Microchip MCP9808 precision temperature sensor. The MCP9808 digital temperature sensor converts temperatures between -20 deg C and +100 deg C to a digital word with +/- 0.5 deg C (max.) accuracy. The MCP9808 comes with user-programmable registers that provide flexibility for temperature sensing applications. The registers allow user-selectable settings such as Shutdown or low-power modes and the specification of temperature Event and Critical output boundaries. When the temperature changes beyond the specified boundary limits, the MCP9808 outputs an Event signal. The user has the option of setting the event output signal polarity as an active-low or active-high comparator output for thermostat operation, or as temperature event interrupt outputfor microprocessor-based systems. The event output can also be configured as a Critical temperature output.",
+            "Aliases": ["mcp9808", "MCP9808 High Accuracy I2C Temperature Sensor Breakout Board"],
+            "Categories": ["temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Microchip", "Adafruit"],
+            "Image": "mcp9808.jpg",
+            "Examples": {
+                "Node.js": ["mcp9808.js"],
+                "C++": ["mcp9808.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.7,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 200,
+                    "max" : 400
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "0.25 °C Prescision": {
+                    "unit": "°C",
+                    "min" : -40,
+                    "max" : 125
+                },
+                "0.5 °C Prescision" : {
+                    "unit": "°C",
+                    "min" : -20,
+                    "max" : 100
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/1782?gclid=Cj0KCQjwnubLBRC_ARIsAASsNNkm7dgo3LX4XplesneIFqkY63M7rmfcdlPYq7JXYpuIqnfuEGljSdYaAsILEALw_wcB"],
+                "Datasheets": ["http://ww1.microchip.com/downloads/en/DeviceDoc/25095A.pdf"]
+            }
+        }
+    }
+}
