@@ -15,6 +15,6 @@ cmake \
   -DNPM=$NPM \
   -DBUILDTESTS=$BUILDTESTS \
   -DWERROR=$WERROR \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -H. \
   -Bbuild
-
