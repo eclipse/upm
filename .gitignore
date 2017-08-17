@@ -11,3 +11,6 @@ build*/
 # Temp files
 *.swp
 *~
+
+# Node modules
+**/node_modules
