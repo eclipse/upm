@@ -5,9 +5,9 @@
     {
         "adc121c021":
         {
-            "Brief": "API for the ADC121C021 I2C Analog-to-Digital Converter",
+            "Name": "API for the ADC121C021 I2C Analog-to-Digital Converter",
             "Description": "UPM module for the ADC121C021 12-bit analog-to-digital converter (ADC). By constantly providing a reference voltage, this sensor helps increase the accuracy of a value collected from an analog sensor.",
-            "Part Numbers": ["adc121c021"],
+            "Aliases": ["adc121c021"],
             "Categories": ["aio"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping"],

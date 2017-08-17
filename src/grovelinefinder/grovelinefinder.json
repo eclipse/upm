@@ -5,9 +5,9 @@
     {
         "grovelinefinder":
         {
-            "Brief": "Infrared (IR) Based Line Finder",
+            "Name": "Infrared (IR) Based Line Finder",
             "Description": "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
-            "Part Numbers": ["grovelinefinder"],
+            "Aliases": ["grovelinefinder"],
             "Categories": ["grovelinefinder"],
             "Connections": ["gpio"],
             "Project Type": ["robotics", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "gp2y0a":
         {
-            "Brief": "Analog Infrared (IR) Based Distance Sensor",
+            "Name": "Analog Infrared (IR) Based Distance Sensor",
             "Description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
-            "Part Numbers": ["gp2y0a"],
+            "Aliases": ["gp2y0a"],
             "Categories": ["proximity", "light"],
             "Connections": ["analog"],
             "Project Type": ["prototyping", "robotics"],

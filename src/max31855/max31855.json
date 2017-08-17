@@ -5,9 +5,9 @@
     {
         "max31855":
         {
-            "Brief": "Thermocouple-to-Digital Converter",
+            "Name": "Thermocouple-to-Digital Converter",
             "Description": "Maxim Integrated* [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf) is a cold-junction compensated thermocouple-to-digital converter. This module was tested on the Maxim Integrated  [MAX31855PMB1 PMOD module] (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the analog PMOD kit.",
-            "Part Numbers": ["max31855"],
+            "Aliases": ["max31855"],
             "Categories": ["temperature"],
             "Connections": ["spi"],
             "Project Type": ["thermal", "prototyping"],

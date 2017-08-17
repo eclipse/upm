@@ -5,9 +5,9 @@
     {
         "ds1307":
         {
-            "Brief": "DS1307 Real Time Clock (RTC) Module",
+            "Name": "DS1307 Real Time Clock (RTC) Module",
             "Description": "UPM module for the DS1307-based real-time clock. The clock can provide information about seconds, minutes, hours, day of the week, day of the month, month, and year. It can operate in either a 24-hour or a 12-hour format. This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz. However, this capability is not implemented in this module.",
-            "Part Numbers": ["ds1307"],
+            "Aliases": ["ds1307"],
             "Categories": ["RTC", "timekeeping"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],

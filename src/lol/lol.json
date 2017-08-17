@@ -5,9 +5,9 @@
     {
         "lol":
         {
-            "Brief": "Lots of LEDs (LoL) Array Rev A",
+            "Name": "Lots of LEDs (LoL) Array Rev A",
             "Description": "This module defines the LoL API and implementation for a simple framebuffer.",
-            "Part Numbers": ["lol"],
+            "Aliases": ["lol"],
             "Categories": ["display"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping"],

@@ -5,9 +5,9 @@
     {
         "hm11":
         {
-            "Brief": "Bluetooth Low Energy Module",
+            "Name": "Bluetooth Low Energy Module",
             "Description": "The driver was tested with the Grove BLE module.  It's an HM-11 BLE 4.0 module based on a TI CC2541 chip.  It operates using a standard 'AT' command set.  See the datasheet for a full list of available commands and their possible responses: http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf It is connected via a UART at 9,600 baud.",
-            "Part Numbers": ["hm11"],
+            "Aliases": ["hm11"],
             "Categories": ["bluetooth"],
             "Connections": ["uart"],
             "Project Type": ["wireless", "wearables", "prototyping"],
@@ -26,7 +26,7 @@
             {
                 "Operating Voltage": {"unit": "V", "low": 2.0, "typ": 3.3, "high": 3.6},
                 "Peak Operating Current": {"unit": "mA", "typ": 15},
-                "Operating Temperature": {"unit": "degC", "low": -40, "high": 65},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 65}
             },
             "Urls" :
             {

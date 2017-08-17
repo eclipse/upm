@@ -5,9 +5,9 @@
     {
         "adxl335":
         {
-            "Brief": "API for the Analog Devices ADIS16448 Accelerometer",
+            "Name": "API for the Analog Devices ADIS16448 Accelerometer",
             "Description": "UPM module for the ADXL335 3-axis analog accelerometer. This was tested on a Grove 3-axis Analog Accelerometer. It uses 3 analog pins, one for each axis: X, Y, and Z.",
-            "Part Numbers": ["adxl335"],
+            "Aliases": ["adxl335"],
             "Categories": ["imu", "accelerometers"],
             "Connections": ["analog"],
             "Project Type": ["prototyping", "industrial"],

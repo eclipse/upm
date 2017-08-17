@@ -5,9 +5,9 @@
     {
         "lidarlitev3":
         {
-            "Brief": "Optical Distance Measurement Sensor",
+            "Name": "Optical Distance Measurement Sensor",
             "Description": "It is a compact, high-performance optical distance measurement sensor from Garmin.",
-            "Part Numbers": ["lidarlitev3"],
+            "Aliases": ["lidarlitev3"],
             "Categories": ["distance"],
             "Connections": ["i2c", "pwm"],
             "Project Type": ["robotics", "prototyping"],

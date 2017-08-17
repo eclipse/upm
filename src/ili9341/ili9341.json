@@ -5,9 +5,9 @@
     {
         "ili9341":
         {
-            "Brief": "SPI Based LCD",
+            "Name": "SPI Based LCD",
             "Description": "This module defines the interface for the ILI9341 display library.",
-            "Part Numbers": ["ili9341"],
+            "Aliases": ["ili9341"],
             "Categories": ["display"],
             "Connections": ["spi"],
             "Project Type": ["graphics", "prototyping"],
@@ -24,7 +24,7 @@
             },
             "Specifications":
             {
-                "Operating Voltage": {"unit": "V", "low": 3, "high": 5},
+                "Operating Voltage": {"unit": "V", "low": 3, "high": 5}
 
             },
             "Urls" :

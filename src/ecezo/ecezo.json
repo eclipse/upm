@@ -5,9 +5,9 @@
     {
         "ecezo":
         {
-            "Brief": "Electrical Conductivity (EC) Circuit",
+            "Name": "Electrical Conductivity (EC) Circuit",
             "Description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes.",
-            "Part Numbers": ["ecezo"],
+            "Aliases": ["ecezo"],
             "Categories": ["ec", "conductivity", "liquid"],
             "Connections": ["i2c", "uart"],
             "Project Type": ["industrial"],

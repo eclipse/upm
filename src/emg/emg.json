@@ -5,9 +5,9 @@
     {
         "emg":
         {
-            "Brief": "Electromyography (EMG) Sensor",
+            "Name": "Electromyography (EMG) Sensor",
             "Description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result.",
-            "Part Numbers": ["emg"],
+            "Aliases": ["emg"],
             "Categories": ["electromyography", "medical"],
             "Connections": ["analog"],
             "Project Type": ["wearables", "computer interfacing", "prototyping"],

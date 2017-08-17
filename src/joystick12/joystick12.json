@@ -5,9 +5,9 @@
     {
         "joystick12":
         {
-            "Brief": "2-axis Analog Joystick",
+            "Name": "2-axis Analog Joystick",
             "Description": "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analog joystick.",
-            "Part Numbers": ["joystick12"],
+            "Aliases": ["joystick12"],
             "Categories": ["input"],
             "Connections": ["analog"],
             "Project Type": ["prototyping"],

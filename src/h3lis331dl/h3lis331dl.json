@@ -5,9 +5,9 @@
     {
         "h3lis331dl":
         {
-            "Brief": "I2C 3-axis Digital Accelerometer (400g)",
+            "Name": "I2C 3-axis Digital Accelerometer (400g)",
             "Description": "This is a high-performance, high-range accelerometer for extreme applications.",
-            "Part Numbers": ["h3lis331dl"],
+            "Aliases": ["h3lis331dl"],
             "Categories": ["accelerometer"],
             "Connections": ["i2c"],
             "Project Type": ["IMU", "prototyping"],

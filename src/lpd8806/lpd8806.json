@@ -5,9 +5,9 @@
     {
         "lpd8806":
         {
-            "Brief": "Digital RGB LED Strip Controller",
+            "Name": "Digital RGB LED Strip Controller",
             "Description": "FastPixel* LPD8806 is an RGB LED strip controller.",
-            "Part Numbers": ["lpd8806"],
+            "Aliases": ["lpd8806"],
             "Categories": ["display"],
             "Connections": ["spi"],
             "Project Type": ["lighting", "rgb", "prototyping"],
@@ -24,7 +24,7 @@
             },
             "Specifications":
             {
-                "Operating Voltage": {"unit": "V", "max": 5},
+                "Operating Voltage": {"unit": "V", "max": 5}
             },
             "Urls" :
             {

@@ -5,9 +5,9 @@
     {
         "adxl345":
         {
-            "Brief": "API for the ADXL345 3-Axis Digital Accelerometer",
+            "Name": "API for the ADXL345 3-Axis Digital Accelerometer",
             "Description": "ADXL345 is a 3-axis digital accelerometer. The sensor has configurable resolutions to measure +/- 2g, +/- 4g, +/- 8g, or +/- 16g.",
-            "Part Numbers": ["adxl335"],
+            "Aliases": ["adxl335"],
             "Categories": ["imu", "accelerometers"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],

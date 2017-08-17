@@ -5,9 +5,9 @@
     {
         "guvas12d":
         {
-            "Brief": "Grove Analog UV Sensor",
+            "Name": "Grove Analog UV Sensor",
             "Description": "UPM module for the GUVA-S12D UV sensor",
-            "Part Numbers": ["guvas12d"],
+            "Aliases": ["guvas12d"],
             "Categories": ["ultraviolet"],
             "Connections": ["gpio"],
             "Project Type": ["environmental", "prototyping"],

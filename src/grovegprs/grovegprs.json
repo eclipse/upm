@@ -5,9 +5,9 @@
     {
         "grovegprs":
         {
-            "Brief": "Grove General Packet Radio Service (GPRS) Module",
+            "Name": "Grove General Packet Radio Service (GPRS) Module",
             "Description": "The driver was tested with the Grove GPRS Module, V2.  It's a GSM GPRS module based on the SIM900.  This module uses a standard 'AT' command set.  See the datasheet for a full list of available commands and their possible responses.",
-            "Part Numbers": ["grovegprs"],
+            "Aliases": ["grovegprs"],
             "Categories": ["wireless"],
             "Connections": ["uart"],
             "Project Type": ["prototyping", "wireless"],

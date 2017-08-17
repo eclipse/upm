@@ -5,9 +5,9 @@
     {
         "adis16448":
         {
-            "Brief": "API for the Analog Devices ADIS16448 Accelerometer",
+            "Name": "API for the Analog Devices ADIS16448 Accelerometer",
             "Description": "This is an industrial-grade accelerometer by Analog Devices.",
-            "Part Numbers": ["adis16448"],
+            "Aliases": ["adis16448"],
             "Categories": ["imu"],
             "Connections": ["spi"],
             "Project Type": ["prototyping", "industrial"],

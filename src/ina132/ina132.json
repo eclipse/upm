@@ -5,9 +5,9 @@
     {
         "ina132":
         {
-            "Brief": "Grove Differential Amplifier",
+            "Name": "Grove Differential Amplifier",
             "Description": "The INA132 Differential Amplifier Sensor is designed for precise differential-input amplification. This sensor was tested amplifying the signal from a Weight Sensor (Load Cell) 0-500g",
-            "Part Numbers": ["ina132"],
+            "Aliases": ["ina132"],
             "Categories": ["electric"],
             "Connections": ["analog"],
             "Project Type": ["prototyping"],
@@ -24,7 +24,7 @@
             },
             "Specifications":
             {
-                "Operating Voltage": {"unit": "V", "low": 2.7, "high": 5.5},
+                "Operating Voltage": {"unit": "V", "low": 2.7, "high": 5.5}
 
             },
             "Urls" :

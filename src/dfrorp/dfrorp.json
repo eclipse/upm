@@ -5,9 +5,9 @@
     {
         "dfrorp":
         {
-            "Brief": "Analog Oxidation Reduction Potential (ORP) Sensor",
+            "Name": "Analog Oxidation Reduction Potential (ORP) Sensor",
             "Description": "This library was tested with the DFRobot ORP (Oxidation/Reduction Potential) Sensor. To calibrate: Disconnect the sensor probe (but leave the sensor interface board connected).  Then run one of the examples while holding down the 'calibrate' button on the device.  Read the ORP value reported (it should be fairly small). This value is what you should supply to setCalibrationOffset().  Then reconnect the probe to the interface board and you should be ready to go. DO NOT press the calibrate button on the interface board while the probe is attached or you can permanently damage the probe.",
-            "Part Numbers": ["dfrorp"],
+            "Aliases": ["dfrorp"],
             "Categories": ["orp", "liquid"],
             "Connections": ["analog"],
             "Project Type": ["industrial"],
@@ -37,4 +37,4 @@
             }
         }
     }
-}"" 
+}

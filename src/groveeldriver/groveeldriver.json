@@ -5,9 +5,9 @@
     {
         "groveeldriver":
         {
-            "Brief": "Grove Electroluminescent Wire (EL) Driver",
+            "Name": "Grove Electroluminescent Wire (EL) Driver",
             "Description": "The Grove EL Driver allows you to easily light up an EL wire with just one single  cable.",
-            "Part Numbers": ["groveeldriver"],
+            "Aliases": ["groveeldriver"],
             "Categories": ["lighting", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "commercial", "wearables"],

@@ -5,9 +5,9 @@
     {
         "lm35":
         {
-            "Brief": "Analog Temperature Sensor",
+            "Name": "Analog Temperature Sensor",
             "Description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. This driver was developed using the DFRobot LM35 Linear Temperature Sensor",
-            "Part Numbers": ["lm35"],
+            "Aliases": ["lm35"],
             "Categories": ["temperature"],
             "Connections": ["analog"],
             "Project Type": ["environmental", "monitoring", "prototyping"],

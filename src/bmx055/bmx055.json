@@ -5,9 +5,9 @@
     {
         "BME280":
         {
-            "Brief": "BMX055 9-axis Sensor Module",
+            "Name": "BMX055 9-axis Sensor Module",
             "Description": "The BMX055 is an integrated 9-axis sensor for the detection of movements and rotations and magnetic heading. It comprises the full functionality of a triaxial, low-g acceleration sensor, a triaxial angular rate sensor and a triaxial geomagnetic sensor. The BMX055 senses orientation, tilt, motion, acceleration, rotation, shock, vibration and heading in cell phones, handhelds, computer peripherals, man-machine interfaces, virtual reality features and game controllers. The BMX055 is essentially 3 separate devices in one: the BMA250E Accelerometer, the BMG160 Gyroscope, and the BMM150 Magnetometer. They are completely independant of each other. This driver provides a very simple interface to these 3 devices. If finer control is desired, you should just use the separate BMA25E, BMG160, and BMM150 device classes directly.  This driver simply initializes all three devices, and provides a mechanism to read accelerometer, gyroscope and magnetometer data from them.",
-            "Part Numbers": ["bmx055"],
+            "Aliases": ["bmx055"],
             "Categories": ["imu", "accelerometer", "gyroscope", "magnetometer"],
             "Connections": ["gpio", "i2c", "spi"],
             "Project Type": ["prototyping", "industrial"],

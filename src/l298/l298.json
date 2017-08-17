@@ -5,9 +5,9 @@
     {
         "l298":
         {
-            "Brief": "Dual H-bridge Motor Driver",
+            "Name": "Dual H-bridge Motor Driver",
             "Description": "It was developed using the RobotBase Dual H-Bridge module. This module can support 2 DC motors, or one 2-phase stepper motor. It requires 3 pins per DC motor (or H-bridge), or 4 pins for the stepper motor (uses both H-bridges).",
-            "Part Numbers": ["l298"],
+            "Aliases": ["l298"],
             "Categories": ["motors"],
             "Connections": ["gpio", "pwm"],
             "Project Type": ["robotics", "prototyping"],

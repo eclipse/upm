@@ -5,9 +5,9 @@
     {
         "hmc5883l":
         {
-            "Brief": "Grove 3-Axis Digital Compass",
+            "Name": "Grove 3-Axis Digital Compass",
             "Description": "Honeywell [HMC5883L] (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf) is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is needed to power the sensor.",
-            "Part Numbers": ["hmc5883l"],
+            "Aliases": ["hmc5883l"],
             "Categories": ["compass", "magnetometer"],
             "Connections": ["i2c"],
             "Project Type": ["IMU", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "o2":
         {
-            "Brief": "Oxygen (O2) Concentration Sensor",
+            "Name": "Oxygen (O2) Concentration Sensor",
             "Description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air.",
-            "Part Numbers": ["o2"],
+            "Aliases": ["o2"],
             "Categories": ["gas", "oxygen"],
             "Connections": ["analog"],
             "Project Type": ["environmental", "prototyping"],

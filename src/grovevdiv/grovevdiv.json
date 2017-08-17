@@ -5,9 +5,9 @@
     {
         "grovevdiv":
         {
-            "Brief": "Grove Voltage Divider Sensor",
+            "Name": "Grove Voltage Divider Sensor",
             "Description": "UPM module for the Grove Voltage Divider sensor.",
-            "Part Numbers": ["grovevdiv"],
+            "Aliases": ["grovevdiv"],
             "Categories": ["electric", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["robotics", "prototyping"],

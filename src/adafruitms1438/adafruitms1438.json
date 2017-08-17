@@ -5,9 +5,9 @@
     {
         "adafruitms1438":
         {
-            "Brief": "API for the AdafruitMS1438 Motor Shield",
+            "Name": "API for the AdafruitMS1438 Motor Shield",
             "Description": "This class implements support for the stepper and DC motors that can be connected to this Motor Shield.",
-            "Part Numbers": ["adafruitms1438"],
+            "Aliases": ["adafruitms1438"],
             "Categories": ["motor"],
             "Connections": ["i2c"],
             "Project Type": ["motor"],

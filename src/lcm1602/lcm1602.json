@@ -5,9 +5,9 @@
     {
         "lcm1602":
         {
-            "Brief": "LCD Display Driver for the LCM1602 Controller for HD44780-based Displays",
+            "Name": "LCD Display Driver for the LCM1602 Controller for HD44780-based Displays",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",
-            "Part Numbers": ["lcm1602"],
+            "Aliases": ["lcm1602"],
             "Categories": ["display"],
             "Connections": ["gpio"],
             "Project Type": ["display", "prototyping"],
@@ -25,7 +25,7 @@
             "Specifications":
             {
                 "Operating Voltage": {"unit": "V", "low": 4.8, "typ": 5, "high": 5.2},
-                "Operating Current": {"unit": "mA", "max": 150},
+                "Operating Current": {"unit": "mA", "max": 150}
             },
             "Urls" :
             {

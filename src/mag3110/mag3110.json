@@ -5,9 +5,9 @@
     {
         "mag3110":
         {
-            "Brief": "MAG3110 Three-Axis Digital Magnetometer",
+            "Name": "MAG3110 Three-Axis Digital Magnetometer",
             "Description": "The MAG3110 is a small, low-power digital 3D magnetic sensor with a wide dynamic range to allow operation in PCBs with high extraneous magnetic fields. It measures the components of the local magnetic field, the sum of the geomagnetic field and the magnetic field created by components on the circuit board. It can be used in conjunction with a 3-axis accelerometer so that orientation-independent accurate compass heading information may be achieved It is capable of measuring local magnetic fields up to 10 Gauss with output data rates up to 80 Hz.",
-            "Part Numbers": ["mag3110"],
+            "Aliases": ["mag3110"],
             "Categories": ["magnetometer"],
             "Connections": ["i2c"],
             "Project Type": ["imu", "prototyping"],

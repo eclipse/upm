@@ -5,9 +5,9 @@
     {
         "adafruitss":
         {
-            "Brief": "Adafruit PCA9685-based Servo Shield library",
+            "Name": "Adafruit PCA9685-based Servo Shield library",
             "Description": "UPM library for the PCA9685-based Adafruit 16-channel servo shield.",
-            "Part Numbers": ["adafruitss"],
+            "Aliases": ["adafruitss"],
             "Categories": ["servos"],
             "Connections": ["i2c"],
             "Project Type": ["servos"],

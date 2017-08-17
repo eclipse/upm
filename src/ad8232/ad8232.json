@@ -5,9 +5,9 @@
     {
         "AD8232":
         {
-            "Brief": "AD8232 Heart Rate Monitor Library",
+            "Name": "AD8232 Heart Rate Monitor Library",
             "Description": "This module simply spits out the ADC values reported by the sensor, with the intent to send that data, via serial or network port, somewhere to another piece of software running on a computer that plots the data for you, like an EKG.",
-            "Part Numbers": ["ad8232"],
+            "Aliases": ["ad8232"],
             "Categories": ["heartrate"],
             "Connections": ["gpio", "aio"],
             "Project Type": ["medical"],
