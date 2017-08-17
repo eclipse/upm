@@ -13,7 +13,7 @@
             "Image": "bh1750.jpg",
             "Examples": {
                 "Java": ["BH1750_Example.java"],
-                "Python": ["bh1750"],
+                "Python": ["bh1750.py"],
                 "Node.js": ["bh1750.js"],
                 "C++": ["bh1750.cxx"],
                 "C": ["bh1750.c"]

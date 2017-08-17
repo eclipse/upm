@@ -12,7 +12,7 @@
             "Manufacturers": ["bosch"],
             "Image": "bmi160.jpg",
             "Examples": {
-                "Java": ["BMI190_Example.java"],
+                "Java": ["BMI1&0_Example.java"],
                 "Python": ["bmi160.py"],
                 "Node.js": ["bmi160.js"],
                 "C++": ["bmi160.cxx"],
