@@ -1,10 +1,12 @@
 var shell = require('shelljs');
 var path = require('path');
 var expect = require('chai').expect;
+var jsonQuery = require('json-query');
 
 var rootPath = path.resolve(__dirname, '../../');
 var srcPath = path.resolve(rootPath, 'src');
-var examplePath = path.resolve(rootPath, 'examples');
+var examplesPath = path.resolve(rootPath, 'examples');
+var imagesPath = path.resolve(rootPath, 'docs/images');
 
 var sensorTemplateJson = require(path.join(srcPath, 'sensortemplate/sensortemplate.json'));
 
@@ -35,7 +37,7 @@ function checkProperty(target, propertyName, propertySpecs) {
   // Check non required property
   if (target[propertyName]) {
     var propertyType = getTypeName(target[propertyName]);
-    var errorMsg = propertyName + ' property should be a ' + propertySpecs.type;
+    var errorMsg = propertyName + ' property should be a ' + propertySpecs.type + '.';
     expect(propertyType).to.be.equal(propertySpecs.type, errorMsg);
   }
 }
@@ -114,6 +116,74 @@ function checkObjectSpecs(object, target) {
   }
 }
 
+/**
+ * Check if the included image in the target actually exists
+ * in docs/images folder
+ * @param {object} target The json object to check
+ */
+function checkImageLinks(target) {
+  var imageLinksArray = jsonQuery('Sensor Class[**]Image', {
+    data: target
+  }).value;
+
+  if(imageLinksArray) {
+    imageLinksArray.forEach(function (imageLink) {
+      it(imageLink + ' should exists in docs/images', function () {
+        var globalImagePath = path.join(imagesPath, imageLink);
+        var exists = shell.test('-e', globalImagePath);
+        var errorMsg = 'docs/images/' + imageLink + ' should exist, but was not found.';
+        expect(exists).to.be.equal(true, errorMsg);
+      });
+    });
+  }
+}
+
+/**
+ * Check if the included examples in the target actually exists
+ * in examples folder
+ * @param {object} target The json object to check
+ */
+function checkExamplesLinks(target) {
+  var examplesLinksArray = jsonQuery('Sensor Class[**]Examples', {
+    data: target
+  }).value;
+
+  function checkExamplesLinksForLanguage(language, examplesSubfolder) {
+    var examples = examplesLinksArray[0][language];
+    examples.forEach(function (example) {
+      it(example + ' should exists in examples/' + examplesSubfolder, function () {
+        var globalExamplePath = path.join(examplesPath, examplesSubfolder, example);
+        var exists = shell.test('-e', globalExamplePath);
+        var errorMsg = 'examples/' + examplesSubfolder + '/' + example + ' should exist, but was not found.';
+        expect(exists).to.be.equal(true, errorMsg);
+      });
+    });
+  }
+
+  if(examplesLinksArray[0]) {
+    // Check C++ examples
+    if(examplesLinksArray[0]['C++']) {
+      checkExamplesLinksForLanguage('C++', 'c++');
+    }
+    // Check C examples
+    if(examplesLinksArray[0]['C']) {
+      checkExamplesLinksForLanguage('C', 'c');
+    }
+    // Check Java examples
+    if(examplesLinksArray[0]['Java']) {
+      checkExamplesLinksForLanguage('Java', 'java');
+    }
+    // Check Python examples
+    if(examplesLinksArray[0]['Python']) {
+      checkExamplesLinksForLanguage('Python', 'python');
+    }
+    // Check Node.js examples
+    if(examplesLinksArray[0]['Node.js']) {
+      checkExamplesLinksForLanguage('Node.js', 'javascript');
+    }
+  }
+}
+
 shell.find(srcPath)
   .filter(function (file) {
     return file.match(/\.json$/);
@@ -131,5 +201,7 @@ shell.find(srcPath)
     describe(relativePath, function () {
       var parsedJson = require(jsonFile);
       checkObjectSpecs(sensorTemplateJson, parsedJson);
+      checkImageLinks(parsedJson);
+      checkExamplesLinks(parsedJson);
     });
   });

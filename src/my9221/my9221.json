@@ -14,7 +14,7 @@
             "Examples": {
                 "Python": ["grovecircularled.py"],
                 "Node.js": ["grovecircularled.js"],
-                "C++": ["my9221-grovecircularled.cxx.cxx"]
+                "C++": ["my9221-grovecircularled.cxx"]
             },
             "Specifications": {
                 "Vsource": {
