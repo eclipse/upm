@@ -5,9 +5,9 @@
     {
         "hp20x":
         {
-            "Brief": "HP20X Barometer (High-Accuracy)",
+            "Name": "HP20X Barometer (High-Accuracy)",
             "Description": "This is a high-accuracy barometer providing pressure, altitude, and temperature data. It can be calibrated for a given altitude offset, and a wide range of interrupt generating capabilities are supported. As usual, see the HP20X datasheet for more details. This module was developed using a Grove Barometer (High-Accuracy) based on an HP206C chip.",
-            "Part Numbers": ["hp20x"],
+            "Aliases": ["hp20x"],
             "Categories": ["pressure"],
             "Connections": ["i2c"],
             "Project Type": ["environmental", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "curieimu":
         {
-            "Brief": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
             "Description": "Curie IMU is a 6-axis accelerometer.",
-            "Part Numbers": ["curieimu"],
+            "Aliases": ["curieimu"],
             "Categories": ["IMU", "accelerometer", "compass"],
             "Connections": ["firmata"],
             "Project Type": ["prototyping", "industrial"],

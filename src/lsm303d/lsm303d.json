@@ -5,9 +5,9 @@
     {
         "lsm303d":
         {
-            "Brief": "Ultra-compact high-performance eCompass module",
+            "Name": "Ultra-compact high-performance eCompass module",
             "Description": "The LSM303D is an ultra-low-power high-performance system-in-package featuring a 3D digital linear acceleration sensor and a 3D digital magnetic sensor.  The LSM303D has linear acceleration full scales of 2g/4g/8g/16g and a magnetic field dynamic range of 50 Gauss. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports only I2C operation.",
-            "Part Numbers": ["lsm303d"],
+            "Aliases": ["lsm303d"],
             "Categories": ["compass"],
             "Connections": ["i2c"],
             "Project Type": ["robotics", "prototyping"],

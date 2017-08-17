@@ -5,9 +5,9 @@
     {
         "groveehr":
         {
-            "Brief": "Ear-clip Heart Rate Sensor",
+            "Name": "Ear-clip Heart Rate Sensor",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",
-            "Part Numbers": ["groveehr"],
+            "Aliases": ["groveehr"],
             "Categories": ["heartrate", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["medical", "wearables", "prototyping"],

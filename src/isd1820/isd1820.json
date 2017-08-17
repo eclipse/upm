@@ -5,9 +5,9 @@
     {
         "isd1820":
         {
-            "Brief": "Grove Voice Recording and Playback Module",
+            "Name": "Grove Voice Recording and Playback Module",
             "Description": "This class implements support for the Grove Voice Recorder. There are two digital pins: one that enables recording, and the other that plays back what was previously recorded.",
-            "Part Numbers": ["isd1820"],
+            "Aliases": ["isd1820"],
             "Categories": ["audio"],
             "Connections": ["gpio"],
             "Project Type": ["audio", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "lsm303dlh":
         {
-            "Brief": "Triaxial Accelerometer/magnetometer",
+            "Name": "Triaxial Accelerometer/magnetometer",
             "Description": "This module defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer. This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass module used over I2C. The magnetometer and acceleromter are accessed at two seperate I2C addresses.",
-            "Part Numbers": ["lsm303dlh"],
+            "Aliases": ["lsm303dlh"],
             "Categories": ["compass", "accelerometer"],
             "Connections": ["i2c"],
             "Project Type": ["imu", "prototyping"],

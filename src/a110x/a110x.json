@@ -5,9 +5,9 @@
     {
         "a1101":
         {
-            "Brief": "API for the A110X Hall Effect Sensors",
+            "Name": "API for the A110X Hall Effect Sensors",
             "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
-            "Part Numbers": ["a110x"],
+            "Aliases": ["a110x"],
             "Categories": ["halleffect"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial"],
@@ -48,9 +48,9 @@
         },
         "a1102":
         {
-            "Brief": "API for the A110X Hall Effect Sensors",
+            "Name": "API for the A110X Hall Effect Sensors",
             "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
-            "Part Numbers": ["a110x"],
+            "Aliases": ["a110x"],
             "Categories": ["halleffect"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial"],
@@ -91,9 +91,9 @@
         },
         "a1103":
         {
-            "Brief": "API for the A110X Hall Effect Sensors",
+            "Name": "API for the A110X Hall Effect Sensors",
             "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
-            "Part Numbers": ["a110x"],
+            "Aliases": ["a110x"],
             "Categories": ["halleffect"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial"],
@@ -134,9 +134,9 @@
         },
         "a1104":
         {
-            "Brief": "API for the A110X Hall Effect Sensors",
+            "Name": "API for the A110X Hall Effect Sensors",
             "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
-            "Part Numbers": ["a110x"],
+            "Aliases": ["a110x"],
             "Categories": ["halleffect"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial"],
@@ -177,9 +177,9 @@
         },
         "a1106":
         {
-            "Brief": "API for the A110X Hall Effect Sensors",
+            "Name": "API for the A110X Hall Effect Sensors",
             "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
-            "Part Numbers": ["a110x"],
+            "Aliases": ["a110x"],
             "Categories": ["halleffect"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial"],

@@ -5,9 +5,9 @@
     {
         "bmpx8x":
         {
-            "Brief": "BMP Atmospheric Pressure Sensor",
+            "Name": "BMP Atmospheric Pressure Sensor",
             "Description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor",
-            "Part Numbers": ["bmpx8x"],
+            "Aliases": ["bmpx8x"],
             "Categories": ["pressure"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],

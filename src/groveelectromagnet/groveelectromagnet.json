@@ -5,9 +5,9 @@
     {
         "groveelectromagnet":
         {
-            "Brief": "API for the Grove Electromagnet",
+            "Name": "API for the Grove Electromagnet",
             "Description": "The Grove Electromagnet can hold up to 1 kg (approximately 2.2 lbs)",
-            "Part Numbers": ["groveelectromagnet"],
+            "Aliases": ["groveelectromagnet"],
             "Categories": ["electric", "magnetic", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping"],

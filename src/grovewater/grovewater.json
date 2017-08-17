@@ -5,9 +5,9 @@
     {
         "grovewater":
         {
-            "Brief": "Grove Water Sensor",
+            "Name": "Grove Water Sensor",
             "Description": "UPM module for the Grove Water sensor.",
-            "Part Numbers": ["grovewater"],
+            "Aliases": ["grovewater"],
             "Categories": ["liquid", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["agriculture", "environmental", "prototyping"],

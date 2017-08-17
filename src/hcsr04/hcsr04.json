@@ -5,9 +5,9 @@
     {
         "hcsr04":
         {
-            "Brief": "HC-SR04 Ultrasonic Distance Measuring Sensor",
+            "Name": "HC-SR04 Ultrasonic Distance Measuring Sensor",
             "Description": "This module defines the HC-SR04 interface for libhcsr04.",
-            "Part Numbers": ["hcsr04"],
+            "Aliases": ["hcsr04"],
             "Categories": ["ultrasonic", "distance"],
             "Connections": ["gpio"],
             "Project Type": ["robotics", "safety", "prototyping"],

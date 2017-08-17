@@ -5,9 +5,9 @@
     {
         "grovescam":
         {
-            "Brief": "Serial Camera Module",
+            "Name": "Serial Camera Module",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",
-            "Part Numbers": ["grovescam"],
+            "Aliases": ["grovescam"],
             "Categories": ["imaging", "deprecated"],
             "Connections": ["uart"],
             "Project Type": ["prototyping", "access control", "security"],

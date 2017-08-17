@@ -5,9 +5,9 @@
     {
         "grovegsr":
         {
-            "Brief": "Galvanic Skin Response (GSR) Sensor",
+            "Name": "Galvanic Skin Response (GSR) Sensor",
             "Description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
-            "Part Numbers": ["grovegsr"],
+            "Aliases": ["grovegsr"],
             "Categories": ["skinresponse"],
             "Connections": ["analog"],
             "Project Type": ["medical", "interface", "wearables", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "ht9170":
         {
-            "Brief": "Dual Tone Multi Frequency (DTMF) Decoder",
+            "Name": "Dual Tone Multi Frequency (DTMF) Decoder",
             "Description": "This driver was developed using the DTMF (Dual-Tone Multi-Frequency) Shield by Seeed Studio*. It can decode DTMF signals presented at its audio input. It does not generate DTMF signals.",
-            "Part Numbers": ["ht9170"],
+            "Aliases": ["ht9170"],
             "Categories": ["telephony"],
             "Connections": ["gpio"],
             "Project Type": ["telephone", "prototyping"],

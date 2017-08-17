@@ -5,9 +5,9 @@
     {
         "lcdks":
         {
-            "Brief": "LCD Keypad Shield",
+            "Name": "LCD Keypad Shield",
             "Description": "The LCD Keypad Shield uses 7 digital outputs and 1 analog input (for the keypad). The outputs are used to drive an attached LCM1602 LCD controller. This driver should be compatible with the similar LCD keypad shields from Sainsmart, DFRobot and Sparkfun.",
-            "Part Numbers": ["lcdks"],
+            "Aliases": ["lcdks"],
             "Categories": ["userinput"],
             "Connections": ["gpio", "analog"],
             "Project Type": ["control", "prototyping"],
@@ -24,7 +24,7 @@
             },
             "Specifications":
             {
-                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Voltage": {"unit": "V", "typ": 5}
             },
             "Urls" :
             {

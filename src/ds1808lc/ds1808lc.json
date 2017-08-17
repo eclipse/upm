@@ -5,9 +5,9 @@
     {
         "ds1808lc":
         {
-            "Brief": "DS1808LC Lighting Controller",
+            "Name": "DS1808LC Lighting Controller",
             "Description": "The Maxim Integrated [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html) Dual Log Digital Potentiometer",
-            "Part Numbers": ["ds1808lc"],
+            "Aliases": ["ds1808lc"],
             "Categories": ["lighting"],
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "industrial"],

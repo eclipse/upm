@@ -5,9 +5,9 @@
     {
         "collision":
         {
-            "Brief": "Grove Collision Sensor",
+            "Name": "Grove Collision Sensor",
             "Description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
-            "Part Numbers": ["collision"],
+            "Aliases": ["collision"],
             "Categories": ["collision", "accelerometer"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "robotics"],

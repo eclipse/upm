@@ -5,9 +5,9 @@
     {
         "kxcjk1013":
         {
-            "Brief": "Tri-axis Digital Accelerometer",
+            "Name": "Tri-axis Digital Accelerometer",
             "Description": "he KXCJK is a tri-axis +/-2g, +/-4g or +/-8g silicon micromachined accelerometer.",
-            "Part Numbers": ["kxcjk1013"],
+            "Aliases": ["kxcjk1013"],
             "Categories": ["accelerometer"],
             "Connections": ["iio", "i2c"],
             "Project Type": ["imu", "prototyping"],

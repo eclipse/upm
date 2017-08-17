@@ -5,12 +5,12 @@
     {
         "enc03r":
         {
-            "Brief": "Single-axis Analog Gyro Module",
+            "Name": "Single-axis Analog Gyro Module",
             "Description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
-            "Part Numbers": ["enc03r"],
+            "Aliases": ["enc03r"],
             "Categories": ["gyroscope", "IMU", "Discontinued"],
             "Connections": ["analog"],
-            "Project Type": ["prototyping", ],
+            "Project Type": ["prototyping"],
             "Manufacturers": ["murata", "seeed"],
             "Kits": ["robok"],
             "Image": "enc03r.jpg",

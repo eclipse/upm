@@ -5,9 +5,9 @@
     {
         "adxrs610":
         {
-            "Brief": "DFRobot ADXRS610 Gyro Breakout Board",
+            "Name": "DFRobot ADXRS610 Gyro Breakout Board",
             "Description": "The ADXRS610 is a MEMS based single axis gyroscope with a range of +/- 300 degrees/sec.  It also incorporates a temperature sensing unit that can be used for advanced calibration. This sensor returns an analog voltage proportional to the rotation about the Z-axis in degrees/sec.  The temperature component returns a proportional analog values in degrees C. This driver was developed using the DFRobot ADXRS610 Gyro Beakout board.",
-            "Part Numbers": ["adxrs610"],
+            "Aliases": ["adxrs610"],
             "Categories": ["imu", "gyroscope"],
             "Connections": ["analog"],
             "Project Type": ["prototyping", "industrial"],

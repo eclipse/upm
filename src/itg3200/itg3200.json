@@ -5,9 +5,9 @@
     {
         "itg3200":
         {
-            "Brief": "Grove 3-Axis Digital Gyroscope",
+            "Name": "Grove 3-Axis Digital Gyroscope",
             "Description": "InvenSense* ITG-3200 is a 3-axis digital gyroscope. (https://www.sparkfun.com/datasheets/Sensors/Gyro/PS-ITG-3200-00-01.4.pdf) This sensor has been tested and can run at either 3.3V or 5V on Intel(R) Galileo.<br> <strong>However</strong>, it is incompatible with and not detected on the I2C bus by Intel(R) Edison using the Arduino* breakout board.",
-            "Part Numbers": ["itg3200"],
+            "Aliases": ["itg3200"],
             "Categories": ["gyroscope"],
             "Connections": ["i2c"],
             "Project Type": ["IMU", "prototyping"],

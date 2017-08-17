@@ -5,9 +5,9 @@
     {
         "ims":
         {
-            "Brief": "I2C Moisture Sensor",
+            "Name": "I2C Moisture Sensor",
             "Description": "I2C Sensor which can be used to read moisture, light, and temperature which must run at 100kHz.",
-            "Part Numbers": ["ims"],
+            "Aliases": ["ims"],
             "Categories": ["moisture"],
             "Connections": ["i2c"],
             "Project Type": ["environmental", "prototyping"],

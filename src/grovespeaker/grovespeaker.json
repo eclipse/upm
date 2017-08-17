@@ -5,9 +5,9 @@
     {
         "grovespeaker":
         {
-            "Brief": "Grove Speaker Module",
+            "Name": "Grove Speaker Module",
             "Description": "UPM module for the Grove Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal.",
-            "Part Numbers": ["grovespeaker"],
+            "Aliases": ["grovespeaker"],
             "Categories": ["sound", "deprecated"],
             "Connections": ["gpio"],
             "Project Type": ["sound", "prototyping"],

@@ -5,9 +5,9 @@
     {
         "eldriver":
         {
-            "Brief": "Electroluminescent Wire (EL) Driver",
+            "Name": "Electroluminescent Wire (EL) Driver",
             "Description": "The  EL Driver allows you to easily light up an EL wire with just one single  cable.",
-            "Part Numbers": ["eldriver"],
+            "Aliases": ["eldriver"],
             "Categories": ["lighting"],
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "commercial", "wearables"],

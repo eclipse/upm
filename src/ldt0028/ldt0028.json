@@ -5,9 +5,9 @@
     {
         "ldt0028":
         {
-            "Brief": "Piezo Vibration Sensor",
+            "Name": "Piezo Vibration Sensor",
             "Description": "This module defines the LDT0-028 interface for libupm-ldt0028",
-            "Part Numbers": ["ldt0028"],
+            "Aliases": ["ldt0028"],
             "Categories": ["vibration"],
             "Connections": ["analog"],
             "Project Type": ["industrial", "prototyping"],
