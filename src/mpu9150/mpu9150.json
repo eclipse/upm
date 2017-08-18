@@ -15,7 +15,7 @@
                 "Java": ["MPU9150Sample.java"],
                 "Python": ["mpu9150.py"],
                 "Node.js": ["mpu9150.js"],
-                "C++": ["mpu9150-ak8975.cxx.cxx", "mpu9150-mpu60x0.cxx", "mpu9150-mpu9250.cxx", "mpu9150.cxx"]
+                "C++": ["mpu9150-ak8975.cxx", "mpu9150-mpu60x0.cxx", "mpu9150-mpu9250.cxx", "mpu9150.cxx"]
             },
             "Specifications": {
                 "Vsource": {

@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Kits": ["gsk", "eak", "hak"],
             "Examples": {
-                "C++": ["grovebutton.cxx"]
+                "C++": ["grove-grovebutton.cxx"]
             },
             "Urls": {
                 "Product Pages": ["https://github.com/intel-iot-devkit/upm/tree/master/src/grove"]
