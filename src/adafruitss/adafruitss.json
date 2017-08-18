@@ -1,0 +1,47 @@
+{
+    "Library": "adafruitss",
+    "Description": "Adafruit Servo Shield",
+    "Sensor Class":
+    {
+        "adafruitss":
+        {
+            "Name": "Adafruit PCA9685-based Servo Shield library",
+            "Description": "UPM library for the PCA9685-based Adafruit 16-channel servo shield.",
+            "Aliases": ["adafruitss"],
+            "Categories": ["servos"],
+            "Connections": ["i2c"],
+            "Project Type": ["servos"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Image": "adafruitss.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["adafruitss.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Vmotor": {"unit": "v", "low": 0, "high": 6},
+                "Vlogic": {"unit": "V", "low": 3.3, "high": 5},
+                "PWM Frequency": {"unit": "KHz", "high": 1.6}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["If 3 or more GWS servos are attached, results could be unpredictable. Adafruit Industries recommend installing a capacitor on the board, which should alleviate the issue. Sizing depends on servos and their number."],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.adafruit.com/product/1411"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/36081"]
+            }
+        }
+    }
+}
