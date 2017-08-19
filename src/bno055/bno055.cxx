@@ -61,7 +61,12 @@ void BNO055::update()
 
 uint8_t BNO055::readReg(uint8_t reg)
 {
-    return bno055_read_reg(m_bno055, reg);
+    uint8_t rv = 0;
+    if (bno055_read_reg(m_bno055, reg, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_read_reg() failed");
+
+    return rv;
 }
 
 void BNO055::readRegs(uint8_t reg, uint8_t *buffer, int len)
@@ -87,32 +92,62 @@ void BNO055::writeRegs(uint8_t reg, uint8_t *buffer, int len)
 
 uint8_t BNO055::getChipID()
 {
-    return bno055_get_chip_id(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_chip_id(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_chip_id() failed");
+
+    return rv;
 }
 
 uint8_t BNO055::getACCID()
 {
-    return bno055_get_acc_id(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_acc_id(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_acc_id() failed");
+
+    return rv;
 }
 
 uint8_t BNO055::getMAGID()
 {
-    return bno055_get_mag_id(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_mag_id(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_mag_id() failed");
+
+    return rv;
 }
 
 uint8_t BNO055::getGYRID()
 {
-    return bno055_get_gyr_id(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_gyr_id(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_gyr_id() failed");
+
+    return rv;
 }
 
 uint16_t BNO055::getSWRevID()
 {
-    return bno055_get_sw_revision(m_bno055);
+    uint16_t rv = 0;
+    if (bno055_get_sw_revision(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_sw_revision() failed");
+
+    return rv;
 }
 
 uint8_t BNO055::getBootLoaderID()
 {
-    return bno055_get_bootloader_id(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_bootloader_id(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_bootloader_id() failed");
+
+    return rv;
 }
 
 void BNO055::setPage(uint8_t page, bool force)
@@ -124,37 +159,51 @@ void BNO055::setPage(uint8_t page, bool force)
 
 void BNO055::setClockExternal(bool extClock)
 {
-    bno055_set_clock_external(m_bno055, extClock);
+    if (bno055_set_clock_external(m_bno055, extClock))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_clock_external() failed");
 }
 
 void BNO055::setTemperatureSource(BNO055_TEMP_SOURCES_T src)
 {
-    bno055_set_temperature_source(m_bno055, src);
+    if (bno055_set_temperature_source(m_bno055, src))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_temperature_source() failed");
 }
 
 void BNO055::setAccelerometerUnits(bool mg)
 {
-    bno055_set_accelerometer_units(m_bno055, mg);
+    if (bno055_set_accelerometer_units(m_bno055, mg))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_accelerometer_units() failed");
 }
 
 void BNO055::setGyroscopeUnits(bool radians)
 {
-    bno055_set_gyroscope_units(m_bno055, radians);
+    if (bno055_set_gyroscope_units(m_bno055, radians))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_gyroscope_units() failed");
 }
 
 void BNO055::setEulerUnits(bool radians)
 {
-    bno055_set_euler_units(m_bno055, radians);
+    if (bno055_set_euler_units(m_bno055, radians))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_euler_units() failed");
 }
 
 void BNO055::setOperationMode(BNO055_OPERATION_MODES_T mode)
 {
-    bno055_set_operation_mode(m_bno055, mode);
+    if (bno055_set_operation_mode(m_bno055, mode))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_operation_mode() failed");
 }
 
 void BNO055::getCalibrationStatus(int *mag, int *acc, int *gyr, int *sys)
 {
-    bno055_get_calibration_status(m_bno055, mag, acc, gyr, sys);
+    if (bno055_get_calibration_status(m_bno055, mag, acc, gyr, sys))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_calibration_status() failed");
 }
 
 vector<int> BNO055::getCalibrationStatus()
@@ -172,47 +221,80 @@ bool BNO055::isFullyCalibrated()
 
 void BNO055::resetSystem()
 {
-    bno055_reset_system(m_bno055);
+    if (bno055_reset_system(m_bno055))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_reset_system() failed");
 }
 
 void BNO055::resetInterruptStatus()
 {
-    bno055_reset_interrupt_status(m_bno055);
+    if (bno055_reset_interrupt_status(m_bno055))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": reset_interrupt_status() failed");
 }
 
 uint8_t BNO055::getInterruptStatus()
 {
-    return bno055_get_interrupt_status(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_interrupt_status(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055get_interrupt_status() failed");
+
+    return rv;
 }
 
 uint8_t BNO055::getInterruptEnable()
 {
-    return bno055_get_interrupt_enable(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_interrupt_enable(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_interrupt_enable() failed");
+
+    return rv;
 }
 
 void BNO055::setInterruptEnable(uint8_t enables)
 {
-    return bno055_set_interrupt_enable(m_bno055, enables);
+    if (bno055_set_interrupt_enable(m_bno055, enables))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_interrupt_enable() failed");
 }
 
 uint8_t BNO055::getInterruptMask()
 {
-    return bno055_get_interrupt_mask(m_bno055);
+    uint8_t rv = 0;
+    if (bno055_get_interrupt_mask(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_interrupt_mask() failed");
+
+    return rv;
 }
 
 void BNO055::setInterruptMask(uint8_t mask)
 {
-    return bno055_set_interrupt_mask(m_bno055, mask);
+    if (bno055_set_interrupt_mask(m_bno055, mask))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_interrupt_mask() failed");
 }
 
 BNO055_SYS_STATUS_T BNO055::getSystemStatus()
 {
-    return bno055_get_system_status(m_bno055);
+    BNO055_SYS_STATUS_T rv;
+    if (bno055_get_system_status(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_system_status() failed");
+
+    return rv;
 }
 
 BNO055_SYS_ERR_T BNO055::getSystemError()
 {
-    return bno055_get_system_error(m_bno055);
+    BNO055_SYS_ERR_T rv;
+    if (bno055_get_system_error(m_bno055, &rv))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_get_system_error() failed");
+
+    return rv;
 }
 
 std::vector<uint8_t> BNO055::readCalibrationData()
@@ -334,21 +416,27 @@ void BNO055::setAccelerationConfig(BNO055_ACC_RANGE_T range,
                                    BNO055_ACC_BW_T bw,
                                    BNO055_ACC_PWR_MODE_T pwr)
 {
-    bno055_set_acceleration_config(m_bno055, range, bw, pwr);
+    if (bno055_set_acceleration_config(m_bno055, range, bw, pwr))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_acceleration_config() failed");
 }
 
 void BNO055::setMagnetometerConfig(BNO055_MAG_ODR_T odr,
                                    BNO055_MAG_OPR_T opr,
                                    BNO055_MAG_POWER_T pwr)
 {
-    bno055_set_magnetometer_config(m_bno055, odr, opr, pwr);
+    if (bno055_set_magnetometer_config(m_bno055, odr, opr, pwr))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_magnetometer_config() failed");
 }
 
 void BNO055::setGyroscopeConfig(BNO055_GYR_RANGE_T range,
                                 BNO055_GYR_BW_T bw,
                                 BNO055_GYR_POWER_MODE_T pwr)
 {
-    bno055_set_gyroscope_config(m_bno055, range, bw, pwr);
+    if (bno055_set_gyroscope_config(m_bno055, range, bw, pwr))
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_set_gyroscope_config() failed");
 }
 
 void BNO055::installISR(int gpio, mraa_gpio_edge_t level,

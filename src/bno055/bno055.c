@@ -51,23 +51,26 @@ static void _clear_data(const bno055_context dev)
 }
 
 // load fusion data
-static void _update_fusion_data(const bno055_context dev)
+static upm_result_t _update_fusion_data(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    // bail if we are in config mode, or aren't in a fusion mode...
+    // bail (with success code) if we are in config mode, or aren't in
+    // a fusion mode...
     if (dev->currentMode == BNO055_OPERATION_MODE_CONFIGMODE ||
         dev->currentMode < BNO055_OPERATION_MODE_IMU)
-        return;
+        return UPM_SUCCESS;
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // FIXME/MAYBE? - abort early if SYS calibration is == 0?
 
     const int fusionBytes = 26;
     uint8_t buf[fusionBytes];
 
-    bno055_read_regs(dev, BNO055_REG_EUL_HEADING_LSB, buf, fusionBytes);
+    if (bno055_read_regs(dev, BNO055_REG_EUL_HEADING_LSB, buf, fusionBytes))
+        return UPM_ERROR_OPERATION_FAILED;
 
     dev->eulHeading = INT16_TO_FLOAT(buf[0], buf[1]);
     dev->eulRoll    = INT16_TO_FLOAT(buf[2], buf[3]);
@@ -85,23 +88,27 @@ static void _update_fusion_data(const bno055_context dev)
     dev->grvX       = INT16_TO_FLOAT(buf[20], buf[21]);
     dev->grvY       = INT16_TO_FLOAT(buf[22], buf[23]);
     dev->grvZ       = INT16_TO_FLOAT(buf[24], buf[25]);
+
+    return UPM_SUCCESS;
 }
 
 // update non-fusion data
-static void _update_non_fusion_data(const bno055_context dev)
+static upm_result_t _update_non_fusion_data(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    // bail if we are in config mode...
+    // bail (with success code) if we are in config mode...
     if (dev->currentMode == BNO055_OPERATION_MODE_CONFIGMODE)
-        return;
+        return UPM_SUCCESS;
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     const int nonFusionBytes = 18;
     uint8_t buf[nonFusionBytes];
 
-    bno055_read_regs(dev, BNO055_REG_ACC_DATA_X_LSB, buf, nonFusionBytes);
+    if (bno055_read_regs(dev, BNO055_REG_ACC_DATA_X_LSB, buf, nonFusionBytes))
+        return UPM_ERROR_OPERATION_FAILED;
 
     dev->accX = INT16_TO_FLOAT(buf[0], buf[1]);
     dev->accY = INT16_TO_FLOAT(buf[2], buf[3]);
@@ -114,6 +121,8 @@ static void _update_non_fusion_data(const bno055_context dev)
     dev->gyrX = INT16_TO_FLOAT(buf[12], buf[13]);
     dev->gyrY = INT16_TO_FLOAT(buf[14], buf[15]);
     dev->gyrZ = INT16_TO_FLOAT(buf[16], buf[17]);
+
+    return UPM_SUCCESS;
 }
 
 // init
@@ -163,7 +172,14 @@ bno055_context bno055_init(int bus, uint8_t addr)
 
     // check the chip id.  This has to be done after forcibly setting
     // page 0, as that is the only page where the chip id is present.
-    uint8_t chipID = bno055_get_chip_id(dev);
+    uint8_t chipID = 0;
+    if (bno055_get_chip_id(dev, &chipID))
+    {
+        printf("%s: Could not read chip id\n", __FUNCTION__);
+        bno055_close(dev);
+        return NULL;
+    }
+
     if (chipID != BNO055_CHIPID)
     {
         printf("%s: Invalid chip ID. Expected 0x%02x, got 0x%02x\n",
@@ -172,34 +188,41 @@ bno055_context bno055_init(int bus, uint8_t addr)
         return NULL;
     }
 
-    // if the above two accesses succeeded, the rest should succeed
-
+    upm_result_t urv = UPM_SUCCESS;
     // set config mode
-    bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE);
+    urv += bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE);
 
     // default to internal clock
-    bno055_set_clock_external(dev, false);
+    urv += bno055_set_clock_external(dev, false);
 
     // we specifically avoid doing a reset so that if the device is
     // already calibrated, it will remain so.
 
     // we always use C for temperature
-    bno055_set_temperature_units_celsius(dev);
+    urv += bno055_set_temperature_units_celsius(dev);
 
     // default to accelerometer temp
-    bno055_set_temperature_source(dev, BNO055_TEMP_SOURCE_ACC);
+    urv += bno055_set_temperature_source(dev, BNO055_TEMP_SOURCE_ACC);
 
     // set accel units to m/s^2
-    bno055_set_accelerometer_units(dev, false);
+    urv += bno055_set_accelerometer_units(dev, false);
 
     // set gyro units to degrees
-    bno055_set_gyroscope_units(dev, false);
+    urv += bno055_set_gyroscope_units(dev, false);
 
     // set Euler units to degrees
-    bno055_set_euler_units(dev, false);
+    urv += bno055_set_euler_units(dev, false);
 
     // by default, we set the operating mode to the NDOF fusion mode
-    bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_NDOF);
+    urv += bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_NDOF);
+
+    // if any of those failed, bail
+    if (urv != UPM_SUCCESS)
+    {
+        printf("%s: Initial device configuration failed\n", __FUNCTION__);
+        bno055_close(dev);
+        return NULL;
+    }
 
     return dev;
 }
@@ -220,34 +243,41 @@ upm_result_t bno055_update(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    upm_result_t rv = UPM_SUCCESS;
-    if ((rv = bno055_set_page(dev, 0, false)))
-        return rv;
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // temperature first, always in Celsius
-    dev->temperature = (float)((int8_t)bno055_read_reg(dev,
-                                                       BNO055_REG_TEMPERATURE));
+    uint8_t tempreg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_TEMPERATURE, &tempreg))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    _update_fusion_data(dev);
-    _update_non_fusion_data(dev);
+    dev->temperature = (float)((int8_t)tempreg);
 
-    return rv;
+    if (_update_fusion_data(dev))
+        return UPM_ERROR_OPERATION_FAILED;
+    if (_update_non_fusion_data(dev))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return UPM_SUCCESS;
 }
 
-uint8_t bno055_read_reg(const bno055_context dev, uint8_t reg)
+upm_result_t bno055_read_reg(const bno055_context dev, uint8_t reg,
+                             uint8_t *retval)
 {
     assert(dev != NULL);
 
     int rv = mraa_i2c_read_byte_data(dev->i2c, reg);
-
     if (rv < 0)
     {
-        printf("%s: mraa_i2c_read_byte_data() failed, returning 0\n",
+        printf("%s: mraa_i2c_read_byte_data() failed\n",
                __FUNCTION__);
-        return 0;
+        return UPM_ERROR_OPERATION_FAILED;
     }
 
-    return (uint8_t)rv;
+    if (retval)
+        *retval = (uint8_t)(rv & 0xff);
+
+    return UPM_SUCCESS;
 }
 
 upm_result_t bno055_read_regs(const bno055_context dev, uint8_t reg,
@@ -256,7 +286,11 @@ upm_result_t bno055_read_regs(const bno055_context dev, uint8_t reg,
     assert(dev != NULL);
 
     if (mraa_i2c_read_bytes_data(dev->i2c, reg, buffer, len) < 0)
+    {
+        printf("%s: mraa_i2c_read_bytes() failed\n",
+               __FUNCTION__);
         return UPM_ERROR_OPERATION_FAILED;
+    }
 
     return UPM_SUCCESS;
 }
@@ -267,7 +301,11 @@ upm_result_t bno055_write_reg(const bno055_context dev,
     assert(dev != NULL);
 
     if (mraa_i2c_write_byte_data(dev->i2c, val, reg))
+    {
+        printf("%s: mraa_i2c_write_byte_data() failed\n",
+               __FUNCTION__);
         return UPM_ERROR_OPERATION_FAILED;
+    }
 
     return UPM_SUCCESS;
 }
@@ -284,62 +322,82 @@ upm_result_t bno055_write_regs(const bno055_context dev, uint8_t reg,
         buf[i+1] = buffer[i];
 
     if (mraa_i2c_write(dev->i2c, buf, len + 1))
+    {
+        printf("%s: mraa_i2c_write() failed\n",
+               __FUNCTION__);
         return UPM_ERROR_OPERATION_FAILED;
+    }
 
     return UPM_SUCCESS;
 }
 
-uint8_t bno055_get_chip_id(const bno055_context dev)
+upm_result_t bno055_get_chip_id(const bno055_context dev, uint8_t *chip_id)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    return bno055_read_reg(dev, BNO055_REG_CHIP_ID);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_read_reg(dev, BNO055_REG_CHIP_ID, chip_id);
 }
 
-uint8_t bno055_get_acc_id(const bno055_context dev)
+upm_result_t bno055_get_acc_id(const bno055_context dev, uint8_t *chip_id)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    return bno055_read_reg(dev, BNO055_REG_ACC_ID);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_read_reg(dev, BNO055_REG_ACC_ID, chip_id);
 }
 
-uint8_t bno055_get_mag_id(const bno055_context dev)
+upm_result_t bno055_get_mag_id(const bno055_context dev, uint8_t *chip_id)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    return bno055_read_reg(dev, BNO055_REG_MAG_ID);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_read_reg(dev, BNO055_REG_MAG_ID, chip_id);
 }
 
-uint8_t bno055_get_gyr_id(const bno055_context dev)
+upm_result_t bno055_get_gyr_id(const bno055_context dev, uint8_t *chip_id)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    return bno055_read_reg(dev, BNO055_REG_GYR_ID);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_read_reg(dev, BNO055_REG_GYR_ID, chip_id);
 }
 
-uint16_t bno055_get_sw_revision(const bno055_context dev)
+upm_result_t bno055_get_sw_revision(const bno055_context dev, uint16_t *sw_rev)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t lsb, msb;
-    lsb = bno055_read_reg(dev, BNO055_REG_SW_REV_ID_LSB);
-    msb = bno055_read_reg(dev, BNO055_REG_SW_REV_ID_MSB);
+    uint8_t lsb = 0, msb = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SW_REV_ID_LSB, &lsb))
+        return UPM_ERROR_OPERATION_FAILED;
+    if (bno055_read_reg(dev, BNO055_REG_SW_REV_ID_MSB, &msb))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return (uint16_t)(lsb | (msb << 8));
+    if (sw_rev)
+        *sw_rev = (uint16_t)(lsb | (msb << 8));
+
+    return UPM_SUCCESS;
 }
 
-uint8_t bno055_get_bootloader_id(const bno055_context dev)
+upm_result_t bno055_get_bootloader_id(const bno055_context dev, uint8_t *bl_id)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    return bno055_read_reg(dev, BNO055_REG_BL_REV_ID);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_read_reg(dev, BNO055_REG_BL_REV_ID, bl_id);
 }
 
 upm_result_t bno055_set_page(const bno055_context dev, uint8_t page,
@@ -356,64 +414,84 @@ upm_result_t bno055_set_page(const bno055_context dev, uint8_t page,
     }
 
     if (force || page != dev->currentPage)
-        bno055_write_reg(dev, BNO055_REG_PAGE_ID, page);
+    {
+        if (bno055_write_reg(dev, BNO055_REG_PAGE_ID, page))
+            return UPM_ERROR_OPERATION_FAILED;
+    }
 
     dev->currentPage = page;
     return UPM_SUCCESS;
 }
 
-void bno055_set_clock_external(const bno055_context dev, bool extClock)
+upm_result_t bno055_set_clock_external(const bno055_context dev,
+                                       bool extClock)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // first we need to be in config mode
     BNO055_OPERATION_MODES_T currentMode = dev->currentMode;
-    bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE);
+    if (bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     if (extClock)
         reg |= BNO055_SYS_TRIGGER_CLK_SEL;
     else
         reg &= ~BNO055_SYS_TRIGGER_CLK_SEL;
 
-    bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg);
+    if (bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // now reset our operating mode
-    bno055_set_operation_mode(dev, currentMode);
+    if (bno055_set_operation_mode(dev, currentMode))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return UPM_SUCCESS;
 }
 
-void bno055_set_temperature_source(const bno055_context dev,
-                                   BNO055_TEMP_SOURCES_T src)
+upm_result_t bno055_set_temperature_source(const bno055_context dev,
+                                           BNO055_TEMP_SOURCES_T src)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
-    bno055_write_reg(dev, BNO055_REG_TEMP_SOURCE, src);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return bno055_write_reg(dev, BNO055_REG_TEMP_SOURCE, src);
 }
 
-void bno055_set_temperature_units_celsius(const bno055_context dev)
+upm_result_t bno055_set_temperature_units_celsius(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_UNIT_SEL);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_UNIT_SEL, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     reg &= ~BNO055_UNIT_SEL_TEMP_UNIT;
 
-    bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
+    return bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
 }
 
-void bno055_set_accelerometer_units(const bno055_context dev, bool mg)
+upm_result_t bno055_set_accelerometer_units(const bno055_context dev, bool mg)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_UNIT_SEL);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_UNIT_SEL, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     if (mg)
     {
@@ -426,16 +504,19 @@ void bno055_set_accelerometer_units(const bno055_context dev, bool mg)
         dev->accUnitScale = 100.0;
     }
 
-    bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
+    return bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
 }
 
-void bno055_set_gyroscope_units(const bno055_context dev, bool radians)
+upm_result_t bno055_set_gyroscope_units(const bno055_context dev, bool radians)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_UNIT_SEL);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_UNIT_SEL, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     if (radians)
     {
@@ -448,16 +529,19 @@ void bno055_set_gyroscope_units(const bno055_context dev, bool radians)
         dev->gyrUnitScale = 16.0;
     }
 
-    bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
+    return bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
 }
 
-void bno055_set_euler_units(const bno055_context dev, bool radians)
+upm_result_t bno055_set_euler_units(const bno055_context dev, bool radians)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_UNIT_SEL);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_UNIT_SEL, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     if (radians)
     {
@@ -470,41 +554,51 @@ void bno055_set_euler_units(const bno055_context dev, bool radians)
         dev->eulUnitScale = 16.0;
     }
 
-    bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
+    return bno055_write_reg(dev, BNO055_REG_UNIT_SEL, reg);
 }
 
-void bno055_set_operation_mode(const bno055_context dev,
-                               BNO055_OPERATION_MODES_T mode)
+upm_result_t bno055_set_operation_mode(const bno055_context dev,
+                                       BNO055_OPERATION_MODES_T mode)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // we clear all of our loaded data on mode changes
     _clear_data(dev);
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_OPER_MODE);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_OPER_MODE, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     reg &= ~(_BNO055_OPR_MODE_OPERATION_MODE_MASK
              << _BNO055_OPR_MODE_OPERATION_MODE_SHIFT);
 
     reg |= (mode << _BNO055_OPR_MODE_OPERATION_MODE_SHIFT);
 
-    bno055_write_reg(dev, BNO055_REG_OPER_MODE, reg);
+    if (bno055_write_reg(dev, BNO055_REG_OPER_MODE, reg))
+        return UPM_ERROR_OPERATION_FAILED;
+
     dev->currentMode = mode;
 
     upm_delay_us(30);
+
+    return UPM_SUCCESS;
 }
 
-void bno055_get_calibration_status(const bno055_context dev,
-                                   int *mag, int *acc,
-                                   int *gyr, int *sys)
+upm_result_t bno055_get_calibration_status(const bno055_context dev,
+                                           int *mag, int *acc,
+                                           int *gyr, int *sys)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_CALIB_STAT);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_CALIB_STAT, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     if (mag)
         *mag = (reg >> _BNO055_CALIB_STAT_MAG_SHIFT)
@@ -521,6 +615,8 @@ void bno055_get_calibration_status(const bno055_context dev,
     if (sys)
         *sys = (reg >> _BNO055_CALIB_STAT_SYS_SHIFT)
             & _BNO055_CALIB_STAT_SYS_MASK;
+
+    return UPM_SUCCESS;
 }
 
 bool bno055_is_fully_calibrated(const bno055_context dev)
@@ -529,7 +625,9 @@ bool bno055_is_fully_calibrated(const bno055_context dev)
 
     int mag, acc, gyr, sys;
 
-    bno055_get_calibration_status(dev, &mag, &acc, &gyr, &sys);
+    // fail on error
+    if (bno055_get_calibration_status(dev, &mag, &acc, &gyr, &sys))
+        return false;
 
     // all of them equal to 3 means fully calibrated
     if (mag == 3 && acc == 3 && gyr == 3 && sys == 3)
@@ -538,94 +636,131 @@ bool bno055_is_fully_calibrated(const bno055_context dev)
         return false;
 }
 
-void bno055_reset_system(const bno055_context dev)
+upm_result_t bno055_reset_system(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     reg |= BNO055_SYS_TRIGGER_RST_SYS;
 
-    bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg);
+    if (bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg))
+        return UPM_ERROR_OPERATION_FAILED;
+
     upm_delay(1);
+
+    return UPM_SUCCESS;
 }
 
-void bno055_reset_interrupt_status(const bno055_context dev)
+upm_result_t bno055_reset_interrupt_status(const bno055_context dev)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    uint8_t reg = bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SYS_TRIGGER, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     reg |= BNO055_SYS_TRIGGER_RST_INT;
 
-    bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg);
+    return bno055_write_reg(dev, BNO055_REG_SYS_TRIGGER, reg);
 }
 
-uint8_t bno055_get_interrupt_status(const bno055_context dev)
+upm_result_t bno055_get_interrupt_status(const bno055_context dev,
+                                         uint8_t *istat)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return bno055_read_reg(dev, BNO055_REG_INT_STA);
+    return bno055_read_reg(dev, BNO055_REG_INT_STA, istat);
 }
 
-uint8_t bno055_get_interrupt_enable(const bno055_context dev)
+upm_result_t bno055_get_interrupt_enable(const bno055_context dev,
+                                         uint8_t *ienable)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return bno055_read_reg(dev, BNO055_REG_INT_EN);
+    return bno055_read_reg(dev, BNO055_REG_INT_EN, ienable);
 }
 
-void bno055_set_interrupt_enable(const bno055_context dev, uint8_t enables)
+upm_result_t bno055_set_interrupt_enable(const bno055_context dev,
+                                         uint8_t enables)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    bno055_write_reg(dev, BNO055_REG_INT_EN, enables);
+    return bno055_write_reg(dev, BNO055_REG_INT_EN, enables);
 }
 
-uint8_t bno055_get_interrupt_mask(const bno055_context dev)
+upm_result_t bno055_get_interrupt_mask(const bno055_context dev,
+                                       uint8_t *imask)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return bno055_read_reg(dev, BNO055_REG_INT_MSK);
+    return bno055_read_reg(dev, BNO055_REG_INT_MSK, imask);
 }
 
-void bno055_set_interrupt_mask(const bno055_context dev, uint8_t mask)
+upm_result_t bno055_set_interrupt_mask(const bno055_context dev, uint8_t mask)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    bno055_write_reg(dev, BNO055_REG_INT_MSK, mask);
+    return bno055_write_reg(dev, BNO055_REG_INT_MSK, mask);
 }
 
-BNO055_SYS_STATUS_T bno055_get_system_status(const bno055_context dev)
+upm_result_t bno055_get_system_status(const bno055_context dev,
+    BNO055_SYS_STATUS_T *sys_stat)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return (BNO055_SYS_STATUS_T)bno055_read_reg(dev, BNO055_REG_SYS_STATUS);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SYS_STATUS, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    if (sys_stat)
+        *sys_stat = (BNO055_SYS_STATUS_T)reg;
+
+    return UPM_SUCCESS;
 }
 
-BNO055_SYS_ERR_T bno055_get_system_error(const bno055_context dev)
+upm_result_t bno055_get_system_error(const bno055_context dev,
+                                     BNO055_SYS_ERR_T *sys_err)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    return (BNO055_SYS_ERR_T)bno055_read_reg(dev, BNO055_REG_SYS_ERROR);
+    uint8_t reg = 0;
+    if (bno055_read_reg(dev, BNO055_REG_SYS_ERROR, &reg))
+        return UPM_ERROR_OPERATION_FAILED;
+
+    if (sys_err)
+        *sys_err = (BNO055_SYS_ERR_T)reg;
+
+    return UPM_SUCCESS;
 }
 
 upm_result_t bno055_read_calibration_data(const bno055_context dev,
@@ -649,17 +784,21 @@ upm_result_t bno055_read_calibration_data(const bno055_context dev,
     }
 
     // should be at page 0, but lets make sure
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // first we need to go back into config mode
     BNO055_OPERATION_MODES_T currentMode = dev->currentMode;
-    bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE);
+    if (bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE))
+        return UPM_ERROR_OPERATION_FAILED;
 
-    bno055_read_regs(dev, BNO055_REG_ACC_OFFSET_X_LSB, data,
-                     BNO055_CALIBRATION_DATA_SIZE);
+    if (bno055_read_regs(dev, BNO055_REG_ACC_OFFSET_X_LSB, data,
+                         BNO055_CALIBRATION_DATA_SIZE))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // now reset our operating mode
-    bno055_set_operation_mode(dev, currentMode);
+    if (bno055_set_operation_mode(dev, currentMode))
+        return UPM_ERROR_OPERATION_FAILED;
 
     return UPM_SUCCESS;
 }
@@ -680,18 +819,22 @@ upm_result_t bno055_write_calibration_data(const bno055_context dev,
     }
 
     // should be at page 0, but lets make sure
-    bno055_set_page(dev, 0, false);
+    if (bno055_set_page(dev, 0, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // first we need to go back into config mode
     BNO055_OPERATION_MODES_T currentMode = dev->currentMode;
-    bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE);
+    if (bno055_set_operation_mode(dev, BNO055_OPERATION_MODE_CONFIGMODE))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // write the data
-    bno055_write_regs(dev, BNO055_REG_ACC_OFFSET_X_LSB, data,
-                      BNO055_CALIBRATION_DATA_SIZE);
+    if (bno055_write_regs(dev, BNO055_REG_ACC_OFFSET_X_LSB, data,
+                          BNO055_CALIBRATION_DATA_SIZE))
+        return UPM_ERROR_OPERATION_FAILED;
 
     // now reset our operating mode
-    bno055_set_operation_mode(dev, currentMode);
+    if (bno055_set_operation_mode(dev, currentMode))
+        return UPM_ERROR_OPERATION_FAILED;
 
     return UPM_SUCCESS;
 }
@@ -817,55 +960,59 @@ void bno055_get_gyroscope(const bno055_context dev,
         *z = dev->gyrZ / dev->gyrUnitScale;
 }
 
-void bno055_set_acceleration_config(const bno055_context dev,
-                                    BNO055_ACC_RANGE_T range,
-                                    BNO055_ACC_BW_T bw,
-                                    BNO055_ACC_PWR_MODE_T pwr)
+upm_result_t bno055_set_acceleration_config(const bno055_context dev,
+                                            BNO055_ACC_RANGE_T range,
+                                            BNO055_ACC_BW_T bw,
+                                            BNO055_ACC_PWR_MODE_T pwr)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     uint8_t reg = ((range << _BNO055_ACC_CONFIG_ACC_RANGE_SHIFT)
                    | (bw << _BNO055_ACC_CONFIG_ACC_BW_SHIFT)
                    | (pwr << _BNO055_ACC_CONFIG_ACC_PWR_MODE_SHIFT));
 
-    bno055_write_reg(dev, BNO055_REG_ACC_CONFIG, reg);
+    return bno055_write_reg(dev, BNO055_REG_ACC_CONFIG, reg);
 }
 
-void bno055_set_magnetometer_config(const bno055_context dev,
-                                    BNO055_MAG_ODR_T odr,
-                                    BNO055_MAG_OPR_T opr,
-                                    BNO055_MAG_POWER_T pwr)
+upm_result_t bno055_set_magnetometer_config(const bno055_context dev,
+                                            BNO055_MAG_ODR_T odr,
+                                            BNO055_MAG_OPR_T opr,
+                                            BNO055_MAG_POWER_T pwr)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     uint8_t reg = ((odr << _BNO055_MAG_CONFIG_MAG_ODR_SHIFT)
                    | (opr << _BNO055_MAG_CONFIG_MAG_OPR_MODE_SHIFT)
                    | (pwr << _BNO055_MAG_CONFIG_MAG_POWER_MODE_SHIFT));
 
-    bno055_write_reg(dev, BNO055_REG_MAG_CONFIG, reg);
+    return bno055_write_reg(dev, BNO055_REG_MAG_CONFIG, reg);
 }
 
-void bno055_set_gyroscope_config(const bno055_context dev,
-                                 BNO055_GYR_RANGE_T range,
-                                 BNO055_GYR_BW_T bw,
-                                 BNO055_GYR_POWER_MODE_T pwr)
+upm_result_t bno055_set_gyroscope_config(const bno055_context dev,
+                                         BNO055_GYR_RANGE_T range,
+                                         BNO055_GYR_BW_T bw,
+                                         BNO055_GYR_POWER_MODE_T pwr)
 {
     assert(dev != NULL);
 
-    bno055_set_page(dev, 1, false);
+    if (bno055_set_page(dev, 1, false))
+        return UPM_ERROR_OPERATION_FAILED;
 
     uint8_t reg = ((range << _BNO055_GYR_CONFIG0_GYR_RANGE_SHIFT)
                    | (bw << _BNO055_GYR_CONFIG0_GYR_BW_SHIFT));
 
-    bno055_write_reg(dev, BNO055_REG_GYR_CONFIG0, reg);
+    if (bno055_write_reg(dev, BNO055_REG_GYR_CONFIG0, reg))
+        return UPM_ERROR_OPERATION_FAILED;
 
     reg = (pwr << _BNO055_GYR_CONFIG1_GYR_POWER_MODE_SHIFT);
 
-    bno055_write_reg(dev, BNO055_REG_GYR_CONFIG1, reg);
+    return bno055_write_reg(dev, BNO055_REG_GYR_CONFIG1, reg);
 }
 
 upm_result_t bno055_install_isr(const bno055_context dev,
