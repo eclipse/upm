@@ -145,49 +145,61 @@ extern "C" {
      * Return the chip ID.
      *
      * @param dev The device context.
-     * @return The chip ID (BNO055_CHIPID).
+     * @param chip_id The chip ID (BNO055_CHIPID).
+     * @return UPM result.
      */
-    uint8_t bno055_get_chip_id(const bno055_context dev);
+    upm_result_t bno055_get_chip_id(const bno055_context dev,
+                                    uint8_t *chip_id);
 
     /**
      * Return the accelerometer chip ID.
      *
      * @param dev The device context.
-     * @return The chip ID.
+     * @param chip_id The chip ID
+     * @return UPM result.
      */
-    uint8_t bno055_get_acc_id(const bno055_context dev);
+    upm_result_t bno055_get_acc_id(const bno055_context dev,
+                                   uint8_t *chip_id);
 
     /**
      * Return the magnetometer chip ID.
      *
      * @param dev The device context.
-     * @return The chip ID.
+     * @param chip_id The chip ID
+     * @return UPM result.
      */
-    uint8_t bno055_get_mag_id(const bno055_context dev);
+    upm_result_t bno055_get_mag_id(const bno055_context dev,
+                                   uint8_t *chip_id);
 
     /**
      * Return the gyroscope chip ID.
      *
      * @param dev The device context.
-     * @return The chip ID.
+     * @param chip_id The chip ID
+     * @return UPM result.
      */
-    uint8_t bno055_get_gyr_id(const bno055_context dev);
+    upm_result_t bno055_get_gyr_id(const bno055_context dev,
+                                   uint8_t *chip_id);
 
     /**
      * Return the fusion firmware revison.
      *
      * @param dev The device context.
-     * @return The firmware revison.
+     * @param sw_rev The firmware revison.
+     * @return UPM result.
      */
-    uint16_t bno055_get_sw_revision(const bno055_context dev);
+    upm_result_t bno055_get_sw_revision(const bno055_context dev,
+                                        uint16_t *sw_rev);
 
     /**
      * Return the bootloader ID.
      *
      * @param dev The device context.
-     * @return The bootloader ID.
+     * @param bl_id The bootloader ID.
+     * @return UPM result.
      */
-    uint8_t bno055_get_bootloader_id(const bno055_context dev);
+    upm_result_t bno055_get_bootloader_id(const bno055_context dev,
+                                          uint8_t *bl_id);
 
     /**
      * Enable or disables the use of the external clock.  The Adafriut
@@ -196,8 +208,10 @@ extern "C" {
      *
      * @param dev The device context.
      * @param extClock true to use external clock, false otherwise.
+     * @return UPM result.
      */
-    void bno055_set_clock_external(const bno055_context dev, bool extClock);
+    upm_result_t bno055_set_clock_external(const bno055_context dev,
+                                           bool extClock);
 
     /**
      * Select the temperature source.  This can be the accelerometer
@@ -206,16 +220,18 @@ extern "C" {
      *
      * @param dev The device context.
      * @param src One of the TEMP_SOURCES_T values.
+     * @return UPM result.
      */
-    void bno055_set_temperature_source(const bno055_context dev,
-                                       BNO055_TEMP_SOURCES_T src);
+    upm_result_t bno055_set_temperature_source(const bno055_context dev,
+                                               BNO055_TEMP_SOURCES_T src);
 
     /**
      * Set the temperature units of the device to Celsius (always).
      *
      * @param dev The device context.
+     * @return UPM result.
      */
-    void bno055_set_temperature_units_celsius(const bno055_context dev);
+    upm_result_t bno055_set_temperature_units_celsius(const bno055_context dev);
 
     /**
      * Set the operating mode for the device.  This places the device
@@ -226,9 +242,10 @@ extern "C" {
      *
      * @param dev The device context.
      * @param mode One of the OPERATION_MODES_T values.
+     * @return UPM result.
      */
-    void bno055_set_operation_mode(const bno055_context dev,
-                                   BNO055_OPERATION_MODES_T mode);
+    upm_result_t bno055_set_operation_mode(const bno055_context dev,
+                                           BNO055_OPERATION_MODES_T mode);
 
     /**
      * Reboot the sensor.  This is equivalent to a power on reset.
@@ -236,8 +253,9 @@ extern "C" {
      * re-calibrated.
      *
      * @param dev The device context.
+     * @return UPM result.
      */
-    void bno055_reset_system(const bno055_context dev);
+    upm_result_t bno055_reset_system(const bno055_context dev);
 
     /**
      * Read the calibration status registers and return them.  The
@@ -248,10 +266,11 @@ extern "C" {
      * @param acc The calibration status of the accelerometer.
      * @param mag The calibration status of the gyroscope.
      * @param mag The calibration status of the overall system.
+     * @return UPM result.
      */
-    void bno055_get_calibration_status(const bno055_context dev,
-                                       int *mag, int *acc,
-                                       int *gyr, int *sys);
+    upm_result_t bno055_get_calibration_status(const bno055_context dev,
+                                               int *mag, int *acc,
+                                               int *gyr, int *sys);
 
     /**
      * Read the calibration status registers and return true or false,
@@ -437,11 +456,12 @@ extern "C" {
      * @param range One of the BNO055_ACC_RANGE_T values.
      * @param bw One of the BNO055_ACC_BW_T values.
      * @param pwr One of the BNO055_ACC_PWR_MODE_T values.
+     * @return UPM result.
      */
-    void bno055_set_acceleration_config(const bno055_context dev,
-                                        BNO055_ACC_RANGE_T range,
-                                        BNO055_ACC_BW_T bw,
-                                        BNO055_ACC_PWR_MODE_T pwr);
+    upm_result_t bno055_set_acceleration_config(const bno055_context dev,
+                                                BNO055_ACC_RANGE_T range,
+                                                BNO055_ACC_BW_T bw,
+                                                BNO055_ACC_PWR_MODE_T pwr);
 
     /**
      * Set the output data rate, operating mode and power mode of the
@@ -451,11 +471,12 @@ extern "C" {
      * @param odr One of the BNO055_MAG_ODR_T values.
      * @param opr One of the BNO055_MAG_OPR_T values.
      * @param pwr One of the BNO055_MAG_POWER_T values.
+     * @return UPM result.
      */
-    void bno055_set_magnetometer_config(const bno055_context dev,
-                                        BNO055_MAG_ODR_T odr,
-                                        BNO055_MAG_OPR_T opr,
-                                        BNO055_MAG_POWER_T pwr);
+    upm_result_t bno055_set_magnetometer_config(const bno055_context dev,
+                                                BNO055_MAG_ODR_T odr,
+                                                BNO055_MAG_OPR_T opr,
+                                                BNO055_MAG_POWER_T pwr);
 
     /**
      * Set the range, bandwidth and power modes of the gyroscope.  In
@@ -465,11 +486,12 @@ extern "C" {
      * @param range One of the BNO055_GYR_RANGE_T values.
      * @param bw One of the BNO055_GYR_BW_T values.
      * @param pwr One of the BNO055_GYR_POWER_MODE_T values.
+     * @return UPM result.
      */
-    void bno055_set_gyroscope_config(const bno055_context dev,
-                                     BNO055_GYR_RANGE_T range,
-                                     BNO055_GYR_BW_T bw,
-                                     BNO055_GYR_POWER_MODE_T pwr);
+    upm_result_t bno055_set_gyroscope_config(const bno055_context dev,
+                                             BNO055_GYR_RANGE_T range,
+                                             BNO055_GYR_BW_T bw,
+                                             BNO055_GYR_POWER_MODE_T pwr);
 
     /**
      * Set the unit of measurement for the accelerometer related
@@ -478,8 +500,10 @@ extern "C" {
      *
      * @param dev The device context.
      * @param mg true for mg, false for m/s^2.
+     * @return UPM result.
      */
-    void bno055_set_accelerometer_units(const bno055_context dev, bool mg);
+    upm_result_t bno055_set_accelerometer_units(const bno055_context dev,
+                                                bool mg);
 
     /**
      * Set the unit of measurement for the gyroscope related sensor
@@ -488,8 +512,10 @@ extern "C" {
      *
      * @param dev The device context.
      * @param radians true for radians, false for degrees.
+     * @return UPM result.
      */
-    void bno055_set_gyroscope_units(const bno055_context dev, bool radians);
+    upm_result_t bno055_set_gyroscope_units(const bno055_context dev,
+                                            bool radians);
 
     /**
      * Set the unit of measurement for the Euler Angle related sensor
@@ -498,34 +524,41 @@ extern "C" {
      *
      * @param dev The device context.
      * @param radians true for radians, false for degrees.
+     * @return UPM result.
      */
-    void bno055_set_euler_units(const bno055_context dev, bool radians);
+    upm_result_t bno055_set_euler_units(const bno055_context dev,
+                                        bool radians);
 
     /**
      * Reset all interrupt status bits and interrupt output.
      *
      * @param dev The device context.
+     * @return UPM result.
      */
-    void bno055_reset_interrupt_status(const bno055_context dev);
+    upm_result_t bno055_reset_interrupt_status(const bno055_context dev);
 
     /**
-     * Return the interrupt status register.  This is a bitmask of the
+     * Get the interrupt status register.  This is a bitmask of the
      * INT_STA_BITS_T bits.
      *
      * @param dev The device context.
-     * @return a bitmask of INT_STA_BITS_T bits.
+     * @param istat A bitmask of INT_STA_BITS_T bits.
+     * @return UPM result.
      */
-    uint8_t bno055_get_interrupt_status(const bno055_context dev);
+    upm_result_t bno055_get_interrupt_status(const bno055_context dev,
+                                             uint8_t *istat);
 
     /**
-     * Return the interrupt enables register.  This is a bitmask of the
+     * Get the interrupt enables register.  This is a bitmask of the
      * INT_STA_BITS_T bits.
      *
      * @param dev The device context.
-     * @return a bitmask of INT_STA_BITS_T bits currently set in the
+     * @param ienable A bitmask of INT_STA_BITS_T bits currently set in the
      * enable register.
+     * @return UPM result.
      */
-    uint8_t bno055_get_interrupt_enable(const bno055_context dev);
+    upm_result_t bno055_get_interrupt_enable(const bno055_context dev,
+                                             uint8_t *ienable);
 
     /**
      * Set the interrupt enable register. This is composed of a
@@ -533,22 +566,25 @@ extern "C" {
      *
      * @param dev The device context.
      * @param enables a bitmask of INT_STA_BITS_T bits to enable
+     * @return UPM result.
      */
-    void bno055_set_interrupt_enable(const bno055_context dev,
-                                     uint8_t enables);
+    upm_result_t bno055_set_interrupt_enable(const bno055_context dev,
+                                             uint8_t enables);
 
     /**
-     * Return the interrupt mask register.  This is a bitmask of the
+     * Get the interrupt mask register.  This is a bitmask of the
      * INT_STA_BITS_T bits.  The interrupt mask is used to mask off
      * enabled interrupts from generating a hardware interrupt.  The
      * interrupt status register can still be used to detect masked
      * interrupts if they are enabled.
      *
      * @param dev The device context.
-     * @return a bitmask of INT_STA_BITS_T bits currently set in the
+     * @param imask a bitmask of INT_STA_BITS_T bits currently set in the
      * interrupt mask register.
+     * @return UPM result.
      */
-    uint8_t bno055_get_interrupt_mask(const bno055_context dev);
+    upm_result_t bno055_get_interrupt_mask(const bno055_context dev,
+                                           uint8_t *imask);
 
     /**
      * Set the interrupt mask register.  This is a bitmask of the
@@ -560,17 +596,21 @@ extern "C" {
      * @param dev The device context.
      * @param mask A bitmask of INT_STA_BITS_T bits to set in the interrupt
      * mask register.
+     * @return UPM result.
      */
-    void bno055_set_interrupt_mask(const bno055_context dev, uint8_t mask);
+    upm_result_t bno055_set_interrupt_mask(const bno055_context dev,
+                                           uint8_t mask);
 
     /**
-     * Return the value of the system status register.  This method
+     * Get the value of the system status register.  This method
      * can be used to determine the overall status of the device.
      *
      * @param dev The device context.
-     * @return One of the SYS_STATUS_T values.
+     * @param sys_stat One of the SYS_STATUS_T values.
+     * @return UPM result.
      */
-    BNO055_SYS_STATUS_T bno055_get_system_status(const bno055_context dev);
+    upm_result_t bno055_get_system_status(const bno055_context dev,
+                                          BNO055_SYS_STATUS_T *sys_stat);
 
     /**
      * Return the value of the system error register.  This mathod can
@@ -578,9 +618,11 @@ extern "C" {
      * conditions.
      *
      * @param dev The device context.
-     * @return One of the SYS_ERR_T values.
+     * @param sys_stat One of the SYS_ERR_T values.
+     * @return UPM result.
      */
-    BNO055_SYS_ERR_T bno055_get_system_error(const bno055_context dev);
+    upm_result_t bno055_get_system_error(const bno055_context dev,
+                                         BNO055_SYS_ERR_T *sys_err);
 
     /**
      * install an interrupt handler.
@@ -625,9 +667,11 @@ extern "C" {
      *
      * @param dev The device context.
      * @param reg The register to read
-     * @return The value of the register
+     * @param retval The returned value of the register
+     * @return UPM result.
      */
-    uint8_t bno055_read_reg(const bno055_context dev, uint8_t reg);
+    upm_result_t bno055_read_reg(const bno055_context dev, uint8_t reg,
+                                 uint8_t *retval);
 
     /**
      * Read contiguous registers into a buffer.  This is a low level

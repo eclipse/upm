@@ -138,6 +138,7 @@ namespace upm {
          * Return the chip ID.
          *
          * @return The chip ID (BNO055_CHIPID).
+         * @throws std::runtime_error on failure.
          */
         uint8_t getChipID();
 
@@ -145,6 +146,7 @@ namespace upm {
          * Return the accelerometer chip ID.
          *
          * @return The chip ID.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getACCID();
 
@@ -152,6 +154,7 @@ namespace upm {
          * Return the magnetometer chip ID.
          *
          * @return The chip ID.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getMAGID();
 
@@ -159,6 +162,7 @@ namespace upm {
          * Return the gyroscope chip ID.
          *
          * @return The chip ID.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getGYRID();
 
@@ -166,6 +170,7 @@ namespace upm {
          * Return the fusion firmware revison.
          *
          * @return The firmware revison.
+         * @throws std::runtime_error on failure.
          */
         uint16_t getSWRevID();
 
@@ -173,6 +178,7 @@ namespace upm {
          * Return the bootloader ID.
          *
          * @return The bootloader ID.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getBootLoaderID();
 
@@ -182,6 +188,7 @@ namespace upm {
          * stable.  By default, the internal clock is used.
          *
          * @param extClock true to use external clock, false otherwise.
+         * @throws std::runtime_error on failure.
          */
         void setClockExternal(bool extClock);
 
@@ -191,6 +198,7 @@ namespace upm {
          * used as the source.
          *
          * @param src One of the BNO055_TEMP_SOURCES_T values.
+         * @throws std::runtime_error on failure.
          */
         void setTemperatureSource(BNO055_TEMP_SOURCES_T src);
 
@@ -202,6 +210,7 @@ namespace upm {
          * configuration operations.  See the datasheet for details.
          *
          * @param mode One of the BNO055_OPERATION_MODES_T values.
+         * @throws std::runtime_error on failure.
          */
         void setOperationMode(BNO055_OPERATION_MODES_T mode);
 
@@ -209,6 +218,7 @@ namespace upm {
          * Reboot the sensor.  This is equivalent to a power on reset.
          * All calibration data will be lost, and the device must be
          * recalibrated.
+         * @throws std::runtime_error on failure.
          */
         void resetSystem();
 
@@ -220,6 +230,7 @@ namespace upm {
          * @param acc The calibration status of the accelerometer.
          * @param mag The calibration status of the gyroscope.
          * @param mag The calibration status of the overall system.
+         * @throws std::runtime_error on failure.
          */
         void getCalibrationStatus(int *mag, int *acc, int *gyr, int *sys);
 
@@ -230,6 +241,7 @@ namespace upm {
          *
          * @return An integer vector containing the values in the
          * order: mag, acc, gyr, and sys.
+         * @throws std::runtime_error on failure.
          */
         std::vector<int> getCalibrationStatus();
 
@@ -467,6 +479,7 @@ namespace upm {
          * @param range One of the BNO055_ACC_RANGE_T values.
          * @param bw One of the BNO055_ACC_BW_T values.
          * @param pwr One of the BNO055_ACC_PWR_MODE_T values.
+         * @throws std::runtime_error on failure.
          */
         void setAccelerationConfig(BNO055_ACC_RANGE_T range,
                                    BNO055_ACC_BW_T bw,
@@ -479,6 +492,7 @@ namespace upm {
          * @param odr One of the BNO055_MAG_ODR_T values.
          * @param opr One of the BNO055_MAG_OPR_T values.
          * @param pwr One of the BNO055_MAG_POWER_T values.
+         * @throws std::runtime_error on failure.
          */
         void setMagnetometerConfig(BNO055_MAG_ODR_T odr,
                                    BNO055_MAG_OPR_T opr,
@@ -491,6 +505,7 @@ namespace upm {
          * @param range One of the BNO055_GYR_RANGE_T values.
          * @param bw One of the BNO055_GYR_BW_T values.
          * @param pwr One of the BNO055_GYR_POWER_MODE_T values.
+         * @throws std::runtime_error on failure.
          */
         void setGyroscopeConfig(BNO055_GYR_RANGE_T range,
                                 BNO055_GYR_BW_T bw,
@@ -502,6 +517,7 @@ namespace upm {
          * per-second squared (m/s^2).  The default is m/s^2.
          *
          * @param mg true for mg, false for m/s^2.
+         * @throws std::runtime_error on failure.
          */
         void setAccelerometerUnits(bool mg=false);
 
@@ -511,6 +527,7 @@ namespace upm {
          * degrees.
          *
          * @param radians true for radians, false for degrees.
+         * @throws std::runtime_error on failure.
          */
         void setGyroscopeUnits(bool radians=false);
 
@@ -520,11 +537,14 @@ namespace upm {
          * degrees.
          *
          * @param radians true for radians, false for degrees.
+         * @throws std::runtime_error on failure.
          */
         void setEulerUnits(bool radians=false);
 
         /**
          * Reset all interrupt status bits and interrupt output.
+         *
+         * @throws std::runtime_error on failure.
          */
         void resetInterruptStatus();
 
@@ -533,6 +553,7 @@ namespace upm {
          * BNO055_INT_STA_BITS_T bits.
          *
          * @return a bitmask of BNO055_INT_STA_BITS_T bits.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getInterruptStatus();
 
@@ -542,6 +563,7 @@ namespace upm {
          *
          * @return a bitmask of BNO055_INT_STA_BITS_T bits currently set in the
          * enable register.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getInterruptEnable();
 
@@ -550,6 +572,7 @@ namespace upm {
          * bitmask of the BNO055_INT_STA_BITS_T bits.
          *
          * @param enables a bitmask of BNO055_INT_STA_BITS_T bits to enable
+         * @throws std::runtime_error on failure.
          */
         void setInterruptEnable(uint8_t enables);
 
@@ -562,6 +585,7 @@ namespace upm {
          *
          * @return a bitmask of BNO055_INT_STA_BITS_T bits currently set in the
          * interrupt mask register.
+         * @throws std::runtime_error on failure.
          */
         uint8_t getInterruptMask();
 
@@ -574,6 +598,7 @@ namespace upm {
          *
          * @param mask A bitmask of BNO055_INT_STA_BITS_T bits to set in
          * the interrupt mask register.
+         * @throws std::runtime_error on failure.
          */
         void setInterruptMask(uint8_t mask);
 
@@ -582,6 +607,7 @@ namespace upm {
          * can be used to determine the overall status of the device.
          *
          * @return One of the BNO055_SYS_STATUS_T values.
+         * @throws std::runtime_error on failure.
          */
         BNO055_SYS_STATUS_T getSystemStatus();
 
@@ -591,6 +617,7 @@ namespace upm {
          * conditions.
          *
          * @return One of the BNO055_SYS_ERR_T values.
+         * @throws std::runtime_error on failure.
          */
         BNO055_SYS_ERR_T getSystemError();
 
@@ -643,6 +670,7 @@ namespace upm {
          *
          * @param reg The register to read
          * @return The value of the register
+         * @throws std::runtime_error on failure.
          */
         uint8_t readReg(uint8_t reg);
 
