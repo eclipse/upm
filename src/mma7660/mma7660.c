@@ -99,13 +99,14 @@ upm_result_t mma7660_write_byte(const mma7660_context dev,
 upm_result_t mma7660_read_byte(const mma7660_context dev, uint8_t reg,
                                uint8_t *byte)
 {
+    uint8_t data[11];
     assert(dev != NULL);
 
-    int x = mraa_i2c_read_byte_data(dev->i2c, reg);
+    int ret = mraa_i2c_read_bytes_data(dev->i2c, 0x00, data, 11);
 
-    if (x < 0)
-    {
-        printf("%s: mraa_i2c_read_byte_data() failed.\n", __FUNCTION__);
+    if (ret != 11) {
+        printf("%s: mraa_i2c_read_bytes_data() failed.\n", __FUNCTION__);
+        printf("returned %d bytes upon read\n", ret);
         if (byte)
             *byte = 0;
 
@@ -113,7 +114,7 @@ upm_result_t mma7660_read_byte(const mma7660_context dev, uint8_t reg,
     }
 
     if (byte)
-        *byte = (uint8_t)(x & 0xff);
+        *byte = (uint8_t)(data[reg] & 0xff);
 
   return UPM_SUCCESS;
 }
