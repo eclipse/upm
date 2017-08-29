@@ -149,6 +149,14 @@ find_package (JPEG)
 # Find nodejs
 if (BUILDSWIGNODE)
   find_package (Node REQUIRED)
+  if (BUILDTESTS)
+    find_package (Npm REQUIRED)
+    if(NPM_EXECUTABLE)
+        message(STATUS "NPM Executable found at: ${NPM_EXECUTABLE}")
+    else()
+        message(FATAL_ERROR "Please install NPM first, you can't run tests without it")
+    endif()
+  endif (BUILDTESTS)
 endif (BUILDSWIGNODE)
 
 # Find JAVA/JNI
