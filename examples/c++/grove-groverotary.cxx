@@ -22,36 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
-#include "grove.hpp"
+#include <stdint.h>
+#include <stdio.h>
+#include <string>
+
+#include "groverotary.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main ()
+int
+main()
 {
-//! [Interesting]
+    //! [Interesting]
     // Instantiate a rotary sensor on analog pin A0
-    upm::GroveRotary* knob = new upm::GroveRotary(0);
+    upm::GroveRotary knob(0);
 
     // Print sensor name to confirm it initialized properly
-    cout << knob->name() << endl;
+    cout << knob.name() << endl;
 
-    while(true) {
-        float abs_value = knob->abs_value(); // Absolute raw value
-        float abs_deg = knob->abs_deg();     // Absolute degrees
-        float abs_rad = knob->abs_rad();     // Absolute radians
-        float rel_value = knob->rel_value(); // Relative raw value
-        float rel_deg = knob->rel_deg();     // Relative degrees
-        float rel_rad = knob->rel_rad();     // Relative radians
+    while (true) {
+        float abs_value = knob.abs_value(); // Absolute raw value
+        float abs_deg = knob.abs_deg();     // Absolute degrees
+        float abs_rad = knob.abs_rad();     // Absolute radians
+        float rel_value = knob.rel_value(); // Relative raw value
+        float rel_deg = knob.rel_deg();     // Relative degrees
+        float rel_rad = knob.rel_rad();     // Relative radians
 
-        fprintf(stdout, "Absolute: %4d raw %5.2f deg = %3.2f rad Relative: %4d raw %5.2f deg %3.2f rad\n",
-                (int16_t)abs_value, abs_deg, abs_rad, (int16_t)rel_value, rel_deg, rel_rad);
+        fprintf(stdout,
+                "Absolute: %4d raw %5.2f deg = %3.2f rad Relative: %4d raw %5.2f "
+                "deg %3.2f rad\n",
+                (int16_t) abs_value,
+                abs_deg,
+                abs_rad,
+                (int16_t) rel_value,
+                rel_deg,
+                rel_rad);
 
-        usleep(2500000); // Sleep for 2.5s
+        upm_delay_us(2500000); // Sleep for 2.5s
     }
-//! [Interesting]
-    delete knob;
+    //! [Interesting]
     return 0;
 }

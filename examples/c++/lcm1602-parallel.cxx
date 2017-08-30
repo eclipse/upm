@@ -23,13 +23,15 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <stdio.h>
+
 #include "lcm1602.hpp"
 #include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
     // LCD connection:
     // LCD RS pin to digital pin 8
     // LCD Enable pin to digital pin 13
@@ -41,15 +43,14 @@ main(int argc, char **argv)
     // 10K trimmer potentiometer:
     //   ends to +5V and ground
     //   wiper to LCD VO pin (pin 3)
-    upm::Lcm1602 *lcd = new upm::Lcm1602(8, 13, 2, 3, 4, 5, 20, 2);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
+    upm::Lcm1602 lcd(8, 13, 2, 3, 4, 5, 20, 2);
+    lcd.setCursor(0, 0);
+    lcd.write("Hello World");
+    lcd.setCursor(1, 2);
+    lcd.write("Hello World");
 
     printf("Sleeping for 5 seconds\n");
     upm_delay(5);
-    delete lcd;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

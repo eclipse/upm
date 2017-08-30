@@ -22,45 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "grovelinefinder.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Line Finder sensor on digital pin D2
-  upm::GroveLineFinder* finder = new upm::GroveLineFinder(2);
-  
-  // check every second for the presence of white detection
-  while (shouldRun)
-    {
-      bool val = finder->whiteDetected();
-      if (val)
-        cout << "White detected." << endl;
-      else
-        cout << "Black detected." << endl;
+    //! [Interesting]
+    // Instantiate a Grove Line Finder sensor on digital pin D2
+    upm::GroveLineFinder finder(2);
 
-      sleep(1);
+    // check every second for the presence of white detection
+    while (shouldRun) {
+        bool val = finder.whiteDetected();
+        if (val)
+            cout << "White detected." << endl;
+        else
+            cout << "Black detected." << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete finder;
-  return 0;
+    return 0;
 }

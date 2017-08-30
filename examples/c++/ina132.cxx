@@ -22,40 +22,41 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "ina132.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the INA132 Differential Amplifier Sensor module.
+    //! [Interesting]
+    // The was tested with the INA132 Differential Amplifier Sensor module.
 
-  // Instantiate an INA132 on analog pin A0
-  upm::INA132 *amplifier = new upm::INA132(0);
+    // Instantiate an INA132 on analog pin A0
+    upm::INA132 amplifier(0);
 
-  while (shouldRun)
-  {
-      cout << amplifier->value() << endl;
-      sleep(1);
-  }
-//! [Interesting]
+    while (shouldRun) {
+        cout << amplifier.value() << endl;
+        upm_delay(1);
+    }
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete amplifier;
-  return 0;
+    return 0;
 }

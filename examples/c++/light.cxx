@@ -23,28 +23,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "light.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
     // Create the light sensor object using AIO pin 0
-    upm::Light* light = new upm::Light(0);
+    upm::Light light(0);
 
     // Read the input and print both the normalized ADC value and a
     // rough lux value, waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " normalized value is "
-                  << light->getNormalized() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
-        sleep(1);
+    while (1) {
+        std::cout << light.name() << " normalized value is " << light.getNormalized()
+                  << ", which is roughly " << light.value() << " lux" << std::endl;
+        upm_delay(1);
     }
 
     // Delete the light sensor object
-    delete light;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

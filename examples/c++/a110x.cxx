@@ -22,46 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "a110x.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an A110X sensor on digital pin D2
-  upm::A110X* hall = new upm::A110X(2);
-  
-  // check every second for the presence of a magnetic field (south
-  // polarity)
-  while (shouldRun)
-    {
-      bool val = hall->magnetDetected();
-      if (val)
-        cout << "Magnet (south polarity) detected." << endl;
-      else
-        cout << "No magnet detected." << endl;
+    //! [Interesting]
+    // Instantiate an A110X sensor on digital pin D2
+    upm::A110X hall(2);
 
-      sleep(1);
+    // check every second for the presence of a magnetic field (south
+    // polarity)
+    while (shouldRun) {
+        bool val = hall.magnetDetected();
+        if (val)
+            cout << "Magnet (south polarity) detected." << endl;
+        else
+            cout << "No magnet detected." << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete hall;
-  return 0;
+    return 0;
 }

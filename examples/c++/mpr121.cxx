@@ -22,67 +22,67 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
+
 #include "mpr121.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-void printButtons(upm::MPR121 *touch)
+void
+printButtons(upm::MPR121& touch)
 {
-  bool buttonPressed = false;
+    bool buttonPressed = false;
 
-  cout << "Buttons Pressed: ";
-  for (int i=0; i<12; i++)
-    {
-      if (touch->m_buttonStates & (1 << i))
-        {
-          cout << i << " ";
-          buttonPressed = true;
+    cout << "Buttons Pressed: ";
+    for (int i = 0; i < 12; i++) {
+        if (touch.m_buttonStates & (1 << i)) {
+            cout << i << " ";
+            buttonPressed = true;
         }
     }
 
-  if (!buttonPressed)
-    cout << "None";
+    if (!buttonPressed)
+        cout << "None";
 
-  if (touch->m_overCurrentFault)
-    cout << "Over Current Fault detected!" << endl;
+    if (touch.m_overCurrentFault)
+        cout << "Over Current Fault detected!" << endl;
 
-  cout << endl;
+    cout << endl;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an MPR121 on I2C bus 0
+    //! [Interesting]
+    // Instantiate an MPR121 on I2C bus 0
 
-  upm::MPR121 *touch = new upm::MPR121(MPR121_I2C_BUS, MPR121_DEFAULT_I2C_ADDR);
+    upm::MPR121 touch(MPR121_I2C_BUS, MPR121_DEFAULT_I2C_ADDR);
 
-  // init according to AN3944 defaults
-  touch->configAN3944();
+    // init according to AN3944 defaults
+    touch.configAN3944();
 
-  while (shouldRun)
-    {
-      touch->readButtons();
-      printButtons(touch);
-      sleep(1);
+    while (shouldRun) {
+        touch.readButtons();
+        printButtons(touch);
+        upm_delay(1);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete touch;
-  return 0;
+    return 0;
 }

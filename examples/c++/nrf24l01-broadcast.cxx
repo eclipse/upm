@@ -22,16 +22,17 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
-#include "nrf24l01.hpp"
 #include <signal.h>
+#include <stdint.h>
 #include <stdio.h>
+#include <string>
 #include <vector>
 
+#include "nrf24l01.hpp"
+#include "upm_utilities.h"
+
 int running = 0;
-upm::NRF24L01 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -43,24 +44,26 @@ sig_handler(int signo)
     }
 }
 
-void nrf_handler () {
+void
+nrf_handler()
+{
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
 
-    sensor = new upm::NRF24L01(7, 8);
-    sensor->setBeaconingMode ();
+    upm::NRF24L01 sensor(7, 8);
+    sensor.setBeaconingMode();
 
     std::vector<std::string> msgs;
 
-    msgs.push_back ("Hello World 1!!!");
-    msgs.push_back ("Hello World 2!!!");
-    msgs.push_back ("Hello World 3!!!");
-    msgs.push_back ("Hello World 4!!!");
-    msgs.push_back ("Hello World 5!!!");
+    msgs.push_back("Hello World 1!!!");
+    msgs.push_back("Hello World 2!!!");
+    msgs.push_back("Hello World 3!!!");
+    msgs.push_back("Hello World 4!!!");
+    msgs.push_back("Hello World 5!!!");
 
     signal(SIGINT, sig_handler);
 
@@ -69,8 +72,8 @@ main(int argc, char **argv)
             std::cout << "BROADCASTING " << (*item).c_str() << std::endl;
 
             for (int i = 0; i < 3; i++) {
-                sensor->sendBeaconingMsg ((uint8_t*) (*item).c_str());
-                usleep (1000000);
+                sensor.sendBeaconingMsg((uint8_t*) (*item).c_str());
+                upm_delay_us(1000000);
             }
         }
     }
@@ -78,8 +81,6 @@ main(int argc, char **argv)
     std::cout << "exiting application" << std::endl;
 
     msgs.clear();
-    delete sensor;
-
     //! [Interesting]
 
     return 0;

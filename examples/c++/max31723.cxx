@@ -22,13 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "max31723.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "max31723.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::MAX31723 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -41,21 +42,19 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    sensor = new upm::MAX31723(0, 7);
-    usleep (1000000);
+    upm::MAX31723 sensor(0, 7);
+    upm_delay_us(1000000);
 
     while (!doWork) {
-        std::cout << "Temperature " << sensor->getTemperature() << std::endl;
-        usleep (1000000);
+        std::cout << "Temperature " << sensor.getTemperature() << std::endl;
+        upm_delay_us(1000000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

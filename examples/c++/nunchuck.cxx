@@ -22,50 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "nunchuck.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a nunchuck controller bus 3
-  upm::NUNCHUCK *nunchuck = new upm::NUNCHUCK(3);
+    //! [Interesting]
+    // Instantiate a nunchuck controller bus 3
+    upm::NUNCHUCK nunchuck(3);
 
-  while (shouldRun)
-    {
-      nunchuck->update();
+    while (shouldRun) {
+        nunchuck.update();
 
-      cout << "stickX: " << nunchuck->stickX
-           << ", stickY: " << nunchuck->stickY << endl;
-      cout << "accelX: " << nunchuck->accelX
-           << ", accelY: " << nunchuck->accelY
-           << ", accelZ: " << nunchuck->accelZ << endl;
+        cout << "stickX: " << nunchuck.stickX << ", stickY: " << nunchuck.stickY << endl;
+        cout << "accelX: " << nunchuck.accelX << ", accelY: " << nunchuck.accelY
+             << ", accelZ: " << nunchuck.accelZ << endl;
 
-      cout << "button C: "
-           << ((nunchuck->buttonC) ? "pressed" : "not pressed") << endl;
-      cout << "button Z: "
-           << ((nunchuck->buttonZ) ? "pressed" : "not pressed") << endl;
-      cout << endl;
+        cout << "button C: " << ((nunchuck.buttonC) ? "pressed" : "not pressed") << endl;
+        cout << "button Z: " << ((nunchuck.buttonZ) ? "pressed" : "not pressed") << endl;
+        cout << endl;
 
-      usleep(100000);
+        upm_delay_us(100000);
     }
-  //! [Interesting]
+    //! [Interesting]
 
-  delete nunchuck;
-  return 0;
+    return 0;
 }

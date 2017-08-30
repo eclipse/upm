@@ -22,61 +22,59 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
 #include <iomanip>
-#include <stdexcept>
+#include <iostream>
 #include <signal.h>
+#include <stdexcept>
+#include <string>
+
 #include "otp538u.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
 // analog voltage, usually 3.3 or 5.0
-#define OTP538U_AREF   5.0
+#define OTP538U_AREF 5.0
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a OTP538U on analog pins A0 and A1
-  // A0 is used for the Ambient Temperature and A1 is used for the
-  // Object temperature.
-  upm::OTP538U *temps = new upm::OTP538U(0, 1, OTP538U_AREF);
-  
-  // enable debugging if you would like
-  // temps->setDebug(true);
+    // Instantiate a OTP538U on analog pins A0 and A1
+    // A0 is used for the Ambient Temperature and A1 is used for the
+    // Object temperature.
+    upm::OTP538U temps(0, 1, OTP538U_AREF);
 
-  // Output ambient and object temperatures
-  while (shouldRun)
-    {
-      try {
-        cout << "Ambient temp: " << std::fixed << setprecision(2)
-             << temps->ambientTemperature()
-             << " C, Object temp: " << temps->objectTemperature()
-             << " C" << endl;
-      }
-      catch (std::out_of_range& e) {
-        cerr << "Temperature(s) are out of range: " << e.what()
-             << endl;
-      }
+    // enable debugging if you would like
+    // temps.setDebug(true);
 
-      cout << endl;
-      sleep(1);
+    // Output ambient and object temperatures
+    while (shouldRun) {
+        try {
+            cout << "Ambient temp: " << std::fixed << setprecision(2) << temps.ambientTemperature()
+                 << " C, Object temp: " << temps.objectTemperature() << " C" << endl;
+        } catch (std::out_of_range& e) {
+            cerr << "Temperature(s) are out of range: " << e.what() << endl;
+        }
+
+        cout << endl;
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete temps;
-  return 0;
+    return 0;
 }

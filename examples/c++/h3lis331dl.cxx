@@ -22,59 +22,58 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
+
 #include "h3lis331dl.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 using namespace upm;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an H3LIS331DL on I2C bus 0
+    //! [Interesting]
+    // Instantiate an H3LIS331DL on I2C bus 0
 
-  upm::H3LIS331DL *accel = new upm::H3LIS331DL(H3LIS331DL_I2C_BUS, 
-                                               H3LIS331DL_DEFAULT_I2C_ADDR);
+    upm::H3LIS331DL accel(H3LIS331DL_I2C_BUS, H3LIS331DL_DEFAULT_I2C_ADDR);
 
-  // Initialize the device with default values
-  accel->init();
+    // Initialize the device with default values
+    accel.init();
 
-  while (shouldRun)
-    {
-      int x, y, z;
-      float ax, ay, az;
+    while (shouldRun) {
+        int x, y, z;
+        float ax, ay, az;
 
-      accel->update();
+        accel.update();
 
-      accel->getRawXYZ(&x, &y, &z);
-      accel->getAcceleration(&ax, &ay, &az);
+        accel.getRawXYZ(&x, &y, &z);
+        accel.getAcceleration(&ax, &ay, &az);
 
-      cout << "Raw: X = " << x << " Y = " << y << " Z = " << z << endl;
-      
-      cout << "Acceleration: AX = " << ax << " AY = " << ay << " AZ = " << az
-           << endl;
+        cout << "Raw: X = " << x << " Y = " << y << " Z = " << z << endl;
 
-      cout << endl;
+        cout << "Acceleration: AX = " << ax << " AY = " << ay << " AZ = " << az << endl;
 
-      usleep(500000);
+        cout << endl;
+
+        upm_delay_us(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete accel;
-  return 0;
+    return 0;
 }

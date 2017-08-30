@@ -22,56 +22,50 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "sht1x.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
-  // data pin.
-  upm::SHT1X *sensor = new upm::SHT1X(2, 3);
+    // Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
+    // data pin.
+    upm::SHT1X sensor(2, 3);
 
-  // Every 2 seconds, update and print values
-  while (shouldRun)
-    {
-      sensor->update();
+    // Every 2 seconds, update and print values
+    while (shouldRun) {
+        sensor.update();
 
-      cout << "Temperature: "
-           << sensor->getTemperature()
-           << " C"
-           << endl;
+        cout << "Temperature: " << sensor.getTemperature() << " C" << endl;
 
-      cout << "Humidity:    "
-           << sensor->getHumidity()
-           << " RH"
-           << endl;
+        cout << "Humidity:    " << sensor.getHumidity() << " RH" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(2);
+        upm_delay(2);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-  return 0;
+    return 0;
 }

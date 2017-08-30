@@ -22,20 +22,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "max44009.hpp"
+#include "upm_utilities.h"
 
 #define EDISON_I2C_BUS 1
 
-int main ()
+int
+main()
 {
     //! [Interesting]
     upm::MAX44009 lightSensor(EDISON_I2C_BUS);
     while (true) {
         float value = lightSensor.getVisibleLux();
         std::cout << "Light level = " << value << " lux" << std::endl;
-        sleep(1);
+        upm_delay(1);
     }
     //! [Interesting]
     return 0;

@@ -22,44 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "bh1750.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a BH1750 sensor using defaults (I2C bus (0), using
-  // the default I2C address (0x23), and setting the mode to highest
-  // resolution, lowest power mode).
-  upm::BH1750 *sensor = new upm::BH1750();
+    // Instantiate a BH1750 sensor using defaults (I2C bus (0), using
+    // the default I2C address (0x23), and setting the mode to highest
+    // resolution, lowest power mode).
+    upm::BH1750 sensor;
 
-  // Every second, sample the BH1750 and output the measured lux value
+    // Every second, sample the BH1750 and output the measured lux value
 
-  while (shouldRun)
-    {
-      cout << "Detected Light Level (lux): " << sensor->getLux() << endl;
-      sleep(1);
+    while (shouldRun) {
+        cout << "Detected Light Level (lux): " << sensor.getLux() << endl;
+        upm_delay(1);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-  return 0;
+    return 0;
 }

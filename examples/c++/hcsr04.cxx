@@ -22,12 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "hcsr04.hpp"
 #include <signal.h>
-#include <stdlib.h>
-#include <sys/time.h>
+
+#include "hcsr04.hpp"
+#include "upm_utilities.h"
 
 int shouldRun = true;
 
@@ -41,22 +40,21 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    upm::HCSR04 *sonar = new upm::HCSR04(2, 4);
+    upm::HCSR04 sonar(2, 4);
     signal(SIGINT, sig_handler);
 
-    sleep(1);
+    upm_delay(1);
 
-    while(shouldRun){
+    while (shouldRun) {
         std::cout << "get distance" << std::endl;
-        double distance = sonar->getDistance(HCSR04_CM);
+        double distance = sonar.getDistance(HCSR04_CM);
         std::cout << "distance " << distance << std::endl;
-        sleep(2);
+        upm_delay(2);
     }
     std::cout << "Exiting... " << std::endl;
 
-    delete sonar;
     return 0;
 }
 //! [Interesting]

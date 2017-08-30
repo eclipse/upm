@@ -22,40 +22,37 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "es08a.hpp"
-#include <signal.h>
-#include <stdlib.h>
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    upm::ES08A *servo = new upm::ES08A(5);    
+    upm::ES08A servo(5);
 
     // Sets the shaft to 180, then to 90, then to 0,
     // then back to 90, and finally back to 180,
     // pausing for a second in between each angle
-    servo->setAngle (180);
+    servo.setAngle(180);
     std::cout << "Set angle to 180" << std::endl;
-    sleep(1);
-    servo->setAngle (90);
+    upm_delay(1);
+    servo.setAngle(90);
     std::cout << "Set angle to 90" << std::endl;
-    sleep(1);
-    servo->setAngle (0);
+    upm_delay(1);
+    servo.setAngle(0);
     std::cout << "Set angle to 0" << std::endl;
-    sleep(1);
-    servo->setAngle (90);
+    upm_delay(1);
+    servo.setAngle(90);
     std::cout << "Set angle to 90" << std::endl;
-    sleep(1);
-    servo->setAngle (180);
+    upm_delay(1);
+    servo.setAngle(180);
     std::cout << "Set angle to 180" << std::endl;
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete servo;
 
     return 0;
 }

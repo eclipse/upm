@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "ms5611.hpp"
+#include <stdio.h>
 
+#include "ms5611.hpp"
+#include "upm_utilities.h"
 
 static int is_running = 0;
 
@@ -41,22 +42,20 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    upm::MS5611* sensor = new upm::MS5611(0);
+    upm::MS5611 sensor(0);
     signal(SIGINT, sig_handler);
 
-     while (!is_running) {
-        int value = sensor->getTemperatureCelsius();
+    while (!is_running) {
+        int value = sensor.getTemperatureCelsius();
         std::cout << "Temperature = " << value << "C" << std::endl;
-        value = sensor->getPressurePa();
+        value = sensor.getPressurePa();
         std::cout << "Pressure = " << value << "Pa" << std::endl;
-        sleep(1);
+        upm_delay(1);
     }
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

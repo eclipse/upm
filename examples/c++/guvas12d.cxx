@@ -22,51 +22,50 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "guvas12d.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
 // analog voltage, usually 3.3 or 5.0
-#define GUVAS12D_AREF   5.0
+#define GUVAS12D_AREF 5.0
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-int main()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // This was tested with the Grove UV Sensor module.
     // It has a sensing range from between 240-370nm.  It's strongest
     // response is around 320-360nm.
 
     // Instantiate a GUVAS12D on analog pin A0
-    upm::GUVAS12D *volts = new upm::GUVAS12D(0);
+    upm::GUVAS12D volts(0);
 
     // The higher the voltage the more intense the UV radiation.
 
-    while (shouldRun)
-    {
-        cout << "Volts: " << volts->volts()
-             << ", Intensity: " << volts->intensity()
-             << " mW/m^2"
+    while (shouldRun) {
+        cout << "Volts: " << volts.volts() << ", Intensity: " << volts.intensity() << " mW/m^2"
              << endl;
 
-        sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting" << endl;
 
-    delete volts;
     return 0;
 }

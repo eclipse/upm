@@ -22,45 +22,46 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include <iostream>
-#include <unistd.h>
 #include <signal.h>
+
 #include "eldriver.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the  El Driver Module
-  // Instantiate a  El Driver on digital pin D2
-  upm::ElDriver* eldriver = new upm::ElDriver(2);
+    //! [Interesting]
+    // This was tested with the El Driver Module
+    // Instantiate an El Driver on digital pin D2
+    upm::ElDriver eldriver(2);
 
-  bool lightState = true;
+    bool lightState = true;
 
-  while (shouldRun)
-  {
-	if (lightState)
-		eldriver->on();
-	else
-		eldriver->off();
-	lightState = !lightState;
-	sleep(1);
-  }
+    while (shouldRun) {
+        if (lightState)
+            eldriver.on();
+        else
+            eldriver.off();
+        lightState = !lightState;
+        upm_delay(1);
+    }
 
-//! [Interesting]
-  eldriver->off();
-  cout << "Exiting" << endl;
+    //! [Interesting]
+    eldriver.off();
+    cout << "Exiting" << endl;
 
-  delete eldriver;
-  return 0;
+    return 0;
 }

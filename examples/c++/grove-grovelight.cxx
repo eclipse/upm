@@ -23,27 +23,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "grove.hpp"
+#include <string>
+
+#include "grovelight.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
     // Create the light sensor object using AIO pin 0
-    upm::GroveLight* light = new upm::GroveLight(0);
+    upm::GroveLight light(0);
 
     // Read the input and print both the raw value and a rough lux value,
     // waiting one second between readings
-    while( 1 ) {
-        std::cout << light->name() << " raw value is " << light->raw_value() <<
-            ", which is roughly " << light->value() << " lux" << std::endl;
-        sleep(1);
+    while (1) {
+        std::cout << light.name() << " raw value is " << light.raw_value() << ", which is roughly "
+                  << light.value() << " lux" << std::endl;
+        upm_delay(1);
     }
 
     // Delete the light sensor object
-    delete light;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

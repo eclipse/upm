@@ -23,29 +23,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <stdio.h>
+
 #include "hmc5883l.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
     // Instantiate on I2C
-    upm::Hmc5883l* compass = new upm::Hmc5883l(0);
+    upm::Hmc5883l compass(0);
 
-    compass->set_declination(0.2749); // Set your declination from
-                                      // true north in radians
+    compass.set_declination(0.2749); // Set your declination from
+    // true north in radians
 
     // Print out the coordinates, heading, and direction every second
-    while(true){
-        compass->update(); // Update the coordinates
-        const int16_t *pos = compass->coordinates();
+    while (true) {
+        compass.update(); // Update the coordinates
+        const int16_t* pos = compass.coordinates();
         fprintf(stdout, "coor: %5d %5d %5d ", pos[0], pos[1], pos[2]);
-        fprintf(stdout, "heading: %5.2f direction: %3.2f\n",
-                compass->heading(), compass->direction());
-        sleep(1);
+        fprintf(stdout, "heading: %5.2f direction: %3.2f\n", compass.heading(), compass.direction());
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

@@ -22,46 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "grovevdiv.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Voltage Divider sensor on analog pin A0
-  upm::GroveVDiv* vDiv = new upm::GroveVDiv(0);
+    //! [Interesting]
+    // Instantiate a Grove Voltage Divider sensor on analog pin A0
+    upm::GroveVDiv vDiv(0);
 
-  // collect data and output measured voltage according to the setting
-  // of the scaling switch (3 or 10)
-  while (shouldRun)
-    {
-      unsigned int val = vDiv->value(100);
-      float gain3val = vDiv->computedValue(3, val);
-      float gain10val = vDiv->computedValue(10, val);
-      cout << "ADC value: " << val << " Gain 3: " << gain3val 
-           << "v Gain 10: " << gain10val << "v" << endl;
+    // collect data and output measured voltage according to the setting
+    // of the scaling switch (3 or 10)
+    while (shouldRun) {
+        unsigned int val = vDiv.value(100);
+        float gain3val = vDiv.computedValue(3, val);
+        float gain10val = vDiv.computedValue(10, val);
+        cout << "ADC value: " << val << " Gain 3: " << gain3val << "v Gain 10: " << gain10val << "v"
+             << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete vDiv;
-  return 0;
+    return 0;
 }

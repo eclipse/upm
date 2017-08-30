@@ -22,34 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "speaker.hpp"
 
 using namespace std;
 
-int main ()
+int
+main()
 {
-//! [Interesting]
+    //! [Interesting]
     // Instantiate a Speaker (PWM) pin D3 in PWM mode
-    upm::Speaker* speaker = new upm::Speaker(3, true);
+    upm::Speaker speaker(3, true);
 
     // emit a series of frequencies for 500ms each
-    speaker->emit(50, 500);
-    speaker->emit(75, 500);
-    speaker->emit(125, 500);
-    speaker->emit(250, 500);
-    speaker->emit(500, 500);
-    speaker->emit(1000, 500);
-    speaker->emit(2000, 500);
-    speaker->emit(3000, 500);
-    speaker->emit(5000, 500);
-    speaker->emit(10000, 500);
+    speaker.emit(50, 500);
+    speaker.emit(75, 500);
+    speaker.emit(125, 500);
+    speaker.emit(250, 500);
+    speaker.emit(500, 500);
+    speaker.emit(1000, 500);
+    speaker.emit(2000, 500);
+    speaker.emit(3000, 500);
+    speaker.emit(5000, 500);
+    speaker.emit(10000, 500);
 
     cout << "Exiting" << endl;
 
-    delete speaker;
-
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

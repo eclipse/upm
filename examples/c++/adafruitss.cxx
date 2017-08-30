@@ -22,56 +22,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 /**
  * Description
  * Demo program for Adafruit 16 channel servo shield/controller
  * Physical setup for tests is a single servo attached to one channel.
  * Note - when 3 or more GWS servos attached results unpredictable.
- * Adafruit do recommend a Cap be installed on the board which should alleviate the issue.
+ * Adafruit do recommend a Cap be installed on the board which should alleviate
+ * the issue.
  * I (and Adafruit) are unable to give any Capacitor sizing data.
  */
 
 #include <iostream>
+
 #include "adafruitss.hpp"
-#include <unistd.h>
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main() {
+int
+main()
+{
+    int n;
 
-int n;
+    //! [Interesting]
+    upm::adafruitss servos(6, 0x40);
 
-//! [Interesting]
-  upm::adafruitss* servos = new upm::adafruitss(6,0x40);
+    for (;;) {
+        cout << "Setting all to 0" << endl;
+        for (n = 0; n < 16; n++)
+            servos.servo(n, 1, 0); // GWS Mini Servo = Type 1.
+        upm_delay_us(1000000);     // Wait 1 second
 
-  for (;;)
-  {
-    cout << "Setting all to 0" << endl;
-    for (n = 0; n < 16; n++)
-        servos->servo(n, 1, 0); // GWS Mini Servo = Type 1.
-    usleep(1000000); // Wait 1 second
+        cout << "Setting all to 45" << endl;
+        for (n = 0; n < 16; n++)
+            servos.servo(n, 1, 45);
+        upm_delay_us(1000000); // Wait 1 second
 
-    cout << "Setting all to 45" << endl;
-    for (n = 0; n < 16; n++)
-        servos->servo(n, 1, 45);
-    usleep(1000000); // Wait 1 second
+        cout << "Setting all to 90" << endl;
+        for (n = 0; n < 16; n++)
+            servos.servo(n, 1, 90);
+        upm_delay_us(1000000); // Wait 1 second
 
-    cout << "Setting all to 90" << endl;
-    for (n = 0; n < 16; n++)
-        servos->servo(n, 1, 90);
-    usleep(1000000); // Wait 1 second
+        cout << "Setting all to 135" << endl;
+        for (n = 0; n < 16; n++)
+            servos.servo(n, 1, 135);
+        upm_delay_us(1000000); // Wait 1 second
 
-    cout << "Setting all to 135" << endl;
-    for (n = 0; n < 16; n++)
-        servos->servo(n, 1, 135);
-    usleep(1000000); // Wait 1 second
-
-    cout << "Setting all to 180" << endl;
-    for (n = 0; n < 16; n++)
-        servos->servo(n, 1, 160);
-    usleep(2000000); // Wait 1 second
-  }
-//! [Interesting]
-  return 0;
+        cout << "Setting all to 180" << endl;
+        for (n = 0; n < 16; n++)
+            servos.servo(n, 1, 160);
+        upm_delay_us(2000000); // Wait 1 second
+    }
+    //! [Interesting]
+    return 0;
 }

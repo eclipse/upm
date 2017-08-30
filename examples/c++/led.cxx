@@ -23,33 +23,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "led.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
     // Create the Grove LED object using GPIO pin 2
-    upm::Led* led = new upm::Led(2);
+    upm::Led led(2);
 
     // Print the name
-    std::cout << led->name() << std::endl;
+    std::cout << led.name() << std::endl;
 
     // Turn the LED on and off 10 times, pausing one second
     // between transitions
-    for (int i=0; i < 10; i++) {
-        led->on();
-        sleep(1);
-        led->off();
-        sleep(1);
+    for (int i = 0; i < 10; i++) {
+        led.on();
+        upm_delay(1);
+        led.off();
+        upm_delay(1);
     }
 
     // Delete the Grove LED object
-    delete led;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

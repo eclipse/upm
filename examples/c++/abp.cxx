@@ -21,41 +21,42 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
-#include <unistd.h>
+
 #include <iostream>
 #include <signal.h>
+
 #include "abp.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // Instantiate an ABP sensor on i2c bus 0
-    upm::ABP* abp = new upm::ABP(0, ABP_DEFAULT_ADDRESS);
+    upm::ABP abp(0, ABP_DEFAULT_ADDRESS);
     while (shouldRun) {
-        abp->update();
-        cout << "Retrieved pressure: " << abp->getPressure() << endl;
-        cout << "Retrieved Temperature: " << abp->getTemperature() << endl;
+        abp.update();
+        cout << "Retrieved pressure: " << abp.getPressure() << endl;
+        cout << "Retrieved Temperature: " << abp.getTemperature() << endl;
 
-        sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 
-    delete abp;
     return 0;
 }

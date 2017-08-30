@@ -22,65 +22,52 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "hka5.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a HKA5 sensor on uart 0.  We don't use the set or
-  // reset pins, so we pass -1 for them.
-  upm::HKA5 *sensor = new upm::HKA5(0, -1, -1);
+    // Instantiate a HKA5 sensor on uart 0.  We don't use the set or
+    // reset pins, so we pass -1 for them.
+    upm::HKA5 sensor(0, -1, -1);
 
-  // update once every 2 seconds and output data
-  while (shouldRun)
-    {
-      sensor->update();
+    // update once every 2 seconds and output data
+    while (shouldRun) {
+        sensor.update();
 
-      cout << "PM 1  : "
-           << sensor->getPM1()
-           << " ug/m3"
-           << endl;
+        cout << "PM 1  : " << sensor.getPM1() << " ug/m3" << endl;
+        cout << "PM 2.5: " << sensor.getPM2_5() << " ug/m3" << endl;
+        cout << "PM 10 : " << sensor.getPM10() << " ug/m3" << endl;
+        cout << endl;
 
-      cout << "PM 2.5: "
-           << sensor->getPM2_5()
-           << " ug/m3"
-           << endl;
-
-      cout << "PM 10 : "
-           << sensor->getPM10()
-           << " ug/m3"
-           << endl;
-
-      cout << endl;
-
-      sleep(2);
+        upm_delay(2);
     }
 
-  if (shouldRun)
-    cerr << "Timed out" << endl;
+    if (shouldRun)
+        cerr << "Timed out" << endl;
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-
-  return 0;
+    return 0;
 }

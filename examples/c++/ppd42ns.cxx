@@ -22,45 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
+
 #include "ppd42ns.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // Instantiate a dust sensor on GPIO pin D8
-    upm::PPD42NS* dust = new upm::PPD42NS(8);
+    upm::PPD42NS dust(8);
     ppd42ns_dust_data data;
     cout << "This program will give readings every 30 seconds until "
-         << "you stop it"
-         << endl;
-    while (shouldRun)
-    {
-        data = dust->getData();
+         << "you stop it" << endl;
+    while (shouldRun) {
+        data = dust.getData();
         cout << "Low pulse occupancy: " << data.lowPulseOccupancy << endl;
         cout << "Ratio: " << data.ratio << endl;
         cout << "Concentration: " << data.concentration << endl;
         cout << endl;
     }
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting" << endl;
 
-    delete dust;
     return 0;
 }

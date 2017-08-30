@@ -22,15 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
+
 #include "lol.hpp"
-#include <stdlib.h>
-#include <sys/time.h>
+#include "upm_utilities.h"
 
 int is_running = 0;
-upm::LoL *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -43,23 +42,25 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    sensor = new upm::LoL();
+    upm::LoL sensor;
     signal(SIGINT, sig_handler);
 
-    //buffer = sensor->getFramebuffer();
+    // buffer = sensor.getFramebuffer();
     int x = 0, y = 0;
     while (!is_running) {
-        sensor->setPixel(x, y, !(sensor->getPixel(x, y)));
-        if (++x == 13) { x = 0; y++; }
-        if (y == 9) y = 0;
-        usleep(10000);
+        sensor.setPixel(x, y, !(sensor.getPixel(x, y)));
+        if (++x == 13) {
+            x = 0;
+            y++;
+        }
+        if (y == 9)
+            y = 0;
+        upm_delay_us(10000);
     }
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

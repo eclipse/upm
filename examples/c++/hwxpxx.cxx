@@ -22,81 +22,76 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
 
 #include "hwxpxx.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  string defaultDev = "/dev/ttyUSB0";
+    string defaultDev = "/dev/ttyUSB0";
 
-  // if an argument was specified, use it as the device instead
-  if (argc > 1)
-    defaultDev = string(argv[1]);
+    // if an argument was specified, use it as the device instead
+    if (argc > 1)
+        defaultDev = string(argv[1]);
 
-  cout << "Using device " << defaultDev << endl;
-  cout << "Initializing..." << endl;
+    cout << "Using device " << defaultDev << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an HWXPXX instance, using MODBUS slave address 3, and
-  // default comm parameters (19200, 8, N, 2)
-  upm::HWXPXX *sensor = new upm::HWXPXX(defaultDev, 3);
+    // Instantiate an HWXPXX instance, using MODBUS slave address 3, and
+    // default comm parameters (19200, 8, N, 2)
+    upm::HWXPXX sensor(defaultDev, 3);
 
-  // output the Slave ID (manufacturer, model, serno)
-  cout << "Slave ID: " << sensor->getSlaveID() << endl;
+    // output the Slave ID (manufacturer, model, serno)
+    cout << "Slave ID: " << sensor.getSlaveID() << endl;
 
-  // stored temperature and humidity offsets
-  cout << "Temperature Offset: " << sensor->getTemperatureOffset()
-       << endl;
-  cout << "Humidity Offset: " << sensor->getHumidityOffset()
-       << endl;
+    // stored temperature and humidity offsets
+    cout << "Temperature Offset: " << sensor.getTemperatureOffset() << endl;
+    cout << "Humidity Offset: " << sensor.getHumidityOffset() << endl;
 
-  cout << endl;
+    cout << endl;
 
-  // update and print available values every second
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor->update();
+    // update and print available values every second
+    while (shouldRun) {
+        // update our values from the sensor
+        sensor.update();
 
-      // we show both C and F for temperature
-      cout << "Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
-           << endl;
+        // we show both C and F for temperature
+        cout << "Temperature: " << sensor.getTemperature() << " C / " << sensor.getTemperature(true)
+             << " F" << endl;
 
-      cout << "Humidity: " << sensor->getHumidity()
-           << " %" << endl;
+        cout << "Humidity: " << sensor.getHumidity() << " %" << endl;
 
-      cout << "Slider: " << sensor->getSlider() << " %" << endl;
+        cout << "Slider: " << sensor.getSlider() << " %" << endl;
 
-      cout << "Override Switch Status: " << sensor->getOverrideSwitchStatus()
-           <<  endl;
+        cout << "Override Switch Status: " << sensor.getOverrideSwitchStatus() << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

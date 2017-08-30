@@ -22,15 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
 
 #include "htu21d.hpp"
+#include "upm_utilities.h"
 
 volatile int doWork = 0;
-
-upm::HTU21D *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -42,38 +41,32 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // Register signal handler
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
-    float humidity    = 0.0;
+    float humidity = 0.0;
     float temperature = 0.0;
-    float compRH      = 0.0;
+    float compRH = 0.0;
 
-    sensor = new upm::HTU21D(0, HTU21D_I2C_ADDRESS);
+    upm::HTU21D sensor(0, HTU21D_I2C_ADDRESS);
 
-    sensor->testSensor();
+    sensor.testSensor();
 
     while (!doWork) {
-        compRH      = sensor->getCompRH(true);
-        humidity    = sensor->getHumidity(false);
-        temperature = sensor->getTemperature(false);
+        compRH = sensor.getCompRH(true);
+        humidity = sensor.getHumidity(false);
+        temperature = sensor.getTemperature(false);
 
-        std::cout << "humidity value = " <<
-                    humidity <<
-                    ", temperature value = " <<
-                    temperature <<
-                    ", compensated RH value = " <<
-                    compRH << std::endl;
-        usleep (500000);
+        std::cout << "humidity value = " << humidity << ", temperature value = " << temperature
+                  << ", compensated RH value = " << compRH << std::endl;
+        upm_delay_us(500000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

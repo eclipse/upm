@@ -22,57 +22,56 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "mq303a.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an mq303a sensor on analog pin A0
+    //! [Interesting]
+    // Instantiate an mq303a sensor on analog pin A0
 
-  // This device uses a heater powered from an analog I/O pin. 
-  // If using A0 as the data pin, then you need to use A1, as the heater
-  // pin (if using a grove mq303a).  For A1, we can use the D15 gpio, 
-  // setup as an output, and drive it low to power the heater.
+    // This device uses a heater powered from an analog I/O pin.
+    // If using A0 as the data pin, then you need to use A1, as the heater
+    // pin (if using a grove mq303a).  For A1, we can use the D15 gpio,
+    // setup as an output, and drive it low to power the heater.
 
-  upm::MQ303A *mq303a = new upm::MQ303A(0, 15);
-  
-  cout << "Enabling heater and waiting 2 minutes for warmup." << endl;
-  mq303a->heaterEnable(true);
-  sleep(120);
+    upm::MQ303A mq303a(0, 15);
 
-  cout << "This sensor may need to warm until the value drops below about 450." 
-       << endl;
+    cout << "Enabling heater and waiting 2 minutes for warmup." << endl;
+    mq303a.heaterEnable(true);
+    upm_delay(120);
 
-  // Print the detected alcohol value every second
-  while (shouldRun)
-    {
-      int val = mq303a->value();
+    cout << "This sensor may need to warm until the value drops below about 450." << endl;
 
-      cout << "Alcohol detected (higher means stronger alcohol): " 
-           << val << endl;
+    // Print the detected alcohol value every second
+    while (shouldRun) {
+        int val = mq303a.value();
 
-      sleep(1);
+        cout << "Alcohol detected (higher means stronger alcohol): " << val << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
-  mq303a->heaterEnable(false);
+    cout << "Exiting" << endl;
+    mq303a.heaterEnable(false);
 
-  delete mq303a;
-  return 0;
+    return 0;
 }

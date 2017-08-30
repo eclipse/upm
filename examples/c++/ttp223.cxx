@@ -22,33 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "ttp223.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // This example uses GPIO 0
-//! [Interesting]
+    //! [Interesting]
 
     // Create the TTP223 touch sensor object using GPIO pin 0
-    upm::TTP223* touch = new upm::TTP223(0);
+    upm::TTP223 touch(0);
 
     // Check whether or not a finger is near the touch sensor and
     // print accordingly, waiting one second between readings
-    while( 1 ) {
-        if ( touch->isPressed() ) {
-            std::cout << touch->name() << " is pressed" << std::endl;
+    while (1) {
+        if (touch.isPressed()) {
+            std::cout << touch.name() << " is pressed" << std::endl;
         } else {
-            std::cout << touch->name() << " is not pressed" << std::endl;
+            std::cout << touch.name() << " is not pressed" << std::endl;
         }
-        sleep(1);
+        upm_delay(1);
     }
 
     // Delete the touch sensor object
-    delete touch;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

@@ -23,9 +23,10 @@
  */
 
 #include <iostream>
-#include <unistd.h>
 #include <signal.h>
+
 #include "micsv89.hpp"
+#include "upm_utilities.h"
 
 /*
  * An example for using the MICSV89 sensor library.
@@ -52,27 +53,27 @@ sig_handler(int signo)
     }
 }
 
-int main()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
-    upm::MICSV89 *sensor = new upm::MICSV89(6);
+    //! [Interesting]
+    upm::MICSV89 sensor(6);
 
-    while(running)
-    {
-        sensor->update();
-        while(!sensor->valid());
-        cout << "co2: " << sensor->co2equ() << endl;
-        cout << "short: " << sensor->vocshort() << endl;
-        cout << "tvoc: " << sensor->tvoc() << endl;
-        cout << "resistor: " << sensor->resistor() << endl;
+    while (running) {
+        sensor.update();
+        while (!sensor.valid())
+            ;
+        cout << "co2: " << sensor.co2equ() << endl;
+        cout << "short: " << sensor.vocshort() << endl;
+        cout << "tvoc: " << sensor.tvoc() << endl;
+        cout << "resistor: " << sensor.resistor() << endl;
         cout << "****************************" << endl;
-        sleep(5);
+        upm_delay(5);
     }
 
-    delete sensor;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

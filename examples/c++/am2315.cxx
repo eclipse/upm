@@ -22,15 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
 
 #include "am2315.hpp"
+#include "upm_utilities.h"
 
 volatile int doWork = 0;
-
-upm::AM2315 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -42,34 +41,30 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // Register signal handler
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
-    float humidity    = 0.0;
+    float humidity = 0.0;
     float temperature = 0.0;
 
-    sensor = new upm::AM2315(0, AM2315_I2C_ADDRESS);
+    upm::AM2315 sensor(0, AM2315_I2C_ADDRESS);
 
-    sensor->testSensor();
+    sensor.testSensor();
 
     while (!doWork) {
-        humidity    = sensor->getHumidity();
-        temperature = sensor->getTemperature();
+        humidity = sensor.getHumidity();
+        temperature = sensor.getTemperature();
 
-        std::cout << "humidity value = " <<
-                    humidity <<
-                    ", temperature value = " <<
-                    temperature << std::endl;
-        usleep (500000);
+        std::cout << "humidity value = " << humidity << ", temperature value = " << temperature
+                  << std::endl;
+        upm_delay_us(500000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

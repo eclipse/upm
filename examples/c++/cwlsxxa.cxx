@@ -22,61 +22,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "cwlsxxa.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Initializing..." << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an CWLSXXA instance, using A0 for CO2, A1 for
-  // humidity and A2 for temperature
-  upm::CWLSXXA *sensor = new upm::CWLSXXA(0, 1, 2);
+    // Instantiate an CWLSXXA instance, using A0 for CO2, A1 for
+    // humidity and A2 for temperature
+    upm::CWLSXXA sensor(0, 1, 2);
 
-  // update and print available values every second
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor->update();
+    // update and print available values every second
+    while (shouldRun) {
+        // update our values from the sensor
+        sensor.update();
 
-      // we show both C and F for temperature
-      cout << "Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
-           << endl;
+        // we show both C and F for temperature
+        cout << "Temperature: " << sensor.getTemperature() << " C / " << sensor.getTemperature(true)
+             << " F" << endl;
 
-      cout << "Humidity: " << sensor->getHumidity()
-           << " %" << endl;
+        cout << "Humidity: " << sensor.getHumidity() << " %" << endl;
 
-      cout << "CO2: " << sensor->getCO2()
-           << " ppm" << endl;
+        cout << "CO2: " << sensor.getCO2() << " ppm" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

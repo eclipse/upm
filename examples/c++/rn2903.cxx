@@ -22,18 +22,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <string>
 
 #include "rn2903.hpp"
-#include "upm_utilities.h"
+#include "rn2903_defs.h"
 
 using namespace std;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
     string defaultDev = "/dev/ttyUSB0";
     if (argc > 1)
@@ -54,8 +54,7 @@ int main(int argc, char **argv)
     // sensor.setDebug(true);
 
     // get version
-    if (sensor.command("sys get ver"))
-    {
+    if (sensor.command("sys get ver")) {
         cout << "Failed to retrieve device version string" << endl;
         return 1;
     }
@@ -92,8 +91,7 @@ int main(int argc, char **argv)
     sensor.setApplicationSessionKey("00112233001122330011223300112233");
 
     RN2903_JOIN_STATUS_T rv = sensor.join(RN2903_JOIN_TYPE_ABP);
-    if (rv == RN2903_JOIN_STATUS_ACCEPTED)
-    {
+    if (rv == RN2903_JOIN_STATUS_ACCEPTED) {
         cout << "Join successful." << endl;
 
         // All transmit payloads must be hex encoded strings, so
@@ -109,28 +107,21 @@ int main(int argc, char **argv)
 
         if (trv == RN2903_MAC_TX_STATUS_TX_OK)
             cout << "Transmit successful." << endl;
-        else
-        {
+        else {
             // check to see if we got a downlink packet
-            if (trv == RN2903_MAC_TX_STATUS_RX_RECEIVED)
-            {
-                cout << "Transmit successful, downlink packet received: "
-                     << sensor.getResponse();
-            }
-            else
-            {
+            if (trv == RN2903_MAC_TX_STATUS_RX_RECEIVED) {
+                cout << "Transmit successful, downlink packet received: " << sensor.getResponse();
+            } else {
                 cout << "Transmit failed with code " << int(trv) << endl;
             }
         }
-    }
-    else
-    {
+    } else {
         cout << "Join failed with code " << int(rv) << endl;
     }
 
     cout << "Exiting" << endl;
 
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

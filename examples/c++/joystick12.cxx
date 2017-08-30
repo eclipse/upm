@@ -22,15 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
+
 #include "joystick12.hpp"
-#include <stdlib.h>
-#include <sys/time.h>
+#include "upm_utilities.h"
 
 int is_running = 0;
-upm::Joystick12 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -43,23 +42,21 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // Instantiate a joystick on analog pins A0 and A1
-    sensor = new upm::Joystick12(0,1);
+    upm::Joystick12 sensor(0, 1);
     signal(SIGINT, sig_handler);
 
     // Print the X and Y input values every second
     while (!is_running) {
-        float x = sensor->getXInput();
-        float y = sensor->getYInput();
+        float x = sensor.getXInput();
+        float y = sensor.getYInput();
         std::cout << "Driving X:" << x << ": and Y:" << y << std::endl;
-        sleep(1);
+        upm_delay(1);
     }
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

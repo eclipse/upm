@@ -22,41 +22,41 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "apds9002.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Luminance sensor on analog pin A0
-  upm::APDS9002* luminance = new upm::APDS9002(0);
-  
-  while (shouldRun)
-    {
-      int val = luminance->value();
-      cout << "Luminance value is " << val << endl;
+    //! [Interesting]
+    // Instantiate a Grove Luminance sensor on analog pin A0
+    upm::APDS9002 luminance(0);
 
-      sleep(1);
+    while (shouldRun) {
+        int val = luminance.value();
+        cout << "Luminance value is " << val << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete luminance;
-  return 0;
+    return 0;
 }

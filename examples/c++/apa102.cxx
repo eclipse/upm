@@ -23,9 +23,6 @@
  */
 
 #include "apa102.hpp"
-#include <iostream>
-#include <signal.h>
-#include <unistd.h>
 
 using namespace std;
 
@@ -34,18 +31,17 @@ main(int argc, char** argv)
 {
     //! [Interesting]
     // Instantiate a strip of 30 LEDs on SPI bus 0
-    upm::APA102* ledStrip = new upm::APA102(800, 0);
+    upm::APA102 ledStrip(800, 0);
 
     // Set all LEDs to Red
-    ledStrip->setAllLeds(31, 255, 0, 0);
+    ledStrip.setAllLeds(31, 255, 0, 0);
 
     // Set a section (10 to 20) to blue
-    ledStrip->setLeds(10, 20, 31, 0, 0, 255);
+    ledStrip.setLeds(10, 20, 31, 0, 0, 255);
 
     // Set a single LED to green
-    ledStrip->setLed(15, 31, 0, 255, 0);
+    ledStrip.setLed(15, 31, 0, 255, 0);
 
-    delete ledStrip;
     //! [Interesting]
     return 0;
 }

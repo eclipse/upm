@@ -21,31 +21,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "mma8x5x.hpp"
+#include "upm_utilities.h"
 
 using namespace upm;
 
 bool run = true;
 
-void sig_handler(int sig)
+void
+sig_handler(int sig)
 {
-  if (sig == SIGINT)
-    run = false;
+    if (sig == SIGINT)
+        run = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  upm::mma8x5x_data_t data;
+    //! [Interesting]
+    upm::mma8x5x_data_t data;
 
-  // U can set your own parameters for an MMA8X5X instance with
-  /*
+    // U can set your own parameters for an MMA8X5X instance with
+    /*
     upm::mma8x5x_params_t params;
     params.type   = <device-id>;      device-id of your sensor
     params.rate   = <sampling-rate>;    between 0<<3 and 7<<3
@@ -55,37 +57,35 @@ int main(int argc, char **argv)
     params.offsetZ  = <z-axis offset>;    between 0 and 255
   */
 
-  std::cout << "Initializing test-application..." << std::endl;
+    std::cout << "Initializing test-application..." << std::endl;
 
-  // Instantiate an MMA8X5X instance on bus 1 with default parameters
-  // The sensor-type will be detected by reading out the device-id
-  upm::MMA8X5X *mySensor = new upm::MMA8X5X(1);
+    // Instantiate an MMA8X5X instance on bus 1 with default parameters
+    // The sensor-type will be detected by reading out the device-id
+    upm::MMA8X5X mySensor(1);
 
-  // If u have set own parameters use this one
-  /*
-    upm::MMA8X5X *mySensor = new upm::MMA8X5X(1, &params);
+    // If u have set own parameters use this one
+    /*
+        upm::MMA8X5X mySensor(1, &params);
   */
 
-  // activate periodic measurements
-  mySensor->setActive();
+    // activate periodic measurements
+    mySensor.setActive();
 
-  // update and print available values every second
-  while (run)
-    {
-      mySensor->getData (&data, true);
-        std::cout << "x: " << (int)data.x << std::endl
-                  << "y: " << (int)data.y << std::endl
-                  << "z: " << (int)data.z << std::endl;
+    // update and print available values every second
+    while (run) {
+        mySensor.getData(&data, true);
+        std::cout << "x: " << (int) data.x << std::endl
+                  << "y: " << (int) data.y << std::endl
+                  << "z: " << (int) data.z << std::endl;
 
         std::cout << std::endl;
 
-        sleep(1);
+        upm_delay(1);
     }
 
-  std::cout << "Exiting test-application..." << std::endl;
+    std::cout << "Exiting test-application..." << std::endl;
 
-  delete mySensor;
-//! [Interesting]
+    //! [Interesting]
 
-  return 0;
+    return 0;
 }

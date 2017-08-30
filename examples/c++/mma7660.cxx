@@ -22,58 +22,55 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
+
 #include "mma7660.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an MMA7660 on I2C bus 0
+    //! [Interesting]
+    // Instantiate an MMA7660 on I2C bus 0
 
-  upm::MMA7660 *accel = new upm::MMA7660(MMA7660_DEFAULT_I2C_BUS,
-                                         MMA7660_DEFAULT_I2C_ADDR);
+    upm::MMA7660 accel(MMA7660_DEFAULT_I2C_BUS, MMA7660_DEFAULT_I2C_ADDR);
 
-  // place device in standby mode so we can write registers
-  accel->setModeStandby();
+    // place device in standby mode so we can write registers
+    accel.setModeStandby();
 
-  // enable 64 samples per second
-  accel->setSampleRate(MMA7660_AUTOSLEEP_64);
+    // enable 64 samples per second
+    accel.setSampleRate(MMA7660_AUTOSLEEP_64);
 
-  // place device into active mode
-  accel->setModeActive();
+    // place device into active mode
+    accel.setModeActive();
 
-  while (shouldRun)
-    {
-      float ax, ay, az;
+    while (shouldRun) {
+        float ax, ay, az;
 
-      accel->getAcceleration(&ax, &ay, &az);
-      cout << "Acceleration: x = " << ax
-           << "g y = " << ay
-           << "g z = " << az
-           << "g" << endl;
+        accel.getAcceleration(&ax, &ay, &az);
+        cout << "Acceleration: x = " << ax << "g y = " << ay << "g z = " << az << "g" << endl;
 
-      cout << endl;
-      usleep(500000);
+        cout << endl;
+        upm_delay_us(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete accel;
-  return 0;
+    return 0;
 }

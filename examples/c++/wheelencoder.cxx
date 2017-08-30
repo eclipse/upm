@@ -22,48 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
+#include "upm_utilities.h"
 #include "wheelencoder.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a DFRobot Wheel Encoder on digital pin D2
-  upm::WheelEncoder* sensor = new upm::WheelEncoder(2);
-  
-  // set the counter to 0 and start counting
-  sensor->clearCounter();
-  sensor->startCounter();
+    //! [Interesting]
+    // Instantiate a DFRobot Wheel Encoder on digital pin D2
+    upm::WheelEncoder sensor(2);
 
-  while (shouldRun)
-    {
-      // output milliseconds passed and current sensor count
-      cout << "Millis: " << sensor->getMillis() << " Count: " 
-           << sensor->counter() << endl;
+    // set the counter to 0 and start counting
+    sensor.clearCounter();
+    sensor.startCounter();
 
-      sleep(1);
+    while (shouldRun) {
+        // output milliseconds passed and current sensor count
+        cout << "Millis: " << sensor.getMillis() << " Count: " << sensor.counter() << endl;
+
+        upm_delay(1);
     }
 
-  sensor->stopCounter();
-//! [Interesting]
+    sensor.stopCounter();
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
-  return 0;
+    return 0;
 }

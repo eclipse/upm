@@ -22,51 +22,50 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "ht9170.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
-  //! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
-  // Instantiate a DTMF decoder
-  upm::HT9170* dtmf = new upm::HT9170(12, 11, 10, 9, 8);
-  
-  // Now we just spin in a loop, sleeping every 100ms, checking to see
-  // if a digit is available.  If so, we decode and print the digit,
-  // and continue looping.
+    // Instantiate a DTMF decoder
+    upm::HT9170 dtmf(12, 11, 10, 9, 8);
 
-  while(shouldRun)
-    {
-      if (dtmf->digitReady())
-        {
-          cout << "Got DTMF code: " << dtmf->decodeDigit() << endl;
-          // now spin until digitReady() goes false again
-          while (dtmf->digitReady())
-            ;
+    // Now we just spin in a loop, upm_delaying every 100ms, checking to see
+    // if a digit is available.  If so, we decode and print the digit,
+    // and continue looping.
+
+    while (shouldRun) {
+        if (dtmf.digitReady()) {
+            cout << "Got DTMF code: " << dtmf.decodeDigit() << endl;
+            // now spin until digitReady() goes false again
+            while (dtmf.digitReady())
+                ;
         }
 
-      usleep(100000);
+        upm_delay_us(100000);
     }
- 
- //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    //! [Interesting]
 
-  delete dtmf;
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

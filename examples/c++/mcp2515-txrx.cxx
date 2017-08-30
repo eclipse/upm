@@ -22,26 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <stdio.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
 #include <upm_utilities.h>
 
 #include "mcp2515.hpp"
+#include "mcp2515_regs.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
 
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
     // if an argument is given, we will transmit packets
     if (argc > 1)
         do_tx = true;
-//! [Interesting]
+    //! [Interesting]
 
     // NOTE: This example assumes that only two devices are connected
     // to the CAN bus, and that both devices are running this example;
@@ -68,7 +69,7 @@ int main(int argc, char **argv)
     // able to transmit a message.
 
     // Instantiate a MCP2515 on SPI bus 0 using a hw CS pin (-1).
-    upm::MCP2515 *sensor = new upm::MCP2515(0, 9);
+    upm::MCP2515 sensor(0, 9);
 
     // By default, after initialization, the baud rate is set to
     // 50Kbps, and the mode is NORMAL, so we don't need to set any of
@@ -78,37 +79,30 @@ int main(int argc, char **argv)
     // incremented (and rollover) on each transmission.
     string myPayload = "01234567";
 
-    while (shouldRun)
-    {
-        if (do_tx)
-        {
-            cout << "Loading a packet of 8 numbers (0-7) into a TX buffer..."
-                 << endl;
-            sensor->loadTXBuffer(MCP2515_TX_BUFFER0, 0, false, false,
-                                 myPayload);
+    while (shouldRun) {
+        if (do_tx) {
+            cout << "Loading a packet of 8 numbers (0-7) into a TX buffer..." << endl;
+            sensor.loadTXBuffer(MCP2515_TX_BUFFER0, 0, false, false, myPayload);
 
             // now lets try to transmit it
             cout << "Transmitting packet..." << endl;
-            sensor->transmitBuffer(MCP2515_TX_BUFFER0, true);
+            sensor.transmitBuffer(MCP2515_TX_BUFFER0, true);
 
             myPayload[0]++;
             cout << "Transmit successful" << endl;
             cout << endl;
 
             upm_delay_ms(500);
-        }
-        else
-        {
+        } else {
             // RX mode
             // Look for a packet waiting for us in RXB0
-            if (sensor->rxStatusMsgs() == MCP2515_RXMSG_RXB0)
-            {
+            if (sensor.rxStatusMsgs() == MCP2515_RXMSG_RXB0) {
                 cout << "Packet received in RXB0, decoding..." << endl;
 
                 // now lets retrieve and print it
-                sensor->getRXMsg(MCP2515_RX_BUFFER0);
+                sensor.getRXMsg(MCP2515_RX_BUFFER0);
 
-                sensor->printMsg();
+                sensor.printMsg();
                 cout << endl;
             }
 
@@ -118,8 +112,7 @@ int main(int argc, char **argv)
 
     cout << "Exiting..." << endl;
 
-    delete sensor;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

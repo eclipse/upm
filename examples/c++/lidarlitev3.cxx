@@ -23,10 +23,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
+
 #include "lidarlitev3.hpp"
+#include "upm_utilities.h"
 
 volatile int doWork = 0;
 
@@ -40,25 +42,22 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-
     // Register signal handler
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
-    upm::LIDARLITEV3 *sensor = new upm::LIDARLITEV3(0, ADDR);
+    upm::LIDARLITEV3 sensor(0, ADDR);
 
     while (!doWork) {
-        std::cout << "Distance = " << sensor->getDistance () << std::endl;
-        usleep (50000);
+        std::cout << "Distance = " << sensor.getDistance() << std::endl;
+        upm_delay_us(50000);
     }
 
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

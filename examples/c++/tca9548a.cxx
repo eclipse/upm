@@ -23,12 +23,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <sstream>
-#include <signal.h>
-#include <stdio.h>
 #include <string.h>
+
 #include "tca9548a.hpp"
 
 using namespace std;
@@ -40,64 +37,63 @@ using namespace upm;
  */
 
 void
-showAllPorts(upm::TCA9548A *multiplex) {
+showAllPorts(upm::TCA9548A& multiplex)
+{
     int i;
-    char  ports [80];
+    char ports[80];
     std::string convert;
-    for (i = 0; i<8; i++) {
-        if (multiplex->getPort(i))
-            strcat (ports, "1." );
+    for (i = 0; i < 8; i++) {
+        if (multiplex.getPort(i))
+            strcat(ports, "1.");
         else
-            strcat (ports,"0.");
+            strcat(ports, "0.");
     }
     cout << "Ports: " << ports;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-
     // Instantiate a TCA9548A instance of i2c multiplexer
-    upm::TCA9548A *multiplex = new upm::TCA9548A(0);
+    upm::TCA9548A multiplex(0);
 
-    //Clean
-    multiplex->disableAllPorts();
+    // Clean
+    multiplex.disableAllPorts();
     cout << "All ports disabled.";
 
     // Open i2c bus on multiplexer channel 4
-    multiplex->setPort(4,multiplex->ENABLED,multiplex->EXCLUSIVE);
+    multiplex.setPort(4, multiplex.ENABLED, multiplex.EXCLUSIVE);
     cout << "Port 4 enabled with exclusive access.";
     showAllPorts(multiplex);
 
     // Close com with channel 4
-    multiplex->disableAllPorts();
+    multiplex.disableAllPorts();
 
     // Open i2c bus on multiplexer channel 2
-    multiplex->setPort(2,multiplex->ENABLED,multiplex->EXCLUSIVE);
+    multiplex.setPort(2, multiplex.ENABLED, multiplex.EXCLUSIVE);
     cout << "Port 2 enabled with exclusive access.";
     showAllPorts(multiplex);
 
-    //close com with channel 2
-    multiplex->disableAllPorts();
+    // close com with channel 2
+    multiplex.disableAllPorts();
 
     // Open 2 i2c bus on multiplexer channel 4 and channel2
-    multiplex->setPort(4,multiplex->ENABLED,multiplex->EXCLUSIVE);
-    multiplex->setPort(2,multiplex->ENABLED,multiplex->INCLUSIVE);
+    multiplex.setPort(4, multiplex.ENABLED, multiplex.EXCLUSIVE);
+    multiplex.setPort(2, multiplex.ENABLED, multiplex.INCLUSIVE);
     cout << "Port 4 enabled with exclusive access.";
     cout << "Port 2 enabled with exclusive access.";
     showAllPorts(multiplex);
 
-    //close com with all channels
-    multiplex->disableAllPorts();
+    // close com with all channels
+    multiplex.disableAllPorts();
 
     // Open i2c bus on all multiplexer channels
-    multiplex->enableAllPorts();
+    multiplex.enableAllPorts();
     cout << "All ports enabled.";
     showAllPorts(multiplex);
 
-    //close com with all channels
-    multiplex->disableAllPorts();
-
-    delete multiplex;
+    // close com with all channels
+    multiplex.disableAllPorts();
 
     return 0;
 }

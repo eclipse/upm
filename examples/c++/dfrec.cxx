@@ -22,60 +22,53 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "dfrec.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
-  // temperature sensor connected to UART 0, and a device index (for
-  // the ds1820b uart bus) of 0, and an analog reference voltage of
-  // 5.0.
-  upm::DFREC *sensor = new upm::DFREC(0, 0, 0, 5.0);
+    // Instantiate a DFRobot EC sensor on analog pin A0, with a ds18b20
+    // temperature sensor connected to UART 0, and a device index (for
+    // the ds1820b uart bus) of 0, and an analog reference voltage of
+    // 5.0.
+    upm::DFREC sensor(0, 0, 0, 5.0);
 
-  // Every 2 seconds, update and print values
-  while (shouldRun)
-    {
-      sensor->update();
+    // Every 2 seconds, update and print values
+    while (shouldRun) {
+        sensor.update();
 
-      cout << "EC = "
-           << sensor->getEC()
-           << " ms/cm"
-           << endl;
+        cout << "EC = " << sensor.getEC() << " ms/cm" << endl;
 
-      cout << "Volts = "
-           << sensor->getVolts()
-           << ", Temperature = "
-           << sensor->getTemperature()
-           << " C"
-           << endl;
+        cout << "Volts = " << sensor.getVolts() << ", Temperature = " << sensor.getTemperature()
+             << " C" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(2);
+        upm_delay(2);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-  return 0;
+    return 0;
 }

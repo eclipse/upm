@@ -22,55 +22,58 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stddef.h>
+
 #include "a110x.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 // Our pulse counter
 volatile unsigned int counter = 0;
 
 // Our interrupt handler
-void hallISR(void *arg)
+void
+hallISR(void* arg)
 {
-  counter++;
+    counter++;
 }
 
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an A110X sensor on digital pin D2
-  upm::A110X* hall = new upm::A110X(2);
-  
-  // This example uses a user-supplied interrupt handler to count
-  // pulses that occur when a magnetic field of the correct polarity
-  // is detected.  This could be used to measure the rotations per
-  // minute (RPM) of a rotor for example.
+    //! [Interesting]
+    // Instantiate an A110X sensor on digital pin D2
+    upm::A110X hall(2);
 
-  hall->installISR(hallISR, NULL);
+    // This example uses a user-supplied interrupt handler to count
+    // pulses that occur when a magnetic field of the correct polarity
+    // is detected.  This could be used to measure the rotations per
+    // minute (RPM) of a rotor for example.
 
-  while (shouldRun)
-    {
-      cout << "Pulses detected: " << counter << endl;
+    hall.installISR(hallISR, NULL);
 
-      sleep(1);
+    while (shouldRun) {
+        cout << "Pulses detected: " << counter << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete hall;
-  return 0;
+    return 0;
 }

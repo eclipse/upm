@@ -22,43 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "rsc.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
-    
-    upm::RSC* rsc = new upm::RSC(0, 9, 8);
+    //! [Interesting]
 
-    cout << "Sensor Name: " << rsc->getSensorName() << endl;
-    rsc->setMode(NORMAL_MODE);
-    rsc->setDataRate(N_DR_330_SPS);
+    upm::RSC rsc(0, 9, 8);
+
+    cout << "Sensor Name: " << rsc.getSensorName() << endl;
+    rsc.setMode(NORMAL_MODE);
+    rsc.setDataRate(N_DR_330_SPS);
     while (shouldRun) {
-        cout << "inH2O pressure: " << rsc->getPressure() << endl;
-        cout << "Temp (C): " << rsc->getTemperature() << endl;
+        cout << "inH2O pressure: " << rsc.getPressure() << endl;
+        cout << "Temp (C): " << rsc.getTemperature() << endl;
 
-        sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 
-    delete rsc;
     return 0;
 }

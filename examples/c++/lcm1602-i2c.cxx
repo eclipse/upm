@@ -26,24 +26,22 @@
 #include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
-    upm::Lcm1602* lcd = new upm::Lcm1602(0, 0x27);
-    lcd->setCursor(0,0);
-    lcd->write("Hello World");
-//! [Interesting]
+    //! [Interesting]
+    upm::Lcm1602 lcd(0, 0x27);
+    lcd.setCursor(0, 0);
+    lcd.write("Hello World");
+    //! [Interesting]
     upm_delay(3);
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
+    lcd.setCursor(1, 2);
+    lcd.write("Hello World");
     upm_delay(3);
-    lcd->setCursor(2,4);
-    lcd->write("Hello World");
+    lcd.setCursor(2, 4);
+    lcd.write("Hello World");
     upm_delay(3);
-    lcd->setCursor(3,6);
-    lcd->write("Hello World");
+    lcd.setCursor(3, 6);
+    lcd.write("Hello World");
     upm_delay(3);
-    delete lcd;
-
     return 0;
 }

@@ -22,39 +22,38 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+
 #include "grovemd.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  //! [Interesting]
-  // Instantiate an I2C Grove Motor Driver on I2C bus 0
+    //! [Interesting]
+    // Instantiate an I2C Grove Motor Driver on I2C bus 0
 
-  upm::GroveMD *motors = new upm::GroveMD(GROVEMD_I2C_BUS, 
-                                          GROVEMD_DEFAULT_I2C_ADDR);
+    upm::GroveMD motors(GROVEMD_I2C_BUS, GROVEMD_DEFAULT_I2C_ADDR);
 
-  // set direction to CW and set speed to 50%
-  cout << "Spin M1 and M2 at half speed for 3 seconds" << endl;
-  motors->setMotorDirections(upm::GroveMD::DIR_CW, upm::GroveMD::DIR_CW);
-  motors->setMotorSpeeds(127, 127);
-  
-  sleep(3);
-  // counter clockwise
-  cout << "Reversing M1 and M2 for 3 seconds" << endl;
-  motors->setMotorDirections(upm::GroveMD::DIR_CCW, upm::GroveMD::DIR_CCW);
-  sleep(3);
+    // set direction to CW and set speed to 50%
+    cout << "Spin M1 and M2 at half speed for 3 seconds" << endl;
+    motors.setMotorDirections(upm::GroveMD::DIR_CW, upm::GroveMD::DIR_CW);
+    motors.setMotorSpeeds(127, 127);
 
-  //! [Interesting]
+    upm_delay(3);
+    // counter clockwise
+    cout << "Reversing M1 and M2 for 3 seconds" << endl;
+    motors.setMotorDirections(upm::GroveMD::DIR_CCW, upm::GroveMD::DIR_CCW);
+    upm_delay(3);
 
-  cout << "Stopping motors" << endl;
-  motors->setMotorSpeeds(0, 0);
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Stopping motors" << endl;
+    motors.setMotorSpeeds(0, 0);
 
-  delete motors;
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

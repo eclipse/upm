@@ -22,13 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "th02.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "th02.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::TH02 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -41,24 +42,22 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
     float temperature = 0.0;
     float humidity = 0.0;
-    sensor = new upm::TH02 ();
+    upm::TH02 sensor;
 
     while (!doWork) {
-        temperature = sensor->getTemperature ();
-        humidity = sensor->getHumidity ();
+        temperature = sensor.getTemperature();
+        humidity = sensor.getHumidity();
         std::cout << "Temperature = " << temperature << ", Humidity = " << humidity << std::endl;
-        usleep (500000);
+        upm_delay_us(500000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

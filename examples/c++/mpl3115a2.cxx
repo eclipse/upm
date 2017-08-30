@@ -22,15 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
 
 #include "mpl3115a2.hpp"
+#include "upm_utilities.h"
 
 volatile int doWork = 0;
-
-upm::MPL3115A2 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -42,42 +41,35 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // Register signal handler
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
-    float pressure    = 0.0;
+    float pressure = 0.0;
     float temperature = 0.0;
-    float altitude    = 0.0;
-    float sealevel    = 0.0;
+    float altitude = 0.0;
+    float sealevel = 0.0;
 
-    sensor = new upm::MPL3115A2(0, MPL3115A2_I2C_ADDRESS);
+    upm::MPL3115A2 sensor(0, MPL3115A2_I2C_ADDRESS);
 
-    sensor->testSensor();
+    sensor.testSensor();
 
     while (!doWork) {
-        temperature = sensor->getTemperature(true);
-        pressure    = sensor->getPressure(false);
-        altitude    = sensor->getAltitude();
-        sealevel    = sensor->getSealevelPressure();
+        temperature = sensor.getTemperature(true);
+        pressure = sensor.getPressure(false);
+        altitude = sensor.getAltitude();
+        sealevel = sensor.getSealevelPressure();
 
-        std::cout << "pressure value = " <<
-                    pressure <<
-                    ", altitude value = " <<
-                    altitude <<
-                    ", sealevel value = " <<
-                    sealevel <<
-                    ", temperature = " <<
-                    temperature << std::endl;
-        usleep (500000);
+        std::cout << "pressure value = " << pressure << ", altitude value = " << altitude
+                  << ", sealevel value = " << sealevel << ", temperature = " << temperature
+                  << std::endl;
+        upm_delay_us(500000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

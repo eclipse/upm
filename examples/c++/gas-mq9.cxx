@@ -22,16 +22,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "mq9.hpp"
 #include <signal.h>
-#include <stdlib.h>
-#include <sys/time.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#include "gas.hpp"
+#include "mq9.hpp"
 
 int is_running = 0;
-uint16_t buffer [128];
-upm::MQ9 *sensor = NULL;
+uint16_t buffer[128];
 
 void
 sig_handler(int signo)
@@ -44,21 +44,21 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    sensor = new upm::MQ9(0);
+    upm::MQ9 sensor(0);
     signal(SIGINT, sig_handler);
 
     thresholdContext ctx;
     ctx.averageReading = 0;
     ctx.runningAverage = 0;
-    ctx.averagedOver   = 2;
+    ctx.averagedOver = 2;
 
     while (!is_running) {
-        int len = sensor->getSampledWindow (2, 128, buffer);
+        int len = sensor.getSampledWindow(2, 128, buffer);
         if (len) {
-            int thresh = sensor->findThreshold (&ctx, 30, buffer, len);
-            sensor->printGraph(&ctx, 5);
+            int thresh = sensor.findThreshold(&ctx, 30, buffer, len);
+            sensor.printGraph(&ctx, 5);
             if (thresh) {
                 // do something ....
             }
@@ -66,8 +66,6 @@ main(int argc, char **argv)
     }
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

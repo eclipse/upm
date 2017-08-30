@@ -22,15 +22,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include <iostream>
-#include <unistd.h>
-#include <signal.h>
 #include <math.h>
+#include <signal.h>
+#include <string>
+
 #include "mmc35240.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
-upm::MMC35240* magnetometer;
 
 void
 sig_handler(int signo)
@@ -40,18 +41,19 @@ sig_handler(int signo)
 }
 
 void
-data_callback(char* data)
+data_callback(char* data, void* args)
 {
+    upm::MMC35240* magnetometer = static_cast<upm::MMC35240*>(args);
     float x, y, z;
     double azimuth;
     int level;
     magnetometer->extract3Axis(data, &x, &y, &z);
     /* calibrated level
-     * UNRELIABLE = 0
-     * ACCURACY_LOW = 1
-     * ACCURACY_MEDIUM = 2
-     * ACCURACY_HIGH = >=3
-     */
+   * UNRELIABLE = 0
+   * ACCURACY_LOW = 1
+   * ACCURACY_MEDIUM = 2
+   * ACCURACY_HIGH = >=3
+   */
     level = magnetometer->getCalibratedLevel();
 
     if ((x == 0) && (y == 0)) {
@@ -85,27 +87,27 @@ main()
 {
     signal(SIGINT, sig_handler);
     //! [Interesting]
-    // Instantiate a MMC35240 Magnetic Sensor on iio device 5. This configuration is a reference and
+    // Instantiate a MMC35240 Magnetic Sensor on iio device 5. This configuration
+    // is a reference and
     // should be changed per platform/board type.
-    magnetometer = new upm::MMC35240(5);
-    // Kernel driver does not allow changing the value of scale at run-time, default scale is
+    // Kernel driver does not allow changing the value of scale at run-time,
+    // default scale is
     // 0.001000
-    magnetometer->setScale(0.001000);
+    upm::MMC35240 magnetometer(5);
+    magnetometer.setScale(0.001000);
     // Available sampling frequency are 1.5, 13, 25, 50
-    magnetometer->setSamplingFrequency(25.000000);
-    magnetometer->enable3AxisChannel();
-    magnetometer->installISR(data_callback, NULL);
-    magnetometer->enableBuffer(16);
+    magnetometer.setSamplingFrequency(25.000000);
+    magnetometer.enable3AxisChannel();
+    magnetometer.installISR(data_callback, &magnetometer);
+    magnetometer.enableBuffer(16);
 
     while (shouldRun) {
-        sleep(1);
+        upm_delay(1);
     }
-    magnetometer->disableBuffer();
+    magnetometer.disableBuffer();
 
     //! [Interesting]
     cout << "Exiting" << endl;
-
-    delete magnetometer;
 
     return 0;
 }

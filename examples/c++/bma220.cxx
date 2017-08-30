@@ -22,49 +22,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "bma220.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
-  // Instantiate an BMA220 using default parameters (bus 0, addr 0x0a)
-  upm::BMA220 *sensor = new upm::BMA220();
+    // Instantiate an BMA220 using default parameters (bus 0, addr 0x0a)
+    upm::BMA220 sensor;
 
-  // Output data every half second until interrupted
-  while (shouldRun)
-    {
-      sensor->update();
-      
-      float x, y, z;
-      
-      sensor->getAccelerometer(&x, &y, &z);
-      cout << "Accelerometer: ";
-      cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
+    // Output data every half second until interrupted
+    while (shouldRun) {
+        sensor.update();
 
-      usleep(500000);
+        float x, y, z;
+
+        sensor.getAccelerometer(&x, &y, &z);
+        cout << "Accelerometer: ";
+        cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
+
+        upm_delay_us(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
-  
-  delete sensor;
-  
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

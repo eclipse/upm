@@ -22,10 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
-#include <unistd.h>
-#include "pulsensor.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "pulsensor.hpp"
+#include "upm_utilities.h"
 
 using namespace upm;
 
@@ -42,21 +43,22 @@ sig_handler(int signo)
 }
 
 void
-handler (clbk_data data) {
-    printf ("callback data (%d)\n", data.is_heart_beat);
+handler(clbk_data data)
+{
+    printf("callback data (%d)\n", data.is_heart_beat);
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
-    Pulsensor *sensor = new Pulsensor(handler);
+    //! [Interesting]
+    Pulsensor sensor(handler);
 
-    sensor->start_sampler();
+    sensor.start_sampler();
     while (!doWork) {
-        usleep (5);
+        upm_delay_us(5);
     }
-    sensor->stop_sampler();
-//! [Interesting]
+    sensor.stop_sampler();
+    //! [Interesting]
     return 0;
 }

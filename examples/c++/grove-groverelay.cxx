@@ -22,37 +22,38 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "grove.hpp"
+#include <string>
+
+#include "groverelay.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // This example uses GPIO 0
-//! [Interesting]
+    //! [Interesting]
 
     // Create the relay switch object using GPIO pin 0
-    upm::GroveRelay* relay = new upm::GroveRelay(0);
+    upm::GroveRelay relay(0);
 
     // Close and then open the relay switch 3 times,
     // waiting one second each time.  The LED on the relay switch
     // will light up when the switch is on (closed).
     // The switch will also make a noise between transitions.
-    for ( int i = 0; i < 3; i++ ) {
-        relay->on();
-        if ( relay->isOn() ) 
-            std::cout << relay->name() << " is on" << std::endl;
-        sleep(1);
-        relay->off();
-        if ( relay->isOff() ) 
-            std::cout << relay->name() << " is off" << std::endl;
-        sleep(1);
+    for (int i = 0; i < 3; i++) {
+        relay.on();
+        if (relay.isOn())
+            std::cout << relay.name() << " is on" << std::endl;
+        upm_delay(1);
+        relay.off();
+        if (relay.isOff())
+            std::cout << relay.name() << " is off" << std::endl;
+        upm_delay(1);
     }
 
     // Delete the relay switch object
-    delete relay;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

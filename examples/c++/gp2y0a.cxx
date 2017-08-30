@@ -22,52 +22,52 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "gp2y0a.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
 // analog voltage, usually 3.3 or 5.0
-#define GP2Y0A_AREF   5.0
+#define GP2Y0A_AREF 5.0
 #define SAMPLES_PER_QUERY 20
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Note, for the Grove 80cm version of this sensor, due to the way
-  // it is wired, you need to plug this into the A0 port, where it
-  // will use the available A1 pin for data.
+    //! [Interesting]
+    // Note, for the Grove 80cm version of this sensor, due to the way
+    // it is wired, you need to plug this into the A0 port, where it
+    // will use the available A1 pin for data.
 
-  // Instantiate a GP2Y0A on analog pin A1
-  upm::GP2Y0A *volts = new upm::GP2Y0A(1);
-  
-  // The higher the voltage (closer to AREF) the closer the object is.  NOTE:
-  // the measured voltage will probably not exceed 3.3 volts.
-  // Every second, print the averaged voltage value (averaged over 20 samples).
-  while (shouldRun)
-    {
-      cout << "AREF: " << GP2Y0A_AREF 
-           << ", Voltage value (higher means closer): " 
-           << volts->value(GP2Y0A_AREF, SAMPLES_PER_QUERY) << endl;
-      
-      sleep(1);
+    // Instantiate a GP2Y0A on analog pin A1
+    upm::GP2Y0A volts(1);
+
+    // The higher the voltage (closer to AREF) the closer the object is.  NOTE:
+    // the measured voltage will probably not exceed 3.3 volts.
+    // Every second, print the averaged voltage value (averaged over 20 samples).
+    while (shouldRun) {
+        cout << "AREF: " << GP2Y0A_AREF << ", Voltage value (higher means closer): "
+             << volts.value(GP2Y0A_AREF, SAMPLES_PER_QUERY) << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete volts;
-  return 0;
+    return 0;
 }

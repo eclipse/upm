@@ -22,13 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "tcs3414cs.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "tcs3414cs.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::TCS3414CS *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -41,25 +42,24 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
     upm::tcs3414sc_rgb_t rgb;
 
     // Instantiate the color sensor on I2C
-    sensor = new upm::TCS3414CS ();
+    upm::TCS3414CS sensor;
 
     // Print out the r, g, b, and clr value every 0.5 seconds
     while (!doWork) {
-        sensor->readRGB (&rgb);
-        std::cout << (int)rgb.r << ", " << (int)rgb.g << ", " << (int)rgb.b << ", " << rgb.clr << std::endl;
-        usleep (500000);
+        sensor.readRGB(&rgb);
+        std::cout << (int) rgb.r << ", " << (int) rgb.g << ", " << (int) rgb.b << ", " << rgb.clr
+                  << std::endl;
+        upm_delay_us(500000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

@@ -22,47 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "biss0001.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Motion sensor on GPIO pin D2
-  upm::BISS0001* motion = new upm::BISS0001(2);
-  
-  while (shouldRun)
-  {
-      bool val = motion->value();
+    //! [Interesting]
+    // Instantiate a Grove Motion sensor on GPIO pin D2
+    upm::BISS0001 motion(2);
 
-      if (val)
-        cout << "Detecting moving object";
-      else
-        cout << "No moving objects detected";
+    while (shouldRun) {
+        bool val = motion.value();
 
-      cout << endl;
+        if (val)
+            cout << "Detecting moving object";
+        else
+            cout << "No moving objects detected";
 
-      sleep(1);
-  }
-//! [Interesting]
+        cout << endl;
 
-  cout << "Exiting" << endl;
+        upm_delay(1);
+    }
+    //! [Interesting]
 
-  delete motion;
-  return 0;
+    cout << "Exiting" << endl;
+
+    return 0;
 }

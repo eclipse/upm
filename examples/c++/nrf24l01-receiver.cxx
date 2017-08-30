@@ -22,17 +22,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
-#include "nrf24l01.hpp"
 #include <signal.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#include "nrf24l01.hpp"
 
 int running = 0;
-upm::NRF24L01 *comm = NULL;
 
-uint8_t local_address[5]     = {0x01, 0x01, 0x01, 0x01, 0x01};
-uint8_t broadcast_address[5] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+uint8_t local_address[5] = { 0x01, 0x01, 0x01, 0x01, 0x01 };
+uint8_t broadcast_address[5] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+upm::NRF24L01 comm(7, 8);
 
 void
 sig_handler(int signo)
@@ -45,32 +46,31 @@ sig_handler(int signo)
 }
 
 //! [Interesting]
-void nrf_handler () {
-    std::cout << "Reciever :: " << *((uint32_t *)&(comm->m_rxBuffer[0])) << std::endl;
+void
+nrf_handler()
+{
+    std::cout << "Reciever :: " << *((uint32_t*) &(comm.m_rxBuffer[0])) << std::endl;
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-
-    comm = new upm::NRF24L01(7, 8);
-    comm->setSourceAddress ((uint8_t *) local_address);
-    comm->setDestinationAddress ((uint8_t *) broadcast_address);
-    comm->setPayload (MAX_BUFFER);
-    comm->configure ();
-    comm->setSpeedRate (upm::NRF_250KBPS);
-    comm->setChannel (99);
-    comm->setDataReceivedHandler (nrf_handler);
+    comm.setSourceAddress((uint8_t*) local_address);
+    comm.setDestinationAddress((uint8_t*) broadcast_address);
+    comm.setPayload(MAX_BUFFER);
+    comm.configure();
+    comm.setSpeedRate(upm::NRF_250KBPS);
+    comm.setChannel(99);
+    comm.setDataReceivedHandler(nrf_handler);
 
     signal(SIGINT, sig_handler);
 
     while (!running) {
-        comm->pollListener ();
+        comm.pollListener();
     }
 
     std::cout << "exiting application" << std::endl;
 
-    delete comm;
     return 0;
 }
 //! [Interesting]

@@ -23,15 +23,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stdio.h>
+
 #include "stepmotor.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int doWork = 1;
-upm::StepMotor *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -44,35 +45,34 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
-    sensor = new upm::StepMotor(2, 3);
+    //! [Interesting]
+    upm::StepMotor sensor(2, 3);
 
     while (doWork) {
         cout << "1 Revolution forward and back at 60 rpm" << endl;
-        sensor->setSpeed(60);
-        sensor->stepForward(200);
-        usleep(1000000);
-        sensor->stepBackward(200);
-        usleep(1000000);
+        sensor.setSpeed(60);
+        sensor.stepForward(200);
+        upm_delay_us(1000000);
+        sensor.stepBackward(200);
+        upm_delay_us(1000000);
 
         cout << "1 Revolution forward and back at 150 rpm" << endl;
-        sensor->setSpeed(150);
-        sensor->stepForward(200);
-        usleep(1000000);
-        sensor->stepBackward(200);
-        usleep(1000000);
+        sensor.setSpeed(150);
+        sensor.stepForward(200);
+        upm_delay_us(1000000);
+        sensor.stepBackward(200);
+        upm_delay_us(1000000);
 
         cout << "1 Revolution forward and back at 300 rpm" << endl;
-        sensor->setSpeed(300);
-        sensor->stepForward(200);
-        usleep (1000000);
-        sensor->stepBackward(200);
-        usleep (1000000);
+        sensor.setSpeed(300);
+        sensor.stepForward(200);
+        upm_delay_us(1000000);
+        sensor.stepBackward(200);
+        upm_delay_us(1000000);
     }
 
-    delete sensor;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

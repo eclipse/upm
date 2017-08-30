@@ -99,7 +99,7 @@ function (add_example example_src)
 
     # Add each dependency to the library target
     foreach(_dep_target ${lib_target_names})
-        target_link_libraries(${this_target_name} ${_dep_target} ${CMAKE_THREAD_LIBS_INIT})
+        target_link_libraries(${this_target_name} ${_dep_target} ${CMAKE_THREAD_LIBS_INIT} utilities-c)
     endforeach ()
 endfunction (add_example example_src)
 

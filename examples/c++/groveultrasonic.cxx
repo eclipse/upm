@@ -24,39 +24,36 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include "groveultrasonic.hpp"
 #include <signal.h>
-#include <stdlib.h>
-#include <sys/time.h>
+#include <stdio.h>
 
-upm::GroveUltraSonic *sonar = NULL;
+#include "groveultrasonic.hpp"
+#include "upm_utilities.h"
+
 bool running = true;
 
 void
 sig_handler(int signo)
 {
     if (signo == SIGINT) {
-      running = false;
+        running = false;
     }
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
-  // upm::GroveUltraSonic *sonar = NULL;
-  sonar = new upm::GroveUltraSonic(2);
-  while(running) {
-    int width = sonar->getDistance();
-    printf("Echo width = %d\n", width);
-    printf("Distance inches = %f.2\n\n", width/148.0);
-    sleep(3);
-  }
-//! [Interesting]
-  printf("exiting application\n");
-  delete sonar;
-  return 0;
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
+    // upm::GroveUltraSonic *sonar = NULL;
+    upm::GroveUltraSonic sonar(2);
+    while (running) {
+        int width = sonar.getDistance();
+        printf("Echo width = %d\n", width);
+        printf("Distance inches = %f.2\n\n", width / 148.0);
+        upm_delay(3);
+    }
+    //! [Interesting]
+    printf("exiting application\n");
+    return 0;
 }

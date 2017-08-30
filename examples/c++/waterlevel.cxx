@@ -22,41 +22,42 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include <iostream>
-#include <unistd.h>
 #include <signal.h>
+
+#include "upm_utilities.h"
 #include "waterlevel.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the Water Level Sensor
-  // Instantiate a Water Level Sensor on digital pin D2
-  upm::WaterLevel* waterlevel = new upm::WaterLevel(2);
+    //! [Interesting]
+    // The was tested with the Water Level Sensor
+    // Instantiate a Water Level Sensor on digital pin D2
+    upm::WaterLevel waterlevel(2);
 
-  while (shouldRun)
-  {
-	if (waterlevel->isSubmerged())
-		cout << "Sensor is submerged in liquid" << endl;
-	else
-		cout << "Liquid is below water level sensor" << endl;
-	sleep(1);
-  }
+    while (shouldRun) {
+        if (waterlevel.isSubmerged())
+            cout << "Sensor is submerged in liquid" << endl;
+        else
+            cout << "Liquid is below water level sensor" << endl;
+        upm_delay(1);
+    }
 
-//! [Interesting]
-  cout << "Exiting" << endl;
+    //! [Interesting]
+    cout << "Exiting" << endl;
 
-  delete waterlevel;
-  return 0;
+    return 0;
 }

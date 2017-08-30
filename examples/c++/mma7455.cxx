@@ -22,14 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "mma7455.hpp"
 #include <signal.h>
-#include <pthread.h>
+#include <stdio.h>
+
+#include "mma7455.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::MMA7455 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -42,23 +42,21 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    sensor = new upm::MMA7455(0, ADDR);
-    
+    upm::MMA7455 sensor(0, ADDR);
+
     short x, y, z;
     while (!doWork) {
-        sensor->readData(&x, &y, &z);
+        sensor.readData(&x, &y, &z);
         std::cout << "Accelerometer X(" << x << ") Y(" << y << ") Z(" << z << ")" << std::endl;
-        usleep (100000);
+        upm_delay_us(100000);
     }
 
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

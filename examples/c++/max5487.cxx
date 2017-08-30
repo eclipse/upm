@@ -22,12 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "max5487.hpp"
 #include <signal.h>
+#include <stdio.h>
 
-upm::MAX5487 *sensor = NULL;
+#include "max5487.hpp"
+#include "upm_utilities.h"
 
 void
 sig_handler(int signo)
@@ -39,28 +39,26 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    sensor = new upm::MAX5487(7);
+    upm::MAX5487 sensor(7);
 
     // Power LED UP
     for (int i = 0; i < 255; i++) {
-        sensor->setWiperA(i);
-        usleep (5000);
+        sensor.setWiperA(i);
+        upm_delay_us(5000);
     }
 
     // Power LED DOWN
     for (int i = 0; i < 255; i++) {
-        sensor->setWiperA(255 - i);
-        usleep (5000);
+        sensor.setWiperA(255 - i);
+        upm_delay_us(5000);
     }
 
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }
