@@ -10,7 +10,6 @@
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "industrial", "commercial"],
             "Manufacturers": ["DFRobot", "Sensirion"],
-            "Image": "sht1x.jpg",
             "Examples": {
                 "Java": ["SHT1X_Example.java"],
                 "Python": ["sht1x.py"],

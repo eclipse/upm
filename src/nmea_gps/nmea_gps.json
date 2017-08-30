@@ -10,7 +10,6 @@
             "Connections": ["uart", "gpio"],
             "Project Type": ["prototyping", "industrial", "commercial"],
             "Manufacturers": ["DFRobot", "Seeed"],
-            "Image": "nmea_gps.jpg",
             "Examples": {
                 "Java": ["NMEAGPS_Example.java", "NMEAGPS_I2C_Example.java"],
                 "Python": ["nmea_gps.py", "nmea_gps_i2c.py"],

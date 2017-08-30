@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["prototyping"],
             "Manufacturers": ["Numato Lab"],
-            "Image": "nlgpio16.jpg",
             "Examples": {
                 "Python": ["nlgpio16.py"],
                 "Node.js": ["nlgpio16.js"],

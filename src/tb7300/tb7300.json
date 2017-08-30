@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["honeywell"],
-            "Image": "tb7300.jpg",
             "Examples": {
                 "Java": ["TB7300_Example.java"],
                 "Python": ["tb7300.py"],

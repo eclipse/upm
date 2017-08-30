@@ -10,7 +10,7 @@
             "Connections": ["gpio"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Seeed", "Titan Micro Electronics"],
-            "Image": "tm1637.jpg",
+            "Image": "tm1637.jpeg",
             "Examples": {
                 "Java": ["TM1637Sample.java"],
                 "Python": ["tm1637.py"],

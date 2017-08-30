@@ -285,7 +285,7 @@
             "Connections": ["analog"],
             "Project Type": ["prototyping"],
             "Manufacturers": ["Seeed"],
-            "Image": "groveslide.jpg",
+            "Images": "slide.jpg",
             "Examples": {
                 "Java": ["GroveSlideSample.java"],
                 "Python": ["groveslide.py"],

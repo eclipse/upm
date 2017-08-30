@@ -12,7 +12,6 @@
             "Connections": ["gpio", "i2c", "spi"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["adafruit", "seeed", "bosch"],
-            "Image": "bmp280.jpg",
             "Examples":
             {
                 "Java": ["BMP280_Example.java"],
@@ -52,7 +51,6 @@
             "Connections": ["gpio", "i2c", "spi"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["adafruit", "seeed", "bosch"],
-            "Image": "bmp280.jpg",
             "Examples":
             {
                 "Java": ["BME280_Example.java", "BME280_InterfaceExample"],

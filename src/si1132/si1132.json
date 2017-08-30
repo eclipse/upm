@@ -10,7 +10,6 @@
             "Connections": ["i2c"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["Silicon Labs"],
-            "Image": "si1132.jpg",
             "Examples": {
                 "C++": ["si1132.cxx"]
             },

@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["other"],
             "Manufacturers": ["generic"],
-            "Image": "uartat.jpg",
             "Examples": {
                 "Java": ["LE910_Example.java"],
                 "Python": ["le910.py"],

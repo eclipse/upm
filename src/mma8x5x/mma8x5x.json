@@ -10,7 +10,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Freescale", "Adafruit"],
-            "Image": "mma8x5x.jpg",
             "Examples": {
                 "Python": ["mma8x5x.py"],
                 "C++": ["mma8x5x.cxx"]
@@ -66,7 +65,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Freescale", "Sparkfun"],
-            "Image": "mma8x5x.jpg",
             "Examples": {
                 "Python": ["mma8x5x.py"],
                 "C++": ["mma8x5x.cxx"]
@@ -122,7 +120,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["NXP"],
-            "Image": "mma8x5x.jpg",
             "Examples": {
                 "Python": ["mma8x5x.py"],
                 "C++": ["mma8x5x.cxx"]
@@ -178,7 +175,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["NXP"],
-            "Image": "mma8x5x.jpg",
             "Examples": {
                 "Python": ["mma8x5x.py"],
                 "C++": ["mma8x5x.cxx"]
@@ -234,7 +230,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["NXP"],
-            "Image": "mma8x5x.jpg",
             "Examples": {
                 "Python": ["mma8x5x.py"],
                 "C++": ["mma8x5x.cxx"]

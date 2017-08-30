@@ -10,7 +10,6 @@
             "Connections": ["ainput"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["Veris"],
-            "Image": "teams.jpg",
             "Examples": {
                 "Java": ["TEAMS_Example.java"],
                 "Python": ["teams.py"],

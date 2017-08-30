@@ -10,7 +10,6 @@
             "Connections": ["i2c"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Vishay", "Adafruit"],
-            "Image": "veml6070.jpg",
             "Examples": {
                 "Java": ["VEML6070Sample.java"],
                 "Python": ["veml6070.py"],

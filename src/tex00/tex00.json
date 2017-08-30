@@ -10,7 +10,6 @@
             "Connections": ["ainput"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["Veris"],
-            "Image": "tex00.jpg",
             "Examples": {
                 "Java": ["TEX00_Example.java"],
                 "Python": ["tex00.py"],

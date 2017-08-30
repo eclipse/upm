@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["industrial"],
             "Manufacturers": ["Comet"],
-            "Image": "t3311.jpg",
             "Examples": {
                 "Python": ["t3311.py"],
                 "Node.js": ["t3311.js"],
