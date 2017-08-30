@@ -10,7 +10,6 @@
             "Connections": ["analog", "gpio"],
             "Project Type": ["prototyping"],
             "Manufacturers": ["DFRobot"],
-            "Image": "mma7361.jpg",
             "Examples": {
                 "Java": ["MMA7361_Example.java"],
                 "Python": ["mma7361.py"],

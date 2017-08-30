@@ -10,9 +10,8 @@
             "Connections": ["i2c"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["bosch"],
-            "Image": "bmi160.jpg",
             "Examples": {
-                "Java": ["BMI1&0_Example.java"],
+                "Java": ["BMI160_Example.java"],
                 "Python": ["bmi160.py"],
                 "Node.js": ["bmi160.js"],
                 "C++": ["bmi160.cxx"],

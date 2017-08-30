@@ -12,7 +12,6 @@
             "Connections": ["pwm"],
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["meanwell"],
-            "Image": "hlg150h.jpg",
             "Examples":
             {
                 "C++": ["hlg150h.cxx"]

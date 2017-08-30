@@ -10,7 +10,6 @@
             "Connections": ["spi", "gpio"],
             "Project Type": ["prototyping"],
             "Manufacturers": ["Seeed", "Microchip"],
-            "Image": "mcp2515.jpg",
             "Examples": {
                 "Java": ["MCP2515_Example.java", "MCP2515_TXRX_Example.java"],
                 "Python": ["mcp2515-txrx.py", "mcp2515.py"],

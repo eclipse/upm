@@ -12,7 +12,7 @@
             "Manufacturers": ["Avago", "Seeed"],
             "Image": "apds9002.jpg",
             "Examples": {
-                "Java": ["apds9002.java"],
+                "Java": ["Apds9002.java"],
                 "Python": ["apds9002.py"],
                 "Node.js": ["apds9002.js"],
                 "C++": ["apds9002.cxx"]

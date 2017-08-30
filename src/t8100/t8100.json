@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["Amphenol"],
-            "Image": "t8100.jpg",
             "Examples": {
                 "Java": ["T8100_Example.java"],
                 "Python": ["t8100.py"],

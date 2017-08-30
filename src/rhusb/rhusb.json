@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["industrial", "commercial"],
             "Manufacturers": ["Omega"],
-            "Image": "rhusb.jpg",
             "Examples": {
                 "Python": ["rhusb.py"],
                 "Node.js": ["rhusb.js"],

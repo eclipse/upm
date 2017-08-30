@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Microchip"],
-            "Image": "rn2903.jpg",
             "Examples": {
                 "Java": ["RN2903_Example.java", "RN2903_P2P_RX_Example.java", "RN2903_P2P_TX_Example.java"],
                 "Python": ["rn2903-p2p-rx.py", "rn2903-p2p-tx.py", "rn2903.py"],

@@ -10,7 +10,6 @@
             "Connections": ["uart"],
             "Project Type": ["commercial"],
             "Manufacturers": ["Aeon Labs"],
-            "Image": "dsb09104.jpg",
             "Examples": {
                 "Java": ["AeotecDSB09104_Example.java", "AeotecDW2E_Example.java", "AeotecSDG2_Example.java", "AeotecSS6_Example.java"],
                 "Python": ["aeotecdsb09104.py", "aeotecdw2e.py", "aeotecsdg2.py", "aeotecss6.py"],
@@ -29,7 +28,6 @@
             "Connections": ["uart"],
             "Project Type": ["commercial"],
             "Manufacturers": ["Aeon Labs"],
-            "Image": "dsb09104.jpg",
             "Examples": {
                 "Java": ["AeotecDSB09104_Example.java"],
                 "Python": ["aeotecdsb09104.py"],
@@ -59,7 +57,6 @@
             "Connections": ["uart"],
             "Project Type": ["commercial"],
             "Manufacturers": ["Aeon Labs"],
-            "Image": "dsb29.jpg",
             "Examples": {
                 "Java": ["AeotecDW2E_Example.java"],
                 "Python": ["aeotecdw2e.py"],
@@ -78,7 +75,6 @@
             "Connections": ["uart"],
             "Project Type": ["commercial"],
             "Manufacturers": ["Aeon Labs"],
-            "Image": "dg2.jpg",
             "Examples": {
                 "Java": ["AeotecSDG2_Example.java"],
                 "Python": ["aeotecsdg2.py"],
@@ -97,7 +93,6 @@
             "Connections": ["uart"],
             "Project Type": ["commercial"],
             "Manufacturers": ["Aeon Labs"],
-            "Image": "ss6.jpg",
             "Examples": {
                 "Java": ["AeotecSS6_Example.java"],
                 "Python": ["aeotecss6.py"],

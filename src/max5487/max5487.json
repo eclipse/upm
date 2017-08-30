@@ -10,7 +10,6 @@
             "Connections": ["spi"],
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["maxim"],
-            "Image": "max5487.jpg",
             "Examples": {
                 "Java": ["MAX5487Example.java"],
                 "C++": ["max5487.cxx"]

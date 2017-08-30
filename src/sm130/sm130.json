@@ -15,8 +15,7 @@
                 "Java": ["SM130Example.java"],
                 "Python": ["sm130.py"],
                 "Node.js": ["sm130.js"],
-                "C++": ["sm130.cxx"],
-                "C": ["sm130.c"]
+                "C++": ["sm130.cxx"]
             },
             "Specifications": {
                 "Vsource": {

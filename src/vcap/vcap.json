@@ -10,7 +10,6 @@
             "Connections": ["other"],
             "Project Type": ["medical", "industrial", "commercial", "prototyping"],
             "Manufacturers": ["other"],
-            "Image": "vcap.jpg",
             "Examples": {
                 "Java": ["VCAP_Example.java"],
                 "Python": ["vcap.py"],

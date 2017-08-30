@@ -10,7 +10,6 @@
             "Connections": ["iio", "i2c"],
             "Project Type": ["prototyping", "mobile", "robotics"],
             "Manufacturers": ["Avago", "SparkFun"],
-            "Image": "apds9930.jpg",
             "Examples": {
                 "C++": ["apds9930.cxx"]
             },
