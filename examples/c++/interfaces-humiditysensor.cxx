@@ -22,62 +22,67 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <exception>
 #include <iostream>
-#include "si7005.hpp"
-#include "bme280.hpp"
+#include <stddef.h>
 
-#define EDISON_I2C_BUS 1 
+#include "bme280.hpp"
+#include "iHumiditySensor.hpp"
+#include "mraa/common.h"
+#include "si7005.hpp"
+#include "upm_utilities.h"
+
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
- #define EDISON_GPIO_SI7005_CS 20
+#define EDISON_GPIO_SI7005_CS 20
 
 //! [Interesting]
-// Simple example of using ILightSensor to determine 
+// Simple example of using ILightSensor to determine
 // which sensor is present and return its name.
 // ILightSensor is then used to get readings from sensor
 
-
-upm::IHumiditySensor* getHumiditySensor()
+upm::IHumiditySensor*
+getHumiditySensor()
 {
-   upm::IHumiditySensor* humiditySensor = NULL;
+    upm::IHumiditySensor* humiditySensor = NULL;
 
-   try {
-	humiditySensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
-	return humiditySensor ;
-   } catch (std::exception& e)
-   {
-	std::cerr <<"BME280: "<<e.what() << std::endl;
-   }
-	
-   try {
-      humiditySensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
-      return humiditySensor;
-   } catch (std::exception& e) {
-      std::cerr << "SI7005: " << e.what() << std::endl;      
-   }
-   return humiditySensor;   
+    try {
+        humiditySensor = new upm::BME280(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+        return humiditySensor;
+    } catch (std::exception& e) {
+        std::cerr << "BME280: " << e.what() << std::endl;
+    }
+
+    try {
+        humiditySensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
+        return humiditySensor;
+    } catch (std::exception& e) {
+        std::cerr << "SI7005: " << e.what() << std::endl;
+    }
+    return humiditySensor;
 }
 
-int main ()
+int
+main()
 {
-   upm::IHumiditySensor* humiditySensor = getHumiditySensor();
-   if (humiditySensor == NULL) {
-      std::cout << "Humidity sensor not detected" << std::endl;                        
-      return 1;
-   }
-   std::cout << "Humidity sensor " << humiditySensor->getModuleName() << " detected" << std::endl;
-   while (true) {
-      try {
-         int value = humiditySensor->getHumidityRelative();
-         std::cout << "Humidity = " << value << "%" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
-      }
-      sleep(1);         
-   }
-   delete humiditySensor;
-   return 0;
+    upm::IHumiditySensor* humiditySensor = getHumiditySensor();
+    if (humiditySensor == NULL) {
+        std::cout << "Humidity sensor not detected" << std::endl;
+        return 1;
+    }
+    std::cout << "Humidity sensor " << humiditySensor->getModuleName() << " detected" << std::endl;
+    while (true) {
+        try {
+            int value = humiditySensor->getHumidityRelative();
+            std::cout << "Humidity = " << value << "%" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        upm_delay(1);
+    }
+    delete humiditySensor;
+    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]

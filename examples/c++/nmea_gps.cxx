@@ -22,7 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
@@ -34,36 +33,35 @@ bool shouldRun = true;
 
 const size_t bufferLength = 256;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
-  // pin on D3.  If you do not need an enable pin, you can specify -1.
-  upm::NMEAGPS *sensor = new upm::NMEAGPS(0, 9600, 3);
+    // Instantiate a NMEA_GPS sensor on uart 0 at 9600 baud with enable
+    // pin on D3.  If you do not need an enable pin, you can specify -1.
+    upm::NMEAGPS sensor(0, 9600, 3);
 
-  // loop, dumping NMEA data out as fast as it comes in
-  while (shouldRun && sensor->dataAvailable(5000))
-    {
-      cout << sensor->readStr(bufferLength);
+    // loop, dumping NMEA data out as fast as it comes in
+    while (shouldRun && sensor.dataAvailable(5000)) {
+        cout << sensor.readStr(bufferLength);
     }
 
-  if (shouldRun)
-    cerr << "Timed out" << endl;
+    if (shouldRun)
+        cerr << "Timed out" << endl;
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-
-  return 0;
+    return 0;
 }

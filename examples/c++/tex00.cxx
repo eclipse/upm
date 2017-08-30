@@ -22,70 +22,62 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "tex00.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Initializing..." << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an TEX00 instance, using A0 for the analog input.  In
-  // this example, we are using a 10K Ohm balance resistor and a TED
-  // (10k type 2) thermistor.
-  upm::TEX00 *sensor = new upm::TEX00(0, 10000, 
-                                      upm::TEX00::STYPE_THERMISTOR_TED);
+    // Instantiate an TEX00 instance, using A0 for the analog input.  In
+    // this example, we are using a 10K Ohm balance resistor and a TED
+    // (10k type 2) thermistor.
+    upm::TEX00 sensor(0, 10000, upm::TEX00::STYPE_THERMISTOR_TED);
 
-  cout << "Minimum temperature: " << sensor->getTemperatureRangeMin() 
-       << " C" << endl;
-  cout << "Maximum temperature: " << sensor->getTemperatureRangeMax() 
-       << " C" << endl;
-  cout << endl;
-  
-  // update and print available values every second
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor->update();
+    cout << "Minimum temperature: " << sensor.getTemperatureRangeMin() << " C" << endl;
+    cout << "Maximum temperature: " << sensor.getTemperatureRangeMax() << " C" << endl;
+    cout << endl;
 
-      if (sensor->isOutOfRange())
-        {
-          cout << "Temperature out of range" << endl;
-        }
-      else
-        {
-          // we show both C and F for temperature
-          cout << "Temperature: " << sensor->getTemperature()
-               << " C / " << sensor->getTemperature(true) << " F"
-               << endl;
+    // update and print available values every second
+    while (shouldRun) {
+        // update our values from the sensor
+        sensor.update();
+
+        if (sensor.isOutOfRange()) {
+            cout << "Temperature out of range" << endl;
+        } else {
+            // we show both C and F for temperature
+            cout << "Temperature: " << sensor.getTemperature() << " C / "
+                 << sensor.getTemperature(true) << " F" << endl;
         }
 
-      cout << endl;
+        cout << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

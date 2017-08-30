@@ -22,30 +22,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <sstream>
-#include <string>
 #include <signal.h>
+#include <string>
 
 #include "rn2903.hpp"
-#include "upm_utilities.h"
+#include "rn2903_defs.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
     string defaultDev = "/dev/ttyUSB0";
     if (argc > 1)
@@ -54,7 +53,7 @@ int main(int argc, char **argv)
     cout << "Using device: " << defaultDev << endl;
 
     // Instantiate a RN2903 sensor on defaultDev at 57600 baud.
-    upm::RN2903 sensor (defaultDev, RN2903_DEFAULT_BAUDRATE);
+    upm::RN2903 sensor(defaultDev, RN2903_DEFAULT_BAUDRATE);
 
     // To use an internal UART understood by MRAA, use the following
     // to inititialize rather than the above, which by default uses a
@@ -66,8 +65,7 @@ int main(int argc, char **argv)
     // sensor.setDebug(true);
 
     // get version
-    if (sensor.command("sys get ver"))
-    {
+    if (sensor.command("sys get ver")) {
         cout << "Failed to retrieve device version string" << endl;
         return 1;
     }
@@ -88,26 +86,19 @@ int main(int argc, char **argv)
     // radio watch dog timer will expire every 15 seconds.  We will
     // just loop here.
 
-    while (shouldRun)
-    {
+    while (shouldRun) {
         cout << "Waiting for packet..." << endl;
         RN2903_RESPONSE_T rv;
         rv = sensor.radioRx(0);
-        if (rv)
-        {
+        if (rv) {
             cout << "radioRx() failed with code " << int(rv) << endl;
-        }
-        else
-        {
+        } else {
             string resp = sensor.getResponse();
             string payload = sensor.getRadioRxPayload();
             if (!payload.size())
                 cout << "Got response: '" << resp << "'" << endl;
             else
-                cout <<"Got payload: '"
-                     << sensor.fromHex(payload)
-                     << "'"
-                     << endl;
+                cout << "Got payload: '" << sensor.fromHex(payload) << "'" << endl;
         }
 
         cout << endl;
@@ -115,7 +106,7 @@ int main(int argc, char **argv)
 
     cout << "Exiting" << endl;
 
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

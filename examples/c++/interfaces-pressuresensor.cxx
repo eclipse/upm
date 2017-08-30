@@ -22,60 +22,64 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <exception>
 #include <iostream>
-#include "bmpx8x.hpp"
+#include <stddef.h>
+
 #include "bme280.hpp"
+#include "bmpx8x.hpp"
+#include "iPressureSensor.hpp"
+#include "mraa/common.h"
+#include "upm_utilities.h"
 
-
-#define EDISON_I2C_BUS 1 
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
 //! [Interesting]
-// Simple example of using ILightSensor to determine 
+// Simple example of using ILightSensor to determine
 // which sensor is present and return its name.
 // ILightSensor is then used to get readings from sensor
 
-
-upm::IPressureSensor* getPressureSensor()
+upm::IPressureSensor*
+getPressureSensor()
 {
-   upm::IPressureSensor* pressureSensor = NULL;
-   try {
-	pressureSensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
-	return pressureSensor ;
-   } catch (std::exception& e)
-   {
-	std::cerr <<"BME280: "<<e.what() << std::endl;
-   }
+    upm::IPressureSensor* pressureSensor = NULL;
+    try {
+        pressureSensor = new upm::BME280(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+        return pressureSensor;
+    } catch (std::exception& e) {
+        std::cerr << "BME280: " << e.what() << std::endl;
+    }
 
-   try {
-      pressureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
-      return pressureSensor;
-   } catch (std::exception& e) {
-      std::cerr << "BMPX8X: " << e.what() << std::endl;      
-   }
-   return pressureSensor;   
+    try {
+        pressureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
+        return pressureSensor;
+    } catch (std::exception& e) {
+        std::cerr << "BMPX8X: " << e.what() << std::endl;
+    }
+    return pressureSensor;
 }
 
-int main ()
+int
+main()
 {
-   upm::IPressureSensor* pressureSensor = getPressureSensor();
-   if (pressureSensor == NULL) {
-      std::cout << "Pressure sensor not detected" << std::endl;                        
-      return 1;
-   }
-   std::cout << "Pressure sensor " << pressureSensor->getModuleName() << " detected" << std::endl;
-   while (true) {
-      try {
-         int value = pressureSensor->getPressurePa();
-         std::cout << "Pressure = " << value << " Pa" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
-      }
-      sleep(1);         
-   }
-   delete pressureSensor;
-   return 0;
+    upm::IPressureSensor* pressureSensor = getPressureSensor();
+    if (pressureSensor == NULL) {
+        std::cout << "Pressure sensor not detected" << std::endl;
+        return 1;
+    }
+    std::cout << "Pressure sensor " << pressureSensor->getModuleName() << " detected" << std::endl;
+    while (true) {
+        try {
+            int value = pressureSensor->getPressurePa();
+            std::cout << "Pressure = " << value << " Pa" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        upm_delay(1);
+    }
+    delete pressureSensor;
+    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]

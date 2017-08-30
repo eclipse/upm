@@ -22,18 +22,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "max30100.hpp"
+#include "max30100_regs.h"
 #include "upm_utilities.h"
 
 using namespace upm;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
@@ -42,15 +43,16 @@ void sig_handler(int signo)
 // Example Callback handler
 class mycallback : public Callback
 {
-    public:
-        virtual void run(max30100_value samp)
-        {
-            std::cout << "My callback sample IR: "
-                << samp.IR << " R: " << samp.R << std::endl;
-        }
+  public:
+    virtual void
+    run(max30100_value samp)
+    {
+        std::cout << "My callback sample IR: " << samp.IR << " R: " << samp.R << std::endl;
+    }
 };
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
     //! [Interesting]
@@ -74,20 +76,17 @@ int main(int argc, char **argv)
     // Read continuously, stepping up the LED current every second,
     // us GPIO 0 as the interrupt pin
     sensor.sample_continuous(0, false, &cb);
-    for (int i = MAX30100_LED_CURRENT_0_0_MA;
-         i <= MAX30100_LED_CURRENT_50_0_MA && shouldRun; i++)
-    {
+    for (int i = MAX30100_LED_CURRENT_0_0_MA; i <= MAX30100_LED_CURRENT_50_0_MA && shouldRun; i++) {
         // Toggle the LED current
         std::cout << "Setting LED current = " << i << std::endl;
 
-        sensor.current((MAX30100_LED_CURRENT)i, (MAX30100_LED_CURRENT)i);
+        sensor.current((MAX30100_LED_CURRENT) i, (MAX30100_LED_CURRENT) i);
 
         upm_delay(1);
     }
 
     // Read individual samples
-    for (int i = 0; i < 10; i++)
-    {
+    for (int i = 0; i < 10; i++) {
         max30100_value val = sensor.sample();
         std::cout << "Single value IR: " << val.IR << " R: " << val.R << std::endl;
     }

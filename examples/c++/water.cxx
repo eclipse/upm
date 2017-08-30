@@ -22,44 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
+#include "upm_utilities.h"
 #include "water.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Water sensor on digital pin D2
-  upm::Water* water = new upm::Water(2);
-  
-  while (shouldRun)
-    {
-      bool val = water->isWet();
-      if (val)
-        cout << "Sensor is wet." << endl;
-      else
-        cout << "Sensor is dry." << endl;
+    //! [Interesting]
+    // Instantiate a Water sensor on digital pin D2
+    upm::Water water(2);
 
-      sleep(1);
+    while (shouldRun) {
+        bool val = water.isWet();
+        if (val)
+            cout << "Sensor is wet." << endl;
+        else
+            cout << "Sensor is dry." << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete water;
-  return 0;
+    return 0;
 }

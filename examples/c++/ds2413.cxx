@@ -22,38 +22,37 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <stdio.h>
+
 #include "ds2413.hpp"
 
 using namespace std;
 using namespace upm;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
-  // Instantiate a DS2413 Module on a Dallas 1-wire bus connected to UART 0
-  upm::DS2413* sensor = new upm::DS2413(0);
+    //! [Interesting]
+    // Instantiate a DS2413 Module on a Dallas 1-wire bus connected to UART 0
+    upm::DS2413 sensor(0);
 
-  // find all of the DS2413 devices present on the bus
-  sensor->init();
+    // find all of the DS2413 devices present on the bus
+    sensor.init();
 
-  // how many devices were found?
-  cout << "Found "<< sensor->devicesFound() << " device(s)" << endl;
+    // how many devices were found?
+    cout << "Found " << sensor.devicesFound() << " device(s)" << endl;
 
-  // read the gpio and latch values from the first device
-  // the lower 4 bits are of the form:
-  // <gpioB latch> <gpioB value> <gpioA latch> <gpioA value>
-  cout << "GPIO device 0 values: " << sensor->readGpios(0) << endl;
+    // read the gpio and latch values from the first device
+    // the lower 4 bits are of the form:
+    // <gpioB latch> <gpioB value> <gpioA latch> <gpioA value>
+    cout << "GPIO device 0 values: " << sensor.readGpios(0) << endl;
 
-  // set the gpio latch values of the first device
-  cout << "Setting GPIO latches to on" << endl;
-  sensor->writeGpios(0, 0x03);
+    // set the gpio latch values of the first device
+    cout << "Setting GPIO latches to on" << endl;
+    sensor.writeGpios(0, 0x03);
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
-//! [Interesting]
-  return 0;
+    //! [Interesting]
+    return 0;
 }

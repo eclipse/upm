@@ -99,9 +99,9 @@ MMC35240::~MMC35240()
 }
 
 void
-MMC35240::installISR(void (*isr)(char*), void* arg)
+MMC35240::installISR(void (*isr)(char*, void*), void* arg)
 {
-    mraa_iio_trigger_buffer(m_iio, isr, NULL);
+    mraa_iio_trigger_buffer(m_iio, isr, arg);
 }
 
 int64_t

@@ -22,57 +22,59 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <stddef.h>
+
 #include "rpr220.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
 volatile unsigned int counter = 0;
 
 // Our interrupt handler
-void rprISR(void *arg)
+void
+rprISR(void* arg)
 {
-  counter++;
+    counter++;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // This example uses an interrupt handler to increment a counter
-  
-  // Instantiate an RPR220 digital pin D2
-  // This was tested on the Grove IR Reflective Sensor
+    //! [Interesting]
+    // This example uses an interrupt handler to increment a counter
 
-  upm::RPR220* rpr220 = new upm::RPR220(2);
-  
-  // Here, we setup our Interupt Service Routine (ISR) to count
-  // 'black' pulses detected.
+    // Instantiate an RPR220 digital pin D2
+    // This was tested on the Grove IR Reflective Sensor
 
-  rpr220->installISR(rprISR, NULL);
+    upm::RPR220 rpr220(2);
 
-  while (shouldRun)
-    {
-      cout << "Counter: " << counter << endl;
+    // Here, we setup our Interupt Service Routine (ISR) to count
+    // 'black' pulses detected.
 
-      sleep(1);
+    rpr220.installISR(rprISR, NULL);
+
+    while (shouldRun) {
+        cout << "Counter: " << counter << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete rpr220;
-  return 0;
+    return 0;
 }

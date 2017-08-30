@@ -22,58 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
+
 #include "st7735.hpp"
-#include <signal.h>
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
-    upm::ST7735 * lcd = new upm::ST7735(7, 4, 9, 8);
-    lcd->fillScreen (ST7735_RED);
-    lcd->refresh ();
+    //! [Interesting]
+    upm::ST7735 lcd(7, 4, 9, 8);
+    lcd.fillScreen(ST7735_RED);
+    lcd.refresh();
 
-    lcd->fillScreen (ST7735_CYAN);
-    lcd->refresh ();
+    lcd.fillScreen(ST7735_CYAN);
+    lcd.refresh();
 
-    lcd->fillScreen (ST7735_BLACK);
-    lcd->refresh ();
+    lcd.fillScreen(ST7735_BLACK);
+    lcd.refresh();
 
-    lcd->drawLine(10, 10, 10, 100, ST7735_MAGENTA);
-    lcd->drawLine(20, 20, 10, 100, ST7735_YELLOW);
-    lcd->drawLine(30, 30, 50, 100, ST7735_WHITE);
-    lcd->refresh ();
+    lcd.drawLine(10, 10, 10, 100, ST7735_MAGENTA);
+    lcd.drawLine(20, 20, 10, 100, ST7735_YELLOW);
+    lcd.drawLine(30, 30, 50, 100, ST7735_WHITE);
+    lcd.refresh();
 
-    lcd->drawPixel (20, 20, ST7735_GREEN);
-    lcd->refresh ();
+    lcd.drawPixel(20, 20, ST7735_GREEN);
+    lcd.refresh();
 
-    lcd->drawTriangle (50, 50, 80, 80, 60, 90, ST7735_GREEN);
-    lcd->refresh ();
+    lcd.drawTriangle(50, 50, 80, 80, 60, 90, ST7735_GREEN);
+    lcd.refresh();
 
-    lcd->drawCircle (100, 110, 10, ST7735_BLUE);
-    lcd->refresh ();
+    lcd.drawCircle(100, 110, 10, ST7735_BLUE);
+    lcd.refresh();
 
+    lcd.setTextWrap(0x0);
 
-    lcd->setTextWrap(0x0);
+    lcd.setCursor(0, 30);
+    lcd.setTextColor(ST7735_RED, ST7735_RED);
+    lcd.setTextSize(1);
+    lcd.print("Hello World!");
 
-    lcd->setCursor(0, 30);
-    lcd->setTextColor(ST7735_RED, ST7735_RED);
-    lcd->setTextSize(1);
-    lcd->print("Hello World!");
+    lcd.setCursor(10, 50);
+    lcd.setTextColor(ST7735_RED, ST7735_YELLOW);
+    lcd.setTextSize(2);
+    lcd.print("BIG");
 
-    lcd->setCursor(10, 50);
-    lcd->setTextColor(ST7735_RED, ST7735_YELLOW);
-    lcd->setTextSize(2);
-    lcd->print("BIG");
-
-    lcd->refresh ();
+    lcd.refresh();
 
     std::cout << "exiting application" << std::endl;
 
-    delete lcd;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

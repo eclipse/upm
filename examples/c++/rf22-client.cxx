@@ -24,19 +24,23 @@
 
 #include <iostream>
 #include <signal.h>
+#include <stdint.h>
+
 #include "rf22.hpp"
 
 bool amWorking = true;
 
 void
-sig_handler (int signo) {
+sig_handler(int signo)
+{
     if (signo == SIGINT) {
         amWorking = false;
     }
 }
 //! [Interesting]
 int
-main (int argc, char ** argv) {
+main(int argc, char** argv)
+{
     // SPI bus 0, CS pin 10, INTR pin 2
     upm::RF22 rf22(0, 10, 2);
 
@@ -49,18 +53,18 @@ main (int argc, char ** argv) {
     uint8_t buf[RF22_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
 
-    signal (SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
     while (amWorking) {
         std::cout << "Sending to rf22_server" << std::endl;
         // Send a message to rf22_server
         rf22.send(data, sizeof(data));
         rf22.waitPacketSent();
         // Now wait for a reply
-                
+
         rf22.waitAvailableTimeout(1000000);
-        
+
         if (rf22.recv(buf, &len)) {
-            std::cout << "got response: " << (char*)buf << std::endl;
+            std::cout << "got response: " << (char*) buf << std::endl;
         } else {
             std::cout << "!!! NO RESPONSE !!!" << std::endl;
         }

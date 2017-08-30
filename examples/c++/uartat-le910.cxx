@@ -26,15 +26,15 @@
 #include <string>
 
 #include "uartat.hpp"
-#include "upm_utilities.h"
 
 using namespace std;
 
 const size_t bufferLength = 256;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
     string defaultDev = string("/dev/ttyUSB0");
     if (argc > 1)
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     cout << "Using device: " << defaultDev << endl;
 
     // Instantiate a UARTAT sensor on defaultDev at 115200 baud.
-    upm::UARTAT *sensor = new upm::UARTAT(defaultDev, 115200);
+    upm::UARTAT sensor(defaultDev, 115200);
 
     // This is a simplistic example that tries to configure the LE910,
     // and use it's built-in socket capabilities to connect to a
@@ -66,62 +66,54 @@ int main(int argc, char **argv)
     // interactive terminal emulator like minicom or screen.
 
     // make sure we are in command mode
-    if (!sensor->inCommandMode())
-    {
+    if (!sensor.inCommandMode()) {
         cout << "Not in command mode, switching..." << endl;
-        sensor->commandMode("+++", 1000);
+        sensor.commandMode("+++", 1000);
     }
 
     // flter out CR's in responses by default
-    sensor->filterCR(true);
+    sensor.filterCR(true);
 
     cout << "Configuring modem..." << endl;
 
     // discard any waiting characters
-    sensor->drain();
+    sensor.drain();
 
     // reset modem
-    sensor->command("ATZ\r");
+    sensor.command("ATZ\r");
 
     // turn off command echo, set verbosity to 1, enable data
     // connection mode
-    sensor->command("ATE0 V1 +FCLASS=0\r");
-    sensor->drain();
+    sensor.command("ATE0 V1 +FCLASS=0\r");
+    sensor.drain();
 
     // Now issue some commands and output the results.
 
     cout << "Modem and SIM information:" << endl;
     std::string buffer;
-    buffer = sensor->commandWithResponse("AT+ICCID\r", bufferLength);
+    buffer = sensor.commandWithResponse("AT+ICCID\r", bufferLength);
     if (!buffer.empty())
-        cout << "ICCID (SIM ID): "
-             << buffer
-             << endl;
+        cout << "ICCID (SIM ID): " << buffer << endl;
 
-    buffer = sensor->commandWithResponse("AT+CGSN=1\r", bufferLength);
+    buffer = sensor.commandWithResponse("AT+CGSN=1\r", bufferLength);
     if (!buffer.empty())
-        cout << "IMEI: "
-             << buffer
-             << endl;
+        cout << "IMEI: " << buffer << endl;
 
     // see if we are on the network....
-    buffer = sensor->commandWithResponse("AT+CREG?\r", bufferLength);
-    if (!buffer.empty())
-    {
+    buffer = sensor.commandWithResponse("AT+CREG?\r", bufferLength);
+    if (!buffer.empty()) {
         cout << buffer << endl;
 
         // look for "CGREG: 0,1" or "CGREG: 0,5"
-        if (sensor->find(buffer, "CREG: 0,1") ||
-            sensor->find(buffer, "CREG: 0,5"))
-        {
+        if (sensor.find(buffer, "CREG: 0,1") || sensor.find(buffer, "CREG: 0,5")) {
             cout << "Connected to the cell data network." << endl;
 
             // wait up to 5 seconds for responses now...
-            sensor->setResponseWaitTime(5000);
+            sensor.setResponseWaitTime(5000);
 
             // setup PDP context (socket 1).  An ERROR repsonse is
             // possible if the PDP context is already set up.
-            sensor->command("AT#SGACT=1,1\r");
+            sensor.command("AT#SGACT=1,1\r");
 
             // setup a TCP socket to nist.gov and read the timestamp.
 
@@ -131,45 +123,33 @@ int main(int argc, char **argv)
             // string, which will be present at the end, if the
             // connection succeeded and the requested data was
             // obtained.
-            buffer =
-                sensor->commandWaitFor("AT#SD=1,0,13,\"time-a.nist.gov\"\r",
-                                       bufferLength, "\nNO CARRIER\n", 60000);
-            if (!buffer.empty())
-            {
+            buffer = sensor.commandWaitFor("AT#SD=1,0,13,\"time-a.nist.gov\"\r",
+                                           bufferLength,
+                                           "\nNO CARRIER\n",
+                                           60000);
+            if (!buffer.empty()) {
                 // print out the response
-                cout << "RESPONSE: "
-                     << endl
-                     << buffer
-                     << endl;
-            }
-            else
-            {
+                cout << "RESPONSE: " << endl << buffer << endl;
+            } else {
                 cout << "No response." << endl;
             }
 
             // destroy PDP context
-            sensor->setResponseWaitTime(250);
-            sensor->command("AT#SGACT=1,0\r");
+            sensor.setResponseWaitTime(250);
+            sensor.command("AT#SGACT=1,0\r");
+        } else {
+            cout << "You do not appear to be connected to the network..." << endl;
         }
-        else
-        {
-            cout << "You do not appear to be connected to the network..."
-                 << endl;
-        }
-    }
-    else
-    {
+    } else {
         cout << "Error executing query\n" << endl;
     }
 
     // reset the modem
-    sensor->command("ATZ\r");
+    sensor.command("ATZ\r");
 
     cout << "Exiting" << endl;
 
-    delete sensor;
-
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

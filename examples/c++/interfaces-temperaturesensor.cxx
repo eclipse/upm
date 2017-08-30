@@ -22,69 +22,75 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <exception>
 #include <iostream>
-#include "si7005.hpp"
-#include "bmpx8x.hpp"
-#include "bme280.hpp"
+#include <stddef.h>
 
-#define EDISON_I2C_BUS 1 
+#include "bme280.hpp"
+#include "bmpx8x.hpp"
+#include "iTemperatureSensor.hpp"
+#include "mraa/common.h"
+#include "si7005.hpp"
+#include "upm_utilities.h"
+
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
- #define EDISON_GPIO_SI7005_CS 20
+#define EDISON_GPIO_SI7005_CS 20
 
 //! [Interesting]
-// Simple example of using ITemperatureSensor to determine 
+// Simple example of using ITemperatureSensor to determine
 // which sensor is present and return its name.
 // ITemperatureSensor is then used to get readings from sensor
 
-
-upm::ITemperatureSensor* getTemperatureSensor()
+upm::ITemperatureSensor*
+getTemperatureSensor()
 {
-   upm::ITemperatureSensor* temperatureSensor = NULL;
+    upm::ITemperatureSensor* temperatureSensor = NULL;
 
-   try {
-	temperatureSensor = new upm::BME280 (mraa_get_sub_platform_id(FT4222_I2C_BUS));
-	return temperatureSensor;
-   } catch (std::exception& e)
-   {
-	std::cerr <<"BME280: "<<e.what() << std::endl;
-   }
+    try {
+        temperatureSensor = new upm::BME280(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+        return temperatureSensor;
+    } catch (std::exception& e) {
+        std::cerr << "BME280: " << e.what() << std::endl;
+    }
 
-   try {
-      temperatureSensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
-      return temperatureSensor;
-   } catch (std::exception& e) {
-      std::cerr << "SI7005: " << e.what() << std::endl;      
-   }
-   try {
-      temperatureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
-      return temperatureSensor;
-   } catch (std::exception& e) {
-      std::cerr << "BMPX8X: " << e.what() << std::endl;      
-   }
-   return temperatureSensor;   
+    try {
+        temperatureSensor = new upm::SI7005(EDISON_I2C_BUS, EDISON_GPIO_SI7005_CS);
+        return temperatureSensor;
+    } catch (std::exception& e) {
+        std::cerr << "SI7005: " << e.what() << std::endl;
+    }
+    try {
+        temperatureSensor = new upm::BMPX8X(EDISON_I2C_BUS);
+        return temperatureSensor;
+    } catch (std::exception& e) {
+        std::cerr << "BMPX8X: " << e.what() << std::endl;
+    }
+    return temperatureSensor;
 }
 
-int main ()
+int
+main()
 {
-   upm::ITemperatureSensor* temperatureSensor = getTemperatureSensor();
-   if (temperatureSensor == NULL) {
-      std::cout << "Temperature sensor not detected" << std::endl;                        
-      return 1;
-   }
-   std::cout << "Temperature sensor " << temperatureSensor->getModuleName() << " detected" << std::endl;
-   while (true) {
-      try {
-         int value = temperatureSensor->getTemperatureCelsius();
-         std::cout << "Temperature = " << value << "C" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
-      }
-      sleep(1);         
-   }
-   delete temperatureSensor;
-   return 0;
+    upm::ITemperatureSensor* temperatureSensor = getTemperatureSensor();
+    if (temperatureSensor == NULL) {
+        std::cout << "Temperature sensor not detected" << std::endl;
+        return 1;
+    }
+    std::cout << "Temperature sensor " << temperatureSensor->getModuleName() << " detected"
+              << std::endl;
+    while (true) {
+        try {
+            int value = temperatureSensor->getTemperatureCelsius();
+            std::cout << "Temperature = " << value << "C" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        upm_delay(1);
+    }
+    delete temperatureSensor;
+    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]

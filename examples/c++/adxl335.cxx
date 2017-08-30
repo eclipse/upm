@@ -22,57 +22,58 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
+
 #include "adxl335.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an ADXL335 accelerometer on analog pins A0, A1, and A2
-  upm::ADXL335* accel = new upm::ADXL335(0, 1, 2);
+    //! [Interesting]
+    // Instantiate an ADXL335 accelerometer on analog pins A0, A1, and A2
+    upm::ADXL335 accel(0, 1, 2);
 
-  cout << "Please make sure the sensor is completely still. Sleeping for"
-       << " 2 seconds." << endl;
-  sleep(2);
-  cout << "Calibrating..." << endl;
+    cout << "Please make sure the sensor is completely still. Sleeping for"
+         << " 2 seconds." << endl;
+    upm_delay(2);
+    cout << "Calibrating..." << endl;
 
-  accel->calibrate();
-  
-  while (shouldRun)
-    {
-      int x, y, z;
-      float aX, aY, aZ;
+    accel.calibrate();
 
-      accel->values(&x, &y, &z);
-      cout << "Raw Values: X: " << x << " Y: " << y << " Z: " << z << endl;
+    while (shouldRun) {
+        int x, y, z;
+        float aX, aY, aZ;
 
-      accel->acceleration(&aX, &aY, &aZ);
-      cout << "Acceleration: X: " << aX << "g" << endl;
-      cout << "Acceleration: Y: " << aY << "g" << endl;
-      cout << "Acceleration: Z: " << aZ << "g" << endl;
-      cout << endl;
+        accel.values(&x, &y, &z);
+        cout << "Raw Values: X: " << x << " Y: " << y << " Z: " << z << endl;
 
-      usleep(200000);
+        accel.acceleration(&aX, &aY, &aZ);
+        cout << "Acceleration: X: " << aX << "g" << endl;
+        cout << "Acceleration: Y: " << aY << "g" << endl;
+        cout << "Acceleration: Z: " << aZ << "g" << endl;
+        cout << endl;
+
+        upm_delay_us(200000);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete accel;
-  return 0;
+    return 0;
 }

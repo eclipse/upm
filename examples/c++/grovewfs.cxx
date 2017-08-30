@@ -22,57 +22,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "grovewfs.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Water Flow Sensor on digital pin D2
-  upm::GroveWFS* flow = new upm::GroveWFS(2);
-  
-  // set the flow counter to 0 and start counting
-  flow->clearFlowCounter();
-  flow->startFlowCounter();
+    //! [Interesting]
+    // Instantiate a Grove Water Flow Sensor on digital pin D2
+    upm::GroveWFS flow(2);
 
-  while (shouldRun)
-    {
-      // we grab these (,illis and flowCount) just for display
-      // purposes in this example
-      uint32_t millis = flow->getMillis();
-      uint32_t flowCount = flow->flowCounter();
+    // set the flow counter to 0 and start counting
+    flow.clearFlowCounter();
+    flow.startFlowCounter();
 
-      float fr = flow->flowRate();
+    while (shouldRun) {
+        // we grab these (,illis and flowCount) just for display
+        // purposes in this example
+        uint32_t millis = flow.getMillis();
+        uint32_t flowCount = flow.flowCounter();
 
-      // output milliseconds passed, flow count, and computed flow rate
-      cout << "Millis: " << millis << " Flow Count: " << flowCount;
-      cout << " Flow Rate: " << fr << " LPM" << endl;
+        float fr = flow.flowRate();
 
-      // best to gather data for at least one second for reasonable
-      // results.
-      sleep(2);
+        // output milliseconds passed, flow count, and computed flow rate
+        cout << "Millis: " << millis << " Flow Count: " << flowCount;
+        cout << " Flow Rate: " << fr << " LPM" << endl;
+
+        // best to gather data for at least one second for reasonable
+        // results.
+        upm_delay(2);
     }
 
-  flow->stopFlowCounter();
-//! [Interesting]
+    flow.stopFlowCounter();
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete flow;
-  return 0;
+    return 0;
 }

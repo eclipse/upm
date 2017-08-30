@@ -22,44 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+
 #include "md.hpp"
+#include "md_defs.h"
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  //! [Interesting]
-  // Instantiate an I2C Motor Driver on I2C bus 0
+    //! [Interesting]
+    // Instantiate an I2C Motor Driver on I2C bus 0
 
-  upm::MD *motors = new upm::MD(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
+    upm::MD motors(MD_I2C_BUS, MD_DEFAULT_I2C_ADDR);
 
-  // This example demonstrates using the MD to drive a stepper motor
-  
-  // configure it, for this example, we'll assume 200 steps per rev
-  motors->configStepper(200);
+    // This example demonstrates using the MD to drive a stepper motor
 
-  // set for half a rotation
-  motors->setStepperSteps(100);
+    // configure it, for this example, we'll assume 200 steps per rev
+    motors.configStepper(200);
 
-  // let it go - clockwise rotation, 10 RPM speed
-  motors->enableStepper(MD_STEP_DIR_CW, 10);
+    // set for half a rotation
+    motors.setStepperSteps(100);
 
-  sleep(3);
+    // let it go - clockwise rotation, 10 RPM speed
+    motors.enableStepper(MD_STEP_DIR_CW, 10);
 
-  // Now do it backwards...
-  motors->setStepperSteps(100);
-  motors->enableStepper(MD_STEP_DIR_CCW, 10);
+    upm_delay(3);
 
-  // now disable
-  motors->disableStepper();
+    // Now do it backwards...
+    motors.setStepperSteps(100);
+    motors.enableStepper(MD_STEP_DIR_CCW, 10);
 
-  //! [Interesting]
+    // now disable
+    motors.disableStepper();
 
-  cout << "Exiting..." << endl;
+    //! [Interesting]
 
-  delete motors;
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

@@ -22,57 +22,63 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <exception>
 #include <iostream>
-#include "max44009.hpp"
-#include "si1132.hpp"
+#include <stddef.h>
 
-#define EDISON_I2C_BUS 1 
+#include "iLightSensor.hpp"
+#include "max44009.hpp"
+#include "mraa/common.h"
+#include "si1132.hpp"
+#include "upm_utilities.h"
+
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
 //! [Interesting]
-// Simple example of using ILightSensor to determine 
+// Simple example of using ILightSensor to determine
 // which sensor is present and return its name.
 // ILightSensor is then used to get readings from sensor
 
-
-upm::ILightSensor* getLightSensor()
+upm::ILightSensor*
+getLightSensor()
 {
-   upm::ILightSensor* lightSensor = NULL;
-   try {
-      lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
-      return lightSensor;
-   } catch (std::exception& e) {
-      std::cerr << "SI1132: " << e.what() << std::endl;      
-   }
-   try {
-      lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
-      return lightSensor;
-   } catch (std::exception& e) {
-      std::cerr << "MAX44009: " << e.what() << std::endl;      
-   }
-   return lightSensor;   
+    upm::ILightSensor* lightSensor = NULL;
+    try {
+        lightSensor = new upm::SI1132(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+        return lightSensor;
+    } catch (std::exception& e) {
+        std::cerr << "SI1132: " << e.what() << std::endl;
+    }
+    try {
+        lightSensor = new upm::MAX44009(EDISON_I2C_BUS);
+        return lightSensor;
+    } catch (std::exception& e) {
+        std::cerr << "MAX44009: " << e.what() << std::endl;
+    }
+    return lightSensor;
 }
 
-int main ()
+int
+main()
 {
-   upm::ILightSensor* lightSensor = getLightSensor();
-   if (lightSensor == NULL) {
-      std::cout << "Light sensor not detected" << std::endl;                        
-      return 1;
-   }
-   std::cout << "Light sensor " << lightSensor->getModuleName() << " detected" << std::endl;
-   while (true) {
-      try {
-         float value = lightSensor->getVisibleLux();
-         std::cout << "Light level = " << value << " lux" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
-      }
-      sleep(1);         
-   }
-   delete lightSensor;
-   return 0;
+    upm::ILightSensor* lightSensor = getLightSensor();
+    if (lightSensor == NULL) {
+        std::cout << "Light sensor not detected" << std::endl;
+        return 1;
+    }
+    std::cout << "Light sensor " << lightSensor->getModuleName() << " detected" << std::endl;
+    while (true) {
+        try {
+            float value = lightSensor->getVisibleLux();
+            std::cout << "Light level = " << value << " lux" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        upm_delay(1);
+    }
+    delete lightSensor;
+    return 0;
 }
 
-//! [Interesting]      
+//! [Interesting]

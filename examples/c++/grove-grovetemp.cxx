@@ -23,33 +23,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
-#include "grove.hpp"
+#include <stdio.h>
+#include <string>
+
+#include "grovetemp.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
     // Create the temperature sensor object using AIO pin 0
-    upm::GroveTemp* temp = new upm::GroveTemp(0);
-    std::cout << temp->name() << std::endl;
+    upm::GroveTemp temp(0);
+    std::cout << temp.name() << std::endl;
 
     // Read the temperature ten times, printing both the Celsius and
     // equivalent Fahrenheit temperature, waiting one second between readings
-    for (int i=0; i < 10; i++) {
-        int celsius = temp->value();
-        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
-        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
-                celsius, fahrenheit);
-        sleep(1);
+    for (int i = 0; i < 10; i++) {
+        int celsius = temp.value();
+        int fahrenheit = (int) (celsius * 9.0 / 5.0 + 32.0);
+        printf("%d degrees Celsius, or %d degrees Fahrenheit\n", celsius, fahrenheit);
+        upm_delay(1);
     }
 
     // Delete the temperature sensor object
-    delete temp;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

@@ -547,7 +547,7 @@ class L3GD20
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
-    void installISR(void (*isr)(char*), void* arg);
+    void installISR(void (*isr)(char*, void*), void* arg);
 
     /**
      * Extract the channel value based on channel type. IIO only.

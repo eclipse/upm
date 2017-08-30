@@ -22,67 +22,66 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
 
 #include "rhusb.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  string defaultDev = "/dev/ttyUSB0";
+    string defaultDev = "/dev/ttyUSB0";
 
-  // if an argument was specified, use it as the device instead
-  if (argc > 1)
-    defaultDev = string(argv[1]);
+    // if an argument was specified, use it as the device instead
+    if (argc > 1)
+        defaultDev = string(argv[1]);
 
-  cout << "Using device " << defaultDev << endl;
-  cout << "Initializing..." << endl;
+    cout << "Using device " << defaultDev << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an RHUSB instance on defaultDev
-  upm::RHUSB sensor(defaultDev);
+    // Instantiate an RHUSB instance on defaultDev
+    upm::RHUSB sensor(defaultDev);
 
-  // output the firmware ID
-  cout << "Firmware ID: " << sensor.getFirmwareID() << endl;
-  cout << endl;
+    // output the firmware ID
+    cout << "Firmware ID: " << sensor.getFirmwareID() << endl;
+    cout << endl;
 
-  // update and print available values every second
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor.update();
+    // update and print available values every second
+    while (shouldRun) {
+        // update our values from the sensor
+        sensor.update();
 
-      // we show both C and F for temperature
-      cout << "Temperature: " << sensor.getTemperature()
-           << " C / " << sensor.getTemperature(true) << " F"
-           << endl;
+        // we show both C and F for temperature
+        cout << "Temperature: " << sensor.getTemperature() << " C / " << sensor.getTemperature(true)
+             << " F" << endl;
 
-      cout << "Humidity: " << sensor.getHumidity()
-           << " %" << endl;
+        cout << "Humidity: " << sensor.getHumidity() << " %" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
 
+    cout << "Exiting..." << endl;
 
-  cout << "Exiting..." << endl;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

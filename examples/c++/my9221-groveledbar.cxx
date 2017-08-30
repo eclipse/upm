@@ -22,56 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "groveledbar.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a GroveLEDBar, we use D8 for the data, and D9 for the
-  // clock.  This was tested with a Grove LED bar.
-  upm::GroveLEDBar* bar = new upm::GroveLEDBar(8, 9);
+    // Instantiate a GroveLEDBar, we use D8 for the data, and D9 for the
+    // clock.  This was tested with a Grove LED bar.
+    upm::GroveLEDBar bar(8, 9);
 
-  while (shouldRun)
-    {
-      // count up from green to red
-      for (int i=0; i<=10; i++)
-        {
-          bar->setBarLevel(i, true);
-          usleep(100000);
+    while (shouldRun) {
+        // count up from green to red
+        for (int i = 0; i <= 10; i++) {
+            bar.setBarLevel(i, true);
+            upm_delay_us(100000);
         }
-      sleep(1);
+        upm_delay(1);
 
-      // count down from red to green
-      for (int i=0; i<=10; i++)
-        {
-          bar->setBarLevel(i, false);
-          usleep(100000);
+        // count down from red to green
+        for (int i = 0; i <= 10; i++) {
+            bar.setBarLevel(i, false);
+            upm_delay_us(100000);
         }
-      sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
-  // turn off the LED's
-  bar->setBarLevel(0);
+    cout << "Exiting..." << endl;
+    // turn off the LED's
+    bar.setBarLevel(0);
 
-  delete bar;
-  return 0;
+    return 0;
 }

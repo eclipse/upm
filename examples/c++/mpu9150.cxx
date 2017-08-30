@@ -22,60 +22,59 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "mpu9150.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
-  upm::MPU9150 *sensor = new upm::MPU9150();
+    upm::MPU9150 sensor;
 
-  sensor->init();
+    sensor.init();
 
-  while (shouldRun)
-    {
-      sensor->update();
-      
-      float x, y, z;
-      
-      sensor->getAccelerometer(&x, &y, &z);
-      cout << "Accelerometer: ";
-      cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
+    while (shouldRun) {
+        sensor.update();
 
-      sensor->getGyroscope(&x, &y, &z);
-      cout << "Gryoscope:     ";
-      cout << "GX: " << x << " GY: " << y << " GZ: " << z << endl;
-      
-      sensor->getMagnetometer(&x, &y, &z);
-      cout << "Magnetometer:  ";
-      cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
+        float x, y, z;
 
-      cout << "Temperature:   " << sensor->getTemperature() << endl;
-      cout << endl;
+        sensor.getAccelerometer(&x, &y, &z);
+        cout << "Accelerometer: ";
+        cout << "AX: " << x << " AY: " << y << " AZ: " << z << endl;
 
-      usleep(500000);
+        sensor.getGyroscope(&x, &y, &z);
+        cout << "Gryoscope:     ";
+        cout << "GX: " << x << " GY: " << y << " GZ: " << z << endl;
+
+        sensor.getMagnetometer(&x, &y, &z);
+        cout << "Magnetometer:  ";
+        cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
+
+        cout << "Temperature:   " << sensor.getTemperature() << endl;
+        cout << endl;
+
+        upm_delay_us(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
-  
-  delete sensor;
-  
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

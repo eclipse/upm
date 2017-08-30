@@ -22,26 +22,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "lsm6dsl.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
-//! [Interesting]
+    //! [Interesting]
 
     // Instantiate an LSM6DSL using default I2C parameters
     upm::LSM6DSL sensor;
@@ -50,37 +52,27 @@ int main(int argc, char **argv)
     // for CS: LSM6DSL(0, -1, 10);
 
     // now output data every 250 milliseconds
-    while (shouldRun)
-    {
+    while (shouldRun) {
         float x, y, z;
 
         sensor.update();
 
         sensor.getAccelerometer(&x, &y, &z);
-        cout << "Accelerometer x: " << x
-             << " y: " << y
-             << " z: " << z
-             << " g"
-             << endl;
+        cout << "Accelerometer x: " << x << " y: " << y << " z: " << z << " g" << endl;
 
         sensor.getGyroscope(&x, &y, &z);
-        cout << "Gyroscope x: " << x
-             << " y: " << y
-             << " z: " << z
-             << " dps"
-             << endl;
+        cout << "Gyroscope x: " << x << " y: " << y << " z: " << z << " dps" << endl;
 
         // we show both C and F for temperature
-        cout << "Compensation Temperature: " << sensor.getTemperature()
-             << " C / " << sensor.getTemperature(true) << " F"
-             << endl;
+        cout << "Compensation Temperature: " << sensor.getTemperature() << " C / "
+             << sensor.getTemperature(true) << " F" << endl;
 
         cout << endl;
 
-        usleep(250000);
+        upm_delay_us(250000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 

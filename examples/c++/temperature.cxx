@@ -23,35 +23,34 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
+#include <stdio.h>
+
 #include "temperature.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
     // Create the temperature sensor object using AIO pin 0
-    upm::Temperature* temp = new upm::Temperature(0);
-    std::cout << temp->name() << std::endl;
+    upm::Temperature temp(0);
+    std::cout << temp.name() << std::endl;
 
     // Read the temperature ten times, printing both the Celsius and
     // equivalent Fahrenheit temperature, waiting one second between readings
-    for (int i=0; i < 10; i++) {
-        int celsius = temp->value();
-        int fahrenheit = (int) (celsius * 9.0/5.0 + 32.0);
-        printf("%d degrees Celsius, or %d degrees Fahrenheit\n",
-                celsius, fahrenheit);
-        sleep(1);
+    for (int i = 0; i < 10; i++) {
+        int celsius = temp.value();
+        int fahrenheit = (int) (celsius * 9.0 / 5.0 + 32.0);
+        printf("%d degrees Celsius, or %d degrees Fahrenheit\n", celsius, fahrenheit);
+        upm_delay(1);
     }
 
     // Delete the temperature sensor object
-    delete temp;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

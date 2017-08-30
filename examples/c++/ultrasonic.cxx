@@ -24,37 +24,35 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <iostream>
-#include "ultrasonic.hpp"
 #include <signal.h>
-#include <stdlib.h>
-#include <sys/time.h>
+#include <stdio.h>
 
-upm::UltraSonic *sonar = NULL;
+#include "ultrasonic.hpp"
+#include "upm_utilities.h"
+
 bool running = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         running = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
     //! [Interesting]
     // upm::UltraSonic *sonar = NULL;
-    sonar = new upm::UltraSonic(2);
-    while(running)
-    {
-        int width = sonar->getDistance();
+    upm::UltraSonic sonar(2);
+    while (running) {
+        int width = sonar.getDistance();
         printf("Echo width = %d\n", width);
-        printf("Distance inches = %f.2\n\n", width/148.0);
-        sleep(3);
+        printf("Distance inches = %f.2\n\n", width / 148.0);
+        upm_delay(3);
     }
     //! [Interesting]
     printf("exiting application\n");
-    delete sonar;
     return 0;
 }

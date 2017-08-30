@@ -22,40 +22,40 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "rotaryencoder.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
-  upm::RotaryEncoder* rotaryencoder = new upm::RotaryEncoder(2, 3);
-  
-  while (shouldRun)
-    {
-      cout << "Position: " << rotaryencoder->position() << endl;
-      usleep(100000);
+    //! [Interesting]
+    // Instantiate a Grove Rotary Encoder, using signal pins D2 and D3
+    upm::RotaryEncoder rotaryencoder(2, 3);
+
+    while (shouldRun) {
+        cout << "Position: " << rotaryencoder.position() << endl;
+        upm_delay_us(100000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete rotaryencoder;
-  return 0;
+    return 0;
 }

@@ -22,28 +22,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "grove.hpp"
+#include <string>
+
+#include "grovebutton.hpp"
+#include "upm_utilities.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     // This example uses GPIO 0
-//! [Interesting]
+    //! [Interesting]
 
     // Create the button object using GPIO pin 0
-    upm::GroveButton* button = new upm::GroveButton(0);
+    upm::GroveButton button(0);
 
     // Read the input and print, waiting one second between readings
-    while( 1 ) {
-        std::cout << button->name() << " value is " << button->value() << std::endl;
-        sleep(1);
+    while (1) {
+        std::cout << button.name() << " value is " << button.value() << std::endl;
+        upm_delay(1);
     }
 
     // Delete the button object
-    delete button;
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

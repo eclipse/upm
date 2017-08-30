@@ -22,43 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
+#include "upm_utilities.h"
 #include "wfs.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // Instantiate a Water Flow Sensor on digital pin D2.  This must
     // be an interrupt capable pin.
-    upm::WFS* flow = new upm::WFS(2);
+    upm::WFS flow(2);
 
     // set the flow counter to 0 and start counting
-    flow->clearFlowCounter();
-    flow->startFlowCounter();
+    flow.clearFlowCounter();
+    flow.startFlowCounter();
 
-    while (shouldRun)
-    {
+    while (shouldRun) {
         // we grab these (millis and flowCount) just for display
         // purposes in this example
-        uint32_t millis = flow->getMillis();
-        uint32_t flowCount = flow->flowCounter();
+        uint32_t millis = flow.getMillis();
+        uint32_t flowCount = flow.flowCounter();
 
-        float fr = flow->flowRate();
+        float fr = flow.flowRate();
 
         // output milliseconds passed, flow count, and computed flow rate
         cout << "Millis: " << millis << " Flow Count: " << flowCount;
@@ -66,14 +67,13 @@ int main()
 
         // best to gather data for at least one second for reasonable
         // results.
-        sleep(2);
+        upm_delay(2);
     }
 
-    flow->stopFlowCounter();
-//! [Interesting]
+    flow.stopFlowCounter();
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 
-    delete flow;
     return 0;
 }

@@ -21,37 +21,38 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "groveo2.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the O2 Oxygen Concentration Sensor Module
-  // Instantiate a GroveO2 on analog pin A0
-  upm::GroveO2 *O2 = new upm::GroveO2(0);
-  while (shouldRun)
-  {
-    cout << "The output voltage is: " << O2->voltageValue() << "mV" << endl;
-    usleep(100000);
-  }
+    //! [Interesting]
+    // The was tested with the O2 Oxygen Concentration Sensor Module
+    // Instantiate a GroveO2 on analog pin A0
+    upm::GroveO2 O2(0);
+    while (shouldRun) {
+        cout << "The output voltage is: " << O2.voltageValue() << "mV" << endl;
+        upm_delay_us(100000);
+    }
 
-//! [Interesting]
-  cout << "Exiting" << endl;
-  delete O2;
-  return 0;
+    //! [Interesting]
+    cout << "Exiting" << endl;
+    return 0;
 }

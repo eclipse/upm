@@ -22,50 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
+#include <exception>
 #include <iostream>
-#include "t6713.hpp"
+#include <stddef.h>
+#include <stdint.h>
 
-#define EDISON_I2C_BUS 1 
+#include "iCO2Sensor.hpp"
+#include "mraa/common.h"
+#include "t6713.hpp"
+#include "upm_utilities.h"
+
+#define EDISON_I2C_BUS 1
 #define FT4222_I2C_BUS 0
 
 //! [Interesting]
-// Simple example of using ICO2Sensor to determine 
-// which sensor is present and return its name.
-// ICO2Sensor is then used to get readings from sensor
-
-
-upm::ICO2Sensor* getCO2Sensor()
+int
+main()
 {
-   upm::ICO2Sensor* cO2Sensor = NULL;
-   try {
-      cO2Sensor = new upm::T6713(mraa_get_sub_platform_id(FT4222_I2C_BUS));
-      return cO2Sensor;
-   } catch (std::exception& e) {
-      std::cerr << "T6713: " << e.what() << std::endl;      
-   }
-   return cO2Sensor;   
+    /* Create an instance of the T6713 sensor */
+    upm::T6713 sensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+
+    /* Show usage from the ICO2Sensor interface */
+    upm::ICO2Sensor* cO2Sensor = static_cast<upm::ICO2Sensor*>(&sensor);
+
+    if (cO2Sensor == NULL) {
+        std::cout << "CO2 sensor not detected" << std::endl;
+        return 1;
+    }
+    std::cout << "CO2 sensor " << cO2Sensor->getModuleName() << " detected" << std::endl;
+    while (true) {
+        try {
+            uint16_t value = cO2Sensor->getPpm();
+            std::cout << "CO2 level = " << value << " ppm" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        upm_delay(1);
+    }
+
+    return 0;
 }
 
-int main ()
-{
-   upm::ICO2Sensor* cO2Sensor = getCO2Sensor();
-   if (cO2Sensor == NULL) {
-      std::cout << "CO2 sensor not detected" << std::endl;                        
-      return 1;
-   }
-   std::cout << "CO2 sensor " << cO2Sensor->getModuleName() << " detected" << std::endl;
-   while (true) {
-      try {
-         uint16_t value = cO2Sensor->getPpm();
-         std::cout << "CO2 level = " << value << " ppm" << std::endl;
-      } catch (std::exception& e) {
-         std::cerr << e.what() << std::endl;
-      }
-      sleep(1);         
-   }
-   delete cO2Sensor;
-   return 0;
-}
-
-//! [Interesting]      
+//! [Interesting]

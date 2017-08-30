@@ -22,53 +22,45 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <string>
-#include <signal.h>
-#include <stdio.h>
+
 #include "sm130.hpp"
 
 using namespace std;
 using namespace upm;
 
-int main (int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a UART based SM130 RFID Module using defaults
-  upm::SM130* sensor = new upm::SM130();
+    // Instantiate a UART based SM130 RFID Module using defaults
+    upm::SM130 sensor;
 
-  // set the baud rate.  19200 baud is the default.
-  if (sensor->setBaudRate(19200))
-    {
-      cerr << "Failed to set baud rate" << endl;
-      return 1;
+    // set the baud rate.  19200 baud is the default.
+    if (sensor.setBaudRate(19200)) {
+        cerr << "Failed to set baud rate" << endl;
+        return 1;
     }
 
-  cout << "Resetting..." << endl;
-  sensor->reset();
+    cout << "Resetting..." << endl;
+    sensor.reset();
 
-  cout << "Firmware revision: " << sensor->getFirmwareVersion() << endl;
+    cout << "Firmware revision: " << sensor.getFirmwareVersion() << endl;
 
-  cout << "Waiting up to 5 seconds for a tag..." << endl;
+    cout << "Waiting up to 5 seconds for a tag..." << endl;
 
-  if (sensor->waitForTag(5000))
-    {
-      cout << "Found tag, UID: " 
-           << sensor->string2HexString(sensor->getUID()) << endl;
-      cout << "Tag Type: " << sensor->tag2String(sensor->getTagType()) 
-           << endl;
-    }
-  else
-    {
-      // error
-      cout << "waitForTag failed: " << sensor->getLastErrorString() << endl;
+    if (sensor.waitForTag(5000)) {
+        cout << "Found tag, UID: " << sensor.string2HexString(sensor.getUID()) << endl;
+        cout << "Tag Type: " << sensor.tag2String(sensor.getTagType()) << endl;
+    } else {
+        // error
+        cout << "waitForTag failed: " << sensor.getLastErrorString() << endl;
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
-  delete sensor;
-  return 0;
+    cout << "Exiting" << endl;
+    return 0;
 }

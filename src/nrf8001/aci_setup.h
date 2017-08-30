@@ -25,6 +25,9 @@
  * @ingroup aci
  */
 
+#include <stdint.h>
+#include "lib_aci.h"
+
 #ifndef H_ACI_SETUP
 #define H_ACI_SETUP
 

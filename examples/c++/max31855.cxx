@@ -22,19 +22,17 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <signal.h>
 
 //! [Interesting]
 #include "max31855.hpp"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    upm::MAX31855 *temp = new upm::MAX31855(0, 8);
+    upm::MAX31855 temp(0, 8);
 
-    std::cout << temp->getTemp() << std::endl;
+    std::cout << temp.getTemp() << std::endl;
 
     return 0;
 }

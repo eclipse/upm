@@ -22,42 +22,43 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "grovegsr.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the GroveGSR Galvanic Skin Response Sensor module.
+    //! [Interesting]
+    // The was tested with the GroveGSR Galvanic Skin Response Sensor module.
 
-  // Instantiate a GroveGSR on analog pin A0
-  upm::GroveGSR *gsr = new upm::GroveGSR(0);
-  cout << "Calibrating...." << endl;
-  gsr->calibrate();
+    // Instantiate a GroveGSR on analog pin A0
+    upm::GroveGSR gsr(0);
+    cout << "Calibrating...." << endl;
+    gsr.calibrate();
 
-  while (shouldRun)
-  {
-      cout << gsr->value() << endl;
-      usleep(500000);
-  }
-//! [Interesting]
+    while (shouldRun) {
+        cout << gsr.value() << endl;
+        upm_delay_us(500000);
+    }
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete gsr;
-  return 0;
+    return 0;
 }

@@ -22,58 +22,55 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "hdxxvxta.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Initializing..." << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an HDXXVXTA instance, using A1 for humidity and A0
-  // for temperature
-  upm::HDXXVXTA *sensor = new upm::HDXXVXTA(1, 0);
+    // Instantiate an HDXXVXTA instance, using A1 for humidity and A0
+    // for temperature
+    upm::HDXXVXTA sensor(1, 0);
 
-  // update and print available values every second
-  while (shouldRun)
-    {
-      // update our values from the sensor
-      sensor->update();
+    // update and print available values every second
+    while (shouldRun) {
+        // update our values from the sensor
+        sensor.update();
 
-      // we show both C and F for temperature
-      cout << "Temperature: " << sensor->getTemperature()
-           << " C / " << sensor->getTemperature(true) << " F"
-           << endl;
+        // we show both C and F for temperature
+        cout << "Temperature: " << sensor.getTemperature() << " C / " << sensor.getTemperature(true)
+             << " F" << endl;
 
-      cout << "Humidity: " << sensor->getHumidity()
-           << " %" << endl;
+        cout << "Humidity: " << sensor.getHumidity() << " %" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      sleep(1);
+        upm_delay(1);
     }
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

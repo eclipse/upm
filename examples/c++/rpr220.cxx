@@ -22,47 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "rpr220.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // This example uses a simple method to determine current status
+    //! [Interesting]
+    // This example uses a simple method to determine current status
 
-  // Instantiate an RPR220 digital pin D2
-  // This was tested on the Grove IR Reflective Sensor
+    // Instantiate an RPR220 digital pin D2
+    // This was tested on the Grove IR Reflective Sensor
 
-  upm::RPR220* rpr220 = new upm::RPR220(2);
-  
-  while (shouldRun)
-    {
-      if (rpr220->blackDetected())
-        cout << "Black detected" << endl;
-      else
-        cout << "Black NOT detected" << endl;
+    upm::RPR220 rpr220(2);
 
-      usleep(100000);           // 100ms
+    while (shouldRun) {
+        if (rpr220.blackDetected())
+            cout << "Black detected" << endl;
+        else
+            cout << "Black NOT detected" << endl;
+
+        upm_delay_us(100000); // 100ms
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete rpr220;
-  return 0;
+    return 0;
 }

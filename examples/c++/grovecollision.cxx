@@ -22,48 +22,45 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include <iostream>
-#include <unistd.h>
 #include <signal.h>
+
 #include "grovecollision.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with the Grove Collision Sensor
-  // Instantiate a Grove Collision on digital pin D2
-  upm::GroveCollision* collision = new upm::GroveCollision(2);
+    //! [Interesting]
+    // The was tested with the Grove Collision Sensor
+    // Instantiate a Grove Collision on digital pin D2
+    upm::GroveCollision collision(2);
 
-  bool collisionState = false;
-  cout << "No collision" << endl;
-  while (shouldRun)
-  {
-	if (collision->isColliding() && !collisionState)
-	{
-		cout << "Collision!" << endl;
-		collisionState = true;
-	}
-	else if (collisionState)
-	{
-		cout << "No collision" << endl;
-		collisionState = false;
-	}
-  }
+    bool collisionState = false;
+    cout << "No collision" << endl;
+    while (shouldRun) {
+        if (collision.isColliding() && !collisionState) {
+            cout << "Collision!" << endl;
+            collisionState = true;
+        } else if (collisionState) {
+            cout << "No collision" << endl;
+            collisionState = false;
+        }
+    }
 
-//! [Interesting]
-  cout << "Exiting" << endl;
+    //! [Interesting]
+    cout << "Exiting" << endl;
 
-  delete collision;
-  return 0;
+    return 0;
 }

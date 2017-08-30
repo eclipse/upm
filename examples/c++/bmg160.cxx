@@ -22,60 +22,56 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "bmg160.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
-  // Instantiate an BMG160 using default I2C parameters
-  upm::BMG160 sensor;
+    // Instantiate an BMG160 using default I2C parameters
+    upm::BMG160 sensor;
 
-  // For SPI, bus 0, you would pass -1 as the address, and a valid pin
-  // for CS: BMG160(0, -1, 10);
+    // For SPI, bus 0, you would pass -1 as the address, and a valid pin
+    // for CS: BMG160(0, -1, 10);
 
-  // now output data every 250 milliseconds
-  while (shouldRun)
-    {
-      float x, y, z;
+    // now output data every 250 milliseconds
+    while (shouldRun) {
+        float x, y, z;
 
-      sensor.update();
+        sensor.update();
 
-      sensor.getGyroscope(&x, &y, &z);
-      cout << "Gyroscope x: " << x
-           << " y: " << y
-           << " z: " << z
-           << " degrees/s"
-           << endl;
+        sensor.getGyroscope(&x, &y, &z);
+        cout << "Gyroscope x: " << x << " y: " << y << " z: " << z << " degrees/s" << endl;
 
-      // we show both C and F for temperature
-      cout << "Compensation Temperature: " << sensor.getTemperature()
-           << " C / " << sensor.getTemperature(true) << " F"
-           << endl;
+        // we show both C and F for temperature
+        cout << "Compensation Temperature: " << sensor.getTemperature() << " C / "
+             << sensor.getTemperature(true) << " F" << endl;
 
-      cout << endl;
+        cout << endl;
 
-      usleep(250000);
+        upm_delay_us(250000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  return 0;
+    return 0;
 }

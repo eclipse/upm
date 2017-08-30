@@ -22,49 +22,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+#include <string>
 
 #include "vcap.hpp"
 
 using namespace std;
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
 
-  string defaultDev = "/dev/video0";
+    string defaultDev = "/dev/video0";
 
-  // if an argument was specified, use it as the device instead
-  if (argc > 1)
-    defaultDev = string(argv[1]);
+    // if an argument was specified, use it as the device instead
+    if (argc > 1)
+        defaultDev = string(argv[1]);
 
-  cout << "Using device " << defaultDev << endl;
-  cout << "Initializing..." << endl;
+    cout << "Using device " << defaultDev << endl;
+    cout << "Initializing..." << endl;
 
-  // Instantiate an VCAP instance, using the specified video device
-  upm::VCAP *sensor = new upm::VCAP(defaultDev);
+    // Instantiate an VCAP instance, using the specified video device
+    upm::VCAP sensor(defaultDev);
 
-  // enable some debug/verbose output
-  sensor->setDebug(true);
+    // enable some debug/verbose output
+    sensor.setDebug(true);
 
-  // This is just a hint.  The kernel can change this to a lower
-  // resolution that the hardware supports.  Use getWidth() and
-  // getHeight() methods to see what the kernel actually chose if you
-  // care.
-  sensor->setResolution(1920, 1080);
+    // This is just a hint.  The kernel can change this to a lower
+    // resolution that the hardware supports.  Use getWidth() and
+    // getHeight() methods to see what the kernel actually chose if you
+    // care.
+    sensor.setResolution(1920, 1080);
 
-  // capture an image
-  sensor->captureImage();
+    // capture an image
+    sensor.captureImage();
 
-  // convert and save it as a jpeg
-  sensor->saveImage("video-img1.jpg");
+    // convert and save it as a jpeg
+    sensor.saveImage("video-img1.jpg");
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete sensor;
+    //! [Interesting]
 
-//! [Interesting]
-
-  return 0;
+    return 0;
 }

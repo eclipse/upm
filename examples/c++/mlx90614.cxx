@@ -22,13 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "mlx90614.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "mlx90614.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::MLX90614 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -41,20 +42,19 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    sensor = new upm::MLX90614(0, DEVICE_ADDR);
+    upm::MLX90614 sensor(0, DEVICE_ADDR);
 
     while (!doWork) {
-        std::cout << "Object Temperature (" << sensor->readObjectTempC() << ")  Ambient Temperature (" << sensor->readAmbientTempC() << ")" << std::endl;
-        usleep (1000000);
+        std::cout << "Object Temperature (" << sensor.readObjectTempC()
+                  << ")  Ambient Temperature (" << sensor.readAmbientTempC() << ")" << std::endl;
+        upm_delay_us(1000000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

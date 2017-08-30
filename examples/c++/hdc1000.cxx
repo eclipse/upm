@@ -21,47 +21,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "hdc1000.hpp"
+#include "upm_utilities.h"
 
 using namespace upm;
 
 bool run = true;
 
-void sig_handler(int sig)
+void
+sig_handler(int sig)
 {
-  if (sig == SIGINT)
-    run = false;
+    if (sig == SIGINT)
+        run = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  std::cout << "Initializing test-application..." << std::endl;
+    //! [Interesting]
+    std::cout << "Initializing test-application..." << std::endl;
 
-  // Instantiate an HDC1000 instance on bus 1
-  upm::HDC1000 *mySensor = new upm::HDC1000(1);
+    // Instantiate an HDC1000 instance on bus 1
+    upm::HDC1000 mySensor(1);
 
-  // update and print available values every second
-  while (run)
-    {
-        std::cout << "Humidity: " << mySensor->getHumidity(true) << std::endl
-             << "Temperature: " << mySensor->getTemperature(true) << std::endl;
+    // update and print available values every second
+    while (run) {
+        std::cout << "Humidity: " << mySensor.getHumidity(true) << std::endl
+                  << "Temperature: " << mySensor.getTemperature(true) << std::endl;
 
         std::cout << std::endl;
 
-        sleep(1);
+        upm_delay(1);
     }
 
-  std::cout << "Exiting test-application..." << std::endl;
+    std::cout << "Exiting test-application..." << std::endl;
 
-  delete mySensor;
-//! [Interesting]
+    //! [Interesting]
 
-  return 0;
+    return 0;
 }

@@ -22,45 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "flex.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // The was tested with a Spectra Symbol flex sensor.
-  // We attached a 22K resistor to a breadboard,
-  // with 1 end attached to GND and the other connected to
-  // both the flex sensor and A0.
-  // The flex sensor was connected on 1 pin to the 22K resistor and A0
-  // and on the other pin to 5V.
+    //! [Interesting]
+    // The was tested with a Spectra Symbol flex sensor.
+    // We attached a 22K resistor to a breadboard,
+    // with 1 end attached to GND and the other connected to
+    // both the flex sensor and A0.
+    // The flex sensor was connected on 1 pin to the 22K resistor and A0
+    // and on the other pin to 5V.
 
-  // Instantiate a Flex sensor on analog pin A0
-  upm::Flex *flex = new upm::Flex(0);
-  
-  while (shouldRun)
-    {
-      cout << "Flex value: " << flex->value() << endl;      
-      sleep(1);
+    // Instantiate a Flex sensor on analog pin A0
+    upm::Flex flex(0);
+
+    while (shouldRun) {
+        cout << "Flex value: " << flex.value() << endl;
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete flex;
-  return 0;
+    return 0;
 }

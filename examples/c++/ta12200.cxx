@@ -22,44 +22,43 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "ta12200.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a TA12-200 sensor on analog pin A0
-  upm::TA12200* electricity = new upm::TA12200(0);
-  
-  while (shouldRun)
-    {
-      unsigned int maxVal = electricity->highestValue();
-      float current = electricity->milliAmps(maxVal);
+    //! [Interesting]
+    // Instantiate a TA12-200 sensor on analog pin A0
+    upm::TA12200 electricity(0);
 
-      cout << "Max ADC Value: " << maxVal << ", current: " << current
-           << "mA" << endl;
-      usleep(100000);
+    while (shouldRun) {
+        unsigned int maxVal = electricity.highestValue();
+        float current = electricity.milliAmps(maxVal);
+
+        cout << "Max ADC Value: " << maxVal << ", current: " << current << "mA" << endl;
+        upm_delay_us(100000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete electricity;
-  return 0;
+    return 0;
 }

@@ -22,43 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "grovecircularled.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
-  
-//! [Interesting]
-  
-  // Instantiate a Grove Circular LED on D9 for data, D8 for clock
-  
-  upm::GroveCircularLED *circle = new upm::GroveCircularLED(9, 8);
-  
-  int level = 0;
-  while (shouldRun)
-    {
-      circle->setSpinner(level);
-      level = (level + 1) % 24;
-      usleep(100000);
+    signal(SIGINT, sig_handler);
+
+    //! [Interesting]
+
+    // Instantiate a Grove Circular LED on D9 for data, D8 for clock
+
+    upm::GroveCircularLED circle(9, 8);
+
+    int level = 0;
+    while (shouldRun) {
+        circle.setSpinner(level);
+        level = (level + 1) % 24;
+        upm_delay_us(100000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete circle;
-  return 0;
+    return 0;
 }

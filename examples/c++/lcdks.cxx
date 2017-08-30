@@ -24,50 +24,48 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
 
 #include "lcdks.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
     // Instantiate a LCDKS (LCD Keypad Shield) using default pins
 
     // NOTE: The default pins do not include support for a gpio
     // controlled backlight.  If you need one, you will need to specify
     // all neccessary pins to the constructor.
-    upm::LCDKS* lcd = new upm::LCDKS();
+    upm::LCDKS lcd;
 
-    lcd->setCursor(0,0);
-    lcd->write("LCDKS driver");
-    lcd->setCursor(1,2);
-    lcd->write("Hello World");
+    lcd.setCursor(0, 0);
+    lcd.write("LCDKS driver");
+    lcd.setCursor(1, 2);
+    lcd.write("Hello World");
 
     // output current key value every second.
-    while (shouldRun)
-    {
-        cout << "Button value: " << lcd->getKeyValue() << endl;
-        sleep(1);
+    while (shouldRun) {
+        cout << "Button value: " << lcd.getKeyValue() << endl;
+        upm_delay(1);
     }
 
-    delete lcd;
-
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

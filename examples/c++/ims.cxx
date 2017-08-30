@@ -22,23 +22,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 
 #include "ims.hpp"
+#include "ims_defs.h"
+#include "upm_utilities.h"
 
 using namespace upm;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
     signal(SIGINT, sig_handler);
     //! [Interesting]
@@ -47,25 +50,17 @@ int main(int argc, char **argv)
     upm::IMS sensor(0);
 
     int i2c_addr_cur = IMS_ADDRESS_DEFAULT + 1;
-    while (shouldRun)
-    {
-        std::cout << std::hex << "Version: 0x"
-            << sensor.get_version()
-            << " light: 0x"
-            << sensor.get_light()
-            << " moisture: 0x"
-            << sensor.get_moisture()
-            << " temp: "
-            << sensor.get_temperature()
-            << " C"
-            << std::endl;
+    while (shouldRun) {
+        std::cout << std::hex << "Version: 0x" << sensor.get_version() << " light: 0x"
+                  << sensor.get_light() << " moisture: 0x" << sensor.get_moisture()
+                  << " temp: " << sensor.get_temperature() << " C" << std::endl;
 
         // Change the address and continue
-        if (i2c_addr_cur >= 128) i2c_addr_cur = 1;
-        std::cout << "Changing device address to 0x" << i2c_addr_cur
-            << std::endl;
+        if (i2c_addr_cur >= 128)
+            i2c_addr_cur = 1;
+        std::cout << "Changing device address to 0x" << i2c_addr_cur << std::endl;
         sensor.reset_i2c_address(i2c_addr_cur++);
-        sleep(1);
+        upm_delay(1);
     }
     //! [Interesting]
 

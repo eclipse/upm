@@ -22,14 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include <stdlib.h>
+#include <stdio.h>
+
 #include "ecs1030.hpp"
 
 int is_running = 0;
-upm::ECS1030 *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -42,19 +41,19 @@ sig_handler(int signo)
 
 //! [Interesting]
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-    sensor = new upm::ECS1030(0);
+    upm::ECS1030 sensor(0);
     signal(SIGINT, sig_handler);
 
     while (!is_running) {
-        std::cout << "I = " << sensor->getCurrency_A () << ", Power = " << sensor->getPower_A () << std::endl;
-        std::cout << "I = " << sensor->getCurrency_B () << ", Power = " << sensor->getPower_B () << std::endl;
+        std::cout << "I = " << sensor.getCurrency_A() << ", Power = " << sensor.getPower_A()
+                  << std::endl;
+        std::cout << "I = " << sensor.getCurrency_B() << ", Power = " << sensor.getPower_B()
+                  << std::endl;
     }
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

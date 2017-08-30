@@ -22,57 +22,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "ehr.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
-  upm::EHR* heart = new upm::EHR(2);
-  
-  // set the beat counter to 0, init the clock and start counting beats
-  heart->clearBeatCounter();
-  heart->initClock();
-  heart->startBeatCounter();
+    //! [Interesting]
+    // Instantiate a  Ear-clip Heart Rate sensor on digital pin D2
+    upm::EHR heart(2);
 
-  while (shouldRun)
-    {
-      // we grab these just for display purposes in this example
-      uint32_t millis = heart->getMillis();
-      uint32_t beats = heart->beatCounter();
+    // set the beat counter to 0, init the clock and start counting beats
+    heart.clearBeatCounter();
+    heart.initClock();
+    heart.startBeatCounter();
 
-      // heartRate() requires that at least 5 seconds pass before
-      // returning anything other than 0
-      int hr = heart->heartRate();
+    while (shouldRun) {
+        // we grab these just for display purposes in this example
+        uint32_t millis = heart.getMillis();
+        uint32_t beats = heart.beatCounter();
 
-      // output milliseconds passed, beat count, and computed heart rate
-      cout << "Millis: " << millis << " Beats: " << beats;
-      cout << " Heart Rate: " << hr << endl;
+        // heartRate() requires that at least 5 seconds pass before
+        // returning anything other than 0
+        int hr = heart.heartRate();
 
-      sleep(1);
+        // output milliseconds passed, beat count, and computed heart rate
+        cout << "Millis: " << millis << " Beats: " << beats;
+        cout << " Heart Rate: " << hr << endl;
+
+        upm_delay(1);
     }
 
-  heart->stopBeatCounter();
-//! [Interesting]
+    heart.stopBeatCounter();
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete heart;
-  return 0;
+    return 0;
 }

@@ -22,13 +22,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
+#include "mraa/common.h"
 #include "t6713.hpp"
+#include "upm_utilities.h"
 
 #define FT4222_I2C_BUS 0
 
-int main ()
+int
+main()
 {
     //! [Interesting]
     upm::T6713 cO2Sensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
@@ -36,7 +39,7 @@ int main ()
     while (true) {
         uint16_t value = cO2Sensor.getPpm();
         std::cout << "CO2 level = " << value << " ppm" << std::endl;
-        sleep(1);
+        upm_delay(1);
     }
     //! [Interesting]
     return 0;

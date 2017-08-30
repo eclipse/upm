@@ -22,51 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
-
-#include <upm_utilities.h>
 #include <ecezo.hpp>
+#include <iostream>
+#include <signal.h>
+#include <upm_utilities.h>
 
 using namespace std;
 using namespace upm;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
     //! [Interesting]
 
     // Instantiate a ECEZO sensor on uart 0 at 9600 baud.
-    upm::ECEZO *sensor = new upm::ECEZO(0, 9600, false);
+    upm::ECEZO sensor(0, 9600, false);
 
     // For I2C, assuming the device is configured for address 0x64 on
     // I2C bus 0, you could use something like:
     //
-    // upm::ECEZO *sensor = new upm::ECEZO(0, 0x64, true);
+    // upm::ECEZO sensor(0, 0x64, true);
 
-    while (shouldRun)
-    {
+    while (shouldRun) {
         // this will take about 1 second to complete
-        sensor->update();
+        sensor.update();
 
-        cout << "EC "
-             << sensor->getEC()
-             << " uS/cm, TDS "
-             << sensor->getTDS()
-             << " mg/L, Salinity "
-             << sensor->getSalinity()
-             << " PSS-78, SG "
-             << sensor->getSG()
-             << endl;
+        cout << "EC " << sensor.getEC() << " uS/cm, TDS " << sensor.getTDS() << " mg/L, Salinity "
+             << sensor.getSalinity() << " PSS-78, SG " << sensor.getSG() << endl;
 
         upm_delay(5);
     }
@@ -74,8 +67,6 @@ int main()
     //! [Interesting]
 
     cout << "Exiting..." << endl;
-
-    delete sensor;
 
     return 0;
 }

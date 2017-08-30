@@ -22,48 +22,46 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include <signal.h>
+
 #include "sx6119.hpp"
 
 using namespace std;
 
-int main (int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-//! [Interesting]
-  // Instantiate a SX6119 on digital pins 2 (power) and 3 (seek)
-  // This example was tested on the Grove FM Receiver.
+    //! [Interesting]
+    // Instantiate a SX6119 on digital pins 2 (power) and 3 (seek)
+    // This example was tested on the Grove FM Receiver.
 
-  upm::SX6119* radio = new upm::SX6119(2, 3);
-  
-  // if an argument was specified (any argument), seek to the next
-  // station, else just toggle the power.
+    upm::SX6119 radio(2, 3);
 
+    // if an argument was specified (any argument), seek to the next
+    // station, else just toggle the power.
 
-  cout << "Supply any argument to the command line to seek to the" << endl;
-  cout << "next station." << endl;
-  cout << "Running the example without an argument will toggle the" <<endl;
-  cout << "power on or off." << endl;
+    cout << "Supply any argument to the command line to seek to the" << endl;
+    cout << "next station." << endl;
+    cout << "Running the example without an argument will toggle the" << endl;
+    cout << "power on or off." << endl;
 
-  cout << endl;
+    cout << endl;
 
-  bool doSeek = false;
+    bool doSeek = false;
 
-  if (argc > 1)
-    doSeek = true;
-  
-  // depending on what was selected, do it
+    if (argc > 1)
+        doSeek = true;
 
-  if (doSeek)
-    radio->seek();
-  else
-    radio->togglePower();
-    
-//! [Interesting]
+    // depending on what was selected, do it
 
-  cout << "Exiting..." << endl;
+    if (doSeek)
+        radio.seek();
+    else
+        radio.togglePower();
 
-  delete radio;
-  return 0;
+    //! [Interesting]
+
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

@@ -22,16 +22,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
 #include <iomanip>
-#include <unistd.h>
+#include <iostream>
 #include <signal.h>
+
 #include "kxcjk1013.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
-upm::KXCJK1013* accelerometer;
 
 void
 sig_handler(int signo)
@@ -41,9 +41,11 @@ sig_handler(int signo)
 }
 
 void
-data_callback(char* data)
+data_callback(char* data, void* args)
 {
     float x, y, z;
+    upm::KXCJK1013* accelerometer = static_cast<upm::KXCJK1013*>(args);
+
     accelerometer->extract3Axis(data, &x, &y, &z);
     cout << fixed << setprecision(1);
     cout << x << '\t' << y << '\t' << z << "[m/s^2]" << endl;
@@ -55,25 +57,24 @@ main()
     signal(SIGINT, sig_handler);
     //! [Interesting]
     // Instantiate a KXCJK1013 Accelerometer Sensor on iio device 0
-    accelerometer = new upm::KXCJK1013(0);
+    upm::KXCJK1013 accelerometer(0);
     // Available scales are 0.009582(2g), 0.019163(4g), and 0.038326(8g)
-    accelerometer->setScale(0.019163);
-    // Available sampling frequency are 0.781000, 1.563000, 3.125000, 6.250000, 12.500000, 25, 50,
+    accelerometer.setScale(0.019163);
+    // Available sampling frequency are 0.781000, 1.563000, 3.125000, 6.250000,
+    // 12.500000, 25, 50,
     // 100, 200, 400, 800, and 1600
-    accelerometer->setSamplingFrequency(25.0);
-    accelerometer->enable3AxisChannel();
-    accelerometer->installISR(data_callback, NULL);
-    accelerometer->enableBuffer(16);
+    accelerometer.setSamplingFrequency(25.0);
+    accelerometer.enable3AxisChannel();
+    accelerometer.installISR(data_callback, &accelerometer);
+    accelerometer.enableBuffer(16);
 
     while (shouldRun) {
-        sleep(1);
+        upm_delay(1);
     }
-    accelerometer->disableBuffer();
+    accelerometer.disableBuffer();
 
     //! [Interesting]
     cout << "Exiting" << endl;
-
-    delete accelerometer;
 
     return 0;
 }

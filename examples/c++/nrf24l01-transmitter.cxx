@@ -22,17 +22,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
-#include "nrf24l01.hpp"
 #include <signal.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "nrf24l01.hpp"
+#include "upm_utilities.h"
 
 int running = 0;
-upm::NRF24L01 *comm = NULL;
 
-uint8_t destAddress[5]     = {0x01, 0x01, 0x01, 0x01, 0x01};
-uint8_t srcAddress[5]      = {0x01, 0x01, 0x01, 0x01, 0x02};
+uint8_t destAddress[5] = { 0x01, 0x01, 0x01, 0x01, 0x01 };
+uint8_t srcAddress[5] = { 0x01, 0x01, 0x01, 0x01, 0x02 };
 
 void
 sig_handler(int signo)
@@ -44,35 +46,36 @@ sig_handler(int signo)
     }
 }
 
-void nrf_handler () {
+void
+nrf_handler()
+{
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
+    //! [Interesting]
     uint32_t dummyData = 0;
-    comm = new upm::NRF24L01(7, 8);
-    comm->setSourceAddress ((uint8_t *) srcAddress);
-    comm->setDestinationAddress ((uint8_t *) destAddress);
-    comm->setPayload (MAX_BUFFER);
-    comm->setChannel (99);
-    comm->configure ();
-    comm->setDataReceivedHandler (nrf_handler);
+    upm::NRF24L01 comm(7, 8);
+    comm.setSourceAddress((uint8_t*) srcAddress);
+    comm.setDestinationAddress((uint8_t*) destAddress);
+    comm.setPayload(MAX_BUFFER);
+    comm.setChannel(99);
+    comm.configure();
+    comm.setDataReceivedHandler(nrf_handler);
 
     signal(SIGINT, sig_handler);
 
     while (!running) {
-        memcpy (comm->m_txBuffer, &dummyData, sizeof (dummyData));
-        comm->send ();
+        memcpy(comm.m_txBuffer, &dummyData, sizeof(dummyData));
+        comm.send();
         std::cout << "devi2 :: sending data ...." << dummyData << std::endl;
-        usleep (3000000);
+        upm_delay_us(3000000);
         dummyData += 3000;
     }
 
     std::cout << "exiting application" << std::endl;
 
-    delete comm;
-//! [Interesting]
+    //! [Interesting]
     return 0;
 }

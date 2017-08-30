@@ -22,89 +22,83 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "rgbringcoder.hpp"
 #include <signal.h>
+
+#include "rgbringcoder.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-  //! [Interesting]
-  
-  // There are a lot of pins to hook up.  These pins are valid for the
-  // Edison board, but may need to be adjusted for other platforms.
+    //! [Interesting]
 
-  // In order:
-  // enable      - 4
-  // latch       - 10
-  // clear       - 11
-  // clock       - 2
-  // data        - 9
-  // switch      - 7
+    // There are a lot of pins to hook up.  These pins are valid for the
+    // Edison board, but may need to be adjusted for other platforms.
 
-  // red pwm     - 3
-  // green pwm   - 5
-  // blue pwm    - 6
+    // In order:
+    // enable      - 4
+    // latch       - 10
+    // clear       - 11
+    // clock       - 2
+    // data        - 9
+    // switch      - 7
 
-  // encA        - 12
-  // encB        - 13
+    // red pwm     - 3
+    // green pwm   - 5
+    // blue pwm    - 6
 
-  upm::RGBRingCoder *ringCoder = 
-    new upm::RGBRingCoder(4, 10, 11, 2, 9, 7, 12, 13, 3, 5, 6);
+    // encA        - 12
+    // encB        - 13
 
-  uint16_t spin = 0x0001;
-  bool oldState = false;
-  int oldPos = 0;
+    upm::RGBRingCoder ringCoder(4, 10, 11, 2, 9, 7, 12, 13, 3, 5, 6);
 
-  // Lets go green
-  ringCoder->setRGBLED(0.99, 0.01, 0.99);
+    uint16_t spin = 0x0001;
+    bool oldState = false;
+    int oldPos = 0;
 
-  while (shouldRun)
-    {
-      // you spin me round...
-      if (spin == 0)
-        spin = 0x0001;
+    // Lets go green
+    ringCoder.setRGBLED(0.99, 0.01, 0.99);
 
-      ringCoder->setRingLEDS(spin);
-      spin <<= 1;
+    while (shouldRun) {
+        // you spin me round...
+        if (spin == 0)
+            spin = 0x0001;
 
-      // check button state
-      bool bstate = ringCoder->getButtonState();
-      if (bstate != oldState)
-        {
-          cout << "Button state changed from " << oldState << " to "
-               << bstate << endl;
-          oldState = bstate;
+        ringCoder.setRingLEDS(spin);
+        spin <<= 1;
+
+        // check button state
+        bool bstate = ringCoder.getButtonState();
+        if (bstate != oldState) {
+            cout << "Button state changed from " << oldState << " to " << bstate << endl;
+            oldState = bstate;
         }
 
-      // check encoder position
-      int epos = ringCoder->getEncoderPosition();
-      if (epos != oldPos)
-        {
-          cout << "Encoder position changed from " << oldPos << " to "
-               << epos << endl;
-          oldPos = epos;
+        // check encoder position
+        int epos = ringCoder.getEncoderPosition();
+        if (epos != oldPos) {
+            cout << "Encoder position changed from " << oldPos << " to " << epos << endl;
+            oldPos = epos;
         }
 
-      usleep(100000);
+        upm_delay_us(100000);
     }
-      
-  //! [Interesting]
-  
-  delete ringCoder;
-  
-  return 0;
+
+    //! [Interesting]
+
+    return 0;
 }

@@ -21,38 +21,39 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
-#include <unistd.h>
+
 #include <iostream>
 #include <signal.h>
+
+#include "upm_utilities.h"
 #include "veml6070.hpp"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // Instantiate an VEML6070 sensor on i2c bus 0
-    upm::VEML6070* veml = new upm::VEML6070(0);
+    upm::VEML6070 veml(0);
     while (shouldRun) {
-        cout << "Retrieved UV value: " << veml->getUVIntensity() << endl;
-        sleep(1);
+        cout << "Retrieved UV value: " << veml.getUVIntensity() << endl;
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 
-    delete veml;
     return 0;
 }

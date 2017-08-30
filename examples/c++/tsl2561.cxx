@@ -24,30 +24,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <unistd.h>
 #include "tsl2561.hpp"
 
-int main (int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-    upm::TSL2561 *sensor = NULL;
     int loopCount = 100;
 
-//! [Interesting]
+    //! [Interesting]
     if (argc < 2) {
         printf("Provide loop count \n");
     } else {
         loopCount = atoi(argv[1]);
     }
-    sensor = new upm::TSL2561();
+    upm::TSL2561 sensor;
 
-    for(int i=0; i< loopCount; i++){
-        fprintf(stdout, "Lux = %d\n", sensor->getLux());
+    for (int i = 0; i < loopCount; i++) {
+        fprintf(stdout, "Lux = %d\n", sensor.getLux());
     }
 
-//! [Interesting]
-
-    delete(sensor);
+    //! [Interesting]
 
     return (0);
 }

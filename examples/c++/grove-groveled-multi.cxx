@@ -22,47 +22,47 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "grove.hpp"
+
+#include "groveled.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a grove LED on D2.  Here we are controlling a Grove
-  // Multi-color flash LED.  We just just need to turn it on - it will
-  // then cycle through various colors (red, green, blue, purple) on it's
-  // own until turned off.
-  upm::GroveLed* led = new upm::GroveLed(2);
+    // Instantiate a grove LED on D2.  Here we are controlling a Grove
+    // Multi-color flash LED.  We just just need to turn it on - it will
+    // then cycle through various colors (red, green, blue, purple) on it's
+    // own until turned off.
+    upm::GroveLed led(2);
 
-  // start the light show
-  led->on();
+    // start the light show
+    led.on();
 
-  // just sleep until interrupted
-  while (shouldRun)
-    sleep(1);
-  
-//! [Interesting]
+    // just upm_delay until interrupted
+    while (shouldRun)
+        upm_delay(1);
 
-  led->off();
-  cout << "Exiting..." << endl;
+    //! [Interesting]
 
-  delete led;
-  
-  return 0;
+    led.off();
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

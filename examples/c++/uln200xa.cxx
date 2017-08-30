@@ -22,41 +22,41 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "uln200xa.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main ()
+int
+main()
 {
-  //! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a Stepper motor on a ULN200XA Darlington controller.
+    // Instantiate a Stepper motor on a ULN200XA Darlington controller.
 
-  // This was tested with the Grove Gear Stepper Motor with Driver
+    // This was tested with the Grove Gear Stepper Motor with Driver
 
-  // Wire the pins so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
-  // I4 is pin D11
-  upm::ULN200XA* uln200xa = new upm::ULN200XA(4096, 8, 9, 10, 11);
+    // Wire the pins so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
+    // I4 is pin D11
+    upm::ULN200XA uln200xa(4096, 8, 9, 10, 11);
 
-  uln200xa->setSpeed(5);
-  uln200xa->setDirection(ULN200XA_DIR_CW);
-  cout << "Rotating 1 revolution clockwise." << endl;
-  uln200xa->stepperSteps(4096);
-  cout << "Sleeping for 2 seconds..." << endl;
-  sleep(2);
-  cout << "Rotating 1/2 revolution counter clockwise." << endl;
-  uln200xa->setDirection(ULN200XA_DIR_CCW);
-  uln200xa->stepperSteps(2048);
+    uln200xa.setSpeed(5);
+    uln200xa.setDirection(ULN200XA_DIR_CW);
+    cout << "Rotating 1 revolution clockwise." << endl;
+    uln200xa.stepperSteps(4096);
+    cout << "Sleeping for 2 seconds..." << endl;
+    upm_delay(2);
+    cout << "Rotating 1/2 revolution counter clockwise." << endl;
+    uln200xa.setDirection(ULN200XA_DIR_CCW);
+    uln200xa.stepperSteps(2048);
 
-  // turn off the power
-  uln200xa->release();
+    // turn off the power
+    uln200xa.release();
 
-  //! [Interesting]
-  cout << "Exiting..." << endl;
+    //! [Interesting]
+    cout << "Exiting..." << endl;
 
-  delete uln200xa;
-  return 0;
+    return 0;
 }
-

@@ -25,6 +25,7 @@
 #pragma once
 
 #include "rsc.h"
+#include <string>
 
 namespace upm {
     /**

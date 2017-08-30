@@ -22,56 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+#include <string>
+
 #include "ds1307.hpp"
 
 using namespace std;
 
-void printTime(upm::DS1307 *rtc)
+void
+printTime(upm::DS1307& rtc)
 {
-  cout << "The time is: " << 
-    rtc->month << "/" << rtc->dayOfMonth << "/" << rtc->year << " " 
-       << rtc->hours << ":" << rtc->minutes << ":" << rtc->seconds;
+    cout << "The time is: " << rtc.month << "/" << rtc.dayOfMonth << "/" << rtc.year << " "
+         << rtc.hours << ":" << rtc.minutes << ":" << rtc.seconds;
 
-  if (rtc->amPmMode)
-    cout << ((rtc->pm) ? " PM " : " AM ");
+    if (rtc.amPmMode)
+        cout << ((rtc.pm) ? " PM " : " AM ");
 
-  cout << endl;
+    cout << endl;
 
-  cout << "Clock is in " << ((rtc->amPmMode) ? "AM/PM mode" : "24hr mode")
-       << endl;
+    cout << "Clock is in " << ((rtc.amPmMode) ? "AM/PM mode" : "24hr mode") << endl;
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
-//! [Interesting]
-  // Instantiate a DS1037 on I2C bus 0
-  upm::DS1307 *rtc = new upm::DS1307(0);
-  
-  // always do this first
-  cout << "Loading the current time... " << endl;
-  if (!rtc->loadTime())
-    {
-      cerr << "rtc->loadTime() failed." << endl;
-      return 0;
+    //! [Interesting]
+    // Instantiate a DS1037 on I2C bus 0
+    upm::DS1307 rtc(0);
+
+    // always do this first
+    cout << "Loading the current time... " << endl;
+    if (!rtc.loadTime()) {
+        cerr << "rtc.loadTime() failed." << endl;
+        return 0;
     }
-  
-  printTime(rtc);
 
-  // set the year as an example
-  cout << "setting the year to 50" << endl;
-  rtc->year = 50;
+    printTime(rtc);
 
-  rtc->setTime();
+    // set the year as an example
+    cout << "setting the year to 50" << endl;
+    rtc.year = 50;
 
-  // reload the time and print it
-  rtc->loadTime();
-  printTime(rtc);
+    rtc.setTime();
 
-  //! [Interesting]
-  
-  delete rtc;
-  return 0;
+    // reload the time and print it
+    rtc.loadTime();
+    printTime(rtc);
+
+    //! [Interesting]
+
+    return 0;
 }

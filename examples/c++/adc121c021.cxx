@@ -22,45 +22,44 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
+
 #include "adc121c021.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an ADC121C021 on I2C bus 0
+    //! [Interesting]
+    // Instantiate an ADC121C021 on I2C bus 0
 
-  upm::ADC121C021 *adc = new upm::ADC121C021(ADC121C021_I2C_BUS, 
-                                             ADC121C021_DEFAULT_I2C_ADDR);
+    upm::ADC121C021 adc(ADC121C021_I2C_BUS, ADC121C021_DEFAULT_I2C_ADDR);
 
-  // An analog sensor, such as a Grove light sensor,
-  // must be attached to the adc 
-  // Prints the value and corresponding voltage every 50 milliseconds
-  while (shouldRun)
-    {
-      uint16_t val = adc->value();
-      cout << "ADC value: " << val << " Volts = " 
-           << adc->valueToVolts(val) << endl;
-      usleep(50000);
+    // An analog sensor, such as a Grove light sensor,
+    // must be attached to the adc
+    // Prints the value and corresponding voltage every 50 milliseconds
+    while (shouldRun) {
+        uint16_t val = adc.value();
+        cout << "ADC value: " << val << " Volts = " << adc.valueToVolts(val) << endl;
+        upm_delay_us(50000);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete adc;
-  return 0;
+    return 0;
 }

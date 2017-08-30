@@ -22,56 +22,54 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "cjq4435.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
     if (signo == SIGINT)
         shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
     signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
     // Instantiate a CJQ4435 MOSFET on a PWM capable digital pin D3
-    upm::CJQ4435* mosfet = new upm::CJQ4435(3);
+    upm::CJQ4435 mosfet(3);
 
-    mosfet->setPeriodMS(10);
-    mosfet->enable(true);
+    mosfet.setPeriodMS(10);
+    mosfet.enable(true);
 
-    while (shouldRun)
-    {
+    while (shouldRun) {
         // start with a duty cycle of 0.0 (off) and increment to 1.0 (on)
-        for (float i=0.0; i <= 1.0; i+=0.1)
-        {
-            mosfet->setDutyCycle(i);
-            usleep(100000);
+        for (float i = 0.0; i <= 1.0; i += 0.1) {
+            mosfet.setDutyCycle(i);
+            upm_delay_us(100000);
         }
-        sleep(1);
+        upm_delay(1);
         // Now take it back down
         // start with a duty cycle of 1.0 (on) and decrement to 0.0 (off)
-        for (float i=1.0; i >= 0.0; i-=0.1)
-        {
-            mosfet->setDutyCycle(i);
-            usleep(100000);
+        for (float i = 1.0; i >= 0.0; i -= 0.1) {
+            mosfet.setDutyCycle(i);
+            upm_delay_us(100000);
         }
-        sleep(1);
+        upm_delay(1);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
     cout << "Exiting..." << endl;
 
-    delete mosfet;
     return 0;
 }

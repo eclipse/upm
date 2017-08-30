@@ -22,13 +22,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
-#include "maxds3231m.hpp"
 #include <signal.h>
+#include <stdio.h>
+
+#include "maxds3231m.hpp"
+#include "upm_utilities.h"
 
 int doWork = 0;
-upm::MAXDS3231M *sensor = NULL;
 
 void
 sig_handler(int signo)
@@ -41,35 +42,33 @@ sig_handler(int signo)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
     upm::Time3231 t;
-    sensor = new upm::MAXDS3231M(0, ADDR);
+    upm::MAXDS3231M sensor(0, ADDR);
 
-    t.second    = 1;
-    t.minute    = 3;
-    t.hour      = 3;
-    t.day       = 3;
-    t.month     = 3;
-    t.year      = 3;
-    t.weekDay   = 3;
-    sensor->setDate (t); // Note, second should be set to 1.
+    t.second = 1;
+    t.minute = 3;
+    t.hour = 3;
+    t.day = 3;
+    t.month = 3;
+    t.year = 3;
+    t.weekDay = 3;
+    sensor.setDate(t); // Note, second should be set to 1.
 
-    usleep (500000);
+    upm_delay_us(500000);
 
     while (!doWork) {
-        if (sensor->getDate (t)) {
-            std::cout << (int)t.hour << ":" << (int)t.minute << ":" << (int)t.second << std::endl;
+        if (sensor.getDate(t)) {
+            std::cout << (int) t.hour << ":" << (int) t.minute << ":" << (int) t.second << std::endl;
         }
-        std::cout << "Temperature " << sensor->getTemperature() << std::endl;
-        usleep (1000000);
+        std::cout << "Temperature " << sensor.getTemperature() << std::endl;
+        upm_delay_us(1000000);
     }
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

@@ -22,21 +22,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
 #include "max44000.hpp"
 
 int
-main(int argc, char **argv)
+main(int argc, char** argv)
 {
     //! [Interesting]
-    upm::MAX44000 *sensor = new upm::MAX44000(0, ADDR);
-    std::cout << "proximity value = " << sensor->getAmbient () << std::endl;
+    upm::MAX44000 sensor(0, ADDR);
+    std::cout << "proximity value = " << sensor.getAmbient() << std::endl;
     //! [Interesting]
 
     std::cout << "exiting application" << std::endl;
-
-    delete sensor;
 
     return 0;
 }

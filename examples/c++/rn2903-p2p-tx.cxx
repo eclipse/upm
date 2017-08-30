@@ -22,30 +22,31 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+#include <signal.h>
 #include <sstream>
 #include <string>
-#include <signal.h>
 
 #include "rn2903.hpp"
+#include "rn2903_defs.h"
 #include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
     string defaultDev = "/dev/ttyUSB0";
     if (argc > 1)
@@ -66,8 +67,7 @@ int main(int argc, char **argv)
     // sensor.setDebug(true);
 
     // get version
-    if (sensor.command("sys get ver"))
-    {
+    if (sensor.command("sys get ver")) {
         cout << "Failed to retrieve device version string" << endl;
         return 1;
     }
@@ -90,19 +90,14 @@ int main(int argc, char **argv)
     // frequently.
 
     int count = 0;
-    while (shouldRun)
-    {
-        ostringstream output;
+    while (shouldRun) {
+        std::ostringstream output;
         output << "Ping " << count++;
 
         // All payloads must be hex encoded
         string payload = sensor.toHex(output.str());
 
-        cout << "Transmitting a packet, data: '"
-             << output.str()
-             << "' -> hex: '"
-             << payload
-             << "'"
+        cout << "Transmitting a packet, data: '" << output.str() << "' -> hex: '" << payload << "'"
              << endl;
 
         RN2903_RESPONSE_T rv;
@@ -119,7 +114,7 @@ int main(int argc, char **argv)
 
     cout << "Exiting" << endl;
 
-//! [Interesting]
+    //! [Interesting]
 
     return 0;
 }

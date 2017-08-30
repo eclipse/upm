@@ -22,57 +22,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "si114x.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main ()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate a SI114x UV Sensor on I2C bus 0
-  upm::SI114X* uvi = new upm::SI114X(0);
-  
-  // First initialize it
-  uvi->initialize();
+    //! [Interesting]
+    // Instantiate a SI114x UV Sensor on I2C bus 0
+    upm::SI114X uvi(0);
 
-  cout << "UV Index Scale:" << endl;
-  cout << "---------------" << endl;
-  cout << "11+        Extreme" << endl;
-  cout << "8-10       Very High" << endl;
-  cout << "6-7        High" << endl;
-  cout << "3-5        Moderate" << endl;
-  cout << "0-2        Low" << endl;
-  cout << endl;
+    // First initialize it
+    uvi.initialize();
 
-  // update every second and print the currently measured UV Index
-  while (shouldRun)
-    {
-      // update current value(s)
-      uvi->update();
+    cout << "UV Index Scale:" << endl;
+    cout << "---------------" << endl;
+    cout << "11+        Extreme" << endl;
+    cout << "8-10       Very High" << endl;
+    cout << "6-7        High" << endl;
+    cout << "3-5        Moderate" << endl;
+    cout << "0-2        Low" << endl;
+    cout << endl;
 
-      // print detected value
-      cout << "UV Index: " << uvi->getUVIndex() << endl;
+    // update every second and print the currently measured UV Index
+    while (shouldRun) {
+        // update current value(s)
+        uvi.update();
 
-      sleep(1);
+        // print detected value
+        cout << "UV Index: " << uvi.getUVIndex() << endl;
+
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete uvi;
-  return 0;
+    return 0;
 }

@@ -22,10 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "apds9930.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
@@ -44,31 +45,30 @@ main()
     signal(SIGINT, sig_handler);
     //! [Interesting]
     // Instantiate a Digital Proximity and Ambient Light sensor on iio device 4
-    upm::APDS9930* light_proximity = new upm::APDS9930(4);
+    upm::APDS9930 light_proximity(4);
 
-    // Kernel driver implement sleep 5000-5100us after enable illuminance sensor
-    light_proximity->enableIlluminance(true);
+    // Kernel driver implement upm_delay 5000-5100us after enable illuminance
+    // sensor
+    light_proximity.enableIlluminance(true);
 
-    // Kernel driver implement sleep 5000-5100us after enable proximity sensor
-    light_proximity->enableProximity(true);
+    // Kernel driver implement upm_delay 5000-5100us after enable proximity sensor
+    light_proximity.enableProximity(true);
 
     // Tested this value works. Please change it on your platform
-    usleep(120000);
+    upm_delay_us(120000);
 
     while (shouldRun) {
-        float lux = light_proximity->getAmbient();
+        float lux = light_proximity.getAmbient();
         cout << "Luminance value is " << lux << endl;
-        float proximity = light_proximity->getProximity();
+        float proximity = light_proximity.getProximity();
         cout << "Proximity value is " << proximity << endl;
-        sleep(1);
+        upm_delay(1);
     }
-    light_proximity->enableProximity(false);
-    light_proximity->enableIlluminance(false);
+    light_proximity.enableProximity(false);
+    light_proximity.enableIlluminance(false);
     //! [Interesting]
 
     cout << "Exiting" << endl;
-
-    delete light_proximity;
 
     return 0;
 }

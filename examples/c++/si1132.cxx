@@ -22,20 +22,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
+
+#include "mraa/common.h"
 #include "si1132.hpp"
+#include "upm_utilities.h"
 
 #define FT4222_I2C_BUS 1
 
-int main ()
+int
+main()
 {
     //! [Interesting]
     upm::SI1132 lightSensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
     while (true) {
         float value = lightSensor.getVisibleLux();
         std::cout << "Light level = " << value << " lux" << std::endl;
-        sleep(1);
+        upm_delay(1);
     }
     //! [Interesting]
     return 0;

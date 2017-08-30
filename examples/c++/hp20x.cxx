@@ -22,49 +22,51 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
-#include <signal.h>
 #include <iostream>
+#include <signal.h>
+#include <stdio.h>
+
 #include "hp20x.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 using namespace upm;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
-  // Instantiate an HP20X on default I2C bus and address
+    //! [Interesting]
+    // Instantiate an HP20X on default I2C bus and address
 
-  upm::HP20X *bar = new upm::HP20X();
+    upm::HP20X bar;
 
-  // Initialize the device with default values
-  bar->init();
+    // Initialize the device with default values
+    bar.init();
 
-  // Output data every second until interrupted
-  while (shouldRun)
-    {
-      printf("Temperature: %f Celsius\n", bar->getTemperature());
-      printf("Pressure:    %f Millibars\n", bar->getPressure());
-      printf("Altitude:    %f Meters\n", bar->getAltitude());
+    // Output data every second until interrupted
+    while (shouldRun) {
+        printf("Temperature: %f Celsius\n", bar.getTemperature());
+        printf("Pressure:    %f Millibars\n", bar.getPressure());
+        printf("Altitude:    %f Meters\n", bar.getAltitude());
 
-      printf("\n");
+        printf("\n");
 
-      sleep(1);
+        upm_delay(1);
     }
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
+    cout << "Exiting..." << endl;
 
-  delete bar;
-  return 0;
+    return 0;
 }

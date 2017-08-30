@@ -22,51 +22,50 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
-#include "mpu9150.hpp"
+
+#include "ak8975.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 int shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-
-int main(int argc, char **argv)
+int
+main(int argc, char** argv)
 {
-  signal(SIGINT, sig_handler);
-//! [Interesting]
+    signal(SIGINT, sig_handler);
+    //! [Interesting]
 
-  upm::AK8975 *sensor = new upm::AK8975();
+    upm::AK8975 sensor;
 
-  sensor->init();
+    sensor.init();
 
-  while (shouldRun)
-    {
-      sensor->update();
-      
-      float x, y, z;
-      
-      sensor->getMagnetometer(&x, &y, &z);
-      cout << "Magnetometer:  ";
-      cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
+    while (shouldRun) {
+        sensor.update();
 
-      cout << endl;
+        float x, y, z;
 
-      usleep(500000);
+        sensor.getMagnetometer(&x, &y, &z);
+        cout << "Magnetometer:  ";
+        cout << "MX = " << x << " MY = " << y << " MZ = " << z << endl;
+
+        cout << endl;
+
+        upm_delay_us(500000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting..." << endl;
-  
-  delete sensor;
-  
-  return 0;
+    cout << "Exiting..." << endl;
+
+    return 0;
 }

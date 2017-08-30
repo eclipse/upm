@@ -22,29 +22,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-#include <unistd.h>
 #include <iostream>
-#include <iomanip>
+#include <stdint.h>
+#include <stdio.h>
+
 #include "slide.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
-int main ()
+int
+main()
 {
-//! [Interesting]
-    upm::Slide* slide = new upm::Slide(0);    // Instantiate new grove slide potentiometer on analog pin A0
+    //! [Interesting]
+    upm::Slide slide(0);
 
-    cout << slide->name() << endl;
+    cout << slide.name() << endl;
 
-    while(true) {
-        float adc_value = slide->raw_value();       // Read raw value
-        float volts = slide->voltage_value();    // Read voltage, board reference set at 5.0V
-        fprintf(stdout, "%4d = %.2f V\n", (uint16_t)adc_value, volts);
+    while (true) {
+        float adc_value = slide.raw_value(); // Read raw value
+        float volts = slide.voltage_value(); // Read voltage, board reference set at 5.0V
+        fprintf(stdout, "%4d = %.2f V\n", (uint16_t) adc_value, volts);
 
-        usleep(2500000);    // Sleep for 2.5s
+        upm_delay_us(2500000); // Sleep for 2.5s
     }
-//! [Interesting]
-    delete slide;
+    //! [Interesting]
     return 0;
 }

@@ -22,50 +22,51 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <unistd.h>
 #include <iostream>
 #include <signal.h>
+
 #include "adxrs610.hpp"
+#include "upm_utilities.h"
 
 using namespace std;
 
 bool shouldRun = true;
 
-void sig_handler(int signo)
+void
+sig_handler(int signo)
 {
-  if (signo == SIGINT)
-    shouldRun = false;
+    if (signo == SIGINT)
+        shouldRun = false;
 }
 
-int main()
+int
+main()
 {
-  signal(SIGINT, sig_handler);
+    signal(SIGINT, sig_handler);
 
-//! [Interesting]
+    //! [Interesting]
 
-  // Instantiate a ADXRS610 sensor on analog pin A0 (dataout), and
-  // analog A1 (temp out) with an analog reference voltage of
-  // 5.0
-  upm::ADXRS610 *sensor = new upm::ADXRS610(0, 1, 5.0);
-  
-  // set a deadband region around the zero point to report 0.0 (optional)
-  sensor->setDeadband(0.015);
+    // Instantiate a ADXRS610 sensor on analog pin A0 (dataout), and
+    // analog A1 (temp out) with an analog reference voltage of
+    // 5.0
+    upm::ADXRS610 sensor(0, 1, 5.0);
 
-  // Every tenth of a second, sample the ADXRS610 and output it's
-  // corresponding temperature and angular velocity 
+    // set a deadband region around the zero point to report 0.0 (optional)
+    sensor.setDeadband(0.015);
 
-  while (shouldRun)
-    {
-      cout << "Vel (deg/s): " << sensor->getAngularVelocity() << endl;
-      cout << "Temp (C): " << sensor->getTemperature() << endl;
-      
-      usleep(100000);
+    // Every tenth of a second, sample the ADXRS610 and output it's
+    // corresponding temperature and angular velocity
+
+    while (shouldRun) {
+        cout << "Vel (deg/s): " << sensor.getAngularVelocity() << endl;
+        cout << "Temp (C): " << sensor.getTemperature() << endl;
+
+        upm_delay_us(100000);
     }
 
-//! [Interesting]
+    //! [Interesting]
 
-  cout << "Exiting" << endl;
+    cout << "Exiting" << endl;
 
-  delete sensor;
-  return 0;
+    return 0;
 }
