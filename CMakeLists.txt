@@ -310,55 +310,67 @@ endif()
 #
 if (BUILDDOC)
   # Add a target to generate API documentation with Doxygen
-  find_package (Doxygen REQUIRED)
-  configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-  if (BUILDSWIGJAVA)
-      configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.java.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile-java @ONLY)
-  endif()
-  file(GLOB PNG_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/docs docs/icons/*.png)
-  foreach(PNG_FILE ${PNG_FILES})
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/${PNG_FILE} ${CMAKE_CURRENT_BINARY_DIR}/html/docs/${PNG_FILE} COPYONLY)
-  endforeach()
-  add_custom_target (doc
-    ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-    COMMAND tar -czf html/xml.tar.gz -C xml .
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generating API documentation with Doxygen" VERBATIM
-  )
+  find_package (Doxygen 1.8 REQUIRED)
+  if (DOXYGEN_FOUND AND DOXYGEN_VERSION VERSION_GREATER "1.8")
+    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+    if (BUILDSWIGJAVA)
+        configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/Doxyfile.java.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile-java @ONLY)
+    endif()
+    file(GLOB PNG_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/docs docs/icons/*.png)
+    foreach(PNG_FILE ${PNG_FILES})
+      configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/${PNG_FILE} ${CMAKE_CURRENT_BINARY_DIR}/html/docs/${PNG_FILE} COPYONLY)
+    endforeach()
+    add_custom_target (doc
+      ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+      COMMAND tar -czf html/xml.tar.gz -C xml .
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+      COMMENT "Generating API documentation with Doxygen" VERBATIM
+    )
+  else ()
+    message (SEND_ERROR "ERROR - Failed to find a compatible version of Doxygen. API doc will not be generated")
+  endif (DOXYGEN_FOUND AND DOXYGEN_VERSION VERSION_GREATER "1.8")
 
   # Check if Sphinx is installed and add target to generate API documentation
   # Currently, the per-module documentation for python is generated from the
   # python2 modules.
   if(BUILDSWIGPYTHON)
-    find_package (Sphinx REQUIRED)
-    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
-    configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
-    add_custom_target (pydoc ALL
-      COMMAND rm -r -f ${CMAKE_BINARY_DIR}/pyupm && mkdir -p ${CMAKE_BINARY_DIR}/pyupm
-      COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
-      COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
-      COMMAND ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/pyupm
-      # TODO: use a separate cmake FILE module for string replacement instead
-      COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
-      COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
-      COMMAND sed -i.bak s|[[:space:]][mM]odule</a>|</a>|g html/python/index.html html/python/modules.html
-      DEPENDS doc
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT "Generating API documentation with Sphinx" VERBATIM
-    )
+    find_package (Sphinx 1.3 REQUIRED)
+    if (SPHINX_FOUND AND SPHINX_VERSION VERSION_GREATER "1.3")
+      configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/pydoc/conf.py @ONLY)
+      configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
+      add_custom_target (pydoc ALL
+        COMMAND rm -r -f ${CMAKE_BINARY_DIR}/pyupm && mkdir -p ${CMAKE_BINARY_DIR}/pyupm
+        COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
+        COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
+        COMMAND ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/pyupm
+        # TODO: use a separate cmake FILE module for string replacement instead
+        COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
+        COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
+        COMMAND sed -i.bak s|[[:space:]][mM]odule</a>|</a>|g html/python/index.html html/python/modules.html
+        DEPENDS doc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Sphinx" VERBATIM
+      )
+    else ()
+      message (SEND_ERROR "ERROR - Failed to find a compatible version of Sphinx. Python API doc will not be generated")
+    endif ()
   endif(BUILDSWIGPYTHON)
 
   # Check if Yuidoc is installed and add target for API documentation
   if(BUILDSWIGNODE)
-    find_package(Yuidoc REQUIRED)
-    add_custom_target(jsdoc ALL
-      COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/docgen.js -m upm -i xml -o jsdoc -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
-      COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/helper.js --themedir ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
-      COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/tolower.js -i html/node
-      DEPENDS doc
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT "Generating API documentation with Yuidoc" VERBATIM
-    )
+    find_package (Yuidoc 0.10 REQUIRED)
+    if (YUIDOC_FOUND AND YUIDOC_VERSION VERSION_GREATER "0.10")
+      add_custom_target (jsdoc ALL
+        COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/docgen.js -m upm -i xml -o jsdoc -t ${CMAKE_CURRENT_SOURCE_DIR}/src -g ../../
+        COMMAND ${YUIDOC_EXECUTABLE} -C --no-sort --helpers ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/helper.js --themedir ${CMAKE_SOURCE_DIR}/doxy/node/generators/yuidoc/tmpl -o html/node jsdoc/yuidoc/upm
+        COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/tolower.js -i html/node
+        DEPENDS doc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Yuidoc" VERBATIM
+      )
+    else ()
+      message (SEND_ERROR "ERROR - Failed to find a compatible version of Yuidoc. Node.js API doc will not be generated")
+    endif ()
   endif(BUILDSWIGNODE)
 endif (BUILDDOC)
 
