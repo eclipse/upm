@@ -41,7 +41,7 @@ sig_handler(int signo)
 }
 
 void
-data_callback(char* data)
+data_callback(char* data, void* args)
 {
     float x, y, z;
     if (gyroscope->extract3Axis(data, &x, &y, &z)) {
