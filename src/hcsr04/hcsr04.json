@@ -13,7 +13,6 @@
             "Project Type": ["robotics", "safety", "prototyping"],
             "Manufacturers": ["sparkfun"],
             "Kits": [],
-            "Image": "hcsr04.jpg",
             "Examples":
             {
                 "Java": ["HCSR04Sample.java"],

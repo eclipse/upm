@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["dallas"],
             "Kits": [],
-            "Image": "ds18b20.jpg",
             "Examples":
             {
                 "Java": [""],

@@ -13,7 +13,6 @@
             "Project Type": ["IMU", "prototyping"],
             "Manufacturers": ["stmicro"],
             "Kits": [],
-            "Image": "l3gd20.jpg",
             "Examples":
             {
                 "Java": [],

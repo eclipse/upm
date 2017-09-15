@@ -13,7 +13,6 @@
             "Project Type": ["industrial"],
             "Manufacturers": ["veris"],
             "Kits": [],
-            "Image": "cwlsxxa.jpg",
             "Examples":
             {
                 "Java": ["CWLSXXA_Example.java"],

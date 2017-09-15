@@ -13,7 +13,6 @@
             "Project Type": ["control", "prototyping"],
             "Manufacturers": ["sainsmart", "dfrobot", "sparkfun"],
             "Kits": [],
-            "Image": "lcdks.jpg",
             "Examples":
             {
                 "Java": [],

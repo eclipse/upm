@@ -13,7 +13,6 @@
             "Project Type": ["IMU", "prototyping"],
             "Manufacturers": ["seeed", "honeywell"],
             "Kits": ["robok"],
-            "Image": "hmc5883l.jpg",
             "Examples":
             {
                 "Java": ["Hmc5883lSample.java"],

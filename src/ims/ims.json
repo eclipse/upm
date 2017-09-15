@@ -13,7 +13,6 @@
             "Project Type": ["environmental", "prototyping"],
             "Manufacturers": ["catnip"],
             "Kits": [],
-            "Image": "ims.jpg",
             "Examples":
             {
                 "Java": ["IMS_Example.java"],

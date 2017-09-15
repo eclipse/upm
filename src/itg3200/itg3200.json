@@ -13,7 +13,6 @@
             "Project Type": ["IMU", "prototyping"],
             "Manufacturers": ["seeed"],
             "Kits": [],
-            "Image": "itg3200.jpg",
             "Examples":
             {
                 "Java": ["Itg3200Sample.java"],

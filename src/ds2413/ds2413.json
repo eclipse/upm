@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["maxim", "adafruit"],
             "Kits": [],
-            "Image": "ds2413.jpg",
             "Examples":
             {
                 "Java": [],

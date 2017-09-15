@@ -13,7 +13,6 @@
             "Project Type": ["industrial"],
             "Manufacturers": ["atlas", "sparkfun"],
             "Kits": [],
-            "Image": "ecezo.jpg",
             "Examples":
             {
                 "Java": ["ECEZO_Example.java"],

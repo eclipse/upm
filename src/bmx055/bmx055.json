@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["bosch"],
             "Kits": [],
-            "Image": "bmp280.jpg",
             "Examples":
             {
                 "Java": ["BMX055_Example.java"],

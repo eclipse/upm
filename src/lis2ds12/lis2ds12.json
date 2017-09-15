@@ -13,7 +13,6 @@
             "Project Type": ["imu", "prototyping"],
             "Manufacturers": ["stmicro"],
             "Kits": [],
-            "Image": "lis2ds12.jpg",
             "Examples":
             {
                 "Java": ["LIS2DS12_Example.java"],

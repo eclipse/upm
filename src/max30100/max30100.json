@@ -13,7 +13,6 @@
             "Project Type": ["medical", "wearables", "prototyping"],
             "Manufacturers": ["maxim"],
             "Kits": [],
-            "Image": "max30100.jpg",
             "Examples":
             {
                 "Java": ["MAX30100_Example.java"],

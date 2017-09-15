@@ -13,7 +13,6 @@
             "Project Type": ["robotics", "prototyping"],
             "Manufacturers": ["stmicro"],
             "Kits": [],
-            "Image": "lsm303d.jpg",
             "Examples":
             {
                 "Java": ["LSM303D_Example.java"],

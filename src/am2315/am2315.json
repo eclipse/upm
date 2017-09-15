@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["adafruit"],
             "Kits": [],
-            "Image": "am2315.jpg",
             "Examples":
             {
                 "Java": ["AM2315Example.java"],

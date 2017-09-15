@@ -13,7 +13,6 @@
             "Project Type": ["agriculture", "environmental", "prototyping"],
             "Manufacturers": ["seeed"],
             "Kits": ["eak"],
-            "Image": "grovewater.jpg",
             "Examples":
             {
                 "Java": ["GroveWaterSample.java"],

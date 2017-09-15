@@ -13,7 +13,6 @@
             "Project Type": ["display", "prototyping"],
             "Manufacturers": ["adafruit", "sparkfun", "seeed"],
             "Kits": [],
-            "Image": "lcm1602.jpg",
             "Examples":
             {
                 "Java": ["Lcm1602_i2cSample.java", "Lcm1602_parallelSample.java"],

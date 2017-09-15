@@ -13,7 +13,6 @@
             "Project Type": ["imu", "prototyping"],
             "Manufacturers": ["stmicro"],
             "Kits": [],
-            "Image": "lsm6ds3h.jpg",
             "Examples":
             {
                 "Java": ["LSM6DS3H_Example.java"],

@@ -13,7 +13,6 @@
             "Project Type": ["prototyping"],
             "Manufacturers": ["veris"],
             "Kits": [],
-            "Image": "h803x.jpg",
             "Examples":
             {
                 "Java": ["H803X_Example.java"],

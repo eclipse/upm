@@ -13,12 +13,11 @@
             "Project Type": ["imu", "prototyping"],
             "Manufacturers": ["seeed", "adafruit", "stmicro"],
             "Kits": [],
-            "Image": "lsm303dlh.jpg",
             "Examples":
             {
                 "Java": ["LSM303DLHSample.java"],
                 "Python": ["lsm303dlh.py"],
-                "Node.js": ["lsm303dlh.js"],
+                "Node.js": ["lsm303dhl.js"],
                 "C++": ["lsm303dlh.cxx"],
                 "C": []
             },

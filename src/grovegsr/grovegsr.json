@@ -13,7 +13,6 @@
             "Project Type": ["medical", "interface", "wearables", "prototyping"],
             "Manufacturers": ["seeed"],
             "Kits": [],
-            "Image": "grovegsr.jpg",
             "Examples":
             {
                 "Java": ["GroveGsr.java"],

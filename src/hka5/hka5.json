@@ -13,7 +13,6 @@
             "Project Type": ["environmental", "prototyping"],
             "Manufacturers": ["dfrobot"],
             "Kits": [],
-            "Image": "hka5.jpg",
             "Examples":
             {
                 "Java": ["HKA5_Example.java"],

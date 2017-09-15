@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["adafruit"],
             "Kits": [],
-            "Image": "bno055.jpg",
             "Examples":
             {
                 "Java": ["BNO055_Example.java"],

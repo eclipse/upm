@@ -13,7 +13,6 @@
             "Project Type": ["display", "prototyping"],
             "Manufacturers": ["seeed"],
             "Kits": ["gsk"],
-            "Image": "jhd1313m1.jpg",
             "Examples":
             {
                 "Java": ["Jhd1313m1Sample.java", "Jhd1313m1_lcdSample.java"],

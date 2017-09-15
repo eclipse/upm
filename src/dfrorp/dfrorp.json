@@ -13,7 +13,6 @@
             "Project Type": ["industrial"],
             "Manufacturers": ["dfrobot"],
             "Kits": [],
-            "Image": "dfrorp.jpg",
             "Examples":
             {
                 "Java": ["DFRORP_Example.java"],

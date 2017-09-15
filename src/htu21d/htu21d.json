@@ -13,7 +13,6 @@
             "Project Type": ["environmental", "prototyping"],
             "Manufacturers": ["seeed", "adafruit", "sparkfun"],
             "Kits": [],
-            "Image": "htu21d.jpg",
             "Examples":
             {
                 "Java": ["HTU21DSample.java"],

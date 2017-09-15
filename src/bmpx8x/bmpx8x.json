@@ -13,7 +13,6 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["seeed", "adafruit", "sparkfun"],
             "Kits": [],
-            "Image": "bmp085.jpg",
             "Examples":
             {
                 "Java": ["BMPX8XSample.java"],

@@ -13,7 +13,6 @@
             "Project Type": ["wearables", "computer interfacing", "prototyping"],
             "Manufacturers": ["seeed"],
             "Kits": [],
-            "Image": "groveemg.jpg",
             "Examples":
             {
                 "Java": ["GroveEmg.java"],

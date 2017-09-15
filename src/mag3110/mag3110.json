@@ -13,7 +13,6 @@
             "Project Type": ["imu", "prototyping"],
             "Manufacturers": ["freescale"],
             "Kits": [],
-            "Image": "mag3110.jpg",
             "Examples":
             {
                 "Java": [],

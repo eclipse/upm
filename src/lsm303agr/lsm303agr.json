@@ -13,7 +13,6 @@
             "Project Type": ["imu", "prototyping"],
             "Manufacturers": ["stmicro"],
             "Kits": [],
-            "Image": "lsm303agr.jpg",
             "Examples":
             {
                 "Java": ["LSM303AGR_Example.java"],

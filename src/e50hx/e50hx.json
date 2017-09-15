@@ -13,7 +13,6 @@
             "Project Type": ["industrial"],
             "Manufacturers": ["veris"],
             "Kits": [],
-            "Image": "e50hx.jpg",
             "Examples":
             {
                 "Java": ["E50HX_Example.java"],

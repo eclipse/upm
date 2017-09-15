@@ -13,10 +13,9 @@
             "Project Type": ["prototyping", "industrial"],
             "Manufacturers": ["bosch"],
             "Kits": [],
-            "Image": "bmm150.jpg",
             "Examples":
             {
-                "Java": ["bmm150_Example.java"],
+                "Java": ["BMM150_Example.java"],
                 "Python": ["bmm150.py"],
                 "Node.js": ["bmm150.js"],
                 "C++": ["bmm150.cxx"],

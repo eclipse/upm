@@ -13,7 +13,6 @@
             "Project Type": ["prototyping"],
             "Manufacturers": ["olimex"],
             "Kits": [],
-            "Image": "lol.jpg",
             "Examples":
             {
                 "Java": ["LoLSample.java", "LoL_exampleSample.java"],
