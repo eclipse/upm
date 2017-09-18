@@ -252,7 +252,11 @@ macro(_upm_swig_python)
 
   # Swig module name (example: pyupm_a110x-python2)
   set (python_wrapper_name pyupm_${libname}-python${PYTHON_VERSION_MAJOR})
-  swig_add_module (${python_wrapper_name} python pyupm_${libname}.i)
+  if (CMAKE_VERSION VERSION_LESS "3.8")
+    swig_add_module (${python_wrapper_name} python pyupm_${libname}.i)
+  else ()
+    swig_add_library (${python_wrapper_name} LANGUAGE python SOURCES pyupm_${libname}.i)
+  endif ()
   # Get target library name (example _pyupm_a110x-python2)
   set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
   add_dependencies(${python_wrapper_target} ${libname})
@@ -360,7 +364,11 @@ macro(upm_swig_node)
 
     set_property (SOURCE jsupm_${libname}.i PROPERTY SWIG_FLAGS "-node" "-DV8_VERSION=${V8_VERSION_HEX}")
     set_source_files_properties (jsupm_${libname}.i PROPERTIES CPLUSPLUS ON)
-    swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i)
+    if (CMAKE_VERSION VERSION_LESS "3.8")
+      swig_add_module (jsupm_${libname} javascript jsupm_${libname}.i)
+    else ()
+      swig_add_library (jsupm_${libname} LANGUAGE javascript SOURCES jsupm_${libname}.i)
+    endif ()
     add_dependencies(jsupm_${libname} ${libname})
     swig_link_libraries (jsupm_${libname} ${NODE_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
@@ -430,7 +438,11 @@ macro(upm_swig_java)
     # the source must be added when building the JAVA wrapper.
     # See issue #518
     # TODO: Fix this somehow
-    swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+    if (CMAKE_VERSION VERSION_LESS "3.8")
+      swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+    else ()
+      swig_add_library (javaupm_${libname} LANGUAGE java SOURCES javaupm_${libname}.i ${module_src})
+    endif ()
 
     # If the C++ target depends on C++ interfaces, make the JAVA target
     # depend on the JAVA interfaces
