@@ -34,7 +34,7 @@
 #include "upm_platform.h"
 #include "upm_utilities.h"
 
-// https://airnow.gov/index.cfm?action=aqibasics.aqi
+// https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 static struct aqi {
     float clow;
     float chigh;
@@ -46,7 +46,7 @@ static struct aqi {
   {35.5,   55.4, 101, 150},
   {55.5,  150.4, 151, 200},
   {150.5, 250.4, 201, 300},
-  {250.5, 350.4, 301, 350},
+  {250.5, 350.4, 301, 400},
   {350.5, 500.4, 401, 500},
 };
 
