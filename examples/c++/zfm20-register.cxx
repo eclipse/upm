@@ -35,10 +35,10 @@ int main (int argc, char **argv)
 //! [Interesting]
   // Instantiate a ZFM20 Fingerprint reader on UART 0
 
-  upm::ZFM20* fp = new upm::ZFM20(0);
+  upm::ZFM20 fp(0);
 
   // make sure port is initialized properly.  57600 baud is the default.
-  if (!fp->setupTty(B57600))
+  if (!fp.setupTty(57600))
     {
       cerr << "Failed to setup tty port parameters" << endl;
       return 1;
@@ -53,12 +53,12 @@ int main (int argc, char **argv)
 
   // first, we need to register our address and password
   
-  fp->setPassword(ZFM20_DEFAULT_PASSWORD);
-  fp->setAddress(ZFM20_DEFAULT_ADDRESS);
+  fp.setPassword(ZFM20_DEFAULT_PASSWORD);
+  fp.setAddress(ZFM20_DEFAULT_ADDRESS);
   
   // now verify the password.  If this fails, any other commands
   // will be ignored, so we just bail.
-  if (fp->verifyPassword())
+  if (fp.verifyPassword())
     {
       cout << "Password verified." << endl;
     }
@@ -74,13 +74,13 @@ int main (int argc, char **argv)
   // get the first image
 
   cout << "Place a finger on the sensor." << endl;
-  while (fp->generateImage() != ZFM20::ERR_OK)
+  while (fp.generateImage() != ZFM20::ERR_OK)
     ;
 
   // in theory, we have an image
   cout << "Image captured, converting..." << endl;
 
-  if ((rv = fp->image2Tz(1)) != ZFM20::ERR_OK)
+  if ((rv = fp.image2Tz(1)) != ZFM20::ERR_OK)
     {
       cerr << "Image conversion failed with error code " << int(rv) <<endl;
       return 1;
@@ -89,19 +89,19 @@ int main (int argc, char **argv)
   cout << "Image conversion succeeded, remove finger." << endl;
   sleep(1);
 
-  while (fp->generateImage() != ZFM20::ERR_NO_FINGER)
+  while (fp.generateImage() != ZFM20::ERR_NO_FINGER)
     ;
   
   cout << endl;
   cout << "Now place the same finger on the sensor." << endl;
 
-  while (fp->generateImage() != ZFM20::ERR_OK)
+  while (fp.generateImage() != ZFM20::ERR_OK)
     ;
 
   cout << "Image captured, converting..." << endl;
 
   // save this one in slot 2
-  if ((rv = fp->image2Tz(2)) != ZFM20::ERR_OK)
+  if ((rv = fp.image2Tz(2)) != ZFM20::ERR_OK)
     {
       cerr << "Image conversion failed with error code " << int(rv) <<endl;
       return 1;
@@ -113,7 +113,7 @@ int main (int argc, char **argv)
   cout << "Storing fingerprint at id 1" << endl;
   
   // create the model
-  if ((rv = fp->createModel()) != ZFM20::ERR_OK)
+  if ((rv = fp.createModel()) != ZFM20::ERR_OK)
     {
       if (rv == ZFM20::ERR_FP_ENROLLMISMATCH)
         cerr << "Fingerprints did not match." << endl;
@@ -124,7 +124,7 @@ int main (int argc, char **argv)
     }
   
   // now store it, we hard code the id (second arg) to 1 here
-  if ((rv = fp->storeModel(1, 1)) != ZFM20::ERR_OK)
+  if ((rv = fp.storeModel(1, 1)) != ZFM20::ERR_OK)
     {
       cerr << "storeModel failed with error code " << int(rv) <<endl;
       return 1;
@@ -135,6 +135,5 @@ int main (int argc, char **argv)
   
 //! [Interesting]
 
-  delete fp;
   return 0;
 }
