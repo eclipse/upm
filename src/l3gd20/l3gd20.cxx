@@ -344,7 +344,7 @@ uint8_t L3GD20::getStatusBits()
 
 
 void
-L3GD20::installISR(void (*isr)(char*), void* arg)
+L3GD20::installISR(void (*isr)(char*, void*), void* arg)
 {
     mraa_iio_trigger_buffer(m_iio, isr, NULL);
 }
