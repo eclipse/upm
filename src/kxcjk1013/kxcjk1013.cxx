@@ -65,7 +65,7 @@ KXCJK1013::~KXCJK1013()
 }
 
 void
-KXCJK1013::installISR(void (*isr)(char*), void* arg)
+KXCJK1013::installISR(void (*isr)(char*, void*), void* arg)
 {
     mraa_iio_trigger_buffer(m_iio, isr, NULL);
 }
