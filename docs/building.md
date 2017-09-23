@@ -34,7 +34,12 @@ make install
 
 The last command will create the include/ and lib/ directories with a copy of
 the headers and library objects respectively in your build location. Note that
-doing an out-of-source build may cause issues when rebuilding later on.
+doing an out-of-source build may cause issues when rebuilding later on. In many
+cases you'll need elevated permissions to install:
+
+~~~~~~~~~~~~~{.sh}
+sudo make install
+~~~~~~~~~~~~~
 
 Our cmake configure has a number of options, *cmake-gui* or *ccmake* can show
 you all the options. The interesting ones are detailed below:

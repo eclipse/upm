@@ -48,11 +48,11 @@ To install:
 ```bash
 sudo add-apt-repository ppa:mraa/mraa
 sudo apt-get update
-sudo apt-get install libupm-dev python-upm python3-upm upm-examples
+sudo apt-get install libupm-dev libupm-java python-upm python3-upm node-upm upm-examples
 ```
 
-Note that the Ubuntu PPA only provides the C/C++ and Python packages. Node.js
-developers will have to install MRAA and UPM using NPM instead.
+Running UPM applications on Ubuntu systems requires elevated permissions
+(e.g. run with `sudo`).
 
 ### Node.js bindings only (NPM)
 
