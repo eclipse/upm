@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/intel-iot-devkit/upm/blob/master/docs/icons/upm_logo.png" height="150px" width="auto" algt="UPM Logo"/>
+</p>
+
 UPM (Useful Packages & Modules) Sensor/Actuator repository for MRAA
 ==============
 
@@ -68,12 +72,16 @@ Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) fro
 
 You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/hardware/sensors).
 
-### IDE Integration
+### IDE Support
 
-If you would like to create projects and run the UPM samples using an Intel® recommended IDE,
-please refer to the Intel® Developer Zone Tools & IDEs page.
+The UPM sensor libraries are directly supported by the IDEs listed on the Intel®
+Developer Zone Tools & IDEs page.
 
 <a href="https://software.intel.com/iot/tools"><img src="docs/icons/iss.png"/></a>
+
+Intel® System Studio integration offers IoT specific features such as a sensor explorer,
+library sync tools and the ability to easily import existing projects and samples that
+use the UPM libraries. For further details please refer to the IoT User Guides on IDZ.
 
 ### Installing UPM
 
