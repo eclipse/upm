@@ -25,6 +25,7 @@
  */
 
 #include "curieimu.hpp"
+#include "upm_utilities.h"
 #include "mraa.h"
 #include "mraa/firmata.h"
 #include <iostream>
