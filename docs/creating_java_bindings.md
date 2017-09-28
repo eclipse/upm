@@ -12,25 +12,25 @@ Creating Java Bindings Guide
   * [Implementing callbacks in Java](#implementing-callbacks-in-java)
 
 
-##Overview
+## Overview
 
 The "Creating Java Bindings Guide" serves as a basic tutorial for using the SWIG software development tool to create 'glue code' required for Java to call into C/C++ code. It contains: guides for dealing with type conversions, exception handling, callbacks; recommendations on how to write/modify the native API to avoid issues on the Java side, and also workarounds for those issues that can't be avoided.
 
 This guide was created with the [upm](https://github.com/intel-iot-devkit/upm/) and [mraa](https://github.com/intel-iot-devkit/mraa) libraries in mind, and uses examples taken from these sources, but its usage can be extended to any project of creating Java bindings for C/C++ libraries.
 
-##Tools of trade
+## Tools of trade
 
 [SWIG General Documentation](http://www.swig.org/Doc3.0/SWIGDocumentation.html)
 
 [SWIG Java-specific Documentation](http://www.swig.org/Doc3.0/Java.html)
 
 
-##Recommendations for the native API
+## Recommendations for the native API
 
-###Pointers
+### Pointers
 As much as possible, avoid passing values/returning values through pointers given as as arguments to methods. As the Java language does not have pointers, SWIG provides a [workaround](http://www.swig.org/Doc3.0/Java.html#Java_tips_techniques) in the typemaps.i library.
 
-####Alternatives:
+#### Alternatives:
 1. Functions that read data from a driver, return it through a pointer given as argument, and return a bool value, should be __replaced by__ functions that return the value directly and throw a std::runtime_error if a read error occurs. E.g.:
   ```c++
   /*  
@@ -103,8 +103,8 @@ __Notice:__
 Sometimes, you may be required to write JNI code. Be aware of the difference between the C JNI calling syntax and the C++ JNI calling syntax.The C++ calling syntax will not compile as C and also vice versa. It is however possible to write JNI calls which will compile under both C and C++ and is covered in the [Typemaps for both C and C++ compilation](http://www.swig.org/Doc3.0/Java.html#Java_typemaps_for_c_and_cpp) section of the SWIG Documentation.
 
 
-###Throwing Exceptions in Java
-####Language independent:
+### Throwing Exceptions in Java
+#### Language independent:
 The %exception directive allows you to define a general purpose exception handler. For example, you can specify the following:
 
 ```c++
@@ -155,7 +155,7 @@ The upm_exception.i interface file is included in the upm.i file, therefor SWIG 
 * std::exception
 
 
-####Java specific:
+#### Java specific:
 To throw a specific Java exception:
 
 ```c++
@@ -196,12 +196,12 @@ In the upm library, the java_exceptions.i library file provides the functionalit
 void function throws IOException ();  
 ```
 
-##Caveats & Challenges
+## Caveats & Challenges
 
-###Wrapping C arrays with Java arrays
+### Wrapping C arrays with Java arrays
 SWIG can wrap arrays in a more natural Java manner than the default by using the arrays_java.i library file. Just include this file into your SWIG interface file.
 
-###Wrapping unbound C arrays with Java arrays if array is output
+### Wrapping unbound C arrays with Java arrays if array is output
 Functions that return arrays, return a pointer to that array. E.g.:
 
 ```c++
@@ -229,7 +229,7 @@ __SWIG:__
 }  
 ```
 
-###Wrapping unbound C arrays with Java arrays if array is input
+### Wrapping unbound C arrays with Java arrays if array is input
 In C, arrays are tipically passed as pointers, with an integer value representig the length of the array. In Java, the length of an array is always known, so the length argument is redundant. This example shows how to wrap the C array and also get rid the length argument. E.g.:
 
 ```c++
@@ -252,7 +252,7 @@ __SWIG:__
 !!!! There is a difference between TYPE *name and TYPE * name in typemaps!!!!!
 
 
-###Implementing callbacks in Java
+### Implementing callbacks in Java
 Callbacks in the UPM Java library (as well as the MRAA Java library) make use of the _void mraa\_java\_isr\_callback(void\* data\)_ method from MRAA.  
 
 __Callbacks in the UPM Java library are implemented as follows (we use the a110x Hall Effect sensors as example):__
@@ -313,7 +313,7 @@ class A110XISR implements Runnable {
     }
 }
 ```
-####Issues with java callbacks and workarounds
+#### Issues with java callbacks and workarounds
 
 __SWIGJAVA not defined at compile time__
 
