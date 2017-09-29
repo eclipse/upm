@@ -143,7 +143,7 @@ namespace upm {
      * @param baud Desired baud rate.
      * @return true if successful
      */
-    mraa::Result setBaudRate(int baud=19200);
+    int setBaudRate(int baud=19200);
 
 
   protected:

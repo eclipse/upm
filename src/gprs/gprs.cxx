@@ -65,8 +65,14 @@ int GPRS::writeDataStr(std::string data)
   return m_uart.writeStr(data);
 }
 
-mraa::Result GPRS::setBaudRate(int baud)
+int GPRS::setBaudRate(int baud)
 {
-  return m_uart.setBaudRate(baud);
+  int ret_code = m_uart.setBaudRate(baud);
+  if (ret_code != MRAA_SUCCESS) {
+    return ret_code;
+  } else {
+    return 0;
+  }
+  //return m_uart.setBaudRate(baud);
 }
 

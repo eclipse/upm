@@ -71,7 +71,7 @@ main(int argc, char** argv)
     upm::GroveGPRS sensor(0);
 
     // Set the baud rate, 19200 baud is the default.
-    if (sensor.setBaudRate(19200) != mraa::SUCCESS) {
+    if (sensor.setBaudRate(19200) != 0) {
         cerr << "Failed to set tty baud rate" << endl;
         return 1;
     }

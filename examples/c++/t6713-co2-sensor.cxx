@@ -40,7 +40,7 @@ int
 main()
 {
     /* Create an instance of the T6713 sensor */
-    upm::T6713 sensor(mraa_get_sub_platform_id(FT4222_I2C_BUS));
+    upm::T6713 sensor(EDISON_I2C_BUS);
 
     /* Show usage from the ICO2Sensor interface */
     upm::ICO2Sensor* cO2Sensor = static_cast<upm::ICO2Sensor*>(&sensor);

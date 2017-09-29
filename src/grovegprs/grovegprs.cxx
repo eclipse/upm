@@ -65,8 +65,14 @@ int GroveGPRS::writeDataStr(std::string data)
   return m_uart.writeStr(data);
 }
 
-mraa::Result GroveGPRS::setBaudRate(int baud)
+int GroveGPRS::setBaudRate(int baud)
 {
-  return m_uart.setBaudRate(baud);
+  int ret_code = m_uart.setBaudRate(baud);
+  if (ret_code != mraa::SUCCESS) {
+    return ret_code;
+  } else {
+    return 0;
+  }
+  //return m_uart.setBaudRate(baud);
 }
 
