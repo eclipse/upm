@@ -67,7 +67,6 @@ As much as possible, avoid passing values/returning values through pointers give
   ```
 
 3. Functions that return N values through pointers, that do not make sense to grouped together (e.g. a general purpose function that returns both the light intensity and air pollution), should be __replaced by__ N functions (one for each value) that read only one specific value. E.g.:
-
   ```c++
   /*  
    * Function returns the light intensity and air pollution  
@@ -82,7 +81,6 @@ As much as possible, avoid passing values/returning values through pointers give
   ```
 
 4. Functions that return N values through pointers; values that do not make sense to be grouped together, but are time dependent, and make sense to be read at the same time. For example, a sensor that reads air humidity and temperature. A user may want to know the temperature value _temp_ read at the exact moment the humidity value _humid_ was read. These should be __replaced by__ N+1 functions: a _getData()_ function that reads all values at the same time and stores them in global variables; and N getter functions, one for each value. E.g.
-
   ```c++
   /*  
    * Function returns the light intensity and air pollution  
@@ -325,17 +323,15 @@ Consider the following files:
 The build process of a java module using SWIG is split into two steps:
 
 1. Generating the intermediate files, from the SWIG interface file. This will produce the java class file (Example.java), the JNI file (exampleJNI.java) and wrapper file (example_wrap.cxx). The source file (example.cxx) is not needed in the first step.
-
   ```
-swig -c++ -java example.i
+  swig -c++ -java example.i
   ```
 
 2. Generating the shared library from the C++ sources and wrapper file
   ```
-g++ -fPIC -c example.cxx example_wrap.cxx -I/usr/lib/jvm/java-1.8.0/include -I/usr/lib/jvm/java-1.8.0/include/linux
-g++ -shared example_wrap.o sensor.o -o libexample.so
+  g++ -fPIC -c example.cxx example_wrap.cxx -I/usr/lib/jvm/java-1.8.0/include -I/usr/lib/jvm/java-1.8.0/include/linux
+  g++ -shared example_wrap.o sensor.o -o libexample.so
   ```
-
 
 SWIGJAVA is always defined when SWIG parses the interface file, meaning it will be defined when it parses the header file (example.h) that is included in the interface file (example.i).
 SWIG also adds the "#define SWIGJAVA" directive in the wrapper file (example_wrap.cxx).
