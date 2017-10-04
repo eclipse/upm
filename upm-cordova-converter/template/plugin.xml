@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-upm-_PACKAGE_NAME_"
+    version="_VERSION_">
+
+    <name>upm _PACKAGE_NAME_</name>
+    <description>Cordova plugin upm _PACKAGE_NAME_</description>
+    <license>MIT</license>
+    <keywords>cordova, upm, _PACKAGE_NAME_</keywords>
+
+_JS_MODULES_
+
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+_CONFIG_FEATURE_
+        </config-file>
+
+_SOURCE_FILE_
+
+        <framework src="src/android/androidThings.gradle" custom="true" type="gradleReference"/>
+
+    </platform>
+
+</plugin>

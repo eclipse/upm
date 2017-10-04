@@ -8,6 +8,7 @@ option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF
 option (BUILDSWIGPYTHON "Build swig python modules" ON)
 option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
+option (BUILDCORDOVAPLUGIN"Build cordova plugins" OFF)
 option (BUILDEXAMPLES "Build C/C++/JAVA examples" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
@@ -429,6 +430,20 @@ set (UPM_COMMON_HEADER_DIRS ${CMAKE_HOME_DIRECTORY}/include)
 
 # Generate a build-only C++ header to add functionality to SWIG'ed modules
 configure_file (${PROJECT_SOURCE_DIR}/cmake/modules/version.hpp.in ${PROJECT_BINARY_DIR}/src/version.hpp @ONLY)
+
+# Cordova plugin
+if (BUILDCORDOVAPLUGIN)
+  if (BUILDSWIGJAVA)
+  else()
+    message(FATAL_ERROR "Must enable java binding first")
+  endif()
+
+  find_package (Node REQUIRED)
+
+  add_custom_target(cordova_plugin ALL
+                    COMMAND ${NODEJS_EXECUTABLE} ${CMAKE_SOURCE_DIR}/upm-cordova-converter/main.js ${CMAKE_BINARY_DIR}/src ${VERSION}
+                    COMMENT "Generating Cordova plugins based on Java binding")
+endif (BUILDCORDOVAPLUGIN)
 
 # UPM source
 add_subdirectory (src)
