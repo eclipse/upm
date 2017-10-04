@@ -19,72 +19,108 @@ We currently document our libraries in the following way:
   the [UPM Libraries page](https://iotdk.intel.com/docs/master/upm/modules.html).
   You can learn more about the Doxygen syntax [here](http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html).
 * **JSON** is used to provide sensor specifications, descriptions, supported
-  platforms, links and many more.
+  platforms, links and other details.
 
 When submitting a new driver, you will have to at least fill out the mandatory
 fields as described below.
 
 ### The library JSON file
 
-Let's use the bme280.json file for the BME280 sensor as an example:
+Let's use the BME280 class snippet from the bmp280.json file as an example:
 
 ```json
 {
-    "library": "bmp280",
-    "description": "Bosch Atmospheric Sensor Library",
-    "classes":
+    "Library": "bmp280",
+    "Description": "Bosch Atmospheric Sensor Library",
+    "Sensor Class":
     {
         "BME280":
         {
-            "names": ["Digital Humidity, Pressure, and Temperature Sensor", "Grove Temp&Humi&Barometer Sensor", "BME280"],
-            "categories": ["pressure", "humidity", "temperature"],
-            "connections": ["gpio", "i2c", "spi"],
-            "manufacturers": ["adafruit", "seeed"],
-            "kits": [],
-            "images": ["bme280.jpeg"],
-            "examples": ["bmp280-bme280.c", "bmp280-bme280.cxx", "BME280_Example.java", "bme280.js", , "bme280.py"],
-            "usage": ["prototype", "product"],
-            "description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor",
-            "specifications":
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor",
+            "Aliases": ["bme280", "Grove - Barometer Sensor(BME280)"],
+            "Categories": ["pressure", "humidity", "temperature"],
+            "Connections": ["gpio", "i2c", "spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["adafruit", "seeed", "bosch"],
+            "Examples":
             {
-                "vdd": {"low": "1.7V", "high": "3.6V"},
-                "ioff" : {"low": "0.0A", "high": "0.0A"},
-                "iavg": {"low": "0.1uA", "high": "0.1uA"},
-                "Pressure range" : "300...1100 hPa",
-                "Temperature range" : "-40...85°C"
+                "Java": ["BMP280_Example.java"],
+                "Python": ["bmp280.py"],
+                "Node.js": ["bmp280.js"],
+                "C++": ["bmp280.cxx"],
+                "C": ["bmp280.c"]
             },
-            "platforms":
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Ioff" : {"unit": "mA", "low" : 0.0, "high": 0.0},
+                "Iavg": {"unit": "mA", "low" : 1, "high": 2},
+                "Pressure Range": {"unit": "hpA", "low" : 300, "high": 1100},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
             {
                 "Intel Joule Module":
                 {
-                    "notes": ["Requires pull-up resistors with carrier board"],
-                    "images": [""]
+                    "Notes": ["Requires pull-up resistors with carrier board"]
                 }
             },
-            "urls" :
+            "Urls" :
             {
-                "products": ["https://www.adafruit.com/products/2652", "https://www.seeedstudio.com/Grove-Temp%26Humi%26Barometer-Sensor-%28BME280%29-p-2653.html"],
-                "datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf"],
-                "schematics": ["https://learn.adafruit.com/assets/26693"]
+                "Product Pages": ["https://www.adafruit.com/products/2652"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/26693"]
             }
         }
     }
 }
 ```
 
-**Mandatory fields:**
-- `names` Title Case descriptive names for your sensor. Multiple values can be
-  used to capture the chip name, generic name, or specific name for a vendor.
-  Examples: Digital Pressure Sensor, Serial MP3 Module, 
-- `categories` Mention one or more categories the sensor fits in. Accepted
-  values are listed in the groups.md file.
-- `connections` Specifies how does the sensor connect to the board. Accepted
-  values are listed in the groups.md file.
-- `manufacturers` List of sensor manufacturers or vendors. Can be 'generic',
-  other accepted values in groups.md.
+#### Mandatory fields:
 
-**Optional and customizable fields**
-- `kits` Specifies if the sensor is part of a kit.
+For the library:
+
+- `Library` The name of the library. This is appended to the upm prefix during
+  a build.
+- `Description` A short description of the library and what it contains.
+
+For the sensor classes:
+
+- `Sensor Class` This is the object containing the sensor class(es) within the
+  library. Class objects need to match the name used in code.
+- `Name` Title Case descriptive names for your sensor. Multiple values can be
+  used to capture the chip name, generic name, or specific name for a vendor.
+  Examples: Digital Pressure Sensor, Serial MP3 Module
+- `Description` A more detailed explanation what the sensor does and how it
+  works.
+- `Categories` Mention one or more categories the sensor fits in. Accepted
+  values are listed in the groups.md file.
+- `Connections` Specifies how does the sensor connect to the board. Accepted
+  values are listed in the groups.md file.
+- `Project Type` What time of projects is the sensor suited for. For example:
+  prototyping, industrial, commercial.
+- `Manufacturers` List of sensor manufacturers or vendors. Can be 'generic',
+  other accepted values in groups.md.
+- `Examples` Names of the example files provided with the library. At a minimum,
+  the `C++` example needs to be provided.
+- `Urls` At least one link for `Product Pages` needs to be provided. Additional
+  links to `Datasheets` or `Schematics` can be added.
+
+#### Optional and customizable fields
+
+- `Kits` Specifies if the sensor is part of a kit. Accepted values are listed
+ in the groups.md file.
+- `Image` Name of the image file provided with the sensor class.
+- `Specifications` Relevant sensor specifications as listed in the datasheet.
+- `Platforms` Platform specific notes or known limitations and workarounds.
+
+As mentioned, accepted values for some of the fields are listed under the
+[groups.md](../src/groups.md) file. If needed, you can add new categories
+for your sensor library following the existing format.
+
+JSON files are automatically checked for correctness and required fields on
+code submissions.
 
 **Please do not use copyrighted images with your sensors!**
 
@@ -148,3 +184,9 @@ When adding to an existing library, `<lib-name>` needs to match that library's
 "@defgroup".
 
 For more examples take a look at the existing headers in our github repository.
+Also, make sure to check our [sensortemplate](contributions.md#creating-a-new-sensor-library-using-the-sensortemplate)
+as it can facilitate new sensor additions.
+
+Existing header files might have additional fields under the sensor block. These
+have been used in the past to generate sensor pages outside of doxygen, but they
+are now deprecated and not required for new additions.
