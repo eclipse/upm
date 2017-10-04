@@ -860,7 +860,8 @@ EXCLUDE_SYMLINKS       = NO
 # bmi160 driver contains code provided by bosch.  This source contains
 # tags which are picked up by doxygen (namely \mainpage) and
 # incorrectly get added to docs.
-EXCLUDE_PATTERNS       = bosch_*
+EXCLUDE_PATTERNS       = bosch_* \
+                         sensortemplate*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
