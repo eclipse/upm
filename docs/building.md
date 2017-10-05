@@ -132,6 +132,34 @@ autotools on linux.
 pkg-config --cflags --libs upm-i2clcd
 ~~~~~~~~~~~
 
+## Building for Android Things
+
+Requirements:
+* [io.mraa.at](https://search.maven.org/#artifactdetails%7Cio.mraa.at%7Cmraa%7C1.8.0%7Caar)
+* [io.mraa.at.upm](https://search.maven.org/#artifactdetails%7Cio.mraa.at.upm%7Cupm_zfm20%7C1.3.0%7Caar)
+* [Android NDK](https://developer.android.com/ndk/downloads/index.html) >= 14b
+
+### Android NDK r14b
+
+~~~~~~~~~~~~~{.sh}
+NDK_HOME="/path/to/android-ndk-r14b"
+MRAA_INSTALL_DIR="/path/to/mraa/install"
+
+cmake -DBUILDSWIG=ON \
+      -DBUILDSWIGPYTHON=OFF \
+      -DBUILDSWIGNODE=OFF \
+      -DBUILDSWIGJAVA=ON \
+      -DANDROID_COMPILER_FLAGS_CXX='-std=c++11' \
+      -DANDROID_PIE=1 \
+      -DANDROID_PLATFORM=android-24 \
+      -DANDROID_STL_FORCE_FEATURES=ON \
+      -DANDROID_STL=c++_shared \
+      -DANDROID_TOOLCHAIN_NAME=x86-i686 \
+      -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
+      -DCMAKE_FIND_ROOT_PATH=$MRAA_INSTALL_DIR \
+      ..
+~~~~~~~~~~~~~
+
 ## Building with Docker
 
 You can use `docker` and `docker-compose` to generate a complete build environment
