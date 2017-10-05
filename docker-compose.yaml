@@ -96,6 +96,14 @@ services:
       - BUILDTESTS=OFF
     command: bash -c "./scripts/build-android.sh"
 
+  cordova:
+    extends: base
+    image: dnoliver/upm-all
+    environment:
+      - BUILDSWIGJAVA=ON
+      - BUILDCORDOVAPLUGIN=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
+
   node4:
     extends: base
     image: dnoliver/upm-node4
