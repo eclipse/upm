@@ -91,18 +91,11 @@ services:
 
   android:
     extends: java
-    image: dnoliver/upm-android
+    image: dnoliver/upm-android:android-things-cordova
     environment:
       - BUILDTESTS=OFF
-    command: bash -c "./scripts/build-android.sh"
-
-  cordova:
-    extends: base
-    image: dnoliver/upm-all
-    environment:
-      - BUILDSWIGJAVA=ON
       - BUILDCORDOVAPLUGIN=ON
-    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
+    command: bash -c "./scripts/build-android.sh"
 
   node4:
     extends: base
