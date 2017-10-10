@@ -4,6 +4,12 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# v1.5.0
+
+ * **VEML6070** This sensor class no longer needs an I2C address when
+ initialized, since they are fixed. Only the I2C bus number needs to
+ be provided.
+
 # v1.3.0
 
  * **The lsm303 driver has been renamed** There are a variety of

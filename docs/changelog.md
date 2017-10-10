@@ -4,6 +4,20 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.5.0
+
+ * Introduced a flexible JSON format for technical sensor specifications, notes
+ and classification. This is also used by our [new UPM website](http://upm.mraa.io)
+ * Revised all C++ sensor examples and switched to stack allocations where
+ possible along with other code and formatting clean-up
+ * Significantly improved docker workflow, CI integration, sanity and
+ consistency tests, static code scans and documentation generation
+ * Several improvements to a couple of existing sensor drivers and better
+ compatibility with subplatforms
+ * Added new std::vector to AbstractList<> typemap for Java bindings and
+ examples
+ * New sensors: lis2ds12, lsm6ds3h, lsm6dsl, lidarlitev3
+
 ### v1.3.0
 
  * Finalized all required build system and JAVA binding changes to release the
