@@ -502,7 +502,7 @@ int ecezo_send_command(const ecezo_context dev, char *cmd, char *buffer,
             return -1;
         }
 
-        strcat(writeBuffer, "\r");
+        strncat(writeBuffer, "\r", 2);
     }
 
     // for the uart this will now include the added CR, for I2C, this
