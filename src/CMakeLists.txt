@@ -744,6 +744,10 @@ function(upm_module_init)
     endif (BUILDSWIGNODE)
     if (BUILDSWIGJAVA)
       upm_swig_java()
+
+      if (BUILDCORDOVAPLUGIN AND NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
+        add_dependencies(cordova_plugin javaupm_${libname})
+      endif()
     endif (BUILDSWIGJAVA)
   endif (NOT IS_C_LIBRARY)
 

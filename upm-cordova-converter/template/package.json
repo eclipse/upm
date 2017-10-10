@@ -1,0 +1,25 @@
+{
+  "name": "cordova-plugin-upm-_PACKAGE_NAME_",
+  "version": "_VERSION_",
+  "description": "Cordova plugin upm _PACKAGE_NAME_",
+  "types": "./types/index.d.ts",
+  "cordova": {
+    "id": "cordova-plugin-upm-_PACKAGE_NAME_",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/01org/cordova-plugin-upm-_PACKAGE_NAME_.git"
+  },
+  "keywords": [ "cordova", "upm", "_PACKAGE_NAME_" ],
+  "license": "MIT",
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  }
+}

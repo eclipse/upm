@@ -1,0 +1,25 @@
+
+cdvPluginPostBuildExtras.add({
+    android {
+        compileSdkVersion 25
+        buildToolsVersion "25.0.0"
+
+        defaultConfig {
+            minSdkVersion 24
+            targetSdkVersion 25
+
+            jackOptions {
+                enabled true
+            }
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+    dependencies {
+        compile 'io.mraa.at.upm:upm__PACKAGE_NAME_:_VERSION_'
+    }
+})

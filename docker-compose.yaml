@@ -91,9 +91,10 @@ services:
 
   android:
     extends: java
-    image: dnoliver/upm-android
+    image: dnoliver/upm-android:android-things-cordova
     environment:
       - BUILDTESTS=OFF
+      - BUILDCORDOVAPLUGIN=ON
     command: bash -c "./scripts/build-android.sh"
 
   node4:
