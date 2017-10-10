@@ -31,7 +31,7 @@ namespace upm {
     /**
      * @brief Honeywell RSC TruStability Pressure and Temperature Sensors
      * @defgroup rsc libupm-rsc
-     * @ingroup honeywell spi pressure temperature
+     * @ingroup honeywell spi pressure temp
      */
 
     /**
