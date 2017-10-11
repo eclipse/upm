@@ -1,8 +1,45 @@
 #!/usr/bin/env bash
-
+#
+# The script is used to build .aar packages for Upm modules.
+#
+# Author: Nicolas Oliver <dario.n.oliver@intel.com>
+#
+# All environment variables used are passed from docker-compose.
+# Those environment variables can also be declared in the host,
+# and this script can be used to build .aar packages without using
+# docker-compose.
+#
+# Environment variables:
+#    - NDK_HOME - Path to Android NDK install folder. i.e. /opt/android-ndk-r14b/
+#    - MRAA_INSTALL_DIR - Path to Mraa library install folder. i.e /opt/mraa/install/
+#    - JAVA_HOME - Path to Java install folder. i.e. /usr/lib/jvm/java-8-openjdk-amd64/
+#
+# IMPORTANT: MRAA_INSTALL_DIR must contain an mraa version built for Android Things.
 set -e
 
-export PKG_CONFIG_LIBDIR="$NDK_HOME/platforms/android-24/arch-x86/usr/lib:$MRAA_INSTALL_DIR/lib/pkgconfig/"
+# Check required environment variables and exit if they are not set
+function check_environment {
+  VAR_NAME=$1
+  VAR_VALUE=$2
+  # Check required parameters
+  VAR_NAME=${VAR_NAME:?value not provided}
+  # Chek if variable is set
+  if [ -z "${VAR_VALUE}" ]; then
+    echo "Required environment variable ${VAR_NAME} is not defined. Exiting..."
+    exit 1;
+  else
+    echo "Required environment variable ${VAR_NAME} is set."
+  fi
+}
+
+# Check for required environment variables
+check_environment "NDK_HOME" ${NDK_HOME}
+check_environment "MRAA_INSTALL_DIR" ${MRAA_INSTALL_DIR}
+check_environment "JAVA_HOME" ${JAVA_HOME}
+
+PKG_CONFIG_LIBDIR="$NDK_HOME/platforms/android-24/arch-x86/usr/lib"
+PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR":$MRAA_INSTALL_DIR/lib/pkgconfig/"
+export PKG_CONFIG_LIBDIR
 
 cmake \
   -DANDROID_COMPILER_FLAGS_CXX='-std=c++11' \
@@ -30,8 +67,7 @@ make -j8 -Cbuild
 
 # Anotate the .java src from doxygen
 find src/ -name "javaupm_*.i" > build/upm.i.list
-# TODO: install doxy port tool
-#doxyport build/upm.i.list \
+#../doxy/doxyport build/upm.i.list \
 #  -s src/interfaces/,src/bacnetmstp,src/bmg160,src/bma250e,src/bmm150 \
 #  -m doxy/samples.mapping.txt \
 #  -d build/src/ \
