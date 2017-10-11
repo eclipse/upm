@@ -192,7 +192,7 @@ $ docker run \
       --env BUILDSWIGPYTHON=ON \
       --env BUILDSWIGJAVA=OFF \
       --env BUILDSWIGNODE=OFF \
-      dnoliver/upm-python \
+      inteliotdevkit/upm-python \
       bash -c "./scripts/run-cmake.sh && make -Cbuild"
 ```
 
@@ -226,6 +226,6 @@ $ docker run \
     --env http_proxy=$http_proxy \
     --env https_proxy=$https_proxy \
     --env no_proxy=$no_proxy \
-    dnoliver/upm-python \
+    inteliotdevkit/upm-python \
     bash -c "./scripts/run-cmake.sh && make -Cbuild"
 ```
