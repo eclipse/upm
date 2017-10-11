@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   base:
-    image: dnoliver/upm-base
+    image: inteliotdevkit/upm-base
     environment:
       - http_proxy
       - https_proxy
@@ -26,9 +26,12 @@ services:
     volumes:
       - .:${UPM_SRC_DIR:-/usr/src/app}
 
-  doc:
+  all:
     extends: base
-    image: dnoliver/upm-all
+    image: inteliotdevkit/upm-all
+
+  doc:
+    extends: all
     environment:
       - BUILDSWIGPYTHON=ON
       - BUILDSWIGJAVA=ON
@@ -37,29 +40,28 @@ services:
     command: bash -c "./scripts/run-cmake.sh && ./scripts/build-doc.sh"
 
   ipk:
-    extends: base
+    extends: all
     environment:
       - IPK=ON
       - BUILDDOC=OFF
     command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
 
   rpm:
-    extends: doc
+    extends: all
     environment:
       - RPM=ON
       - BUILDDOC=OFF
     command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
 
   npm:
-    extends: doc
+    extends: all
     environment:
       - NPM=ON
       - BUILDDOC=OFF
     command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 npmpkg"
 
   sonar-scan:
-    extends: base
-    image: dnoliver/upm-all
+    extends: all
     environment:
       - BUILDSWIGPYTHON=ON
       - BUILDSWIGNODE=ON
@@ -77,36 +79,36 @@ services:
 
   python:
     extends: base
-    image: dnoliver/upm-python
+    image: inteliotdevkit/upm-python
     environment:
       - BUILDSWIGPYTHON=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   java:
     extends: base
-    image: dnoliver/upm-java
+    image: inteliotdevkit/upm-java
     environment:
       - BUILDSWIGJAVA=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   android:
     extends: java
-    image: dnoliver/upm-android
+    image: inteliotdevkit/upm-android
     environment:
       - BUILDTESTS=OFF
     command: bash -c "./scripts/build-android.sh"
 
   node4:
     extends: base
-    image: dnoliver/upm-node4
+    image: inteliotdevkit/upm-node4
     environment:
       - BUILDSWIGNODE=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
 
   node5:
     extends: node4
-    image: dnoliver/upm-node5
+    image: inteliotdevkit/upm-node5
 
   node6:
     extends: node4
-    image: dnoliver/upm-node6
+    image: inteliotdevkit/upm-node6
