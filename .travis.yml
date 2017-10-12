@@ -72,6 +72,8 @@ jobs:
     - <<: *run-additional-jobs
       env: TARGET=android
     - <<: *run-additional-jobs
+      env: TARGET=examples
+    - <<: *run-additional-jobs
       env: TARGET=sonar-scan
     - <<: *run-additional-jobs
       env: TARGET=ipk

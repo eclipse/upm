@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -x
+set -e
+
 # Run cmake
 cmake \
   -DSWIG_EXECUTABLE=/usr/bin/swig \
