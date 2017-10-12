@@ -14,7 +14,7 @@ services:
       - BUILDSWIGPYTHON=${BUILDSWIGPYTHON:-OFF}
       - BUILDSWIGJAVA=${BUILDSWIGJAVA:-OFF}
       - BUILDSWIGNODE=${BUILDSWIGNODE:-OFF}
-      - BUILDEXAMPLES=${BUILDEXAMPLES:-ON}
+      - BUILDEXAMPLES=${BUILDEXAMPLES:-OFF}
       - IPK=${IPK:-OFF}
       - RPM=${RPM:-OFF}
       - NPM=${NPM:-OFF}
@@ -38,6 +38,15 @@ services:
       - BUILDSWIGNODE=ON
       - BUILDDOC=ON
     command: bash -c "./scripts/run-cmake.sh && ./scripts/build-doc.sh"
+
+  examples:
+    extends: all
+    environment:
+      - BUILDSWIGPYTHON=ON
+      - BUILDSWIGJAVA=ON
+      - BUILDSWIGNODE=ON
+      - BUILDEXAMPLES=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
 
   ipk:
     extends: all
@@ -66,7 +75,7 @@ services:
       - BUILDSWIGPYTHON=ON
       - BUILDSWIGNODE=ON
       - BUILDSWIGJAVA=ON
-      - BUILDSWIGEXAMPLES=ON
+      - BUILDEXAMPLES=ON
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAR_PROJ_KEY
