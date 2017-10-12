@@ -26,6 +26,7 @@
 #pragma once
 
 #include <mraa/firmata.h>
+#include <pthread.h>
 #include <queue>
 
 #define FIRMATA_START_SYSEX                 0xF0
