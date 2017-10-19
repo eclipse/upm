@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   base:
-    image: inteliotdevkit/upm-base
+    image: inteliotdevkit/upm-base:move-examples-to-addition-jobs
     environment:
       - http_proxy
       - https_proxy
@@ -28,7 +28,7 @@ services:
 
   all:
     extends: base
-    image: inteliotdevkit/upm-all
+    image: inteliotdevkit/upm-all:move-examples-to-addition-jobs
 
   doc:
     extends: all
@@ -88,36 +88,36 @@ services:
 
   python:
     extends: base
-    image: inteliotdevkit/upm-python
+    image: inteliotdevkit/upm-python:move-examples-to-addition-jobs
     environment:
       - BUILDSWIGPYTHON=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   java:
     extends: base
-    image: inteliotdevkit/upm-java
+    image: inteliotdevkit/upm-java:move-examples-to-addition-jobs
     environment:
       - BUILDSWIGJAVA=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
 
   android:
     extends: java
-    image: inteliotdevkit/upm-android
+    image: inteliotdevkit/upm-android:move-examples-to-addition-jobs
     environment:
       - BUILDTESTS=OFF
     command: bash -c "./scripts/build-android.sh"
 
   node4:
     extends: base
-    image: inteliotdevkit/upm-node4
+    image: inteliotdevkit/upm-node4:move-examples-to-addition-jobs
     environment:
       - BUILDSWIGNODE=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
 
   node5:
     extends: node4
-    image: inteliotdevkit/upm-node5
+    image: inteliotdevkit/upm-node5:move-examples-to-addition-jobs
 
   node6:
     extends: node4
-    image: inteliotdevkit/upm-node6
+    image: inteliotdevkit/upm-node6:move-examples-to-addition-jobs
