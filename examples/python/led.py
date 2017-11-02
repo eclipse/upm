@@ -22,11 +22,11 @@ from __future__ import print_function
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-from upm import pyupm_led as led
+from upm import pyupm_led
 
 def main():
     # Create the Grove LED object using GPIO pin 2
-    led = led.Led(2)
+    led = pyupm_led.Led(2)
 
     # Print the name
     print(led.name())
@@ -38,9 +38,6 @@ def main():
         time.sleep(1)
         led.off()
         time.sleep(1)
-
-    # Delete the Grove LED object
-    del led
 
 if __name__ == '__main__':
     main()
