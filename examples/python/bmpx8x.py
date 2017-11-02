@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Zion Orent <zorent@ics.com>
 # Author: Jon Trulson <jtrulson@ics.com>
 # Copyright (c) 2014-2017 Intel Corporation.

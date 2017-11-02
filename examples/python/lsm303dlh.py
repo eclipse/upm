@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Author: Brendan Le Foll <brendan.le.foll@intel.com>
 # Contributions: Zion Orent <zorent@ics.com>

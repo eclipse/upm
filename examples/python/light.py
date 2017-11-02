@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Sarah Knepper <sarah.knepper@intel.com>
 # Copyright (c) 2014 Intel Corporation.
 #

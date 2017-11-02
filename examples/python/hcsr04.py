@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Abhishek Malik <abhishek.malik@intel.com>
 # Copyright (c) 2017 Intel Corporation.
 #

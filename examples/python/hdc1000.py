@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Norbert Wesp <nwesp@phytec.de>
 # Copyright (c) 2017 Phytec Messtechnik GmbH.
 #

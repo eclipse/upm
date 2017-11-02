@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Noel Eck <noel.eck@intel.com>
 # Copyright (c) 2016 Intel Corporation.
 #

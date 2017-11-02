@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Author: Ron Evans (@deadprogram)
 # Copyright (c) 2016 Intel Corporation.

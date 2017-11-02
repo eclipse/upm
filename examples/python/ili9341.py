@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Shawn Hymel
 # Copyright (c) 2016 SparkFun Electronics
 #

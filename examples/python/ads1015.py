@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2016 Intel Corporation.
 #

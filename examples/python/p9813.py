@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Sergey Kiselev <sergey.kiselev@intel.com>
 # Copyright (c) 2016 Sergey Kiselev
 # Based on the apa102 driver writen by Yannick Adam <yannick.adam@gmail.com>

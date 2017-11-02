@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author:  Yannick Adam <yannick.adam@gmail.com>
 # Copyright (c) 2016 Yannick Adam
 #

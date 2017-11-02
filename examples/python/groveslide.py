@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from __future__ import print_function
 # Author: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2014 Intel Corporation.

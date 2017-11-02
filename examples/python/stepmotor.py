@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author:  Mihai Tudor Panu <mihai.tudor.panu@intel.com>
 # Copyright (c) 2015 Intel Corporation.
 #

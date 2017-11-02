@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # The MIT License (MIT)
 #
 # Author: Your Full Name <your@email.address>
