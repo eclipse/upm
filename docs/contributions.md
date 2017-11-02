@@ -125,6 +125,8 @@ function make_new_sensor {
     # Search/replace the new files, replacing all instances of sensortemplate
     perl -p -i -e "s/SensorTemplate/${SensorName}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
     perl -p -i -e "s/sensortemplate/${sensorname}/g" src/${sensorname}/* examples/*/*${sensorname}* examples/*/*${SensorName}*
+    # Remove objects starting with "//" from the new library descriptor .json file
+    perl -p -i -e 'BEGIN{undef $/;} s/\s+"\/\/.*?},//smg' src/${sensorname}/${sensorname}.json
     # Add mynewmodule example target for java
     perl -p -i -e "s/^((.*)SensorTemplateSample sensortemplate(.*))/\1\n\2${SensorName}Sample ${sensorname}\3/g" examples/java/CMakeLists.txt
     # Add mynewmodule example mappings for doxygen

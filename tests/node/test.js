@@ -68,11 +68,11 @@ function checkObjectSpecs(object, target) {
       var realKeyName = key.replace('// ', '');
 
       /**
-       * "TemplateItem" is a special case
-       * For objects, the TemplateItem define
+       * "SensorTemplate" is a special case
+       * For objects, the SensorTemplate define
        * the specs for each of the items in the object
        */
-      if (realKeyName === 'TemplateItem') {
+      if (realKeyName === 'SensorTemplate') {
         for (var key in target) {
           (function(key, target){
             /**
@@ -89,7 +89,7 @@ function checkObjectSpecs(object, target) {
                 describe(key, function () {
                   checkObjectSpecs(object, target);
                 });
-              })(object['TemplateItem'], target[key]);
+              })(object['SensorTemplate'], target[key]);
             }
           })(key, target);
         }

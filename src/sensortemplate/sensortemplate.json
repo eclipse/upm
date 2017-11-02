@@ -17,12 +17,12 @@
         "required": true
     },
     "Sensor Class": {
-        "// TemplateItem": {
+        "// SensorTemplate": {
             "comment": "Template Item",
             "type": "object",
             "required": true
         },
-        "TemplateItem": {
+        "SensorTemplate": {
             "// Name": {
                 "comment": "Sensor display name as indicated by the datasheet or manufacturer",
                 "type": "string",
@@ -86,7 +86,7 @@
                 "type": "string",
                 "required": false
             },
-            "Image": "sensortemplate.jpg",
+            "Image": "sensortemplate.png",
             "// Examples": {
                 "comment": "Functional examples showing the main use cases for this sensor class. At least one is required.",
                 "type": "object",
