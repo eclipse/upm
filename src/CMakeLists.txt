@@ -764,6 +764,13 @@ function(upm_module_init)
   # Install header files to include/upm/
   install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
 
+  # Install JSON library descriptor files into datadir (if they exist)
+  if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json")
+    install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json"
+      DESTINATION ${CMAKE_INSTALL_DATADIR}/upm/${basename}
+      COMPONENT ${basename})
+  endif ()
+
   if (IPK)
     cpack_add_component (${libname} DISPLAY_NAME ${libname} REQUIRED INSTALL_TYPES all)
     set(CPACK_COMPONENT_${libname}_DESCRIPTION "${libdescription}")
