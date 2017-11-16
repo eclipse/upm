@@ -117,4 +117,16 @@ if(BUILDEXAMPLES)
     if(BUILDSWIGJAVA)
         add_subdirectory (java)
     endif()
+
+    # Add all examples as an install component (if building examples)
+    install (DIRECTORY ${PROJECT_SOURCE_DIR}/examples
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/upm/
+        COMPONENT ${CMAKE_PROJECT_NAME}-examples
+        FILES_MATCHING
+            PATTERN "*.c"
+            PATTERN "*.cxx"
+            PATTERN "*.hpp"
+            PATTERN "*.java"
+            PATTERN "*.js"
+            PATTERN "*.py")
 endif()
