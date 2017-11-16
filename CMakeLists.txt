@@ -456,4 +456,5 @@ endif()
 
 # Install C headers
 install(DIRECTORY include/ DESTINATION include/upm
+    COMPONENT ${CMAKE_PROJECT_NAME}-dev
     FILES_MATCHING PATTERN "*.h")

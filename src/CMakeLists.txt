@@ -39,7 +39,9 @@ endmacro(subdirlist)
 macro (upm_create_install_pkgconfig generated_file install_location)
   configure_file (${PROJECT_SOURCE_DIR}/src/pkgconfig.in
     ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} @ONLY)
-  install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${generated_file} DESTINATION ${install_location})
+  install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${generated_file}
+      COMPONENT ${CMAKE_PROJECT_NAME}
+      DESTINATION ${install_location})
 endmacro(upm_create_install_pkgconfig)
 
 # Given a target name, return all in-project targets ALREADY defined (ie, this
@@ -294,11 +296,12 @@ macro(_upm_swig_python)
   # Install .py's to python packages directory/upm
   install (FILES ${swig_extra_generated_files}
       DESTINATION ${PYTHON_PACKAGES_PATH}/upm
-      COMPONENT ${libname})
+      COMPONENT ${CMAKE_PROJECT_NAME}-python${PYTHON_VERSION_MAJOR})
 
   # Install python wrapper module library
   install (TARGETS ${python_wrapper_target}
-      DESTINATION ${PYTHON_PACKAGES_PATH}/upm)
+      DESTINATION ${PYTHON_PACKAGES_PATH}/upm
+      COMPONENT ${CMAKE_PROJECT_NAME}-python${PYTHON_VERSION_MAJOR})
 
   # Restore CMAKE_CURRENT_BINARY_DIR
   set(CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR_SAVED})
@@ -408,7 +411,9 @@ macro(upm_swig_node)
                                                            ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
     endif ()
 
-    install (TARGETS jsupm_${libname} DESTINATION ${NODE_MODULE_INSTALL_PATH})
+    install (TARGETS jsupm_${libname}
+        DESTINATION ${NODE_MODULE_INSTALL_PATH}
+      COMPONENT ${CMAKE_PROJECT_NAME}-nodejs)
   endif (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
 
   # Keep track of all NODE targets
@@ -474,11 +479,15 @@ macro(upm_swig_java)
       endif(is_supported)
     endforeach(flag ${SWIG_CXX_DISABLE_WARNINGS})
 
-    install (TARGETS javaupm_${libname} LIBRARY DESTINATION ${LIB_INSTALL_DIR})
+    install (TARGETS javaupm_${libname} LIBRARY
+        DESTINATION ${LIB_INSTALL_DIR}
+        COMPONENT ${CMAKE_PROJECT_NAME}-java)
+
     # Java jar files always need to go under lib/java, regardless of
     # architecture.
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar
-        DESTINATION lib/java)
+        DESTINATION lib/java
+        COMPONENT ${CMAKE_PROJECT_NAME}-java)
 
     if (NOT DEFINED $ENV{JAVA_HOME_NATIVE})
         set (JAVAC $ENV{JAVA_HOME}/bin/javac)
@@ -590,7 +599,8 @@ if (BUILDSWIGNODE)
       set (NODE_MODULE_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib/node_modules/jsupm_${libname}/)
     endif ()
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/package.json
-        DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
+        DESTINATION ${NODE_MODULE_INSTALL_PATH}
+        COMPONENT ${CMAKE_PROJECT_NAME}-nodejs)
   endmacro(createpackagejson)
 endif(BUILDSWIGNODE)
 
@@ -759,16 +769,20 @@ function(upm_module_init)
   endif()
 
   # Install target library to lib dir
-  install (TARGETS ${libname} DESTINATION ${LIB_INSTALL_DIR})
+  install (TARGETS ${libname}
+      DESTINATION ${LIB_INSTALL_DIR}
+      COMPONENT ${CMAKE_PROJECT_NAME})
 
   # Install header files to include/upm/
-  install (FILES ${module_hpp} DESTINATION include/upm COMPONENT ${libname})
+  install (FILES ${module_hpp}
+      DESTINATION include/upm
+      COMPONENT ${CMAKE_PROJECT_NAME}-dev)
 
   # Install JSON library descriptor files into datadir (if they exist)
   if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json")
     install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/${basename}.json"
       DESTINATION ${CMAKE_INSTALL_DATADIR}/upm/${basename}
-      COMPONENT ${basename})
+      COMPONENT ${CMAKE_PROJECT_NAME})
   endif ()
 
   if (IPK)
@@ -783,12 +797,12 @@ if (BUILDSWIGPYTHON)
   if(PYTHON2LIBS_FOUND)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
         DESTINATION ${PYTHON2_PACKAGES_PATH}/upm
-        COMPONENT python2)
+        COMPONENT ${CMAKE_PROJECT_NAME}-python2)
   endif(PYTHON2LIBS_FOUND)
   if(PYTHON3LIBS_FOUND)
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
         DESTINATION ${PYTHON3_PACKAGES_PATH}/upm
-        COMPONENT python3)
+        COMPONENT ${CMAKE_PROJECT_NAME}-python3)
   endif(PYTHON3LIBS_FOUND)
 endif (BUILDSWIGPYTHON)
 
