@@ -8,6 +8,7 @@ option (BUILDFTI "Build Funtion Table Interface (FTI) in C sensor libraries" OFF
 option (BUILDSWIGPYTHON "Build swig python modules" ON)
 option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
+option (BUILDCORDOVA "Build cordova bindings" OFF)
 option (BUILDEXAMPLES "Build C/C++/JAVA examples" OFF)
 option (IPK "Generate IPK using CPack" OFF)
 option (RPM "Generate RPM using CPack" OFF)
@@ -164,6 +165,17 @@ if (BUILDSWIGJAVA)
   # Also, get full path to the mraajava library
   find_library(MRAAJAVA_LIBRARY NAMES mraajava HINTS ${MRAA_LIBDIR})
 endif (BUILDSWIGJAVA)
+
+# Cordova binding
+if (BUILDCORDOVA)
+  if (NOT BUILDSWIGJAVA)
+    message(FATAL_ERROR "Cordova bindings require JAVA packages, please enable BUILDSWIGJAVA (-DBUILDSWIGJAVA=on).")
+  endif()
+
+  find_package (Node REQUIRED)
+  find_package (Npm REQUIRED)
+  find_package (Cordova REQUIRED)
+endif (BUILDCORDOVA)
 
 # Find swig if any wrapper is enabled
 if (BUILDSWIGPYTHON OR BUILDSWIGNODE OR BUILDSWIGJAVA)
