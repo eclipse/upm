@@ -127,18 +127,14 @@ string RHUSB::sendCommand(string cmd)
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": cmd is empty!");
-      return "";
     }
 
-  // make sure string is CR terminated
-  if (cmd.at(cmd.size() - 1) != '\r')
-    cmd.append("\r");
-
-  writeStr(cmd);
+  // Terminate the command with a carriage return
+  writeStr(cmd + "\r");
 
   string resp;
   // I see random timeouts with wait values below 250ms
-  while (dataAvailable(250))
+  while (dataAvailable(250) && (resp.size() < maxBuffer) )
     {
       resp += readStr(maxBuffer);
     }
@@ -146,16 +142,14 @@ string RHUSB::sendCommand(string cmd)
   if (resp.empty())
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": timed out waiting for response");
-      return "";
+                               ": " + cmd + " response timed out");
     }
 
   // check that the last character is the prompt
   if (resp.at(resp.size() - 1) != '>')
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": read from device corrupted");
-      return "";
+                               ": " + cmd + " response corrupt");
     }
 
   // delete the last 3 characters, which should be '\r\n>'
