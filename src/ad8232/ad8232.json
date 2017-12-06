@@ -19,8 +19,7 @@
                 "Java": ["Ad8232Example.java"],
                 "Python": ["ad8232.py"],
                 "Node.js": ["ad8232.js"],
-                "C++": ["ad8232.cxx"],
-                "C": ["ad8232.c"]
+                "C++": ["ad8232.cxx"]
             },
             "Specifications":
             {
