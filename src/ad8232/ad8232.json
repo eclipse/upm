@@ -20,7 +20,7 @@
                 "Python": ["ad8232.py"],
                 "Node.js": ["ad8232.js"],
                 "C++": ["ad8232.cxx"],
-                "C": ["bmp280.c"]
+                "C": ["ad8232.c"]
             },
             "Specifications":
             {
