@@ -299,6 +299,7 @@ extern "C" {
      * Read contiguous registers into a buffer
      *
      * @param dev The device context
+     * @param reg The register to start the read from
      * @param buffer The buffer to store the results
      * @param len The number of registers to read
      * @return The number of bytes read, or -1 on error
