@@ -26,7 +26,7 @@ import time, sys, signal, atexit
 from upm import pyupm_lis2ds12 as sensorObj
 
 def main():
-    # Instantiate a BMP250E instance using default i2c bus and address
+    # Instantiate a LIS2DS12 instance using default i2c bus and address
     sensor = sensorObj.LIS2DS12()
 
     # For SPI, bus 0, you would pass -1 as the address, and a valid pin for CS:
