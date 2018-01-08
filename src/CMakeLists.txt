@@ -437,16 +437,10 @@ macro(upm_swig_java)
 
     set_source_files_properties (javaupm_${libname}.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties (javaupm_${libname}.i PROPERTIES SWIG_FLAGS ";-package;upm_${libname};-I${CMAKE_BINARY_DIR}/src")
-    # NOTE, ${module_src} is ONLY needed when swig'ing to JAVA.  This is
-    # because *some* upm libraries have ifdef's for JAVA and SWIG in their
-    # source (cxx) which builds in different functionality.  Because of this,
-    # the source must be added when building the JAVA wrapper.
-    # See issue #518
-    # TODO: Fix this somehow
     if (CMAKE_VERSION VERSION_LESS "3.8")
-      swig_add_module (javaupm_${libname} java javaupm_${libname}.i ${module_src})
+      swig_add_module (javaupm_${libname} java javaupm_${libname}.i)
     else ()
-      swig_add_library (javaupm_${libname} LANGUAGE java SOURCES javaupm_${libname}.i ${module_src})
+      swig_add_library (javaupm_${libname} LANGUAGE java SOURCES javaupm_${libname}.i)
     endif ()
 
     # If the C++ target depends on C++ interfaces, make the JAVA target
