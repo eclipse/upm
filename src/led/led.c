@@ -27,7 +27,7 @@
 #include "led.h"
 #include "upm_types.h"
 
-led_context led_init(uint8_t pin){
+led_context led_init(int pin){
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

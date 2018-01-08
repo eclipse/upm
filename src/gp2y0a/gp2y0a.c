@@ -24,7 +24,7 @@
  */
 #include "gp2y0a.h"
 
-gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref){
+gp2y0a_context gp2y0a_init(int pin, float a_ref){
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

@@ -36,9 +36,9 @@
 #define URM37_WAIT_TIMEOUT      1000
 #define URM37_MAX_RETRIES       10
 
-urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
-                         uint8_t trigger_pin, float a_ref,
-                         uint8_t uart_bus, bool analog_mode)
+urm37_context urm37_init(int a_pin, int reset_pin,
+                         int trigger_pin, float a_ref,
+                         int uart_bus, bool analog_mode)
 {
   // make sure MRAA is initialized
   int mraa_rv;

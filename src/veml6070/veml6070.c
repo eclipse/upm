@@ -23,7 +23,7 @@
  */
 #include "veml6070.h"
 
-veml6070_context veml6070_init(uint8_t bus) {
+veml6070_context veml6070_init(int bus) {
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

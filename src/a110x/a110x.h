@@ -45,7 +45,7 @@
  */
 typedef struct _a110x_context {
     mraa_gpio_context      gpio;
-    uint8_t                gpio_pin;
+    int                    gpio_pin;
     bool                   isr_installed;
 } *a110x_context;
 
@@ -55,7 +55,7 @@ typedef struct _a110x_context {
  * @param pin GPIO pin to use
  * @return device context pointer
  */
-a110x_context a110x_init(uint8_t pin);
+a110x_context a110x_init(int pin);
 
 /**
  * A110X Initialization function

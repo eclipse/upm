@@ -23,7 +23,7 @@
  */
 #include "abp.h"
  
-abp_context abp_init(uint8_t bus, uint8_t dev_address){
+abp_context abp_init(int bus, uint8_t dev_address){
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

@@ -47,7 +47,7 @@
  */
 typedef struct _led_context {
     mraa_gpio_context        gpio;
-    uint8_t                  led_pin;
+    int                      led_pin;
 } *led_context;
 
 /**
@@ -56,7 +56,7 @@ typedef struct _led_context {
  * @param pin GPIO pin to use
  * @return The sensor context
  */
-led_context led_init(uint8_t pin);
+led_context led_init(int pin);
 
 /**
  * LED Initialization function

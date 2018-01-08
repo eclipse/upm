@@ -53,7 +53,7 @@ typedef struct _rsc_context {
     mraa_spi_context       spi;
     mraa_gpio_context      cs_ee;
     mraa_gpio_context      cs_adc;
-    uint8_t                spi_bus_number;
+    int                    spi_bus_number;
     float                  coeff_matrix[RSC_COEFF_T_ROW_NO][RSC_COEFF_T_COL_NO];
     PRESSURE_U             unit;
     PRESSURE_T             type;
@@ -79,7 +79,7 @@ typedef struct _rsc_context {
  * @param cs_adc_pin The CS pin for accessing the ADC
  * @return The device context, or NULL if an error occurred.
  */
-rsc_context rsc_init(uint8_t bus, uint8_t cs_ee_pin, uint8_t cs_adc_pin);
+rsc_context rsc_init(int bus, int cs_ee_pin, int cs_adc_pin);
 
 /**
  * RSC Close function

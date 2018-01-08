@@ -58,7 +58,7 @@ typedef struct _veml6070_context {
     mraa_i2c_context       i2c_seq2;
     uint8_t                address_seq1;
     uint8_t                address_seq2;
-    uint8_t                i2c_bus_number;
+    int                    i2c_bus_number;
 } *veml6070_context;
 
 /**
@@ -69,7 +69,7 @@ typedef struct _veml6070_context {
  *
  * @return device context pointer
  */
-veml6070_context veml6070_init(uint8_t bus);
+veml6070_context veml6070_init(int bus);
 
 /**
  * VEML6070 Close function

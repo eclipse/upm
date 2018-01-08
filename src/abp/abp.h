@@ -60,7 +60,7 @@ typedef enum {
  
 typedef struct _abp_context {
     mraa_i2c_context       i2c;
-    uint8_t                i2c_bus_number;
+    int                    i2c_bus_number;
     uint8_t                address;
     int                    abp_pressure_max;
     int                    abp_pressure_min;
@@ -74,7 +74,7 @@ typedef struct _abp_context {
  * @param bus I2C bus to use
  * @return device context pointer
  */
-abp_context abp_init(uint8_t bus, uint8_t dev_address);
+abp_context abp_init(int bus, uint8_t dev_address);
 
 /**
  * ABP Close function

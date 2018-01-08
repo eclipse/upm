@@ -48,7 +48,7 @@
 static void my9221_lock_data(const my9221_context dev);
 static void my9221_send_16bit_block(const my9221_context dev, uint16_t data);
 
-my9221_context my9221_init(uint8_t dataPin, uint8_t clockPin,
+my9221_context my9221_init(int dataPin, int clockPin,
                            int instances)
 {
     if (instances < 1)

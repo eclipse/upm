@@ -76,9 +76,9 @@ typedef struct _urm37_context {
  * @param uart Default UART to use (0 or 1). Ignored in analog mode.
  * @param mode true for analog mode, false otherwise.
  */
-urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
-                         uint8_t trigger_pin, float a_ref, 
-                         uint8_t uart, bool analog_mode);
+urm37_context urm37_init(int a_pin, int reset_pin,
+                         int trigger_pin, float a_ref, 
+                         int uart, bool analog_mode);
 
 /**
  * URM37 sensor close function

@@ -24,7 +24,7 @@
  */
 #include "a110x.h"
 
-a110x_context a110x_init(uint8_t pin) {
+a110x_context a110x_init(int pin) {
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

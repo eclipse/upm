@@ -91,7 +91,7 @@ extern "C" {
      * least 1
      * @return Device context
      */
-    my9221_context my9221_init(uint8_t dataPin, uint8_t clockPin,
+    my9221_context my9221_init(int dataPin, int clockPin,
                                int instances);
 
     /**

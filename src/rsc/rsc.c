@@ -34,7 +34,7 @@ upm_result_t rsc_add_dr_delay(rsc_context dev);
 
 void rsc_set_access_type(rsc_context dev, ACCESS_T type);
  
-rsc_context rsc_init(uint8_t bus, uint8_t cs_ee_pin, uint8_t cs_adc_pin) {
+rsc_context rsc_init(int bus, int cs_ee_pin, int cs_adc_pin) {
     // make sure MRAA is initialized
     int mraa_rv;
     if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)

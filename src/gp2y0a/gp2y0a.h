@@ -47,7 +47,7 @@
  */
 typedef struct _gp2y0a_context {
     mraa_aio_context            aio;
-    uint8_t                     pin;
+    int                         pin;
     int                         a_res;
 } *gp2y0a_context;
 
@@ -57,7 +57,7 @@ typedef struct _gp2y0a_context {
  * @param pin Analog pin to use
  * @param a_ref reference voltage
  */
-gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref);
+gp2y0a_context gp2y0a_init(int pin, float a_ref);
 
 /**
  * GP2Y0A close function
