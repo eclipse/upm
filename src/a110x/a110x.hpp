@@ -85,11 +85,8 @@ namespace upm {
      * @param arg Pointer to an object to be supplied as an
      * argument to the ISR.
      */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(jobject runnable);
-#else
     void installISR(void (*isr)(void *), void *arg);
-#endif
+
     /**
      * Uninstalls the previously installed ISR
      *
@@ -97,9 +94,6 @@ namespace upm {
     void uninstallISR();
 
   private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(void (*isr)(void *), void *arg);
-#endif
 
     bool m_isrInstalled;
     mraa_gpio_context m_gpio;

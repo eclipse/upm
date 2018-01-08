@@ -36,7 +36,9 @@ class AutoLoadLibrary(u.TestCase):
                         if not '%module' in data:
                             print "%%module not found in %s, skipping" % fileName
                             continue
-                        if not snippet in data:
+                        # Check for the autoload code or the autoload macro
+                        if (not 'JAVA_JNI_LOADLIBRARY(javaupm_' in data) and \
+                                (not snippet in data):
                             broken_modules.append('%s: %s' % \
                                     (moduleName, os.path.join(subdir, fileName)))
 
