@@ -35,33 +35,41 @@ using namespace upm;
 
 Led::Led(int pin)
 {
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) {
+    if ( !(m_led = led_init(pin)) ) {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_gpio_init() failed, invalid pin?");
         return;
     }
-    mraa_gpio_dir(m_gpio, MRAA_GPIO_OUT);
+}
+
+Led::Led(std::string name)
+{
+    if ( !(m_led = led_init_str(name.c_str())) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_led_init() failed, invalid led name?");
+        return;
+    }
 }
 
 Led::~Led()
 {
-    mraa_gpio_close(m_gpio);
+    led_close(m_led);
 }
 
-mraa_result_t Led::write(int value)
+upm_result_t Led::write(int value)
 {
     if (value >= 1) {
-        return mraa_gpio_write(m_gpio, 1);
+        return led_on(m_led);
     }
-    return mraa_gpio_write(m_gpio, 0);
+    return led_off(m_led);
 }
 
-mraa_result_t Led::on()
+upm_result_t Led::on()
 {
     return write(1);
 }
 
-mraa_result_t Led::off()
+upm_result_t Led::off()
 {
     return write(0);
 }

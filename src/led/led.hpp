@@ -27,7 +27,6 @@
 #pragma once
 
 #include <string>
-#include <mraa/gpio.hpp>
 #include "led.h"
 
 namespace upm {
@@ -68,6 +67,12 @@ class Led {
          */
         Led(int pin);
         /**
+         * LED constructor
+         *
+         * @param name Linux gpioled device name
+         */
+        Led(std::string name);
+        /**
          * LED destructor
          */
         ~Led();
@@ -82,24 +87,24 @@ class Led {
          *
          * @return 0 if successful, non-zero otherwise
          */
-        mraa_result_t write(int value);
+        upm_result_t write(int value);
         /**
          * Turns the LED off
          *
          * @return 0 if successful, non-zero otherwise
          */
-        mraa_result_t off();
+        upm_result_t off();
         /**
          * Turns the LED on
          *
          * @return 0 if successful, non-zero otherwise
          */
-        mraa_result_t on();
+        upm_result_t on();
         std::string name()
         {
             return "LED Sensor";
         }
     private:
-        mraa_gpio_context m_gpio;
+        led_context m_led;
 };
 }

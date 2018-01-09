@@ -33,6 +33,11 @@
 #include <stdint.h>
 #include "upm.h"
 #include "mraa/gpio.h"
+#include "mraa/led.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @file led.h
@@ -47,7 +52,10 @@
  */
 typedef struct _led_context {
     mraa_gpio_context        gpio;
+    mraa_led_context         gpioled;
     int                      led_pin;
+    const char*              name;
+    int                      max_brightness;
 } *led_context;
 
 /**
@@ -57,6 +65,14 @@ typedef struct _led_context {
  * @return The sensor context
  */
 led_context led_init(int pin);
+
+/**
+ * LED Initialization function
+ *
+ * @param name Linux gpioled device to use
+ * @return The sensor context
+ */
+led_context led_init_str(const char* name);
 
 /**
  * LED Initialization function
@@ -80,5 +96,9 @@ upm_result_t led_on(led_context dev);
  * @return upm_result_t UPM success/error code
  */
 upm_result_t led_off(led_context dev);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* LED_LED_H_ */
