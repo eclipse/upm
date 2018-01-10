@@ -2,7 +2,7 @@
     "Library": "grove",
     "Description": "Generic library for basic Grove sensors",
     "Sensor Class": {
-        "grovebase": {
+        "Grove": {
             "Name": "Generic library for basic Grove sensors",
             "Description": "This is the Generic UPM Module for basic Grove sensors. This library is now deprecated and replaced by individual libraries for every sensor.",
             "Aliases": ["grove", "libupm-grove"],
@@ -18,7 +18,7 @@
                 "Product Pages": ["https://github.com/intel-iot-devkit/upm/tree/master/src/grove"]
             }
         },
-        "grovebutton": {
+        "GroveButton": {
             "Name": "API for the Grove Button",
             "Description": "This is the UPM Module for the Grove button. This class is being replaced by the upm-button library and the Button class.",
             "Aliases": ["Grove Touch Sensor", "Grove button"],
@@ -64,7 +64,7 @@
                 "Schematics": ["https://github.com/SeeedDocument/Grove_Button/raw/master/resources/Grove_-_Button_v1.0_Source_File.zip"]
             }
         },
-        "groveled": {
+        "GroveLed": {
             "Name": "API for the Grove LED",
             "Description": "This is the UPM Module for the Grove LED. This class is being replaced by the upm-led library and the Led class.",
             "Aliases": ["Grove LED", "Grove – Chainable RGB Led V2.0"],
@@ -111,7 +111,7 @@
                 "Schematics": ["https://github.com/SeeedDocument/Grove-Chainable_RGB_LED/raw/master/res/Grove%20-%20Chainable%20RGB%20LED%20v2.0.zip"]
             }
         },
-        "grovelight": {
+        "GroveLight": {
             "Name": "API for the Grove Light Sensor",
             "Description": "This is the UPM Module for the Grove Light Sensor. This class is being replaced by the upm-light library and the Light class.",
             "Aliases": ["grovelight", "Grove - Light Sensor(P)"],
@@ -163,7 +163,7 @@
                 "Schematics": ["https://github.com/SeeedDocument/Grove_Light_Sensor/raw/master/resources/Grove%20-%20Light%20Sensor%28P%29%20v1.1.zip"]
             }
         },
-        "groverelay": {
+        "GroveRelay": {
             "Name": "API for the Grove Relay",
             "Description": "This is the UPM Module for the Grove relay switch. This class is being replaced by the upm-relay library and the Relay class.",
             "Aliases": ["groverelay", "Grove - Relay"],
@@ -227,7 +227,7 @@
                 "Schematics": ["https://github.com/SeeedDocument/Grove-Relay/raw/master/res/Grove%20-%20Relay%20Schematic.pdf", "https://github.com/SeeedDocument/Grove-Relay/raw/master/res/Grove%20-%20Relay%20PCB.pdf", "https://raw.githubusercontent.com/SeeedDocument/Grove-Relay/master/res/Grove-Relay_Eagle_Files.zip"]
             }
         },
-        "groverotary": {
+        "GroveRotary": {
             "Name": "API for the Grove Rotary Angle Sensor (Knob)",
             "Description": "This is the UPM Module for the Grove Rotary Angle Sensor (Knob). This class is being replaced by the upm-rotary library and the Rotary class.",
             "Aliases": ["groverotary", "Grove - Rotary Angle Sensor"],
@@ -277,7 +277,7 @@
                 "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Rotary_Angle_Sensor/master/res/Grove-Rotary_Angle_Sensor_Eagle_File.zip", "https://raw.githubusercontent.com/SeeedDocument/Grove-Rotary_Angle_Sensor/master/res/Grove-Rotary_Angle_Sensor_v1.2.zip"]
             }
         },
-        "groveslide": {
+        "GroveSlide": {
             "Name": "API for the Grove Slide Potentiometer",
             "Description": "This is the UPM Module for the Grove Slide Potentiometer. This class is being replaced by the upm-slide library and the Slide class.",
             "Aliases": ["groveslide", "Grove - Slide Potentiometer"],
@@ -327,7 +327,7 @@
                 "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Slide_Potentiometer/master/res/Sliding_Potentiometer.rar"]
             }
         },
-        "grovetemp": {
+        "GroveTemp": {
             "Name": "API for the Grove Temperature Sensor",
             "Description": "This is the UPM Module for the Grove Temperature Sensor. This class is being replaced by the upm-temperature library and the Temperature class.",
             "Aliases": ["groverelay", "Grove - Temperature Sensor"],

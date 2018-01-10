@@ -3,7 +3,7 @@
     "Description": "1-Wire Dual Channel Addressable Switch Library",
     "Sensor Class":
     {
-        "ds2413":
+        "DS2413":
         {
             "Name": "1-Wire Dual Channel Addressable Switch",
             "Description": "The DS2413 is a dual-channel programmable I/O 1-Wire(r) chip. The PIO outputs are configured as open-drain and provide up to 20mA continuous sink capability and off-state operating voltage up to 28V.  Control and sensing of the PIO pins is performed with a dedicated device-level command protocol. This device requires the use of a UART to provide access to a Dallas 1-wire bus, via a new facility supported by MRAA (once the relevant PR is accepted), using the UartOW access class. It is important to realize that the UART is only being used to access and control a Dallas 1-wire compliant bus, it is not actually a UART device. Multiple DS2413 devices can be connected to this bus.  This module will identify all such devices connected, and allow you to access them using an index starting at 0.",

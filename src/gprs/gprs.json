@@ -3,7 +3,7 @@
     "Description": "API for the GPRS Module",
     "Sensor Class":
     {
-        "gprs":
+        "GPRS":
         {
             "Name": "General Packet Radio Service (GPRS) Module",
             "Description": "The driver was tested with the  GPRS Module, V2.  It's a GSM GPRS module based on the SIM900.  This module uses a standard 'AT' command set.  See the datasheet for a full list of available commands and their possible responses.",

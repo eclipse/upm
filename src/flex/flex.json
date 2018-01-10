@@ -3,7 +3,7 @@
     "Description": "API for the Spectra Symbol Flex Sensor",
     "Sensor Class":
     {
-        "flex":
+        "Flex":
         {
             "Name": "Resistive Flex Sensor",
             "Description": "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove.",

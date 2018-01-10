@@ -3,7 +3,7 @@
     "Description": "API for DS1808 Dual Log Digital Potentiometer as a Light Controller",
     "Sensor Class":
     {
-        "ds1808lc":
+        "DS1808LC":
         {
             "Name": "DS1808LC Lighting Controller",
             "Description": "The Maxim Integrated [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html) Dual Log Digital Potentiometer",

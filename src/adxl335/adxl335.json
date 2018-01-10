@@ -3,7 +3,7 @@
     "Description": "Low-power, 3-axis +/- 3 g Accelerometer",
     "Sensor Class":
     {
-        "adxl335":
+        "ADXL335":
         {
             "Name": "API for the Analog Devices ADIS16448 Accelerometer",
             "Description": "UPM module for the ADXL335 3-axis analog accelerometer. This was tested on a Grove 3-axis Analog Accelerometer. It uses 3 analog pins, one for each axis: X, Y, and Z.",

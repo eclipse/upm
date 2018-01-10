@@ -3,7 +3,7 @@
     "Description": "API for the  EL Driver Module",
     "Sensor Class":
     {
-        "eldriver":
+        "ElDriver":
         {
             "Name": "Electroluminescent Wire (EL) Driver",
             "Description": "The  EL Driver allows you to easily light up an EL wire with just one single  cable.",

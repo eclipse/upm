@@ -3,7 +3,7 @@
     "Description": "Electromagnet Library",
     "Sensor Class":
     {
-        "electromagnet":
+        "Electromagnet":
         {
             "Name": "API for the  Electromagnet",
             "Description": "The  Electromagnet can hold up to 1 kg (approximately 2.2 lbs)",

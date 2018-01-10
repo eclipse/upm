@@ -3,7 +3,7 @@
     "Description": "API for the Grove Collision Sensor",
     "Sensor Class":
     {
-        "grovecollision":
+        "GroveCollision":
         {
             "Name": "Grove Collision Sensor",
             "Description": "The Grove Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",

@@ -3,7 +3,7 @@
     "Description": "API for the CJQ4435 MOSFET",
     "Sensor Class":
     {
-        "cjq4435":
+        "CJQ4435":
         {
             "Name": "CJQ4435 MOSFET",
             "Description": "UPM module for the CJQ4435 MOSFET. It was developed using the Grove MOSFET module, but could be used with any MOSFET.  A MOSFET is like a switch, but it can switch much faster than a mechanical relay.  Here, we implement support via MRAA pulse width modulation (PWM) functions.  Note: available periods vary depending on the capabilities of your platform.",

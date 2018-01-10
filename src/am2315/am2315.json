@@ -3,7 +3,7 @@
     "Description": "Digital Temperature and Humidity Sensor",
     "Sensor Class":
     {
-        "am2315":
+        "AM2315":
         {
             "Name": "API for the AM2315 Temperature & Humidity Sensor",
             "Description": "The AM2315 is a digital humidity sensor with temperature output. RH reports between 0 and 100%, and the temperature range is -40 to +125 degC. The sampling period of this sensor is 2 seconds. Reads occurring more often than that return cached data.",

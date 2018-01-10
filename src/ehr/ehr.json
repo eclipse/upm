@@ -3,7 +3,7 @@
     "Description": "API for the  Ear-clip Heart Rate Sensor",
     "Sensor Class":
     {
-        "ehr":
+        "EHR":
         {
             "Name": "Ear-clip Heart Rate Sensor",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",

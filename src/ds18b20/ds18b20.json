@@ -3,7 +3,7 @@
     "Description": "API for the DS18B20 1-Wire Temperature Sensor",
     "Sensor Class":
     {
-        "ds18b20":
+        "DS18B20":
         {
             "Name": "DS18B20 1-Wire Temperature Sensor",
             "Description": "The driver was tested with the DFRobot EC Analog Sensor. This device measure the electrical conductivity of an aqueous solution.  The included probe is a K=1 model. Calibration is somewhat complicated - see the DFRobot wiki for instructions on calibration.  Functions are provided to supply the appropriate values.  By default, the values used in the DFRobot arduino example are used.",

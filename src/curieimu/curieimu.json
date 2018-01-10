@@ -3,7 +3,7 @@
     "Description": "Bosch Atmospheric Sensor Library",
     "Sensor Class":
     {
-        "curieimu":
+        "CurieImu":
         {
             "Name": "Digital Humidity, Pressure, and Temperature Sensor",
             "Description": "Curie IMU is a 6-axis accelerometer.",

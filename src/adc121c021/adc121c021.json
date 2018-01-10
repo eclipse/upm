@@ -3,7 +3,7 @@
     "Description": "I2C 12-bit Analog to Digital Converter with Alert Pin",
     "Sensor Class":
     {
-        "adc121c021":
+        "ADC121C021":
         {
             "Name": "API for the ADC121C021 I2C Analog-to-Digital Converter",
             "Description": "UPM module for the ADC121C021 12-bit analog-to-digital converter (ADC). By constantly providing a reference voltage, this sensor helps increase the accuracy of a value collected from an analog sensor.",

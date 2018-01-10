@@ -3,7 +3,7 @@
     "Description": "ENC03R Single Axis Gyro Library",
     "Sensor Class":
     {
-        "enc03r":
+        "ENC03R":
         {
             "Name": "Single-axis Analog Gyro Module",
             "Description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",

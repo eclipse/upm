@@ -3,7 +3,7 @@
     "Description": "3-axis, +/- 2/4/8/16 g Digital Accelerometer",
     "Sensor Class":
     {
-        "adxl345":
+        "Adxl345":
         {
             "Name": "API for the ADXL345 3-Axis Digital Accelerometer",
             "Description": "ADXL345 is a 3-axis digital accelerometer. The sensor has configurable resolutions to measure +/- 2g, +/- 4g, +/- 8g, or +/- 16g.",

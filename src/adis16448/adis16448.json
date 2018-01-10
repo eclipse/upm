@@ -3,7 +3,7 @@
     "Description": "Industrial Grade Ten Degrees of Freedom Inertial Sensor",
     "Sensor Class":
     {
-        "adis16448":
+        "ADIS16448":
         {
             "Name": "API for the Analog Devices ADIS16448 Accelerometer",
             "Description": "This is an industrial-grade accelerometer by Analog Devices.",

@@ -3,7 +3,7 @@
     "Description": "Module for the Adafruit Motor Shield 1438",
     "Sensor Class":
     {
-        "adafruitms1438":
+        "AdafruitMS1438":
         {
             "Name": "API for the AdafruitMS1438 Motor Shield",
             "Description": "This class implements support for the stepper and DC motors that can be connected to this Motor Shield.",
