@@ -3,7 +3,7 @@
     "Description": "O2 Oxygen Gas Sensor Library",
     "Sensor Class":
     {
-        "o2":
+        "O2":
         {
             "Name": "Oxygen (O2) Concentration Sensor",
             "Description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air.",

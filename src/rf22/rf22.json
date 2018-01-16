@@ -2,7 +2,7 @@
     "Library": "rf22",
     "Description": "SparkFun/HopeRF RF22 Wireless Transceiver library",
     "Sensor Class": {
-        "rf22": {
+        "RF22": {
             "Name": "API for the SparkFun/HopeRF RF22 Transceiver Module",
             "Description": "This is the UPM Module for the SparkFun/HopeRF RF22 Transceiver Module. This base class provides basic functions for sending and receiving unaddressable, unreliable datagrams of arbitrary length to 255 octets per packet. Subclasses may use this class to implement reliable, addressed datagrams and streams,  mesh routers, repeaters, translators etc. On transmission, the TO and FROM addresses default to 0x00, unless changed by a subclass.  On reception the TO addressed is checked against the node address (defaults to 0x00) or the broadcast address (which is 0xff). The ID and FLAGS are set to 0, and not checked by this class. This permits use of the this base RF22 class as an unaddressable, unreliable datagram service. Subclasses are expected to change this behavior to add node address, ids, retransmission etc. Naturally, for any 2 radios to communicate that must be configured to use the same frequency and  modulation scheme.",
             "Aliases": ["rf22", "RFM22B-S2 SMD Wireless Transceiver - 915MHz"],

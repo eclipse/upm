@@ -3,7 +3,7 @@
     "Description": "API for the ILI9342 LCD",
     "Sensor Class":
     {
-        "ili9341":
+        "ILI9341":
         {
             "Name": "SPI Based LCD",
             "Description": "This module defines the interface for the ILI9341 display library.",

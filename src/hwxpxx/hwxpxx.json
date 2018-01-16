@@ -3,7 +3,7 @@
     "Description": "UPM API for the Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor",
     "Sensor Class":
     {
-        "hwxpxx":
+        "HWXPXX":
         {
             "Name": "Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor",
             "Description": "This module implements support for the Veris HWXPHTX Hardware Protocol Humidity and Temperature Sensor family.  It uses MODBUS over an RS485 interface.  You must have libmodbus v3.1.2 (or greater) installed to compile and use this driver. This module was developed using libmodbus 3.1.2, and the HWXPHTX. This sensor supports humidity, and optionally, temperature, slider switch, and override switch reporting.  The HWXPHTX used to develop this driver did not include the optional slider or override switches, however support for them is provided. It was developed using an RS232->RS485 inteface.  You cannot use the built in MCU TTL UART pins for accessing this device -- you must use a full serial RS232->RS485 interface connected via USB.",

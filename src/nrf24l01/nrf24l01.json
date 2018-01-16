@@ -2,7 +2,7 @@
     "Library": "nrf24l01",
     "Description": "Nordic Semiconductor NRF24L01 Transceiver library",
     "Sensor Class": {
-        "nrf24l01": {
+        "NRF24L01": {
             "Name": "API for the Nordic Semiconductor NRF24L01 Transceiver Module",
             "Description": "This is the UPM Module for the Nordic Semiconductor NRF24L01 Transceiver Module. This transceiver IC operates in the 2.4GHz band and has many new features! Take all the coolness of the nRF2401A and add some extra pipelines, buffers, and an auto-retransmit feature.",
             "Aliases": ["nrf24l01", "SparkFun Transceiver Breakout - nRF24L01+"],

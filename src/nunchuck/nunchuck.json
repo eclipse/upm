@@ -2,7 +2,7 @@
     "Library": "nunchuck",
     "Description": "Wii Nunchuk library",
     "Sensor Class": {
-        "nunchuck": {
+        "NUNCHUCK": {
             "Name": "API for the Wii* Nunchuk controller",
             "Description": "UPM module for the Wii Nunchuk controller. This module was tested with Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter. See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck for more details on the controller and its protocol. A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one side, and 3 traces on the other. Do not match these up with the Nunchuk connector's traces. The connector's 'groove' should be on the same side as the Grove interface socket on the adapter.",
             "Aliases": ["nunchuck", "Wii nunchuck", "Grove - Nunchuck"],

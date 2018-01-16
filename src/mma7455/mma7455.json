@@ -2,7 +2,7 @@
     "Library": "mma7455",
     "Description": "NXP MMA7455 Accelerometer library",
     "Sensor Class": {
-        "mma7455": {
+        "MMA7455": {
             "Name": "API for the NXP MMA7455 Accelerometer",
             "Description": "This is the UPM Module for the NXP MMA7455 Accelerometer. The MMA7455L 3-Axis Digital Output Accelerometer is a low power, micro machined sensor capable of measuring acceleration along its X, Y, and Z axes. It offers several convenient integrated features including an analog to digital converter (ADC), digital low-pass filter, and selectable sensitivity ranges of ±2g, ±4g, or ±8g. This device can be easily configured to detect quick motion pulses as single taps, double taps, and 0g (free fall) conditions on any or all axes and provides configurable interrupt pins (INT1 and INT2) for each type of event.",
             "Aliases": ["mma7455", "MMA7455 3-Axis Accelerometer Module"],

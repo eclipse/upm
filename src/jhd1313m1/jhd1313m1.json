@@ -3,7 +3,7 @@
     "Description": "API for the JHD1313M1 I2C LCD Controller",
     "Sensor Class":
     {
-        "jhd1313m1":
+        "Jhd1313m1":
         {
             "Name": "LCD Display Driver for the JHD1313M1 Controller for HD44780-based Displays",
             "Description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate.",

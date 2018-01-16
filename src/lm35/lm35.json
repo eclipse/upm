@@ -3,7 +3,7 @@
     "Description": "API for the DFRobot LM35 Linear Temperature Sensor",
     "Sensor Class":
     {
-        "lm35":
+        "LM35":
         {
             "Name": "Analog Temperature Sensor",
             "Description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. This driver was developed using the DFRobot LM35 Linear Temperature Sensor",

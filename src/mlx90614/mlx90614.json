@@ -2,7 +2,7 @@
     "Library": "mlx90614",
     "Description": "MLX90614 Temperature Sensor library",
     "Sensor Class": {
-        "mlx90614": {
+        "MLX90614": {
             "Name": "API for the Melexis MLX90614 Temperature Sensor",
             "Description": "This is the UPM Module for the Melexis mlx90614 temperature sensor. The MLX90614 is an infrared thermometer for non-contact temperature measurements. Both the IR sensitive thermopile detector chip and the signal conditioning ASIC are integrated in the same TO-39 can. Integrated into the MLX90614 are a low noise amplifier, 17-bit ADC and powerful DSP unit thus achieving high accuracy and resolution of the thermometer.",
             "Aliases": ["mlx90614", "Digital plug & play infrared thermometer in a TO-can"],

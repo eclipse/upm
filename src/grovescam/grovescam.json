@@ -3,7 +3,7 @@
     "Description": "Grove Serial Camera Library",
     "Sensor Class":
     {
-        "grovescam":
+        "GROVESCAM":
         {
             "Name": "Serial Camera Module",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",

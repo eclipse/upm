@@ -3,7 +3,7 @@
     "Description": "KXCJK1013 Tri-axis Digital Accelerometer API",
     "Sensor Class":
     {
-        "kxcjk1013":
+        "KXCJK1013":
         {
             "Name": "Tri-axis Digital Accelerometer",
             "Description": "he KXCJK is a tri-axis +/-2g, +/-4g or +/-8g silicon micromachined accelerometer.",

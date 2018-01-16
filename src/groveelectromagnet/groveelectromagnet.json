@@ -3,7 +3,7 @@
     "Description": "Grove Electromagnet Library",
     "Sensor Class":
     {
-        "groveelectromagnet":
+        "GroveElectromagnet":
         {
             "Name": "API for the Grove Electromagnet",
             "Description": "The Grove Electromagnet can hold up to 1 kg (approximately 2.2 lbs)",

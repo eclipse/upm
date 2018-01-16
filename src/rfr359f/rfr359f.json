@@ -2,7 +2,7 @@
     "Library": "rfr359f",
     "Description": "Seeed RFR359 Distance Interrupter library",
     "Sensor Class": {
-        "rfr359f": {
+        "RFR359F": {
             "Name": "API for the RFR359F-based Grove Distance Interrupter",
             "Description": "This is the UPM Module for the RFR359F-based Grove Distance Interrupter. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 4 inches and a quick response time.",
             "Aliases": ["rfr359f", "Grove - IR Distance Interrupter"],

@@ -3,7 +3,7 @@
     "Description": "API for the Grove Moisture Sensor",
     "Sensor Class":
     {
-        "grovemoisture":
+        "GroveMoisture":
         {
             "Name": "Grove Moisture Sensor",
             "Description": "UPM module for the Grove Moisture Sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",

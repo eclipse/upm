@@ -3,7 +3,7 @@
     "Description": "API for the LPD8806 RGB LED Strip Controller",
     "Sensor Class":
     {
-        "lpd8806":
+        "LPD8806":
         {
             "Name": "Digital RGB LED Strip Controller",
             "Description": "FastPixel* LPD8806 is an RGB LED strip controller.",

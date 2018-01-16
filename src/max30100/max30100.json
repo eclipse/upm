@@ -3,7 +3,7 @@
     "Description": "API for the Pulse Oximeter and Heart-Rate Sensor",
     "Sensor Class":
     {
-        "max30100":
+        "MAX30100":
         {
             "Name": "Pulse Oximeter and Heart-rate Sensor",
             "Description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals.",

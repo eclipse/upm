@@ -3,7 +3,7 @@
     "Description": "HC-SR04 Ultrasonic Sensor Library",
     "Sensor Class":
     {
-        "hcsr04":
+        "HCSR04":
         {
             "Name": "HC-SR04 Ultrasonic Distance Measuring Sensor",
             "Description": "This module defines the HC-SR04 interface for libhcsr04.",

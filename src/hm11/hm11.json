@@ -3,7 +3,7 @@
     "Description": "HM-11 Bluetooth 4.0 Low Energy Module Library",
     "Sensor Class":
     {
-        "hm11":
+        "HM11":
         {
             "Name": "Bluetooth Low Energy Module",
             "Description": "The driver was tested with the Grove BLE module.  It's an HM-11 BLE 4.0 module based on a TI CC2541 chip.  It operates using a standard 'AT' command set.  See the datasheet for a full list of available commands and their possible responses: http://www.seeedstudio.com/wiki/images/c/cd/Bluetooth4_en.pdf It is connected via a UART at 9,600 baud.",

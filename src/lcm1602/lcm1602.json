@@ -3,7 +3,7 @@
     "Description": "API for the LCM1602 I2C controller for HD44780-based displays",
     "Sensor Class":
     {
-        "lcm1602":
+        "Lcm1602":
         {
             "Name": "LCD Display Driver for the LCM1602 Controller for HD44780-based Displays",
             "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",

@@ -3,7 +3,7 @@
     "Description": "UPM API for the Veris H803X Energy Meter",
     "Sensor Class":
     {
-        "h803x":
+        "H803X":
         {
             "Name": "Veris H803X Energy Meter Module",
             "Description": "The H8036 is similar to the H8035, but provides much more data. The Enercept H8035/H8036 is an innovative three-phase networked (Modbus RTU) power transducer that combines electronics and high accuracy industrial grade CTs in a single package. The need for external electrical enclosures is eliminated, greatly reducing installation time and cost. Color-coordination between voltage leads and CTs makes phase matching easy. Additionally, these transducers automatically detect and compensate for phase reversal, eliminating the concern of CT load orientation. Up to 63 Transducers can be daisy-chained on a single RS-485 network. This module was developed using libmodbus 3.1.2, and the H8035. The H8036 has not been tested.  libmodbus 3.1.2 must be present for this module to build. It was developed using an RS232->RS485 interface.  You cannot use the built in MCU TTL UART pins for accessing this device -- you must use a full Serial RS232->RS485 or USB-RS485 interface connected via USB.",

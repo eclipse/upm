@@ -3,7 +3,7 @@
     "Description": "API for the LSM303AGR 3-Axis Geomagnetic Sensor",
     "Sensor Class":
     {
-        "lsm303agr":
+        "LSM303AGR":
         {
             "Name": "Ultra-Compact High-Performance eCompass Module",
             "Description": "The LSM303AGR is an ultra-low-power high-performance system-in-package featuring a 3D digital linear acceleration sensor and a 3D digital magnetic sensor.  The LSM303AGR has linear acceleration full scales of 2g/4g/8g/16g and a magnetic field dynamic range of 50 Gauss. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports only I2C operation.",

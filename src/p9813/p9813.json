@@ -2,7 +2,7 @@
     "Library": "p9813",
     "Description": "Shiji Lighting P9813 Chainable RGB LEDs driver library",
     "Sensor Class": {
-        "p9813": {
+        "P9813": {
             "Name": "API for controlling Shiji Lighting P9813/Chainable RGB LEDs",
             "Description": "This is the UPM Module for the Shiji Lighting P9813/Chainable RGB LEDs. This LED controller provides individually controllable LEDs through a two pin protocol",
             "Aliases": ["p9813", "APA102 5050 RGB LED w/ Integrated Driver Chip"],

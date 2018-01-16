@@ -3,7 +3,7 @@
     "Description": "API for the Grove Water Flow Sensor",
     "Sensor Class":
     {
-        "grovewfs":
+        "GroveWFS":
         {
             "Name": "Water Flow Sensor",
             "Description": "This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). There is a schematic diagram on the SeeedStudio site (3/2015): http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long.",

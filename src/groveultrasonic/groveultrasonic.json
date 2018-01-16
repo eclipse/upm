@@ -3,7 +3,7 @@
     "Description": "Grove Ultrasonic Sensor Library",
     "Sensor Class":
     {
-        "groveultrasonic":
+        "GroveUltraSonic":
         {
             "Name": "Ultrasonic Proximity Sensor",
             "Description": "This Grove Ultrasonic sensor is a non-contact distance measurement module which is compatible with the Grove system. It is designed for easy modular project usage with industrial performance. Detection ranges from 3 cm (1.2\") to 4 m (13'1.5\") and works best when the object is within a 30 degree angle relative to the sensor.",

@@ -3,7 +3,7 @@
     "Description": "API for LDT0-028 PZT Film-Based Sensors",
     "Sensor Class":
     {
-        "ldt0028":
+        "LDT0028":
         {
             "Name": "Piezo Vibration Sensor",
             "Description": "This module defines the LDT0-028 interface for libupm-ldt0028",

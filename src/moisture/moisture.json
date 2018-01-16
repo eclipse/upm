@@ -2,7 +2,7 @@
     "Library": "moisture",
     "Description": "Moisture Sensor library",
     "Sensor Class": {
-        "moisture": {
+        "Moisture": {
             "Name": "API for the Grove Moisture Sensor ",
             "Description": "This is the UPM Module for the Grove moisture sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",
             "Aliases": ["Grove Moisture Sensor"],

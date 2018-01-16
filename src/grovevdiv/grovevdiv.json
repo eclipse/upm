@@ -3,7 +3,7 @@
     "Description": "API for the Grove Voltage Divider Sensor",
     "Sensor Class":
     {
-        "grovevdiv":
+        "GroveVDiv":
         {
             "Name": "Grove Voltage Divider Sensor",
             "Description": "UPM module for the Grove Voltage Divider sensor.",

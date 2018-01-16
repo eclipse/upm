@@ -2,7 +2,7 @@
     "Library": "my9221",
     "Description": "My-semi MY9221 12-channel LED driver Library",
     "Sensor Class": {
-        "grovecircularled": {
+        "GroveCircularLED": {
             "Name": "API for the Grove Circular LED module/My-semi MY9221 12-channel LED driver",
             "Description": "This is the UPM Module for the Grove Circular LED module/My-semi MY9221 12-channel LED driver. This is a circular LED ring based on the MY9221 chip. It is often used with a rotary encoder and has 24 controllable LEDs.",
             "Aliases": ["my9221", "Grove - Circular LED", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],
@@ -49,7 +49,7 @@
                 "Datasheets": ["http://www.my-semi.com.tw/file/MY9221_BF_3.0.pdf"]
             }
         },
-        "groveledbar": {
+        "GroveLEDBar": {
             "Name": "API for the Grove - LED Bar/My-semi MY9221 12-channel LED driver",
             "Description": "This is the UPM Module for the Grove - LED Bar/My-semi MY9221 12-channel LED driver. This is a 10-segment LED bar, with 8 green segments, 1 yellow segment, and one red segment.  They can be daisy chained together so that this module can control multiple LED bars.",
             "Aliases": ["my9221", "Grove - LED Bar", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],
@@ -98,7 +98,7 @@
                 "Datasheets": ["http://www.my-semi.com.tw/file/MY9221_BF_3.0.pdf"]
             }
         },
-        "my9221 ": {
+        "MY9221 ": {
             "Name": "API for the My-semi MY9221 12-channel LED driver",
             "Description": "This is the UPM Module for the My-semi MY9221 12-channel LED driver. This is the base for several grove LED modules, allowing finite control of individual LEDs",
             "Aliases": ["my9221", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],

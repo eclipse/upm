@@ -3,7 +3,7 @@
     "Description": "API for the Light Sensor",
     "Sensor Class":
     {
-        "light":
+        "Light":
         {
             "Name": "Analog Light Sensor",
             "Description": "The light sensor detects the intensity of the ambient light. As the light intensity of the environment increases, the resistance of the sensor decreases. This means the raw value from the analog pin is larger in bright light and smaller in the dark. A very approximate lux value can also be returned.",

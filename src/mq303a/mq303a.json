@@ -2,7 +2,7 @@
     "Library": "mq303a",
     "Description": "Seeed MQ303A Alcohol Sensor library",
     "Sensor Class": {
-        "mq303a": {
+        "MQ303A": {
             "Name": "API for the Seeed MQ303A Alcohol Sensor",
             "Description": "This is the UPM Module for the Seeed MQ303A Alcohol Sensor. It has good sensitivity and fast response to alcohol. It is suitable for making Breathalyzer. This Grove implements all the necessary circuitry for MQ303A like power conditioning and heater power supply. This sensor outputs a voltage inversely proportional to the alcohol concentration in air.",
             "Aliases": ["mq303a", "Grove - Alcohol Sensor"],

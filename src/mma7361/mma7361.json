@@ -2,7 +2,7 @@
     "Library": "mma7361",
     "Description": "UPM API for the DFRobot MMA7361 Analog Accelerometer",
     "Sensor Class": {
-        "mma7361": {
+        "MMA7361": {
             "Name": "API for the DFRobot MMA7361 Analog Accelerometer",
             "Description": "This is the UPM Module for the DFRobot mma7361 analog accelerometer. This triaxial accelerometer has variable sensitivity, and offers an easy to read analog interface. This library was tested with the DFRobot MMA7361 Analog Accelerometer.",
             "Aliases": ["mma7361", "Triple Axis Accelerometer MMA7361", "DFR0143"],

@@ -2,7 +2,7 @@
     "Library": "nmea_gps",
     "Description": "UPM C++ API for a generic GPS serial device reporting NMEA data",
     "Sensor Class": {
-        "nmea_gps": {
+        "NMEAGPS": {
             "Name": "API for the NMEA GPS Module",
             "Description": "This is the UPM Module for a generic GPS serial device reporting NMEA data. This driver was tested with a number of GPS devices that emit NMEA data via a serial interface of some sort (typically a UART). The I2C capablity was tested with a UBLOX LEA-6H based GPS shield from DFRobot.  Currently, the I2C capability is only supported for UBLOX devices (or compatibles) that conform to the specifications outlined in the u-blox6 Receiver Description Protocol Specification, Chapter 4, DDC Port.",
             "Aliases": ["VK2828u7", "ublox", "LEA-6H"],

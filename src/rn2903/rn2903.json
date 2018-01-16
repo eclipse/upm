@@ -2,7 +2,7 @@
     "Library": "rn2903",
     "Description": "Microchip RN2903 LoRa radio Library",
     "Sensor Class": {
-        "rn2903": {
+        "RN2903": {
             "Name": "API for the Microchip RN2903 LoRa radio",
             "Description": "This is the UPM Module for the Microchip RN2903 LoRa radio. The RN2903 is a fully-certified 915 MHz module based on wireless LoRa technology.  The RN2903 utilizes a unique spread spectrum modulation within the Sub-GHz band to enable long range, low power, and high network capacity.",
             "Aliases": ["rn2903"],

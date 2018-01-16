@@ -2,7 +2,7 @@
     "Library": "mpu9150",
     "Description": "InvenSense/Seeed MPU9150 accelerometer library",
     "Sensor Class": {
-        "mpu9150": {
+        "MPU9150": {
             "Name": "InvenSense/Seeed MPU9150 accelerometer",
             "Description": "This is the UPM Module for the InvenSense/Seeed MPU9150 accelerometer. The MPU-9150 is the world's first integrated 9-axis motion tracking device designed for the low power, low cost, and high performance requirements of consumer electronics equipment including smartphones, tablets and wearable sensors. MPU-9150 features three 16-bit ADC for digitizing the gyroscope outputs and three 16-bit ADCs for digitizing the accelerometer outputs and three 13-bit ADCs for digitizing the magnetometer outputs",
             "Aliases": ["mpu9150", "Grove - IMU 9DOF v1.0"],

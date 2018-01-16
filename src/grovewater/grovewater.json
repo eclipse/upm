@@ -3,7 +3,7 @@
     "Description": "Grove Water Sensor Library",
     "Sensor Class":
     {
-        "grovewater":
+        "GroveWater":
         {
             "Name": "Grove Water Sensor",
             "Description": "UPM module for the Grove Water sensor.",

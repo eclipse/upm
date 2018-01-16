@@ -3,7 +3,7 @@
     "Description": "API for the GUVA-S12D UV Sensor",
     "Sensor Class":
     {
-        "guvas12d":
+        "GUVAS12D":
         {
             "Name": "Grove Analog UV Sensor",
             "Description": "UPM module for the GUVA-S12D UV sensor",

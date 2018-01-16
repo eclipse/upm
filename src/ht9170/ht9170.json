@@ -3,7 +3,7 @@
     "Description": "API for the HT9170 DTMF Decoder",
     "Sensor Class":
     {
-        "ht9170":
+        "HT9170":
         {
             "Name": "Dual Tone Multi Frequency (DTMF) Decoder",
             "Description": "This driver was developed using the DTMF (Dual-Tone Multi-Frequency) Shield by Seeed Studio*. It can decode DTMF signals presented at its audio input. It does not generate DTMF signals.",

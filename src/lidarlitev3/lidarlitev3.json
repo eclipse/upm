@@ -3,7 +3,7 @@
     "Description": "API for the LIDARLITEV3 Optical Distance Measurement Sensor",
     "Sensor Class":
     {
-        "lidarlitev3":
+        "LIDARLITEV3":
         {
             "Name": "Optical Distance Measurement Sensor",
             "Description": "It is a compact, high-performance optical distance measurement sensor from Garmin.",

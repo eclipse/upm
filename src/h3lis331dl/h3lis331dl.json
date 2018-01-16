@@ -3,7 +3,7 @@
     "Description": "H3LIS331DL I2C Accelerometer (400g) Library",
     "Sensor Class":
     {
-        "h3lis331dl":
+        "H3LIS331DL":
         {
             "Name": "I2C 3-axis Digital Accelerometer (400g)",
             "Description": "This is a high-performance, high-range accelerometer for extreme applications.",

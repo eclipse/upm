@@ -2,7 +2,7 @@
     "Library": "rotaryencoder",
     "Description": "Grove Rotary Encoder library",
     "Sensor Class": {
-        "rotaryencoder": {
+        "RotaryEncoder": {
             "Name": "API for the Grove Rotary Encoder",
             "Description": "This is the UPM Module for the Grove Rotary Encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer.",
             "Aliases": ["rotaryencoder", "Rotary Encoder", "Grove - Encoder"],

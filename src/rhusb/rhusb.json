@@ -2,7 +2,7 @@
     "Library": "rhusb",
     "Description": "Omega RH-USB Temperature and Humidity Sensor Library",
     "Sensor Class": {
-        "rhusb": {
+        "RHUSB": {
             "Name": "API for the Omega RH-USB Temperature and Humidity Sensor",
             "Description": "This is the UPM Module for the Omega RH-USB Temperature and Humidity Sensor. It connects via an integrated USB cable, and is accessed via a serial port.  It is suitable for wall or duct mounting.",
             "Aliases": ["rhusb", "Humidity & Temperature Sensor with USB Output"],

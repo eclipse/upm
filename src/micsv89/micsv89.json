@@ -2,7 +2,7 @@
     "Library": "micsv89",
     "Description": "MICS-VZ89 environmental sensor library",
     "Sensor Class": {
-        "micsv89": {
+        "MICSV89": {
             "Name": "API for the MICS-VZ89 Gas Sensor",
             "Description": "This is the UPM Module for the SGX Sensortech MICS-VZ-89. The MiCS-VZ-86/89 combines state-of-the-art MOS sensor technology with intelligent detection algorithms to monitor VOCs and CO2 equivalent variations in confined spaces. This library only supports the i2c variants of this sensor.",
             "Aliases": ["micsv89", "MICS-VZ-89TE", "MICS-VZ-89TE Indoor Air Quality Sensor"],

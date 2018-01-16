@@ -2,7 +2,7 @@
     "Library": "mma7660",
     "Description": "MMA7660 I2C 3-Axis Digital Accelerometer library",
     "Sensor Class": {
-        "mma7660": {
+        "MMA7660": {
             "Name": " API for the Seeed/NXP MMA7660 I2C 3-Axis Digital Accelerometer",
             "Description": "This is the UPM Module for the Seeed/NXP MMA7660 i2c 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied",
             "Aliases": ["mma7660", "Grove - 3-Axis Digital Accelerometer(±1.5g)"],

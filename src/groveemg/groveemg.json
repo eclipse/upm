@@ -3,7 +3,7 @@
     "Description": "Grove EMG Muscle Signal Reader Library",
     "Sensor Class":
     {
-        "groveemg":
+        "GroveEMG":
         {
             "Name": "Grove Electromyography (EMG) Sensor",
             "Description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result.",

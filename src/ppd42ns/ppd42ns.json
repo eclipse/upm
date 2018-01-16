@@ -2,7 +2,7 @@
     "Library": "ppd42ns",
     "Description": "Seeed/Shinyei PPD42NS Dust Sensor library",
     "Sensor Class": {
-        "ppd42ns": {
+        "PPD42NS": {
             "Name": "API for the Seeed/Shinyei PPD42NS Dust Sensor",
             "Description": "This is the UPM Module for the Seeed/Shinyei PPD42NS Dust Sensor. This Dust Sensor gives a good indication of the air quality in an environment by measuring the dust concentration. The Particulate Matter level (PM level) in the air is measured by counting the Low Pulse Occupancy time (LPO time) in given time unit. LPO time is proportional to PM concentration. This sensor can provide reliable data for air purifier systems; it is responsive to PM of diameter 1μm.",
             "Aliases": ["ppd42ns", "Grove - Dust Sensor"],

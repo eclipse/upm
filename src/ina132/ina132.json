@@ -3,7 +3,7 @@
     "Description": "API for the INA132 Differential Amplifier Sensor",
     "Sensor Class":
     {
-        "ina132":
+        "INA132":
         {
             "Name": "Grove Differential Amplifier",
             "Description": "The INA132 Differential Amplifier Sensor is designed for precise differential-input amplification. This sensor was tested amplifying the signal from a Weight Sensor (Load Cell) 0-500g",

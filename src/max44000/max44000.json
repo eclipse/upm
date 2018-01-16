@@ -3,7 +3,7 @@
     "Description": "API for the MAX44000 Ambient and Infrared Proximity Sensor",
     "Sensor Class":
     {
-        "max44000":
+        "MAX44000":
         {
             "Name": "Ambient and Infrared Proximity Sensor",
             "Description": "Maxim Integrated* [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf) is an ambient and infrared proximity sensor. This module was tested on the Maxim Integrated  [MAX44000PMB1 PMOD module] (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the analog PMOD kit.",

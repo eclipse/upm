@@ -2,7 +2,7 @@
     "Library": "mpr121",
     "Description": "Seeed/FreeScale MPR121 Touch Sensor library",
     "Sensor Class": {
-        "mpr121": {
+        "MPR121": {
             "Name": "Seeed/FreeScale MPR121 Touch Sensor",
             "Description": "This is the UPM Module for the Seeed/FreeScale MPR121 Touch Sensor. The MPR121 is a capacitive touch sensor controller,features internal intelligence, include an hardware configurable I2C address, an expended filtering system with debounce, and completely independent electrodes with auto-configuration built in. Note: Each touch sensor comes with 4 \"feelers\" that act as capacitive pads for touch detection.",
             "Aliases": ["mpr121", "Grove - I2C Touch Sensor"],

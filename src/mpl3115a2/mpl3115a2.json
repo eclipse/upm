@@ -2,7 +2,7 @@
     "Library": "mpl3115a2",
     "Description": "NXP/Adafruit MPL3115A2 Atmospheric Pressure Sensor library",
     "Sensor Class": {
-        "mpl3115a2": {
+        "MPL3115A2": {
             "Name": "NXP/Adafruit MPL3115A2 Atmospheric Pressure Sensor",
             "Description": "This is the UPM Module for the NXP/Adafruit MPL3115A2 Atmospheric Pressure Sensor. This sensor is a compact absolute pressure sensor, with a wide operating range and high operating accuracy, offering a 24-bit ADC onboard. It also offers internal compensation, and a fast i2c interface.",
             "Aliases": ["mpl3115a2", "MPL3115A2 - I2C Barometric Pressure/Altitude/Temperature Sensor"],

@@ -3,7 +3,7 @@
     "Description": "API for the HM-TRP Serial RF Pro Transceiver",
     "Sensor Class":
     {
-        "hmtrp":
+        "HMTRP":
         {
             "Name": "Serial RF Pro Module",
             "Description": "UPM support for the HM-TRP Serial RF Pro transceiver. This was tested specifically with the Grove Serial RF Pro transceiver. In theory, this class should work with the following devices: HM-TRP-433: 414000000-454000000Hz HM-TRP-470: 450000000-490000000Hz HM-TRP-868: 849000000-889000000Hz HM-TRP-915: 895000000-935000000Hz  The only difference is the transmit and receive frequencies supported. By default, the device simply sends and receives any data presented on its UART interface. It can be put into a configuration mode by grounding the CONFIG pin on the transceiver.",

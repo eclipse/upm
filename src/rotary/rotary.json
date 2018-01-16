@@ -2,7 +2,7 @@
     "Library": "rotary",
     "Description": "Seeed Rotary Angle Sensor library",
     "Sensor Class": {
-        "rotary": {
+        "Rotary": {
             "Name": "API for the Seeed Rotary Angle Sensor",
             "Description": "This is the UPM Module for the Seeed Rotary Angle Sensor. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range.",
             "Aliases": ["rotary", "Grove - Rotary Angle Sensor"],

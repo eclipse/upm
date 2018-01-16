@@ -2,7 +2,7 @@
     "Library": "rgbringcoder",
     "Description": "SparkFun RGB RingCoder Library",
     "Sensor Class": {
-        "rgbringcoder": {
+        "RGBRingCoder": {
             "Name": "API for the SparkFun RGB RingCoder",
             "Description": "This is the UPM Module for the SparkFun RGB RingCode. RGB RingCoder is a breakout board, a circular LED containing 16 LEDs arranged in a ring, and a rotary encoder. The encoder contains an RGB LED as well as a push button function. NOTE: This SparkFun product is retired, and no longer for sale.",
             "Aliases": ["rgbringcoder", "SparkFun LED RingCoder Breakout - RGB"],

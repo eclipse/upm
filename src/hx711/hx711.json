@@ -3,7 +3,7 @@
     "Description": "API for the HX711 Analog-to-Digital Converter",
     "Sensor Class":
     {
-        "hx711":
+        "HX711":
         {
             "Name": "24-bit Analog-to-digital Converter",
             "Description": "HX711 is a precision 24-bit analog-to-digital converter (ADC) designed for weight scales and industrial control applications to interface directly with a bridge sensor. This module was tested on the Intel(R) Galileo Gen 2 board.",

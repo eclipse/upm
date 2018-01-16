@@ -3,7 +3,7 @@
     "Description": "API for the MAX31855 Thermocouple Amplifier",
     "Sensor Class":
     {
-        "max31855":
+        "MAX31855":
         {
             "Name": "Thermocouple-to-Digital Converter",
             "Description": "Maxim Integrated* [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf) is a cold-junction compensated thermocouple-to-digital converter. This module was tested on the Maxim Integrated  [MAX31855PMB1 PMOD module] (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the analog PMOD kit.",

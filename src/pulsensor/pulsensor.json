@@ -2,7 +2,7 @@
     "Library": "pulsensor",
     "Description": "Pulse Sensor library",
     "Sensor Class": {
-        "pulsensor": {
+        "Pulsensor": {
             "Name": "C++ API for the Adafruit 3-Wire Pulse Sensor",
             "Description": "This is the UPM Module for the Adafruit 3-Wire Pulse Sensor. It can be used by students, artists, athletes, makers, and game & mobile developers who want to easily incorporate live heart-rate data into their projects.",
             "Aliases": ["pulsensor", "Pulse Sensor Amped"],

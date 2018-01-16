@@ -3,7 +3,7 @@
     "Description": "API for the Grove Speaker",
     "Sensor Class":
     {
-        "grovespeaker":
+        "GroveSpeaker":
         {
             "Name": "Grove Speaker Module",
             "Description": "UPM module for the Grove Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal.",

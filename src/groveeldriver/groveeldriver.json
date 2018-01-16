@@ -3,7 +3,7 @@
     "Description": "API for the Grove EL Driver Module",
     "Sensor Class":
     {
-        "groveeldriver":
+        "GroveElDriver":
         {
             "Name": "Grove Electroluminescent Wire (EL) Driver",
             "Description": "The Grove EL Driver allows you to easily light up an EL wire with just one single  cable.",
