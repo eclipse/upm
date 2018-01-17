@@ -19,13 +19,4 @@
 
 %include "nrf24l01.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_nrf24l01");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_nrf24l01)

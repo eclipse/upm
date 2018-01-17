@@ -2,8 +2,7 @@
 %include "stdint.i"
 %include "upm_exception.i"
 
-/* Additional swig file w/helper macros to import (but not expose) */
-%import "_upm.i"
+%import _upm.i
 
 %{
 #include "version.hpp"

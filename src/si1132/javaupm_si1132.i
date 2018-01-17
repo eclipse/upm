@@ -12,16 +12,7 @@
 import upm_interfaces.*;
 %}
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_si1132");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_si1132)
 
 %include "si1132.hpp"
 %{

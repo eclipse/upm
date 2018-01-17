@@ -26,13 +26,4 @@ import java.lang.Float;
     #include "bmm150.hpp"
 %}
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_bmm150");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_bmm150)

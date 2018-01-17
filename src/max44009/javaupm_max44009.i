@@ -18,13 +18,4 @@ import upm_interfaces.*;
 
 %include "max44009.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_max44009");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_max44009)
