@@ -25,13 +25,4 @@ READDATA_EXCEPTION(getModSignalStrength())
 %include "hmtrp.hpp"
 speed_t int_B9600 = B9600;
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_hmtrp");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_hmtrp)
