@@ -277,15 +277,6 @@ namespace upm {
          */
         void setAccelerometerOffsets(int x, int y, int z, bool weight);
 
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(LSM6DSL_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level, jobject runnable)
-            {
-                installISR(intr, gpio, level, mraa_java_isr_callback,
-                           runnable);
-            }
-#else
         /**
          * install an interrupt handler
          *
@@ -302,7 +293,6 @@ namespace upm {
         void installISR(LSM6DSL_INTERRUPT_PINS_T intr, int gpio,
                         mraa::Edge level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * uninstall a previously installed interrupt handler
@@ -347,11 +337,5 @@ namespace upm {
         LSM6DSL(const LSM6DSL&) = delete;
         LSM6DSL &operator=(const LSM6DSL&) = delete;
 
-        // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(LSM6DSL_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        void (*isr)(void *), void *arg);
-#endif
     };
 }

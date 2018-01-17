@@ -20,10 +20,22 @@ import java.lang.Float;
 
 %template(floatVector) std::vector<float>;
 
-%include "bmg160_defs.h"
-%include "bmg160.hpp"
 %{
     #include "bmg160.hpp"
+    #include "bmg160_defs.h"
 %}
+%include "bmg160_defs.h"
+%include "bmg160.hpp"
+
+
+%ignore installISR (BMG160_INTERRUPT_PINS_T , int   mraa::Edge ,  void *, void *);
+
+%extend upm::BMG160 {
+    void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
+                    mraa::Edge level, jobject runnable)
+    {
+        $self->installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
+    }
+}
 
 JAVA_JNI_LOADLIBRARY(javaupm_bmg160)

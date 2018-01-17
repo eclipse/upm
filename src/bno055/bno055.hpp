@@ -622,12 +622,6 @@ namespace upm {
         BNO055_SYS_ERR_T getSystemError();
 
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(int gpio, mraa_gpio_edge_t level, jobject runnable)
-        {
-            installISR(gpio, level, mraa_java_isr_callback, runnable);
-        }
-#else
         /**
          * install an interrupt handler.
          *
@@ -641,7 +635,6 @@ namespace upm {
          */
         void installISR(int gpio, mraa_gpio_edge_t level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * uninstall a previously installed interrupt handler
@@ -707,10 +700,5 @@ namespace upm {
         BNO055(const BNO055&) = delete;
         BNO055 &operator=(const BNO055&) = delete;
 
-        // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(int gpio, mraa_gpio_edge_t level,
-                        void (*isr)(void *), void *arg);
-#endif
     };
 }

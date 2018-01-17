@@ -83,9 +83,7 @@ namespace upm {
          */
         bool blackDetected();
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(jobject runnable);
-#else
+
         /**
          * Installs an ISR to be called when
          * black is detected
@@ -95,7 +93,6 @@ namespace upm {
          * argument to the ISR.
          */
         void installISR(void (*isr)(void *), void *arg);
-#endif
 
         /**
          * Uninstalls the previously installed ISR
@@ -110,10 +107,5 @@ namespace upm {
 
         rpr220_context m_rpr220;
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(void (*isr)(void *), void *arg);
-#endif
     };
 }
-
-

@@ -18,10 +18,20 @@
 %template(byteVector) std::vector<uint8_t>;
 %template(intVector) std::vector<int>;
 
-%include "bno055_regs.h"
-%include "bno055.hpp"
 %{
     #include "bno055.hpp"
+    #include "bno055_regs.h"
 %}
+%include "bno055_regs.h"
+%include "bno055.hpp"
+
+%ignore installISR(int , mraa::Edge ,  void *, void *);
+
+%extend upm::BNO055 {
+    void installISR(int gpio, mraa_gpio_edge_t level, jobject runnable)
+    {
+        $self->installISR(gpio, level, mraa_java_isr_callback, runnable);
+    }
+}
 
 JAVA_JNI_LOADLIBRARY(javaupm_bno055)

@@ -43,15 +43,15 @@ LSM9DS0::LSM9DS0(int bus, bool raw, uint8_t gAddress, uint8_t xmAddress) :
   m_accelX = 0.0;
   m_accelY = 0.0;
   m_accelZ = 0.0;
-  
+
   m_gyroX = 0.0;
   m_gyroY = 0.0;
   m_gyroZ = 0.0;
-  
+
   m_magX = 0.0;
   m_magY = 0.0;
   m_magZ = 0.0;
-  
+
   m_temp = 0.0;
 
   m_accelScale = 0.0;
@@ -68,7 +68,7 @@ LSM9DS0::LSM9DS0(int bus, bool raw, uint8_t gAddress, uint8_t xmAddress) :
 
   if ( (rv = m_i2cXM.address(m_xmAddr)) != mraa::SUCCESS)
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize XM i2c address");
       return;
     }
@@ -89,24 +89,24 @@ bool LSM9DS0::init()
   // power up
   if (!setGyroscopePowerDown(false))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to wake up gyro");
       return false;
     }
-  
+
   // enable all axes
   if (!setGyroscopeEnableAxes(CTRL_REG1_G_YEN |CTRL_REG1_G_XEN |
                               CTRL_REG1_G_ZEN))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to enable gyro axes");
       return false;
     }
-  
+
   // set gyro ODR
   if (!setGyroscopeODR(G_ODR_95_25))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set gyro ODR");
       return false;
     }
@@ -114,7 +114,7 @@ bool LSM9DS0::init()
   // set gyro scale
   if (!setGyroscopeScale(G_FS_245))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set gyro scale");
       return false;
     }
@@ -124,7 +124,7 @@ bool LSM9DS0::init()
   // power up and set ODR
   if (!setAccelerometerODR(XM_AODR_100))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set accel ODR");
       return false;
     }
@@ -133,35 +133,35 @@ bool LSM9DS0::init()
   if (!setAccelerometerEnableAxes(CTRL_REG1_XM_AXEN |CTRL_REG1_XM_AYEN |
                                   CTRL_REG1_XM_AZEN))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to enable accel axes");
       return false;
     }
-  
+
   // set scaling rate
   if (!setAccelerometerScale(XM_AFS_2))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set accel scale");
       return false;
     }
-  
+
   // temperature sensor
 
   // enable the temperature sensor
   if (!enableTemperatureSensor(true))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to enable temp sensor");
       return false;
     }
 
   // Init the magnetometer
-  
+
   // set mode (this also powers it up if not XM_MD_POWERDOWN)
   if (!setMagnetometerMode(XM_MD_CONTINUOUS))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set mag scale");
       return false;
     }
@@ -169,7 +169,7 @@ bool LSM9DS0::init()
   // turn LPM off
   if (!setMagnetometerLPM(false))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to disable mag LPM");
       return false;
     }
@@ -177,23 +177,23 @@ bool LSM9DS0::init()
   // set resolution
   if (!setMagnetometerResolution(XM_RES_LOW))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set mag res");
       return false;
     }
-  
+
   // set ODR
   if (!setMagnetometerODR(XM_ODR_12_5))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set mag ODR");
       return false;
     }
-  
+
   // set scale
   if (!setMagnetometerScale(XM_MFS_2))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set mag scale");
       return false;
     }
@@ -293,7 +293,7 @@ uint8_t LSM9DS0::readReg(DEVICE_T dev, uint8_t reg)
     case DEV_GYRO: device = &m_i2cG; break;
     case DEV_XM:   device = &m_i2cXM; break;
     default:
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": Internal error, invalid device specified");
       return 0;
     }
@@ -310,7 +310,7 @@ void LSM9DS0::readRegs(DEVICE_T dev, uint8_t reg, uint8_t *buffer, int len)
     case DEV_GYRO: device = &m_i2cG; break;
     case DEV_XM:   device = &m_i2cXM; break;
     default:
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": Internal error, invalid device specified");
       return;
     }
@@ -329,7 +329,7 @@ bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
     case DEV_GYRO: device = &m_i2cG; break;
     case DEV_XM:   device = &m_i2cXM; break;
     default:
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": Internal error, invalid device specified");
       return false;
     }
@@ -340,8 +340,8 @@ bool LSM9DS0::writeReg(DEVICE_T dev, uint8_t reg, uint8_t val)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
       return false;
-    } 
-  
+    }
+
   return true;
 }
 
@@ -380,7 +380,7 @@ bool LSM9DS0::setGyroscopeODR(G_ODR_T odr)
   reg &= ~(_CTRL_REG1_G_ODR_MASK << _CTRL_REG1_G_ODR_SHIFT);
 
   reg |= (odr << _CTRL_REG1_G_ODR_SHIFT);
-  
+
   return writeReg(DEV_GYRO, REG_CTRL_REG1_G, reg);
 }
 
@@ -415,7 +415,7 @@ bool LSM9DS0::setGyroscopeScale(G_FS_T scale)
 
     default: // should never occur, but...
       m_gyroScale = 0.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -446,7 +446,7 @@ bool LSM9DS0::setAccelerometerODR(XM_AODR_T odr)
   reg &= ~(_CTRL_REG1_XM_AODR_MASK << _CTRL_REG1_XM_AODR_SHIFT);
 
   reg |= (odr << _CTRL_REG1_XM_AODR_SHIFT);
-  
+
   return writeReg(DEV_XM, REG_CTRL_REG1_XM, reg);
 }
 
@@ -464,11 +464,11 @@ bool LSM9DS0::setAccelerometerScale(XM_AFS_T scale)
     }
 
   // store scaling factor
-  
+
   switch (scale)
     {
     case XM_AFS_2:
-      m_accelScale = 0.061; 
+      m_accelScale = 0.061;
       break;
 
     case XM_AFS_4:
@@ -489,7 +489,7 @@ bool LSM9DS0::setAccelerometerScale(XM_AFS_T scale)
 
     default: // should never occur, but...
       m_accelScale = 0.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -504,7 +504,7 @@ bool LSM9DS0::setMagnetometerResolution(XM_RES_T res)
   reg &= ~(_CTRL_REG5_XM_RES_MASK << _CTRL_REG5_XM_RES_SHIFT);
 
   reg |= (res << _CTRL_REG5_XM_RES_SHIFT);
-  
+
   return writeReg(DEV_XM, REG_CTRL_REG5_XM, reg);
 }
 
@@ -515,7 +515,7 @@ bool LSM9DS0::setMagnetometerODR(XM_ODR_T odr)
   reg &= ~(_CTRL_REG5_XM_ODR_MASK << _CTRL_REG5_XM_ODR_SHIFT);
 
   reg |= (odr << _CTRL_REG5_XM_ODR_SHIFT);
-  
+
   return writeReg(DEV_XM, REG_CTRL_REG5_XM, reg);
 }
 
@@ -526,7 +526,7 @@ bool LSM9DS0::setMagnetometerMode(XM_MD_T mode)
   reg &= ~(_CTRL_REG7_XM_MD_MASK << _CTRL_REG7_XM_MD_SHIFT);
 
   reg |= (mode << _CTRL_REG7_XM_MD_SHIFT);
-  
+
   return writeReg(DEV_XM, REG_CTRL_REG7_XM, reg);
 }
 
@@ -538,7 +538,7 @@ bool LSM9DS0::setMagnetometerLPM(bool enable)
     reg |= CTRL_REG7_XM_MLP;
   else
     reg &= ~CTRL_REG7_XM_MLP;
-  
+
   return writeReg(DEV_XM, REG_CTRL_REG7_XM, reg);
 }
 
@@ -556,7 +556,7 @@ bool LSM9DS0::setMagnetometerScale(XM_MFS_T scale)
     }
 
   // store scaling factor
-  
+
   switch (scale)
     {
     case XM_MFS_2:
@@ -577,7 +577,7 @@ bool LSM9DS0::setMagnetometerScale(XM_MFS_T scale)
 
     default: // should never occur, but...
       m_magScale = 0.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -741,22 +741,8 @@ uint8_t LSM9DS0::getInterruptGen2Src()
   return readReg(DEV_XM, REG_INT_GEN_2_SRC);
 }
 
-#if defined(SWIGJAVA) || defined (JAVACALLBACK)
+
 void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
-			 jobject runnable)
-{
-  // delete any existing ISR and GPIO context
-  uninstallISR(intr);
-
-  // greate gpio context
-  getPin(intr) = new mraa::Gpio(gpio);
-
-  getPin(intr)->dir(mraa::DIR_IN);
-  getPin(intr)->isr(level, runnable);
-
-}
-#else
-void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {
   // delete any existing ISR and GPIO context
@@ -768,7 +754,7 @@ void LSM9DS0::installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
   getPin(intr)->dir(mraa::DIR_IN);
   getPin(intr)->isr(level, isr, arg);
 }
-#endif
+
 
 void LSM9DS0::uninstallISR(INTERRUPT_PINS_T intr)
 {
@@ -776,7 +762,7 @@ void LSM9DS0::uninstallISR(INTERRUPT_PINS_T intr)
     {
       getPin(intr)->isrExit();
       delete getPin(intr);
-      
+
       getPin(intr) = 0;
     }
 }

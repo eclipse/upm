@@ -901,17 +901,16 @@ namespace upm {
      * @param isr the interrupt handler, accepting a void * argument
      * @param arg the argument to pass the the interrupt handler
      */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int gpio, mraa::Edge level, jobject runnable);
-#else
+
     void installISR(int gpio, mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
 
     /**
      * uninstall a previously installed interrupt handler
      *
      */
     void uninstallISR();
+
+    mraa::Gpio* get_gpioIRQ();
 
   protected:
     // uncompensated accelerometer and gyroscope values
@@ -942,5 +941,3 @@ namespace upm {
     mraa::Gpio *m_gpioIRQ;
   };
 }
-
-
