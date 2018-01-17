@@ -42,7 +42,7 @@ BMA220::BMA220(int bus, uint8_t addr) :
   m_accelX = 0.0;
   m_accelY = 0.0;
   m_accelZ = 0.0;
-  
+
   m_accelScale = 0.0;
 
   mraa::Result rv;
@@ -59,7 +59,7 @@ BMA220::BMA220(int bus, uint8_t addr) :
   // set scaling rate
   if (!setAccelerometerScale(FSL_RANGE_2G))
     {
-      throw std::runtime_error(string(__FUNCTION__) + 
+      throw std::runtime_error(string(__FUNCTION__) +
                                ": Unable to set accel scale");
       return;
     }
@@ -107,8 +107,8 @@ bool BMA220::writeReg(uint8_t reg, uint8_t val)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
       return false;
-    } 
-  
+    }
+
   return true;
 }
 
@@ -126,11 +126,11 @@ bool BMA220::setAccelerometerScale(FSL_RANGE_T scale)
     }
 
   // store scaling factor
-  
+
   switch (scale)
     {
     case FSL_RANGE_2G:
-      m_accelScale = 16.0; 
+      m_accelScale = 16.0;
       break;
 
     case FSL_RANGE_4G:
@@ -147,7 +147,7 @@ bool BMA220::setAccelerometerScale(FSL_RANGE_T scale)
 
     default: // should never occur, but...
       m_accelScale = 0.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -193,7 +193,7 @@ bool BMA220::setFilterConfig(FILTER_CONFIG_T filter)
   reg &= ~(_FILTER_CONFIG_FILTER_MASK << _FILTER_CONFIG_FILTER_SHIFT);
 
   reg |= (filter << _FILTER_CONFIG_FILTER_SHIFT);
-  
+
   return writeReg(REG_FILTER_CONFIG, reg);
 }
 
@@ -205,7 +205,7 @@ bool BMA220::setSerialHighBW(bool high)
     reg |= FILTER_CONFIG_SERIAL_HIGH_BW;
   else
     reg &= ~FILTER_CONFIG_SERIAL_HIGH_BW;
-  
+
   return writeReg(REG_FILTER_CONFIG, reg);
 }
 
@@ -260,7 +260,7 @@ bool BMA220::setSleepDuration(SLEEP_DUR_T dur)
   reg &= ~(_ENABLE_CONFIG3_SLEEP_DUR_MASK << _ENABLE_CONFIG3_SLEEP_DUR_SHIFT);
 
   reg |= (dur << _ENABLE_CONFIG3_SLEEP_DUR_SHIFT);
-  
+
   return writeReg(REG_ENABLE_CONFIG3, reg);
 }
 
@@ -273,7 +273,7 @@ bool BMA220::setLowGThreshold(uint8_t thresh)
   reg &= ~(_THRESHOLD_LOW_MASK << _THRESHOLD_LOW_SHIFT);
 
   reg |= (thresh << _THRESHOLD_LOW_SHIFT);
-  
+
   return writeReg(REG_THRESHOLD, reg);
 }
 
@@ -286,7 +286,7 @@ bool BMA220::setHighGThreshold(uint8_t thresh)
   reg &= ~(_THRESHOLD_HIGH_MASK << _THRESHOLD_HIGH_SHIFT);
 
   reg |= (thresh << _THRESHOLD_HIGH_SHIFT);
-  
+
   return writeReg(REG_THRESHOLD, reg);
 }
 
@@ -299,7 +299,7 @@ bool BMA220::setLowGHysteresis(uint8_t hyst)
   reg &= ~(_L_HYST_DUR_LOW_HY_MASK << _L_HYST_DUR_LOW_HY_SHIFT);
 
   reg |= (hyst << _L_HYST_DUR_LOW_HY_SHIFT);
-  
+
   return writeReg(REG_L_HYST_DUR, reg);
 }
 
@@ -312,7 +312,7 @@ bool BMA220::setLowGDuration(uint8_t dur)
   reg &= ~(_L_HYST_DUR_LOW_DUR_MASK << _L_HYST_DUR_LOW_DUR_SHIFT);
 
   reg |= (dur << _L_HYST_DUR_LOW_DUR_SHIFT);
-  
+
   return writeReg(REG_L_HYST_DUR, reg);
 }
 
@@ -325,7 +325,7 @@ bool BMA220::setHighGHysteresis(uint8_t hyst)
   reg &= ~(_H_HYST_DUR_HIGH_HY_MASK << _H_HYST_DUR_HIGH_HY_SHIFT);
 
   reg |= (hyst << _H_HYST_DUR_HIGH_HY_SHIFT);
-  
+
   return writeReg(REG_H_HYST_DUR, reg);
 }
 
@@ -338,7 +338,7 @@ bool BMA220::setHighGDuration(uint8_t dur)
   reg &= ~(_H_HYST_DUR_HIGH_DUR_MASK << _H_HYST_DUR_HIGH_DUR_SHIFT);
 
   reg |= (dur << _H_HYST_DUR_HIGH_DUR_SHIFT);
-  
+
   return writeReg(REG_H_HYST_DUR, reg);
 }
 
@@ -351,7 +351,7 @@ bool BMA220::setTapDuration(uint8_t dur)
   reg &= ~(_TAP_CONFIG_DUR_MASK << _TAP_CONFIG_DUR_SHIFT);
 
   reg |= (dur << _TAP_CONFIG_DUR_SHIFT);
-  
+
   return writeReg(REG_TAP_CONFIG, reg);
 }
 
@@ -364,7 +364,7 @@ bool BMA220::setTapThreshold(uint8_t thresh)
   reg &= ~(_TAP_CONFIG_THRESH_MASK << _TAP_CONFIG_THRESH_SHIFT);
 
   reg |= (thresh << _TAP_CONFIG_THRESH_SHIFT);
-  
+
   return writeReg(REG_TAP_CONFIG, reg);
 }
 
@@ -389,7 +389,7 @@ bool BMA220::setSlopeDuration(uint8_t dur)
   reg &= ~(_SLOPE_CONFIG_DUR_MASK << _SLOPE_CONFIG_DUR_SHIFT);
 
   reg |= (dur << _SLOPE_CONFIG_DUR_SHIFT);
-  
+
   return writeReg(REG_SLOPE_CONFIG, reg);
 }
 
@@ -402,7 +402,7 @@ bool BMA220::setSlopeThreshold(uint8_t thresh)
   reg &= ~(_SLOPE_CONFIG_THRESH_MASK << _SLOPE_CONFIG_THRESH_SHIFT);
 
   reg |= (thresh << _SLOPE_CONFIG_THRESH_SHIFT);
-  
+
   return writeReg(REG_SLOPE_CONFIG, reg);
 }
 
@@ -474,7 +474,7 @@ bool BMA220::setInterruptLatch(CONFIG2_LAT_T lat)
   reg &= ~(_ENABLE_CONFIG2_LAT_INT_MASK << _ENABLE_CONFIG2_LAT_INT_SHIFT);
 
   reg |= (lat << _ENABLE_CONFIG2_LAT_INT_SHIFT);
-  
+
   return writeReg(REG_ENABLE_CONFIG2, reg);
 }
 
@@ -489,22 +489,8 @@ bool BMA220::resetInterrupts()
   return writeReg(REG_ENABLE_CONFIG2, reg);
 }
 
-#if defined(SWIGJAVA) || (JAVACALLBACK)
+
 void BMA220::installISR(int gpio, mraa::Edge level,
-                        jobject runnable)
-{
-  // delete any existing ISR and GPIO context
-  uninstallISR();
-
-  // create gpio context
-  m_gpioIntr = new mraa::Gpio(gpio);
-
-  m_gpioIntr->dir(mraa::DIR_IN);
-  m_gpioIntr->isr(level, runnable);
-
-}
-#else
-void BMA220::installISR(int gpio, mraa::Edge level, 
                         void (*isr)(void *), void *arg)
 {
   // delete any existing ISR and GPIO context
@@ -516,7 +502,6 @@ void BMA220::installISR(int gpio, mraa::Edge level,
   m_gpioIntr->dir(mraa::DIR_IN);
   m_gpioIntr->isr(level, isr, arg);
 }
-#endif
 
 void BMA220::uninstallISR()
 {
@@ -524,8 +509,12 @@ void BMA220::uninstallISR()
     {
       m_gpioIntr->isrExit();
       delete m_gpioIntr;
-      
+
       m_gpioIntr = 0;
     }
 }
 
+mraa::Gpio* BMA220::get_gpioIntr()
+{
+  return m_gpioIntr;
+}

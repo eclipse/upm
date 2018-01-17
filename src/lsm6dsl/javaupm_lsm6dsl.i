@@ -6,10 +6,23 @@
 %ignore getAccelerometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
 
-%include "lsm6dsl_defs.h"
-%include "lsm6dsl.hpp"
 %{
     #include "lsm6dsl.hpp"
+    #include "lsm6dsl_defs.h"
 %}
+%include "lsm6dsl_defs.h"
+%include "lsm6dsl.hpp"
+
+
+%ignore installISR(LSM6DSL_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
+
+%extend upm::LSM6DSL {
+    void installISR(LSM6DSL_INTERRUPT_PINS_T intr, int gpio,
+                    mraa::Edge level, jobject runnable)
+        {
+            $self->installISR(intr, gpio, level, mraa_java_isr_callback,
+                       runnable);
+        }
+}
 
 JAVA_JNI_LOADLIBRARY(javaupm_lsm6dsl)

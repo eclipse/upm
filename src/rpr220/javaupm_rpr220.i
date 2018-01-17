@@ -8,3 +8,5 @@
 %include "rpr220.hpp"
 
 JAVA_JNI_LOADLIBRARY(javaupm_rpr220)
+
+JAVA_ADD_INSTALLISR(upm::RPR220)

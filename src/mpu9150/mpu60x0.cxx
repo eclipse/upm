@@ -40,11 +40,11 @@ MPU60X0::MPU60X0(int bus, uint8_t address) :
   m_accelX = 0.0;
   m_accelY = 0.0;
   m_accelZ = 0.0;
-  
+
   m_gyroX = 0.0;
   m_gyroY = 0.0;
   m_gyroZ = 0.0;
-  
+
   m_temp = 0.0;
 
   m_accelScale = 1.0;
@@ -154,8 +154,8 @@ bool MPU60X0::writeReg(uint8_t reg, uint8_t val)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
       return false;
-    } 
-  
+    }
+
   return true;
 }
 
@@ -217,7 +217,7 @@ bool MPU60X0::setGyroscopeScale(FS_SEL_T scale)
 
     default: // should never occur, but...
       m_gyroScale = 1.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -239,7 +239,7 @@ bool MPU60X0::setAccelerometerScale(AFS_SEL_T scale)
     }
 
   // store scaling factor
-  
+
   switch (scale)
     {
     case AFS_2:
@@ -260,7 +260,7 @@ bool MPU60X0::setAccelerometerScale(AFS_SEL_T scale)
 
     default: // should never occur, but...
       m_accelScale = 1.0;        // set a safe, though incorrect value
-      throw std::logic_error(string(__FUNCTION__) + 
+      throw std::logic_error(string(__FUNCTION__) +
                              ": internal error, unsupported scale");
       break;
     }
@@ -384,21 +384,8 @@ uint8_t MPU60X0::getInterruptPinConfig()
   return readReg(REG_INT_PIN_CFG);
 }
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+
 void MPU60X0::installISR(int gpio, mraa::Edge level,
-                         jobject runnable)
-{
-  // delete any existing ISR and GPIO context
-  uninstallISR();
-
-  // greate gpio context
-  m_gpioIRQ = new mraa::Gpio(gpio);
-
-  m_gpioIRQ->dir(mraa::DIR_IN);
-  m_gpioIRQ->isr(level, runnable);
-}
-#else
-void MPU60X0::installISR(int gpio, mraa::Edge level, 
                          void (*isr)(void *), void *arg)
 {
   // delete any existing ISR and GPIO context
@@ -410,7 +397,7 @@ void MPU60X0::installISR(int gpio, mraa::Edge level,
   m_gpioIRQ->dir(mraa::DIR_IN);
   m_gpioIRQ->isr(level, isr, arg);
 }
-#endif
+
 
 void MPU60X0::uninstallISR()
 {
@@ -418,7 +405,12 @@ void MPU60X0::uninstallISR()
     {
       m_gpioIRQ->isrExit();
       delete m_gpioIRQ;
-      
+
       m_gpioIRQ = 0;
     }
 }
+
+  mraa::Gpio* MPU60X0::get_gpioIRQ()
+  {
+    return m_gpioIRQ;
+  }

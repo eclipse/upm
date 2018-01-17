@@ -31,7 +31,7 @@ using namespace upm;
 
 TTP223::TTP223(unsigned int pin) {
     // initialize gpio input
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+    if ( !(m_gpio = mraa_gpio_init(pin)) )
       {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_gpio_init() failed, invalid pin?");
@@ -59,12 +59,6 @@ bool TTP223::isPressed() {
     return this->value() == 1;
 }
 
-#ifdef JAVACALLBACK
-void TTP223::installISR(mraa::Edge level, jobject runnable)
-{
-  installISR(level, mraa_java_isr_callback, runnable);
-}
-#endif
 
 void TTP223::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
 {

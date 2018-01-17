@@ -32,7 +32,7 @@
 #define BMA220_DEFAULT_ADDR 0x0a
 
 namespace upm {
-  
+
   /**
    * @brief BMA220 Accelerometer library
    * @defgroup bma220 libupm-bma220
@@ -115,7 +115,7 @@ namespace upm {
       REG_SUSPEND               = 0x30,
       REG_SOFTRESET             = 0x32
     } REG_T;
-    
+
 
     /**
      * REG_H_HYST_DUR bits
@@ -271,7 +271,7 @@ namespace upm {
 
       INT_STATUS1_ORIENT_INT         = 0x80 // orient intr was generated
     } INT_STATUS1_BITS_T;
-      
+
     /**
      * INT_STATUS1_ORIENT values
      *
@@ -485,7 +485,7 @@ namespace upm {
      * BMA220 Destructor
      */
     ~BMA220();
-    
+
     /**
      * update the accelerometer values
      */
@@ -776,9 +776,7 @@ namespace upm {
      */
     bool resetInterrupts();
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int gpio, mraa::Edge level, jobject runnable);
-#else
+
     /**
      * install an interrupt handler.
      *
@@ -789,15 +787,16 @@ namespace upm {
      * @param isr the interrupt handler, accepting a void * argument
      * @param arg the argument to pass the the interrupt handler
      */
-    void installISR(int gpio, mraa::Edge level, 
+    void installISR(int gpio, mraa::Edge level,
                     void (*isr)(void *), void *arg);
-#endif
- 
+
    /**
      * uninstall a previously installed interrupt handler
      *
      */
     void uninstallISR();
+
+    mraa::Gpio* get_gpioIntr();
 
   protected:
     mraa::I2c m_i2c;
@@ -821,13 +820,6 @@ namespace upm {
      * update the accelerometer values
      */
     void updateAccelerometer();
-    // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(int gpio, mraa::Edge level, 
-                    void (*isr)(void *), void *arg);
-#endif
 
   };
 }
-
-

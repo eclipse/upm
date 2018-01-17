@@ -84,11 +84,11 @@ class GroveButton: public Grove {
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, jobject runnable);
-#else
+//#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+  //      void installISR(mraa::Edge level, jobject runnable);
+//#else
         void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
+//#endif
         /**
          * Uninstalls the previously installed ISR
          *
@@ -96,9 +96,6 @@ class GroveButton: public Grove {
         void uninstallISR();
 
     private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
         bool m_isrInstalled;
         std::string m_name;
         mraa_gpio_context m_gpio;

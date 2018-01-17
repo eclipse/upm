@@ -43,10 +43,10 @@ namespace upm {
  * @con gpio
  *
  * @brief API for the TTP223 Touch Sensor
- * 
+ *
  *   This touch sensor detects when a finger is near the metallic pad
  *   by the change in capacitance. It can replace a more traditional push
- *   button. The touch sensor can still function when placed under a 
+ *   button. The touch sensor can still function when placed under a
  *   non-metallic surface like glass or plastic.
  *
  * @image html ttp223.jpg
@@ -95,11 +95,8 @@ class TTP223 {
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, jobject runnable);
-#else
+
         void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
         /**
          * Uninstalls the previously installed ISR
          *
@@ -107,9 +104,6 @@ class TTP223 {
         void uninstallISR();
 
     protected:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-#endif
         std::string         m_name; //!< name of this sensor
         mraa_gpio_context   m_gpio; //!< GPIO pin
         bool                m_isrInstalled;

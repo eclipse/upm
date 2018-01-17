@@ -33,4 +33,21 @@
 %include "mpu60x0.hpp"
 %include "mpu9150.hpp"
 
+%ignore installISR(int , mraa::Edge , void *, void *);
+
+%extend upm::MPU60X0 {
+    void installISR(int gpio, mraa::Edge level,
+                             jobject runnable)
+    {
+      // delete any existing ISR and GPIO context
+      $self->uninstallISR();
+
+      // greate gpio context
+      mraa::Gpio* swg_gpioIRQ = $self->get_gpioIRQ();
+
+      swg_gpioIRQ->dir(mraa::DIR_IN);
+      swg_gpioIRQ->isr(level, runnable);
+    }
+}
+
 JAVA_JNI_LOADLIBRARY(javaupm_mpu9150)

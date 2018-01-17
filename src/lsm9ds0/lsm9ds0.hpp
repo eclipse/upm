@@ -34,7 +34,7 @@
 #define LSM9DS0_DEFAULT_GYRO_ADDR 0x6b
 
 namespace upm {
-  
+
   /**
    * @brief LSM9DS0 accelerometer library
    * @defgroup lsm9ds0 libupm-lsm9ds0
@@ -50,7 +50,7 @@ namespace upm {
    * @con i2c gpio
    * @web https://www.sparkfun.com/products/13033
    *
-   * @brief API for the LSM9DS0 3-axis Gyroscope, Accelerometer, 
+   * @brief API for the LSM9DS0 3-axis Gyroscope, Accelerometer,
    * and Magnetometer
    *
    * The LSM9DS0 is a system-in-package featuring a 3D digital linear
@@ -109,13 +109,13 @@ namespace upm {
 
       REG_STATUS_REG_G          = 0x27,
 
-      REG_OUT_X_L_G             = 0x28, // gyro output, X axis, LSB 
-      REG_OUT_X_H_G             = 0x29, // gyro output, X axis, MSB 
+      REG_OUT_X_L_G             = 0x28, // gyro output, X axis, LSB
+      REG_OUT_X_H_G             = 0x29, // gyro output, X axis, MSB
       REG_OUT_Y_L_G             = 0x2a,
       REG_OUT_Y_H_G             = 0x2b,
       REG_OUT_Z_L_G             = 0x2c,
       REG_OUT_Z_H_G             = 0x2d,
-      
+
       REG_FIFO_CTRL_REG_G       = 0x2e,
       REG_FIFO_SRC_REG_G        = 0x2f,
 
@@ -133,14 +133,14 @@ namespace upm {
       // on how to use this register
       REG_INT1_DURATION_G       = 0x38
     } REG_G_T;
-    
+
     /**
      * Gyro CTRL_REG1_G bits
      */
     typedef enum {
       CTRL_REG1_G_YEN           = 0x01, // Y enable, odd ordering...
-      CTRL_REG1_G_XEN           = 0x02, 
-      CTRL_REG1_G_ZEN           = 0x04, 
+      CTRL_REG1_G_XEN           = 0x02,
+      CTRL_REG1_G_ZEN           = 0x04,
       CTRL_REG1_G_PD            = 0x08, // power down (0)
 
       CTRL_REG1_G_BW0           = 0x10, // bandwidth
@@ -328,7 +328,7 @@ namespace upm {
       CTRL_REG5_G_BOOT          = 0x80  // reboot memory content
     } CTRL_REG5_G_BITS_T;
 
-    
+
     /**
      * CRTL_REG5_G_OUTSEL and INT1SEL values.  See Figure 18 in the
      * datasheet.
@@ -366,7 +366,7 @@ namespace upm {
       FIFO_CTRL_REG_G_WTM4      = 0x10,
       _FIFO_CTRL_REG_G_WTM_MASK = 31,
       _FIFO_CTRL_REG_G_WTM_SHIFT = 0,
-      
+
       FIFO_CTRL_REG_G_FM0       = 0x20, // FIFO mode config
       FIFO_CTRL_REG_G_FM1       = 0x40,
       FIFO_CTRL_REG_G_FM2       = 0x80,
@@ -524,7 +524,7 @@ namespace upm {
       REG_TIME_LIMIT            = 0x3b,
       REG_TIME_LATENCY          = 0x3c,
       REG_TIME_WINDOW           = 0x3d,
-      
+
       REG_ACT_THS               = 0x3e,
       REG_ACT_DUR               = 0x3f
     } REG_XM_T;
@@ -552,7 +552,7 @@ namespace upm {
       INT_CTRL_REG_M_4D         = 0x02,
       INT_CTRL_REG_M_IEL        = 0x04, // latch intr request
       INT_CTRL_REG_M_IEA        = 0x08,
-      INT_CTRL_REG_M_PP_OD      = 0x10, // push-pull/open drian 
+      INT_CTRL_REG_M_PP_OD      = 0x10, // push-pull/open drian
       INT_CTRL_REG_M_ZMIEN      = 0x20, // Z mag axis interrupt recognition
       INT_CTRL_REG_M_YMIEN      = 0x40,
       INT_CTRL_REG_M_XMIEN      = 0x80
@@ -600,7 +600,7 @@ namespace upm {
       CTRL_REG1_XM_BDU          = 0x04, // block data update
 
       CTRL_REG1_XM_AODR0        = 0x10, // accelerometer output data rate
-      CTRL_REG1_XM_AODR1        = 0x20,      
+      CTRL_REG1_XM_AODR1        = 0x20,
       CTRL_REG1_XM_AODR2        = 0x40,
       CTRL_REG1_XM_AODR3        = 0x80,
       _CTRL_REG1_XM_AODR_MASK   = 15,
@@ -624,7 +624,7 @@ namespace upm {
       XM_AODR_1000              = 10
       // 11-15 unused
     } XM_AODR_T;
-    
+
     /**
      * CTRL_REG2_XM bits
      */
@@ -740,7 +740,7 @@ namespace upm {
       XM_ODR_25                = 3,
       XM_ODR_50                = 4,
       XM_ODR_100               = 5
-      
+
       // 6, 7 reserved
     } XM_ODR_T;
 
@@ -749,9 +749,9 @@ namespace upm {
      */
     typedef enum {
       XM_RES_LOW               = 0, // low resolution
-      
+
       // 1, 2 reserved
-      
+
       XM_RES_HIGH              = 3,
     } XM_RES_T;
 
@@ -850,7 +850,7 @@ namespace upm {
       FIFO_CTRL_REG_FTH4        = 0x10,
       _FIFO_CTRL_REG_FTH_MASK   = 31,
       _FIFO_CTRL_REG_FTH_SHIFT  = 0,
-      
+
       FIFO_CTRL_REG_FM0         = 0x20, // FIFO mode config
       FIFO_CTRL_REG_FM1         = 0x40,
       FIFO_CTRL_REG_FM2         = 0x80,
@@ -970,7 +970,7 @@ namespace upm {
       CLICK_CONFIG_ZD           = 0x20
       // 0x40, 0x80 reserved
     } CLICK_CONFIG_BITS_T;
-    
+
     /**
      * CLICK_SRC bits
      *
@@ -1072,7 +1072,7 @@ namespace upm {
      * LSM9DS0 Destructor
      */
     ~LSM9DS0();
-    
+
     /**
      * set up initial values and start operation
      *
@@ -1416,10 +1416,7 @@ namespace upm {
      */
     uint8_t getInterruptGen2Src();
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
-		    jobject runnable);
-#else
+
     /**
      * install an interrupt handler.
      *
@@ -1432,9 +1429,9 @@ namespace upm {
      * @param isr the interrupt handler, accepting a void * argument
      * @param arg the argument to pass the the interrupt handler
      */
-    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, 
+    void installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
                     void (*isr)(void *), void *arg);
-#endif
+
     /**
      * uninstall a previously installed interrupt handler
      *
@@ -1486,5 +1483,3 @@ namespace upm {
     mraa::Gpio *m_gpioXM_GEN2;
   };
 }
-
-

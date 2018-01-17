@@ -42,6 +42,24 @@
     #include "lsm9ds0.hpp"
 %}
 
+%ignore installISR(LSM6DSL_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
+
+%extend upm::LSM9DS0 {
+    installISR(INTERRUPT_PINS_T intr, int gpio, mraa::Edge level,
+    			 jobject runnable)
+    {
+      // delete any existing ISR and GPIO context
+      $self->uninstallISR(intr);
+
+      // greate gpio context
+      getPin(intr) = new mraa::Gpio(gpio);
+
+      getPin(intr)->dir(mraa::DIR_IN);
+      getPin(intr)->isr(level, runnable);
+
+    }
+}
+
 %include "lsm9ds0.hpp"
 
 JAVA_JNI_LOADLIBRARY(javaupm_lsm9ds0)

@@ -20,10 +20,24 @@ import java.lang.Float;
 
 %template(floatVector) std::vector<float>;
 
-%include "bma250e_defs.h"
-%include "bma250e.hpp"
 %{
     #include "bma250e.hpp"
+    #include "bma250e_defs.h"
 %}
+%include "bma250e_defs.h"
+%include "bma250e.hpp"
+
+
+%ignore installISR (BMA250E_INTERRUPT_PINS_T, int, mraa::Edge , void *, void *);
+
+%extend upm::BMA250E {
+    void installISR(BMA250E_INTERRUPT_PINS_T intr, int gpio,
+                    mraa::Edge level, jobject runnable)
+    {
+        $self->installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
+    }
+}
+
+
 
 JAVA_JNI_LOADLIBRARY(javaupm_bma250e)

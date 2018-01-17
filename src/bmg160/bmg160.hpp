@@ -415,13 +415,6 @@ namespace upm {
          */
         void enableOutputFiltering(bool filter);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level, jobject runnable)
-        {
-            installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-        }
-#else
         /**
          * install an interrupt handler.
          *
@@ -439,7 +432,6 @@ namespace upm {
         void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
                         mraa::Edge level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * uninstall a previously installed interrupt handler
@@ -484,11 +476,5 @@ namespace upm {
         BMG160(const BMG160&) = delete;
         BMG160 &operator=(const BMG160&) = delete;
 
-        // needs to be private for SWIG Java builds
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        void (*isr)(void *), void *arg);
-#endif
     };
 }

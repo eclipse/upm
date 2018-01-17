@@ -30,4 +30,22 @@
 
 %include "bma220.hpp"
 
+%extend upm::BMA220 {
+    void installISR(int gpio, mraa::Edge level, jobject runnable)
+    {
+      // delete any existing ISR and GPIO context
+      $self->uninstallISR();
+
+      // create gpio context
+      mraa::Gpio* swg_gpioIntr = $self->get_gpioIntr();
+
+      swg_gpioIntr->dir(mraa::DIR_IN);
+      swg_gpioIntr->isr(level, runnable);
+
+    }
+
+}
+
+%ignore installISR(int, mraa::Edge, void *, void *);
+
 JAVA_JNI_LOADLIBRARY(javaupm_bma220)
