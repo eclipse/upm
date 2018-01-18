@@ -9,10 +9,6 @@
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 
-#ifdef DOXYGEN
-%include "bma250e_doc.i"
-#endif
-
 %include "bma250e_defs.h"
 %include "bma250e.hpp"
 %{

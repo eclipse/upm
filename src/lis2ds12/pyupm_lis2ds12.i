@@ -4,10 +4,6 @@
 %include "../upm.i"
 %include "../upm_vectortypes.i"
 
-#ifdef DOXYGEN
-%include "lis2ds12_doc.i"
-#endif
-
 %include "lis2ds12_defs.h"
 %include "lis2ds12.hpp"
 %{

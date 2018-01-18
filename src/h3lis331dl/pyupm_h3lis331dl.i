@@ -8,10 +8,6 @@
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 
-#ifdef DOXYGEN
-%include "h3lis331dl_doc.i"
-#endif
-
 %include "h3lis331dl.hpp"
 %{
     #include "h3lis331dl.hpp"

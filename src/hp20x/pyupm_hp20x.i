@@ -3,10 +3,6 @@
 %module pyupm_hp20x
 %include "../upm.i"
 
-#ifdef DOXYGEN
-%include "hp20x_doc.i"
-#endif
-
 %include "hp20x.hpp"
 %{
     #include "hp20x.hpp"

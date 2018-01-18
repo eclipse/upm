@@ -6,10 +6,6 @@
 
 %include "stdint.i"
 
-#ifdef DOXYGEN
-%include "bmp280_doc.i"
-#endif
-
 %include "iModuleStatus.hpp"
 %include "iHumiditySensor.hpp"
 %include "iPressureSensor.hpp"

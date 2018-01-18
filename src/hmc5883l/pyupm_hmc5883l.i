@@ -4,10 +4,6 @@
 %include "../upm.i"
 %include "../carrays_int16_t.i"
 
-#ifdef DOXYGEN
-%include "hmc5883l_doc.i"
-#endif
-
 %typemap(out) int16_t* {
   $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_int16Array, 0 |  0 );
 }

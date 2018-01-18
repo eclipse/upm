@@ -13,10 +13,6 @@
     $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_floatArray, 0 | 0 );
 }
 
-#ifdef DOXYGEN
-%include "adxl345_doc.i"
-#endif
-
 %include "adxl345.hpp"
 %{
     #include "adxl345.hpp"

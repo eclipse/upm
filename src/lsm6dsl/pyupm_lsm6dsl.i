@@ -4,10 +4,6 @@
 %include "../upm.i"
 %include "../upm_vectortypes.i"
 
-#ifdef DOXYGEN
-%include "lsm6dsl_doc.i"
-#endif
-
 %include "lsm6dsl_defs.h"
 %include "lsm6dsl.hpp"
 %{

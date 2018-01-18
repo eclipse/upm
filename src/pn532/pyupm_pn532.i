@@ -4,10 +4,6 @@
 %include "../upm.i"
 %include "../carrays_uint8_t.i"
 
-#ifdef DOXYGEN
-%include "pn532_doc.i"
-#endif
-
 %include "pn532.hpp"
 %{
     #include "pn532.hpp"

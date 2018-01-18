@@ -3,10 +3,6 @@
 %module pyupm_si114x
 %include "../upm.i"
 
-#ifdef DOXYGEN
-%include "si114x_doc.i"
-#endif
-
 %include "si114x.hpp"
 %{
     #include "si114x.hpp"

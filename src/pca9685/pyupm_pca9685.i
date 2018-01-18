@@ -3,10 +3,6 @@
 %module pyupm_pca9685
 %include "../upm.i"
 
-#ifdef DOXYGEN
-%include "pca9685_doc.i"
-#endif
-
 %include "pca9685.hpp"
 %{
     #include "pca9685.hpp"

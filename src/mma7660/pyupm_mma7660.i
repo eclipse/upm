@@ -8,10 +8,6 @@
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 
-#ifdef DOXYGEN
-%include "mma7660_doc.i"
-#endif
-
 %include "mma7660_regs.h"
 %include "mma7660.hpp"
 %{

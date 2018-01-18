@@ -3,10 +3,6 @@
 %module pyupm_adc121c021
 %include "../upm.i"
 
-#ifdef DOXYGEN
-%include "adc121c021_doc.i"
-#endif
-
 %include "adc121c021.hpp"
 %{
     #include "adc121c021.hpp"

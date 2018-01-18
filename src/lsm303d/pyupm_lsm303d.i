@@ -4,10 +4,6 @@
 %include "../upm.i"
 %include "../upm_vectortypes.i"
 
-#ifdef DOXYGEN
-%include "lsm303d_doc.i"
-#endif
-
 %include "lsm303d_defs.h"
 %include "lsm303d.hpp"
 %{

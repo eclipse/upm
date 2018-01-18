@@ -13,10 +13,6 @@
 %pointer_functions(float, floatp);
 
 
-#ifdef DOXYGEN
-%include "bno055_doc.i"
-#endif
-
 %include "bno055_regs.h"
 %include "bno055.hpp"
 %{
