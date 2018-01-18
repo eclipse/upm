@@ -2,7 +2,7 @@
     "Library": "servo",
     "Description": "Servo Library",
     "Sensor Class": {
-        "es08a": {
+        "ES08A": {
             "Name": "API for the EMAX/Seeed ES08A Servo",
             "Description": "This is the UPM Module for the EMAX/Seeed ES08A Servo. Like other servos, the ES08A servo has a shaft that can be controlled by setting the desired angle. There are also routines for setting and getting the minimum and maximum pulse width as well as the maximum period.",
             "Aliases": ["es08a", "EMAX 9g ES08A High Sensitive Mini Servo"],
@@ -47,7 +47,7 @@
                 "Product Pages": ["https://www.seeedstudio.com/EMAX-9g-ES08A-High-Sensitive-Mini-Servo-p-760.html", "https://www.emaxmodel.com/es08a-ii.html#product_tabs_description_tabbed"]
             }
         },
-        "es9257": {
+        "ES9257": {
             "Name": "API for the EMAX ES9257 Servo",
             "Description": "This is the UPM Module for the EMAX ES9257 Servo. The ES9257 servo is a fast, heavy duty servo that is popular for moving the control surfaces on RC models.",
             "Aliases": ["es9257", "EMAX ES9257 2.5kg& .05 sec Micro Digital 3D Tail Servo"],

@@ -2,7 +2,7 @@
     "Library": "tcs37727",
     "Description": "AMS TCS37727 Color Light-To-Digital Converter Library",
     "Sensor Class": {
-        "tcs37727": {
+        "TCS37727": {
             "Name": "API for the AMS TCS37727 Color Light-To-Digital Converter",
             "Description": "This is the UPM Module for the AMS TCS37727 Color Light-To-Digital Converter. The TCS3772 device family provides red, green, blue, and clear (RGBC) light sensing and, when coupled with an external IR LED, proximity detection. These devices detect light intensity under a variety of lighting conditions and through a variety of attenuation materials, including dark glass. The proximity detection feature allows a large dynamic range of operation for accurate short distance detection, such as in a cell phone, for detecting when the user positions the phone close to their ear. An internal state machine provides the ability to put the device into a low power state in between proximity and RGBC measurements providing very low average power consumption.",
             "Aliases": ["tcs37727"],

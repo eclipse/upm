@@ -2,7 +2,7 @@
     "Library": "sm130",
     "Description": "SonMicro SM130 RFID Reader Module library",
     "Sensor Class": {
-        "sm130": {
+        "SM130": {
             "Name": "API for the SonMicro SM130 RFID Reader Module",
             "Description": "This is the UPM Module for the SonMicro SM130 RFID Reader Module. This module defines the SM130 interface for the sm130 RFID library This module was developed using an SM130 and a Sparkfun RFID Evaluation shield using a UART for communications.  It should be fairly trivial to add support for I2C communication in the future, if you have the correct firmware on the SM130.",
             "Aliases": ["sm130"],

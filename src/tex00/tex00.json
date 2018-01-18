@@ -2,7 +2,7 @@
     "Library": "tex00",
     "Description": "Veris TEX00 Temperature Sensor Library",
     "Sensor Class": {
-        "tex00": {
+        "TEX00": {
             "Name": "API for the Veris TEX00 Temperature Sensor",
             "Description": "This is the UPM Module for the Veris TEX00 Temperature Sensor. The Veris TEX00 temperature sensor family is made up of a series of RTD thermistors in wall mount packaging.    This driver was developed using the TED00, which utilizes a 10K Ohm Type 2 thermistor.  However, this driver can support the other 12 variants of the TE series as well by providing the correct sensor type to the class constructor.  These other sensor types have not been tested.  Only the TED00 was tested with this driver.",
             "Aliases": ["tex00", "TED00"],

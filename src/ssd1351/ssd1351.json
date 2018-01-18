@@ -2,7 +2,7 @@
     "Library": "ssd1351",
     "Description": "Adafruit SSD1351 OLED library",
     "Sensor Class": {
-        "ssd1351": {
+        "SSD1351": {
             "Name": "API for the Adafruit SSD1351 OLED displays",
             "Description": "This is the UPM Module for the Adafruit SSD1351 OLED displays. It was tested with the Adafruit 1.5\" OLED Display, but should work with any SSD1351 display running in SPI mode. On the Intel Edison don't forget to disable SPI Power Management (PM) for this driver to work, you can find more details on this topic here: http://iotdk.intel.com/docs/master/mraa/edison.html",
             "Aliases": ["ssd1351", "OLED Breakout Board - 16-bit Color 1.5\" w/microSD holder"],

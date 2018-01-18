@@ -2,7 +2,7 @@
     "Library": "tmp006",
     "Description": "Texas Instruments TMP006 Infrared-Thermopile Sensor Library",
     "Sensor Class": {
-        "tmp006": {
+        "TMP006": {
             "Name": "API for the Texas Instruments TMP006 IR-Thermopile Sensor",
             "Description": "This is the UPM Module for the Texas Instruments TMP006 IR-Thermopile Sensor. The TMP006 and TMP006B are fully integrated MEMs thermopile sensors that measure the temperature of an object without having to be in direct contact. The thermopile absorbs passive infrared energy from an object at wavelengths between 4 um to 16 um within the end-user defined field of view. The corresponding change in voltage across the thermopile is digitized and reported with the on-chip die thermal sensor measurement through an I2C- and SMBus-compatible interface. With this data, the target object temperature can be calculated by an external processor.",
             "Aliases": ["tmp006", "TMP006 Infrared Thermopile Contactless Temperature Sensor in WCSP Package"],

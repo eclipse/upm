@@ -2,7 +2,7 @@
     "Library": "si1132",
     "Description": "Silicon Labs Si1132 UV and visible light sensor library",
     "Sensor Class": {
-        "si1132": {
+        "SI1132": {
             "Name": "API for the Silicon Labs Si1132 UV and Visible Light Sensor",
             "Description": "This is the UPM Module for the Silicon Labs Si1132 UV and Visible Light Sensor. The Silicon Labs Si1132 is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C digital interface and programmable-event interrupt output.",
             "Aliases": ["si1132"],

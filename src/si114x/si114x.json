@@ -2,7 +2,7 @@
     "Library": "si114x",
     "Description": "Silicon Labs SI1145 UV Light Sensor library",
     "Sensor Class": {
-        "si114x": {
+        "SI114x": {
             "Name": "API for the Silicon Labs SI1145 UV Light Sensor",
             "Description": "This is the UPM Module for the Silicon Labs SI1145 UV Light Sensor. This device is capable of measuring IR and visible ambient light as well. It also supports the ability to use externally attached LEDs to perform proximity detection on 3 separate channels. Currently, this class only supports the retrieving of the calculated UV index measured by the device, but enough infrastructure is provided to make it easy to enhance this driver in the future to support additional capabilities, including interrupt support.",
             "Aliases": ["si114x", "SI1145 Digital UV Index / IR / Visible Light Sensor"],

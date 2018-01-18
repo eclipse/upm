@@ -2,7 +2,7 @@
     "Library": "uln200xa",
     "Description": "ULN200XA Stepper Driver Library",
     "Sensor Class": {
-        "uln200xa": {
+        "ULN200XA": {
             "Name": "UPM module for the ULN200XA Darlington Stepper Driver",
             "Description": "This is the UPM Module for the ULN200XA Darlington Stepper Driver. This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor.",
             "Aliases": ["ULN200XA", "ULN2001A", "ULN2002A", "ULN2003A", "ULN2004A"],

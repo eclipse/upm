@@ -2,7 +2,7 @@
     "Library": "teams",
     "Description": "Veris TEAMS Temperature Transmitter Library",
     "Sensor Class": {
-        "teams": {
+        "TEAMS": {
             "Name": "API for the Veris TEAMS Temperature Transmitter",
             "Description": "This is the UPM Module for the Veris TEAMS Temperature Transmitter. The Veris TEAMS temperature sensor provides it's output via a 4-20ma current loop. The supported temperature range is 10C to 35C. This sensor was developed with a Cooking Hacks (Libelium) 4-channel 4-20ma Arduino interface shield.  For this interface, the receiver resistance (rResistor) was specified as 165.0 ohms. When using a 4-20ma current loop interface which scales the sensors' values to a 0-5vdc range, you can supply 0.0 as the rResistor value in the constructor (default), and it will act just like a normal analog input.",
             "Aliases": ["teams"],

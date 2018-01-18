@@ -2,7 +2,7 @@
     "Library": "wt5001",
     "Description": "WT5001 Serial MP3 module Library",
     "Sensor Class": {
-        "wt5001": {
+        "WT5001": {
             "Name": "API for the WT5001 Serial MP3 Module",
             "Description": "This is the UPM Module for the WT5001 Serial MP3 Module. Grove-Serial MP3 Player is a kind of simple MP3 player device whose design is based on a high-quality MP3 audio chip---WT5001. It can support 8KHZ~44.1KHZ sampling frequency MP3 and WAV file formats. This product has several peripheral ports: a standard UART Grove interface, a dual track headphone jack, an external interface and also a  micro SD card interface. You can control the MP3 playback state by sending commands to module via serial port tools, such as switch songs, change the volume and play mode and so on. It seems a simple module, but it owns such strong function. Want to know how the sound quality? Please come to experience it! NOTE: This product is retired, please consider the Grove - MP3 v2.0 as your alternative choice. This UPM module has not been tested with V2.0.",
             "Aliases": ["wt5001", "Grove - Serial MP3 Player"],

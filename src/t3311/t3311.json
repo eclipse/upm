@@ -2,7 +2,7 @@
     "Library": "t3311",
     "Description": "T3311 Temperature and Humidity Sensor Library",
     "Sensor Class": {
-        "t3311": {
+        "T3311": {
             "Name": "API for the T3311 MODBUS Temperature and Humidity Sensor",
             "Description": "This is the UPM Module for the T3311 MODBUS Temperature and Humidity Sensor. This module implements support for the Comet System T3311 Temperature and Humidity transmitter.  It uses MODBUS over an RS232 serial port.  You must have libmodbus v3.1.2 (or greater) installed to compile and use this driver. This module was developed using libmodbus 3.1.2, and T3311 Firmware revison 2.66 connected via a Prolific RS232 Serial to USB adaptor. You cannot use the built in TTL UART pins for accessing this device -- you must use a full serial RS232 interface connected via USB.",
             "Aliases": ["t3311", "T3311 Temperature and humidity probe with RS232 output, internal sensors"],

@@ -2,7 +2,7 @@
     "Library": "water",
     "Description": "Grove Water Sensor Library",
     "Sensor Class": {
-        "water": {
+        "Water": {
             "Name": "API for the Grove Water Sensor",
             "Description": "This is the UPM Module for the Grove Water Sensor. This sensor detects the presence of water using exposed PCB traces. The sensor is made up of interlaced traces of Ground and Sensor signals. The sensor traces are weakly pulled up using 1 MΩ resistor. The resistor will pull the sensor trace value high until a drop of water shorts the sensor trace to the ground trace. This circuit will work with digital I/O pins of Arduino or you can use it with the analog pins to detect the amount of water induced contact between the grounded and sensor traces.",
             "Aliases": ["water", "Grove - Water Sensor"],

@@ -2,7 +2,7 @@
     "Library": "sx6119",
     "Description": "Seeed SX6119-based FM Receiver library",
     "Sensor Class": {
-        "sx6119": {
+        "SX6119": {
             "Name": "API support for the Seeed SX6119-based Grove FM Receiver",
             "Description": "This is the UPM Module for the Seeed SX6119-based Grove FM Receiver. There are two digital pins: one that toggles power on/off, and the other that does a seek to the next station.",
             "Aliases": ["sx6119", "Grove - FM Receiver"],

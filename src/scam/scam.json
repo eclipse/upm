@@ -2,7 +2,7 @@
     "Library": "scam",
     "Description": "Seeed Serial Camera library",
     "Sensor Class": {
-        "scam": {
+        "SCAM": {
             "Name": "API for the Seeed Serial Camera",
             "Description": "This is the UPM Module for the Seeed Serial Camera. There is no protocol documentation currently available, so this module was developed based completely on the Seeed Studio* Arduino* sketch.",
             "Aliases": ["scam", "Grove - Serial Camera Kit"],

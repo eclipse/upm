@@ -2,7 +2,7 @@
     "Library": "sht1x",
     "Description": "DFRobot SHT1X Temperature and Humidity Sensor Library",
     "Sensor Class": {
-        "sht1x": {
+        "SHT1X": {
             "Name": "API for the DFRobot SHT1X Temperature and Humidity Sensor",
             "Description": "This is the UPM Module for the DFRobot SHT1X Temperature and Humidity Sensor. SHT1x is individually calibrated in a precision humidity chamber. The calibration coefficients are programmed into an OTP memory on the chip. These coefficients are used to internally calibrate the signals from the sensors. The 2-wire serial interface and internal voltage regulation allows for easy and fast system integration. The tiny size and low power consumption makes SHT1x the ultimate choice for even the most demanding applications.",
             "Aliases": ["sht1x", "SHT1x Humidity and Temperature Sensor (SKU: DFR0066)"],

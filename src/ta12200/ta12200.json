@@ -2,7 +2,7 @@
     "Library": "ta12200",
     "Description": "Seeed TA12-200 Current Transformer library",
     "Sensor Class": {
-        "ta12200": {
+        "TA12200": {
             "Name": "API for the Seeed TA12-200 Current Transformer",
             "Description": "This is the UPM Module for the Seeed TA12-200 Current Transformer. The Electricity sensor module is based on the TA12-200 current transformer which can change large alternating current into a small amplitude. You can use it to test large alternating current upto 5A.",
             "Aliases": ["ta12200", "Grove - Electricity Sensor"],

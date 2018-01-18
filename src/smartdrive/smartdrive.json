@@ -2,7 +2,7 @@
     "Library": "smartdrive",
     "Description": "SmartDrive library",
     "Sensor Class": {
-        "smartdrive": {
+        "SmartDrive": {
             "Name": "API for the SmartDrive advanced motor controller from OpenElectronics",
             "Description": "This is the UPM Module for the OpenElectronics SmartDrive advanced motor controller. SmartDrive is a multiplexer to control high current DC motors This module has been tested on the SmartDrive.",
             "Aliases": ["smartdrive", "SmartDrive High Current Motor Controller"],

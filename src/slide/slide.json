@@ -2,7 +2,7 @@
     "Library": "slide",
     "Description": "Seeed Slide Sensor library",
     "Sensor Class": {
-        "slide": {
+        "Slide": {
             "Name": "API for the Seeed Slide Potentiometer",
             "Description": "This is the UPM Module for the Seeed Slide Potentiometer. Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value.",
             "Aliases": ["slide", "Grove - Slide Potentiometer"],

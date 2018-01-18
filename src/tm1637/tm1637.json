@@ -2,7 +2,7 @@
     "Library": "tm1637",
     "Description": "Seeed TM1637 based 7-Segment Display Library",
     "Sensor Class": {
-        "tm1637": {
+        "TM1637": {
             "Name": "API for the Seeed TM1637 based 7-Segment Display",
             "Description": "This is the UPM Module for the Seeed TM1637 based 7-Segment Display. It can be used to address and write data to multiple display digits. This driver is based on the Grove version of the TM1637 display that uses 4 digits, thus making it ideal for clock displays, timers, counters, or even score displays in a two-player arcade game.",
             "Aliases": ["tm1637", "Grove - 4-Digit Display"],

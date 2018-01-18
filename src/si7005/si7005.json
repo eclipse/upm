@@ -2,7 +2,7 @@
     "Library": "si7005",
     "Description": "Silicon Labs SI7005 digital I2C humidity and temperature sensor library",
     "Sensor Class": {
-        "si7005": {
+        "SI7005": {
             "Name": "API for the Silicon Labs SI7005 digital I2C humidity and temperature sensor",
             "Description": "This is the UPM Module for the Silicon Labs SI7005 digital I2C humidity and temperature sensor. The Si7005 sensor integrates humidity and temperature sensor elements and offers an analog-to-digital converter and signal processing in a single monolithic CMOS sensor IC. Both the humidity and temperature sensors are factory-calibrated and the data is stored in on-chip non-volatile memory.",
             "Aliases": ["si7005"],

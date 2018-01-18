@@ -2,7 +2,7 @@
     "Library": "t8100",
     "Description": "Amphenol Telaire Ventostat T8100 Ventilation Controller Library",
     "Sensor Class": {
-        "t8100": {
+        "T8100": {
             "Name": "API for the Amphenol Telaire Ventostat T8100 Ventilation Controller",
             "Description": "This is the UPM Module for the Amphenol Telaire Ventostat T8100 Ventilation Controller. This module implements support for the Amphenol Telaire Ventostat T8100 Ventilation Controller with BACnet interface.  It may also support the T8200 and T8300 models, but they have not been tested. The Telaire Ventostat T8100 reports Temperature, Humidity and CO2 concentrations.  It supports an optional relay with a settable trigger point.  The unit this driver was tested under did not support the optional relay.",
             "Aliases": ["t8100", "Telaire Ventostat Series CO2 Monitor"],

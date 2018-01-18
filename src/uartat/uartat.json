@@ -2,7 +2,7 @@
     "Library": "uartat",
     "Description": "Generic AT Command Based UART Device Library",
     "Sensor Class": {
-        "uartat": {
+        "UARTAT": {
             "Name": "API for a Generic AT command based UART device",
             "Description": "This is the UPM Module for a Generic AT command based UART device. This is a generic UART device driver for accessing UART based devices that utilize an \"AT\" command set.  Typically these devices are Radios, Modems, and similar devices that are configured and controlled by emitting \"AT\" commands.",
             "Aliases": ["uartat"],

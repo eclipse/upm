@@ -2,7 +2,7 @@
     "Library": "speaker",
     "Description": "Seeed Speaker library",
     "Sensor Class": {
-        "speaker": {
+        "Speaker": {
             "Name": "API for the Seeed Speaker",
             "Description": "This is the UPM Module for the Seeed Speaker. This speaker can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable.  In GPIO mode, the playAll() and playSound() methods are supported.  In PWM mode, setFrequency(), emit(), on() and off() are supported.  Calling a method not appropriate for the mode will have no effect.",
             "Aliases": ["speaker", "Grove - Speaker"],

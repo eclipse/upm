@@ -2,7 +2,7 @@
     "Library": "yg1006",
     "Description": "YG1006 Flame Sensor Library",
     "Sensor Class": {
-        "yg1006": {
+        "YG1006": {
             "Name": "API for the YG1006 Flame Sensor",
             "Description": "This is the UPM Module for the YG1006 Flame Sensor. The Grove - Flame Sensor can be used to detect fire source or other light sources of the wavelength in the range of 760nm - 1100 nm. It is based on the YG1006 sensor which is a high speed and high sensitive NPN silicon phototransistor. Due to its black epoxy, the sensor is sensitive to infrared radiation. In fire fighting robot game, The sensor plays a very important role, it can be used as a robot eyes to find the fire source.",
             "Aliases": ["yg1006", "Grove - Flame Sensor"],

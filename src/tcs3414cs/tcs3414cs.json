@@ -2,7 +2,7 @@
     "Library": "tcs3414cs",
     "Description": "Seeed TCS3414CS Color Sensor library",
     "Sensor Class": {
-        "tcs3414cs": {
+        "TCS3414CS": {
             "Name": "API for the Seeed TCS3414CS Color Sensor",
             "Description": "This is the UPM Module for the Seeed TCS3414CS Color Sensor. This module is based on the color sensor TCS3414CS with digital output I2C. Based on the 8*2 array of filtered photodiodes and 16-bit analog-to-digital converters, you can measure the color chromaticity of ambient light or the color of objects. Of the 16 photodiodes, 4 have red filters, 4 have green filters, 4 have blue filters and 4 have no filter(clear). With the synchronization input pin, an external pulsed light source can provide precise synchronous conversion control.",
             "Aliases": ["tcs3414cs"],

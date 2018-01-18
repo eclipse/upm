@@ -2,7 +2,7 @@
     "Library": "tsl2561",
     "Description": "TSL2561 Digital Light Sensor library",
     "Sensor Class": {
-        "tsl2561": {
+        "TSL2561": {
             "Name": "API for the TSL2561 Digital Light Sensor",
             "Description": "This is the UPM Module for the TSL2561 Digital Light Sensor. TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface",
             "Aliases": ["tsl2561", "Grove - Digital Light Sensor"],

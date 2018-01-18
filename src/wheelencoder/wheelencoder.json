@@ -2,7 +2,7 @@
     "Library": "wheelencoder",
     "Description": "FRobot Wheel Encoder Library",
     "Sensor Class": {
-        "wheelencoder": {
+        "WheelEncoder": {
             "Name": "API for the DFRobot Wheel Encoder",
             "Description": "This is the UPM Module for the DFRobot Wheel Encoder. This sensor was developed for the DFRobot Wheel Encoder, though it could be used for any counting time-based task.  When you instantiate a class of this type, the gpio pin specified is connected to an interrupt.  Whenever a low to high transition occurs on the gpio pin, the internal counter is incremented by one. This class also includes a millisecond counter, so that you can correlate the number of counts to a time period for calculating an RPM or other value as needed.",
             "Aliases": ["wheelencoder", "Gravity:TT Motor Encoders Kit"],

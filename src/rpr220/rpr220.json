@@ -2,7 +2,7 @@
     "Library": "rpr220",
     "Description": "ROHM Semiconductor RPR220 IR Reflective Sensor library",
     "Sensor Class": {
-        "rpr220": {
+        "RPR220": {
             "Name": "API for the ROHM Semiconductor RPR220-based Grove IR Reflective Sensor",
             "Description": "This is the UPM Module for the ROHM Semiconductor RPR220-based Grove IR Reflective Sensor. The reflectivity of infrared light varies with the color and distance of the reflecting surface. According to this principle, Grove - Infrared Reflective Sensor utilizes a RPR220 reflective photosensor module to detect color and distance. When a light-colored object approaches,the signal intensity received by infrared reflective sensor increases and the indicator LED on board turns red. When a dark-colored object approaches, the intensity decreases and the LED turns off.",
             "Aliases": ["rpr220", "Grove - Infrared Reflective Sensor"],

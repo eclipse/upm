@@ -2,7 +2,7 @@
     "Library": "t6713",
     "Description": "Amphenol Telaire 6713 Series CO2 Module Sensor Library",
     "Sensor Class": {
-        "t6713": {
+        "T6713": {
             "Name": "API for the Amphenol Telaire 6713 Series CO2 Module",
             "Description": "This is the UPM Module for the Amphenol Telaire 6713 Series CO2 Module. The new T6700 series is a miniature NDIR CO2 sensor that has accuracy and reliability of many larger sensors. The new small size allows OEM’s to integrate in to smaller enclosures and equipment and uses significantly less power than many other devices on the market.",
             "Aliases": ["t6713", "Miniature CO2 Module Series T6700"],

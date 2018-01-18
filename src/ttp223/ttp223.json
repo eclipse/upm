@@ -2,7 +2,7 @@
     "Library": "ttp223",
     "Description": "Seeed TTP223 Touch Detector Sensor library",
     "Sensor Class": {
-        "ttp223": {
+        "TTP223": {
             "Name": "API for the Seeed TTP223 Touch Sensor",
             "Description": "This is the UPM Module for the Seeed TTP223 Touch Sensor. This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a  non-metallic surface like glass or plastic.",
             "Aliases": ["ttp223", "Grove - Touch Sensor"],
