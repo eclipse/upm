@@ -13,11 +13,6 @@
 
 #%ignore installISR(mraa::Edge , void *, void *)
 
-%extend upm::TTP223 {
-    void installISR(mraa::Edge level, jobject runnable)
-    {
-      $self->installISR(level, mraa_java_isr_callback, runnable);
-    }
-}
+JAVA_ADD_INSTALLISR_EDGE(upm::TTP223)
 
 JAVA_JNI_LOADLIBRARY(javaupm_ttp223)

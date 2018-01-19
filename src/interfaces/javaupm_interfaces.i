@@ -9,5 +9,5 @@
 %include javaupm_iPressureSensor.i
 %include javaupm_iTemperatureSensor.i
 
-
+%include _upm.i
 JAVA_JNI_LOADLIBRARY(javaupm_interfaces)

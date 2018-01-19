@@ -16,13 +16,7 @@
 
 %ignore installISR(LSM6DSL_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
 
-%extend upm::LSM6DSL {
-    void installISR(LSM6DSL_INTERRUPT_PINS_T intr, int gpio,
-                    mraa::Edge level, jobject runnable)
-        {
-            $self->installISR(intr, gpio, level, mraa_java_isr_callback,
-                       runnable);
-        }
-}
-
+%define INTERRUPT LSM6DSL_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::LSM6DSL)
 JAVA_JNI_LOADLIBRARY(javaupm_lsm6dsl)

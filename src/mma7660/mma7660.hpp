@@ -225,12 +225,7 @@ namespace upm {
             getRawValues(&values[0], &values[1], &values[2]);
             return values;
         }
-
-        void installISR(int pin, jobject runnable)
-        {
-            installISR(pin, mraa_java_isr_callback, runnable);
-        }
-#else
+#endif
         /**
          * Installs an interrupt service routine (ISR) to be called when
          * an interrupt occurs
@@ -241,7 +236,6 @@ namespace upm {
          * argument to the ISR.
          */
         void installISR(int pin, void (*isr)(void *), void *arg);
-#endif // defined(SWIGJAVA) || defined(JAVACALLBACK)
 
     protected:
         mma7660_context m_mma7660;
@@ -250,10 +244,6 @@ namespace upm {
         /* Disable implicit copy and assignment operators */
         MMA7660(const MMA7660&) = delete;
         MMA7660 &operator=(const MMA7660&) = delete;
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(int pin, void (*isr)(void *), void *arg);
-#endif
 
     };
 }

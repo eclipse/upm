@@ -30,12 +30,8 @@ import java.lang.Float;
 
 %ignore installISR (BMG160_INTERRUPT_PINS_T , int   mraa::Edge ,  void *, void *);
 
-%extend upm::BMG160 {
-    void installISR(BMG160_INTERRUPT_PINS_T intr, int gpio,
-                    mraa::Edge level, jobject runnable)
-    {
-        $self->installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-    }
-}
+%define INTERRUPT BMG160_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::BMG160)
 
 JAVA_JNI_LOADLIBRARY(javaupm_bmg160)
