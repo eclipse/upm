@@ -31,13 +31,8 @@ import java.lang.Float;
 
 %ignore installISR(LSM303AGR_INTERRUPT_PINS_T , int ,  mraa::Edge , void *, void *);
 
-%extend upm::LSM303AGR {
-    void installISR(LSM303AGR_INTERRUPT_PINS_T intr, int gpio,
-                    mraa::Edge level,
-                    jobject runnable)
-    {
-        $self->installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-    }
-}
+%define INTERRUPT LSM303AGR_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::LSM303AGR)
 
 JAVA_JNI_LOADLIBRARY(javaupm_lsm303agr)

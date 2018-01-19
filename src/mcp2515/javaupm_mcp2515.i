@@ -14,12 +14,5 @@
 
 %ignore installISR(int pin, void *, void *);
 
-
-%extend upm::MCP2515 {
-    void installISR(int pin, jobject runnable)
-    {
-        $self->installISR(pin, mraa_java_isr_callback, runnable);
-    }
-}
-
+JAVA_ADD_INSTALLISR_PIN(upm::MCP2515)
 JAVA_JNI_LOADLIBRARY(javaupm_mcp2515)

@@ -49,12 +49,8 @@
     #include "grovetemp.hpp"
 %}
 
-%extend upm::GroveButton {
-    void installISR(mraa::Edge level, jobject runnable)
-    {
-      $self->installISR(level, mraa_java_isr_callback, runnable);
-    }
-}
+JAVA_ADD_INSTALLISR_EDGE(upm::GroveButton)
+
 
 
 JAVA_JNI_LOADLIBRARY(javaupm_grove)
