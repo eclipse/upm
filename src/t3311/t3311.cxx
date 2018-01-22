@@ -27,7 +27,6 @@
 #include <stdexcept>
 #include <string>
 #include <sstream>
-#include <pthread.h>
 
 #include "t3311.hpp"
 

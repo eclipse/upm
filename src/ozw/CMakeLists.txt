@@ -5,7 +5,7 @@ if (OPENZWAVE_FOUND)
   set (module_hpp ${libname}.hpp ozwinterface.hpp ozwdump.hpp aeotecss6.hpp aeotecsdg2.hpp aeotecdw2e.hpp aeotecdsb09104.hpp tzemt400.hpp)
 
   set (reqlibname "libopenzwave")
-  upm_module_init(${OPENZWAVE_LIBRARIES})
+  upm_module_init(${OPENZWAVE_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
   target_include_directories(${libname} PUBLIC ${OPENZWAVE_INCLUDE_DIRS})
 
   # openzwave/aes/aes.h has unknown pragmas, disable warning -Wunknown-pragmas
