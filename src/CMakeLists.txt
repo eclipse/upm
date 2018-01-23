@@ -457,7 +457,9 @@ function(upm_swig_java)
       # target .jar file in the classpath, otherwise this variable will be empty
       set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
     endif ()
-    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname})
+    # For linker to report unresolved symbols.  Note, there is currently no test
+    # for linker flags (similar to compile files), so this is it for now.
+    swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname} -Wl,--unresolved-symbols=report-all)
     target_include_directories ( ${SWIG_MODULE_javaupm_${libname}_REAL_NAME}
       PUBLIC
       "${JAVA_INCLUDE_DIRS}"
