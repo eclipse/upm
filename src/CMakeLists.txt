@@ -308,7 +308,7 @@ macro(_upm_swig_python)
 endmacro(_upm_swig_python)
 
 # Generate both python2 and python3 modules if possible
-macro(upm_swig_python)
+function(upm_swig_python)
   # Skip if the libname is in the blacklist
   if (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
     # Generate python2 module if python2 libs are available
@@ -341,9 +341,9 @@ macro(upm_swig_python)
           CACHE INTERNAL "List of Python target names")
     endif (PYTHON3LIBS_FOUND)
   endif (NOT ";${PYTHONSWIG_BLACKLIST};" MATCHES ";${libname};")
-endmacro(upm_swig_python)
+endfunction(upm_swig_python)
 
-macro(upm_swig_node)
+function(upm_swig_node)
   # Skip if the libname is in the blacklist
   if (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
     # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
@@ -418,9 +418,9 @@ macro(upm_swig_node)
 
   # Keep track of all NODE targets
   set(UPM_TARGETS_NODEJS ${UPM_TARGETS_NODEJS} jsupm_${libname} CACHE INTERNAL "List of NodeJs target names")
-endmacro(upm_swig_node)
+endfunction(upm_swig_node)
 
-macro(upm_swig_java)
+function(upm_swig_java)
   # Skip if the libname is in the blacklist
   if (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
     # Transitive headers don't appear to get picked up by swig_add_module call for
@@ -512,7 +512,7 @@ macro(upm_swig_java)
     # Keep track of all JAVA targets
     set(UPM_TARGETS_JAVA ${UPM_TARGETS_JAVA} javaupm_${libname} CACHE INTERNAL "List of JAVA target names")
   endif (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
-endmacro(upm_swig_java)
+endfunction(upm_swig_java)
 
 macro(upm_doxygen)
   if (DOXYGEN_FOUND)
