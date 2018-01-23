@@ -138,13 +138,13 @@ compatibility between releases:
  * **lcm1602/jhd1313m1** These drivers had been rewritten in C, with
  C++ wrappers and placed into their own libraries in the previous
  version of UPM, however, the original C++ implementation was kept in
- the lcd/i2clcd library for compatibility reasons with existing code.
+ the lcd library for compatibility reasons with existing code.
  To avoid collisions with the header files, the new *lcm1602* and
  *jhd1313m1* drivers had their C++ headers renamed to use a **.hxx**
  suffix.
 
     In this version of UPM, the *lcm1602* and *jhd1313m1* drivers have
-    been removed from the lcd/i2clcd library.  In addition, the header
+    been removed from the lcd library.  In addition, the header
     files for the new implementation have been renamed from their
     **.hxx** suffix to the normal **.hpp** suffix.
 

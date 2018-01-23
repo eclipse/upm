@@ -111,7 +111,7 @@ public class SSD1327_oledSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		upm_i2clcd.SSD1327 lcd = new upm_i2clcd.SSD1327(0);
+		upm_lcd.SSD1327 lcd = new upm_lcd.SSD1327(0);
 
 		// If you don't set the display to be white, the seeed logo will appear
 		// jagged

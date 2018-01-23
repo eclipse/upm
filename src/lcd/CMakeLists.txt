@@ -1,4 +1,4 @@
-set (libname "i2clcd")
+set (libname "lcd")
 set (libdescription "OLED Display Library")
 set (module_src lcd.cxx ssd1308.cxx eboled.cxx ssd1327.cxx ssd1306.cxx)
 set (module_hpp lcd.hpp ssd1308.hpp eboled.hpp ssd1327.hpp ssd.hpp ssd1306.hpp)

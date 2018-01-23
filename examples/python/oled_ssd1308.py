@@ -21,10 +21,10 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# Load i2clcd display module
+# Load lcd display module
 from __future__ import print_function
 import time, signal, sys
-from upm import pyupm_i2clcd as upmLCD
+from upm import pyupm_lcd as upmLCD
 
 def main():
     myLCD = upmLCD.SSD1308(0, 0x3C);

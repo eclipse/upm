@@ -138,7 +138,7 @@ unable to compile code that was working fine before a library update, make sure
 you check the [API changes](docs/apichanges.md) section first.
 
 **NOTE** - Several important API changes are currently underway for some of our
-widely used libraries including `libupm-grove` and `libupm-i2clcd`!
+widely used libraries including `libupm-grove`
 
 ### Changelog
 Version changelog [here](docs/changelog.md).

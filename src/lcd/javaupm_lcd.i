@@ -1,4 +1,4 @@
-%module javaupm_i2clcd
+%module javaupm_lcd
 %include "../upm.i"
 %include "stdint.i"
 %include "typemaps.i"

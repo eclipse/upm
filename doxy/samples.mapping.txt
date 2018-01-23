@@ -59,8 +59,8 @@ rpr220.cxx	RPR220Sample.java	rpr220.js	rpr220.py
 rpr220-intr.cxx	RPR220_intrSample.java	rpr220-intr.js	rpr220-intr.py
 slide.cxx	SlideSample.java	slide.js	slide.py
 speaker.cxx	SpeakerSample.java	speaker.js	speaker.py
-i2clcd-ssd1308-oled.cxx	SSD1308_oledSample.java	ssd1308-oled.js	ssd1308-oled.py
-i2clcd-ssd1327-oled.cxx	SSD1327_oledSample.java	ssd1327-oled.js	ssd1327-oled.py
+lcd-ssd1308-oled.cxx	SSD1308_oledSample.java	ssd1308-oled.js	ssd1308-oled.py
+lcd-ssd1327-oled.cxx	SSD1327_oledSample.java	ssd1327-oled.js	ssd1327-oled.py
 st7735.cxx	ST7735Sample.java	st7735.js	st7735.py
 stepmotor.cxx	StepMotorSample.java	stepmotor.js	stepmotor.py
 tm1637.cxx	TM1637Sample.java	tm1637.js	tm1637.py

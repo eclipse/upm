@@ -25,7 +25,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var lcdObj = require('jsupm_i2clcd');
+var lcdObj = require('jsupm_lcd');
 var oled = new lcdObj.EBOLED();
 
 var sample = 0;

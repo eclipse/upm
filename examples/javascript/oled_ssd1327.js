@@ -22,8 +22,8 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//Load i2clcd module
-var LCD = require('jsupm_i2clcd');
+//Load lcd module
+var LCD = require('jsupm_lcd');
 
 var myLcd = new LCD.SSD1327 (0, 0x3C);
 

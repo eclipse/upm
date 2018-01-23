@@ -76,7 +76,7 @@ public class SSD1308_oledSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
-		upm_i2clcd.SSD1308 lcd = new upm_i2clcd.SSD1308(0);
+		upm_lcd.SSD1308 lcd = new upm_lcd.SSD1308(0);
 
 		byte[] image = new byte[IntelLogo.length];
 		for (int i = 0; i < IntelLogo.length; i++)

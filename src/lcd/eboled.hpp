@@ -54,7 +54,7 @@ namespace upm
   const int     BUFFER_SIZE     = 192;
 
   /**
-   * @library i2clcd
+   * @library lcd
    * @sensor eboled
    * @comname SparkFun Block for Intel Edison - OLED
    * @altname ssd1306
@@ -79,7 +79,7 @@ namespace upm
    * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
    * CC BY-NC-SA-3.0</a>.</em>
    *
-   * @snippet i2clcd-eboled.cxx Interesting
+   * @snippet lcd-eboled.cxx Interesting
    */
   class EBOLED : public LCD
   {

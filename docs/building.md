@@ -106,22 +106,22 @@ make install
 Often developers are only interested in building one module or even just the
 python/node module to do some quick testing using scripting. In order to do
 this you need to use the target name for the python or node module you want to
-rebuild. For example the lcd module target name is i2clcd. Therefore the python
-module target name will be prefixed by _pyupm_. Just do the following to build
-only that module. Modules not using the UPM cmake macros may have different
-naming.
+rebuild. For example, the lcd module target will have a python2 target prefixed
+by _pyupm_ (_pyupm_lcd-python2). Modules not using the UPM cmake macros may
+have different naming.  To build the python2 lcd module (and all dependencies),
+use the following make target:
 
 ~~~~~~~~~~~~~
-make _pyupm_i2clcd
+make _pyupm_lcd-python2
 ~~~~~~~~~~~~~
 
 Sometimes you want to build a small C++ example against an installed library.
 This is fairly easy if installed system-wide. Just link against the correct
-library (in this case libupm-i2clcd) and then add /usr/include/upm to the
+library (in this case libupm-lcd) and then add /usr/include/upm to the
 loader path:
 
 ~~~~~~~~~~~~
-g++ test.cxx -lupm-i2clcd -I/usr/include/upm
+g++ test.cxx -lupm-lcd -I/usr/include/upm
 ~~~~~~~~~~~~
 
 You can also use pkg-config to return the information to you, which is
@@ -129,7 +129,7 @@ considered the correct way if including UPM in a build system like cmake or
 autotools on linux.
 
 ~~~~~~~~~~~
-pkg-config --cflags --libs upm-i2clcd
+pkg-config --cflags --libs upm-lcd
 ~~~~~~~~~~~
 
 ## Building for Android Things

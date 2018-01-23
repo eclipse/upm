@@ -34,7 +34,7 @@ namespace upm
 const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
 
 /**
- * @library i2clcd
+ * @library lcd
  * @sensor ssd1308
  * @comname OLED Display
  * @altname Grove OLED Display 0.96"
@@ -51,7 +51,7 @@ const uint8_t DISPLAY_CMD_SET_NORMAL_1308 = 0xA6;
  * Display module, which is an OLED monochrome display.
  *
  * @image html ssd1308.jpeg
- * @snippet i2clcd-ssd1308-oled.cxx Interesting
+ * @snippet lcd-ssd1308-oled.cxx Interesting
  */
 class SSD1308 : public LCD
 {

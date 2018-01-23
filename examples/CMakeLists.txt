@@ -41,7 +41,7 @@
 #       a110x.c             Requires libupmc-a110x
 #       lcm1602-i2c.c       Requires libupmc-lcm1602
 #       bmp280-bme280.c     Requires libupmc-bmp280
-#       i2clcd-eboled.cxx   Requires libupm-i2clcd
+#       lcd-eboled.cxx   Requires libupm-lcd
 #
 #
 function (add_example example_src)

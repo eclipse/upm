@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class I2CLCD_SSD1306Sample {
+public class LCD_SSD1306Sample {
 	
 	static private final int[] intel_logo = new int[]{
 	        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -85,7 +85,7 @@ public class I2CLCD_SSD1306Sample {
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		
-		upm_i2clcd.SSD1306 lcd = new upm_i2clcd.SSD1306(0x0, 0x3D);
+		upm_lcd.SSD1306 lcd = new upm_lcd.SSD1306(0x0, 0x3D);
 		
 		byte[] image = new byte[intel_logo.length];
 		for (int i = 0; i < intel_logo.length; i++)

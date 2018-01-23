@@ -22,13 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public class I2CLCD_EBOLEDSample {
+public class LCD_EBOLEDSample {
 
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 
 		// Instantiate an Edison Block OLED using default values
-		upm_i2clcd.EBOLED lcd = new upm_i2clcd.EBOLED();
+		upm_lcd.EBOLED lcd = new upm_lcd.EBOLED();
 
 		lcd.clear();
 		lcd.setCursor(10, 15);

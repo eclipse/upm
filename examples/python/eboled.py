@@ -24,7 +24,7 @@
 from __future__ import print_function
 import time, sys
 
-from upm import pyupm_i2clcd as lcdObj
+from upm import pyupm_lcd as lcdObj
 
 def main():
     # setup with default values
