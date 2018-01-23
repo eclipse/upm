@@ -52,5 +52,3 @@
   }
 }
 #endif
-
-//#elsif (SWIGJAVA)

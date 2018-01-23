@@ -47,11 +47,7 @@ struct clbk_data {
     int is_heart_beat; /**< heartbeat check */
 };
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "Callback.hpp"
-#else
-typedef void (* callback_handler) (clbk_data);
-#endif
 
 namespace upm {
 /**
@@ -80,11 +76,8 @@ namespace upm {
 class Pulsensor {
 
 public:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     Pulsensor(Callback *callback);
-#else
-    Pulsensor(callback_handler handler);
-#endif
+
     void start_sampler();
     void stop_sampler();
 
@@ -106,11 +99,8 @@ private:
     uint8_t          second_beat; /**< Second heartbeat */
     uint8_t          ret; /**< Return value */
     mraa::Aio        pin_ctx; /**< The pin context */
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
+
     Callback *obj_callback; /**< The callback object */
-#else
-    callback_handler callback; /**< The callback function */
-#endif
     volatile uint16_t ctx_counter;
 };
 }

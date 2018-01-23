@@ -31,5 +31,3 @@
   $1 = reinterpret_cast< uint16_t * >(argp);
 }
 #endif
-
-//#elsif (SWIGJAVA)

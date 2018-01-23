@@ -1,6 +1,5 @@
 #pragma once
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 class Callback
 {
   public:
@@ -11,5 +10,3 @@ class Callback
     { /* empty, overloaded in Java*/
     }
 };
-
-#endif

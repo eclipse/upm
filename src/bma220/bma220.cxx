@@ -167,14 +167,12 @@ void BMA220::getAccelerometer(float *x, float *y, float *z)
     *z = m_accelZ / m_accelScale;
 }
 
-#ifdef JAVACALLBACK
-float *BMA220::getAccelerometer()
+std::vector<float> BMA220::getAccelerometer()
 {
-  float *v = new float[3];
+  std::vector<float> v(3);
   getAccelerometer(&v[0], &v[1], &v[2]);
   return v;
 }
-#endif
 
 uint8_t BMA220::getChipID()
 {

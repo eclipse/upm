@@ -29,10 +29,6 @@
 #include <string>
 #include <string.h>
 
-#ifdef JAVACALLBACK
-#undef JAVACALLBACK
-#endif
-
 #include "sx1276.hpp"
 
 using namespace upm;

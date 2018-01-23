@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
@@ -1266,28 +1267,26 @@ namespace upm {
      */
     void getMagnetometer(float *x, float *y, float *z);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * get the accelerometer values in gravities
      *
-     * @return Array containing X, Y, Z acceleration values
+     * @return std::vector containing X, Y, Z acceleration values
      */
-    float *getAccelerometer();
+    std::vector<float> getAccelerometer();
 
     /**
      * get the gyroscope values in degrees per second
      *
-     * @return Array containing X, Y, Z gyroscope values
+     * @return std::vector containing X, Y, Z gyroscope values
      */
-    float *getGyroscope();
+    std::vector<float> getGyroscope();
 
     /**
      * get the magnetometer values in gauss
      *
-     * @return Array containing X, Y, Z magnetometer values
+     * @return std::vector containing X, Y, Z magnetometer values
      */
-    float *getMagnetometer();
-#endif
+    std::vector<float> getMagnetometer();
 
     /**
      * get the temperature value.  Unfortunately the datasheet does

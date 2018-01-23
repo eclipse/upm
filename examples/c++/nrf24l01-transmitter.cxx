@@ -46,10 +46,21 @@ sig_handler(int signo)
     }
 }
 
-void
-nrf_handler()
+class mycb : public virtual Callback
 {
-}
+    public:
+        mycb(upm::NRF24L01 *com) : _com(com) {}
+        virtual void run()
+        {
+            if (_com != NULL)
+                std::cout << "Reciever :: " << *((uint32_t*) &(_com->m_rxBuffer[0])) << std::endl;
+            else
+                std::cout << "Example callback!" << std::endl;
+        }
+    private:
+        upm::NRF24L01* _com;
+};
+
 
 int
 main(int argc, char** argv)
@@ -57,12 +68,14 @@ main(int argc, char** argv)
     //! [Interesting]
     uint32_t dummyData = 0;
     upm::NRF24L01 comm(7, 8);
+    mycb cb(&comm);
+
     comm.setSourceAddress((uint8_t*) srcAddress);
     comm.setDestinationAddress((uint8_t*) destAddress);
     comm.setPayload(MAX_BUFFER);
     comm.setChannel(99);
     comm.configure();
-    comm.setDataReceivedHandler(nrf_handler);
+    comm.setDataReceivedHandler(&cb);
 
     signal(SIGINT, sig_handler);
 

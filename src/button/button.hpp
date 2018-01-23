@@ -87,11 +87,8 @@ class Button{
          * @param arg Pointer to an object to be supplied as an
          * argument to the ISR.
          */
-/*#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(mraa::Edge level, jobject runnable);
-#else*/
         void installISR(mraa::Edge level, void (*isr)(void *), void *arg);
-//#endif
+
         /**
          * Uninstalls the previously installed ISR
          *

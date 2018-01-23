@@ -33,9 +33,7 @@
 #include <mraa/spi.hpp>
 #include <cstring>
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 #include "Callback.hpp"
-#endif
 
 /* Memory Map */
 #define CONFIG              0x00
@@ -142,11 +140,7 @@
 
 namespace upm {
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 typedef void (* funcPtrVoidVoid) (Callback *);
-#else
-typedef void (* funcPtrVoidVoid) ();
-#endif
 
 typedef enum {
     NRF_250KBPS = 0,
@@ -257,21 +251,13 @@ class NRF24L01 {
          */
         void    setPayload (uint8_t load);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
         /**
          * Sets the handler to be called when data has been
          * received
          * @param call_obj Object used for callback - Java
          */
         void setDataReceivedHandler (Callback *call_obj);
-#else
-        /**
-         * Sets the handler to be called when data has been
-         * received
-         * @param handler Handler used for callback
-         */
-        void setDataReceivedHandler (funcPtrVoidVoid handler);
-#endif
+
         /**
          * Checks if the data has arrived
          */
@@ -374,11 +360,12 @@ class NRF24L01 {
         uint8_t     m_bleBuffer [32];       /**< BLE buffer */
 
     private:
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        /**< Callback object to use for setting the handler from Java */
+
+        /* Callback object to use for setting the handler from Java */
         Callback *callback_obj;
-#endif
-        funcPtrVoidVoid dataReceivedHandler; /**< Data arrived handler */
+
+        /** Data arrived handler */
+        funcPtrVoidVoid dataReceivedHandler;
 
         /**
          * Writes bytes to an SPI device

@@ -26,6 +26,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string.h>
+#include <vector>
 
 #include "lsm9ds0.hpp"
 
@@ -621,28 +622,26 @@ void LSM9DS0::getMagnetometer(float *x, float *y, float *z)
     *z = (m_magZ * m_magScale) / 1000.0;
 }
 
-#ifdef JAVACALLBACK
-float *LSM9DS0::getAccelerometer()
+std::vector<float> LSM9DS0::getAccelerometer()
 {
-  float *v = new float[3];
+  std::vector<float> v(3);
   getAccelerometer(&v[0], &v[1], &v[2]);
   return v;
 }
 
-float *LSM9DS0::getGyroscope()
+std::vector<float> LSM9DS0::getGyroscope()
 {
-  float *v = new float[3];
+  std::vector<float> v(3);
   getGyroscope(&v[0], &v[1], &v[2]);
   return v;
 }
 
-float *LSM9DS0::getMagnetometer()
+std::vector<float> LSM9DS0::getMagnetometer()
 {
-  float *v = new float[3];
+  std::vector<float> v(3);
   getMagnetometer(&v[0], &v[1], &v[2]);
   return v;
 }
-#endif
 
 float LSM9DS0::getTemperature()
 {

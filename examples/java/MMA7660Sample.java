@@ -44,13 +44,13 @@ public class MMA7660Sample
 
             while (true)
             {
-                float acceleration[] = accel.getAcceleration();
+                upm_mma7660.FloatVector acceleration = accel.getAcceleration();
                 System.out.println("Acceleration: x = "
-                                   + acceleration[0]
+                                   + acceleration.get(0)
                                    + " y = "
-                                   + acceleration[1]
+                                   + acceleration.get(1)
                                    + " x = "
-                                   + acceleration[2]);
+                                   + acceleration.get(2));
 
                 System.out.println();
 

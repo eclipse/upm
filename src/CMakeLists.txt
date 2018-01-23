@@ -461,7 +461,7 @@ function(upm_swig_java)
       ${DEPEND_DIRS}
      )
     set_target_properties (javaupm_${libname} PROPERTIES
-      COMPILE_FLAGS "-fpermissive -DJAVACALLBACK -DSWIGJAVA"
+      COMPILE_FLAGS "-fpermissive"
       PREFIX "lib"
       SUFFIX ".so"
     )

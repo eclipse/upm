@@ -26,6 +26,7 @@
 #include <string>
 #include <stdexcept>
 #include <unistd.h>
+#include <vector>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -133,13 +134,11 @@ MMA7455::readData (short * ptrX, short * ptrY, short * ptrZ) {
     return mraa::SUCCESS;
 }
 
-#ifdef SWIGJAVA
-short *MMA7455::readData() {
-    short *v = new short[3];
+std::vector<short> MMA7455::readData() {
+    std::vector<short> v(3);
     readData(&v[0], &v[1], &v[2]);
     return v;
 }
-#endif
 
 int
 MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {

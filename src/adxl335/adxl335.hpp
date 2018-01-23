@@ -27,6 +27,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mraa/aio.h>
 
 #define ADXL335_DEFAULT_AREF 5.0
@@ -106,14 +107,12 @@ namespace upm {
      */
     void values(int *xVal, int *yVal, int *zVal);
 
-#ifdef SWIGJAVA
     /**
      * Gets the analog values for the 3 axes
      *
-     * @return Array containing value of X, Y, Z axes
+     * @return std::vector of x, y, z analog acceleration values
      */
-    int *values();
-#endif
+    std::vector<int> values();
 
     /**
      * Gets the acceleration along all 3 axes
@@ -124,14 +123,12 @@ namespace upm {
      */
     void acceleration(float *xAccel, float *yAccel, float *zAccel);
 
-#ifdef SWIGJAVA
     /**
      * Gets the acceleration along all 3 axes
      *
-     * @return Array containing acceleration on X, Y, Z axes
+     * @return std::vector of x, y, z acceleration values
      */
-    float *acceleration();
-#endif
+    std::vector<float> acceleration();
 
     /**
      * While the sensor is still, measures the X-axis, Y-axis, and Z-axis

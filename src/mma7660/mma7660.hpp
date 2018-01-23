@@ -23,7 +23,9 @@
  */
 #pragma once
 
-#include <mma7660.h>
+#include <vector>
+
+#include "mma7660.h"
 
 namespace upm {
 
@@ -197,17 +199,16 @@ namespace upm {
          */
         bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
         /**
          * Reads the current acceleration values.  The returned memory
          * is statically allocated and will be overwritten on each
          * call.
          *
-         * @return Array containing x, y, z.
+         * @return std::vector containing x, y, z.
          */
-        float *getAcceleration()
+        std::vector<float> getAcceleration()
         {
-            static float values[3];
+            std::vector<float> values(3);
             getAcceleration(&values[0], &values[1], &values[2]);
             return values;
         }
@@ -217,15 +218,15 @@ namespace upm {
          * is statically allocated and will be overwritten on each
          * call.
          *
-         * @return Array containing x, y, z.
+         * @return std::vector containing x, y, z.
          */
-        int *getRawValues()
+        std::vector<int> getRawValues()
         {
-            static int values[3];
+            std::vector<int> values(3);
             getRawValues(&values[0], &values[1], &values[2]);
             return values;
         }
-#endif
+
         /**
          * Installs an interrupt service routine (ISR) to be called when
          * an interrupt occurs

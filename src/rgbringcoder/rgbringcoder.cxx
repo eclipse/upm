@@ -24,9 +24,6 @@
 
 #include <iostream>
 
-#ifdef JAVACALLBACK
-#undef JAVACALLBACK
-#endif
 #include "rgbringcoder.hpp"
 
 using namespace std;

@@ -28,11 +28,10 @@ public class MMA7455Sample {
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_mma7455.MMA7455 sensor = new upm_mma7455.MMA7455(0);
-		short[] val;
 
 		while (true) {
-			val = sensor.readData();
-			System.out.println("Accelerometer X: " + val[0] + ", Y: " + val[1] + ", Z: " + val[2]);
+			upm_mma7455.ShortVector val = sensor.readData();
+			System.out.println("Accelerometer X: " + val.get(0) + ", Y: " + val.get(1) + ", Z: " + val.get(2));
 
 			Thread.sleep(1000);
 		}

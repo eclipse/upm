@@ -134,20 +134,12 @@ NRF24L01::setPayload (uint8_t payload) {
     m_payload = payload;
 }
 
-#ifdef JAVACALLBACK
 void
 NRF24L01::setDataReceivedHandler (Callback *call_obj)
 {
     callback_obj = call_obj;
     dataReceivedHandler = &generic_callback;
 }
-#else
-void
-NRF24L01::setDataReceivedHandler (funcPtrVoidVoid handler)
-{
-    dataReceivedHandler = handler;
-}
-#endif
 
 bool
 NRF24L01::dataReady () {
@@ -316,11 +308,8 @@ void
 NRF24L01::pollListener() {
     if (dataReady()) {
         getData (m_rxBuffer);
-#ifdef JAVACALLBACK
+
         dataReceivedHandler (callback_obj); /* let know that data arrived */
-#else
-        dataReceivedHandler (); /* let know that data arrived */
-#endif
     }
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
 class Callback
 {
   public:
@@ -13,10 +12,9 @@ class Callback
 };
 
 
-static void generic_callback (Callback* callback)
+void generic_callback (Callback* callback)
 {
     if (callback == NULL)
         return;
     callback->run();
 }
-#endif

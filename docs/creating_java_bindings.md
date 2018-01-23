@@ -33,66 +33,66 @@ As much as possible, avoid passing values/returning values through pointers give
 #### Alternatives:
 1. Functions that read data from a driver, return it through a pointer given as argument, and return a bool value, should be __replaced by__ functions that return the value directly and throw a std::runtime_error if a read error occurs. E.g.:
   ```c++
-  /*  
-   * Function reads from sensor, places read value in variable bar and  
-   * returns true if succesful. Function returns false if read failed.  
-   */  
-  bool func(int *bar); 
+  /*
+   * Function reads from sensor, places read value in variable bar and
+   * returns true if succesful. Function returns false if read failed.
+   */
+  bool func(int *bar);
   ```
   __Replaced by:__
   ```c++
-  /*  
-   * Function reads from sensor and returns read value.  
-   * Or throws std::runtime_error if a read error occurs  
-   */  
-  int func();  
+  /*
+   * Function reads from sensor and returns read value.
+   * Or throws std::runtime_error if a read error occurs
+   */
+  int func();
   ```
 
 2. Functions that return multiple values through pointers, that make sense to be grouped together into an array<sup>1</sup> (e.g. speed values, acceleration values), should be __replaced by__ functions that return a pointer to an array in which the elements are the returned values. Afterwards, [wrap the C array with a Java array](#wrapping-unbound-c-arrays-with-java-arrays-if-array-is-output). E.g.:
   ```c++
-  /*  
-  * Function returns the acceleration on the three  
-  * axis in the given variables.  
-  */  
-  void getAccel(int *accelX, int *accelY, int *accelZ);  
+  /*
+  * Function returns the acceleration on the three
+  * axis in the given variables.
+  */
+  void getAccel(int *accelX, int *accelY, int *accelZ);
   ```
 
-  __Replaced by:__  
+  __Replaced by:__
   ```c++
-  /*  
-   * Function returns the acceleration on the three  
-   * axis as elements of a 3-element array.  
-   */  
-  int *getAccel();  
+  /*
+   * Function returns the acceleration on the three
+   * axis as elements of a 3-element array.
+   */
+  int *getAccel();
   ```
 
 3. Functions that return N values through pointers, that do not make sense to grouped together (e.g. a general purpose function that returns both the light intensity and air pollution), should be __replaced by__ N functions (one for each value) that read only one specific value. E.g.:
   ```c++
-  /*  
-   * Function returns the light intensity and air pollution  
-   */  
-  void getData(int *light, int *air);  
+  /*
+   * Function returns the light intensity and air pollution
+   */
+  void getData(int *light, int *air);
   ```
 
-  __Replaced by:__  
+  __Replaced by:__
   ```c++
-  int getLight();  
-  int getAir();  
+  int getLight();
+  int getAir();
   ```
 
 4. Functions that return N values through pointers; values that do not make sense to be grouped together, but are time dependent, and make sense to be read at the same time. For example, a sensor that reads air humidity and temperature. A user may want to know the temperature value _temp_ read at the exact moment the humidity value _humid_ was read. These should be __replaced by__ N+1 functions: a _getData()_ function that reads all values at the same time and stores them in global variables; and N getter functions, one for each value. E.g.
   ```c++
-  /*  
-   * Function returns the light intensity and air pollution  
-   */  
-  void getData(int *temp, int *humid);  
+  /*
+   * Function returns the light intensity and air pollution
+   */
+  void getData(int *temp, int *humid);
   ```
 
-  __Replaced by:__  
+  __Replaced by:__
   ```c++
-  void getData();  
-  int getTemp();  
-  int getHumid();   
+  void getData();
+  int getTemp();
+  int getHumid();
   ```
 
   <sup>1</sup>this depends on the interpretation of the returned data. For example, arguments that return the temperature and light intensity, don't make sense to be grouped into an array of size 2. But acceleration on the three axis can be grouped together in an array of size 3. where accelX is accel[0], accelY is accel[1], accelZ is accel[2].
@@ -124,18 +124,18 @@ The exception.i library file provides support for creating language independent 
 
 
 ```c++
-// Language independent exception handler  
-%include exception.i  
+// Language independent exception handler
+%include exception.i
 
-%exception {  
-    try {  
-            $action  
-        } catch(OutOfMemory) {  
-            SWIG_exception(SWIG_MemoryError, "Out of memory");  
-    } catch(...) {  
-            SWIG_exception(SWIG_RuntimeError,"Unknown exception");  
-    }  
-}  
+%exception {
+    try {
+            $action
+        } catch(OutOfMemory) {
+            SWIG_exception(SWIG_MemoryError, "Out of memory");
+    } catch(...) {
+            SWIG_exception(SWIG_RuntimeError,"Unknown exception");
+    }
+}
 ```
 
 In the upm library, the upm_exception.i interface file provides the functionality to catch common exceptions and propagate them through SWIG. It uses the exception.i library file and is language independent.
@@ -157,15 +157,15 @@ The upm_exception.i interface file is included in the upm.i file, therefor SWIG 
 To throw a specific Java exception:
 
 ```c++
-%exception {  
-    try {  
-        $action  
-    } catch (std::out_of_range &e) {  
-        jclass clazz = jenv->FindClass("java/lang/Exception");  
-        jenv->ThrowNew(clazz, "Range error");  
-        return $null;  
-    }  
-}  
+%exception {
+    try {
+        $action
+    } catch (std::out_of_range &e) {
+        jclass clazz = jenv->FindClass("java/lang/Exception");
+        jenv->ThrowNew(clazz, "Range error");
+        return $null;
+    }
+}
 ```
 
 Where FindClass and ThrowNew are [JNI functions](http://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/functions.html).
@@ -177,21 +177,21 @@ The C++ compiler does not force the code to catch any exception.
 The %exception directive does not specify if a method throws a checked exception (does not add classes to the throws clause). For this, the  %javaexception(classes) directive is used; where classes is a string containing one or more comma separated Java classes.
 
 ```c++
-%javaexception("java.lang.Exception") {  
-    try {  
-        $action  
-    } catch (std::out_of_range &e) {  
-        jclass clazz = jenv->FindClass("java/lang/Exception");  
-        jenv->ThrowNew(clazz, "Range error");  
-        return $null;  
-    }  
-}  
+%javaexception("java.lang.Exception") {
+    try {
+        $action
+    } catch (std::out_of_range &e) {
+        jclass clazz = jenv->FindClass("java/lang/Exception");
+        jenv->ThrowNew(clazz, "Range error");
+        return $null;
+    }
+}
 ```
 
 In the upm library, the java_exceptions.i library file provides the functionality to catch exceptions and propagate them through SWIG as Java checked exceptions. The file provides SWIG wrappers, in the form of macros, that can be applied to methods.E.g. use the __READDATA_EXCEPTION(function)__ macro for functions that read data from a sensor and throw a std::runtime_error in case of a read failure. This will result in:
 
 ```java
-void function throws IOException ();  
+void function throws IOException ();
 ```
 
 ## Caveats & Challenges
@@ -203,84 +203,73 @@ SWIG can wrap arrays in a more natural Java manner than the default by using the
 Functions that return arrays, return a pointer to that array. E.g.:
 
 ```c++
-/*  
- * Function returns the acceleration on the three  
- * axis as elements of a 3-element array.  
- */  
+/*
+ * Function returns the acceleration on the three
+ * axis as elements of a 3-element array.
+ */
 
-int *getAccel();  
+int *getAccel();
 ```
 
-__SWIG:__  
+__SWIG:__
 ```c++
-%typemap(jni) int* "jintArray"  
-%typemap(jstype) int* "int[]"  
-%typemap(jtype) int* "int[]"  
+%typemap(jni) int* "jintArray"
+%typemap(jstype) int* "int[]"
+%typemap(jtype) int* "int[]"
 
-%typemap(javaout) int* {  
-    return $jnicall;  
-}  
+%typemap(javaout) int* {
+    return $jnicall;
+}
 
-%typemap(out) int *getAccel {  
-    $result = JCALL1(NewIntArray, jenv, 3);  
-    JCALL4(SetIntArrayRegion, jenv, $result, 0, 3, (const signed int*)$1);  
-}  
+%typemap(out) int *getAccel {
+    $result = JCALL1(NewIntArray, jenv, 3);
+    JCALL4(SetIntArrayRegion, jenv, $result, 0, 3, (const signed int*)$1);
+}
 ```
 
 ### Wrapping unbound C arrays with Java arrays if array is input
 In C, arrays are tipically passed as pointers, with an integer value representig the length of the array. In Java, the length of an array is always known, so the length argument is redundant. This example shows how to wrap the C array and also get rid the length argument. E.g.:
 
 ```c++
-void func(uint8_t *buffer, int length);  
+void func(uint8_t *buffer, int length);
 ```
 
-__SWIG:__  
+__SWIG:__
 ```c++
-%typemap(jtype) (uint8_t *buffer, int length) "byte[]"  
-%typemap(jstype) (uint8_t *buffer, int length) "byte[]"  
-%typemap(jni) (uint8_t *buffer, int length) "jbyteArray"  
-%typemap(javain) (uint8_t *buffer, int length) "$javainput"  
+%typemap(jtype) (uint8_t *buffer, int length) "byte[]"
+%typemap(jstype) (uint8_t *buffer, int length) "byte[]"
+%typemap(jni) (uint8_t *buffer, int length) "jbyteArray"
+%typemap(javain) (uint8_t *buffer, int length) "$javainput"
 
-%typemap(in,numinputs=1) (uint8_t *buffer, int length) {  
-	$1 = JCALL2(GetByteArrayElements, jenv, $input, NULL);  
-	$2 = JCALL1(GetArrayLength, jenv, $input);  
-}  
+%typemap(in,numinputs=1) (uint8_t *buffer, int length) {
+	$1 = JCALL2(GetByteArrayElements, jenv, $input, NULL);
+	$2 = JCALL1(GetArrayLength, jenv, $input);
+}
 ```
 
 !!!! There is a difference between TYPE *name and TYPE * name in typemaps!!!!!
 
 
 ### Implementing callbacks in Java
-Callbacks in the UPM Java library (as well as the MRAA Java library) make use of the _void mraa\_java\_isr\_callback(void\* data\)_ method from MRAA.  
+Callbacks in the UPM Java library (as well as the MRAA Java library) make use of the _void mraa\_java\_isr\_callback(void\* data\)_ method from MRAA.
 
 __Callbacks in the UPM Java library are implemented as follows (we use the a110x Hall Effect sensors as example):__
 
 We extend the sensor class with another method, _installISR\(jobject runnable\)_, which is a wrapper over the original _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ method. This will install the _mraa\_java\_isr\_callback\(\)_ method as the interrupt service routine \(ISR\) to be called, with _jobject runnable_ as argument.
 
-SWIGJAVA is a symbol that is always defined by SWIG when using Java. We enclose the _installISR\(jobject runnable\)_ method in a _\#if defined(SWIGJAVA)_ check, to ensure the code only exists when creating a wrapper for Java.
+Java callbacks are added at the SWIG interface level.  For ease-of-use, a collection of macros are available in src/_upm.i.
 
+src/a110x/javaupm_a110x.i:
 ```c++
-#if defined(SWIGJAVA)
-void A110X::installISR(jobject runnable)
-{
-    installISR(mraa_java_isr_callback, runnable);
-}
-#endif
+JAVA_ADD_INSTALLISR(upm::A110X)
 ```
 
-We hide the underlying method, _installISR\(void \(\*isr\)\(void \*\), void \*arg\)_ , and expose only the _installISR\(jobject runnable\)_ to SWIG, through the use of the SWIGJAVA symbol. When SWIGJAVA is defined, we change the access modifier of the underlying method to private.
+Will expand to the following SWIG wrapper code:
 
 ```c++
-public:
-#if defined(SWIGJAVA)
-    void installISR(jobject runnable);
-#else
-    void installISR(void (*isr)(void *), void *arg);
-#endif
-private:
-#if defined(SWIGJAVA)
-    void installISR(void (*isr)(void *), void *arg);
-#endif
+SWIGINTERN void upm_A110X_installISR__SWIG_1(upm::A110X *self,jobject runnable){
+self->installISR(mraa_java_isr_callback, runnable);
+}
 ```
 
 To use callback in java, we create a ISR class, which implements the Java Runnable interface, and we override the _run\(\)_ method with the code to be executed when the interrupt is received. An example for the a110x Hall sensor that increments a counter each time an interrupt is received:
@@ -288,13 +277,13 @@ To use callback in java, we create a ISR class, which implements the Java Runnab
 ```java
 public class A110X_intrSample {
     public static int counter=0;
-        
+
     public static void main(String[] args) throws InterruptedException {
         upm_a110x.A110X hall = new upm_a110x.A110X(2);
 
         A110XISR callback = new A110XISR();
         hall.installISR(callback);
-        
+
         while(true){
             System.out.println("Counter: " + counter);
             Thread.sleep(1000);
@@ -311,39 +300,3 @@ class A110XISR implements Runnable {
     }
 }
 ```
-#### Issues with java callbacks and workarounds
-
-__SWIGJAVA not defined at compile time__
-
-Consider the following files:
-* example.h - Header file for our source file
-* example.cxx - Source file containing the class Example, for which we build java bindings
-* example.i - The SWIG interface, that includes the example.h header file
-
-The build process of a java module using SWIG is split into two steps:
-
-1. Generating the intermediate files, from the SWIG interface file. This will produce the java class file (Example.java), the JNI file (exampleJNI.java) and wrapper file (example_wrap.cxx). The source file (example.cxx) is not needed in the first step.
-  ```
-  swig -c++ -java example.i
-  ```
-
-2. Generating the shared library from the C++ sources and wrapper file
-  ```
-  g++ -fPIC -c example.cxx example_wrap.cxx -I/usr/lib/jvm/java-1.8.0/include -I/usr/lib/jvm/java-1.8.0/include/linux
-  g++ -shared example_wrap.o sensor.o -o libexample.so
-  ```
-
-SWIGJAVA is always defined when SWIG parses the interface file, meaning it will be defined when it parses the header file (example.h) that is included in the interface file (example.i).
-SWIG also adds the "#define SWIGJAVA" directive in the wrapper file (example_wrap.cxx).
-However, in generating the shared library the SWIGJAVA symbol is only defined in the example_wrap.cxx file, because of the added "#define SWIGJAVA" directive. But we have also used the "#if defined(SWIGJAVA)" check in the source file (example.cxx), and thus need to define SWIGJAVA for it too. If we define the SWIGJAVA symbol as a compile flag, when compiling the source code to object code, the SWIGJAVA compile flag and #define SWIGJAVA" directive will clash and give a double definition warning (only a warning).
-
-In this example it is simple to compile the two source codes separately, one with the compile flag, the other without, and then create the shared library (libexample.so).
-But in a big automatic build like the java upm libraries, this may prove too hard or too complicated to do. A workaround to this would be to define a custom symbol (e.q. JAVACALLBACK in the upm library) and also test for it. In short, replace:
-```c++
-#if defined(SWIGJAVA)
-```
-by
-```c++
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-```
-

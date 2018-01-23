@@ -32,7 +32,6 @@
 
 using namespace upm;
 
-#if defined(JAVACALLBACK)
 Pulsensor::Pulsensor (Callback *obj_call) : pin_ctx(0)
 {
     obj_callback = obj_call;
@@ -49,24 +48,6 @@ Pulsensor::Pulsensor (Callback *obj_call) : pin_ctx(0)
     qs             = FALSE;
     apmlitude      = 100;
 }
-#else
-Pulsensor::Pulsensor (callback_handler handler) : pin_ctx(0)
-{
-    callback = handler;
-
-    sample_counter = 0;
-    last_beat_time = 0;
-    threshold      = 512;
-    ibi            = 600;
-    trough         = 512;
-    peak           = 512;
-    is_pulse       = FALSE;
-    ret            = FALSE;
-    bpm            = 0;
-    qs             = FALSE;
-    apmlitude      = 100;
-}
-#endif
 
 void Pulsensor::start_sampler ()
 {
@@ -114,11 +95,8 @@ void *Pulsensor::do_sample (void *arg) {
                     (pulsensor->is_pulse == FALSE) &&
                     (N > (pulsensor->ibi / 5)* 3) ) {
                 pulsensor->is_pulse = callback_data.is_heart_beat = TRUE;
-#if defined(JAVACALLBACK)
+
                 pulsensor->obj_callback->run(callback_data);
-#else
-                pulsensor->callback(callback_data);
-#endif
 
                 pulsensor->ibi = pulsensor->sample_counter - pulsensor->last_beat_time;
                 pulsensor->last_beat_time = pulsensor->sample_counter;
@@ -156,11 +134,9 @@ void *Pulsensor::do_sample (void *arg) {
             if (data_from_sensor < pulsensor->threshold &&
                 pulsensor->is_pulse == TRUE) {
                 pulsensor->is_pulse = callback_data.is_heart_beat = FALSE;
-#if defined(JAVACALLBACK)
+
                 pulsensor->obj_callback->run(callback_data);
-#else
-                pulsensor->callback(callback_data);
-#endif
+
                 pulsensor->is_pulse   = FALSE;
                 pulsensor->apmlitude  = pulsensor->peak - pulsensor->trough;
                 pulsensor->threshold  = pulsensor->apmlitude / 2 + pulsensor->trough;

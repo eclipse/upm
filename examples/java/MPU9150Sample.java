@@ -43,9 +43,8 @@ public class MPU9150Sample {
 //			System.out.println("Gryoscope: " + "GX: " + gyro[0] + " GY: " + gyro[1] + " GZ: "
 //					+ gyro[2]);
 
-			float[] magn = sensor.getMagnetometer();
-			System.out.println("Magnetometer: " + "MX: " + magn[0] + " MY: " + magn[1] + " MZ: "
-					+ magn[2]);
+			upm_mpu9150.FloatVector magn = sensor.getMagnetometer();
+			System.out.println("Magnetometer: " + "MX: " + magn.get(0) + " MY: " + magn.get(1) + " MZ: " + magn.get(2));
 
 			Thread.sleep(1000);
 		}

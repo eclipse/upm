@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mraa/i2c.hpp>
 
 #define ADDR               0x1D // device address
@@ -208,14 +209,13 @@ class MMA7455 {
          */
         mraa::Result readData (short * ptrX, short * ptrY, short * ptrZ);
 
-#ifdef SWIGJAVA
         /**
          * Reads X-axis, Y-axis, and Z-axis acceleration data
          *
-         * @return Array containing X, Y, Z acceleration data
+         * @return std::vector containing X, Y, Z acceleration data
          */
-        short *readData ();
-#endif
+        std::vector<short> readData ();
+
         /**
          * Internal function for reading I2C data
          *

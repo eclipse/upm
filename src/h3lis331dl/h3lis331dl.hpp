@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
@@ -594,29 +595,26 @@ namespace upm {
      */
     void getXYZ(int *x, int *y, int *z);
 
-#ifdef SWIGJAVA
     /**
      * Gets acceleration values for each of the axes
      *
-     * @return Array containing X, Y, Z acceleration values
+     * @return std::vector containing X, Y, Z acceleration values
      */
-    float *getAcceleration();
+    std::vector<float> getAcceleration();
 
     /**
      * Gets raw axis values
      *
-     * @return Array containing X, Y, Z raw values
+     * @return std::vector containing X, Y, Z raw values
      */
-    int *getRawXYZ();
+    std::vector<int> getRawXYZ();
 
     /**
      * Gets adjusted axis values
      *
-     * @return Array containing X, Y, Z adjusted axis values
+     * @return std::vector containing X, Y, Z adjusted axis values
      */
-    int *getXYZ();
-#endif
-
+    std::vector<int> getXYZ();
 
     /**
      * Provides public access to the MRAA I2C context of the class for

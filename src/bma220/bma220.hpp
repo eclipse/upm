@@ -24,6 +24,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 #include <mraa/gpio.hpp>
@@ -539,14 +540,12 @@ namespace upm {
      */
     void getAccelerometer(float *x, float *y, float *z);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
     /**
      * get the accelerometer values in gravities
      *
-     * @return Array containing X, Y, Z acceleration values
+     * @return std::vector containing X, Y, Z acceleration values
      */
-    float *getAccelerometer();
-#endif
+    std::vector<float> getAccelerometer();
 
     /**
      * set the filtering configuration

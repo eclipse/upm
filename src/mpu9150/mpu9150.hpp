@@ -23,6 +23,7 @@
  */
 
 #pragma once
+#include <vector>
 
 #include "mpu60x0.hpp"
 #include "ak8975.hpp"
@@ -108,17 +109,13 @@ namespace upm {
      */
     void getMagnetometer(float *x, float *y, float *z);
 
-#ifdef SWIGJAVA
     /**
      * Return the compensated values for the x, y, and z axes.  The
      * unit of measurement is in micro-teslas (uT).
      *
-     * @return Array containing X, Y, Z magnetometer values
+     * @return std::vector containing X, Y, Z magnetometer values
      */
-    float *getMagnetometer();
-#endif
-
-
+    std::vector<float> getMagnetometer();
 
   protected:
     // magnetometer instance

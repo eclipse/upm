@@ -77,14 +77,12 @@ void ADXL335::values(int *xVal, int *yVal, int *zVal)
   *zVal = mraa_aio_read(m_aioZ);
 }
 
-#ifdef SWIGJAVA
-int *ADXL335::values()
+std::vector<int> ADXL335::values()
 {
-  int *v = new int[3];
+  std::vector<int> v(3);
   values(&v[0], &v[1], &v[2]);
   return v;
 }
-#endif
 
 void ADXL335::acceleration(float *xAccel, float *yAccel, float *zAccel)
 {
@@ -101,14 +99,12 @@ void ADXL335::acceleration(float *xAccel, float *yAccel, float *zAccel)
   *zAccel = (zVolts - m_zeroZ) / ADXL335_SENSITIVITY;
 }
 
-#ifdef SWIGJAVA
-float *ADXL335::acceleration()
+std::vector<float> ADXL335::acceleration()
 {
-  float *v = new float[3];
+  std::vector<float> v(3);
   acceleration(&v[0], &v[1], &v[2]);
   return v;
 }
-#endif
 
 void ADXL335::calibrate()
 {

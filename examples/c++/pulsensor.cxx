@@ -42,17 +42,24 @@ sig_handler(int signo)
     }
 }
 
-void
-handler(clbk_data data)
+
+//! [Interesting]
+class mycb : public virtual Callback
 {
-    printf("callback data (%d)\n", data.is_heart_beat);
-}
+    public:
+        virtual void run(clbk_data arg)
+        {
+            printf("callback data (%d)\n", arg.is_heart_beat);
+        }
+};
+
 
 int
 main(int argc, char** argv)
 {
+    mycb cb;
     //! [Interesting]
-    Pulsensor sensor(handler);
+    Pulsensor sensor(&cb);
 
     sensor.start_sampler();
     while (!doWork) {
