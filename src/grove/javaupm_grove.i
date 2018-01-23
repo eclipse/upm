@@ -49,13 +49,8 @@
     #include "grovetemp.hpp"
 %}
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_grove");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_ADD_INSTALLISR_EDGE(upm::GroveButton)
+
+
+
+JAVA_JNI_LOADLIBRARY(javaupm_grove)

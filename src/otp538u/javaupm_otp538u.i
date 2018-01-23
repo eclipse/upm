@@ -7,13 +7,4 @@
 
 %include "otp538u.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_otp538u");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_otp538u)

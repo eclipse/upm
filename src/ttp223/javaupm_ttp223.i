@@ -11,13 +11,8 @@
 
 %include "ttp223.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_ttp223");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+#%ignore installISR(mraa::Edge , void *, void *)
+
+JAVA_ADD_INSTALLISR_EDGE(upm::TTP223)
+
+JAVA_JNI_LOADLIBRARY(javaupm_ttp223)

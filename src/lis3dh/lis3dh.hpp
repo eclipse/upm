@@ -329,13 +329,6 @@ class LIS3DH
      */
     uint8_t getStatusAux();
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void
-    installISR(LIS3DH_INTERRUPT_PINS_T intr, int gpio, mraa::Edge level, jobject runnable)
-    {
-        installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-    }
-#else
     /**
      * Install an interrupt handler
      *
@@ -354,7 +347,6 @@ class LIS3DH
                     mraa::Edge level,
                     void (*isr)(void*),
                     void* arg);
-#endif
 
     /**
      * Uninstall a previously installed interrupt handler
@@ -372,13 +364,5 @@ class LIS3DH
     LIS3DH(const LIS3DH&) = delete;
     LIS3DH& operator=(const LIS3DH&) = delete;
 
-// Adding a private function definition for Java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-    void installISR(LIS3DH_INTERRUPT_PINS_T intr,
-                    int gpio,
-                    mraa::Edge level,
-                    void (*isr)(void*),
-                    void* arg);
-#endif
 };
 }

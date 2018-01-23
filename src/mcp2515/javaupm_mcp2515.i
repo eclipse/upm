@@ -5,20 +5,14 @@
 %include "../java_buffer.i"
 %include "std_string.i"
 
-%include "mcp2515_regs.h"
-%include "mcp2515.hpp"
 %{
     #include "mcp2515.hpp"
+    #include "mcp2515_regs.h"
 %}
+%include "mcp2515_regs.h"
+%include "mcp2515.hpp"
 
+%ignore installISR(int pin, void *, void *);
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_mcp2515");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_ADD_INSTALLISR_PIN(upm::MCP2515)
+JAVA_JNI_LOADLIBRARY(javaupm_mcp2515)

@@ -35,22 +35,18 @@
     JCALL4(SetIntArrayRegion, jenv, $result, 0, 3, (const signed int*)$1);
 }
 
+
 %ignore getRawValues(int *, int *, int *);
 %ignore getAcceleration(float *, float *, float *);
 
-%include "mma7660_regs.h"
-%include "mma7660.hpp"
 %{
     #include "mma7660.hpp"
+    #include "mma7660_regs.h"
 %}
+%include "mma7660_regs.h"
+%include "mma7660.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_mma7660");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+%ignore installISR(int , void *, void *);
+
+JAVA_ADD_INSTALLISR_PIN(upm::MMA7660)
+JAVA_JNI_LOADLIBRARY(javaupm_mma7660)

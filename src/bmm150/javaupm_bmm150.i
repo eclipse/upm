@@ -20,19 +20,17 @@ import java.lang.Float;
 
 %template(floatVector) std::vector<float>;
 
-%include "bmm150_defs.h"
-%include "bmm150.hpp"
 %{
     #include "bmm150.hpp"
+    #include "bmm150_defs.h"
 %}
+%include "bmm150_defs.h"
+%include "bmm150.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_bmm150");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+%ignore installISR (BMM150_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
+
+%define INTERRUPT BMM150_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::BMM150)
+
+JAVA_JNI_LOADLIBRARY(javaupm_bmm150)

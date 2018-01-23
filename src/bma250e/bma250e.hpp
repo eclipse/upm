@@ -518,14 +518,7 @@ namespace upm {
         void setLowPowerMode2();
 
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMA250E_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level, jobject runnable)
-        {
-            installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-        }
-#else
-        /**
+    /**
          * install an interrupt handler.
          *
          * @param intr One of the BMA250E_INTERRUPT_PINS_T values
@@ -541,7 +534,6 @@ namespace upm {
         void installISR(BMA250E_INTERRUPT_PINS_T intr, int gpio,
                         mraa::Edge level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * uninstall a previously installed interrupt handler
@@ -585,12 +577,6 @@ namespace upm {
         /* Disable implicit copy and assignment operators */
         BMA250E(const BMA250E&) = delete;
         BMA250E &operator=(const BMA250E&) = delete;
-
-        // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMA250E_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        void (*isr)(void *), void *arg);
-#endif
+        
     };
 }

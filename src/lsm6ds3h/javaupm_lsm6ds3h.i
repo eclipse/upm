@@ -6,19 +6,17 @@
 %ignore getAccelerometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
 
-%include "lsm6ds3h_defs.h"
-%include "lsm6ds3h.hpp"
 %{
     #include "lsm6ds3h.hpp"
+    #include "lsm6ds3h_defs.h"
 %}
+%include "lsm6ds3h_defs.h"
+%include "lsm6ds3h.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_lsm6ds3h");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+%ignore installISR(LSM6DS3H_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
+
+%define INTERRUPT LSM6DS3H_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::LSM6DS3H)
+
+JAVA_JNI_LOADLIBRARY(javaupm_lsm6ds3h)

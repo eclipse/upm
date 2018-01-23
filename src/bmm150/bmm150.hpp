@@ -281,14 +281,6 @@ namespace upm {
          */
         void setRepetitionsZ(uint8_t reps);
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMM150_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        jobject runnable)
-        {
-            installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-        }
-#else
         /**
          * Install an interrupt handler.
          *
@@ -305,7 +297,6 @@ namespace upm {
         void installISR(BMM150_INTERRUPT_PINS_T intr, int gpio,
                         mraa::Edge level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * Uninstall a previously installed interrupt handler.
@@ -350,11 +341,5 @@ namespace upm {
         BMM150(const BMM150&) = delete;
         BMM150 &operator=(const BMM150&) = delete;
 
-        // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(BMM150_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        void (*isr)(void *), void *arg);
-#endif
     };
 }

@@ -59,12 +59,12 @@ int Button::value()
     return mraa_gpio_read(m_gpio);
 }
 
-#ifdef JAVACALLBACK
+/*#ifdef JAVACALLBACK
 void Button::installISR(mraa::Edge level, jobject runnable)
 {
   installISR(level, mraa_java_isr_callback, runnable);
 }
-#endif
+#endif*/
 
 void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
 {

@@ -49,12 +49,7 @@ bool RPR220::blackDetected()
     return rpr220_black_detected(m_rpr220);
 }
 
-#ifdef JAVACALLBACK
-void RPR220::installISR(jobject runnable)
-{
-    installISR(mraa_java_isr_callback, runnable);
-}
-#endif
+
 
 void RPR220::installISR(void (*isr)(void *), void *arg)
 {
@@ -65,4 +60,3 @@ void RPR220::uninstallISR()
 {
     rpr220_uninstall_isr(m_rpr220);
 }
-

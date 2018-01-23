@@ -2,6 +2,8 @@
 %include "stdint.i"
 %include "upm_exception.i"
 
+%import _upm.i
+
 %{
 #include "version.hpp"
 %}

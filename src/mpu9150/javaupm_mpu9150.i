@@ -33,13 +33,10 @@
 %include "mpu60x0.hpp"
 %include "mpu9150.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_mpu9150");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+%ignore installISR(int , mraa::Edge , void *, void *);
+
+%define GETTER get_gpioIRQ()
+%enddef
+JAVA_ADD_INSTALLISR_GPIO(upm::MPU60X0)
+
+JAVA_JNI_LOADLIBRARY(javaupm_mpu9150)

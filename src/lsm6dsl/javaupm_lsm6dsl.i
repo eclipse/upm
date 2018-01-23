@@ -6,19 +6,17 @@
 %ignore getAccelerometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
 
-%include "lsm6dsl_defs.h"
-%include "lsm6dsl.hpp"
 %{
     #include "lsm6dsl.hpp"
+    #include "lsm6dsl_defs.h"
 %}
+%include "lsm6dsl_defs.h"
+%include "lsm6dsl.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_lsm6dsl");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+
+%ignore installISR(LSM6DSL_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
+
+%define INTERRUPT LSM6DSL_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::LSM6DSL)
+JAVA_JNI_LOADLIBRARY(javaupm_lsm6dsl)

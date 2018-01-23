@@ -7,13 +7,6 @@
 %}
 %include "rpr220.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_rpr220");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+JAVA_JNI_LOADLIBRARY(javaupm_rpr220)
+
+JAVA_ADD_INSTALLISR(upm::RPR220)

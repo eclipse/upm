@@ -5,19 +5,18 @@
 
 %ignore getAccelerometer(float *, float *, float *);
 
-%include "lis3dh_defs.h"
-%include "lis3dh.hpp"
 %{
     #include "lis3dh.hpp"
+    #include "lis3dh_defs.h"
 %}
+%include "lis3dh_defs.h"
+%include "lis3dh.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_lis3dh");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+
+%ignore installISR(LIS3DH_INTERRUPT_PINS_T , int , mraa::Edge , void *, void* );
+
+%define INTERRUPT LIS3DH_INTERRUPT_PINS_T
+%enddef
+JAVA_ADD_INSTALLISR_INTERRUPT(upm::LIS3DH)
+
+JAVA_JNI_LOADLIBRARY(javaupm_lis3dh)

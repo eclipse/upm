@@ -303,14 +303,6 @@ namespace upm {
          */
         uint8_t getMagnetometerIntSrc();
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(LSM303AGR_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        jobject runnable)
-        {
-            installISR(intr, gpio, level, mraa_java_isr_callback, runnable);
-        }
-#else
         /**
          * Install an interrupt handler
          *
@@ -327,7 +319,6 @@ namespace upm {
         void installISR(LSM303AGR_INTERRUPT_PINS_T intr, int gpio,
                         mraa::Edge level,
                         void (*isr)(void *), void *arg);
-#endif
 
         /**
          * Uninstall a previously installed interrupt handler
@@ -373,11 +364,5 @@ namespace upm {
         LSM303AGR(const LSM303AGR&) = delete;
         LSM303AGR &operator=(const LSM303AGR&) = delete;
 
-        // Adding a private function definition for java bindings
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(LSM303AGR_INTERRUPT_PINS_T intr, int gpio,
-                        mraa::Edge level,
-                        void (*isr)(void *), void *arg);
-#endif
     };
 }

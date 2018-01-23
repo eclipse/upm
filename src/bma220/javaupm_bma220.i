@@ -30,13 +30,10 @@
 
 %include "bma220.hpp"
 
-%pragma(java) jniclasscode=%{
-    static {
-        try {
-            System.loadLibrary("javaupm_bma220");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native code library failed to load. \n" + e);
-            System.exit(1);
-        }
-    }
-%}
+%define GETTER get_gpioIntr();
+%enddef
+JAVA_ADD_INSTALLISR_GPIO(upm::BMA220)
+
+%ignore installISR(int, mraa::Edge, void *, void *);
+
+JAVA_JNI_LOADLIBRARY(javaupm_bma220)

@@ -324,12 +324,7 @@ namespace upm {
             return std::string((char *)m_message.pkt.data, m_message.len);
         }
 
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(int pin, jobject runnable)
-        {
-            installISR(pin, mraa_java_isr_callback, runnable);
-        }
-#else
+
         /**
          * Installs an interrupt service routine (ISR) to be called when
          * an interrupt occurs.
@@ -340,7 +335,7 @@ namespace upm {
          * argument to the ISR.
          */
         void installISR(int pin, void (*isr)(void *), void *arg);
-#endif
+
 
         /**
          * Uninstalls the previously installed ISR
@@ -518,9 +513,5 @@ namespace upm {
         /* Disable implicit copy and assignment operators */
         MCP2515(const MCP2515&) = delete;
         MCP2515 &operator=(const MCP2515&) = delete;
-
-#if defined(SWIGJAVA) || defined(JAVACALLBACK)
-        void installISR(int pin, void (*isr)(void *), void *arg);
-#endif
     };
 }
