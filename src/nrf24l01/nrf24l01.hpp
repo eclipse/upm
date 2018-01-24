@@ -362,7 +362,7 @@ class NRF24L01 {
     private:
 
         /* Callback object to use for setting the handler from Java */
-        Callback *callback_obj;
+        Callback *m_callback_obj;
 
         /** Data arrived handler */
         funcPtrVoidVoid dataReceivedHandler;

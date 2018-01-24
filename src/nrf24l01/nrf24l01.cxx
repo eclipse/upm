@@ -35,7 +35,7 @@ using namespace upm;
 
 
 NRF24L01::NRF24L01 (int cs, int ce)
-                            :m_spi(0), m_csnPinCtx(cs), m_cePinCtx(ce)
+    : m_callback_obj(NULL), m_spi(0), m_csnPinCtx(cs), m_cePinCtx(ce)
 {
     init (cs, ce);
 }
@@ -137,7 +137,7 @@ NRF24L01::setPayload (uint8_t payload) {
 void
 NRF24L01::setDataReceivedHandler (Callback *call_obj)
 {
-    callback_obj = call_obj;
+    m_callback_obj = call_obj;
     dataReceivedHandler = &generic_callback;
 }
 
@@ -309,7 +309,7 @@ NRF24L01::pollListener() {
     if (dataReady()) {
         getData (m_rxBuffer);
 
-        dataReceivedHandler (callback_obj); /* let know that data arrived */
+        dataReceivedHandler (m_callback_obj); /* let know that data arrived */
     }
 }
 
