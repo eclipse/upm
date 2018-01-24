@@ -6,3 +6,5 @@
 %}
 
 %include "nrf8001.hpp"
+
+JAVA_JNI_LOADLIBRARY(javaupm_nrf8001)

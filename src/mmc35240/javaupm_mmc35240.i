@@ -6,3 +6,5 @@
 %}
 
 %include "mmc35240.hpp"
+
+JAVA_JNI_LOADLIBRARY(javaupm_mmc35240)
