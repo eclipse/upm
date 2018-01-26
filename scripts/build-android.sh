@@ -66,7 +66,7 @@ cmake \
 make -j8 -Cbuild
 
 # Anotate the .java src from doxygen
-find src/ -name "javaupm_*.i" > build/upm.i.list
+find src/ -name "*.i" > build/upm.i.list
 #../doxy/doxyport build/upm.i.list \
 #  -s src/interfaces/,src/bacnetmstp,src/bmg160,src/bma250e,src/bmm150 \
 #  -m doxy/samples.mapping.txt \

@@ -2,11 +2,10 @@
     %include <swiginterface.i>
     %interface_impl(upm::ILightController);
 #endif
-
-%include "javaupm_interfaces.i"
+%include "interfaces.i"
 %include "javaupm_iModuleStatus.i"
 
-%include "iLightController.hpp"
 %{
-	#include "iLightController.hpp"
+#include "iLightController.hpp"
 %}
+%include "iLightController.hpp"

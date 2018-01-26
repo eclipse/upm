@@ -1,1 +1,0 @@
-%module pyupm_utilities

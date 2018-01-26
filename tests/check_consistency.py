@@ -18,7 +18,7 @@ class BlacklistConsistency(u.TestCase):
 
             for libraryName in blacklist:
                 files = os.listdir( os.path.join(rootDir, libraryName))
-                interfaceFileName = "javaupm_" + libraryName + ".i"
+                interfaceFileName = libraryName + ".i"
 
                 if interfaceFileName in files:
                     self.fail("\n" + libraryName + " is in javaswig blacklist.\n" + \

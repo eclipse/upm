@@ -1,0 +1,16 @@
+/* This SWIG .i file is generated from UPM CMake.  If additional functionality
+ * is required, custom .i files can be placed in the library directory.
+ */
+
+/* Common SWIG syntax */
+%include "../common_top.i"
+
+%{
+@SWIG_HASH_INCLUDES@
+%}
+@SWIG_PERCENT_INCLUDES@
+
+/* Java-specific SWIG syntax */
+#ifdef SWIGJAVA
+JAVA_JNI_LOADLIBRARY(javaupm_@libname@)
+#endif

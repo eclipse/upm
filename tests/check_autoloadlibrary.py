@@ -25,7 +25,7 @@ class AutoLoadLibrary(u.TestCase):
 
         for subdir, dirs, files in os.walk(rootDir):
             for fileName in files:
-                if fnmatch.fnmatch(fileName, 'javaupm_*.i'):
+                if fnmatch.fnmatch(fileName, '*.i'):
                     moduleName = fileName[:-2]
                     snippet = prefix + moduleName + suffix
 

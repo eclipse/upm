@@ -259,7 +259,7 @@ We extend the sensor class with another method, _installISR\(jobject runnable\)_
 
 Java callbacks are added at the SWIG interface level.  For ease-of-use, a collection of macros are available in src/_upm.i.
 
-src/a110x/javaupm_a110x.i:
+src/a110x/a110x.i:
 ```c++
 JAVA_ADD_INSTALLISR(upm::A110X)
 ```

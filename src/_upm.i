@@ -1,7 +1,7 @@
 /*
  * This file provides additional non-wrapper code functionality for use
  * throughout the UPM repository.  This file is intended to be %imported
- * from the top-level upm.i (not directly by UPM libraries).
+ * from the top-level common_top.i (not directly by UPM libraries).
  *
  * No wrapper code will be generated from importing this .i file.
  */
