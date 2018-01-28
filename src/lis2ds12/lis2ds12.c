@@ -238,40 +238,6 @@ upm_result_t lis2ds12_set_odr(const lis2ds12_context dev,
     if (lis2ds12_write_reg(dev, LIS2DS12_REG_CTRL1, reg))
         return UPM_ERROR_OPERATION_FAILED;
 
-    switch(odr)
-    {
-    case LIS2DS12_ODR_12_5HZ:
-    case LIS2DS12_ODR_25HZ:
-    case LIS2DS12_ODR_50HZ:
-    case LIS2DS12_ODR_100HZ:
-        // 14b
-        dev->accFactor = 4.0;
-        break;
-
-        // these are special - possibly HF modes.  Since we've already
-        // stripped the HF indicator, we check the hf_mode here.  HF
-        // modes are 12b resolution, otherwise resolution is 14b.
-    case LIS2DS12_ODR_200HZ:
-    case LIS2DS12_ODR_400HZ:
-    case LIS2DS12_ODR_800HZ:
-        if (hf_mode)
-            dev->accFactor = 16.0;
-        else
-            dev->accFactor = 4.0;
-        break;
-
-        // choose something safe
-    case LIS2DS12_ODR_POWER_DOWN:
-        dev->accFactor = 1.0;
-        break;
-
-        // the rest are low power modes, 10b
-    default:
-        dev->accFactor = 64.0;
-        break;
-    }
-
-
     return UPM_SUCCESS;
 }
 
@@ -452,16 +418,16 @@ void lis2ds12_get_accelerometer(const lis2ds12_context dev,
 {
     assert(dev != NULL);
 
-    float scale = (dev->accScale * dev->accFactor) / 1000.0;
+    float scale = dev->accScale / 1000.0;
 
     if (x)
-        *x = (dev->accX / dev->accFactor) * scale;
+        *x = dev->accX * scale;
 
     if (y)
-        *y = (dev->accY / dev->accFactor) * scale;
+        *y = dev->accY * scale;
 
     if (z)
-        *z = (dev->accZ / dev->accFactor) * scale;
+        *z = dev->accZ * scale;
 }
 
 float lis2ds12_get_temperature(const lis2ds12_context dev)

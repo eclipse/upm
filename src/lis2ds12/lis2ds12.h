@@ -69,7 +69,6 @@ extern "C" {
 
         // acc scaling
         float accScale;
-        float accFactor;
     } *lis2ds12_context;
 
     /**
