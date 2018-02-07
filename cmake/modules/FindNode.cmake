@@ -22,7 +22,7 @@ endif()
 
 # Now look for node. Flag an error if not found
 find_path (NODE_ROOT_DIR
-    NAMES node.h
+    NAMES node.h src/node.h
     PATH_SUFFIXES node node4 node5 node6 node7 node8 nodejs
     PATHS /usr/include /usr/local/include)
 
