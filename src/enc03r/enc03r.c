@@ -105,7 +105,7 @@ upm_result_t enc03r_calibrate(const enc03r_context dev,
 
     float total = 0.0;
 
-    for (int i=0; i<samples; i++)
+    for (unsigned int i=0; i<samples; i++)
     {
         int val = mraa_aio_read(dev->aio);
         if (val < 0)

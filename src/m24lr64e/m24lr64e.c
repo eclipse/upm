@@ -303,7 +303,7 @@ upm_result_t m24lr64e_eeprom_write_bytes(m24lr64e_context dev,
 
 upm_result_t m24lr64e_eeprom_read_byte(m24lr64e_context dev, uint32_t address,
                                        uint8_t* data){
-    uint32_t pkt_len = 2;
+    int pkt_len = 2;
     uint8_t buf[pkt_len];
 
     buf[0] = ((address >> 8) & 0xff);

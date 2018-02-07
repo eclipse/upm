@@ -315,7 +315,7 @@ upm_result_t mcp2515_bus_read(const mcp2515_context dev, uint8_t cmd,
 
     if (args && arglen)
     {
-        for (int i=0; i<arglen; i++)
+        for (unsigned int i=0; i<arglen; i++)
             sbuf[index++] = args[i];
     }
 

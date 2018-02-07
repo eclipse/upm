@@ -143,8 +143,7 @@ ds18b20_context ds18b20_init(unsigned int uart)
     }
 
     // iterate through the found devices and query their resolutions
-    int i;
-    for (i=0; i<dev->numDevices; i++)
+    for (unsigned int i=0; i<dev->numDevices; i++)
     {
         // read only the first 5 bytes of the scratchpad
         static const int numScratch = 5;
@@ -191,7 +190,7 @@ void ds18b20_update(const ds18b20_context dev, int index)
 {
     assert(dev != NULL);
 
-    if (index >= dev->numDevices)
+    if (index >= (int)dev->numDevices)
     {
         printf("%s: device index %d out of range\n", __FUNCTION__, index);
         return;
@@ -206,9 +205,7 @@ void ds18b20_update(const ds18b20_context dev, int index)
         // convert command to all of them, then wait.  This will be
         // faster, timey-wimey wise, then converting, sleeping, and
         // reading each individual sensor.
-
-        int i;
-        for (i=0; i<dev->numDevices; i++)
+        for (unsigned int i=0; i<dev->numDevices; i++)
             mraa_uart_ow_command(dev->ow, DS18B20_CMD_CONVERT, dev->devices[i].id);
     }
     else
@@ -219,8 +216,7 @@ void ds18b20_update(const ds18b20_context dev, int index)
 
     if (doAll)
     {
-        int i;
-        for (i=0; i<dev->numDevices; i++)
+        for (unsigned int i=0; i<dev->numDevices; i++)
             dev->devices[i].temperature = readSingleTemp(dev, i);
     }
     else

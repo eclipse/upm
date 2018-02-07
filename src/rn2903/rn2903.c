@@ -347,14 +347,14 @@ RN2903_RESPONSE_T rn2903_waitfor_response(const rn2903_context dev,
 
             dev->resp_len++;
         }
-    } while ( (elapsed = upm_elapsed_ms(&clock)) < wait_ms);
+    } while ( (int)(elapsed = upm_elapsed_ms(&clock)) < wait_ms);
 
     if (dev->debug)
         printf("\tRESP (%d): '%s'\n", (int)dev->resp_len,
                (dev->resp_len) ? dev->resp_data : "");
 
     // check for and return obvious errors
-    if (elapsed >= wait_ms)
+    if ((int)elapsed >= wait_ms)
         return RN2903_RESPONSE_TIMEOUT;
     else if (rn2903_find(dev, RN2903_PHRASE_INV_PARAM))
         return RN2903_RESPONSE_INVALID_PARAM;

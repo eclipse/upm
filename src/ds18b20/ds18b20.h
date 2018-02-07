@@ -53,7 +53,7 @@ extern "C" {
         mraa_uart_ow_context ow;
 
         // number of devices found
-        int numDevices;
+        unsigned int numDevices;
 
         // list of allocated ds18b20_info_t instances
         ds18b20_info_t *devices;

@@ -104,6 +104,7 @@ endif (WERROR)
 upm_add_compile_flags(C ${C_CXX_WARNING_FLAGS}
   -Winit-self
   -Wimplicit
+  -Wsign-compare
   -Wmissing-parameter-type)
 
 # Set CXX compiler warning flags at top-level scope and emit a warning about
@@ -111,6 +112,7 @@ upm_add_compile_flags(C ${C_CXX_WARNING_FLAGS}
 upm_add_compile_flags(CXX ${C_CXX_WARNING_FLAGS}
   -Wnon-virtual-dtor
   -Woverloaded-virtual
+  -Wsign-compare
   -Wreorder)
 
 # Allow exception error handling for Android C++

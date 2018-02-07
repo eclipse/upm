@@ -268,7 +268,7 @@ int uartat_command_with_response(const uartat_context dev,
         upm_clock_t clock;
         upm_clock_init(&clock);
 
-        int idx = 0;
+        size_t idx = 0;
 
         do
         {
@@ -323,7 +323,7 @@ bool uartat_command_waitfor(const uartat_context dev, const char *cmd,
     upm_clock_t clock;
     upm_clock_init(&clock);
 
-    int idx = 0;
+    size_t idx = 0;
 
     do
     {

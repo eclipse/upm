@@ -318,7 +318,7 @@ upm_result_t bno055_write_regs(const bno055_context dev, uint8_t reg,
     uint8_t buf[len + 1];
 
     buf[0] = reg;
-    for (int i=0; i<len; i++)
+    for (size_t i=0; i<len; i++)
         buf[i+1] = buffer[i];
 
     if (mraa_i2c_write(dev->i2c, buf, len + 1))

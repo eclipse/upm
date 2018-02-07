@@ -93,7 +93,7 @@ ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev)
     ppd42ns_dust_data data;
 
     // in ms, 30 seconds
-    const int pulse_check_time = 30000;
+    const unsigned int pulse_check_time = 30000;
     // loop timer
     upm_clock_t max_loop_time;
 

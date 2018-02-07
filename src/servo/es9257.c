@@ -87,7 +87,7 @@ upm_result_t es9257_set_angle(es9257_context dev, int32_t angle){
 
 upm_result_t es9257_calc_pulse_travelling(const es9257_context dev,
                                          int32_t* ret_val, int32_t value){
-    if (value > dev->max_pulse_width) {
+    if (value > (int)dev->max_pulse_width) {
         return dev->max_pulse_width;
     }
 

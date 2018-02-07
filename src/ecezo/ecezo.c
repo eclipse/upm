@@ -395,7 +395,7 @@ int ecezo_read(const ecezo_context dev, char *buffer, size_t len)
     else
     {
         // UART
-        int bytesRead = 0;
+        size_t bytesRead = 0;
 
         while(bytesRead < len)
         {
@@ -437,7 +437,7 @@ upm_result_t ecezo_write(const ecezo_context dev, char *buffer, size_t len)
 
     if (dev->uart)
     {
-        if (mraa_uart_write(dev->uart, buffer, len) != len)
+        if (mraa_uart_write(dev->uart, buffer, len) != (int)len)
         {
             printf("%s: mraa_uart_write() failed.\n", __FUNCTION__);
             return UPM_ERROR_OPERATION_FAILED;

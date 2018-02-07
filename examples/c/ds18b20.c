@@ -62,8 +62,7 @@ int main(int argc, char **argv)
         // update our values for all sensors
         ds18b20_update(sensor, -1);
 
-        int i;
-        for (i=0; i<ds18b20_devices_found(sensor); i++)
+        for (unsigned int i=0; i<ds18b20_devices_found(sensor); i++)
         {
             printf("Device %02d: Temperature: %f C\n",
                     i, ds18b20_get_temperature(sensor, i));
