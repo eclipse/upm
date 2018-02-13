@@ -55,6 +55,7 @@ namespace upm {
      */
 
     /**
+     * @deprecated This class is being replaced by SCAM
      * @library grovescam
      * @sensor grovescam
      * @comname Serial Camera Module
@@ -62,7 +63,6 @@ namespace upm {
      * @man seeed
      * @con uart
      * @web http://www.seeedstudio.com/wiki/Grove_-_Serial_Camera_Kit
-     * @deprecated This class is being replaced by SCAM
      *
      * @brief API for the Grove Serial Camera
      *

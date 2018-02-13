@@ -35,13 +35,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by O2
    * @library groveo2
    * @sensor groveo2
    * @comname Oxygen (O2) Concentration Sensor
    * @type gaseous
    * @man seeed
    * @con analog
-   * @deprecated This class is being replaced by O2
    *
    * @brief API for the Grove O2 Oxygen Gas Sensor
    *

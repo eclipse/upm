@@ -33,6 +33,8 @@
 namespace upm {
 
 /**
+ * @deprecated This class is being replaced by the upm-relay library and the
+ * Relay class.
  * @library grove
  * @sensor groverelay
  * @comname Relay
@@ -40,8 +42,6 @@ namespace upm {
  * @man seeed
  * @con gpio
  * @kit gsk eak hak
- * @deprecated This class is being replaced by the upm-relay library and the
- * Relay class.
  *
  * @brief API for the Grove Relay
  * 

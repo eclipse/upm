@@ -47,6 +47,7 @@ namespace upm {
      */
 
     /**
+     * @deprecated This class is being replaced by GPRS
      * @library grovegprs
      * @sensor grovegprs
      * @comname GPRS Module
@@ -54,7 +55,6 @@ namespace upm {
      * @man seeed
      * @con uart
      * @web http://www.seeedstudio.com/wiki/GPRS_Shield_V2.0
-     * @deprecated This class is being replaced by GPRS
      *
      * @brief API for the Grove GPRS Module
      *

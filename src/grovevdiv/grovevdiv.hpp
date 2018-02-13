@@ -43,6 +43,7 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by VDiv
    * @library grovevdiv
    * @sensor grovevdiv
    * @comname Voltage Divider
@@ -50,7 +51,6 @@ namespace upm {
    * @man seeed
    * @con analog
    * @kit robok
-   * @deprecated This class is being replaced by VDiv
    *
    * @brief API for the Grove Voltage Divider Sensor
    *

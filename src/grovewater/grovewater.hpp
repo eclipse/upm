@@ -35,6 +35,7 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by Water
    * @library grovewater
    * @sensor grovewater
    * @comname Water Sensor
@@ -42,7 +43,6 @@ namespace upm {
    * @man seeed
    * @con gpio
    * @kit eak
-   * @deprecated This class is being replaced by Water
    *
    * @brief API for the Grove Water Sensor
    *

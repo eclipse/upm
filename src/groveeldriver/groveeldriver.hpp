@@ -37,13 +37,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by ElDriver
    * @library groveeldriver
    * @sensor groveeldriver
    * @comname Electroluminescent (EL) Driver
    * @type electric
    * @man seeed
    * @con gpio
-   * @deprecated This class is being replaced by ElDriver
    *
    * @brief API for the Grove EL Driver Module
    * 

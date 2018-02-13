@@ -34,7 +34,6 @@ namespace upm {
    * @sensor tzemt400
    * @comname Trane TZEMT400 Z-Wave Thermostat.
    * @con uart
-   * @snippet ozw-tzemt400.cxx Interesting
    * @man trane
    *
    * @brief UPM API for Trane TZEMT400 Z-Wave Thermostat
@@ -42,6 +41,8 @@ namespace upm {
    * This module allows for monitoring certain elements of a Trane
    * TZEMT400 Z-Wave Thermostat.  It was tested with a Trane
    * TZEMT400BB32MAA variant.
+   *
+   * @snippet ozw-tzemt400.cxx Interesting
    */
 
   class TZEMT400 : public ozwInterface {

@@ -35,6 +35,7 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by Moisture
    * @library grovemoisture
    * @sensor grovemoisture
    * @comname Moisture Sensor
@@ -42,7 +43,6 @@ namespace upm {
    * @man seeed
    * @con analog
    * @kit eak hak
-   * @deprecated This class is being replaced by Moisture
    *
    * @brief API for the Grove Moisture Sensor
    *

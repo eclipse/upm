@@ -43,13 +43,13 @@ namespace upm {
  */
 
 /**
+ * @deprecated This class is being replaced by UltraSonic
  * @library groveultrasonic
  * @sensor groveultrasonic
  * @comname Ultrasonic Proximity Sensor
  * @type sound
  * @man seeed
  * @con gpio
- * @deprecated This class is being replaced by UltraSonic
  *
  * @brief API for Grove Ultrasonic Ranger
  *

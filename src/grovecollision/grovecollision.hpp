@@ -34,13 +34,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by Collision
    * @library grovecollision
    * @sensor grovecollision
    * @comname Collision Sensor
    * @type accelerometer
    * @man seeed
    * @con gpio
-   * @deprecated This class is being replaced by Collision
    *
    * @brief API for the Grove Collision Sensor
    * 

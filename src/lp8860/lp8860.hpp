@@ -34,12 +34,6 @@ namespace upm
  */
 
 /**
- * @brief API for LP8860 LED Lighting Controller
- *
- * The Texas Instrumements
- * [LP8860-Q1](http://www.ti.com/product/lp8860-q1)
- * Automotive Catalog Low-EMI, High-Performance 4-Channel LED Driver
- *
  * @library lp8860
  * @sensor lp8860
  * @comname LED Lighting Controller
@@ -47,10 +41,15 @@ namespace upm
  * @type light
  * @man ti
  * @con i2c
- * @snippet lp8860.cxx Interesting
  * @web http://www.ti.com/product/LP8860-Q1
- * @if ilightcontroller
  *
+ * @brief API for LP8860 LED Lighting Controller
+ *
+ * The Texas Instrumements
+ * [LP8860-Q1](http://www.ti.com/product/lp8860-q1)
+ * Automotive Catalog Low-EMI, High-Performance 4-Channel LED Driver
+ *
+ * @snippet lp8860.cxx Interesting
  */
 class LP8860 : public upm::ILightController
 {

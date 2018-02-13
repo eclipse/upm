@@ -36,7 +36,6 @@ namespace upm {
    * @altname DSB29
    * @type wifi
    * @con uart
-   * @snippet ozw-aeotecdw2e.cxx Interesting
    * @man aeon
    * @web http://aeotec.com/z-wave-door-window-sensor
    *
@@ -57,6 +56,8 @@ namespace upm {
    * include button on the device.  By default the device will never
    * wake on it's own, so you should use the openzwave control panel
    * or similar software to configure a periodic wakeup time.
+   *
+   * @snippet ozw-aeotecdw2e.cxx Interesting
    */
 
   class AeotecDW2E : public ozwInterface {

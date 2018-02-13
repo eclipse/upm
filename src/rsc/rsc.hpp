@@ -42,7 +42,6 @@ namespace upm {
      * @type pressure temp
      * @man honeywell
      * @con spi
-     * @snippet rsc.cxx Interesting
      * @web https://sensing.honeywell.com/honeywell-sensing-trustability-rsc-series-data-sheet-32321348-b-en.pdf
      *
      * @brief Description for the RSC TruStability line
@@ -73,6 +72,7 @@ namespace upm {
      * More info about this has been provided in the datasheet with a table and
      * a diagram.
      *
+     * @snippet rsc.cxx Interesting
      */
     class RSC {
 

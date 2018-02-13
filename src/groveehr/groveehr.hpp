@@ -37,13 +37,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by EHR
    * @library groveehr
    * @sensor groveehr
    * @comname Ear-clip Heart Rate Sensor
    * @type medical
    * @man seeed
    * @con gpio
-   * @deprecated This class is being replaced by EHR
    *
    * @brief API for the Grove Ear-clip Heart Rate Sensor
    *

@@ -35,6 +35,7 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by LineFinder
    * @library grovelinefinder
    * @sensor grovelinefinder
    * @comname Line Finder
@@ -42,7 +43,6 @@ namespace upm {
    * @man seeed
    * @con gpio
    * @kit robok
-   * @deprecated This class is being replaced by LineFinder
    *
    * @brief API for the Grove Line Finder Sensor
    *

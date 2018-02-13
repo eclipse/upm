@@ -34,13 +34,6 @@ namespace upm
  */
 
 /**
- * @brief API for DS1808 Dual Log Digital Potentiometer as a Light Controller
- *
- * The Maxim Integrated
- * [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html)
- * Dual Log Digital Potentiometer
- *
- *
  * @library ds1808lc
  * @sensor ds1808lc
  * @comname Lighting Controller
@@ -48,8 +41,15 @@ namespace upm
  * @type light
  * @man maxim
  * @con i2c
+ * @web http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html
+ *
+ * @brief API for DS1808 Dual Log Digital Potentiometer as a Light Controller
+ *
+ * The Maxim Integrated
+ * [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html)
+ * Dual Log Digital Potentiometer
+ *
  * @snippet ds1808lc.cxx Interesting
- * @if ilightcontroller
  */
 class DS1808LC : public upm::ILightController
 {

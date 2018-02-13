@@ -35,7 +35,6 @@ namespace upm {
    * @sensor dsb09104
    * @type wifi
    * @con uart
-   * @snippet ozw-aeotecdsb09104.cxx Interesting
    * @man aeon
    * @web http://aeotec.com/z-wave-home-energy-measure/918-home-energy-meter-instructions.html
    *
@@ -43,6 +42,8 @@ namespace upm {
    *
    * This module allows for monitoring certain elements of an Aeotec
    * Home Energy Meter Gen 1.
+   *
+   * @snippet ozw-aeotecdsb09104.cxx Interesting
    */
 
   class AeotecDSB09104 : public ozwInterface {

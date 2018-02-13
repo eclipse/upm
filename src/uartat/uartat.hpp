@@ -41,7 +41,6 @@ namespace upm {
      * @comname Generic AT Command Based UART Device
      * @type other
      * @con uart
-     * @snippet uartat-le910.cxx Interesting
      *
      * @brief API for a Generic AT command based UART device
      *
@@ -49,6 +48,8 @@ namespace upm {
      * devices that utilize an "AT" command set.  Typically these
      * devices are Radios, Modems, and similar devices that are
      * configured and controlled by emitting "AT" commands.
+     *
+     * @snippet uartat-le910.cxx Interesting
      */
 
     class UARTAT {

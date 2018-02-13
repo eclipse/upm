@@ -48,6 +48,7 @@ typedef struct
     int delayTimeHighSharp;
 } NoteData;
   /**
+   * @deprecated This class is being replaced by Speaker
    * @library grovespeaker
    * @sensor grovespeaker
    * @comname Speaker Module
@@ -55,7 +56,6 @@ typedef struct
    * @man seeed
    * @con gpio
    * @kit hak
-   * @deprecated This class is being replaced by Speaker
    *
    * @brief API for the Grove Speaker
    *

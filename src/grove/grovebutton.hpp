@@ -33,6 +33,8 @@
 namespace upm {
 
 /**
+ * @deprecated This class is being replaced by the upm-button library and the
+ * Button class.
  * @library grove
  * @sensor grovebutton
  * @comname Button
@@ -41,8 +43,6 @@ namespace upm {
  * @man seeed
  * @con gpio
  * @kit gsk
- * @deprecated This class is being replaced by the upm-button library and the
- * Button class.
  *
  * @brief API for the Grove Button
  *

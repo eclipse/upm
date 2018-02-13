@@ -38,6 +38,7 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by WFS
    * @library grovewfs
    * @sensor grovewfs
    * @comname Water Flow Sensor
@@ -46,7 +47,6 @@ namespace upm {
    * @web http://wiki.seeedstudio.com/wiki/G1/2_Water_Flow_sensor
    * @con gpio
    * @kit eak
-   * @deprecated This class is being replaced by WFS
    *
    * @brief API for the Grove Water Flow Sensor
    *

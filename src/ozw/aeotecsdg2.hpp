@@ -34,7 +34,6 @@ namespace upm {
    * @sensor dg2
    * @comname Aeotec Smart Dimmer Gen 2
    * @con uart
-   * @snippet ozw-aeotecsdg2.cxx Interesting
    * @type wifi
    * @man aeon
    * @web http://aeotec.com/z-wave-in-wall-switches/877-micro-sei-2e-manual-instructions.html
@@ -43,6 +42,8 @@ namespace upm {
    *
    * This module allows for controlling and monitoring certain
    * elements of an Aeotec Smart Dimmer Gen 2.
+   *
+   * @snippet ozw-aeotecsdg2.cxx Interesting
    */
 
   class AeotecSDG2 : public ozwInterface {

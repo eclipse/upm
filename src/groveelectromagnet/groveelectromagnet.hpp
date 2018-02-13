@@ -37,13 +37,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by Electromagnet
    * @library groveelectromagnet
    * @sensor groveelectromagnet
    * @comname Electromagnet
    * @type electric
    * @man seeed
    * @con gpio
-   * @deprecated This class is being replaced by Electromagnet
    *
    * @brief API for the Grove Electromagnet
    * 

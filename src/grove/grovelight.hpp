@@ -33,6 +33,8 @@
 namespace upm {
 
 /**
+ * @deprecated This class is being replaced by the upm-light library and the
+ * Light class.
  * @library grove
  * @sensor grovelight
  * @comname Light Sensor
@@ -40,8 +42,6 @@ namespace upm {
  * @man seeed
  * @con analog
  * @kit gsk
- * @deprecated This class is being replaced by the upm-light library and the
- * Light class.
  *
  * @brief API for the Grove Light Sensor
  *

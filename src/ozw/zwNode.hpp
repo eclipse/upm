@@ -36,7 +36,7 @@ namespace upm {
    * @brief Node management for ozw
    *
    * This class is used by ozw to manage valueids for a node (device).
-   * No user-servicable parts inside.  It is not exposed to the end
+   * No user-serviceable parts inside.  It is not exposed to the end
    * user.
    */
 

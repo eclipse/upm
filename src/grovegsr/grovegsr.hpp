@@ -35,13 +35,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by GSR
    * @library grovegsr
    * @sensor grovegsr
    * @comname Galvanic Skin Response (GSR) Sensor
    * @type electric
    * @man seeed
    * @con analog
-   * @deprecated This class is being replaced by GSR
    *
    * @brief API for the Grove GSR Galvanic Skin Response Sensor
    * 

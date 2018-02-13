@@ -37,6 +37,16 @@ namespace upm {
  */
 
 /**
+ * @library si1132
+ * @sensor si1132
+ * @comname UV and Ambient Light Sensor
+ * @altname Si1132
+ * @type light
+ * @man silabs
+ * @con i2c
+ * @web http://www.silabs.com/products/sensors/infraredsensors/Pages/si1132.aspx
+ * @web https://www.silabs.com/Support%20Documents/TechnicalDocs/Si1132.pdf
+ *
  * @brief API for Si1132 UV and Visible Light Sensor
  *
  * The Silicon Labs
@@ -44,17 +54,7 @@ namespace upm {
  * is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C
  * digital interface and programmable-event interrupt output.
  *
- * @library si1132
- * @sensor si1132
- * @comname UV and Ambient Light Sensor
- * @altname Si1132
- * @type light
- * @man silabs
- * @web http://www.silabs.com/products/sensors/infraredsensors/Pages/si1132.aspx
- * @con i2c
  * @snippet si1132.cxx Interesting
- * @if ilightsensor
-
  */
 class SI1132 : public ILightSensor {
     public:

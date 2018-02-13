@@ -36,21 +36,21 @@ namespace upm
  */
 
 /**
- * @brief API for HLG-150H Lighting Power Supply Controller
- *
- * The Mean Well
- * [HLG-150H](http://www.meanwell.com/webapp/product/search.aspx?prod=HLG-150H)
- * 150W Single Output Switching Power Supply
- *
  * @library hlg150h
  * @sensor hlg150h
  * @comname 150W Constant Voltage/current LED Driver
  * @altname HLG150H
  * @type light
  * @con pwm
- * @snippet hlg150h.cxx Interesting
  * @web https://www.meanwell-web.com/en/product-info/ac-dc-power-supply/led-driver/101-180-w-led-driver/hlg-150h/product/HLG-150H-24B
- * @if ilightcontroller
+ *
+ * @brief API for HLG-150H Lighting Power Supply Controller
+ *
+ * The Mean Well
+ * [HLG-150H](http://www.meanwell.com/webapp/product/search.aspx?prod=HLG-150H)
+ * 150W Single Output Switching Power Supply
+ *
+ * @snippet hlg150h.cxx Interesting
  */
 
 class HLG150H : public upm::ILightController

@@ -35,13 +35,13 @@ namespace upm {
    */
 
   /**
+   * @deprecated This class is being replaced by EMG
    * @library groveemg
    * @sensor groveemg
    * @comname Electromyography (EMG) Sensor
    * @type electric
    * @man seeed
    * @con analog
-   * @deprecated This class is being replaced by EMG
    *
    * @brief API for the Grove EMG Muscle Signal Reader
    *

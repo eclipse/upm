@@ -41,9 +41,6 @@ namespace upm {
      * @comname Microchip RN2903 LoRa radio
      * @type wifi
      * @con uart
-     * @snippet rn2903.cxx Interesting
-     * @snippet rn2903-p2p-tx.cxx Interesting
-     * @snippet rn2903-p2p-rx.cxx Interesting
      *
      * @brief API for the Microchip RN2903 LoRa radio
      *
@@ -61,6 +58,10 @@ namespace upm {
      * operation within a LoRaWAN network, however methods are
      * provided to allow you to control the device directly so that
      * you can implement whatever solution you require.
+     *
+     * @snippet rn2903.cxx Interesting
+     * @snippet rn2903-p2p-tx.cxx Interesting
+     * @snippet rn2903-p2p-rx.cxx Interesting
      */
 
     class RN2903 {
