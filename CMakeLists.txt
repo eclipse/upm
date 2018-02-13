@@ -321,7 +321,7 @@ if (BUILDDOC)
       ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
       COMMAND tar -czf html/xml.tar.gz -C xml .
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT "Generating API documentation with Doxygen" VERBATIM
+      COMMENT "Generating C/C++ API documentation with Doxygen" VERBATIM
     )
   else ()
     message (SEND_ERROR "ERROR - Failed to find a compatible version of Doxygen. API doc will not be generated")
@@ -330,6 +330,10 @@ if (BUILDDOC)
   # Check if Sphinx is installed and add target to generate API documentation
   # Currently, the per-module documentation for python is generated from the
   # python2 modules.
+  # Since python2 is required for documentation, only copy from python2 paths, this
+  # ensures that sphinx doesn't run across python2 and python3 binaries.  When running
+  # the sphinx tools, explicitly run from the python2 interpreter (tested with the sphinx
+  # 1.3.6 python2 and python3 modules).
   if(BUILDSWIGPYTHON)
     find_package (Sphinx 1.3 REQUIRED)
     if (SPHINX_FOUND AND SPHINX_VERSION VERSION_GREATER "1.3")
@@ -337,16 +341,16 @@ if (BUILDDOC)
       configure_file (${CMAKE_CURRENT_SOURCE_DIR}/doxy/index.rst ${CMAKE_CURRENT_BINARY_DIR}/pydoc/index.rst COPYONLY)
       add_custom_target (pydoc ALL
         COMMAND rm -r -f ${CMAKE_BINARY_DIR}/pyupm && mkdir -p ${CMAKE_BINARY_DIR}/pyupm
-        COMMAND find ${CMAKE_BINARY_DIR}/src -name "_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
-        COMMAND find ${CMAKE_BINARY_DIR}/src -name "pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
-        COMMAND ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/pyupm
+        COMMAND find ${CMAKE_BINARY_DIR}/src -path "*python${MIN_VER_PYTHON2}/_pyupm_*.so" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
+        COMMAND find ${CMAKE_BINARY_DIR}/src -path "*python${MIN_VER_PYTHON2}/pyupm_*.py" -exec cp {} ${CMAKE_BINARY_DIR}/pyupm \;
+        COMMAND ${PYTHON2_EXECUTABLE} ${SPHINX_API_EXECUTABLE} -f -o pydoc  ${CMAKE_BINARY_DIR}/pyupm
         # TODO: use a separate cmake FILE module for string replacement instead
-        COMMAND ${SPHINX_EXECUTABLE} -b html pydoc html/python
+        COMMAND ${PYTHON2_EXECUTABLE} ${SPHINX_EXECUTABLE} -b html pydoc html/python
         COMMAND sed -i.bak s|\">pyupm_|\">|g html/python/index.html html/python/modules.html
         COMMAND sed -i.bak s|[[:space:]][mM]odule</a>|</a>|g html/python/index.html html/python/modules.html
         DEPENDS doc
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating API documentation with Sphinx" VERBATIM
+        COMMENT "Generating Python API documentation with Sphinx" VERBATIM
       )
     else ()
       message (SEND_ERROR "ERROR - Failed to find a compatible version of Sphinx. Python API doc will not be generated")
@@ -363,7 +367,7 @@ if (BUILDDOC)
         COMMAND ${CMAKE_SOURCE_DIR}/doxy/doxygen2jsdoc/tolower.js -i html/node
         DEPENDS doc
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating API documentation with Yuidoc" VERBATIM
+        COMMENT "Generating Javascript API documentation with Yuidoc" VERBATIM
       )
     else ()
       message (SEND_ERROR "ERROR - Failed to find a compatible version of Yuidoc. Node.js API doc will not be generated")

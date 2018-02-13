@@ -510,13 +510,6 @@ function(upm_swig_java)
   endif (NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
 endfunction(upm_swig_java)
 
-macro(upm_doxygen)
-  if (DOXYGEN_FOUND)
-    set (CMAKE_SWIG_FLAGS -DDOXYGEN=${DOXYGEN_FOUND})
-    add_dependencies (doc ${libname})
-  endif ()
-endmacro(upm_doxygen)
-
 if (NPM)
 add_custom_target (npmpkg)
 add_custom_command (TARGET npmpkg POST_BUILD COMMAND echo "Creating NPM tarballs..."
@@ -758,11 +751,6 @@ function(upm_module_init)
   set_target_properties(${libname} PROPERTIES PKG_CONFIG_DESCRIPTION "${libdescription}")
   set_target_properties(${libname} PROPERTIES PKG_EXT_REQ_LIBS "${reqlibname}")
   set_target_properties(${libname} PROPERTIES TARGET_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
-
-  # Skip doxygen run on C (for now)
-  if (BUILDDOC AND NOT IS_C_LIBRARY)
-    upm_doxygen()
-  endif()
 
   # Install target library to lib dir
   install (TARGETS ${libname}
