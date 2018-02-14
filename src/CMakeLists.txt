@@ -326,11 +326,11 @@ macro(_upm_swig_python)
 
   # Add C++ comments to ALL python modules (requires doc build)
   if (BUILDDOC)
-    # Python module depends on doxy2swig .i file generated from the monolithic doxygen xml file
-    add_dependencies(${python_wrapper_target} pyupm_doxy2swig )
-
-    # The pydoc target depends on EACH python module
-    add_dependencies(pydoc ${python_wrapper_target})
+    # The python documentation generated with Sphinx only uses python2
+    if (PYTHON_VERSION_MAJOR VERSION_EQUAL 2)
+      # Python module depends on doxy2swig .i file generated from the monolithic doxygen xml file
+      add_dependencies(${python_wrapper_target} pyupm_doxy2swig)
+    endif()
   endif (BUILDDOC)
 
   # Python collateral names will be the same for python2/3 w/different library dirs
@@ -861,21 +861,6 @@ if (BUILDSWIGPYTHON)
   endif(PYTHON3LIBS_FOUND)
 endif (BUILDSWIGPYTHON)
 
-# Generate python module documentation from doxygen collateral
-if (BUILDDOC AND BUILDSWIGPYTHON)
-  # doxy2swig the doxygen output
-  add_custom_target (pyupm_doxy2swig ALL
-    COMMAND ${PYTHON2_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doxy2swig.py
-      ${CMAKE_BINARY_DIR}/xml/index.xml --quiet
-      ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i
-      DEPENDS doc)
-# BUILDDOC not set but still building python modules, generate an empty
-# pyupm_doxy2swig.i file (overwriting if necessary)
-elseif (BUILDSWIGPYTHON)
-  message (STATUS "BUILDDOC=${BUILDDOC}, python modules will not contain cxx documentation")
-  file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/pyupm_doxy2swig.i "// Empty doxy2swig stub")
-endif (BUILDDOC AND BUILDSWIGPYTHON)
-
 # Provide a cached variable to groups of targets
 set(UPM_TARGETS_C "" CACHE INTERNAL "List of C target names")
 set(UPM_TARGETS_CXX "" CACHE INTERNAL "List of CXX target names")
@@ -925,3 +910,7 @@ _gen_pkg_config_per_target(CXX ${UPM_TARGETS_CXX})
 if (BUILDSWIGJAVA)
   _gen_pom_per_target(${UPM_TARGETS_CXX})
 endif (BUILDSWIGJAVA)
+
+# Available to the top-level CMakeLists.txt
+set (UPM_TARGETS_CXX ${UPM_TARGETS_CXX} PARENT_SCOPE)
+set (UPM_TARGETS_PYTHON2 ${UPM_TARGETS_PYTHON2} PARENT_SCOPE)

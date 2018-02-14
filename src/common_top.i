@@ -50,6 +50,6 @@ void cleanUp();
  * output during doc build.  This file is used by swig to provide native
  * python module documentation.
  */
-#if SWIGPYTHON
+#if defined(SWIGPYTHON) && defined(BUILDDOC)
 %include "pyupm_doxy2swig.i"
 #endif
