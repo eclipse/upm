@@ -31,7 +31,7 @@
 
 namespace upm {
 /**
- * @brief Temperature sensor library
+ * @brief NTC Temperature Sensors Library
  * @defgroup temperature libupm-temperature
  * @ingroup seeed analog temp gsk
  */

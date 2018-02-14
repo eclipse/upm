@@ -40,7 +40,7 @@
 
 namespace upm {
     /**
-     * @brief XBee modules
+     * @brief XBee Modules Library
      * @defgroup xbee libupm-xbee
      * @ingroup sparkfun uart wifi
      */

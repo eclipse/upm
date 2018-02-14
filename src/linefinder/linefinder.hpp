@@ -27,7 +27,7 @@
 
 namespace upm {
     /**
-     * @brief Line Finder Sensor library
+     * @brief Line Finder Sensor
      * @defgroup linefinder libupm-linefinder
      * @ingroup seeed dfrobot gpio color robok
      */

@@ -49,7 +49,7 @@
 
 namespace upm {
   /**
-   * @brief ADC121C021 I2C Analog-to-Digital Converter library
+   * @brief ADC121C021 Analog-to-Digital Converter
    * @defgroup adc121c021 libupm-adc121c021
    * @ingroup seeed i2c electric
    */

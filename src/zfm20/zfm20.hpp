@@ -58,7 +58,7 @@
 
 namespace upm {
     /**
-     * @brief ZFM-20 Fingerprint Sensor Module library
+     * @brief ZFM-20 Fingerprint Sensor Module
      * @defgroup zfm20 libupm-zfm20
      * @ingroup seeed uart touch
      */

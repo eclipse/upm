@@ -35,7 +35,7 @@
 namespace upm {
 
   /**
-   * @brief BMA220 Accelerometer library
+   * @brief BMA220 Accelerometer
    * @defgroup bma220 libupm-bma220
    * @ingroup i2c gpio accelerometer bosch dfrobot
    */

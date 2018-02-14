@@ -32,7 +32,7 @@
 namespace upm {
 
 /**
- * @brief Button library
+ * @brief Button/Switch Library
  * @defgroup buttonlib libupm-button
  * @ingroup seeed gpio button gsk
  */

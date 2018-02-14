@@ -34,7 +34,7 @@
 
 namespace upm {
     /**
-     * @brief DFRobot Light Sensor (BH1750)
+     * @brief BH1750 Light Sensor
      * @defgroup bh1750 libupm-bh1750
      * @ingroup dfrobot i2c
      */

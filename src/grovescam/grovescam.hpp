@@ -49,7 +49,7 @@
 namespace upm {
     /**
      * @deprecated This library is being replaced by libupm-scam
-     * @brief Grove Serial Camera library
+     * @brief Grove Serial Camera
      * @defgroup grovescam libupm-grovescam
      * @ingroup seeed uart other
      */

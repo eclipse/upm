@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief Moisture Sensor library
+   * @brief Moisture Sensors Library
    * @defgroup grovemoisture libupm-grovemoisture
    * @ingroup seeed analog liquid eak hak
    */

@@ -32,7 +32,7 @@
 namespace upm {
 
   /**
-   * @brief Amphenol Telaire Ventostat T8100 Ventilation Controller
+   * @brief Amphenol Telaire Ventostat 8100 Ventilation Controller
    * @defgroup t8100 libupm-t8100
    * @ingroup uart temp gaseous
    */

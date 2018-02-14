@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief  Ear-clip Heart Rate Sensor library
+   * @brief Ear-clip Heart Rate Sensor
    * @defgroup ehr libupm-ehr
    * @ingroup seeed gpio medical
    */

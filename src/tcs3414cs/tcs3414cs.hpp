@@ -105,7 +105,7 @@ typedef struct {
 } tcs3414sc_rgb_t;
 
 /**
- * @brief TCS3414CS Color Sensor library
+ * @brief TCS3414CS Color Sensor
  * @defgroup tcs3414cs libupm-tcs3414cs
  * @ingroup seeed i2c color
  */

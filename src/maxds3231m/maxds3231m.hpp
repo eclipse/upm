@@ -63,7 +63,7 @@ struct Time3231 {
 };
 
 /**
- * @brief MAXDS3231M Proximity Sensor library
+ * @brief MAXDS3231M Proximity Sensor
  * @defgroup maxds3231m libupm-maxds3231m
  * @ingroup maxim i2c light
  */

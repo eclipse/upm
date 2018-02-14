@@ -40,7 +40,7 @@
 namespace upm
 {
 /**
- * @brief JHD1313M1 Display library
+ * @brief JHD1313M1 Display Controller
  * @defgroup jhd1313m1 libupm-jhd1313m1
  * @ingroup seeed i2c display gsk
  */

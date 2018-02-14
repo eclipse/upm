@@ -29,7 +29,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-emg
-   * @brief Grove EMG Muscle Signal Reader library
+   * @brief Grove EMG Muscle Signal Reader
    * @defgroup groveemg libupm-groveemg
    * @ingroup seeed analog electric
    */

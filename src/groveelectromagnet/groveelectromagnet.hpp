@@ -31,7 +31,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-electromagnet
-   * @brief Grove Electromagnet library
+   * @brief Grove Electromagnet Library
    * @defgroup groveelectromagnet libupm-groveelectromagnet
    * @ingroup seeed gpio electric
    */

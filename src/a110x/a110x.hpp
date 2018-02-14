@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief A110X Hall Effect library
+   * @brief A110X Hall Effect Sensors
    * @defgroup a110x libupm-a110x
    * @ingroup seeed gpio electric robok
    */

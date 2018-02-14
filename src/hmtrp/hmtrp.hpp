@@ -44,7 +44,7 @@
 
 namespace upm {
 /**
- * @brief HMTRP Serial RF Pro library
+ * @brief HMTRP Serial RF Pro
  * @defgroup hmtrp libupm-hmtrp
  * @ingroup seeed uart wifi
  */

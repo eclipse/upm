@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief Water Level Switch Library
+   * @brief Water Level Switch
    * @defgroup waterlevel libupm-waterlevel
    * @ingroup seeed gpio liquid
    */

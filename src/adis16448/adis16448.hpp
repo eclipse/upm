@@ -84,7 +84,7 @@
 
 namespace upm {
  /**
-  * @brief ADIS16448 Accelerometer library
+  * @brief ADIS16448 Accelerometer
   * @defgroup adis16448 libupm-adis16448
   * @ingroup generic spi accelerometer
   */

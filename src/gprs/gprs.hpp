@@ -40,7 +40,7 @@
 
 namespace upm {
     /**
-     * @brief GPRS Module library
+     * @brief GPRS Modules Library
      * @defgroup gprs libupm-gprs
      * @ingroup seeed uart wifi
      */

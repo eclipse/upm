@@ -34,9 +34,9 @@
 
 namespace upm {
   /**
-   * @brief UPM C++ API for the DFRobot MMA7361 Analog Accelerometer
+   * @brief MMA7361 Analog Accelerometer
    * @defgroup mma7361 libupm-mma7361
-   * @ingroup dfrobot gpio ainput accelerometer
+   * @ingroup dfrobot gpio analog accelerometer
    */
   
   /**
@@ -45,7 +45,7 @@ namespace upm {
    * @comname Triaxial Analog Accelerometer
    * @type accelerometer
    * @man dfrobot
-   * @con ainput gpio
+   * @con analog gpio
    * @web http://www.dfrobot.com/index.php?route=product/product&path=36&product_id=507#.V7YEj99ytNJ
    *
    * @brief API for the DFRobot MMA7361 Analog Accelerometer

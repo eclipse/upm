@@ -29,7 +29,7 @@
 
 namespace upm {
      /**
-      * @brief HX711 24-bit ADC library
+      * @brief HX711 24-bit ADC
       * @defgroup hx711 libupm-hx711
       * @ingroup generic gpio electric
       */

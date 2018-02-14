@@ -34,7 +34,7 @@
 namespace upm {
 
     /**
-     * @brief Speaker library
+     * @brief Speaker Library
      * @defgroup speaker libupm-speaker
      * @ingroup seeed gpio sound hak
      */

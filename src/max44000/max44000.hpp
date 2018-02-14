@@ -53,7 +53,7 @@
 namespace upm {
 
 /**
- * @brief MAX44000 Proximity Sensor library
+ * @brief MAX44000 Proximity Sensor
  * @defgroup max44000 libupm-max44000
  * @ingroup maxim i2c light
  */

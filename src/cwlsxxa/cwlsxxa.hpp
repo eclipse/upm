@@ -33,9 +33,9 @@
 
 namespace upm {
     /**
-     * @brief Veris CWLSXXA CO2 Sensor
+     * @brief Veris CWLSXXA CO2 Sensors
      * @defgroup cwlsxxa libupm-cwlsxxa
-     * @ingroup veris ainput temp gaseous
+     * @ingroup veris analog temp gaseous
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @comname CO2/temperature/humidity Transmitter
      * @type temp gaseous
      * @man veris
-     * @con ainput
+     * @con analog
      * @web http://www.veris.com/Item/CWLSHTA.aspx
      *
      * @brief API for the Veris CWLSXXA CO2 Sensor Family

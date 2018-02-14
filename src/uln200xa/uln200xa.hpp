@@ -28,7 +28,7 @@
 namespace upm {
 
   /**
-   * @brief ULN200XA Stepper Driver library
+   * @brief ULN200XA Stepper Driver
    * @defgroup uln200xa libupm-uln200xa
    * @ingroup seeed gpio motor
    */

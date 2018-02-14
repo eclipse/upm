@@ -36,7 +36,7 @@
 namespace upm {
 
   /**
-   * @brief ADXL335 Accelerometer library
+   * @brief ADXL335 Accelerometer
    * @defgroup adxl335 libupm-adxl335
    * @ingroup seeed analog accelerometer
    */

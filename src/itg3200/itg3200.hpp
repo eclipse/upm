@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief ITG-3200 Gyroscope library
+ * @brief ITG3200 Gyroscope
  * @defgroup itg3200 libupm-itg3200
  * @ingroup seeed i2c compass
  */

@@ -48,7 +48,7 @@
 
 namespace upm {
     /**
-     * @brief  Serial Camera library
+     * @brief Serial Camera Library
      * @defgroup scam libupm-scam
      * @ingroup seeed uart other
      */

@@ -38,7 +38,7 @@
 namespace upm {
   
   /**
-   * @brief Adafruit Motor Shield 1438 library
+   * @brief Adafruit Motor Shield
    * @defgroup adafruitms1438 libupm-adafruitms1438
    * @ingroup adafruit i2c motor
    */

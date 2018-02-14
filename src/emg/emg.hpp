@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief Grove EMG Muscle Signal Reader library
+   * @brief EMG Muscle Signal Reader
    * @defgroup emg libupm-emg
    * @ingroup seeed analog electric
    */

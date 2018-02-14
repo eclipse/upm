@@ -30,7 +30,7 @@
 namespace upm {
 
     /**
-     * @brief MMA7660 I2C 3-Axis Digital Accelerometer library
+     * @brief MMA7660 3-Axis Digital Accelerometer
      * @defgroup mma7660 libupm-mma7660
      * @ingroup seeed i2c gpio accelerometer
      */

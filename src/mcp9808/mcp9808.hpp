@@ -43,7 +43,7 @@ namespace mraa { class I2c;}
 
 namespace upm {
   /**
-   * @brief MCP9808 precision temperature sensor library
+   * @brief MCP9808 Precision Temperature Sensor
    * @defgroup mcp9808 libupm-mcp9808
    * @ingroup adafruit i2c temp
    */

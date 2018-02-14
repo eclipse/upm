@@ -35,9 +35,9 @@
 namespace upm {
 
   /**
-   * @brief AD8232 Heart Rate Monitor library
+   * @brief AD8232 Heart Rate Monitor
    * @defgroup ad8232 libupm-ad8232
-   * @ingroup sparkfun gpio medical
+   * @ingroup sparkfun gpio analog medical
    */
 
   /**
@@ -47,7 +47,7 @@ namespace upm {
    * @type medical
    * @man sparkfun
    * @web https://www.sparkfun.com/products/12650
-   * @con gpio aio
+   * @con gpio analog
    *
    * @brief UPM module for the AD8232 Heart Rate Monitor
    *

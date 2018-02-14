@@ -32,7 +32,7 @@ namespace upm {
 
   /**
    * @deprecated This library is being replaced by libupm-wfs
-   * @brief Grove Water Flow Sensor library
+   * @brief Grove Water Flow Sensor
    * @defgroup grovewfs libupm-grovewfs
    * @ingroup seeed gpio liquid eak
    */

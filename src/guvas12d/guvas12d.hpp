@@ -27,7 +27,7 @@
 
 namespace upm {
     /**
-     * @brief GUVA-S12D UV sensor library
+     * @brief GUVA-S12D UV Sensors
      * @defgroup guvas12d libupm-guvas12d
      * @ingroup seeed analog light eak
      */

@@ -49,7 +49,7 @@
 namespace upm {
 
 /**
- * @brief HTU21D Humidity Sensor library
+ * @brief HTU21D Humidity Sensor
  * @defgroup htu21d libupm-htu21d
  * @ingroup seeed adafruit sparkfun i2c temp
  */

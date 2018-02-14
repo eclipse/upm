@@ -33,9 +33,9 @@
 
 namespace upm {
     /**
-     * @brief Veris HDXXVXTA Humidity Transmitter
+     * @brief Veris HDXXVXTA Humidity Transmitters
      * @defgroup hdxxvxta libupm-hdxxvxta
-     * @ingroup veris ainput temp
+     * @ingroup veris analog temp
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @comname Veris HDXXVXTA Temperature/humidity Transmitter
      * @type temp
      * @man veris
-     * @con ainput
+     * @con analog
      * @web http://www.veris.com/Item/HD2NVSTA1.aspx
      *
      * @brief API for the Veris HDXXVXTA Humidity Transmitter

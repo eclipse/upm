@@ -51,7 +51,7 @@
 namespace upm {
 
   /**
-   * @brief BACNETMSTP base class
+   * @brief BACNETMSTP Library
    * @defgroup bacnetmstp libupm-bacnetmstp
    * @ingroup uart
    */

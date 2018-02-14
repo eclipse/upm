@@ -36,7 +36,7 @@ namespace upm {
   /**
    * @brief DFRobot EC Meter
    * @defgroup dfrec libupm-dfrec
-   * @ingroup dfrobot ainput uart liquid
+   * @ingroup dfrobot analog uart liquid
    */
 
   /**
@@ -45,7 +45,7 @@ namespace upm {
    * @comname Analog Electrical Conductivity (EC) Sensor
    * @type liquid
    * @man dfrobot
-   * @con ainput uart
+   * @con analog uart
    * @web https://www.dfrobot.com/index.php?route=product/product&product_id=1123&search=DFR0300&description=true#.Vx49p-_n-M8
    *
    * @brief DFRobot EC Meter

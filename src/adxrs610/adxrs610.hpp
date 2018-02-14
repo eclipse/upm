@@ -38,7 +38,7 @@
 
 namespace upm {
   /**
-   * @brief DFRobot ADXRS610 Gyro Breakout Board
+   * @brief ADXRS610 Gyroscope
    * @defgroup adxrs610 libupm-adxrs610
    * @ingroup dfrobot analog compass
    */
@@ -53,7 +53,7 @@ namespace upm {
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=642
    * @con analog
    *
-   * @brief DFRobot ADXRS610 Gyro Beakout board
+   * @brief DFRobot ADXRS610 Gyro Breakout board
    *
    * The ADXRS610 is a MEMS based single axis gyroscope with a range
    * of +/- 300 degrees/sec.  It also incorporates a temperature
@@ -63,7 +63,7 @@ namespace upm {
    * rotation about the Z-axis in degrees/sec.  The temperature
    * component returns a proportional analog values in degrees C.
    *
-   * This driver was developed using the DFRobot ADXRS610 Gyro Beakout board.
+   * This driver was developed using the DFRobot ADXRS610 Gyro Breakout board.
    *
    * @image html adxrs610.jpg
    * @snippet adxrs610.cxx Interesting

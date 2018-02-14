@@ -497,7 +497,7 @@ const unsigned char font[] = {
 };
 
 /**
- * @brief ST7735 LCD library
+ * @brief ST7735 LCD Display Controller
  * @defgroup st7735 libupm-st7735
  * @ingroup adafruit spi display
  */

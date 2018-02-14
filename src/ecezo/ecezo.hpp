@@ -33,7 +33,7 @@
 
 namespace upm {
     /**
-     * @brief API for the EC-EZO EC Sensor
+     * @brief EC-EZO Sensor
      * @defgroup ecezo libupm-ecezo
      * @ingroup uart i2c liquid
      */

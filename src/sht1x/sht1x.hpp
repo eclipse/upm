@@ -33,7 +33,7 @@
 
 namespace upm {
   /**
-   * @brief SHT1X Temperature and Humidity Sensor
+   * @brief SHT1X Temperature and Humidity Sensors
    * @defgroup sht1x libupm-sht1x
    * @ingroup gpio temp
    */

@@ -36,7 +36,7 @@
 namespace upm {
 
 /**
- * @brief MAX31723 Temperature Sensor library
+ * @brief MAX31723 Temperature Sensor
  * @defgroup max31723 libupm-max31723
  * @ingroup maxim spi temp
  */

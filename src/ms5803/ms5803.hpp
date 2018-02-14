@@ -30,7 +30,7 @@
 namespace upm {
 
     /**
-     * @brief MS5803 Pressure and Temperature sensor
+     * @brief MS5803 Pressure and Temperature
      * @defgroup ms5803 libupm-ms5803
      * @ingroup i2c spi gpio temp pressure
      */

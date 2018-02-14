@@ -35,7 +35,7 @@ namespace upm {
     /**
      * @brief Veris TEAMS Temperature Transmitter
      * @defgroup teams libupm-teams
-     * @ingroup veris ainput temp 
+     * @ingroup veris analog temp
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @comname Veris TEAMS Temperature Transmitter
      * @type temp
      * @man veris
-     * @con ainput
+     * @con analog
      * @web http://www.veris.com/Item/TEAMS.aspx
      *
      * @brief API for the Veris TEAMS Temperature Transmitter

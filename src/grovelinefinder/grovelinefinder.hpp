@@ -29,7 +29,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-linefinder
-   * @brief Grove Line Finder Sensor library
+   * @brief Grove Line Finder Sensor
    * @defgroup grovelinefinder libupm-grovelinefinder
    * @ingroup seeed gpio color robok
    */

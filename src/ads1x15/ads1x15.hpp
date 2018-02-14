@@ -102,7 +102,7 @@ namespace mraa {class I2c;}
 
 namespace upm {
   /**
-   * @brief ADS1X15 family adc library
+   * @brief ADS1X15 Family ADC Library
    *
    * Library for TI analog to digital converter ic. Base clase fro ADS1X15 provides all the functionality that
    * ADS1115 and ADS1015 ics have in common.

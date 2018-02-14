@@ -46,9 +46,9 @@
 
 namespace upm {
 /**
- * @brief CurieIMU sensor for Arduino/Genuino 101 running Firmata
+ * @brief CurieIMU Library for Arduino/Genuino 101 Running Firmata
  * @defgroup curieimu libupm-curieimu
- * @ingroup firmata accelerometer compass bosch
+ * @ingroup uart serial accelerometer compass bosch
  */
 
 struct IMUDataItem {
@@ -61,9 +61,9 @@ struct IMUDataItem {
  * @sensor curieimu
  * @comname Curie IMU Sensor using Firmata
  * @altname Curie IMU Sensor for Arduino/Genuino 101 running Firmata
- * @type accelerometer compass
+ * @type serial accelerometer compass
  * @man bosch
- * @con firmata
+ * @con uart
  *
  * @brief API for the Curie IMU via Firmata
  *

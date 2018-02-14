@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief DFRobot CO2 Sensor
+   * @brief MG811 CO2 Sensor
    * @defgroup mg811 libupm-mg811
    * @ingroup dfrobot analog gaseous
    */

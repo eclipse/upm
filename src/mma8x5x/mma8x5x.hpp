@@ -315,7 +315,7 @@ typedef struct {
 } mma8x5x_data_t;
 
 /**
- * @brief MMA8X5X Three-Axis Accelerometer
+ * @brief MMA8X5X 3-Axis Accelerometer
  * @defgroup mma8x5x libupm-mma8x5x
  * @ingroup freescale i2c accelerometer compass
  */

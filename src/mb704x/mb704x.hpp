@@ -33,7 +33,7 @@
 
 namespace upm {
     /**
-     * @brief API for the MB704x MaxSonar-WR Ultrasonic Ranger
+     * @brief MB704x MaxSonar-WR Ultrasonic Ranger
      * @defgroup mb704x libupm-mb704x
      * @ingroup i2c sound
      */

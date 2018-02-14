@@ -45,7 +45,7 @@
 namespace upm {
 
 /**
- * @brief TH02 Temperature & Humidity Sensor library
+ * @brief TH02 Temperature & Humidity Sensor
  * @defgroup th02 libupm-th02
  * @ingroup seeed i2c temp
  */

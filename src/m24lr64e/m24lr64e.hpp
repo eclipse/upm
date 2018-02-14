@@ -43,7 +43,7 @@
 namespace upm {
   
   /**
-   * @brief M24LR64E NFC Tag library
+   * @brief M24LR64E NFC Tag Module
    * @defgroup m24lr64e libupm-m24lr64e
    * @ingroup seeed i2c other
    */

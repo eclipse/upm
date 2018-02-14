@@ -30,7 +30,7 @@ namespace upm
 {
 
 /**
- * @brief Meanwell HLG150H Lighting power supply controller library
+ * @brief Meanwell HLG150H Lighting Power Supply Controller
  * @defgroup hlg150h libupm-hlg150h
  * @ingroup pwm light ilightcontroller
  */

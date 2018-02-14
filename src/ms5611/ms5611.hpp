@@ -31,7 +31,7 @@ namespace upm
 
 #define MS5611_ADDRESS 0x76
 /**
- * @brief ms5611 Barometric Pressure Sensor library
+ * @brief MS5611 Barometric Pressure Sensor
  * @defgroup ms5611 libupm-ms5611
  * @ingroup meas i2c temp pressure ipressuresensor itemperaturesensor
  */

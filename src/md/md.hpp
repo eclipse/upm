@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief I2C Motor Driver library
+     * @brief I2C Motor Driver
      * @defgroup md libupm-md
      * @ingroup seeed i2c motor robok
      */

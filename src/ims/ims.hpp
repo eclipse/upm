@@ -28,7 +28,7 @@
 
 namespace upm {
 /**
- * @brief Catnip Electronics I2C moisture sensor
+ * @brief Catnip Electronics I2C Moisture Sensor
  * @defgroup ims libupm-ims
  * @ingroup catnip i2c liquid light temp
  */

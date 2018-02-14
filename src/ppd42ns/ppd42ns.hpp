@@ -30,7 +30,7 @@
 namespace upm {
 
     /**
-     * @brief PPD42NS Dust Sensor library
+     * @brief PPD42NS Dust Sensor
      * @defgroup ppd42ns libupm-ppd42ns
      * @ingroup seeed gpio other eak
      */

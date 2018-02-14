@@ -32,9 +32,14 @@
 #include "light.h"
 
 namespace upm {
+    /**
+     * @brief Analog Light Sensors Library
+     * @defgroup alight libupm-light
+     * @ingroup seeed analog light gsk
+     */
 
     /**
-     * @library light
+     * @library alight
      * @sensor light
      * @comname Analog Light Sensor
      * @type light
@@ -56,7 +61,7 @@ namespace upm {
     class Light {
     public:
         /**
-         *  analog light sensor constructor
+         * Analog light sensor constructor
          *
          * @param pin Analog pin to use
          * @throws std::runtime_error on initialization error

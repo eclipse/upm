@@ -34,7 +34,7 @@
 namespace upm {
 
     /**
-     * @brief ST Micro 3-axis Accelerometer
+     * @brief LSM6DSL 3-axis Accelerometer
      * @defgroup lsm6dsl libupm-lsm6dsl
      * @ingroup i2c spi gpio stmicro accelerometer
      */

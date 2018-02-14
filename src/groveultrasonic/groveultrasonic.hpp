@@ -37,7 +37,7 @@ namespace upm {
 
 /**
  * @deprecated This library is being replaced by libupm-ultrasonic
- * @brief Grove ultrasonic sensor library
+ * @brief Grove Ultrasonic Sensor
  * @defgroup groveultrasonic libupm-groveultrasonic
  * @ingroup seeed gpio sound
  */

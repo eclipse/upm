@@ -37,9 +37,9 @@
 
 namespace upm {
     /**
-     * @brief DFRobot URM37 Ultrasonic Ranger
+     * @brief URM37 Ultrasonic Ranger
      * @defgroup urm37 libupm-urm37
-     * @ingroup dfrobot uart gpio ainput sound
+     * @ingroup dfrobot uart gpio analog sound
      */
 
     /**
@@ -48,7 +48,7 @@ namespace upm {
      * @comname Ultrasonic Range Finder
      * @type sound
      * @man dfrobot
-     * @con uart ainput gpio
+     * @con uart analog gpio
      * @web http://www.dfrobot.com/index.php?route=product/product&product_id=53
      *
      * @brief API for the DFRobot URM37 Ultrasonic Ranger

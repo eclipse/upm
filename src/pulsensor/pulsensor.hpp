@@ -51,7 +51,7 @@ struct clbk_data {
 
 namespace upm {
 /**
- * @brief Pulsensor Pulse Sensor library
+ * @brief Pulsensor Pulse Sensor
  * @defgroup pulsensor libupm-pulsensor
  * @ingroup seeed analog medical
  */

@@ -30,7 +30,7 @@
 namespace upm {
 
     /**
-     * @brief MCP2515 Can bus controller
+     * @brief MCP2515 CAN Bus Controller
      * @defgroup mcp2515 libupm-mcp2515
      * @ingroup spi gpio
      */

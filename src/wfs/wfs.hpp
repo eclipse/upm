@@ -28,7 +28,7 @@
 namespace upm {
 
 /**
- * @brief Water Flow Sensor library
+ * @brief Water Flow Sensor
  * @defgroup wfs libupm-wfs
  * @ingroup seeed gpio liquid eak
  */

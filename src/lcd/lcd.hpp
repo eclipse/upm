@@ -30,7 +30,7 @@
 namespace upm
 {
 /**
- * @brief I2C LCD Display library
+ * @brief I2C LCD Displays Library
  * @defgroup lcd libupm-lcd
  * @ingroup dfrobot sainsmart seeed sparkfun adafruit i2c gpio display gsk
  */

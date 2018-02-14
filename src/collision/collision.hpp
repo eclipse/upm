@@ -27,7 +27,7 @@
 
 namespace upm {
   /**
-   * @brief Collision Sensor library
+   * @brief Collision Sensor
    * @defgroup collision libupm-collision
    * @ingroup seeed gpio accelerometer
    */

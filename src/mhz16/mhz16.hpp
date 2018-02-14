@@ -48,7 +48,7 @@ const uint8_t MHZ16_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief MHZ16 Serial CO2 Sensor library
+     * @brief MHZ16 Serial CO2 Sensor
      * @defgroup mhz16 libupm-mhz16
      * @ingroup seeed uart gaseous
      */

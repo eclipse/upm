@@ -56,7 +56,7 @@
 namespace upm {
 
 /**
- * @brief MPL3115A2 Atmospheric Pressure Sensor library
+ * @brief MPL3115A2 Atmospheric Pressure Sensor
  * @defgroup mpl3115a2 libupm-mpl3115a2
  * @ingroup freescale i2c pressure
  */

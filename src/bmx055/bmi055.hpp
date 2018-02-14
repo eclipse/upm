@@ -53,7 +53,7 @@ namespace upm {
      *
      * The BMI055 is essentially 2 separate devices in one: the BMA250E
      * Accelerometer and the BMG160 Gyroscope.  They are completely
-     * independant of each other.
+     * independent of each other.
      *
      * This driver provides a very simple interface to these two devices.
      * If finer control is desired, you should just use the separate

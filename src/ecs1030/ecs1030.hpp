@@ -42,7 +42,7 @@ namespace upm {
 #define FALSE              LOW
 
   /**
-   * @brief ECS1030 Electricity Sensor library
+   * @brief ECS1030 Electricity Sensor
    * @defgroup ecs1030 libupm-ecs1030
    * @ingroup sparkfun analog electric
    */

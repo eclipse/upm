@@ -31,7 +31,7 @@
 namespace upm {
 
     /**
-     * @brief BNO055 Absolute Orientation 9DOF Fusion Hub
+     * @brief BNO055 9DOF Fusion Hub
      * @defgroup bno055 libupm-bno055
      * @ingroup i2c gpio accelerometer compass bosch adafruit
      */

@@ -42,7 +42,7 @@
 namespace upm
 {
     /**
-     * @brief LCDKS (LCD Keypad Shield) Display library
+     * @brief LCD Keypad Shield
      * @defgroup lcdks libupm-lcdks
      * @ingroup dfrobot sainsmart display
      */

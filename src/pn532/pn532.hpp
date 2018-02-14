@@ -50,7 +50,7 @@
 namespace upm {
   
   /**
-   * @brief PN532 NFC/RFID reader/writer
+   * @brief PN532 NFC/RFID Reader/Writer
    * @defgroup pn532 libupm-pn532
    * @ingroup adafruit i2c rfid
    */

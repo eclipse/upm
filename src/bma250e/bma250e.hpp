@@ -34,7 +34,7 @@
 namespace upm {
 
     /**
-     * @brief Bosch 3-axis Accelerometer
+     * @brief BMA250E 3-axis Accelerometer
      * @defgroup bma250e libupm-bma250e
      * @ingroup i2c spi gpio bosch accelerometer
      */

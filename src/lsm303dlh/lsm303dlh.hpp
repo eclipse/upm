@@ -61,7 +61,7 @@ namespace upm {
 #define Z 2
 
 /**
- * @brief LSM303DLH Accelerometer/Compass library
+ * @brief LSM303DLH Accelerometer/Compass
  * @defgroup lsm303dlh libupm-lsm303dlh
  * @ingroup seeed adafruit stmicro i2c accelerometer compass
  */

@@ -46,7 +46,7 @@
 
 namespace upm {
     /**
-     * @brief NLGPIO16 module
+     * @brief NLGPIO16 Module
      * @defgroup nlgpio16 libupm-nlgpio16
      * @ingroup sparkfun uart gpio ainput
      */

@@ -31,7 +31,7 @@
 
 namespace upm {
   /**
-   * @brief MPR121 Touch Sensor library
+   * @brief MPR121 Touch Sensor
    * @defgroup mpr121 libupm-mpr121
    * @ingroup seeed i2c touch tsk
    */

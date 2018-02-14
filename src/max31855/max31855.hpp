@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief MAX31855 Thermocouple library
+ * @brief MAX31855 Thermocouple
  * @defgroup max31855 libupm-max31855
  * @ingroup maxim adafruit spi other
  */

@@ -31,7 +31,7 @@
 
 namespace upm {
  /**
-  * @brief Relay library
+  * @brief Relay Library
   * @defgroup relaylib libupm-relay
   * @ingroup seeed gpio relay gsk eak hak
   */

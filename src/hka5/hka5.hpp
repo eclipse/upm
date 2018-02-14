@@ -33,7 +33,7 @@
 
 namespace upm {
   /**
-   * @brief UPM C++ API for the DFRobot Laser PM2.5 Sensor
+   * @brief HKA5 Laser PM2.5 Sensor
    * @defgroup hka5 libupm-hka5
    * @ingroup uart gpio gaseous
    */

@@ -43,7 +43,7 @@ class Callback {
 };
 
 /**
- * @brief Pulse oximeter and heart-rate sensor
+ * @brief MAX30100 Pulse Oximeter and Heart Rate Sensor
  * @defgroup max30100 libupm-max30100
  * @ingroup maxim i2c medical
  */

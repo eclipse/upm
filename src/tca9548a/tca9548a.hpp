@@ -41,7 +41,7 @@
 
 namespace upm {
     /**
-     * @brief tca9548a multiplexer library
+     * @brief TCA9548A I2C Multiplexer
      * @defgroup tca9548a libupm-tca9548a
      * @ingroup adafruit i2c
      */

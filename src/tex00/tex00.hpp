@@ -35,7 +35,7 @@ namespace upm {
     /**
      * @brief Veris TEX00 Temperature Sensor
      * @defgroup tex00 libupm-tex00
-     * @ingroup veris ainput temp 
+     * @ingroup veris analog temp 
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @comname Veris TEX00 Temperature Sensors
      * @type temp
      * @man veris
-     * @con ainput
+     * @con analog
      * @web http://www.veris.com/Item/TED00.aspx
      *
      * @brief API for the Veris TEX00 Temperature Sensor

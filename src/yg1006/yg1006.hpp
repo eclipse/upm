@@ -28,7 +28,7 @@
 
 namespace upm {
     /**
-     * @brief YG1006 Flame Sensor library
+     * @brief YG1006 Flame Sensor
      * @defgroup yg1006 libupm-yg1006
      * @ingroup seeed gpio light hak
      */

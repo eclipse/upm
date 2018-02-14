@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief ADXL345 Accelerometer library
+ * @brief ADXL345 Accelerometer
  * @defgroup adxl345 libupm-adxl345
  * @ingroup seeed i2c accelerometer
  */

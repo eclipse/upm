@@ -32,7 +32,7 @@ namespace upm {
 /**
  * @deprecated This library is now deprecated and replaced by individual
  * libraries for every sensor.
- * @brief Generic library for basic Grove sensors
+ * @brief Generic Library for Basic Grove Sensors
  * @defgroup grove libupm-grove
  * @ingroup seeed gpio pwm ainput button led light relay temp touch gsk eak hak
  */

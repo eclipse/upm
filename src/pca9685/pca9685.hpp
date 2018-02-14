@@ -39,7 +39,7 @@
 namespace upm {
   
   /**
-   * @brief PCA9685 PWM Controller library
+   * @brief PCA9685 PWM Controller
    * @defgroup pca9685 libupm-pca9685
    * @ingroup adafruit i2c led motor
    */

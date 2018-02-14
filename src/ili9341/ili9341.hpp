@@ -129,7 +129,7 @@
 
 namespace upm {
     /**
-     * @brief ILI9341 LCD library
+     * @brief ILI9341 LCD Display
      * @defgroup ili9341 libupm-ili9341
      * @ingroup adafruit spi display
      */
@@ -142,7 +142,7 @@ namespace upm {
      * @web http://www.adafruit.com/product/2090
      * @con spi
      *
-     * @brief API for the ILI9342 LCd
+     * @brief API for the ILI9342 LCD
      *
      * This module defines the interface for the ILI9341 display library
      *

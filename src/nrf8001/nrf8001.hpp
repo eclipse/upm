@@ -23,7 +23,7 @@
  */
 
 /**
- * @brief NRF8001 Bluetooth Low Energy library
+ * @brief NRF8001 Bluetooth Low Energy Module
  * @defgroup nrf8001 libupm-nrf8001
  * @ingroup adafruit wifi analog gpio spi
  */

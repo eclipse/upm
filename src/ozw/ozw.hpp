@@ -37,7 +37,7 @@
 namespace upm {
   
   /**
-   * @brief UPM OpenZWave library
+   * @brief OpenZWave Devices Library
    * @defgroup ozw libupm-ozw
    * @ingroup uart wifi
    */

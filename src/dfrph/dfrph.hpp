@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief DFRobot pH sensors
+   * @brief DFRobot pH Sensors
    * @defgroup dfrph libupm-dfrph
    * @ingroup dfrobot liquid analog
    */

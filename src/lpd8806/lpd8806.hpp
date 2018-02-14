@@ -36,7 +36,7 @@
 namespace upm {
 
 /**
- * @brief FastPixel LPD8806 library
+ * @brief FastPixel LPD8806 LED Strip
  * @defgroup lpd8806 libupm-lpd8806
  * @ingroup adafruit spi led
  */

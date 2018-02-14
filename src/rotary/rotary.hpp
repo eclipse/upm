@@ -34,7 +34,7 @@
 namespace upm {
 
 /**
- * @brief Rotary Angle Sensor library
+ * @brief Rotary Angle Sensor
  * @defgroup rotary libupm-rotary
  * @ingroup seeed analog ainput gsk
  */

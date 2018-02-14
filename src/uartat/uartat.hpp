@@ -30,7 +30,7 @@
 
 namespace upm {
     /**
-     * @brief API for a generic AT command based UART device
+     * @brief Generic AT Command Based UART Modem Library
      * @defgroup uartat libupm-uartat
      * @ingroup uart
      */

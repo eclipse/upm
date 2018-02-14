@@ -52,7 +52,7 @@
 namespace upm {
   
   /**
-   * @brief SX1276 LoRa/FSK modem
+   * @brief Semtech SX1276 LoRa/FSK Modem
    * @defgroup sx1276 libupm-sx1276
    * @ingroup spi gpio wifi
    */

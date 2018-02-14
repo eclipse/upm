@@ -33,7 +33,7 @@
 namespace upm {
   
   /**
-   * @brief HP20X I2C Barometer (High-Accuracy) library
+   * @brief HP20X I2C Barometer (High-Accuracy)
    * @defgroup hp20x libupm-hp20x
    * @ingroup seeed i2c pressure
    */

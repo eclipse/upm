@@ -126,7 +126,7 @@
 namespace upm {
 
 /**
- * @brief SmartDrive library
+ * @brief SmartDrive Motor Controller
  * @defgroup smartdrive libupm-smartdrive
  * @ingroup i2c motor openelectrons
  */

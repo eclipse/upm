@@ -40,7 +40,7 @@
 namespace upm
 {
 /**
- * @brief LCM1602 Display library
+ * @brief LCM1602 Display Controller
  * @defgroup lcm1602 libupm-lcm1602
  * @ingroup dfrobot sainsmart seeed sparkfun adafruit i2c gpio display
  */

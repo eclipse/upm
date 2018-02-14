@@ -36,7 +36,7 @@
 
 namespace upm {
   /**
-   * @brief Voltage Divider Sensor library
+   * @brief Voltage Divider Sensor
    * @defgroup vdiv libupm-vdiv
    * @ingroup seeed analog electric robok
    */

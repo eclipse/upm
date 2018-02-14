@@ -49,7 +49,7 @@ const uint8_t WT5001_END   = 0x7e;
 
 namespace upm {
     /**
-     * @brief WT5001 Serial MP3 module library
+     * @brief WT5001 Serial MP3 Module
      * @defgroup wt5001 libupm-wt5001
      * @ingroup seeed uart sound
      */

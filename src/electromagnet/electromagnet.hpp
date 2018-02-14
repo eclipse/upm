@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief  Electromagnet library
+   * @brief Electromagnet Library
    * @defgroup electromagnet libupm-electromagnet
    * @ingroup seeed gpio electric
    */

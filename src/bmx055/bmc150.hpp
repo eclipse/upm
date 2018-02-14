@@ -59,7 +59,7 @@ namespace upm {
 
      * The BMC150 is essentially 2 separate devices in one: the BMA250E
      * Accelerometer and the BMM150 Magnetometer.  They are completely
-     * independant of each other.
+     * independent of each other.
      *
      * This driver provides a very simple interface to these 2 devices.
      * If finer control is desired, you should just use the separate

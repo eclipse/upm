@@ -30,7 +30,7 @@
 namespace upm {
 
 /**
- * @brief Analog Joystick library
+ * @brief Analog Joystick Library
  * @defgroup joystick12 libupm-joystick12
  * @ingroup generic analog ainput robok
  */

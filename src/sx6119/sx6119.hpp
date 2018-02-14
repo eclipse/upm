@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief SX6119-based FM Receiver library
+     * @brief SX6119-based FM Receiver
      * @defgroup sx6119 libupm-sx6119
      * @ingroup seeed gpio sound
      */

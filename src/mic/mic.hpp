@@ -36,7 +36,7 @@ struct thresholdContext {
 namespace upm {
 
 /**
- * @brief Analog Microphone library
+ * @brief Analog Microphone Library
  * @defgroup mic libupm-mic
  * @ingroup seeed pwm sound gsk
  */

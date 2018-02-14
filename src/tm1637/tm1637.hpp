@@ -44,7 +44,7 @@ namespace upm
 {
 
 /**
- * @brief TM1637 7-Segment Display library
+ * @brief TM1637 7-Segment Display
  * @defgroup tm1637 libupm-tm1637
  * @ingroup seeed gpio display
  */

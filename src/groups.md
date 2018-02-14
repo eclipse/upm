@@ -159,6 +159,11 @@ and is not meant to be installed anywhere.
 @brief Wireless sensors using RFID tags
 
 
+@defgroup serial Serial
+@ingroup bycat
+@brief Sensors using serial communication
+
+
 @defgroup servos Servo
 @ingroup bycat
 @brief Various servo motors & controllers
@@ -172,11 +177,6 @@ and is not meant to be installed anywhere.
 @defgroup temp Temperature/Humidity
 @ingroup bycat
 @brief Measure temperature & humidity
-
-
-@defgroup serial Serial
-@ingroup bycat
-@brief Sensors using serial communication
 
 
 @defgroup time Time

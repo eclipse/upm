@@ -81,7 +81,7 @@
 namespace upm {
 
 /**
- * @brief max44009 ambient light sensor library
+ * @brief MAX44009 Ambient Light Sensor
  * @defgroup max44009 libupm-max44009
  * @ingroup maxim i2c light ilightsensor
  */

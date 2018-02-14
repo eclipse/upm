@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief Grove O2 Oxygen Gas Sensor library
+   * @brief Oxygen Gas Sensor
    * @defgroup o2 libupm-o2
    * @ingroup seeed analog gaseous
    */

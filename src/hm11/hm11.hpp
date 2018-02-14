@@ -47,7 +47,7 @@
 
 namespace upm {
     /**
-     * @brief HM-11 Bluetooth 4.0 Low Energy Module library
+     * @brief HM-11 Bluetooth 4.0 Low Energy Module
      * @defgroup hm11 libupm-hm11
      * @ingroup seeed uart wifi
      */

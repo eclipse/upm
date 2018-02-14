@@ -397,7 +397,7 @@
 namespace upm {
 
 /**
- * @brief RF22 Wireless Transceiver library
+ * @brief RF22 Wireless Transceiver
  * @defgroup rf22 libupm-rf22
  * @ingroup sparkfun spi wifi
  */

@@ -34,7 +34,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-speaker
-   * @brief Grove Speaker library
+   * @brief Grove Speaker
    * @defgroup grovespeaker libupm-grovespeaker
    * @ingroup seeed gpio sound hak
    */

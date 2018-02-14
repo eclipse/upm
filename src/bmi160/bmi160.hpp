@@ -31,7 +31,7 @@
 namespace upm {
 
     /**
-     * @brief BMI160 3-axis Accelerometer, Gyroscope and Magnetometer
+     * @brief BMI160 Inertial Measurement Unit
      * @defgroup bmi160 libupm-bmi160
      * @ingroup i2c accelerometer compass bosch mouser
      */

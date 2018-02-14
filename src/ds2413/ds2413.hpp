@@ -38,7 +38,7 @@
 
 namespace upm {
     /**
-     * @brief DS2413 modules
+     * @brief DS2413 Modules Library
      * @defgroup ds2413 libupm-ds2413
      * @ingroup maxim uart gpio
      */

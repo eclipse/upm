@@ -33,7 +33,7 @@
 namespace upm {
 
     /**
-     * @brief Buzzer library
+     * @brief Piezoelectric Buzzers Library
      * @defgroup buzzer libupm-buzzer
      * @ingroup seeed pwm sound gsk
      */

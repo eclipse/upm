@@ -35,7 +35,7 @@
 namespace upm {
 
   /**
-   * @brief MPU9150 accelerometer library
+   * @brief MPU and AK Accelerometer/Compass/Gyro Library
    * @defgroup mpu9150 libupm-mpu9150
    * @ingroup seeed i2c gpio accelerometer compass
    */

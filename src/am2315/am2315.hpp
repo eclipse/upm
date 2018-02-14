@@ -50,7 +50,7 @@
 namespace upm {
 
 /**
- * @brief AM2315 Temperature & Humidity Sensor library
+ * @brief AM2315 Temperature & Humidity Sensor
  * @defgroup am2315 libupm-am2315
  * @ingroup adafruit i2c temp
  */

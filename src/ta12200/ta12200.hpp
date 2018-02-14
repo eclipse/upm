@@ -34,7 +34,7 @@
 
 namespace upm {
 /**
- * @brief TA12-200 Current Transformer library
+ * @brief TA12-200 Current Transformer
  * @defgroup ta12200 libupm-ta12200
  * @ingroup seeed analog electric
  */

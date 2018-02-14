@@ -37,7 +37,7 @@
 namespace upm {
 
   /**
-   * @brief BMX055 9-axis Sensor Module
+   * @brief BMX055/BMI055/BMC150 Sensor Modules
    * @defgroup bmx055 libupm-bmx055
    * @ingroup i2c spi accelerometer compass
    */
@@ -65,11 +65,11 @@ namespace upm {
    *
    * The BMX055 is essentially 3 separate devices in one: the BMA250E
    * Accelerometer, the BMG160 Gyroscope, and the BMM150 Magnetometer.
-   * They are completely independant of each other.
+   * They are completely independent of each other.
    *
    * This driver provides a very simple interface to these 3 devices.
    * If finer control is desired, you should just use the separate
-   * BMA25E, BMG160, and BMM150 device classes directly.  This driver
+   * BMA250E, BMG160, and BMM150 device classes directly.  This driver
    * simply initializes all three devices, and provides a mechanism to
    * read accelerometer, gyroscope and magnetometer data from them.
    *

@@ -30,7 +30,7 @@
 namespace upm
 {
 /**
- * @brief P9813 Chainable RGB LEDs driver library
+ * @brief P9813 Chainable RGB LEDs Driver
  * @defgroup p9813 libupm-p9813
  * @ingroup adafruit gpio led
  */

@@ -31,7 +31,7 @@
 namespace upm {
 
 /**
- * @brief Si1132 UV and visible light sensor library
+ * @brief SI1132 UV and Visible Light Sensor
  * @defgroup Si1132 libupm-Si1132
  * @ingroup silabs i2c light ilightsensor
  */

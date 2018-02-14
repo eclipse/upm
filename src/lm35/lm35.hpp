@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief DFRobot LM35 Linear Temperature Sensor
+     * @brief LM35 Linear Temperature Sensor
      * @defgroup lm35 libupm-lm35
      * @ingroup dfrobot analog temp
      */

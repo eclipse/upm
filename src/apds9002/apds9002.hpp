@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief APDS-9002 Luminance Sensor library
+   * @brief APDS-9002 Luminance Sensor
    * @defgroup apds9002 libupm-apds9002
    * @ingroup seeed analog light
    */

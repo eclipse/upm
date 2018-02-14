@@ -28,7 +28,7 @@
 
 namespace upm {
 /**
- * @brief HC-SR04 Ultrasonic Sensor library
+ * @brief HC-SR04 Ultrasonic Sensor
  * @defgroup hcsr04 libupm-hcsr04
  * @ingroup generic gpio sound
  */

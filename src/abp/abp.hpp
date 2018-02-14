@@ -28,6 +28,7 @@
 
 namespace upm {
 /**
+ * @brief Honeywell ABP Pressure Sensors
  * @defgroup abp libupm-abp
  * @ingroup honeywell i2c
  */

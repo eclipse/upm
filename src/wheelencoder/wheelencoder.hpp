@@ -31,7 +31,7 @@
 namespace upm {
 
   /**
-   * @brief DFRobot Wheel Encoder library
+   * @brief Wheel Encoder
    * @defgroup wheelencoder libupm-wheelencoder
    * @ingroup dfrobot gpio other
    */

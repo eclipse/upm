@@ -38,7 +38,7 @@
 namespace upm {
 
     /**
-     * @brief Bosch BMP & GY65 Atmospheric Pressure Sensor library
+     * @brief BMP & GY65 Atmospheric Pressure Sensors
      * @defgroup bmpx8x libupm-bmpx8x
      * @ingroup bosch seeed adafruit sparkfun i2c
      * pressure

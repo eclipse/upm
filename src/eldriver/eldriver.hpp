@@ -30,7 +30,7 @@
 
 namespace upm {
   /**
-   * @brief  EL Driver Module library
+   * @brief EL Driver Module
    * @defgroup eldriver libupm-eldriver
    * @ingroup seeed gpio electric
    */

@@ -34,10 +34,9 @@
 
 namespace upm {
   /**
-   * @brief UPM C++ API for the DFRobot ORP (Oxidation/Reduction
-   * Potential) Sensor
+   * @brief DFRobot ORP (Oxidation/Reduction Potential) Sensor
    * @defgroup dfrorp libupm-dfrorp
-   * @ingroup dfrobot ainput liquid
+   * @ingroup dfrobot analog liquid
    */
 
   /**

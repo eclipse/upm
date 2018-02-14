@@ -29,7 +29,7 @@
 namespace upm {
 
     /**
-     * @brief OTP538U IR Temperature Sensor library
+     * @brief OTP538U IR Temperature Sensor
      * @defgroup otp538u libupm-otp538u
      * @ingroup seeed analog light hak
      */

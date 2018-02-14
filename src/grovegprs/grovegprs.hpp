@@ -41,7 +41,7 @@
 namespace upm {
     /**
      * @deprecated This library is being replaced by libupm-gprs
-     * @brief Grove GPRS Module library
+     * @brief Grove GPRS Module
      * @defgroup grovegprs libupm-grovegprs
      * @ingroup seeed uart wifi
      */

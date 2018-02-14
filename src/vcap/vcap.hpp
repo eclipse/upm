@@ -41,7 +41,10 @@
 
 namespace upm {
     /**
-     * @brief Take a snapshot from a video camera and save as a JPEG
+     * @brief Video Frame Capture and JPEG Image Save Library
+     *
+     * Take a snapshot from a USB video camera and save as a JPEG
+     *
      * @defgroup vcap libupm-vcap
      * @ingroup video
      */

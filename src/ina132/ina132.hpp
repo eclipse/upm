@@ -28,7 +28,7 @@
 
 namespace upm {
   /**
-   * @brief INA132 Differential Amplifier Sensor library
+   * @brief INA132 Differential Amplifier Sensor
    * @defgroup ina132 libupm-ina132
    * @ingroup seeed analog electric
    */

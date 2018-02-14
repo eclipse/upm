@@ -37,7 +37,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-vdiv
-   * @brief Grove Voltage Divider Sensor library
+   * @brief Grove Voltage Divider Sensor
    * @defgroup grovevdiv libupm-grovevdiv
    * @ingroup seeed analog electric robok
    */

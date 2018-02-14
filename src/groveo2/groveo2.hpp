@@ -29,7 +29,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-o2
-   * @brief Grove O2 Oxygen Gas Sensor library
+   * @brief Grove O2 Oxygen Gas Sensor
    * @defgroup groveo2 libupm-groveo2
    * @ingroup seeed analog gaseous
    */

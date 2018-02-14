@@ -38,7 +38,7 @@ namespace upm {
 #define DEFAULT_WAIT_DISABLE_PWM    0
 
 /**
- * @brief Servo library 
+ * @brief Servo Library
  *
  * The base Servo class provides routines for setting the angle of the shaft
  * as well as setting and getting the minimum and maximum pulse width and 

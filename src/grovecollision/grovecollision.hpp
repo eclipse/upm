@@ -28,7 +28,7 @@
 namespace upm {
   /**
    * @deprecated This library is being replaced by libupm-collision
-   * @brief Grove Collision Sensor library
+   * @brief Grove Collision Sensor
    * @defgroup grovecollision libupm-grovecollision
    * @ingroup seeed gpio accelerometer
    */

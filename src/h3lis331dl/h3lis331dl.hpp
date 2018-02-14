@@ -34,7 +34,7 @@
 namespace upm {
   
   /**
-   * @brief H3LIS331DL I2C Accelerometer (400g) library
+   * @brief H3LIS331DL 400g Accelerometer
    * @defgroup h3lis331dl libupm-h3lis331dl
    * @ingroup seeed stmicro i2c accelerometer
    */

@@ -43,7 +43,7 @@
 
 namespace upm {
   /**
-   * @brief DS1307 Real-Time Clock library
+   * @brief DS1307 Real-Time Clock
    * @defgroup ds1307 libupm-ds1307
    * @ingroup seeed i2c time
    */

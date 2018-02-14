@@ -32,7 +32,7 @@
 
 namespace upm {
   /**
-   * @brief MaxSonar-EZ Family of Ultrasonic Rangers library
+   * @brief MaxSonar-EZ Family of Ultrasonic Rangers
    * @defgroup maxsonarez libupm-maxsonarez
    * @ingroup seeed analog sound
    */

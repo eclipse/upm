@@ -28,7 +28,7 @@
 namespace upm
 {
 /**
- * @brief DS1808LC lighting controller library
+ * @brief DS1808LC Lighting Controller
  * @defgroup DS1808LC libupm-ds1808lc
  * @ingroup ds1808lc i2c maxim light ilightcontroller
  */

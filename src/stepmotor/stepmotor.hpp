@@ -40,7 +40,7 @@
 
 namespace upm {
 /**
- * @brief Stepper Motor library
+ * @brief Stepper Motor Library
  * @defgroup stepmotor libupm-stepmotor
  * @ingroup sparkfun generic gpio motor
  */

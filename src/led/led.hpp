@@ -31,7 +31,7 @@
 
 namespace upm {
 /**
- * @brief LED library
+ * @brief LED Library
  * @defgroup ledlib libupm-led
  * @ingroup seeed gpio led gsk
  */

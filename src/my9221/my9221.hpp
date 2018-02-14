@@ -40,7 +40,7 @@
 namespace upm {
 
     /**
-     * @brief MY9221 LED Controller library
+     * @brief MY9221 LED Controller Library
      * @defgroup my9221 libupm-my9221
      * @ingroup seeed display gpio eak
      */

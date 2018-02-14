@@ -28,6 +28,7 @@
 
 namespace upm {
 /**
+ * @brief VEML6070 UV Sensor
  * @defgroup veml6070 libupm-veml6070
  * @ingroup vishay i2c light
  */

@@ -92,7 +92,7 @@ namespace upm {
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
  /**
- * @brief TSL2561 Digital Light Sensor library
+ * @brief TSL2561 Digital Light Sensor
  * @defgroup tsl2561 libupm-tsl2561
  * @ingroup seeed i2c light eak
  */

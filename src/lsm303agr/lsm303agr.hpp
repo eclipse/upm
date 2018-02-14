@@ -34,8 +34,7 @@
 namespace upm {
 
     /**
-     * @brief ST Microelectronics Ultra-compact high-performance
-     * eCompass module
+     * @brief LSM303AGR Ultra-compact eCompass Module
      * @defgroup lsm303agr libupm-lsm303agr
      * @ingroup i2c gpio stmicro compass accelerometer
      */

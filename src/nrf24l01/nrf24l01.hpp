@@ -156,7 +156,7 @@ typedef enum {
 } power_t;
 
 /**
- * @brief NRF24L01 Transceiver library
+ * @brief NRF24L01 Transceiver Module
  * @defgroup nrf24l01 libupm-nrf24l01
  * @ingroup seeed sparkfun spi wifi
  */

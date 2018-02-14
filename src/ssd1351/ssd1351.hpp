@@ -76,7 +76,7 @@
 
 namespace upm {
 /**
- * @brief SSD1351 OLED library
+ * @brief SSD1351 OLED Display Controller
  * @defgroup ssd1351 libupm-ssd1351
  * @ingroup adafruit spi display
  */

@@ -28,7 +28,7 @@
 namespace upm
 {
 /**
- * @brief lp8860 LED lighting controller library
+ * @brief LP8860 LED Lighting Controller
  * @defgroup lp8860 libupm-lp8860
  * @ingroup ti i2c light ilightcontroller
  */

@@ -28,7 +28,7 @@
 namespace upm {
 
     /**
-     * @brief Grove Rotary Encoder library
+     * @brief Rotary Encoder
      * @defgroup rotaryencoder libupm-rotaryencoder
      * @ingroup seeed gpio other hak
      */

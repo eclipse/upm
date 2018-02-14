@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief GP2Y0A-based IR Proximity Sensor library
+   * @brief GP2Y0A-based IR Proximity Sensors
    * @defgroup gp2y0a libupm-gp2y0a
    * @ingroup seeed analog light
    */

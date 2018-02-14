@@ -29,7 +29,7 @@
 namespace upm
 {
 /**
- * @brief APDS9930 Digital Proximity and Ambient Light Sensor library
+ * @brief APDS9930 Digital Proximity and Ambient Light Sensor
  * @defgroup apds9930 libupm-apds9930
  * @ingroup Avago Technologies iio i2c proximity and ambient light sensor
  */

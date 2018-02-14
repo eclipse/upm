@@ -33,7 +33,7 @@
 namespace upm
 {
 /**
- * @brief APA102 RGB LED Strip driver library
+ * @brief APA102 RGB LED Strip
  * @defgroup apa102 libupm-apa102
  * @ingroup spi led
  */

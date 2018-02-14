@@ -29,7 +29,7 @@
 namespace upm {
 
   /**
-   * @brief RFR359 Distance Interrupter library
+   * @brief RFR359 Distance Interrupter
    * @defgroup rfr359f libupm-rfr359f
    * @ingroup seeed gpio light robok tsk
    */

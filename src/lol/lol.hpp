@@ -34,7 +34,7 @@ namespace upm {
 #define LOL_Y 9
 
 /**
- * @brief Olimex LoL Array library
+ * @brief Olimex LoL Shield
  * @defgroup lol libupm-lol
  * @ingroup adafruit gpio display
  */

@@ -151,7 +151,7 @@ typedef union {
 #define BIT(n) (1<<n)
 
 /**
- * @brief MMA7455 Accelerometer library
+ * @brief MMA7455 Accelerometer
  * @defgroup mma7455 libupm-mma7455
  * @ingroup generic i2c accelerometer
  */

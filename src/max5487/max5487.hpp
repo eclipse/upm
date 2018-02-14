@@ -35,7 +35,7 @@
 namespace upm {
 
 /**
- * @brief MAX5487 Digital Potentiometer library
+ * @brief MAX5487 Digital Potentiometer
  * @defgroup max5487 libupm-max5487
  * @ingroup maxim spi digipot
  */

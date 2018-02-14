@@ -30,7 +30,7 @@
 
 namespace upm {
     /**
-     * @brief API for the Microchip RN2903 LoRa radio
+     * @brief Microchip RN2903 LoRa Radio
      * @defgroup rn2903 libupm-rn2903
      * @ingroup uart wifi
      */

@@ -35,7 +35,7 @@
 namespace upm {
 
 /**
- * @brief Si7005 digital I2C humidity and temperature sensor library
+ * @brief SI7005 Digital Humidity and Temperature Sensor
  * @defgroup si7005 libupm-si7005
  * @ingroup i2c silabs temp itemperaturesensor
  */

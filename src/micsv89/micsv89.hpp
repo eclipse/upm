@@ -31,7 +31,7 @@ namespace mraa { class I2c;}
 
 namespace upm {
   /**
-   * @brief MICS-VZ89 environmental sensor library
+   * @brief MICS-VZ89 Environmental Sensor
    * @defgroup micsv89 libupm-micsv89
    * @ingroup generic i2c gaseous
    */

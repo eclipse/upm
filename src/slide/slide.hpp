@@ -31,7 +31,7 @@
 
 namespace upm {
  /**
-  * @brief Slide Sensor library
+  * @brief Slide Sensor Library
   * @defgroup slide libupm-slide
   * @ingroup seeed analog ainput
   */

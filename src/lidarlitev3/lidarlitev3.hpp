@@ -65,7 +65,7 @@
 namespace upm {
 
 /**
- * @brief LIDARLITEV3 Optical Distance Measurement Sensor library
+ * @brief LIDARLITEV3 Optical Distance Measurement Sensor
  * @defgroup lidarlitev3 libupm-lidarlitev3
  * @ingroup garmin i2c light
  */

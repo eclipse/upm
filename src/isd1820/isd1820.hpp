@@ -29,7 +29,7 @@
 
 namespace upm {
     /**
-     * @brief ISD1820 Voice Recorder Module library
+     * @brief ISD1820 Voice Recorder Module
      * @defgroup isd1820 libupm-isd1820
      * @ingroup seeed gpio sound
      */

@@ -28,7 +28,7 @@
 
 namespace upm {
 /**
- * @brief ENC03R Single Axis Gyro library
+ * @brief ENC03R Single Axis Gyro
  * @defgroup enc03r libupm-enc03r
  * @ingroup seeed analog compass robok
  */

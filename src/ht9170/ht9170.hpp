@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief HT9170 DTMF Decoder library
+   * @brief HT9170 DTMF Decoder
    * @defgroup ht9170 libupm-ht9170
    * @ingroup seeed gpio other
    */

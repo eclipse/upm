@@ -28,7 +28,7 @@
 
 namespace upm {
 /**
- * @brief TTP223 Touch Detector Sensor library
+ * @brief TTP223 Touch Detector Sensor
  * @defgroup ttp223 libupm-ttp223
  * @ingroup seeed gpio touch
  */

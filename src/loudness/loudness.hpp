@@ -29,7 +29,7 @@
 
 namespace upm {
   /**
-   * @brief Generic loudness sensors
+   * @brief Loudness Sensors Library
    * @defgroup loudness libupm-loudness
    * @ingroup dfrobot seeed analog sound
    */

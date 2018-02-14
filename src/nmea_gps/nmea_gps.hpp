@@ -33,7 +33,7 @@
 
 namespace upm {
   /**
-   * @brief UPM C++ API for a generic GPS serial device reporting NMEA data
+   * @brief Generic NMEA GPS Serial Device Library
    * @defgroup nmea_gps libupm-nmea_gps
    * @ingroup uart gpio gps
    */
