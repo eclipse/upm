@@ -4,6 +4,17 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# v1.6.0
+
+ * Several C libraries had their init function pin type modified from uint8_t
+ to int allowing usage with subplatforms
+ * Our **led** class constructor has been overloaded with a string based
+ variant that uses the new MRAA LED APIs
+ * The **i2clcd** library has finally been renamed to **lcd** and is now
+ mostly considered a bundle for ssd lcd display controllers only
+ * The **zfm20** class constructor has been overloaded with a string variant
+ that allows initialization using any UART device
+
 # v1.5.0
 
  * **VEML6070** This sensor class no longer needs an I2C address when

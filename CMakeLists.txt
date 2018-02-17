@@ -125,7 +125,7 @@ find_package (PkgConfig REQUIRED)
 
 # Force a libmraa search and minimum required version every time a config is generated
 unset(MRAA_FOUND CACHE)
-set(MRAA_MINIMUM 1.8.0)
+set(MRAA_MINIMUM 1.9.0)
 pkg_check_modules (MRAA REQUIRED mraa>=${MRAA_MINIMUM})
 # Also, get full path to the mraa library
 find_library(MRAA_LIBRARY NAMES mraa HINTS ${MRAA_LIBDIR})
@@ -213,7 +213,7 @@ include (GetGitRevisionDescription)
 git_describe (VERSION "--tags")
 # If git_describe fails, use a dirty version
 if (${VERSION} MATCHES -NOTFOUND)
-  set (VERSION "v1.5.0")
+  set (VERSION "v1.6.0")
   message (WARNING "Failed to retrieve UPM version with 'git describe' (using "
       "${VERSION}). Check that git is installed and this is a valid git repo.")
 endif ()

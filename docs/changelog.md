@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.6.0
+
+ * Extended LED library to support the new MRAA gpio-leds APIs
+ * Many CMake changes around SWIG wrapper generation and improved FindNodejs
+ detection module
+ * Several code fixes based on static code analysis
+ * Improved documentation generation and Travis CI builds
+ * Cleaned-up doxygen tags in headers and class names in JSON library files
+ * New sensor: lis3dh
+
 ### v1.5.0
 
  * Introduced a flexible JSON format for technical sensor specifications, notes
