@@ -75,10 +75,10 @@ if (BUILDSWIGPYTHON AND PYTHON3INTERP_FOUND)
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/)
 endif (BUILDSWIGPYTHON AND PYTHON3INTERP_FOUND)
 
-# add JSON test
-if(NPM_EXECUTABLE)
-    add_test (NAME check_jsons COMMAND ${CMAKE_COMMAND}
-        -DNPMEXEC=${NPM_EXECUTABLE}
-        -DUPMBASEDIR=${CMAKE_SOURCE_DIR}
-        -P ${CMAKE_SOURCE_DIR}/tests/runjsontest.cmake)
-endif(NPM_EXECUTABLE)
+## Check json library descriptor files for required fields
+#if(NPM_EXECUTABLE)
+#    add_test (NAME check_jsons COMMAND ${CMAKE_COMMAND}
+#        -DNPMEXEC=${NPM_EXECUTABLE}
+#        -DUPMBASEDIR=${CMAKE_SOURCE_DIR}
+#        -P ${CMAKE_SOURCE_DIR}/tests/runjsontest.cmake)
+#endif(NPM_EXECUTABLE)
