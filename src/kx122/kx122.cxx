@@ -201,11 +201,9 @@ void KX122::routeInterrupt2(uint8_t bits)
   }
 }
 
-void KX122::getInterruptStatus(uint8_t *data)
+bool KX122::getInterruptStatus()
 {
-  if(kx122_get_interrupt_status(m_kx122,data)){
-    throw std::runtime_error(std::string(__FUNCTION__) + "kx122_get_interrupt_status failed");
-  }
+  return kx122_get_interrupt_status(m_kx122);
 }
 
 void KX122::getInterruptSource(uint8_t *data)

@@ -24,7 +24,51 @@
 
 #include "kx122.h"
 
+//Used to set the bit required for SPI reading
+#define SPI_READ 0x80
 
+//Used to mask the read bit required for SPI writing
+#define SPI_WRITE 0x7F
+
+//Used to determine amount of samples in the buffer.
+#define LOW_RES_SAMPLE_MODIFIER 3
+#define HIGH_RES_SAMPLE_MODIFIER 6
+
+//Mask for software reset
+#define KX122_CNTL2_SRST_MASK 0x80
+
+//Masks for interrupt control registers
+#define KX122_INC1_MASK 0xFB
+#define KX122_INC4_MASK 0xF7
+#define KX122_INC5_MASK 0xFB
+#define KX122_INC6_MASK 0xF7
+
+//Acceleration data buffer length
+#define BUFFER_LEN 6
+
+//Acceleration per decimal value for each acceleration ranges
+#define RANGE_2G_G 0.00006f
+#define RANGE_4G_G 0.00012f
+#define RANGE_8G_G 0.00024f
+
+//Acceleration scaling between high and low resolution modes
+#define RANGE_RES_SCALE 260
+
+//Maximum loop iterations, used in software reset and self testing
+#define MAX_LOOP_COUNT 100
+
+//Sensor self-test defines
+#define SELF_TEST_LOOP_WAIT_TIME 10000
+#define SELF_TEST_MAX_DIFFERENCE 0.75f
+#define SELF_TEST_MIN_XY_DIFFERENCE 0.25f
+#define SELF_TEST_MIN_Z_DIFFERENCE 0.20f
+
+//Maximum amount of samples in the buffer for high and low resolutions
+#define MAX_BUFFER_SAMPLES_LOW_RES 681
+#define MAX_BUFFER_SAMPLES_HIGH_RES 340
+
+//Earth gravity constant (m/s^2)
+#define GRAVITY 9.81f
 /**
 Enables the chip select on the chip_select GPIO pin.
 Chip select is active low.
@@ -820,10 +864,20 @@ upm_result_t kx122_clear_interrupt(const kx122_context dev)
   return kx122_read_register(dev,KX122_INT_REL,&reg_val);
 }
 
-upm_result_t kx122_get_interrupt_status(const kx122_context dev, uint8_t *data)
+bool kx122_get_interrupt_status(const kx122_context dev)
 {
   assert(dev != NULL);
-  return kx122_read_register(dev,KX122_STATUS_REG,data);
+  uint8_t reg_val;
+
+  if(kx122_read_register(dev,KX122_STATUS_REG,&reg_val) != UPM_SUCCESS){
+    printf("%s: kx122_read_register() failed.\n", __FUNCTION__);
+    return false;
+  }
+
+  if(reg_val != 0x00){
+    return true;
+  }
+  return false;
 }
 
 upm_result_t kx122_enable_buffer(const kx122_context dev)
