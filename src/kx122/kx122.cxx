@@ -56,6 +56,12 @@ float KX122::getSamplePeriod()
   return kx122_get_sample_period(m_kx122);
 }
 
+void KX122::getWhoAmI(uint8_t *data)
+{
+  if(kx122_get_who_am_i(m_kx122,data)){
+	throw std::runtime_error(std::string(__FUNCTION__) + "kx122_get_who_am_i failed");
+  }
+}
 void KX122::getRawAccelerationData(float *x, float *y, float *z)
 {
   if(kx122_get_acceleration_data_raw(m_kx122,x,y,z)){
