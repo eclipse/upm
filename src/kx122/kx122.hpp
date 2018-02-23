@@ -24,9 +24,7 @@
 
 #include <mraa/gpio.hpp>
 
-extern "C"{
-  #include "kx122.h"
-}
+#include "kx122.h"
 
 /**
  * @file kx122.hpp
@@ -45,6 +43,8 @@ namespace upm{
       KX122 constructor
       Set addr to -1 if using SPI.
       When using I2C, set chip_select_pin to -1
+
+      If no errors occur, the device gets initialized with default values and gets set to active state.
 
       @param bus I2C or SPI bus to use.
       @param addr I2C address of the sensor.
@@ -141,6 +141,9 @@ namespace upm{
       applying the electrostatic force to the sensor. If the amount of acceleration increases according
       to the values defined in TABLE 1 of the datasheet, the test passes.
 
+      The function prints out the minimum, maximum and values calculated during the test
+      for each axis, and the result of the test for each axis.
+
       See the datasheet for more information.
 
       @throws std::runtime_error on failure.
@@ -162,9 +165,9 @@ namespace upm{
       void setSensorActive();
 
       /**
-      Sets the data sampling rate of the sensor.
+      Sets the ODR of the sensor.
 
-      Sensor needs to be in standby mode when setting the data sampling rate.
+      Sensor needs to be in standby mode when setting the ODR.
 
       @param odr One of the KX122_ODR_T values.
       @throws std::runtime_error on failure.
@@ -185,6 +188,9 @@ namespace upm{
       Sets the resolution of the sensor. High resolution (16 bits) or low resolution (8 bits).
 
       Sensor needs to be in standby mode when setting the sensor resolution.
+
+      When sensor is set to low resolution mode, the sensor runs in low power mode, which in turn
+      enables features such as averaging.(setAverage()).
 
       @param res One of the KX122_RES_T values.
       @throws std::runtime_error on failure.
@@ -308,13 +314,19 @@ namespace upm{
 
       See datasheet for more details.
 
-      @param data Pointer to a uint8_t variable to store the value.
-      @throws std::runtime_error on failure.
+      @return Return true if an interrupt event has occured, returns false if no interrupts have occured.
       */
-      void getInterruptStatus(uint8_t *data);
+      bool getInterruptStatus();
 
       /**
       Gets the source of the interrupt.
+
+      The value stored is one or more of the KX122_INTERRUPT_T values, depending on the interrupts
+      that have occured.
+
+      If multiple interrupts have occured, and you need to determine a specific interrupt,
+      you can use masking to get the state of the specific interrupt:
+      (int_source & KX122_DATA_READY_INT) == KX122_DATA_READY_INT)
 
       See datasheet for more details.
 

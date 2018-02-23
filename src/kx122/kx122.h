@@ -22,6 +22,10 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include <assert.h>
 #include <unistd.h>
 #include <math.h>
@@ -30,7 +34,7 @@
 #include <mraa/spi.h>
 #include <mraa/gpio.h>
 
-#include <upm/upm_types.h>
+#include <upm.h>
 
 #include "kx122_registers.h"
 
@@ -42,58 +46,12 @@
  * @include kx122.c
  */
 
-//Used to set the bit required for SPI reading
-#define SPI_READ 0x80
-
-//Used to mask the read bit required for SPI writing
-#define SPI_WRITE 0x7F
-
 //Frequency of the SPI connection
 #define SPI_FREQUENCY 10000
 
 //Default slave addresses for the sensor
 #define KX122_DEFAULT_SLAVE_ADDR_1 0x1F
 #define KX122_DEFAULT_SLAVE_ADDR_2 0x1E
-
-//Masks
-#define KX122_CNTL2_SRST_MASK 0x80
-
-//Used to determine amount of samples in the buffer.
-#define LOW_RES_SAMPLE_MODIFIER 3
-#define HIGH_RES_SAMPLE_MODIFIER 6
-
-//Masks for interrupt control registers
-#define KX122_INC1_MASK 0xFB
-#define KX122_INC4_MASK 0xF7
-#define KX122_INC5_MASK 0xFB
-#define KX122_INC6_MASK 0xF7
-
-//Acceleration data buffer length
-#define BUFFER_LEN 6
-
-//Acceleration per decimal value for each acceleration ranges
-#define RANGE_2G_G 0.00006f
-#define RANGE_4G_G 0.00012f
-#define RANGE_8G_G 0.00024f
-
-//Acceleration scaling between high and low resolution modes
-#define RANGE_RES_SCALE 260
-
-//Maximum loop iterations
-#define MAX_LOOP_COUNT 100
-
-//Sensor self-test defines
-#define SELF_TEST_LOOP_WAIT_TIME 10000
-#define SELF_TEST_MAX_DIFFERENCE 0.75f
-#define SELF_TEST_MIN_XY_DIFFERENCE 0.25f
-#define SELF_TEST_MIN_Z_DIFFERENCE 0.20f
-
-//Maximum amount of samples in the buffer for high and low resolutions
-#define MAX_BUFFER_SAMPLES_LOW_RES 681
-#define MAX_BUFFER_SAMPLES_HIGH_RES 340
-
-//Earth gravity constant (m/s^2)
-#define GRAVITY 9.81f
 
 //Microseconds in a second
 #define MICRO_S 1000000
@@ -207,6 +165,8 @@ KX122 initialization
 Set addr to -1 if using SPI.
 When using I2C, set chip_select_pin to -1;
 
+If no errors occur, the device gets initialized with default values and gets set to active state.
+
 @param bus I2C or SPI bus to use.
 @param addr I2C address of the sensor.
 @param chip_select Chip select pin for SPI.
@@ -317,6 +277,9 @@ simulating input acceleration. The test compares samples from all axis before an
 applying the electrostatic force to the sensor. If the amount of acceleration increases according
 to the values defined in TABLE 1 of the datasheet, the test passes.
 
+The function prints out the minimum, maximum and values calculated during the test
+for each axis, and the result of the test for each axis.
+
 See the datasheet for more information.
 
 @param dev The device context.
@@ -341,9 +304,9 @@ Sets the sensor to active mode.
 upm_result_t kx122_set_sensor_active(const kx122_context dev);
 
 /**
-Sets the data sampling rate of the sensor.
+Sets the ODR of the sensor.
 
-Sensor needs to be in standby mode when setting the data sampling rate.
+Sensor needs to be in standby mode when setting the ODR.
 
 @param dev The device context.
 @param odr One of the KX122_ODR_T values.
@@ -366,6 +329,9 @@ upm_result_t kx122_set_grange(const kx122_context dev, KX122_RANGE_T grange);
 Sets the resolution of the sensor. High resolution (16 bits) or low resolution (8 bits).
 
 Sensor needs to be in standby mode when setting the sensor resolution.
+
+When sensor is set to low resolution mode, the sensor runs in low power mode, which in turn
+enables features such as averaging.(kx122_set_average()).
 
 @param dev The device context.
 @param res One of the KX122_RES_T values.
@@ -500,13 +466,18 @@ Gets the status of the interrupts. (Has an interrupt occured)
 See datasheet for more details.
 
 @param dev The device context.
-@param data Pointer to a uint8_t variable to store the value.
-@return UPM result.
+@return Return true if an interrupt event has occured, returns false if no interrupts have occured.
 */
-upm_result_t kx122_get_interrupt_status(const kx122_context dev, uint8_t *data);
+bool kx122_get_interrupt_status(const kx122_context dev);
 
 /**
 Gets the source of the interrupt.
+The value stored is one or more of the KX122_INTERRUPT_T values, depending on the interrupts
+that have occured.
+
+If multiple interrupts have occured, and you need to determine a specific interrupt,
+you can use masking to get the state of the specific interrupt:
+(int_source & KX122_DATA_READY_INT) == KX122_DATA_READY_INT)
 
 See datasheet for more details.
 
@@ -694,3 +665,7 @@ Clears the buffer, removing all existing samples from the buffer.
 @return UPM result.
 */
 upm_result_t kx122_clear_buffer(const kx122_context dev);
+
+#ifdef __cplusplus
+}
+#endif
