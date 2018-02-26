@@ -77,7 +77,7 @@ find src/ -name "*.i" > build/upm.i.list
 
 gen_and_upload() {
     # Skip any directories without .java src files
-    if [ ! -f *.java ]; then
+    if [ $(ls *.java | wc -l) -eq "0" ]; then
         return
     fi
 
