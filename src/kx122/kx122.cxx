@@ -76,6 +76,14 @@ void KX122::getAccelerationData(float *x, float *y, float *z)
   }
 }
 
+std::vector<float> KX122::getAccelerationDataVector()
+{
+    std::vector<float> xyz(3);
+    getAccelerationData(&xyz[0], &xyz[1], &xyz[2]);
+
+    return xyz;
+}
+
 void KX122::softwareReset()
 {
   if(kx122_sensor_software_reset(m_kx122)){

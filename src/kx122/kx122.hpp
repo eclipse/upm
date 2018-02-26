@@ -22,6 +22,7 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <vector>
 #include <mraa/gpio.hpp>
 
 #include "kx122.h"
@@ -104,6 +105,14 @@ namespace upm{
       @throws std::runtime_error on failure.
       */
       void getAccelerationData(float *x, float *y, float *z);
+
+      /**
+      Gets converted (m/s^2) accelerometer data from the sensor.
+
+      @return Acceleration vector [X, Y, Z]
+      @throws std::runtime_error on failure.
+      */
+      std::vector<float> getAccelerationDataVector();
 
       /**
       Performs a sensor software reset. The software reset clears the RAM of the sensor and resets all registers

@@ -221,3 +221,5 @@ add_example_with_path(LE910_Example uartat uartat)
 add_example_with_path(SpeakerPWMSample speaker speaker)
 add_example_with_path(RN2903_P2P_RX_Example rn2903 rn2903)
 add_example_with_path(RN2903_P2P_TX_Example rn2903 rn2903)
+
+add_example(KX122Example kx122)
