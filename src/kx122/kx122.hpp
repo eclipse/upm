@@ -73,7 +73,7 @@ namespace upm{
       void deviceInit(KX122_ODR_T odr, KX122_RES_T res, KX122_RANGE_T grange);
 
       /**
-      Gets the length of one sample period depeding on the sampling rate of the sensor.
+      Gets the length of one sample period depending on the sampling rate of the sensor.
       @return Floating point value of the sampling period, or if error occurs returns -1.
       */
       float getSamplePeriod();
@@ -310,11 +310,11 @@ namespace upm{
       void routeInterrupt2(uint8_t bits);
 
       /**
-      Gets the status of the interrupts. (Has an interrupt occured)
+      Gets the status of the interrupts. (Has an interrupt occurred)
 
       See datasheet for more details.
 
-      @return Return true if an interrupt event has occured, returns false if no interrupts have occured.
+      @return Return true if an interrupt event has occurred, returns false if no interrupts have occurred.
       */
       bool getInterruptStatus();
 
@@ -322,9 +322,9 @@ namespace upm{
       Gets the source of the interrupt.
 
       The value stored is one or more of the KX122_INTERRUPT_T values, depending on the interrupts
-      that have occured.
+      that have occurred.
 
-      If multiple interrupts have occured, and you need to determine a specific interrupt,
+      If multiple interrupts have occurred, and you need to determine a specific interrupt,
       you can use masking to get the state of the specific interrupt:
       (int_source & KX122_DATA_READY_INT) == KX122_DATA_READY_INT)
 
@@ -419,7 +419,7 @@ namespace upm{
 
       /**
       Sets the buffer resolution.
-      Buffer resolution is indepedent of the sensor resolution.
+      Buffer resolution is independent of the sensor resolution.
 
       Sensor needs to be in standby mode when setting the buffer resolution.
 
@@ -431,7 +431,7 @@ namespace upm{
       Sets the buffer watermark interrupt threshold.
       When the buffer sample count reaches the watermark, watermark interrupt will be given.
 
-      In low resolution mode, maxiumum number of samples is 681. In high resolution, the maximum
+      In low resolution mode, maximum number of samples is 681. In high resolution, the maximum
       number is 340.
 
       See datasheet for more details.
@@ -446,7 +446,7 @@ namespace upm{
       /**
       Sets the buffer operating mode.
       The buffer can operate in FIFO,FILO or Stream mode.
-      The buffer gathers data, reports data and interracts with the status indicators
+      The buffer gathers data, reports data and interacts with the status indicators
       in a slightly different way depending on the operating mode.
 
       See datasheet for more details.
@@ -469,7 +469,7 @@ namespace upm{
       /**
       Gets the specified amount of raw acceleration samples from the buffer.
 
-      Make sure the array size is atleast the amount of samples to be read.
+      Make sure the array size is at least the amount of samples to be read.
 
       @param len The amount of samples to read from the buffer.
       @param x_array Pointer to an floating point array to store the x-axis data. Can be set to NULL if not wanted.
@@ -482,7 +482,7 @@ namespace upm{
       /**
       Gets the specified amount of converted (m/s^2) acceleration samples from the buffer.
 
-      Make sure the array size is atleast the amount of samples to be read.
+      Make sure the array size is at least the amount of samples to be read.
 
       @param len The amount of samples to read from the buffer.
       @param x_array Pointer to an floating point array to store the x-axis data. Can be set to NULL if not wanted.

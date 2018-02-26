@@ -28,6 +28,7 @@
 #include <unistd.h>
 
 #include "kx122.hpp"
+#include "upm_utilities.h"
 
 bool shouldRun = true;
 
@@ -42,23 +43,23 @@ int main(int argc, char **argv)
 {
   signal(SIGINT,sig_handler);
 
-  upm::KX122 *sensor = new upm::KX122(0,-1,24);
+  //! [Interesting]
+  upm::KX122 sensor(0,-1,24);
 
-  sensor->softwareReset();
-  sensor->deviceInit(KX122_ODR_50,HIGH_RES,KX122_RANGE_2G);
+  sensor.softwareReset();
+  sensor.deviceInit(KX122_ODR_50,HIGH_RES,KX122_RANGE_2G);
 
   float x,y,z;
-  float wait_time = sensor->getSamplePeriod() * MICRO_S;
+  int wait_time = sensor.getSamplePeriod() * MICRO_S;
+  if (wait_time < 0) wait_time = 1000;
 
   while(shouldRun){
-    sensor->getAccelerationData(&x,&y,&z);
+    sensor.getAccelerationData(&x,&y,&z);
 
     printf("%.02f | %.02f | %.02f\n",x,y,z);
-    usleep(wait_time);
+    upm_delay_us(wait_time);
   }
-
-  delete sensor;
-  sensor = nullptr;
+  //! [Interesting]
 
   return 0;
 }

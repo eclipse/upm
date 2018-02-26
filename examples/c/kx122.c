@@ -27,6 +27,7 @@
 #include <signal.h>
 
 #include "kx122.h"
+#include "upm_utilities.h"
 
 bool shouldRun = true;
 
@@ -40,6 +41,8 @@ void sig_handler(int signo)
 int main(int argc, char **argv)
 {
   signal(SIGINT,sig_handler);
+
+  //! [Interesting]
   kx122_context sensor = kx122_init(0,-1,24);
   if (!sensor)
   {
@@ -51,15 +54,18 @@ int main(int argc, char **argv)
   kx122_device_init(sensor,KX122_ODR_50,HIGH_RES,KX122_RANGE_2G);
 
   float x,y,z;
-  float wait_time = (kx122_get_sample_period(sensor) * MICRO_S);
+  int wait_time = (kx122_get_sample_period(sensor) * MICRO_S);
+  if (wait_time < 0) wait_time = 1000;
 
   while(shouldRun){
     kx122_get_acceleration_data(sensor,&x,&y,&z);
 
     printf("%.02f | %.02f | %.02f\n",x,y,z);
-    usleep(wait_time);
+    upm_delay_us(wait_time);
   }
 
   kx122_close(sensor);
+  //! [Interesting]
+
   return 0;
 }
