@@ -11,7 +11,7 @@
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Vishay", "Adafruit"],
             "Examples": {
-                "Java": ["VEML6070Sample.java"],
+                "Java": ["VEML6070_Example.java"],
                 "Python": ["veml6070.py"],
                 "Node.js": ["veml6070.js"],
                 "C++": ["veml6070.cxx"],

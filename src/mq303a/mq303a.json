@@ -13,7 +13,7 @@
             "Kits": ["tsk"],
             "Image": "mq303a.jpg",
             "Examples": {
-                "Java": ["MQ303ASample.java"],
+                "Java": ["MQ303A_Example.java"],
                 "Python": ["mq303a.py"],
                 "Node.js": ["mq303a.js"],
                 "C++": ["mq303a.cxx"],

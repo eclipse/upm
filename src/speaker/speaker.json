@@ -13,7 +13,7 @@
             "Kits": ["hak"],
             "Image": "speaker.jpg",
             "Examples": {
-                "Java": ["SpeakerPWMSample.java", "SpeakerSample.java"],
+                "Java": ["SpeakerPWM_Example.java", "Speaker_Example.java"],
                 "Python": ["speaker_pwm.py", "speaker.py"],
                 "Node.js": ["speaker_pwm.js", "speaker.js"],
                 "C++": ["speaker-pwm.cxx", "speaker.cxx"],

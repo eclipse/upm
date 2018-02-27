@@ -16,7 +16,7 @@
             "Image": "o2.jpg",
             "Examples":
             {
-                "Java": ["O2Example.java"],
+                "Java": ["O2_Example.java"],
                 "Python": ["o2.py"],
                 "Node.js": ["o2.js"],
                 "C++": ["o2.cxx"],

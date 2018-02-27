@@ -16,7 +16,7 @@
             "Image": "guvas12d.jpg",
             "Examples":
             {
-                "Java": ["GUVAS12DSample.java"],
+                "Java": ["GUVAS12D_Example.java"],
                 "Python": ["guvas12d.py"],
                 "Node.js": ["guvas12d.js"],
                 "C++": ["guvas12d.cxx"],

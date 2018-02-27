@@ -15,7 +15,7 @@
             "Image": "ads1015.jpg",
             "Examples":
             {
-                "Java": ["Ads1015Sample.java"],
+                "Java": ["Ads1015_Example.java"],
                 "Python": ["ads1015.py"],
                 "Node.js": ["ads1115.js", "ads1x15.js"],
                 "C++": ["ads1x15-adc-sensor.cxx", "ads1x15-ads1015.cxx", "ads1x15.cxx"]
@@ -57,7 +57,7 @@
             "Image": "ads1115.jpg",
             "Examples":
             {
-                "Java": ["Ads1115Sample.java"],
+                "Java": ["Ads1115_Example.java"],
                 "Python": ["ads1115.py"],
                 "Node.js": ["ads1115.js", "ads1x15.js"],
                 "C++": ["ads1x15-adc-sensor.cxx", "ads1x15-ads1115.cxx", "ads1x15.cxx"]

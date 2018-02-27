@@ -15,7 +15,7 @@
             "Kits": ["eak"],
             "Examples":
             {
-                "Java": ["GroveWaterSample.java"],
+                "Java": ["GroveWater_Example.java"],
                 "Python": ["grovewater.py"],
                 "Node.js": ["grovewater.js"],
                 "C++": ["grovewater.cxx"],

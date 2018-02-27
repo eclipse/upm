@@ -16,7 +16,7 @@
             "Image": "temp.jpg",
             "Examples":
             {
-                "Java": ["TemperatureSample.java"],
+                "Java": ["Temperature_Example.java"],
                 "Python": ["temperature.py"],
                 "Node.js": ["temperature.js"],
                 "C++": ["temperature.cxx"]

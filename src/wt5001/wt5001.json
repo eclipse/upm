@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "wt5001.jpg",
             "Examples": {
-                "Java": ["WT5001Sample.java"],
+                "Java": ["WT5001_Example.java"],
                 "Python": ["wt5001.py"],
                 "Node.js": ["wt5001.js"],
                 "C++": ["wt5001.cxx"]

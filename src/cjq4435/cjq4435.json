@@ -16,7 +16,7 @@
             "Image": "cjq4435.jpg",
             "Examples":
             {
-                "Java": ["CJQ4435Sample.java"],
+                "Java": ["CJQ4435_Example.java"],
                 "Python": ["cjq4435.py"],
                 "Node.js": ["cjq4435.js"],
                 "C++": ["cjq4435.cxx"],

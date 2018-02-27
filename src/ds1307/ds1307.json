@@ -16,7 +16,7 @@
             "Image": "ds1307.jpg",
             "Examples":
             {
-                "Java": ["DS1307Sample.java"],
+                "Java": ["DS1307_Example.java"],
                 "Python": ["ds1307.py"],
                 "Node.js": ["ds1307.js"],
                 "C++": ["ds1307.cxx"],

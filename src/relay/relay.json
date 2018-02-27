@@ -13,7 +13,7 @@
             "Kits": ["gsk", "eak", "hak"],
             "Image": "relay.jpg",
             "Examples": {
-                "Java": ["RelaySample.java"],
+                "Java": ["Relay_Example.java"],
                 "Python": ["relay.py"],
                 "Node.js": ["relay.js"],
                 "C++": ["relay.cxx"]

@@ -60,7 +60,7 @@
             "Kits": ["eak"],
             "Image": "my9221.jpg",
             "Examples": {
-                "Java": ["GroveLEDBar.java"],
+                "Java": ["GroveLEDBar_Example.java"],
                 "Python": ["groveledbar.py"],
                 "Node.js": ["groveledbar.js"],
                 "C++": ["my9221-groveledbar.cxx"]

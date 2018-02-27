@@ -16,7 +16,7 @@
             "Image": "a110x.jpg",
             "Examples":
             {
-                "Java": ["A110XSample.java", "A110X_intrSample.java"],
+                "Java": ["A110X_Example.java", "A110X_intr_Example.java"],
                 "Python": ["a110x.py"],
                 "Node.js": ["a110x.js"],
                 "C++": ["a110x-intr.cxx", "a110x.cxx"],

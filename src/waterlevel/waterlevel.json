@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "waterlevel.jpg",
             "Examples": {
-                "Java": ["WaterLevelSensor.java"],
+                "Java": ["WaterLevelSensor_Example.java"],
                 "Python": ["waterlevel.py"],
                 "Node.js": ["waterlevel.js"],
                 "C++": ["waterlevel.cxx"]

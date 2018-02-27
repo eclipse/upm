@@ -12,7 +12,7 @@
             "Manufacturers": ["Shiji Lighting", "Adafruit"],
             "Image": "apa102.jpg",
             "Examples": {
-                "Java": ["APA102Sample.java"],
+                "Java": ["APA102_Example.java"],
                 "Python": ["apa102.py"],
                 "Node.js": ["apa102.js"],
                 "C++": ["apa102.cxx"]

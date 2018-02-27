@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["LoLSample.java", "LoL_exampleSample.java"],
+                "Java": ["LoL_Example.java", "LoL_example_Example.java"],
                 "Python": [],
                 "Node.js": [],
                 "C++": ["lol.cxx"],

@@ -16,7 +16,7 @@
             "Image": "gsr.jpg",
             "Examples":
             {
-                "Java": ["Gsr.java"],
+                "Java": ["Gsr_Example.java"],
                 "Python": ["gsr.py"],
                 "Node.js": ["gsr.js"],
                 "C++": ["gsr.cxx"],

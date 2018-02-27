@@ -11,7 +11,7 @@
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["Maxim"],
             "Examples": {
-                "Java": ["MAXds3231mExample.java"],
+                "Java": ["MAXds3231m_Example.java"],
                 "C++": ["maxds3231m.cxx"]
             },
             "Specifications": {

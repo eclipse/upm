@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed", "Titan Micro Electronics"],
             "Image": "tm1637.jpeg",
             "Examples": {
-                "Java": ["TM1637Sample.java"],
+                "Java": ["TM1637_Example.java"],
                 "Python": ["tm1637.py"],
                 "Node.js": ["tm1637.js"],
                 "C++": ["tm1637.cxx"]

@@ -13,7 +13,7 @@
             "Kits": ["robok"],
             "Image": "vdiv.jpg",
             "Examples": {
-                "Java": ["VDivSample.java"],
+                "Java": ["VDiv_Example.java"],
                 "Python": ["vdiv.py"],
                 "Node.js": ["vdiv.js"],
                 "C++": ["vdiv.cxx"],

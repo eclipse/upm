@@ -13,7 +13,7 @@
             "Kits": ["eak"],
             "Image": "wfs.jpg",
             "Examples": {
-                "Java": ["WFSSample.java"],
+                "Java": ["WFS_Example.java"],
                 "Python": ["wfs.py"],
                 "Node.js": ["wfs.js"],
                 "C++": ["wfs.cxx"],

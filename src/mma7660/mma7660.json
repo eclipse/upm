@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed", "NXP"],
             "Image": "mma7660.jpg",
             "Examples": {
-                "Java": ["MMA7660Sample.java"],
+                "Java": ["MMA7660_Example.java"],
                 "Python": ["mma7660.py"],
                 "Node.js": ["mma7660.js"],
                 "C++": ["mma7660.cxx"],

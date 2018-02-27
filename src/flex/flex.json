@@ -16,7 +16,7 @@
             "Image": "flex.jpg",
             "Examples":
             {
-                "Java": ["FlexSensorExample.java"],
+                "Java": ["FlexSensor_Example.java"],
                 "Python": [],
                 "Node.js": ["flex.js"],
                 "C++": ["flex.cxx"],

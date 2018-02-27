@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["Lcm1602_i2cSample.java", "Lcm1602_parallelSample.java"],
+                "Java": ["Lcm1602_i2c_Example.java", "Lcm1602_parallel_Example.java"],
                 "Python": [],
                 "Node.js": [],
                 "C++": ["lcm1602-i2c.cxx", "lcm1602-parallel.cxx"],

@@ -53,8 +53,8 @@ function (_get_dependency_targets target return_variable)
     # Get the LINK_LIBRARIES property of the target
     get_target_property(_dep_libs ${target} LINK_LIBRARIES)
 
-    # Remove this libname from the _dep_libs (if it exists)
-    list(REMOVE_ITEM _dep_libs ${libname})
+    # Remove this target from the _dep_libs (if it exists)
+    list(REMOVE_ITEM _dep_libs ${target})
 
     # Check if any of the LINK_LIBRARIES are targets in this project,
     # if so, add them to ${return_variable}
@@ -575,6 +575,10 @@ function(upm_swig_java)
         COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:.
         COMMAND ${JAR} cf upm_${libname}.jar upm_${libname}
     )
+
+    # Save the absolute path of the jar file as a property of this java target
+    set_target_properties (javaupm_${libname} PROPERTIES
+        JAR_FILE_ABSOLUTE ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}.jar)
 
     # Keep track of all JAVA targets
     set(UPM_TARGETS_JAVA ${UPM_TARGETS_JAVA} javaupm_${libname} CACHE INTERNAL "List of JAVA target names")

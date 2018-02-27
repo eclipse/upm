@@ -13,7 +13,7 @@
             "Kits": ["hak"],
             "Image": "rotaryencoder.jpg",
             "Examples": {
-                "Java": ["RotaryEncoderSample.java"],
+                "Java": ["RotaryEncoder_Example.java"],
                 "Python": ["rotaryencoder.py"],
                 "Node.js": ["rotaryencoder.js"],
                 "C++": ["rotaryencoder.cxx"],

@@ -13,7 +13,7 @@
             "Kits": ["eak"],
             "Image": "water.jpg",
             "Examples": {
-                "Java": ["WaterSample.java"],
+                "Java": ["Water_Example.java"],
                 "Python": ["water.py"],
                 "Node.js": ["water.js"],
                 "C++": ["water.cxx"],

@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["Itg3200Sample.java"],
+                "Java": ["Itg3200_Example.java"],
                 "Python": ["itg3200.py"],
                 "Node.js": ["itg3200.js"],
                 "C++": ["itg3200.cxx"],

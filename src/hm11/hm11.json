@@ -16,7 +16,7 @@
             "Image": "hm11.jpg",
             "Examples":
             {
-                "Java": ["HM11Sample.java"],
+                "Java": ["HM11_Example.java"],
                 "Python": ["hm11.py"],
                 "Node.js": ["hm11.js"],
                 "C++": ["hm11.cxx"],

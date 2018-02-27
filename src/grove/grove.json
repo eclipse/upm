@@ -29,7 +29,7 @@
             "Kits": ["gsk"],
             "Image": "grovebutton.jpg",
             "Examples": {
-                "Java": ["GroveButtonSample.java", "GroveButton_intrSample.java"],
+                "Java": ["GroveButton_Example.java", "GroveButton_intr_Example.java"],
                 "Python": ["grovebutton.py"],
                 "Node.js": ["grovebutton.js"],
                 "C++": ["grove-grovebutton.cxx"]
@@ -75,7 +75,7 @@
             "Kits": ["gsk"],
             "Image": "groveled.jpg",
             "Examples": {
-                "Java": ["GroveLEDSample.java", "GroveLed_multiSample.java"],
+                "Java": ["GroveLED_Example.java", "GroveLed_multi_Example.java"],
                 "Python": ["groveled.py"],
                 "Node.js": ["groveled.js"],
                 "C++": ["grove-groveled.cxx", "grove-groveled-multi.cxx"]
@@ -122,7 +122,7 @@
             "Kits": ["gsk"],
             "Image": "grovelight.jpg",
             "Examples": {
-                "Java": ["GroveLightSample.java"],
+                "Java": ["GroveLight_Example.java"],
                 "Python": ["grovelight.py"],
                 "Node.js": ["grovelight.js"],
                 "C++": ["grove-grovelight.cxx"]
@@ -174,7 +174,7 @@
             "Kits": ["gsk", "eak", "hak"],
             "Image": "groverelay.jpg",
             "Examples": {
-                "Java": ["GroveRelaySample.java"],
+                "Java": ["GroveRelay_Example.java"],
                 "Python": ["groverelay.py"],
                 "Node.js": ["groverelay.js"],
                 "C++": ["grove-groverelay.cxx"]
@@ -238,7 +238,7 @@
             "Kits": ["gsk"],
             "Image": "groverotary.jpg",
             "Examples": {
-                "Java": ["GroveRotarySample.java"],
+                "Java": ["GroveRotary_Example.java"],
                 "Python": ["groverotary.py"],
                 "Node.js": ["groverotary.js"],
                 "C++": ["grove-groverotary.cxx"]
@@ -287,7 +287,7 @@
             "Manufacturers": ["Seeed"],
             "Images": "slide.jpg",
             "Examples": {
-                "Java": ["GroveSlideSample.java"],
+                "Java": ["GroveSlide_Example.java"],
                 "Python": ["groveslide.py"],
                 "Node.js": ["groveslide.js"],
                 "C++": ["grove-groveslide.cxx"]
@@ -338,7 +338,7 @@
             "Kits": ["gsk"],
             "Image": "grovetemp.jpg",
             "Examples": {
-                "Java": ["GroveTempSample.java"],
+                "Java": ["GroveTemp_Example.java"],
                 "Python": ["grovetemp.py"],
                 "Node.js": ["grovetemp.js"],
                 "C++": ["grove-grovetemp.cxx"]

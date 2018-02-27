@@ -12,7 +12,7 @@
             "Manufacturers": ["Allegro", "SparkFun", "generic"],
             "Image": "stepmotor.jpg",
             "Examples": {
-                "Java": ["StepMotorSample.java"],
+                "Java": ["StepMotor_Example.java"],
                 "Python": ["stepmotor.py"],
                 "Node.js": ["stepmotor.js"],
                 "C++": ["stepmotor.cxx"]

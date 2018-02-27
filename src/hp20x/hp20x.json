@@ -16,7 +16,7 @@
             "Image": "hp20x.jpg",
             "Examples":
             {
-                "Java": ["HP20xExample.java"],
+                "Java": ["HP20x_Example.java"],
                 "Python": ["hp20x.py"],
                 "Node.js": ["hp20x.js"],
                 "C++": ["hp20x.cxx"],

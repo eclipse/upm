@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["HCSR04Sample.java"],
+                "Java": ["HCSR04_Example.java"],
                 "Python": ["hcsr04.py"],
                 "Node.js": ["hcsr04.js"],
                 "C++": ["hcsr04.cxx"],

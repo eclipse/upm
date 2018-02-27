@@ -16,7 +16,7 @@
             "Image": "grovecollision.jpg",
             "Examples":
             {
-                "Java": ["GroveCollision.java"],
+                "Java": ["GroveCollision_Example.java"],
                 "Python": ["grovecollision.py"],
                 "Node.js": ["grovecollision.js"],
                 "C++": ["grovecollision.cxx"],

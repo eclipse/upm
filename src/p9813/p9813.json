@@ -12,7 +12,7 @@
             "Manufacturers": ["Adafruit", "Shiji Lighting"],
             "Image": "p9813.jpg",
             "Examples": {
-                "Java": ["P9813Sample.java"],
+                "Java": ["P9813_Example.java"],
                 "Python": ["p9813.py"],
                 "Node.js": ["p9813.js"],
                 "C++": ["p9813.cxx"]

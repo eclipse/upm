@@ -16,7 +16,7 @@
             "Image": "groveo2.jpg",
             "Examples":
             {
-                "Java": ["GroveO2Example.java"],
+                "Java": ["GroveO2_Example.java"],
                 "Python": ["groveo2.py"],
                 "Node.js": ["groveo2.js"],
                 "C++": ["groveo2.cxx"],

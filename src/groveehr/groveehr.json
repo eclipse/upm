@@ -16,7 +16,7 @@
             "Image": "groveehr.jpg",
             "Examples":
             {
-                "Java": ["GroveEHRSample.java"],
+                "Java": ["GroveEHR_Example.java"],
                 "Python": ["groveehr.py"],
                 "Node.js": ["groveehr.js"],
                 "C++": ["groveehr.cxx"],

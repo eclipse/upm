@@ -13,7 +13,7 @@
             "Kits": ["eak", "hak"],
             "Image": "moisture.jpg",
             "Examples": {
-                "Java": ["MoistureSample.java"],
+                "Java": ["Moisture_Example.java"],
                 "Python": ["moisture.py"],
                 "Node.js": ["moisture.js"],
                 "C++": ["moisture.cxx"],

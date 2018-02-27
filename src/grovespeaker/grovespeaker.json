@@ -16,7 +16,7 @@
             "Image": "grovespeaker.jpg",
             "Examples":
             {
-                "Java": ["GroveSpeakerSample.java"],
+                "Java": ["GroveSpeaker_Example.java"],
                 "Python": ["grovespeaker.py"],
                 "Node.js": ["grovespeaker.js"],
                 "C++": ["grovespeaker.cxx"],

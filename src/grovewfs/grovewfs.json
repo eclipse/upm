@@ -16,7 +16,7 @@
             "Image": "grovewfs.jpg",
             "Examples":
             {
-                "Java": ["GroveWFSSample.java"],
+                "Java": ["GroveWFS_Example.java"],
                 "Python": ["grovewfs.py"],
                 "Node.js": ["grovewfs.js"],
                 "C++": ["grovewfs.cxx"],

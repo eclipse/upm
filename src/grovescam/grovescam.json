@@ -16,7 +16,7 @@
             "Image": "grovescam.jpg",
             "Examples":
             {
-                "Java": ["GROVESCAMSample.java"],
+                "Java": ["GROVESCAM_Example.java"],
                 "Python": ["grovescam.py"],
                 "Node.js": ["grovescam.js"],
                 "C++": ["grovescam.cxx"],

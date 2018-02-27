@@ -16,7 +16,7 @@
             "Image": "led.jpg",
             "Examples":
             {
-                "Java": ["LEDSample.java"],
+                "Java": ["LED_Example.java"],
                 "Python": ["led.py"],
                 "Node.js": ["led.js"],
                 "C++": ["led.cxx"],

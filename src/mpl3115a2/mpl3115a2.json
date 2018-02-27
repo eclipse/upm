@@ -12,7 +12,7 @@
             "Manufacturers": ["NXP", "Adafruit"],
             "Image": "mpl3115a2.jpg",
             "Examples": {
-                "Java": ["MPL3115A2Sample.java"],
+                "Java": ["MPL3115A2_Example.java"],
                 "C++": ["mpl3115a2.cxx"]
             },
             "Specifications": {

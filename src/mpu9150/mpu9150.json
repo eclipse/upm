@@ -12,7 +12,7 @@
             "Manufacturers": ["InvenSense", "Seeed"],
             "Image": "mpu9150.jpg",
             "Examples": {
-                "Java": ["MPU9150Sample.java"],
+                "Java": ["MPU9150_Example.java"],
                 "Python": ["mpu9150.py"],
                 "Node.js": ["mpu9150.js"],
                 "C++": ["mpu9150-ak8975.cxx", "mpu9150-mpu60x0.cxx", "mpu9150-mpu9250.cxx", "mpu9150.cxx"]

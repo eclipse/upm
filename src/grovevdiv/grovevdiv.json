@@ -16,7 +16,7 @@
             "Image": "grovevdiv.jpg",
             "Examples":
             {
-                "Java": ["GroveVDivSample.java"],
+                "Java": ["GroveVDiv_Example.java"],
                 "Python": ["grovevdiv.py"],
                 "Node.js": ["grovevdiv.js"],
                 "C++": ["grovevdiv.cxx"],

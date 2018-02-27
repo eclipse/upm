@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed", "ZhianTec"],
             "Image": "zfm20.jpg",
             "Examples": {
-                "Java": ["ZFM20Sample.java"],
+                "Java": ["ZFM20_Example.java"],
                 "Python": ["zfm20-register.py", "zfm20.py"],
                 "Node.js": ["zfm20-register.js", "zfm20.js"],
                 "C++": ["zfm20-register.cxx", "zfm20.cxx"]

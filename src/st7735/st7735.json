@@ -12,7 +12,7 @@
             "Manufacturers": ["Adafruit", "Truly Semiconductors", "Sitronix"],
             "Image": "st7735.jpg",
             "Examples": {
-                "Java": ["ST7735Sample.java"],
+                "Java": ["ST7735_Example.java"],
                 "Node.js": ["st7735.js"],
                 "C++": ["st7735.cxx"]
             },

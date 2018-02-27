@@ -15,7 +15,7 @@
             "Kits": ["robok"],
             "Examples":
             {
-                "Java": ["Hmc5883lSample.java"],
+                "Java": ["Hmc5883l_Example.java"],
                 "Python": ["hmc5883l.py"],
                 "Node.js": ["hmc5883l.js"],
                 "C++": ["hmc5883l.cxx"],

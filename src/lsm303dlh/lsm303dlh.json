@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["LSM303DLHSample.java"],
+                "Java": ["LSM303DLH_Example.java"],
                 "Python": ["lsm303dlh.py"],
                 "Node.js": ["lsm303dhl.js"],
                 "C++": ["lsm303dlh.cxx"],

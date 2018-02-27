@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["HTU21DSample.java"],
+                "Java": ["HTU21D_Example.java"],
                 "Python": ["htu21d.py"],
                 "Node.js": ["htu21d.js"],
                 "C++": ["htu21d.cxx"],

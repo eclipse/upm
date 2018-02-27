@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["GroveEmg.java"],
+                "Java": ["GroveEmg_Example.java"],
                 "Python": ["groveemg.py"],
                 "Node.js": ["groveemg.js"],
                 "C++": ["groveemg.cxx"],

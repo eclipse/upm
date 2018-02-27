@@ -12,7 +12,7 @@
             "Manufacturers": ["SonMicro", "RFID Module - SM130 MIFARE (13.56 MHz)"],
             "Image": "sm130.jpg",
             "Examples": {
-                "Java": ["SM130Example.java"],
+                "Java": ["SM130_Example.java"],
                 "Python": ["sm130.py"],
                 "Node.js": ["sm130.js"],
                 "C++": ["sm130.cxx"]

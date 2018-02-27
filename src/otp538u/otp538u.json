@@ -13,7 +13,7 @@
             "Kits": ["hak"],
             "Image": "otp538u.jpg",
             "Examples": {
-                "Java": ["OTP538USample.java"],
+                "Java": ["OTP538U_Example.java"],
                 "Python": ["otp538u.py"],
                 "Node.js": ["otp538u.js"],
                 "C++": ["otp538u.cxx"],

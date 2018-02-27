@@ -13,7 +13,7 @@
             "Kits": ["gsk"],
             "Image": "rotary.jpg",
             "Examples": {
-                "Java": ["RotarySample.java"],
+                "Java": ["Rotary_Example.java"],
                 "Python": ["rotary.py"],
                 "Node.js": ["rotary.js"],
                 "C++": ["rotary.cxx"]

@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["GroveGsr.java"],
+                "Java": ["GroveGsr_Example.java"],
                 "Python": ["grovegsr.py"],
                 "Node.js": ["grovegsr.js"],
                 "C++": ["grovegsr.cxx"],

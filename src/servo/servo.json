@@ -13,7 +13,7 @@
             "Kits": ["gsk"],
             "Image": "es08a.jpg",
             "Examples": {
-                "Java": ["ES08ASample.java"],
+                "Java": ["ES08A_Example.java"],
                 "Python": ["es08a.py"],
                 "Node.js": ["es08a.js"],
                 "C++": ["servo-es08a.cxx"]
@@ -99,7 +99,7 @@
             "Manufacturers": ["EMAX"],
             "Image": "es08a.jpg",
             "Examples": {
-                "Java": ["ES08ASample.java"],
+                "Java": ["ES08A_Example.java"],
                 "Python": ["es08a.py", "es08a.py"],
                 "Node.js": ["es08a.js", "es08a.js"],
                 "C++": ["servo-es08a.cxx", "servo-es08a.cxx"]

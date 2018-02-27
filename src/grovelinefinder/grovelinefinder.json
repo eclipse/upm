@@ -16,7 +16,7 @@
             "Image": "grovelinefinder.jpg",
             "Examples":
             {
-                "Java": ["GroveLineFinderSample.java"],
+                "Java": ["GroveLineFinder_Example.java"],
                 "Python": ["grovelinefinder.py"],
                 "Node.js": ["grovelinefinder.js"],
                 "C++": ["grovelinefinder.cxx"],

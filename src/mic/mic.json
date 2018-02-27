@@ -16,7 +16,7 @@
             "Image": "mic.jpg",
             "Examples":
             {
-                "Java": ["MicrophoneSample.java"],
+                "Java": ["Microphone_Example.java"],
                 "Python": ["mic.py"],
                 "Node.js": ["mic.js"],
                 "C++": ["mic.cxx"]

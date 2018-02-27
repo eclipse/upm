@@ -16,7 +16,7 @@
             "Image": "joystick12.jpg",
             "Examples":
             {
-                "Java": ["Joystick12Sample.java", "Joystick12_exampleSample.java"],
+                "Java": ["Joystick12_Example.java", "Joystick12_example_Example.java"],
                 "Python": ["joystick12.py"],
                 "Node.js": ["joystick12.js"],
                 "C++": ["joystick12.cxx"],

@@ -16,7 +16,7 @@
             "Image": "linefinder.jpg",
             "Examples":
             {
-                "Java": ["LineFinderSample.java"],
+                "Java": ["LineFinder_Example.java"],
                 "Python": ["linefinder.py"],
                 "Node.js": ["linefinder.js"],
                 "C++": ["linefinder.cxx"],

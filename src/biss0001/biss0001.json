@@ -13,7 +13,7 @@
             "Kits": ["tsk"],
             "Image": "biss0001.jpg",
             "Examples": {
-                "Java": ["BISS0001Sample.java"],
+                "Java": ["BISS0001_Example.java"],
                 "Python": ["biss0001.py"],
                 "Node.js": ["biss0001.js"],
                 "C++": ["biss0001.cxx"],

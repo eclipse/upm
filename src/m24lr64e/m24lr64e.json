@@ -16,7 +16,7 @@
             "Image": "m24lr64e.jpg",
             "Examples":
             {
-                "Java": ["M24LR64ESample.java"],
+                "Java": ["M24LR64E_Example.java"],
                 "Python": ["m24lr64e.py"],
                 "Node.js": ["m24lr64e.js"],
                 "C++": ["m24lr64e.cxx"],

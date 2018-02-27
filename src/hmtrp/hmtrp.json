@@ -16,7 +16,7 @@
             "Image": "hmtrp.jpg",
             "Examples":
             {
-                "Java": ["HMTRPSample.java"],
+                "Java": ["HMTRP_Example.java"],
                 "Python": ["hmtrp.py"],
                 "Node.js": ["hmtrp.js"],
                 "C++": ["hmtrp.cxx"],

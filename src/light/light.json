@@ -16,7 +16,7 @@
             "Image": "light.jpg",
             "Examples":
             {
-                "Java": ["LightSample.java"],
+                "Java": ["Light_Example.java"],
                 "Python": ["light.py"],
                 "Node.js": ["light.js"],
                 "C++": ["light.cxx"],

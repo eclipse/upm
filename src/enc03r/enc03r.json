@@ -16,7 +16,7 @@
             "Image": "enc03r.jpg",
             "Examples":
             {
-                "Java": ["ENC03RSample.java"],
+                "Java": ["ENC03R_Example.java"],
                 "Python": ["enc03r.py"],
                 "Node.js": ["enc03r.js"],
                 "C++": ["enc03r.cxx"],

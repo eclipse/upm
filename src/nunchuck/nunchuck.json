@@ -13,7 +13,7 @@
             "Kits": ["robok"],
             "Image": "nunchuck.jpg",
             "Examples": {
-                "Java": ["NUNCHUCKSample.java"],
+                "Java": ["NUNCHUCK_Example.java"],
                 "Python": ["nunchuck.py"],
                 "Node.js": ["nunchuck.js"],
                 "C++": ["nunchuck.cxx"],

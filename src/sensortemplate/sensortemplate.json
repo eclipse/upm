@@ -99,7 +99,7 @@
                     "required": false
                 },
                 "Java": [
-                    "SensorTemplateSample.java"
+                    "SensorTemplate_Example_Example_Example.java"
                 ],
                 "// Python": {
                     "comment": "One or more Python examples.",

@@ -12,7 +12,7 @@
             "Manufacturers": ["NXP", "Freescale"],
             "Image": "mma7455.jpg",
             "Examples": {
-                "Java": ["MMA7455Sample.java"],
+                "Java": ["MMA7455_Example.java"],
                 "C++": ["mma7455.cxx"]
             },
             "Specifications": {

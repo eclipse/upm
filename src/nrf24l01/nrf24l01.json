@@ -12,7 +12,7 @@
             "Manufacturers": ["Nordic Semiconductor", "SparkFun"],
             "Image": "nrf24l01.jpg",
             "Examples": {
-                "Java": ["NRF24L01_receiverSample.java", "NRF24L01_transmitterSample.java"],
+                "Java": ["NRF24L01_receiver_Example.java", "NRF24L01_transmitter_Example.java"],
                 "C++": ["nrf24l01-broadcast.cxx", "nrf24l01-receiver.cxx", "nrf24l01-transmitter.cxx"]
             },
             "Specifications": {

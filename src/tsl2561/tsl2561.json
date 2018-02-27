@@ -13,7 +13,7 @@
             "Kits": ["eak"],
             "Image": "tsl2561.jpg",
             "Examples": {
-                "Java": ["TSL2561Sample.java", "Tsl2561.java"],
+                "Java": ["TSL2561_Example.java", "Tsl2561.java"],
                 "Python": ["tsl2561.py"],
                 "Node.js": ["tsl2561.js"],
                 "C++": ["tsl2561.cxx"],

@@ -13,7 +13,7 @@
             "Kits": ["hak"],
             "Image": "yg1006.jpg",
             "Examples": {
-                "Java": ["YG1006Sample.java"],
+                "Java": ["YG1006_Example.java"],
                 "Python": ["yg1006.py"],
                 "Node.js": ["yg1006.js"],
                 "C++": ["yg1006.cxx"],

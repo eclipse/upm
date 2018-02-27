@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "scam.jpg",
             "Examples": {
-                "Java": ["SCAMSample.java"],
+                "Java": ["SCAM_Example.java"],
                 "Python": ["scam.py"],
                 "Node.js": ["scam.js"],
                 "C++": ["scam.cxx"]

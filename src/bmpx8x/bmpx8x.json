@@ -15,7 +15,7 @@
             "Kits": [],
             "Examples":
             {
-                "Java": ["BMPX8XSample.java"],
+                "Java": ["BMPX8X_Example.java"],
                 "Python": ["bmpx8x.py"],
                 "Node.js": ["bmpx8x.js"],
                 "C++": ["bmpx8x.cxx"],

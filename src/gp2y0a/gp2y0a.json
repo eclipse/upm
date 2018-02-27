@@ -16,7 +16,7 @@
             "Image": "gp2y0a.jpg",
             "Examples":
             {
-                "Java": ["Gp2y0aExample.java"],
+                "Java": ["Gp2y0a_Example.java"],
                 "Python": ["gp2y0a.py"],
                 "Node.js": ["gp2y0a.js"],
                 "C++": ["gp2y0a.cxx"],

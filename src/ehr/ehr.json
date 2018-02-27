@@ -16,7 +16,7 @@
             "Image": "ehr.jpg",
             "Examples":
             {
-                "Java": ["EHRSample.java"],
+                "Java": ["EHR_Example.java"],
                 "Python": ["ehr.py"],
                 "Node.js": ["ehr.js"],
                 "C++": ["ehr.cxx"],

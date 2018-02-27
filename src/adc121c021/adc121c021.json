@@ -16,7 +16,7 @@
             "Image": "adc121c021.jpg",
             "Examples":
             {
-                "Java": ["ADC121C021Sample.java"],
+                "Java": ["ADC121C021_Example.java"],
                 "Python": ["adc121c021.py"],
                 "Node.js": ["adc121c021.js"],
                 "C++": ["adc121c021.cxx"],

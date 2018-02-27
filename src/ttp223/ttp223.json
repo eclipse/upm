@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "ttp223.jpg",
             "Examples": {
-                "Java": ["TTP223Sample.java"],
+                "Java": ["TTP223_Example.java"],
                 "Python": ["ttp223.py"],
                 "Node.js": ["ttp223.js"],
                 "C++": ["ttp223.cxx"],

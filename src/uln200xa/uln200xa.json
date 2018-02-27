@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "uln200xa.jpg",
             "Examples": {
-                "Java": ["ULN200XASample.java"],
+                "Java": ["ULN200XA_Example.java"],
                 "Python": ["uln200xa.py"],
                 "Node.js": ["uln200xa.js"],
                 "C++": ["uln200xa.cxx"],

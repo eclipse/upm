@@ -13,7 +13,7 @@
             "Kits": ["robot", "tsk"],
             "Image": "rfr359f.jpg",
             "Examples": {
-                "Java": ["RFR359FSample.java"],
+                "Java": ["RFR359F_Example.java"],
                 "Python": ["rfr359f.py"],
                 "Node.js": ["rfr359f.js"],
                 "C++": ["rfr359f.cxx"]

@@ -13,7 +13,7 @@
             "Kits": ["eak"],
             "Image": "ppd42ns.jpg",
             "Examples": {
-                "Java": ["PPD42NSSample.java"],
+                "Java": ["PPD42NS_Example.java"],
                 "Python": ["ppd42ns.py"],
                 "Node.js": ["ppd42ns.js"],
                 "C++": ["ppd42ns.cxx"],

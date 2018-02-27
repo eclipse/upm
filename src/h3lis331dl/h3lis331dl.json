@@ -16,7 +16,7 @@
             "Image": "h3lis331dl.jpg",
             "Examples":
             {
-                "Java": ["H3LIS331DLSample.java"],
+                "Java": ["H3LIS331DL_Example.java"],
                 "Python": ["h3lis331dl.py"],
                 "Node.js": ["h3lis331dl.js"],
                 "C++": ["h3lis331dl.cxx"],

@@ -16,7 +16,7 @@
             "Image": "collision.jpg",
             "Examples":
             {
-                "Java": ["Collision.java"],
+                "Java": ["Collision_Example.java"],
                 "Python": ["collision.py"],
                 "Node.js": ["collision.js"],
                 "C++": ["collision.cxx"],

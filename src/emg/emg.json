@@ -16,7 +16,7 @@
             "Image": "emg.jpg",
             "Examples":
             {
-                "Java": ["Emg.java"],
+                "Java": ["Emg_Example.java"],
                 "Python": ["emg.py"],
                 "Node.js": ["emg.js"],
                 "C++": ["emg.cxx"],

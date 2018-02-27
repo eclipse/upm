@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed", "Zhengzhou Winsen Electronics Technology"],
             "Image": "mhz16.jpg",
             "Examples": {
-                "Java" : ["MHZ16Sample.java"],
+                "Java" : ["MHZ16_Example.java"],
                 "Python": ["mhz16.py"],
                 "Node.js": ["mhz16.js"],
                 "C++": ["mhz16.cxx"]

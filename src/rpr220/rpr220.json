@@ -13,7 +13,7 @@
             "Kits": ["tsk", "hak"],
             "Image": "rpr220.jpg",
             "Examples": {
-                "Java": ["RPR220Sample.java", "RPR220_intrSample.java"],
+                "Java": ["RPR220_Example.java", "RPR220_intr_Example.java"],
                 "Python": ["rpr220.py"],
                 "Node.js": ["rpr220.js"],
                 "C++": ["rpr220-intr.cxx", "rpr220.cxx"],

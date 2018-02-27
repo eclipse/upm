@@ -11,7 +11,7 @@
             "Project Type": ["prototyping", "commercial"],
             "Manufacturers": ["maxim"],
             "Examples": {
-                "Java": ["MAX5487Example.java"],
+                "Java": ["MAX5487_Example.java"],
                 "C++": ["max5487.cxx"]
             },
             "Specifications": {

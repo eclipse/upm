@@ -13,7 +13,7 @@
             "Kits": ["robok"],
             "Image": "md.jpg",
             "Examples": {
-                "Java": ["GroveMDSample.java"],
+                "Java": ["GroveMD_Example.java"],
                 "Python": ["grovemd-stepper.py", "grovemd.py"],
                 "Node.js": ["md-stepper.js", "md.js"],
                 "C++": ["md-stepper.cxx", "md.cxx"],

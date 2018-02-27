@@ -12,7 +12,7 @@
             "Manufacturers": ["Adafruit"],
             "Image": "pulsensor.jpg",
             "Examples": {
-                "Java": ["PulsensorSample.java"],
+                "Java": ["Pulsensor_Example.java"],
                 "C++": ["pulsensor.cxx"]
             },
             "Specifications": {

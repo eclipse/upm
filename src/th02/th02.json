@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "th02.jpg",
             "Examples": {
-                "Java": ["Th02Example.java"],
+                "Java": ["Th02_Example.java"],
                 "C++": ["th02.cxx"]
             },
             "Specifications": {

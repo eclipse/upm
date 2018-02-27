@@ -16,7 +16,7 @@
             "Image": "ad8232.jpg",
             "Examples":
             {
-                "Java": ["Ad8232Example.java"],
+                "Java": ["Ad8232_Example.java"],
                 "Python": ["ad8232.py"],
                 "Node.js": ["ad8232.js"],
                 "C++": ["ad8232.cxx"]

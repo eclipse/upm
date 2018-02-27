@@ -12,7 +12,7 @@
             "Manufacturers": ["Seeed"],
             "Image": "slide.jpg",
             "Examples": {
-                "Java" : ["SlideSample.java"],
+                "Java" : ["Slide_Example.java"],
                 "Python": ["slide.py"],
                 "Node.js": ["slide.js"],
                 "C++": ["slide.cxx"],

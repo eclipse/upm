@@ -15,7 +15,7 @@
             "Kits": ["gsk"],
             "Examples":
             {
-                "Java": ["Jhd1313m1Sample.java", "Jhd1313m1_lcdSample.java"],
+                "Java": ["Jhd1313m1_Example.java", "Jhd1313m1_lcd_Example.java"],
                 "Python": ["jhd1313m1-lcd.py"],
                 "Node.js": ["jhd1313m1-lcd.js"],
                 "C++": ["jhd1313m1-lcd.cxx"],

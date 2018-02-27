@@ -16,7 +16,7 @@
             "Image": "ldt0028.jpg",
             "Examples":
             {
-                "Java": ["LDT0028Sample.java"],
+                "Java": ["LDT0028_Example.java"],
                 "Python": ["ldt0028.py"],
                 "Node.js": ["ldt0028.js"],
                 "C++": ["ldt0028.cxx"],

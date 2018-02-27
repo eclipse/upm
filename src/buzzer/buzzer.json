@@ -16,7 +16,7 @@
             "Image": "buzzer.jpg",
             "Examples":
             {
-                "Java": ["BuzzerSample.java"],
+                "Java": ["Buzzer_Example.java"],
                 "Python": ["buzzer.py"],
                 "Node.js": ["buzzer.js"],
                 "C++": ["buzzer.cxx"],

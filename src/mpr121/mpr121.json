@@ -13,7 +13,7 @@
             "Kits": ["tsk"],
             "Image": "mpr121.jpg",
             "Examples": {
-                "Java": ["MPR121Sample.java"],
+                "Java": ["MPR121_Example.java"],
                 "Python": ["mpr121.py"],
                 "Node.js": ["mpr121.js"],
                 "C++": ["mpr121.cxx"],

@@ -16,7 +16,7 @@
             "Image": "grovemoisture.jpg",
             "Examples":
             {
-                "Java": ["GroveMoistureSample.java"],
+                "Java": ["GroveMoisture_Example.java"],
                 "Python": ["grovemoisture.py"],
                 "Node.js": ["grovemoisture.js"],
                 "C++": ["grovemoisture.cxx"],

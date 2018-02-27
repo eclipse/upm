@@ -16,7 +16,7 @@
             "Image": "button.jpg",
             "Examples":
             {
-                "Java": ["ButtonSample.java", "Button_intrSample.java"],
+                "Java": ["Button_Example.java", "Button_intr_Example.java"],
                 "Python": ["button.py"],
                 "Node.js": ["button.js"],
                 "C++": ["button.cxx"],
