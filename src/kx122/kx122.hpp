@@ -510,5 +510,9 @@ namespace upm{
     private:
       //Device context
       kx122_context m_kx122;
+
+      /* Disable implicit copy and assignment operators */
+      KX122(const KX122&) = delete;
+      KX122 &operator=(const KX122&) = delete;
   };
 }
