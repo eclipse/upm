@@ -82,3 +82,6 @@ endif (BUILDSWIGPYTHON AND PYTHON3INTERP_FOUND)
 #        -DUPMBASEDIR=${CMAKE_SOURCE_DIR}
 #        -P ${CMAKE_SOURCE_DIR}/tests/runjsontest.cmake)
 #endif(NPM_EXECUTABLE)
+
+# Unit tests
+add_subdirectory (unit)

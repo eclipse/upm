@@ -52,8 +52,9 @@ static struct aqi {
 
 void upm_delay(unsigned int time)
 {
-    if (time <= 0)
-        time = 1;
+    /* Return if time == 0 */
+    if (!time)
+        return;
 
 #if defined(UPM_PLATFORM_LINUX)
 
@@ -92,8 +93,9 @@ void upm_delay(unsigned int time)
 
 void upm_delay_ms(unsigned int time)
 {
-    if (time <= 0)
-        time = 1;
+    /* Return if time == 0 */
+    if (!time)
+        return;
 
 #if defined(UPM_PLATFORM_LINUX)
 
@@ -128,8 +130,9 @@ void upm_delay_ms(unsigned int time)
 
 void upm_delay_us(unsigned int time)
 {
-    if (time <= 0)
-        time = 1;
+    /* Return if time == 0 */
+    if (!time)
+        return;
 
 #if defined(UPM_PLATFORM_LINUX)
 
