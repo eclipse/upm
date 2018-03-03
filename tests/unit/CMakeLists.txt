@@ -7,6 +7,13 @@ if(NOT GTEST_FOUND)
     return ()
 endif()
 
+# Unit tests - utilities library
 add_executable(utilities_tests utilities/utilities_tests.cxx)
 target_link_libraries(utilities_tests utilities GTest::GTest GTest::Main)
 gtest_add_tests(utilities_tests "" AUTO)
+
+# Unit tests - Json header
+add_executable(json_tests json/json_tests.cxx)
+target_link_libraries(json_tests GTest::GTest GTest::Main)
+target_include_directories(json_tests PRIVATE "${UPM_COMMON_HEADER_DIRS}/")
+gtest_add_tests(json_tests "" AUTO)
