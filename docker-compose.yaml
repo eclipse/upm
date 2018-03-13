@@ -30,6 +30,12 @@ services:
     extends: base
     image: inteliotdevkit/upm-all
 
+  minimal:
+    extends: base
+    environment:
+      - BUILDFTI=OFF
+    command: bash -c "./scripts/run-cmake.sh && cd build && make && ctest -R unit --output-on-failure"
+
   doc:
     extends: all
     environment:
