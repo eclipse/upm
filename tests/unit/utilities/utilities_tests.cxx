@@ -57,8 +57,8 @@ TEST_F(utilities_unit, test_upm_delay_us)
     upm_delay_us(0);
     upm_delay_us(1000);
 
-    /* +- check for 1000us +/- 100us */
-    ASSERT_NEAR(upm_elapsed_us(&clock), 1000, 100);
+    /* +- check for 1000us +/- 150us */
+    ASSERT_NEAR(upm_elapsed_us(&clock), 1000, 150);
 }
 
 /* Currently no need for a custom main (use gtest's)
