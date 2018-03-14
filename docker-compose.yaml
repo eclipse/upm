@@ -13,6 +13,7 @@ services:
       - BUILDFTI=${BUILDFTI:-ON}
       - BUILDSWIGPYTHON=${BUILDSWIGPYTHON:-OFF}
       - BUILDSWIGJAVA=${BUILDSWIGJAVA:-OFF}
+      - BUILDCORDOVA=${BUILDCORDOVA:-OFF}
       - BUILDSWIGNODE=${BUILDSWIGNODE:-OFF}
       - BUILDEXAMPLES=${BUILDEXAMPLES:-OFF}
       - IPK=${IPK:-OFF}
@@ -112,6 +113,13 @@ services:
     environment:
       - BUILDTESTS=OFF
     command: bash -c "./scripts/build-android.sh"
+
+  cordova:
+    extends: all
+    environment:
+      - BUILDSWIGJAVA=ON
+      - BUILDCORDOVA=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8"
 
   node4:
     extends: base
