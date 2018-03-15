@@ -51,6 +51,9 @@ class loadModule(unittest.TestCase):
                 print('Skipping blacklisted %s ...' % pyfile)
                 continue
 
+            # Append the path of this python module
+            sys.path.append(os.path.dirname(pyfile))
+
             try:
                 pyfile = imp.load_source(module, pyfile)
             except Exception as x:
