@@ -178,7 +178,7 @@ if (BUILDCORDOVA)
 
   find_package (Node REQUIRED)
   find_package (Npm REQUIRED)
-  find_package (Cordova REQUIRED)
+  find_package (UpmCordovaGenerator 0.2.1 REQUIRED)
 endif (BUILDCORDOVA)
 
 # Find swig if any wrapper is enabled
