@@ -4,6 +4,11 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# vNext
+ * The interface of **kx122** has been modified to return values instead of
+ receiving pointers.  This applies to member functions: getWhoAmI,
+ getInterruptSource, getBufferStatus, getRawBufferSamples, and getBufferSamples.
+
 # v1.6.0
 
  * Several C libraries had their init function pin type modified from uint8_t
