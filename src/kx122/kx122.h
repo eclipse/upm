@@ -47,7 +47,7 @@ extern "C"{
  */
 
 //Frequency of the SPI connection
-#define SPI_FREQUENCY 10000
+#define DEFAULT_SPI_FREQUENCY 10000
 
 //Default slave addresses for the sensor
 #define KX122_DEFAULT_SLAVE_ADDR_1 0x1F
@@ -170,9 +170,10 @@ If no errors occur, the device gets initialized with default values and gets set
 @param bus I2C or SPI bus to use.
 @param addr I2C address of the sensor.
 @param chip_select Chip select pin for SPI.
+@param spi_bus_frequency Speed of the SPI communication bus in Hz (ignored when using I2C).
 @return The device context, or NULL if an error occurs.
 */
-kx122_context kx122_init(int bus, int addr, int chip_select_pin);
+kx122_context kx122_init(int bus, int addr, int chip_select_pin, int spi_bus_frequency);
 
 /**
 KX122 destructor

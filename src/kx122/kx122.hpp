@@ -50,9 +50,10 @@ namespace upm{
       @param bus I2C or SPI bus to use.
       @param addr I2C address of the sensor.
       @param chip_select Chip select pin for SPI.
+      @param spi_bus_frequency Speed of the SPI communication bus in Hz.
       @throws std::runtime_error on initialization failure.
       */
-      KX122(int bus, int addr, int chip_select);
+      KX122(int bus, int addr, int chip_select, int spi_bus_frequency = DEFAULT_SPI_FREQUENCY);
 
       /**
       KX122 destructor
