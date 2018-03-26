@@ -32,7 +32,8 @@
 
 using namespace upm;
 
-KX122::KX122(int bus, int addr, int chip_select) : m_kx122(kx122_init(bus,addr,chip_select))
+KX122::KX122(int bus, int addr, int chip_select, int spi_bus_frequency)
+  : m_kx122(kx122_init(bus,addr,chip_select,spi_bus_frequency))
 {
   if(!m_kx122){
     throw std::runtime_error(std::string(__FUNCTION__) + "kx122_init() failed");

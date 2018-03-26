@@ -161,7 +161,7 @@ Sets acceleration scale of sensor and the buffer.
 */
 static void kx122_map_grange(const kx122_context dev, KX122_RANGE_T grange);
 
-kx122_context kx122_init(int bus, int addr, int chip_select_pin)
+kx122_context kx122_init(int bus, int addr, int chip_select_pin, int spi_bus_frequency)
 {
   kx122_context dev = (kx122_context)malloc(sizeof(struct _kx122_context));
 
@@ -190,6 +190,12 @@ kx122_context kx122_init(int bus, int addr, int chip_select_pin)
 
   if(dev->using_spi){
 
+    if (spi_bus_frequency > 10000000){	// KX122 has a maximum SPI bus speed of 10MHz
+      printf("%s: bus frequency too high - KX122 has a maximum SPI bus speed of 10MHz.\n", __FUNCTION__);
+      kx122_close(dev);
+      return NULL;
+    }
+
     if (!(dev->spi = mraa_spi_init(bus))){
       printf("%s: mraa_spi_init() failed.\n", __FUNCTION__);
       kx122_close(dev);
@@ -205,7 +211,7 @@ kx122_context kx122_init(int bus, int addr, int chip_select_pin)
     mraa_gpio_dir(dev->chip_select,MRAA_GPIO_OUT);
     mraa_spi_mode(dev->spi,MRAA_SPI_MODE0);
 
-    if (mraa_spi_frequency(dev->spi,SPI_FREQUENCY)){
+    if (mraa_spi_frequency(dev->spi, spi_bus_frequency)){
       printf("%s: mraa_spi_frequency() failed.\n", __FUNCTION__);
       kx122_close(dev);
       return NULL;

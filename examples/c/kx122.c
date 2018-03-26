@@ -43,7 +43,7 @@ int main(int argc, char **argv)
   signal(SIGINT,sig_handler);
 
   //! [Interesting]
-  kx122_context sensor = kx122_init(0,-1,24);
+  kx122_context sensor = kx122_init(0, -1, 24, 10000);
   if (!sensor)
   {
       printf("kx122_init() failed.\n");
