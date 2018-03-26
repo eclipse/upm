@@ -82,10 +82,10 @@ namespace upm{
       /**
       Gets who am i value of the sensor.
 
-      @param data Pointer to a uint8_t variable to store the value.
+      @return Who am I value of the sensor.
       @throws std::runtime_error on failure.
       */
-      void getWhoAmI(uint8_t *data);
+      uint8_t getWhoAmI();
 
       /**
       Gets raw accelerometer data from the sensor.
@@ -339,10 +339,10 @@ namespace upm{
 
       See datasheet for more details.
 
-      @param data Pointer to a uint8_t variable to store the value.
+      @return Interrupt source value.
       @throws std::runtime_error on failure.
       */
-      void getInterruptSource(uint8_t *data);
+      uint8_t getInterruptSource();
 
       /**
       Clears latching interrupts (Wakeup, Data Ready).
@@ -470,36 +470,28 @@ namespace upm{
       /**
       Gets the current amount of samples in the buffer.
 
-      @param samples Pointer to an uint variable to store the data.
+      @return number of samples in the buffer.
       @throws std::runtime_error on failure.
       */
-      void getBufferStatus(uint *samples);
+      uint getBufferStatus();
 
       /**
       Gets the specified amount of raw acceleration samples from the buffer.
 
-      Make sure the array size is at least the amount of samples to be read.
-
       @param len The amount of samples to read from the buffer.
-      @param x_array Pointer to an floating point array to store the x-axis data. Can be set to NULL if not wanted.
-      @param y_array Pointer to an floating point array to store the y-axis data. Can be set to NULL if not wanted.
-      @param z_array Pointer to an floating point array to store the z-axis data. Can be set to NULL if not wanted.
+      @return vector containing x, y & z-axis data
       @throws std::runtime_error on failure.
       */
-      void getRawBufferSamples(uint len, float *x_array, float *y_array, float *z_array);
+      std::vector<float> getRawBufferSamples(uint len);
 
       /**
       Gets the specified amount of converted (m/s^2) acceleration samples from the buffer.
 
-      Make sure the array size is at least the amount of samples to be read.
-
       @param len The amount of samples to read from the buffer.
-      @param x_array Pointer to an floating point array to store the x-axis data. Can be set to NULL if not wanted.
-      @param y_array Pointer to an floating point array to store the y-axis data. Can be set to NULL if not wanted.
-      @param z_array Pointer to an floating point array to store the z-axis data. Can be set to NULL if not wanted.
+      @return vector containing x, y & z-axis data
       @throws std::runtime_error on failure.
       */
-      void getBufferSamples(uint len, float *x_array, float *y_array, float *z_array);
+      std::vector<float> getBufferSamples(uint len);
 
       /**
       Clears the buffer, removing all existing samples from the buffer.

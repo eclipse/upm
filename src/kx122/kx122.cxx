@@ -56,11 +56,15 @@ float KX122::getSamplePeriod()
   return kx122_get_sample_period(m_kx122);
 }
 
-void KX122::getWhoAmI(uint8_t *data)
+uint8_t KX122::getWhoAmI()
 {
-  if(kx122_get_who_am_i(m_kx122,data)){
+  uint8_t data;
+
+  if(kx122_get_who_am_i(m_kx122, &data)){
 	throw std::runtime_error(std::string(__FUNCTION__) + "kx122_get_who_am_i failed");
   }
+
+  return data;
 }
 void KX122::getRawAccelerationData(float *x, float *y, float *z)
 {
@@ -220,11 +224,14 @@ bool KX122::getInterruptStatus()
   return kx122_get_interrupt_status(m_kx122);
 }
 
-void KX122::getInterruptSource(uint8_t *data)
+uint8_t KX122::getInterruptSource()
 {
-  if(kx122_get_interrupt_source(m_kx122,data)){
+  uint8_t data;
+  if(kx122_get_interrupt_source(m_kx122, &data)){
     throw std::runtime_error(std::string(__FUNCTION__) + "kx122_get_interrupt_source failed");
   }
+
+  return data;
 }
 
 void KX122::clearInterrupt()
@@ -304,25 +311,53 @@ void KX122::setBufferMode(KX122_BUFFER_MODE_T mode)
   }
 }
 
-void KX122::getBufferStatus(uint *samples)
+uint KX122::getBufferStatus()
 {
-  if(kx122_get_buffer_status(m_kx122,samples)){
+  uint nb_samples = 0;
+  if(kx122_get_buffer_status(m_kx122, &nb_samples)){
     throw std::runtime_error(std::string(__FUNCTION__) + "kx122_get_buffer_status failed");
   }
+  
+  return nb_samples;
 }
 
-void KX122::getRawBufferSamples(uint len, float *x_array, float *y_array, float *z_array)
+//Maximum number of samples that can be stored in the buffer of the KX122
+#define MAX_SAMPLES_IN_BUFFER 681
+
+std::vector<float> KX122::getRawBufferSamples(uint len)
 {
-  if(kx122_read_buffer_samples_raw(m_kx122,len,x_array,y_array,z_array)){
+  float bufferx[MAX_SAMPLES_IN_BUFFER], buffery[MAX_SAMPLES_IN_BUFFER], bufferz[MAX_SAMPLES_IN_BUFFER];
+  if(kx122_read_buffer_samples_raw(m_kx122,len,bufferx,buffery,bufferz)){
     throw std::runtime_error(std::string(__FUNCTION__) + "kx122_read_buffer_samples_raw failed");
   }
+
+  std::vector<float> xyz_array(len * 3);
+  for (uint i = 0; i < len; i++)
+  {
+	  xyz_array[i * 3 + 0] = bufferx[i];
+	  xyz_array[i * 3 + 1] = buffery[i];
+	  xyz_array[i * 3 + 2] = bufferz[i];
+  }
+  
+  return xyz_array;
 }
 
-void KX122::getBufferSamples(uint len, float *x_array, float *y_array, float *z_array)
+std::vector<float> KX122::getBufferSamples(uint len)
 {
-  if(kx122_read_buffer_samples(m_kx122,len,x_array,y_array,z_array)){
+  float bufferx[MAX_SAMPLES_IN_BUFFER], buffery[MAX_SAMPLES_IN_BUFFER], bufferz[MAX_SAMPLES_IN_BUFFER];
+  if(kx122_read_buffer_samples(m_kx122,len,bufferx,buffery,bufferz)){
     throw std::runtime_error(std::string(__FUNCTION__) + "kx122_read_buffer_samples failed");
   }
+ 
+  std::vector<float> xyz_array(len * 3);
+  for (uint i = 0; i < len; i++)
+  {
+	  xyz_array[i * 3 + 0] = bufferx[i];
+	  xyz_array[i * 3 + 1] = buffery[i];
+	  xyz_array[i * 3 + 2] = bufferz[i];
+  }
+  
+  return xyz_array;
 }
 
 void KX122::clearBuffer()
