@@ -63,7 +63,7 @@ buzzer_context buzzer_init(int pin)
 
     mraa_pwm_enable(dev->pwm, 1);
 
-    buzzer_set_volume(dev, 1.0);
+    buzzer_set_volume(dev, 0.01);
 
     dev->initialized = true;
     return dev;

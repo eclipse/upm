@@ -30,7 +30,6 @@
 #include <string>
 #include <iostream>
 
-#include "mraa/initio.hpp"
 #include "upm_string_parser.hpp"
 #include <upm_utilities.h>
 #include "buzzer.hpp"
@@ -46,73 +45,95 @@ Buzzer::Buzzer(int pinNumber) : m_buzzer(buzzer_init(pinNumber))
                                  ": buzzer_init() failed");
 }
 
-Buzzer::Buzzer(std::string initStr)
+Buzzer::Buzzer(std::string initStr) : mraaIo(initStr)
 {
-    mraa::MraaIo mraaIo(initStr);
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
     std::vector<std::string> upmTokens;
 
     if (mraaIo.getLeftoverStr() != "") {
-      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
     }
 
-    m_buzzer = nullptr;
-    if (!mraaIo.pwms.empty()) {
-      m_buzzer = mraaIo.pwms[0];
+    m_buzzer = (buzzer_context)malloc(sizeof(struct _buzzer_context));
+
+    if (!m_buzzer)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": buzzer_init() failed");
+
+    m_buzzer->pwm = NULL;
+    m_buzzer->volume = 0.0;
+    m_buzzer->initialized = false;
+
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        buzzer_close(m_buzzer);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_init() failed");
     }
 
-    if (m_buzzer == nullptr) {
-      throw std::runtime_error(std::string(__FUNCTION__) +
-            ": null buzzer context");
+    if(!descs->pwms)
+    {
+        buzzer_close(m_buzzer);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_pwm_init() failed");
     }
+    else
+    {
+        if( !(m_buzzer->pwm = descs->pwms[0]) )
+        {
+            buzzer_close(m_buzzer);
+            throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_pwm_init() failed");
+        }
+    }
+    mraa_pwm_enable(m_buzzer->pwm, 1);
 
-    volume = 1.0;
-    m_buzzer.enable(true);
-
-    /*
     for (std::string tok : upmTokens) {
-      if (tok.substr(0, 4) == "vol:") {
-        // setVolume(::atof(tok.substr(4));
-      } else {}
-    }*/
+        if(tok.substr(0, 4) == "vol:") {
+            float vol = std::stof(tok.substr(4));
+            setVolume(vol);
+        }
+        if(tok.substr(0, 5) == "play:") {
+            std::string::size_type sz;
+            int note  = std::stoi(tok.substr(5), &sz);
+            tok = tok.substr(5);
+            int delay = std::stoi(tok.substr(sz+1));
+            playSound(note, delay);
+        }
+    }
+
+    m_buzzer->initialized = true;
 }
 
 Buzzer::~Buzzer()
 {
-    stopSound();
-    m_buzzer.enable(false);
+    buzzer_close(m_buzzer);
 }
 
 void Buzzer::setVolume(float vol)
 {
-    volume = vol;
+    buzzer_set_volume(m_buzzer, vol);
 }
 
 float Buzzer::getVolume()
 {
-    return volume;
+    return buzzer_get_volume(m_buzzer);
 }
 
 int Buzzer::playSound(int note, int delay)
 {
-    if (m_buzzer.period_us(note) != MRAA_SUCCESS) {
-        cout << "period() error\n";
-    }
-
-    if (m_buzzer.write(volume * 0.5)) {
-        cout << "write() error\n";
-    }
-
-    if (delay >= 0) {
-        upm_delay_us(delay);
-        stopSound();
-    }
-
+    if (buzzer_play_sound(m_buzzer, note, delay))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": buzzer_play_sound() failed");
     return note;
 }
 
 void Buzzer::stopSound()
 {
-    m_buzzer.period_us(1);
-    m_buzzer.write(0);
+    if (buzzer_stop_sound(m_buzzer))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": buzzer_stop_sound() failed");
 }
 

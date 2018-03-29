@@ -7,6 +7,6 @@
 int
 main(int argc, char** argv)
 {
-  upm::Buzzer buzzer("p:33,vol:1.0");
+  upm::Buzzer buzzer("p:32,vol:0.01,play:3800:500000");
   return 0;
 }

@@ -111,38 +111,6 @@ extern "C" {
      */
     float buzzer_get_volume(const buzzer_context dev);
 
-    char** upm_parse_init_str(const char* str, const char* delims, int *num_tokens)
-    {
-      char *saveptr, *tok, *s, *p_str;
-      char **output = NULL;
-      size_t output_size = 0;
-
-      p_str = strdup(str);
-
-      for (s = p_str; ; s = NULL) {
-        tok = strtok_r(s, delims, &saveptr);
-        if (tok == NULL)
-          break;
-        output = (char**)realloc(output, (++output_size) * sizeof(char*));
-        output[output_size - 1] = (char*)calloc(strlen(tok) + 1, sizeof(char));
-        strncpy(output[output_size - 1], tok, strlen(tok));
-      }
-      *num_tokens = output_size;
-
-      free(p_str);
-
-      return output;
-    }
-
-    void upm_delete_parsed_str(char **str, int num_tokens)
-    {
-      for (int i = 0; i < num_tokens; ++i) {
-        free(str[i]);
-      }
-
-      free(str);
-    }
-
 #ifdef __cplusplus
 }
 #endif
