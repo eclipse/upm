@@ -30,7 +30,8 @@
 #include <string>
 #include <vector>
 #include <mraa/pwm.hpp>
-//#include <buzzer.h>
+#include <mraa/initio.hpp>
+#include <buzzer.h>
 
 namespace upm {
 
@@ -74,7 +75,6 @@ namespace upm {
          * Instantiates a Buzzer object based on a given string.
          *
          * @param initStr string containing specific information for Buzzer initialization.
-         * Usage: TODO
          */
         Buzzer(std::string initStr);
 
@@ -128,10 +128,8 @@ namespace upm {
 
     protected:
         std::string m_name;
-        mraa::Pwm m_buzzer;
-        float volume;
-        bool initialized;
-        //buzzer_context m_buzzer;
+        mraa::MraaIo mraaIo;
+        buzzer_context m_buzzer;
     private:
         /* Disable implicit copy and assignment operators */
         Buzzer(const Buzzer&) = delete;

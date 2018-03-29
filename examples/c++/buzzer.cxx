@@ -35,7 +35,7 @@ main(int argc, char** argv)
     int chord[] = { BUZZER_DO, BUZZER_RE, BUZZER_MI, BUZZER_FA, BUZZER_SOL, BUZZER_LA, BUZZER_SI };
 
     // create Buzzer instance
-    upm::Buzzer sound(5);
+    upm::Buzzer sound(32);
     // print sensor name
     std::cout << sound.name() << std::endl;
 
