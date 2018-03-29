@@ -16,7 +16,8 @@ set (module_hpp iADC.hpp
                 iLightSensor.hpp
                 iModuleStatus.hpp
                 iPressureSensor.hpp
-                iTemperatureSensor.hpp)
+                iTemperatureSensor.hpp
+                UpmObject.hpp)
 # Install interfaces headers a bit differently
 install (FILES ${module_hpp} DESTINATION include/upm/${libname}
     COMPONENT ${CMAKE_PROJECT_NAME})
