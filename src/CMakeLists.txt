@@ -668,6 +668,17 @@ if (BUILDSWIGNODE)
   endmacro(createpackagejson)
 endif(BUILDSWIGNODE)
 
+# Cordova binding
+if (BUILDCORDOVA)
+  add_custom_target(cordova_binding ALL
+                    COMMAND upm-cordova-binding ${CMAKE_BINARY_DIR}/src ${CMAKE_BINARY_DIR}/cordova ${VERSION}
+                    COMMENT "Building cordova bindings based on swig java modules")
+
+  install(DIRECTORY ${CMAKE_BINARY_DIR}/cordova
+      DESTINATION ${CMAKE_INSTALL_PREFIX}
+      COMPONENT ${CMAKE_PROJECT_NAME}-cordova)
+endif (BUILDCORDOVA)
+
 # Process C/C++ sensor modules
 # This function pre-processes sensor library input and hands off the
 # necessary global variables to upm_module_init for library creation,
@@ -820,6 +831,13 @@ function(upm_module_init)
       upm_swig_java()
     endif (BUILDSWIGJAVA)
   endif (NOT IS_C_LIBRARY)
+
+  # Skip if the libname is in the blacklist
+  if (BUILDCORDOVA)
+    if (NOT IS_C_LIBRARY AND NOT ";${JAVASWIG_BLACKLIST};" MATCHES ";${libname};")
+      add_dependencies(cordova_binding javaupm_${libname})
+    endif()
+  endif (BUILDCORDOVA)
 
   # Add additional properties to this target (used later for .pc/pom file creation)
   set_target_properties(${libname} PROPERTIES PKG_CONFIG_NAME "${libprefix}${basename}")
