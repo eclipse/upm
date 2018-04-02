@@ -46,6 +46,11 @@ void cleanUp();
 // Disable nested struct warnings
 #pragma SWIG nowarn=312,325
 
+#if SWIGPYTHON
+/* Apply all uints as 'unsigned int' for python */
+%apply unsigned int {uint};
+#endif
+
 /* The pyupm_doxy2swig.i file is created via doxy2swig.py from doxygen xml
  * output during doc build.  This file is used by swig to provide native
  * python module documentation.

@@ -14,6 +14,8 @@ compatibility between releases:
  mostly considered a bundle for ssd lcd display controllers only
  * The **zfm20** class constructor has been overloaded with a string variant
  that allows initialization using any UART device
+ * The interface of **kx122** has been modified to return values instead of 
+ receiving pointers
 
 # v1.5.0
 
