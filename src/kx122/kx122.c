@@ -463,7 +463,7 @@ float kx122_get_sample_period(const kx122_context dev)
     {KX122_ODR_12800,128000},{KX122_ODR_25600,25600}
   };
 
-  uint8_t reg_val;
+  uint8_t reg_val = 0;
 
   kx122_read_register(dev,KX122_ODCNTL, &reg_val);
   reg_val = reg_val & KX122_ODCNTL_OSA_MASK;
