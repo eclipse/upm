@@ -37,12 +37,24 @@ MHZ16::MHZ16(int uart)
 {
   m_ttyFd = -1;
 
-  if ( !(m_uart = mraa_uart_init(uart)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_uart_init() failed");
-      return;
-    }
+  if (uart == 99)
+     {
+        if ( !(m_uart = mraa_uart_init_raw(path)) )
+          {
+             throw std::invalid_argument(std::string(__FUNCTION__) +
+                                         ": mraa_uart_init_raw() failed");
+             return;
+          }
+     }
+   else
+     {
+        if ( !(m_uart = mraa_uart_init(uart)) )
+          {
+             throw std::invalid_argument(std::string(__FUNCTION__) +
+                                         ": mraa_uart_init() failed");
+             return;
+          }
+     }
 
   // This requires a recent MRAA (1/2015)
   const char *devPath = mraa_uart_get_dev_path(m_uart);

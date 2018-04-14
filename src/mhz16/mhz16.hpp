@@ -41,6 +41,7 @@
 #include <mraa/uart.h>
 
 const int MHZ16_DEFAULT_UART = 0;
+const char *  MHZ16_DEFAULT_UART_PATH = "/dev/ttyS0";
 
 // protocol start and end codes
 const uint8_t MHZ16_START = 0x7e;
@@ -80,9 +81,10 @@ namespace upm {
     /**
      * MHZ16 constructor
      *
-     * @param uart Default UART to use (0 or 1)
+     * @param uart Default UART to use (0 or 1 or 99) 0 and 1 are default standard devices 
+     * @param path Default PATH to device  choose uart=99 to select path instead of standard device
      */
-    MHZ16(int uart);
+    MHZ16(int uart, char * path);
 
     /**
      * MHZ16 destructor
