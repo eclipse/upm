@@ -40,12 +40,6 @@
 
 #include <mraa/uart.h>
 
-const int MHZ16_DEFAULT_UART = 0;
-
-// protocol start and end codes
-const uint8_t MHZ16_START = 0x7e;
-const uint8_t MHZ16_END   = 0x7e;
-
 namespace upm {
     /**
      * @brief MHZ16 Serial CO2 Sensor
@@ -80,14 +74,21 @@ namespace upm {
     /**
      * MHZ16 constructor
      *
-     * @param uart Default UART to use (0 or 1)
+     * @param uart Default mraa UART index to use
      */
     MHZ16(int uart);
 
     /**
+     * MHZ16 constructor
+     *
+     * @param uart_raw Full path to UART device.
+     */
+     MHZ16(const std::string& uart_raw = "/dev/ttyS0");
+
+    /**
      * MHZ16 destructor
      */
-    ~MHZ16();
+    virtual ~MHZ16();
 
     /**
      * Checks to see if there is data available for reading
