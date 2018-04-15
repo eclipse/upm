@@ -95,7 +95,7 @@ MHZ16::MHZ16(char * uart_raw)
                                string(strerror(errno)));
       return;
     }
-
+}
 
 MHZ16::~MHZ16()
 {
