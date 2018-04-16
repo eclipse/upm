@@ -15,6 +15,7 @@ option (RPM "Generate RPM using CPack" OFF)
 option (NPM "Generate NPM/GYP tarballs" OFF)
 option (BUILDTESTS "Generate check-ups for upm" OFF)
 option (WERROR "Make all warnings into errors." ON)
+option (WUNUSED "Remove warnings if return value unused" OFF)
 
 # Warn if building in source root
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -103,6 +104,13 @@ if (WERROR)
   list (APPEND C_CXX_WARNING_FLAGS -Werror)
   message (STATUS "Warnings as errors enabled (-Werror), disable with -DWERROR=off")
 endif (WERROR)
+
+# Remove Warnings for "unused return"  ?
+if (WUNUSED)
+  list (APPEND C_CXX_WARNING_FLAGS -Wno-unused-result)
+   message (STATUS "Warnings for unused-result enabled, disable with -DWUNUSED=on")
+endif (WUNUSED)
+
 
 # Set C compiler warning flags at top-level scope and emit a warning about
 # unsupported flags
