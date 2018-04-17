@@ -96,12 +96,15 @@ You can also generate the include and lib directories containing all the sensor
 headers and library files respectively with *make install*. Further, you may
 choose to generate these only for a specific sensor you modified, and this can
 be achieved by building from the individual makefile of the sensor. Assuming
-you're in the build directory, to make the lcd module you would:
+you're in the build directory, to build/install the lcd module you would:
 
 ~~~~~~~~~~~~~
 cd src/lcd
 make install
 ~~~~~~~~~~~~~
+
+Note: 'make install' under src/lcd will build all targets (and dependencies)
+for the lcd but will NOT install dependencies.
 
 Often developers are only interested in building one module or even just the
 python/node module to do some quick testing using scripting. In order to do
