@@ -65,6 +65,38 @@ MHZ16::MHZ16(int uart)
     }
 }
 
+MHZ16::MHZ16(char * uart_raw)
+{
+  m_ttyFd = -1;
+
+  if ( !(m_uart = mraa_uart_init_raw(uart_raw)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_uart_init_raw() failed");
+      return;
+    }
+
+  // This requires a recent MRAA (1/2015)
+  const char *devPath = mraa_uart_get_dev_path(m_uart);
+
+  if (!devPath)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_uart_get_dev_path() failed");
+      return;
+    }
+
+  // now open the tty
+  if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
+    {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": open of " + 
+                               string(devPath) + " failed: " +
+                               string(strerror(errno)));
+      return;
+    }
+}
+
 MHZ16::~MHZ16()
 {
   if (m_ttyFd != -1)

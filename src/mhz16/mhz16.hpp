@@ -41,6 +41,7 @@
 #include <mraa/uart.h>
 
 const int MHZ16_DEFAULT_UART = 0;
+const char * MHZ16_DEFAULT_UART_RAW="/dev/ttyS0";
 
 // protocol start and end codes
 const uint8_t MHZ16_START = 0x7e;
@@ -84,6 +85,13 @@ namespace upm {
      */
     MHZ16(int uart);
 
+    /**
+     * MHZ16 constructor
+     *
+     * @param uart File path (/dev/ttyXXX to uart)
+     */
+     MHZ16(char * uart_raw);
+     
     /**
      * MHZ16 destructor
      */
