@@ -41,7 +41,6 @@ MHZ16::MHZ16(int uart)
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_uart_init() failed");
-      return;
     }
 
   // This requires a recent MRAA (1/2015)
@@ -51,17 +50,15 @@ MHZ16::MHZ16(int uart)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": mraa_uart_get_dev_path() failed");
-      return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": open of " + 
+                               ": open of " +
                                string(devPath) + " failed: " +
                                string(strerror(errno)));
-      return;
     }
 }
 
@@ -73,7 +70,6 @@ MHZ16::MHZ16(const std::string& uart_raw)
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_uart_init_raw() failed");
-      return;
     }
 
   // This requires a recent MRAA (1/2015)
@@ -83,17 +79,15 @@ MHZ16::MHZ16(const std::string& uart_raw)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": mraa_uart_get_dev_path() failed");
-      return;
     }
 
   // now open the tty
   if ( (m_ttyFd = open(devPath, O_RDWR)) == -1)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
-                               ": open of " + 
+                               ": open of " +
                                string(devPath) + " failed: " +
                                string(strerror(errno)));
-      return;
     }
 }
 
@@ -121,11 +115,11 @@ bool MHZ16::dataAvailable(unsigned int millis)
   FD_ZERO(&readfds);
 
   FD_SET(m_ttyFd, &readfds);
-  
+
   if (select(m_ttyFd + 1, &readfds, NULL, NULL, &timeout) > 0)
     return true;                // data is ready
-  else
-    return false;
+
+  return false;
 }
 
 int MHZ16::readData(char *buffer, int len)
@@ -143,7 +137,6 @@ int MHZ16::readData(char *buffer, int len)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": read() failed: " +
                                string(strerror(errno)));
-      return rv;
     }
 
   return rv;
@@ -164,7 +157,6 @@ int MHZ16::writeData(char *buffer, int len)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": write() failed: " +
                                string(strerror(errno)));
-      return rv;
     }
 
   tcdrain(m_ttyFd);
@@ -176,7 +168,7 @@ bool MHZ16::setupTty(speed_t baud)
 {
   if (m_ttyFd == -1)
     return(false);
-  
+
   struct termios termio;
 
   // get current modes
@@ -196,7 +188,6 @@ bool MHZ16::setupTty(speed_t baud)
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": tcsetattr() failed: " +
                                string(strerror(errno)));
-      return false;
     }
 
   return true;
@@ -208,16 +199,15 @@ bool MHZ16::verifyPacket(uint8_t *pkt, int len)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": invalid packet header received");
-      return false;
     }
-  
+
   return true;
 }
 
 bool MHZ16::getData()
 {
   // the query command
-  const unsigned char cmd[9] = 
+  const unsigned char cmd[9] =
     {0xff, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79};
 
   writeData((char *)cmd, 9);
@@ -227,7 +217,6 @@ bool MHZ16::getData()
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": Timed out waiting for response");
-      return false;
     }
 
   // read the packet
@@ -238,9 +227,8 @@ bool MHZ16::getData()
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": Invalid packet size read");
-      return false;
     }
-  
+
   // will throw an exception if it fails
   verifyPacket(packet, sizeof(packet));
 
@@ -264,7 +252,7 @@ int MHZ16::getTemperature()
 void MHZ16::calibrateZeroPoint()
 {
   // the query command
-  const unsigned char cmd[9] = 
+  const unsigned char cmd[9] =
     {0xff, 0x01, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78};
 
   writeData((char *)cmd, 9);

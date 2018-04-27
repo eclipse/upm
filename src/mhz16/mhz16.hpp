@@ -170,9 +170,9 @@ namespace upm {
 
   private:
     mraa_uart_context m_uart;
-    int m_ttyFd;
-    int gas;
-    int temp;
+    int m_ttyFd = 0;
+    int gas = 0;
+    int temp = 0;
   };
 }
 
