@@ -456,8 +456,7 @@ upm_result_t mcp2515_set_opmode(const mcp2515_context dev,
                                << _MCP2515_CANSTAT_OPMODE_SHIFT);
 
     bool done = false;
-    upm_clock_t clock;
-    upm_clock_init(&clock);
+    upm_clock_t clock = upm_clock_init();
 
     do
     {
@@ -623,8 +622,7 @@ upm_result_t mcp2515_transmit_buffer(const mcp2515_context dev,
         return UPM_SUCCESS;
 
     // now spin with timeout waiting for it to be transmitted
-    upm_clock_t clock;
-    upm_clock_init(&clock);
+    upm_clock_t clock =  upm_clock_init();
     bool done = false;
 
     do

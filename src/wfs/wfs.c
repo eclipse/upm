@@ -88,7 +88,7 @@ void wfs_init_clock(const wfs_context dev)
 {
     assert(dev != NULL);
 
-    upm_clock_init(&dev->clock);
+    dev->clock = upm_clock_init();
 }
 
 uint32_t wfs_get_millis(const wfs_context dev)

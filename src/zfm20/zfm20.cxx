@@ -131,7 +131,7 @@ int ZFM20::writeCmdPacket(uint8_t *pkt, int len)
 
 void ZFM20::initClock()
 {
-  upm_clock_init(&m_clock);
+  m_clock = upm_clock_init();
 }
 
 uint32_t ZFM20::getMillis()

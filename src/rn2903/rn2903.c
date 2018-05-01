@@ -317,8 +317,7 @@ RN2903_RESPONSE_T rn2903_waitfor_response(const rn2903_context dev,
     memset(dev->resp_data, 0, RN2903_MAX_BUFFER);
     dev->resp_len = 0;
 
-    upm_clock_t clock;
-    upm_clock_init(&clock);
+    upm_clock_t clock = upm_clock_init();
     uint32_t elapsed = 0;
 
     do

@@ -206,8 +206,7 @@ upm_result_t speaker_emit(const speaker_context dev, unsigned int freq,
     if (speaker_set_frequency(dev, freq))
         return UPM_ERROR_OPERATION_FAILED;
 
-    upm_clock_t clock;
-    upm_clock_init(&clock);
+    upm_clock_t clock = upm_clock_init();
 
     mraa_pwm_enable(dev->pwm, 1);
     while (upm_elapsed_ms(&clock) < emit_ms)

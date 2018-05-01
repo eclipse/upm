@@ -26,31 +26,42 @@
  */
 
 #ifndef _POSIX_C_SOURCE
-// We need at least 199309L for nanosleep()
+// We need at least 199309L for clock_nanosleep()
 # define _POSIX_C_SOURCE 200809L
 #endif
+#include <assert.h>
 #include <time.h>
 #include <errno.h>
 #include "upm_platform.h"
 #include "upm_utilities.h"
 
-// https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
-static struct aqi {
-    float clow;
-    float chigh;
-    int llow;
-    int lhigh;
-} aqi[] = {
-  {0.0,    12.0,   0, 50},
-  {12.1,   35.4,  51, 100},
-  {35.5,   55.4, 101, 150},
-  {55.5,  150.4, 151, 200},
-  {150.5, 250.4, 201, 300},
-  {250.5, 350.4, 301, 400},
-  {350.5, 500.4, 401, 500},
-};
 
-void upm_delay(unsigned int time)
+/**
+ * Calculate the delta of two upm_clock_t values as
+ *      delta = finish - start
+ *
+ * @param finish Ending upm_clock_t time
+ * @param start Beginning upm_clock_t time
+ * @return Time in nanoseconds
+ */
+static uint64_t _delta_ns(const upm_clock_t* finish, const upm_clock_t* start)
+{
+    uint64_t delta;
+    assert((finish != NULL) && (start != NULL) && "_delta_ns, arguments cannot be NULL");
+
+#if defined(UPM_PLATFORM_ZEPHYR)
+    delta = SYS_CLOCK_HW_CYCLES_TO_NS64(*finish - *start);
+#elif defined(UPM_PLATFORM_LINUX)
+
+    delta = (finish->tv_sec * 1000000000UL + finish->tv_nsec) -
+        (start->tv_sec * 1000000000UL + start->tv_nsec);
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
+#endif
+    return delta;
+}
+
+void upm_delay(uint32_t time)
 {
     /* Return if time == 0 */
     if (!time)
@@ -58,17 +69,11 @@ void upm_delay(unsigned int time)
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    struct timespec delay_time;
-
-    delay_time.tv_sec  = time;
-    delay_time.tv_nsec = 0;
-    // The advantage over sleep(3) here is that it will not use
-    // an alarm signal or handler.
+    upm_clock_t delay_time = {time, 0};
 
     // here we spin until the delay is complete - detecting signals
     // and continuing where we left off
-    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
-        ; // loop
+    while (clock_nanosleep(CLOCK_MONOTONIC, 0, &delay_time, &delay_time) == EINTR);
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -88,10 +93,12 @@ void upm_delay(unsigned int time)
 
 # endif
 
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
 }
 
-void upm_delay_ms(unsigned int time)
+void upm_delay_ms(uint32_t time)
 {
     /* Return if time == 0 */
     if (!time)
@@ -99,14 +106,11 @@ void upm_delay_ms(unsigned int time)
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    struct timespec delay_time;
+    upm_clock_t delay_time = {time / 1000, (time % 1000) * 1000000UL};
 
-    delay_time.tv_sec  = time / 1000;
-    delay_time.tv_nsec = (time % 1000) * 1000000;
     // here we spin until the delay is complete - detecting signals
     // and continuing where we left off
-    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
-        ; // loop
+    while (clock_nanosleep(CLOCK_MONOTONIC, 0, &delay_time, &delay_time) == EINTR);
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
@@ -125,10 +129,12 @@ void upm_delay_ms(unsigned int time)
     nano_timer_test(&timer, TICKS_UNLIMITED);
 
 # endif
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
 }
 
-void upm_delay_us(unsigned int time)
+void upm_delay_us(uint32_t time)
 {
     /* Return if time == 0 */
     if (!time)
@@ -136,24 +142,19 @@ void upm_delay_us(unsigned int time)
 
 #if defined(UPM_PLATFORM_LINUX)
 
-    struct timespec delay_time;
+    upm_clock_t delay_time = {time / 1000000, (time % 1000000) * 1000};
 
-    delay_time.tv_sec  = time / 1000000;
-    delay_time.tv_nsec = (time % 1000000) * 1000;
     // here we spin until the delay is complete - detecting signals
     // and continuing where we left off
-    while (nanosleep(&delay_time, &delay_time) && errno == EINTR)
-        ; // loop
+    while (clock_nanosleep(CLOCK_MONOTONIC, 0, &delay_time, &delay_time) == EINTR);
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
 # if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
     // we will use a upm_clock to do microsecond timings here as k_timer has
     // only a millisecond resolution.  So we init a clock and spin.
 
-    upm_clock_t timer;
-    upm_clock_init(&timer);
-    while (upm_elapsed_us(&timer) < time)
-        ; // spin
+    upm_clock_t timer = upm_clock_init();
+    while (upm_elapsed_us(&timer) < time); // spin
 
 # else
 
@@ -165,108 +166,128 @@ void upm_delay_us(unsigned int time)
 
 # endif
 
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
 }
 
-void upm_clock_init(upm_clock_t *clock)
+void upm_delay_ns(uint64_t time)
 {
+    /* Return if time == 0 */
+    if (!time)
+        return;
+
 #if defined(UPM_PLATFORM_LINUX)
 
-    gettimeofday(clock, NULL);
+    upm_clock_t delay_time = {time / 1000000000UL, time % 1000000000UL};
+
+    // here we spin until the delay is complete - detecting signals
+    // and continuing where we left off
+    while (clock_nanosleep(CLOCK_MONOTONIC, 0, &delay_time, &delay_time) == EINTR);
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    *clock = sys_cycle_get_32();
+# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
+    // we will use a upm_clock to do microsecond timings here as k_timer has
+    // only a millisecond resolution.  So we init a clock and spin.
+
+    upm_clock_t timer = upm_clock_init();
+    while (upm_elapsed_ns(&timer) < time); // spin
+
+# else
+
+    struct nano_timer timer;
+    void *timer_data[1];
+    nano_timer_init(&timer, timer_data);
+    nano_timer_start(&timer, time + 1);
+    nano_timer_test(&timer, TICKS_UNLIMITED);
+
+# endif
+
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
 }
 
-uint32_t upm_elapsed_ms(upm_clock_t *clock)
+upm_clock_t upm_clock_init(void)
 {
+    upm_clock_t clock = {0};
 #if defined(UPM_PLATFORM_LINUX)
-
-    struct timeval elapsed, now;
-    uint32_t elapse;
-
-    // get current time
-    gettimeofday(&now, NULL);
-
-    struct timeval startTime = *clock;
-
-    // compute the delta since startTime
-    if( (elapsed.tv_usec = now.tv_usec - startTime.tv_usec) < 0 )
-    {
-        elapsed.tv_usec += 1000000;
-        elapsed.tv_sec = now.tv_sec - startTime.tv_sec - 1;
-    }
-    else
-    {
-        elapsed.tv_sec = now.tv_sec - startTime.tv_sec;
-    }
-
-    elapse = (uint32_t)((elapsed.tv_sec * 1000) + (elapsed.tv_usec / 1000));
-
-    // never return 0
-    if (elapse == 0)
-        elapse = 1;
-
-    return elapse;
-
+    clock_gettime(CLOCK_MONOTONIC, &clock);
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    uint32_t now = sys_cycle_get_32();
-
-    uint32_t elapsed =
-        (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000000);
-
-    if (elapsed == 0)
-        elapsed = 1;
-
-    return elapsed;
+    clock = sys_cycle_get_32();
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
+
+    return clock;
 }
 
-uint32_t upm_elapsed_us(upm_clock_t *clock)
+uint64_t upm_elapsed_ms(const upm_clock_t *clock)
 {
+    assert((clock != NULL) && "upm_elapsed_ms, clock cannot be NULL");
+
+    upm_clock_t now = {0};
+
 #if defined(UPM_PLATFORM_LINUX)
-
-    struct timeval elapsed, now;
-    uint32_t elapse;
-
-    // get current time
-    gettimeofday(&now, NULL);
-
-    struct timeval startTime = *clock;
-
-    // compute the delta since startTime
-    if( (elapsed.tv_usec = now.tv_usec - startTime.tv_usec) < 0 )
-    {
-        elapsed.tv_usec += 1000000;
-        elapsed.tv_sec = now.tv_sec - startTime.tv_sec - 1;
-    }
-    else
-    {
-        elapsed.tv_sec = now.tv_sec - startTime.tv_sec;
-    }
-
-    elapse = (uint32_t)((elapsed.tv_sec * 1000000) + elapsed.tv_usec);
-
-    // never return 0
-    if (elapse == 0)
-        elapse = 1;
-
-    return elapse;
-
+    clock_gettime(CLOCK_MONOTONIC, &now);
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    uint32_t now = sys_cycle_get_32();
-
-    uint32_t elapsed =
-        (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000);
-
-    // never return 0
-    if (elapsed == 0)
-        elapsed = 1;
-
-    return elapsed;
+    now = sys_cycle_get_32();
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
 #endif
+
+    return _delta_ns(&now, clock)/1000000;
 }
+
+uint64_t upm_elapsed_us(const upm_clock_t *clock)
+{
+    assert((clock != NULL) && "upm_elapsed_us, clock cannot be NULL");
+
+    upm_clock_t now = {0};
+
+#if defined(UPM_PLATFORM_LINUX)
+    clock_gettime(CLOCK_MONOTONIC, &now);
+#elif defined(UPM_PLATFORM_ZEPHYR)
+    now = sys_cycle_get_32();
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
+#endif
+
+    return _delta_ns(&now, clock)/1000;
+}
+
+uint64_t upm_elapsed_ns(const upm_clock_t *clock)
+{
+    assert((clock != NULL) && "upm_elapsed_ns, clock cannot be NULL");
+
+    upm_clock_t now = {0};
+
+#if defined(UPM_PLATFORM_LINUX)
+    clock_gettime(CLOCK_MONOTONIC, &now);
+#elif defined(UPM_PLATFORM_ZEPHYR)
+    now = sys_cycle_get_32();
+#else
+#error "Unknown platform, valid platforms are {UPM_PLATFORM_ZEPHYR, UPM_PLATFORM_LINUX}"
+#endif
+
+    return _delta_ns(&now, clock);
+}
+
+// https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
+static struct aqi {
+    float clow;
+    float chigh;
+    int llow;
+    int lhigh;
+} aqi[] = {
+  {0.0,    12.0,   0, 50},
+  {12.1,   35.4,  51, 100},
+  {35.5,   55.4, 101, 150},
+  {55.5,  150.4, 151, 200},
+  {150.5, 250.4, 201, 300},
+  {250.5, 350.4, 301, 400},
+  {350.5, 500.4, 401, 500},
+};
 
 int upm_ugm3_to_aqi (double ugm3)
 {

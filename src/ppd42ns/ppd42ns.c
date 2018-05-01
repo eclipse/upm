@@ -99,7 +99,7 @@ ppd42ns_dust_data ppd42ns_get_data(const ppd42ns_context dev)
 
     unsigned int low_pulse_occupancy = 0;
 
-    upm_clock_init(&max_loop_time);
+    max_loop_time = upm_clock_init();
 
     do {
         low_pulse_occupancy += ppd42ns_pulse_in(dev, 0);
@@ -132,11 +132,10 @@ static uint32_t ppd42ns_pulse_in(const ppd42ns_context dev,
     assert(dev != NULL);
 
     // we run for no more than 1 second at a time
-    upm_clock_t max_time;
     upm_clock_t pulse_time;
     uint32_t total_pulse_time = 0;
 
-    upm_clock_init(&max_time);
+    upm_clock_t max_time = upm_clock_init();
     bool pin_level;
     bool is_timing = false;
 
@@ -146,7 +145,7 @@ static uint32_t ppd42ns_pulse_in(const ppd42ns_context dev,
         if (!is_timing && pin_level == high_low_value)
         {
             // level is desired level, but not currently timing
-            upm_clock_init(&pulse_time);
+            pulse_time = upm_clock_init();
             is_timing = true;
         }
         else if (is_timing && pin_level != high_low_value)
