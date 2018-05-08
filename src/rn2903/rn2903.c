@@ -150,7 +150,7 @@ static rn2903_context _rn2903_postinit(rn2903_context dev,
         rn2903_close(dev);
         return NULL;
     }
-    strncpy(dev->hardware_eui, dev->resp_data, RN2903_MAX_HEX_EUI64);
+    memcpy(dev->hardware_eui, dev->resp_data, RN2903_MAX_HEX_EUI64);
 
     return dev;
 }
