@@ -18,6 +18,11 @@ target_link_libraries(json_tests GTest::GTest GTest::Main)
 target_include_directories(json_tests PRIVATE "${UPM_COMMON_HEADER_DIRS}/")
 gtest_add_tests(json_tests "" AUTO)
 
+# Unit tests - nmea_gps library
+add_executable(nmea_gps_tests nmea_gps/nmea_gps_tests.cxx)
+target_link_libraries(nmea_gps_tests nmea_gps GTest::GTest GTest::Main)
+gtest_add_tests(nmea_gps_tests "" AUTO)
+
 # Add a custom target for unit tests
 add_custom_target(tests-unit ALL
     DEPENDS

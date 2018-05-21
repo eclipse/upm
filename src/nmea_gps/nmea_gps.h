@@ -44,7 +44,7 @@ extern "C" {
    * An example using I2C.
    * @include nmea_gps_i2c.c
    */
-  
+
   /**
    * Device context
    */
@@ -53,11 +53,11 @@ extern "C" {
     mraa_gpio_context        gpio_en;
     mraa_i2c_context         i2c;
   } *nmea_gps_context;
-  
+
   /**
    * NMEA_GPS Initializer for generic UART operation
    *
-   * @param uart Specify which uart to use.
+   * @param uart Specify which mraa uart index to use.
    * @param baudrate Specify the baudrate to use.  The device defaults
    * to 9600 baud.
    * @param enable_pin Specify the GPIO pin to use for the enable pin,
@@ -66,6 +66,16 @@ extern "C" {
    */
   nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                  int enable_pin);
+
+  /**
+   * NMEA_GPS Initializer for generic UART operation
+   *
+   * @param uart Specify which uart (fs device path) to use.
+   * @param baudrate Specify the baudrate to use.  The device defaults
+   * to 9600 baud.
+   * @return an initialized device context on success, NULL on error.
+   */
+  nmea_gps_context nmea_gps_init_raw(const char* uart, unsigned int baudrate);
 
   /**
    * NMEA_GPS Initializer for UBLOX I2C operation

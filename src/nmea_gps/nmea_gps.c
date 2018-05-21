@@ -67,6 +67,51 @@ static int readRegs(const nmea_gps_context dev, uint8_t reg,
   return rv;
 }
 
+nmea_gps_context nmea_gps_init_raw(const char* uart, unsigned int baudrate)
+{
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+      printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
+      return NULL;
+  }
+
+  nmea_gps_context dev =
+    (nmea_gps_context)malloc(sizeof(struct _nmea_gps_context));
+
+  if (!dev)
+    return NULL;
+
+  // zero out context
+  memset((void *)dev, 0, sizeof(struct _nmea_gps_context));
+
+  dev->uart = NULL;
+  dev->i2c = NULL;
+  dev->gpio_en = NULL;
+
+  // initialize the MRAA contexts
+
+  // uart, default should be 8N1
+  if (!(dev->uart = mraa_uart_init_raw(uart)))
+    {
+      printf("%s: mraa_uart_init_raw() failed.\n", __FUNCTION__);
+      nmea_gps_close(dev);
+      return NULL;
+    }
+
+  if (nmea_gps_set_baudrate(dev, baudrate))
+    {
+      printf("%s: nmea_gps_set_baudrate() failed.\n", __FUNCTION__);
+      nmea_gps_close(dev);
+      return NULL;
+    }
+
+  mraa_uart_set_flowcontrol(dev->uart, false, false);
+
+  return dev;
+}
+
 // uart init
 nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
                                int enable_pin)
@@ -87,7 +132,7 @@ nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
 
   // zero out context
   memset((void *)dev, 0, sizeof(struct _nmea_gps_context));
-  
+
   dev->uart = NULL;
   dev->i2c = NULL;
   dev->gpio_en = NULL;
@@ -107,7 +152,7 @@ nmea_gps_context nmea_gps_init(unsigned int uart, unsigned int baudrate,
       printf("%s: nmea_gps_set_baudrate() failed.\n", __FUNCTION__);
       nmea_gps_close(dev);
       return NULL;
-    }      
+    }
 
   mraa_uart_set_flowcontrol(dev->uart, false, false);
 
@@ -294,7 +339,7 @@ upm_result_t nmea_gps_set_baudrate(const nmea_gps_context dev,
     {
       printf("%s: mraa_uart_set_baudrate() failed.\n", __FUNCTION__);
       return UPM_ERROR_OPERATION_FAILED;
-    }      
+    }
 
   return UPM_SUCCESS;
 }
