@@ -10,7 +10,9 @@
   if ( log_level < UPM_LOGGER::LogLevel() ) \
     ; \
   else \
-    UPM_LOGGER().log(log_level)
+    UPM_LOGGER().log(log_level) << __FILE__ << " " \
+                                << __FUNCTION__ << " " \
+                                << __LINE__ << ": "
 
 namespace upm {
 
@@ -70,10 +72,9 @@ namespace upm {
   {
     using namespace std::chrono;
 
-    os << "UPM - " << duration_cast<milliseconds>
+    os << "UPM - " << duration_cast<nanoseconds>
       (system_clock::now().time_since_epoch()).count();
-    os << " " << getLogLevelName(level) << ": ";
-    os << std::string(level > LOG_DEBUG ? level - LOG_DEBUG : 0, '\t');
+    os << " " << getLogLevelName(level) << " ";
 
     logLevel = level;
 
