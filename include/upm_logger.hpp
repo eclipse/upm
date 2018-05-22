@@ -5,6 +5,13 @@
 #include <chrono>
 #include <stdio.h>
 
+/* Helper macro for logger utility class. */
+#define UPM_LOG(log_level) \
+  if ( log_level < UPM_LOGGER::LogLevel() ) \
+    ; \
+  else \
+    UPM_LOGGER().log(log_level)
+
 namespace upm {
 
   enum UpmLogLevel {
@@ -27,14 +34,15 @@ namespace upm {
   public:
     UPM_LOGGER();
     virtual ~UPM_LOGGER();
-    std::ostringstream& get(UpmLogLevel level = LOG_INFO);
-    static UpmLogLevel& getLogLevel();
+    std::ostringstream& log(UpmLogLevel level = LOG_ERROR);
+    static UpmLogLevel& LogLevel();
   protected:
     std::ostringstream os;
   private:
     UPM_LOGGER(const UPM_LOGGER&);
     UPM_LOGGER& operator=(const UPM_LOGGER&);
   private:
+    // Track logLevel for this particular instance of UPM_LOGGER
     UpmLogLevel logLevel;
 
   public:
@@ -51,20 +59,22 @@ namespace upm {
   UPM_LOGGER::UPM_LOGGER() {}
 
 
-  UpmLogLevel& UPM_LOGGER::getLogLevel()
+  UpmLogLevel& UPM_LOGGER::LogLevel()
   {
     static UpmLogLevel reportingLevel = LOG_DEBUG;
+
     return reportingLevel;
   }
 
-  std::ostringstream& UPM_LOGGER::get(UpmLogLevel level)
+  std::ostringstream& UPM_LOGGER::log(UpmLogLevel level)
   {
     using namespace std::chrono;
 
-    os << "- " << duration_cast<milliseconds>
+    os << "UPM - " << duration_cast<milliseconds>
       (system_clock::now().time_since_epoch()).count();
     os << " " << getLogLevelName(level) << ": ";
     os << std::string(level > LOG_DEBUG ? level - LOG_DEBUG : 0, '\t');
+
     logLevel = level;
 
     return os;
@@ -72,13 +82,8 @@ namespace upm {
 
   UPM_LOGGER::~UPM_LOGGER()
   {
-    if (logLevel >= UPM_LOGGER::getLogLevel()) {
-      os << std::endl;
-      fprintf(stderr, "%s", os.str().c_str());
-      fflush(stderr);
-    }
+    os << std::endl;
+    fprintf(stderr, "%s", os.str().c_str());
+    fflush(stderr);
   }
-
 }
-
-
