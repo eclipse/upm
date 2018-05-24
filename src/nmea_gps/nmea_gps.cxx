@@ -234,7 +234,7 @@ void NMEAGPS::_parse_gpgsv(const std::string& sentence)
         /* Add to the back of satmap, remove any matching prn */
         _mtx_satlist.lock();
         auto sit = _satlist.begin();
-        do
+        while(sit != _satlist.end())
         {
             /* Remove */
             if ((*sit).prn == sat.prn)
@@ -242,7 +242,8 @@ void NMEAGPS::_parse_gpgsv(const std::string& sentence)
                 sit = _satlist.erase(sit);
                 break;
             }
-        } while(++sit != _satlist.end());
+            ++sit;
+        }
         /* Add satellite to the end */
         _satlist.push_back(sat);
 
@@ -458,7 +459,7 @@ std::string satellite::__str__()
 std::string NMEAGPS::__str__()
 {
     std::ostringstream oss;
-    auto sats = satellites();
+    std::vector<satellite> sats = satellites();
     size_t qsz = getMaxQueueDepth();
     oss << "NMEA GPS Instance" << std::endl
         << "  Parsing: " << (isRunning() ? "T" : "F") << std::endl
