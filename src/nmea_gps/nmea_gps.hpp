@@ -84,15 +84,15 @@ namespace upm {
     /** Satellite structure definition */
     struct satellite {
         /** PRN pseudo-random-noise value which identifies a satellite */
-        std::string prn = std::string("");
+        std::string prn;
         /** Satellite elevation angle in degrees */
-        int elevation_deg = 0;
+        int elevation_deg;
         /** Satellite azimuth angle in degrees */
-        int azimuth_deg = 0;
+        int azimuth_deg;
         /** Satellite signal-to-noise ratio */
-        int snr = 0;
+        int snr;
         /** Default constructor */
-        satellite() = default;
+        satellite():satellite("", 0, 0, 0){}
         /**
          * Create a satellite from arguments constructor
          * @param sprn Target PRN string
@@ -106,6 +106,28 @@ namespace upm {
         /**
          * Provide a string representation of this structure.
          * @return String representing a satellite
+         */
+        std::string __str__();
+    };
+
+    /** Text structure definition */
+    struct nmeatxt {
+        /** Message severity */
+        int severity;
+        /** Message text */
+        std::string message;
+        /** Default constructor */
+        nmeatxt():nmeatxt(0, "") {}
+        /**
+         * Create a nmeatxt from arguments constructor
+         * @param severity Message severity
+         * @param message Target message
+         */
+        nmeatxt(int severity, const std::string& message):
+                severity(severity), message(message){}
+        /**
+         * Provide a string representation of this structure.
+         * @return String representing a nmeatxt
          */
         std::string __str__();
     };
@@ -299,6 +321,13 @@ namespace upm {
             std::string getRawSentence();
 
             /**
+             * Pop and return a message from the message queue (GPTXT sentences)
+             * If the queue contains no elements, an empty string is returned
+             * @return NMEA text message
+             */
+            nmeatxt getTxtMessage();
+
+            /**
              * Get the number of elements in the GPS fix queue.
              * @return Number of fixes in the GPS fix queue
              */
@@ -309,6 +338,12 @@ namespace upm {
              * @return Number of sentences in the raw NMEA sentence queue
              */
             size_t rawSentenceQueueSize();
+
+            /**
+             * Get the number of messages in the NMEA message queue.
+             * @return Number of messages in the message queue
+             */
+            size_t txtMessageQueueSize();
 
             /**
              * Parse NMEA sentences.
@@ -323,6 +358,21 @@ namespace upm {
              * @return Current satellites
              */
             std::vector<satellite> satellites();
+
+            /**
+             * Get the number of sentences parsed per second
+             * @return Sentences parsed per second
+             */
+            double sentencesPerSecond();
+
+            /**
+             * Get the throughput of the device.  This number shows a rough
+             * data-rate as well as provides a bit of debug since it will show
+             * bps even if sentences are not getting parsed correctly.
+
+             * @return Total bytes read from the device/second (bps)
+             */
+            double bytesPerSecond();
 
             /**
              * Provide a string representation of this class
@@ -353,6 +403,8 @@ namespace upm {
             void _parse_gpgsv(const std::string& string);
             /** Parse GPGLL sentences, place in satellite collection */
             void _parse_gpgll(const std::string& string);
+            /** Parse GPTXT sentences, place in text collection */
+            void _parse_gptxt(const std::string& string);
 
             /** Provide function pointer typedef for handling NMEA chunks */
             using fp = void (NMEAGPS::*)(const std::string &);
@@ -362,17 +414,32 @@ namespace upm {
                 {"GPGGA", &NMEAGPS::_parse_gpgga},
                 {"GPGSV", &NMEAGPS::_parse_gpgsv},
                 {"GPGLL", &NMEAGPS::_parse_gpgll},
+                {"GPTXT", &NMEAGPS::_parse_gptxt},
             };
 
             /** Raw NMEA sentence fix queue */
             std::queue<std::string> _queue_nmea_sentence;
             std::mutex _mtx_nmea_sentence;
+
             /** GPS fix queue */
             std::queue<gps_fix> _queue_fix;
             std::mutex _mtx_fix;
 
+            /** Message queue */
+            std::queue<nmeatxt> _queue_txt;
+            std::mutex _mtx_txt;
+
             /** Specify a queue size for parsed objects */
             std::atomic<size_t> _maxQueueDepth;
+
+            /** Count # of parsed sentences each time thread is started */
+            std::atomic<size_t> _sentences_since_start;
+
+            /** Count # oharacters read each time thread is started */
+            std::atomic<size_t> _bytes_since_start;
+
+            /** Count # of parsed sentences each time thread is started */
+            std::atomic<double> _seconds_since_start;
 
             /** Set of current satellites */
             std::list<satellite> _satlist;

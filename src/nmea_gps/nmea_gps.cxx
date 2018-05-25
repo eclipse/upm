@@ -22,6 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <chrono>
 #include <ctime>
 #include <iomanip>
 #include <iostream>
@@ -39,7 +40,10 @@ NMEAGPS::NMEAGPS(unsigned int uart, unsigned int baudrate,
                  int enable_pin) :
   m_nmea_gps(nmea_gps_init(uart, baudrate, enable_pin)),
     _running(false),
-    _maxQueueDepth(10)
+    _maxQueueDepth(10),
+    _sentences_since_start(0),
+    _bytes_since_start(0),
+    _seconds_since_start(0.0)
 {
   if (!m_nmea_gps)
     throw std::runtime_error(string(__FUNCTION__)
@@ -49,7 +53,10 @@ NMEAGPS::NMEAGPS(unsigned int uart, unsigned int baudrate,
 NMEAGPS::NMEAGPS(const std::string& uart, unsigned int baudrate) :
   m_nmea_gps(nmea_gps_init_raw(uart.c_str(), baudrate)),
     _running(false),
-    _maxQueueDepth(10)
+    _maxQueueDepth(10),
+    _sentences_since_start(0),
+    _bytes_since_start(0),
+    _seconds_since_start(0.0)
 {
   if (!m_nmea_gps)
     throw std::runtime_error(string(__FUNCTION__)
@@ -59,7 +66,10 @@ NMEAGPS::NMEAGPS(const std::string& uart, unsigned int baudrate) :
 NMEAGPS::NMEAGPS(unsigned int bus, uint8_t addr) :
   m_nmea_gps(nmea_gps_init_ublox_i2c(bus, addr)),
     _running(false),
-    _maxQueueDepth(10)
+    _maxQueueDepth(10),
+    _sentences_since_start(0),
+    _bytes_since_start(0),
+    _seconds_since_start(0.0)
 {
   if (!m_nmea_gps)
     throw std::runtime_error(string(__FUNCTION__)
@@ -84,14 +94,18 @@ std::string NMEAGPS::readStr(size_t size)
     throw std::runtime_error(string(__FUNCTION__)
                              + ": nmea_gps_read() failed");
 
-  return string(buffer, rv);
+  /* Keep track of bytes read */
+  _bytes_since_start += rv;
+  return buffer;
 }
 
 int NMEAGPS::writeStr(const std::string& buffer)
 {
   int rv;
 
-  if ((rv = nmea_gps_write(m_nmea_gps, (char*)buffer.data(),
+  /* The write takes a char*.  This should be OK since it's known that the mraa
+   * write call does not change buffer */
+  if ((rv = nmea_gps_write(m_nmea_gps, const_cast<char*>(buffer.c_str()),
                            buffer.size())) < 0)
     throw std::runtime_error(string(__FUNCTION__)
                              + ": nmea_gps_write() failed");
@@ -285,10 +299,39 @@ void NMEAGPS::_parse_gpgll(const std::string& sentence)
 
     /* Throw away oldest if full, push to queue */
     _mtx_fix.lock();
-    if (_queue_fix.size() == _maxQueueDepth)
-        _queue_fix.pop();
+    if (_queue_fix.size() == _maxQueueDepth) _queue_fix.pop();
     _queue_fix.push(fix);
     _mtx_fix.unlock();
+}
+
+/*
+ * Regex for matching NMEA TXT messages
+ * Grab-bag of messages coming from a GPS device.  Can basically be any
+ * additional information that the manufacture wants to send out.
+ *
+ * For example, the ublox GPS compass writes out data about itself:
+ *      $GPTXT,01,01,02,u-blox ag - www.u-blox.com*50
+ *      $GPTXT,01,01,02,HW  UBX-G60xx  00040007 *52
+ *      $GPTXT,01,01,02,EXT CORE 7.03 (45970) Mar 17 2011 16:26:24*44
+ *      $GPTXT,01,01,02,ROM BASE 6.02 (36023) Oct 15 2009 16:52:08*58
+ *      $GPTXT,01,01,02,MOD LEA-6H-0*2D
+ *      $GPTXT,01,01,02,ANTSUPERV=AC SD PDoS SR*20
+ *      $GPTXT,01,01,02,ANTSTATUS=OK*3B
+ */
+static std::regex rex_txt(R"(^\$GPTXT,(\d{2}),(\d{2}),(\d{2}),(.*)[*]([A-Z0-9]{2}))");
+void NMEAGPS::_parse_gptxt(const std::string& sentence)
+{
+    /* Parse the GLL message */
+    std::smatch m;
+    if (!std::regex_search(sentence, m, rex_txt) ||
+            (std::stoi(m[5], nullptr, 16) != checksum(sentence)) )
+        return;
+
+    /* Throw away oldest if full, push to queue */
+    _mtx_txt.lock();
+    if (_queue_txt.size() == _maxQueueDepth) _queue_txt.pop();
+    _queue_txt.push({std::stoi(m[3]), m[4]});
+    _mtx_txt.unlock();
 }
 
 void NMEAGPS::parseNMEASentence(const std::string& sentence)
@@ -307,6 +350,9 @@ void NMEAGPS::parseNMEASentence(const std::string& sentence)
             /* Call the corresponding parser */
             (this->*parser)(sentence);
         }
+
+        /* Keep track of total number of sentences */
+        _sentences_since_start++;
     }
 
     /* Throw away oldest if full, push to raw sentence queue */
@@ -353,12 +399,31 @@ void NMEAGPS::_parse_thread()
     }
 }
 
+static double getTimeSinceEpoch_s()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_s = std::chrono::time_point_cast<std::chrono::seconds>(now);
+    auto epoch = now_s.time_since_epoch();
+    auto value = std::chrono::duration_cast<std::chrono::milliseconds>(epoch);
+    return value.count()/1000.0;
+}
+
 void NMEAGPS::parseStart()
 {
     /* Don't create multiple running threads */
     if (_running) return;
 
+    /* Set running flag */
     _running = true;
+
+    /* Reset total number of bytes/sentences parsed */
+    _sentences_since_start = 0;
+    _bytes_since_start = 0;
+
+    /* Reset the total number of seconds */
+    _seconds_since_start = getTimeSinceEpoch_s();
+
+    /* Start the thread */
     _parser = std::thread(&NMEAGPS::_parse_thread, this);
 }
 
@@ -370,6 +435,9 @@ void NMEAGPS::parseStop()
     _running = false;
     if (_parser.joinable())
         _parser.join();
+
+    /* Zero number of bytes/sentences parsed */
+    _sentences_since_start = 0;
 }
 
 gps_fix NMEAGPS::getFix()
@@ -400,6 +468,20 @@ std::string NMEAGPS::getRawSentence()
     return ret;
 }
 
+nmeatxt NMEAGPS::getTxtMessage()
+{
+    nmeatxt ret;
+    _mtx_txt.lock();
+    if (!_queue_txt.empty())
+    {
+        /* Get a copy of the sentence, pop an element */
+        ret = _queue_txt.front();
+        _queue_txt.pop();
+    }
+    _mtx_txt.unlock();
+    return ret;
+}
+
 size_t NMEAGPS::fixQueueSize()
 {
     _mtx_fix.lock();
@@ -413,6 +495,14 @@ size_t NMEAGPS::rawSentenceQueueSize()
     _mtx_nmea_sentence.lock();
     size_t x =_queue_nmea_sentence.size();
     _mtx_nmea_sentence.unlock();
+    return x;
+}
+
+size_t NMEAGPS::txtMessageQueueSize()
+{
+    _mtx_txt.lock();
+    size_t x =_queue_txt.size();
+    _mtx_txt.unlock();
     return x;
 }
 
@@ -456,18 +546,72 @@ std::string satellite::__str__()
     return oss.str();
 }
 
+std::string nmeatxt::__str__()
+{
+    /* Return an emty string */
+    if (!severity && message.empty()) return "";
+
+    std::ostringstream oss;
+    oss << "[";
+    switch (severity)
+    {
+        case 0:
+            oss << "ERROR";
+            break;
+        case 1:
+            oss << "WARNING";
+            break;
+        case 2:
+            oss << "NOTICE";
+            break;
+        case 7:
+            oss << "USER";
+            break;
+        default:
+            oss << "UNKNOWN";
+            break;
+    }
+    oss << "] " << message;
+
+    return oss.str();
+}
+
+double NMEAGPS::sentencesPerSecond()
+{
+    double now_s = getTimeSinceEpoch_s();
+    return _sentences_since_start/(now_s - _seconds_since_start);
+}
+
+double NMEAGPS::bytesPerSecond()
+{
+    double now_s = getTimeSinceEpoch_s();
+    return _bytes_since_start/(now_s - _seconds_since_start);
+}
+
 std::string NMEAGPS::__str__()
 {
     std::ostringstream oss;
     std::vector<satellite> sats = satellites();
+    size_t msgs = txtMessageQueueSize();
     size_t qsz = getMaxQueueDepth();
     oss << "NMEA GPS Instance" << std::endl
         << "  Parsing: " << (isRunning() ? "T" : "F") << std::endl
+        << "  NMEA sentences/second: " << std::fixed << std::setprecision(2)
+        << sentencesPerSecond()
+        << "  (" << bytesPerSecond() << " bps)" << std::endl
         << "  Available satellites: " << sats.size() << std::endl;
     for(auto sat : sats)
         oss << "    " << sat.__str__() << std::endl;
     oss << "  Queues" << std::endl
         << "    Raw sentence Q: " << std::setw(4) << rawSentenceQueueSize() << "/" << qsz << std::endl
-        << "    GPS fix      Q: " << std::setw(4) << fixQueueSize() << "/" << qsz << std::endl;
+        << "    GPS fix      Q: " << std::setw(4) << fixQueueSize() << "/" << qsz << std::endl
+        << "    Messages     Q: " << std::setw(4) << msgs << "/" << qsz;
+    if (msgs > 0)
+    {
+        oss << std::endl << "  Messages" << std::endl;
+        for (size_t i = 0; i < msgs; i++)
+            oss << "    " << getTxtMessage().__str__() << std::endl;
+    }
+
     return oss.str();
 }

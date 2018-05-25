@@ -11,6 +11,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_nmea_gps)
 /* Attach pythons __str__ method to a similar method in C++ */
 %feature("python:slot", "tp_str", functype="reprfunc") upm::gps_fix::__str__;
 %feature("python:slot", "tp_str", functype="reprfunc") upm::satellite::__str__;
+%feature("python:slot", "tp_str", functype="reprfunc") upm::nmeatxt::__str__;
 %feature("python:slot", "tp_str", functype="reprfunc") upm::NMEAGPS::__str__;
 #endif
 /* END Python syntax */

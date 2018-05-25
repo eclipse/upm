@@ -244,3 +244,34 @@ TEST_F(nmea_gps_unit, parse_gll_valid)
     /* Should have 5 GPS fixes */
     ASSERT_EQ(gps.fixQueueSize(), 5);
 }
+
+/* Parse example txt sentences */
+TEST_F(nmea_gps_unit, parse_txt_valid)
+{
+    upm::NMEAGPS gps(0, 115200, -1);
+    std::vector<std::string> snts =
+    {
+       "$GPTXT,01,01,02,u-blox ag - www.u-blox.com*50",
+       "$GPTXT,01,01,02,HW  UBX-G60xx  00040007 *52",
+       "$GPTXT,01,01,02,EXT CORE 7.03 (45970) Mar 17 2011 16:26:24*44",
+       "$GPTXT,01,01,02,ROM BASE 6.02 (36023) Oct 15 2009 16:52:08*58",
+       "$GPTXT,01,01,02,MOD LEA-6H-0*2D",
+       "$GPTXT,01,01,02,ANTSUPERV=AC SD PDoS SR*20",
+       "$GPTXT,01,01,02,ANTSTATUS=OK*3B"
+    };
+
+    /* Parse the first sentence */
+    gps.parseNMEASentence(snts.front());
+
+    ASSERT_EQ(gps.txtMessageQueueSize(), 1);
+    /* Get the message */
+    upm::nmeatxt msg = gps.getTxtMessage();
+    ASSERT_EQ(msg.severity, 2);
+
+    /* Parse the rest */
+    for(const auto& sentence : snts)
+        gps.parseNMEASentence(sentence);
+
+    /* Should have 5 GPS fixes */
+    ASSERT_EQ(gps.txtMessageQueueSize(), 7);
+}
