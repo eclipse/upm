@@ -81,7 +81,7 @@ SI1132::SI1132 (int bus) {
     // Reset chip to defaults
     status = reset();
     if (status != mraa::SUCCESS)
-        UPM_THROW("config failure");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": config failure");
 }
 
 SI1132::~SI1132() {
@@ -138,7 +138,7 @@ mraa::Result SI1132::reset() {
 uint16_t SI1132::getVisibleRaw() {
     status = runCommand(SI1132_COMMAND_ALS_FORCE);
     if (status != mraa::SUCCESS)
-       UPM_THROW("command failed");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": command failed");
     return i2c->readWordReg(SI1132_REG_ALS_VIS_DATA0);
 }
 
@@ -152,6 +152,9 @@ double SI1132::getVisibleLux() {
     return static_cast<double>(rawValue);
 }
 
+float SI1132::getLuminance() {
+    return getVisibleLux();
+}
 
 mraa::Result SI1132::clearResponseRegister()
 {

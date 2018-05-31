@@ -31,6 +31,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 #include <math.h>
+#include <interfaces/iLight.hpp>
 
 namespace upm {
 
@@ -108,14 +109,14 @@ namespace upm {
  * @kit eak
  *
  * @brief API for the TSL2561 Digital Light Sensor
- * 
+ *
  *   TSL2560 and TSL2561 are light-to-digital converters that transform
  *   light intensity to a digital signal output capable of a direct I2C (TSL2561) interface
  *
  * @image html tsl2561.jpg
  * @snippet tsl2561.cxx Interesting
  */
-class TSL2561{
+class TSL2561 : virtual public iLight {
     public:
        /**
         * Instantiates a TSL2561 object
@@ -138,6 +139,13 @@ class TSL2561{
         * @return Calculated lux value from the sensor
         */
         int getLux();
+
+        /**
+         * Gets the calculated lux reading from TSL2561
+         *
+         * @return Calculated lux value from the sensor
+         */
+        virtual float getLuminance();
 
     private:
        /**

@@ -25,7 +25,7 @@
 
 #include <string>
 #include "mraa/i2c.hpp"
-#include "interfaces/iLightSensor.hpp"
+#include <interfaces/iLight.hpp>
 
 
 namespace upm {
@@ -56,7 +56,7 @@ namespace upm {
  *
  * @snippet si1132.cxx Interesting
  */
-class SI1132 : public ILightSensor {
+class SI1132 : virtual public iLight {
     public:
         /**
          * Instanciates a Si1132 object
@@ -79,6 +79,13 @@ class SI1132 : public ILightSensor {
          * Read the lux value
          */
         double getVisibleLux();
+
+        /**
+         * Gets the luminance value from the sensor
+         *
+         * @return The measured light intensity value in Lux
+         */
+        virtual float getLuminance();
 
         virtual const char* getModuleName() { return "si1132"; }
 

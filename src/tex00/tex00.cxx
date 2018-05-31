@@ -141,6 +141,11 @@ float TEX00::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float TEX00::getTemperature()
+{
+  return getTemperature(false);
+}
+
 int TEX00::average(int samples)
 {
   if (samples <= 0)

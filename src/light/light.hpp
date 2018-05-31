@@ -28,6 +28,7 @@
 #pragma once
 
 #include <string>
+#include <interfaces/iLight.hpp>
 
 #include "light.h"
 
@@ -58,7 +59,7 @@ namespace upm {
      * @image html light.jpg
      * @snippet light.cxx Interesting
      */
-    class Light {
+    class Light : virtual public iLight {
     public:
         /**
          * Analog light sensor constructor
@@ -90,6 +91,14 @@ namespace upm {
          * @throws std::runtime_error on error
          */
         int value();
+
+        /**
+         * Gets an approximate light value in lux from the sensor
+         *
+         * @return Approximate light reading in lux
+         * @throws std::runtime_error on error
+         */
+        virtual float getLuminance();
 
         /**
          * Set ADC reference voltage

@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+#include <interfaces/iTemperature.hpp>
 
 #define DEVICE_ADDR         0x5A // device address
 
@@ -73,7 +74,7 @@ namespace upm {
  * @image html mlx90614.jpg
  * @snippet mlx90614.cxx Interesting
  */
-class MLX90614 {
+class MLX90614 : virtual public iTemperature {
     public:
 
         /**
@@ -108,6 +109,13 @@ class MLX90614 {
          * Reads the ambient temperature in Celsius
          */
         float readAmbientTempC(void);
+
+        /**
+         * Returns the temperature in degrees Celsius
+         *
+         * @return The Temperature in degrees Celsius
+         */
+        virtual float getTemperature();
 
         /**
          * Returns the name of the component

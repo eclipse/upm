@@ -67,6 +67,11 @@ MCP9808::getTemp(){
 	return getTempValue(result);
 }
 
+float
+MCP9808::getTemperature() {
+  return getTemp();
+}
+
 void
 MCP9808::shutDown(bool sleep){
 	if(sleep) this->updateConfigRegister(MCP9808_CONFIG_SHUTDOWN);

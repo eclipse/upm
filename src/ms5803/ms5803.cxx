@@ -77,7 +77,7 @@ float MS5803::getTemperature()
 
 float MS5803::getPressure()
 {
-    return ms5803_get_pressure(m_ms5803);
+    return (ms5803_get_pressure(m_ms5803) * 100);
 }
 
 void MS5803::loadCoefficients()

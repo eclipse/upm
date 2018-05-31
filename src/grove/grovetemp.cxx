@@ -62,6 +62,11 @@ int GroveTemp::value ()
     return (int) round(t);
 }
 
+float GroveTemp::getTemperature ()
+{
+    return value();
+}
+
 float GroveTemp::raw_value()
 {
     return (float) mraa_aio_read(m_aio);
