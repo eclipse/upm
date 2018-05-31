@@ -82,7 +82,7 @@ SI7005::SI7005 (int bus, int pin) {
     m_i2c = new mraa::I2c(m_bus);
     status = m_i2c->address(m_controlAddr);
     if (!isAvailable())
-        UPM_THROW("config failure");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": config failure");
 }
 
 SI7005::~SI7005() {
@@ -102,6 +102,11 @@ SI7005::getTemperatureCelsius () {
     return static_cast<int>(last_temperature + 0.5);
 }
 
+float
+SI7005::getTemperature() {
+    return getTemperatureCelsius();
+}
+
 uint16_t
 SI7005::getHumidityRaw () {
     return getMeasurement( SI7005_CONFIG_HUMIDITY );
@@ -117,6 +122,10 @@ SI7005::getHumidityRelative () {
     return static_cast<int>(linearHumidity + 0.5);
 }
 
+float
+SI7005::getHumidity () {
+    return getHumidityRelative();
+}
 
 uint16_t SI7005::getMeasurement(uint8_t configValue) {
 
@@ -149,7 +158,7 @@ uint16_t SI7005::getMeasurement(uint8_t configValue) {
 
     // Check we got the data we need
     if(length != SI7005_REG_DATA_LENGTH)
-        UPM_THROW("read error");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": read error");
 
     // Merge MSB and LSB
     rawData  = ((uint16_t)( data[SI7005_REG_DATA_LOW] & 0xFFFF )) + ( (uint16_t)(( data[SI7005_REG_DATA_HIGH] & 0xFFFF ) << 8 ));

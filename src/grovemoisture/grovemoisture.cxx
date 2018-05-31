@@ -46,3 +46,8 @@ int GroveMoisture::value()
 {
   return mraa_aio_read(m_aio);
 }
+
+int GroveMoisture::getMoisture()
+{
+  return value();
+}

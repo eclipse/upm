@@ -28,6 +28,7 @@
 
 #include <iostream>
 #include <string>
+#include <interfaces/iTemperature.hpp>
 
 #define MCP9808_REG_CONFIG  0x01
 #define MCP9808_REG_AMBIENT_TEMP 0x05
@@ -75,7 +76,7 @@ namespace upm {
    * @image html mcp9808.jpg
    * @snippet mcp9808.cxx Interesting
    */
-    class MCP9808 {
+    class MCP9808 : virtual public iTemperature {
 
         public:
             /**
@@ -176,6 +177,13 @@ namespace upm {
              * Returns current temperature.
              */
             float getTemp(void);
+
+            /**
+             * Returns the temperature in degrees Celsius
+             *
+             * @return The Temperature in degrees Celsius
+             */
+            virtual float getTemperature();
 
             /**
              *  Will cause the devices to either sleep or wakeup.

@@ -48,3 +48,8 @@ bool BISS0001::value()
 {
     return biss0001_motion_detected(m_biss0001);
 }
+
+bool BISS0001::motionDetected()
+{
+  return value();
+}

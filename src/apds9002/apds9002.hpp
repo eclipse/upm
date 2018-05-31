@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <interfaces/iLight.hpp>
 
 namespace upm {
   /**
@@ -52,7 +53,7 @@ namespace upm {
    * @snippet apds9002.cxx Interesting
    */
 
-  class APDS9002 {
+  class APDS9002 : virtual public iLight {
   public:
     /**
      * APDS-9002 luminance sensor constructor
@@ -70,6 +71,13 @@ namespace upm {
      * @return Luminance value
      */
     int value();
+
+    /**
+     * Gets the luminance value from the sensor
+     *
+     * @return The measured light intensity value in Lux
+     */
+    virtual float getLuminance();
 
   private:
     mraa_aio_context m_aio;

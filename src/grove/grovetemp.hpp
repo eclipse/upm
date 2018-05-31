@@ -29,6 +29,7 @@
 #include <string>
 #include <mraa/aio.hpp>
 #include "grovebase.hpp"
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -54,7 +55,7 @@ namespace upm {
  * @image html grovetemp.jpg
  * @snippet grove-grovetemp.cxx Interesting
  */
-class GroveTemp: public Grove {
+class GroveTemp: public Grove, virtual public iTemperature {
     public:
         /**
          * Grove analog temperature sensor constructor
@@ -84,6 +85,8 @@ class GroveTemp: public Grove {
          * @return Normalized temperature in Celsius
          */
         int value();
+
+        virtual float getTemperature();
     private:
         mraa_aio_context m_aio;
         float m_scale;

@@ -166,9 +166,10 @@ float RSC::getTemperature()
     return rsc_get_temperature(m_rsc);
 }
 
+#define INH20_TO_PA 248.84
 float RSC::getPressure()
 {
-    return rsc_get_pressure(m_rsc);
+    return rsc_get_pressure(m_rsc) * INH20_TO_PA;
 }
 
 void RSC::setMode(RSC_MODE mode)

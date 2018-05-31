@@ -263,6 +263,11 @@ float HWXPXX::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float HWXPXX::getTemperature()
+{
+  return getTemperature(false);
+}
+
 float HWXPXX::getHumidity()
 {
   return m_humidity;

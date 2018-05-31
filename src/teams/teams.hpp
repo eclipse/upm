@@ -27,6 +27,7 @@
 #include <iostream>
 
 #include <mraa/aio.hpp>
+#include <interfaces/iTemperature.hpp>
 
 // Unlikey to be changable
 #define TEAMS_DEFAULT_AREF 5.0
@@ -66,7 +67,7 @@ namespace upm {
      * @snippet teams.cxx Interesting
      */
 
-  class TEAMS {
+  class TEAMS : virtual public iTemperature {
   public:
 
     /**
@@ -104,7 +105,15 @@ namespace upm {
      * The default is false (degrees Celsius).
      * @return The last temperature reading in Celsius or Fahrenheit
      */
-    float getTemperature(bool fahrenheit=false);
+    float getTemperature(bool fahrenheit);
+
+    /**
+     * Get the current temperature.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return The last temperature reading in Celsius or Fahrenheit
+     */
+    virtual float getTemperature();
 
     /**
      * When using a direct 4-20ma interface (rResistor supplied in the

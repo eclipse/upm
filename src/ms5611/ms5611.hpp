@@ -22,8 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include <interfaces/iPressure.hpp>
+#include <interfaces/iTemperature.hpp>
 #include "mraa/i2c.hpp"
 
 namespace upm
@@ -58,7 +58,7 @@ namespace upm
  * @snippet ms5611.cxx Interesting
  */
 
-class MS5611 : public IPressureSensor, public ITemperatureSensor
+class MS5611 : virtual public iPressure, virtual public iTemperature
 {
 public:
    enum OsrMode
@@ -71,7 +71,21 @@ public:
    virtual const char* getModuleName() { return "ms5611"; }
    void setOverSampling(OsrMode osrMode);
    int getTemperatureCelsius();
+
+   /**
+    * Returns the temperature in degrees Celsius
+    *
+    * @return The Temperature in degrees Celsius
+    */
+   virtual float getTemperature();
    int getPressurePa();
+
+   /**
+    * Return the current measured pressure in Pascals (Pa).
+    *
+    * @return The pressure in Pascals (Pa).
+    */
+   virtual float getPressure();
 
 private:
    /* Disable implicit copy and assignment operators */

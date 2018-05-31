@@ -62,3 +62,9 @@ int MAXSONAREZ::inches()
 
   return int(volts / m_vI);
 }
+
+int MAXSONAREZ::getDistance()
+{
+   // TODO: call static conversion first.
+   return inches();
+}

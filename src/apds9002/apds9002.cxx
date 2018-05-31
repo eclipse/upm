@@ -32,7 +32,7 @@ using namespace upm;
 
 APDS9002::APDS9002(int pin)
 {
-  if ( !(m_aio = mraa_aio_init(pin)) ) 
+  if ( !(m_aio = mraa_aio_init(pin)) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_aio_init() failed, invalid pin?");
@@ -48,4 +48,9 @@ APDS9002::~APDS9002()
 int APDS9002::value()
 {
   return mraa_aio_read(m_aio);
+}
+
+float APDS9002::getLuminance()
+{
+    return value();
 }

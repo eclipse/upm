@@ -24,6 +24,7 @@
 #pragma once
 
 #include <mraa/gpio.h>
+#include <interfaces/iCollision.hpp>
 
 namespace upm {
   /**
@@ -43,15 +44,15 @@ namespace upm {
    * @con gpio
    *
    * @brief API for the Grove Collision Sensor
-   * 
+   *
    * The Grove Collision Sensor can detect whether any
    * collision movement or vibration happens.
-   * It outputs a low pulse signal when vibration is detected. 
+   * It outputs a low pulse signal when vibration is detected.
    *
    * @image html grovecollision.jpg
    * @snippet grovecollision.cxx Interesting
    */
-  class GroveCollision {
+  class GroveCollision : virtual public iCollision {
   public:
     /**
      * Grove collision sensor constructor
@@ -64,11 +65,11 @@ namespace upm {
      */
     ~GroveCollision();
     /**
-     * @return bool  Defines whether something is colliding with sensor
+     * @return boolean value defining whether something is colliding with sensor
      */
-     bool isColliding();
+    virtual bool isColliding();
 
   private:
-        mraa_gpio_context m_gpio;
-	};
+    mraa_gpio_context m_gpio;
+  };
 }
