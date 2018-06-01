@@ -166,8 +166,9 @@ static uint8_t checksum(const std::string& sentence)
  * Unfortunately these sentences appear-non standard between the devices tested
  * so it can be expected that these would need updating to match additional
  * devices.
+ * GPGGA,164800.00,4532.52680,N,12257.59972,W,1,10,0.93,73.3,M,-21.3,M,,*5E
  */
-static std::regex rex_gga(R"(^\$GPGGA,(\d+\.\d+),(\d+)(\d{2}\.\d+),([NS]),(\d+)(\d{2}.\d+),([WE]),(\d+),(\d+),(\d+\.\d+),(\d+\.\d+),M,([+-]?\d+\.\d+),M,([+-]?\d+\.\d+),(\S+)[*]([A-Z0-9]{2}))");
+static std::regex rex_gga(R"(^\$GPGGA,(\d+\.\d+),(\d+)(\d{2}\.\d+),([NS]),(\d+)(\d{2}.\d+),([WE]),(\d+),(\d+),(\d+\.\d+),(\d+\.\d+),M,([+-]?\d+\.\d+),M,([+-]?\d+\.\d+)?,?(\S+)?[*]([A-Z0-9]{2}))");
 void NMEAGPS::_parse_gpgga(const std::string& sentence)
 {
     /* Parse the GGA message */
@@ -189,7 +190,7 @@ void NMEAGPS::_parse_gpgga(const std::string& sentence)
     fix.hdop = std::stof(m[10]);
     fix.altitude_meters = std::stof(m[11]);
     fix.geoid_height_meters = std::stof(m[12]);
-    fix.age_seconds = std::stof(m[13]);
+    fix.age_seconds = m[13].str().empty() ? 0.0 : std::stof(m[13]);
     fix.station_id = m[14];
     fix.chksum_match = std::stoi(m[15], nullptr, 16) == checksum(sentence);
     fix.valid &= fix.chksum_match;
