@@ -13,6 +13,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_nmea_gps)
 %feature("python:slot", "tp_str", functype="reprfunc") upm::satellite::__str__;
 %feature("python:slot", "tp_str", functype="reprfunc") upm::nmeatxt::__str__;
 %feature("python:slot", "tp_str", functype="reprfunc") upm::NMEAGPS::__str__;
+%feature("python:slot", "tp_str", functype="reprfunc") upm::coord_DD::__str__;
 #endif
 /* END Python syntax */
 

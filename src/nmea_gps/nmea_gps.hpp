@@ -79,6 +79,11 @@ namespace upm {
         double latitude = 0.0;
         /** Longitude in decimal degrees */
         double longitude = 0.0;
+        /**
+         * Provide a string representation of this structure.
+         * @return String representing coordinates
+         */
+        std::string __str__();
     };
 
     /** Satellite structure definition */

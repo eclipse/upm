@@ -616,3 +616,10 @@ std::string NMEAGPS::__str__()
 
     return oss.str();
 }
+
+std::string coord_DD::__str__()
+{
+    std::ostringstream oss;
+    oss << latitude << ", " << longitude;
+    return oss.str();
+}
