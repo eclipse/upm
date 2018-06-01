@@ -55,6 +55,11 @@ float OTP538U::ambientTemperature()
     return temp;
 }
 
+float OTP538U::getTemperature()
+{
+    return ambientTemperature();
+}
+
 float OTP538U::objectTemperature()
 {
     float temp = 0;

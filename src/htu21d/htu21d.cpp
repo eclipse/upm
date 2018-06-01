@@ -100,12 +100,24 @@ HTU21D::getTemperature(int bSampleData)
 }
 
 float
+HTU21D::getTemperature()
+{
+    return getTemperature(0);
+}
+
+float
 HTU21D::getHumidity(int bSampleData)
 {
     if (bSampleData) {
         sampleData();
     }
     return (float)m_humidity / 1000;
+}
+
+float
+HTU21D::getHumidity()
+{
+    return getHumidity(0);
 }
 
 /*

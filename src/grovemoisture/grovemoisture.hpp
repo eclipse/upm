@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <interfaces/iMoisture.hpp>
 
 namespace upm {
   /**
@@ -56,7 +57,7 @@ namespace upm {
    * @image html grovemoisture.jpg
    * @snippet grovemoisture.cxx Interesting
    */
-  class GroveMoisture {
+  class GroveMoisture : virtual public iMoisture {
   public:
     /**
      * Grove analog moisture sensor constructor
@@ -74,6 +75,13 @@ namespace upm {
      * @return Moisture reading
      */
     int value();
+
+    /**
+     * Gets the moisture value from the sensor
+     *
+     * @return Moisture reading
+     */
+    virtual int getMoisture();
 
   private:
     mraa_aio_context m_aio;

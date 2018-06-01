@@ -57,6 +57,17 @@ int Light::value()
     return (int)roundf(value);
 }
 
+float Light::getLuminance()
+{
+    float value;
+
+    if (light_get_lux(m_light, &value))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+        ": light_get_normalized() failed.");
+
+    return value;
+}
+
 float Light::raw_value()
 {
     // This is a hack.  Deprecated.  Should be removed ASAP.

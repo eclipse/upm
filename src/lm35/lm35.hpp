@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include "lm35.h"
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
     /**
@@ -58,7 +59,7 @@ namespace upm {
      * @snippet lm35.cxx Interesting
      */
 
-    class LM35 {
+    class LM35 : virtual public iTemperature {
     public:
 
         /**
@@ -79,7 +80,7 @@ namespace upm {
          *
          * @return The Temperature in degrees Celsius
          */
-        float getTemperature();
+        virtual float getTemperature();
 
         /**
          * Set sensor scale.  This scale is applied to the return values

@@ -25,6 +25,7 @@
 #pragma once
 
 #include "abp.h"
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 /**
@@ -59,7 +60,7 @@ namespace upm {
  * @snippet abp.cxx Interesting
  */
 
-    class ABP {
+    class ABP : virtual public iTemperature {
 
     public:
         /**
@@ -90,7 +91,7 @@ namespace upm {
          *
          * @return float compensated temperature value
          */
-        float getTemperature();
+        virtual float getTemperature();
 
          /**
           * This functio has to be called before calling either of the get

@@ -55,6 +55,11 @@ uint16_t IMS::get_moisture()
     return retval;
 }
 
+int IMS::getMoisture()
+{
+  return get_moisture();
+}
+
 uint16_t IMS::get_light()
 {
     uint16_t retval;
@@ -71,6 +76,11 @@ float IMS::get_temperature()
         throw std::runtime_error(std::string(__FUNCTION__) +
                 ": ims_get_temperature command failed");
     return static_cast<float>(retval)/10.0;
+}
+
+float IMS::getTemperature()
+{
+    return get_temperature();
 }
 
 void IMS::reset_i2c_address(uint8_t address_new)

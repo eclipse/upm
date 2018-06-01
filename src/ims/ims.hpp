@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include <interfaces/iMoisture.hpp>
+#include <interfaces/iTemperature.hpp>
 #include "ims.h"
 
 namespace upm {
@@ -55,7 +57,7 @@ namespace upm {
  * @snippet ims.cxx Interesting
  */
 
-class IMS {
+class IMS : virtual public iMoisture, virtual public iTemperature {
     public:
         /**
          * I2C Moisture Sensor constructor
@@ -104,6 +106,13 @@ class IMS {
         uint16_t get_moisture();
 
         /**
+         * Get moisture reading from sensor
+         * @return Unitless, relative capacitance value (moisture)
+         * @throws std::runtime_error if I2C read command fails
+         */
+        virtual int getMoisture();
+
+        /**
          * Get light reading from LED on device.  The technical data for the I2C
          * moisture sensor specifies a 3 second wait.  Loop for 3 seconds
          * checking the GET_BUSY register.  IF the sensor is NOT ready after 3
@@ -121,6 +130,13 @@ class IMS {
          * @throws std::runtime_error if I2C read command fails
          */
         float get_temperature();
+
+        /**
+         * Get temperature reading from device
+         * @return rd_data Temperature in degrees Celsius
+         * @throws std::runtime_error if I2C read command fails
+         */
+        virtual float getTemperature();
 
         /**
          * Reset sensor
