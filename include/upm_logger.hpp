@@ -1,9 +1,11 @@
 #pragma once
 
 #include <sstream>
+#include <fstream>
 #include <string>
 #include <chrono>
-#include <stdio.h>
+#include <thread>
+#include <mutex>
 
 /* Helper macro for logger utility class. */
 #define UPM_LOG(log_level) \
@@ -13,6 +15,8 @@
     UPM_LOGGER().log(log_level) << __FILE__ << " " \
                                 << __FUNCTION__ << " " \
                                 << __LINE__ << ": "
+
+#define LOG_FILE "/var/log/upm.log"
 
 namespace upm {
 
@@ -38,6 +42,9 @@ namespace upm {
     virtual ~UPM_LOGGER();
     std::ostringstream& log(UpmLogLevel level = LOG_ERROR);
     static UpmLogLevel& LogLevel();
+
+    static std::ofstream logStream;
+    static std::mutex logMutex;
   protected:
     std::ostringstream os;
   private:
@@ -55,6 +62,18 @@ namespace upm {
       }
 
       return logLevelNames[level];
+    }
+
+  public:
+    static void write(std::ostringstream& os)
+    {
+
+
+      std::lock_guard<std::mutex> lock(logMutex);
+
+      logStream.open(LOG_FILE, std::ios_base::app);
+      logStream << os.str();
+      logStream.flush();
     }
   };
 
@@ -84,7 +103,7 @@ namespace upm {
   UPM_LOGGER::~UPM_LOGGER()
   {
     os << std::endl;
-    fprintf(stderr, "%s", os.str().c_str());
-    fflush(stderr);
+
+    write(os);
   }
 }
