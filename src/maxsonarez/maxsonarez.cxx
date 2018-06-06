@@ -65,6 +65,5 @@ int MAXSONAREZ::inches()
 
 int MAXSONAREZ::getDistance()
 {
-   // TODO: call static conversion first.
-   return inches();
+   return (inches() * 2.54);
 }
