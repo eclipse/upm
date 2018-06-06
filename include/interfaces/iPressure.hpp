@@ -47,9 +47,9 @@ namespace upm
      * 3. Torr
      * 4. Pounds per square inch
      *
-     * @param celsiusValue Celsius degrees value
-     * @param unit The temperature unit for the conversion.
-     * @return The converted temperature value
+     * @param paValue Pa pressure value
+     * @param unit The pressure unit for the conversion.
+     * @return The converted pressure value
      */
     static float convertPaTo(float paValue, PressureUnit unit);
   };

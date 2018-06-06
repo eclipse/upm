@@ -43,9 +43,9 @@ namespace upm
       *
       * 1. Inch
       *
-      * @param celsiusValue Celsius degrees value
-      * @param unit The temperature unit for the conversion.
-      * @return The converted temperature value
+      * @param cmValue Cm distance value
+      * @param unit The distance unit for the conversion.
+      * @return The converted distance value
       */
     static float convertCmTo(float cmValue, DistanceUnit unit);
   };
