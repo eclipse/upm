@@ -30,6 +30,7 @@
 #include <unistd.h>
 
 #include "ecezo.h"
+#include <interfaces/iEC.hpp>
 
 namespace upm {
     /**
@@ -57,7 +58,7 @@ namespace upm {
      * @snippet ecezo.cxx Interesting
      */
 
-    class ECEZO {
+    class ECEZO : virtual public iEC {
     public:
 
         /**
@@ -126,6 +127,14 @@ namespace upm {
          * @return EC value in microsiemens
          */
         float getEC();
+
+        /**
+         * Measures and retrieves the Electrical Conductivity (EC)
+         * value in microsiemens. update() is called during this function.
+         *
+         * @return EC value in microsiemens
+         */
+        virtual float getECValue();
 
         /**
          * Retrieve the last measured Total Dissolved solids (TDS) value.

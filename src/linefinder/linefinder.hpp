@@ -24,6 +24,7 @@
 #pragma once
 
 #include <linefinder.h>
+#include <interfaces/iLineFinder.hpp>
 
 namespace upm {
     /**
@@ -51,7 +52,7 @@ namespace upm {
      * @image html linefinder.jpg
      * @snippet linefinder.cxx Interesting
      */
-    class LineFinder {
+    class LineFinder : virtual public iLineFinder {
     public:
         /**
          *  Line Finder digital sensor constructor
@@ -70,14 +71,14 @@ namespace upm {
          *
          * @return True if white is detected
          */
-        bool whiteDetected();
+        virtual bool whiteDetected();
 
         /**
          * Determines whether black has been detected
          *
          * @return True if black is detected
          */
-        bool blackDetected();
+        virtual bool blackDetected();
 
     private:
         /* Disable implicit copy and assignment operators */
@@ -87,5 +88,3 @@ namespace upm {
         linefinder_context m_linefinder;
     };
 }
-
-

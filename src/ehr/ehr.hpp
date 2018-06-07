@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <mraa/gpio.h>
+#include <interfaces/iHeartRate.hpp>
 
 namespace upm {
   /**
@@ -46,12 +47,12 @@ namespace upm {
    * @brief API for the  Ear-clip Heart Rate Sensor
    *
    * UPM module for the  ear-clip heart rate sensor. It is used to measure your
-   * heart rate. 
+   * heart rate.
    *
-   * @image html ehr.jpg 
+   * @image html ehr.jpg
    * @snippet ehr.cxx Interesting
    */
-  class EHR {
+  class EHR : virtual public iHeartRate {
   public:
     /**
      * EHR constructor
@@ -110,17 +111,22 @@ namespace upm {
      */
     int heartRate();
 
+    /**
+     * Retrieve the computed heart rate
+     *
+     * @return Computed heart rate
+     */
+    virtual int getHeartRate();
+
   private:
     /**
      * Beat interrupt service routine (ISR)
      *
      */
     static void beatISR(void *ctx);
-    
+
     volatile uint32_t m_beatCounter;
     struct timeval m_startTime;
     mraa_gpio_context m_gpio;
   };
 }
-
-

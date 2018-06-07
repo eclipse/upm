@@ -1,6 +1,6 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Mihai Stefanescu <mihai.stefanescu@rinftech.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,63 +21,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #pragma once
 
-#include <string>
-#include <mraa/aio.h>
-#include "interfaces/iEmg.hpp"
-
-namespace upm {
-  /**
-   * @deprecated This library is being replaced by libupm-emg
-   * @brief Grove EMG Muscle Signal Reader
-   * @defgroup groveemg libupm-groveemg
-   * @ingroup seeed analog electric
-   */
-
-  /**
-   * @deprecated This class is being replaced by EMG
-   * @library groveemg
-   * @sensor groveemg
-   * @comname Electromyography (EMG) Sensor
-   * @type electric
-   * @man seeed
-   * @con analog
-   *
-   * @brief API for the Grove EMG Muscle Signal Reader
-   *
-   * Grove EMG muscle signal reader gathers small muscle signals,
-   * then processes them, and returns the result
-   *
-   * @image html emg.jpg
-   * @snippet groveemg.cxx Interesting
-   */
-  class GroveEMG : virtual public iEmg {
+namespace upm
+{
+/**
+ * @brief Interface for Electromyography (EMG) Sensors
+*/
+  class iEmg
+  {
   public:
-    /**
-     * Grove EMG reader constructor
-     *
-     * @param pin Analog pin to use
-     */
-    GroveEMG(int pin);
-    /**
-     * GroveEMG destructor
-     */
-    ~GroveEMG();
+    virtual ~iEmg() {}
 
     /**
-     * Calibrates the Grove EMG reader
+     * Calibrates the EMG reader
      */
-    virtual void calibrate();
+    virtual void calibrate() = 0;
 
     /**
      * Measures muscle signals from the reader
      *
      * @return Muscle output as analog voltage
      */
-    virtual int value();
-
-  private:
-    mraa_aio_context m_aio;
+    virtual int value() = 0;
   };
 }
