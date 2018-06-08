@@ -248,11 +248,10 @@ function (_get_current_dot_i_file filePrefix varDotIFile)
       # This file will exist OUTSIDE the source tree
       set(${varDotIFile} "${CMAKE_CURRENT_BINARY_DIR}/${libname}.i")
 
-      # First, create the include variables
-      set(SWIG_HASH_INCLUDES)
-      foreach (_hpp ${module_hpp})
-          set(SWIG_HASH_INCLUDES "#include \"${_hpp}\"")
-      endforeach()
+      # Create preprocessor include string for importing
+      string(REGEX REPLACE ";" "\"\n#include \"" SWIG_HASH_INCLUDES "${module_h_hpp}")
+      set(SWIG_HASH_INCLUDES "#include \"${SWIG_HASH_INCLUDES}\"")
+      # And the SWIG import string
       string(REPLACE "#" "%" SWIG_PERCENT_INCLUDES "${SWIG_HASH_INCLUDES}")
 
       # Write the interface file
@@ -308,7 +307,7 @@ macro(_upm_swig_python)
   set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
   add_dependencies(${python_wrapper_target} ${libname})
 
-  swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${libname})
+  swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${libname} -Wl,--unresolved-symbols=report-all)
   target_include_directories (${python_wrapper_target}
       PUBLIC
       "${PYTHON_INCLUDE_PATH}"
@@ -821,6 +820,16 @@ function(upm_module_init)
 
   # Don't SWIG C
   if (NOT IS_C_LIBRARY)
+    # When auto-generating a SWIG .i file, first include any C headers which
+    # end in *_regs.h.  Then, include the C++ headers.
+    if (UPM_MIXED_MODULE_INIT_C_HDR AND UPM_MIXED_MODULE_INIT_CPP_WRAPS_C)
+        string(REGEX MATCHALL "[^;]*_regs.h" _regs "${UPM_MIXED_MODULE_INIT_C_HDR}")
+        if(_regs)
+            list(APPEND module_h_hpp "${_regs}")
+        endif()
+    endif ()
+    list(APPEND module_h_hpp "${module_hpp}")
+    separate_arguments (module_h_hpp)
     if (BUILDSWIGPYTHON)
       upm_swig_python()
     endif (BUILDSWIGPYTHON)
