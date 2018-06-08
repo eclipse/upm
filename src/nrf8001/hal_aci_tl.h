@@ -121,7 +121,7 @@ bool hal_aci_tl_send(hal_aci_data_t *aci_buffer);
  *  that was pending.
  *  @return Points to data buffer for received data. Length byte in buffer is 0 if no data received.
  */
-hal_aci_data_t * hal_aci_tl_poll_get(void);
+//hal_aci_data_t * hal_aci_tl_poll_get(void);
 
 /** @brief Get an ACI event from the event queue
  *  @details
