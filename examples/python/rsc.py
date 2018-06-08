@@ -25,6 +25,11 @@ from __future__ import print_function
 import time, sys, signal, atexit
 from upm import pyupm_rsc as rsc
 
+# Since CI loads each python example, the following would fail if the types
+# from rsc_regs.h are NOT exposed in the pyupm_rsc module
+mode = rsc.NORMAL_MODE
+dr = rsc.N_DR_20_SPS
+
 def main():
     # Instantiate a Honeywell RSC Pressure sensor on the SPI bus 0
     rsc_sensor = rsc.RSC(0, 9, 8);
