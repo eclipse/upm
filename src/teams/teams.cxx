@@ -112,6 +112,11 @@ float TEAMS::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float TEAMS::getTemperature()
+{
+  return getTemperature(false);
+}
+
 int TEAMS::average(int samples)
 {
   if (samples <= 0)

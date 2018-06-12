@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <interfaces/iLight.hpp>
 
 #include "bh1750.h"
 
@@ -57,7 +58,7 @@ namespace upm {
      * @snippet bh1750.cxx Interesting
      */
 
-  class BH1750 {
+  class BH1750 : virtual public iLight {
   public:
 
     /**
@@ -91,6 +92,13 @@ namespace upm {
      * @return The measured light intensity in Lux.
      */
     float getLux();
+
+    /**
+     * Gets the luminance value from the sensor
+     *
+     * @return The measured light intensity value in Lux
+     */
+    virtual float getLuminance();
 
     /**
      * Power up the device.

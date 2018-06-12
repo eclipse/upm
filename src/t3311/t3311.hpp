@@ -26,6 +26,8 @@
 #include <string>
 
 #include <modbus/modbus.h>
+#include <interfaces/iHumidity.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -60,7 +62,7 @@ namespace upm {
    * @snippet t3311.cxx Interesting
    */
 
-  class T3311 {
+  class T3311 : virtual public iHumidity, virtual public iTemperature {
   public:
 
     // MODBUS input registers
@@ -148,7 +150,15 @@ namespace upm {
      * The default is false (degrees Celsius).
      * @return The last temperature reading in Celsius or Fahrenheit
      */
-    float getTemperature(bool fahrenheit=false);
+    float getTemperature(bool fahrenheit);
+
+    /**
+     * Get the current temperature.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return The last temperature reading in Celsius
+     */
+    virtual float getTemperature();
 
     /**
      * Get the current relative humidity.  update() must have been called
@@ -156,7 +166,7 @@ namespace upm {
      *
      * @return The last humidity reading
      */
-    float getHumidity();
+    virtual float getHumidity();
 
     /**
      * Get the current computed value.  update() must have been

@@ -32,6 +32,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <interfaces/iDistance.hpp>
+#include <interfaces/iTemperature.hpp>
 
 #include "urm37.h"
 
@@ -76,7 +78,7 @@ namespace upm {
      * @snippet urm37-uart.cxx Interesting
      */
 
-  class URM37 {
+  class URM37 : virtual public iDistance, virtual public iTemperature {
   public:
 
     /**
@@ -119,14 +121,22 @@ namespace upm {
      * ignored in analog mode.
      * @return The measured distance in cm
      */
-    float getDistance(int degrees=0);
+    float getDistance(int degrees);
+
+    /**
+     * Get the distance measurement.  A return value of 65535.0
+     * in UART mode indicates an invalid measurement.
+     *
+     * @return The measured distance in cm
+     */
+    virtual int getDistance();
 
     /**
      * Get the temperature measurement.  This is only valid in UART mode.
      *
      * @return The measured temperature in degrees C
      */
-    float getTemperature();
+    virtual float getTemperature();
 
     /**
      * In UART mode only, read a value from the EEPROM and return it.

@@ -49,7 +49,7 @@ MAX31723::MAX31723 (int bus, int csn) : m_spi(bus), m_csnPinCtx(csn) {
     writeRegister (R_STS_WRITE_CMD, B_CONT_READING);
 }
 
-short
+float
 MAX31723::getTemperature () {
     uint8_t msb = 0;
     short temperature = 0;

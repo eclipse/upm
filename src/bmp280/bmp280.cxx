@@ -110,6 +110,11 @@ float BMP280::getTemperature(bool fahrenheit)
         return temperature;
 }
 
+float BMP280::getTemperature()
+{
+    return getTemperature(false);
+}
+
 float BMP280::getPressure()
 {
     return bmp280_get_pressure(m_bmp280);

@@ -46,3 +46,8 @@ int Moisture::value()
 {
   return mraa_aio_read(m_aio);
 }
+
+int Moisture::getMoisture()
+{
+  return value();
+}

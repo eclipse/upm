@@ -49,3 +49,9 @@ HCSR04::getDistance(HCSR04_U unit)
 {
     return hcsr04_get_distance(m_hcsr04, unit);
 }
+
+int
+HCSR04::getDistance()
+{
+    return getDistance(HCSR04_CM);
+}
