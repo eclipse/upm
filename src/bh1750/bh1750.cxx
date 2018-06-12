@@ -59,6 +59,11 @@ float BH1750::getLux()
   return lux;
 }
 
+float BH1750::getLuminance()
+{
+    return getLux();
+}
+
 void BH1750::powerUp()
 {
   if (bh1750_power_up(m_bh1750) != UPM_SUCCESS)

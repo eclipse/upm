@@ -81,6 +81,12 @@ float ECEZO::getEC()
     return ecezo_get_ec(m_ecezo);
 }
 
+float ECEZO::getECValue()
+{
+    ECEZO::update();
+    return ECEZO::getEC();
+}
+
 float ECEZO::getTDS()
 {
     return ecezo_get_tds(m_ecezo);

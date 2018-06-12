@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include "interfaces/iEmg.hpp"
 
 namespace upm {
   /**
@@ -51,7 +52,7 @@ namespace upm {
    * @image html emg.jpg
    * @snippet groveemg.cxx Interesting
    */
-  class GroveEMG {
+  class GroveEMG : virtual public iEmg {
   public:
     /**
      * Grove EMG reader constructor
@@ -67,18 +68,16 @@ namespace upm {
     /**
      * Calibrates the Grove EMG reader
      */
-    void calibrate();
+    virtual void calibrate();
 
     /**
      * Measures muscle signals from the reader
      *
      * @return Muscle output as analog voltage
      */
-    int value();
+    virtual int value();
 
   private:
     mraa_aio_context m_aio;
   };
 }
-
-

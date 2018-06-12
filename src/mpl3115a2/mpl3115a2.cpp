@@ -208,6 +208,11 @@ MPL3115A2::getPressure(int bSampleData) {
 }
 
 float
+MPL3115A2::getPressure() {
+  return getPressure(true);
+}
+
+float
 MPL3115A2::getTemperature(int bSampleData) {
     int ret;
 

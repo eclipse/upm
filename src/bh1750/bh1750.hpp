@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <interfaces/iLight.hpp>
 
 #include "bh1750.h"
 
@@ -57,13 +58,13 @@ namespace upm {
      * @snippet bh1750.cxx Interesting
      */
 
-  class BH1750 {
+  class BH1750 : virtual public iLight {
   public:
 
     /**
      * BH1750 object constructor (Analog mode)
      *
-     * @param bus The I2C bus to use 
+     * @param bus The I2C bus to use
      * @param addr The I2C address of the device
      * @param mode The mode to start operation under.  One of the
      * BH1750_OPMODES_T values.  The default is the highest precision,
@@ -91,6 +92,13 @@ namespace upm {
      * @return The measured light intensity in Lux.
      */
     float getLux();
+
+    /**
+     * Gets the luminance value from the sensor
+     *
+     * @return The measured light intensity value in Lux
+     */
+    virtual float getLuminance();
 
     /**
      * Power up the device.

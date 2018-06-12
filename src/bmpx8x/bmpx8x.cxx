@@ -99,7 +99,7 @@ void BMPX8X::writeReg(uint8_t reg, uint8_t val)
                                  + ": bmpx8x_write_reg() failed");
 }
 
-int BMPX8X::getPressure()
+float BMPX8X::getPressure()
 {
     return bmpx8x_get_pressure(m_bmpx8x);
 }

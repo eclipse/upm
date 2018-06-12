@@ -26,6 +26,7 @@
 #include <string>
 #include <mraa/i2c.hpp>
 #include <math.h>
+#include <interfaces/iPressure.hpp>
 
 #define MPL3115A2_NAME        "mpl3115a2"
 
@@ -79,7 +80,7 @@ namespace upm {
  * @image html mpl3115a2.jpg
  * @snippet mpl3115a2.cxx Interesting
  */
-class MPL3115A2 {
+class MPL3115A2 : virtual public iPressure {
     public:
         /**
          * Instantiates an MPL3115A2 object
@@ -141,7 +142,14 @@ class MPL3115A2 {
          *
          * @param bSampleData Sets non-zero to a sample reading
          */
-        float getPressure(int bSampleData = true);
+        float getPressure(int bSampleData);
+
+        /**
+         * Reads the current pressure value from MPL3115A2 [Pa]
+         *
+         * @return Pressure value in Pa
+         */
+        virtual float getPressure();
 
         /**
          * Reads the current temperature value from MPL3115A2 [degC]

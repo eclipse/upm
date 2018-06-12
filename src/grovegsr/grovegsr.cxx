@@ -68,3 +68,8 @@ int GroveGSR::value()
 	int val = mraa_aio_read(m_aio);
 	return val;
 }
+
+float GroveGSR::getECValue()
+{
+	return (float) GroveGSR::value();
+}

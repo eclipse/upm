@@ -62,7 +62,7 @@ getLightSensor()
 int
 main()
 {
-    upm::ILightSensor* lightSensor = getLightSensor();
+    /*upm::ILightSensor* lightSensor = getLightSensor();
     if (lightSensor == NULL) {
         std::cout << "Light sensor not detected" << std::endl;
         return 1;
@@ -77,7 +77,7 @@ main()
         }
         upm_delay(1);
     }
-    delete lightSensor;
+    delete lightSensor;*/
     return 0;
 }
 

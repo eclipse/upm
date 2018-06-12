@@ -62,6 +62,11 @@ int Temperature::value ()
     return (int) round(t);
 }
 
+float Temperature::getTemperature ()
+{
+    return value();
+}
+
 float Temperature::raw_value()
 {
     return (float) mraa_aio_read(m_aio);

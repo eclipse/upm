@@ -24,6 +24,7 @@
  */
 #pragma once
 
+#include <interfaces/iMotion.hpp>
 #include <biss0001.h>
 
 namespace upm {
@@ -57,7 +58,7 @@ namespace upm {
      * @snippet biss0001.cxx Interesting
      */
 
-  class BISS0001 {
+  class BISS0001 : virtual public iMotion {
   public:
       /**
        * BISS0001 motion sensor constructor
@@ -81,11 +82,11 @@ namespace upm {
       /**
        * Gets the motion value from the sensor.  This is a more
        * informative method name, but we want to keep compatibility
-       * with the original for now.
+       * with the original for now. Implements iMotion interface.
        *
        * @return true if motion was detected, false otherwise.
        */
-      bool motionDetected() { return value(); };
+      virtual bool motionDetected();
 
   private:
       /* Disable implicit copy and assignment operators */

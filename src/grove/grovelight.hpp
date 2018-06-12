@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/aio.hpp>
+#include <interfaces/iLight.hpp>
 #include "grovebase.hpp"
 
 namespace upm {
@@ -54,7 +55,7 @@ namespace upm {
  * @image html grovelight.jpg
  * @snippet grove-grovelight.cxx Interesting
  */
-class GroveLight: public Grove {
+class GroveLight: public Grove, virtual public iLight {
     public:
         /**
          * Grove analog light sensor constructor
@@ -78,6 +79,13 @@ class GroveLight: public Grove {
          * @return Normalized light reading in lux
          */
         int value();
+
+        /**
+         * Gets an approximate light value, in lux, from the sensor
+         *
+         * @return Normalized light reading in lux
+         */
+        virtual float getLuminance();
     private:
         mraa_aio_context m_aio;
 };

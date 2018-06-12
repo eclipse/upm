@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include "interfaces/iEmg.hpp"
 
 namespace upm {
   /**
@@ -43,14 +44,14 @@ namespace upm {
    * @con analog
    *
    * @brief API for the Grove EMG Muscle Signal Reader
-   * 
+   *
    * Grove EMG muscle signal reader gathers small muscle signals,
    * then processes them, and returns the result
    *
    * @image html emg.jpg
    * @snippet emg.cxx Interesting
    */
-  class EMG {
+  class EMG : virtual public iEmg {
   public:
     /**
      * Grove EMG reader constructor
@@ -66,18 +67,16 @@ namespace upm {
     /**
      * Calibrates the Grove EMG reader
      */
-    void calibrate();
+    virtual void calibrate();
 
     /**
      * Measures muscle signals from the reader
      *
      * @return Muscle output as analog voltage
      */
-    int value();
+    virtual int value();
 
   private:
     mraa_aio_context m_aio;
   };
 }
-
-

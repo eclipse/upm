@@ -32,8 +32,7 @@
 
 #include "bmpx8x.h"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include <interfaces/iPressure.hpp>
 
 namespace upm {
 
@@ -68,7 +67,7 @@ namespace upm {
      * @snippet bmpx8x.cxx Interesting
      */
 
-    class BMPX8X : public IPressureSensor, public ITemperatureSensor {
+    class BMPX8X : virtual public iPressure {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -132,7 +131,7 @@ namespace upm {
          *
          * @returns The pressure in Pascals.
          */
-        int getPressure();
+        virtual float getPressure();
 
         /**
          * Returns the calculated temperature in Celsius.  update()

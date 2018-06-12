@@ -29,6 +29,7 @@
 #include <mraa/gpio.hpp>
 
 #include <mraa/spi.hpp>
+#include <interfaces/iTemperature.hpp>
 
 #define HIGH                    1
 #define LOW                     0
@@ -60,7 +61,7 @@ namespace upm {
  *
  * @snippet max31723.cxx Interesting
  */
-class MAX31723 {
+class MAX31723 : virtual public iTemperature {
     public:
         static const uint8_t R_STS_READ_CMD     = 0x00;
         static const uint8_t R_STS_WRITE_CMD    = 0x80;
@@ -85,9 +86,11 @@ class MAX31723 {
          **/
 
         /**
-         * Gets the on-board temperature.
+         * Returns the temperature in degrees Celsius
+         *
+         * @return The Temperature in degrees Celsius
          */
-        short getTemperature ();
+        virtual float getTemperature ();
 
         /**
          * Returns the name of the component
