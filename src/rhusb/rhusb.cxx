@@ -99,6 +99,11 @@ float RHUSB::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float RHUSB::getTemperature()
+{
+  return getTemperature(false);
+}
+
 float RHUSB::getHumidity()
 {
   return m_humidity;

@@ -26,6 +26,8 @@
 #include <string>
 
 #include <modbus/modbus.h>
+#include <interfaces/iHumidity.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -64,7 +66,7 @@ namespace upm {
    * @snippet hwxpxx.cxx Interesting
    */
 
-  class HWXPXX {
+  class HWXPXX : virtual public iHumidity, virtual public iTemperature {
   public:
     // MODBUS input registers
     typedef enum {
@@ -128,7 +130,17 @@ namespace upm {
      * The default is false (degrees Celsius).
      * @return The last temperature reading in Celsius or Fahrenheit
      */
-    float getTemperature(bool fahrenheit=false);
+    float getTemperature(bool fahrenheit);
+
+    /**
+     * Get the current temperature.  update() must have been called
+     * prior to calling this method.  If this option was not
+     * installed, this method will always return 0C/0F, depending on
+     * the scale the device is operating in natively.
+     *
+     * @return The last temperature reading in Celsius or Fahrenheit
+     */
+    virtual float getTemperature();
 
     /**
      * Get the current relative humidity.  update() must have been called
@@ -136,7 +148,7 @@ namespace upm {
      *
      * @return The last humidity reading
      */
-    float getHumidity();
+    virtual float getHumidity();
 
     /**
      * Get the current slider switch position.  update() must have

@@ -41,7 +41,7 @@ MAX44009::MAX44009 (int bus, int devAddr) {
     status = mraa::SUCCESS;
     reset();
     if (status != mraa::SUCCESS)
-        UPM_THROW("config failure");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": config failure");
 }
 
 MAX44009::~MAX44009() {
@@ -70,7 +70,7 @@ MAX44009::getVisibleRaw() {
     int length = i2c->readBytesReg(MAX44009_LUX_START_ADDR, data, MAX44009_LUX_LENGTH);
 
     if(length != MAX44009_LUX_LENGTH)
-        UPM_THROW("Read error");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": Read error");
 
     return *value;
 }
@@ -86,8 +86,12 @@ MAX44009::getVisibleLux() {
 
     // Check for overrange condition
     if(exponent == MAX44009_OVERRANGE_CONDITION)
-        UPM_THROW("Overrange error");
+        throw std::runtime_error(std::string(__FUNCTION__) + ": Overrange error");
 
     return pow((double)2,(double)exponent) * mantissa * 0.045;
 }
 
+float
+MAX44009::getLuminance() {
+    return getVisibleLux();
+}

@@ -70,6 +70,11 @@ MLX90614::readAmbientTempC(void) {
     return readTemperature(MLX90614_TA);
 }
 
+float
+MLX90614::getTemperature() {
+  return readAmbientTempC();
+}
+
 /*
  * **************
  *  private area

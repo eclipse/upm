@@ -62,3 +62,8 @@ int MAXSONAREZ::inches()
 
   return int(volts / m_vI);
 }
+
+int MAXSONAREZ::getDistance()
+{
+   return (inches() * 2.54);
+}

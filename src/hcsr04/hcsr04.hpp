@@ -25,6 +25,7 @@
 #pragma once
 
 #include "hcsr04.h"
+#include <interfaces/iDistance.hpp>
 
 namespace upm {
 /**
@@ -49,7 +50,7 @@ namespace upm {
  * @image html groveultrasonic.jpg
  * @snippet hcsr04.cxx Interesting
  */
-class HCSR04 {
+class HCSR04 : virtual public iDistance {
     public:
         /**
          * Instantiates an HCSR04 object
@@ -70,6 +71,12 @@ class HCSR04 {
          */
         double getDistance (HCSR04_U unit);
 
+        /**
+         * Gets the distance from the sensor
+         *
+         * @return distance measured in cm.
+         */
+        virtual int getDistance();
     private:
         hcsr04_context m_hcsr04;
         HCSR04(const HCSR04& src) { /* do not create copied constructor */ }

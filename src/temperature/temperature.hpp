@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/aio.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 /**
@@ -58,7 +59,7 @@ namespace upm {
  * @image html temp.jpg
  * @snippet temperature.cxx Interesting
  */
-class Temperature {
+class Temperature : virtual public iTemperature {
     public:
         /**
          * Analog temperature sensor constructor
@@ -96,6 +97,13 @@ class Temperature {
          * @return Normalized temperature in Celsius
          */
         int value();
+
+        /**
+         * Gets the temperature in Celsius from the sensor
+         *
+         * @return Normalized temperature in Celsius
+         */
+        virtual float getTemperature();
     private:
         mraa_aio_context m_aio;
         float m_scale;

@@ -26,6 +26,7 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+#include <interfaces/iDistance.hpp>
 
 #define ADDR                  0x62 // device address
 
@@ -87,7 +88,7 @@ namespace upm {
  *
  * @snippet lidarlitev3.cxx Interesting
  */
-class LIDARLITEV3 {
+class LIDARLITEV3 : virtual public iDistance {
     public:
         /**
          * Instantiates an LIDARLITEV3 object
@@ -109,7 +110,7 @@ class LIDARLITEV3 {
          * Returns distance measurement on success
          * Retruns -1 on failure.
          */
-        int getDistance ();
+        virtual int getDistance ();
 
         /**
          * Read

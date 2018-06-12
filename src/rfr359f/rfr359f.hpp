@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/gpio.h>
+#include <interfaces/iDistanceInterrupter.hpp>
 
 namespace upm {
 
@@ -53,7 +54,7 @@ namespace upm {
    * @image html rfr359f.jpg
    * @snippet rfr359f.cxx Interesting
    */
-  class RFR359F {
+  class RFR359F : virtual public iDistanceInterrupter {
   public:
     /**
      * RFR359F constructor
@@ -72,7 +73,7 @@ namespace upm {
      *
      * @return True if the sensor has detected an object
      */
-    bool objectDetected();
+    virtual bool objectDetected();
 
   private:
     mraa_gpio_context m_gpio;

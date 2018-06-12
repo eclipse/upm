@@ -57,6 +57,11 @@ int GroveLight::value()
     return (int) round(a);
 }
 
+float GroveLight::getLuminance()
+{
+    return value();
+}
+
 float GroveLight::raw_value()
 {
     return (float) mraa_aio_read(m_aio);
