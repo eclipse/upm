@@ -32,12 +32,12 @@
 #include <thread>
 
 /* Helper macro for logger utility class. */
-#define UPM_LOG(log_level)                                                                     \
-    if (log_level < UPM_LOGGER::LogLevel())                                                    \
-        ;                                                                                      \
-    else                                                                                       \
-    UPM_LOGGER::getInstance().log(log_level) << LogHelper() << __FILE__ << " " << __FUNCTION__ \
-                                             << " " << __LINE__ << ": "
+#define UPM_LOG(log_level)                                                                       \
+    if (log_level < UPM_LOGGER::LogLevel())                                                      \
+        ;                                                                                        \
+    else                                                                                         \
+    (LogHelper() && UPM_LOGGER::getInstance()).log(log_level) << __FILE__ << " " << __FUNCTION__ \
+                                                              << " " << __LINE__ << ": "
 
 #define DEFAULT_LOG_FILE "/dev/stdout"
 
@@ -68,8 +68,6 @@ class UPM_LOGGER
     log(UpmLogLevel level = LOG_ERROR)
     {
         using namespace std::chrono;
-
-        std::lock_guard<std::mutex> lock(logMutex());
 
         _logStream << "UPM - "
                    << duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count();
@@ -103,6 +101,7 @@ class UPM_LOGGER
         return file;
     }
 
+
   private:
     UPM_LOGGER()
     {
@@ -124,25 +123,27 @@ class UPM_LOGGER
     std::ofstream _logStream;
 };
 
+/* This class exists only to append a newline when the log statement ends.*/
 class LogHelper
 {
   public:
     LogHelper()
     {
-        _os = &UPM_LOGGER::getInstance()._logStream;
         _mutex = &UPM_LOGGER::logMutex();
+        _mutex->lock();
+        _os = &UPM_LOGGER::getInstance()._logStream;
     }
 
     ~LogHelper()
     {
-        std::lock_guard<std::mutex> lock(*_mutex);
         *(_os) << std::endl;
+        _mutex->unlock();
     }
 
-    friend std::ofstream&
-    operator<<(std::ofstream& os, const LogHelper& h)
+    friend UPM_LOGGER&
+    operator&&(const LogHelper& l, UPM_LOGGER& r)
     {
-        return os;
+        return r;
     }
 
   private:
