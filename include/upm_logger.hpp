@@ -24,12 +24,12 @@
 
 #pragma once
 
-#include <chrono>
 #include <fstream>
 #include <mutex>
 #include <sstream>
 #include <string>
 #include <thread>
+#include "date.h"
 
 /* Helper macro for logger utility class. */
 #define UPM_LOG(log_level)                                                                       \
@@ -67,10 +67,10 @@ class UPM_LOGGER
     std::ofstream&
     log(UpmLogLevel level = LOG_ERROR)
     {
-        using namespace std::chrono;
-
+        using namespace date;
+        
         _logStream << "UPM - "
-                   << duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count();
+                   << std::chrono::system_clock::now();
         _logStream << " [" << getLogLevelName(level) << "] ";
 
         return _logStream;
