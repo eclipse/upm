@@ -22,23 +22,26 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#pragma once
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 #include <assert.h>
+#include <unistd.h>
 
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
-#include <upm/upm_types.h>
+#include <upm.h>
 
 #include "kxtj3_registers.h"
 
   /**
  * @brief C API for the kxtj3 driver
  * @defgroup kxtj3 libupm-kxtj3
- * @ingroup Kionix i2c acceleromter
+ * @ingroup Kionix i2c accelerometer
  * 
  * @include kxtj3.c
  */
@@ -47,7 +50,7 @@ extern "C"
  * @library kxtj3
  * @sensor kxtj3
  * @comname tri-axis accelerometer
- * @type acceleromter
+ * @type accelerometer
  * @man Kionix
  * @con i2c
  *
