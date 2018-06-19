@@ -22,7 +22,10 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <iostream>
 #include <stdexcept>
+#include <string>
+
 #include "kxtj3.hpp"
 
 using namespace upm;
@@ -107,22 +110,11 @@ void KXTJ3::SensorSoftwareReset()
         throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_sensor_software_reset() failed");
 }
 
-void KXTJ3::GetAccelerationRaw(float *x, float *y, float *z)
-{
-    if (kxtj3_get_acceleration_data_raw(m_kxtj3, x, y, z) != UPM_SUCCESS)
-        throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_get_acceleration_data_raw() failed");
-}
-
-void KXTJ3::GetAcceleration(float *x, float *y, float *z)
-{
-    if (kxtj3_get_acceleration_data(m_kxtj3, x, y, z) != UPM_SUCCESS)
-        throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_get_acceleration_data() failed");
-}
-
 std::vector<float> KXTJ3::GetAccelerationRawVector()
 {
     std::vector<float> xyz(3);
-    GetAccelerationRaw(&xyz[0], &xyz[1], &xyz[2]);
+    if (kxtj3_get_acceleration_data_raw(m_kxtj3, &xyz[0], &xyz[1], &xyz[2]) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_get_acceleration_data_raw() failed");
 
     return xyz;
 }
@@ -130,7 +122,8 @@ std::vector<float> KXTJ3::GetAccelerationRawVector()
 std::vector<float> KXTJ3::GetAccelerationVector()
 {
     std::vector<float> xyz(3);
-    GetAcceleration(&xyz[0], &xyz[1], &xyz[2]);
+    if (kxtj3_get_acceleration_data(m_kxtj3, &xyz[0], &xyz[1], &xyz[2]) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_get_acceleration_data() failed");
 
     return xyz;
 }
@@ -233,6 +226,12 @@ void KXTJ3::EnableWakeUpSingleAxisDirection(KXTJ3_WAKEUP_SOURCE_T axis)
 {
     if (kxtj3_enable_wakeup_single_axis_direction(m_kxtj3, axis) != UPM_SUCCESS)
         throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_enable_wakeup_single_axis_direction() failed");
+}
+
+void KXTJ3::DisableWakeUpSingleAxisDirection(KXTJ3_WAKEUP_SOURCE_T axis)
+{
+    if (kxtj3_disable_wakeup_single_axis_direction(m_kxtj3, axis) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + "kxtj3_disable_wakeup_single_axis_direction() failed");
 }
 
 kxtj3_wakeup_axes KXTJ3::GetWakeUpAxisDirection()

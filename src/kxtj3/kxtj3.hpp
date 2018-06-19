@@ -22,6 +22,8 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#pragma once
+
 #include <vector>
 #include <mraa/gpio.hpp>
 
@@ -30,7 +32,7 @@
 /**
  * @brief C API for the kxtj3 driver
  * @defgroup kxtj3 libupm-kxtj3
- * @ingroup Kionix i2c acceleromter
+ * @ingroup Kionix i2c accelerometer
  * 
  * @include kxtj3.cxx
  */
@@ -39,7 +41,7 @@
  * @library kxtj3
  * @sensor kxtj3
  * @comname tri-axis accelerometer
- * @type acceleromter
+ * @type accelerometer
  * @man Kionix
  * @con i2c
  *
@@ -62,7 +64,7 @@ public:
    * @param addr I2C address of the sensor
    * @throws std::runtime_error on initialization failure
     */
-  KXTJ3(int bus, uint8_t addr);
+  KXTJ3(int bus = 0x00, uint8_t addr = 0x0f);
 
   /**
    * @brief KXTJ3 destructor
@@ -72,7 +74,7 @@ public:
    *
    * @throws std::runtime_error on initialization failure
     */
-  ~KXTJ3();
+  virtual ~KXTJ3();
 
   /**
    * @brief Initializes the sensor with given sampling rate, resolution and acceleration range.
@@ -193,26 +195,6 @@ public:
    * @throws std::runtime_error on failure
     */
   void SensorSoftwareReset();
-
-  /**
-   * @brief Gets raw accelerometer data from the sensor
-   * 
-   * @param x Pointer to a floating point variable to store the x-axis value. Set to NULL if not wanted.
-   * @param y Pointer to a floating point variable to store the y-axis value. Set to NULL if not wanted.
-   * @param z Pointer to a floating point variable to store the z-axis value. Set to NULL if not wanted.
-   * @throws std::runtime_error on failure
-   */
-  void GetAccelerationRaw(float *x, float *y, float *z);
-
-  /**
-   * @brief Gets converted (m/s^2) accelerometer data from the sensor
-   * 
-   * @param x Pointer to a floating point variable to store the x-axis value. Set to NULL if not wanted.
-   * @param y Pointer to a floating point variable to store the y-axis value. Set to NULL if not wanted.
-   * @param z Pointer to a floating point variable to store the z-axis value. Set to NULL if not wanted.
-   * @throws std::runtime_error on failure
-   */
-  void GetAcceleration(float *x, float *y, float *z);
 
   /**
    * Gets raw acceleration data from the sensor.
@@ -575,5 +557,9 @@ public:
 
 private:
   kxtj3_context m_kxtj3;
+
+  /* Disable implicit copy and assignment operators */
+  KXTJ3(const KXTJ3 &) = delete;
+  KXTJ3 &operator=(const KXTJ3 &) = delete;
 };
 } // namespace upm

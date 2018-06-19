@@ -274,7 +274,7 @@ static upm_result_t kxtj3_read_register(const kxtj3_context dev, uint8_t reg, ui
     int value = mraa_i2c_read_byte_data(dev->i2c, reg);
     if (value == -1)
     {
-        printf("%s: mraa_i2c_read_byte_data() failed.\n", __FUNCTION__, reg);
+        printf("%s: mraa_i2c_read_byte_data() failed.\n", __FUNCTION__);
         return UPM_ERROR_OPERATION_FAILED;
     }
 
@@ -344,7 +344,7 @@ static bool kxtj3_check_mraa_i2c_connection(kxtj3_context dev, int bus, uint8_t 
 
     if (!(dev->i2c = mraa_i2c_init(bus)))
     {
-        printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__, bus);
+        printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
         kxtj3_close(dev);
         return false;
     }
