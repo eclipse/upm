@@ -31,6 +31,7 @@
 #include <string.h>
 
 #include "dfrorp.h"
+#include <interfaces/iOrp.hpp>
 
 namespace upm {
   /**
@@ -70,7 +71,7 @@ namespace upm {
    * @snippet dfrorp.cxx Interesting
    */
 
-  class DFRORP {
+  class DFRORP : virtual public iOrp {
   public:
 
     /**
@@ -117,6 +118,14 @@ namespace upm {
      * @return ORP value in millivolts
      */
     float getORP();
+
+    /**
+     * Get computed ORP (in millivolts) value from the
+     * sensor.
+     *
+     * @return ORP value in millivolts
+     */
+    virtual float getORPValue();
 
     /**
      * Set the calibration offset for the device.  This is
