@@ -27,6 +27,7 @@
 #include <string>
 
 #include "dfrph.h"
+#include <interfaces/iPH.hpp>
 
 namespace upm {
   /**
@@ -40,7 +41,7 @@ namespace upm {
    * @sensor dfrph
    * @comname Analog pH Sensor
    * @type liquid
-   * @man dfrobot 
+   * @man dfrobot
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1110
    * @con analog
    *
@@ -88,7 +89,7 @@ namespace upm {
    * @snippet dfrph.cxx Interesting
    */
 
-  class DFRPH {
+  class DFRPH : virtual public iPH {
   public:
 
     /**
@@ -129,7 +130,7 @@ namespace upm {
      * @param samples The number of samples to average over, default 15
      * @return The pH value detected
      */
-    float pH(unsigned int samples = 15);
+    virtual float pH(unsigned int samples = 15);
 
   private:
     /**
@@ -141,5 +142,3 @@ namespace upm {
     dfrph_context _dev;
   };
 }
-
-
