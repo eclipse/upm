@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/gpio.hpp>
+#include <interfaces/iButton.hpp>
 
 namespace upm {
 /**
@@ -52,7 +53,7 @@ namespace upm {
  * @image html ttp223.jpg
  * @snippet ttp223.cxx Interesting
  */
-class TTP223 {
+class TTP223 : virtual public iButton {
     public:
         /**
          * TTP223 constructor
@@ -85,7 +86,7 @@ class TTP223 {
          *
          * @return True if touched, false otherwise
          */
-        bool isPressed();
+        virtual bool isPressed();
 
         /**
          * Installs an interrupt service routine (ISR) to be called when
