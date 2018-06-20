@@ -30,6 +30,7 @@
 #include <mraa/aio.hpp>
 
 #include "rotary.hpp"
+#include <interfaces/iRotaryAngle.hpp>
 
 namespace upm {
 
@@ -59,7 +60,7 @@ namespace upm {
  * @image html rotary.jpg
  * @snippet rotary.cxx Interesting
  */
-class Rotary{
+class Rotary : virtual public iRotaryAngle {
     public:
         /**
          * Rotary angle sensor constructor
@@ -77,6 +78,7 @@ class Rotary{
          * @return Unsigned value from the ADC
          */
         float abs_value();
+
         /**
          * Gets absolute raw degrees from the AIO pin
          *
@@ -107,6 +109,14 @@ class Rotary{
          * @return Signed radians from the ADC
          */
         float rel_rad();
+
+        /**
+         * Get rotation value as raw degrees from the AIO pin.
+         *
+         * @return rotation value.
+         */
+        virtual float getValue();
+
         std::string name(){ return "Rotary Angle Sensor";}
     private:
         mraa_aio_context m_aio;

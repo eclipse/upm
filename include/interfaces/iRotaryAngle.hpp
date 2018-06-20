@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2015-2016 Intel Corporation.
+ * Author: Mihai Stefanescu <mihai.stefanescu@rinftech.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,37 +22,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#pragma once
 
-#include "rotaryencoder.hpp"
-
-using namespace upm;
-
-RotaryEncoder::RotaryEncoder(int pinA, int pinB) :
-    m_rotaryencoder(rotaryencoder_init(pinA, pinB))
+namespace upm
 {
-    if (!m_rotaryencoder)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                 ": rotaryencoder_init failed");
-}
+/**
+ * @brief Interface for Rotary Angle sensors
+*/
+  class iRotaryAngle
+  {
+  public:
+    virtual ~iRotaryAngle() {}
 
-RotaryEncoder::~RotaryEncoder()
-{
-    rotaryencoder_close(m_rotaryencoder);
-}
-
-void RotaryEncoder::initPosition(int count)
-{
-    rotaryencoder_set_position(m_rotaryencoder, count);
-}
-
-int RotaryEncoder::position()
-{
-    return rotaryencoder_get_position(m_rotaryencoder);
-}
-
-float RotaryEncoder::getValue() {
-    return (float) RotaryEncoder::position();
+    /**
+     * Get rotation value from sensor data.
+     *
+     * @return rotation value.
+     */
+    virtual float getValue() = 0;
+  };
 }
