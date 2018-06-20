@@ -37,6 +37,7 @@
 #include <vector>
 
 #include "nmea_gps.h"
+#include <interfaces/iGps.hpp>
 
 namespace upm {
     /**
@@ -192,7 +193,7 @@ namespace upm {
         std::string __str__();
     };
 
-    class NMEAGPS {
+    class NMEAGPS : virtual public iGps {
         public:
 
             /**
@@ -254,7 +255,7 @@ namespace upm {
              *
              * @param enable true to enable the device, false otherwise.
              */
-            void enable(bool enable);
+            virtual void enable(bool enable);
 
             /**
              * Set the baudrate of the device.  By default, the constructor
@@ -263,7 +264,7 @@ namespace upm {
              *
              * @param baudrate The baud rate to set for the device.
              */
-            void setBaudrate(unsigned int baudrate);
+            virtual void setBaudrate(unsigned int baudrate);
 
             /**
              * Determine whether there is data available to be read.  In the
