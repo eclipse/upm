@@ -75,6 +75,12 @@ float DFRORP::getORP()
   return dfrorp_get_orp(m_dfrorp);
 }
 
+float DFRORP::getORPValue()
+{
+  DFRORP::update();
+  return DFRORP::getORP();
+}
+
 float DFRORP::getVolts()
 {
   return dfrorp_get_volts(m_dfrorp);
