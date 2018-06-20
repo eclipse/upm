@@ -65,12 +65,12 @@ uint32_t EHR::getMillis()
   gettimeofday(&now, NULL);
 
   // compute the delta since m_startTime
-  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 ) 
+  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 )
     {
       elapsed.tv_usec += 1000000;
       elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec - 1;
-    } 
-  else 
+    }
+  else
     {
       elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec;
     }
@@ -92,7 +92,7 @@ void EHR::clearBeatCounter()
 void EHR::startBeatCounter()
 {
   // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING,
                 &beatISR, this);
 }
 
@@ -117,7 +117,7 @@ int EHR::heartRate()
 {
   uint32_t millis = getMillis();
   uint32_t beats = beatCounter();
-  
+
   float heartRate = 0;
   // wait at least 5 seconds before attempting to compute the
   // heart rate
@@ -127,4 +127,9 @@ int EHR::heartRate()
     }
 
   return int(heartRate);
+}
+
+int EHR::getHeartRate()
+{
+    return EHR::heartRate();
 }

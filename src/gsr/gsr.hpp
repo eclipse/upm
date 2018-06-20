@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <interfaces/iEC.hpp>
 
 namespace upm {
   /**
@@ -42,7 +43,7 @@ namespace upm {
    * @con analog
    *
    * @brief API for the Grove GSR Galvanic Skin Response Sensor
-   * 
+   *
    * Measures the electrical conductance of skin
    * to measure strong emotional reactions.
    * In other words, it measures sweat on your fingers
@@ -51,7 +52,7 @@ namespace upm {
    * @image html gsr.jpg
    * @snippet gsr.cxx Interesting
    */
-  class GSR {
+  class GSR : virtual public iEC {
   public:
     /**
      * Grove GSR sensor constructor
@@ -76,9 +77,14 @@ namespace upm {
      */
     int value();
 
+    /**
+     * Gets the electrical conductance of the skin from the sensor
+     *
+     * @return Electrical conductance of the skin
+     */
+    virtual float getECValue();
+
   private:
     mraa_aio_context m_aio;
   };
 }
-
-

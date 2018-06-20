@@ -73,6 +73,12 @@ float DFREC::getEC()
   return dfrec_get_ec(m_dfrec);
 }
 
+float DFREC::getECValue()
+{
+  DFREC::update();
+  return DFREC::getEC();
+}
+
 float DFREC::getVolts()
 {
   return dfrec_get_volts(m_dfrec);

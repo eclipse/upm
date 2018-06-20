@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/gpio.h>
+#include <interfaces/iLineFinder.hpp>
 
 namespace upm {
   /**
@@ -53,7 +54,7 @@ namespace upm {
    * @image html grovelinefinder.jpg
    * @snippet grovelinefinder.cxx Interesting
    */
-  class GroveLineFinder {
+  class GroveLineFinder : virtual public iLineFinder {
   public:
     /**
      * Grove Line Finder digital sensor constructor
@@ -70,17 +71,15 @@ namespace upm {
      *
      * @return True if white is detected
      */
-    bool whiteDetected();
+    virtual bool whiteDetected();
     /**
      * Determines whether black has been detected
      *
      * @return True if black is detected
      */
-    bool blackDetected();
+    virtual bool blackDetected();
 
   private:
     mraa_gpio_context m_gpio;
   };
 }
-
-
