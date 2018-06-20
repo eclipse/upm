@@ -56,8 +56,13 @@ unsigned int GroveVDiv::value(unsigned int samples)
       if (sum == -1) return 0;
       usleep(2000);
     }
-        
+
   return (sum / samples);
+}
+
+unsigned int GroveVDiv::getValue()
+{
+    return GroveVDiv::value(1);
 }
 
 float GroveVDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
@@ -65,4 +70,3 @@ float GroveVDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res
   return ((float(gain) * float(val) * float(vref) / float(res)) / 1000.0);
 
 }
-

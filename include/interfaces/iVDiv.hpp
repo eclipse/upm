@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Author: Mihai Stefanescu <mihai.stefanescu@rinftech.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,51 +22,24 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#pragma once
 
-#include "vdiv.hpp"
-
-using namespace upm;
-using namespace std;
-
-VDiv::VDiv(int pin)
+namespace upm
 {
-  if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-}
+/**
+ * @brief Interface for Voltage Dividing sensors
+*/
+  class iVDiv
+  {
+  public:
+    virtual ~iVDiv() {}
 
-VDiv::~VDiv()
-{
-  mraa_aio_close(m_aio);
-}
+    /**
+     * Gets the conversion value from the sensor
+     *
+     * @return ADC conversion value
+     */
+    virtual unsigned int getValue() = 0;
 
-unsigned int VDiv::value(unsigned int samples)
-{
-  int sum = 0;
-
-  for (unsigned int i=0; i<samples; i++)
-    {
-      sum += mraa_aio_read(m_aio);
-      if (sum == -1) return 0;
-      usleep(2000);
-    }
-
-  return (sum / samples);
-}
-
-unsigned int VDiv::getValue()
-{
-    return VDiv::value(1);
-}
-
-float VDiv::computedValue(uint8_t gain, unsigned int val, int vref, int res)
-{
-  return ((float(gain) * float(val) * float(vref) / float(res)) / 1000.0);
-
+  };
 }

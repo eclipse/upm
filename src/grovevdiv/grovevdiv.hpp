@@ -27,6 +27,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <mraa/aio.h>
+#include <interfaces/iVDiv.hpp>
 
 // reference voltage in millivolts
 #define GROVEVDIV_VREF  4980
@@ -59,7 +60,7 @@ namespace upm {
    * @image html grovevdiv.jpg
    * @snippet grovevdiv.cxx Interesting
    */
-  class GroveVDiv {
+  class GroveVDiv : virtual public iVDiv {
   public:
     /**
      * Grove Voltage Divider sensor constructor
@@ -80,6 +81,13 @@ namespace upm {
      * @return Average ADC conversion value
      */
     unsigned int value(unsigned int samples);
+
+    /**
+     * Gets the conversion value from the sensor
+     *
+     * @return ADC conversion value
+     */
+     virtual unsigned int getValue();
 
     /**
      * Computes the measured voltage
