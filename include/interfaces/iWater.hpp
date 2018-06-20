@@ -1,6 +1,6 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
- * Copyright (c) 2014-2016 Intel Corporation.
+ * Author: Stefan Andritoiu <stefan.andritoiu@gmail.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,59 +21,25 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #pragma once
 
-#include <string>
-#include "water.h"
-#include <interfaces/iWater.hpp>
-
-namespace upm {
-  /**
-   * @brief Water Sensor
-   * @defgroup water libupm-water
-   * @ingroup seeed gpio liquid eak
-   */
-
-  /**
-   * @library water
-   * @sensor water
-   * @comname Water Detection Sensor
-   * @type liquid
-   * @man seeed
-   * @con gpio
-   * @kit eak
-   *
-   * @brief API for the Water Sensor
-   *
-   * UPM module for the Water sensor
-   *
-   * @image html water.jpg
-   * @snippet water.cxx Interesting
-   */
-  class Water : virtual public iWater {
+namespace upm
+{
+/**
+ * @brief Interface for Water sensors
+*/
+  class iWater
+  {
   public:
-    /**
-     * digital water sensor constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Water(unsigned int pin);
-    /**
-     * Water destructor
-     */
-    ~Water();
+    virtual ~iWater() {}
+
     /**
      * Gets the water (wet/not wet) value from the sensor
      *
      * @return True if the sensor is wet, false otherwise
      */
-    virtual bool isWet();
+    virtual bool isWet() = 0;
 
-  private:
-    /* Disable implicit copy and assignment operators */
-    Water(const Water&) = delete;
-    Water &operator=(const Water&) = delete;
-
-    water_context m_water;
   };
 }
