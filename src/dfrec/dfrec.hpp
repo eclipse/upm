@@ -31,6 +31,7 @@
 #include <string.h>
 
 #include "dfrec.h"
+#include <interfaces/iEC.hpp>
 
 namespace upm {
   /**
@@ -65,7 +66,7 @@ namespace upm {
    * @snippet dfrec.cxx Interesting
    */
 
-  class DFREC {
+  class DFREC : virtual public iEC {
   public:
 
     /**
@@ -119,6 +120,13 @@ namespace upm {
      * @return EC value in ms/cm.
      */
     float getEC();
+
+    /**
+     * Get computed EC (ms/cm) value from the sensor. update() is called
+     * in this function.
+     * @return EC value in ms/cm.
+     */
+    virtual float getECValue();
 
     /**
      * Get the measured volts from the sensor. update() must have been

@@ -65,3 +65,8 @@ int GSR::value()
     int val = mraa_aio_read(m_aio);
     return val;
 }
+
+float GSR::getECValue()
+{
+	return (float) GSR::value();
+}

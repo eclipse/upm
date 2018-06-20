@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+#include <interfaces/iClock.hpp>
 
 #define DS1307_I2C_BUS     0
 #define DS1307_I2C_ADDR    0x68
@@ -69,7 +70,7 @@ namespace upm {
    * @image html ds1307.jpg
    * @snippet ds1307.cxx Interesting
    */
-  class DS1307 {
+  class DS1307 : virtual public iClock {
   public:
     /**
      * DS1307 constructor
@@ -83,7 +84,7 @@ namespace upm {
      *
      * @return True if time data loaded successfully
      */
-    bool loadTime();
+    virtual bool loadTime();
 
     /**
      * Sets the time. You should call loadTime() beforehand to
@@ -91,7 +92,7 @@ namespace upm {
      *
      * @return True if time is set successfully
      */
-    bool setTime();
+    virtual bool setTime();
 
     /**
      * Enables an oscillator on the clock.
@@ -132,7 +133,7 @@ namespace upm {
      * Converts a BCD value into decimal
      *
      * @param val BCD value to convert
-     * @return Converted decimal value 
+     * @return Converted decimal value
      */
     unsigned int bcdToDec(uint8_t val);
 
@@ -190,5 +191,3 @@ namespace upm {
     mraa::I2c m_i2c;
   };
 }
-
-

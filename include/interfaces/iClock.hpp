@@ -1,6 +1,6 @@
 /*
- * Author: Zion Orent <zorent@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Mihai Stefanescu <mihai.stefanescu@rinftech.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,54 +22,31 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+#pragma once
 
-#include "grovegsr.hpp"
-
-using namespace upm;
-using namespace std;
-
-GroveGSR::GroveGSR(int pin)
+namespace upm
 {
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
-    }
-}
+/**
+ * @brief Interface for Real Time Clock (RTC) Modules
+*/
+  class iClock
+  {
+  public:
+    virtual ~iClock() {}
 
-GroveGSR::~GroveGSR()
-{
-  mraa_aio_close(m_aio);
-}
+    /**
+     * Loads all the time values
+     *
+     * @return True if time data loaded successfully
+     */
+    virtual bool loadTime() = 0;
 
-void GroveGSR::calibrate()
-{
-	sleep(1);
-	int val, threshold, sum = 0;
-
-	for(int i=0; i<500; i++)
-	{
-		val = mraa_aio_read(m_aio);
-		if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
-			                                ": Failed to do an aio read.");
-		sum += val;
-		usleep(5000);
-	}
-	threshold = sum / 500;
-	cout << "Threshold = " << threshold << endl;
-}
-
-int GroveGSR::value()
-{
-	int val = mraa_aio_read(m_aio);
-	return val;
-}
-
-float GroveGSR::getECValue()
-{
-	return (float) GroveGSR::value();
+    /**
+     * Sets the time. You should call loadTime() beforehand to
+     * maintain consistency
+     *
+     * @return True if time is set successfully
+     */
+    virtual bool setTime() = 0;
+  };
 }
