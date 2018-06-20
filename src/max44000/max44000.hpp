@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+#include <interfaces/iProximity.hpp>
 
 #define ADDR               0x4A // device address
 
@@ -71,14 +72,14 @@ namespace upm {
  * Maxim Integrated*
  * [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf)
  * is an ambient and infrared proximity sensor. This module was tested on the
- * Maxim Integrated 
+ * Maxim Integrated
  * [MAX44000PMB1 PMOD module]
  * (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the
  * analog PMOD kit.
  *
  * @snippet max44000.cxx Interesting
  */
-class MAX44000 {
+class MAX44000 : virtual public iProximity {
     public:
         /**
          * Instantiates an MAX44000 object
@@ -99,6 +100,12 @@ class MAX44000 {
          * Reads the proximity value from the sensor (based on ambient data).
          */
         uint16_t getProximity ();
+
+        /**
+         * Reads the proximity value from the sensor.
+         */
+        virtual float getValue ();
+
         /**
          * Reads the ambient value from the sensor (based on ambient data).
          */
