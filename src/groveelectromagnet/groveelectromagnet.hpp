@@ -24,6 +24,7 @@
 #pragma once
 
 #include <mraa/gpio.h>
+#include <interfaces/iElectromagnet.hpp>
 
 #define HIGH      1
 #define LOW       0
@@ -46,13 +47,13 @@ namespace upm {
    * @con gpio
    *
    * @brief API for the Grove Electromagnet
-   * 
+   *
    * The Grove Electromagnet can hold up to 1 kg (approximately 2.2 lbs)
    *
    * @image html groveelectromagnet.jpg
    * @snippet groveelectromagnet.cxx Interesting
    */
-  class GroveElectromagnet {
+  class GroveElectromagnet : virtual public iElectromagnet {
   public:
     /**
      * Grove Electromagnet constructor
@@ -67,11 +68,11 @@ namespace upm {
     /**
      * Turns the magnet on
      */
-     void on();
+     virtual void on();
     /**
      * Turns the magnet off
      */
-     void off();
+     virtual void off();
 
   private:
         mraa_gpio_context m_gpio;
