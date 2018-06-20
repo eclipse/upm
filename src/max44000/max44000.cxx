@@ -58,6 +58,11 @@ MAX44000::getProximity () {
     return data;
 }
 
+float
+MAX44000::getValue() {
+    return (float) MAX44000::getProximity();
+}
+
 uint16_t
 MAX44000::getAmbient () {
     uint16_t data = 0;
