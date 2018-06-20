@@ -77,3 +77,8 @@ float GroveRotary::rel_rad()
 {
     return GroveRotary::rel_deg() * M_PI / 180.0;
 }
+
+float GroveRotary::getValue()
+{
+    return GroveRotary::abs_value();
+}
