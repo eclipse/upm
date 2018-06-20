@@ -1,6 +1,6 @@
 /*
- * Author: Zion Orent <sorent@ics.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Author: Mihai Stefanescu <mihai.stefanescu@rinftech.com>
+ * Copyright (c) 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,58 +21,27 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #pragma once
 
-#include <mraa/gpio.h>
-#include <interfaces/iElectromagnet.hpp>
-
-#define HIGH      1
-#define LOW       0
-
-namespace upm {
-  /**
-   * @brief Electromagnet Library
-   * @defgroup electromagnet libupm-electromagnet
-   * @ingroup seeed gpio electric
-   */
-
-  /**
-   * @library electromagnet
-   * @sensor electromagnet
-   * @comname Electromagnet
-   * @type electric
-   * @man seeed
-   * @con gpio
-   *
-   * @brief API for the  Electromagnet
-   *
-   * The  Electromagnet can hold up to 1 kg (approximately 2.2 lbs)
-   *
-   * @image html electromagnet.jpg
-   * @snippet electromagnet.cxx Interesting
-   */
-  class Electromagnet : virtual public iElectromagnet {
+namespace upm
+{
+/**
+ * @brief Interface for Electromagnet modules
+*/
+  class iElectromagnet
+  {
   public:
-    /**
-     *  Electromagnet constructor
-     *
-     * @param pin Digital pin to use
-     */
-    Electromagnet(int pin);
-    /**
-     *  Electromagnet destructor
-     */
-    ~Electromagnet();
+    virtual ~iElectromagnet() {}
+
     /**
      * Turns the magnet on
      */
-     virtual void on();
+     virtual void on() = 0;
     /**
      * Turns the magnet off
      */
-     virtual void off();
+     virtual void off() = 0;
 
-  private:
-        mraa_gpio_context m_gpio;
-	};
+  };
 }
