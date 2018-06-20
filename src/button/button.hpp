@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/gpio.hpp>
+#include <interfaces/iButton.hpp>
 
 namespace upm {
 
@@ -54,7 +55,7 @@ namespace upm {
  * @image html button.jpg
  * @snippet button.cxx Interesting
  */
-class Button{
+class Button : virtual public iButton {
     public:
         /**
          * button constructor
@@ -78,6 +79,13 @@ class Button{
          * @return Value from the GPIO pin
          */
         int value();
+
+        /**
+         * Gets the current button press state.
+         *
+         * @returns Button state
+         */
+         virtual bool isPressed();
 
         /**
          * Installs an interrupt service routine (ISR) to be called when

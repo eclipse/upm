@@ -58,6 +58,11 @@ int GroveButton::value()
     return mraa_gpio_read(m_gpio);
 }
 
+bool GroveButton::isPressed()
+{
+    return (bool) GroveButton::value();
+}
+
 void GroveButton::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)

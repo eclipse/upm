@@ -29,6 +29,7 @@
 #include <string>
 #include <mraa/gpio.hpp>
 #include "grovebase.hpp"
+#include <interfaces/iButton.hpp>
 
 namespace upm {
 
@@ -51,7 +52,7 @@ namespace upm {
  * @image html grovebutton.jpg
  * @snippet grove-grovebutton.cxx Interesting
  */
-class GroveButton: public Grove {
+class GroveButton: public Grove, virtual public iButton {
     public:
         /**
          * Grove button constructor
@@ -75,6 +76,13 @@ class GroveButton: public Grove {
          * @return Value from the GPIO pin
          */
         int value();
+
+        /**
+         * Gets the current button press state.
+         *
+         * @returns Button state
+         */
+         virtual bool isPressed();
 
         /**
          * Installs an interrupt service routine (ISR) to be called when

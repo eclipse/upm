@@ -59,6 +59,11 @@ int Button::value()
     return mraa_gpio_read(m_gpio);
 }
 
+bool Button::isPressed()
+{
+    return (bool) Button::value();
+}
+
 void Button::installISR(mraa::Edge level, void (*isr)(void *), void *arg)
 {
   if (m_isrInstalled)
