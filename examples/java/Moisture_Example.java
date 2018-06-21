@@ -28,7 +28,7 @@ public class Moisture_Example {
 		upm_moisture.Moisture gm = new upm_moisture.Moisture(1);
 
 		while (true) {
-			int moisture_val = gm.value();
+			int moisture_val = gm.getMoisture();
 			String result;
 
 			if (moisture_val >= 0 && moisture_val < 300)
