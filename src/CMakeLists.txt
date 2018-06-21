@@ -685,6 +685,7 @@ endif (BUILDCORDOVA)
 function (UPM_MIXED_MODULE_INIT)
   # CPP_WRAPS_C -> Set to have CPP library link to C library
   # DESCRIPTION -> Library description string
+  # IFACE_HDR -> List of interface header files
   # CPP_HDR -> List of CPP header files
   # CPP_SRC -> List of CPP source files
   # C_HDR -> List of C header files
@@ -696,7 +697,7 @@ function (UPM_MIXED_MODULE_INIT)
   #     libnamec -> C target name (if used)
   set (options CPP_WRAPS_C)
   set (oneValueArgs NAME DESCRIPTION)
-  set (multiValueArgs CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
+  set (multiValueArgs IFACE_HDR CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
   # Parse function parameters
   cmake_parse_arguments(UPM_MIXED_MODULE_INIT "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
@@ -746,7 +747,10 @@ function (UPM_MIXED_MODULE_INIT)
     # Set the src and hpp variables for upm_module_init
     set (module_src ${UPM_MIXED_MODULE_INIT_CPP_SRC})
     set (module_hpp ${UPM_MIXED_MODULE_INIT_CPP_HDR})
-
+    if(DEFINED UPM_MIXED_MODULE_INIT_IFACE_HDR)
+      set (module_iface ${UPM_MIXED_MODULE_INIT_IFACE_HDR})
+    endif(DEFINED UPM_MIXED_MODULE_INIT_IFACE_HDR)
+    
     # Reset the libname (upm_module_init can change it)
     set (libname ${UPM_MIXED_MODULE_INIT_NAME})
     unset (IS_C_LIBRARY)
@@ -859,6 +863,14 @@ function(upm_module_init)
       DESTINATION ${LIB_INSTALL_DIR}
       COMPONENT ${CMAKE_PROJECT_NAME})
 
+  # Install interface file if it exists
+  if(DEFINED module_iface)
+    set(iface_path ${PROJECT_SOURCE_DIR}/include/interfaces)
+    install (FILES ${iface_path}/${module_iface}
+      DESTINATION include/upm/interfaces
+      COMPONENT ${CMAKE_PROJECT_NAME}-dev)
+  endif(DEFINED module_iface)
+  
   # Install header files to include/upm/
   install (FILES ${module_hpp}
       DESTINATION include/upm
