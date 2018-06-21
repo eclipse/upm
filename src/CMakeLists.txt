@@ -427,7 +427,7 @@ function(upm_swig_node)
 
     # Include interface directory
     if (module_iface)
-      include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+      include_directories(${PROJECT_SOURCE_DIR}/include)
     endif()
 
     # Decide between ${libname}.i or a language-specific .i
@@ -516,6 +516,9 @@ function(upm_swig_java)
                          ${CMAKE_CURRENT_SOURCE_DIR}
                          ${CMAKE_CURRENT_BINARY_DIR}/..
                          ${DEPEND_DIRS})
+    if (module_iface)
+      include_directories(${PROJECT_SOURCE_DIR}/include)
+    endif()
 
     # Decide between ${libname}.i or a language-specific .i
     _get_current_dot_i_file(javaupm SWIG_CURRENT_DOT_I_FILE)
@@ -550,7 +553,6 @@ function(upm_swig_java)
     endif ()
     if(module_iface)
       add_dependencies(javaupm_${libname} javaupm_new_interfaces)
-      include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
       set (NEW_INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/interfaces/upm_new_interfaces.jar)
     endif()
     # For linker to report unresolved symbols.  Note, there is currently no test
