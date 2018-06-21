@@ -5,4 +5,4 @@ upm_mixed_module_init (NAME kxtj3
     CPP_HDR kxtj3.hpp
     CPP_SRC kxtj3.cxx
     CPP_WRAPS_C
-    REQUIRES mraa)
+    REQUIRES mraa utilities-c)

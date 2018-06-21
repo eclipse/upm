@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <math.h>
 #include "kxtj3.h"
+#include "upm_utilities.h"
 
 #define SW_RESET_MAX_LOOP_COUNT 10
 #define SW_RESET_READ_WAIT_MICRO_S 50000
@@ -80,7 +81,7 @@ const struct odr_map_t odr_map_in_Hz[] = {
     {KXTJ3_ODR_800, 800.0f},
     {KXTJ3_ODR_1600, 1600.0f}};
 /**
- * @brief ODR register values maping with ODR in Hz for 
+ * @brief ODR register values maping with ODR in Hz for
  * wake-up function
  */
 const struct odr_map_t odr_map_in_Hz_wakeup[] = {
@@ -136,7 +137,7 @@ static float kxtj3_odr_val_to_sec(KXTJ3_ODR_T odr);
 static float kxtj3_odr_val_to_sec_wakeup(KXTJ3_ODR_WAKEUP_T odr);
 
 /**
-@brief Sets the sensor default values for ODR, resolution (with its scale), 
+@brief Sets the sensor default values for ODR, resolution (with its scale),
 G range (both normal and wake-up modes)
 
 @param dev The sensor context
@@ -201,7 +202,7 @@ static upm_result_t kxtj3_set_bit_off(const kxtj3_context dev, uint8_t reg, uint
 @param reg The register address to write to
 @param val byte data to write
 @param bit_mask The bits or register mask
-@return A UPM resutl
+@return A UPM result
 */
 static upm_result_t kxtj3_set_bits_with_mask(const kxtj3_context dev, uint8_t reg, uint8_t val, uint8_t bit_mask);
 
@@ -231,11 +232,11 @@ This is used by the self-test functionality.
 static struct Coordinates kxtj3_get_sample_averaged_data(kxtj3_context dev);
 
 /**
-@brief Check whether the self-test acceleration data difference is whithin the permitted threshold (0.5g)
+@brief Check whether the self-test acceleration data difference is within the permitted threshold (0.5g)
 
 @param before The Coordinates struct before the self-test
 @param during The Coordinates struct of the self-test
-@return true if difference is below thresold, false otherwise
+@return true if difference is below threshold, false otherwise
 */
 static bool kxtj3_check_self_test_difference(struct Coordinates before, struct Coordinates during);
 
@@ -243,14 +244,14 @@ static bool kxtj3_check_self_test_difference(struct Coordinates before, struct C
 @brief Checks the digital communication register (DCST_RESP) register value with an expected value
 
 @param dev The sensor context
-@param expected_val The expted byte value of the register
+@param expected_val The expected byte value of the register
 @return true if values match, false otherwise.
 */
 static bool kxtj3_check_digital_communication_reg_value(kxtj3_context dev, uint8_t expected_val);
 
 /**
 @brief Gets the count value from a given time (in seconds) for the wake-up function.
-Used by the wake-up motion counter and non-activity counter before anothe wake-up functions.
+Used by the wake-up motion counter and non-activity counter before another wake-up functions.
 
 @param dev The sensor context
 @param time_sec Time in seconds to be converted
@@ -642,7 +643,7 @@ static struct Coordinates kxtj3_get_sample_averaged_data(kxtj3_context dev)
         coordinates_averaged_sample.x += fabs((x / EARTH_GRAVITY));
         coordinates_averaged_sample.y += fabs((y / EARTH_GRAVITY));
         coordinates_averaged_sample.z += fabs((z / EARTH_GRAVITY));
-        usleep(wait_time);
+        upm_delay_us(wait_time);
     }
 
     coordinates_averaged_sample.x /= SELF_TEST_SAMPLE_COUNT;
@@ -720,7 +721,7 @@ upm_result_t kxtj3_sensor_software_reset(const kxtj3_context dev)
     uint8_t srst_counter = 0;
     while ((ctrl_reg2_data & KXTJ3_CTRL_REG2_SRST) != 0x00 && srst_counter < SW_RESET_MAX_LOOP_COUNT)
     {
-        usleep(SW_RESET_READ_WAIT_MICRO_S);
+        upm_delay_us(SW_RESET_READ_WAIT_MICRO_S);
         kxtj3_read_register(dev, KXTJ3_CTRL_REG2, &ctrl_reg2_data);
         srst_counter++;
     }

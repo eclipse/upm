@@ -33,7 +33,7 @@
  * @brief C API for the kxtj3 driver
  * @defgroup kxtj3 libupm-kxtj3
  * @ingroup Kionix i2c accelerometer
- * 
+ *
  * @include kxtj3.cxx
  */
 
@@ -158,7 +158,7 @@ public:
   void SetOdrForWakeup(KXTJ3_ODR_WAKEUP_T odr);
 
   /**
-   * @brief Performs a self-test for digital communication of the sensor. The test sets DCST bit in 
+   * @brief Performs a self-test for digital communication of the sensor. The test sets DCST bit in
    * CTRL_REG2, then checks the DCST_RESP register for a 0xAA, after the register is read, its
    * value is 0x55 and DCST bit is cleared.
    *
@@ -198,7 +198,7 @@ public:
 
   /**
    * Gets raw acceleration data from the sensor.
-   * 
+   *
    * @return Acceleration vector [x, y, z]
    * @throws std::runtime_error on failure.
    */
@@ -206,14 +206,14 @@ public:
 
   /**
    * Gets acceleration data in (m/s^2) from the sensor.
-   * 
+   *
    * @return Acceleration vector [x, y, z]
    * @throws std::runtime_error on failure.
    */
   std::vector<float> GetAccelerationVector();
 
   /**
-   * @brief Gets the duration of one sample period (in seconds) for getting the acceleration data depending on 
+   * @brief Gets the duration of one sample period (in seconds) for getting the acceleration data depending on
    * the sampling rate of the sensor
    *
    * @return Floating point value of the sampling period
@@ -222,7 +222,7 @@ public:
   float GetAccelerationSamplePeriod();
 
   /**
-   * @brief Gets the duration of one sample period (in seconds) for the wakeup function depending on 
+   * @brief Gets the duration of one sample period (in seconds) for the wakeup function depending on
    * the sampling rate of the sensor wakeup function
    *
    * @return Floating point value of the sampling period
@@ -278,7 +278,7 @@ public:
    *
    * See datasheet for more details
    *
-   * @param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values. 
+   * @param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values.
    * @param response_type Select the response type of the interrupt. One of the KXTJ3_INTERRUPT_RESPONSE_T values.
    * @throws std::runtime_error on failure
    */
@@ -300,7 +300,7 @@ public:
    *
    * Sensor must be in standby mode before performing this action
    *
-   * @param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values. 
+   * @param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values.
    * @throws std::runtime_error on failure
    */
   void SetInterruptPolarity(KXTJ3_INTERRUPT_POLARITY_T polarity);
@@ -323,12 +323,12 @@ public:
   void SetInerruptResponse(KXTJ3_INTERRUPT_RESPONSE_T response_type);
 
   /**
-   * @brief Gets the status of the interrupts. (Has an interrupt occured)
+   * @brief Gets the status of the interrupts. (Has an interrupt occurred)
    *
    * See datasheet for more details
    *
-   * @return Return true if an interrupt event has occured (DRDY or WUFS is 1), 
-   * returns false if no interrupts have occured
+   * @return Return true if an interrupt event has occurred (DRDY or WUFS is 1),
+   * returns false if no interrupts have occurred
    */
   bool GetInterruptStatus();
 
@@ -404,15 +404,15 @@ public:
    *
    * See datasheet for more details
    *
-   * @return A kxtj3_wakeup_axes struct with values of true/false 
+   * @return A kxtj3_wakeup_axes struct with values of true/false
    * for a wakeup for each axis and its direction
    */
   kxtj3_wakeup_axes GetWakeUpAxisDirection();
 
   /**
-   * @brief Enables the Unlached mode motion interrupt (ULMODE). This mode is always by default enabled.
-   * 
-   * When this bit is set, the wakeup interrupt has to be cleared manually 
+   * @brief Enables the Unlatched mode motion interrupt (ULMODE). This mode is always by default enabled.
+   *
+   * When this bit is set, the wakeup interrupt has to be cleared manually
    * (cannot use interrupt response with pulse)
    *
    * Sensor must be in standby mode before performing this action
@@ -422,16 +422,16 @@ public:
   void EnableWakeUpLatch();
 
   /**
-   * @brief Disables the Unlached mode motion interrupt (ULMODE). This mode is always by default enabled.
+   * @brief Disables the Unlatched mode motion interrupt (ULMODE). This mode is always by default enabled.
    * (cannot use interrupt response with pulse)
    *
-   * The wakeup threshold is advised to not be very low to avoid interrupt being triggered in 
+   * The wakeup threshold is advised to not be very low to avoid interrupt being triggered in
    * an almost continuous manner
    *
    * Sensor must be in standby mode before performing this action
    *
    * When this bit is cleared, and the interrupt response type is set to Pulse, then upon a wakeup event
-   * the wakeup interrupt signal will pulse and return low, but only once. Then, the interrupt 
+   * the wakeup interrupt signal will pulse and return low, but only once. Then, the interrupt
    * output will not reset until data is read or interrupt cleared.
 
    * @throws std::runtime_error on failure
@@ -520,7 +520,7 @@ public:
    * @brief Sets the threshold counter for acceleration difference before sending a wakeup interrupt
    *
    * The count is limited to values from 1 to 4096, that it is 16g threshold with (3.9mg/count)
-   * It is advised to not set the threshold to a very low value which may cause bad behaviour 
+   * It is advised to not set the threshold to a very low value which may cause bad behaviour
    * in the wakeup interrupt
    *
    * Sensor must be in standby mode before performing this action

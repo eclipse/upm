@@ -35,7 +35,7 @@ var waitTime = kxtj3_sensor.GetAccelerationSamplePeriod();
 var counter = 10;
 console.log("Setting settings:\nODR: 25 Hz\nResolution: \
 			High\nAcceleration range: 16g with 14bits");
-console.log("Accerleration: ");
+console.log("Acceleration: ");
 var interval = setInterval(function() {
 	data = kxtj3_sensor.GetAccelerationVector();
 	console.log(

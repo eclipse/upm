@@ -52,7 +52,7 @@ def main():
         [x, y, z] = kxtj3_sensor.GetAccelerationVector()
 
         print ("x: %0.02f, y: %0.02f, z: %0.02f" % (x, y, z))
-        
+
         time.sleep(waitTime)
         sampleCounter -= 1
 

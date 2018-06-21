@@ -42,7 +42,7 @@ extern "C"
  * @brief C API for the kxtj3 driver
  * @defgroup kxtj3 libupm-kxtj3
  * @ingroup Kionix i2c accelerometer
- * 
+ *
  * @include kxtj3.c
  */
 
@@ -201,7 +201,7 @@ extern "C"
   kxtj3_context kxtj3_init(int bus, uint8_t addr);
 
   /**
-@brief Intilializes the sensor with the given resolution and acceleration range
+@brief Initializes the sensor with the given resolution and acceleration range
 
 This gets called during the kxtj3_init(), so it will not need to be called unless the sensor is reset
 
@@ -307,7 +307,7 @@ Sensor needs to be in standby mode when setting the ODR
   upm_result_t kxtj3_set_odr_wakeup_function(const kxtj3_context dev, KXTJ3_ODR_WAKEUP_T odr);
 
   /**
-@brief Performs a self-test for digital communication of the sensor. The test sets DCST bit in 
+@brief Performs a self-test for digital communication of the sensor. The test sets DCST bit in
 CTRL_REG2, then checks the DCST_RESP register for a 0xAA, after the register is read, its
 value is 0x55 and DCST bit is cleared.
 
@@ -370,7 +370,7 @@ See the datasheet for more details
   upm_result_t kxtj3_get_acceleration_data(const kxtj3_context dev, float *x, float *y, float *z);
 
   /**
-@brief Gets the duration of one sample period (in seconds) for getting the acceleration data depending on 
+@brief Gets the duration of one sample period (in seconds) for getting the acceleration data depending on
 the sampling rate of the sensor
 
 @param dev The sensor context
@@ -379,7 +379,7 @@ the sampling rate of the sensor
   float kxtj3_get_acceleration_sampling_period(kxtj3_context dev);
 
   /**
-Gets the duration of one sample period (in seconds) for the wakeup function depending on 
+Gets the duration of one sample period (in seconds) for the wakeup function depending on
 the sampling rate of the sensor wakeup function
 
 @param dev The sensor context
@@ -443,7 +443,7 @@ Sensor needs to be in standby mode when enabling the interrupt
 See datasheet for more details
 
 @param dev The sensor context
-@param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values. 
+@param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values.
 @param response_type Select the response type of the interrupt. One of the KXTJ3_INTERRUPT_RESPONSE_T values.
 @return UPM result
 */
@@ -467,7 +467,7 @@ Polarity ACTIVE_HIGH or ACTIVE_LOW
 Sensor must be in standby mode before performing this action
 
 @param dev The sensor context
-@param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values. 
+@param polarity Select the polarity of the interrupt. One of the KXTJ3_INTERRUPT_POLARITY_T values.
 @return UPM result
 */
   upm_result_t kxtj3_set_interrupt_polarity(const kxtj3_context dev, KXTJ3_INTERRUPT_POLARITY_T polarity);
@@ -491,12 +491,12 @@ See datasheet for more details
   upm_result_t kxtj3_set_interrupt_response(const kxtj3_context dev, KXTJ3_INTERRUPT_RESPONSE_T response_type);
 
   /**
-@brief Gets the status of the interrupts. (Has an interrupt occured).
+@brief Gets the status of the interrupts. (Has an interrupt occurred).
 
 See datasheet for more details
 
 @param dev The sensor context
-@return Return true if an interrupt event has occured (DRDY or WUFS is 1), returns false if no interrupts have occured
+@return Return true if an interrupt event has occurred (DRDY or WUFS is 1), returns false if no interrupts have occurred
 */
   bool kxtj3_get_interrupt_status(const kxtj3_context dev);
 
@@ -536,7 +536,7 @@ See datasheet for more details
 
   /**
 @brief Uninstalls a previously installed interrupt handler for interrupt pin
- 
+
 @param dev The sensor context
 @return UPM result
 */
@@ -585,9 +585,9 @@ See datasheet for more details
   kxtj3_wakeup_axes kxtj3_get_wakeup_axis_and_direction(kxtj3_context dev);
 
   /**
-@brief Enables the Unlached mode motion interrupt (ULMODE). This mode is always by default enabled.
- 
-When this bit is set, the wakeup interrupt has to be cleared manually 
+@brief Enables the Unlatched mode motion interrupt (ULMODE). This mode is always by default enabled.
+
+When this bit is set, the wakeup interrupt has to be cleared manually
 (cannot use interrupt response with pulse)
 
 Sensor must be in standby mode before performing this action
@@ -598,16 +598,16 @@ Sensor must be in standby mode before performing this action
   upm_result_t kxtj3_enable_wakeup_latch(kxtj3_context dev);
 
   /**
-@brief Disables the Unlached mode motion interrupt (ULMODE). This mode is always by default enabled
+@brief Disables the Unlatched mode motion interrupt (ULMODE). This mode is always by default enabled
 (cannot use interrupt response with pulse).
 
-The wakeup threshold is advised to not be very low to avoid interrupt being triggered in 
+The wakeup threshold is advised to not be very low to avoid interrupt being triggered in
 an almost continuous manner
 
 Sensor must be in standby mode before performing this action
 
 When this bit is cleared, and the interrupt response type is set to Pulse, then upon a wakeup event
-the wakeup interrupt signal will pulse and return low, but only once. Then, the interrupt 
+the wakeup interrupt signal will pulse and return low, but only once. Then, the interrupt
 output will not reset until data is read or interrupt cleared.
 
 @param dev The sensor context
@@ -703,7 +703,7 @@ See datasheet for more details
 @brief Sets the threshold counter for acceleration difference before sending a wakeup interrupt
 
 The count is limited to values from 1 to 4096, that it is 16g threshold with (3.9mg/count)
-It is advised to not set the threshold to a very low value which may cause bad behaviour 
+It is advised to not set the threshold to a very low value which may cause bad behaviour
 in the wakeup interrupt
 
 Sensor must be in standby mode before performing this action
