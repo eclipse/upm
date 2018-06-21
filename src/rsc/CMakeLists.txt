@@ -4,5 +4,6 @@ upm_mixed_module_init (NAME rsc
     C_SRC rsc.c
     CPP_HDR rsc.hpp
     CPP_SRC rsc.cxx
+    IFACE_HDR iPressure.hpp iTemperature.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

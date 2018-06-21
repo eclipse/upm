@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME ms5803
     C_SRC ms5803.c
     CPP_HDR ms5803.hpp
     CPP_SRC ms5803.cxx
+    IFACE_HDR iPressure.hpp iTemperature.hpp
     FTI_SRC ms5803_fti.c
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)
