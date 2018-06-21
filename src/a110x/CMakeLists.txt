@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME a110x
     C_SRC a110x.c
     CPP_HDR a110x.hpp
     CPP_SRC a110x.cxx
+    IFACE_HDR iHallEffect.hpp
     FTI_SRC a110x_fti.c
     CPP_WRAPS_C
     REQUIRES mraa)
