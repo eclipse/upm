@@ -4,5 +4,6 @@ upm_mixed_module_init (NAME hcsr04
     C_SRC hcsr04.c
     CPP_HDR hcsr04.hpp
     CPP_SRC hcsr04.cxx
+    IFACE_HDR iDistance.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)
