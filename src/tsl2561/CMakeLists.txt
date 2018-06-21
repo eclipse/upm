@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME tsl2561
     C_SRC tsl2561.c
     CPP_HDR tsl2561.hpp
     CPP_SRC tsl2561.cxx
+    IFACE_HDR iLight.hpp
     FTI_SRC tsl2561_fti.c
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)
