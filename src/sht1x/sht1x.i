@@ -1,5 +1,5 @@
 #ifdef SWIGPYTHON
-%module (package="pyupm_new_interfaces") sht1x
+%module (package="upm") sht1x
 #endif
 
 %import "interfaces/new_interfaces.i"

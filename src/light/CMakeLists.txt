@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME light
     C_SRC light.c
     CPP_HDR light.hpp
     CPP_SRC light.cxx
+    IFACE_HDR iLight.hpp
     FTI_SRC light_fti.c
     CPP_WRAPS_C
     REQUIRES mraa m)
