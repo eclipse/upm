@@ -10,5 +10,6 @@ JAVA_JNI_LOADLIBRARY(javaupm_abp)
 %{
 #include "abp.hpp"
 %}
+%include "interfaces/iTemperature.hpp"
 %include "abp.hpp"
 /* END Common SWIG syntax */
