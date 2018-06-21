@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME moisture
     C_SRC moisture.c
     CPP_HDR moisture.hpp
     CPP_SRC moisture.cxx
+    IFACE_HDR iMoisture.hpp
     FTI_SRC moisture_fti.c
     CPP_WRAPS_C
     REQUIRES mraa)
