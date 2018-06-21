@@ -25,6 +25,15 @@
                 ],
                 "C": [
                     "kxtj3.c"
+                ],
+                "Java": [
+                    "KXTJ3_Example.java"
+                ],
+                "Python": [
+                    "kxtj3.py"
+                ],
+                "Node.js": [
+                    "kxtj3.js"
                 ]
             },
             "Specifications": {

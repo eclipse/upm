@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "kxtj3.hpp"
+#include "upm_utilities.h"
 
 #define SENSOR_ADDR 0x0f
 #define I2C_BUS 0
@@ -50,7 +51,7 @@ void print_acceleration_data(upm::KXTJ3 &dev)
         xyz = dev.GetAccelerationVector();
         std::cout << std::fixed << std::setprecision(3)
                   << xyz[0] << " | " << xyz[1] << " | " << xyz[2] << std::endl;
-        usleep(wait_time);
+        upm_delay_us(wait_time);
     }
 }
 
