@@ -23,6 +23,7 @@
  */
 
 import upm_sht1x.SHT1X;
+import upm_new_interfaces.*;
 
 public class SHT1X_Example
 {
@@ -32,7 +33,9 @@ public class SHT1X_Example
 
         // Instantiate a SHT1X sensor using D2 as the clock, and D3 as the
         // data pin.
+        iTemperature temp = new SHT1X(2, 3);
         SHT1X sensor = new SHT1X(2, 3);
+
 
         // Every 2 seconds, update and print values
         while (true)
