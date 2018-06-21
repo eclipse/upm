@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME sht1x
     CPP_HDR sht1x.hpp
     CPP_SRC sht1x.cxx
     FTI_SRC sht1x_fti.c
+    IFACE_HDR iTemperature.hpp iHumidity.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)
