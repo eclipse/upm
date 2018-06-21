@@ -24,7 +24,7 @@
  */
 
 import upm_bmp280.*;
-import upm_interfaces.*;
+import upm_new_interfaces.*;
 
 public class BME280_Interface_Example
 {
@@ -35,9 +35,9 @@ public class BME280_Interface_Example
         // Instantiate a BME280 instance using default i2c bus and address
         BME280 sensor = new BME280();
 
-        ITemperatureSensor t_sensor = sensor;
-        IHumiditySensor h_sensor = sensor;
-        IPressureSensor p_sensor = sensor;
+        iTemperature t_sensor = sensor;
+        iHumidity h_sensor = sensor;
+        iPressure p_sensor = sensor;
 
         // For SPI, bus 0, you would pass -1 as the address, and a
         // valid pin for CS:
@@ -51,15 +51,15 @@ public class BME280_Interface_Example
                 System.out.println("Calling Interface Functions: ");
 
                 System.out.println("Compensation Temperature: "
-                                   + t_sensor.getTemperatureCelsius()
+                                   + t_sensor.getTemperature()
                                    + " C / ");
 
                 System.out.println("Pressure: "
-                                   + p_sensor.getPressurePa()
+                                   + p_sensor.getPressure()
                                    + " Pa");
 
                 System.out.println("Humidity: "
-                                   + h_sensor.getHumidityRelative()
+                                   + h_sensor.getHumidity()
                                    + " %RH");
 
                 System.out.println();

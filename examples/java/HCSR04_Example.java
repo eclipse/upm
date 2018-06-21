@@ -35,7 +35,7 @@ public class HCSR04_Example {
 
 		while (true) {
 			System.out.println("Get distance");
-			double distance = sonar.getDistance(HCSR04_U.swigToEnum(0));
+			double distance = sonar.getDistance();
 			System.out.println("Distance: " + distance);
 
 			Thread.sleep(5000);
