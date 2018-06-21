@@ -1,7 +1,17 @@
+#ifdef SWIGPYTHON
+%module (package="pyupm_new_interfaces") rhusb
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+%typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+%}
+
 %include "arrays_java.i";
 %include "../java_buffer.i"
 JAVA_JNI_LOADLIBRARY(javaupm_rhusb)

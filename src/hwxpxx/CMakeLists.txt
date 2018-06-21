@@ -3,6 +3,7 @@ if (MODBUS_FOUND)
   set (libdescription "Module for the Veris HWXPXX (HWXPHTX)")
   set (module_src ${libname}.cxx)
   set (module_hpp ${libname}.hpp)
+  set (module_iface iHumidity.hpp iTemperature.hpp)
 
   set (reqlibname "libmodbus")
   upm_module_init(${MODBUS_LIBRARIES})
