@@ -531,6 +531,10 @@ function(upm_swig_java)
       # target .jar file in the classpath, otherwise this variable will be empty
       set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
     endif ()
+    if(module_iface)
+      add_dependencies(javaupm_${libname} javaupm_new_interfaces)
+      set (NEW_INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/interfaces/upm_new_interfaces.jar)
+    endif()
     # For linker to report unresolved symbols.  Note, there is currently no test
     # for linker flags (similar to compile files), so this is it for now.
     swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname} -Wl,--unresolved-symbols=report-all)
@@ -581,7 +585,7 @@ function(upm_swig_java)
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD
         COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
-        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:.
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:${NEW_INTERFACES_JAR_FILE}:.
         COMMAND ${JAR} cf upm_${libname}.jar upm_${libname}
     )
 
