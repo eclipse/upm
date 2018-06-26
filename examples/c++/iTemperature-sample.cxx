@@ -4,18 +4,18 @@
 #include "lm35.hpp"
 #include "abp.hpp"
 
-using namespace std;
-using namespace upm;
+// using namespace std;
+// using namespace upm;
 
 int
 main()
 {
-  vector<iTemperature*> tempSensors {new LM35(0), new ABP(0, ABP_DEFAULT_ADDRESS)};
+  std::vector<upm::iTemperature*> tempSensors {new upm::LM35(0), new upm::ABP(0, ABP_DEFAULT_ADDRESS)};
 
   for (auto& sensor : tempSensors) {
     float celsiusTemp = sensor->getTemperature();
-    cout << "Temperature in Celsius degrees: " << celsiusTemp << endl;
-    cout << "Temperature in Kelvin: " << iTemperature::convertCelsiusTo(celsiusTemp, TemperatureUnit::KELVIN);
+    std::cout << "Temperature in Celsius degrees: " << celsiusTemp << std::endl;
+    std::cout << "Temperature in Kelvin: " << upm::iTemperature::convertCelsiusTo(celsiusTemp, upm::TemperatureUnit::KELVIN) << std::endl;
   }
 
   for (auto& sensor : tempSensors) {
