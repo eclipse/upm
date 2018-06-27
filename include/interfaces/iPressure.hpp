@@ -36,6 +36,12 @@ namespace upm
   {
   public:
     virtual ~iPressure() {}
+
+    /**
+     * Measures applied pressure
+     * 
+     * @return gets pressure value
+     */
     virtual float getPressure() = 0;
 
     /**

@@ -38,6 +38,12 @@ namespace upm
   public:
 
     virtual ~iTemperature() {}
+
+    /**
+     * Measures temperature
+     * 
+     * @return temperature value
+     */
     virtual float getTemperature() = 0;
 
     /**

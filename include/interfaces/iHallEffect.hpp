@@ -33,6 +33,12 @@ namespace upm
   {
   public:
     virtual ~iHallEffect() {}
+
+    /**
+     * Detects magnetic field
+     * 
+     * @return True if magenet detected
+     */
     virtual bool magnetDetected() = 0;
   };
 }

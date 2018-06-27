@@ -33,6 +33,12 @@ namespace upm
   {
   public:
     virtual ~iMoisture() {}
+
+    /**
+     * Measures moisture
+     * 
+     * @return moisture level
+     */
     virtual int getMoisture() = 0;
   };
 }
