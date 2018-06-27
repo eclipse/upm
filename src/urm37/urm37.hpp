@@ -129,7 +129,7 @@ namespace upm {
      *
      * @return The measured distance in cm
      */
-    virtual int getDistance();
+    virtual float getDistance();
 
     /**
      * Get the temperature measurement.  This is only valid in UART mode.

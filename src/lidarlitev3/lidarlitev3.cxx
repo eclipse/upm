@@ -46,7 +46,7 @@ LIDARLITEV3::LIDARLITEV3 (int bus, int devAddr) : m_i2ControlCtx(bus) {
     }
 }
 
-int
+float
 LIDARLITEV3::getDistance () {
 
     if(i2cWriteReg(ACQ_COMMAND, 0x04) < 0)

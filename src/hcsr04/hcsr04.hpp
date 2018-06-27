@@ -76,7 +76,7 @@ class HCSR04 : virtual public iDistance {
          *
          * @return distance measured in cm.
          */
-        virtual int getDistance();
+        float getDistance();
     private:
         hcsr04_context m_hcsr04;
         HCSR04(const HCSR04& src) { /* do not create copied constructor */ }

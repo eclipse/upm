@@ -55,7 +55,7 @@ GroveUltraSonic::~GroveUltraSonic () {
     mraa_gpio_close (m_pinCtx);
 }
 
-int
+float
 GroveUltraSonic::getDistance () {
 
     // output trigger signal
