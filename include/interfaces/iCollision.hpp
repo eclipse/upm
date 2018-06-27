@@ -33,6 +33,12 @@ namespace upm
     {
     public:
         virtual ~iCollision() {}
+
+        /**
+         * Returns if there's a collision
+         * 
+         * @return collision state
+         */
         virtual bool isColliding() = 0;
     };
 }

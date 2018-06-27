@@ -33,6 +33,12 @@ namespace upm
   {
   public:
     virtual ~iMotion() {}
+
+    /**
+     * Detects motion
+     * 
+     * @return true if motion detected
+     */
     virtual bool motionDetected() = 0;
   };
 }

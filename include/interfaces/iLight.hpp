@@ -33,6 +33,12 @@ namespace upm
     {
     public:
         virtual ~iLight() {}
+
+        /**
+         * Get luminance
+         * 
+         * @return Luminance value
+         */
         virtual float getLuminance() = 0;
     };
 }

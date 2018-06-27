@@ -36,6 +36,12 @@ namespace upm
   {
   public:
     virtual ~iDistance() {}
+
+    /**
+     * Get distance from sensor
+     * 
+     * @return Returns the distance
+     */
     virtual float getDistance() = 0;
     /**
       * Convert distance value from Cm(default) to one

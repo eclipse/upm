@@ -33,6 +33,12 @@ namespace upm
   {
   public:
     virtual ~iHumidity() {}
+
+    /**
+     * Measures humidity around the sensor
+     * 
+     * @return Gets the humidity value
+     */
     virtual float getHumidity() = 0;
   };
 }
