@@ -90,7 +90,7 @@ namespace upm {
          *
          * @return Distance to the object in cm
          */
-        virtual int getDistance();
+        virtual float getDistance();
     protected:
         // mb704x device context
         mb704x_context m_mb704x;

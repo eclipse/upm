@@ -110,7 +110,7 @@ class LIDARLITEV3 : virtual public iDistance {
          * Returns distance measurement on success
          * Retruns -1 on failure.
          */
-        virtual int getDistance ();
+        virtual float getDistance ();
 
         /**
          * Read

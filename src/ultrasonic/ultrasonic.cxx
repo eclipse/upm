@@ -55,7 +55,7 @@ UltraSonic::~UltraSonic () {
     mraa_gpio_close (m_pinCtx);
 }
 
-int
+float
 UltraSonic::getDistance () {
 
     // output trigger signal

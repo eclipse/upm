@@ -81,7 +81,7 @@ class GroveUltraSonic {
          * Divide by 58 to convert distance to centimetres. 
          * Divide by 148 to convert distance to inches.
          */
-        int getDistance ();
+        float getDistance ();
 
         /**
          * Return name of the component

@@ -63,7 +63,7 @@ int MAXSONAREZ::inches()
   return int(volts / m_vI);
 }
 
-int MAXSONAREZ::getDistance()
+float MAXSONAREZ::getDistance()
 {
-   return (inches() * 2.54);
+   return inches() * 2.54;
 }
