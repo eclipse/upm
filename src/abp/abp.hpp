@@ -21,9 +21,11 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
 #pragma once
 
+#include <string>
+#include <mraa/initio.hpp>
 #include "abp.h"
 
 namespace upm {
@@ -69,6 +71,12 @@ namespace upm {
          * @param devAddress i2c address of the sensor
          */
         ABP(int bus, int devAddress);
+        /**
+         * Instantiates an ABP sensor object based on a given string.
+         *
+         * @param initStr string containing specific information for ABP sensor initialization.
+         */
+        ABP(std::string initStr);
         /**
          * ABP destructor
          */
@@ -120,6 +128,7 @@ namespace upm {
          */
         void setMinPressure(int min);
     private:
+        mraa::MraaIo mraaIo;
         abp_context m_abp;
         ABP(const ABP& src) { /* do not create copied constructor */}
         ABP& operator=(const ABP&) {return *this;}
