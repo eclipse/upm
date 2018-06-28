@@ -26,6 +26,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "abp.hpp"
 
 using namespace upm;
@@ -36,6 +37,64 @@ ABP::ABP(int bus, int devAddress) :
     if(!m_abp)
         throw std::runtime_error(std::string(__FUNCTION__) +
                                 ": abp_init failed");
+}
+
+ABP::ABP(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if(mraaIo.getLeftoverStr() != "")
+    {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    m_abp = (abp_context)malloc(sizeof(struct _abp_context));
+
+    if(!m_abp)
+    {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": abp_init failed");
+    }
+
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+       throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_init() failed");
+    }
+
+    if(!descs->i2cs)
+    {
+      abp_close(m_abp);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_i2c_init() failed");
+    }
+    else
+    {
+        if( !(m_abp->i2c = descs->i2cs[0]) )
+        {
+            abp_close(m_abp);
+            throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_i2c_init() failed");
+        }
+    }
+
+    // setting up defaults
+    m_abp->abp_pressure_max = 5;
+    m_abp->abp_pressure_min = 0;
+
+    for (std::string tok : upmTokens) {
+      if(tok.substr(0,12) == "maxPressure:") {
+          int pmax = std::stoi(tok.substr(12),nullptr,0);
+          setMaxPressure(pmax);
+      }
+      if(tok.substr(0,12) == "minPressure:") {
+          int pmin  = std::stoi(tok.substr(12),nullptr,0);
+          setMinPressure(pmin);
+      }
+    }
 }
 
 ABP::~ABP()
