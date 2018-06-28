@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 #include <interfaces/iHallEffect.hpp>
 
 namespace upm {
@@ -68,6 +69,13 @@ namespace upm {
      */
     A110X(int pin);
     /**
+     * Instantiates A110x digital sensor based on a given string.
+     *
+     * @param initStr string containing specific information for A110X initialization.
+     */
+    A110X(std::string initStr);
+
+    /**
      * A110X destructor
      */
     ~A110X();
@@ -97,6 +105,7 @@ namespace upm {
   private:
 
     bool m_isrInstalled;
+    mraa::MraaIo mraaIo;
     mraa_gpio_context m_gpio;
   };
 }
