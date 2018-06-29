@@ -25,6 +25,7 @@
 #pragma once
 
 #include <mraa/i2c.h>
+#include <mraa/initio.hpp>
 
 #define MAX_BUFFER_LENGTH 6
 
@@ -69,7 +70,7 @@ namespace upm {
   * @web http://www.adafruit.com/product/1411
   * @con i2c
   *
-  * @brief API for the Adafruit Servo Shield 
+  * @brief API for the Adafruit Servo Shield
   *
   * UPM library for the PCA9685-based Adafruit 16-channel servo shield. If 3
   * or more GWS servos are attached, results could be unpredictable. Adafruit
@@ -89,6 +90,14 @@ namespace upm {
      * @param i2c_address Address of the servo shield on the I2C bus
      */
     adafruitss(int bus, int i2c_address);
+
+    /**
+     * Instantiates Adafruit PCA9685 object based on a given string.
+     *
+     * @param initStr string containing specific information for Adafruit PCA9685 initialization.
+     */
+    adafruitss(std::string initStr);
+
     int update(void);
     /**
      * Sets the frequency of the servos
@@ -109,9 +118,10 @@ namespace upm {
   private:
 
     int pca9685_addr;
+    mraa::MraaIo mraaIo;
     mraa_i2c_context m_i2c;
     uint8_t m_rx_tx_buf[MAX_BUFFER_LENGTH];
     float _duration_1ms;
-};
+  };
 
 }
