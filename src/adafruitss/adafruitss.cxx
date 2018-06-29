@@ -25,6 +25,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "adafruitss.hpp"
 #include <unistd.h>
 #include <math.h>
@@ -33,7 +34,7 @@ using namespace upm;
 
 adafruitss::adafruitss(int bus,int i2c_address)
 {
-    if ( !(m_i2c = mraa_i2c_init(bus)) ) 
+    if ( !(m_i2c = mraa_i2c_init(bus)) )
       {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_init() failed");
@@ -61,6 +62,71 @@ adafruitss::adafruitss(int bus,int i2c_address)
 
     adafruitss::update();
 }
+
+adafruitss::adafruitss(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  std::vector<std::string> upmTokens;
+
+  if (mraaIo.getLeftoverStr() != "")
+  {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  if(!descs->i2cs)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+    return;
+  }
+  else
+  {
+    if( !(m_i2c = descs->i2cs[0]) )
+    {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+      return;
+    }
+  }
+
+  m_rx_tx_buf[0]=PCA9685_MODE1;
+  m_rx_tx_buf[1]=0;
+  if (mraa_i2c_write(m_i2c,m_rx_tx_buf,2) != MRAA_SUCCESS)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_write() failed");
+    return;
+  }
+
+  adafruitss::setPWMFreq(60);
+
+  adafruitss::update();
+
+  std::string::size_type sz;
+  int old_sz;
+
+  for(std::string tok : upmTokens)
+  {
+    if(tok.substr(0,8) == "pwmFreq:")
+    {
+      float freq = std::stof(tok.substr(8));
+      setPWMFreq(freq);
+    }
+    if(tok.substr(0,6) == "servo:")
+    {
+      uint8_t port = std::stoi(tok.substr(6),&sz,0);
+      tok = tok.substr(6);
+      old_sz = sz+1;
+      uint8_t servo_type = std::stoi(tok.substr(old_sz),&sz,0);
+      tok = tok.substr(old_sz);
+      float degrees = std::stof(tok.substr(sz+1));
+      servo(port, servo_type, degrees);
+    }
+  }
+}
+
+
 
 void adafruitss::setPWMFreq(float freq) {
     float afreq= freq * 0.899683334F;  // Correct for overshoot in the frequency setting (see issue #11). (Tested at 60hz with Logic 4 for 50hz and 60hz)
