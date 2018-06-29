@@ -29,6 +29,7 @@
 #include <string>
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 
 #include "pca9685.hpp"
 
@@ -36,7 +37,7 @@
 #define ADAFRUITMS1438_DEFAULT_I2C_ADDR 0x60
 
 namespace upm {
-  
+
   /**
    * @brief Adafruit Motor Shield
    * @defgroup adafruitms1438 libupm-adafruitms1438
@@ -105,9 +106,21 @@ namespace upm {
     AdafruitMS1438(int bus, uint8_t address = ADAFRUITMS1438_DEFAULT_I2C_ADDR);
 
     /**
+     * Instantiates AdafruitMS1438 based on a given string.
+     *
+     * @param initStr string containing specific information for AdafruitMS1438 initialization.
+     */
+    AdafruitMS1438(std::string initStr);
+
+    /**
      * AdafruitMS1438 destructor
      */
     ~AdafruitMS1438();
+
+    /**
+     * AdafruitMS1438 initialization method
+     */
+    void initAdafruitMS1438();
 
     /**
      * Returns the number of milliseconds elapsed since initClock(...)
@@ -126,7 +139,7 @@ namespace upm {
     /**
      * Sets the PWM period.  Note: this applies to all PWM channels.
      *
-     * @param hz Sets the PWM period 
+     * @param hz Sets the PWM period
      */
     void setPWMPeriod(float hz);
 
@@ -182,7 +195,7 @@ namespace upm {
      * @param dir Direction to set the motor in
      */
     void setMotorDirection(DCMOTORS_T motor, DIRECTION_T dir);
- 
+
     /**
      * Sets the direction of a stepper motor, clockwise or counterclockwise
      *
@@ -190,7 +203,7 @@ namespace upm {
      * @param dir Direction to set the motor in
      */
     void setStepperDirection(STEPMOTORS_T motor, DIRECTION_T dir);
- 
+
     /**
      * Sets a stepper motor configuration
      *
