@@ -23,7 +23,7 @@
  */
 
 #include <iostream>
-
+#include "upm_string_parser.hpp"
 #include "ad8232.hpp"
 
 using namespace upm;
@@ -34,8 +34,28 @@ AD8232::AD8232(int loPlus, int loMinus, int output, float aref) :
 {
   m_gpioLOPlus.dir(mraa::DIR_IN);
   m_gpioLOMinus.dir(mraa::DIR_IN);
-  
+
   m_aref = aref;
+  m_ares = (1 << m_aioOUT.getBit());
+}
+
+AD8232::AD8232(std::string initStr) : mraaIo(initStr), m_gpioLOPlus(mraaIo.gpios[0]),
+  m_gpioLOMinus(mraaIo.gpios[1]), m_aioOUT(mraaIo.aios[0])
+{
+  std::vector<std::string> upmTokens;
+
+  if(mraaIo.getLeftoverStr() != "")
+  {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  for (std::string tok : upmTokens)
+  {
+    if(tok.substr(0,5) == "volt:")
+    {
+      m_aref = std::stof(tok.substr(5));
+    }
+  }
   m_ares = (1 << m_aioOUT.getBit());
 }
 
