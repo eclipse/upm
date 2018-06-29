@@ -36,6 +36,21 @@ using namespace std;
 AdafruitMS1438::AdafruitMS1438(int bus, uint8_t address) :
   m_pca9685(new PCA9685(bus, address))
 {
+  initAdafruitMS1438();
+}
+
+AdafruitMS1438::AdafruitMS1438(std::string initStr) : m_pca9685(new PCA9685(initStr))
+{
+  initAdafruitMS1438();
+}
+
+AdafruitMS1438::~AdafruitMS1438()
+{
+  delete m_pca9685;
+}
+
+void AdafruitMS1438::initAdafruitMS1438()
+{
   setupPinMaps();
 
   // set a default period of 50Hz
@@ -54,11 +69,6 @@ AdafruitMS1438::AdafruitMS1438(int bus, uint8_t address) :
   // set the default stepper config at 200 steps per rev
   stepConfig(STEPMOTOR_M12, 200);
   stepConfig(STEPMOTOR_M34, 200);
-}
-
-AdafruitMS1438::~AdafruitMS1438()
-{
-  delete m_pca9685;
 }
 
 void AdafruitMS1438::initClock(STEPMOTORS_T motor)
@@ -146,12 +156,12 @@ void AdafruitMS1438::setMotorSpeed(DCMOTORS_T motor, int speed)
 {
   if (speed < 0)
     speed = 0;
-  
+
   if (speed > 100)
     speed = 100;
 
   float percent = float(speed) / 100.0;
-  
+
   // make sure that the FullOn bit is turned off, or the speed setting
   // (PWM duty cycle) won't have any effect.
   m_pca9685->ledFullOn(m_dcMotors[motor].pwm, false);
@@ -162,7 +172,7 @@ void AdafruitMS1438::setMotorSpeed(DCMOTORS_T motor, int speed)
 
 void AdafruitMS1438::setStepperSpeed(STEPMOTORS_T motor, int speed)
 {
-  m_stepConfig[motor].stepDelay = 60 * 1000 / 
+  m_stepConfig[motor].stepDelay = 60 * 1000 /
     m_stepConfig[motor].stepsPerRev / speed;
 }
 
@@ -291,14 +301,14 @@ void AdafruitMS1438::stepperSteps(STEPMOTORS_T motor, unsigned int steps)
 
           if (m_stepConfig[motor].stepDirection == 1)
             {
-              if (m_stepConfig[motor].currentStep >= 
+              if (m_stepConfig[motor].currentStep >=
                   m_stepConfig[motor].stepsPerRev)
                 m_stepConfig[motor].currentStep = 0;
             }
           else
             {
               if (m_stepConfig[motor].currentStep <= 0)
-                m_stepConfig[motor].currentStep = 
+                m_stepConfig[motor].currentStep =
                   m_stepConfig[motor].stepsPerRev;
             }
 
