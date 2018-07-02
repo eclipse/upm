@@ -35,12 +35,14 @@ JAVA_JNI_LOADLIBRARY(javaupm_bma220)
 
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Javascript syntax */
 
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Python syntax */
