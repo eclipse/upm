@@ -48,24 +48,22 @@ A110X::A110X(int pin)
 A110X::A110X(std::string initStr) : mraaIo(initStr)
 {
   mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
-  
+
   if(!descs->gpios)
   {
     throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_gpio_init() failed, invalid pin?");
-    return;
   }
-  else 
+  else
   {
     if( !(m_gpio = descs->gpios[0]) )
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
                               ": mraa_gpio_init() failed, invalid pin?");
-    
-      return;
+
     }
   }
-  
+
   mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
   m_isrInstalled = false;
 }
@@ -90,7 +88,7 @@ void A110X::installISR(void (*isr)(void *), void *arg)
     uninstallISR();
 
   // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_BOTH, 
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_BOTH,
                 isr, arg);
   m_isrInstalled = true;
 }

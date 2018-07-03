@@ -69,7 +69,7 @@ adafruitss::adafruitss(std::string initStr) : mraaIo(initStr)
 
   std::vector<std::string> upmTokens;
 
-  if (mraaIo.getLeftoverStr() != "")
+  if (!mraaIo.getLeftoverStr().empty())
   {
         upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
   }
@@ -78,7 +78,6 @@ adafruitss::adafruitss(std::string initStr) : mraaIo(initStr)
   {
     throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_init() failed");
-    return;
   }
   else
   {
@@ -86,7 +85,6 @@ adafruitss::adafruitss(std::string initStr) : mraaIo(initStr)
     {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_init() failed");
-      return;
     }
   }
 

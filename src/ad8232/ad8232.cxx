@@ -29,22 +29,44 @@
 using namespace upm;
 using namespace std;
 
-AD8232::AD8232(int loPlus, int loMinus, int output, float aref) :
-  m_gpioLOPlus(loPlus), m_gpioLOMinus(loMinus), m_aioOUT(output)
-{
-  m_gpioLOPlus.dir(mraa::DIR_IN);
-  m_gpioLOMinus.dir(mraa::DIR_IN);
+AD8232::AD8232(int loPlus, int loMinus, int output, float aref) {
+  m_gpioLOPlus = new mraa::Gpio(loPlus);
+  m_gpioLOMinus = new mraa::Gpio(loMinus);
+  m_aioOUT = new mraa::Aio(output);
+
+  m_gpioLOPlus->dir(mraa::DIR_IN);
+  m_gpioLOMinus->dir(mraa::DIR_IN);
 
   m_aref = aref;
-  m_ares = (1 << m_aioOUT.getBit());
+  m_ares = (1 << m_aioOUT->getBit());
 }
 
-AD8232::AD8232(std::string initStr) : mraaIo(initStr), m_gpioLOPlus(mraaIo.gpios[0]),
-  m_gpioLOMinus(mraaIo.gpios[1]), m_aioOUT(mraaIo.aios[0])
+AD8232::AD8232(std::string initStr) : mraaIo(initStr)
 {
+  if(!mraaIo.gpios.empty())
+  {
+    m_gpioLOPlus = new mraa::Gpio(mraaIo.gpios[0]);
+    m_gpioLOMinus = new mraa::Gpio(mraaIo.gpios[1]);
+  }
+  else
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_gpio_init() failed, invalid pin?");
+  }
+
+  if(!mraaIo.gpios.empty())
+  {
+    m_aioOUT = new mraa::Aio(mraaIo.aios[0]);
+  }
+  else
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_aio_init() failed, invalid pin?");
+  }
+
   std::vector<std::string> upmTokens;
 
-  if(mraaIo.getLeftoverStr() != "")
+  if(!mraaIo.getLeftoverStr().empty())
   {
     upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
   }
@@ -56,17 +78,20 @@ AD8232::AD8232(std::string initStr) : mraaIo(initStr), m_gpioLOPlus(mraaIo.gpios
       m_aref = std::stof(tok.substr(5));
     }
   }
-  m_ares = (1 << m_aioOUT.getBit());
+  m_ares = (1 << m_aioOUT->getBit());
 }
 
 AD8232::~AD8232()
 {
+  delete m_gpioLOPlus;
+  delete m_gpioLOMinus;
+  delete m_aioOUT;
 }
 
 int AD8232::value()
 {
-  if (m_gpioLOPlus.read() || m_gpioLOMinus.read())
+  if (m_gpioLOPlus->read() || m_gpioLOMinus->read())
     return 0;
   else
-    return m_aioOUT.read();
+    return m_aioOUT->read();
 }

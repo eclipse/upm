@@ -44,7 +44,7 @@ ABP::ABP(std::string initStr) : mraaIo(initStr)
     mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
     std::vector<std::string> upmTokens;
 
-    if(mraaIo.getLeftoverStr() != "")
+    if(!mraaIo.getLeftoverStr().empty())
     {
         upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
     }
