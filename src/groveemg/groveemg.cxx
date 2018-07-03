@@ -67,3 +67,21 @@ int GroveEMG::value()
 	int val = mraa_aio_read(m_aio);
 	return val;
 }
+
+float GroveEMG::getVolts()
+{
+	float val = mraa_aio_read_float(m_aio);
+	if (val < 0)
+		return val;
+
+	 /* Apply raw scale */
+    val *= this->m_scale;
+
+     /* Scale to aRef */
+    val *= this->m_aRef;
+
+    /* Apply the offset in volts */
+    val += this->m_offset;
+
+	return val;
+}
