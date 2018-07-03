@@ -45,5 +45,12 @@ namespace upm
      * @return Muscle output as analog voltage
      */
     virtual int value() = 0;
+
+    /**
+     * Read scaled/offset voltage from the sensor
+     * 
+     * @return Measured volts
+     */
+    virtual float getVolts() = 0;
   };
 }

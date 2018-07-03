@@ -76,7 +76,15 @@ namespace upm {
      */
     virtual int value();
 
+    virtual float getVolts();
+
   private:
     mraa_aio_context m_aio;
+    /* Analog voltage reference */
+    float m_aRef = 5.0;
+    /* Scale */
+    float m_scale = 1.0;
+    /* Offset in sensor units */
+    float m_offset = 0.0;
   };
 }
