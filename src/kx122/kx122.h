@@ -31,6 +31,7 @@ extern "C"{
 #include <assert.h>
 #include <unistd.h>
 #include <math.h>
+#include <sys/types.h>
 
 #include <mraa/i2c.h>
 #include <mraa/spi.h>

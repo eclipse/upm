@@ -488,7 +488,7 @@ int ecezo_send_command(const ecezo_context dev, char *cmd, char *buffer,
     // our write buffer
     char writeBuffer[ECEZO_MAX_BUFFER_LEN];
 
-    strncpy(writeBuffer, cmd, ECEZO_MAX_BUFFER_LEN);
+    memcpy(writeBuffer, cmd, ECEZO_MAX_BUFFER_LEN-1);
     writeBuffer[ECEZO_MAX_BUFFER_LEN - 1] = 0;
 
     int writelen = strlen(writeBuffer);
