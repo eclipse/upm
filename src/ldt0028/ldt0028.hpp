@@ -26,7 +26,6 @@
 #include <string>
 #include <mraa/aio.h>
 #include <mraa/initio.hpp>
-#include <mraa/initio.h>
 
 namespace upm {
 
