@@ -11,7 +11,7 @@
 //
 // This library runs on an Intel Edison and uses mraa to acquire data
 // from an ADIS16448. This data is then scaled and printed onto the terminal.
-// 
+//
 // This software has been tested to connect to an ADIS16448 through a level shifter
 // such as the TI TXB0104. The SPI lines (DIN, DOUT, SCLK, /CS) are all wired through
 // the level shifter and the ADIS16448 is also being powered by the Intel Edison.
@@ -44,6 +44,7 @@
 #include <functional>
 #include <string.h>
 
+#include "upm_string_parser.hpp"
 #include "adis16448.hpp"
 
 using namespace upm;
@@ -55,24 +56,81 @@ using namespace upm;
 ////////////////////////////////////////////////////////////////////////////
 ADIS16448::ADIS16448(int bus, int rst)
 {
-// Configure I/O
-        //Initialize RST pin
-        if ( !(_rst = mraa_gpio_init(rst)) ) 
-          {
-            throw std::invalid_argument(std::string(__FUNCTION__) +
-                                        ": mraa_gpio_init() failed, invalid pin?");
-            return;
-          }
+  // Configure I/O
+  //Initialize RST pin
+  if ( !(_rst = mraa_gpio_init(rst)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+      return;
+    }
 	mraa_gpio_dir(_rst, MRAA_GPIO_IN); //Set direction as INPUT
 
-        // Configure SPI
-        if ( !(_spi = mraa_spi_init(bus)) ) 
-          {
-            throw std::invalid_argument(std::string(__FUNCTION__) +
-                                        ": mraa_spi_init() failed");
-            return;
-          }
-        configSPI();
+  // Configure SPI
+  if ( !(_spi = mraa_spi_init(bus)) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_spi_init() failed");
+      return;
+    }
+  configSPI();
+}
+
+ADIS16448::ADIS16448(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  std::vector<std::string> upmTokens;
+
+  if (!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  // Configure I/O
+  //Initialize RST pin
+  if(!descs->gpios)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+  }
+  else
+  {
+    if( !(_rst = descs->gpios[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_gpio_init() failed, invalid pin?");
+
+    }
+  }
+  mraa_gpio_dir(_rst, MRAA_GPIO_IN); //Set direction as INPUT
+
+  // Configure SPI
+  if(!descs->spis)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_spi_init() failed");
+  }
+  else
+  {
+    if( !(_spi = descs->spis[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_spi_init() failed");
+
+    }
+  }
+  configSPI();
+
+  std::string::size_type sz;
+
+  for (std::string tok : upmTokens) {
+    if(tok.substr(0,9) == "regWrite:") {
+      uint8_t regAddr = std::stoi(tok.substr(9),&sz,0);
+      tok = tok.substr(9);
+      uint16_t regData = std::stoi(tok.substr(sz+1),nullptr,0);
+      regWrite(regAddr, regData);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -114,7 +172,7 @@ void ADIS16448::resetDUT()
 void ADIS16448::configSPI() {
 	mraa_spi_frequency(_spi, 1000000); //Set SPI frequency to 1MHz
 
-        if ( mraa_spi_mode(_spi, MRAA_SPI_MODE3) != MRAA_SUCCESS ) 
+        if ( mraa_spi_mode(_spi, MRAA_SPI_MODE3) != MRAA_SUCCESS )
           {
             throw std::invalid_argument(std::string(__FUNCTION__) +
                                         ": mraa_spi_mode() failed");
@@ -122,7 +180,7 @@ void ADIS16448::configSPI() {
           }
 	//Set # of bits per word
 
-        if ( mraa_spi_bit_per_word(_spi, 16) != MRAA_SUCCESS ) 
+        if ( mraa_spi_bit_per_word(_spi, 16) != MRAA_SUCCESS )
           {
             throw std::invalid_argument(std::string(__FUNCTION__) +
                                         ": mraa_spi_bit_per_word() failed");
@@ -162,7 +220,8 @@ int16_t ADIS16448::regRead(uint8_t regAddr)
 // regData - data to be written to the register
 ////////////////////////////////////////////////////////////////////////////
 void ADIS16448::regWrite(uint8_t regAddr,uint16_t regData)
-{
+{ std::vector<std::string> upmTokens;
+
 	configSPI();
 // Separate the 16 bit command word into two bytes
 	uint16_t addr = (((regAddr & 0x7F) | 0x80) << 8); //Check that the address is 7 bits, flip the sign bit

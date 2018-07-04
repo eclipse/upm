@@ -39,6 +39,7 @@
 #include <string>
 #include <mraa/spi.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 
 // User Register Memory Map from Table 6 of the Datasheet
 #define FLASH_CNT 0x00 //Flash memory write count
@@ -114,6 +115,13 @@ namespace upm {
         ADIS16448(int bus, int rst);
 
         /**
+         * Instantiates ADIS16448 Accelerometer object based on a given string.
+         *
+         * @param initStr string containing specific information for ADIS16448 initialization.
+         */
+        ADIS16448(std::string initStr);
+
+        /**
          * Destructor
          */
         ~ADIS16448();
@@ -165,6 +173,7 @@ namespace upm {
 
         private:
 
+        mraa::MraaIo mraaIo;
         mraa_spi_context _spi;
         mraa_gpio_context _rst;
 
