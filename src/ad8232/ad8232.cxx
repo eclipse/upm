@@ -25,6 +25,7 @@
 #include <iostream>
 #include "upm_string_parser.hpp"
 #include "ad8232.hpp"
+#include <typeinfo>
 
 using namespace upm;
 using namespace std;
@@ -39,14 +40,22 @@ AD8232::AD8232(int loPlus, int loMinus, int output, float aref) {
 
   m_aref = aref;
   m_ares = (1 << m_aioOUT->getBit());
+  m_callcons = 0;
 }
 
-AD8232::AD8232(std::string initStr) : mraaIo(initStr)
+AD8232::AD8232(std::string initStr)
 {
-  if(!mraaIo.gpios.empty())
+  mraaIo = new mraa::MraaIo(initStr);
+  if(mraaIo == NULL)
   {
-    m_gpioLOPlus = new mraa::Gpio(mraaIo.gpios[0]);
-    m_gpioLOMinus = new mraa::Gpio(mraaIo.gpios[1]);
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": Failed to allocate memory for internal member");
+  }
+
+  if(!mraaIo->gpios.empty())
+  {
+    m_gpioLOPlus = &mraaIo->gpios[0];
+    m_gpioLOMinus = &mraaIo->gpios[1];
   }
   else
   {
@@ -54,9 +63,9 @@ AD8232::AD8232(std::string initStr) : mraaIo(initStr)
                             ": mraa_gpio_init() failed, invalid pin?");
   }
 
-  if(!mraaIo.gpios.empty())
+  if(!mraaIo->gpios.empty())
   {
-    m_aioOUT = new mraa::Aio(mraaIo.aios[0]);
+    m_aioOUT = &mraaIo->aios[0];
   }
   else
   {
@@ -66,9 +75,9 @@ AD8232::AD8232(std::string initStr) : mraaIo(initStr)
 
   std::vector<std::string> upmTokens;
 
-  if(!mraaIo.getLeftoverStr().empty())
+  if(!mraaIo->getLeftoverStr().empty())
   {
-    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
   }
 
   for (std::string tok : upmTokens)
@@ -79,13 +88,21 @@ AD8232::AD8232(std::string initStr) : mraaIo(initStr)
     }
   }
   m_ares = (1 << m_aioOUT->getBit());
+  m_callcons = 1;
 }
 
 AD8232::~AD8232()
 {
-  delete m_gpioLOPlus;
-  delete m_gpioLOMinus;
-  delete m_aioOUT;
+  if(!m_callcons)
+  {
+    delete m_gpioLOPlus;
+    delete m_gpioLOMinus;
+    delete m_aioOUT;
+  }
+  else
+  {
+    delete mraaIo;
+  }
 }
 
 int AD8232::value()
