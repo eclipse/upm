@@ -22,10 +22,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "ads1115.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
 ADS1115::ADS1115(int bus, uint8_t address) : ADS1X15(bus, address) {
+    m_name = "ADS1115";
+    m_conversionDelay = ADS1115_CONVERSIONDELAY;
+    m_bitShift = 0;
+    ADS1X15::getCurrentConfig();
+}
+
+ADS1115::ADS1115(std::string initStr) : ADS1X15(initStr) {
     m_name = "ADS1115";
     m_conversionDelay = ADS1115_CONVERSIONDELAY;
     m_bitShift = 0;
