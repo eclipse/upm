@@ -25,9 +25,11 @@
 
 #include <string>
 #include <mraa/i2c.h>
+#include <mraa/initio.hpp>
 #include <math.h>
 #include <interfaces/iHumidity.hpp>
 #include <interfaces/iTemperature.hpp>
+
 
 #define AM2315_NAME "am2315"
 #define AM2315_I2C_ADDRESS 0x5c
@@ -88,6 +90,13 @@ class AM2315 : virtual public iHumidity, virtual public iTemperature {
          * @param devAddr Address of the used I2C device
          */
         AM2315 (int bus, int devAddr=AM2315_I2C_ADDRESS);
+
+        /**
+         * Instantiates AM2315 Temperature & Humidity Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for AM2315 initialization.
+         */
+        AM2315 (std::string initStr);
 
         /**
          * AM2315 object destructor; basically, it closes the I2C connection.
@@ -184,6 +193,7 @@ class AM2315 : virtual public iHumidity, virtual public iTemperature {
         int m_controlAddr;
         int m_bus;
         mraa_i2c_context m_i2ControlCtx;
+        mraa::MraaIo mraaIo;
 
         void update_values(void);
         uint8_t i2cReadReg(int reg, uint8_t* data, int ilen);
