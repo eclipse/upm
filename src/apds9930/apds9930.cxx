@@ -27,6 +27,7 @@
 #include <stdexcept>
 
 #include "apds9930.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
@@ -38,6 +39,44 @@ APDS9930::APDS9930(int device)
         return;
     }
 }
+
+APDS9930::APDS9930(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+    if(!descs->iios)
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_iio_init() failed");
+    }
+    else
+    {
+        if(!(m_iio = descs->iios[0]))
+        {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_iio_init() failed");
+
+        }
+    }
+
+    std::vector<std::string> upmTokens;
+
+    if (!mraaIo.getLeftoverStr().empty()) {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    for (std::string tok : upmTokens) {
+      if(tok.substr(0,16) == "enableProximity:") {
+          bool enable = std::stoi(tok.substr(16),nullptr,0);
+          enableProximity(enable);
+      }
+      if(tok.substr(0,18) == "enableIlluminance:") {
+          bool enable = std::stoi(tok.substr(18),nullptr,0);
+          enableIlluminance(enable);
+      }
+    }
+}
+
 
 APDS9930::~APDS9930()
 {
