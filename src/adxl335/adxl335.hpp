@@ -29,6 +29,7 @@
 #include <string>
 #include <vector>
 #include <mraa/aio.h>
+#include <mraa/initio.hpp>
 
 #include <interfaces/iAcceleration.hpp>
 
@@ -73,6 +74,13 @@ namespace upm {
      * @param aref Analog reference voltage; default is 5.0v
      */
     ADXL335(int pinX, int pinY, int pinZ, float aref=ADXL335_DEFAULT_AREF);
+
+    /**
+     * Instantiates ADXL335 Accelerometer based on a given string.
+     *
+     * @param initStr string containing specific information for ADXL335 initialization.
+     */
+    ADXL335(std::string initStr);
 
     /**
      * ADXL335 destructor
@@ -146,6 +154,7 @@ namespace upm {
     void calibrate();
 
   private:
+    mraa::MraaIo mraaIo;
     mraa_aio_context m_aioX;
     mraa_aio_context m_aioY;
     mraa_aio_context m_aioZ;
