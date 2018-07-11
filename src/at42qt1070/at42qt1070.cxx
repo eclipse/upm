@@ -62,6 +62,32 @@ AT42QT1070::AT42QT1070(int bus, uint8_t address)
     m_overflow = false;
 }
 
+AT42QT1070::AT42QT1070(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+    if(!descs->i2cs) {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+    }
+    else {
+      if( !(m_i2c = descs->i2cs[0]) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_init() failed");
+
+      }
+    }
+
+    if (readChipID() != 0x2E) {
+        throw std::runtime_error("Chip ID does not match the expected value (2Eh)");
+    }
+
+    m_buttonStates = 0;
+    m_calibrating = false;
+    m_overflow = false;
+
+}
+
 AT42QT1070::~AT42QT1070()
 {
     mraa_i2c_stop(m_i2c);
