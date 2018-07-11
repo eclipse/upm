@@ -29,6 +29,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "adxl335.hpp"
 
 using namespace std;
@@ -61,6 +62,53 @@ ADXL335::ADXL335(int pinX, int pinY, int pinZ, float aref)
                                   ": mraa_aio_init(Z) failed, invalid pin?");
       return;
     }
+}
+
+ADXL335::ADXL335(std::string initStr) : mraaIo(initStr)
+{
+  m_aref = ADXL335_DEFAULT_AREF;
+  m_zeroX = 0.0;
+  m_zeroY = 0.0;
+  m_zeroZ = 0.0;
+
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  if(!descs->aios)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init(X) failed, invalid pin?");
+  }
+  else
+  {
+    printf("ADXL335 else inside constructor\n");
+    if( !(m_aioX = descs->aios[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init(X) failed, invalid pin?");
+    }
+    if( !(m_aioY = descs->aios[1]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init(X) failed, invalid pin?");
+    }
+    if( !(m_aioZ = descs->aios[2]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_aio_init(X) failed, invalid pin?");
+    }
+  }
+
+  std::vector<std::string> upmTokens;
+
+  if (!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  for (std::string tok : upmTokens) {
+    if(tok.substr(0,5) == "aref:") {
+      m_aref = std::stof(tok.substr(5));
+    }
+  }
 }
 
 ADXL335::~ADXL335()

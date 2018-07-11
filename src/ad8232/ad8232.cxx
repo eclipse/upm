@@ -23,9 +23,10 @@
  */
 
 #include <iostream>
+#include <typeinfo>
+
 #include "upm_string_parser.hpp"
 #include "ad8232.hpp"
-#include <typeinfo>
 
 using namespace upm;
 using namespace std;
@@ -63,7 +64,7 @@ AD8232::AD8232(std::string initStr)
                             ": mraa_gpio_init() failed, invalid pin?");
   }
 
-  if(!mraaIo->gpios.empty())
+  if(!mraaIo->aios.empty())
   {
     m_aioOUT = &mraaIo->aios[0];
   }
