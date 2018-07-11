@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/i2c.h>
+#include <mraa/initio.hpp>
 
 #define AT42QT1070_I2C_BUS 0
 #define AT42QT1070_DEFAULT_I2C_ADDR 0x1b
@@ -148,6 +149,13 @@ class AT42QT1070
      * @param address Address for this sensor
      */
     AT42QT1070(int bus, uint8_t address = AT42QT1070_DEFAULT_I2C_ADDR);
+
+    /**
+     * Instantiates AT42QT1070 QTouch Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for AT42QT1070 initialization.
+     */
+    AT42QT1070(std::string initStr);
 
     /**
      * AT42QT1070 destructor
@@ -309,6 +317,7 @@ class AT42QT1070
     bool m_overflow;
 
     mraa_i2c_context m_i2c;
+    mraa::MraaIo mraaIo;
     uint8_t m_addr;
 };
 }
