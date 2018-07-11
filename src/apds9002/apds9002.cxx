@@ -27,6 +27,7 @@
 #include <stdexcept>
 
 #include "apds9002.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
@@ -38,6 +39,26 @@ APDS9002::APDS9002(int pin)
                                   ": mraa_aio_init() failed, invalid pin?");
       return;
     }
+}
+
+APDS9002::APDS9002(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  if(!descs->aios)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed, invalid pin?");
+  }
+  else
+  {
+    if( !(m_aio = descs->aios[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_aio_init() failed, invalid pin?");
+
+    }
+  }
 }
 
 APDS9002::~APDS9002()

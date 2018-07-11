@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <mraa/initio.hpp>
 #include <interfaces/iLight.hpp>
 
 namespace upm {
@@ -62,6 +63,12 @@ namespace upm {
      */
     APDS9002(int pin);
     /**
+     * Instantiates APDS-9002 Luminance Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for APDS-9002 initialization.
+     */
+    APDS9002(std::string initStr);
+    /**
      * APDS9002 destructor
      */
     ~APDS9002();
@@ -81,6 +88,7 @@ namespace upm {
 
   private:
     mraa_aio_context m_aio;
+    mraa::MraaIo mraaIo;
   };
 }
 
