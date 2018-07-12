@@ -26,6 +26,7 @@
 #include <string>
 #include <stdexcept>
 #include <unistd.h>
+#include <utility>
 #include "math.h"
 #include "adxl345.hpp"
 
@@ -87,10 +88,10 @@
 
 using namespace upm;
 
-Adxl345::Adxl345(int bus) : m_i2c(bus)
+Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
 {
     //init bus and reset chip
-    if ( m_i2c.address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
+    if ( m_i2c->address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": i2c.address() failed");
         return;
@@ -98,7 +99,7 @@ Adxl345::Adxl345(int bus) : m_i2c(bus)
 
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() control register failed");
         return;
@@ -106,7 +107,7 @@ Adxl345::Adxl345(int bus) : m_i2c(bus)
 
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
-    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() mode register failed");
         return;
@@ -120,6 +121,58 @@ Adxl345::Adxl345(int bus) : m_i2c(bus)
     m_offsets[2] = 0.00390625;
 
     Adxl345::update();
+}
+
+Adxl345::Adxl345(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
+{
+    if(mraaIo == NULL)
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": Failed to allocate memory for internal member");
+    }
+
+    if(!mraaIo->i2cs.empty())
+    {
+      m_i2c = &mraaIo->i2cs[0];
+    }
+    else
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_i2c_init() failed");
+    }
+
+    m_buffer[0] = ADXL345_POWER_CTL;
+    m_buffer[1] = ADXL345_POWER_ON;
+    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() control register failed");
+        return;
+    }
+
+    m_buffer[0] = ADXL345_DATA_FORMAT;
+    m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
+    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() mode register failed");
+        return;
+    }
+
+    //2.5V sensitivity is 256 LSB/g = 0.00390625 g/bit
+    //3.3V x and y sensitivity is 265 LSB/g = 0.003773584 g/bit, z is the same
+
+    m_offsets[0] = 0.003773584;
+    m_offsets[1] = 0.003773584;
+    m_offsets[2] = 0.00390625;
+
+    Adxl345::update();
+}
+
+Adxl345::~Adxl345()
+{
+  if(mraaIo != NULL)
+    delete mraaIo;
+  else
+    delete m_i2c;
 }
 
 float*
@@ -157,9 +210,9 @@ Adxl345::getScale(){
 
     uint8_t result;
 
-    m_i2c.writeByte(ADXL345_DATA_FORMAT);
+    m_i2c->writeByte(ADXL345_DATA_FORMAT);
 
-    result = m_i2c.readByte();
+    result = m_i2c->readByte();
 
     return pow(2, (result & 0x03) + 1);
 }
@@ -167,9 +220,9 @@ Adxl345::getScale(){
 mraa::Result
 Adxl345::update(void)
 {
-    m_i2c.writeByte(ADXL345_XOUT_L);
+    m_i2c->writeByte(ADXL345_XOUT_L);
 
-    m_i2c.read(m_buffer, DATA_REG_SIZE);
+    m_i2c->read(m_buffer, DATA_REG_SIZE);
 
     // x
     m_rawaccel[0] = ((m_buffer[1] << 8 ) | m_buffer[0]);

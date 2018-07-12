@@ -41,7 +41,6 @@ AD8232::AD8232(int loPlus, int loMinus, int output, float aref) {
 
   m_aref = aref;
   m_ares = (1 << m_aioOUT->getBit());
-  m_callcons = 0;
 }
 
 AD8232::AD8232(std::string initStr)
@@ -89,20 +88,19 @@ AD8232::AD8232(std::string initStr)
     }
   }
   m_ares = (1 << m_aioOUT->getBit());
-  m_callcons = 1;
 }
 
 AD8232::~AD8232()
 {
-  if(!m_callcons)
+  if(mraaIo != NULL)
+  {
+    delete mraaIo;
+  }
+  else
   {
     delete m_gpioLOPlus;
     delete m_gpioLOMinus;
     delete m_aioOUT;
-  }
-  else
-  {
-    delete mraaIo;
   }
 }
 
