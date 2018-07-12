@@ -24,16 +24,17 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
 #include <functional>
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "ultrasonic.hpp"
 
 using namespace upm;
 
-UltraSonic::UltraSonic (int pin) {
+UltraSonic::UltraSonic(int pin)
+{
     m_name = "UltraSonic";
 
     mraa_init();
@@ -41,23 +42,23 @@ UltraSonic::UltraSonic (int pin) {
     // setup pin
     m_pinCtx = mraa_gpio_init(pin);
     if (m_pinCtx == NULL) {
-        fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", pin);
-        exit (1);
+        fprintf(stderr, "Are you sure that pin%d you requested is valid on your platform?", pin);
+        exit(1);
     }
     mraa_gpio_isr (m_pinCtx, MRAA_GPIO_EDGE_BOTH,
                    &signalISR, this);
 }
 
-UltraSonic::~UltraSonic () {
-
+UltraSonic::~UltraSonic()
+{
     // close pin
     mraa_gpio_isr_exit(m_pinCtx);
-    mraa_gpio_close (m_pinCtx);
+    mraa_gpio_close(m_pinCtx);
 }
 
 float
-UltraSonic::getDistance () {
-
+UltraSonic::getDistance()
+{
     // output trigger signal
     mraa_gpio_dir(m_pinCtx, MRAA_GPIO_OUT);
     mraa_gpio_write(m_pinCtx, LOW);
@@ -86,13 +87,15 @@ UltraSonic::getDistance () {
 }
 
 void
-UltraSonic::signalISR(void *ctx) {
-    upm::UltraSonic *This = (upm::UltraSonic *)ctx;
+UltraSonic::signalISR(void* ctx)
+{
+    upm::UltraSonic* This = (upm::UltraSonic*) ctx;
     This->ackEdgeDetected();
 }
 
 void
-UltraSonic::ackEdgeDetected () {
+UltraSonic::ackEdgeDetected()
+{
     if (++m_InterruptCounter % 2 == 0) {
         gettimeofday(&m_FallingTimeStamp, NULL);
         m_doWork = false;

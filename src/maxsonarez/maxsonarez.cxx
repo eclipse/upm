@@ -23,8 +23,8 @@
  */
 
 #include <iostream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 #include "maxsonarez.hpp"
 
@@ -33,37 +33,38 @@ using namespace upm;
 
 MAXSONAREZ::MAXSONAREZ(int pin, float aref)
 {
-  if (!(m_aio = mraa_aio_init(pin)))
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
+    if (!(m_aio = mraa_aio_init(pin))) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
     }
 
-  m_aRes = (1 << mraa_aio_get_bit(m_aio));
-  m_aref = aref;
+    m_aRes = (1 << mraa_aio_get_bit(m_aio));
+    m_aref = aref;
 
-  // volt's per inch of this sensor
-  m_vI = (m_aref / MAXSONAREZ_RES);
+    // volt's per inch of this sensor
+    m_vI = (m_aref / MAXSONAREZ_RES);
 }
 
 MAXSONAREZ::~MAXSONAREZ()
 {
-  mraa_aio_close(m_aio);
+    mraa_aio_close(m_aio);
 }
 
-int MAXSONAREZ::inches()
+int
+MAXSONAREZ::inches()
 {
-  int val = mraa_aio_read(m_aio);
-  if (val == -1) {
-    return -1;
-  }
-  float volts = float(val) * (m_aref / m_aRes);
+    int val = mraa_aio_read(m_aio);
+    if (val == -1) {
+        return -1;
+    }
+    float volts = float(val) * (m_aref / m_aRes);
 
-  return int(volts / m_vI);
+    return int(volts / m_vI);
 }
 
-float MAXSONAREZ::getDistance()
+float
+MAXSONAREZ::getDistance()
 {
-   return inches() * 2.54;
+    return inches() * 2.54;
 }
