@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <mraa/aio.hpp>
+#include <mraa/initio.hpp>
 
 // volts per degree / second (typ)
 #define m_degreeCoeff 0.006
@@ -82,6 +83,13 @@ namespace upm {
     ADXRS610(int dPin, int tPin, float aref=5.0);
 
     /**
+     * Instantiates ADXRS610 Gyroscope based on a given string.
+     *
+     * @param initStr string containing specific information for ADXRS610 initialization.
+     */
+    ADXRS610(std::string initStr);
+
+    /**
      * ADXRS610 destructor
      */
     ~ADXRS610();
@@ -125,7 +133,7 @@ namespace upm {
      * (setZeroPoint()).
      *
      * @param samples the number of samples to take an average over.
-     * The default is 50.  
+     * The default is 50.
      * @return the average of the reading over samples times.
      */
     float calibrateZeroPoint(unsigned int samples=50);
@@ -154,8 +162,9 @@ namespace upm {
     float getAngularVelocity();
 
   protected:
-    mraa::Aio m_aioData;
-    mraa::Aio m_aioTemp;
+    mraa::Aio* m_aioData = NULL;
+    mraa::Aio* m_aioTemp = NULL;
+    mraa::MraaIo* mraaIo = NULL;
 
   private:
     float m_aref;
