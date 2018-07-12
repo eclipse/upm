@@ -112,7 +112,6 @@ namespace upm {
 
     float m_aref;
     int m_ares;
-    int m_callcons;
   };
 }
 
