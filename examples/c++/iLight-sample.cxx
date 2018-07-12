@@ -5,27 +5,24 @@
 #include "bh1750.hpp"
 #include "max44009.hpp"
 
-// using namespace std;
-// using namespace upm;
-
 int
 main()
 {
-  std::list<upm::iLight*> lightSensors;
+    std::list<upm::iLight*> lightSensors;
 
-  // Populate list of light sensors
-  lightSensors.push_back(new upm::APDS9002(0));
-  lightSensors.push_back(new upm::BH1750());
-  lightSensors.push_back(new upm::MAX44009(1));
+    // Populate list of light sensors
+    lightSensors.push_back(new upm::APDS9002(0));
+    lightSensors.push_back(new upm::BH1750());
+    lightSensors.push_back(new upm::MAX44009(1));
 
-  // Measure luminance level from all 3 individual sensors
-  for (auto& sensor : lightSensors) {
-    sensor->getLuminance();
-  }
+    // Measure luminance level from all 3 individual sensors
+    for (auto& sensor : lightSensors) {
+        sensor->getLuminance();
+    }
 
-  for (auto& sensor : lightSensors) {
-    delete sensor;
-  }
+    for (auto& sensor : lightSensors) {
+        delete sensor;
+    }
 
-  return 0;
+    return 0;
 }

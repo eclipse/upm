@@ -23,8 +23,8 @@
  */
 
 #include <iostream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 #include "groveemg.hpp"
 
@@ -33,55 +33,56 @@ using namespace std;
 
 GroveEMG::GroveEMG(int pin)
 {
-    if ( !(m_aio = mraa_aio_init(pin)) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                  ": mraa_aio_init() failed, invalid pin?");
-      return;
+    if (!(m_aio = mraa_aio_init(pin))) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_aio_init() failed, invalid pin?");
+        return;
     }
 }
 
 GroveEMG::~GroveEMG()
 {
-  mraa_aio_close(m_aio);
+    mraa_aio_close(m_aio);
 }
 
-void GroveEMG::calibrate()
+void
+GroveEMG::calibrate()
 {
-	int val, sum = 0;
+    int val, sum = 0;
 
-	for (int i=0; i<1100; i++)
-	{
-		val = mraa_aio_read(m_aio);
-                if (val != -1) throw std::runtime_error(std::string(__FUNCTION__) +
-                                                        ": Failed to do an aio read.");
-		sum += val;
-		usleep(1000);
-	}
-	sum /= 1100;
-	cout << "Static analog data = " << sum << endl;
+    for (int i = 0; i < 1100; i++) {
+        val = mraa_aio_read(m_aio);
+        if (val != -1)
+            throw std::runtime_error(std::string(__FUNCTION__) + ": Failed to do an aio read.");
+        sum += val;
+        usleep(1000);
+    }
+    sum /= 1100;
+    cout << "Static analog data = " << sum << endl;
 }
 
-int GroveEMG::value()
+int
+GroveEMG::value()
 {
-	int val = mraa_aio_read(m_aio);
-	return val;
+    int val = mraa_aio_read(m_aio);
+    return val;
 }
 
-float GroveEMG::getVolts()
+float
+GroveEMG::getVolts()
 {
-	float val = mraa_aio_read_float(m_aio);
-	if (val < 0)
-		return val;
+    float val = mraa_aio_read_float(m_aio);
+    if (val < 0)
+        return val;
 
-	 /* Apply raw scale */
+    /* Apply raw scale */
     val *= this->m_scale;
 
-     /* Scale to aRef */
+    /* Scale to aRef */
     val *= this->m_aRef;
 
     /* Apply the offset in volts */
     val += this->m_offset;
 
-	return val;
+    return val;
 }
