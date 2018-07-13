@@ -28,6 +28,7 @@
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 #include <mraa/gpio.hpp>
+#include <mraa/initio.hpp>
 
 #include <interfaces/iAcceleration.hpp>
 
@@ -485,6 +486,13 @@ namespace upm {
     BMA220(int bus=BMA220_I2C_BUS, uint8_t addr=BMA220_DEFAULT_ADDR);
 
     /**
+     * Instantiates BMA220 Accelerometer object based on a given string.
+     *
+     * @param initStr string containing specific information for BMA220 initialization.
+     */
+    BMA220(std::string initStr);
+
+    /**
      * BMA220 Destructor
      */
     ~BMA220();
@@ -807,8 +815,9 @@ namespace upm {
     mraa::Gpio* get_gpioIntr();
 
   protected:
-    mraa::I2c m_i2c;
+    mraa::I2c *m_i2c;
     mraa::Gpio *m_gpioIntr;
+    mraa::MraaIo *mraaIo;
     uint8_t m_addr;
 
     // uncompensated accelerometer values
