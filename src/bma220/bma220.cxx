@@ -29,13 +29,14 @@
 #include <string.h>
 
 #include "bma220.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 using namespace std;
 
 
 BMA220::BMA220(int bus, uint8_t addr) :
-  m_i2c(bus), m_gpioIntr(0)
+  m_i2c(new mraa::I2c(bus)), m_gpioIntr(0)
 {
   m_addr = addr;
 
@@ -46,7 +47,7 @@ BMA220::BMA220(int bus, uint8_t addr) :
   m_accelScale = 0.0;
 
   mraa::Result rv;
-  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
+  if ( (rv = m_i2c->address(m_addr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) +
                                ": I2c.address() failed");
@@ -65,9 +66,46 @@ BMA220::BMA220(int bus, uint8_t addr) :
     }
 }
 
+BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
+{
+  m_accelX = 0.0;
+  m_accelY = 0.0;
+  m_accelZ = 0.0;
+
+  m_accelScale = 0.0;
+
+  if(mraaIo == NULL) {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": Failed to allocate memory for internal member");
+  }
+
+  if(!mraaIo->i2cs.empty()) {
+    m_i2c = &mraaIo->i2cs[0];
+  }
+  else {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_i2c_init() failed");
+  }
+
+  // Init the accelerometer
+  enableAxes(true, true, true);
+
+  // set scaling rate
+  if (!setAccelerometerScale(FSL_RANGE_2G))
+  {
+    throw std::runtime_error(string(__FUNCTION__) +
+                              ": Unable to set accel scale");
+    return;
+  }
+}
+
 BMA220::~BMA220()
 {
   uninstallISR();
+  if(mraaIo != NULL)
+    delete mraaIo;
+  else
+    delete m_i2c;
 }
 
 void BMA220::update()
@@ -96,13 +134,13 @@ void BMA220::updateAccelerometer()
 
 uint8_t BMA220::readReg(uint8_t reg)
 {
-  return m_i2c.readReg(reg);
+  return m_i2c->readReg(reg);
 }
 
 bool BMA220::writeReg(uint8_t reg, uint8_t val)
 {
   mraa::Result rv;
-  if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
+  if ((rv = m_i2c->writeReg(reg, val)) != mraa::SUCCESS)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
