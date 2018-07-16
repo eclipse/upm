@@ -87,15 +87,52 @@ BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
                             ": mraa_i2c_init() failed");
   }
 
-  // Init the accelerometer
+  //Init the accelerometer
   enableAxes(true, true, true);
 
-  // set scaling rate
+  //set scaling rate
   if (!setAccelerometerScale(FSL_RANGE_2G))
   {
     throw std::runtime_error(string(__FUNCTION__) +
                               ": Unable to set accel scale");
-    return;
+  }
+
+  std::vector<std::string> upmTokens;
+  if(!mraaIo->getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+  }
+
+  std::string::size_type sz;
+
+  for(std::string tok :upmTokens)
+  {
+    if(tok.substr(0,9) == "writeReg:") {
+      uint8_t reg = std::stoi(tok.substr(9),&sz,0);
+      tok = tok.substr(9);
+      uint8_t val = std::stoi(tok.substr(sz+1),nullptr,0);
+      writeReg(reg, val);
+    }
+    if(tok.substr(0,22) == "setAccelerometerScale:") {
+      FSL_RANGE_T scale = (FSL_RANGE_T)std::stoi(tok.substr(22),nullptr,0);
+      setAccelerometerScale(scale);
+    }
+    if(tok.substr(0,16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+      setFilterConfig(filter);
+    }
+
+    if(tok.substr(0,16) == "setSerialHighBW:") {
+      bool high = std::stoi(tok.substr(16),nullptr,0);
+      setSerialHighBW(high);
+    }
+    if(tok.substr(0,16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+      setFilterConfig(filter);
+    }
+    if(tok.substr(0,16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+      setFilterConfig(filter);
+    }
   }
 }
 
