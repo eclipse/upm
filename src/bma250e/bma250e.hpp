@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 
+#include <mraa/initio.hpp>
 #include <mraa/gpio.hpp>
 #include "bma250e.h"
 
@@ -95,6 +96,13 @@ namespace upm {
         BMA250E(int bus=BMA250E_DEFAULT_I2C_BUS,
                 int addr=BMA250E_DEFAULT_ADDR,
                 int cs=-1);
+
+        /**
+         * Instantiates BMA250E 3-axis Accelerometer based on a given string.
+         *
+         * @param initStr string containing specific information for BMA250E initialization.
+         */
+        BMA250E(std::string initStr);
 
         /**
          * BMA250E Destructor.
@@ -572,11 +580,11 @@ namespace upm {
 
     protected:
         bma250e_context m_bma250e;
+        mraa::MraaIo mraaIo;
 
     private:
         /* Disable implicit copy and assignment operators */
         BMA250E(const BMA250E&) = delete;
         BMA250E &operator=(const BMA250E&) = delete;
-        
     };
 }
