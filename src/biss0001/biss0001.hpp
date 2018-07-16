@@ -25,6 +25,7 @@
 #pragma once
 
 #include <biss0001.h>
+#include <mraa/initio.hpp>
 
 namespace upm {
     /**
@@ -67,6 +68,13 @@ namespace upm {
       BISS0001(unsigned int pin);
 
       /**
+       * Instantiates BISS0001 Motion Sensor object based on a given string.
+       *
+       * @param initStr string containing specific information for BISS0001 initialization.
+       */
+      BISS0001(std::string initStr);
+
+      /**
        * BISS0001 destructor
        */
       ~BISS0001();
@@ -93,6 +101,7 @@ namespace upm {
       BISS0001 &operator=(const BISS0001&) = delete;
 
       biss0001_context m_biss0001;
+      mraa::MraaIo mraaIo;
   };
 }
 
