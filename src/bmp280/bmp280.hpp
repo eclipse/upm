@@ -27,6 +27,7 @@
 
 #include <string>
 #include "bmp280.h"
+#include "mraa/initio.hpp"
 
 #include "interfaces/iPressureSensor.hpp"
 #include "interfaces/iTemperatureSensor.hpp"
@@ -92,6 +93,13 @@ namespace upm {
          */
         BMP280(int bus=BMP280_DEFAULT_I2C_BUS, int addr=BMP280_DEFAULT_ADDR,
                int cs=-1);
+
+        /**
+         * Instantiates BMP280/BME280 Digital Pressure Sensors based on a given string.
+         *
+         * @param initStr string containing specific information for BMP280/BME280 initialization.
+         */
+        BMP280(std::string initStr);
 
         /**
          * BMP280 Destructor.
@@ -235,6 +243,7 @@ namespace upm {
 
     protected:
         bmp280_context m_bmp280;
+        mraa::MraaIo mraaIo;
 
         /**
          * Return the value of the BMP280_REG_STATUS register.

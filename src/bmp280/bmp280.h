@@ -341,6 +341,18 @@ extern "C" {
     upm_result_t bmp280_write_reg(const bmp280_context dev,
                                   uint8_t reg, uint8_t val);
 
+    /**
+     * SPI CS on and off functions
+     */
+    void _csOn(const bmp280_context dev);
+    void _csOff(const bmp280_context dev);
+
+    /**
+     * Read the calibration data
+     */
+    upm_result_t _read_calibration_data(const bmp280_context dev);
+
+
 #ifdef __cplusplus
 }
 #endif
