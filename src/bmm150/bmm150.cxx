@@ -30,6 +30,8 @@
 #include <string>
 #include <string.h>
 
+#include "upm_string_parser.hpp"
+#include "upm_utilities.h"
 #include "bmm150.hpp"
 
 using namespace upm;
@@ -41,6 +43,153 @@ BMM150::BMM150(int bus, int addr, int cs) :
     if (!m_bmm150)
         throw std::runtime_error(string(__FUNCTION__)
                                  + ": bmm150_init() failed");
+}
+
+BMM150::BMM150(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty()) {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    m_bmm150 = (bmm150_context)malloc(sizeof(struct _bmm150_context));
+    if(!m_bmm150) {
+        throw std::runtime_error(std::string(__FUNCTION__)
+                                 + ": bmm150_init() failed");
+    }
+
+    // zero out context
+    memset((void *)m_bmm150, 0, sizeof(struct _bmm150_context));
+
+    // make sure MRAA is initialized
+    int mraa_rv;
+    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+    {
+        bmm150_close(m_bmm150);
+        throw std::runtime_error(std::string(__FUNCTION__)
+                                 + ": mraa_init() failed");
+    }
+
+    if(descs->spis) {
+        m_bmm150->isSPI = true;
+        if( !(m_bmm150->spi = descs->spis[0]) ) {
+            bmm150_close(m_bmm150);
+            throw std::runtime_error(std::string(__FUNCTION__)
+                                     + ": mraa_spi_init() failed");
+        }
+        // Only create cs context if we are actually using a valid pin.
+        // A hardware controlled pin should specify cs as -1.
+        if(descs->gpios) {
+            if( !(m_bmm150->gpioCS = descs->gpios[0]) ) {
+                bmm150_close(m_bmm150);
+                throw std::runtime_error(std::string(__FUNCTION__)
+                                         + ": mraa_gpio_init() failed");
+            }
+            mraa_gpio_dir(m_bmm150->gpioCS, MRAA_GPIO_OUT);
+        } else {
+            throw std::runtime_error(std::string(__FUNCTION__)
+                                     + ": mraa_gpio_init() failed");
+        }
+        mraa_spi_mode(m_bmm150->spi, MRAA_SPI_MODE0);
+        if (mraa_spi_frequency(m_bmm150->spi, 5000000)) {
+            bmm150_close(m_bmm150);
+            throw std::runtime_error(std::string(__FUNCTION__)
+                                     + ": mraa_spi_frequency() failed");
+        }
+    } else {
+        // init the i2c context
+        if(!descs->i2cs) {
+            throw std::runtime_error(std::string(__FUNCTION__)
+                                     + ": mraa_i2c_init() failed");
+        } else {
+            if( !(m_bmm150->i2c = descs->i2cs[0]) )
+            {
+                bmm150_close(m_bmm150);
+                throw std::runtime_error(std::string(__FUNCTION__)
+                                         + ": mraa_i2c_init() failed");
+            }
+        }
+    }
+
+    // power bit must be on for chip ID to be accessible
+    bmm150_set_power_bit(m_bmm150, true);
+
+    // not really, just need to set it to something valid until
+    // bmm150_set_opmode() is called in bmm150_devinit().
+    m_bmm150->opmode = BMM150_OPERATION_MODE_SLEEP;
+
+    upm_delay_ms(50);
+
+    // check the chip id
+
+    uint8_t chipID = bmm150_get_chip_id(m_bmm150);
+
+    if (chipID != BMM150_DEFAULT_CHIPID)
+    {
+        printf("%s: invalid chip id: %02x.  Expected %02x\n",
+               __FUNCTION__, chipID, BMM150_DEFAULT_CHIPID);
+        bmm150_close(m_bmm150);
+        throw std::runtime_error(std::string(__FUNCTION__)
+                                 + ": bmm150_init() failed");
+    }
+
+    // call devinit with a default high resolution mode
+    if (bmm150_devinit(m_bmm150, BMM150_USAGE_HIGH_ACCURACY))
+    {
+        printf("%s: bmm150_devinit() failed.\n", __FUNCTION__);
+        bmm150_close(m_bmm150);
+        throw std::runtime_error(std::string(__FUNCTION__)
+                                 + ": bmm150_init() failed");
+    }
+
+    std::string::size_type sz;
+    for(std::string tok:upmTokens) {
+        if(tok.substr(0,5) == "init:") {
+            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(5),nullptr,0);
+            init(usage);
+        }
+        if(tok.substr(0,9) == "writeReg:") {
+            uint8_t reg = std::stoi(tok.substr(9),&sz,0);
+            tok = tok.substr(9);
+            uint8_t val = std::stoi(tok.substr(sz+1),nullptr,0);
+            writeReg(reg, val);
+        }
+        if(tok.substr(0,18) == "setOutputDataRate:") {
+            BMM150_DATA_RATE_T odr = (BMM150_DATA_RATE_T)std::stoi(tok.substr(18),nullptr,0);
+            setOutputDataRate(odr);
+        }
+        if(tok.substr(0,12) == "setPowerBit:") {
+            bool power = std::stoi(tok.substr(12),&sz,0);
+            setPowerBit(power);
+        }
+
+        if(tok.substr(0,10) == "setOpmode:") {
+            BMM150_OPERATION_MODE_T opmode = (BMM150_OPERATION_MODE_T)std::stoi(tok.substr(10),nullptr,0);
+            setOpmode(opmode);
+        }
+        if(tok.substr(0,19) == "setInterruptEnable:") {
+            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19),nullptr,0);
+            setInterruptEnable(bits);
+        }
+        if(tok.substr(0,19) == "setInterruptConfig:") {
+            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19),nullptr,0);
+            setInterruptConfig(bits);
+        }
+        if(tok.substr(0,17) == "setRepetitionsXY:") {
+            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(17),nullptr,0);
+            setRepetitionsXY(reps);
+        }
+        if(tok.substr(0,16) == "setRepetitionsZ:") {
+            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(16),nullptr,0);
+            setRepetitionsZ(reps);
+        }
+        if(tok.substr(0,14) == "setPresetMode:") {
+            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(14),nullptr,0);
+            setPresetMode(usage);
+        }
+    }
 }
 
 BMM150::~BMM150()
