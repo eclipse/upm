@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 
+#include <mraa/initio.hpp>
 #include <mraa/gpio.hpp>
 #include "bmm150.h"
 
@@ -95,6 +96,13 @@ namespace upm {
         BMM150(int bus=BMM150_DEFAULT_I2C_BUS,
                int addr=BMM150_DEFAULT_ADDR,
                int cs=-1);
+
+        /**
+         * Instantiates BMM150 3-axis Magnetometer based on a given string.
+         *
+         * @param initStr string containing specific information for BMM150 initialization.
+         */
+        BMM150(std::string initStr);
 
         /**
          * BMM150 Destructor.
@@ -335,6 +343,7 @@ namespace upm {
 
     protected:
         bmm150_context m_bmm150;
+        mraa::MraaIo mraaIo;
 
     private:
         /* Disable implicit copy and assignment operators */
