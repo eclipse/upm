@@ -173,10 +173,9 @@ BMA250E::BMA250E(std::string initStr) : mraaIo(initStr)
             writeReg(reg, val);
         }
         if(tok.substr(0,9) == "setRange:") {
-            BMA250E_RANGE_T scale = (BMA250E_RANGE_T)std::stoi(tok.substr(22),nullptr,0);
+            BMA250E_RANGE_T scale = (BMA250E_RANGE_T)std::stoi(tok.substr(9),nullptr,0);
             setRange(scale);
         }
-
         if(tok.substr(0,13) == "setBandwidth:") {
             BMA250E_BW_T bw = (BMA250E_BW_T)std::stoi(tok.substr(13),nullptr,0);
             setBandwidth(bw);
