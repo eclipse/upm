@@ -29,6 +29,7 @@
 #include <vector>
 
 #include <mraa/gpio.hpp>
+#include <mraa/initio.hpp>
 #include "bmg160.h"
 
 namespace upm {
@@ -91,6 +92,13 @@ namespace upm {
          */
         BMG160(int bus=BMG160_DEFAULT_I2C_BUS, int addr=BMG160_DEFAULT_ADDR,
                int cs=-1);
+
+        /**
+         * Instantiates BMG160 3-axis Gyroscope based on a given string.
+         *
+         * @param initStr string containing specific information for BMG160 initialization.
+         */
+        BMG160(std::string initStr);
 
         /**
          * BMG160 Destructor.
@@ -470,6 +478,7 @@ namespace upm {
 
     protected:
         bmg160_context m_bmg160;
+        mraa::MraaIo mraaIo;
 
     private:
         /* Disable implicit copy and assignment operators */
