@@ -37,7 +37,7 @@ namespace upm
     /**
      * Measures humidity around the sensor
      * 
-     * @return Gets the humidity value
+     * @return Gets the relativ humidity value (%)
      */
     virtual float getHumidity() = 0;
   };

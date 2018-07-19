@@ -33,6 +33,12 @@ namespace upm
   {
   public:
     virtual ~iDistanceInterrupter() {}
+
+    /**
+     * Determines if objected is detected
+     * 
+     * @return True if the sensor has detected an object
+     */
     virtual bool objectDetected() = 0;
   };
 }

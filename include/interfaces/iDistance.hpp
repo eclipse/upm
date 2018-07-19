@@ -40,7 +40,7 @@ namespace upm
     /**
      * Get distance from sensor
      * 
-     * @return Returns the distance
+     * @return Returns the distance in cm
      */
     virtual float getDistance() = 0;
     /**
