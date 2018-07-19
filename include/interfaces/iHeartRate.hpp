@@ -37,7 +37,7 @@ namespace upm
     /**
      * Retrieve the computed heart rate
      *
-     * @return Computed heart rate
+     * @return Computed heart rate in BPM (beats per minute)
      */
     virtual int getHeartRate() = 0;
   };

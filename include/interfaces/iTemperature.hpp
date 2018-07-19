@@ -42,7 +42,7 @@ namespace upm
     /**
      * Measures temperature
      * 
-     * @return temperature value
+     * @return temperature value in degrees Celsius
      */
     virtual float getTemperature() = 0;
 

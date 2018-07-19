@@ -37,7 +37,7 @@ namespace upm
         /**
          * Get luminance
          * 
-         * @return Luminance value
+         * @return Luminance value in lux
          */
         virtual float getLuminance() = 0;
     };
