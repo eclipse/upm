@@ -32,6 +32,7 @@
 
 #include "bmpx8x.h"
 
+#include "mraa/initio.hpp"
 #include <interfaces/iPressure.hpp>
 
 namespace upm {
@@ -78,6 +79,13 @@ namespace upm {
          */
         BMPX8X(int bus=BMPX8X_DEFAULT_I2C_BUS,
                int addr=BMPX8X_DEFAULT_I2C_ADDR);
+
+        /**
+         * Instantiates BMP Atmospheric Pressure Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for BMP Atmospheric Pressure Sensor.
+         */
+        BMPX8X(std::string initStr);
 
         /**
          * BMPX8X object destructor.
@@ -212,6 +220,7 @@ namespace upm {
     protected:
         // our underlying C context.
         bmpx8x_context m_bmpx8x;
+        mraa::MraaIo mraaIo;
 
         /**
          * Read a register.
