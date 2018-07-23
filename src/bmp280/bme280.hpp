@@ -84,6 +84,13 @@ namespace upm {
                int cs=-1);
 
         /**
+         * Instantiates BME280 Digital Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for BME280 initialization.
+         */
+        BME280(std::string initStr);
+        
+        /**
          * BME280 Destructor.
          */
         virtual ~BME280();
