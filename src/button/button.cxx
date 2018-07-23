@@ -44,6 +44,23 @@ Button::Button(unsigned int pin)
     m_name = "Button Sensor";
 }
 
+Button::Button(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    if(!descs->gpios) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+    } else {
+      if( !(m_gpio = descs->gpios[0]) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+      }
+    }
+
+    mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+    m_name = "Button Sensor";
+}
+
 Button::~Button()
 {
     mraa_gpio_close(m_gpio);

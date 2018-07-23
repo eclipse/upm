@@ -27,6 +27,7 @@
 #pragma once
 
 #include <string>
+#include <mraa/initio.hpp>
 #include <mraa/gpio.hpp>
 
 namespace upm {
@@ -62,6 +63,12 @@ class Button{
          * @param pin Pin to use
          */
         Button(unsigned int pin);
+        /**
+         * Instantiates Button/Switch Library based on a given string.
+         *
+         * @param initStr string containing specific information for Button initialization.
+         */
+        Button(std::string initStr);
         /**
          * button destructor
          */
@@ -99,5 +106,6 @@ class Button{
         bool m_isrInstalled;
         std::string m_name;
         mraa_gpio_context m_gpio;
+        mraa::MraaIo mraaIo;
 };
 }
