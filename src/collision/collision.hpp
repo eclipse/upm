@@ -23,6 +23,7 @@
  */
 #pragma once
 
+#include <mraa/initio.hpp>
 #include <mraa/gpio.h>
 #include <interfaces/iCollision.hpp>
 
@@ -60,6 +61,12 @@ namespace upm {
      */
     Collision(int pin);
     /**
+     * Instantiates Collision Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for  Collision Sensor.
+     */
+    Collision(std::string initStr);
+    /**
      * Collision destructor
      */
     ~Collision();
@@ -69,6 +76,7 @@ namespace upm {
     virtual bool isColliding();
 
   private:
-    mraa_gpio_context m_gpio;
-  };
+        mraa_gpio_context m_gpio;
+        mraa::MraaIo mraaIo;
+    };
 }
