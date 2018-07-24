@@ -26,19 +26,33 @@
 #include <stdexcept>
 
 #include "collision.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
 Collision::Collision(int pin)
 {
-    
-    if ( !(m_gpio = mraa_gpio_init(pin)) ) 
+    if ( !(m_gpio = mraa_gpio_init(pin)) )
       {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_gpio_init() failed, invalid pin?");
         return;
       }
     mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+}
+
+Collision::Collision(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    if(!descs->gpios) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+    } else {
+      if( !(m_gpio = descs->gpios[0]) ) {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_gpio_init() failed, invalid pin?");
+      }
+    }
 }
 
 Collision::~Collision()
