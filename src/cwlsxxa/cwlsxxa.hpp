@@ -31,6 +31,7 @@
 #include <interfaces/iTemperature.hpp>
 
 #include <mraa/aio.hpp>
+#include <mraa/initio.hpp>
 
 // Unlikey to be changable without external circuitry (voltage divider)
 #define CWLSXXA_DEFAULT_AREF 5.0
@@ -116,6 +117,13 @@ namespace upm {
             float aref=CWLSXXA_DEFAULT_AREF);
 
     /**
+     * Instantiates CWLSXXA CO2 Sensors based on a given string.
+     *
+     * @param initStr string containing specific information for CWLSXXA Sensor.
+     */
+    CWLSXXA(std::string initStr);
+
+    /**
      * CWLSXXA object destructor
      */
     ~CWLSXXA();
@@ -170,11 +178,13 @@ namespace upm {
 
   protected:
     // CO2 reporting is always supported
-    mraa::Aio m_aioCO2;
+    mraa::Aio *m_aioCO2 = NULL;
 
     // temperature and humidity are optional features of this transmitter
-    mraa::Aio *m_aioHum;
-    mraa::Aio *m_aioTemp;
+    mraa::Aio *m_aioHum = NULL;
+    mraa::Aio *m_aioTemp = NULL;
+
+    mraa::MraaIo *mraaIo = NULL;
 
 
   private:
