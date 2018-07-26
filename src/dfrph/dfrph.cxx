@@ -74,3 +74,8 @@ float DFRPH::pH(unsigned int samples)
 
     return ph_avg/samples;
 }
+
+float DFRPH::getPH()
+{
+    return pH(10);
+}

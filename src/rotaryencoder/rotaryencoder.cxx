@@ -53,6 +53,6 @@ int RotaryEncoder::position()
     return rotaryencoder_get_position(m_rotaryencoder);
 }
 
-float RotaryEncoder::getValue() {
-    return (float) RotaryEncoder::position();
+float RotaryEncoder::getAngle() {
+    return (float) RotaryEncoder::position() / 20.0 * 360;
 }

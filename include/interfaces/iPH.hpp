@@ -35,13 +35,11 @@ namespace upm
     virtual ~iPH() {}
 
     /**
-     * Take a number of samples and return the detected pH value.  The
-     * default number of samples is 15.
+     * Returns the detected pH value.
      *
-     * @param samples The number of samples to average over, default 15
      * @return The pH value detected
      */
-    virtual float pH(unsigned int samples = 15) = 0;
+    virtual float getPH() = 0;
 
   };
 }

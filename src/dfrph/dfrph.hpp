@@ -132,6 +132,13 @@ namespace upm {
      */
     virtual float pH(unsigned int samples = 15);
 
+    /**
+     * Returns the detected pH value.
+     *
+     * @return The pH value detected
+     */
+    virtual float getPH();
+
   private:
     /**
      * Don't allow copies of this class

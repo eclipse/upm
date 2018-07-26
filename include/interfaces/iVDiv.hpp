@@ -37,7 +37,7 @@ namespace upm
     /**
      * Gets the conversion value from the sensor
      *
-     * @return ADC conversion value
+     * @return ADC conversion value in volts
      */
     virtual unsigned int getValue() = 0;
 

@@ -35,18 +35,6 @@ namespace upm
     virtual ~iEmg() {}
 
     /**
-     * Calibrates the EMG reader
-     */
-    virtual void calibrate() = 0;
-
-    /**
-     * Measures muscle signals from the reader
-     *
-     * @return Muscle output as analog voltage
-     */
-    virtual int value() = 0;
-
-    /**
      * Read scaled/offset voltage from the sensor
      * 
      * @return Measured volts

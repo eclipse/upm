@@ -30,7 +30,7 @@
 #include <mraa/aio.hpp>
 
 #include "rotary.hpp"
-#include <interfaces/iRotaryAngle.hpp>
+#include <interfaces/iAngle.hpp>
 
 namespace upm {
 
@@ -60,7 +60,7 @@ namespace upm {
  * @image html rotary.jpg
  * @snippet rotary.cxx Interesting
  */
-class Rotary : virtual public iRotaryAngle {
+class Rotary : virtual public iAngle {
     public:
         /**
          * Rotary angle sensor constructor
@@ -115,7 +115,7 @@ class Rotary : virtual public iRotaryAngle {
          *
          * @return rotation value.
          */
-        virtual float getValue();
+        virtual float getAngle();
 
         std::string name(){ return "Rotary Angle Sensor";}
     private:

@@ -29,16 +29,16 @@ namespace upm
 /**
  * @brief Interface for Rotary Angle sensors
 */
-  class iRotaryAngle
+  class iAngle
   {
   public:
-    virtual ~iRotaryAngle() {}
+    virtual ~iAngle() {}
 
     /**
      * Get rotation value from sensor data.
      *
-     * @return rotation value.
+     * @return rotation value in degrees.
      */
-    virtual float getValue() = 0;
+    virtual float getAngle() = 0;
   };
 }
