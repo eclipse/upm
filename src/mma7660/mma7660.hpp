@@ -26,6 +26,7 @@
 #include <vector>
 
 #include "mma7660.h"
+#include <interfaces/iAcceleration.hpp>
 
 namespace upm {
 
@@ -58,7 +59,7 @@ namespace upm {
      * @image html mma7660.jpg
      * @snippet mma7660.cxx Interesting
      */
-    class MMA7660 {
+    class MMA7660: virtual public iAcceleration {
     public:
 
         /**
@@ -108,6 +109,13 @@ namespace upm {
          * @param az Returned computed acceleration of the Z-axis
          */
         void getAcceleration(float *ax, float *ay, float *az);
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Reads an axis, verifying its validity. The value passed must
@@ -198,20 +206,6 @@ namespace upm {
          * @return True if successful
          */
         bool setSampleRate(MMA7660_AUTOSLEEP_T sr);
-
-        /**
-         * Reads the current acceleration values.  The returned memory
-         * is statically allocated and will be overwritten on each
-         * call.
-         *
-         * @return std::vector containing x, y, z.
-         */
-        std::vector<float> getAcceleration()
-        {
-            std::vector<float> values(3);
-            getAcceleration(&values[0], &values[1], &values[2]);
-            return values;
-        }
 
         /**
          * Reads the current value of conversion. The returned memory

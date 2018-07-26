@@ -234,6 +234,15 @@ LIS3DH::getAccelerometer()
     return std::vector<float>(v, v + 3);
 }
 
+std::vector<float>
+LIS3DH::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    lis3dh_get_accelerometer(m_lis3dh, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 float
 LIS3DH::getTemperature(bool fahrenheit)
 {

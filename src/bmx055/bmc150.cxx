@@ -101,6 +101,14 @@ std::vector<float> BMC150::getAccelerometer()
         return {0, 0, 0};
 }
 
+std::vector<float> BMC150::getAcceleration()
+{
+    if (m_accel)
+        return m_accel->getAcceleration();
+    else
+        return {0, 0, 0};
+}
+
 void BMC150::getMagnetometer(float *x, float *y, float *z)
 {
     if (m_mag)

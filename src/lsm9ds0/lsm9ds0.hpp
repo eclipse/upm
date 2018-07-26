@@ -30,6 +30,8 @@
 
 #include <mraa/gpio.hpp>
 
+#include <interfaces/iAcceleration.hpp>
+
 #define LSM9DS0_I2C_BUS 1
 #define LSM9DS0_DEFAULT_XM_ADDR 0x1d
 #define LSM9DS0_DEFAULT_GYRO_ADDR 0x6b
@@ -77,7 +79,7 @@ namespace upm {
    * @snippet lsm9ds0.cxx Interesting
    */
 
-  class LSM9DS0 {
+  class LSM9DS0: virtual public iAcceleration {
   public:
 
     // NOTE: reserved registers must not be written into or permanent
@@ -1273,6 +1275,13 @@ namespace upm {
      * @return std::vector containing X, Y, Z acceleration values
      */
     std::vector<float> getAccelerometer();
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    virtual std::vector<float> getAcceleration();
 
     /**
      * get the gyroscope values in degrees per second

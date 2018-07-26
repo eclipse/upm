@@ -31,6 +31,8 @@
 #include <mraa/gpio.hpp>
 #include "lsm303agr.h"
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm {
 
     /**
@@ -65,7 +67,7 @@ namespace upm {
      * @snippet lsm303agr.cxx Interesting
      */
 
-    class LSM303AGR {
+    class LSM303AGR: virtual public iAcceleration {
     public:
         /**
          * LSM303AGR constructor
@@ -148,6 +150,13 @@ namespace upm {
          * that order
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return temperature data in degrees Celsius.  NOTE: This is

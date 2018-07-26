@@ -27,6 +27,8 @@
 #include <vector>
 #include <mraa/i2c.hpp>
 
+#include <interfaces/iAcceleration.hpp>
+
 #define ADDR               0x1D // device address
 
 // Register names according to the datasheet.
@@ -171,7 +173,7 @@ typedef union {
  * @image html mma7455.jpg
  * @snippet mma7455.cxx Interesting
  */
-class MMA7455 {
+class MMA7455: virtual public iAcceleration {
     public:
         /**
          * Instantiates an MMA7455 object
@@ -215,6 +217,13 @@ class MMA7455 {
          * @return std::vector containing X, Y, Z acceleration data
          */
         std::vector<short> readData ();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Internal function for reading I2C data

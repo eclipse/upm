@@ -388,6 +388,14 @@ vector<float> BNO055::getAccelerometer()
     return vector<float>(v, v+3);
 }
 
+std::vector<float> BNO055::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    bno055_get_accelerometer(m_bno055, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 void BNO055::getMagnetometer(float *x, float *y, float *z)
 {
     bno055_get_magnetometer(m_bno055, x, y, z);

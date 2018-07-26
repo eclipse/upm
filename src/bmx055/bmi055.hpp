@@ -31,6 +31,8 @@
 #include "bma250e.hpp"
 #include "bmg160.hpp"
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm {
 
     /**
@@ -64,7 +66,7 @@ namespace upm {
      * @snippet bmx055-bmi055.cxx Interesting
      */
 
-    class BMI055 {
+    class BMI055: virtual public iAcceleration {
     public:
         /**
          * BMI055 constructor.
@@ -152,6 +154,13 @@ namespace upm {
          */
         void getAccelerometer(float *x, float *y, float *z);
 
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+        
         /**
          * Return accelerometer data in gravities in the form of a
          * floating point vector.  update() must have been called prior to

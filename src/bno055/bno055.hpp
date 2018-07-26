@@ -28,6 +28,8 @@
 #include <vector>
 #include "bno055.h"
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm {
 
     /**
@@ -100,7 +102,7 @@ namespace upm {
      * @snippet bno055.cxx Interesting
      */
 
-    class BNO055 {
+    class BNO055: virtual public iAcceleration {
 
     public:
         /**
@@ -419,6 +421,13 @@ namespace upm {
          * that order.
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return uncompensated magnetometer data (non-fusion).  In fusion

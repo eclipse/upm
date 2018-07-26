@@ -84,6 +84,14 @@ float *BMI160::getAccelerometer()
   return values;
 }
 
+std::vector<float> BMI160::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    bmi160_get_accelerometer(m_bmi160, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 float *BMI160::getGyroscope()
 {
   static float values[3]; // x, y, and then z

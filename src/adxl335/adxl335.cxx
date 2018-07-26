@@ -106,6 +106,28 @@ std::vector<float> ADXL335::acceleration()
   return v;
 }
 
+std::vector<float> ADXL335::getAcceleration()
+{
+  std::vector<float> v(3);
+
+  int x, y, z;
+  float xVolts, yVolts, zVolts;
+
+  x = mraa_aio_read(m_aioX);
+  y = mraa_aio_read(m_aioY);
+  z = mraa_aio_read(m_aioZ);
+  
+  xVolts = float(x) * m_aref / 1024.0;
+  yVolts = float(y) * m_aref / 1024.0;
+  zVolts = float(z) * m_aref / 1024.0;
+
+  v[0] = (xVolts - m_zeroX) / ADXL335_SENSITIVITY;
+  v[1] = (yVolts - m_zeroY) / ADXL335_SENSITIVITY;
+  v[2] = (zVolts - m_zeroZ) / ADXL335_SENSITIVITY;
+
+  return v;
+}
+
 void ADXL335::calibrate()
 {
   // make sure the sensor is still before running calibration.

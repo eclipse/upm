@@ -174,6 +174,18 @@ std::vector<float> BMA220::getAccelerometer()
   return v;
 }
 
+std::vector<float> BMA220::getAcceleration()
+{
+  std::vector<float> v(3);
+
+  update();
+  v[0] = m_accelX / m_accelScale;
+  v[1] = m_accelY / m_accelScale;
+  v[2] = m_accelZ / m_accelScale;
+
+  return v;
+}
+
 uint8_t BMA220::getChipID()
 {
   return readReg(REG_CHIPID);

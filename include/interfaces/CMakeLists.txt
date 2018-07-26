@@ -24,6 +24,7 @@ set (module_hpp iClock.hpp
                 iMotion.hpp
                 iPressure.hpp
                 iTemperature.hpp
+                iAcceleration.hpp
 )
 # Install interfaces headers a bit differently
 install (FILES ${module_hpp} DESTINATION include/upm/interfaces COMPONENT ${libname})

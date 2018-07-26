@@ -31,6 +31,8 @@
 #include <mraa/gpio.hpp>
 #include "lis2ds12.h"
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm {
 
     /**
@@ -70,7 +72,7 @@ namespace upm {
      * @snippet lis2ds12.cxx Interesting
      */
 
-    class LIS2DS12 {
+    class LIS2DS12: virtual public iAcceleration {
     public:
 
         /**
@@ -134,6 +136,13 @@ namespace upm {
          * that order
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return the current measured temperature.  Note, this is not
