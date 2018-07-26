@@ -190,3 +190,14 @@ void MMA7660::getAcceleration(float *ax, float *ay, float *az)
                                  ": mma7660_get_acceleration() failed");
 }
 
+std::vector<float> MMA7660::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    if (mma7660_get_acceleration(m_mma7660, &v[0], &v[1], &v[2]))
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mma7660_get_acceleration() failed");
+
+    return v;
+}
+

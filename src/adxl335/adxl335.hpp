@@ -30,6 +30,8 @@
 #include <vector>
 #include <mraa/aio.h>
 
+#include <interfaces/iAcceleration.hpp>
+
 #define ADXL335_DEFAULT_AREF 5.0
 #define ADXL335_SENSITIVITY 0.25 // 0.25v/g
 
@@ -60,7 +62,7 @@ namespace upm {
    * @image html adxl335.jpg
    * @snippet adxl335.cxx Interesting
    */
-  class ADXL335 {
+  class ADXL335: virtual public iAcceleration {
   public:
     /**
      * ADXL335 constructor
@@ -129,6 +131,13 @@ namespace upm {
      * @return std::vector of x, y, z acceleration values
      */
     std::vector<float> acceleration();
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    virtual std::vector<float> getAcceleration();
 
     /**
      * While the sensor is still, measures the X-axis, Y-axis, and Z-axis

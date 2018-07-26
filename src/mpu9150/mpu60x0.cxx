@@ -301,6 +301,18 @@ void MPU60X0::getAccelerometer(float *x, float *y, float *z)
     *z = m_accelZ / m_accelScale;
 }
 
+std::vector<float> MPU60X0::getAcceleration()
+{
+  update();
+  
+  std::vector<float> v(3);
+  v[0] = m_accelX / m_accelScale;
+  v[1] = m_accelY / m_accelScale;
+  v[2] = m_accelZ / m_accelScale;
+
+  return v;
+}
+
 void MPU60X0::getGyroscope(float *x, float *y, float *z)
 {
   if (x)

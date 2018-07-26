@@ -114,6 +114,14 @@ std::vector<float> BMA250E::getAccelerometer()
     return std::vector<float>(v, v+3);
 }
 
+std::vector<float> BMA250E::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    bma250e_get_accelerometer(m_bma250e, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 float BMA250E::getTemperature(bool fahrenheit)
 {
     float temperature = bma250e_get_temperature(m_bma250e);

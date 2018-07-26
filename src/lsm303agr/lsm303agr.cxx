@@ -109,6 +109,14 @@ std::vector<float> LSM303AGR::getAccelerometer()
     return std::vector<float>(v, v+3);
 }
 
+std::vector<float> LSM303AGR::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    lsm303agr_get_accelerometer(m_lsm303agr, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 float LSM303AGR::getTemperature()
 {
     return lsm303agr_get_temperature(m_lsm303agr);

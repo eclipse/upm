@@ -121,6 +121,14 @@ std::vector<float> BMX055::getAccelerometer()
         return {0, 0, 0};
 }
 
+std::vector<float> BMX055::getAcceleration()
+{
+    if (m_accel)
+        return m_accel->getAcceleration();
+    else
+        return {0, 0, 0};
+}
+
 void BMX055::getGyroscope(float *x, float *y, float *z)
 {
     if (m_gyro)

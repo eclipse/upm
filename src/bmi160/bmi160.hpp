@@ -25,6 +25,8 @@
 #include <string>
 #include "bmi160.h"
 
+#include <interfaces/iAcceleration.hpp>
+
 #define BMI160_I2C_BUS 0
 #define BMI160_DEFAULT_I2C_ADDR 0x69
 
@@ -72,7 +74,7 @@ namespace upm {
      *
      * @snippet bmi160.cxx Interesting
      */
-    class BMI160 {
+    class BMI160: virtual public iAcceleration {
     public:
 
         /**
@@ -141,6 +143,13 @@ namespace upm {
          * @param z A pointer into which the Z value will be returned
          */
         void getAccelerometer(float *x, float *y, float *z);
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Get the Gyroscope values.  This function returns a pointer to 3

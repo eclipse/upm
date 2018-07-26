@@ -31,6 +31,8 @@
 #include <mraa/gpio.hpp>
 #include "bma250e.h"
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm {
 
     /**
@@ -73,7 +75,7 @@ namespace upm {
      * @snippet bma250e.cxx Interesting
      */
 
-    class BMA250E {
+    class BMA250E: virtual public iAcceleration {
     public:
 
         /**
@@ -138,6 +140,13 @@ namespace upm {
          */
         std::vector<float> getAccelerometer();
 
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+        
         /**
          * Return the current measured temperature.  Note, this is not
          * ambient temperature.  update() must have been called prior to

@@ -13,3 +13,4 @@
 #include "iMotion.hpp"
 #include "iPressure.hpp"
 #include "iTemperature.hpp"
+#include "iAcceleration.hpp"

@@ -35,6 +35,8 @@
 #include "lis3dh.h"
 #include <mraa/gpio.hpp>
 
+#include <interfaces/iAcceleration.hpp>
+
 namespace upm
 {
 /**
@@ -72,7 +74,7 @@ namespace upm
  * @snippet lis3dh.cxx Interesting
  */
 
-class LIS3DH
+class LIS3DH: virtual public iAcceleration
 {
   public:
     /**
@@ -304,6 +306,13 @@ class LIS3DH
      */
     std::vector<float> getAccelerometer();
 
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    virtual std::vector<float> getAcceleration();
+    
     /**
      * Return the current measured temperature. Note, this is not
      * ambient temperature. update() must have been called prior to

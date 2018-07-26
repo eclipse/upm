@@ -29,6 +29,8 @@
 #include "bma250e.hpp"
 #include "bmm150.hpp"
 
+#include <interfaces/iAcceleration.hpp>
+
 #define BMC150_DEFAULT_BUS 0
 #define BMC150_DEFAULT_ACC_ADDR 0x10
 #define BMC150_DEFAULT_MAG_ADDR 0x12
@@ -70,7 +72,7 @@ namespace upm {
      * @snippet bmx055-bmc150.cxx Interesting
      */
 
-    class BMC150 {
+    class BMC150: virtual public iAcceleration {
     public:
         /**
          * BMC150 constructor.
@@ -163,6 +165,13 @@ namespace upm {
          * that order.
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return magnetometer data in micro-Teslas (uT).  update() must

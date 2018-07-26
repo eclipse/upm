@@ -20,6 +20,7 @@
     %interface_impl (upm::iMotion);
     %interface_impl (upm::iPressure);
     %interface_impl (upm::iTemperature);
+    %interface_impl (upm::iAcceleration);
 #endif
 
 %{
@@ -37,6 +38,7 @@
     #include "iMotion.hpp"
     #include "iPressure.hpp"
     #include "iTemperature.hpp"
+    #include "iAcceleration.hpp"
 %}
 
 %include "iClock.hpp"
@@ -53,6 +55,7 @@
 %include "iMotion.hpp"
 %include "iPressure.hpp"
 %include "iTemperature.hpp"
+%include "iAcceleration.hpp"
 
 /* Java-specific SWIG syntax */
 #ifdef SWIGJAVA

@@ -629,6 +629,13 @@ std::vector<float> LSM9DS0::getAccelerometer()
   return v;
 }
 
+std::vector<float> LSM9DS0::getAcceleration()
+{
+  std::vector<float> v(3);
+  getAccelerometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+
 std::vector<float> LSM9DS0::getGyroscope()
 {
   std::vector<float> v(3);

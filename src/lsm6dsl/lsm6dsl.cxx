@@ -109,6 +109,15 @@ std::vector<float> LSM6DSL::getAccelerometer()
     return std::vector<float>(v, v+3);
 }
 
+std::vector<float> LSM6DSL::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    lsm6dsl_get_accelerometer(m_lsm6dsl, &v[0], &v[1], &v[2]);
+
+    return v;
+}
+
 void LSM6DSL::getGyroscope(float *x, float *y, float *z)
 {
     lsm6dsl_get_gyroscope(m_lsm6dsl, x, y, z);

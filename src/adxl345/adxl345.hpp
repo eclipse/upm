@@ -25,6 +25,8 @@
 
 #include <mraa/i2c.hpp>
 
+// #include <interfaces/iAcceleration.hpp>
+
 #define READ_BUFFER_LENGTH 6
 
 namespace upm {
@@ -57,6 +59,7 @@ namespace upm {
  * @image html adxl345.jpeg
  * @snippet adxl345.cxx Interesting
  */
+// class Adxl345: virtual public iAcceleration {
 class Adxl345 {
 public:
     /**
@@ -77,6 +80,13 @@ public:
      * @return float* to a float[3]
      */
     float* getAcceleration();
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    // virtual std::vector<float> getAcceleration();
 
     /**
      * Returns a pointer to an int[3] that contains the raw register values

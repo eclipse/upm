@@ -29,6 +29,8 @@
 #include <mraa/i2c.hpp>
 #include <mraa/gpio.hpp>
 
+#include <interfaces/iAcceleration.hpp>
+
 #define BMA220_I2C_BUS 0
 #define BMA220_DEFAULT_ADDR 0x0a
 
@@ -68,7 +70,7 @@ namespace upm {
    * @snippet bma220.cxx Interesting
    */
 
-  class BMA220 {
+  class BMA220: virtual public iAcceleration {
   public:
 
     // NOTE: reserved registers must not be written into or read from.
@@ -546,6 +548,13 @@ namespace upm {
      * @return std::vector containing X, Y, Z acceleration values
      */
     std::vector<float> getAccelerometer();
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    virtual std::vector<float> getAcceleration();
 
     /**
      * set the filtering configuration

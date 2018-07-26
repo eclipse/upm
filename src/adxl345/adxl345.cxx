@@ -131,6 +131,21 @@ Adxl345::getAcceleration()
     return &m_accel[0];
 }
 
+// std::vector<float>
+// Adxl345::getAcceleration()
+// {
+//     update();
+
+//     std::vector<float> v(3);
+
+//     for(int i = 0; i < 3; i++)
+//     {
+//         v[i] = m_rawaccel[i] * m_offsets[i];
+//     }
+
+//     return v;
+// }
+
 int16_t*
 Adxl345::getRawValues()
 {
