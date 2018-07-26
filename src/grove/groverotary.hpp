@@ -29,7 +29,7 @@
 #include <string>
 #include <mraa/aio.hpp>
 #include "grovebase.hpp"
-#include <interfaces/iRotaryAngle.hpp>
+#include <interfaces/iAngle.hpp>
 
 namespace upm {
 
@@ -54,7 +54,7 @@ namespace upm {
  * @image html rotaryencoder.jpg
  * @snippet grove-groverotary.cxx Interesting
  */
-class GroveRotary: public Grove, virtual public iRotaryAngle {
+class GroveRotary: public Grove, virtual public iAngle {
     public:
         /**
          * Grove rotary angle sensor constructor
@@ -108,7 +108,7 @@ class GroveRotary: public Grove, virtual public iRotaryAngle {
          *
          * @return rotation value.
          */
-        virtual float getValue();
+        virtual float getAngle();
 
     private:
         mraa_aio_context m_aio;

@@ -275,7 +275,7 @@ namespace upm {
     virtual float getTemperature();
 
     /**
-     * Returns the pressure in millibars
+     * Returns the pressure in pascal
      *
      * @return Pressure
      */

@@ -137,9 +137,9 @@ namespace upm {
         /**
          * Return the latest measured pressure.  update() must have
          * been called prior to calling this function.  The returned
-         * value is in millibars.
+         * value is in pascal.
          *
-         * @return Pressure in mbar
+         * @return Pressure in Pa
          */
         virtual float getPressure();
 

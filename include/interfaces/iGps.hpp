@@ -40,13 +40,5 @@ namespace upm
      * @param enable true to enable the device, false otherwise.
      */
     virtual void enable(bool enable) = 0;
-
-    /**
-     * Set the baudrate of the device.
-     *
-     * @param baudrate The baud rate to set for the device.
-     */
-    virtual void setBaudrate(unsigned int baudrate) = 0;
-
   };
 }

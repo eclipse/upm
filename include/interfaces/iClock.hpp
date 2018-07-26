@@ -35,18 +35,10 @@ namespace upm
     virtual ~iClock() {}
 
     /**
-     * Loads all the time values
+     * Returns the time since epoch in seconds
      *
-     * @return True if time data loaded successfully
+     * @return time since epoch in seconds
      */
-    virtual bool loadTime() = 0;
-
-    /**
-     * Sets the time. You should call loadTime() beforehand to
-     * maintain consistency
-     *
-     * @return True if time is set successfully
-     */
-    virtual bool setTime() = 0;
+    virtual unsigned long getTime() = 0;
   };
 }

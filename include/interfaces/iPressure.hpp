@@ -40,7 +40,7 @@ namespace upm
     /**
      * Measures applied pressure
      * 
-     * @return gets pressure value
+     * @return gets pressure value in Pa
      */
     virtual float getPressure() = 0;
 
