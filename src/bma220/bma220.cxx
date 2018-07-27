@@ -106,31 +106,31 @@ BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
   for(std::string tok :upmTokens)
   {
-    if(tok.substr(0,9) == "writeReg:") {
-      uint8_t reg = std::stoi(tok.substr(9),&sz,0);
+    if(tok.substr(0, 9) == "writeReg:") {
+      uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
       tok = tok.substr(9);
-      uint8_t val = std::stoi(tok.substr(sz+1),nullptr,0);
+      uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
       writeReg(reg, val);
     }
-    if(tok.substr(0,22) == "setAccelerometerScale:") {
-      FSL_RANGE_T scale = (FSL_RANGE_T)std::stoi(tok.substr(22),nullptr,0);
+    if(tok.substr(0, 22) == "setAccelerometerScale:") {
+      FSL_RANGE_T scale = (FSL_RANGE_T)std::stoi(tok.substr(22), nullptr, 0);
       setAccelerometerScale(scale);
     }
-    if(tok.substr(0,16) == "setFilterConfig:") {
-      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
       setFilterConfig(filter);
     }
 
-    if(tok.substr(0,16) == "setSerialHighBW:") {
-      bool high = std::stoi(tok.substr(16),nullptr,0);
+    if(tok.substr(0, 16) == "setSerialHighBW:") {
+      bool high = std::stoi(tok.substr(16), nullptr, 0);
       setSerialHighBW(high);
     }
-    if(tok.substr(0,16) == "setFilterConfig:") {
-      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
       setFilterConfig(filter);
     }
-    if(tok.substr(0,16) == "setFilterConfig:") {
-      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16),nullptr,0);
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
       setFilterConfig(filter);
     }
   }

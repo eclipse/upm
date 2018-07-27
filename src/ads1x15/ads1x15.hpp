@@ -432,7 +432,7 @@ namespace upm {
             void updateConfigRegister(uint16_t update, bool read = false);
             uint16_t swapWord(uint16_t value);
 
-            mraa::MraaIo* mraaIo = NULL;
+            mraa::MraaIo mraaIo;
             mraa::I2c* i2c;
 
     };}

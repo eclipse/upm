@@ -106,17 +106,17 @@ adafruitss::adafruitss(std::string initStr) : mraaIo(initStr)
 
   for(std::string tok : upmTokens)
   {
-    if(tok.substr(0,8) == "pwmFreq:")
+    if(tok.substr(0, 8) == "pwmFreq:")
     {
       float freq = std::stof(tok.substr(8));
       setPWMFreq(freq);
     }
-    if(tok.substr(0,6) == "servo:")
+    if(tok.substr(0, 6) == "servo:")
     {
-      uint8_t port = std::stoi(tok.substr(6),&sz,0);
+      uint8_t port = std::stoi(tok.substr(6), &sz, 0);
       tok = tok.substr(6);
       old_sz = sz+1;
-      uint8_t servo_type = std::stoi(tok.substr(old_sz),&sz,0);
+      uint8_t servo_type = std::stoi(tok.substr(old_sz), &sz, 0);
       tok = tok.substr(old_sz);
       float degrees = std::stof(tok.substr(sz+1));
       servo(port, servo_type, degrees);

@@ -81,7 +81,7 @@ BH1750::BH1750(std::string initStr) : mraaIo(initStr)
   for (std::string tok : upmTokens)
   {
     if(tok.substr(0, 5) == "mode:") {
-      BH1750_OPMODES_T mode = (BH1750_OPMODES_T)std::stoi(tok.substr(5),nullptr,0);
+      BH1750_OPMODES_T mode = (BH1750_OPMODES_T)std::stoi(tok.substr(5), nullptr, 0);
         if(bh1750_set_opmode(m_bh1750, mode) != UPM_SUCCESS)
         {
           bh1750_close(m_bh1750);
@@ -96,7 +96,7 @@ BH1750::BH1750(std::string initStr) : mraaIo(initStr)
       powerDown();
     }
     if(tok.substr(0, 12) == "sendCommand:") {
-      uint8_t  mode = (uint8_t)std::stoi(tok.substr(12),nullptr,0);
+      uint8_t  mode = (uint8_t)std::stoi(tok.substr(12), nullptr, 0);
       sendCommand(mode);
     }
   }

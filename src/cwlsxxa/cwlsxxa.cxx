@@ -123,14 +123,14 @@ CWLSXXA::CWLSXXA(std::string initStr)
       upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
   }
 
-  for(std::string tok:upmTokens)
+  for(std::string tok : upmTokens)
   {
-    if(tok.substr(0,5) == "aref:")
+    if(tok.substr(0, 5) == "aref:")
     {
       float aref = std::stof(tok.substr(5));
       m_aref = aref;
     }
-    if(tok.substr(0,10) == "rResistor:")
+    if(tok.substr(0, 10) == "rResistor:")
     {
       float rResistor = std::stof(tok.substr(10));
       m_rResistor = rResistor;

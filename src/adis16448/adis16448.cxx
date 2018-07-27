@@ -87,7 +87,7 @@ ADIS16448::ADIS16448(std::string initStr) : mraaIo(initStr)
   }
 
   // Configure I/O
-  //Initialize RST pin
+  // Initialize RST pin
   if(!descs->gpios)
   {
     throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -124,10 +124,10 @@ ADIS16448::ADIS16448(std::string initStr) : mraaIo(initStr)
   std::string::size_type sz;
 
   for (std::string tok : upmTokens) {
-    if(tok.substr(0,9) == "regWrite:") {
-      uint8_t regAddr = std::stoi(tok.substr(9),&sz,0);
+    if(tok.substr(0, 9) == "regWrite:") {
+      uint8_t regAddr = std::stoi(tok.substr(9), &sz, 0);
       tok = tok.substr(9);
-      uint16_t regData = std::stoi(tok.substr(sz+1),nullptr,0);
+      uint16_t regData = std::stoi(tok.substr(sz+1), nullptr, 0);
       regWrite(regAddr, regData);
     }
   }
