@@ -89,44 +89,44 @@ ADC121C021::ADC121C021(std::string initStr) : mraaIo(initStr)
     if(tok.substr(0, 5) == "vref:") {
         m_vref = std::stof(tok.substr(5));
     }
-    if(tok.substr(0,10) == "writeByte:") {
-      uint8_t reg = std::stoi(tok.substr(10),&sz,0);
+    if(tok.substr(0, 10) == "writeByte:") {
+      uint8_t reg = std::stoi(tok.substr(10), &sz, 0);
       tok = tok.substr(10);
-      uint8_t byte = std::stoi(tok.substr(sz+1),nullptr,0);
+      uint8_t byte = std::stoi(tok.substr(sz+1), nullptr, 0);
       writeByte(reg, byte);
     }
     if(tok.substr(0,10) == "writeWord:") {
-      uint8_t reg = std::stoi(tok.substr(10),&sz,0);
+      uint8_t reg = std::stoi(tok.substr(10), &sz, 0);
       tok = tok.substr(10);
-      uint16_t word = std::stoi(tok.substr(sz+1),nullptr,0);
+      uint16_t word = std::stoi(tok.substr(sz+1), nullptr, 0);
       writeWord(reg, word);
     }
     if(tok.substr(0,16) == "enableAlertFlag:") {
-      bool enable = std::stoi(tok.substr(16),nullptr,0);
+      bool enable = std::stoi(tok.substr(16), nullptr, 0);
       enableAlertFlag(enable);
     }
     if(tok.substr(0,15) == "enableAlertPin:") {
-      bool enable = std::stoi(tok.substr(15),nullptr,0);
+      bool enable = std::stoi(tok.substr(15), nullptr, 0);
       enableAlertPin(enable);
     }
     if(tok.substr(0,16) == "enableAlertHold:") {
-      bool enable = std::stoi(tok.substr(16),nullptr,0);
+      bool enable = std::stoi(tok.substr(16), nullptr, 0);
       enableAlertHold(enable);
     }
     if(tok.substr(0,27) == "enableAlertPinPolarityHigh:") {
-      bool enable = std::stoi(tok.substr(27),nullptr,0);
+      bool enable = std::stoi(tok.substr(27), nullptr, 0);
       enableAlertPinPolarityHigh(enable);
     }
     if(tok.substr(0,17) == "setAlertLowLimit:") {
-      uint16_t limit = std::stoi(tok.substr(17),nullptr,0);
+      uint16_t limit = std::stoi(tok.substr(17), nullptr, 0);
       setAlertLowLimit(limit);
     }
     if(tok.substr(0,18) == "setAlertHighLimit:") {
-      uint16_t limit = std::stoi(tok.substr(18),nullptr,0);
+      uint16_t limit = std::stoi(tok.substr(18), nullptr, 0);
       setAlertHighLimit(limit);
     }
     if(tok.substr(0,14) == "setHysteresis:") {
-      uint16_t limit = std::stoi(tok.substr(14),nullptr,0);
+      uint16_t limit = std::stoi(tok.substr(14), nullptr, 0);
       setHysteresis(limit);
     }
   }

@@ -109,7 +109,7 @@ AM2315::AM2315(std::string initStr) : mraaIo(initStr)
     }
 
     for (std::string tok : upmTokens) {
-      if(tok.substr(0,13) == "updateValues:") {
+      if(tok.substr(0, 13) == "updateValues:") {
           update_values();
       }
     }

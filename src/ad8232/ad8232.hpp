@@ -105,7 +105,7 @@ namespace upm {
     int value();
 
   private:
-    mraa::MraaIo *mraaIo = NULL;
+    mraa::MraaIo mraaIo;
     mraa::Gpio *m_gpioLOPlus = NULL;
     mraa::Gpio *m_gpioLOMinus = NULL;
     mraa::Aio *m_aioOUT = NULL;

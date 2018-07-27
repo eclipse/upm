@@ -165,38 +165,38 @@ BMP280::BMP280(std::string initStr) : mraaIo(initStr)
 
     std::string::size_type sz;
     for(std::string tok:upmTokens) {
-        if(tok.substr(0,21) == "setSeaLevelPreassure:") {
+        if(tok.substr(0, 21) == "setSeaLevelPreassure:") {
             float seaLevelhPA = std::stof(tok.substr(21));
             setSeaLevelPreassure(seaLevelhPA);
         }
-        if(tok.substr(0,9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9),&sz,0);
+        if(tok.substr(0, 9) == "writeReg:") {
+            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1),nullptr,0);
+            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
-        if(tok.substr(0,10) == "setFilter:") {
-            BMP280_FILTER_T filter = (BMP280_FILTER_T)std::stoi(tok.substr(10),nullptr,0);
+        if(tok.substr(0, 10) == "setFilter:") {
+            BMP280_FILTER_T filter = (BMP280_FILTER_T)std::stoi(tok.substr(10), nullptr, 0);
             setFilter(filter);
         }
-        if(tok.substr(0,16) == "setTimerStandby:") {
-            BMP280_T_SB_T tsb = (BMP280_T_SB_T)std::stoi(tok.substr(16),nullptr,0);
+        if(tok.substr(0, 16) == "setTimerStandby:") {
+            BMP280_T_SB_T tsb = (BMP280_T_SB_T)std::stoi(tok.substr(16), nullptr, 0);
             setTimerStandby(tsb);
         }
-        if(tok.substr(0,15) == "setMeasureMode:") {
-            BMP280_MODES_T mode = (BMP280_MODES_T)std::stoi(tok.substr(15),nullptr,0);
+        if(tok.substr(0, 15) == "setMeasureMode:") {
+            BMP280_MODES_T mode = (BMP280_MODES_T)std::stoi(tok.substr(15), nullptr, 0);
             setMeasureMode(mode);
         }
-        if(tok.substr(0,26) == "setOversampleRatePressure:") {
-            BMP280_OSRS_P_T rate = (BMP280_OSRS_P_T)std::stoi(tok.substr(26),nullptr,0);
+        if(tok.substr(0, 26) == "setOversampleRatePressure:") {
+            BMP280_OSRS_P_T rate = (BMP280_OSRS_P_T)std::stoi(tok.substr(26), nullptr, 0);
             setOversampleRatePressure(rate);
         }
-        if(tok.substr(0,29) == "setOversampleRateTemperature:") {
-            BMP280_OSRS_T_T rate = (BMP280_OSRS_T_T)std::stoi(tok.substr(29),nullptr,0);
+        if(tok.substr(0, 29) == "setOversampleRateTemperature:") {
+            BMP280_OSRS_T_T rate = (BMP280_OSRS_T_T)std::stoi(tok.substr(29), nullptr, 0);
             setOversampleRateTemperature(rate);
         }
-        if(tok.substr(0,13) == "setUsageMode:") {
-            BMP280_USAGE_MODE_T mode = (BMP280_USAGE_MODE_T)std::stoi(tok.substr(13),nullptr,0);
+        if(tok.substr(0, 13) == "setUsageMode:") {
+            BMP280_USAGE_MODE_T mode = (BMP280_USAGE_MODE_T)std::stoi(tok.substr(13), nullptr, 0);
             setUsageMode(mode);
         }
     }

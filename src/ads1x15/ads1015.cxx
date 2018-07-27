@@ -58,7 +58,7 @@ ADS1015::ADS1015(int bus, uint8_t address, float vref) : ADS1X15(bus, address) {
 
 ADS1015::ADS1015(std::string initStr) : ADS1X15(initStr)
 {
-    float vref;
+    float vref = ADS1015_VREF;
     m_name = "ADS1015";
     m_conversionDelay = ADS1015_CONVERSIONDELAY;
     m_bitShift = 4;
@@ -67,14 +67,11 @@ ADS1015::ADS1015(std::string initStr) : ADS1X15(initStr)
     std::string leftoverString = ADS1X15::getLeftoverStr();
     std::vector<std::string> upmTokens;
 
-    if(!leftoverString.empty())
-    {
-        upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+    if(!leftoverString.empty()) {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
     }
-    for (std::string tok : upmTokens)
-    {
-        if(tok.substr(0,5) == "vref:")
-        {
+    for (std::string tok : upmTokens) {
+        if(tok.substr(0, 5) == "vref:") {
             vref = std::stof(tok.substr(5));
         }
     }

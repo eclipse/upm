@@ -66,12 +66,12 @@ APDS9930::APDS9930(std::string initStr) : mraaIo(initStr)
     }
 
     for (std::string tok : upmTokens) {
-      if(tok.substr(0,16) == "enableProximity:") {
-          bool enable = std::stoi(tok.substr(16),nullptr,0);
+      if(tok.substr(0, 16) == "enableProximity:") {
+          bool enable = std::stoi(tok.substr(16), nullptr, 0);
           enableProximity(enable);
       }
-      if(tok.substr(0,18) == "enableIlluminance:") {
-          bool enable = std::stoi(tok.substr(18),nullptr,0);
+      if(tok.substr(0, 18) == "enableIlluminance:") {
+          bool enable = std::stoi(tok.substr(18), nullptr, 0);
           enableIlluminance(enable);
       }
     }

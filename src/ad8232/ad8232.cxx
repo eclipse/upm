@@ -31,6 +31,11 @@
 using namespace upm;
 using namespace std;
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
+}
+
 AD8232::AD8232(int loPlus, int loMinus, int output, float aref) {
   m_gpioLOPlus = new mraa::Gpio(loPlus);
   m_gpioLOMinus = new mraa::Gpio(loMinus);
@@ -43,47 +48,38 @@ AD8232::AD8232(int loPlus, int loMinus, int output, float aref) {
   m_ares = (1 << m_aioOUT->getBit());
 }
 
-AD8232::AD8232(std::string initStr)
-{
-  mraaIo = new mraa::MraaIo(initStr);
-  if(mraaIo == NULL)
-  {
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                            ": Failed to allocate memory for internal member");
+AD8232::AD8232(std::string initStr) : mraaIo(initStr) {
+  if(!mraaIo.gpios.empty()) {
+    if(mraaIo.gpios.size() == 2) {
+      m_gpioLOPlus = &mraaIo.gpios[0];
+      m_gpioLOMinus = &mraaIo.gpios[1];
+    }
+    else {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_gpio_init() must initialize two pins");
+    }
   }
-
-  if(!mraaIo->gpios.empty())
-  {
-    m_gpioLOPlus = &mraaIo->gpios[0];
-    m_gpioLOMinus = &mraaIo->gpios[1];
-  }
-  else
-  {
+  else {
     throw std::invalid_argument(std::string(__FUNCTION__) +
                             ": mraa_gpio_init() failed, invalid pin?");
   }
 
-  if(!mraaIo->aios.empty())
-  {
-    m_aioOUT = &mraaIo->aios[0];
+  if(!mraaIo.aios.empty()) {
+    m_aioOUT = &mraaIo.aios[0];
   }
-  else
-  {
+  else {
     throw std::invalid_argument(std::string(__FUNCTION__) +
                             ": mraa_aio_init() failed, invalid pin?");
   }
 
   std::vector<std::string> upmTokens;
 
-  if(!mraaIo->getLeftoverStr().empty())
-  {
-    upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+  if(!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
   }
 
-  for (std::string tok : upmTokens)
-  {
-    if(tok.substr(0,5) == "volt:")
-    {
+  for (std::string tok : upmTokens) {
+    if(tok.substr(0, 5) == "volt:") {
       m_aref = std::stof(tok.substr(5));
     }
   }
@@ -92,12 +88,7 @@ AD8232::AD8232(std::string initStr)
 
 AD8232::~AD8232()
 {
-  if(mraaIo != NULL)
-  {
-    delete mraaIo;
-  }
-  else
-  {
+  if(!mraaIo) {
     delete m_gpioLOPlus;
     delete m_gpioLOMinus;
     delete m_aioOUT;

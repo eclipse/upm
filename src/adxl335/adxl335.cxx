@@ -76,25 +76,32 @@ ADXL335::ADXL335(std::string initStr) : mraaIo(initStr)
   if(!descs->aios)
   {
     throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_aio_init(X) failed, invalid pin?");
+                              ": mraa_aio_init(X) failed, invalid pin?");
   }
   else
   {
     printf("ADXL335 else inside constructor\n");
-    if( !(m_aioX = descs->aios[0]) )
+    if(descs->n_aio == 3) 
+    {
+      if( !(m_aioX = descs->aios[0]) )
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(X) failed, invalid pin?");
+      }
+      if( !(m_aioY = descs->aios[1]) )
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(X) failed, invalid pin?");
+      }
+      if( !(m_aioZ = descs->aios[2]) )
+      {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init(X) failed, invalid pin?");
+      }      
+    } else 
     {
       throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_aio_init(X) failed, invalid pin?");
-    }
-    if( !(m_aioY = descs->aios[1]) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_aio_init(X) failed, invalid pin?");
-    }
-    if( !(m_aioZ = descs->aios[2]) )
-    {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                                ": mraa_aio_init(X) failed, invalid pin?");
+                                ": mraa_aio_init(X) must initialize three pins");
     }
   }
 
@@ -105,7 +112,7 @@ ADXL335::ADXL335(std::string initStr) : mraaIo(initStr)
   }
 
   for (std::string tok : upmTokens) {
-    if(tok.substr(0,5) == "aref:") {
+    if(tok.substr(0, 5) == "aref:") {
       m_aref = std::stof(tok.substr(5));
     }
   }

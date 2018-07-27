@@ -74,7 +74,7 @@ ADXRS610::ADXRS610(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
   setDeadband(0.0);
 
   for (std::string tok : upmTokens) {
-    if(tok.substr(0,5) == "aref:") {
+    if(tok.substr(0, 5) == "aref:") {
       m_aref = std::stof(tok.substr(5));
     }
   }

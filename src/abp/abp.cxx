@@ -86,12 +86,12 @@ ABP::ABP(std::string initStr) : mraaIo(initStr)
     m_abp->abp_pressure_min = 0;
 
     for (std::string tok : upmTokens) {
-      if(tok.substr(0,12) == "maxPressure:") {
-          int pmax = std::stoi(tok.substr(12),nullptr,0);
+      if(tok.substr(0, 12) == "maxPressure:") {
+          int pmax = std::stoi(tok.substr(12), nullptr, 0);
           setMaxPressure(pmax);
       }
-      if(tok.substr(0,12) == "minPressure:") {
-          int pmin  = std::stoi(tok.substr(12),nullptr,0);
+      if(tok.substr(0, 12) == "minPressure:") {
+          int pmin  = std::stoi(tok.substr(12), nullptr, 0);
           setMinPressure(pmin);
       }
     }

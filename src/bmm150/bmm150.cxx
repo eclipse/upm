@@ -146,47 +146,47 @@ BMM150::BMM150(std::string initStr) : mraaIo(initStr)
 
     std::string::size_type sz;
     for(std::string tok:upmTokens) {
-        if(tok.substr(0,5) == "init:") {
-            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(5),nullptr,0);
+        if(tok.substr(0, 5) == "init:") {
+            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(5), nullptr, 0);
             init(usage);
         }
-        if(tok.substr(0,9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9),&sz,0);
+        if(tok.substr(0, 9) == "writeReg:") {
+            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1),nullptr,0);
+            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
-        if(tok.substr(0,18) == "setOutputDataRate:") {
-            BMM150_DATA_RATE_T odr = (BMM150_DATA_RATE_T)std::stoi(tok.substr(18),nullptr,0);
+        if(tok.substr(0, 18) == "setOutputDataRate:") {
+            BMM150_DATA_RATE_T odr = (BMM150_DATA_RATE_T)std::stoi(tok.substr(18), nullptr, 0);
             setOutputDataRate(odr);
         }
-        if(tok.substr(0,12) == "setPowerBit:") {
-            bool power = std::stoi(tok.substr(12),&sz,0);
+        if(tok.substr(0, 12) == "setPowerBit:") {
+            bool power = std::stoi(tok.substr(12), &sz, 0);
             setPowerBit(power);
         }
 
-        if(tok.substr(0,10) == "setOpmode:") {
-            BMM150_OPERATION_MODE_T opmode = (BMM150_OPERATION_MODE_T)std::stoi(tok.substr(10),nullptr,0);
+        if(tok.substr(0, 10) == "setOpmode:") {
+            BMM150_OPERATION_MODE_T opmode = (BMM150_OPERATION_MODE_T)std::stoi(tok.substr(10), nullptr, 0);
             setOpmode(opmode);
         }
-        if(tok.substr(0,19) == "setInterruptEnable:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19),nullptr,0);
+        if(tok.substr(0, 19) == "setInterruptEnable:") {
+            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19), nullptr, 0);
             setInterruptEnable(bits);
         }
-        if(tok.substr(0,19) == "setInterruptConfig:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19),nullptr,0);
+        if(tok.substr(0, 19) == "setInterruptConfig:") {
+            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19), nullptr, 0);
             setInterruptConfig(bits);
         }
-        if(tok.substr(0,17) == "setRepetitionsXY:") {
-            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(17),nullptr,0);
+        if(tok.substr(0, 17) == "setRepetitionsXY:") {
+            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(17), nullptr, 0);
             setRepetitionsXY(reps);
         }
-        if(tok.substr(0,16) == "setRepetitionsZ:") {
-            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(16),nullptr,0);
+        if(tok.substr(0, 16) == "setRepetitionsZ:") {
+            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(16), nullptr, 0);
             setRepetitionsZ(reps);
         }
-        if(tok.substr(0,14) == "setPresetMode:") {
-            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(14),nullptr,0);
+        if(tok.substr(0, 14) == "setPresetMode:") {
+            BMM150_USAGE_PRESETS_T usage = (BMM150_USAGE_PRESETS_T)std::stoi(tok.substr(14), nullptr, 0);
             setPresetMode(usage);
         }
     }

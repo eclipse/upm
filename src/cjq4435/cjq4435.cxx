@@ -84,24 +84,24 @@ CJQ4435::CJQ4435(std::string initStr) : mraaIo(initStr)
     m_cjq4435->enabled = false;
 
     for(std::string tok : upmTokens) {
-        if(tok.substr(0,12) == "setPeriodUS:") {
-            int us = std::stoi(tok.substr(0,12),nullptr,0);
+        if(tok.substr(0, 12) == "setPeriodUS:") {
+            int us = std::stoi(tok.substr(0, 12), nullptr, 0);
             setPeriodUS(us);
         }
-        if(tok.substr(0,12) == "setPeriodMS:") {
-            int ms = std::stoi(tok.substr(0,12),nullptr,0);
+        if(tok.substr(0, 12) == "setPeriodMS:") {
+            int ms = std::stoi(tok.substr(0, 12), nullptr, 0);
             setPeriodMS(ms);
         }
-        if(tok.substr(0,17) == "setPeriodSeconds:") {
-            float seconds = std::stof(tok.substr(0,17));
+        if(tok.substr(0, 17) == "setPeriodSeconds:") {
+            float seconds = std::stof(tok.substr(0, 17));
             setPeriodSeconds(seconds);
         }
-        if(tok.substr(0,7) == "enable:") {
-            bool en = std::stoi(tok.substr(0,7),nullptr,0);
+        if(tok.substr(0, 7) == "enable:") {
+            bool en = std::stoi(tok.substr(0, 7), nullptr, 0);
             enable(en);
         }
-        if(tok.substr(0,13) == "setDutyCycle:") {
-            float dutyCycle = std::stof(tok.substr(0,13));
+        if(tok.substr(0, 13) == "setDutyCycle:") {
+            float dutyCycle = std::stof(tok.substr(0, 13));
             setDutyCycle(dutyCycle);
         }
     }
