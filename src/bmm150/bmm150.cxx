@@ -151,9 +151,9 @@ BMM150::BMM150(std::string initStr) : mraaIo(initStr)
             init(usage);
         }
         if(tok.substr(0, 9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
+            uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
+            uint8_t val = std::stoul(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
         if(tok.substr(0, 18) == "setOutputDataRate:") {
@@ -170,19 +170,19 @@ BMM150::BMM150(std::string initStr) : mraaIo(initStr)
             setOpmode(opmode);
         }
         if(tok.substr(0, 19) == "setInterruptEnable:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(19), nullptr, 0);
             setInterruptEnable(bits);
         }
         if(tok.substr(0, 19) == "setInterruptConfig:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(19), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(19), nullptr, 0);
             setInterruptConfig(bits);
         }
         if(tok.substr(0, 17) == "setRepetitionsXY:") {
-            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(17), nullptr, 0);
+            u_int8_t reps = (u_int8_t)std::stoul(tok.substr(17), nullptr, 0);
             setRepetitionsXY(reps);
         }
         if(tok.substr(0, 16) == "setRepetitionsZ:") {
-            u_int8_t reps = (u_int8_t)std::stoi(tok.substr(16), nullptr, 0);
+            u_int8_t reps = (u_int8_t)std::stoul(tok.substr(16), nullptr, 0);
             setRepetitionsZ(reps);
         }
         if(tok.substr(0, 14) == "setPresetMode:") {

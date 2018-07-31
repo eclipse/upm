@@ -145,9 +145,9 @@ BMG160::BMG160(std::string initStr) : mraaIo(initStr)
             enableFIFO(useFIFO);
         }
         if(tok.substr(0, 9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
+            uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
+            uint8_t val = std::stoul(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
         if(tok.substr(0, 9) == "setRange:") {
@@ -173,23 +173,23 @@ BMG160::BMG160(std::string initStr) : mraaIo(initStr)
             fifoConfig(mode, axes);
         }
         if(tok.substr(0, 20) == "setInterruptEnable0:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(20), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(20), nullptr, 0);
             setInterruptEnable0(bits);
         }
         if(tok.substr(0, 17) == "setInterruptMap0:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(17), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(17), nullptr, 0);
             setInterruptMap0(bits);
         }
         if(tok.substr(0, 17) == "setInterruptMap1:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(17), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(17), nullptr, 0);
             setInterruptMap1(bits);
         }
         if(tok.substr(0, 16) == "setInterruptSrc:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(16), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(16), nullptr, 0);
             setInterruptSrc(bits);
         }
         if(tok.substr(0, 26) == "setInterruptOutputControl:") {
-            u_int8_t bits = (u_int8_t)std::stoi(tok.substr(26), nullptr, 0);
+            u_int8_t bits = (u_int8_t)std::stoul(tok.substr(26), nullptr, 0);
             setInterruptOutputControl(bits);
         }
         if(tok.substr(0, 26) == "setInterruptLatchBehavior:") {

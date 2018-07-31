@@ -125,9 +125,9 @@ ADIS16448::ADIS16448(std::string initStr) : mraaIo(initStr)
 
   for (std::string tok : upmTokens) {
     if(tok.substr(0, 9) == "regWrite:") {
-      uint8_t regAddr = std::stoi(tok.substr(9), &sz, 0);
+      uint8_t regAddr = std::stoul(tok.substr(9), &sz, 0);
       tok = tok.substr(9);
-      uint16_t regData = std::stoi(tok.substr(sz+1), nullptr, 0);
+      uint16_t regData = std::stoul(tok.substr(sz+1), nullptr, 0);
       regWrite(regAddr, regData);
     }
   }
