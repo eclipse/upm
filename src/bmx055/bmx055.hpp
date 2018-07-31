@@ -115,6 +115,13 @@ namespace upm {
                int magCS=-1);
 
         /**
+         * Instantiates BMX055 based on a given string.
+         *
+         * @param initStr string containing specific information for BMX055 initialization.
+         */
+       BMX055(std::string initStr);
+
+        /**
          * BMX055 Destructor.
          */
         ~BMX055();
