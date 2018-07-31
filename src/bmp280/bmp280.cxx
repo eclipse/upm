@@ -170,9 +170,9 @@ BMP280::BMP280(std::string initStr) : mraaIo(initStr)
             setSeaLevelPreassure(seaLevelhPA);
         }
         if(tok.substr(0, 9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
+            uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
+            uint8_t val = std::stoul(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
         if(tok.substr(0, 10) == "setFilter:") {

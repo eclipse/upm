@@ -110,9 +110,9 @@ BMPX8X::BMPX8X(std::string initStr) : mraaIo(initStr)
            setOversampling(oss);
         }
         if(tok.substr(0, 9) == "writeReg:") {
-            uint8_t reg = std::stoi(tok.substr(9), &sz, 0);
+            uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
             tok = tok.substr(9);
-            uint8_t val = std::stoi(tok.substr(sz+1), nullptr, 0);
+            uint8_t val = std::stoul(tok.substr(sz+1), nullptr, 0);
             writeReg(reg, val);
         }
     }

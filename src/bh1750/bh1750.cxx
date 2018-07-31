@@ -96,7 +96,7 @@ BH1750::BH1750(std::string initStr) : mraaIo(initStr)
       powerDown();
     }
     if(tok.substr(0, 12) == "sendCommand:") {
-      uint8_t  mode = (uint8_t)std::stoi(tok.substr(12), nullptr, 0);
+      uint8_t  mode = (uint8_t)std::stoul(tok.substr(12), nullptr, 0);
       sendCommand(mode);
     }
   }
