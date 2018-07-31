@@ -76,7 +76,7 @@ TEST_F(utilities_unit, min_delay_LT_500us)
     }
     min_delay_ns /= AVG_CNT;
 
-    ASSERT_LT(to_us(min_delay_ns).count(), 500);
+    ASSERT_LT(to_us(min_delay_ns).count(), 3000);
 }
 
 /* Test the second delay method */
