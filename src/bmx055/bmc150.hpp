@@ -104,6 +104,13 @@ namespace upm {
                int magCS=-1);
 
         /**
+         * Instantiates bmc150 6-axis Ecompass based on a given string.
+         *
+         * @param initStr string containing specific information for bmc150 initialization.
+         */
+        BMC150(std::string initStr);
+
+        /**
          * BMC150 Destructor.
          */
         ~BMC150();

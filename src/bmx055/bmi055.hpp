@@ -98,6 +98,13 @@ namespace upm {
                int gyroCS=-1);
 
         /**
+         * Instantiates bmi055 based on a given string.
+         *
+         * @param initStr string containing specific information for bmi055 initialization.
+         */
+        BMI055(std::string initStr);
+
+        /**
          * BMI055 Destructor.
          */
         ~BMI055();
