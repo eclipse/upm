@@ -126,7 +126,7 @@ static upm_result_t _update_non_fusion_data(const bno055_context dev)
 }
 
 // init
-bno055_context bno055_init(int bus, uint8_t addr)
+bno055_context bno055_init(int bus, uint8_t addr, mraa_io_descriptor* descs)
 {
     bno055_context dev =
         (bno055_context)malloc(sizeof(struct _bno055_context));
@@ -146,18 +146,39 @@ bno055_context bno055_init(int bus, uint8_t addr)
         return NULL;
     }
 
-    if (!(dev->i2c = mraa_i2c_init(bus)))
+    if(descs)
     {
-        printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
-        bno055_close(dev);
-        return NULL;
+        if(!descs->i2cs)
+        {
+            bno055_close(dev);
+            printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
+            return NULL;
+        }
+        else
+        {
+            if( !(dev->i2c = descs->i2cs[0]) )
+            {
+                bno055_close(dev);
+                printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
+                return NULL;
+            }
+        }
     }
-
-    if (mraa_i2c_address(dev->i2c, addr) != MRAA_SUCCESS)
+    else
     {
-        printf("%s: mraa_i2c_address() failed.\n", __FUNCTION__);
-        bno055_close(dev);
-        return NULL;
+        if (!(dev->i2c = mraa_i2c_init(bus)))
+        {
+            printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
+            bno055_close(dev);
+            return NULL;
+        }
+
+        if (mraa_i2c_address(dev->i2c, addr) != MRAA_SUCCESS)
+        {
+            printf("%s: mraa_i2c_address() failed.\n", __FUNCTION__);
+            bno055_close(dev);
+            return NULL;
+        }
     }
 
     _clear_data(dev);

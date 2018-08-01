@@ -28,6 +28,7 @@
 #include <stdexcept>
 
 #include "bno055.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 using namespace std;
@@ -40,11 +41,116 @@ static float c2f(float c)
 }
 
 BNO055::BNO055(int bus, uint8_t addr) :
-    m_bno055(bno055_init(bus, addr))
+    m_bno055(bno055_init(bus, addr, nullptr))
 {
     if (!m_bno055)
         throw std::runtime_error(string(__FUNCTION__)
                                  + ": bno055_init() failed");
+}
+
+BNO055::BNO055(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if (mraaIo.getLeftoverStr() != "") {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    m_bno055 = bno055_init(0, 0, descs);
+
+    if(!m_bno055)
+        throw std::runtime_error(string(__FUNCTION__)
+                                 + ": bno055_init() failed");
+
+    std::string::size_type sz, prev_sz;
+    for(std::string tok : upmTokens)
+    {
+        if(tok.substr(0, 9) == "writeReg:")
+        {
+            uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
+            tok = tok.substr(9);
+            uint8_t val = std::stoul(tok.substr(sz + 1), nullptr, 0);
+            writeReg(reg, val);
+        }
+        if(tok.substr(0, 8) == "setPage:")
+        {
+            uint8_t page = std::stoul(tok.substr(8), &sz, 0);
+            tok = tok.substr(8);
+            bool force = std::stoi(tok.substr(sz + 1), nullptr, 0);
+            setPage(page, force);
+        }
+        if(tok.substr(0, 17) == "setClockExternal:")
+        {
+            bool extClock = std::stoi(tok.substr(17), nullptr, 0);
+            setClockExternal(extClock);
+        }
+        if(tok.substr(0, 21) == "setTemperatureSource:")
+        {
+            BNO055_TEMP_SOURCES_T src = (BNO055_TEMP_SOURCES_T)std::stoi(tok.substr(21), nullptr, 0);
+            setTemperatureSource(src);
+        }
+        if(tok.substr(0, 22) == "setAccelerometerUnits:")
+        {
+            bool mg = std::stoi(tok.substr(22), nullptr, 0);
+            setAccelerometerUnits(mg);
+        }
+        if(tok.substr(0, 18) == "setGyroscopeUnits:")
+        {
+            bool radians = std::stoi(tok.substr(18), nullptr, 0);
+            setGyroscopeUnits(radians);
+        }
+        if(tok.substr(0, 14) == "setEulerUnits:")
+        {
+            bool radians = std::stoi(tok.substr(14), nullptr, 0);
+            setEulerUnits(radians);
+        }
+        if(tok.substr(0, 17) == "setOperationMode:")
+        {
+            BNO055_OPERATION_MODES_T mode = (BNO055_OPERATION_MODES_T)std::stoi(tok.substr(17), nullptr, 0);
+            setOperationMode(mode);
+        }
+        if(tok.substr(0, 19) == "setInterruptEnable:")
+        {
+            uint8_t enables = std::stoul(tok.substr(19), nullptr, 0);
+            setInterruptEnable(enables);
+        }
+        if(tok.substr(0, 17) == "setInterruptMask:")
+        {
+            uint8_t enables = std::stoul(tok.substr(17), nullptr, 0);
+            setInterruptMask(enables);
+        }
+        if(tok.substr(0, 22) == "setAccelerationConfig:")
+        {
+            BNO055_ACC_RANGE_T range = (BNO055_ACC_RANGE_T)std::stoi(tok.substr(22), &sz, 0);
+            tok = tok.substr(22);
+            prev_sz = sz;
+            BNO055_ACC_BW_T bw = (BNO055_ACC_BW_T)std::stoi(tok.substr(prev_sz + 1), &sz, 0);
+            tok = tok.substr(prev_sz + 1);
+            BNO055_ACC_PWR_MODE_T pwr = (BNO055_ACC_PWR_MODE_T)std::stoi(tok.substr(sz + 1), nullptr, 0);
+            setAccelerationConfig(range, bw, pwr);
+        }
+        if(tok.substr(0, 22) == "setMagnetometerConfig:")
+        {
+            BNO055_MAG_ODR_T odr = (BNO055_MAG_ODR_T)std::stoi(tok.substr(22), &sz, 0);
+            tok = tok.substr(22);
+            prev_sz = sz;
+            BNO055_MAG_OPR_T opr = (BNO055_MAG_OPR_T)std::stoi(tok.substr(prev_sz + 1), &sz, 0);
+            tok = tok.substr(prev_sz + 1);
+            BNO055_MAG_POWER_T pwr = (BNO055_MAG_POWER_T)std::stoi(tok.substr(sz + 1), nullptr, 0);
+            setMagnetometerConfig(odr, opr, pwr);
+        }
+        if(tok.substr(0, 19) == "setGyroscopeConfig:")
+        {
+            BNO055_GYR_RANGE_T range = (BNO055_GYR_RANGE_T)std::stoi(tok.substr(19), &sz, 0);
+            tok = tok.substr(22);
+            prev_sz = sz;
+            BNO055_GYR_BW_T bw = (BNO055_GYR_BW_T)std::stoi(tok.substr(prev_sz + 1), &sz, 0);
+            tok = tok.substr(prev_sz + 1);
+            BNO055_GYR_POWER_MODE_T pwr = (BNO055_GYR_POWER_MODE_T)std::stoi(tok.substr(sz + 1), nullptr, 0);
+            setGyroscopeConfig(range, bw, pwr);
+        }
+    }
 }
 
 BNO055::~BNO055()

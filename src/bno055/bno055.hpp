@@ -27,6 +27,8 @@
 
 #include <vector>
 #include "bno055.h"
+#include "mraa/initio.hpp"
+
 
 namespace upm {
 
@@ -121,6 +123,13 @@ namespace upm {
          */
         BNO055(int bus=BNO055_DEFAULT_I2C_BUS,
                uint8_t addr=BNO055_DEFAULT_ADDR);
+
+        /**
+         * Instantiates BNO055 9DOF Fusion Hub based on a given string.
+         *
+         * @param initStr string containing specific information for BNO055 initialization.
+         */
+        BNO055(std::string initStr);
 
         /**
          * BNO055 Destructor.
@@ -644,6 +653,7 @@ namespace upm {
 
     protected:
         bno055_context m_bno055;
+        mraa::MraaIo mraaIo;
 
         /**
          * Set the current internal device register page.  This is a low
