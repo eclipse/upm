@@ -164,7 +164,7 @@ namespace upm {
   protected:
     mraa::Aio* m_aioData = NULL;
     mraa::Aio* m_aioTemp = NULL;
-    mraa::MraaIo* mraaIo = NULL;
+    mraa::MraaIo mraaIo;
 
   private:
     float m_aref;

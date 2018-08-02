@@ -34,6 +34,10 @@
 using namespace upm;
 using namespace std;
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
+}
 
 BMA220::BMA220(int bus, uint8_t addr) :
   m_i2c(new mraa::I2c(bus)), m_gpioIntr(0)
@@ -66,7 +70,7 @@ BMA220::BMA220(int bus, uint8_t addr) :
     }
 }
 
-BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
+BMA220::BMA220(std::string initStr) : mraaIo(initStr)
 {
   m_accelX = 0.0;
   m_accelY = 0.0;
@@ -74,13 +78,8 @@ BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
   m_accelScale = 0.0;
 
-  if(mraaIo == NULL) {
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                            ": Failed to allocate memory for internal member");
-  }
-
-  if(!mraaIo->i2cs.empty()) {
-    m_i2c = &mraaIo->i2cs[0];
+  if(!mraaIo.i2cs.empty()) {
+    m_i2c = &mraaIo.i2cs[0];
   }
   else {
     throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -98,8 +97,8 @@ BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
   }
 
   std::vector<std::string> upmTokens;
-  if(!mraaIo->getLeftoverStr().empty()) {
-    upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+  if(!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
   }
 
   std::string::size_type sz;
@@ -139,9 +138,7 @@ BMA220::BMA220(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 BMA220::~BMA220()
 {
   uninstallISR();
-  if(mraaIo != NULL)
-    delete mraaIo;
-  else
+  if(!mraaIo)
     delete m_i2c;
 }
 

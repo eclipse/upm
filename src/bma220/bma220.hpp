@@ -179,6 +179,22 @@ namespace upm {
     /**
      * REG_TAP_CONFIG bits
      */
+    typedef enum {
+      TAP_CONFIG_DUR0              = 0x01,
+      TAP_CONFIG_DUR1              = 0x02,
+      TAP_CONFIG_DUR2              = 0x04,
+      _TAP_CONFIG_DUR_MASK         = 7,
+      _TAP_CONFIG_DUR_SHIFT        = 0,
+
+      TAP_CONFIG_THRESH0           = 0x08,
+      TAP_CONFIG_THRESH1           = 0x10,
+      TAP_CONFIG_THRESH2           = 0x20,
+      TAP_CONFIG_THRESH3           = 0x40,
+      _TAP_CONFIG_THRESH_MASK      = 15,
+      _TAP_CONFIG_THRESH_SHIFT     = 3,
+
+      TAP_CONFIG_FILTER            = 0x80
+    } TAP_CONFIG_BITS_T;
 
     /**
      * REG_SLOPE_CONFIG bits
@@ -792,7 +808,7 @@ namespace upm {
   protected:
     mraa::I2c *m_i2c;
     mraa::Gpio *m_gpioIntr;
-    mraa::MraaIo *mraaIo;
+    mraa::MraaIo mraaIo;
     uint8_t m_addr;
 
     // uncompensated accelerometer values
