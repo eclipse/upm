@@ -88,6 +88,11 @@
 
 using namespace upm;
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
+}
+
 Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
 {
     //init bus and reset chip
@@ -123,17 +128,11 @@ Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
     Adxl345::update();
 }
 
-Adxl345::Adxl345(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
+Adxl345::Adxl345(std::string initStr) : mraaIo(initStr)
 {
-    if(mraaIo == NULL)
+    if(!mraaIo.i2cs.empty())
     {
-      throw std::invalid_argument(std::string(__FUNCTION__) +
-                              ": Failed to allocate memory for internal member");
-    }
-
-    if(!mraaIo->i2cs.empty())
-    {
-      m_i2c = &mraaIo->i2cs[0];
+      m_i2c = &mraaIo.i2cs[0];
     }
     else
     {
@@ -143,7 +142,7 @@ Adxl345::Adxl345(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS ){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() control register failed");
         return;
@@ -169,9 +168,7 @@ Adxl345::Adxl345(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
 Adxl345::~Adxl345()
 {
-  if(mraaIo != NULL)
-    delete mraaIo;
-  else
+  if(!mraaIo)
     delete m_i2c;
 }
 

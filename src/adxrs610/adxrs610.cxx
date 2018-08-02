@@ -30,6 +30,11 @@
 using namespace std;
 using namespace upm;
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
+}
+
 ADXRS610::ADXRS610(int dPin, int tPin, float aref) :
   m_aioData(new mraa::Aio(dPin)), m_aioTemp(new mraa::Aio(tPin))
 {
@@ -43,17 +48,12 @@ ADXRS610::ADXRS610(int dPin, int tPin, float aref) :
   m_centerVolts = aref / 2.0;
 }
 
-ADXRS610::ADXRS610(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
+ADXRS610::ADXRS610(std::string initStr) : mraaIo(initStr)
 {
-  if(mraaIo == NULL)
+  if(!mraaIo.aios.empty())
   {
-    throw std::invalid_argument(std::string(__FUNCTION__) +
-                            ": Failed to allocate memory for internal member");
-  }
-  if(!mraaIo->aios.empty())
-  {
-    m_aioData = &mraaIo->aios[0];
-    m_aioTemp = &mraaIo->aios[1];
+    m_aioData = &mraaIo.aios[0];
+    m_aioTemp = &mraaIo.aios[1];
   }
   else
   {
@@ -63,8 +63,8 @@ ADXRS610::ADXRS610(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
   std::vector<std::string> upmTokens;
 
-  if (!mraaIo->getLeftoverStr().empty()) {
-    upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+  if (!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
   }
 
   // ADC resolution of data and temp should be the same...
@@ -84,9 +84,7 @@ ADXRS610::ADXRS610(std::string initStr) : mraaIo(new mraa::MraaIo(initStr))
 
 ADXRS610::~ADXRS610()
 {
-  if(mraaIo != NULL)
-    delete mraaIo;
-  else
+  if(!mraaIo)
   {
     delete m_aioData;
     delete m_aioTemp;
