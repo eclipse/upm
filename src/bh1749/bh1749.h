@@ -36,10 +36,15 @@ extern "C"
 #include "bh1749_registers.h"
 
 /**
+ * @brief C API for the bh1749 color sensor driver
+ * @defgroup bh1749 libupm-bh1749
+ * @ingroup ROHM i2c color
+ */
+/**
  * @library bh1749
  * @sensor bh1749
- * @comname Color Sensor
- * @type color sensor
+ * @comname ROHM Color Sensor
+ * @type color
  * @man ROHM
  * @con i2c
  *

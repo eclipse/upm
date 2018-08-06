@@ -28,6 +28,11 @@
 #include "bh1749.h"
 
 /**
+ * @brief C++ API wrapper for the bh1749 color sensor driver
+ * @defgroup bh1749 libupm-bh1749
+ * @ingroup ROHM i2c color
+ */
+/**
  * @library bh1749
  * @sensor bh1749
  * @comname Color Sensor

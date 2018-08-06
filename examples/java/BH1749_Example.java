@@ -28,7 +28,7 @@ public class BH1749_Example {
 		int sampleCounter = 10;
 		long waitTime;
 		upm_bh1749.BH1749 bh1749;
-		upm_bh1749.floatVector result;
+		upm_bh1749.uint16Vector result;
 		
 		bh1749 = new upm_bh1749.BH1749();
 		bh1749.SensorInit(upm_bh1749.OPERATING_MODES.INT_JUDGE_1,

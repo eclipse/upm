@@ -8,7 +8,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_bh1749)
 
 /* BEGIN Common SWIG syntax ------------------------------------------------- */
 %include "std_vector.i"
-%template(floatVector) std::vector<uint16_t>;
+%template(uint16Vector) std::vector<uint16_t>;
 
 %{
 #include "bh1749.hpp"
