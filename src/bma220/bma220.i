@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") bma220
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -24,6 +30,13 @@
 
 %ignore getAccelerometer(float *, float *, float *);
 %ignore installISR(int, mraa::Edge, void *, void *);
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
 
 %define GETTER get_gpioIntr();
 %enddef

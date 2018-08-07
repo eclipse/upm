@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME lis2ds12
     CPP_HDR lis2ds12.hpp
     CPP_SRC lis2ds12.cxx
     FTI_SRC lis2ds12_fti.c
+    IFACE_HDR iAcceleration.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

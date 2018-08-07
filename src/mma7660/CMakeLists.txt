@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME mma7660
     C_SRC mma7660.c
     CPP_HDR mma7660.hpp
     CPP_SRC mma7660.cxx
+    IFACE_HDR iAcceleration.hpp
     FTI_SRC mma7660_fti.c
     CPP_WRAPS_C
     REQUIRES mraa)

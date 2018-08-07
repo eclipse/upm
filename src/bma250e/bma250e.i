@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") bma250e
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -8,6 +14,8 @@
 %ignore installISR (BMA250E_INTERRUPT_PINS_T, int, mraa::Edge , void *, void *);
 
 %typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
 import java.util.AbstractList;
 import java.lang.Float;
 %}
@@ -15,12 +23,6 @@ import java.lang.Float;
 %typemap(javaout) upm::BMA250E {
     return new $&javaclassname($jnicall, true);
 }
-%typemap(javaout) std::vector<float> {
-    return (AbstractList<Float>)(new $&javaclassname($jnicall, true));
-}
-%typemap(jstype) std::vector<float> "AbstractList<Float>"
-
-%template(floatVector) std::vector<float>;
 
 %define INTERRUPT BMA250E_INTERRUPT_PINS_T
 %enddef

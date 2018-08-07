@@ -1,7 +1,33 @@
+#ifdef SWIGPYTHON
+%module (package="upm") adxl335
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+import java.lang.Integer;
+%}
+
+%{
+#include <vector>
+%}
+
+%typemap(javaout) std::vector<int> {
+    return (AbstractList<Integer>)(new $&javaclassname($jnicall, true));
+}
+%typemap(jstype) std::vector<int> "AbstractList<Integer>"
+
+%template(intVector) std::vector<int>;
+
 %apply int *OUTPUT { int *xVal, int *yVal, int *zVal };
 %apply float *OUTPUT { float *xAccel, float *yAccel, float *zAccel  };
 
@@ -41,6 +67,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_adxl335)
 
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
+%include "../upm_vectortypes.i"
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 #endif
@@ -48,6 +75,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_adxl335)
 
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
+%include "../upm_vectortypes.i"
 %pointer_functions(int, intp);
 %pointer_functions(float, floatp);
 #endif

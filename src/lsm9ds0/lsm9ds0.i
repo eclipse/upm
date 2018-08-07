@@ -1,9 +1,22 @@
+#ifdef SWIGPYTHON
+%module (package="upm") lsm9ds0
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
 %include "arrays_java.i";
 %include "../java_buffer.i"
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
 
 %apply int {mraa::Edge};
 %apply float *INOUT { float *x, float *y, float *z };
@@ -51,12 +64,14 @@ JAVA_JNI_LOADLIBRARY(javaupm_lsm9ds0)
 
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Javascript syntax */
 
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Python syntax */

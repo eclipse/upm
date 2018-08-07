@@ -6,6 +6,39 @@
 
 #ifdef SWIGJAVA
     %include <swiginterface.i>
+    %include "typemaps.i"
+%{
+#include <vector>
+%}
+
+    %import "../../src/upm_javastdvector.i"
+
+    %typemap(javaimports) SWIGTYPE %{
+import java.util.AbstractList;
+import java.lang.Float;
+    %}
+
+    /* Using the JAVA class types outside the core package requires
+        getCPtr to be public, modify that here */
+    %typemap(javabody) SWIGTYPE %{
+    private long swigCPtr;
+    protected boolean swigCMemOwn;
+    public $javaclassname(long cPtr, boolean cMemoryOwn) {
+        swigCMemOwn = cMemoryOwn;
+        swigCPtr = cPtr;
+    }
+    public static long getCPtr($javaclassname obj) {
+        return (obj == null) ? 0 : obj.swigCPtr;
+    }
+    %}
+
+    %typemap(javaout) std::vector<float> {
+        return (AbstractList<Float>)(new $&javaclassname($jnicall, true));
+    }
+    %typemap(jstype) std::vector<float> "AbstractList<Float>"
+    
+    %template(floatVector) std::vector<float>;
+
     %interface_impl (upm::iClock);
     %interface_impl (upm::iCollision);
     %interface_impl (upm::iDistance);
