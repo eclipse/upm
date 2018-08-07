@@ -41,10 +41,10 @@ public class H3LIS331DL_Example {
 		while(true){
 			sensor.update();
 			
-			upm_h3lis331dl.IntVector val = sensor.getRawXYZ();
+			AbstractList<Integer> val = sensor.getRawXYZ();
 			System.out.println( "Raw: X: " + val.get(0) + " Y: " + val.get(1) + " Z: " + val.get(2)  );
 			
-			upm_h3lis331dl.FloatVector accel = sensor.getAcceleration();
+			AbstractList<Float> accel = sensor.getAcceleration();
 			System.out.println( "Acceleration: X: " + accel.get(0) + " Y: " + accel.get(1) + " Z: " + accel.get(2) );
 			
 			Thread.sleep(1000);

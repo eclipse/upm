@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") bmx055
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -11,19 +17,11 @@
 %ignore getGyroscope(float *, float *, float *);
 
 %typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
 import java.util.AbstractList;
 import java.lang.Float;
 %}
-
-%typemap(javaout) SWIGTYPE {
-    return new $&javaclassname($jnicall, true);
-}
-%typemap(javaout) std::vector<float> {
-    return (AbstractList<Float>)(new $&javaclassname($jnicall, true));
-}
-%typemap(jstype) std::vector<float> "AbstractList<Float>"
-
-%template(floatVector) std::vector<float>;
 
 JAVA_JNI_LOADLIBRARY(javaupm_bmx055)
 #endif

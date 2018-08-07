@@ -4,5 +4,6 @@ upm_mixed_module_init (NAME lsm303d
     C_SRC lsm303d.c
     CPP_HDR lsm303d.hpp
     CPP_SRC lsm303d.cxx
+    IFACE_HDR iAcceleration.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

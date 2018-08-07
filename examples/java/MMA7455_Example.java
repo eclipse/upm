@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.util.AbstractList;
+
 //NOT TESTED!!!
 public class MMA7455_Example {
 
@@ -30,7 +32,7 @@ public class MMA7455_Example {
 		upm_mma7455.MMA7455 sensor = new upm_mma7455.MMA7455(0);
 
 		while (true) {
-			upm_mma7455.ShortVector val = sensor.readData();
+			AbstractList<Short> val = sensor.readData();
 			System.out.println("Accelerometer X: " + val.get(0) + ", Y: " + val.get(1) + ", Z: " + val.get(2));
 
 			Thread.sleep(1000);

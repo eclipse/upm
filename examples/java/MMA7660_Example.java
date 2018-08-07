@@ -23,6 +23,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.util.AbstractList;
+
 import upm_mma7660.MMA7660;
 
 public class MMA7660_Example
@@ -44,7 +46,7 @@ public class MMA7660_Example
 
             while (true)
             {
-                upm_mma7660.FloatVector acceleration = accel.getAcceleration();
+                AbstractList<Float> acceleration = accel.getAcceleration();
                 System.out.println("Acceleration: x = "
                                    + acceleration.get(0)
                                    + " y = "

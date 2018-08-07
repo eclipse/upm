@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") bmi160
+#endif
+
+%import "interfaces/new_interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -22,18 +28,27 @@
 %ignore getGyroscope(float *, float *, float *);
 %ignore getMagnetometer(float *, float *, float *);
 
+%typemap(javaimports) SWIGTYPE %{
+import upm_new_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
+
 JAVA_JNI_LOADLIBRARY(javaupm_bmi160)
 #endif
 /* END Java syntax */
 
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Javascript syntax */
 
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Python syntax */
