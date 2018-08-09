@@ -19,30 +19,30 @@
             "Specifications": {
                 "Supply Voltage (VDD)": {
                     "unit": "V",
-					"min": 2.5,
-					"typical": 3.0,
+                    "min": 2.5,
+                    "typical": 3.0,
                     "max": 3.6
                 },
-				"Terminal Input Voltage": {
-					"unit": "V",
-					"min": 0.7,
-					"max": 5.5
-				},
-				"Supply Current": {
+                "Terminal Input Voltage": {
+                    "unit": "V",
+                    "min": 0.7,
+                    "max": 5.5
+                },
+                "Supply Current": {
                     "unit": "uA",
                     "min": 0.8,
                     "max": 200
-				},
-				"LED Supply Current": {
-					"unit": "mA",
-					"typical": 1.4,
-					"max": 3.0
-				},
-				"Standby Mode Current": {
-					"unit": "uA",
-					"typical": 0.8,
-					"max": 1.5
-				},
+                },
+                "LED Supply Current": {
+                    "unit": "mA",
+                    "typical": 1.4,
+                    "max": 3.0
+                },
+                "Standby Mode Current": {
+                    "unit": "uA",
+                    "typical": 0.8,
+                    "max": 1.5
+                },
                 "Operating Temperature": {
                     "unit": "°C",
                     "min": -20,

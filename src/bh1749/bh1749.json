@@ -32,9 +32,9 @@
                     "min": -40,
                     "max": 85
                 }, "Illumination Detection": {
-					"unit" : "klx",
-					"value": 80
-				}
+                    "unit" : "klx",
+                    "value": 80
+                }
             },
             "Urls": {
                 "Product Pages": [

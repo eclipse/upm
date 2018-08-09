@@ -22,6 +22,7 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+//! [Interesting]
 public class BH1792_Example {
 
     public static void main(String[] args) throws InterruptedException {
@@ -31,12 +32,12 @@ public class BH1792_Example {
 
         bh1792 = new upm_bh1792.BH1792();
         BH1792ISR callback = new BH1792ISR(bh1792);
-        
+
         bh1792.SoftReset();
         bh1792.EnableSyncMode(256, 32);
-        
+
         bh1792.InstallISR(33, callback);
-        
+
         waitTime = bh1792.GetMeasurementTimeMS();
         bh1792.StartMeasurement();
 
@@ -48,15 +49,15 @@ public class BH1792_Example {
 }
 
 class BH1792ISR implements Runnable {
-    
+
     upm_bh1792.intVector2D result;
     upm_bh1792.BH1792 bh1792;
-    
+
     public BH1792ISR(upm_bh1792.BH1792 bh1792) {
         super();
         this.bh1792 = bh1792;
     }
-    
+
     public void run() {
         result = this.bh1792.GetFifoData();
         for(int i = 0; i < 32; i++)
@@ -65,3 +66,4 @@ class BH1792ISR implements Runnable {
         System.out.println("Timestamp: " + System.nanoTime() + " nsec\n");
     }
 }
+//! [Interesting]

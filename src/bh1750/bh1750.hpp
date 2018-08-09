@@ -36,7 +36,7 @@ namespace upm {
     /**
      * @brief BH1750 Light Sensor
      * @defgroup bh1750 libupm-bh1750
-     * @ingroup dfrobot i2c
+     * @ingroup rohm dfrobot i2c
      */
 
     /**
@@ -44,7 +44,7 @@ namespace upm {
      * @sensor bh1750
      * @comname Digital Light Sensor
      * @type light
-     * @man dfrobot
+     * @man rohm dfrobot
      * @con i2c
      * @web http://www.dfrobot.com/index.php?route=product/product&product_id=531
      *
@@ -63,7 +63,7 @@ namespace upm {
     /**
      * BH1750 object constructor (Analog mode)
      *
-     * @param bus The I2C bus to use 
+     * @param bus The I2C bus to use
      * @param addr The I2C address of the device
      * @param mode The mode to start operation under.  One of the
      * BH1750_OPMODES_T values.  The default is the highest precision,

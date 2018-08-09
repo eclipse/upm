@@ -422,6 +422,10 @@ and is not meant to be installed anywhere.
 @ingroup byman
 @brief Semtech Corporation
 
+@defgroup rohm ROHM Semiconductor
+@ingroup byman
+@brief ROHM Semiconductor
+
 
 ### Groups for the various Starter Kits ###
 

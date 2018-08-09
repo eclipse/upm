@@ -3,6 +3,9 @@ a110x.cxx A110X_Example.java a110x.js a110x.py
 a110x-intr.cxx A110X_intr_Example.java a110x-intr.js a110x-intr.py
 adc121c021.cxx ADC121C021_Example.java adc121c021.js adc121c021.py
 adxl345.cxx Adxl345_Example.java adxl345.js adxl345.py
+bh1749.cxx BH1749_Example.java bh1749.js bh1749.py
+bh1750.cxx BH1750_Example.java bh1750.js bh1750.py
+bh1792.cxx BH1792_Example.java bh1792.js bh1792.py
 biss0001.cxx BISS0001_Example.java biss0001.js biss0001.py
 bmpx8x.cxx BMPX8X_Example.java bmpx8x.js bmpx8x.py
 bno055.cxx BNO055_Example.java bno055.js bno055.py

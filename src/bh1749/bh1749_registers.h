@@ -139,7 +139,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define BH1749_MODE_CONTROL1_IR_GAIN_MASK 0x60
 #define BH1749_MODE_CONTROL1_RGB_GAIN_MASK 0x18
 #define BH1749_MODE_CONTROL1_ODR_MASK 0x07
-// Measurement data update flag. Sets to 0 if MODE_CONTROL1/2 reg, 
+// Measurement data update flag. Sets to 0 if MODE_CONTROL1/2 reg,
 // MODE_CONTROL2, INTERRUPT, T(H/L)_(LSB/MSB) is written or
 // MODE_CONTROL2 read. In specification named as VALID.
 #define BH1749_MODE_CONTROL2_VALID_MASK 0x80
