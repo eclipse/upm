@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     }
 
     int ndx = 0;
-    char str[20];
+    char str[23];
     uint8_t rgb[7][3] = {
         {0xd1, 0x00, 0x00},
         {0xff, 0x66, 0x22},
