@@ -4,10 +4,17 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
-# vNext
- * The interface of **kx122** has been modified to return values instead of
- receiving pointers.  This applies to member functions: getWhoAmI,
- getInterruptSource, getBufferStatus, getRawBufferSamples, and getBufferSamples.
+# v1.7.0
+ * The interface of **kx122** has been modified to return values instead
+ of receiving pointers. This applies to member functions: getWhoAmI,
+ getInterruptSource, getBufferStatus, getRawBufferSamples, and
+ getBufferSamples.
+ * The **tm1637** constructor has been updated and the fast GPIO parameter
+ has been removed with the deprecation of supporting MRAA functions. The
+ GPIO lines will initialize by default in fast mode when available.
+ * The generic **nmea_gps** library for GPS devices has been greatly enhanced
+ with new APIs to offer better control over acquisition intervals and simplify
+ parsing of the returned data.
 
 # v1.6.0
 

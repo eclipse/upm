@@ -4,6 +4,16 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.7.0
+
+ * Added Cordova bindings based on Java packages
+ * Complete rework of the nmea_gps library giving more control over data
+ acquisition and parsing
+ * Added GTest support for unit tests
+ * Removed calls to deprecated MRAA fast GPIO functions
+ * Several bug fixes and improvements around SWIG type maps and gcc8 support
+ * New sensors: kx122, kxtj3, bh1792, bh1749
+
 ### v1.6.0
 
  * Extended LED library to support the new MRAA gpio-leds APIs
