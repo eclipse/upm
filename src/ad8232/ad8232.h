@@ -51,9 +51,6 @@ typedef struct _ad8232_context {
     mraa_aio_context        aio;
     mraa_gpio_context       gpio_lo_plus;
     mraa_gpio_context       gpio_lo_minus;
-    uint8_t                 aio_pin;
-    uint8_t                 gpio_lo_plus_pin;
-    uint8_t                 gpio_lo_minus_pin;
     int                     a_res;
 } *ad8232_context;
 

@@ -39,8 +39,7 @@ collision_context collision_init(int pin) {
     if (!dev)
       return NULL;
 
-    dev->gpio_pin = pin;
-    dev->gpio = mraa_gpio_init(dev->gpio_pin);
+    dev->gpio = mraa_gpio_init(pin);
 
     if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN) != MRAA_SUCCESS)
       {

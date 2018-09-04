@@ -61,7 +61,6 @@
 
 typedef struct _button_context {
     mraa_gpio_context    gpio;
-    uint8_t              gpio_pin;
     bool                 isr_installed;
 } *button_context;
 

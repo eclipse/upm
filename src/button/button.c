@@ -42,9 +42,7 @@ button_context button_init(int pin){
         return NULL;
     }
 
-    dev->gpio_pin = pin;
-
-    dev->gpio = mraa_gpio_init(dev->gpio_pin);
+    dev->gpio = mraa_gpio_init(pin);
     mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN);
     dev->isr_installed = false;
 

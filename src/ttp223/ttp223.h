@@ -46,7 +46,6 @@
  */
 typedef struct _ttp223_context {
     mraa_gpio_context       gpio;
-    uint8_t                 gpio_pin;
     bool                    isr_installed;
 } *ttp223_context;
 

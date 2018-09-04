@@ -35,13 +35,9 @@ ad8232_context ad8232_init(int lo_plus, int lo_minus, int output,
         return NULL;
     }
 
-    dev->gpio_lo_plus_pin = lo_plus;
-    dev->gpio_lo_minus_pin = lo_minus;
-    dev->aio_pin = output;
-
-    dev->aio = mraa_aio_init(dev->aio_pin);
-    dev->gpio_lo_plus = mraa_gpio_init(dev->gpio_lo_plus_pin);
-    dev->gpio_lo_minus = mraa_gpio_init(dev->gpio_lo_minus_pin);
+    dev->aio = mraa_aio_init(output);
+    dev->gpio_lo_plus = mraa_gpio_init(lo_plus);
+    dev->gpio_lo_minus = mraa_gpio_init(lo_minus);
 
     if (dev->aio == NULL || dev->gpio_lo_minus == NULL ||
         dev->gpio_lo_plus == NULL){

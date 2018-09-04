@@ -113,9 +113,9 @@ typedef enum {
  */
 typedef struct _m24lr64e_context {
     mraa_i2c_context            i2c;
-    uint8_t                     bus;
+    int                         bus;
     uint8_t                     address;
-    m24lr64e_access_mode    mode;
+    m24lr64e_access_mode        mode;
 } *m24lr64e_context;
 
 /**

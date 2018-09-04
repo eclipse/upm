@@ -41,10 +41,8 @@ mq303a_context mq303a_init(int pin, int heater_pin) {
     if (!dev)
       return NULL;
 
-    dev->aio_pin = pin;
-    dev->gpio_pin = heater_pin;
-    dev->aio = mraa_aio_init(dev->aio_pin);
-    dev->gpio = mraa_gpio_init(dev->gpio_pin);
+    dev->aio = mraa_aio_init(pin);
+    dev->gpio = mraa_gpio_init(heater_pin);
 
     if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_OUT) != MRAA_SUCCESS)
       {

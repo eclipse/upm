@@ -43,8 +43,6 @@
 typedef struct _mq303a_context {
     mraa_gpio_context       gpio;
     mraa_aio_context        aio;
-    uint8_t                 gpio_pin;
-    uint8_t                 aio_pin;
 } *mq303a_context;
 
 /**

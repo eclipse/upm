@@ -45,7 +45,6 @@
  */
 typedef struct _collision_context {
     mraa_gpio_context        gpio;
-    uint8_t                  gpio_pin;
 } *collision_context;
 
 /**
