@@ -75,21 +75,13 @@ namespace upm
   {
   public:
       /**
-       * Enum for the memory-mapped GPIO
-       */
-      typedef enum {
-        NO  = 0,
-        YES = 1
-      } M_FAST_GPIO;
-      /**
        * TM1637 constructor
        *
        * @param clk_pin Clock pin the sensor is connected to
        * @param dio_pin Data pin the sensor is connected to
        * @param bright Initial brightness, from 0 (dark) to 7 (bright) (default is 3)
-       * @param mmio Fast memory-mapped GPIO writes; default is yes
        */
-      TM1637(int clk_pin, int dio_pin, int bright = 3, M_FAST_GPIO mmio = YES);
+      TM1637(int clk_pin, int dio_pin, int bright = 3);
       /**
        * TM1637 destructor
        */

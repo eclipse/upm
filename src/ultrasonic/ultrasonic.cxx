@@ -44,7 +44,6 @@ UltraSonic::UltraSonic (int pin) {
         fprintf (stderr, "Are you sure that pin%d you requested is valid on your platform?", pin);
         exit (1);
     }
-    mraa_gpio_use_mmaped(m_pinCtx, 1);
     mraa_gpio_isr (m_pinCtx, MRAA_GPIO_EDGE_BOTH,
                    &signalISR, this);
 }

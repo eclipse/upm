@@ -53,13 +53,11 @@ SSD1351::SSD1351 (int oc, int dc, int rst) :
                                ": Could not initialize CS pin");
         return;
     }
-    m_oc.useMmap(true);
     if (m_dc.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
         throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize data/cmd pin");
         return;
     }
-    m_dc.useMmap(true);
     if (m_rst.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
         throw std::runtime_error(string(__FUNCTION__) +
                                ": Could not initialize reset pin");

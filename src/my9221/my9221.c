@@ -95,19 +95,6 @@ my9221_context my9221_init(int dataPin, int clockPin,
 
     mraa_gpio_dir(dev->gpioData, MRAA_GPIO_OUT);
 
-#if defined(UPM_PLATFORM_LINUX)
-    // we warn if these fail, since it may not be possible to handle
-    // more than one instance
-
-    if (mraa_gpio_use_mmaped(dev->gpioClk, 1))
-        printf("%s: Warning: mmap of Clk pin failed, correct operation "
-               "may be affected.\n", __FUNCTION__);
-
-    if (mraa_gpio_use_mmaped(dev->gpioData, 1))
-        printf("%s: Warning: mmap of Data pin failed, correct operation "
-               "may be affected.\n", __FUNCTION__);
-#endif // UPM_PLATFORM_LINUX
-
     my9221_set_low_intensity_value(dev, 0x00);   // full off
     my9221_set_high_intensity_value(dev, 0xff);  // full bright
 

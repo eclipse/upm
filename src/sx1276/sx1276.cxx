@@ -80,7 +80,6 @@ SX1276::SX1276(uint8_t chipRev, int bus, int cs, int resetPin, int dio0,
   m_spi.frequency(10000000); // 10Mhz, if supported
 
   m_gpioCS.dir(mraa::DIR_OUT);
-  m_gpioCS.useMmap(true);
   csOff();
 
   m_gpioReset.dir(mraa::DIR_IN);

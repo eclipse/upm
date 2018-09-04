@@ -100,11 +100,6 @@ speaker_context speaker_init(int pin)
         return NULL;
     }
 
-#if defined(UPM_PLATFORM_LINUX)
-    // Would prefer, but not fatal if not available
-    mraa_gpio_use_mmaped(dev->gpio, 1);
-#endif // UPM_PLATFORM_LINUX
-
     mraa_gpio_dir(dev->gpio, MRAA_GPIO_OUT);
 
     return dev;

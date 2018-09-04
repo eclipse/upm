@@ -40,7 +40,7 @@ const uint8_t m_char[26] = {0x77, 0x7c, 0x39, 0x5e, 0x79,
 using namespace std;
 using namespace upm;
 
-upm::TM1637::TM1637(int clk_pin, int dio_pin, int bright, M_FAST_GPIO mmio) {
+upm::TM1637::TM1637(int clk_pin, int dio_pin, int bright) {
 
     if((m_clk = mraa_gpio_init(clk_pin)) == NULL){
        throw std::invalid_argument(std::string(__FUNCTION__) +
@@ -60,15 +60,6 @@ upm::TM1637::TM1637(int clk_pin, int dio_pin, int bright, M_FAST_GPIO mmio) {
     // Let the resistors pull the lines high
     mraa_gpio_mode(m_clk, MRAA_GPIO_PULLUP);
     mraa_gpio_mode(m_dio, MRAA_GPIO_PULLUP);
-
-    if(mmio){
-       if(mraa_gpio_use_mmaped(m_clk, 1) != MRAA_SUCCESS ||
-          mraa_gpio_use_mmaped(m_dio, 1) != MRAA_SUCCESS){
-           throw std::runtime_error(std::string(__FUNCTION__) +
-                                    ": mraa_gpio_use_mmaped() failed");
-           return;
-       }
-    }
 
     mraa_gpio_write(m_clk, 0);
     mraa_gpio_write(m_dio, 0);

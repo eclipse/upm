@@ -47,7 +47,6 @@ StepMotor::StepMotor (int dirPin, int stePin, int steps, int enPin)
                                ": Could not initialize dirPin as output");
         return;
     }
-    m_dirPinCtx.useMmap(true);
     m_dirPinCtx.write(0);
 
     if (m_stePinCtx.dir(mraa::DIR_OUT) != mraa::SUCCESS) {
@@ -55,7 +54,6 @@ StepMotor::StepMotor (int dirPin, int stePin, int steps, int enPin)
                                ": Could not initialize stePin as output");
         return;
     }
-    m_stePinCtx.useMmap(true);
     m_stePinCtx.write(0);
 
     if (enPin >= 0) {
@@ -65,7 +63,6 @@ StepMotor::StepMotor (int dirPin, int stePin, int steps, int enPin)
                                ": Could not initialize enPin as output");
             return;
         }
-        m_enPinCtx->useMmap(true);
         enable(true);
     }
 }
