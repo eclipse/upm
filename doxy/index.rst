@@ -23,15 +23,6 @@ repository.
 
 Individual sensor usage examples for Python are available `here <https://github.com/intel-iot-devkit/upm/tree/master/examples/python>`_.
 
-``IDE Compatibility``
-################
-
-While there is no official IDE provided with our Python libraries, we do recommend the web-based IDE Wyliodrin. It can be used with multiple programming
-languages, including Python. More information can be found on the Intel Developer Zone IDE page.
-
-.. image:: ../docs/icons/wyliodrin.png
-   :target: https://software.intel.com/iot/software/ide
-
 ``Making your own UPM Module``
 ##############################
 

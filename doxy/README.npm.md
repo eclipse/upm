@@ -34,13 +34,6 @@ var lib = require('jsupm_<module-name>');
 ### Supported Sensors
 The full list is available on [Intel® IoT Developer Zone](https://software.intel.com/en-us/iot/hardware/sensors).
 
-### IDE Integration
-Intel® XDK IoT Edition is the recommended IDE for Node.js development. Visit
-the Intel® Developer Zone [IDE page](https://software.intel.com/iot/software/ide)
-for more information on how to get started.
-
-![Intel XDK](http://iotdk.intel.com/docs/master/upm/docs/icons/xdk.png)
-
 ### Building UPM
 See building documentation [here](https://github.com/intel-iot-devkit/upm/blob/master/docs/building.md).
 
