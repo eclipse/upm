@@ -67,8 +67,8 @@ namespace upm {
    *
    * @image html ecs1030.jpg
    * <br><em>ECS1030 Sensor image provided by SparkFun* under
-   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
-   * CC BY-NC-SA-3.0</a>.</em>
+   * <a href=https://creativecommons.org/licenses/by/2.0/>
+   * CC BY 2.0</a>.</em>
    *
    * @snippet ecs1030.cxx Interesting
    */

@@ -58,8 +58,8 @@ namespace upm {
    *
    * @image html l298.jpg
    * <br><em>L298 Dual H-Bridge Motor Driver image provided by SparkFun* under
-   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
-   * CC BY-NC-SA-3.0</a>.</em> 
+   * <a href=https://creativecommons.org/licenses/by/2.0/>
+   * CC BY 2.0</a>.</em> 
    *
    * Example driving a DC motor
    * @snippet l298.cxx Interesting

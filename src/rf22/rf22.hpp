@@ -430,8 +430,8 @@ namespace upm {
  *
  * @image html rf22.jpg
  * <br><em>RF22 Sensor image provided by SparkFun* under
- * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
- * CC BY-NC-SA-3.0</a>.</em>
+ * <a href=https://creativecommons.org/licenses/by/2.0/>
+ * CC BY 2.0</a>.</em>
  *
  * @snippet rf22-server.cxx Interesting
  * @snippet rf22-client.cxx Interesting

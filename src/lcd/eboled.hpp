@@ -76,8 +76,8 @@ namespace upm
    *
    * @image html eboled.jpg
    * <br><em>OLED Sensor image provided by SparkFun* under
-   * <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/>
-   * CC BY-NC-SA-3.0</a>.</em>
+   * <a href=https://creativecommons.org/licenses/by/2.0/>
+   * CC BY 2.0</a>.</em>
    *
    * @snippet lcd-eboled.cxx Interesting
    */
