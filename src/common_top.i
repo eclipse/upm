@@ -28,9 +28,9 @@ void cleanUp()
      * See https://codereview.chromium.org/412163003 for this API change
      */
 #if (SWIG_V8_VERSION < 0x032838)
-    while (!v8::V8::IdleNotification())
+    while (!v8::V8::IdleNotificationDeadline())
 #else
-    while (!v8::Isolate::GetCurrent()->IdleNotification(1000))
+    while (!v8::Isolate::GetCurrent()->IdleNotificationDeadline(1000))
 #endif
     {;}
 }
