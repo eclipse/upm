@@ -304,7 +304,7 @@ static upm_result_t kxtj3_write_register(const kxtj3_context dev, uint8_t reg, u
 
 static upm_result_t kxtj3_set_bit_on(const kxtj3_context dev, uint8_t reg, uint8_t bit_mask)
 {
-    uint8_t reg_value;
+    uint8_t reg_value = 0;
     if (kxtj3_read_register(dev, reg, &reg_value) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -314,7 +314,7 @@ static upm_result_t kxtj3_set_bit_on(const kxtj3_context dev, uint8_t reg, uint8
 
 static upm_result_t kxtj3_set_bit_off(const kxtj3_context dev, uint8_t reg, uint8_t bit_mask)
 {
-    uint8_t reg_value;
+    uint8_t reg_value = 0;
     if (kxtj3_read_register(dev, reg, &reg_value) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -324,7 +324,7 @@ static upm_result_t kxtj3_set_bit_off(const kxtj3_context dev, uint8_t reg, uint
 
 static upm_result_t kxtj3_set_bits_with_mask(const kxtj3_context dev, uint8_t reg, uint8_t val, uint8_t bit_mask)
 {
-    uint8_t reg_val;
+    uint8_t reg_val = 0;
     if (kxtj3_read_register(dev, reg, &reg_val) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -600,7 +600,7 @@ upm_result_t kxtj3_set_odr_wakeup_function(const kxtj3_context dev, KXTJ3_ODR_WA
 
 static bool kxtj3_check_digital_communication_reg_value(kxtj3_context dev, uint8_t expected_val)
 {
-    uint8_t dcst_reg;
+    uint8_t dcst_reg = 0;
     if (kxtj3_read_register(dev, KXTJ3_DCST_RESP, &dcst_reg) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -1017,7 +1017,7 @@ upm_result_t kxtj3_set_wakeup_motion_time(kxtj3_context dev, float desired_time)
 upm_result_t kxtj3_get_wakeup_motion_time(kxtj3_context dev, float *out_time)
 {
     assert(dev != NULL);
-    uint8_t motion_count;
+    uint8_t motion_count = 0;
     if (kxtj3_read_register(dev, KXTJ3_WAKEUP_COUNTER, &motion_count) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -1044,7 +1044,7 @@ upm_result_t kxtj3_set_wakeup_non_activity_time(kxtj3_context dev, float desired
 upm_result_t kxtj3_get_wakeup_non_activity_time(kxtj3_context dev, float *out_time)
 {
     assert(dev != NULL);
-    uint8_t non_activity_reg_count;
+    uint8_t non_activity_reg_count = 0;
     if (kxtj3_read_register(dev, KXTJ3_NA_COUNTER, &non_activity_reg_count) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
@@ -1082,7 +1082,7 @@ upm_result_t kxtj3_set_wakeup_threshold_g_value(kxtj3_context dev, float g_thres
 upm_result_t kxtj3_get_wakeup_threshold(kxtj3_context dev, float *out_threshold)
 {
     assert(dev != NULL);
-    uint8_t reg_value_h, reg_value_l;
+    uint8_t reg_value_h = 0, reg_value_l = 0;
     if (kxtj3_read_register(dev, KXTJ3_WAKEUP_THRESHOLD_H, &reg_value_h) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
 
