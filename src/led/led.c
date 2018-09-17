@@ -76,7 +76,7 @@ led_context led_init_str(const char* name){
     dev->gpio = NULL;
 
     dev->name = name;
-    dev->gpioled = mraa_led_init(name);
+    dev->gpioled = mraa_led_init_raw(name);
 
     if (!dev->gpioled) {
         printf("%s: Unable to initialize gpioled device (%s).\n", __FUNCTION__, dev->name);
