@@ -54,6 +54,18 @@ sudo apt-get install libupm-dev libupm-java python-upm python3-upm node-upm upm-
 Running UPM applications on Ubuntu systems requires elevated permissions
 (e.g. run with `sudo`).
 
+### Fedora Linux
+
+MRAA and UPM are available through the default package repositories on Fedora and can be
+installed in the standard method using dnf.
+
+To install:
+
+```bash
+sudo dnf install upm
+sudo dnf install paython3-upm nodejs-upm upm-examples
+```
+
 ### Node.js bindings only (NPM)
 
 This option allows compiling MRAA/UPM on any system with npm and node-gyp.
