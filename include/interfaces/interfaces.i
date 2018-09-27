@@ -1,7 +1,7 @@
 #ifdef SWIGPYTHON
-%module (package="upm") pyupm_new_interfaces
+%module (package="upm") pyupm_interfaces
 #else
-%module new_interfaces
+%module interfaces
 #endif
 
 #ifdef SWIGJAVA
@@ -39,11 +39,17 @@ import java.lang.Float;
     
     %template(floatVector) std::vector<float>;
 
+    %interface_impl (upm::iAcceleration);
+    %interface_impl (upm::iAngle);
+    %interface_impl (upm::iButton);
     %interface_impl (upm::iClock);
     %interface_impl (upm::iCollision);
     %interface_impl (upm::iDistance);
     %interface_impl (upm::iDistanceInterrupter);
     %interface_impl (upm::iEC);
+    %interface_impl (upm::iElectromagnet);
+    %interface_impl (upm::iEmg);
+    %interface_impl (upm::iGps);
     %interface_impl (upm::iHallEffect);
     %interface_impl (upm::iHeartRate);
     %interface_impl (upm::iHumidity);
@@ -51,17 +57,27 @@ import java.lang.Float;
     %interface_impl (upm::iLineFinder);
     %interface_impl (upm::iMoisture);
     %interface_impl (upm::iMotion);
+    %interface_impl (upm::iOrp);
+    %interface_impl (upm::iPH);
     %interface_impl (upm::iPressure);
+    %interface_impl (upm::iProximity);
     %interface_impl (upm::iTemperature);
-    %interface_impl (upm::iAcceleration);
+    %interface_impl (upm::iVDiv);
+    %interface_impl (upm::iWater);
 #endif
 
 %{
+    #include "iAcceleration.hpp"
+    #include "iAngle.hpp"
+    #include "iButton.hpp"
     #include "iClock.hpp"
     #include "iCollision.hpp"
     #include "iDistance.hpp"
     #include "iDistanceInterrupter.hpp"
     #include "iEC.hpp"
+    #include "iElectromagnet.hpp"
+    #include "iEmg.hpp"
+    #include "iGps.hpp"
     #include "iHallEffect.hpp"
     #include "iHeartRate.hpp"
     #include "iHumidity.hpp"
@@ -69,16 +85,26 @@ import java.lang.Float;
     #include "iLineFinder.hpp"
     #include "iMoisture.hpp"
     #include "iMotion.hpp"
+    #include "iOrp.hpp"
+    #include "iPH.hpp"
     #include "iPressure.hpp"
+    #include "iProximity.hpp"
     #include "iTemperature.hpp"
-    #include "iAcceleration.hpp"
+    #include "iVDiv.hpp"
+    #include "iWater.hpp"
 %}
 
+%include "iAcceleration.hpp"
+%include "iAngle.hpp"
+%include "iButton.hpp"
 %include "iClock.hpp"
 %include "iCollision.hpp"
 %include "iDistance.hpp"
 %include "iDistanceInterrupter.hpp"
 %include "iEC.hpp"
+%include "iElectromagnet.hpp"
+%include "iEmg.hpp"
+%include "iGps.hpp"
 %include "iHallEffect.hpp"
 %include "iHeartRate.hpp"
 %include "iHumidity.hpp"
@@ -86,9 +112,13 @@ import java.lang.Float;
 %include "iLineFinder.hpp"
 %include "iMoisture.hpp"
 %include "iMotion.hpp"
+%include "iOrp.hpp"
+%include "iPH.hpp"
 %include "iPressure.hpp"
+%include "iProximity.hpp"
 %include "iTemperature.hpp"
-%include "iAcceleration.hpp"
+%include "iVDiv.hpp"
+%include "iWater.hpp"
 
 /* Java-specific SWIG syntax */
 #ifdef SWIGJAVA

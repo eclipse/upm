@@ -4,8 +4,6 @@
 #ifdef SWIGJAVA
 %include "arrays_java.i";
 %include "../java_buffer.i"
-%typemap(javaimports) SWIGTYPE %{import upm_interfaces.*;%}
-%import "../interfaces/javaupm_iLightController.i"
 
 JAVA_JNI_LOADLIBRARY(javaupm_ds1808lc)
 #endif
@@ -13,15 +11,11 @@ JAVA_JNI_LOADLIBRARY(javaupm_ds1808lc)
 
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
-%include "iModuleStatus.hpp"
-%include "iLightController.hpp"
 #endif
 /* END Javascript syntax */
 
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
-%include "iModuleStatus.hpp"
-%include "iLightController.hpp"
 #endif
 /* END Python syntax */
 

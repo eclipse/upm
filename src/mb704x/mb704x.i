@@ -2,14 +2,14 @@
 %module (package="upm") mb704x
 #endif
 
-%import "interfaces/new_interfaces.i"
+%import "interfaces/interfaces.i"
 
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
 %typemap(javaimports) SWIGTYPE %{
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 %}
 
 JAVA_JNI_LOADLIBRARY(javaupm_mb704x)

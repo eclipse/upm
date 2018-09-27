@@ -2,7 +2,7 @@
 %module (package="upm") h3lis331dl
 #endif
 
-%import "interfaces/new_interfaces.i"
+%import "interfaces/interfaces.i"
 
 %include "../common_top.i"
 
@@ -18,7 +18,7 @@
 %ignore i2cContext;
 
 %typemap(javaimports) SWIGTYPE %{
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 import java.util.AbstractList;
 import java.lang.Float;

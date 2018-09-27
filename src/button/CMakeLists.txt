@@ -4,4 +4,5 @@ upm_mixed_module_init (NAME button
     C_SRC button.c
     CPP_HDR button.hpp
     CPP_SRC button.cxx
+    IFACE_HDR iButton.hpp
     REQUIRES mraa)

@@ -3,13 +3,12 @@
 #include <string>
 
 #include "hlg150h.hpp"
-#include "iLightController.hpp"
 
 #define HLG150H_GPIO_RELAY 21
 #define HLG150H_GPIO_PWM 22
 
 void
-printState(upm::ILightController& lightController)
+printState(upm::HLG150H& lightController)
 {
     if (lightController.isPowered()) {
         std::cout << "Light is powered, brightness = " << lightController.getBrightness()

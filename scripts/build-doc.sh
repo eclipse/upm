@@ -25,7 +25,7 @@ cd ${ROOT_DIR} && make -j8 -Cbuild 2> ${BUILD_LOGS_DIR}/build-doc.log
 cd ${BUILD_DIR} && find ../src/ -name "*.i" > upm.i.list && \
 ../doxy/doxyport/doxyport upm.i.list \
     --cmake ./compile_commands.json \
-    --source ../src/interfaces/,../src/bacnetmstp,src \
+    --source ../src/bacnetmstp,src \
     --destination src/ \
     --convert-protected-to-private \
     --output upm-java-files.txt \

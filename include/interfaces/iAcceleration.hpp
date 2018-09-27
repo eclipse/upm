@@ -40,7 +40,7 @@ namespace upm
              * Get acceleration values on X, Y and Z axis.
              * v[0] = X, v[1] = Y, v[2] = Z
              * 
-             * @return vector of 3 floats containing acceleration on each axis
+             * @return vector of 3 floats containing acceleration on each axis in Gs
              */
             virtual std::vector<float> getAcceleration() = 0;
     };

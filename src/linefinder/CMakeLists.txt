@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME linefinder
     CPP_HDR linefinder.hpp
     CPP_SRC linefinder.cxx
     FTI_SRC linefinder_fti.c
+    IFACE_HDR iLineFinder.hpp
     CPP_WRAPS_C
     REQUIRES mraa)

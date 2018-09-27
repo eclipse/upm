@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME rotaryencoder
     CPP_HDR rotaryencoder.hpp
     CPP_SRC rotaryencoder.cxx
     FTI_SRC rotaryencoder_fti.c
+    IFACE_HDR iAngle.hpp
     CPP_WRAPS_C
     REQUIRES mraa)

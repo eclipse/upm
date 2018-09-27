@@ -1,4 +1,4 @@
-set (libname "new_interfaces")
+set (libname "interfaces")
 set (libdescription "CXX Interface Library")
 set (module_src ${libname}.cxx)
 

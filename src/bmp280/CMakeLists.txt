@@ -6,5 +6,5 @@ upm_mixed_module_init (NAME bmp280
     CPP_SRC bmp280.cxx bme280.cxx
     IFACE_HDR iHumidity.hpp iPressure.hpp iTemperature.hpp
     CPP_WRAPS_C
-    REQUIRES mraa interfaces utilities-c)
+    REQUIRES mraa utilities-c)
 target_link_libraries(${libnamec} m)

@@ -23,7 +23,7 @@
  */
 
 import upm_sht1x.SHT1X;
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 public class SHT1X_Example
 {

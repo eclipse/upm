@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import upm_bmp280.BMP280;
 import upm_hp20x.HP20X;
 import upm_ms5611.MS5611;
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 /**
  * iPressure_Example

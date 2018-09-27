@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME rotary
     CPP_HDR rotary.hpp
     CPP_SRC rotary.cxx
     FTI_SRC rotary_fti.c
+    IFACE_HDR iAngle.hpp
     REQUIRES mraa)

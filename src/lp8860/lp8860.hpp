@@ -22,11 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "interfaces/iLightController.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm
 {
+    #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
 /**
  * @brief LP8860 LED Lighting Controller
  * @defgroup lp8860 libupm-lp8860
@@ -51,12 +52,12 @@ namespace upm
  *
  * @snippet lp8860.cxx Interesting
  */
-class LP8860 : public upm::ILightController
+class LP8860
 {
 public:
    LP8860(int gpioPower, int i2cBus);
    ~LP8860();
-   virtual const char* getModuleName() { return "lp8860"; }
+   const char* getModuleName() { return "lp8860"; }
    bool isPowered();
    void setPowerOn();
    void setPowerOff();

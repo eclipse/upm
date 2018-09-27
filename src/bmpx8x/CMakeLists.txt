@@ -7,5 +7,5 @@ upm_mixed_module_init (NAME bmpx8x
     IFACE_HDR iPressure.hpp
     FTI_SRC bmpx8x_fti.c
     CPP_WRAPS_C
-    REQUIRES mraa interfaces utilities-c)
+    REQUIRES mraa utilities-c)
 target_link_libraries(${libnamec} m)

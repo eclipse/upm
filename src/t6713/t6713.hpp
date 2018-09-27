@@ -24,7 +24,6 @@
 
 
 #include "mraa/i2c.hpp"
-#include "interfaces/iCO2Sensor.hpp"
 
 namespace upm {
 /**
@@ -53,6 +52,8 @@ namespace upm {
  * @snippet t6713.cxx Interesting
  * @snippet t6713-co2-sensor.cxx Interesting
  */
+
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
 namespace t6713_co2
 {
@@ -104,7 +105,7 @@ namespace t6713_co2
     }FUNCTION_CODES;
 }//namespace t6713_co2
 
-class T6713 : public ICO2Sensor {
+class T6713 {
     public:
         /**
         * Instantiates a T6713 object

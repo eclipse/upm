@@ -22,7 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "iLightController.hpp"
 #include "mraa/i2c.hpp"
 
 namespace upm
@@ -51,7 +50,9 @@ namespace upm
  *
  * @snippet ds1808lc.cxx Interesting
  */
-class DS1808LC : public upm::ILightController
+#define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
+class DS1808LC
 {
 public:
    DS1808LC(int gpioPower, int i2cBus);
