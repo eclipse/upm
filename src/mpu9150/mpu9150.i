@@ -2,7 +2,7 @@
 %module (package="upm") mpu9150
 #endif
 
-%import "interfaces/new_interfaces.i"
+%import "interfaces/interfaces.i"
 
 %include "../common_top.i"
 
@@ -13,7 +13,7 @@
 %include "../java_buffer.i"
 
 %typemap(javaimports) SWIGTYPE %{
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 import java.util.AbstractList;
 import java.lang.Float;

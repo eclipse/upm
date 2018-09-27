@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <string>
 
-#include "iLightController.hpp"
 #include "lp8860.hpp"
 
 #define EDISON_I2C_BUS 1   // Edison I2C-1
 #define LP8860_GPIO_PWR 45 // Edison GP45
 
 void
-printState(upm::ILightController& lightController)
+printState(upm::LP8860& lightController)
 {
     if (lightController.isPowered()) {
         std::cout << "Light is powered, brightness = " << lightController.getBrightness()

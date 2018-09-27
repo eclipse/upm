@@ -8,7 +8,7 @@
 #define DS1808_GPIO_PWR 15 // Edison GP165
 
 void
-printState(upm::ILightController& lightController)
+printState(upm::DS1808LC& lightController)
 {
     if (lightController.isPowered()) {
         std::cout << "Light is powered, brightness = " << lightController.getBrightness()

@@ -255,23 +255,23 @@ function (_get_current_dot_i_file filePrefix varDotIFile)
       string(REPLACE "#" "%" SWIG_PERCENT_INCLUDES "${SWIG_HASH_INCLUDES}")
       if(module_iface)
         # Set up Python bindings
-        set(PYTHON_NEW_INTERFACES "#ifdef SWIGPYTHON\n")
-        string(APPEND PYTHON_NEW_INTERFACES "%module (package=\"pyupm_new_interfaces\") ${libname}\n")
-        string(APPEND PYTHON_NEW_INTERFACES "#endif")
+        set(PYTHON_INTERFACES "#ifdef SWIGPYTHON\n")
+        string(APPEND PYTHON_INTERFACES "%module (package=\"upm\") ${libname}\n")
+        string(APPEND PYTHON_INTERFACES "#endif")
         # Include interfaces
-        set(IMPORT_NEW_INTERFACES "%import \"interfaces/new_interfaces.i\"")
+        set(IMPORT_INTERFACES "%import \"interfaces/interfaces.i\"")
         # Set up Java bindings
         string(APPEND JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\n")
-        string(APPEND JAVA_TYPEMAPS "import upm_new_interfaces.*;\n%}")
+        string(APPEND JAVA_TYPEMAPS "import upm_interfaces.*;\n%}")
         if (CMAKE_VERSION VERSION_LESS "3.3" )
           list (FIND module_iface "iAcceleration.hpp" _index)
           if (${_index} GREATER -1)
-            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_new_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
           endif()
         else()
           cmake_policy(SET CMP0057 NEW)
           if ("iAcceleration.hpp" IN_LIST module_iface)
-            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_new_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
           endif()
         endif()
       endif()
@@ -329,7 +329,7 @@ macro(_upm_swig_python)
   set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
 
   if(module_iface)
-    add_dependencies(${python_wrapper_target} _pyupm_new_interfaces-python${PYTHON_VERSION_MAJOR})
+    add_dependencies(${python_wrapper_target} _pyupm_interfaces-python${PYTHON_VERSION_MAJOR})
   endif()
 
   add_dependencies(${python_wrapper_target} ${libname})
@@ -464,7 +464,7 @@ function(upm_swig_node)
 
     # Add interfaces if necessary
     if(module_iface)
-      add_dependencies(jsupm_${libname} jsupm_new_interfaces)
+      add_dependencies(jsupm_${libname} jsupm_interfaces)
     endif()
 
     add_dependencies(jsupm_${libname} ${libname})
@@ -556,15 +556,9 @@ function(upm_swig_java)
 
     # If the C++ target depends on C++ interfaces, make the JAVA target
     # depend on the JAVA interfaces
-    if ("${_c_cxx_dependency_list}" MATCHES interfaces)
-      add_dependencies(javaupm_${libname} javaupm_interfaces)
-      # If this target depends on interfaces, include the java interfaces
-      # target .jar file in the classpath, otherwise this variable will be empty
-      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
-    endif ()
     if(module_iface)
-      add_dependencies(javaupm_${libname} javaupm_new_interfaces)
-      set (NEW_INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/interfaces/upm_new_interfaces.jar)
+      add_dependencies(javaupm_${libname} javaupm_interfaces)
+      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/interfaces/upm_interfaces.jar)
     endif()
     # For linker to report unresolved symbols.  Note, there is currently no test
     # for linker flags (similar to compile files), so this is it for now.
@@ -616,7 +610,7 @@ function(upm_swig_java)
     add_custom_command (TARGET javaupm_${libname}
         POST_BUILD
         COMMAND cmake -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/upm_${libname}
-        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:${NEW_INTERFACES_JAR_FILE}:.
+        COMMAND ${JAVAC} *.java -d ${CMAKE_CURRENT_BINARY_DIR} -cp ${INTERFACES_JAR_FILE}:.
         COMMAND ${JAR} cf upm_${libname}.jar upm_${libname}
     )
 
@@ -678,10 +672,8 @@ if (BUILDSWIGNODE)
 
         # Utilities and interfaces
         file (COPY ${CMAKE_SOURCE_DIR}/src/utilities DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
-        file (COPY ${CMAKE_SOURCE_DIR}/src/interfaces DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_SRCS_GYP "'utilities/upm_utilities.c',\n${upm_LIB_SRCS_GYP}")
         set (upm_LIB_INCLUDE_DIRS_GYP "'utilities',\n${upm_LIB_INCLUDE_DIRS_GYP}")
-        set (upm_LIB_INCLUDE_DIRS_GYP "'interfaces',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
         # Add readme, package.json for NPM and node-gyp config file
         configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
@@ -976,12 +968,6 @@ endif()
 # most sensor library targets depend on utilities
 if (NOT "${MODULE_LIST}" MATCHES ";utilities;")
   set(MODULE_LIST "utilities;${MODULE_LIST}")
-endif()
-
-# If the module list does NOT include the interfaces directory, prepend it since
-# some sensor library targets depend on interfaces
-if (NOT "${MODULE_LIST}" MATCHES ";interfaces;")
-  set(MODULE_LIST "interfaces;${MODULE_LIST}")
 endif()
 
 # Iterate over each directory in MODULE_LIST

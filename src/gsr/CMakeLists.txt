@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME gsr
     CPP_HDR gsr.hpp
     CPP_SRC gsr.cxx
     FTI_SRC gsr_fti.c
+    IFACE_HDR iEC.hpp
     REQUIRES mraa)

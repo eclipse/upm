@@ -1,9 +1,9 @@
 /* This SWIG .i file is generated from UPM CMake.  If additional functionality
  * is required, custom .i files can be placed in the library directory.
  */
-@PYTHON_NEW_INTERFACES@
+@PYTHON_INTERFACES@
 
-@IMPORT_NEW_INTERFACES@
+@IMPORT_INTERFACES@
 
 /* Common SWIG syntax */
 %include "../common_top.i"

@@ -2,7 +2,7 @@
 %module (package="upm") lsm303d
 #endif
 
-%import "interfaces/new_interfaces.i"
+%import "interfaces/interfaces.i"
 
 %include "../common_top.i"
 
@@ -13,7 +13,7 @@
 %ignore getAccelerometer(float *, float *, float *);
 
 %typemap(javaimports) SWIGTYPE %{
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 import java.util.AbstractList;
 import java.lang.Float;

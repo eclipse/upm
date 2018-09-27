@@ -26,7 +26,6 @@
 #pragma once
 
 #include "ads1x15.hpp"
-#include "interfaces/iADC.hpp"
 
 #define ADS1015_VREF 2.048
 
@@ -85,7 +84,9 @@ namespace upm {
    * @snippet ads1x15-ads1015.cxx Interesting
    * @snippet ads1x15-adc-sensor.cxx Interesting
    */
-    class ADS1015 : public ADS1X15, public IADC {
+    #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
+    class ADS1015 : public ADS1X15 {
 
         public:
 

@@ -27,7 +27,6 @@
 #include <stddef.h>
 
 #include "ads1015.hpp"
-#include "iADC.hpp"
 #include "mraa/gpio.hpp"
 #include "upm_utilities.h"
 
@@ -39,24 +38,21 @@ int
 main()
 {
     /* Create an instance of the ADS1015 sensor */
-    upm::ADS1015 sensor(EDISON_I2C_BUS);
+    upm::ADS1015 adc(EDISON_I2C_BUS);
     mraa::Gpio gpio(EDISON_GPIO_SI7005_CS);
     gpio.dir(mraa::DIR_OUT_HIGH);
 
-    /* Show usage from the IADC interface */
-    upm::IADC* adc = static_cast<upm::IADC*>(&sensor);
-
-    if (adc == NULL) {
-        std::cout << "ADC not detected" << std::endl;
-        return 1;
-    }
-    std::cout << "ADC " << adc->getModuleName() << " detected. ";
-    std::cout << adc->getNumInputs() << " inputs available" << std::endl;
+    // if (adc == NULL) {
+    //     std::cout << "ADC not detected" << std::endl;
+    //     return 1;
+    // }
+    std::cout << "ADC " << adc.getModuleName() << " detected. ";
+    std::cout << adc.getNumInputs() << " inputs available" << std::endl;
     while (true) {
-        for (unsigned int i = 0; i < adc->getNumInputs(); ++i) {
+        for (unsigned int i = 0; i < adc.getNumInputs(); ++i) {
             std::cout << "Input " << i;
             try {
-                float voltage = adc->getVoltage(i);
+                float voltage = adc.getVoltage(i);
                 std::cout << ": Voltage = " << voltage << "V" << std::endl;
             } catch (std::exception& e) {
                 std::cerr << e.what() << std::endl;

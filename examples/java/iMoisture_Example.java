@@ -2,7 +2,7 @@
  * Author: Serban Waltter <serban.waltter@rinftech.com>
  */
 
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 import upm_moisture.*;
 import upm_ims.*;

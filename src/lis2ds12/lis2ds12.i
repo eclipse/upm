@@ -2,7 +2,7 @@
 %module (package="upm") lis2ds12
 #endif
 
-%import "interfaces/new_interfaces.i"
+%import "interfaces/interfaces.i"
 
 %include "../common_top.i"
 
@@ -12,7 +12,7 @@
 #%ignore installISR(LIS2DS12_INTERRUPT_PINS_T , int ,  mraa::Edge, void *, void *);
 
 %typemap(javaimports) SWIGTYPE %{
-import upm_new_interfaces.*;
+import upm_interfaces.*;
 
 import java.util.AbstractList;
 import java.lang.Float;

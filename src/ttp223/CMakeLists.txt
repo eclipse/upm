@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME ttp223
     CPP_HDR ttp223.hpp
     CPP_SRC ttp223.cxx
     FTI_SRC ttp223_fti.c
+    IFACE_HDR iButton.hpp
     CPP_WRAPS_C
     REQUIRES mraa)
