@@ -15,6 +15,7 @@
 #include "iHumidity.hpp"
 #include "iLight.hpp"
 #include "iLineFinder.hpp"
+#include "iMagnetometer.hpp"
 #include "iMoisture.hpp"
 #include "iMotion.hpp"
 #include "iOrp.hpp"

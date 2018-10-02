@@ -101,13 +101,13 @@ std::vector<float> BMI160::getGyroscope()
   return std::vector<float>(values, values + 3);
 }
 
-float *BMI160::getMagnetometer()
+std::vector<float> BMI160::getMagnetometer()
 {
   static float values[3]; // x, y, and then z
 
   getMagnetometer(&values[0], &values[1], &values[2]);
 
-  return values;
+  return std::vector<float>(values, values + 3);
 }
 
 void BMI160::enableMagnetometer(bool enable)

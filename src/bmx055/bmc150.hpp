@@ -30,6 +30,7 @@
 #include "bmm150.hpp"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iMagnetometer.hpp>
 
 #define BMC150_DEFAULT_BUS 0
 #define BMC150_DEFAULT_ACC_ADDR 0x10
@@ -72,7 +73,7 @@ namespace upm {
      * @snippet bmx055-bmc150.cxx Interesting
      */
 
-    class BMC150: virtual public iAcceleration {
+    class BMC150: virtual public iAcceleration, virtual public iMagnetometer {
     public:
         /**
          * BMC150 constructor.

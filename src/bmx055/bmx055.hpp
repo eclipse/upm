@@ -79,7 +79,7 @@ namespace upm {
    * @snippet bmx055.cxx Interesting
    */
 
-    class BMX055: virtual public iAcceleration, virtual public iGyroscope {
+    class BMX055: virtual public iAcceleration, virtual public iGyroscope, public virtual iMagnetometer {
     public:
         /**
          * BMX055 constructor.

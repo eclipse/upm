@@ -32,6 +32,7 @@
 
 #include <interfaces/iAcceleration.hpp>
 #include <interfaces/iGyroscope.hpp>
+#include <interfaces/iTemperature.hpp>
 
 #define MPU60X0_I2C_BUS 0
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68

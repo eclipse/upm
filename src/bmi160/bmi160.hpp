@@ -27,6 +27,7 @@
 
 #include <interfaces/iAcceleration.hpp>
 #include <interfaces/iGyroscope.hpp>
+#include <interfaces/iMagnetometer.hpp>
 
 #define BMI160_I2C_BUS 0
 #define BMI160_DEFAULT_I2C_ADDR 0x69
@@ -75,7 +76,7 @@ namespace upm {
      *
      * @snippet bmi160.cxx Interesting
      */
-    class BMI160: virtual public iAcceleration, virtual public iGyroscope {
+    class BMI160: virtual public iAcceleration, virtual public iGyroscope, public virtual iMagnetometer {
     public:
 
         /**
@@ -189,7 +190,7 @@ namespace upm {
          * @return Pointer to 3 floating point values: X, Y, and Z in
          * micro Teslas.
          */
-        float *getMagnetometer();
+        std::vector<float> getMagnetometer();
 
         /**
          * Get the Magnetometer values.  The values returned are in micro

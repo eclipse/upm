@@ -30,6 +30,7 @@
 
 #include <interfaces/iAcceleration.hpp>
 #include <interfaces/iGyroscope.hpp>
+#include <interfaces/iMagnetometer.hpp>
 
 namespace upm {
 
