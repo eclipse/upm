@@ -169,6 +169,7 @@ void BMX055::getMagnetometer(float *x, float *y, float *z)
 
 std::vector<float> BMX055::getMagnetometer()
 {
+    update();
     if (m_mag)
         return m_mag->getMagnetometer();
     else

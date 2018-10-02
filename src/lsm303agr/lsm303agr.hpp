@@ -32,6 +32,7 @@
 #include "lsm303agr.h"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iMagnetometer.hpp>
 
 namespace upm {
 
@@ -67,7 +68,7 @@ namespace upm {
      * @snippet lsm303agr.cxx Interesting
      */
 
-    class LSM303AGR: virtual public iAcceleration {
+    class LSM303AGR: virtual public iAcceleration, virtual public iMagnetometer {
     public:
         /**
          * LSM303AGR constructor

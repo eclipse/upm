@@ -56,6 +56,7 @@ import java.lang.Float;
     %interface_impl (upm::iHumidity);
     %interface_impl (upm::iLight);
     %interface_impl (upm::iLineFinder);
+    %interface_impl (upm::iMagnetometer);
     %interface_impl (upm::iMoisture);
     %interface_impl (upm::iMotion);
     %interface_impl (upm::iOrp);
@@ -85,6 +86,7 @@ import java.lang.Float;
     #include "iHumidity.hpp"
     #include "iLight.hpp"
     #include "iLineFinder.hpp"
+    #include "iMagnetometer.hpp"
     #include "iMoisture.hpp"
     #include "iMotion.hpp"
     #include "iOrp.hpp"
@@ -113,6 +115,7 @@ import java.lang.Float;
 %include "iHumidity.hpp"
 %include "iLight.hpp"
 %include "iLineFinder.hpp"
+%include "iMagnetometer.hpp"
 %include "iMoisture.hpp"
 %include "iMotion.hpp"
 %include "iOrp.hpp"

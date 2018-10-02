@@ -645,8 +645,11 @@ std::vector<float> LSM9DS0::getGyroscope()
 
 std::vector<float> LSM9DS0::getMagnetometer()
 {
+  update();
   std::vector<float> v(3);
-  getMagnetometer(&v[0], &v[1], &v[2]);
+  v[0] = (m_magX * m_magScale) / 1000.0;
+  v[1] = (m_magY * m_magScale) / 1000.0;
+  v[2] = (m_magZ * m_magScale) / 1000.0;
   return v;
 }
 

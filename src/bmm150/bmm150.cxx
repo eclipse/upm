@@ -96,9 +96,10 @@ void BMM150::getMagnetometer(float *x, float *y, float *z)
 
 std::vector<float> BMM150::getMagnetometer()
 {
+    update();
     float v[3];
 
-    getMagnetometer(&v[0], &v[1], &v[2]);
+    bmm150_get_magnetometer(m_bmm150, &v[0], &v[1], &v[2]);
     return std::vector<float>(v, v+3);
 }
 

@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME bmm150
     C_SRC bmm150.c
     CPP_HDR bmm150.hpp
     CPP_SRC bmm150.cxx
+    IFACE_HDR iMagnetometer.hpp
     FTI_SRC bmm150_fti.c
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

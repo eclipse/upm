@@ -62,15 +62,15 @@ public class BMI160_Example
                                    + " GZ: "
                                    + dataG.get(2));
 
-                float dataM[] = sensor.getMagnetometer();
+                AbstractList<Float> dataM = sensor.getMagnetometer();
 
                 System.out.println("Magnetometer:  "
                                    + "MX: "
-                                   + dataM[0]
+                                   + dataM.get(0)
                                    + " MY: "
-                                   + dataM[1]
+                                   + dataM.get(1)
                                    + " MZ: "
-                                   + dataM[2]);
+                                   + dataM.get(2));
 
                 System.out.println();
                 Thread.sleep(500);

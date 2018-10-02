@@ -24,9 +24,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import upm_interfaces.*;
 import upm_bmm150.BMM150;
 import java.util.AbstractList;
 import java.lang.Float;
+
 
 public class BMM150_Example
 {

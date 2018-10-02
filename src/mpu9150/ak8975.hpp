@@ -27,6 +27,8 @@
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
+#include <interfaces/iMagnetometer.hpp>
+
 #define AK8975_I2C_BUS 0
 #define AK8975_DEFAULT_I2C_ADDR 0x0c
 
@@ -50,7 +52,7 @@ namespace upm {
    *
    * @snippet mpu9150-ak8975.cxx Interesting
    */
-  class AK8975 {
+  class AK8975: virtual public iMagnetometer {
   public:
 
     /**
@@ -201,6 +203,16 @@ namespace upm {
      * @param z pointer to returned Z axis value
      */
     void getMagnetometer(float *x, float *y, float *z);
+
+    /**
+     * Return magnetometer data in micro-Teslas (uT) in the form
+     * of a floating point vector.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return A floating point vector containing x, y, and z in
+     * that order.
+     */
+    std::vector<float> getMagnetometer();
 
 
   protected:

@@ -237,3 +237,11 @@ void AK8975::getMagnetometer(float *x, float *y, float *z)
     *z = adjustValue(m_zData, m_zCoeff);
 }
 
+std::vector<float> AK8975::getMagnetometer()
+{
+  std::vector<float> v(3);
+  v[0] = adjustValue(m_xData, m_xCoeff);
+  v[0] = adjustValue(m_yData, m_yCoeff);
+  v[0] = adjustValue(m_zData, m_zCoeff);
+  return v;
+}

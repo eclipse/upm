@@ -31,6 +31,8 @@
 #include <mraa/gpio.hpp>
 #include "bmm150.h"
 
+#include <interfaces/iMagnetometer.hpp>
+
 namespace upm {
 
     /**
@@ -73,7 +75,7 @@ namespace upm {
      * @snippet bmm150.cxx Interesting
      */
 
-    class BMM150 {
+    class BMM150: virtual public iMagnetometer {
     public:
         /**
          * BMM150 constructor.

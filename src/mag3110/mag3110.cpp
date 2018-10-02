@@ -198,6 +198,28 @@ MAG3110::sampleData(void)
     return 0;
 }
 
+std::vector<float> MAG3110::getMagnetometer()
+{
+    uint8_t buf[7];
+    int re = 0;
+
+    re = m_i2ControlCtx.readBytesReg(MAG3110_DR_STATUS, buf, 7);
+    if (re != 7) {
+        /* did not read enough bytes */
+        return {-1, -1, -1};
+    }
+
+    s_data->status = buf[0];
+    s_data->x = ((int16_t)buf[1] << 8) | buf[2];
+    s_data->y = ((int16_t)buf[3] << 8) | buf[4];
+    s_data->z = ((int16_t)buf[5] << 8) | buf[6];
+
+    s_data->dtemp = m_i2ControlCtx.readReg(MAG3110_DIE_TEMP);
+
+    return {(float)s_data->x, (float)s_data->y, (float)s_data->z};
+
+}
+
 int16_t
 MAG3110::getX(int bSampleData)
 {

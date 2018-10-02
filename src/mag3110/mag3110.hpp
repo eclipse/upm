@@ -26,6 +26,8 @@
 
 #pragma once
 
+#include <interfaces/iMagnetometer.hpp>
+
 #include <string>
 #include <mraa/i2c.hpp>
 #include <stdint.h>
@@ -162,7 +164,7 @@ typedef struct {
  *
  * @snippet mag3110.cxx Interesting
  */
-class MAG3110 {
+class MAG3110: virtual public iMagnetometer {
     public:
         /**
          *
@@ -182,6 +184,16 @@ class MAG3110 {
          *         -1 on error
          */
         int checkID(void);
+
+        /**
+         * Return magnetometer data in micro-Teslas (uT) in the form
+         * of a floating point vector.  update() must have been called
+         * prior to calling this method.
+         *
+         * @return A floating point vector containing x, y, and z in
+         * that order.
+         */
+        std::vector<float> getMagnetometer();
 
         /**
          * Set user offset correction
