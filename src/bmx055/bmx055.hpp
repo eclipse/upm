@@ -33,6 +33,7 @@
 #include "bmm150.hpp"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 #define BMX055_DEFAULT_MAG_I2C_ADDR 0x12
 
@@ -78,7 +79,7 @@ namespace upm {
    * @snippet bmx055.cxx Interesting
    */
 
-    class BMX055: virtual public iAcceleration {
+    class BMX055: virtual public iAcceleration, virtual public iGyroscope {
     public:
         /**
          * BMX055 constructor.

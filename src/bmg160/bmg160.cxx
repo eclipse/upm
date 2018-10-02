@@ -108,6 +108,7 @@ void BMG160::getGyroscope(float *x, float *y, float *z)
 
 std::vector<float> BMG160::getGyroscope()
 {
+    update();
     float v[3];
 
     getGyroscope(&v[0], &v[1], &v[2]);

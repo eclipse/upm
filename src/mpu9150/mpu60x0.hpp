@@ -31,6 +31,7 @@
 #include <mraa/gpio.hpp>
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 #define MPU60X0_I2C_BUS 0
 #define MPU60X0_DEFAULT_I2C_ADDR 0x68
@@ -62,7 +63,7 @@ namespace upm {
    * @image html mpu60x0.jpg
    * @snippet mpu9150-mpu60x0.cxx Interesting
    */
-  class MPU60X0: virtual public iAcceleration {
+  class MPU60X0: virtual public iAcceleration, virtual public iGyroscope {
   public:
 
     // NOTE: These enums were composed from both the mpu6050 and
@@ -810,6 +811,13 @@ namespace upm {
      * @return true if successful, false otherwise
      */
     void getGyroscope(float *x, float *y, float *z);
+
+    /**
+     * get the gyroscope values in degrees per second
+     *
+     * @return std::vector containing X, Y, Z gyroscope values
+     */
+    std::vector<float> getGyroscope();
 
     /**
      * get the temperature value

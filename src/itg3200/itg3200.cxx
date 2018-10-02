@@ -114,6 +114,14 @@ Itg3200::getRotation()
     return &m_angle[0];
 }
 
+std::vector<float> Itg3200::getGyroscope()
+{
+    for(int i = 0; i < 3; i++){
+        m_angle[i] = m_rotation[i]/14.375;
+    }
+    return std::vector<float>(m_angle, m_angle + 3);
+}
+
 int16_t*
 Itg3200::getRawValues()
 {

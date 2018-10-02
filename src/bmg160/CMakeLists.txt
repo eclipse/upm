@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME bmg160
     CPP_HDR bmg160.hpp
     CPP_SRC bmg160.cxx
     FTI_SRC bmg160_fti.c
+    IFACE_HDR iGyroscope.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

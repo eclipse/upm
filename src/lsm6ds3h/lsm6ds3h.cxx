@@ -124,6 +124,7 @@ void LSM6DS3H::getGyroscope(float *x, float *y, float *z)
 
 std::vector<float> LSM6DS3H::getGyroscope()
 {
+    update();
     float v[3];
 
     getGyroscope(&v[0], &v[1], &v[2]);

@@ -31,6 +31,8 @@
 #include <mraa/gpio.hpp>
 #include "bmg160.h"
 
+#include <interfaces/iGyroscope.hpp>
+
 namespace upm {
 
     /**
@@ -71,7 +73,7 @@ namespace upm {
      * @snippet bmg160.cxx Interesting
      */
 
-    class BMG160 {
+    class BMG160: virtual public iGyroscope {
     public:
         /**
          * BMG160 constructor.

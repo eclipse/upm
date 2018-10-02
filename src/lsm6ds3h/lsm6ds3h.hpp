@@ -32,6 +32,7 @@
 #include "lsm6ds3h.h"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 namespace upm {
 
@@ -66,7 +67,7 @@ namespace upm {
      * @snippet lsm6ds3h.cxx Interesting
      */
 
-    class LSM6DS3H: virtual public iAcceleration {
+    class LSM6DS3H: virtual public iAcceleration, virtual public iGyroscope {
     public:
 
         /**

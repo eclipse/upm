@@ -97,3 +97,24 @@ float ADXRS610::getAngularVelocity()
   else
     return -((m_zeroPoint - dataV) / m_degreeCoeff);
 }
+
+std::vector<float> ADXRS610::getGyroscope()
+{
+  float dataV = getDataVolts();
+
+  // check the deadband
+  if (dataV < (m_zeroPoint + m_deadband) &&
+      dataV > (m_zeroPoint - m_deadband))
+    return std::vector<float>{0 ,0 ,0};
+  
+  if (dataV > m_zeroPoint)
+  {
+    float v = ((dataV - m_zeroPoint) / m_degreeCoeff);
+    return std::vector<float>{0 ,0 , v};
+  }
+  else
+  {
+    float v = -((m_zeroPoint - dataV) / m_degreeCoeff);
+    return std::vector<float>{0 ,0 , v};
+  }
+}

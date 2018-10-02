@@ -1,26 +1,22 @@
+#ifdef SWIGPYTHON
+%module (package="upm") a110x
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
-%include "../upm_javastdvector.i"
-
-%ignore installISR (BMG160_INTERRUPT_PINS_T , int   mraa::Edge ,  void *, void *);
-%ignore getGyroscope(float *, float *, float *);
-
 %typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+
 import java.util.AbstractList;
 import java.lang.Float;
 %}
 
-%typemap(javaout) SWIGTYPE {
-    return new $&javaclassname($jnicall, true);
-}
-%typemap(javaout) std::vector<float> {
-    return (AbstractList<Float>)(new $&javaclassname($jnicall, true));
-}
-%typemap(jstype) std::vector<float> "AbstractList<Float>"
-
-%template(floatVector) std::vector<float>;
+%ignore installISR (BMG160_INTERRUPT_PINS_T , int   mraa::Edge ,  void *, void *);
+%ignore getGyroscope(float *, float *, float *);
 
 %define INTERRUPT BMG160_INTERRUPT_PINS_T
 %enddef
