@@ -4,7 +4,7 @@ upm_mixed_module_init (NAME bmi160
     C_SRC bmi160.c bosch_bmi160.c
     CPP_HDR bmi160.hpp
     CPP_SRC bmi160.cxx
-    IFACE_HDR iAcceleration.hpp
+    IFACE_HDR iAcceleration.hpp iGyroscope.hpp
 #    FTI_SRC bmi160_fti.c
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

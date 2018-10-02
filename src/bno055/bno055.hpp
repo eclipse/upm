@@ -29,6 +29,7 @@
 #include "bno055.h"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 namespace upm {
 

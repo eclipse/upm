@@ -273,6 +273,16 @@ void L3GD20::getGyroscope(float *x, float *y, float *z)
     *z = m_gyrZ;
 }
 
+std::vector<float> L3GD20::getGyroscope()
+{
+    update();
+    std::vector<float> values(3);
+    values[0] = m_gyrX;
+    values[1] = m_gyrY;
+    values[2] = m_gyrZ;
+    return values;
+}
+
 void L3GD20::update()
 {
   int bufLen = 6;

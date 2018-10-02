@@ -32,6 +32,7 @@
 #include "bmg160.hpp"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 namespace upm {
 
@@ -66,7 +67,7 @@ namespace upm {
      * @snippet bmx055-bmi055.cxx Interesting
      */
 
-    class BMI055: virtual public iAcceleration {
+    class BMI055: virtual public iAcceleration, virtual public iGyroscope {
     public:
         /**
          * BMI055 constructor.

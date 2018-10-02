@@ -31,6 +31,7 @@
 #include <mraa/gpio.hpp>
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 #define LSM9DS0_I2C_BUS 1
 #define LSM9DS0_DEFAULT_XM_ADDR 0x1d
@@ -79,7 +80,7 @@ namespace upm {
    * @snippet lsm9ds0.cxx Interesting
    */
 
-  class LSM9DS0: virtual public iAcceleration {
+  class LSM9DS0: virtual public iAcceleration, virtual public iGyroscope {
   public:
 
     // NOTE: reserved registers must not be written into or permanent
@@ -1074,7 +1075,7 @@ namespace upm {
     /**
      * LSM9DS0 Destructor
      */
-    ~LSM9DS0();
+    virtual ~LSM9DS0();
 
     /**
      * set up initial values and start operation

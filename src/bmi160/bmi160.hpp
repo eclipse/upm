@@ -26,6 +26,7 @@
 #include "bmi160.h"
 
 #include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
 
 #define BMI160_I2C_BUS 0
 #define BMI160_DEFAULT_I2C_ADDR 0x69
@@ -74,7 +75,7 @@ namespace upm {
      *
      * @snippet bmi160.cxx Interesting
      */
-    class BMI160: virtual public iAcceleration {
+    class BMI160: virtual public iAcceleration, virtual public iGyroscope {
     public:
 
         /**
@@ -162,7 +163,7 @@ namespace upm {
          * @return Pointer to 3 floating point values: X, Y, and Z in
          * degrees per second.
          */
-        float *getGyroscope();
+        virtual std::vector<float> getGyroscope();
 
         /**
          * Get the Gyroscope values.  The values returned are in degrees

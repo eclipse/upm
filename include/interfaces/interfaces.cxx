@@ -9,6 +9,7 @@
 #include "iElectromagnet.hpp"
 #include "iEmg.hpp"
 #include "iGps.hpp"
+#include "iGyroscope.hpp"
 #include "iHallEffect.hpp"
 #include "iHeartRate.hpp"
 #include "iHumidity.hpp"

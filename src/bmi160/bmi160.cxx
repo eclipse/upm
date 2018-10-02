@@ -92,13 +92,13 @@ std::vector<float> BMI160::getAcceleration()
     return v;
 }
 
-float *BMI160::getGyroscope()
+std::vector<float> BMI160::getGyroscope()
 {
   static float values[3]; // x, y, and then z
 
   getGyroscope(&values[0], &values[1], &values[2]);
 
-  return values;
+  return std::vector<float>(values, values + 3);
 }
 
 float *BMI160::getMagnetometer()

@@ -1,7 +1,20 @@
+#ifdef SWIGPYTHON
+%module (package="upm") a110x
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
+
 %typemap(jni) float* "jfloatArray"
 %typemap(jstype) float* "float[]"
 %typemap(jtype) float* "float[]"

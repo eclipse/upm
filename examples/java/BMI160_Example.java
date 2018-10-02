@@ -22,6 +22,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.util.AbstractList;
+import upm_interfaces.*;
+
 import upm_bmi160.BMI160;
 
 public class BMI160_Example
@@ -39,25 +42,25 @@ public class BMI160_Example
                 // update our values from the sensor
                 sensor.update();
 
-                float dataA[] = sensor.getAccelerometer();
+                AbstractList<Float> dataA = sensor.getAcceleration();
 
                 System.out.println("Accelerometer: "
                                    + "AX: "
-                                   + dataA[0]
+                                   + dataA.get(0)
                                    + " AY: "
-                                   + dataA[1]
+                                   + dataA.get(1)
                                    + " AZ: "
-                                   + dataA[2]);
+                                   + dataA.get(2));
 
-                float dataG[] = sensor.getGyroscope();
+                AbstractList<Float> dataG = sensor.getGyroscope();
 
                 System.out.println("Gryoscope:     "
                                    + "GX: "
-                                   + dataG[0]
+                                   + dataG.get(0)
                                    + " GY: "
-                                   + dataG[1]
+                                   + dataG.get(1)
                                    + " GZ: "
-                                   + dataG[2]);
+                                   + dataG.get(2));
 
                 float dataM[] = sensor.getMagnetometer();
 

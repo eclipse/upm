@@ -27,6 +27,9 @@
 #include <string>
 #include <mraa/aio.hpp>
 
+#include <interfaces/iGyroscope.hpp>
+#include <interfaces/iTemperature.hpp>
+
 // volts per degree / second (typ)
 #define m_degreeCoeff 0.006
 
@@ -69,7 +72,7 @@ namespace upm {
    * @snippet adxrs610.cxx Interesting
    */
 
-  class ADXRS610 {
+  class ADXRS610: virtual public iGyroscope, virtual public iTemperature {
   public:
 
     /**
@@ -84,7 +87,7 @@ namespace upm {
     /**
      * ADXRS610 destructor
      */
-    ~ADXRS610();
+    virtual ~ADXRS610();
 
     /**
      * Returns the voltage detected on the DATA analog pin
@@ -152,6 +155,16 @@ namespace upm {
      * @return the current angular velocity in degrees/sec
      */
     float getAngularVelocity();
+
+    /**
+     * Return gyroscope data in degrees per second in the form of
+     * a floating point vector.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return A floating point vector containing x, y, and z in
+     * that order.
+     */
+    std::vector<float> getGyroscope();
 
   protected:
     mraa::Aio m_aioData;

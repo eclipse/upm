@@ -31,6 +31,8 @@
 #include <mraa/iio.h>
 #include <mraa/i2c.hpp>
 
+#include <interfaces/iGyroscope.hpp>
+
 #define L3GD20_DEFAULT_I2C_BUS                      0
 // if SDO tied to GND
 #define L3GD20_DEFAULT_I2C_ADDR                     0x6a
@@ -74,7 +76,7 @@ namespace upm
  * @snippet l3gd20-i2c.cxx Interesting
  */
 
-class L3GD20
+class L3GD20: virtual public iGyroscope
 {
   public:
     typedef struct {
@@ -478,6 +480,16 @@ class L3GD20
      * current z component placed into it.
      */
     void getGyroscope(float *x, float *y, float *z);
+
+    /**
+     * Return gyroscope data in degrees per second in the form of
+     * a floating point vector.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return A floating point vector containing x, y, and z in
+     * that order.
+     */
+    std::vector<float> getGyroscope();
 
     /**
      * Set the power mode of the device.  I2C only.
