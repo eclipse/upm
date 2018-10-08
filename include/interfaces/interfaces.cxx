@@ -8,6 +8,7 @@
 #include "iEC.hpp"
 #include "iElectromagnet.hpp"
 #include "iEmg.hpp"
+#include "iGas.hpp"
 #include "iGps.hpp"
 #include "iGyroscope.hpp"
 #include "iHallEffect.hpp"

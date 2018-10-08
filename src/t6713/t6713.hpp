@@ -25,6 +25,8 @@
 
 #include "mraa/i2c.hpp"
 
+#include <interfaces/iGas.hpp>
+
 namespace upm {
 /**
  * @brief Amphenol Telaire 6713 Series CO2 Module
@@ -105,7 +107,7 @@ namespace t6713_co2
     }FUNCTION_CODES;
 }//namespace t6713_co2
 
-class T6713 {
+class T6713: virtual public iGas {
     public:
         /**
         * Instantiates a T6713 object
@@ -128,6 +130,12 @@ class T6713 {
         * Get relative humidity measurement.
         */
         uint16_t getPpm ();
+
+        /**
+        * Get relative humidity measurement.
+        */
+        float getConcentration ();
+
         /**
         * Get the firmware version
         */

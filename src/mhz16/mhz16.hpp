@@ -38,6 +38,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <interfaces/iTemperature.hpp>
+#include <interfaces/iGas.hpp>
+
 #include <mraa/uart.h>
 
 namespace upm {
@@ -67,7 +70,7 @@ namespace upm {
      * @image html mhz16.jpg
      * @snippet mhz16.cxx Interesting
      */
-  class MHZ16 {
+  class MHZ16: virtual public iGas, virtual public iTemperature {
   public:
 
 
@@ -151,13 +154,14 @@ namespace upm {
      * @return Gas concentration
      */
     int getGas();
+    float getConcentration();
 
     /**
      * Returns the temperature data.
      *
      * @return Temperature in Celsius
      */
-    int getTemperature();
+    float getTemperature();
 
     /**
      * Sets the zero point of the sensor

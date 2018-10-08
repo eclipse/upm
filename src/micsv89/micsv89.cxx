@@ -66,6 +66,11 @@ float MICSV89::co2equ() {
     return ((rx_buf[0] - 13) * (1600/229) + 400);
 }
 
+float MICSV89::getConcentration() {
+    update();
+    return ((rx_buf[0] - 13) * (1600/229) + 400);
+}
+
 int MICSV89::vocshort() {
     return rx_buf[1];
 }

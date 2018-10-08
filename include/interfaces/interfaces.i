@@ -49,6 +49,7 @@ import java.lang.Float;
     %interface_impl (upm::iEC);
     %interface_impl (upm::iElectromagnet);
     %interface_impl (upm::iEmg);
+    %interface_impl (upm::iGas);
     %interface_impl (upm::iGps);
     %interface_impl (upm::iGyroscope);
     %interface_impl (upm::iHallEffect);
@@ -79,6 +80,7 @@ import java.lang.Float;
     #include "iEC.hpp"
     #include "iElectromagnet.hpp"
     #include "iEmg.hpp"
+    #include "iGas.hpp"
     #include "iGps.hpp"
     #include "iGyroscope.hpp"
     #include "iHallEffect.hpp"
@@ -108,6 +110,7 @@ import java.lang.Float;
 %include "iEC.hpp"
 %include "iElectromagnet.hpp"
 %include "iEmg.hpp"
+%include "iGas.hpp"
 %include "iGps.hpp"
 %include "iGyroscope.hpp"
 %include "iHallEffect.hpp"

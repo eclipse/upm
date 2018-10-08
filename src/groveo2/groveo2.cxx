@@ -54,3 +54,23 @@ float GroveO2::voltageValue()
 	sensorVoltage = (sensorVoltage/201.0) * 10000.0;
 	return sensorVoltage;
 }
+
+float GroveO2::getConcentration()
+{
+  float value;
+  /* Read normalized value */
+    value = mraa_aio_read_float(m_aio);
+    if (value < 0.0)
+        return -1;
+
+    /* Convert to %oxygen
+       Datasheet for grove o2 shows a linear response for the sensor.  Assuming
+       20.5% oxygen @ 25 celsius, with an gain = 1 + 12k/100 = 121, a
+       dynamic range of 0->25% oxygen, and opamp rails of 0->3.3v (the grove o2
+       sensor uses a high-accuracy 3.3v regulator),
+     */
+    value *= 25 * 5 / 3.3;
+
+  return value;
+}
+

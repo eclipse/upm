@@ -26,6 +26,10 @@
 #include <string>
 #include <iostream>
 
+#include <interfaces/iGas.hpp>
+#include <interfaces/iHumidity.hpp>
+#include <interfaces/iTemperature.hpp>
+
 #include <mraa/aio.hpp>
 
 // Unlikey to be changable without external circuitry (voltage divider)
@@ -85,7 +89,7 @@ namespace upm {
      * @snippet cwlsxxa.cxx Interesting
      */
 
-  class CWLSXXA {
+  class CWLSXXA: virtual public iGas, virtual public iHumidity, virtual public iTemperature {
   public:
 
     /**
@@ -134,7 +138,8 @@ namespace upm {
      * The default is false (degrees Celsius).
      * @return The last temperature reading in Celsius or Fahrenheit
      */
-    float getTemperature(bool fahrenheit=false);
+    float getTemperature(bool fahrenheit);
+    float getTemperature();
 
     /**
      * Get the current relative humidity.  update() must have been called
@@ -153,6 +158,14 @@ namespace upm {
      * @return The last CO2 reading
      */
     float getCO2();
+
+    /**
+     * Get the current CO2 concentration in Parts Per Million (PPM).
+     * update() must have been called prior to calling this method.
+     *
+     * @return The last CO2 reading
+     */
+    float getConcentration();
 
 
   protected:

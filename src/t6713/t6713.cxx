@@ -69,6 +69,11 @@ uint16_t T6713::getPpm ()
     return(getSensorData(T6713_COMMAND_GET_GAS_PPM));
 }
 
+float T6713::getConcentration ()
+{
+    return(getSensorData(T6713_COMMAND_GET_GAS_PPM));
+}
+
 uint16_t T6713::getSensorData (MODBUS_COMMANDS cmd)
 {
     uint16_t data ,readBytes ;

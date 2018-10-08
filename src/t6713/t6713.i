@@ -1,9 +1,20 @@
+#ifdef SWIGPYTHON
+%module (package="upm") cwlsxxa
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
 %include "arrays_java.i";
 %include "../java_buffer.i"
+
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
+
 
 JAVA_JNI_LOADLIBRARY(javaupm_t6713)
 #endif

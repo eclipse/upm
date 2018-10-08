@@ -88,6 +88,20 @@ float MG811::ppm()
                       (m_reactionValue / (log400-log1000))+log400);
 }
 
+float MG811::getConcentration()
+{
+  static const float log400 = log10f(400);
+  static const float log1000 = log10f(1000);
+
+  float val = volts();
+
+  if ((val / dcGain) >= m_zeroPointValue)
+    return 0.0;
+  else
+    return powf(10.0, ((val/dcGain)-m_zeroPointValue) / 
+                      (m_reactionValue / (log400-log1000))+log400);
+}
+
 bool MG811::thresholdReached()
 {
   return (m_gpio.read() ? true : false);
