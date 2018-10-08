@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME o2
     CPP_HDR o2.hpp
     CPP_SRC o2.cxx
     FTI_SRC o2_fti.c
+    IFACE_HDR iGas.hpp
     REQUIRES mraa)

@@ -27,6 +27,8 @@
 #include <iostream>
 #include <string>
 
+#include <interfaces/iGas.hpp>
+
 namespace mraa { class I2c;}
 
 namespace upm {
@@ -59,7 +61,7 @@ namespace upm {
    * @image html micsv89.jpg
    * @snippet micsv89.cxx Interesting
    */
-    class MICSV89 {
+    class MICSV89: virtual public iGas {
         public:
             /**
              * MICSV89 constructor
@@ -86,6 +88,11 @@ namespace upm {
              * Returns the  CO2 equivalent value.
              */
             float co2equ();
+
+            /**
+             * Returns the  CO2 equivalent value.
+             */
+            float getConcentration();
 
             /**
              * Returns VOC Short value.

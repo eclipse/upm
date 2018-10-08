@@ -18,6 +18,7 @@ set (module_hpp iClock.hpp
                 iHallEffect.hpp
                 iHeartRate.hpp
                 iHumidity.hpp
+                iGas.hpp
                 iGyroscope.hpp
                 iLight.hpp
                 iLineFinder.hpp

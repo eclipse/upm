@@ -28,6 +28,8 @@
 #include <mraa/aio.hpp>
 #include <mraa/gpio.hpp>
 
+#include <interfaces/iGas.hpp>
+
 namespace upm {
   /**
    * @brief MG811 CO2 Sensor
@@ -68,7 +70,7 @@ namespace upm {
    * @snippet mg811.cxx Interesting
    */
 
-  class MG811 {
+  class MG811: virtual public iGas {
   public:
 
     /**
@@ -83,7 +85,7 @@ namespace upm {
     /**
      * MG811 destructor
      */
-    ~MG811();
+    virtual ~MG811();
 
     /**
      * Return a cumputed reference voltage to be used in calibration.
@@ -118,6 +120,7 @@ namespace upm {
      * @return The computed CO2 concentration in ppm
      */
     float ppm();
+    float getConcentration();
 
     /**
      * Read the digital pin and return true if the set threshold has

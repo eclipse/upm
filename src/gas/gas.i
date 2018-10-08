@@ -1,7 +1,17 @@
+#ifdef SWIGPYTHON
+%module (package="upm") cwlsxxa
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
+
 %typemap(jni) (uint16_t *buffer, int len) "jshortArray";
 %typemap(jtype) (uint16_t *buffer, int len) "short[]";
 %typemap(jstype) (uint16_t *buffer, int len) "short[]";

@@ -160,13 +160,26 @@ float CWLSXXA::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float CWLSXXA::getTemperature()
+{
+  update();
+  return m_temperature;
+}
+
 float CWLSXXA::getHumidity()
 {
+  update();
   return m_humidity;
 }
 
 float CWLSXXA::getCO2()
 {
+  return m_co2;
+}
+
+float CWLSXXA::getConcentration()
+{
+  update();
   return m_co2;
 }
 
