@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function
 
 import unittest as u
 import re, fnmatch, os
@@ -34,7 +35,7 @@ class AutoLoadLibrary(u.TestCase):
                         data = f.read()
                         #Make sure it is module
                         if not '%module' in data:
-                            print "%%module not found in %s, skipping" % fileName
+                            print ("%%module not found in %s, skipping" % fileName)
                             continue
                         # Check for the autoload code or the autoload macro
                         if (not 'JAVA_JNI_LOADLIBRARY(javaupm_' in data) and \
