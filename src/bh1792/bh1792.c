@@ -873,17 +873,17 @@ upm_result_t bh1792_registers_dump(bh1792_context dev, char *dump)
 
     if(bh1792_read_registers(dev, BH1792_MEAS_CONTROL1, reg_values, len) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
-    count += sprintf(dump, "0x41 ");
+    count += snprintf(dump, 6, "0x41 ");
     for(int i = 0; i < len; i++)
-        count += sprintf(dump + count, "%02X ", reg_values[i]);
-    sprintf(dump + count - 1, "\n");
+        count += snprintf(dump + count, 4, "%02X ", reg_values[i]);
+    snprintf(dump + count - 1, 3, "\n");
 
     len = 1;
     if(bh1792_read_registers(dev, BH1792_FIFO_LEV, reg_values, len) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
-    count += sprintf(dump + count, "0x4B ");
+    count += snprintf(dump + count, 6, "0x4B ");
     for(int i = 0; i < len; i++)
-        count += sprintf(dump + count, "%02X ", reg_values[i]);
+        count += snprintf(dump + count, 4, "%02X ", reg_values[i]);
 
     return UPM_SUCCESS;
 }

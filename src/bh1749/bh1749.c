@@ -686,17 +686,17 @@ upm_result_t bh1749_registers_dump(bh1749_context dev, char *dump)
 
     if(bh1749_read_registers(dev, BH1749_SYSTEM_CONTROL, reg_values, len) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
-    count += sprintf(dump, "0x40 ");
+    count += snprintf(dump, 6, "0x40 ");
     for(int i = 0; i < len; i++)
-        count += sprintf(dump + count, "%02X ", reg_values[i]);
-    sprintf(dump + count - 1, "\n");
+        count += snprintf(dump + count, 4, "%02X ", reg_values[i]);
+    snprintf(dump + count - 1, 3, "\n");
 
     len = 6;
     if(bh1749_read_registers(dev, BH1749_INTERRUPT, reg_values, len) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
-    count += sprintf(dump + count, "0x60 ");
+    count += snprintf(dump + count, 6, "0x60 ");
     for(int i = 0; i < len; i++)
-        count += sprintf(dump + count, "%02X ", reg_values[i]);
+        count += snprintf(dump + count, 4, "%02X ", reg_values[i]);
 
     return UPM_SUCCESS;
 }
