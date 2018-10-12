@@ -4,6 +4,12 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v1.7.1
+
+ * Bumped library compatibility to new MRAA 2.0 APIs
+ * Added installation details for Fedora
+ * Minor fixes based on static analysis vulnerability report
+
 ### v1.7.0
 
  * Added Cordova bindings based on Java packages
