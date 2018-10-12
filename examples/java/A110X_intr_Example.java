@@ -24,8 +24,11 @@
 
 public class A110X_intr_Example {
 	
-	public static int counter=0;
-		
+	private static int counter=0;
+    
+    public static void incrementCounter() {
+        counter++;
+    }	
 	public static void main(String[] args) throws InterruptedException {
 		//! [Interesting]
 		// Instantiate an A110X sensor on digital pin D2
@@ -52,6 +55,6 @@ class A110XISR implements Runnable {
 		super();
 	}
 	public void run(){
-		A110X_intr_Example.counter++;
+		A110X_intr_Example.incrementCounter();
 	}
 }

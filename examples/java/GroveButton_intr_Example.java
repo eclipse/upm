@@ -24,8 +24,11 @@
 
 public class GroveButton_intr_Example {
 
-	public static int counter = 0;
+	private static int counter = 0;
 
+	public static void incrementCounter() {
+        counter++;
+    }
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_grove.GroveButton b = new upm_grove.GroveButton(2);
@@ -47,7 +50,7 @@ class ButtonISR implements Runnable {
 	}
 
 	public void run() {
-		GroveButton_intr_Example.counter++;
+		GroveButton_intr_Example.incrementCounter();
 		System.out.println("Button pressed!");
 	}
 }

@@ -85,7 +85,7 @@ public class WT5001_Example {
 			vol = mp3.getVolume();
 			System.out.println("The current volume is: " + vol);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
 		try {
@@ -93,7 +93,7 @@ public class WT5001_Example {
 			ps = mp3.getPlayState();
 			System.out.println("The current play state is: " + ps);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
 		try {
@@ -101,7 +101,7 @@ public class WT5001_Example {
 			numf = mp3.getNumFiles(upm_wt5001.WT5001.WT5001_PLAYSOURCE_T.SD);
 			System.out.println("The number of files on the SD card is: " + numf);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
 		try {
@@ -109,7 +109,7 @@ public class WT5001_Example {
 			curf = mp3.getCurrentFile();
 			System.out.println("The current file is: " + curf);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
 		int year[] = new int[1];

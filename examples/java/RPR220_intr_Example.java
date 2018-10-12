@@ -24,8 +24,11 @@
 
 public class RPR220_intr_Example {
 
-	public static int counter = 0;
+	private static int counter = 0;
 
+	public static void incrementCounter() {
+        counter++;
+    }
 	public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		// This example uses an interrupt handler to increment a counter
@@ -49,6 +52,6 @@ class RPRISR implements Runnable {
 		super();
 	}
 	public void run() {
-		RPR220_intr_Example.counter++;
+		RPR220_intr_Example.incrementCounter();
 	}
 }

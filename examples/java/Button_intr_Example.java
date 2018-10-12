@@ -24,9 +24,12 @@
 
 public class Button_intr_Example {
 
-	public static int counter = 0;
+	private static int counter = 0;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void incrementCounter() {
+        counter++;
+    }
+    public static void main(String[] args) throws InterruptedException {
 		// ! [Interesting]
 		upm_button.Button b = new upm_button.Button(2);
 
@@ -47,7 +50,7 @@ class ButtonISR implements Runnable {
 	}
 
 	public void run() {
-		Button_intr_Example.counter++;
+		Button_intr_Example.incrementCounter();
 		System.out.println("Button pressed!");
 	}
 }
