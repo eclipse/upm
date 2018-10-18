@@ -4,10 +4,7 @@
     "Sensor Class": {
         "KX122": {
             "Name": "Kionix KX122 tri-axis accelerometer sensor",
-            "Description": "This is the UPM Module for the Kionix KX122 accelerometer sensor.
-            The Kionix KX122 sensor is a multifunctional sensor that provides a multitude if different functionality
-            in addition to the basic accelerometer functionality. The sensor has 2 interrupt pins,
-            that can be used to detect various interrupts. The Sensor has an additional sample buffer that can be configured.",
+            "Description": "This is the UPM Module for the Kionix KX122 accelerometer sensor. The Kionix KX122 sensor is a multifunctional sensor that provides a multitude if different functionality in addition to the basic accelerometer functionality. The sensor has 2 interrupt pins, that can be used to detect various interrupts. The Sensor has an additional sample buffer that can be configured.",
             "Categories": ["acceleration"],
             "Connections": ["i2c,spi"],
             "Project Type": ["prototyping", "commercial"],
