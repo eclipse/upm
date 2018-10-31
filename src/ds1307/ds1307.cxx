@@ -46,6 +46,27 @@ DS1307::DS1307(int bus) : m_i2c(bus)
   }
 }
 
+DS1307::DS1307(std::string initStr) : m_i2c(nullptr), mraaIo(initStr)
+{
+  mraa_io_descriptor* descs  = mraaIo.getMraaDescriptors();
+  
+  if(!descs->i2cs[0]) {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+    return;
+  } else {
+    m_i2c = descs->i2cs[0];
+  } 
+    
+  // setup our i2c link
+  mraa::Result ret = m_i2c.address(DS1307_I2C_ADDR);
+  if (ret != mraa::SUCCESS){
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": i2c.address() failed");
+    return;
+  }
+}
+
 mraa::Result DS1307::writeBytes(uint8_t reg, uint8_t *buffer, int len)
 {
   if (!len || !buffer)
