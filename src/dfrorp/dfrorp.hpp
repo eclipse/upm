@@ -25,12 +25,14 @@
 
 #include <string>
 #include <iostream>
-
+#include <vector>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
 #include "dfrorp.h"
+#include <mraa/initio.hpp>
+
 
 namespace upm {
   /**
@@ -80,6 +82,13 @@ namespace upm {
      * @param a_ref The analog reference voltage in use.  Default 5.0.
      */
     DFRORP(int apin, float a_ref=5.0);
+
+    /**
+     * Instantiates DFRobot object based on a given string.
+     *
+     * @param initStr string containing specific information for DFRobot initialization.
+     */
+    DFRORP(std::string initStr);
 
     /**
      * DFRORP object destructor
@@ -155,6 +164,7 @@ namespace upm {
   protected:
     // dfrorp device context
     dfrorp_context m_dfrorp;
+    mraa::MraaIo mraaIo;
 
   private:
     /* Disable implicit copy and assignment operators */
