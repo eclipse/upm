@@ -24,6 +24,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "dfrph.h"
 
@@ -60,7 +61,11 @@ dfrph_context dfrph_init(int16_t pin)
 
 void dfrph_close(dfrph_context dev)
 {
-    mraa_aio_close(dev->aio);
+    assert(dev != NULL);
+  
+    if(dev->aio)
+        mraa_aio_close(dev->aio);
+    
     free(dev);
 }
 

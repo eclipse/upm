@@ -25,8 +25,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "dfrph.h"
+#include <mraa/initio.hpp>
 
 namespace upm {
   /**
@@ -100,6 +102,13 @@ namespace upm {
     DFRPH(int pin, float vref = 5.0);
 
     /**
+     * Instantiates DFRPH object based on a given string.
+     *
+     * @param initStr string containing specific information for DFRPH initialization.
+     */
+    DFRPH(std::string initStr);
+    
+    /**
      * DFRPH destructor
      */
     ~DFRPH();
@@ -139,6 +148,7 @@ namespace upm {
     DFRPH &operator=(const DFRPH &) {return *this;}
 
     dfrph_context _dev;
+    mraa::MraaIo mraaIo;
   };
 }
 
