@@ -114,7 +114,7 @@ private:
     float m_offsets[3];
     int16_t m_rawaccel[3];
     uint8_t m_buffer[READ_BUFFER_LENGTH];
-    mraa::I2c* m_i2c = NULL;
+    mraa::I2c m_i2c;
     mraa::MraaIo mraaIo;
 };
 

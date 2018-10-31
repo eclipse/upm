@@ -29,6 +29,8 @@
 #include <utility>
 #include "math.h"
 #include "adxl345.hpp"
+#include "upm_string_parser.hpp"
+
 
 #define READ_BUFFER_LENGTH 6
 
@@ -88,15 +90,10 @@
 
 using namespace upm;
 
-static bool operator!(mraa::MraaIo &mraaIo)
-{
-  return mraaIo.getMraaDescriptors() == NULL;
-}
-
-Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
+Adxl345::Adxl345(int bus) : m_i2c(bus)
 {
     //init bus and reset chip
-    if ( m_i2c->address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
+    if ( m_i2c.address(ADXL345_I2C_ADDR) != mraa::SUCCESS ){
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": i2c.address() failed");
         return;
@@ -104,7 +101,7 @@ Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
 
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() control register failed");
         return;
@@ -112,7 +109,7 @@ Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
 
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
-    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() mode register failed");
         return;
@@ -128,21 +125,25 @@ Adxl345::Adxl345(int bus) : m_i2c(new mraa::I2c(bus))
     Adxl345::update();
 }
 
-Adxl345::Adxl345(std::string initStr) : mraaIo(initStr)
+Adxl345::Adxl345(std::string initStr) : m_i2c(nullptr), mraaIo(initStr)
 {
-    if(!mraaIo.i2cs.empty())
-    {
-      m_i2c = &mraaIo.i2cs[0];
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
     }
-    else
-    {
+
+    if(!descs->i2cs) {
       throw std::invalid_argument(std::string(__FUNCTION__) +
-                              ": mraa_i2c_init() failed");
+                              ": mraa_i2c_init() failed");      
+    } else {
+      m_i2c = descs->i2cs[0];
     }
 
     m_buffer[0] = ADXL345_POWER_CTL;
     m_buffer[1] = ADXL345_POWER_ON;
-    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS ){
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS ){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() control register failed");
         return;
@@ -150,7 +151,7 @@ Adxl345::Adxl345(std::string initStr) : mraaIo(initStr)
 
     m_buffer[0] = ADXL345_DATA_FORMAT;
     m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
-    if( m_i2c->write(m_buffer, 2) != mraa::SUCCESS){
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
         throw std::runtime_error(std::string(__FUNCTION__) +
                                     ": i2c.write() mode register failed");
         return;
@@ -168,8 +169,6 @@ Adxl345::Adxl345(std::string initStr) : mraaIo(initStr)
 
 Adxl345::~Adxl345()
 {
-  if(!mraaIo)
-    delete m_i2c;
 }
 
 float*
@@ -192,9 +191,9 @@ Adxl345::getScale(){
 
     uint8_t result;
 
-    m_i2c->writeByte(ADXL345_DATA_FORMAT);
+    m_i2c.writeByte(ADXL345_DATA_FORMAT);
 
-    result = m_i2c->readByte();
+    result = m_i2c.readByte();
 
     return pow(2, (result & 0x03) + 1);
 }
@@ -202,9 +201,9 @@ Adxl345::getScale(){
 mraa::Result
 Adxl345::update(void)
 {
-    m_i2c->writeByte(ADXL345_XOUT_L);
+    m_i2c.writeByte(ADXL345_XOUT_L);
 
-    m_i2c->read(m_buffer, DATA_REG_SIZE);
+    m_i2c.read(m_buffer, DATA_REG_SIZE);
 
     // x
     m_rawaccel[0] = ((m_buffer[1] << 8 ) | m_buffer[0]);
