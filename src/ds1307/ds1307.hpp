@@ -28,6 +28,7 @@
 
 #include <string>
 #include <mraa/i2c.hpp>
+#include <mraa/initio.hpp>
 
 #define DS1307_I2C_BUS     0
 #define DS1307_I2C_ADDR    0x68
@@ -77,6 +78,13 @@ namespace upm {
      * @param bus I2C bus to use
      */
     DS1307(int bus);
+    
+    /**
+     * Instantiates DS1307 Clock based on a given string.
+     *
+     * @param initStr string containing specific information for DS1307 initialization.
+     */
+    DS1307(std::string initStr);
 
     /**
      * Loads all the time values
@@ -188,5 +196,6 @@ namespace upm {
 
   private:
     mraa::I2c m_i2c;
+    mraa::MraaIo mraaIo;
   };
 }
