@@ -21,9 +21,11 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#include <string>
 
 #include "iLightController.hpp"
 #include "mraa/i2c.hpp"
+#include "mraa/initio.hpp"
 
 namespace upm
 {
@@ -55,6 +57,7 @@ class DS1808LC : public upm::ILightController
 {
 public:
    DS1808LC(int gpioPower, int i2cBus);
+   DS1808LC(std::string initStr);
    ~DS1808LC();
 
    const char* getModuleName() { return "ds1808lc"; }
@@ -72,6 +75,7 @@ private:
 
    mraa::Result status;
    mraa::I2c* i2c;
+   mraa::MraaIo mraaIo; 
    int pinPower;
 };
 
