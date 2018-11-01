@@ -35,11 +35,24 @@ using namespace upm;
 ECS1030::ECS1030 (int pinNumber) {
     m_dataPinCtx = mraa_aio_init(pinNumber);
     if (m_dataPinCtx == NULL) {
-      throw std::invalid_argument(std::string(__FUNCTION__) + 
+      throw std::invalid_argument(std::string(__FUNCTION__) +
                                   ": mraa_aio_init() failed");
     }
 
     m_calibration = 111.1;
+}
+
+ECS1030::ECS1030 (std::string initStr) : mraaIo(initStr) {
+
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+  if(!descs->aios) {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_aio_init() failed");
+  } else {
+    m_dataPinCtx = descs->aios[0];
+  }
+
+  m_calibration = 111.1;
 }
 
 ECS1030::~ECS1030 () {
