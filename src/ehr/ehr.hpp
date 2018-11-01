@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 
 namespace upm {
   /**
@@ -46,9 +47,9 @@ namespace upm {
    * @brief API for the  Ear-clip Heart Rate Sensor
    *
    * UPM module for the  ear-clip heart rate sensor. It is used to measure your
-   * heart rate. 
+   * heart rate.
    *
-   * @image html ehr.jpg 
+   * @image html ehr.jpg
    * @snippet ehr.cxx Interesting
    */
   class EHR {
@@ -59,6 +60,13 @@ namespace upm {
      * @param pin Digital pin to use
      */
     EHR(int pin);
+    /**
+     * Instantiates EHR Heart Rate sensor based on a given string.
+     *
+     * @param initStr string containing specific information for EHR initialization.
+     */
+    EHR(std::string initStr);
+
     /**
      * EHR destructor
      */
@@ -116,10 +124,11 @@ namespace upm {
      *
      */
     static void beatISR(void *ctx);
-    
+
     volatile uint32_t m_beatCounter;
     struct timeval m_startTime;
     mraa_gpio_context m_gpio;
+    mraa::MraaIo mraaIo;
   };
 }
 

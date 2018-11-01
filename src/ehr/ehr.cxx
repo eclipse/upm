@@ -46,6 +46,23 @@ EHR::EHR(int pin)
   m_beatCounter = 0;
 }
 
+EHR::EHR(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  if(!descs->gpios) {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_gpio_init() failed, invalid pin?");
+  } else {
+    m_gpio = descs->gpios[0];
+  }
+
+  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+
+  initClock();
+  m_beatCounter = 0;
+}
+
 EHR::~EHR()
 {
   mraa_gpio_close(m_gpio);
@@ -65,12 +82,12 @@ uint32_t EHR::getMillis()
   gettimeofday(&now, NULL);
 
   // compute the delta since m_startTime
-  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 ) 
+  if( (elapsed.tv_usec = now.tv_usec - m_startTime.tv_usec) < 0 )
     {
       elapsed.tv_usec += 1000000;
       elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec - 1;
-    } 
-  else 
+    }
+  else
     {
       elapsed.tv_sec = now.tv_sec - m_startTime.tv_sec;
     }
@@ -92,7 +109,7 @@ void EHR::clearBeatCounter()
 void EHR::startBeatCounter()
 {
   // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING, 
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_RISING,
                 &beatISR, this);
 }
 
@@ -117,7 +134,7 @@ int EHR::heartRate()
 {
   uint32_t millis = getMillis();
   uint32_t beats = beatCounter();
-  
+
   float heartRate = 0;
   // wait at least 5 seconds before attempting to compute the
   // heart rate
