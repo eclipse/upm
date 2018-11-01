@@ -26,6 +26,14 @@
 #include <string>
 #include <stdexcept>
 #include "bh1749.hpp"
+#include "upm_string_parser.hpp"
+
+#define DEFAULT_OP_MODE INT_JUDGE_1
+#define DEFAULT_MEAS_TIME MEAS_240MS
+#define DEFAULT_RGB_GAIN RGB_GAIN_1X
+#define DEFAULT_IR_GAIN IR_GAIN_1X
+#define DEFAULT_INT_SOURCE RED
+#define DEFAULT_THRESHOLD_HIGH 511
 
 using namespace upm;
 
@@ -41,6 +49,51 @@ BH1749::BH1749(int bus, int addr) : m_bh1749(bh1749_init(bus, addr))
     if(!m_bh1749)
         throw std::runtime_error(std::string(__FUNCTION__) +
                                 "bh1749_init() failed");
+}
+
+BH1749::BH1749(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+  std::vector<std::strings> upmTokens;
+
+  m_bh1749 = (bh1749_context)malloc(sizeof(struct _bh1749_context));
+  if(!m_bh1749)
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                              "bh1749_init() failed");
+
+  m_bh1749->i2c = NULL;
+  m_bh1749->interrupt = NULL;
+
+  if(mraa_init() != MRAA_SUCCESS) {
+      bh1749_close(m_bh1749);
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                              "bh1749_init() failed");
+  }
+
+  if(!descs->i2cs) {
+      bh1749_close(m_bh1749);
+      throw std::runtime_error(std::string(__FUNCTION__)
+                                + ": mraa_i2c_init() failed");
+  } else {
+      if( !(m_bh1749->i2c = descs->i2cs[0])) {
+          bh1749_close(m_bh1749);
+          throw std::runtime_error(std::string(__FUNCTION__)
+                                    + ": mraa_i2c_init() failed");
+      }
+  }
+
+  if(bh1749_check_who_am_i(dev) != UPM_SUCCESS)
+      throw std::runtime_error(std::string(__FUNCTION__)
+                                + ": bh1749_init() failed");
+
+  m_bh1749->enabled = false;
+  m_bh1749->isrEnabled = false;
+
+  if(bh1749_sensor_init(m_bh1749, DEFAULT_OP_MODE, DEFAULT_MEAS_TIME,
+      DEFAULT_RGB_GAIN, DEFAULT_IR_GAIN, DEFAULT_INT_SOURCE) != UPM_SUCCESS)
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                                "bh1749_init() failed");
+  bh1749_set_threshold_high(m_bh1749, DEFAULT_THRESHOLD_HIGH);
 }
 
 BH1749::~BH1749()
