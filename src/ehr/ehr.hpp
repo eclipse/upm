@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 #include <interfaces/iHeartRate.hpp>
 
 namespace upm {
@@ -60,6 +61,13 @@ namespace upm {
      * @param pin Digital pin to use
      */
     EHR(int pin);
+    /**
+     * Instantiates EHR Heart Rate sensor based on a given string.
+     *
+     * @param initStr string containing specific information for EHR initialization.
+     */
+    EHR(std::string initStr);
+
     /**
      * EHR destructor
      */
@@ -128,5 +136,6 @@ namespace upm {
     volatile uint32_t m_beatCounter;
     struct timeval m_startTime;
     mraa_gpio_context m_gpio;
+    mraa::MraaIo mraaIo;
   };
 }

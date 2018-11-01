@@ -46,6 +46,23 @@ EHR::EHR(int pin)
   m_beatCounter = 0;
 }
 
+EHR::EHR(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  if(!descs->gpios) {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_gpio_init() failed, invalid pin?");
+  } else {
+    m_gpio = descs->gpios[0];
+  }
+
+  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+
+  initClock();
+  m_beatCounter = 0;
+}
+
 EHR::~EHR()
 {
   mraa_gpio_close(m_gpio);
