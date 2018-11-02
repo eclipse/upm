@@ -25,6 +25,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "bh1792.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
@@ -33,6 +34,85 @@ BH1792::BH1792(int bus, int addr) : m_bh1792(bh1792_init(bus, addr))
     if(!m_bh1792)
         throw std::runtime_error(std::string(__FUNCTION__) +
                                 "bh1792_init() failed");
+}
+
+BH1792::BH1792(std::string initStr) : mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty()) {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    m_bh1792 = (bh1792_context)malloc(sizeof(struct _bh1792_context));
+    if(!m_bh1792) {
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                "bh1792_init() failed");
+    }
+
+    m_bh1792->i2c = NULL;
+    m_bh1792->interrupt = NULL;
+
+    if(mraa_init() != MRAA_SUCCESS) {
+        bh1792_close(m_bh1792);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                "bh1792_init() failed");
+    }
+
+    if(!descs->i2cs) {
+        bh1792_close(m_bh1792);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                ": mraa_i2c_init() failed");
+    } else {
+        if( !(m_bh1792->i2c = descs->i2cs[0]) ) {
+            bh1792_close(m_bh1792);
+            throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+        }
+    }
+
+    if(bh1792_check_who_am_i(m_bh1792) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                "bh1792_init() failed");
+
+    m_bh1792->enabled = false;
+    m_bh1792->isrEnabled = false;
+    m_bh1792->sync_thread_alive = false;
+
+    std::string::size_type sz;
+    for(std::string tok : upmTokens) {
+        if(tok.substr(0, 20) == "SetGreenLedsCurrent:") {
+            uint16_t current = std::stoul(tok.substr(20), &sz, 0);
+            SetGreenLedsCurrent(current);
+        }
+        if(tok.substr(0, 16) == "SetIrLedCurrent:") {
+            uint16_t current = std::stoul(tok.substr(16), &sz, 0);
+            SetIrLedCurrent(current);
+        }
+        if(tok.substr(0, 15) == "SetIrThreshold:") {
+            uint16_t current = std::stoul(tok.substr(15), &sz, 0);
+            SetIrThreshold(current);
+        }
+        if(tok.substr(0, 15) == "EnableSyncMode:") {
+            uint16_t measFreq = std::stoul(tok.substr(15), &sz, 0);
+            tok = tok.substr(15);
+            uint16_t green_current = std::stoul(tok.substr(sz+1), nullptr, 0);
+            EnableSyncMode(measFreq, green_current);
+        }
+        if(tok.substr(0, 18) == "EnableNonSyncMode:") {
+            uint16_t ir_current = std::stoul(tok.substr(18), &sz, 0);
+            tok = tok.substr(18);
+            uint16_t threshold = std::stoul(tok.substr(sz+1), nullptr, 0);
+            EnableNonSyncMode(ir_current, threshold);
+        }
+        if(tok.substr(0, 17) == "EnableSingleMode:") {
+            LED_TYPES led_type = (LED_TYPES)std::stoi(tok.substr(17), &sz, 0);
+            tok = tok.substr(17);
+            uint16_t current = std::stoul(tok.substr(sz+1), nullptr, 0);
+            EnableSingleMode(led_type, current);
+        }
+    }
 }
 
 BH1792::~BH1792()
