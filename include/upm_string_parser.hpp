@@ -26,10 +26,6 @@ namespace upm {
           }
           strTokens.push_back(initStr.substr(start, end));
 
-          for (auto i : strTokens)
-            std::cout << i << " ";
-          std::cout << std::endl;
-
           return strTokens;
       }
   };
