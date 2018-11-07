@@ -1,0 +1,66 @@
+{
+    "Library": "bmi160",
+    "Description": "Bosch Sensortec accelerometer and gyroscope library.",
+    "Sensor Class": {
+        "BMI160": {
+            "Name": "Bosch accelerometer and gyroscope",
+            "Description": "This is the UPM Module for the BMI160 Bosch low power inertial measurement unit. High performance hardware synchronized accelerometer and gyroscope, with very low power consumption. Extended i2c mode with 1 MHz clock frequencies. This sensor is able to handle external sensor data from other Bosch sensors.",
+            "Aliases": ["BMI160"],
+            "Categories": ["accelerometer", "gyroscope", "compass"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["bosch"],
+            "Examples": {
+                "Java": ["BMI160_Example.java"],
+                "Python": ["bmi160.py"],
+                "Node.js": ["bmi160.js"],
+                "C++": ["bmi160.cxx"],
+                "C": ["bmi160.c"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 1.71,
+                    "max": 3.6
+                },
+                "Supply Current Digital": {
+                    "Full operation": {
+                        "unit": "uA",
+                        "typ": "925",
+                        "max": "990"
+                    },
+                    "Suspended mode": {
+                        "unit": "uA",
+                        "typ": "3",
+                        "max": "10"
+                    },
+                    "Significant motion detection": {
+                        "unit": "uA",
+                        "max": "20"
+                    },
+                    "Step detector": {
+                        "unit": "uA",
+                        "max": "20"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Start up time accelerometer": {
+                    "unit": "ms",
+                    "time": 3.2
+                },
+                "Response time gyroscope": {
+                    "unit": "ms",
+                    "time": 55
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.bosch-sensortec.com/bst/products/all_products/bmi160"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMI160-DS000-07.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "Library": "m24lr64e",
+    "Description": "API for the M24LR64E NFC Tag",
+    "Sensor Class":
+    {
+        "M24LR64E":
+        {
+            "Name": "Dynamic NFC/RFID Tag Module",
+            "Description": "The M24LR64E NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM) that can be written to or read from using I2C and NFC-equipped devices. The user mode (default) allows read and write access to all 8KB of space, provided the sector security status (SSS) allows it. The root mode allows modification of the SSS data and other information, provided the proper password is submitted.  The default password for a new tag is 0x00000000. See the datasheet for more details. The Seeed Studio* wiki page for this device includes a link to an Android* application that can be used to also read and write the device via NFC, as well as set NFC passwords, which cannot be done via I2C.",
+            "Aliases": ["m24lr64e"],
+            "Categories": ["rfid", "wireless"],
+            "Connections": ["i2c", "nfc"],
+            "Project Type": ["access control", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "m24lr64e.jpg",
+            "Examples":
+            {
+                "Java": ["M24LR64E_Example.java"],
+                "Python": ["m24lr64e.py"],
+                "Node.js": ["m24lr64e.js"],
+                "C++": ["m24lr64e.cxx"],
+                "C": ["m24lr64e.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.8, "high": 5.5},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-NFC-Tag-p-1866.html"],
+                "Datasheets": ["http://www.seeedstudio.com/wiki/Grove_-_NFC_Tag", "https://raw.githubusercontent.com/SeeedDocument/Grove-NFC_Tag/master/res/M24LR64E-R.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

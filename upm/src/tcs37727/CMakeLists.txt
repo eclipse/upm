@@ -1,0 +1,5 @@
+set (libname "tcs37727")
+set (libdescription "Color Sensor")
+set (module_src ${libname}.cpp)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

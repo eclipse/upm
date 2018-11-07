@@ -1,0 +1,40 @@
+{
+    "Library": "gprs",
+    "Description": "API for the GPRS Module",
+    "Sensor Class":
+    {
+        "GPRS":
+        {
+            "Name": "General Packet Radio Service (GPRS) Module",
+            "Description": "The driver was tested with the  GPRS Module, V2.  It's a GSM GPRS module based on the SIM900.  This module uses a standard 'AT' command set.  See the datasheet for a full list of available commands and their possible responses.",
+            "Aliases": ["gprs"],
+            "Categories": ["wireless"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "wireless"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "gprs.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["gprs.py"],
+                "Node.js": ["gprs.js"],
+                "C++": ["gprs.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Input Voltage (5v Pin)": {"unit": "V", "Typ": 5},
+                "Input Voltage (Vin Pin)": {"unit": "V", "low": 6.5, "high": 12},
+                "Power Consumption": {"unit": "mA", "low": 1.5},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/GPRS-Shield-V3.0-p-2333.html"],
+                "Datasheets": ["http://www.seeedstudio.com/document/SIM900datasheeet.zip", "http://wiki.seeedstudio.com/wiki/GPRS_Shield_V3.0", "http://www.seeedstudio.com/wiki/images/7/72/AT_Commands_v1.11.pdf", "http://garden.seeedstudio.com/images/a/a8/SIM900_AT_Command_Manual_V1.03.pdf", "http://garden.seeedstudio.com/images/a/a0/SIM900_ATC_V1_00.pdf"],
+                "Schematics": ["http://www.seeedstudio.com/wiki/File:GPRS_Shield_v3.0.pdf"]
+            }
+        }
+    }
+}

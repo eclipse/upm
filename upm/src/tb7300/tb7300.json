@@ -1,0 +1,46 @@
+{
+    "Library": "tb7300",
+    "Description": "Honeywell TB7300 Communicating Fan Coil Thermostat Library",
+    "Sensor Class": {
+        "TB7300": {
+            "Name": "API for the Honeywell TB7300 Communicating Fan Coil Thermostat",
+            "Description": "This is the UPM Module for the Honeywell TB7300 Communicating Fan Coil Thermostat. It may also support the TB7200, though only the TB7300 was available for development of this driver. The TB7200 Series PI thermostats are designed for zoning applications, and the TB7300 Series PI thermostats are designed for fan coil control. Both Series are communicating thermostats with models available in BACnet(r) MS/TP protocol and can be easily integrated into a WEBs-AX building automation system based on the NiagaraAX(r) platform. TB7200 and TB7300 Series thermostats are compatible with the Honeywell Occupancy Sensor Cover. Thermostats equipped with an occupancy sensor cover provide advanced active occupancy logic, which will automatically switch occupancy levels from Occupied to Stand-By and Unoccupied as required by local activity being present or not. This advanced occupancy functionality provides advantageous energy savings during occupied hours without sacrificing occupant comfort. All thermostats can be ordered with or without a factory installed PIR cover.",
+            "Aliases": ["tb7300", "TB7300C5014B"],
+            "Categories": ["temperature"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["honeywell"],
+            "Examples": {
+                "Java": ["TB7300_Example.java"],
+                "Python": ["tb7300.py"],
+                "Node.js": ["tb7300.js"],
+                "C++": ["tb7300.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 19,
+                    "max": 30
+                },
+                "Supply Current": {
+                    "unit": "A",
+                    "min" : 1,
+                    "max" : 3
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 50
+                },
+                "Operating Humidity": {
+                    "unit": "RH",
+                    "min" : "0%",
+                    "max" : "95%"
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://parts-hvac.com/tb7300c5014b.html"]
+            }
+        }
+    }
+}

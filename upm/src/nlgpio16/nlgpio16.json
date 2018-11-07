@@ -1,0 +1,58 @@
+{
+    "Library": "nlgpio16",
+    "Description": "Numato NLGPIO16 16 Channel USB GPIO Module Library",
+    "Sensor Class": {
+        "NLGPIO16": {
+            "Name": "API for the Numato NLGPIO16 16 channel USB GPIO Module",
+            "Description": "This is the UPM Module for the Numato NLGPIO16 16 channel USB GPIO Module. The NLGPIO16 is a USB adapter providing access to 16 GPIO's, 7 of which can be used as analog inputs.  The GPIO's are 3.3v only.  An external power supply can be connected to provide more current if the need arises. It is recommended to use a series resistor with the GPIO/ADC pins when interfacing with other circuits. In output mode, GPIOs can source up to 8mA (gpio8-gpio15). So no additional circuitry is needed to drive regular LEDs. A 470 Ohms series resistor is recommended for current limiting when connecting an LED to a GPIO. In contrast to GPIOs, analog inputs can read voltages at any level between 0 to 3.3V volts. It is recommended to use a series resistor to protect the input from stray voltages and spikes. The internal Analog to Digital converter supports 10 bits resolution which is adequate for most applications.",
+            "Aliases": ["nlgpio16", "Numato 16 Channel USB GPIO Module With Analog Inputs"],
+            "Categories": ["other"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Numato Lab"],
+            "Examples": {
+                "Python": ["nlgpio16.py"],
+                "Node.js": ["nlgpio16.js"],
+                "C++": ["nlgpio16.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "usb" : 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Analog Inputs": {
+                    "unit": "inputs",
+                    "inputs": 7
+                },
+                "TTL Inputs": {
+                    "unit": "TTL 3.3V inputs",
+                    "inputs": 16
+                },
+                "ADC Resolution": {
+                    "unit": "bit",
+                    "bits": 10
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://numato.com/16-channel-usb-gpio-module-with-analog-inputs/"],
+                "Datasheets": ["https://docs.numato.com/doc/16-channel-usb-gpio-module-with-analog-inputs/"]
+            }
+        }
+    }
+}

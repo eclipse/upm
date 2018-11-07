@@ -1,0 +1,39 @@
+{
+    "Library": "ds18b20",
+    "Description": "API for the DS18B20 1-Wire Temperature Sensor",
+    "Sensor Class":
+    {
+        "DS18B20":
+        {
+            "Name": "DS18B20 1-Wire Temperature Sensor",
+            "Description": "The driver was tested with the DFRobot EC Analog Sensor. This device measure the electrical conductivity of an aqueous solution.  The included probe is a K=1 model. Calibration is somewhat complicated - see the DFRobot wiki for instructions on calibration.  Functions are provided to supply the appropriate values.  By default, the values used in the DFRobot arduino example are used.",
+            "Aliases": ["ds18b20"],
+            "Categories": ["ec", "conductivity"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["dallas"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [""],
+                "Python": ["ds18b20.py"],
+                "Node.js": ["ds18b20.js"],
+                "C++": ["ds18b20.cxx"],
+                "C": ["ds18b20.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.0, "high": 5.5},
+                "Measurement Range": {"unit": "degC", "low": -55, "high": 125},
+                "+-.5degC Accuracy Range": {"unit": "degC", "low": -10, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/11050"],
+                "Datasheets": ["http://cdn.sparkfun.com/datasheets/Sensors/Temp/DS18B20.pdf"],
+                "Schematics": [""]
+            }
+        }
+    }
+}

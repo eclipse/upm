@@ -1,0 +1,38 @@
+{
+    "Library": "mag3110",
+    "Description": "API for the MAG3110 Three-Axis Digital Magnetometer",
+    "Sensor Class":
+    {
+        "MAG3110":
+        {
+            "Name": "MAG3110 Three-Axis Digital Magnetometer",
+            "Description": "The MAG3110 is a small, low-power digital 3D magnetic sensor with a wide dynamic range to allow operation in PCBs with high extraneous magnetic fields. It measures the components of the local magnetic field, the sum of the geomagnetic field and the magnetic field created by components on the circuit board. It can be used in conjunction with a 3-axis accelerometer so that orientation-independent accurate compass heading information may be achieved It is capable of measuring local magnetic fields up to 10 Gauss with output data rates up to 80 Hz.",
+            "Aliases": ["mag3110"],
+            "Categories": ["magnetometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["freescale"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["mag3110.py"],
+                "Node.js": [],
+                "C++": ["mag3110.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.95, "high": 3.6},
+                "Operating Current": {"unit": "uA", "low": 8.6, "high": 900},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.nxp.com/products/sensors/magnetometers/high-accuracy-3d-magnetometer:MAG3110"],
+                "Datasheets": ["http://www.nxp.com/docs/en/data-sheet/MAG3110.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+if (MRAA_OW_FOUND)
+    set (libname "ds2413")
+    set (libdescription "1-Wire Dual Channel Addressable Switch")
+    set (module_src ${libname}.cxx)
+    set (module_hpp ${libname}.hpp)
+    upm_module_init(mraa)
+endif (MRAA_OW_FOUND)

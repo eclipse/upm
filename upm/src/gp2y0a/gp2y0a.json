@@ -1,0 +1,39 @@
+{
+    "Library": "gp2y0a",
+    "Description": "API for the GP2Y0A family of IR Proximity Sensors",
+    "Sensor Class":
+    {
+        "GP2Y0A":
+        {
+            "Name": "Analog Infrared (IR) Based Distance Sensor",
+            "Description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
+            "Aliases": ["gp2y0a"],
+            "Categories": ["proximity", "light"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "gp2y0a.jpg",
+            "Examples":
+            {
+                "Java": ["Gp2y0a_Example.java"],
+                "Python": ["gp2y0a.py"],
+                "Node.js": ["gp2y0a.js"],
+                "C++": ["gp2y0a.cxx"],
+                "C": ["gp2y0a.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.5, "typ": 5, "high": 7},
+                "Operating Current": {"unit": "mA", "typ": 33, "max": 50},
+                "Measurement Range": {"unit": "cm", "low": 10, "high": 80}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-80cm-Infrared-Proximity-Sensor-p-788.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-80cm_Infrared_Proximity_Sensor/"],
+                "Schematics": []
+            }
+        }
+    }
+}

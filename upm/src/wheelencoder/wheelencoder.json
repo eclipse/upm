@@ -1,0 +1,53 @@
+{
+    "Library": "wheelencoder",
+    "Description": "FRobot Wheel Encoder Library",
+    "Sensor Class": {
+        "WheelEncoder": {
+            "Name": "API for the DFRobot Wheel Encoder",
+            "Description": "This is the UPM Module for the DFRobot Wheel Encoder. This sensor was developed for the DFRobot Wheel Encoder, though it could be used for any counting time-based task.  When you instantiate a class of this type, the gpio pin specified is connected to an interrupt.  Whenever a low to high transition occurs on the gpio pin, the internal counter is incremented by one. This class also includes a millisecond counter, so that you can correlate the number of counts to a time period for calculating an RPM or other value as needed.",
+            "Aliases": ["wheelencoder", "Gravity:TT Motor Encoders Kit"],
+            "Categories": ["other"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["DFRobot"],
+            "Image": "wheelencoder.jpg",
+            "Examples": {
+                "Python": ["wheelencoder.py"],
+                "Node.js": ["wheelencoder.js"],
+                "C++": ["wheelencoder.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "max" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Resolution": {
+                    "unit": "PPR",
+                    "resolution": 20
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need the Gravity: IO Expansion Shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need the Gravity: IO Expansion Shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/product-98.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/Wheel_Encoders_for_DFRobot_3PA_and_4WD_Rovers_(SKU:SEN0038)"],
+                "Schematics": ["http://www.dfrobot.com/wiki/images/b/b9/FIT0029_Encoder_Schematics.png"]
+            }
+        }
+    }
+}

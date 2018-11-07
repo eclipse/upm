@@ -1,0 +1,92 @@
+{
+    "Library": "ms5803",
+    "Description": "Measurement Specialties/Sparkfun MS5803 Pressure and Temperature sensor Library",
+    "Sensor Class": {
+        "MS5803": {
+            "Name": "API for the Measurement Specialties/Sparkfun MS5803 Pressure and Temperature sensor",
+            "Description": "This is the UPM Module for the Measurement Specialties/Sparkfun MS5803 Pressure and Temperature sensor. The MS5803-14BA is a new generation of high resolution pressure sensors with SPI and I2C bus interface. It is optimized for depth measurement systems with a water depth resolution of 1cm and below. The sensor module includes a high linear pressure sensor and an ultra low power 24 bit delta-sigma ADC with internal factory calibrated coefficients. It provides a precise digital 24 bit pressure and temperature value and different operation modes that allow the user to optimize for conversion speed and current consumption. A high resolution temperature output allows the implementation of a depth measurement systems and thermometer function without any additional sensor.",
+            "Aliases": ["ms5803", "SparkFun Pressure Sensor Breakout - MS5803-14BA"],
+            "Categories": ["pressure", "temperature"],
+            "Connections": ["i2c", "spi"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["Measurement Specialties", "SparkFun"],
+            "Examples": {
+                "Java": ["MS5803_Example.java"],
+                "Python": ["ms5803.py"],
+                "Node.js": ["ms5803.js"],
+                "C++": ["ms5803.cxx"],
+                "C": ["ms5803.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.8,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": "0.9",
+                    "max": "12.5"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Pressure Sensor":{
+                    "Effective Pressure Range":{
+                        "unit": "bar",
+                        "min": 0,
+                        "max": 14
+                    },
+                    "Resolution": {
+                        "unit": "mbar",
+                        "min": "0.2",
+                        "max": "1"
+                    },
+                    "Accuracy": {
+                        "unit": "mbar",
+                        "min": -40,
+                        "max": 40
+                    },
+                    "Response Time": {
+                        "unit": "ms",
+                        "min": 0.5,
+                        "max": 8.22
+                    }
+                },
+                "Temperature Sensor": {
+                    "Effective Temperature Range": {
+                        "unit": "°C",
+                        "min": -40,
+                        "max": 85
+                    },
+                    "Resolution": {
+                        "unit": "°C",
+                        "typ": "<0.01"
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min": -0.8,
+                        "max": 0.8
+                    }
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/12909"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Weather/ms5803_14ba.pdf"]
+            }
+        }
+    }
+}

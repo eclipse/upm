@@ -1,0 +1,42 @@
+{
+    "Library": "lp8860",
+    "Description": "LED Light Controller Library",
+    "Sensor Class":
+    {
+        "LP8860":
+        {
+            "Name": "API for LP8860 LED Lighting Controller",
+            "Description": "The LP8860-Q1 is an automotive high-efficiency LED driver with boost controller. It has 4 high-precision current sinks that can be controlled by a PWM input signal, an SPI or I2C master, or both ",
+            "Aliases": ["lp8860"],
+            "Categories": ["light Controller"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["Texas Instruments"],
+            "Image": "",
+            "Examples":
+            {
+                "C++": ["lp8860.cxx"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 3, "high": 48},
+                "Iavg": {"unit": "mA", "low" : 1, "high": 150},
+                "Frequency Range": {"unit": "KHz", "low" : 100, "high": 2200},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 125}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.ti.com/product/LP8860-Q1"],
+                "Datasheets": ["http://www.ti.com/lit/ds/symlink/lp8860-q1.pdf"],
+                "Schematics": ["http://www.ti.com/general/docs/datasheetdiagram.tsp?genericPartNumber=LP8860-Q1&diagramId=66853"]
+            }
+        }
+    }
+}

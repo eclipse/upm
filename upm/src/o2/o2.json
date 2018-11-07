@@ -1,0 +1,39 @@
+{
+    "Library": "o2",
+    "Description": "O2 Oxygen Gas Sensor Library",
+    "Sensor Class":
+    {
+        "O2":
+        {
+            "Name": "Oxygen (O2) Concentration Sensor",
+            "Description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air.",
+            "Aliases": ["o2"],
+            "Categories": ["gas", "oxygen"],
+            "Connections": ["analog"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "o2.jpg",
+            "Examples":
+            {
+                "Java": ["O2_Example.java"],
+                "Python": ["o2.py"],
+                "Node.js": ["o2.js"],
+                "C++": ["o2.cxx"],
+                "C": ["o2.c"]
+            },
+            "Specifications":
+            {
+                "Measurement Range": {"unit": "% Vol", "low": 0, "high": 25},
+                "Sensitivity": {"unit": "mA (in air)", "low": 0.1, "high": 0.3},
+                "Operating Temperature": {"unit": "degC", "low": -20, "high": 50}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/grove-gas-sensoro2-p-1541.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Gas_Sensor-O2/"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove_Gas_Sensor_O2/raw/master/resources/Schematics_O2.zip"]
+            }
+        }
+    }
+}

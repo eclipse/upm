@@ -1,0 +1,38 @@
+{
+    "Library": "hcsr04",
+    "Description": "HC-SR04 Ultrasonic Sensor Library",
+    "Sensor Class":
+    {
+        "HCSR04":
+        {
+            "Name": "HC-SR04 Ultrasonic Distance Measuring Sensor",
+            "Description": "This module defines the HC-SR04 interface for libhcsr04.",
+            "Aliases": ["hcsr04"],
+            "Categories": ["ultrasonic", "distance"],
+            "Connections": ["gpio"],
+            "Project Type": ["robotics", "safety", "prototyping"],
+            "Manufacturers": ["sparkfun"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["HCSR04_Example.java"],
+                "Python": ["hcsr04.py"],
+                "Node.js": ["hcsr04.js"],
+                "C++": ["hcsr04.cxx"],
+                "C": ["hcsr04.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "typ": 15},
+                "Measurement Range": {"unit": "cm", "low": 2, "high": 400}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/13959"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

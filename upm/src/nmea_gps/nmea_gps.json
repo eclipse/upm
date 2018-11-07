@@ -1,0 +1,49 @@
+{
+    "Library": "nmea_gps",
+    "Description": "UPM C++ API for a generic GPS serial device reporting NMEA data",
+    "Sensor Class": {
+        "NMEAGPS": {
+            "Name": "API for the NMEA GPS Module",
+            "Description": "This is the UPM Module for a generic GPS serial device reporting NMEA data. This driver was tested with a number of GPS devices that emit NMEA data via a serial interface of some sort (typically a UART). The I2C capablity was tested with a UBLOX LEA-6H based GPS shield from DFRobot.  Currently, the I2C capability is only supported for UBLOX devices (or compatibles) that conform to the specifications outlined in the u-blox6 Receiver Description Protocol Specification, Chapter 4, DDC Port.",
+            "Aliases": ["VK2828u7", "ublox", "LEA-6H"],
+            "Categories": ["gps"],
+            "Connections": ["uart", "gpio"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["DFRobot", "Seeed"],
+            "Examples": {
+                "Java": ["NMEAGPS_Example.java", "NMEAGPS_I2C_Example.java"],
+                "Python": ["nmea_gps.py", "nmea_gps_i2c.py"],
+                "Node.js": ["nmea_gps.js", "nmea_gps_i2c.js"],
+                "C++": ["nmea_gps.cxx", "nmea_gps-i2c.cxx"],
+                "C": ["nmea_gps.c", "nmea_gps-i2c.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors", "Might need Grove base shield", "Might need DFRobot breakout board"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors", "Might need Grove base shield", "Might need DFRobot breakout board"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/grove-gps-p-959.html", "https://www.dfrobot.com/product-481.html"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-GPS/master/res/E-1612-UB_Datasheets_Sheet.pdf"]
+            }
+        }
+    }
+}

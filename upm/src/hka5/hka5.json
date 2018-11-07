@@ -1,0 +1,37 @@
+{
+    "Library": "hka5",
+    "Description": "API for the DFRobot Laser Particulate Matter (PM) Sensor",
+    "Sensor Class":
+    {
+        "HKA5":
+        {
+            "Name": "DFRobot Laser Particulate Matter (PM) Sensor",
+            "Description": "This driver was tested with a DFRobot Laser PM2.5 Sensor.  It connects to a UART at 9600 baud.  This is the only baud rate supported.  It optionally supports Reset and Set/Sleep gpios as well.",
+            "Aliases": ["hka5"],
+            "Categories": ["gaseous"],
+            "Connections": ["gpio", "uart"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["HKA5_Example.java"],
+                "Python": ["hka5.py"],
+                "Node.js": ["hka5.js"],
+                "C++": ["hka5.cxx"],
+                "C": ["hka5.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "typ": 10}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/wiki/index.php/DFRobot_LM35_Linear_Temperature_Sensor_(SKU:DFR0023)"],
+                "Datasheets": ["http://image.dfrobot.com/image/data/DFR0023/DFR0023_Datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

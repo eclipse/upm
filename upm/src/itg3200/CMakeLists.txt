@@ -1,0 +1,5 @@
+set (libname "itg3200")
+set (libdescription "3-axis Digital Gyroscope")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

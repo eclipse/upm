@@ -1,0 +1,40 @@
+{
+    "Library": "eldriver",
+    "Description": "API for the  EL Driver Module",
+    "Sensor Class":
+    {
+        "ElDriver":
+        {
+            "Name": "Electroluminescent Wire (EL) Driver",
+            "Description": "The  EL Driver allows you to easily light up an EL wire with just one single  cable.",
+            "Aliases": ["eldriver"],
+            "Categories": ["lighting"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial", "wearables"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "eldriver.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["eldriver.py"],
+                "Node.js": ["eldriver.js"],
+                "C++": ["eldriver.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "max": 300},
+                "Supported EL Capacitance": {"unit": "nF", "max": 15}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-EL-Driver-p-2269.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-EL_Driver/"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-EL_Driver/master/res/Grove-EL_Driver_v1.0.pdf"]
+            }
+        }
+    }
+}

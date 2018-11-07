@@ -1,0 +1,50 @@
+{
+    "Library": "tmp006",
+    "Description": "Texas Instruments TMP006 Infrared-Thermopile Sensor Library",
+    "Sensor Class": {
+        "TMP006": {
+            "Name": "API for the Texas Instruments TMP006 IR-Thermopile Sensor",
+            "Description": "This is the UPM Module for the Texas Instruments TMP006 IR-Thermopile Sensor. The TMP006 and TMP006B are fully integrated MEMs thermopile sensors that measure the temperature of an object without having to be in direct contact. The thermopile absorbs passive infrared energy from an object at wavelengths between 4 um to 16 um within the end-user defined field of view. The corresponding change in voltage across the thermopile is digitized and reported with the on-chip die thermal sensor measurement through an I2C- and SMBus-compatible interface. With this data, the target object temperature can be calculated by an external processor.",
+            "Aliases": ["tmp006", "TMP006 Infrared Thermopile Contactless Temperature Sensor in WCSP Package"],
+            "Categories": ["temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["Texas Instruments"],
+            "Examples": {
+                "Python": ["tmp006.py"],
+                "C++": ["tmp006.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.5,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 1.0,
+                    "max" : 325.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "Effective Range": {
+                    "unit": "°C",
+                    "min" : 0,
+                    "max" : 60
+                },
+                "Accuracy": {
+                    "unit": "-/+ °C",
+                    "min" : 0.5,
+                    "max" : 1.0
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.ti.com/product/TMP006/datasheet/abstract#SBOS5183423"],
+                "Datasheets": ["http://www.ti.com/lit/ds/symlink/tmp006.pdf"]
+            }
+        }
+    }
+}

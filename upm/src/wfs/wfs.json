@@ -1,0 +1,75 @@
+{
+    "Library": "wfs",
+    "Description": "Grove Water Flow Sensor Library",
+    "Sensor Class": {
+        "WFS": {
+            "Name": "API for the Grove Water Flow Sensor",
+            "Description": "This is the UPM Module for the Grove Water Flow Sensor. This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long.",
+            "Aliases": ["wfs", "G1/2 Water Flow sensor"],
+            "Categories": ["liquid"],
+            "Connections": ["gpio"],
+            "Project Type": ["mprototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["eak"],
+            "Image": "wfs.jpg",
+            "Examples": {
+                "Java": ["WFS_Example.java"],
+                "Python": ["wfs.py"],
+                "Node.js": ["wfs.js"],
+                "C++": ["wfs.cxx"],
+                "C": ["wfs.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5,
+                    "max": 24
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "max" : 15
+                },
+                "Operating Temperature": {
+                    "Air": {
+                        "unit": "°C",
+                        "min": -10,
+                        "max": 80
+                    },
+                    "Liquid": {
+                        "unit": "°C",
+                        "min" : 0,
+                        "max" : 120
+                    }
+                },
+                "Operating Humidity": {
+                    "unit": "%RH",
+                    "min" : 35,
+                    "max" : 90
+                },
+                "Flow Rate": {
+                    "unit": "L/min",
+                    "min" : 1,
+                    "max" : 30
+                },
+                "Water Pressyre": {
+                    "unit": "MPa",
+                    "max" : 2.0
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://wiki.seeedstudio.com/wiki/G1/2_Water_Flow_sensor"]
+            }
+        }
+    }
+}

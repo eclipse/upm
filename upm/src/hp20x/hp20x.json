@@ -1,0 +1,40 @@
+{
+    "Library": "hp20x",
+    "Description": "API for the HP20X-based Grove Barometer (High-Accuracy)",
+    "Sensor Class":
+    {
+        "HP20X":
+        {
+            "Name": "HP20X Barometer (High-Accuracy)",
+            "Description": "This is a high-accuracy barometer providing pressure, altitude, and temperature data. It can be calibrated for a given altitude offset, and a wide range of interrupt generating capabilities are supported. As usual, see the HP20X datasheet for more details. This module was developed using a Grove Barometer (High-Accuracy) based on an HP206C chip.",
+            "Aliases": ["hp20x"],
+            "Categories": ["pressure"],
+            "Connections": ["i2c"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "hp20x.jpg",
+            "Examples":
+            {
+                "Java": ["HP20x_Example.java"],
+                "Python": ["hp20x.py"],
+                "Node.js": ["hp20x.js"],
+                "C++": ["hp20x.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5.5},
+                "Operating Current": {"unit": "mA", "low": 0.635, "high": 1.1},
+                "Measurement Range": {"unit": "hPa", "low": 300, "high": 1200}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Barometer-HighAccuracy-p-1865.html"],
+                "Datasheets": ["http://www.seeedstudio.com/wiki/File:HP206C_Datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

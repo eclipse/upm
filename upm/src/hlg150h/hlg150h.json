@@ -1,0 +1,42 @@
+{
+    "Library": "hlg150h",
+    "Description": "Light Controller Library",
+    "Sensor Class":
+    {
+        "HLG150H":
+        {
+            "Name": "Lighting Power Supply Controller",
+            "Description": "HLG series single output LED power supply features universal AC input, protection for short circuit, overload, over voltage and over temperature",
+            "Aliases": ["hlg150h"],
+            "Categories": ["lightcontroller"],
+            "Connections": ["pwm"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["meanwell"],
+            "Examples":
+            {
+                "C++": ["hlg150h.cxx"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Ioff" : {"unit": "mA", "low" : 0.0, "high": 0.0},
+                "Iavg": {"unit": "mA", "low" : 1, "high": 2},
+                "Pressure Range": {"unit": "hpA", "low" : 300, "high": 1100},
+                "Voltage Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.meanwell-web.com/en/product-info/ac-dc-power-supply/led-driver/101-180-w-led-driver/hlg-150h/product/HLG-150H-24B"],
+                "Datasheets": ["http://www.mouser.com/ds/2/260/r1755_3-1109742.pdf"],
+                "Schematics": ["http://www.mouser.com/ds/2/260/HLG-150H-SPEC-806071.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "Library": "micsv89",
+    "Description": "MICS-VZ89 environmental sensor library",
+    "Sensor Class": {
+        "MICSV89": {
+            "Name": "API for the MICS-VZ89 Gas Sensor",
+            "Description": "This is the UPM Module for the SGX Sensortech MICS-VZ-89. The MiCS-VZ-86/89 combines state-of-the-art MOS sensor technology with intelligent detection algorithms to monitor VOCs and CO2 equivalent variations in confined spaces. This library only supports the i2c variants of this sensor.",
+            "Aliases": ["micsv89", "MICS-VZ-89TE", "MICS-VZ-89TE Indoor Air Quality Sensor"],
+            "Categories": ["gaseous"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["SGX"],
+            "Image": "micsv89.jpg",
+            "Examples": {
+                "Node.js": ["micsv89.js"],
+                "C++": ["micsv89.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Warm-up Time": {
+                    "unit": "minute",
+                    "time": 15
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://sgx.cdistore.com/ProductDetail/MICSVZ89TE-SGX-Sensortech-Limited/598202/"],
+                "Datasheets": ["https://sgx.cdistore.com/datasheets/e2v/MiCS-VZ-89TE_V1.0.pdf"]
+            }
+        }
+    }
+}

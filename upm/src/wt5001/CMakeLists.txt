@@ -1,0 +1,5 @@
+set (libname "wt5001")
+set (libdescription "Serial MP3 Module")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

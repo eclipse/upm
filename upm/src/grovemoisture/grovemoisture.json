@@ -1,0 +1,38 @@
+{
+    "Library": "grovemoisture",
+    "Description": "API for the Grove Moisture Sensor",
+    "Sensor Class":
+    {
+        "GroveMoisture":
+        {
+            "Name": "Grove Moisture Sensor",
+            "Description": "UPM module for the Grove Moisture Sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",
+            "Aliases": ["grovemoisture"],
+            "Categories": ["moisture"],
+            "Connections": ["analog"],
+            "Project Type": ["liquid", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["eak", "hak"],
+            "Image": "grovemoisture.jpg",
+            "Examples":
+            {
+                "Java": ["GroveMoisture_Example.java"],
+                "Python": ["grovemoisture.py"],
+                "Node.js": ["grovemoisture.js"],
+                "C++": ["grovemoisture.cxx"],
+                "C": []
+            },
+            "Specifications": {
+                "Vsource": {"unit": "V", "min": 3.3, "max": 5 },
+                "Operating Temperature": {"unit": "°C", "min": -40, "max": 85 },
+                "Supply Current": {"unit": "mA", "min" : 0, "max" : 35 }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Moisture-Sensor-p-955.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Moisture_Sensor/"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Library": "dfrec",
+    "Description": "DFRobot EC Meter Library",
+    "Sensor Class":
+    {
+        "DFREC":
+        {
+            "Name": "Analog Electrical Conductivity (EC) Sensor",
+            "Description": "The driver was tested with the DFRobot EC Analog Sensor. This device measure the electrical conductivity of an aqueous solution.  The included probe is a K=1 model. Calibration is somewhat complicated - see the DFRobot wiki for instructions on calibration.  Functions are provided to supply the appropriate values.  By default, the values used in the DFRobot arduino example are used.",
+            "Aliases": ["dfrec"],
+            "Categories": ["ec", "conductivity"],
+            "Connections": ["analog", "uart"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["DFREC_Example.java"],
+                "Python": ["dfrec.py"],
+                "Node.js": ["dfrec.js"],
+                "C++": ["dfrec.cxx"],
+                "C": ["dfrec.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "Typ": 5},
+                "Measurement Range": {"unit": "mS/cm", "low": 1, "high": 20},
+                "Operating Temperature": {"unit": "degC", "low": 5, "high": 40}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-1123.html"],
+                "Datasheets": [""],
+                "Schematics": ["http://image.dfrobot.com/image/data/DFR0300/DFR0300_v1.0_schematic.pdf"]
+            }
+        }
+    }
+}

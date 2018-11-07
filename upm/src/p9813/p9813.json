@@ -1,0 +1,58 @@
+{
+    "Library": "p9813",
+    "Description": "Shiji Lighting P9813 Chainable RGB LEDs driver library",
+    "Sensor Class": {
+        "P9813": {
+            "Name": "API for controlling Shiji Lighting P9813/Chainable RGB LEDs",
+            "Description": "This is the UPM Module for the Shiji Lighting P9813/Chainable RGB LEDs. This LED controller provides individually controllable LEDs through a two pin protocol",
+            "Aliases": ["p9813", "APA102 5050 RGB LED w/ Integrated Driver Chip"],
+            "Categories": ["LED"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Adafruit", "Shiji Lighting"],
+            "Image": "p9813.jpg",
+            "Examples": {
+                "Java": ["P9813_Example.java"],
+                "Python": ["p9813.py"],
+                "Node.js": ["p9813.js"],
+                "C++": ["p9813.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5.0,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 22.5,
+                    "max" : 26.5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 70
+                },
+                "View Angle":{
+                    "unit": "°",
+                    "degrees": 160
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors", "Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors", "Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/2343"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/product-files/2343/APA102C.pdf"]
+            }
+        }
+    }
+}

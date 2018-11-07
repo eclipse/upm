@@ -1,0 +1,39 @@
+{
+    "Library": "l3gd20",
+    "Description": "L3GD20 Tri-axis Digital Gyroscope API",
+    "Sensor Class":
+    {
+        "L3GD20":
+        {
+            "Name": "L3GD20 Tri-axis Digital Gyroscope",
+            "Description": "The L3GD20 The L3GD20 is a low-power three-axis angular rate sensor. This driver supports IIO and I2C modes. Some methods will only work in one mode or the other. See the documentation on the methods to determine whether a given method is operation in a given mode. Both the I2C and IIO mechanisms make use of the calibration and denoise algorithms. For I2C mode, not all capabilities of the device are supported, but a complete register map and low level read/write methods are provided to add any missing functionality.",
+            "Aliases": ["l3gd20"],
+            "Categories": ["gyroscope"],
+            "Connections": ["iio", "i2c"],
+            "Project Type": ["IMU", "prototyping"],
+            "Manufacturers": ["stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["l3gd20.cxx", "l3gd20-i2c.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.4, "high": 3.6},
+                "Operating Current": {"unit": "mA", "typ": 6.1},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.st.com/en/mems-and-sensors/l3gd20.html"],
+                "Datasheets": ["http://www.st.com/resource/en/datasheet/l3gd20.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "Library": "mlx90614",
+    "Description": "MLX90614 Temperature Sensor library",
+    "Sensor Class": {
+        "MLX90614": {
+            "Name": "API for the Melexis MLX90614 Temperature Sensor",
+            "Description": "This is the UPM Module for the Melexis mlx90614 temperature sensor. The MLX90614 is an infrared thermometer for non-contact temperature measurements. Both the IR sensitive thermopile detector chip and the signal conditioning ASIC are integrated in the same TO-39 can. Integrated into the MLX90614 are a low noise amplifier, 17-bit ADC and powerful DSP unit thus achieving high accuracy and resolution of the thermometer.",
+            "Aliases": ["mlx90614", "Digital plug & play infrared thermometer in a TO-can"],
+            "Categories": ["temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["medical", "industrial", "commercial"],
+            "Manufacturers": ["Melexis"],
+            "Image": "mlx90614.jpg",
+            "Examples": {
+                "C++": ["mlx90614.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.6,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min": 1.3,
+                    "max": 2
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "Effective Range":{
+                    "unit": "°C",
+                    "min": -70,
+                    "max": 380
+                },
+                "Accuracy": {
+                    "Between 0 and 50 °C":{
+                        "unit": "°C",
+                        "accuracy": 0.5
+                    }
+                },
+                "Resolution": {
+                    "unit": "°C",
+                    "resolution": "0.02"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.melexis.com/en/product/MLX90614/Digital-Plug-Play-Infrared-Thermometer-TO-Can"],
+                "Datasheets": ["https://www.melexis.com/-/media/files/documents/datasheets/mlx90614-datasheet-melexis.pdf"]
+            }
+        }
+    }
+}

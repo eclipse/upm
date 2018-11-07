@@ -1,0 +1,40 @@
+{
+    "Library": "grovelinefinder",
+    "Description": "Grove Line Finder Sensor Library",
+    "Sensor Class":
+    {
+        "GroveLineFinder":
+        {
+            "Name": "Infrared (IR) Based Line Finder",
+            "Description": "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
+            "Aliases": ["grovelinefinder"],
+            "Categories": ["grovelinefinder"],
+            "Connections": ["gpio"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["seeed", "dfrobot"],
+            "Kits": ["robok"],
+            "Image": "grovelinefinder.jpg",
+            "Examples":
+            {
+                "Java": ["GroveLineFinder_Example.java"],
+                "Python": ["grovelinefinder.py"],
+                "Node.js": ["grovelinefinder.js"],
+                "C++": ["grovelinefinder.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.7, "high": 5.5},
+                "Operating Current": {"unit": "uA", "typ": 210},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 125}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Line-Finder-v1.1-p-2712.html"],
+                "Datasheets": ["file:///C:/Users/Malachai/Downloads/Lmv358.pdf", "http://wiki.seeed.cc/Grove-Line_Finder/"],
+                "Schematics": ["https://easyeda.com/Seeed/Grove_Line_Finder_v1_1-dfc99c72325e41ff93a451882fd2e143"]
+            }
+        }
+    }
+}

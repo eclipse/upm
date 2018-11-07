@@ -1,0 +1,64 @@
+{
+    "Library": "tsl2561",
+    "Description": "TSL2561 Digital Light Sensor library",
+    "Sensor Class": {
+        "TSL2561": {
+            "Name": "API for the TSL2561 Digital Light Sensor",
+            "Description": "This is the UPM Module for the TSL2561 Digital Light Sensor. TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface",
+            "Aliases": ["tsl2561", "Grove - Digital Light Sensor"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed", "TAOS"],
+            "Kits": ["eak"],
+            "Image": "tsl2561.jpg",
+            "Examples": {
+                "Java": ["TSL2561_Example.java"],
+                "Python": ["tsl2561.py"],
+                "Node.js": ["tsl2561.js"],
+                "C++": ["tsl2561.cxx"],
+                "C": ["tsl2561.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.1
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 240,
+                    "max" : 600
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 70
+                },
+                "Effective Range": {
+                    "unit": "Lux",
+                    "min" : 0.1,
+                    "max" : 40000
+                },
+                "Conversion Time": {
+                    "unit": "ms",
+                    "min" : 12,
+                    "max" : 400
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Digital-Light-Sensor-p-1281.html", "http://wiki.seeed.cc/Grove-Digital_Light_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/res/TSL2561T.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-Digital_Light_Sensor/raw/master/res/Digital%20light%20sensor%20v1.0%20Sch.pdf", "https://github.com/SeeedDocument/Grove-Digital_Light_Sensor/raw/master/res/Digital%20light%20sensor%20v1.0%20PCB.pdf"]
+            }
+        }
+    }
+}

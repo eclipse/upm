@@ -1,0 +1,66 @@
+{
+    "Library": "zfm20",
+    "Description": "ZFM-20 Fingerprint Sensor Module",
+    "Sensor Class": {
+        "ZFM20": {
+            "Name": "API for the ZFM-20 Fingerprint Sensor Module",
+            "Description": "This is the UPM Module for the ZFM-20 Fingerprint Sensor Module. The Fingerprint Sensor is one optical fingerprint sensor which will make adding fingerprint detection and verification super simple.There's a high powered DSP chip AS601 that does the image rendering, calculation, feature-finding and searching. You can also enroll new fingers directly - up to 162 finger prints can be stored in the onboard FLASH memory. There's a red LED in the lens that lights up during a photo so you know its working.",
+            "Aliases": ["zfm20", "Grove - Fingerprint Sensor"],
+            "Categories": ["touch"],
+            "Connections": ["uart"],
+            "Project Type": ["medical", "prototyping"],
+            "Manufacturers": ["Seeed", "ZhianTec"],
+            "Image": "zfm20.jpg",
+            "Examples": {
+                "Java": ["ZFM20_Example.java"],
+                "Python": ["zfm20-register.py", "zfm20.py"],
+                "Node.js": ["zfm20-register.js", "zfm20.js"],
+                "C++": ["zfm20-register.cxx", "zfm20.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.6,
+                    "max": 6.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "max" : 120
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 50
+                },
+                "Imaging Time": {
+                    "unit": "s",
+                    "typ" : 1
+                },
+                "False Acceptance Rate": {
+                    "unit": "%",
+                    "rate": 0.001
+                },
+                "False Reject Rate": {
+                    "unit": "%",
+                    "rate": 1.0
+                },
+                "Baud Rate": {
+                    "unit" : "bps",
+                    "default": 57600
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Fingerprint-Sensor-p-1424.html", "http://wiki.seeed.cc/Grove-Fingerprint_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Fingerprint_Sensor/master/res/ZFM206%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8CV2.1.pdf", "https://github.com/SeeedDocument/Grove-Fingerprint_Sensor/raw/master/res/ZFM-user-manualV15.pdf"]
+            }
+        }
+    }
+}

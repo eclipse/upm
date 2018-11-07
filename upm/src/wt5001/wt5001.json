@@ -1,0 +1,51 @@
+{
+    "Library": "wt5001",
+    "Description": "WT5001 Serial MP3 module Library",
+    "Sensor Class": {
+        "WT5001": {
+            "Name": "API for the WT5001 Serial MP3 Module",
+            "Description": "This is the UPM Module for the WT5001 Serial MP3 Module. Grove-Serial MP3 Player is a kind of simple MP3 player device whose design is based on a high-quality MP3 audio chip---WT5001. It can support 8KHZ~44.1KHZ sampling frequency MP3 and WAV file formats. This product has several peripheral ports: a standard UART Grove interface, a dual track headphone jack, an external interface and also a  micro SD card interface. You can control the MP3 playback state by sending commands to module via serial port tools, such as switch songs, change the volume and play mode and so on. It seems a simple module, but it owns such strong function. Want to know how the sound quality? Please come to experience it! NOTE: This product is retired, please consider the Grove - MP3 v2.0 as your alternative choice. This UPM module has not been tested with V2.0.",
+            "Aliases": ["wt5001", "Grove - Serial MP3 Player"],
+            "Categories": ["sound"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Image": "wt5001.jpg",
+            "Examples": {
+                "Java": ["WT5001_Example.java"],
+                "Python": ["wt5001.py"],
+                "Node.js": ["wt5001.js"],
+                "C++": ["wt5001.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.2
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 37.6,
+                    "max" : 52.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/grove-serial-mp3-player-p-1542.html", "http://wiki.seeedstudio.com/wiki/Grove_%E2%80%93_Serial_MP3_Player"],
+                "Datasheets": ["http://wiki.seeedstudio.com/images/2/26/WT5001_datasheet_V1.5.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "Library": "mma7660",
+    "Description": "MMA7660 I2C 3-Axis Digital Accelerometer library",
+    "Sensor Class": {
+        "MMA7660": {
+            "Name": " API for the Seeed/NXP MMA7660 I2C 3-Axis Digital Accelerometer",
+            "Description": "This is the UPM Module for the Seeed/NXP MMA7660 i2c 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied",
+            "Aliases": ["mma7660", "Grove - 3-Axis Digital Accelerometer(±1.5g)"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c", "gpio"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["Seeed", "NXP"],
+            "Image": "mma7660.jpg",
+            "Examples": {
+                "Java": ["MMA7660_Example.java"],
+                "Python": ["mma7660.py"],
+                "Node.js": ["mma7660.js"],
+                "C++": ["mma7660.cxx"],
+                "C": ["mma7660.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.0,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": 0.4,
+                    "max": 47
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Sensitivity": {
+                    "unit": "LSB/g",
+                    "sensitivity": "21"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might Grove breakout shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might Grove breakout shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-3-Axis-Digital-Accelerometer(%C2%B11.5g)-p-765.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-3-Axis_Digital_Accelerometer-1.5g/"]
+            }
+        }
+    }
+}

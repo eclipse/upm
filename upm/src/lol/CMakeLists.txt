@@ -1,0 +1,5 @@
+set (libname "lol")
+set (libdescription "Lots of LEDs (LoL) Array Rev A")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa ${CMAKE_THREAD_LIBS_INIT})

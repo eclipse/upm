@@ -1,0 +1,60 @@
+{
+    "Library": "t6713",
+    "Description": "Amphenol Telaire 6713 Series CO2 Module Sensor Library",
+    "Sensor Class": {
+        "T6713": {
+            "Name": "API for the Amphenol Telaire 6713 Series CO2 Module",
+            "Description": "This is the UPM Module for the Amphenol Telaire 6713 Series CO2 Module. The new T6700 series is a miniature NDIR CO2 sensor that has accuracy and reliability of many larger sensors. The new small size allows OEM’s to integrate in to smaller enclosures and equipment and uses significantly less power than many other devices on the market.",
+            "Aliases": ["t6713", "Miniature CO2 Module Series T6700"],
+            "Categories": ["gaseous"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Amphenol"],
+            "Examples": {
+                "C++": ["t6713-co2-sensor.cxx", "t6713.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.4,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 25,
+                    "max" : 200
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -10,
+                    "max": 60
+                },
+                "Detection Range": {
+                    "unit": "ppm",
+                    "min" : 400,
+                    "max" : 5000
+                },
+                "Accuracy": {
+                    "unit": "ppm",
+                    "min" : -75,
+                    "max" : 75
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://amphenol-sensors.com/en/products/co2/co2-modules/3215-t6700"],
+                "Datasheets": ["http://amphenol-sensors.com/en/products/co2/co2-modules/3215-t6700#specifications-t6703"]
+            }
+        }
+    }
+}

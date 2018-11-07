@@ -1,0 +1,43 @@
+{
+    "Library": "pulsensor",
+    "Description": "Pulse Sensor library",
+    "Sensor Class": {
+        "Pulsensor": {
+            "Name": "C++ API for the Adafruit 3-Wire Pulse Sensor",
+            "Description": "This is the UPM Module for the Adafruit 3-Wire Pulse Sensor. It can be used by students, artists, athletes, makers, and game & mobile developers who want to easily incorporate live heart-rate data into their projects.",
+            "Aliases": ["pulsensor", "Pulse Sensor Amped"],
+            "Categories": ["other"],
+            "Connections": ["analog"],
+            "Project Type": ["medical", "prototyping"],
+            "Manufacturers": ["Adafruit"],
+            "Image": "pulsensor.jpg",
+            "Examples": {
+                "Java": ["Pulsensor_Example.java"],
+                "C++": ["pulsensor.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/1093", "https://media.digikey.com/pdf/Data%20Sheets/Pulse%20PDFs/PulseSensorAmpedGettingStartedGuide.pdf"]
+            }
+        }
+    }
+}

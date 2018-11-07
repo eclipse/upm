@@ -1,0 +1,48 @@
+{
+    "Library": "bno055",
+    "Description": "API for the BNO055 Absolute Orientation 9DOF Fusion Hub",
+    "Sensor Class":
+    {
+        "BNO055":
+        {
+            "Name": "Intelligent 9-axis Absolute Orientation Sensor",
+            "Description": "The BNO055 is a System in Package (SiP), integrating a triaxial 14-bit accelerometer, a triaxial 16-bit gyroscope with a range of +/- 2000 degrees per second, a triaxial geomagnetic sensor and a 32-bit cortex M0+ microcontroller running Bosch Sensortec sensor fusion software, in a single package. This sensor handles the hard problem of combining various sensor information into a reliable measurement of sensor orientation (refered to as 'sensor fusion'). The onboard MCU runs this software and can provide fusion output in the form of Euler Angles, Quaternions, Linear Acceleration, and Gravity Vectors in 3 axes. The focus on this driver has been on supporting the fusion components. Less support is available for use of this device as a generic accelerometer, gyroscope and magnetometer, however enough infrastructure is available to add any missing functionality. This device requires calibration in order to operate accurately. Methods are provided to retrieve calibration data (once calibrated) to be stored somewhere else, like in a file. A method is provided to load this data as well. Calibration data is lost on a power cycle. See one of the examples for a description of how to calibrate the device, but in essence: There is a calibration status register available (getCalibrationStatus()) that returns the calibration status of the accelerometer (ACC), magnetometer (MAG), gyroscope (GYR), and overall system (SYS). Each of these values range from 0 (uncalibrated) to 3 (fully calibrated). Calibration involves certain motions to get all 4 values at 3. The motions are as follows (though see the datasheet for more information): GYR: Simply let the sensor sit flat for a few seconds. ACC: Move the sensor in various positions. Start flat, then rotate slowly by 45 degrees, hold for a few seconds, then continue rotating another 45 degrees and hold, etc. 6 or more movements of this type may be required. You can move through any axis you desire, but make sure that the device is lying at least once perpendicular to the x, y, and z axis. MAG: Move slowly in a figure 8 pattern in the air, until the calibration values reaches 3. SYS: This will usually reach 3 when the other items have also reached 3. If not, continue slowly moving the device though various axes until it does.",
+            "Aliases": ["bno055"],
+            "Categories": ["accelerometer", "compass"],
+            "Connections": ["gpio", "i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["BNO055_Example.java"],
+                "Python": ["bno055.py"],
+                "Node.js": ["bno055.js"],
+                "C++": ["bno055.cxx"],
+                "C": ["bno055.c"]
+            },
+            "Specifications":
+            {
+                "Vsource": {"unit": "v", "low" : 2.4, "high": 3.6},
+                "Supply Current": {"unit": "mA", "low": 0.33, "high": 12.3},
+                "Supply Current (Suspended)": {"unit": "uA", "typ": 40},
+                "Gyroscope Ranges": {"unit": "deg/s", "low": 125, "high": 2000},
+                "Magnetometer Ranges": {}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/products/2472"],
+                "Datasheets": ["https://cdn-learn.adafruit.com/assets/assets/000/036/832/original/BST_BNO055_DS000_14.pdf"],
+                "Schematics": ["https://cdn-learn.adafruit.com/assets/assets/000/024/546/medium800/sensors_BNO055_REV-C.png?1429569060"]
+            }
+        }
+    }
+}

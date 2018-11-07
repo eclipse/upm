@@ -1,0 +1,5 @@
+set (libname "st7735")
+set (libdescription "SPI-based 262K Color Single-Chip TFT-LCD")
+set (module_src st7735_gfx.cxx st7735.cxx)
+set (module_hpp st7735_gfx.hpp st7735.hpp)
+upm_module_init(mraa)

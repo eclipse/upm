@@ -1,0 +1,40 @@
+{
+    "Library": "enc03r",
+    "Description": "ENC03R Single Axis Gyro Library",
+    "Sensor Class":
+    {
+        "ENC03R":
+        {
+            "Name": "Single-axis Analog Gyro Module",
+            "Description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
+            "Aliases": ["enc03r"],
+            "Categories": ["gyroscope", "IMU", "Discontinued"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["murata", "seeed"],
+            "Kits": ["robok"],
+            "Image": "enc03r.jpg",
+            "Examples":
+            {
+                "Java": ["ENC03R_Example.java"],
+                "Python": ["enc03r.py"],
+                "Node.js": ["enc03r.js"],
+                "C++": ["enc03r.cxx"],
+                "C": ["enc03r.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.7, "high": 5.25},
+                "Response Time": {"unit": "Hz", "typ": 50},
+                "Operating Temperature": {"unit": "decC", "low": -5, "high": 75}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Single-Axis-Analog-Gyro-p-1451.html"],
+                "Datasheets": ["http://www.seeedstudio.com/wiki/File:Analog_Gyro_datasheet.pdf", "http://wiki.seeedstudio.com/wiki/Grove_-_Single_Axis_Analog_Gyro"],
+                "Schematics": []
+            }
+        }
+    }
+}

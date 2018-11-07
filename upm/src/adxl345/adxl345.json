@@ -1,0 +1,46 @@
+{
+    "Library": "adxl345",
+    "Description": "3-axis, +/- 2/4/8/16 g Digital Accelerometer",
+    "Sensor Class":
+    {
+        "Adxl345":
+        {
+            "Name": "API for the ADXL345 3-Axis Digital Accelerometer",
+            "Description": "ADXL345 is a 3-axis digital accelerometer. The sensor has configurable resolutions to measure +/- 2g, +/- 4g, +/- 8g, or +/- 16g.",
+            "Aliases": ["adxl335"],
+            "Categories": ["imu", "accelerometers"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "adxl335.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["adxl345.py"],
+                "Node.js": ["adxl345.js"],
+                "C++": ["adxl345.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Working Voltage": {"unit": "v", "low": 2, "high": 3.6},
+                "Working Current": {"unit": "uA", "low": 30, "high": 140}
+            },
+            "Platforms":
+            {
+                "Intel Edison":
+                {
+                    "Notes": ["The Grove* version of the sensor is incompatible with and not detected on the I2C bus by the Intel(R) Edison using an Arduino* breakout board at 5V (3V works fine)."],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.analog.com/en/products/mems/accelerometers/adxl345.html"],
+                "Datasheets": ["http://www.seeedstudio.com/wiki/images/2/2c/ADXL345_datasheet.pdf", "http://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "Library": "bmx055",
+    "Description": "BMX055 9-axis Sensor Module",
+    "Sensor Class":
+    {
+        "BMX055":
+        {
+            "Name": "BMX055 9-axis Sensor Module",
+            "Description": "The BMX055 is an integrated 9-axis sensor for the detection of movements and rotations and magnetic heading. It comprises the full functionality of a triaxial, low-g acceleration sensor, a triaxial angular rate sensor and a triaxial geomagnetic sensor. The BMX055 senses orientation, tilt, motion, acceleration, rotation, shock, vibration and heading in cell phones, handhelds, computer peripherals, man-machine interfaces, virtual reality features and game controllers. The BMX055 is essentially 3 separate devices in one: the BMA250E Accelerometer, the BMG160 Gyroscope, and the BMM150 Magnetometer. They are completely independant of each other. This driver provides a very simple interface to these 3 devices. If finer control is desired, you should just use the separate BMA25E, BMG160, and BMM150 device classes directly.  This driver simply initializes all three devices, and provides a mechanism to read accelerometer, gyroscope and magnetometer data from them.",
+            "Aliases": ["bmx055"],
+            "Categories": ["imu", "accelerometer", "gyroscope", "magnetometer"],
+            "Connections": ["gpio", "i2c", "spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["bosch"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["BMX055_Example.java"],
+                "Python": ["bmx055.py"],
+                "Node.js": ["bmx055.js"],
+                "C++": ["bmx055.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 2.4, "high": 3.6},
+                "Measurement Range (Accelerometer)": {"unit": "g", "low": 2, "high": 16},
+                "Measurement Range (Gyroscope)": {"unit": "deg/s", "low": 125, "high": 2000},
+                "Measurement Range (Magnetometer)": {"unit": "LSB/uT", "typ": 3.3},
+                "Iavg": {"unit": "uA", "low" : 130, "high": 5000},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.bosch-sensortec.com/bst/products/all_products/bmx055"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMX055-DS000-02.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

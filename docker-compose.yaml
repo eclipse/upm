@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  app:
+    image: upm-site
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 1234:1234
+      - 3001:3001
+    command: bash -c 'npm install && bundle install && gulp serve'

@@ -1,0 +1,39 @@
+{
+    "Library": "max31723",
+    "Description": "API for the MAX31723 Temperature Sensor",
+    "Sensor Class":
+    {
+        "MAX31723":
+        {
+            "Name": "SPI/3-wire Digital Thermometer",
+            "Description": "Maxim Integrated* [MAX31723](http://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf) is a low-voltage 3-wire/SPI temperature sensor controller. This module was tested on the Maxim Integrated [MAX31732PMB1 PMOD module](http://datasheets.maximintegrated.com/en/ds/MAX31723PMB1.pdf) from the analog PMOD kit.",
+            "Aliases": ["max31723"],
+            "Categories": ["temperature"],
+            "Connections": ["spi"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["maxim"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["max31723.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.7, "high": 3.7},
+                "Operating Current": {"unit": "uA", "low": 100, "high":1200},
+                "Operating Temperature": {"unit": "degC", "low": -55, "high": 125}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX31723.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX31722-MAX31723.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "Library": "max30100",
+    "Description": "API for the Pulse Oximeter and Heart-Rate Sensor",
+    "Sensor Class":
+    {
+        "MAX30100":
+        {
+            "Name": "Pulse Oximeter and Heart-rate Sensor",
+            "Description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals.",
+            "Aliases": ["max30100"],
+            "Categories": ["heartrate", "pulse-ox"],
+            "Connections": ["i2c", "gpio"],
+            "Project Type": ["medical", "wearables", "prototyping"],
+            "Manufacturers": ["maxim"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["MAX30100_Example.java"],
+                "Python": ["max30100.py"],
+                "Node.js": ["max30100.js"],
+                "C++": ["max30100.cxx"],
+                "C": ["max30100.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.8, "high": 3.3},
+                "Operating Current": {"unit": "uA", "low": 0.7, "high": 1200}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX30100.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX30100.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "Library": "veml6070",
+    "Description": "Vishay VEML6070 UV Sensor Library",
+    "Sensor Class": {
+        "VEML6070": {
+            "Name": "API for the Vishay VEML6070 UV Sensor",
+            "Description": "This is the UPM Module for the Vishay VEML6070 UV Sensor. VEML6070 is an advanced ultraviolet (UV) light sensor with I2C protocol interface and designed by the CMOS process. It is easily operated via a simple I2C command. The active acknowledge (ACK) feature with threshold windows setting allows the UV sensor to send out a UVI alert message. Under a strong solar UVI condition, the smart ACK signal can be easily implemented by the software programming. VEML6070 incorporates a photodiode, amplifiers, and analog / digital circuits into a single chip. VEML6070's adoption of FiltronTM UV technology provides the best spectral sensitivity to cover UV spectrum sensing. It has an excellent temperature compensation and a robust refresh rate setting that does not use an external RC low pass filter. VEML6070 has linear sensitivity to solar UV light and is easily adjusted by an external resistor.",
+            "Aliases": ["veml6070"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Vishay", "Adafruit"],
+            "Examples": {
+                "Java": ["VEML6070_Example.java"],
+                "Python": ["veml6070.py"],
+                "Node.js": ["veml6070.js"],
+                "C++": ["veml6070.cxx"],
+                "C": ["veml6070.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.7,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 100,
+                    "max" : 250
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Maximum UVA Sensativity": {
+                    "unit": "mW/cm2",
+                    "typ" : 328
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": []
+                },
+                "Intel Edison": {
+                    "Notes": []
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/2899", "https://learn.adafruit.com/adafruit-veml6070-uv-light-sensor-breakout/overview?gclid=Cj0KCQjwn6DMBRC0ARIsAHZtCeOQb5G3DDYxFmW9TmWxzijBIP1Gm_gNAo4PZ00Kwz3CGimYd1dBdu4aAo6IEALw_wcB"],
+                "Datasheets": ["https://www.vishay.com/docs/84277/veml6070.pdf"]
+            }
+        }
+    }
+}

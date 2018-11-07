@@ -1,0 +1,39 @@
+{
+    "Library": "ims",
+    "Description": "API for the Catnip Electronics I2C Moisture Sensor",
+    "Sensor Class":
+    {
+        "IMS":
+        {
+            "Name": "I2C Moisture Sensor",
+            "Description": "I2C Sensor which can be used to read moisture, light, and temperature which must run at 100kHz.",
+            "Aliases": ["ims"],
+            "Categories": ["moisture"],
+            "Connections": ["i2c"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["catnip"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["IMS_Example.java"],
+                "Python": ["ims.py"],
+                "Node.js": ["ims.js"],
+                "C++": ["ims.cxx"],
+                "C": ["ims.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "low": 0.7, "high": 14},
+                "Operating Temperature": {"unit": "degC", "low": 0, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/"],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Library": "max44000",
+    "Description": "API for the MAX44000 Ambient and Infrared Proximity Sensor",
+    "Sensor Class":
+    {
+        "MAX44000":
+        {
+            "Name": "Ambient and Infrared Proximity Sensor",
+            "Description": "Maxim Integrated* [MAX44000](http://datasheets.maximintegrated.com/en/ds/MAX44000.pdf) is an ambient and infrared proximity sensor. This module was tested on the Maxim Integrated  [MAX44000PMB1 PMOD module] (http://datasheets.maximintegrated.com/en/ds/MAX44000PMB1.pdf) from the analog PMOD kit.",
+            "Aliases": ["max44000"],
+            "Categories": ["proximity"],
+            "Connections": ["i2c"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["maxim"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["MAX44000_Example.java"],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["max44000.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.7, "high": 3.6},
+                "Operating Current": {"unit": "mA", "low": 10, "high":110},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 105}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44000.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX44000.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

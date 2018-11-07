@@ -1,0 +1,137 @@
+{
+    "Library": "servo",
+    "Description": "Servo Library",
+    "Sensor Class": {
+        "ES08A": {
+            "Name": "API for the EMAX/Seeed ES08A Servo",
+            "Description": "This is the UPM Module for the EMAX/Seeed ES08A Servo. Like other servos, the ES08A servo has a shaft that can be controlled by setting the desired angle. There are also routines for setting and getting the minimum and maximum pulse width as well as the maximum period.",
+            "Aliases": ["es08a", "EMAX 9g ES08A High Sensitive Mini Servo"],
+            "Categories": ["servos"],
+            "Connections": ["pwm"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["EMAX"],
+            "Kits": ["gsk"],
+            "Image": "es08a.jpg",
+            "Examples": {
+                "Java": ["ES08A_Example.java"],
+                "Python": ["es08a.py"],
+                "Node.js": ["es08a.js"],
+                "C++": ["servo-es08a.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.8,
+                    "max": 6.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Operating Speed": {
+                    "unit": "Sec/60°",
+                    "min" : 0.10,
+                    "max" : 0.12
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/EMAX-9g-ES08A-High-Sensitive-Mini-Servo-p-760.html", "https://www.emaxmodel.com/es08a-ii.html#product_tabs_description_tabbed"]
+            }
+        },
+        "ES9257": {
+            "Name": "API for the EMAX ES9257 Servo",
+            "Description": "This is the UPM Module for the EMAX ES9257 Servo. The ES9257 servo is a fast, heavy duty servo that is popular for moving the control surfaces on RC models.",
+            "Aliases": ["es9257", "EMAX ES9257 2.5kg& .05 sec Micro Digital 3D Tail Servo"],
+            "Categories": ["servos"],
+            "Connections": ["pwm"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["EMAX"],
+            "Kits": ["gsk"],
+            "Image": "es9257.jpg",
+            "Examples": {
+                "Python": ["es08a.py"],
+                "Node.js": ["es08a.js"],
+                "C++": ["servo-es08a.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "typ" : 4.8
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Operating Speed": {
+                    "unit": "Sec/60°",
+                    "typ" : 0.08
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/EMAX-ES9257-2.5kg%26amp%3B-.05-sec-Micro-Digital-3D-Tail-Servo-p-762.html"]
+            }
+        },
+        "servo": {
+            "Name": "Servo library",
+            "Description": "This is the UPM Module for the Servo library. The base Servo class provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and  the maximum period.",
+            "Aliases": ["servo"],
+            "Categories": ["servos"],
+            "Connections": ["pwm"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["EMAX"],
+            "Image": "es08a.jpg",
+            "Examples": {
+                "Java": ["ES08A_Example.java"],
+                "Python": ["es08a.py", "es08a.py"],
+                "Node.js": ["es08a.js", "es08a.js"],
+                "C++": ["servo-es08a.cxx", "servo-es08a.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.8,
+                    "max": 6.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Operating Speed": {
+                    "unit": "Sec/60°",
+                    "min" : 0.08,
+                    "max" : 0.12
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/EMAX-ES9257-2.5kg%26amp%3B-.05-sec-Micro-Digital-3D-Tail-Servo-p-762.html", "https://www.seeedstudio.com/EMAX-9g-ES08A-High-Sensitive-Mini-Servo-p-760.html", "https://www.emaxmodel.com/es08a-ii.html#product_tabs_description_tabbed"]
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "Library": "uartat",
+    "Description": "Generic AT Command Based UART Device Library",
+    "Sensor Class": {
+        "UARTAT": {
+            "Name": "API for a Generic AT command based UART device",
+            "Description": "This is the UPM Module for a Generic AT command based UART device. This is a generic UART device driver for accessing UART based devices that utilize an \"AT\" command set.  Typically these devices are Radios, Modems, and similar devices that are configured and controlled by emitting \"AT\" commands.",
+            "Aliases": ["uartat"],
+            "Categories": ["other"],
+            "Connections": ["uart"],
+            "Project Type": ["other"],
+            "Manufacturers": ["generic"],
+            "Examples": {
+                "Java": ["LE910_Example.java"],
+                "Python": ["le910.py"],
+                "Node.js": ["le910.js"],
+                "C++": ["uartat-le910.cxx"],
+                "C": ["uartat-le910.c"]
+            },
+            "Urls": {
+                "Product Pages": ["https://github.com/intel-iot-devkit/upm/tree/master/src/uartat"]
+            }
+        }
+    }
+}

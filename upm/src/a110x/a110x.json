@@ -1,0 +1,72 @@
+{
+    "Library": "a110x",
+    "Description": "A110X Hall Effect Library",
+    "Sensor Class":
+    {
+        "A110X":
+        {
+            "Name": "API for the A110X Hall Effect Sensors",
+            "Description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
+            "Aliases": ["a1101", "a1102", "a1103", "a1104", "a1106"],
+            "Categories": ["halleffect"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["robok"],
+            "Image": "a110x.jpg",
+            "Examples":
+            {
+                "Java": ["A110X_Example.java", "A110X_intr_Example.java"],
+                "Python": ["a110x.py"],
+                "Node.js": ["a110x.js"],
+                "C++": ["a110x-intr.cxx", "a110x.cxx"],
+                "C": ["a110x.c"]
+            },
+            "Specifications":
+            {
+                "Vcc": {"unit": "V", "low" : 3.8, "high": 24},
+                "Ioutoff" : {"unit": "uA", "low" : 0.0, "high": 10},
+                "Supply Current": {"unit": "mA", "low": 3.8, "high": 7.5},
+                "a1101" : {
+                    "Operate Point": {"unit": "G", "low": 50, "high": 160},
+                    "Release Point": {"unit": "G", "low": 10, "high": 130},
+                    "Hysteresis": {"unit": "G", "low": 20, "high": 80}
+                },
+                "a1102" : {
+                     "Operate Point": {"unit": "G", "low": 130, "high": 230},
+                     "Release Point": {"unit": "G", "low": 75, "high": 175},
+                     "Hysteresis": {"unit": "G", "low": 30, "high": 80}
+                },
+                "a1103" : {
+                    "Operate Point": {"unit": "G", "low": 220, "high": 340},
+                    "Release Point": {"unit": "G", "low": 165, "high": 285},
+                    "Hysteresis": {"unit": "G", "low": 30, "high": 80}
+                },
+                "a1104" : {
+                    "Operate Point": {"unit": "G", "low": 70, "high": 350},
+                    "Release Point": {"unit": "G", "low": 50, "high": 330},
+                    "Hysteresis": {"unit": "G", "low": 20}
+                },
+                "a1106" : {
+                    "Operate Point": {"unit": "G", "low": 280, "high": 400},
+                    "Release Point": {"unit": "G", "low": 180, "high": 300},
+                    "Hysteresis": {"unit": "G", "low": 70, "high": 140}
+                }
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/grove-hall-sensor-p-965.html"],
+                "Datasheets": ["http://www.allegromicro.com/en/Products/Part_Numbers/1101/1101.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/26693"]
+            }
+        }
+    }
+}

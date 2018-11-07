@@ -1,0 +1,45 @@
+{
+    "Library": "collision",
+    "Description": "API for the Collision Sensor",
+    "Sensor Class":
+    {
+        "Collision":
+        {
+            "Name": "Grove Collision Sensor",
+            "Description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
+            "Aliases": ["collision"],
+            "Categories": ["collision", "accelerometer"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "collision.jpg",
+            "Examples":
+            {
+                "Java": ["Collision_Example.java"],
+                "Python": ["collision.py"],
+                "Node.js": ["collision.js"],
+                "C++": ["collision.cxx"],
+                "C": ["collision.c"]
+            },
+            "Specifications":
+            {
+                "Vsource": {"unit": "V", "low" : 3.3, "high": 5}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Collision-Sensor-p-1132.html", "http://wiki.seeed.cc/Grove-Collision_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Collision_Sensor/master/res/DataSheet-MVS0608_02-v2_1.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

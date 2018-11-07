@@ -1,0 +1,54 @@
+{
+    "Library": "si7005",
+    "Description": "Silicon Labs SI7005 digital I2C humidity and temperature sensor library",
+    "Sensor Class": {
+        "SI7005": {
+            "Name": "API for the Silicon Labs SI7005 digital I2C humidity and temperature sensor",
+            "Description": "This is the UPM Module for the Silicon Labs SI7005 digital I2C humidity and temperature sensor. The Si7005 sensor integrates humidity and temperature sensor elements and offers an analog-to-digital converter and signal processing in a single monolithic CMOS sensor IC. Both the humidity and temperature sensors are factory-calibrated and the data is stored in on-chip non-volatile memory.",
+            "Aliases": ["si7005"],
+            "Categories": ["humidity", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Silicon Labs"],
+            "Examples": {
+                "C++": ["si7005.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.1,
+                    "max": 3.6
+                },
+                "Supply Current Digital": {
+                    "unit": "uA",
+                    "min" : 1,
+                    "max" : 565
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Conversion Time": {
+                    "unit": "ms",
+                    "min" : 18,
+                    "max" : 40
+                },
+                "Wake-up Time": {
+                    "unit": "ms",
+                    "min" : 10,
+                    "max" : 15
+                },
+                "Power-up Time": {
+                    "unit": "ms",
+                    "min" : 10,
+                    "max" : 15
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.silabs.com/products/sensors/humidity/si7005"],
+                "Datasheets": ["https://www.silabs.com/documents/public/data-sheets/Si7005.pdf"]
+            }
+        }
+    }
+}

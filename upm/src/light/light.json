@@ -1,0 +1,40 @@
+{
+    "Library": "light",
+    "Description": "API for the Light Sensor",
+    "Sensor Class":
+    {
+        "Light":
+        {
+            "Name": "Analog Light Sensor",
+            "Description": "The light sensor detects the intensity of the ambient light. As the light intensity of the environment increases, the resistance of the sensor decreases. This means the raw value from the analog pin is larger in bright light and smaller in the dark. A very approximate lux value can also be returned.",
+            "Aliases": ["light"],
+            "Categories": ["light"],
+            "Connections": ["analog"],
+            "Project Type": ["environmental", "security", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["gsk"],
+            "Image": "light.jpg",
+            "Examples":
+            {
+                "Java": ["Light_Example.java"],
+                "Python": ["light.py"],
+                "Node.js": ["light.js"],
+                "C++": ["light.cxx"],
+                "C": ["light.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3, "high": 5},
+                "Operating Current": {"unit": "mA", "low": 0.5, "high": 3},
+                "Response Time": {"unit": "ms", "low": 20, "high": 30}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Light-Sensor-p-746.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Light_Sensor/", "https://github.com/SeeedDocument/Grove_Light_Sensor/raw/master/res/LS06-M%CE%A65_datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

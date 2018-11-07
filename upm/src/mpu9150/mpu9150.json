@@ -1,0 +1,59 @@
+{
+    "Library": "mpu9150",
+    "Description": "InvenSense/Seeed MPU9150 accelerometer library",
+    "Sensor Class": {
+        "MPU9150": {
+            "Name": "InvenSense/Seeed MPU9150 accelerometer",
+            "Description": "This is the UPM Module for the InvenSense/Seeed MPU9150 accelerometer. The MPU-9150 is the world's first integrated 9-axis motion tracking device designed for the low power, low cost, and high performance requirements of consumer electronics equipment including smartphones, tablets and wearable sensors. MPU-9150 features three 16-bit ADC for digitizing the gyroscope outputs and three 16-bit ADCs for digitizing the accelerometer outputs and three 13-bit ADCs for digitizing the magnetometer outputs",
+            "Aliases": ["mpu9150", "Grove - IMU 9DOF v1.0"],
+            "Categories": ["accelerometer", "gyroscope", "compass"],
+            "Connections": ["i2c", "gpio"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["InvenSense", "Seeed"],
+            "Image": "mpu9150.jpg",
+            "Examples": {
+                "Java": ["MPU9150_Example.java"],
+                "Python": ["mpu9150.py"],
+                "Node.js": ["mpu9150.js"],
+                "C++": ["mpu9150-ak8975.cxx", "mpu9150-mpu60x0.cxx", "mpu9150-mpu9250.cxx", "mpu9150.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "typ" : 5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Communication Speed": {
+                    "unit": "kHz",
+                    "typ" : 400
+                },
+                "Gyroscope Range": {
+                    "unit": "°/sec",
+                    "min": "-/+250",
+                    "max": "-/+2000"
+                },
+                "Accelerometer Range": {
+                    "unit": "g",
+                    "min": "-/+2",
+                    "max": "-/+16"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://wiki.seeedstudio.com/wiki/Grove_-_IMU_9DOF_v1.0"],
+                "Datasheets": ["http://wiki.seeedstudio.com/images/5/51/MPU-9150.pdf"]
+            }
+        }
+    }
+}

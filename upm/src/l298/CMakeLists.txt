@@ -1,0 +1,5 @@
+set (libname "l298")
+set (libdescription "Dual H-bridge Motor Driver")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

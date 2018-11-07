@@ -1,0 +1,54 @@
+{
+    "Library": "mmc35240",
+    "Description": "Memsic MMC35240 Tri-axis Magnetic Sensor Library",
+    "Sensor Class": {
+        "MMC35240": {
+            "Name": "Memsic MMC35240 Tri-axis Magnetic Sensor API",
+            "Description": "This is the UPM Module for the Memsic MMC35240 Tri-axis Magnetic Sensor. Fully integrated 3-axis magnetic sensor and electronic circuits requiring fewer external components.",
+            "Aliases": ["mmc35240", "MMC3530KJ"],
+            "Categories": ["compass"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Memsic"],
+            "Examples": {
+                "C++": ["mmc35240.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.62,
+                    "max": 1.98
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "typ" : "160"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Sensitivity": {
+                    "unit": "mG/LSB",
+                    "min" : "1",
+                    "max" : "4"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.memsic.com/magnetic-sensors/MMC3530KJ"],
+                "Datasheets": ["https://www.memsic.com/magnetic-sensors/MMC3530KJ"]
+            }
+        }
+    }
+}

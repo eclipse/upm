@@ -1,0 +1,251 @@
+{
+    "// Library": {
+        "comment": "Library name. Usually synonymous with the chip ID (e.g. fooinc0378). However, in the case where this library implements multiple sensor classes, choose a name which describes the full functionality (e.g. fooincled).",
+        "type": "string",
+        "required": true
+    },
+    "Library": "sensortemplate",
+    "// Description": {
+        "comment": "Library description. This library provides support for the fooincled family of sensors.",
+        "type": "string",
+        "required": true
+    },
+    "Description": "This is a sensor library template used for new sensors",
+    "// Sensor Class": {
+        "comment": "Sensor/actuator class object which corresponds to the sensor/actuator C++ class (case sensitive).",
+        "type": "object",
+        "required": true
+    },
+    "Sensor Class": {
+        "// SensorTemplate": {
+            "comment": "Template Item",
+            "type": "object",
+            "required": true
+        },
+        "SensorTemplate": {
+            "// Name": {
+                "comment": "Sensor display name as indicated by the datasheet or manufacturer",
+                "type": "string",
+                "required": true
+            },
+            "Name": "Template Sensor",
+            "// Description": {
+                "comment": "In-depth description of the C++ sensor/actuator class. Include any necessary information on what is required for this implementation to work.",
+                "type": "string",
+                "required": true
+            },
+            "Description": "This sensor template can be used to generate code stubs for new sensor library development",
+            "// Aliases": {
+                "comment": "Known vendor/manufacturer part numbers or names for the sensor/actuator/s supported by this class. Part numbers/IDs are preferred when available.",
+                "type": "array",
+                "required": false
+            },
+            "Aliases": [
+                "template"
+            ],
+            "// Categories": {
+                "comment": "One or more categories that his sensor class fits in.",
+                "type": "array",
+                "required": true
+            },
+            "Categories": [
+                "other"
+            ],
+            "// Connections": {
+                "comment": "One or more connection types for this sensor class.",
+                "type": "array",
+                "required": true
+            },
+            "Connections": [
+                "i2c"
+            ],
+            "// Project Type": {
+                "comment": "One or more application fields or project types sensor is suited for (e.g. prototyping, industrial)",
+                "type": "array",
+                "required": true
+            },
+            "Project Type": [
+                "prototyping"
+            ],
+            "// Manufacturers": {
+                "comment": "One or more manufacturers for the hardware supported by this class.",
+                "type": "array",
+                "required": true
+            },
+            "Manufacturers": [
+                "generic"
+            ],
+            "// Kits": {
+                "comment": "One or more retail kits that provide this sensor",
+                "type": "array",
+                "required": false
+            },
+            "Kits": [],
+            "// Image": {
+                "comment": "A single small (0-20k) html-viewable image file (located in docs/images). Please do not use existing, copyrighted images with your sensors.",
+                "type": "string",
+                "required": false
+            },
+            "Image": "sensortemplate.png",
+            "// Examples": {
+                "comment": "Functional examples showing the main use cases for this sensor class. At least one is required.",
+                "type": "object",
+                "required": true
+            },
+            "Examples": {
+                "// Java": {
+                    "comment": "One or more Java examples.",
+                    "type": "array",
+                    "required": false
+                },
+                "Java": [
+                    "SensorTemplate_Example_Example_Example.java"
+                ],
+                "// Python": {
+                    "comment": "One or more Python examples.",
+                    "type": "array",
+                    "required": false
+                },
+                "Python": [
+                    "sensortemplate.py"
+                ],
+                "// Node.js": {
+                    "comment": "One or more Node.js examples.",
+                    "type": "array",
+                    "required": false
+                },
+                "Node.js": [
+                    "sensortemplate.js"
+                ],
+                "// C++": {
+                    "comment": "One or more C++ examples.",
+                    "type": "array",
+                    "required": true
+                },
+                "C++": [
+                    "sensortemplate.cxx"
+                ],
+                "// C": {
+                    "comment": "One or more C examples.",
+                    "type": "array",
+                    "required": false
+                },
+                "C": null
+            },
+            "// Specifications": {
+                "comment": "Catch-all for HW specifications.",
+                "type": "object",
+                "required": false
+            },
+            "Specifications": {
+                "// Vdd": {
+                    "comment": "Example specification. Provides unit value and range.",
+                    "type": "object",
+                    "required": false
+                },
+                "Vdd": {
+                    "// unit": {
+                      "comment": "Example specification. Provides unit value and range.",
+                      "type": "string",
+                      "required": false
+                    },
+                    "unit": "v",
+                    "low": 1.7,
+                    "high": 3.6
+                },
+                "// Ioff": {
+                    "comment": "Example specification. Provides unit value and range.",
+                    "type": "object",
+                    "required": false
+                },
+                "Ioff": {
+                    "unit": "mA",
+                    "typical": 0
+                },
+                "// Iavg": {
+                    "comment": "Example specification. Provides unit value and range.",
+                    "type": "object",
+                    "required": false
+                },
+                "Iavg": {
+                    "unit": "mA",
+                    "low": 1,
+                    "high": 2
+                },
+                "// Measured Range": {
+                    "comment": "Example specification. Provides unit value and range.",
+                    "type": "object",
+                    "required": false
+                },
+                "Measured Range": {
+                    "unit": "raw",
+                    "low": 0,
+                    "high": 1023
+                },
+                "// Other Specs": {
+                    "comment": "Example specification. Provides unit value and range.",
+                    "type": "object",
+                    "required": false
+                },
+                "Other Specs": {}
+            },
+            "// Platforms": {
+                "comment": "Catch-all for listing platforms used to validate this sensor class.",
+                "type": "object",
+                "required": false
+            },
+            "Platforms": {
+                "// Intel Joule Module": {
+                    "comment": "Example platform.",
+                    "type": "object",
+                    "required": false
+                },
+                "Intel Joule Module": {
+                    "// Notes": {
+                        "comment": "JSON Object or Array which documents this platform.",
+                        "type": "array",
+                        "required": false
+                    },
+                    "Notes": [
+                        "Requires pull-up resistors with carrier board"
+                    ],
+                    "// Images": {
+                        "comment": "JSON Object or Array which documents this platform.",
+                        "type": "array",
+                        "required": false
+                    },
+                    "Images": [
+                        ""
+                    ]
+                }
+            },
+            "// Urls": {
+                "comment": "Collection of external URLs which provide additional documentation for this sensor class.",
+                "type": "object",
+                "required": true
+            },
+            "Urls": {
+                "// Product Pages": {
+                    "comment": "Provide at least one URL for a product web-site where users can get additional information on this sensor.",
+                    "type": "array",
+                    "required": true
+                },
+                "Product Pages": [
+                    "https://software.intel.com/en-us/iot/hardware/sensors/short-title-case-description-from-datasheet-manditory"
+                ],
+                "// Datasheets": {
+                    "comment": "Array of product datasheets",
+                    "type": "array",
+                    "required": false
+                },
+                "Datasheets": [],
+                "// Schematics": {
+                    "comment": "Array of product schematic pages.",
+                    "type": "array",
+                    "required": false
+                },
+                "Schematics": []
+            }
+        }
+    }
+}

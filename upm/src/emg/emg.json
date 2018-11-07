@@ -1,0 +1,38 @@
+{
+    "Library": "emg",
+    "Description": "Grove EMG Muscle Signal Reader Library",
+    "Sensor Class":
+    {
+        "EMG":
+        {
+            "Name": "Electromyography (EMG) Sensor",
+            "Description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result.",
+            "Aliases": ["emg"],
+            "Categories": ["electromyography", "medical"],
+            "Connections": ["analog"],
+            "Project Type": ["wearables", "computer interfacing", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "emg.jpg",
+            "Examples":
+            {
+                "Java": ["Emg_Example.java"],
+                "Python": ["emg.py"],
+                "Node.js": ["emg.js"],
+                "C++": ["emg.cxx"],
+                "C": ["emg.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-EMG-Detector-p-1737.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-EMG_Detector/"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-EMG_Detector/master/res/Grove-EMG_Sensor_v1.1_SCH.pdf"]
+            }
+        }
+    }
+}

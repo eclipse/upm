@@ -1,0 +1,49 @@
+{
+    "Library": "ssd1351",
+    "Description": "Adafruit SSD1351 OLED library",
+    "Sensor Class": {
+        "SSD1351": {
+            "Name": "API for the Adafruit SSD1351 OLED displays",
+            "Description": "This is the UPM Module for the Adafruit SSD1351 OLED displays. It was tested with the Adafruit 1.5\" OLED Display, but should work with any SSD1351 display running in SPI mode. On the Intel Edison don't forget to disable SPI Power Management (PM) for this driver to work, you can find more details on this topic here: http://iotdk.intel.com/docs/master/mraa/edison.html",
+            "Aliases": ["ssd1351", "OLED Breakout Board - 16-bit Color 1.5\" w/microSD holder"],
+            "Categories": ["display"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Adafruit", "Slomon Systech", "Univision"],
+            "Image": "ssd1351.jpg",
+            "Examples": {
+                "C++": ["ssd1351.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 10,
+                    "max" : 1260
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Resolution": {
+                    "unit": "pixels",
+                    "height": 128,
+                    "width": 128
+                },
+                "Color Resolution": {
+                    "unit": "bits",
+                    "resolution": 14
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/1431"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/SSD1351-Revision+1.3.pdf", "https://cdn-shop.adafruit.com/datasheets/UG-2828GDEDF11.pdf"]
+            }
+        }
+    }
+}

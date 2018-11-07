@@ -1,0 +1,54 @@
+{
+    "Library": "moisture",
+    "Description": "Moisture Sensor library",
+    "Sensor Class": {
+        "Moisture": {
+            "Name": "API for the Grove Moisture Sensor ",
+            "Description": "This is the UPM Module for the Grove moisture sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",
+            "Aliases": ["Grove Moisture Sensor"],
+            "Categories": ["liquid"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["eak", "hak"],
+            "Image": "moisture.jpg",
+            "Examples": {
+                "Java": ["Moisture_Example.java"],
+                "Python": ["moisture.py"],
+                "Node.js": ["moisture.js"],
+                "C++": ["moisture.cxx"],
+                "C": ["moisture.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5
+                },
+
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 0,
+                    "max" : 35
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need the Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need the Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Moisture-Sensor-p-955.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Moisture_Sensor/"]
+            }
+        }
+    }
+}

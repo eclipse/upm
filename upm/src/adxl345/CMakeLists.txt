@@ -1,0 +1,5 @@
+set (libname "adxl345")
+set (libdescription "3-axis, +/- 2/4/8/16 g Digital Accelerometer")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,0 +1,58 @@
+{
+    "Library": "ttp223",
+    "Description": "Seeed TTP223 Touch Detector Sensor library",
+    "Sensor Class": {
+        "TTP223": {
+            "Name": "API for the Seeed TTP223 Touch Sensor",
+            "Description": "This is the UPM Module for the Seeed TTP223 Touch Sensor. This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a  non-metallic surface like glass or plastic.",
+            "Aliases": ["ttp223", "Grove - Touch Sensor"],
+            "Categories": ["touch"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Image": "ttp223.jpg",
+            "Examples": {
+                "Java": ["TTP223_Example.java"],
+                "Python": ["ttp223.py"],
+                "Node.js": ["ttp223.js"],
+                "C++": ["ttp223.cxx"],
+                "C": ["ttp223.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.0,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 1.5,
+                    "max" : 7.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 70
+                },
+                "Response Time": {
+                    "unit": "ms",
+                    "min" : 60,
+                    "max" : 220
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Touch-Sensor-p-747.html", "http://wiki.seeed.cc/Grove-Touch_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Touch_Sensor/master/res/TTP223.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Touch_Sensor/master/res/Touch_sensor_Eagle_File.zip"]
+            }
+        }
+    }
+}

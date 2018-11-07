@@ -1,0 +1,37 @@
+{
+    "Library": "lcm1602",
+    "Description": "API for the LCM1602 I2C controller for HD44780-based displays",
+    "Sensor Class":
+    {
+        "Lcm1602":
+        {
+            "Name": "LCD Display Driver for the LCM1602 Controller for HD44780-based Displays",
+            "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",
+            "Aliases": ["lcm1602"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["display", "prototyping"],
+            "Manufacturers": ["adafruit", "sparkfun", "seeed"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["Lcm1602_i2c_Example.java", "Lcm1602_parallel_Example.java"],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["lcm1602-i2c.cxx", "lcm1602-parallel.cxx"],
+                "C": ["lcm1602-i2c.c", "lcm1602-parallel.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 4.8, "typ": 5, "high": 5.2},
+                "Operating Current": {"unit": "mA", "max": 150}
+            },
+            "Urls" :
+            {
+                "Product Pages": [],
+                "Datasheets": ["https://www.adafruit.com/datasheets/TC1602A-01T.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "Library": "button",
+    "Description": "Generic library for buttons & switches",
+    "Sensor Class":
+    {
+        "Button":
+        {
+            "Name": "Button",
+            "Description": "Basic UPM module for buttons and switches. Allows attaching a callback function to state transitions.",
+            "Aliases": ["Grove - Button"],
+            "Categories": ["button"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "dfrobot", "sparkfun", "adafruit", "generic"],
+            "Kits": ["gsk"],
+            "Image": "button.jpg",
+            "Examples":
+            {
+                "Java": ["Button_Example.java", "Button_intr_Example.java"],
+                "Python": ["button.py"],
+                "Node.js": ["button.js"],
+                "C++": ["button.cxx"],
+                "C": ["button.c", "button-intr.c"]
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-Button/"],
+                "Schematics": ["https://easyeda.com/Seeed/Grove_Button_v1_2-f0f9f212fcee460ebe3703dab813e5c4"]
+            }
+        }
+    }
+}

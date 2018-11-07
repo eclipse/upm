@@ -1,0 +1,38 @@
+{
+    "Library": "lidarlitev3",
+    "Description": "API for the LIDARLITEV3 Optical Distance Measurement Sensor",
+    "Sensor Class":
+    {
+        "LIDARLITEV3":
+        {
+            "Name": "Optical Distance Measurement Sensor",
+            "Description": "It is a compact, high-performance optical distance measurement sensor from Garmin.",
+            "Aliases": ["lidarlitev3"],
+            "Categories": ["distance"],
+            "Connections": ["i2c", "pwm"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["garmin"],
+            "Kits": [],
+            "Image": "lidarlitev3.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["lidarlitev3.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 105, "high": 130}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/14032"],
+                "Datasheets": ["http://static.garmin.com/pumac/LIDAR_Lite_v3_Operation_Manual_and_Technical_Specifications.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

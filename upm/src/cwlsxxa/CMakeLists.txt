@@ -1,0 +1,5 @@
+set (libname "cwlsxxa")
+set (libdescription "Veris CWLSXXA CO2/Temperature/Humidity Transmitter")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

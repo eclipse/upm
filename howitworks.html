@@ -1,0 +1,65 @@
+<!doctype html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900" rel="stylesheet"><link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png"/><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css"> <script src="/assets/js/library/jquery-2.2.4.min.js"></script> <script src="/assets/js/library/handlebars.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> <script type="text/javascript">hljs.initHighlightingOnLoad();</script> <script type="text/javascript"> $(function(){ var current = location.pathname; $('.nav li a').each(function(){ var $this = $(this); /* if the current path is like this link, make it active */ if($this.attr('href').indexOf(current) !== -1){ $this.addClass('active'); } }) }); </script> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-17890616-13', 'auto'); ga('send', 'pageview'); </script><body><header><nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"><div class="container"><div class="row"><div class="col-xs-12 col-sm-5"> <a class="navbar-logo pull-left" href="/"> <img src="/assets/images/logo.png" class="logo-img"> </a><div class="navbar-header pull-right" style="display: inline-block;"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button></div></div><div class="col-sm-7 col-xs-12 menu-inner"><div id="navbar" class="navbar-collapse collapse"><ul class="nav navbar-nav navbar-right nav-list"><li> <a href="/findSensor.html"><span class="icon find-sensor" ></span> <span class="">Find</span></a><li> <a href="/addSensor.html"><span class="icon add-sensor" ></span> <span class="">Join</span></a><li> <a href="/Documentation/docindex.html"><span class="icon documentation" ></span> <span class="">Documentation</span></a><li> <a href="https://github.com/intel-iot-devkit/upm" target="_blank"><span class="icon github github-mobile"></span> <span class="github-desktop">Github</span></a></ul></div></div></div></div></nav></header><main><div class="main-container inner-pages"><div class="container"><div class="row"><div class="col-sm-8 col-xs-12 "><div class="page-heading"> How it works</div></div></div></div><div class="section-wrapper add-sensor"><div class="container"><div class="row "><div class="col-sm-6"><div class="heading">Flexible, portable sensor integration</div><div class="title">Making IoT development easier</div><div class="description">The UPM repository provides software drivers for a wide variety of commonly used sensors and actuators. These software drivers interact with the underlying hardware platforms, as well as the attached sensors, through calls to MRAA APIs.<div class="title">Compatible boards</div><div class="description" style="padding-bottom: 30px;"><div>Intel® Joule™ Module</div><div>Intel® Edison Module</div><div>Intel® Galileo Board</div><div>Intel® Quark™ Microcontroller D2000</div><div>Intel® Quark™ SE Microcontroller C1000</div><div>Intel® IoT Gateway</div><div>Intel® NUC</div><div>Arduino* and Genuino* 101</div><div>Banana Pi*</div><div>BeagleBone Black*</div><div>MEDIATEK LinkIt* Smart</div><div>MinnowBoard*</div><div>Raspberry Pi*</div><div>Terasic DE10-Nano Kit*</div><div>UP* and UP Squared*</div><div>96Boards*</div></div></div></div><div class="col-sm-6"><div class=""> <img src="/assets/images/HowItWorks.png" /></div><div class="title">About MRAA</div><div class="description">Every sensor module on this site is compatible with the mraa.io API library—a Linux* Library for low-speed I/O communication in C with bindings for C++, Python, Node.js, and Java. It supports generic I/O platforms and compatible boards.</div></div></div></div></div><div class="section-wrapper add-sensor background-theme set-up"><div class="container"><div class="row "><div class="col-sm-12"><div class="heading">Getting set up</div></div><div class="col-sm-6"><div class="description"><div class="number-line"><span class="circle">1</span><span class="number-text"><a class="link" href="/Documentation/installingUpm.html">Install or update</a> to the latest version of UPM.</span></div><div class="number-line"><span class="circle">2</span><span class="number-text"><a class="link" href="/findSensor.html">Find</a> your sensor/actuator.</span></div><div class="number-line"><span class="circle">3</span><span class="number-text">Most sensors/actuators include code snippets. Try them or explore the API documentation for your preferred programming language.</span></div><div class="number-line"><span class="circle">4</span><span class="number-text">Prototype, develop, and deploy your solution!</span></div></div><div class="btn-area"> <a class="button-style btn-color" href="/Documentation/docindex.html">Documentation</a></div></div><div class="col-sm-6"><div id="codeSection"><ul class="nav nav-pills nav-justified"><li class="active"> <a href="#cpp" data-toggle="tab">C++</a><li> <a href="#python" data-toggle="tab">Python</a><li> <a href="#node" data-toggle="tab">Node.js</a><li> <a href="#java" data-toggle="tab">Java</a></ul><div class="tab-content clearfix"><div class="tab-pane active" id="cpp"><pre style="max-height:250px; min-height: 250px;">                                    
+                                <code class="cpp hljs">
+                                    upm::Adxl345* accel = new upm::Adxl345(0);
+ 
+                                    while(true){
+                                        accel-&gt;update(); // Update the data
+                                        raw = accel-&gt;getRawValues(); // Read raw sensor data
+                                        acc = accel-&gt;getAcceleration(); // Read acceleration (g)
+                                        fprintf(stdout, "Current scale: 0x%2xg\n", accel-&gt;getScale());
+                                        fprintf(stdout, "Raw: %6d %6d %6d\n", raw[0], raw[1], raw[2]);
+                                        fprintf(stdout, "AccX: %5.2f g\n", acc[0]);
+                                        fprintf(stdout, "AccY: %5.2f g\n", acc[1]);
+                                        fprintf(stdout, "AccZ: %5.2f g\n", acc[2]);
+                                        sleep(1);
+                                    }
+                                </code>
+                            </pre></div><div class="tab-pane" id="python"><pre style="max-height:250px; min-height: 250px;">                                    
+                                <code class="python hljs">
+                                    adxl = adxl345.Adxl345(0)
+ 
+                                    while True:
+                                            adxl.update() # Update the data
+                                            raw = adxl.getRawValues() # Read raw sensor data
+                                            force = adxl.getAcceleration() # Read acceleration force (g)
+                                            print("Raw: %6d %6d %6d" % (raw[0], raw[1], raw[2]))
+                                            print("ForceX: %5.2f g" % (force[0]))
+                                            print("ForceY: %5.2f g" % (force[1]))
+                                            print("ForceZ: %5.2f g\n" % (force[2]))
+                                     
+                                            # Sleep for 1 s
+                                            sleep(1)
+                                </code>
+                            </pre></div><div class="tab-pane" id="node"><pre style="max-height:250px; min-height: 250px;">                                    
+                                <code class="javascript hljs">
+                                    var adxl345 = require('jsupm_adxl345');
+                                    var adxl = new adxl345.Adxl345(0);
+                                     
+                                    setInterval(function()
+                                    {
+                                        adxl.update(); // Update the data
+                                        var raw = adxl.getRawValues(); // Read raw sensor data
+                                        var force = adxl.getAcceleration(); // Read acceleration force (g)
+                                        var rawvalues = raw.getitem(0) + " " + raw.getitem(1) + " " + raw.getitem(2);
+                                        console.log("Raw Values: " + rawvalues);
+                                        console.log("ForceX: " + force.getitem(0).toFixed(2) + " g");
+                                        console.log("ForceY: " + force.getitem(1).toFixed(2) + " g");
+                                       console.log("ForceZ: " + force.getitem(2).toFixed(2) + " g");
+                                    }, 1000);
+                                </code>
+                            </pre></div><div class="tab-pane" id="java"><pre style="max-height:250px; min-height: 250px;">                                    
+                                <code class="java hljs">
+                                    upm_adxl345.Adxl345 sensor = new upm_adxl345.Adxl345(0);
+                                        while (true) {
+                                            sensor.update();
+                                            val = sensor.getRawValues();
+                                            accel = sensor.getAcceleration();
+                             
+                                            System.out.println("Current scale: " + sensor.getScale());
+                                            System.out.println("Raw Values: X: " + val[0] + " Y: " + val[1] + " Z: " + val[2]);
+                                            System.out.println("Acceleration: X: " + accel[0] + "g Y: " + accel[1] + "g Z: " + accel[2] + "g");
+                             
+                                            Thread.sleep(1000);
+                                        }
+                                </code>
+                            </pre></div></div></div></div></div></div></div></div><footer class="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p class="text-muted">(* Trademarks)</div><div class="col-xs-6 text-right"><p class="text-muted">&copy; 2017 UPM</div></div></div><script src="/assets/js/library/bootstrap.min.js"></script></footer></main>

@@ -1,0 +1,5 @@
+set (libname "mpu9150")
+set (libdescription "IMU Sensor Library Based On the Mpu9150")
+set (module_src ${libname}.cxx ak8975.cxx mpu60x0.cxx mpu9250.cxx)
+set (module_hpp ${libname}.hpp ak8975.hpp mpu60x0.hpp mpu9250.hpp)
+upm_module_init(mraa)

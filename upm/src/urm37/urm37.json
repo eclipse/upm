@@ -1,0 +1,50 @@
+{
+    "Library": "urm37",
+    "Description": "DFRobot URM37 Ultrasonic Ranger Library",
+    "Sensor Class": {
+        "URM37": {
+            "Name": "API for the DFRobot URM37 Ultrasonic Ranger",
+            "Description": "This is the UPM Module for the DFRobot URM37 Ultrasonic Ranger. This library was tested with the DFRobot URM37 Ultrasonic Ranger, V4.  It has a range of between 5 and 500 centimeters (cm).  It supports both analog distance measurement, and UART based temperature and distance measurements.  This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600.  In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result.  On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation.",
+            "Aliases": ["urm37", "URM37 V4.0 Ultrasonic Sensor"],
+            "Categories": ["sound"],
+            "Connections": ["uart", "ainput", "gpio"],
+            "Project Type": ["prototyping", "robotics", "commercial"],
+            "Manufacturers": ["DFRobot"],
+            "Image": "urm37.jpg",
+            "Examples": {
+                "Python": ["urm37-uart.py", "urm37.py"],
+                "Node.js": ["urm37-uart.js", "urm37.js"],
+                "C++": ["urm37-uart.cxx", "urm37.cxx"],
+                "C": ["urm37-uart.c", "urm37.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : "<20"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -10,
+                    "max": 70
+                },
+                "Effective Range": {
+                    "unit": "cm",
+                    "min" : 5,
+                    "max" : 500
+                },
+                "Resolution": {
+                    "unit": "cm",
+                    "resolution": 1
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/product-53.html", "https://www.dfrobot.com/wiki/index.php/URM37_V4.0_Ultrasonic_Sensor_(SKU:SEN0001)"]
+            }
+        }
+    }
+}

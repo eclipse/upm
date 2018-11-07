@@ -1,0 +1,33 @@
+{
+    "Library": "isd1820",
+    "Description": "API support for the ISD1820-based Grove Voice Recorder",
+    "Sensor Class":
+    {
+        "ISD1820":
+        {
+            "Name": "Grove Voice Recording and Playback Module",
+            "Description": "This class implements support for the Grove Voice Recorder. There are two digital pins: one that enables recording, and the other that plays back what was previously recorded.",
+            "Aliases": ["isd1820"],
+            "Categories": ["audio"],
+            "Connections": ["gpio"],
+            "Project Type": ["audio", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "isd1820.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["isd1820.py"],
+                "Node.js": ["isd1820.js"],
+                "C++": ["isd1820.cxx"],
+                "C": []
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Recorder-p-1825.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove_Recorder/", "https://github.com/SeeedDocument/Grove_Recorder/raw/master/res/ISD1820P.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

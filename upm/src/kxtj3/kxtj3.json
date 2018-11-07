@@ -1,0 +1,72 @@
+{
+    "Library": "KXTJ3",
+    "Description": "Kionix KXTJ3 tri-axis accelerometer sensor library",
+    "Sensor Class": {
+        "KXTJ3": {
+            "Name": "Kionix KXTJ3 tri-axis accelerometer sensor",
+            "Description": "This is the UPM Module for the Kionix KXTJ3 accelerometer sensor. The Kionix KXTJ3 sensor is a multifunctional sensor that provides multiple functionalities. The sensor provides an extended g-range up to +/- 16g, higher resolution embedded wake-up function down to 3.9mg, and a flexible interrupt circuitry. The KXTJ3 sense element offers lower noise performance, exceptional shock resiliency, stable performance over temperature, and virtually eliminates offset and sensitivity shifts from reflow.",
+            "Categories": [
+                "acceleration"
+            ],
+            "Connections": [
+                "i2c"
+            ],
+            "Project Type": [
+                "prototyping",
+                "commercial"
+            ],
+            "Manufacturers": [
+                "Kionix"
+            ],
+            "Image": "kxtj3.png",
+            "Examples": {
+                "C++": [
+                    "kxtj3.cxx"
+                ],
+                "C": [
+                    "kxtj3.c"
+                ],
+                "Java": [
+                    "KXTJ3_Example.java"
+                ],
+                "Python": [
+                    "kxtj3.py"
+                ],
+                "Node.js": [
+                    "kxtj3.js"
+                ]
+            },
+            "Specifications": {
+                "Supply Voltage (VDD)": {
+                    "unit": "V",
+                    "min": 1.71,
+                    "typical": 2.5,
+                    "max": 3.6
+                },
+                "I/O Pads Supply Voltage (IO_VDD)": {
+                    "unit": "V",
+                    "min": 1.7,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": 0.9,
+                    "max": 155
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Urls": {
+                "Product Pages": [
+                    "http://www.kionix.com/product/KXTJ3-1057"
+                ],
+                "Datasheets": [
+                    "http://kionixfs.kionix.com/en/datasheet/KXTJ3-1057-Specifications-Rev-3.0.pdf"
+                ]
+            }
+        }
+    }
+}

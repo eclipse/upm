@@ -1,0 +1,41 @@
+{
+    "Library": "ds1307",
+    "Description": "DS1307 Real-Time Clock library",
+    "Sensor Class":
+    {
+        "DS1307":
+        {
+            "Name": "DS1307 Real Time Clock (RTC) Module",
+            "Description": "UPM module for the DS1307-based real-time clock. The clock can provide information about seconds, minutes, hours, day of the week, day of the month, month, and year. It can operate in either a 24-hour or a 12-hour format. This device can also output a square wave at 1Khz, 4Khz, 8Khz, and 32Khz. However, this capability is not implemented in this module.",
+            "Aliases": ["ds1307"],
+            "Categories": ["RTC", "timekeeping"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "maxim"],
+            "Kits": [],
+            "Image": "ds1307.jpg",
+            "Examples":
+            {
+                "Java": ["DS1307_Example.java"],
+                "Python": ["ds1307.py"],
+                "Node.js": ["ds1307.js"],
+                "C++": ["ds1307.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 4.5, "high": 5.5},
+                "Active Current": {"unit": "mA", "Typ": 1.5},
+                "Standby Current (Oscillator On)": {"unit": "nA", "low": 480, "high": 800},
+                "Operating Temperature": {"unit": "degC", "low": 0, "high": 70}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/digital/real-time-clocks/DS1307.html/tb_tab0"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/DS1307.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

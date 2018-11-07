@@ -1,0 +1,63 @@
+{
+    "Library": "rf22",
+    "Description": "SparkFun/HopeRF RF22 Wireless Transceiver library",
+    "Sensor Class": {
+        "RF22": {
+            "Name": "API for the SparkFun/HopeRF RF22 Transceiver Module",
+            "Description": "This is the UPM Module for the SparkFun/HopeRF RF22 Transceiver Module. This base class provides basic functions for sending and receiving unaddressable, unreliable datagrams of arbitrary length to 255 octets per packet. Subclasses may use this class to implement reliable, addressed datagrams and streams,  mesh routers, repeaters, translators etc. On transmission, the TO and FROM addresses default to 0x00, unless changed by a subclass.  On reception the TO addressed is checked against the node address (defaults to 0x00) or the broadcast address (which is 0xff). The ID and FLAGS are set to 0, and not checked by this class. This permits use of the this base RF22 class as an unaddressable, unreliable datagram service. Subclasses are expected to change this behavior to add node address, ids, retransmission etc. Naturally, for any 2 radios to communicate that must be configured to use the same frequency and  modulation scheme.",
+            "Aliases": ["rf22", "RFM22B-S2 SMD Wireless Transceiver - 915MHz"],
+            "Categories": ["wifi"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["SparkFun", "HopeRF"],
+            "Image": "rf22.jpg",
+            "Examples": {
+                "C++": ["rf22-client.cxx", "rf22-server.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.8,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "Standby Mode": {
+                        "unit": "nA",
+                        "min" : 450,
+                        "max" : 800
+                    },
+                    "Standard Usage" : {
+                        "unit": "mA",
+                        "min" : 8.5,
+                        "max" : 85
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Data Rate": {
+                    "unit": "kbps",
+                    "min" : 0.123,
+                    "max" : 256
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/12030"],
+                "Datasheets": ["https://www.sparkfun.com/datasheets/Wireless/General/RFM22B.pdf"]
+            }
+        }
+    }
+}

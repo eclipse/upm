@@ -1,0 +1,50 @@
+{
+    "Library": "tcs3414cs",
+    "Description": "Seeed TCS3414CS Color Sensor library",
+    "Sensor Class": {
+        "TCS3414CS": {
+            "Name": "API for the Seeed TCS3414CS Color Sensor",
+            "Description": "This is the UPM Module for the Seeed TCS3414CS Color Sensor. This module is based on the color sensor TCS3414CS with digital output I2C. Based on the 8*2 array of filtered photodiodes and 16-bit analog-to-digital converters, you can measure the color chromaticity of ambient light or the color of objects. Of the 16 photodiodes, 4 have red filters, 4 have green filters, 4 have blue filters and 4 have no filter(clear). With the synchronization input pin, an external pulsed light source can provide precise synchronous conversion control.",
+            "Aliases": ["tcs3414cs"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed", "TAOS", "ams"],
+            "Image": "tcs3414cs.jpg",
+            "Examples": {
+                "Python": ["tcs3414cs.py"],
+                "Node.js": ["tcs3414cs.js"],
+                "C++": ["tcs3414cs.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 6.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 1,
+                    "max" : 12
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 70
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-I2C_Color_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-I2C_Color_Sensor/master/res/TCS3404_TCS3414-A.pdf", "https://github.com/SeeedDocument/Grove-I2C_Color_Sensor/raw/master/res/TCS3472%20Datasheet.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+set (libname "at42qt1070")
+set (libdescription "Seven-channel QTouch Touch Sensor")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

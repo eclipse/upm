@@ -1,0 +1,32 @@
+{
+    "Library": "lol",
+    "Description": "API for the Olimex LoL Array",
+    "Sensor Class":
+    {
+        "LoL":
+        {
+            "Name": "Lots of LEDs (LoL) Array Rev A",
+            "Description": "This module defines the LoL API and implementation for a simple framebuffer.",
+            "Aliases": ["lol"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["olimex"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LoL_Example.java", "LoL_example_Example.java"],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["lol.cxx"],
+                "C": []
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.olimex.com/Products/Duino/Shields/SHIELD-LOL/"],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

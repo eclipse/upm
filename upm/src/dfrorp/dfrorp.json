@@ -1,0 +1,39 @@
+{
+    "Library": "dfrorp",
+    "Description": "UPM C++ API for the DFRobot ORP (Oxidation/Reduction Potential)",
+    "Sensor Class":
+    {
+        "DFRORP":
+        {
+            "Name": "Analog Oxidation Reduction Potential (ORP) Sensor",
+            "Description": "This library was tested with the DFRobot ORP (Oxidation/Reduction Potential) Sensor. To calibrate: Disconnect the sensor probe (but leave the sensor interface board connected).  Then run one of the examples while holding down the 'calibrate' button on the device.  Read the ORP value reported (it should be fairly small). This value is what you should supply to setCalibrationOffset().  Then reconnect the probe to the interface board and you should be ready to go. DO NOT press the calibrate button on the interface board while the probe is attached or you can permanently damage the probe.",
+            "Aliases": ["dfrorp"],
+            "Categories": ["orp", "liquid"],
+            "Connections": ["analog"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["DFRORP_Example.java"],
+                "Python": ["dfrorp.py"],
+                "Node.js": ["dfrorp.js"],
+                "C++": ["dfrorp.cxx"],
+                "C": ["dfrorp.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "Typ": 5},
+                "Measurement Range": {"unit": "V", "low": -2, "high": 2},
+                "Operating Temperature": {"unit": "degC", "low": 5, "high": 70}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-1071.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/Analog_ORP_Meter(SKU:SEN0165)"],
+                "Schematics": ["http://image.dfrobot.com/image/data/SEN0165/OPR%20meter%20V1.0%20Schematic.pdf"]
+            }
+        }
+    }
+}

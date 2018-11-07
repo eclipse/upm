@@ -1,0 +1,41 @@
+{
+    "Library": "grovecollision",
+    "Description": "API for the Grove Collision Sensor",
+    "Sensor Class":
+    {
+        "GroveCollision":
+        {
+            "Name": "Grove Collision Sensor",
+            "Description": "The Grove Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
+            "Aliases": ["grovecollision"],
+            "Categories": ["collision", "deprecated"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "grovecollision.jpg",
+            "Examples":
+            {
+                "Java": ["GroveCollision_Example.java"],
+                "Python": ["grovecollision.py"],
+                "Node.js": ["grovecollision.js"],
+                "C++": ["grovecollision.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3,  "high": 5},
+                "Operating Current": {"unit": "mA", "max": 2},
+                "Reaction Point": {"unit": "mg", "typ": 50},
+                "Off Resistance": {"unit": "MOhms", "min": 30},
+                "On Resistance": {"unit": "Ohms", "max": 100}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Collision-Sensor-p-1132.html"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Collision_Sensor/master/res/DataSheet-MVS0608_02-v2_1.pdf", "http://wiki.seeed.cc/Grove-Collision_Sensor/"],
+                "Schematics": []
+            }
+        }
+    }
+}

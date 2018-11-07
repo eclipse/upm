@@ -1,0 +1,5 @@
+set (libname "tm1637")
+set (libdescription "C++ API for the TM1637 7-segment Display")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

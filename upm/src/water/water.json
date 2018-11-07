@@ -1,0 +1,57 @@
+{
+    "Library": "water",
+    "Description": "Grove Water Sensor Library",
+    "Sensor Class": {
+        "Water": {
+            "Name": "API for the Grove Water Sensor",
+            "Description": "This is the UPM Module for the Grove Water Sensor. This sensor detects the presence of water using exposed PCB traces. The sensor is made up of interlaced traces of Ground and Sensor signals. The sensor traces are weakly pulled up using 1 MΩ resistor. The resistor will pull the sensor trace value high until a drop of water shorts the sensor trace to the ground trace. This circuit will work with digital I/O pins of Arduino or you can use it with the analog pins to detect the amount of water induced contact between the grounded and sensor traces.",
+            "Aliases": ["water", "Grove - Water Sensor"],
+            "Categories": ["liquid"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["eak"],
+            "Image": "water.jpg",
+            "Examples": {
+                "Java": ["Water_Example.java"],
+                "Python": ["water.py"],
+                "Node.js": ["water.js"],
+                "C++": ["water.cxx"],
+                "C": ["water.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.75,
+                    "max": 5.25
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : "<20"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 10,
+                    "max": 30
+                },
+                "Operating Humidity": {
+                    "unit": "%RH",
+                    "min" : 10,
+                    "max" : 90
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Water-Sensor-p-748.html?gclid=Cj0KCQjwn6DMBRC0ARIsAHZtCeM6_FaKXMn5-4xpQYuyJgydq_exuH2PqkKAKnKsTha_iJzXneoWL7EaAohrEALw_wcB", "http://wiki.seeed.cc/Grove-Water_Sensor/"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Water_Sensor/master/res/Water_sensor.zip"]
+            }
+        }
+    }
+}

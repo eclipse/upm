@@ -1,0 +1,5 @@
+set (libname "nrf24l01")
+set (libdescription "NRF Transceiver")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

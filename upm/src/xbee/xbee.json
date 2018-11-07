@@ -1,0 +1,61 @@
+{
+    "Library": "xbee",
+    "Description": "XBee modules Library",
+    "Sensor Class": {
+        "XBee": {
+            "Name": "API for the XBee modules",
+            "Description": "This is the UPM Module for the XBee modules. This is a generic UART driver for use with Digi XBee modules. It was tested with the XBee S1 802.15.4 module and the XBee S6B WiFi module. It provides basic UART support for sending and receiving data to and from the device.  It is controlled by an AT or API command set. It is connected at 9600 baud by default.",
+            "Aliases": ["xbee", "XBee 1mW Trace Antenna - Series 1 (802.15.4)"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["SparkFun"],
+            "Image": "xbee.jpg",
+            "Examples": {
+                "Python": ["xbee.py"],
+                "Node.js": ["xbee.js"],
+                "C++": ["xbee.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.8,
+                    "max": 3.4
+                },
+                "Supply Current": {
+                    "XBee": {
+                        "unit": "mA",
+                        "min" : 45,
+                        "max" : 50
+                    },
+                    "XBee PRO": {
+                        "min" : 55,
+                        "max" : 215
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Band": {
+                    "unit": "GHz",
+                    "frequency": 2.4
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need XBee shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need XBee shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/11215"],
+                "Datasheets": ["https://www.sparkfun.com/datasheets/Wireless/Zigbee/XBee-Datasheet.pdf"],
+                "Schematics": ["https://www.sparkfun.com/datasheets/Wireless/Zigbee/XBee-Dimensional.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Library": "h3lis331dl",
+    "Description": "H3LIS331DL I2C Accelerometer (400g) Library",
+    "Sensor Class":
+    {
+        "H3LIS331DL":
+        {
+            "Name": "I2C 3-axis Digital Accelerometer (400g)",
+            "Description": "This is a high-performance, high-range accelerometer for extreme applications.",
+            "Aliases": ["h3lis331dl"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["IMU", "prototyping"],
+            "Manufacturers": ["seeed", "stmicro"],
+            "Kits": [],
+            "Image": "h3lis331dl.jpg",
+            "Examples":
+            {
+                "Java": ["H3LIS331DL_Example.java"],
+                "Python": ["h3lis331dl.py"],
+                "Node.js": ["h3lis331dl.js"],
+                "C++": ["h3lis331dl.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "uA", "typ": 300},
+                "Measurement Range": {"unit": "+-g", "low": 100, "high": 400}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["httpshttps://www.seeedstudio.com/Grove-3Axis-Digital-Accelerometer400g-p-1897.html"],
+                "Datasheets": ["http://www.st.com/web/en/resource/technical/document/datasheet/DM00053090.pdf", "http://wiki.seeed.cc/Grove-3-Axis_Digital_Accelerometer-400g/"],
+                "Schematics": []
+            }
+        }
+    }
+}

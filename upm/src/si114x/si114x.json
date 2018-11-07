@@ -1,0 +1,69 @@
+{
+    "Library": "si114x",
+    "Description": "Silicon Labs SI1145 UV Light Sensor library",
+    "Sensor Class": {
+        "SI114x": {
+            "Name": "API for the Silicon Labs SI1145 UV Light Sensor",
+            "Description": "This is the UPM Module for the Silicon Labs SI1145 UV Light Sensor. This device is capable of measuring IR and visible ambient light as well. It also supports the ability to use externally attached LEDs to perform proximity detection on 3 separate channels. Currently, this class only supports the retrieving of the calculated UV index measured by the device, but enough infrastructure is provided to make it easy to enhance this driver in the future to support additional capabilities, including interrupt support.",
+            "Aliases": ["si114x", "SI1145 Digital UV Index / IR / Visible Light Sensor"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["Adafruit", "Silicon Labs"],
+            "Image": "si114x.jpg",
+            "Examples": {
+                "Python": ["si114x.py"],
+                "Node.js": ["si114x.js"],
+                "C++": ["si114x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.0,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "Standby Mode": {
+                        "unit": "uA",
+                        "min": "0.15",
+                        "max": "1.4"
+                    },
+                    "Actively Measuring": {
+                        "unit": "mA",
+                        "min": "4.3",
+                        "max": "5.5"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Start-up Time": {
+                    "unit": "ms",
+                    "time": 25
+                },
+                "Measurement Time": {
+                    "unit": "us",
+                    "min" : 155,
+                    "max" : 660
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": []
+                },
+                "Intel Edison": {
+                    "Notes": []
+                },
+                "Arduino 101": {
+                    "Notes": []
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/1777"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/Si1145-46-47.pdf"]
+            }
+        }
+    }
+}

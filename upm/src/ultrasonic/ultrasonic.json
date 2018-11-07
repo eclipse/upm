@@ -1,0 +1,61 @@
+{
+    "Library": "ultrasonic",
+    "Description": "Grove ultrasonic sensor Library",
+    "Sensor Class": {
+        "UltraSonic": {
+            "Name": "API for the Grove Ultrasonic Ranger",
+            "Description": "This is the UPM Module for the Grove Ultrasonic Ranger. This Grove Ultrasonic sensor is a non-contact distance measurement module which is compatible with the Grove system. It is designed for easy modular project usage with industrial performance. Detection ranges from 3 cm (1.2\") to 4 m (13'1.5\") and works best when the object is within a 30 degree angle relative to the sensor.",
+            "Aliases": ["ultrasonic", "Grove - Ultrasonic Ranger"],
+            "Categories": ["sound"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "robotics", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Image": "ultrasonic.jpg",
+            "Examples": {
+                "Node.js": ["ultrasonic.js"],
+                "C++": ["ultrasonic.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.2,
+                    "max": 5.2
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 8
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Ultrasonic Frequency": {
+                    "unit": "kHz",
+                    "typ" : 40
+                },
+                "Effective Range": {
+                    "unit": "cm",
+                    "min" : 2,
+                    "max" : 350
+                },
+                "Resolution": {
+                    "unit": "cm",
+                    "min" : -1,
+                    "max" : 1
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Ultrasonic-Ranger-p-960.html", "http://wiki.seeed.cc/Grove-Ultrasonic_Ranger/"]
+            }
+        }
+    }
+}

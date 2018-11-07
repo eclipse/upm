@@ -1,0 +1,47 @@
+{
+    "Library": "teams",
+    "Description": "Veris TEAMS Temperature Transmitter Library",
+    "Sensor Class": {
+        "TEAMS": {
+            "Name": "API for the Veris TEAMS Temperature Transmitter",
+            "Description": "This is the UPM Module for the Veris TEAMS Temperature Transmitter. The Veris TEAMS temperature sensor provides it's output via a 4-20ma current loop. The supported temperature range is 10C to 35C. This sensor was developed with a Cooking Hacks (Libelium) 4-channel 4-20ma Arduino interface shield.  For this interface, the receiver resistance (rResistor) was specified as 165.0 ohms. When using a 4-20ma current loop interface which scales the sensors' values to a 0-5vdc range, you can supply 0.0 as the rResistor value in the constructor (default), and it will act just like a normal analog input.",
+            "Aliases": ["teams"],
+            "Categories": ["temperature"],
+            "Connections": ["ainput"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Veris"],
+            "Examples": {
+                "Java": ["TEAMS_Example.java"],
+                "Python": ["teams.py"],
+                "Node.js": ["teams.js"],
+                "C++": ["teams.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5,
+                    "max": 30
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 4,
+                    "max" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -25,
+                    "max": 105
+                },
+                "Accuracy": {
+                    "unit": "°C",
+                    "min" : -0.3,
+                    "max" : 0.3
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.veris.com/Item/TEAMS.aspx"],
+                "Datasheets": ["http://www.veris.com/docs/Datasheets/TW_TE_d0117.pdf"]
+            }
+        }
+    }
+}

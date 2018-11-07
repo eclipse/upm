@@ -1,0 +1,38 @@
+{
+    "Library": "max31855",
+    "Description": "API for the MAX31855 Thermocouple Amplifier",
+    "Sensor Class":
+    {
+        "MAX31855":
+        {
+            "Name": "Thermocouple-to-Digital Converter",
+            "Description": "Maxim Integrated* [MAX31855](http://datasheets.maximintegrated.com/en/ds/MAX31855.pdf) is a cold-junction compensated thermocouple-to-digital converter. This module was tested on the Maxim Integrated  [MAX31855PMB1 PMOD module] (http://datasheets.maximintegrated.com/en/ds/MAX31855PMB1.pdf) from the analog PMOD kit.",
+            "Aliases": ["max31855"],
+            "Categories": ["temperature"],
+            "Connections": ["spi"],
+            "Project Type": ["thermal", "prototyping"],
+            "Manufacturers": ["maxim", "adafruit"],
+            "Kits": [],
+            "Image": "max31855.jpg",
+            "Examples":
+            {
+                "Java": ["MAX31855_Example.java"],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["max31855.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3, "high": 3.6},
+                "Operating Current": {"unit": "uA", "max": 1500}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX31855.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX31855.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

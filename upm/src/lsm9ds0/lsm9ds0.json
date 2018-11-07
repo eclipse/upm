@@ -1,0 +1,39 @@
+{
+    "Library": "lsm9ds0",
+    "Description": "API for the LSM9DS0 Gyroscope/Accelerometer/Magnetometer",
+    "Sensor Class":
+    {
+        "LSM9DS0":
+        {
+            "Name": "Triaxial Gyroscope/Accelerometer/Magnetometer Sensor",
+            "Description": "The LSM9DS0 is a system-in-package featuring a 3D digital linear acceleration sensor, a 3D digital angular rate sensor, and a 3D digital magnetic sensor. The LSM9DS0 has a linear acceleration full scale of 2g/4g/6g/8g/16g, a magnetic field full scale of 2/4/8/12 gauss and an angular rate of 245/500/2000 dps. While not all of the functionality of this device is supported initially, methods and register definitions are provided that should allow an end user to implement whatever features are required. This driver was developed on a Sparkfun 9DOF edison block.",
+            "Aliases": ["lsm9ds0"],
+            "Categories": ["gyroscope", "accelerometer", "magnetometer"],
+            "Connections": ["i2c", "gpio"],
+            "Project Type": ["robotics", "wearables", "prototyping"],
+            "Manufacturers": ["sparkfun", "stmicro"],
+            "Kits": [],
+            "Image": "lsm9ds0.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["lsm9ds0.py"],
+                "Node.js": ["lsm9ds0.js"],
+                "C++": ["lsm9ds0.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Accelerometer Range (+-)": {"unit": "g", "low": 2, "high": 16},
+                "Magnetometer Range (+-)": {"unit": "gauss", "low": 2, "high": 12},
+                "Gyroscope Range (+-)": {"unit": "deg/s", "low": 245, "high": 2000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/13033"],
+                "Datasheets": [],
+                "Schematics": ["https://cdn.sparkfun.com/datasheets/Dev/Edison/9dof_block.pdf"]
+            }
+        }
+    }
+}

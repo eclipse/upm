@@ -1,0 +1,38 @@
+{
+    "Library": "lm35",
+    "Description": "API for the DFRobot LM35 Linear Temperature Sensor",
+    "Sensor Class":
+    {
+        "LM35":
+        {
+            "Name": "Analog Temperature Sensor",
+            "Description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. This driver was developed using the DFRobot LM35 Linear Temperature Sensor",
+            "Aliases": ["lm35"],
+            "Categories": ["temperature"],
+            "Connections": ["analog"],
+            "Project Type": ["environmental", "monitoring", "prototyping"],
+            "Manufacturers": ["dfrobot", "nationalsemiconductor"],
+            "Kits": [],
+            "Image": "lm35.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["lm35.py"],
+                "Node.js": ["lm35.js"],
+                "C++": ["lm35.cxx"],
+                "C": ["lm35.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Measurement Range": {"unit": "degC", "low": 0, "high": 100}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-76.html"],
+                "Datasheets": ["http://image.dfrobot.com/image/data/DFR0023/DFR0023_Datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

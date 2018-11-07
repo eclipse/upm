@@ -1,0 +1,39 @@
+{
+    "Library": "ds1808lc",
+    "Description": "API for DS1808 Dual Log Digital Potentiometer as a Light Controller",
+    "Sensor Class":
+    {
+        "DS1808LC":
+        {
+            "Name": "DS1808LC Lighting Controller",
+            "Description": "The Maxim Integrated [DS1808](http://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html) Dual Log Digital Potentiometer",
+            "Aliases": ["ds1808lc"],
+            "Categories": ["lighting"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["maxim"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["ds1808lc.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "+-V", "Typ": 12},
+                "Voltage Range": {"unit": "+-%", "Typ": 10},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/DS1808.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/DS1808.pdf"],
+                "Schematics": [""]
+            }
+        }
+    }
+}

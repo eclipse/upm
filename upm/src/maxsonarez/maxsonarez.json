@@ -1,0 +1,57 @@
+{
+    "Library": "maxsonarez",
+    "Description": "API for the MaxBotix LV-MaxSonar-EZ Family of Ultrasonic Rangers",
+    "Sensor Class": {
+        "MAXSONAREZ": {
+            "Name": "LV-MaxSonar-EZ0 Ultrasonic range finder",
+            "Description": "This is the UPM Module for the MaxBotix Ultrasonic Range Finder series. The EZ0 offers the widest beam of the EZ collection. The EZ1 offers the second widest beam of the EZ collection, as well as high sensativity and side object rejectoin. The EZ2 offers a good balance of high sensativity and side object rejection. The EZ3 offers a very narrow beam, with good side object rejection. The EZ4 is the narrowest beam sensor, with the best side object rejection, which provides good detection for large objects.",
+            "Aliases": ["maxsonarez", "LV-MaxSonar-EZ0", "MB1000 LV-MaxSonar-EZ0", "LV-MaxSonar-EZ1", "MB1010 LV-MaxSonar-EZ1", "LV-MaxSonar-EZ2", "MB1020 LV-MaxSonar-EZ2", "LV-MaxSonar-EZ3", "MB1030 LV-MaxSonar-EZ3", "LV-MaxSonar-EZ4", "MB1040 LV-MaxSonar-EZ4"],
+            "Categories": ["sound"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["MaxBotix"],
+            "Image": "maxsonarez.jpg",
+            "Examples": {
+                "Python": ["maxsonarez.py"],
+                "Node.js": ["maxsonarez.js"],
+                "C++": ["maxsonarez.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.5,
+                    "max": 5.5
+                },
+                "Supply Current":{
+                    "unit": "mA",
+                    "Typ" : "2"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Effective Range": {
+                    "unit": "cm",
+                    "min": "15.24",
+                    "max": "645"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.maxbotix.com/Ultrasonic_Sensors/MB1000.htm"],
+                "Datasheets": ["http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf"]
+            }
+        }
+    }
+}

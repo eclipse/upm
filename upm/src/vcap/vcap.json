@@ -1,0 +1,24 @@
+{
+    "Library": "vcap",
+    "Description": "Take a snapshot from a video camera and save as a JPEG",
+    "Sensor Class": {
+        "VCAP": {
+            "Name": "API for the Video Capture driver",
+            "Description": "This is the UPM Module for the Video Capture driver. This UPM module captures a still frame from a Linux V4L device, such as a USB webcam, and and then allows you to save it as a JPEG image into a file. The camera and driver in use must support streaming, mmap-able buffers and must provide data in YUYV format.  This should encompass most video cameras out there.  It has been tested with a few off the shelf cameras without any problems.",
+            "Aliases": ["vcap"],
+            "Categories": ["video"],
+            "Connections": ["other"],
+            "Project Type": ["medical", "industrial", "commercial", "prototyping"],
+            "Manufacturers": ["other"],
+            "Examples": {
+                "Java": ["VCAP_Example.java"],
+                "Python": ["vcap.py"],
+                "Node.js": ["vcap.js"],
+                "C++": ["vcap.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["https://github.com/intel-iot-devkit/upm/tree/master/src/vcap"]
+            }
+        }
+    }
+}

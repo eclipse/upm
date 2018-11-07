@@ -1,0 +1,40 @@
+{
+    "Library": "guvas12d",
+    "Description": "API for the GUVA-S12D UV Sensor",
+    "Sensor Class":
+    {
+        "GUVAS12D":
+        {
+            "Name": "Grove Analog UV Sensor",
+            "Description": "UPM module for the GUVA-S12D UV sensor",
+            "Aliases": ["guvas12d"],
+            "Categories": ["ultraviolet"],
+            "Connections": ["gpio"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["eak"],
+            "Image": "guvas12d.jpg",
+            "Examples":
+            {
+                "Java": ["GUVAS12D_Example.java"],
+                "Python": ["guvas12d.py"],
+                "Node.js": ["guvas12d.js"],
+                "C++": ["guvas12d.cxx"],
+                "C": ["guvas12d.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3, "high": 5.1},
+                "Operating Current": {"unit": "mA", "typ": 0.31},
+                "Response Wavelength": {"unit": "nm", "low": 240, "high": 370},
+                "Working Temperature": {"unit": "degC", "low": -30, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-UV-Sensor-p-1540.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-UV_Sensor/", "https://raw.githubusercontent.com/SeeedDocument/Grove-UV_Sensor/master/res/Grove-UV_Sensor_v1.1_Datasheets.zip"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-UV_Sensor/raw/master/res/Grove%20-%20UV%20Sensor%20v1.1sch.pdf"]
+            }
+        }
+    }
+}

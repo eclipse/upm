@@ -1,0 +1,138 @@
+version: '2.1'
+
+services:
+
+  base:
+    image: inteliotdevkit/upm-base
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+      - BUILDDOC=${BUILDDOC:-OFF}
+      - BUILDCPP=${BUILDCPP:-ON}
+      - BUILDFTI=${BUILDFTI:-ON}
+      - BUILDSWIGPYTHON=${BUILDSWIGPYTHON:-OFF}
+      - BUILDSWIGJAVA=${BUILDSWIGJAVA:-OFF}
+      - BUILDCORDOVA=${BUILDCORDOVA:-OFF}
+      - BUILDSWIGNODE=${BUILDSWIGNODE:-OFF}
+      - BUILDEXAMPLES=${BUILDEXAMPLES:-OFF}
+      - CMAKE_BUILD_TYPE
+      - IPK=${IPK:-OFF}
+      - RPM=${RPM:-OFF}
+      - NPM=${NPM:-OFF}
+      - BUILDTESTS=${BUILDTESTS:-ON}
+      - CC=${CC:-clang-3.8}
+      - CXX=${CXX:-clang++-3.8}
+      - NODE_VERSION=${NODE_VERSION:-v4.4.7}
+      - WERROR=${WERROR:-ON}
+    volumes:
+      - .:${UPM_SRC_DIR:-/usr/src/app}
+
+  all:
+    extends: base
+    image: inteliotdevkit/upm-all
+
+  minimal:
+    extends: base
+    environment:
+      - BUILDFTI=OFF
+    command: bash -c "./scripts/run-cmake.sh && cd build && make && ctest -R unit --output-on-failure"
+
+  doc:
+    extends: all
+    environment:
+      - BUILDSWIGPYTHON=ON
+      - BUILDSWIGJAVA=ON
+      - BUILDSWIGNODE=ON
+      - BUILDDOC=ON
+    command: bash -c "./scripts/run-cmake.sh && ./scripts/build-doc.sh"
+
+  examples:
+    extends: all
+    environment:
+      - BUILDSWIGPYTHON=ON
+      - BUILDSWIGJAVA=ON
+      - BUILDSWIGNODE=ON
+      - BUILDEXAMPLES=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
+
+  ipk:
+    extends: all
+    environment:
+      - IPK=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
+
+  rpm:
+    extends: all
+    environment:
+      - RPM=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
+
+  npm:
+    extends: all
+    environment:
+      - NPM=ON
+      - BUILDDOC=OFF
+    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 npmpkg"
+
+  sonar-scan:
+    extends: all
+    environment:
+      - BUILDSWIGPYTHON=ON
+      - BUILDSWIGNODE=ON
+      - BUILDSWIGJAVA=ON
+      - BUILDEXAMPLES=ON
+      - SONAR_TOKEN
+      - SONAR_ORG
+      - SONAR_PROJ_KEY
+      - TRAVIS_BRANCH
+      - TRAVIS_PULL_REQUEST
+      - TRAVIS_REPO_SLUG
+      - TRAVIS_PULL_REQUEST_SLUG
+      - GITHUB_TOKEN
+    command: bash -c "./scripts/run-cmake.sh && cd build && ../scripts/sonar-scan.sh"
+
+  python:
+    extends: base
+    image: inteliotdevkit/upm-python
+    environment:
+      - BUILDSWIGPYTHON=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
+
+  java:
+    extends: base
+    image: inteliotdevkit/upm-java
+    environment:
+      - BUILDSWIGJAVA=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure"
+
+  android:
+    extends: java
+    image: inteliotdevkit/upm-android
+    environment:
+      - BUILDTESTS=OFF
+    command: bash -c "./scripts/build-android.sh"
+
+  cordova:
+    extends: all
+    environment:
+      - BUILDSWIGJAVA=ON
+      - BUILDCORDOVA=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8"
+
+  node4:
+    extends: base
+    image: inteliotdevkit/upm-node4
+    environment:
+      - BUILDSWIGNODE=ON
+    command: bash -c "./scripts/run-cmake.sh && cd build && make -j8 && make -j8 install && ldconfig && ctest --output-on-failure -E examplenames_js"
+
+  node5:
+    extends: node4
+    image: inteliotdevkit/upm-node5
+
+  node6:
+    extends: node4
+    image: inteliotdevkit/upm-node6

@@ -1,0 +1,44 @@
+{
+    "Library": "KX122",
+    "Description": "Kionix KX122 accelerometer sensor library",
+    "Sensor Class": {
+        "KX122": {
+            "Name": "Kionix KX122 tri-axis accelerometer sensor",
+            "Description": "This is the UPM Module for the Kionix KX122 accelerometer sensor. The Kionix KX122 sensor is a multifunctional sensor that provides a multitude if different functionality in addition to the basic accelerometer functionality. The sensor has 2 interrupt pins, that can be used to detect various interrupts. The Sensor has an additional sample buffer that can be configured.",
+            "Categories": ["acceleration"],
+            "Connections": ["i2c,spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Kionix"],
+            "Examples": {
+                "C++":["kx122.cxx"],
+                "C": ["kx122.c"]
+            },
+            "Specifications": {
+                "Supply Voltage (VDD)": {
+                    "unit": "V",
+                    "min": 1.71,
+                    "max": 3.6
+                },
+                "I/O Pads Supply Voltage (IO_VDD)": {
+                    "unit": "V",
+                    "min": 1.7,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 0.9,
+                    "max" : 146
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.kionix.com/product/KX122-1037"],
+                "Datasheets": ["http://kionixfs.kionix.com/en/datasheet/KX122-1037%20Specifications%20Rev%205.0.pdf"]
+            }
+        }
+    }
+}

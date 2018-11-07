@@ -1,0 +1,53 @@
+{
+    "Library": "md",
+    "Description": "I2C Motor Driver library",
+    "Sensor Class": {
+        "MD": {
+            "Name": "Grove I2C Motor Driver",
+            "Description": "This class implements support for the I2C Motor Driver. This device can support a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L298N H-bridge driver chip. This device supports an I2C bus speed of 100Khz only. The module does not provide any telemetry or status - it only accepts I2C commands for its various operations. This module was tested with version 1.3 of the I2C Motor Driver. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
+            "Aliases": ["Grove - I2C Motor Driver"],
+            "Categories": ["motor"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["robok"],
+            "Image": "md.jpg",
+            "Examples": {
+                "Java": ["GroveMD_Example.java"],
+                "Python": ["grovemd-stepper.py", "grovemd.py"],
+                "Node.js": ["md-stepper.js", "md.js"],
+                "C++": ["md-stepper.cxx", "md.cxx"],
+                "C": ["md-stepper.c", "md.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "A",
+                    "min" : 0.5,
+                    "max" : 4
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Requires Grove Shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Requires Grove Shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-I2C-Motor-Driver-p-907.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-I2C_Motor_Driver_V1.3/"]
+            }
+        }
+    }
+}

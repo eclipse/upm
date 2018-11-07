@@ -1,0 +1,49 @@
+{
+    "Library": "bmpx8x",
+    "Description": "BMP Atmospheric Pressure Sensor",
+    "Sensor Class":
+    {
+        "BMPX8X":
+        {
+            "Name": "BMP Atmospheric Pressure Sensor",
+            "Description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor",
+            "Aliases": ["bmpx8x"],
+            "Categories": ["pressure"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "adafruit", "sparkfun"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["BMPX8X_Example.java"],
+                "Python": ["bmpx8x.py"],
+                "Node.js": ["bmpx8x.js"],
+                "C++": ["bmpx8x.cxx"],
+                "C": ["bmpx8x.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.8, "high": 3.6},
+                "Supply Current": {"unit": "uA", "low": 3, "high": 32},
+                "Peak Current": {"unit": "uA", "low": 650, "high": 1000},
+                "Standby Current": {"unit": "uA", "low": 0.1, "high": 0.1},
+                "Pressure Range": {"unit": "hPa", "low" : 300, "high": 1100},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/product/1900"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/1900_BMP183.pdf", "https://www.sparkfun.com/datasheets/Components/General/BST-BMP085-DS000-05.pdf"],
+                "Schematics": ["https://learn.adafruit.com/adafruit-bmp183-spi-barometric-pressure-and-altitude-sensor/downloads#schematic"]
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "Library": "sm130",
+    "Description": "SonMicro SM130 RFID Reader Module library",
+    "Sensor Class": {
+        "SM130": {
+            "Name": "API for the SonMicro SM130 RFID Reader Module",
+            "Description": "This is the UPM Module for the SonMicro SM130 RFID Reader Module. This module defines the SM130 interface for the sm130 RFID library This module was developed using an SM130 and a Sparkfun RFID Evaluation shield using a UART for communications.  It should be fairly trivial to add support for I2C communication in the future, if you have the correct firmware on the SM130.",
+            "Aliases": ["sm130"],
+            "Categories": ["rfid"],
+            "Connections": ["uart", "gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["SonMicro", "RFID Module - SM130 MIFARE (13.56 MHz)"],
+            "Image": "sm130.jpg",
+            "Examples": {
+                "Java": ["SM130_Example.java"],
+                "Python": ["sm130.py"],
+                "Node.js": ["sm130.js"],
+                "C++": ["sm130.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.85,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 0.030,
+                    "max" : 180
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/10126"],
+                "Datasheets": ["https://www.sparkfun.com/datasheets/Sensors/ID/SM130.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+set (libname "adc121c021")
+set (libdescription "I2C 12-bit Analog to Digital Converter with Alert Pin")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

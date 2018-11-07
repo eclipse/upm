@@ -1,0 +1,5 @@
+set (libname "mlx90614")
+set (libdescription "Digital No-contact Infrared Thermometer")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

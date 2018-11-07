@@ -1,0 +1,47 @@
+{
+    "Library": "nunchuck",
+    "Description": "Wii Nunchuk library",
+    "Sensor Class": {
+        "NUNCHUCK": {
+            "Name": "API for the Wii* Nunchuk controller",
+            "Description": "UPM module for the Wii Nunchuk controller. This module was tested with Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter. See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck for more details on the controller and its protocol. A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one side, and 3 traces on the other. Do not match these up with the Nunchuk connector's traces. The connector's 'groove' should be on the same side as the Grove interface socket on the adapter.",
+            "Aliases": ["nunchuck", "Wii nunchuck", "Grove - Nunchuck"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["generic"],
+            "Kits": ["robok"],
+            "Image": "nunchuck.jpg",
+            "Examples": {
+                "Java": ["NUNCHUCK_Example.java"],
+                "Python": ["nunchuck.py"],
+                "Node.js": ["nunchuck.js"],
+                "C++": ["nunchuck.cxx"],
+                "C": ["nunchuck.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "typ": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Nunchuck-p-1474.html", "http://wiibrew.org/wiki/Wiimote/Extension_Controllers", "http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-NunChuck/"]
+            }
+        }
+    }
+}

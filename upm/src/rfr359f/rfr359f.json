@@ -1,0 +1,57 @@
+{
+    "Library": "rfr359f",
+    "Description": "Seeed RFR359 Distance Interrupter library",
+    "Sensor Class": {
+        "RFR359F": {
+            "Name": "API for the RFR359F-based Grove Distance Interrupter",
+            "Description": "This is the UPM Module for the RFR359F-based Grove Distance Interrupter. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 4 inches and a quick response time.",
+            "Aliases": ["rfr359f", "Grove - IR Distance Interrupter"],
+            "Categories": ["light"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["robot", "tsk"],
+            "Image": "rfr359f.jpg",
+            "Examples": {
+                "Java": ["RFR359F_Example.java"],
+                "Python": ["rfr359f.py"],
+                "Node.js": ["rfr359f.js"],
+                "C++": ["rfr359f.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 1,
+                    "max" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Effective Distance": {
+                    "unit": "cm",
+                    "min" : 7.5,
+                    "max" : 40
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-IR-Distance-Interrupter-p-1278.html", "http://wiki.seeed.cc/Grove-IR_Distance_Interrupter_v1.2/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-IR_Distance_Interrupter_v1.2/master/res/Reflective_photosensor.pdf", "https://raw.githubusercontent.com/SeeedDocument/Grove-IR_Distance_Interrupter_v1.2/master/res/LM393.pdf"]
+            }
+        }
+    }
+}

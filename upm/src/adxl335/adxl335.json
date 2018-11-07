@@ -1,0 +1,46 @@
+{
+    "Library": "adxl335",
+    "Description": "Low-power, 3-axis +/- 3 g Accelerometer",
+    "Sensor Class":
+    {
+        "ADXL335":
+        {
+            "Name": "API for the Analog Devices ADIS16448 Accelerometer",
+            "Description": "UPM module for the ADXL335 3-axis analog accelerometer. This was tested on a Grove 3-axis Analog Accelerometer. It uses 3 analog pins, one for each axis: X, Y, and Z.",
+            "Aliases": ["adxl335"],
+            "Categories": ["imu", "accelerometers"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "adxl335.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["adxl335.py"],
+                "Node.js": ["adxl335.js"],
+                "C++": ["adxl335.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Working Voltage": {"unit": "v", "low": 1.8, "high": 3.6},
+                "Working Current": {"unit": "uA", "low": 350, "high": 350}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.analog.com/en/products/mems/accelerometers/adxl335.html"],
+                "Datasheets": ["http://www.analog.com/media/en/technical-documentation/data-sheets/ADXL335.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Library": "temperature",
+    "Description": "Temperature sensor library",
+    "Sensor Class":
+    {
+        "Temperature":
+        {
+            "Name": "Analog Temperature Sensor",
+            "Description": "Basic UPM module for analog temperature sensors. These sensors use a NTC thermistor to measure ambient temperature. This driver was developed using the Grove Temperature Sensor. The conversion formula has been updated to work with versions 1.1 and 1.2 of the sensor. For the older v1.0 sensor you will have to specify R0 and B values when initializing the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C.",
+            "Aliases": ["Grove - Temperature Sensor"],
+            "Categories": ["temp"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "dfrobot", "sparkfun", "adafruit", "generic"],
+            "Kits": ["gsk"],
+            "Image": "temp.jpg",
+            "Examples":
+            {
+                "Java": ["Temperature_Example.java"],
+                "Python": ["temperature.py"],
+                "Node.js": ["temperature.js"],
+                "C++": ["temperature.cxx"]
+            },
+            "Platforms":
+            {
+                "Arduino 101":
+                {
+                    "Notes": ["Will need to adjust ADC scale when used with Grove Base Shield (see API documentation)."]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-Temperature_Sensor_V1.2/"],
+                "Datasheets": ["https://github.com/SeeedDocument/Grove-Temperature_Sensor_V1.2/raw/master/res/NCP18WF104F03RC.pdf"],
+                "Schematics": ["https://easyeda.com/Seeed/Grove_Temperature_sensor_v1_2-ed433e462f14455e9aa38ae1a06e4680"]
+            }
+        }
+    }
+}

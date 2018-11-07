@@ -1,0 +1,55 @@
+{
+    "Library": "sx6119",
+    "Description": "Seeed SX6119-based FM Receiver library",
+    "Sensor Class": {
+        "SX6119": {
+            "Name": "API support for the Seeed SX6119-based Grove FM Receiver",
+            "Description": "This is the UPM Module for the Seeed SX6119-based Grove FM Receiver. There are two digital pins: one that toggles power on/off, and the other that does a seek to the next station.",
+            "Aliases": ["sx6119", "Grove - FM Receiver"],
+            "Categories": ["sound"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Image": "sx6119.jpg",
+            "Examples": {
+                "Python": ["sx6119.py"],
+                "Node.js": ["sx6119.js"],
+                "C++": ["sx6119.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 0.005,
+                    "max" : 17
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 85
+                },
+                "Start-up Time": {
+                    "unit": "ms",
+                    "min" : 30,
+                    "max" : 150
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-FM-Receiver-p-1841.html", "http://wiki.seeed.cc/Grove-FM_Receiver/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-FM_Receiver/master/res/SX6119_%E6%94%B6%E9%9F%B3IC_datasheet.pdf"]
+            }
+        }
+    }
+}

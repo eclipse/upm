@@ -1,0 +1,47 @@
+{
+    "Library": "adc121c021",
+    "Description": "I2C 12-bit Analog to Digital Converter with Alert Pin",
+    "Sensor Class":
+    {
+        "ADC121C021":
+        {
+            "Name": "API for the ADC121C021 I2C Analog-to-Digital Converter",
+            "Description": "UPM module for the ADC121C021 12-bit analog-to-digital converter (ADC). By constantly providing a reference voltage, this sensor helps increase the accuracy of a value collected from an analog sensor.",
+            "Aliases": ["adc121c021"],
+            "Categories": ["aio"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "adc121c021.jpg",
+            "Examples":
+            {
+                "Java": ["ADC121C021_Example.java"],
+                "Python": ["adc121c021.py"],
+                "Node.js": ["adc121c021.js"],
+                "C++": ["adc121c021.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Working Voltage": {"unit": "v", "low" : 5.0, "high": 5.0},
+                "Resolution" : {"unit": "Bit", "low" : 12, "high": 12},
+                "Sample Rate": {"unit": "ksps", "low" : 188.9, "high": 188.9}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-I2C-ADC-p-1580.html"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-I2C_ADC/master/res/ADC121C021_Datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

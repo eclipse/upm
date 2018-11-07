@@ -1,0 +1,60 @@
+{
+    "Library": "t3311",
+    "Description": "T3311 Temperature and Humidity Sensor Library",
+    "Sensor Class": {
+        "T3311": {
+            "Name": "API for the T3311 MODBUS Temperature and Humidity Sensor",
+            "Description": "This is the UPM Module for the T3311 MODBUS Temperature and Humidity Sensor. This module implements support for the Comet System T3311 Temperature and Humidity transmitter.  It uses MODBUS over an RS232 serial port.  You must have libmodbus v3.1.2 (or greater) installed to compile and use this driver. This module was developed using libmodbus 3.1.2, and T3311 Firmware revison 2.66 connected via a Prolific RS232 Serial to USB adaptor. You cannot use the built in TTL UART pins for accessing this device -- you must use a full serial RS232 interface connected via USB.",
+            "Aliases": ["t3311", "T3311 Temperature and humidity probe with RS232 output, internal sensors"],
+            "Categories": ["humidity", "temperature"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["Comet"],
+            "Examples": {
+                "Python": ["t3311.py"],
+                "Node.js": ["t3311.js"],
+                "C++": ["t3311.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 9,
+                    "max": 30
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 85
+                },
+                "Temperature Sensor": {
+                    "Effective Range": {
+                        "unit": "°C",
+                        "min" : -30,
+                        "max" : 80
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min" : -0.4,
+                        "max" : 0.4
+                    }
+                },
+                "Humidity Sensor": {
+                    "Effective Range": {
+                        "unit": "RH",
+                        "min" : "0%",
+                        "max" : "100%"
+                    },
+                    "Accuracy": {
+                        "unit": "RH",
+                        "min" : "-2.5%",
+                        "max" : "2.5%"
+                    }
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.cometsystem.com/products/reg-T3311"],
+                "Datasheets": ["http://www.cometsystem.com/products/reg-T3311#technical_dataa"]
+            }
+        }
+    }
+}

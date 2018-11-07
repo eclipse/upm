@@ -1,0 +1,70 @@
+{
+    "Library": "ppd42ns",
+    "Description": "Seeed/Shinyei PPD42NS Dust Sensor library",
+    "Sensor Class": {
+        "PPD42NS": {
+            "Name": "API for the Seeed/Shinyei PPD42NS Dust Sensor",
+            "Description": "This is the UPM Module for the Seeed/Shinyei PPD42NS Dust Sensor. This Dust Sensor gives a good indication of the air quality in an environment by measuring the dust concentration. The Particulate Matter level (PM level) in the air is measured by counting the Low Pulse Occupancy time (LPO time) in given time unit. LPO time is proportional to PM concentration. This sensor can provide reliable data for air purifier systems; it is responsive to PM of diameter 1μm.",
+            "Aliases": ["ppd42ns", "Grove - Dust Sensor"],
+            "Categories": ["other"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Shinyei", "Seeed"],
+            "Kits": ["eak"],
+            "Image": "ppd42ns.jpg",
+            "Examples": {
+                "Java": ["PPD42NS_Example.java"],
+                "Python": ["ppd42ns.py"],
+                "Node.js": ["ppd42ns.js"],
+                "C++": ["ppd42ns.cxx"],
+                "C": ["ppd42ns.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.75,
+                    "max": 5.75
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ": 90
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 45
+                },
+                "Effective Range":{
+                    "Pieces Per Liter": {
+                        "unit": "pcs/liter",
+                        "min": 0,
+                        "max": 28000
+                    },
+                    "Pieces Per 0.01 Cubic Foot": {
+                        "unit": "pcs/0.01cf",
+                        "min": 0,
+                        "max": 8000
+                    }
+                },
+                "Particle Diameter": {
+                    "unit": "um",
+                    "size": ">1"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Dust-Sensor-p-1050.html", "http://wiki.seeed.cc/Grove-Dust_Sensor/"],
+                "Datasheets": ["https://github.com/SeeedDocument/Grove_Dust_Sensor/raw/master/resource/Grove_-_Dust_sensor.pdf"]
+            }
+        }
+    }
+}

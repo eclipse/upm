@@ -1,0 +1,51 @@
+{
+    "Library": "st7735",
+    "Description": "Adafruit ST7735 LCD library",
+    "Sensor Class": {
+        "ST7735": {
+            "Name": "API for the Adafruit ST7735 LCD",
+            "Description": "This is the UPM Module for the Adafruit ST7735 LCD. This lovely little display breakout is the best way to add a small, colorful and bright display to any project. Since the display uses 4-wire SPI to communicate and has its own pixel-addressable frame buffer, it can be used with every kind of microcontroller. Even a very small one with low memory and few pins available!",
+            "Aliases": ["st7735", "1.8\" Color TFT LCD display with MicroSD Card Breakout - ST7735R"],
+            "Categories": ["display"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Adafruit", "Truly Semiconductors", "Sitronix"],
+            "Image": "st7735.jpg",
+            "Examples": {
+                "Java": ["ST7735_Example.java"],
+                "Node.js": ["st7735.js"],
+                "C++": ["st7735.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min": 1.0,
+                    "max": 50.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Resolution": {
+                    "unit": "pixels",
+                    "height": 128,
+                    "width" : 160
+                },
+                "Color Resolution": {
+                    "unit": "bits",
+                    "resolution": 18
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/358"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/JD-T1800.pdf", "https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf"]
+            }
+        }
+    }
+}

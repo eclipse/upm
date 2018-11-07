@@ -1,0 +1,32 @@
+{
+    "Library": "led",
+    "Description": "LED library",
+    "Sensor Class":
+    {
+        "Led":
+        {
+            "Name": "Light-emitting Diode (LED)",
+            "Description": "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode.",
+            "Aliases": ["Grove - LED"],
+            "Categories": ["led"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "dfrobot", "sparkfun", "adafruit", "generic"],
+            "Kits": ["gsk"],
+            "Image": "led.jpg",
+            "Examples":
+            {
+                "Java": ["LED_Example.java"],
+                "Python": ["led.py"],
+                "Node.js": ["led.js"],
+                "C++": ["led.cxx"],
+                "C": ["led.c"]
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-LED_Socket_Kit/"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-LED_Socket_Kit/raw/master/res/Grove-LED_v1.3_Schematics.zip"]
+            }
+        }
+    }
+}

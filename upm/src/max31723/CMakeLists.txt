@@ -1,0 +1,5 @@
+set (libname "max31723")
+set (libdescription "SPI/3-wire Digital Thermometer")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

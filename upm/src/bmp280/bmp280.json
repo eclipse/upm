@@ -1,0 +1,85 @@
+{
+    "Library": "bmp280",
+    "Description": "Bosch Atmospheric Sensor Library",
+    "Sensor Class":
+    {
+        "BME280":
+        {
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor",
+            "Aliases": ["bme280", "Grove - Barometer Sensor(BME280)"],
+            "Categories": ["pressure", "humidity", "temperature"],
+            "Connections": ["gpio", "i2c", "spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["adafruit", "seeed", "bosch"],
+            "Examples":
+            {
+                "Java": ["BMP280_Example.java"],
+                "Python": ["bmp280.py"],
+                "Node.js": ["bmp280.js"],
+                "C++": ["bmp280.cxx"],
+                "C": ["bmp280.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Ioff" : {"unit": "mA", "low" : 0.0, "high": 0.0},
+                "Iavg": {"unit": "mA", "low" : 1, "high": 2},
+                "Pressure Range": {"unit": "hpA", "low" : 300, "high": 1100},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/products/2652"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/26693"]
+            }
+        },
+        "BMP280":
+        {
+            "Name": "Digital Pressure Sensor",
+            "Description": "The BMP280 is an absolute barometric pressure sensor especially designed for mobile applications. The sensor module is housed in an extremely compact 8-pin metal-lid LGA package with a footprint of only 2.0 * 2.5 mm2 and 0.95 mm package height. Its small dimensions and its low power consumption of 2.7 uA @1Hz allow the implementation in battery driven devices such as mobile phones, GPS modules or watches. As the successor to the widely adopted BMP180, the BMP280 delivers high performance in all applications that require precise pressure measurement. The BMP280 operates at lower noise, supports new filter modes and an SPI interface within a footprint 63% smaller than the BMP180.",
+            "Aliases": ["bmp280", "Grove - Barometer Sensor (BMP280)"],
+            "Categories": ["pressure", "humidity", "temperature"],
+            "Connections": ["gpio", "i2c", "spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["adafruit", "seeed", "bosch"],
+            "Examples":
+            {
+                "Java": ["BME280_Example.java", "BME280_InterfaceExample"],
+                "Python": ["bme280.py"],
+                "Node.js": ["bme280.js"],
+                "C++": ["bmp280-bme280.cxx"],
+                "C": ["bmp280-bme280.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Ioff" : {"unit": "mA", "low" : 0.0, "high": 0.0},
+                "Iavg": {"unit": "mA", "low" : 1, "high": 2},
+                "Pressure Range": {"unit": "hpA", "low" : 300, "high": 1100},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/products/2651"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMP280-DS001-18.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/26693"]
+            }
+        }
+    }
+}

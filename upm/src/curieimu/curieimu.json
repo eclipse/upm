@@ -1,0 +1,38 @@
+{
+    "Library": "curieimu",
+    "Description": "Bosch Atmospheric Sensor Library",
+    "Sensor Class":
+    {
+        "CurieImu":
+        {
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Description": "Curie IMU is a 6-axis accelerometer.",
+            "Aliases": ["curieimu"],
+            "Categories": ["IMU", "accelerometer", "compass"],
+            "Connections": ["firmata"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["bosch"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["curieimu.py"],
+                "Node.js": ["curieimu.js"],
+                "C++": ["curieimu.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                
+            },
+            "Platforms":
+            {},
+            "Urls" :
+            {
+                "Product Pages": [],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

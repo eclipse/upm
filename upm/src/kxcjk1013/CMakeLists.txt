@@ -1,0 +1,7 @@
+if (MRAA_IIO_FOUND)
+    set (libname "kxcjk1013")
+    set (libdescription "Tri-axis Digital Accelerometer")
+    set (module_src ${libname}.cxx)
+    set (module_hpp ${libname}.hpp)
+    upm_module_init(mraa)
+endif (MRAA_IIO_FOUND)

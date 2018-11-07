@@ -1,0 +1,39 @@
+{
+    "Library": "kxcjk1013",
+    "Description": "KXCJK1013 Tri-axis Digital Accelerometer API",
+    "Sensor Class":
+    {
+        "KXCJK1013":
+        {
+            "Name": "Tri-axis Digital Accelerometer",
+            "Description": "he KXCJK is a tri-axis +/-2g, +/-4g or +/-8g silicon micromachined accelerometer.",
+            "Aliases": ["kxcjk1013"],
+            "Categories": ["accelerometer"],
+            "Connections": ["iio", "i2c"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["kionix"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["kxcjk1013.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.71, "typ": 2.6, "high": 3.6},
+                "Operating Current": {"unit": "uA", "low": 0.9, "high": 135},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": [],
+                "Datasheets": ["http://kionixfs.kionix.com/en/datasheet/KXCJK-1013%20Specifications%20Rev%202.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

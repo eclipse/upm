@@ -1,0 +1,5 @@
+set (libname "wheelencoder")
+set (libdescription "Wheel Encoder")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

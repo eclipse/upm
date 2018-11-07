@@ -1,0 +1,38 @@
+{
+    "Library": "grovegsr",
+    "Description": "API for the Grove GSR Galvanic Skin Response Sensor",
+    "Sensor Class":
+    {
+        "GroveGSR":
+        {
+            "Name": "Galvanic Skin Response (GSR) Sensor",
+            "Description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
+            "Aliases": ["grovegsr"],
+            "Categories": ["skinresponse"],
+            "Connections": ["analog"],
+            "Project Type": ["medical", "interface", "wearables", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["GroveGsr_Example.java"],
+                "Python": ["grovegsr.py"],
+                "Node.js": ["grovegsr.js"],
+                "C++": ["grovegsr.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "low": 0.7, "high": 3},
+                "Operating Temperature": {"unit": "degC", "min": 0, "max": 70}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-GSR-sensor-p-1614.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-GSR_Sensor/", "file:///C:/Users/Malachai/Downloads/Lm324.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-GSR_Sensor/raw/master/res/Grove%20-%20GSR_v1.2_SCH.pdf", "https://github.com/SeeedDocument/Grove-GSR_Sensor/raw/master/res/Grove%20-%20GSR%20v1.0%20SCH.pdf"]
+            }
+        }
+    }
+}

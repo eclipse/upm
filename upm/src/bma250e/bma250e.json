@@ -1,0 +1,74 @@
+{
+    "Library": "bma250e",
+    "Description": "Bosch Sensortec accelerometer library",
+    "Sensor Class": {
+        "BMA250E": {
+            "Name": "Bosch BMA250E accelerometer",
+            "Description": "This is the UPM Module for the Bosch BMA250E accelerometer. This sensor offers triaxial low-g acceleration detection, and offers spi and i2c interfaces. It also offers interrupts, which can be activated by input, such as new data, motion, taps, or even different orientations.",
+            "Aliases": ["bma250e"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c", "spi", "gpio"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["bosch"],
+            "Examples": {
+                "Java": ["BMA250E_Example.java"],
+                "Python": ["bma250e.py"],
+                "Node.js": ["bma250e.js"],
+                "C++": ["bma250e.cxx"],
+                "C": ["bma250e.c"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 1.62,
+                    "max": 3.6
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "uA",
+                        "typ" : "130"
+                    },
+                    "Suspend mode": {
+                        "unit": "uA",
+                        "typ" : "2.1"
+                    },
+                    "Deep suspend mode": {
+                        "unit": "uA",
+                        "typ" : "1"
+                    },
+                    "Low-power mode 1": {
+                        "unit": "uA",
+                        "typ" : "6.5"
+                    },
+                    "Low-power mode 2": {
+                        "unit": "uA",
+                        "typ" : "66"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Start-up time": {
+                    "unit": "ms",
+                    "max" : "1.2"
+                },
+                "Wake-up time 1": {
+                    "unit": "ms",
+                    "typ" : "1.3",
+                    "max" : "1.8"
+                },
+                "Wake-up time 2": {
+                    "unit": "ms",
+                    "typ" : "1",
+                    "max" : "1.2"
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.bosch-sensortec.com/bst/products/all_products/bma250e"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMA250E-DS004-06.pdf"]
+            }
+        }
+    }
+}

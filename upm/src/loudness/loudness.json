@@ -1,0 +1,39 @@
+{
+    "Library": "loudness",
+    "Description": "API for the Loudness Sensor",
+    "Sensor Class":
+    {
+        "Loudness":
+        {
+            "Name": "Loudness Sensor",
+            "Description": "This sensor family returns an analog voltage proportional to the loudness of the ambient environment.  It's output does not correspond to a particular sound level in decibels.  The higher the output voltage, the louder the ambient noise level. This device uses an electret microphone for sound input. This driver was developed using the DFRobot Loudness Sensor V2 and the Grove Loudness sensor.",
+            "Aliases": ["loudness"],
+            "Categories": ["audio"],
+            "Connections": ["analog"],
+            "Project Type": ["noise control", "prototyping"],
+            "Manufacturers": ["seeed", "dfrobot"],
+            "Kits": [],
+            "Image": "loudness.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["loudness.py"],
+                "Node.js": ["loudness.js"],
+                "C++": ["loudness.cxx"],
+                "C": ["loudness.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.5, "high": 10},
+                "Measurement Range": {"unit": "Hz", "low": 50, "high": 2000}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Loudness-Sensor-p-1382.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Loudness_Sensor/", "https://raw.githubusercontent.com/SeeedDocument/Grove-Loudness_Sensor/master/res/LM2904DR.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Loudness_Sensor/master/res/Grove_loudness_sensor.pdf"]
+            }
+        }
+    }
+}

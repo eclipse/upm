@@ -1,0 +1,36 @@
+{
+    "Library": "lcdks",
+    "Description": "API for the generic LCD Keypad Shield",
+    "Sensor Class":
+    {
+        "LCDKS":
+        {
+            "Name": "LCD Keypad Shield",
+            "Description": "The LCD Keypad Shield uses 7 digital outputs and 1 analog input (for the keypad). The outputs are used to drive an attached LCM1602 LCD controller. This driver should be compatible with the similar LCD keypad shields from Sainsmart, DFRobot and Sparkfun.",
+            "Aliases": ["lcdks"],
+            "Categories": ["userinput"],
+            "Connections": ["gpio", "analog"],
+            "Project Type": ["control", "prototyping"],
+            "Manufacturers": ["sainsmart", "dfrobot", "sparkfun"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["lcdks.py"],
+                "Node.js": ["lcdks.js"],
+                "C++": ["lcdks.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/13293", "http://www.sainsmart.com/sainsmart-1602-lcd-keypad-shield-for-arduino-duemilanove-uno-mega2560-mega1280.html", "http://www.dfrobot.com/index.php?route=product/product&product_id=51"],
+                "Datasheets": ["http://linksprite.com/wiki/index.php5?title=16_X_2_LCD_Keypad_Shield_for_Arduino_V2"],
+                "Schematics": ["https://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/16X2_LCD_shield.pdf"]
+            }
+        }
+    }
+}

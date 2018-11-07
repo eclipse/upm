@@ -1,0 +1,39 @@
+{
+    "Library": "lsm303d",
+    "Description": "API for the LSM303D 3-Axis Geomagnetic Sensor",
+    "Sensor Class":
+    {
+        "LSM303D":
+        {
+            "Name": "Ultra-compact high-performance eCompass module",
+            "Description": "The LSM303D is an ultra-low-power high-performance system-in-package featuring a 3D digital linear acceleration sensor and a 3D digital magnetic sensor.  The LSM303D has linear acceleration full scales of 2g/4g/8g/16g and a magnetic field dynamic range of 50 Gauss. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports only I2C operation.",
+            "Aliases": ["lsm303d"],
+            "Categories": ["compass"],
+            "Connections": ["i2c"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LSM303D_Example.java"],
+                "Python": ["lsm303d.py"],
+                "Node.js": ["lsm303d.js"],
+                "C++": ["lsm303d.cxx"],
+                "C": ["lsm303d.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.16, "high": 3.6},
+                "Operating Current": {"unit": "uA", "typ": 300},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.st.com/en/mems-and-sensors/lsm303d.html"],
+                "Datasheets": ["http://www.st.com/content/ccc/resource/technical/document/datasheet/1c/9e/71/05/4e/b7/4d/d1/DM00057547.pdf/files/DM00057547.pdf/jcr:content/translations/en.DM00057547.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

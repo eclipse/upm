@@ -1,0 +1,40 @@
+{
+    "Library": "dfrph",
+    "Description": "API for the DFRobot pH Sensors",
+    "Sensor Class":
+    {
+        "DFRPH":
+        {
+            "Name": "Analog pH Sensor",
+            "Description": "TThis sensor family returns an analog voltage proportional to the acidity or alkalinity of a liquid -- it's pH value. This driver was developed using the DFRobot Analog pH meter and the DFRobot Analog pH Meter Pro. Calibration instructions, taken and slightly reworded from the DFRobot wiki at: http://dfrobot.com/wiki/index.php/PH_meter%28SKU:_SEN0161%29 1) Connect equipment: the pH electrode is connected to the BNC connector on the pH meter board, and then the pH meter board is connected to the analog port 0 of the controller. When the controller gets power, you will see the blue LED on board is on. 2) Put the pH electrode into the standard solution whose pH value is 7.00.  Run the dfrph example and note the pH output value.  Compare the value with 7.00, and calculate the difference.  This is the value you should supply to the setOffset() method. 3) Put the pH electrode into the pH standard solution whose value is 4.00. Then wait about one minute, and adjust the potentiometer on the interface board.  Let the value stabilise at around 4.00. At this time,the acidic calibration has been completed and you can measure the pH value of an acidic solution. 4) According to the linear characteristics of pH electrode itself, after the above calibration,you can directly measure the pH value of the alkaline solution. If you want to get better accuracy, you can recalibrate it. Alkaline calibration use the standard solution whose pH value is 9.18.  Also adjust the potentiometer and let the value stabilise at around 9.18. After this calibration, you can measure the pH value of an alkaline solution.",
+            "Aliases": ["dfrph"],
+            "Categories": ["pH", "liquid"],
+            "Connections": ["analog"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Image": "dfrph.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["dfrph.py"],
+                "Node.js": ["dfrph.js"],
+                "C++": ["dfrph.cxx"],
+                "C": ["dfrph.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "Typ": 5},
+                "Measurement Range": {"unit": "pH", "low": 0, "high": 14},
+                "Operating Temperature": {"unit": "degC", "low": 0, "high": 60}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-1110.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/PH_meter(SKU:_SEN0161)"],
+                "Schematics": ["http://image.dfrobot.com/image/data/SEN0161/pH%20meter%20V1.0%20SCH.pdf"]
+            }
+        }
+    }
+}

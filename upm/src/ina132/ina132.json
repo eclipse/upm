@@ -1,0 +1,38 @@
+{
+    "Library": "ina132",
+    "Description": "API for the INA132 Differential Amplifier Sensor",
+    "Sensor Class":
+    {
+        "INA132":
+        {
+            "Name": "Grove Differential Amplifier",
+            "Description": "The INA132 Differential Amplifier Sensor is designed for precise differential-input amplification. This sensor was tested amplifying the signal from a Weight Sensor (Load Cell) 0-500g",
+            "Aliases": ["ina132"],
+            "Categories": ["electric"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "ina132.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["ina132.py"],
+                "Node.js": ["ina132.js"],
+                "C++": ["ina132.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.7, "high": 5.5}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Differential-Amplifier-p-1284.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Differential_Amplifier_v1.2", "https://raw.githubusercontent.com/SeeedDocument/Grove-Differential_Amplifier_v1.2/master/res/Ina132.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

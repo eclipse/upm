@@ -1,0 +1,53 @@
+{
+    "Library": "rn2903",
+    "Description": "Microchip RN2903 LoRa radio Library",
+    "Sensor Class": {
+        "RN2903": {
+            "Name": "API for the Microchip RN2903 LoRa radio",
+            "Description": "This is the UPM Module for the Microchip RN2903 LoRa radio. The RN2903 is a fully-certified 915 MHz module based on wireless LoRa technology.  The RN2903 utilizes a unique spread spectrum modulation within the Sub-GHz band to enable long range, low power, and high network capacity.",
+            "Aliases": ["rn2903"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Microchip"],
+            "Examples": {
+                "Java": ["RN2903_Example.java", "RN2903_P2P_RX_Example.java", "RN2903_P2P_TX_Example.java"],
+                "Python": ["rn2903-p2p-rx.py", "rn2903-p2p-tx.py", "rn2903.py"],
+                "Node.js": ["rn2903-p2p-rx.js", "rn2903-p2p-tx.js", "rn2903.js"],
+                "C++": ["rn2903-p2p-rx.cxx", "rn2903-p2p-tx.cxx", "rn2903.cxx"],
+                "C": ["rn2903-p2p-rx.c", "rn2903-p2p-tx.c", "rn2903.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.1,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 185,
+                    "max" : 200
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Frequency Band": {
+                    "unit": "MHz",
+                    "min": 902.000,
+                    "max": 928.000
+                },
+                "Effective Range": {
+                    "unit": "km",
+                    "min": 5,
+                    "max": 15
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.microchip.com/wwwproducts/en/RN2903"],
+                "Datasheets": ["http://ww1.microchip.com/downloads/en/DeviceDoc/50002390C.pdf"]
+            }
+        }
+    }
+}

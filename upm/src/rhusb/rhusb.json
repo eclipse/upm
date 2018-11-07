@@ -1,0 +1,60 @@
+{
+    "Library": "rhusb",
+    "Description": "Omega RH-USB Temperature and Humidity Sensor Library",
+    "Sensor Class": {
+        "RHUSB": {
+            "Name": "API for the Omega RH-USB Temperature and Humidity Sensor",
+            "Description": "This is the UPM Module for the Omega RH-USB Temperature and Humidity Sensor. It connects via an integrated USB cable, and is accessed via a serial port.  It is suitable for wall or duct mounting.",
+            "Aliases": ["rhusb", "Humidity & Temperature Sensor with USB Output"],
+            "Categories": ["humidity", "temperature"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Omega"],
+            "Examples": {
+                "Python": ["rhusb.py"],
+                "Node.js": ["rhusb.js"],
+                "C++": ["rhusb.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5.0,
+                    "max": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Temperature": {
+                    "Effective Range": {
+                        "unit": "°C",
+                        "min" : -17,
+                        "max" : 49
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min" : -1,
+                        "max" : 1
+                    }
+                },
+                "Relative Humidity": {
+                    "Effective Range": {
+                        "unit": "RH",
+                        "min" : "2%",
+                        "max" : "98%"
+                    },
+                    "Accuracy": {
+                        "unit": "RH",
+                        "min" : "-3%",
+                        "max" : "3%"
+                    }
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.omega.com/pptst/RH-USB.html"],
+                "Datasheets": ["http://www.omega.com/das/pdf/RH-USB.pdf"]
+            }
+        }
+    }
+}

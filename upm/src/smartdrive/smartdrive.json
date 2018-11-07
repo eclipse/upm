@@ -1,0 +1,42 @@
+{
+    "Library": "smartdrive",
+    "Description": "SmartDrive library",
+    "Sensor Class": {
+        "SmartDrive": {
+            "Name": "API for the SmartDrive advanced motor controller from OpenElectronics",
+            "Description": "This is the UPM Module for the OpenElectronics SmartDrive advanced motor controller. SmartDrive is a multiplexer to control high current DC motors This module has been tested on the SmartDrive.",
+            "Aliases": ["smartdrive", "SmartDrive High Current Motor Controller"],
+            "Categories": ["motor"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["OpenElectronics"],
+            "Examples": {
+                "C++": ["smartdrive.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 12,
+                    "max": 24
+                },
+                "Supply Current": {
+                    "unit": "A",
+                    "average": 10,
+                    "max": 30
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Controllable Motors": {
+                    "unit": "motors",
+                    "motors": 2
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.mindsensors.com/rpi/76-smartdrive-high-current-motor-controller"]
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+Custom [Handlebar](http://handlebarsjs.com/) partials and helpers to create custom documentation formatting for specific projects using [YuiDoc](http://yui.github.io/yuidoc/).

@@ -1,0 +1,53 @@
+{
+    "Library": "speaker",
+    "Description": "Seeed Speaker library",
+    "Sensor Class": {
+        "Speaker": {
+            "Name": "API for the Seeed Speaker",
+            "Description": "This is the UPM Module for the Seeed Speaker. This speaker can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable.  In GPIO mode, the playAll() and playSound() methods are supported.  In PWM mode, setFrequency(), emit(), on() and off() are supported.  Calling a method not appropriate for the mode will have no effect.",
+            "Aliases": ["speaker", "Grove - Speaker"],
+            "Categories": ["sound"],
+            "Connections": ["gpio", "PWM"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["hak"],
+            "Image": "speaker.jpg",
+            "Examples": {
+                "Java": ["SpeakerPWM_Example.java", "Speaker_Example.java"],
+                "Python": ["speaker_pwm.py", "speaker.py"],
+                "Node.js": ["speaker_pwm.js", "speaker.js"],
+                "C++": ["speaker-pwm.cxx", "speaker.cxx"],
+                "C": ["speaker-pwm.c", "speaker.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.0,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 4,
+                    "max" : 8
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 70
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Speaker-p-1445.html", "http://wiki.seeed.cc/Grove-Speaker/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Speaker/master/res/LM386_Low_Voltage_Audio_Power_Amplifier_Datasheet.pdf"]
+            }
+        }
+    }
+}

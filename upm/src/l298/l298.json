@@ -1,0 +1,38 @@
+{
+    "Library": "l298",
+    "Description": "API for the L298 Dual H-Bridge Motor Driver",
+    "Sensor Class":
+    {
+        "L298":
+        {
+            "Name": "Dual H-bridge Motor Driver",
+            "Description": "It was developed using the RobotBase Dual H-Bridge module. This module can support 2 DC motors, or one 2-phase stepper motor. It requires 3 pins per DC motor (or H-bridge), or 4 pins for the stepper motor (uses both H-bridges).",
+            "Aliases": ["l298"],
+            "Categories": ["motors"],
+            "Connections": ["gpio", "pwm"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["seeed", "sparkfun"],
+            "Kits": [],
+            "Image": "l298.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["l298.py", "l298-stepper.py"],
+                "Node.js": ["l298.js", "l298-stepper.js"],
+                "C++": ["l298.cxx", "l298-stepper.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Motor Supply Voltage": {"unit": "V", "low": 6, "high": 35},
+                "Motor Supply Current": {"unit": "A", "typ": 2}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/9670"],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

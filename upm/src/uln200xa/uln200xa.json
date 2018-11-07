@@ -1,0 +1,53 @@
+{
+    "Library": "uln200xa",
+    "Description": "ULN200XA Stepper Driver Library",
+    "Sensor Class": {
+        "ULN200XA": {
+            "Name": "UPM module for the ULN200XA Darlington Stepper Driver",
+            "Description": "This is the UPM Module for the ULN200XA Darlington Stepper Driver. This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor.",
+            "Aliases": ["ULN200XA", "ULN2001A", "ULN2002A", "ULN2003A", "ULN2004A"],
+            "Categories": ["motor"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["Seeed"],
+            "Image": "uln200xa.jpg",
+            "Examples": {
+                "Java": ["ULN200XA_Example.java"],
+                "Python": ["uln200xa.py"],
+                "Node.js": ["uln200xa.js"],
+                "C++": ["uln200xa.cxx"],
+                "C": ["uln200xa.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.4,
+                    "max": 13.0
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 500,
+                    "max" : 1450
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Gear-Stepper-Motor-with-Driver-p-1685.html?cPath=39_40"],
+                "Datasheets": ["http://www.seeedstudio.com/document/pdf/Stepper%20Motor%20Datasheet.pdf", "http://www.seeedstudio.com/document/pdf/ULN2003%20Datasheet.pdf"],
+                "Schematics": ["http://www.seeedstudio.com/document/pdf/Driver%20Board%20Schematic.pdf"]
+            }
+        }
+    }
+}

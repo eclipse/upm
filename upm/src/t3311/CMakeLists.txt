@@ -1,0 +1,10 @@
+if (MODBUS_FOUND)
+  set (libname "t3311")
+  set (libdescription "Temperature and Humidity Probe")
+  set (module_src ${libname}.cxx)
+  set (module_hpp ${libname}.hpp)
+
+  set (reqlibname "libmodbus")
+  upm_module_init(${MODBUS_LIBRARIES})
+  target_include_directories(${libname} PUBLIC ${MODBUS_INCLUDE_DIRS})
+endif ()

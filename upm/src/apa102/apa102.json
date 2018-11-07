@@ -1,0 +1,45 @@
+{
+    "Library": "apa102",
+    "Description": "Adafruit apa102 iPixel LED library",
+    "Sensor Class": {
+        "APA102": {
+            "Name": "Adafruit apa102 iPixel LED",
+            "Description": "This is the UPM Module for the Adafruit apa102 LED. This RGB LED package offers a PWM interface for fine tuning of colors, as well as offering shifting. Each LED module can read the top layer of commands, before shifting the next layer to the next LED, allowing you to communicate to a large string of LEDs.",
+            "Aliases": ["apa102", "iPixel LED", "APA102 5050 RGB LED with integrated driver chip"],
+            "Categories": ["led"],
+            "Connections": ["SPI"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Shiji Lighting", "Adafruit"],
+            "Image": "apa102.jpg",
+            "Examples": {
+                "Java": ["APA102_Example.java"],
+                "Python": ["apa102.py"],
+                "Node.js": ["apa102.js"],
+                "C++": ["apa102.cxx"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 5.0,
+                    "max": 5.5
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "mA",
+                        "min": "22.5",
+                        "max": "26.5"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 70
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/2343"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/APA102.pdf"]
+            }
+        }
+    }
+}

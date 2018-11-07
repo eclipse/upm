@@ -1,0 +1,41 @@
+{
+    "Library": "waterlevel",
+    "Description": "Grove Water Level Switch Library",
+    "Sensor Class": {
+        "waterlevel": {
+            "Name": "API for the Grove Water Level Switch",
+            "Description": "This is the UPM Module for the Grove Water Level Switch. This switch is a device used to sense the level of liquid within a tank, it may actuate a pump, an indicator, an alarm, or other devices. When the float ball rises or falls with the liquid to the level of the switch, The magnetic force of magnet which inside of the float ball will cause the reed switch to turn ON. When the float ball move away from the reed switch, the reed switch will turn OFF.",
+            "Aliases": ["waterlevel", "Water level switch"],
+            "Categories": ["liquid"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Image": "waterlevel.jpg",
+            "Examples": {
+                "Java": ["WaterLevelSensor_Example.java"],
+                "Python": ["waterlevel.py"],
+                "Node.js": ["waterlevel.js"],
+                "C++": ["waterlevel.cxx"]
+            },
+            "Specifications": {
+                "Switching Voltage": {
+                    "unit": "V",
+                    "min" : 3.3,
+                    "max" : 100
+                },
+                "Switching Current": {
+                    "unit": "A",
+                    "max": 0.5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -10,
+                    "max": 80
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Water-level-switch-p-565.html"]
+            }
+        }
+    }
+}

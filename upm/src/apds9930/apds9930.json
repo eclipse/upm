@@ -1,0 +1,45 @@
+{
+    "Library": "apds9930",
+    "Description": "SparkFun apds9930 ambient light and color sensor library",
+    "Sensor Class": {
+        "APDS9930": {
+            "Name": "SparkFun apds9930 ambient light and color sensor",
+            "Description": "This is the UPM Module for the SparkFun RGB and ambient light sensor. This sensor also has gesture and proximity detection, coupled with IR and UV filters to reduce background noise. Uses i2c to communicate and can operate on 3.3 volts.",
+            "Aliases": ["apds9930", "SparkFun RGB and Gesture Sensor - APDS-9960"],
+            "Categories": ["light", "proximity"],
+            "Connections": ["iio", "i2c"],
+            "Project Type": ["prototyping", "mobile", "robotics"],
+            "Manufacturers": ["Avago", "SparkFun"],
+            "Examples": {
+                "C++": ["apds9930.cxx"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 2.4,
+                    "max": 3.8
+                },
+                "Supply Current Digital": {
+                    "Normal Mode": {
+                        "unit": "uA",
+                        "min": "38.0",
+                        "max": "790"
+                    },
+                    "Sleep mode": {
+                        "unit": "uA",
+                        "typ" : "1.0"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 85
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/12787"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Proximity/apds9960.pdf"]
+            }
+        }
+    }
+}

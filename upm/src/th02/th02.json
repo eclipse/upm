@@ -1,0 +1,77 @@
+{
+    "Library": "th02",
+    "Description": "Seeed TH02 Temperature & Humidity Sensor Library",
+    "Sensor Class": {
+        "TH02": {
+            "Name": "API for the Seeed TH02 Temperature & Humidity Sensor",
+            "Description": "This is the UPM Module for the Seeed TH02 Temperature & Humidity Sensor. This is a multifunctional sensor that gives you temperature and relative humidity information at the same time. It utilizes a TH02 sensor that can meet measurement needs of general purposes. It provides reliable readings when environment humidity condition inbetween 0-80% RH, and temperature condition inbetween 0-70°C, covering needs in most home and daily applications that don't contain extreme conditions.",
+            "Aliases": ["th02", "Grove - Temperature&Humidity Sensor (High-Accuracy & Mini)"],
+            "Categories": ["humidity", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Image": "th02.jpg",
+            "Examples": {
+                "Java": ["Th02_Example.java"],
+                "C++": ["th02.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 24,
+                    "max" : 565
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Humidity Sensor": {
+                    "Effective Range": {
+                        "unit": "%RH",
+                        "min" : 20,
+                        "max" : 80
+                    },
+                    "Accuracy": {
+                        "unit": "-/+ %RH",
+                        "min" : 3.0,
+                        "max" : 4.5
+                    }
+                },
+                "Temperature Sensor": {
+                    "Effective Range": {
+                        "unit": "°C",
+                        "min" : 0,
+                        "max" : 70
+                    },
+                    "Resolution": {
+                        "unit": "°C",
+                        "resolution": "1/32"
+                    },
+                    "Accuracy": {
+                        "unit": "+/- °C",
+                        "min" : 0.5,
+                        "max" : 1.0
+                    }
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield", "Must be set to 3 V rather than 5 V."]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Temperature%26Humidity-Sensor-(High-Accuracy-%26-Mini)-p-1921.html", "http://wiki.seeed.cc/Grove-TemptureAndHumidity_Sensor-High-Accuracy_AndMini-v1.0/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-TemptureAndHumidity_Sensor-High-Accuracy_AndMini-v1.0/master/res/TH02_SENSOR.pdf"]
+            }
+        }
+    }
+}

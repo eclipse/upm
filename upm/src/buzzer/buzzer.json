@@ -1,0 +1,40 @@
+{
+    "Library": "buzzer",
+    "Description": "Generic library for piezoelectric buzzers",
+    "Sensor Class":
+    {
+        "Buzzer":
+        {
+            "Name": "Buzzer",
+            "Description": "This module defines the Buzzer interface for libbuzzer. This sensor can make different tones when connected to a pin capable of analog pulse-width modulation. It emits sound using a piezoelectric material that vibrates at different frequencies based on the input voltage.",
+            "Aliases": ["Grove - Buzzer"],
+            "Categories": ["sound"],
+            "Connections": ["pwm"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "dfrobot", "sparkfun", "adafruit", "generic"],
+            "Kits": ["gsk"],
+            "Image": "buzzer.jpg",
+            "Examples":
+            {
+                "Java": ["Buzzer_Example.java"],
+                "Python": ["buzzer.py"],
+                "Node.js": ["buzzer.js"],
+                "C++": ["buzzer.cxx"],
+                "C": ["buzzer.c"]
+            },
+            "Platforms":
+            {
+                "Intel Edison":
+                {
+                    "Notes": ["Might not work correctly with early versions of MRAA/UPM libraries, please use the latest versions."]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-Buzzer/"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Components/General/cem-1203-42-.pdf"],
+                "Schematics": ["https://easyeda.com/Seeed/Grove_Buzzer_v1_2-c713baf3c1774da39ce0c995544ce5da"]
+            }
+        }
+    }
+}

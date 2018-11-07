@@ -1,0 +1,5 @@
+set (libname "hm11")
+set (libdescription "Bluetooth Low Energy Module")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,0 +1,381 @@
+{
+    "Library": "grove",
+    "Description": "Generic library for basic Grove sensors",
+    "Sensor Class": {
+        "Grove": {
+            "Name": "Generic library for basic Grove sensors",
+            "Description": "This is the Generic UPM Module for basic Grove sensors. This library is now deprecated and replaced by individual libraries for every sensor.",
+            "Aliases": ["grove", "libupm-grove"],
+            "Categories": ["LED", "light", "relay", "temperature", "touch"],
+            "Connections": ["i2c", "gpio", "pwm", "ainput"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk", "eak", "hak"],
+            "Examples": {
+                "C++": ["grove-grovebutton.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["https://github.com/intel-iot-devkit/upm/tree/master/src/grove"]
+            }
+        },
+        "GroveButton": {
+            "Name": "API for the Grove Button",
+            "Description": "This is the UPM Module for the Grove button. This class is being replaced by the upm-button library and the Button class.",
+            "Aliases": ["Grove Touch Sensor", "Grove button"],
+            "Categories": ["touch"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "grovebutton.jpg",
+            "Examples": {
+                "Java": ["GroveButton_Example.java", "GroveButton_intr_Example.java"],
+                "Python": ["grovebutton.py"],
+                "Node.js": ["grovebutton.js"],
+                "C++": ["grove-grovebutton.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 12.0
+                },
+                "Supply Current Digital": {
+                    "unit": "mA",
+                    "min" : 5,
+                    "max" : 25
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Button-p-766.html", "http://wiki.seeed.cc/Grove-Button/"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove_Button/raw/master/resources/Grove_-_Button_v1.0_Source_File.zip"]
+            }
+        },
+        "GroveLed": {
+            "Name": "API for the Grove LED",
+            "Description": "This is the UPM Module for the Grove LED. This class is being replaced by the upm-led library and the Led class.",
+            "Aliases": ["Grove LED", "Grove – Chainable RGB Led V2.0"],
+            "Categories": ["LED"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "groveled.jpg",
+            "Examples": {
+                "Java": ["GroveLED_Example.java", "GroveLed_multi_Example.java"],
+                "Python": ["groveled.py"],
+                "Node.js": ["groveled.js"],
+                "C++": ["grove-groveled.cxx", "grove-groveled-multi.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.5,
+                    "max": 7.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 20,
+                    "max" : 60
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-%E2%80%93-Chainable-RGB-Led-V2.0-p-2903.html", "http://wiki.seeed.cc/Grove-Chainable_RGB_LED/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Chainable_RGB_LED/master/res/P9813_datasheet.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-Chainable_RGB_LED/raw/master/res/Grove%20-%20Chainable%20RGB%20LED%20v2.0.zip"]
+            }
+        },
+        "GroveLight": {
+            "Name": "API for the Grove Light Sensor",
+            "Description": "This is the UPM Module for the Grove Light Sensor. This class is being replaced by the upm-light library and the Light class.",
+            "Aliases": ["grovelight", "Grove - Light Sensor(P)"],
+            "Categories": ["light"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "grovelight.jpg",
+            "Examples": {
+                "Java": ["GroveLight_Example.java"],
+                "Python": ["grovelight.py"],
+                "Node.js": ["grovelight.js"],
+                "C++": ["grove-grovelight.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 0.5,
+                    "max" : 3.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Response Time": {
+                    "unit": "ms",
+                    "min" : 20,
+                    "max" : 30
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Light-Sensor(P)-p-1253.html", "http://wiki.seeed.cc/Grove-Light_Sensor/"],
+                "Datasheets": ["https://github.com/SeeedDocument/Grove_Light_Sensor/raw/master/res/LM358.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove_Light_Sensor/raw/master/resources/Grove%20-%20Light%20Sensor%28P%29%20v1.1.zip"]
+            }
+        },
+        "GroveRelay": {
+            "Name": "API for the Grove Relay",
+            "Description": "This is the UPM Module for the Grove relay switch. This class is being replaced by the upm-relay library and the Relay class.",
+            "Aliases": ["groverelay", "Grove - Relay"],
+            "Categories": ["relay"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk", "eak", "hak"],
+            "Image": "groverelay.jpg",
+            "Examples": {
+                "Java": ["GroveRelay_Example.java"],
+                "Python": ["groverelay.py"],
+                "Node.js": ["groverelay.js"],
+                "C++": ["grove-groverelay.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 100
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Relay Life": {
+                    "unit": "Cycle",
+                    "cycles": 100000
+                },
+                "Max Switching Voltage":{
+                    "AC": {
+                        "unit" : "V",
+                        "max" : 250
+                    },
+                    "DC": {
+                        "unit": "V",
+                        "max" : 30
+                    }
+                },
+                "Max Switching Current": {
+                    "unit": "A",
+                    "max" : 5
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Relay-p-769.html", "http://wiki.seeed.cc/Grove-Relay/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Relay/master/res/Relay_Datasheet.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-Relay/raw/master/res/Grove%20-%20Relay%20Schematic.pdf", "https://github.com/SeeedDocument/Grove-Relay/raw/master/res/Grove%20-%20Relay%20PCB.pdf", "https://raw.githubusercontent.com/SeeedDocument/Grove-Relay/master/res/Grove-Relay_Eagle_Files.zip"]
+            }
+        },
+        "GroveRotary": {
+            "Name": "API for the Grove Rotary Angle Sensor (Knob)",
+            "Description": "This is the UPM Module for the Grove Rotary Angle Sensor (Knob). This class is being replaced by the upm-rotary library and the Rotary class.",
+            "Aliases": ["groverotary", "Grove - Rotary Angle Sensor"],
+            "Categories": ["ainput"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "groverotary.jpg",
+            "Examples": {
+                "Java": ["GroveRotary_Example.java"],
+                "Python": ["groverotary.py"],
+                "Node.js": ["groverotary.js"],
+                "C++": ["grove-groverotary.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.75,
+                    "max": 5.25
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Rotary Angle":{
+                    "unit": "°",
+                    "min" : 0,
+                    "max" : 300
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Rotary-Angle-Sensor-p-770.html", "http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Rotary_Angle_Sensor/master/res/Grove-Rotary_Angle_Sensor_Eagle_File.zip", "https://raw.githubusercontent.com/SeeedDocument/Grove-Rotary_Angle_Sensor/master/res/Grove-Rotary_Angle_Sensor_v1.2.zip"]
+            }
+        },
+        "GroveSlide": {
+            "Name": "API for the Grove Slide Potentiometer",
+            "Description": "This is the UPM Module for the Grove Slide Potentiometer. This class is being replaced by the upm-slide library and the Slide class.",
+            "Aliases": ["groveslide", "Grove - Slide Potentiometer"],
+            "Categories": ["ainput"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Images": "slide.jpg",
+            "Examples": {
+                "Java": ["GroveSlide_Example.java"],
+                "Python": ["groveslide.py"],
+                "Node.js": ["groveslide.js"],
+                "C++": ["grove-groveslide.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 30
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "max" : 30
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Sroke Length": {
+                    "unit": "mm",
+                    "min" : 0,
+                    "max" : 30
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Slide-Potentiometer-p-1196.html?gclid=Cj0KCQjw5arMBRDzARIsAAqmJexy5Nrps6rpUqNFk4iIL6mVfHQt7EYfly4NbdhC7wBl4p3AxQZNkjIaAuN2EALw_wcB", "http://wiki.seeed.cc/Grove-Slide_Potentiometer/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Slide_Potentiometer/master/res/Sliding_potentiometer_datasheet.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Slide_Potentiometer/master/res/Sliding_Potentiometer.rar"]
+            }
+        },
+        "GroveTemp": {
+            "Name": "API for the Grove Temperature Sensor",
+            "Description": "This is the UPM Module for the Grove Temperature Sensor. This class is being replaced by the upm-temperature library and the Temperature class.",
+            "Aliases": ["groverelay", "Grove - Temperature Sensor"],
+            "Categories": ["temperature"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "grovetemp.jpg",
+            "Examples": {
+                "Java": ["GroveTemp_Example.java"],
+                "Python": ["grovetemp.py"],
+                "Node.js": ["grovetemp.js"],
+                "C++": ["grove-grovetemp.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 50
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "Accuracy": {
+                    "unit": "+/- °C",
+                    "accuracy": 1.5
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Temperature-Sensor-p-774.html?gclid=Cj0KCQjw5arMBRDzARIsAAqmJexygEDSrIieYoG1C37j3HmOOx7PHjXlPsWxnQo7g1sCctC_VErW2IAaAvIHEALw_wcB", "http://wiki.seeed.cc/Grove-Temperature_Sensor_V1.2/"],
+                "Datasheets": ["https://github.com/SeeedDocument/Grove-Temperature_Sensor_V1.2/raw/master/res/NCP18WF104F03RC.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-Temperature_Sensor_V1.2/raw/master/res/Grove_-_Temperature_sensor_v1.1.zip"]
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "Library": "grovescam",
+    "Description": "Grove Serial Camera Library",
+    "Sensor Class":
+    {
+        "GROVESCAM":
+        {
+            "Name": "Serial Camera Module",
+            "Description": "UPM module for the  ear-clip heart rate sensor. It is used to measure your heart rate.",
+            "Aliases": ["grovescam"],
+            "Categories": ["imaging", "deprecated"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "access control", "security"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "grovescam.jpg",
+            "Examples":
+            {
+                "Java": ["GROVESCAM_Example.java"],
+                "Python": ["grovescam.py"],
+                "Node.js": ["grovescam.js"],
+                "C++": ["grovescam.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Resolution": {"unit": "", "max": "640x480"}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Serial-Camera-Kit-p-1608.html"],
+                "Datasheets": ["http://www.seeedstudio.com/wiki/Grove_-_Serial_Camera_Kit"],
+                "Schematics": []
+            }
+        }
+    }
+}

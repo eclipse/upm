@@ -1,0 +1,61 @@
+{
+    "Library": "apds9002",
+    "Description": "Seeed luminance sensor library",
+    "Sensor Class": {
+        "APDS9002": {
+            "Name": "Seeed luminance sensor",
+            "Description": "This is the UPM Module for the apds9002, Seeed luminance sensor. This sensor offers a luminance sensor solution that has a responsitivity close to that of the human eye. Operates at 3.3 and 5 volts on a Seeed standard breakout board.",
+            "Aliases": ["apds9002", "Grove - Luminance Sensor"],
+            "Categories": ["light"],
+            "Connections": ["Analog"],
+            "Project Type": ["prototyping", "mobile"],
+            "Manufacturers": ["Avago", "Seeed"],
+            "Image": "apds9002.jpg",
+            "Examples": {
+                "Java": ["Apds9002_Example.java"],
+                "Python": ["apds9002.py"],
+                "Node.js": ["apds9002.js"],
+                "C++": ["apds9002.cxx"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 2.4,
+                    "max": 5.5
+                },
+                "Measurement range":{
+                    "unit": "Lux",
+                    "min" : "0",
+                    "max" : "1000"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Rise time": {
+                    "unit": "ms",
+                    "typ" : 0.95,
+                    "max" : 2
+                },
+                "Fall time": {
+                    "unit": "ms",
+                    "typ" : 0.8,
+                    "max" : 2
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might require Seeed breakout board"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might require Seeed breakout board"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Luminance-Sensor-p-1941.html"],
+                "Datasheets": ["http://www.mouser.com/ds/2/678/V02-3579EN-DS-APDS-9002-11Jun20120-909745.pdf"]
+            }
+        }
+    }
+}

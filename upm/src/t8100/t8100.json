@@ -1,0 +1,83 @@
+{
+    "Library": "t8100",
+    "Description": "Amphenol Telaire Ventostat T8100 Ventilation Controller Library",
+    "Sensor Class": {
+        "T8100": {
+            "Name": "API for the Amphenol Telaire Ventostat T8100 Ventilation Controller",
+            "Description": "This is the UPM Module for the Amphenol Telaire Ventostat T8100 Ventilation Controller. This module implements support for the Amphenol Telaire Ventostat T8100 Ventilation Controller with BACnet interface.  It may also support the T8200 and T8300 models, but they have not been tested. The Telaire Ventostat T8100 reports Temperature, Humidity and CO2 concentrations.  It supports an optional relay with a settable trigger point.  The unit this driver was tested under did not support the optional relay.",
+            "Aliases": ["t8100", "Telaire Ventostat Series CO2 Monitor"],
+            "Categories": ["gaseous", "temperature", "humidity"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Amphenol"],
+            "Examples": {
+                "Java": ["T8100_Example.java"],
+                "Python": ["t8100.py"],
+                "Node.js": ["t8100.js"],
+                "C++": ["t8100.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 0,
+                    "max": 10
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 4,
+                    "max" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 50
+                },
+                "Temperature Sensor": {
+                    "Effective Range": {
+                        "unit": "°C",
+                        "min" : 0,
+                        "max" : 50
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min" : -0.8,
+                        "max" : 0.8
+                    }
+                },
+                "Humidity Sensor": {
+                    "Effective Range": {
+                        "unit": "RH",
+                        "min" : "0%",
+                        "max" : "99%"
+                    },
+                    "Accuracy": {
+                        "unit": "RH",
+                        "min" : "-3.5%",
+                        "max" : "3.5%"
+                    }
+                },
+                "CO2 Sensor": {
+                    "Effective Range": {
+                        "unit": "ppm",
+                        "min" : 0,
+                        "max" : 5000
+                    },
+                    "Accuracy": {
+                        "unit": "ppm",
+                        "min" : -30,
+                        "max" : 30
+                    },
+                    "Warm-up Time": {
+                        "unit": "minutes",
+                        "min" : 2,
+                        "max" : 10
+                    }
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.instrumart.com/products/18180/telaire-ventostat-series-co2-monitor"],
+                "Datasheets": ["https://www.instrumart.com/assets/Telaire_Ventostat_Wall_Mount-datasheet.pdf"]
+            }
+        }
+    }
+}

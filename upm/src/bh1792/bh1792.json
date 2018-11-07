@@ -1,0 +1,62 @@
+{
+    "Library": "BH1792",
+    "Description": "ROHM BH1792 Heart Rate Sensor library",
+    "Sensor Class": {
+        "BH1792": {
+            "Name": "ROHM BH1792 Heart Rate Sensor library",
+            "Description": "BH1792GLC is optical sensor for heart rate monitor IC in which LED driver, green light and IR detection photodiode are incorporated. This device drives LED and provides the intensity of light reflected from body. LED brightness can be adjusted by LED driver current. The photodiode having the high sensitivity for green light and excellent wavelength selectivity achieves accurate pulse wave detection.",
+            "Categories": ["medical"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["ROHM"],
+            "Examples": {
+                "C++": ["bh1792.cxx"],
+                "C": ["bh1792.c"],
+                "Java": ["BH1792_Example.java"],
+                "Python": ["bh1792.py"],
+                "Node.js": ["bh1792.js"]
+            },
+            "Specifications": {
+                "Supply Voltage (VDD)": {
+                    "unit": "V",
+                    "min": 2.5,
+                    "typical": 3.0,
+                    "max": 3.6
+                },
+                "Terminal Input Voltage": {
+                    "unit": "V",
+                    "min": 0.7,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": 0.8,
+                    "max": 200
+                },
+                "LED Supply Current": {
+                    "unit": "mA",
+                    "typical": 1.4,
+                    "max": 3.0
+                },
+                "Standby Mode Current": {
+                    "unit": "uA",
+                    "typical": 0.8,
+                    "max": 1.5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 85
+                }
+            },
+            "Urls": {
+                "Product Pages": [
+                    "https://www.rohm.com/sensor-shield-support/heart-rate-sensor2"
+                ],
+                "Datasheets": [
+                    "https://www.rohm.com/datasheet/BH1792GLC/bh1792glc-e"
+                ]
+            }
+        }
+    }
+}

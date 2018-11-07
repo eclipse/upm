@@ -1,0 +1,37 @@
+{
+    "Library": "lsm303agr",
+    "Description": "API for the LSM303AGR 3-Axis Geomagnetic Sensor",
+    "Sensor Class":
+    {
+        "LSM303AGR":
+        {
+            "Name": "Ultra-Compact High-Performance eCompass Module",
+            "Description": "The LSM303AGR is an ultra-low-power high-performance system-in-package featuring a 3D digital linear acceleration sensor and a 3D digital magnetic sensor.  The LSM303AGR has linear acceleration full scales of 2g/4g/8g/16g and a magnetic field dynamic range of 50 Gauss. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports only I2C operation.",
+            "Aliases": ["lsm303agr"],
+            "Categories": ["magnetometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LSM303AGR_Example.java"],
+                "Python": ["lsm303agr.py"],
+                "Node.js": ["lsm303agr.js"],
+                "C++": ["lsm303agr.cxx"],
+                "C": ["lsm303agr.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.71, "high": 3.6},
+                "Operating Current": {"unit": "uA", "low": 2, "high": 200}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.st.com/en/mems-and-sensors/lsm303agr.html"],
+                "Datasheets": ["http://www.st.com/content/ccc/resource/technical/document/datasheet/74/c4/19/54/62/c5/46/13/DM00177685.pdf/files/DM00177685.pdf/jcr:content/translations/en.DM00177685.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

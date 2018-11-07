@@ -1,0 +1,39 @@
+{
+    "Library": "lsm6dsl",
+    "Description": "API for the LSM6DSL 3-axis Accelerometer and Gyroscope",
+    "Sensor Class":
+    {
+        "LSM6DSL":
+        {
+            "Name": "Digital 3-axis Accelerometer and Gyroscope",
+            "Description": "The LSM6DSL is a system-in-package featuring a 3D digital accelerometer and a 3D digital gyroscope performing at 0.65 mA in high performance mode and enabling always-on low-power features for an optimal motion experience for the consumer. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports both I2C (default) and SPI operation.",
+            "Aliases": ["lsm6dsl"],
+            "Categories": ["accelerometer", "gyroscope"],
+            "Connections": ["i2c", "spi", "gpio"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LSM6DSL_Example.java"],
+                "Python": ["lsm6dsl.py"],
+                "Node.js": ["lsm6dsl.js"],
+                "C++": ["lsm6dsl.cxx"],
+                "C": ["lsm6dsl.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.71, "high": 3.6},
+                "Operating Current": {"unit": "mA", "low": 0.4, "high": 0.65},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.st.com/en/mems-and-sensors/lsm6dsl.html"],
+                "Datasheets": ["http://www.st.com/content/ccc/resource/technical/document/datasheet/ee/23/a0/dc/1d/68/45/52/DM00237456.pdf/files/DM00237456.pdf/jcr:content/translations/en.DM00237456.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

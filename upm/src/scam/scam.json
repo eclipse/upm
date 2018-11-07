@@ -1,0 +1,53 @@
+{
+    "Library": "scam",
+    "Description": "Seeed Serial Camera library",
+    "Sensor Class": {
+        "SCAM": {
+            "Name": "API for the Seeed Serial Camera",
+            "Description": "This is the UPM Module for the Seeed Serial Camera. There is no protocol documentation currently available, so this module was developed based completely on the Seeed Studio* Arduino* sketch.",
+            "Aliases": ["scam", "Grove - Serial Camera Kit"],
+            "Categories": ["other"],
+            "Connections": ["uard"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Image": "scam.jpg",
+            "Examples": {
+                "Java": ["SCAM_Example.java"],
+                "Python": ["scam.py"],
+                "Node.js": ["scam.js"],
+                "C++": ["scam.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "typ" : 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Resolution": {
+                    "unit": "pixels",
+                    "res": "160x120"
+                },
+                "UART Baud Rate": {
+                    "unit": "Baud",
+                    "min" : 9600,
+                    "max" : 115200
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://wiki.seeed.cc/Grove-Serial_Camera_Kit/"]
+            }
+        }
+    }
+}

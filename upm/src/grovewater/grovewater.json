@@ -1,0 +1,39 @@
+{
+    "Library": "grovewater",
+    "Description": "Grove Water Sensor Library",
+    "Sensor Class":
+    {
+        "GroveWater":
+        {
+            "Name": "Grove Water Sensor",
+            "Description": "UPM module for the Grove Water sensor.",
+            "Aliases": ["grovewater"],
+            "Categories": ["liquid", "deprecated"],
+            "Connections": ["gpio"],
+            "Project Type": ["agriculture", "environmental", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["eak"],
+            "Examples":
+            {
+                "Java": ["GroveWater_Example.java"],
+                "Python": ["grovewater.py"],
+                "Node.js": ["grovewater.js"],
+                "C++": ["grovewater.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 4.7, "high": 5.25},
+                "Operating Current": {"unit": "mA", "max": 20},
+                "Working Temperature": {"unit": "degC", "low": 10, "high": 30}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Water-Sensor-p-748.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Water_Sensor/"],
+                "Schematics": []
+            }
+        }
+    }
+}

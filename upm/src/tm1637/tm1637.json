@@ -1,0 +1,52 @@
+{
+    "Library": "tm1637",
+    "Description": "Seeed TM1637 based 7-Segment Display Library",
+    "Sensor Class": {
+        "TM1637": {
+            "Name": "API for the Seeed TM1637 based 7-Segment Display",
+            "Description": "This is the UPM Module for the Seeed TM1637 based 7-Segment Display. It can be used to address and write data to multiple display digits. This driver is based on the Grove version of the TM1637 display that uses 4 digits, thus making it ideal for clock displays, timers, counters, or even score displays in a two-player arcade game.",
+            "Aliases": ["tm1637", "Grove - 4-Digit Display"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed", "Titan Micro Electronics"],
+            "Image": "tm1637.jpeg",
+            "Examples": {
+                "Java": ["TM1637_Example.java"],
+                "Python": ["tm1637.py"],
+                "Node.js": ["tm1637.js"],
+                "C++": ["tm1637.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 0.2,
+                    "max" : 80
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/grove-4digital-display-p-1198.html", "http://wiki.seeed.cc/Grove-4-Digit_Display/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-4-Digit_Display/master/res/TM1637_datasheet.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-4-Digit_Display/master/res/Grove_4-Digit_Display_V1.0.pdf"]
+            }
+        }
+    }
+}

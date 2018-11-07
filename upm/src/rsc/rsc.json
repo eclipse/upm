@@ -1,0 +1,84 @@
+{
+    "Library": "rsc",
+    "Description": "Honeywell TruStability Pressure and Temperature Sensor Library",
+    "Sensor Class":
+    {
+        "RSC":
+        {
+            "Name": "SPI based Board Mount Pressure and Temperature",
+            "Description": "The RSC Series is a piezoresistive silicon pressure sensor offering a digital output for reading pressure over the specified full scale pressure span and temperature range. It is calibrated and temperature compensated for sensor offset, sensitivity, temperature effects, and non-linearity using a 24-bit analog-todigital converter with integrated EEPROM. Pressure data may be acquired at rates between 20 and 2000 samples per second over an SPI interface. It is intended for use with non-corrosive, non-ionic gases, such as air and other dry gases, designed and and RoHS compliant. Most of the functionality available on this chip has been implemented. The driver calculates the compensated pressure and temperature values based on the information provided in the datasheet. The user must not mess around with the coefficient and adc init value readings from the EEPROM as these are used to calculate the compensated pressure and temperature values. In order to get the sensor to work properly on an Edison, you would need to turn off the Edison SPI power management, this can be done with the command: echo on > /sys/devices/pci0000\\:00/0000\\:00\\:07.1/power/control. You might have to use external pull up resistors on all the lines. More info about this has been provided in the datasheet with a table and a diagram.",
+            "Aliases": ["rsc"],
+            "Categories": ["pressure", "temperature"],
+            "Connections": ["gpio", "spi"],
+            "Project Type": ["medical", "industrial", "extended"],
+            "Manufacturers": ["Honeywell"],
+            "Kits": [],
+            "Examples":
+            {
+                "Python": ["rsc.py"],
+                "Node.js": ["rsc.js"],
+                "C++": ["rsc.cxx"],
+                "C": ["rsc.c"]
+            },
+            "Specifications":
+            {
+                "Vsupply": {"unit": "Vdc", "min" : 2.7, "high": 6.0},
+                "Supply Current(3.3 Vdc)" : {"unit": "mA", "standby" : 1.3, "active": 1.7},
+                "Supply Current(5.0 Vdc)": {"unit": "mA", "standby" : 2.1, "active": 2.6},
+                "Operating Temperature": {"unit": "°C", "min" : -40, "max": 85},
+                "Start up Time": {"unit": "ms", "time" : 0.3},
+                "Compensated Temperature Range (Medical)" : {"unit": "°C", "min" : 0, "max" : 50},
+                "Compensated Temperature Range (Industrial)" : {"unit": "°C", "min" : -20, "max" : 85},
+                "Compensated Temperature Range (Extended)" : {"unit": "°C", "min" : -40, "max" : 85},
+                "Data Rate" : {"unit" : "samples per second", "min" : 20, "max" : 2000},
+                "Pressure Range": {
+                    "Absolute" : [
+                        {"unit" : "bar", "min" : 0, "max" : 10},
+                        {"unit" : "kPa", "min" : 0, "max" : 600},
+                        {"unit" : "MPa", "min" : 0, "max" : 1},
+                        {"unit" : "psi", "min" : 0, "max" : 150}
+                    ],
+                    "Differential": [
+                        {"unit" : "mbar", "min" : 1.6, "max": 600},
+                        {"unit" : "bar", "min" : 1, "max": 10},
+                        {"unit" : "Pa", "min" : 160, "max": 600},
+                        {"unit" : "kPa", "min" : 1, "max": 600},
+                        {"unit" : "MPa", "max": 1},
+                        {"unit" : "inH2O", "min" : 0.5, "max": 30},
+                        {"unit" : "psi", "min" : 1, "max": 150}
+                    ],
+                    "Gage": [
+                        {"unit" : "mbar", "min" : 0, "max": 600},
+                        {"unit" : "bar", "min" : 0, "max": 10},
+                        {"unit" : "Pa", "min" : 0, "max": 600},
+                        {"unit" : "kPa", "min" : 0, "max": 600},
+                        {"unit" : "MPa", "min" : 0, "max": 1},
+                        {"unit" : "inH2O", "min" : 0, "max": 30},
+                        {"unit" : "psi", "min" : 0, "max": 150}
+                    ]
+                }
+            },
+            "// Platforms": {"comment": "Catch-all for listing platforms used to validate this sensor class.", "required": false},
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Might Require pull-up resistors or use a shield instead"]
+                },
+                "Intel Edison":
+                {
+                    "Notes": ["Turn of SPI power management to use the sensor. Turn it off using the command : echo on > /sys/devices/pci0000\\:00/0000\\:00\\:07.1/power/control"]
+                },
+                "Arduino 101":
+                {
+                    "Notes": ["Might need pull up resistors or a shield"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://sensing.honeywell.com/sensors/amplified-board-mount-pressure-sensors/trustability-rsc-series"],
+                "Datasheets": ["https://sensing.honeywell.com/honeywell-sensing-trustability-rsc-series-data-sheet-32321348-b-en.pdf"]
+            }
+        }
+    }
+}

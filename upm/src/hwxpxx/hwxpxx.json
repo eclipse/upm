@@ -1,0 +1,40 @@
+{
+    "Library": "hwxpxx",
+    "Description": "UPM API for the Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor",
+    "Sensor Class":
+    {
+        "HWXPXX":
+        {
+            "Name": "Veris HWXPXX Hardware Protocol Humidity and Temperature Sensor",
+            "Description": "This module implements support for the Veris HWXPHTX Hardware Protocol Humidity and Temperature Sensor family.  It uses MODBUS over an RS485 interface.  You must have libmodbus v3.1.2 (or greater) installed to compile and use this driver. This module was developed using libmodbus 3.1.2, and the HWXPHTX. This sensor supports humidity, and optionally, temperature, slider switch, and override switch reporting.  The HWXPHTX used to develop this driver did not include the optional slider or override switches, however support for them is provided. It was developed using an RS232->RS485 inteface.  You cannot use the built in MCU TTL UART pins for accessing this device -- you must use a full serial RS232->RS485 interface connected via USB.",
+            "Aliases": ["hwxpxx"],
+            "Categories": ["temperature"],
+            "Connections": ["uart"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["veris"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["hwxpxx.py"],
+                "Node.js": ["hwxpxx.js"],
+                "C++": ["hwxpxx.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage (DC)": {"unit": "V", "low": 12, "high": 30},
+                "Operating Voltage (AC)": {"unit": "VAC", "typ": 24},
+                "Operating Current": {"unit": "mA", "max": 100},
+                "Operating Range (RH)": {"unit": "%RH", "low": 0, "high": 100},
+                "Operating Range (Temp)": {"unit": "degC", "low": 10, "high": 35}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.veris.com/Item/HWXPHTX.aspx"],
+                "Datasheets": ["http://www.veris.com/docs/Datasheets/HWProtocol_d0117.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

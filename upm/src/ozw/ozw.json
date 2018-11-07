@@ -1,0 +1,107 @@
+{
+    "Library": "ozw",
+    "Description": "UPM OpenZWave library",
+    "Sensor Class": {
+        "OZW": {
+            "Name": "API for the OpenZWave library",
+            "Description": "This module implements a singleton wrapper around the OpenZWave library. OpenZWave must be compiled and installed on your machine in order to use this library. This module was developed with OpenZWave 1.3/1.4, and an Aeon Z-Stick Gen5 configured as a Primary Controller. It provides the ability to query and set various values that can be used to control ZWave devices. It does not concern itself with configuration of devices. It is assumed that you have already setup your ZWave network using a tool like the OpenZWave control panel, and have already configured your devices as appropriate. To avoid exposing some of the internals of OpenZWave, devices (nodes) and their values, are accessed via a nodeId and a value index number. The ozwdump example will run dumpNodes() which will list the currently connected devices and the values that are available to them, along with an index number for that value. It is through these values (nodeId and index) that you can query and set device values at a low level. In addition to querying values from a device (such as state (on/off), or temperature, etc), methods are provided to allow you to control these devices to the extent they allow, for example, using a ZWave connected switch to turn on a lamp. Access to this class by OZW drivers is handled by the ozwInterface class. It is that class that drivers use for access to ozw, and therefore the Z-Wave network. This class is not intended to be used directly by end users. When writing an OZW driver, the ozwInterface class should be used (inherited) by your driver, and your driver should wrap and expose only those methods needed by the user. Take a look at some of the drivers (like aeotecss6) to see how this works.",
+            "Aliases": ["ozw"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["commercial"],
+            "Manufacturers": ["Aeon Labs"],
+            "Examples": {
+                "Java": ["AeotecDSB09104_Example.java", "AeotecDW2E_Example.java", "AeotecSDG2_Example.java", "AeotecSS6_Example.java"],
+                "Python": ["aeotecdsb09104.py", "aeotecdw2e.py", "aeotecsdg2.py", "aeotecss6.py"],
+                "Node.js": ["aeotecdsb09104.js", "aeotecdw2e.js", "aeotecsdg2.js", "aeotecss6.js"],
+                "C++": ["ozw-aeotecdsb09104.cxx", "ozw-aeotecdw2e.cxx", "ozw-aeotecsdg2.cxx", "ozw-aeotecss6.cxx", "ozw-ozwdump.cxx", "ozw-tzemt400.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["http://www.openzwave.com/"]
+            }
+        },
+        "dsb09104": {
+            "Name": "API for Aeon Labs Aeotec Home Energy Meter Gen 1",
+            "Description": "This is the UPM Module for the Aeon Labs Aeotec Home Energy Meter Gen 1. This module allows for monitoring certain elements of an Aeotec Home Energy Meter Gen 1.",
+            "Aliases": ["dsb09104"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["commercial"],
+            "Manufacturers": ["Aeon Labs"],
+            "Examples": {
+                "Java": ["AeotecDSB09104_Example.java"],
+                "Python": ["aeotecdsb09104.py"],
+                "Node.js": ["aeotecdsb09104.js"],
+                "C++": ["ozw-aeotecdsb09104.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 220,
+                    "max": 400
+                },
+                "Supply Current":{
+                    "unit": "A",
+                    "max" : 200
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://aeotec.freshdesk.com/support/solutions/articles/6000161943-home-energy-meter-gen5-user-guide-"]
+            }
+        },
+        "DSB29": {
+            "Name": "API for the Aeon Labs Aeotec Door/Window Sensor 2nd Edition",
+            "Description": "This is the UPM Module for the Aeon Labs Aeotec Door/Window Sensor 2nd Edition. This module allows for monitoring certain elements of an Aeotec Door/Window Sensor 2nd Edition Z-Wave device. NOTE: This is a battery powered device that spends most of it's time sleeping (sort of like a cat). This means that on initial startup, there is not enough information known about the device to reliably query anything.  Use isDeviceAvailable() to test whether the device has responded to OZW's probe request before requesting information for it.",
+            "Aliases": ["dsb29"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["commercial"],
+            "Manufacturers": ["Aeon Labs"],
+            "Examples": {
+                "Java": ["AeotecDW2E_Example.java"],
+                "Python": ["aeotecdw2e.py"],
+                "Node.js": ["aeotecdw2e.js"],
+                "C++": ["ozw-aeotecdw2e.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["https://aeotec.com/z-wave-door-window-sensor"]
+            }
+        },
+        "dg2": {
+            "Name": "API for Aeon Labs Aeotec Smart Dimmer Gen 2",
+            "Description": "This is the UPM Module for the Aeon Labs Aeotec Smart Dimmer Gen 2. This module allows for controlling and monitoring certain elements of an Aeotec Smart Dimmer Gen 2.",
+            "Aliases": ["dg2"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["commercial"],
+            "Manufacturers": ["Aeon Labs"],
+            "Examples": {
+                "Java": ["AeotecSDG2_Example.java"],
+                "Python": ["aeotecsdg2.py"],
+                "Node.js": ["aeotecsdg2.js"],
+                "C++": ["ozw-aeotecsdg2.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["https://aeotec.freshdesk.com/support/solutions/articles/6000053613-micro-dimmer-g2-and-micro-smart-dimmer-g2-user-guide-"]
+            }
+        },
+        "ss6": {
+            "Name": "API for the Aeon Labs Aeotec Smart Switch 6",
+            "Description": "This is the UPM Module for the Aeon Labs Aeotec Smart Switch 6. This module allows for controlling and monitoring certain elements of an Aeotec Smart Switch 6.",
+            "Aliases": ["ss6"],
+            "Categories": ["wifi"],
+            "Connections": ["uart"],
+            "Project Type": ["commercial"],
+            "Manufacturers": ["Aeon Labs"],
+            "Examples": {
+                "Java": ["AeotecSS6_Example.java"],
+                "Python": ["aeotecss6.py"],
+                "Node.js": ["aeotecss6.js"],
+                "C++": ["ozw-aeotecss6.cxx"]
+            },
+            "Urls": {
+                "Product Pages": ["https://aeotec.com/z-wave-plug-in-switch"]
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "doxygen2jsdoc",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Heidi Pan <heidi.pan@intel.com>",
+  "contributors": [
+    {
+      "name": "Dina M Suehiro",
+      "email": "dina.m.suehiro@intel.com"
+    }
+  ],
+  "bin": {
+    "docgen": "docgen.js",
+    "tolower": "tolower.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intel-iot-devkit/doxygen2jsdoc"
+  },
+  "scripts": {
+    "test": "eslint *.js"
+  },
+  "files": [
+    "generators",
+    "grammars",
+    "docgen.js",
+    "tolower.js",
+    "xml2js.js"
+  ],
+  "dependencies": {
+    "bluebird": "2.9.24",
+    "commander": "2.7.1",
+    "debug": "^2.6.8",
+    "lodash": "3.6.0",
+    "mkdirp": "^0.5.1",
+    "pegjs": "0.8.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "istanbul": "^0.4.5"
+  }
+}

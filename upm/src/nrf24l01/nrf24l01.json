@@ -1,0 +1,74 @@
+{
+    "Library": "nrf24l01",
+    "Description": "Nordic Semiconductor NRF24L01 Transceiver library",
+    "Sensor Class": {
+        "NRF24L01": {
+            "Name": "API for the Nordic Semiconductor NRF24L01 Transceiver Module",
+            "Description": "This is the UPM Module for the Nordic Semiconductor NRF24L01 Transceiver Module. This transceiver IC operates in the 2.4GHz band and has many new features! Take all the coolness of the nRF2401A and add some extra pipelines, buffers, and an auto-retransmit feature.",
+            "Aliases": ["nrf24l01", "SparkFun Transceiver Breakout - nRF24L01+"],
+            "Categories": ["wifi"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Nordic Semiconductor", "SparkFun"],
+            "Image": "nrf24l01.jpg",
+            "Examples": {
+                "Java": ["NRF24L01_receiver_Example.java", "NRF24L01_transmitter_Example.java"],
+                "C++": ["nrf24l01-broadcast.cxx", "nrf24l01-receiver.cxx", "nrf24l01-transmitter.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 7.0
+                },
+                "Supply Current": {
+                    "Idle Mode Supply": {
+                        "unit": "uA",
+                        "min" : 0.9,
+                        "max" : 320
+                    },
+                    "Transmit Mode Supply": {
+                        "unit": "mA",
+                        "min" : 0.12,
+                        "max" : 11.3
+                    },
+                    "Recieve Mode Supply": {
+                        "unit": "mA",
+                        "min" : 8.4,
+                        "max" : 12.3
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Operating Frequency": {
+                    "unit": "MHz",
+                    "min": 2400,
+                    "max": 2525
+                },
+                "Data Rate": {
+                    "unit": "kbps",
+                    "min": 250,
+                    "max": 2000
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/691"],
+                "Datasheets": ["file:///D:/Downloads/nRF24L01_Product_Specification_v2_0.pdf"]
+            }
+        }
+    }
+}

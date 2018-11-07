@@ -1,0 +1,56 @@
+{
+    "Library": "maxds3231m",
+    "Description": "maxds3231m Realtime Clock (RTC) Sensor Library",
+    "Sensor Class": {
+        "MAXDS3231M": {
+            "Name": "maxds3231m Realtime Clock (RTC) Sensor",
+            "Description": "This is the UPM Module for the Maxim Realtime Clock module. It offers i2c connectivity, with a temperature compensated crystal and crystal oscillator. It offers 12 and 24 hour clock formats, as built in battery backup support.",
+            "Aliases": ["maxds3231m", "DS3231", "DS3231 Extremely Accurate I2C-Integrated RTC/TCXO/Crystal"],
+            "Categories": ["RTC"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Maxim"],
+            "Examples": {
+                "Java": ["MAXds3231m_Example.java"],
+                "C++": ["maxds3231m.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.3,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 130,
+                    "max" : 650
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -45,
+                    "max": 85
+                },
+                "Compensated Temperature Range": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 40
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/digital/real-time-clocks/DS3231.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/DS3231M.pdf"]
+            }
+        }
+    }
+}

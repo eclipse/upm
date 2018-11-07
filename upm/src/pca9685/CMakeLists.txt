@@ -1,0 +1,5 @@
+set (libname "pca9685")
+set (libdescription "I2C 16-channel 12-bit PWM LED Controller")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,0 +1,7 @@
+if (MRAA_IIO_FOUND)
+    set (libname "apds9930")
+    set (libdescription "Digital Ambient Light and Proximity Sensor")
+    set (module_src ${libname}.cxx)
+    set (module_hpp ${libname}.hpp)
+    upm_module_init(mraa)
+endif (MRAA_IIO_FOUND)

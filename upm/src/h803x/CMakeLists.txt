@@ -1,0 +1,10 @@
+if (MODBUS_FOUND)
+  set (libname "h803x")
+  set (libdescription "Module for the Veris H803X (H8035/H8036)")
+  set (module_src ${libname}.cxx)
+  set (module_hpp ${libname}.hpp)
+
+  set (reqlibname "libmodbus")
+  upm_module_init(${MODBUS_LIBRARIES})
+  target_include_directories(${libname} PUBLIC ${MODBUS_INCLUDE_DIRS})
+endif ()

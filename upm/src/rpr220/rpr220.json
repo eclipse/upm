@@ -1,0 +1,64 @@
+{
+    "Library": "rpr220",
+    "Description": "ROHM Semiconductor RPR220 IR Reflective Sensor library",
+    "Sensor Class": {
+        "RPR220": {
+            "Name": "API for the ROHM Semiconductor RPR220-based Grove IR Reflective Sensor",
+            "Description": "This is the UPM Module for the ROHM Semiconductor RPR220-based Grove IR Reflective Sensor. The reflectivity of infrared light varies with the color and distance of the reflecting surface. According to this principle, Grove - Infrared Reflective Sensor utilizes a RPR220 reflective photosensor module to detect color and distance. When a light-colored object approaches,the signal intensity received by infrared reflective sensor increases and the indicator LED on board turns red. When a dark-colored object approaches, the intensity decreases and the LED turns off.",
+            "Aliases": ["rpr220", "Grove - Infrared Reflective Sensor"],
+            "Categories": ["light"],
+            "Connections": ["gpio"],
+            "Project Type": ["mprototyping", "commercial"],
+            "Manufacturers": ["ROHM Semiconductor", "Seeed"],
+            "Kits": ["tsk", "hak"],
+            "Image": "rpr220.jpg",
+            "Examples": {
+                "Java": ["RPR220_Example.java", "RPR220_intr_Example.java"],
+                "Python": ["rpr220.py"],
+                "Node.js": ["rpr220.js"],
+                "C++": ["rpr220-intr.cxx", "rpr220.cxx"],
+                "C": ["rpr220-intr.c", "rpr220.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 14.69,
+                    "max" : 15.35
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Effective Distance": {
+                    "unit": "mm",
+                    "min": 4,
+                    "max": 15
+                },
+                "Response Time": {
+                    "unit": "us",
+                    "typ": 10
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Infrared-Reflective-Sensor-p-1230.html", "http://wiki.seeed.cc/Grove-Infrared_Reflective_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Infrared_Reflective_Sensor/master/res/RPR220_datasheet.pdf"]
+            }
+        }
+    }
+}

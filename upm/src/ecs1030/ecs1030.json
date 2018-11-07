@@ -1,0 +1,39 @@
+{
+    "Library": "ecs1030",
+    "Description": "ECS1030 Electricity Sensor Library",
+    "Sensor Class":
+    {
+        "ECS1030":
+        {
+            "Name": "Non-Invasive Current Sensor",
+            "Description": "This non-invasive current sensor can be clamped around the supply line of an electrical load to tell you how much current is passing through it. It does this by acting as an inductor and responding to the magnetic field around a current-carrying conductor. This particular current sensor measures a load up to 30 A, which makes it great for building your own energy monitors.",
+            "Aliases": ["ecs1030"],
+            "Categories": ["meter", "electric"],
+            "Connections": ["analog"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["sparkfun"],
+            "Kits": [],
+            "Image": "ecs1030.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["ecs1030.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Measurable Current": {"unit": "V", "low": 1, "nominal": 30, "maximum": 60},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 65}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/11005"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Current/ECS1030-L72-SPEC.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "Library": "ili9341",
+    "Description": "API for the ILI9342 LCD",
+    "Sensor Class":
+    {
+        "ILI9341":
+        {
+            "Name": "SPI Based LCD",
+            "Description": "This module defines the interface for the ILI9341 display library.",
+            "Aliases": ["ili9341"],
+            "Categories": ["display"],
+            "Connections": ["spi"],
+            "Project Type": ["graphics", "prototyping"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Image": "ili9341.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["ili9341.py"],
+                "Node.js": ["ili9341.js"],
+                "C++": ["ili9341.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3, "high": 5}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/product/2090"],
+                "Datasheets": ["http://www.adafruit.com/datasheets/ILI9341.pdf"],
+                "Schematics": ["https://cdn-learn.adafruit.com/assets/assets/000/015/463/medium800/adafruit_products_schem.png?1395173896"]
+            }
+        }
+    }
+}

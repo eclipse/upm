@@ -1,0 +1,46 @@
+{
+    "Library": "cjq4435",
+    "Description": "API for the CJQ4435 MOSFET",
+    "Sensor Class":
+    {
+        "CJQ4435":
+        {
+            "Name": "CJQ4435 MOSFET",
+            "Description": "UPM module for the CJQ4435 MOSFET. It was developed using the Grove MOSFET module, but could be used with any MOSFET.  A MOSFET is like a switch, but it can switch much faster than a mechanical relay.  Here, we implement support via MRAA pulse width modulation (PWM) functions.  Note: available periods vary depending on the capabilities of your platform.",
+            "Aliases": ["cjq4435"],
+            "Categories": ["electric"],
+            "Connections": ["gpio", "pwm"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["robok"],
+            "Image": "cjq4435.jpg",
+            "Examples":
+            {
+                "Java": ["CJQ4435_Example.java"],
+                "Python": ["cjq4435.py"],
+                "Node.js": ["cjq4435.js"],
+                "C++": ["cjq4435.cxx"],
+                "C": ["cjq4435.c"]
+            },
+            "Specifications":
+            {
+                "Trigger Voltage": {"unit": "V", "typ" : 5},
+                "Working Voltage" : {"unit": "V", "low" : 5, "high": 15}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-MOSFET-p-1594.html", "http://wiki.seeed.cc/Grove-MOSFET/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-MOSFET/master/res/CJQ4435.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-MOSFET/raw/master/res/Grove%20-%20MOSFET%20.pdf"]
+            }
+        }
+    }
+}

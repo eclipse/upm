@@ -1,0 +1,56 @@
+{
+    "Library": "pca9685",
+    "Description": "NXP/Adafruit PCA9685 PWM Controller library",
+    "Sensor Class": {
+        "PCA9685": {
+            "Name": "API for the NXP/Adafruit PCA9685 16-channel, 12-bit PWM Controller",
+            "Description": "This is the UPM Module for the NXP/Adafruit PCA9685 16-channel, 12-bit PWM Controller. You want to make a cool robot, maybe a hexapod walker, or maybe just a piece of art with a lot of moving parts. Or maybe you want to drive a lot of LEDs with precise PWM output. Then you realize that your microcontroller has a limited number of PWM outputs! What now? You could give up OR you could just get this handy PWM and Servo driver breakout.",
+            "Aliases": ["PCA9685", "Adafruit 16-Channel 12-bit PWM/Servo Driver - I2C interface - PCA9685"],
+            "Categories": ["led", "motor"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["NXP Semiconductors", "Adafruit"],
+            "Image": "pca9685.jpg",
+            "Examples": {
+                "Node.js": ["pca9685.js"],
+                "C++": ["pca9685.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.3,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min": 6,
+                    "max": 10
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "PWM Channels": {
+                    "unit": "Channels",
+                    "channels": 16
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/815", "https://learn.adafruit.com/16-channel-pwm-servo-driver/overview"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf"]
+            }
+        }
+    }
+}

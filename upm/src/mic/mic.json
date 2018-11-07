@@ -1,0 +1,31 @@
+{
+    "Library": "mic",
+    "Description": "Generic analog microphone library",
+    "Sensor Class":
+    {
+        "Microphone":
+        {
+            "Name": "Analog Microphone",
+            "Description": "This module defines the Analog Microphone sensor.",
+            "Aliases": ["Grove - Sound Sensor"],
+            "Categories": ["sound"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["seeed", "dfrobot", "sparkfun", "adafruit", "generic"],
+            "Kits": ["gsk"],
+            "Image": "mic.jpg",
+            "Examples":
+            {
+                "Java": ["Microphone_Example.java"],
+                "Python": ["mic.py"],
+                "Node.js": ["mic.js"],
+                "C++": ["mic.cxx"]
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.seeedstudio.com/wiki/Grove_-_Sound_Sensor"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove_Sound_Sensor/raw/master/res/Grove%20-%20Sound%20Sensor%20v1.6%20Schematic.pdf"]
+            }
+        }
+    }
+}

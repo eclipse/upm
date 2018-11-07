@@ -1,0 +1,45 @@
+{
+    "Library": "adis16448",
+    "Description": "Industrial Grade Ten Degrees of Freedom Inertial Sensor",
+    "Sensor Class":
+    {
+        "ADIS16448":
+        {
+            "Name": "API for the Analog Devices ADIS16448 Accelerometer",
+            "Description": "This is an industrial-grade accelerometer by Analog Devices.",
+            "Aliases": ["adis16448"],
+            "Categories": ["imu"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["generic"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": ["adis16448.js"],
+                "C++": ["adis16448.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Working Voltage": {"unit": "v", "low": 3.15, "high": 3.45},
+                "Working Current": {"unit": "mA", "low": 76, "high": 104}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.analog.com/en/products/sensors/inertial-measurement-units/adis16448.html"],
+                "Datasheets": ["http://www.analog.com/media/en/technical-documentation/data-sheets/ADIS16448.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

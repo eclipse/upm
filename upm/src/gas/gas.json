@@ -1,0 +1,275 @@
+{
+    "Library": "gas",
+    "Description": "Gas Sensor Library",
+    "Sensor Class":
+    {
+        "MQ2":
+        {
+            "Name": "MQ2 Methane, Butane, Liquefied Petroleum Gas (LPG), and Smoke Sensor",
+            "Description": "The MQ2 Gas Sensor module is useful for gas leakage detection (in home and industry). It can detect LPG, i-butane, methane, alcohol, hydrogen, smoke, and other combustible gases. It's a medium-sensitivity sensor with a detection range of 300-10,000 ppm.",
+            "Aliases": ["mq2"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["hak"],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq2.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 160},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Sensor Resistance": {"unit": "KOhms", "low": 3, "high": 30}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Gas-Sensor(MQ2)-p-937.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Gas_Sensor-MQ2/"],
+                "Schematics": []
+            }
+        },
+        
+        "MQ3":
+        {
+            "Name": "MQ3 Alcohol, Ethanol, Smoke Sensor",
+            "Description": "The MQ3 Gas Sensor module is useful for gas leakage detection (in home and industry). It can detect alcohol vapors and benzine. It's highly sensitive but has a long warm-up time of about 1 minute. It's detection range is 0.04-4 mg/L Alcohol.",
+            "Aliases": ["mq3"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq3.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 150},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Sensor Resistance": {"unit": "MOhms", "low": 1, "high": 8},
+                "Detectable Concentration": {"unit": "mg/L", "low": 0.05, "high": 10}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Gas-Sensor%28MQ3%29-p-1418.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Gas_Sensor-MQ3/"],
+                "Schematics": []
+            }
+        },
+        
+        "MQ4":
+        {
+            "Name": "MQ4 Methane and Connecticut Natural Gas (CNG) Sensor",
+            "Description": "The MQ4 Gas Sensor module is useful for detecting CH4 (Methane), and natural gas concentrations in the air.  It has a detection range of 100-10000 ppm. For optimum use, it requires calibration after a pre-heat time of at least 24 hours.  See the datasheet for details.",
+            "Aliases": ["mq4"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq4.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 150},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Sensor Resistance": {"unit": "KOhms", "low": 10, "high": 60}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-683.html"],
+                "Datasheets": ["http://image.dfrobot.com/image/data/SEN0129/MQ-4.pdf", "https://www.dfrobot.com/wiki/index.php/Analog_Gas_Sensor(MQ4)_(SKU:SEN0129)"],
+                "Schematics": []
+            }
+        },
+        
+        "MQ5":
+        {
+            "Name": "MQ5 Natural Gas and Liquefied Petroleum Gas (LPG) Sensor",
+            "Description": "The MQ5 Gas Sensor module is useful for gas leakage detection (in home and industry). It can detect LPG, natural gas, town gas, and so on. It is highly sensitive and has a detection range of 300-10,000 ppm.",
+            "Aliases": ["mq5"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["eak"],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq5.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 160},
+                "Heater Resistance": {"unit": "Ohms", "typ": 31},
+                "Sensor Resistance": {"unit": "KOhms", "low": 10, "high": 60},
+                "Detectable Concentration": {"unit": "ppm", "low": 200, "high": 10000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Gas-Sensor%28MQ5%29-p-938.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Gas_Sensor-MQ5/", "https://raw.githubusercontent.com/SeeedDocument/Grove-Gas_Sensor-MQ5/master/res/MQ-5.pdf"],
+                "Schematics": []
+            }
+        },
+        
+        "MQ6":
+        {
+            "Name": "MQ6 Liquefied Petroleum Gas (LPG) and Butane Sensor",
+            "Description": "The MQ6 Gas Sensor module is useful for detecting LPG, iso-butane, propane, and LNG concentrations in the air.  It has a detection range of 200-10000 ppm. For optimum use, it requires calibration after a pre-heat time of at least 24 hours.  See the datasheet for details.",
+            "Aliases": ["mq6"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq6.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 150},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Sensor Resistance": {"unit": "KOhms", "low": 10, "high": 60},
+                "Detectable Concentration": {"unit": "ppm", "low": 200, "high": 10000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-685.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/LPG_Gas_Sensor(MQ6)_(SKU:SEN0131)", "http://image.dfrobot.com/image/data/SEN0131/MQ-6.pdf"],
+                "Schematics": ["http://image.dfrobot.com/image/data/SEN0131/MQ-X%20Schematic.pdf"]
+            }
+        },
+        
+        "MQ7":
+        {
+            "Name": "MQ7 Carbon Monoxide Sensor",
+            "Description": "The Grove MQ7 Gas Sensor module is useful for detecting Carbon Monoxide (CO) concentrations in the air.  It has a detection range of 20-2000 ppm. For optimum use, it requires calibration after a pre-heat time of 48 hours.  See the datasheet for details.",
+            "Aliases": ["mq7"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq7.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "typ": 70},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Detectable Concentration": {"unit": "ppm", "low": 20, "high": 2000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-686.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/Carbon_Monoxide_Gas_Sensor(MQ7)_(SKU:SEN0132)", "http://image.dfrobot.com/image/data/SEN0132/MQ-7.pdf"],
+                "Schematics": ["http://image.dfrobot.com/image/data/SEN0132/MQ-X%20Schematic.pdf"]
+            }
+        },
+        
+        "MQ8":
+        {
+            "Name": "MQ8 Flammable (Hydrogen) Gas Sensor",
+            "Description": "The MQ8 Gas Sensor module is useful for detecting Hydrogen gas concentrations in the air.  It has a detection range of 100-10000 ppm. For optimum use, it requires calibration after a pre-heat time of at least 24 hours.  See the datasheet for details.",
+            "Aliases": ["mq8"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["dfrobot"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq8.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "max": 160},
+                "Heater Resistance": {"unit": "Ohms", "typ": 31},
+                "Sensor Resistance": {"unit": "KOhms", "low": 10, "high": 60},
+                "Detectable Concentration": {"unit": "ppm", "low": 100, "high": 10000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.dfrobot.com/product-687.html"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/Hydrogen_Gas_Sensor(MQ8)_(SKU:SEN0133)", "http://image.dfrobot.com/image/data/SEN0133/MQ-8.pdf"],
+                "Schematics": ["http://image.dfrobot.com/image/data/SEN0133/MQ-X%20Schematic.pdf"]
+            }
+        },
+        
+        "MQ9":
+        {
+            "Name": "MQ9 Carbon Monoxide (CO) and Flammable Gas Sensor",
+            "Description": "The Grove MQ9 Gas Sensor module is useful for gas leakage detection (in home and industry). It can detect carbon monoxide, coal gas, and liquefied gas. Its sensitivity is 10-1,000 ppm CO, and 100-10,000 ppm Gas.",
+            "Aliases": ["mq9"],
+            "Categories": ["gas"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "safety", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["gas-mq9.cxx"],
+                "C": ["gas-mqx.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "low": 0.1, "high": 68},
+                "Heater Resistance": {"unit": "Ohms", "typ": 33},
+                "Sensor Resistance": {"unit": "Ohms", "low": 2, "high": 20000},
+                "Detectable Concentration": {"unit": "ppm", "low": 200, "high": 10000}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Gas-Sensor%28MQ9%29-p-1419.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Gas_Sensor-MQ9/", "https://raw.githubusercontent.com/SeeedDocument/Grove-Gas_Sensor-MQ9/master/res/MQ-9.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Gas_Sensor-MQ9/master/res/Gas_Sensor_Schematic.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "Library": "mma7361",
+    "Description": "UPM API for the DFRobot MMA7361 Analog Accelerometer",
+    "Sensor Class": {
+        "MMA7361": {
+            "Name": "API for the DFRobot MMA7361 Analog Accelerometer",
+            "Description": "This is the UPM Module for the DFRobot mma7361 analog accelerometer. This triaxial accelerometer has variable sensitivity, and offers an easy to read analog interface. This library was tested with the DFRobot MMA7361 Analog Accelerometer.",
+            "Aliases": ["mma7361", "Triple Axis Accelerometer MMA7361", "DFR0143"],
+            "Categories": ["accelerometer"],
+            "Connections": ["analog", "gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["DFRobot"],
+            "Examples": {
+                "Java": ["MMA7361_Example.java"],
+                "Python": ["mma7361.py"],
+                "Node.js": ["mma7361.js"],
+                "C++": ["mma7361.cxx"],
+                "C": ["mma7361.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 8.0
+                },
+                "Supply Current": {
+                    "Measurement Mode": {
+                        "unit": "uA",
+                        "typ": 500
+                    },
+                    "Standby Mode": {
+                        "unit": "uA",
+                        "typ": 3
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Resolution": {
+                    "unit": "mV/g",
+                    "sensativity": 800
+                },
+                "Sensitivity": {
+                    "unit": "g",
+                    "min" : 1.5,
+                    "max" : 6.0
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might DFRobot IO/Sensor expansion board."]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might DFRobot IO/Sensor expansion board."]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/product-507.html#.V7YEj99ytNJ"],
+                "Datasheets": ["https://www.dfrobot.com/wiki/index.php/Triple_Axis_Accelerometer_MMA7361_SKU:DFR0143", "http://www.nxp.com/docs/en/data-sheet/MMA7361L.pdf"]
+            }
+        }
+    }
+}

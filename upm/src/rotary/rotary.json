@@ -1,0 +1,52 @@
+{
+    "Library": "rotary",
+    "Description": "Seeed Rotary Angle Sensor library",
+    "Sensor Class": {
+        "Rotary": {
+            "Name": "API for the Seeed Rotary Angle Sensor",
+            "Description": "This is the UPM Module for the Seeed Rotary Angle Sensor. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range.",
+            "Aliases": ["rotary", "Grove - Rotary Angle Sensor"],
+            "Categories": ["ainput"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk"],
+            "Image": "rotary.jpg",
+            "Examples": {
+                "Java": ["Rotary_Example.java"],
+                "Python": ["rotary.py"],
+                "Node.js": ["rotary.js"],
+                "C++": ["rotary.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.75,
+                    "max": 5.25
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Rotary Angle": {
+                    "unit": "°",
+                    "min": 0,
+                    "max": 300
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Rotary-Angle-Sensor-p-770.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/"]
+            }
+        }
+    }
+}

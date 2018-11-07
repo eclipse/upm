@@ -1,0 +1,73 @@
+{
+    "Library": "biss0001",
+    "Description": "Seeed PIR motion sensor library",
+    "Sensor Class": {
+        "BISS0001": {
+            "Name": "Seeed BISS0001 PIR motion detector",
+            "Description": "This is the UPM Module for the Seeed BISS0001 PIR motion detector. This sensor offers a 120 degree sensor arc, with a 3 to 6 meter detecting distance. It also offers adjustable detecting distance and hold times.",
+            "Aliases": ["biss0001", "Grove - PIR Motion Sensor"],
+            "Categories": ["light"],
+            "Connections": ["GPIO"],
+            "Project Type": ["prototyping", "home", "industrial"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["tsk"],
+            "Image": "biss0001.jpg",
+            "Examples": {
+                "Java": ["BISS0001_Example.java"],
+                "Python": ["biss0001.py"],
+                "Node.js": ["biss0001.js"],
+                "C++": ["biss0001.cxx"],
+                "C": ["biss0001.c"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5
+                },
+                "Supply Current Digital": {
+                    "5.0 Vdc": {
+                        "unit": "mA",
+                        "typ" : "10"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -20,
+                    "max": 70
+                },
+                "Storage Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "Response Time Digital": {
+                    "unit": "s",
+                    "min" : 0.3,
+                    "max" : 25
+                },
+                "Detecting angle": {
+                    "unit": "degrees",
+                    "angle": 120
+                },
+                "Detecting distance": {
+                    "unit": "m",
+                    "min" : 3,
+                    "max" : 6
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Requires Seeed expansion board"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Requires Seeed expansion board"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-PIR-Motion-Sensor-p-802.html"],
+                "Datasheets": ["http://wiki.seeedstudio.com/images/2/2f/Twig_-_BISS0001.pdf"]
+            }
+        }
+    }
+}

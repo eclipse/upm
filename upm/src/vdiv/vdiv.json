@@ -1,0 +1,70 @@
+{
+    "Library": "vdiv",
+    "Description": "Grove Voltage Divider Sensor Library",
+    "Sensor Class": {
+        "vdiv": {
+            "Name": "API for the Grove Voltage Divider Sensor",
+            "Description": "This is the UPM Module for the Grove Voltage Divider Sensor. The Grove – Voltage Divider provides an interface for measuring extern voltage, eliminating the need to connect a resistance to input interface. Besides, The voltage gain can select by dial switch.They are easy to use.",
+            "Aliases": ["vdiv", "Grove - Voltage Divider", "LMV3xx"],
+            "Categories": ["electric"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed", "Texas Instruments"],
+            "Kits": ["robok"],
+            "Image": "vdiv.jpg",
+            "Examples": {
+                "Java": ["VDiv_Example.java"],
+                "Python": ["vdiv.py"],
+                "Node.js": ["vdiv.js"],
+                "C++": ["vdiv.cxx"],
+                "C": ["vdiv.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.7,
+                    "max": 5.3
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 130,
+                    "max" : 410
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 125
+                },
+                "Accuracy": {
+                    "unit": "%",
+                    "typ": "<=1"
+                },
+                "External Voltage Range": {
+                    "Gain 3": {
+                        "unit": "V",
+                        "min" : 0.3,
+                        "max" : 12.9
+                    },
+                    "Gain 10": {
+                        "unit": "V",
+                        "min" : 1,
+                        "max" : 43
+                    }
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Voltage-Divider-p-1472.html", "http://wiki.seeed.cc/Grove-Voltage_Divider/"],
+                "Datasheets": ["https://github.com/SeeedDocument/Grove-Voltage_Divider/raw/master/res/LMV358ID_Datasheet.pdf"],
+                "Schematics": ["https://github.com/SeeedDocument/Grove-Voltage_Divider/raw/master/res/Grove-Voltage_Divider_Eagle_File.zip"]
+            }
+        }
+    }
+}

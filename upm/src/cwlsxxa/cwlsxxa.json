@@ -1,0 +1,59 @@
+{
+    "Library": "cwlsxxa",
+    "Description": "API for the Veris CWLSXXA CO2 Sensor Family",
+    "Sensor Class":
+    {
+        "CWLXSSA":
+        {
+            "Name": "Veris CWLSXXA CO2 Sensor",
+            "Description": "The driver was developed using the CWLSHTA CO2 Gas sensor.  The 'T' variant supports a temperature transmitter, and the 'H' variant supports a humidity sensor.  All 3 signals are provided by the device as analog 0-5Vdc, 0-10Vdc, or 4-20ma loop current outputs.  For devices supporting temperature, the valid temperature range is 10C to 50C.  The humidity ranges from 0% to 100% (non-condensing).  The CO2 sensor ranges from 0 to 2000 ppm. This driver was developed using the 5Vdc outputs and the 4-20ma outputs.  For voltage outputs, your MCU must be configured for 5V operation.  In addition, you must configure the sensor (via it's configuration switches) to output 0-5VDC only.  Using any other analog reference voltage will require the appropriate external circuitry (such as a voltage divider) in order to interface safely with your MCU. In addition, the sensor can be configured for 4-20ma usage, by specifying the correct receiver resistance (in ohms) in the constructor.  This sensor was tested with a Cooking Hacks (Libelium) 4-channel 4-20ma Arduino interface shield.  For this interface, the receiver resistance was specified as 165.0 ohms. For devices which do not support temperature, use '-1' as the temperature pin number in the object constructor.  If temperature measurement is disabled, getTemperature() will always return 0C/32F. For devices which do not support humidity, use '-1' as the temperature pin number in the object constructor.  If humidity measurement is disabled, getHumidity() will always return 0.",
+            "Aliases": ["cwlsxxa"],
+            "Categories": ["temp", "gaseous"],
+            "Connections": ["analog"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["veris"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["CWLSXXA_Example.java"],
+                "Python": ["cwlsxxa.py"],
+                "Node.js": ["cwlsxxa.js"],
+                "C++": ["cwlsxxa.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Vsource (DC)": {"unit": "VDC", "low": 20, "high": 30},
+                "Vsource (AC)": {"unit": "VAC", "typ": 24},
+
+                "CO2 Measurement Range": {"unit": "ppm", "low": 0, "high": 5000},
+                "CO2 Accuracy": {"unit": "ppm ±", "typ": 30},
+                "CO2 Repeatability": {"unit": "ppm ±", "typ": 20},
+                "CO2 Response Time": {"unit": "s", "max": 60},
+
+                "RH Measurement Range": {"unit": "%", "low": 0, "high": 100},
+                "RH Operating Temperature Range": {"unit": "degC", "low": 10, "high": 35},
+                "RH Accuracy": {"unit": "%", "typ": 2},
+                "RH Stability": {"unit": "%", "typ": 1},
+
+                "Temperature Accuracy": {"unit": "degC", "typ": 0.5},
+                "Temperature Resolution": {"unit": "degC", "typ": 0.1},
+                "Temperature Range": {"unit": "degC", "low": 10, "high": 35}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.veris.com/Item/CWLSHTA.aspx"],
+                "Datasheets": ["http://www.veris.com/docs/Datasheets/CDL_CDW_d0117.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

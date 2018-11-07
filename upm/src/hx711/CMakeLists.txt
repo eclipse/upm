@@ -1,0 +1,5 @@
+set (libname "hx711")
+set (libdescription "24-bit Analog-to-digital Converter")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

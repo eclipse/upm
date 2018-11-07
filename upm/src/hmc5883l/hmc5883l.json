@@ -1,0 +1,39 @@
+{
+    "Library": "hmc5883l",
+    "Description": "HMC5883L Magnetometer Library",
+    "Sensor Class":
+    {
+        "Hmc5883l":
+        {
+            "Name": "Grove 3-Axis Digital Compass",
+            "Description": "Honeywell [HMC5883L] (http://www.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf) is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is needed to power the sensor.",
+            "Aliases": ["hmc5883l"],
+            "Categories": ["compass", "magnetometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["IMU", "prototyping"],
+            "Manufacturers": ["seeed", "honeywell"],
+            "Kits": ["robok"],
+            "Examples":
+            {
+                "Java": ["Hmc5883l_Example.java"],
+                "Python": ["hmc5883l.py"],
+                "Node.js": ["hmc5883l.js"],
+                "C++": ["hmc5883l.cxx"],
+                "C": ["hmc5883l.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "uA", "low": 2.5, "high": 640},
+                "Output Rate": {"unit": "Hz", "max": 116}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-3-Axis-Digital-Compass-p-759.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-3-Axis_Compass_V1.0/", "https://raw.githubusercontent.com/SeeedDocument/Grove-3-Axis_Compass_V1.0/master/res/HMC5883.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

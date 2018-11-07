@@ -1,0 +1,32 @@
+{
+    "Library": "htu21d",
+    "Description": "API for the HTU21D Temperature & Humidity Sensor",
+    "Sensor Class":
+    {
+        "HTU21D":
+        {
+            "Name": "Digital Relative Humidity Sensor with Temperature",
+            "Description": "HTU21D by Measurement Specialties is a digital humidity sensor with temperature output. RH reports between 0 and 100%, and the temperature range is -40 to +125 degC. Note: getCompRH is the preferred function below (passing true to cause a measurement cycle). If actual values used for the compensated ready are necessary, use the getHumidity(false) and getTemperature(false) functions following the getCompRH call. Also note the sensor should not perform more than a couple of measurements per second to limit the heating of the sensor.",
+            "Aliases": ["htu21d"],
+            "Categories": ["temperature", "humidity"],
+            "Connections": ["i2c"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["seeed", "adafruit", "sparkfun"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["HTU21D_Example.java"],
+                "Python": ["htu21d.py"],
+                "Node.js": ["htu21d.js"],
+                "C++": ["htu21d.cxx"],
+                "C": []
+            },
+            "Urls" :
+            {
+                "Product Pages": [],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

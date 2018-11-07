@@ -1,0 +1,67 @@
+{
+    "Library": "yg1006",
+    "Description": "YG1006 Flame Sensor Library",
+    "Sensor Class": {
+        "YG1006": {
+            "Name": "API for the YG1006 Flame Sensor",
+            "Description": "This is the UPM Module for the YG1006 Flame Sensor. The Grove - Flame Sensor can be used to detect fire source or other light sources of the wavelength in the range of 760nm - 1100 nm. It is based on the YG1006 sensor which is a high speed and high sensitive NPN silicon phototransistor. Due to its black epoxy, the sensor is sensitive to infrared radiation. In fire fighting robot game, The sensor plays a very important role, it can be used as a robot eyes to find the fire source.",
+            "Aliases": ["yg1006", "Grove - Flame Sensor"],
+            "Categories": ["light"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial", "robotics"],
+            "Manufacturers": ["Seeed", "Texas Instruments"],
+            "Kits": ["hak"],
+            "Image": "yg1006.jpg",
+            "Examples": {
+                "Java": ["YG1006_Example.java"],
+                "Python": ["yg1006.py"],
+                "Node.js": ["yg1006.js"],
+                "C++": ["yg1006.cxx"],
+                "C": ["yg1006.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.75,
+                    "max": 5.30
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -25,
+                    "max": 85
+                },
+                "Response Time": {
+                    "unit": "us",
+                    "time": 15
+                },
+                "Light Range": {
+                    "unit": "nm",
+                    "min" : 760,
+                    "max" : 1100
+                },
+                "Effective Range": {
+                    "unit": "m",
+                    "min" : 0,
+                    "max" : 1
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Flame-Sensor-p-1450.html", "http://wiki.seeed.cc/Grove-Flame_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Flame_Sensor/master/res/LM293D.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Flame_Sensor/master/res/Grove-Directional_Light_Sensor_Eagle_File.zip"]
+            }
+        }
+    }
+}

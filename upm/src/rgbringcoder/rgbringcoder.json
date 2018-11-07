@@ -1,0 +1,48 @@
+{
+    "Library": "rgbringcoder",
+    "Description": "SparkFun RGB RingCoder Library",
+    "Sensor Class": {
+        "RGBRingCoder": {
+            "Name": "API for the SparkFun RGB RingCoder",
+            "Description": "This is the UPM Module for the SparkFun RGB RingCode. RGB RingCoder is a breakout board, a circular LED containing 16 LEDs arranged in a ring, and a rotary encoder. The encoder contains an RGB LED as well as a push button function. NOTE: This SparkFun product is retired, and no longer for sale.",
+            "Aliases": ["rgbringcoder", "SparkFun LED RingCoder Breakout - RGB"],
+            "Categories": ["led"],
+            "Connections": ["pwm", "gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["SparkFun"],
+            "Image": "rgbringcoder.jpg",
+            "Examples": {
+                "Python": ["rgbringcoder.py"],
+                "Node.js": ["rgbringcoder.js"],
+                "C++": ["rgbringcoder.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/retired/11040"],
+                "Datasheets": ["https://github.com/sparkfun/LED_RingCoder_Breakout"]
+            }
+        }
+    }
+}

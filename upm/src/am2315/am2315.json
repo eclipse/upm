@@ -1,0 +1,47 @@
+{
+    "Library": "am2315",
+    "Description": "Digital Temperature and Humidity Sensor",
+    "Sensor Class":
+    {
+        "AM2315":
+        {
+            "Name": "API for the AM2315 Temperature & Humidity Sensor",
+            "Description": "The AM2315 is a digital humidity sensor with temperature output. RH reports between 0 and 100%, and the temperature range is -40 to +125 degC. The sampling period of this sensor is 2 seconds. Reads occurring more often than that return cached data.",
+            "Aliases": ["am2315"],
+            "Categories": ["humidity", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["AM2315_Example.java"],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["am2315.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Vcc": {"unit": "v", "low" : 3.5, "high": 5.5},
+                "Current Draw": {"unit": "mA", "low": 0.0, "high": 10},
+                "Temperature Sensor Range": {"unit": "degC", "low": -20, "high": 80},
+                "Humidity Sensor Range": {"unit": "%", "low": 0, "high": 100}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.adafruit.com/products/1293"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/AM2315.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

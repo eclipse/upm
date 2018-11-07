@@ -1,0 +1,40 @@
+{
+    "Library": "grovespeaker",
+    "Description": "API for the Grove Speaker",
+    "Sensor Class":
+    {
+        "GroveSpeaker":
+        {
+            "Name": "Grove Speaker Module",
+            "Description": "UPM module for the Grove Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal.",
+            "Aliases": ["grovespeaker"],
+            "Categories": ["sound", "deprecated"],
+            "Connections": ["gpio"],
+            "Project Type": ["sound", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["hak"],
+            "Image": "grovespeaker.jpg",
+            "Examples":
+            {
+                "Java": ["GroveSpeaker_Example.java"],
+                "Python": ["grovespeaker.py"],
+                "Node.js": ["grovespeaker.js"],
+                "C++": ["grovespeaker.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 4, "high": 5.5},
+                "Voltage Gain": {"unit": "dB", "typ": 46},
+                "Bandwidth": {"unit": "KHz", "min": 20}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Speaker-p-1445.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Speaker/", "https://raw.githubusercontent.com/SeeedDocument/Grove-Speaker/master/res/LM386_Low_Voltage_Audio_Power_Amplifier_Datasheet.pdf"],
+                "Schematics": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Speaker/master/res/Grove-Speaker_v1.0_sch.pdf"]
+            }
+        }
+    }
+}

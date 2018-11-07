@@ -1,0 +1,67 @@
+{
+    "Library": "otp538u",
+    "Description": "Oriental System Technology OTP538U IR Temperature Sensor library",
+    "Sensor Class": {
+        "OTP538U": {
+            "Name": "API for the Oriental System Technology OTP538U IR Temperature Sensor",
+            "Description": "This is the UPM Module for the Oriental System Technology OTP538U IR Temperature Sensor. This Grove-Infrared temperature sensor is a non-contact temperature measure model.The sensor is composed of 116 elements of thermocouple in series on a floating micro-membrane having an active diameter of 545μm and with blacken surface to absorb the incident thermal infrared radiation, which induces a voltage response at output terminals.",
+            "Aliases": ["otp538u", "Grove - Infrared Temperature Sensor"],
+            "Categories": ["light", "temperature"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Oriental System Technology", "Seeed"],
+            "Kits": ["hak"],
+            "Image": "otp538u.jpg",
+            "Examples": {
+                "Java": ["OTP538U_Example.java"],
+                "Python": ["otp538u.py"],
+                "Node.js": ["otp538u.js"],
+                "C++": ["otp538u.cxx"],
+                "C": ["otp538u.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.0,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 160,
+                    "max" : 200
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -10,
+                    "max": 80
+                },
+                "Effective Temperature Range": {
+                    "unit": "°C",
+                    "min" : -10,
+                    "max" : 100
+                },
+                "Accuracy": {
+                    "unit": "°C",
+                    "min" : -2,
+                    "max" : 2
+                },
+                "Holding Time": {
+                    "unit": "s",
+                    "time": 2
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield", "Will NOT work on 3.3V"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Infrared-Temperature-Sensor-p-1058.html", "http://wiki.seeed.cc/Grove-Infrared_Temperature_Sensor/"],
+                "Datasheets": ["http://wiki.seeedstudio.com/images/f/f2/OTP-538Udatasheet.zip"]
+            }
+        }
+    }
+}

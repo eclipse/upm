@@ -1,0 +1,41 @@
+{
+    "Library": "electromagnet",
+    "Description": "Electromagnet Library",
+    "Sensor Class":
+    {
+        "Electromagnet":
+        {
+            "Name": "API for the  Electromagnet",
+            "Description": "The  Electromagnet can hold up to 1 kg (approximately 2.2 lbs)",
+            "Aliases": ["electromagnet"],
+            "Categories": ["electric", "magnetic"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "electromagnet.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["electromagnet.py"],
+                "Node.js": ["electromagnet.js"],
+                "C++": ["electromagnet.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "typ": 400},
+                "Standby Current": {"unit": "uA", "typ": 200},
+                "Max Load Weight": {"unit": "kgs", "typ": 1}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Electromagnet-p-1820.html"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Electromagnet/master/res/ZYE1-P20-15.pdf", "http://wiki.seeed.cc/Grove-Electromagnet/"],
+                "Schematics": []
+            }
+        }
+    }
+}

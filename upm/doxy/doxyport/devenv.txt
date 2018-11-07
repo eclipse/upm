@@ -1,0 +1,10 @@
+CppHeaderParser==2.6
+javalang==0.9.6
+ply==3.6
+six==1.9.0
+wheel==0.24.0
+astroid
+isort
+pylint
+pycodestyle
+pydocstyle

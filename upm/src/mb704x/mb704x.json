@@ -1,0 +1,58 @@
+{
+    "Library": "mb704x",
+    "Description": "API for the MaxBotix MB704x MaxSonar-WR Ultrasonic Ranger",
+    "Sensor Class": {
+        "MB704X": {
+            "Name": "MB704x MaxSonar-WR Ultrasonic Ranger",
+            "Description": "This is the UPM Module for the API for the MB704x MaxSonar-WR Ultrasonic Ranger. It was tested with a long distance weather resistant horn, others are offered however giving this sensor a large range of uses.",
+            "Aliases": ["MB704x", "MB704x MaxSonar-WR Ultrasonic Ranger"],
+            "Categories": ["sound"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["MaxBotix"],
+            "Examples": {
+                "Java": ["MB704X_Example.java"],
+                "Python": ["mb704x.py"],
+                "Node.js": ["mb704x.js"],
+                "C++": ["mb704x.cxx"],
+                "C": ["mb704x.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.0,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "Typ" : "3.4"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 70
+                },
+                "Effective Range": {
+                    "unit": "cm",
+                    "min" : "20",
+                    "max" : "765"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.maxbotix.com/Ultrasonic_Sensors/I2C_Distance_Sensors.htm"],
+                "Datasheets": ["https://www.maxbotix.com/documents/I2CXL-MaxSonar-WR_Datasheet.pdf"]
+            }
+        }
+    }
+}

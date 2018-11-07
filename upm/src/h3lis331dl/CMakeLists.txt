@@ -1,0 +1,5 @@
+set (libname "h3lis331dl")
+set (libdescription "I2C 3-axis Digital Accelerometer (400g)")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

@@ -1,0 +1,39 @@
+{
+    "Library": "ds2413",
+    "Description": "1-Wire Dual Channel Addressable Switch Library",
+    "Sensor Class":
+    {
+        "DS2413":
+        {
+            "Name": "1-Wire Dual Channel Addressable Switch",
+            "Description": "The DS2413 is a dual-channel programmable I/O 1-Wire(r) chip. The PIO outputs are configured as open-drain and provide up to 20mA continuous sink capability and off-state operating voltage up to 28V.  Control and sensing of the PIO pins is performed with a dedicated device-level command protocol. This device requires the use of a UART to provide access to a Dallas 1-wire bus, via a new facility supported by MRAA (once the relevant PR is accepted), using the UartOW access class. It is important to realize that the UART is only being used to access and control a Dallas 1-wire compliant bus, it is not actually a UART device. Multiple DS2413 devices can be connected to this bus.  This module will identify all such devices connected, and allow you to access them using an index starting at 0.",
+            "Aliases": ["ds2413"],
+            "Categories": ["switch"],
+            "Connections": ["uart"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["maxim", "adafruit"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["ds2413.py"],
+                "Node.js": ["ds2413.js"],
+                "C++": ["ds2413.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 2.8, "high": 5.5},
+                "Input Load Current": {"unit": "uA", "low": 3.5, "high": 950},
+                "Operating Temperature": {"unit": "degC", "low": 0, "high": 70}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.maximintegrated.com/datasheet/index.mvp/id/4588", "https://learn.adafruit.com/adafruit-1-wire-gpio-breakout-ds2413/overview"],
+                "Datasheets": ["http://www.adafruit.com/datasheets/DS2413.pdf"],
+                "Schematics": ["https://learn.adafruit.com/assets/15639"]
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "Library": "tex00",
+    "Description": "Veris TEX00 Temperature Sensor Library",
+    "Sensor Class": {
+        "TEX00": {
+            "Name": "API for the Veris TEX00 Temperature Sensor",
+            "Description": "This is the UPM Module for the Veris TEX00 Temperature Sensor. The Veris TEX00 temperature sensor family is made up of a series of RTD thermistors in wall mount packaging.    This driver was developed using the TED00, which utilizes a 10K Ohm Type 2 thermistor.  However, this driver can support the other 12 variants of the TE series as well by providing the correct sensor type to the class constructor.  These other sensor types have not been tested.  Only the TED00 was tested with this driver.",
+            "Aliases": ["tex00", "TED00"],
+            "Categories": ["temperature"],
+            "Connections": ["ainput"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Veris"],
+            "Examples": {
+                "Java": ["TEX00_Example.java"],
+                "Python": ["tex00.py"],
+                "Node.js": ["tex00.js"],
+                "C++": ["tex00.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 5,
+                    "max": 30
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 4,
+                    "max" : 20
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -25,
+                    "max": 105
+                },
+                "Effective Range": {
+                    "unit": "°C",
+                    "min" : 10,
+                    "max" : 35
+                },
+                "Offset Temperature": {
+                    "unit": "+/-°C",
+                    "min" : 1.8,
+                    "max" : 3.0
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.veris.com/Item/TED00.aspx"],
+                "Datasheets": ["http://www.veris.com/docs/Datasheets/TW_TE_d0117.pdf"]
+            }
+        }
+    }
+}

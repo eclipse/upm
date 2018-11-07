@@ -1,0 +1,40 @@
+{
+    "Library": "tcs37727",
+    "Description": "AMS TCS37727 Color Light-To-Digital Converter Library",
+    "Sensor Class": {
+        "TCS37727": {
+            "Name": "API for the AMS TCS37727 Color Light-To-Digital Converter",
+            "Description": "This is the UPM Module for the AMS TCS37727 Color Light-To-Digital Converter. The TCS3772 device family provides red, green, blue, and clear (RGBC) light sensing and, when coupled with an external IR LED, proximity detection. These devices detect light intensity under a variety of lighting conditions and through a variety of attenuation materials, including dark glass. The proximity detection feature allows a large dynamic range of operation for accurate short distance detection, such as in a cell phone, for detecting when the user positions the phone close to their ear. An internal state machine provides the ability to put the device into a low power state in between proximity and RGBC measurements providing very low average power consumption.",
+            "Aliases": ["tcs37727"],
+            "Categories": ["color", "light"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["AMS"],
+            "Examples": {
+                "Python": ["tcs37727.py"],
+                "C++": ["tcs37727.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.7,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : 2.5,
+                    "max" : 330
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 70
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://ams.com/eng/Products/Light-Sensors"],
+                "Datasheets": ["http://ams.com/eng/content/download/291143/1065677/file/TCS3772_DS000175_2-00.pdf"]
+            }
+        }
+    }
+}

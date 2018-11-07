@@ -1,0 +1,37 @@
+{
+    "Library": "lpd8806",
+    "Description": "API for the LPD8806 RGB LED Strip Controller",
+    "Sensor Class":
+    {
+        "LPD8806":
+        {
+            "Name": "Digital RGB LED Strip Controller",
+            "Description": "FastPixel* LPD8806 is an RGB LED strip controller.",
+            "Aliases": ["lpd8806"],
+            "Categories": ["display"],
+            "Connections": ["spi"],
+            "Project Type": ["lighting", "rgb", "prototyping"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Image": "lpd8806.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": [],
+                "C++": ["lpd8806.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "max": 5}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/product/306"],
+                "Datasheets": ["https://cdn-learn.adafruit.com/downloads/pdf/digital-led-strip.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

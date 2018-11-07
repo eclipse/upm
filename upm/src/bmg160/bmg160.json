@@ -1,0 +1,61 @@
+{
+    "Library": "bmg",
+    "Description": "Bosch Sensortec 3-axis gyroscope library",
+    "Sensor Class": {
+        "BMG160": {
+            "Name": "Bosch 3-Axis gyroscope",
+            "Description": "This is the UPM Module for the Bosch BMG160 3-Axis gyroscope. Offers 16 bit digital resolution, with 5 scale ranges. Supports interrupts and low power modes. Offers i2c and SPI interfaces.",
+            "Aliases": ["bmg160"],
+            "Categories": ["gyroscope"],
+            "Connections": ["i2c", "spi", "gpio"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["bosch"],
+            "Examples": {
+                "Java": ["BMG160_Example.java"],
+                "Python": ["bmg160.py"],
+                "Node.js": ["bmg160.js"],
+                "C++": ["bmg160.cxx"],
+                "C": ["bmg160.c"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 2.4,
+                    "max": 3.6
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "mA",
+                        "typ" : "2.5"
+                    },
+                    "Sleep mode": {
+                        "unit": "uA",
+                        "typ" : "25"
+                    },
+                    "Deep sleep mode": {
+                        "unit": "uA",
+                        "typ" : "<5"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Start up time": {
+                    "unit": "ms",
+                    "time": 3
+                },
+                "Wake-up time": {
+                    "unit": "ms",
+                    "min" : 10,
+                    "max" : 30
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.bosch-sensortec.com/bst/products/all_products/bmg160"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMG160-DS000-09.pdf"]
+            }
+        }
+    }
+}

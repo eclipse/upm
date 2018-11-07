@@ -1,0 +1,59 @@
+{
+    "Library": "ta12200",
+    "Description": "Seeed TA12-200 Current Transformer library",
+    "Sensor Class": {
+        "TA12200": {
+            "Name": "API for the Seeed TA12-200 Current Transformer",
+            "Description": "This is the UPM Module for the Seeed TA12-200 Current Transformer. The Electricity sensor module is based on the TA12-200 current transformer which can change large alternating current into a small amplitude. You can use it to test large alternating current upto 5A.",
+            "Aliases": ["ta12200", "Grove - Electricity Sensor"],
+            "Categories": ["electric"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Image": "ta12200.jpg",
+            "Examples": {
+                "Python": ["ta12200.py"],
+                "Node.js": ["ta12200.js"],
+                "C++": ["ta12200.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min" : 3.3,
+                    "max" : 5.0
+                },
+                "Sampling Voltage": {
+                    "unit": "V",
+                    "min": 0,
+                    "max": 2
+                },
+                "Supply Current": {
+                    "unit": "A",
+                    "min" : 0,
+                    "max" : 5
+                },
+                "Output Current": {
+                    "unit": "mA",
+                    "min" : 0,
+                    "max" : 2.5
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -55,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Electricity-Sensor-p-777.html", "http://wiki.seeed.cc/Grove-Electricity_Sensor/"]
+            }
+        }
+    }
+}

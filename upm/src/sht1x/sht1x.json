@@ -1,0 +1,81 @@
+{
+    "Library": "sht1x",
+    "Description": "DFRobot SHT1X Temperature and Humidity Sensor Library",
+    "Sensor Class": {
+        "SHT1X": {
+            "Name": "API for the DFRobot SHT1X Temperature and Humidity Sensor",
+            "Description": "This is the UPM Module for the DFRobot SHT1X Temperature and Humidity Sensor. SHT1x is individually calibrated in a precision humidity chamber. The calibration coefficients are programmed into an OTP memory on the chip. These coefficients are used to internally calibrate the signals from the sensors. The 2-wire serial interface and internal voltage regulation allows for easy and fast system integration. The tiny size and low power consumption makes SHT1x the ultimate choice for even the most demanding applications.",
+            "Aliases": ["sht1x", "SHT1x Humidity and Temperature Sensor (SKU: DFR0066)"],
+            "Categories": ["temperature", "humidity"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["DFRobot", "Sensirion"],
+            "Examples": {
+                "Java": ["SHT1X_Example.java"],
+                "Python": ["sht1x.py"],
+                "Node.js": ["sht1x.js"],
+                "C++": ["sht1x.cxx"],
+                "C": ["sht1x.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.4,
+                    "max": 5.5
+                },
+                "Supply Current Digital": {
+                    "unit": "mA",
+                    "typ" : 0.9
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Humidity Sensor": {
+                    "Measurement Range": {
+                        "unit": "%RH",
+                        "min" : 0,
+                        "max" : 100
+                    },
+                    "Accuracy": {
+                        "unit": "%RH",
+                        "min" : -2,
+                        "max" : 2
+                    }
+                },
+                "Temperature Sensor": {
+                    "Measurement Range": {
+                        "unit": "°C",
+                        "min" : -40,
+                        "max" : 123.8
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min" : -0.3,
+                        "max" : 0.3
+                    }
+                },
+                "Response Time": {
+                    "unit": "second",
+                    "typ" : "< 4"
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/wiki/index.php/SHT1x_Humidity_and_Temperature_Sensor_(SKU:_DFR0066)"],
+                "Datasheets": ["https://www.sparkfun.com/datasheets/Sensors/SHT1x_datasheet.pdf"]
+            }
+        }
+    }
+}

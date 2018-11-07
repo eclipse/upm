@@ -1,0 +1,40 @@
+{
+    "Library": "grovewfs",
+    "Description": "API for the Grove Water Flow Sensor",
+    "Sensor Class":
+    {
+        "GroveWFS":
+        {
+            "Name": "Water Flow Sensor",
+            "Description": "This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). There is a schematic diagram on the SeeedStudio site (3/2015): http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long.",
+            "Aliases": ["grovewfs"],
+            "Categories": ["liquid", "deprecated"],
+            "Connections": ["gpio"],
+            "Project Type": ["agriculture", "monitoring", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["eak"],
+            "Image": "grovewfs.jpg",
+            "Examples":
+            {
+                "Java": ["GroveWFS_Example.java"],
+                "Python": ["grovewfs.py"],
+                "Node.js": ["grovewfs.js"],
+                "C++": ["grovewfs.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 5, "high": 24},
+                "Operating Current": {"unit": "mA", "typ": 15},
+                "Water Pressure": {"unit": "MPa", "max": 2},
+                "Water Temperature": {"unit": "degC", "max": 120}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/G1%26amp%3B2%26quot%3B-Water-Flow-Sensor-p-635.html"],
+                "Datasheets": ["http://wiki.seeedstudio.com/wiki/G1/2_Water_Flow_sensor", "http://www.seeedstudio.com/wiki/images/b/b7/Water_flow_sensor_datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

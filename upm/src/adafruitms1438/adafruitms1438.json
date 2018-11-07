@@ -1,0 +1,48 @@
+{
+    "Library": "adafruitms1438",
+    "Description": "Module for the Adafruit Motor Shield 1438",
+    "Sensor Class":
+    {
+        "AdafruitMS1438":
+        {
+            "Name": "API for the AdafruitMS1438 Motor Shield",
+            "Description": "This class implements support for the stepper and DC motors that can be connected to this Motor Shield.",
+            "Aliases": ["adafruitms1438"],
+            "Categories": ["motor"],
+            "Connections": ["i2c"],
+            "Project Type": ["motor"],
+            "Manufacturers": ["adafruit"],
+            "Kits": [],
+            "Image": "adafruitms1438.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["adafruitms1438-stepper.py", "adafruitms1438.py"],
+                "Node.js": ["adafruitms1438-stepper.js", "adafruitms1438.js"],
+                "C++": ["adafruitms1438-stepper.cxx", "adafruitms1438.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Vmotor": {"unit": "V", "low": 4.5, "high": 13.5},
+                "Amotor": {"unit": "A", "high": 1.2},
+                "Apeak": {"unit": "A", "high": 3},
+                "Vlogic": {"unit": "V", "low": 3.3, "high": 5}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["The two servo connections are not controlled by the PCA9685 controller (or this class). They are connected directly to digital PWM pins 9 and 10 on the Arduino* breakout board."],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.adafruit.com/products/1438"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/TB6612FNG_datasheet_en_20121101.pdf"],
+                "Schematics": ["https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino"]
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+set (libname "sx6119")
+set (libdescription "FM Receiver")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

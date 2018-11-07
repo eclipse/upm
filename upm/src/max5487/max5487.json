@@ -1,0 +1,51 @@
+{
+    "Library": "max5487",
+    "Description": "MAX5487 Digital Potentiometer library",
+    "Sensor Class": {
+        "MAX5487": {
+            "Name": "MAX5487 Digital Potentiometer",
+            "Description": "This is the UPM Module for the Maxim dual, linear-taper, digital potentiometer. It offers 256 Tap positions, as well as a 10 kiloohm end to end resistance. It interfaces using 3 wire spi, and feature nonvolatile memory.",
+            "Aliases": ["max5487", "MAX5487 Dual, 256-Tap, Nonvolatile, SPI-Interface, Linear-Taper Digital Potentiometers"],
+            "Categories": ["digital potentiometer"],
+            "Connections": ["spi"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["maxim"],
+            "Examples": {
+                "Java": ["MAX5487_Example.java"],
+                "C++": ["max5487.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.7,
+                    "max": 5.25
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : "0.5",
+                    "max" : "400"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/data-converters/digital-potentiometers/MAX5487.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX5487-MAX5489.pdf"]
+            }
+        }
+    }
+}

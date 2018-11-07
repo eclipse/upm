@@ -1,0 +1,60 @@
+{
+    "Library": "mcp2515",
+    "Description": "API for the Microchip MCP2515 CAN bus controller",
+    "Sensor Class": {
+        "MCP2515": {
+            "Name": "Microchip MCP2515 CAN bus controller",
+            "Description": "This is the UPM Module for the Microchip MCP2515 CAN bus controller. This Arduino/Genuino compatable shield offers the ability to communicate over CAN-BUS. This offers a good medium speed, long distance and high reliablity communication solution for Arduino/Genuino projects.",
+            "Aliases": ["mcp2515", "CAN-BUS Shield V1.2"],
+            "Categories": ["communication"],
+            "Connections": ["spi", "gpio"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed", "Microchip"],
+            "Examples": {
+                "Java": ["MCP2515_Example.java", "MCP2515_TXRX_Example.java"],
+                "Python": ["mcp2515-txrx.py", "mcp2515.py"],
+                "Node.js": ["mcp2515-txrx.js", "mcp2515.js"],
+                "C++": ["mcp2515-txrx.cxx", "mcp2515.cxx"],
+                "C": ["mcp2515-txrx.c", "mcp2515.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 2.7,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "Normal Mode" : {
+                        "unit": "mA",
+                        "Typ" : "10"
+                    },
+                    "Sleep Mode" : {
+                        "unit": "uA",
+                        "min" : "5",
+                        "max" : "8"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Data Frame Buffer": {
+                    "unit": "bit",
+                    "min" : "11",
+                    "max" : "29"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/CANBUS-Shield-p-2256.html"],
+                "Datasheets": ["http://ww1.microchip.com/downloads/en/DeviceDoc/21801e.pdf"]
+            }
+        }
+    }
+}

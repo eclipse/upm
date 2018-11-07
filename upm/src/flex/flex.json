@@ -1,0 +1,39 @@
+{
+    "Library": "flex",
+    "Description": "API for the Spectra Symbol Flex Sensor",
+    "Sensor Class":
+    {
+        "Flex":
+        {
+            "Name": "Resistive Flex Sensor",
+            "Description": "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove.",
+            "Aliases": ["flex"],
+            "Categories": ["flex sensors"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["sparkfun"],
+            "Kits": [],
+            "Image": "flex.jpg",
+            "Examples":
+            {
+                "Java": ["FlexSensor_Example.java"],
+                "Python": [],
+                "Node.js": ["flex.js"],
+                "C++": ["flex.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Flat Resistance": {"unit": "KOhms", "typ": 10},
+                "Bend Resistance": {"unit": "KOhms", "low": 60, "high": 110},
+                "Temperature Range": {"unit": "degC", "low": -35, "high": 80}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/8606"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/FLEXSENSORREVA1.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

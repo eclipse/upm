@@ -1,0 +1,39 @@
+{
+    "Library": "itg3200",
+    "Description": "API for the ITG-3200 3-Axis Digital Gyroscope",
+    "Sensor Class":
+    {
+        "Itg3200":
+        {
+            "Name": "Grove 3-Axis Digital Gyroscope",
+            "Description": "InvenSense* ITG-3200 is a 3-axis digital gyroscope. (https://www.sparkfun.com/datasheets/Sensors/Gyro/PS-ITG-3200-00-01.4.pdf) This sensor has been tested and can run at either 3.3V or 5V on Intel(R) Galileo.<br> <strong>However</strong>, it is incompatible with and not detected on the I2C bus by Intel(R) Edison using the Arduino* breakout board.",
+            "Aliases": ["itg3200"],
+            "Categories": ["gyroscope"],
+            "Connections": ["i2c"],
+            "Project Type": ["IMU", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["Itg3200_Example.java"],
+                "Python": ["itg3200.py"],
+                "Node.js": ["itg3200.js"],
+                "C++": ["itg3200.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "typ": 6.5},
+                "Standby Current": {"unit": "uA", "typ": 5}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-3-Axis-Digital-Gyro-p-750.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-3-Axis_Digital_Gyro/", "https://raw.githubusercontent.com/SeeedDocument/Grove-3-Axis_Digital_Gyro/master/res/ITG-3200.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

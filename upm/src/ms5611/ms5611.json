@@ -1,0 +1,89 @@
+{
+    "Library": "ms5611",
+    "Description": "Amsys ms5611 Barometric Pressure Sensor library",
+    "Sensor Class": {
+        "MS5611": {
+            "Name": "API for Amsys MS5611 Barometric Pressure Sensor library",
+            "Description": "This is the UPM Module for the Amsys ms5611 barometric pressure sensor. The MS5611 is a new generation of high resolution altimeter sensors from MEAS Switzerland with SPI and I2C bus interface. This module implements I2C only.",
+            "Aliases": ["ms5611", "MS5611 GY-63 Atmospheric Pressure Sensor Module IIC/SPI Communication"],
+            "Categories": ["pressure", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["Amsys"],
+            "Examples": {
+                "Node.js": ["ms5611.js"],
+                "C++": ["ms5611.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.8,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": "0.9",
+                    "max": "12.5"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Pressure Sensor": {
+                    "Effective Pressure Range": {
+                        "unit": "mbar",
+                        "min": 10,
+                        "max": 1200
+                    },
+                    "Resolution": {
+                        "unit": "mbar",
+                        "min": "0.012",
+                        "max": "0.065"
+                    },
+                    "Accuracy": {
+                        "unit": "mbar",
+                        "min": "-1.5",
+                        "max": "1.5"
+                    },
+                    "Response Time": {
+                        "unit": "ms",
+                        "min" : "0.5",
+                        "max" : "8.22"
+                    }
+                },
+                "Temperature Sensor": {
+                    "Effective Temperature Range": {
+                        "unit": "°C",
+                        "min": -40,
+                        "max": 85
+                    },
+                    "Resolution": {
+                        "unit": "°C",
+                        "typ": "<0.01"
+                    },
+                    "Accuracy": {
+                        "unit": "°C",
+                        "min": -0.8,
+                        "max": 0.8
+                    }
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.banggood.com/MS5611-GY-63-Atmospheric-Pressure-Sensor-Module-IICSPI-Communication-p-965980.html", "http://www.amsys.info/products/ms5611.htm"],
+                "Datasheets": ["http://www.amsys.info/sheets/amsys.en.ms5611_01ba03.pdf"]
+            }
+        }
+    }
+}

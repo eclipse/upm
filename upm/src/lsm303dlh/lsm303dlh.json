@@ -1,0 +1,36 @@
+{
+    "Library": "lsm303dlh",
+    "Description": "API for the LSM303DLH Accelerometer & Compass",
+    "Sensor Class":
+    {
+        "LSM303DLH":
+        {
+            "Name": "Triaxial Accelerometer/magnetometer",
+            "Description": "This module defines the LSM303DLH 3-axis magnetometer/3-axis accelerometer. This module was tested with the Seeed Studio* Grove 6-Axis Accelerometer & Compass module used over I2C. The magnetometer and acceleromter are accessed at two seperate I2C addresses.",
+            "Aliases": ["lsm303dlh"],
+            "Categories": ["compass", "accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["seeed", "adafruit", "stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LSM303DLH_Example.java"],
+                "Python": ["lsm303dlh.py"],
+                "Node.js": ["lsm303dhl.js"],
+                "C++": ["lsm303dlh.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 3.3}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/grove-6axis-accelerometercompass-p-1448.html?cPath=144_146"],
+                "Datasheets": ["http://wiki.seeedstudio.com/wiki/Grove_-_6-Axis_Accelerometer%26Compass_V1.0"],
+                "Schematics": []
+            }
+        }
+    }
+}

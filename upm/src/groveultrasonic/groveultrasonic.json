@@ -1,0 +1,40 @@
+{
+    "Library": "groveultrasonic",
+    "Description": "Grove Ultrasonic Sensor Library",
+    "Sensor Class":
+    {
+        "GroveUltraSonic":
+        {
+            "Name": "Ultrasonic Proximity Sensor",
+            "Description": "This Grove Ultrasonic sensor is a non-contact distance measurement module which is compatible with the Grove system. It is designed for easy modular project usage with industrial performance. Detection ranges from 3 cm (1.2\") to 4 m (13'1.5\") and works best when the object is within a 30 degree angle relative to the sensor.",
+            "Aliases": ["groveultrasonic"],
+            "Categories": ["proximity", "deprecated"],
+            "Connections": ["gpio"],
+            "Project Type": ["robotics", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "groveultrasonic.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": [],
+                "Node.js": ["groveultrasonic.js"],
+                "C++": ["groveultrasonic.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.2, "high": 5.2},
+                "Operating Current": {"unit": "mA", "typ": 8},
+                "Measurement Range": {"unit": "cm", "low": 2, "high": 350}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Ultrasonic-Ranger-p-960.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Ultrasonic_Ranger/"],
+                "Schematics": []
+            }
+        }
+    }
+}

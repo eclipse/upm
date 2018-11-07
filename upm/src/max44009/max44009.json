@@ -1,0 +1,40 @@
+{
+    "Library": "max44009",
+    "Description": "Ambient Light Sensor Library",
+    "Sensor Class":
+    {
+        "MAX44009":
+        {
+            "Name": "Digital Humidity, Pressure, and Temperature Sensor",
+            "Description": "The MAX44009 ambient light sensor features an i2c digital output that is ideal for a number of portable applications such as smartphones, notebooks and industrial sensors",
+            "Aliases": ["max44009"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["Maxim integrated"],
+            "Image": "",
+            "Examples":
+            {
+                "C++": ["max44009.cxx"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.7, "high": 3.6},
+                "Temperature Range": {"unit": "C", "low" : -40, "high": 85},
+                "Dynamic Range": {"unit": "lux", "low" : 0.045, "high": 188000}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["might need pull up resistors"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX44009.html"],
+                "Datasheets": ["https://datasheets.maximintegrated.com/en/ds/MAX44009.pdf"]
+            }
+        }
+    }
+}

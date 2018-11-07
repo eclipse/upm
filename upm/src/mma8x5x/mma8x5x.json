@@ -1,0 +1,281 @@
+{
+    "Library": "mma8x5x",
+    "Description": "MMA8X5X Family Three-Axis Accelerometer Library",
+    "Sensor Class": {
+        "mma8451": {
+            "Name": "API for the Adafruit/Freescale MMA8451 Three-Axis Accelerometer",
+            "Description": "This is the UPM Module for the Adafruit/Freescale mma8451 three-axis accelerometer. This simple accelerometer and breakout board are a great starting point for working with accelerometers in general. This is the most percise of the mma8x5x series, offering a 14-bit analog to digital converter onboard. The Adafruit breakout board makes it easy to mount to breadboard or perfboard.",
+            "Aliases": ["mma8451", "mma8x5x", "Adafruit Triple-Axis Accelerometer - ±2/4/8g"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Freescale", "Adafruit"],
+            "Examples": {
+                "Python": ["mma8x5x.py"],
+                "C++": ["mma8x5x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current":{
+                    "unit": "uA",
+                    "min": 6,
+                    "max": 165
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Range": {
+                    "unit": "g",
+                    "min" : 2,
+                    "max" : 8
+                },
+                "Sensitivity": {
+                    "unit" : "LSB/g",
+                    "min" : 1024,
+                    "max" : 4096
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/2019"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/MMA8451Q-1.pdf"]
+            }
+        },
+        "mma8452q": {
+            "Name": "API for the Sparkfun/Freescale MMA8451Q Three-Axis Accelerometer",
+            "Description": "This is the UPM Module for the Sparkfun/Freescale mma8452 three-axis accelerometer. This breakout board makes it easy to use the tiny MMA8452Q accelerometer in your project. The MMA8452Q is a smart low-power, three-axis, capacitive MEMS accelerometer with 12 bits of resolution. The MMA8452Q has user-selectable full scales of ±2g/±4g/±8g.",
+            "Aliases": ["mma8452q", "mma8x5x", "SparkFun Triple Axis Accelerometer Breakout - MMA8452Q"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Freescale", "Sparkfun"],
+            "Examples": {
+                "Python": ["mma8x5x.py"],
+                "C++": ["mma8x5x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.95,
+                    "max": 3.6
+                },
+                "Supply Current":{
+                    "unit": "uA",
+                    "min": 6,
+                    "max": 165
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Range": {
+                    "unit": "g",
+                    "min" : 2,
+                    "max" : 8
+                },
+                "Sensitivity": {
+                    "unit" : "LSB/g",
+                    "min" : 256,
+                    "max" : 1024
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.sparkfun.com/products/12756"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Accelerometers/MMA8452Q-rev8.1.pdf"]
+            }
+        },
+        "mma8453q": {
+            "Name": "API for the NXP MMA8453Q Three-Axis Accelerometer",
+            "Description": "This is the UPM Module for the NXP mma8453q three-axis accelerometer. This accelerometer is packed with embedded functions with flexible user-programmable options configurable to two interrupt pins. Embedded interrupt functions allow for overall power savings relieving the host processor from continuously polling data. The MMA8453Q has user-selectable full scales of ±2g/±4g/±8g.",
+            "Aliases": ["mma8453q", "mma8x5x", "MMA8453Q: ±2g/±4g/±8g, Low g, 10-bit Digital Accelerometer"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["NXP"],
+            "Examples": {
+                "Python": ["mma8x5x.py"],
+                "C++": ["mma8x5x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.95,
+                    "max": 3.6
+                },
+                "Supply Current":{
+                    "unit": "uA",
+                    "min": 6,
+                    "max": 165
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Range": {
+                    "unit": "g",
+                    "min" : 2,
+                    "max" : 8
+                },
+                "Sensitivity": {
+                    "unit" : "LSB/g",
+                    "min" : 64,
+                    "max" : 256
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.nxp.com/products/sensors/accelerometers/3-axis-accelerometers/2g-4g-8g-low-g-10-bit-digital-accelerometer:MMA8453Q"],
+                "Datasheets": ["http://www.nxp.com/docs/en/data-sheet/MMA8453Q.pdf"]
+            }
+        },
+        "mma8652fc": {
+            "Name": "API for the NXP MMA8652FC Three-Axis Accelerometer",
+            "Description": "This is the UPM Module for the NXP mma8652fc three-axis accelerometer. This accelerometer is packed with embedded functions with flexible user-programmable options configurable to two interrupt pins. Embedded interrupt functions allow for overall power savings relieving the host processor from continuously polling data. The MMA8453Q has user-selectable full scales of ±2g/±4g/±8g.",
+            "Aliases": ["mma8652fc", "mma8x5x", "MMA8652FC: ±2g/±4g/±8g, Low g, 12-Bit Digital Accelerometer"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["NXP"],
+            "Examples": {
+                "Python": ["mma8x5x.py"],
+                "C++": ["mma8x5x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.95,
+                    "max": 3.6
+                },
+                "Supply Current":{
+                    "unit": "uA",
+                    "min": 6,
+                    "max": 165
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Range": {
+                    "unit": "g",
+                    "min" : 2,
+                    "max" : 8
+                },
+                "Sensitivity": {
+                    "unit" : "LSB/g",
+                    "min" : 256,
+                    "max" : 1024
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.nxp.com/products/sensors/accelerometers/3-axis-accelerometers/2g-4g-8g-low-g-12-bit-digital-accelerometer:MMA8652FC"],
+                "Datasheets": ["http://www.nxp.com/docs/en/data-sheet/MMA8652FC.pdf"]
+            }
+        },
+        "mma8653fc": {
+            "Name": "API for the NXP MMA8653FC Three-Axis Accelerometer",
+            "Description": "This is the UPM Module for the NXP mma8653fc three-axis accelerometer. This accelerometer is packed with embedded functions with flexible user-programmable options configurable to two interrupt pins. Embedded interrupt functions allow for overall power savings relieving the host processor from continuously polling data. The MMA8453Q has user-selectable full scales of ±2g/±4g/±8g.",
+            "Aliases": ["mma8653fc", "mma8x5x", "MMA8653FC: ±2g/±4g/±8g, Low g, 12-Bit Digital Accelerometer"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["NXP"],
+            "Examples": {
+                "Python": ["mma8x5x.py"],
+                "C++": ["mma8x5x.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.95,
+                    "max": 3.6
+                },
+                "Supply Current":{
+                    "unit": "uA",
+                    "min": 6,
+                    "max": 165
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Range": {
+                    "unit": "g",
+                    "min" : 2,
+                    "max" : 8
+                },
+                "Sensitivity": {
+                    "unit" : "LSB/g",
+                    "min" : 64,
+                    "max" : 256
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://www.nxp.com/products/sensors/accelerometers/3-axis-accelerometers/2g-4g-8g-low-g-10-bit-digital-accelerometer:MMA8653FC"],
+                "Datasheets": ["http://www.nxp.com/docs/en/data-sheet/MMA8653FC.pdf"]
+            }
+        }
+    }
+}

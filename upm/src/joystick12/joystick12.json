@@ -1,0 +1,33 @@
+{
+    "Library": "joystick12",
+    "Description": "API for the ElecFreaks* Joystick v 1.2-1.4 Breakout",
+    "Sensor Class":
+    {
+        "Joystick12":
+        {
+            "Name": "2-axis Analog Joystick",
+            "Description": "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analog joystick.",
+            "Aliases": ["joystick12"],
+            "Categories": ["input"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["generic"],
+            "Kits": ["robok"],
+            "Image": "joystick12.jpg",
+            "Examples":
+            {
+                "Java": ["Joystick12_Example.java", "Joystick12_example_Example.java"],
+                "Python": ["joystick12.py"],
+                "Node.js": ["joystick12.js"],
+                "C++": ["joystick12.cxx"],
+                "C": ["joystick12.c"]
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.elecfreaks.com/estore/joystick-breakout-module-bkout-md01.html"],
+                "Datasheets": ["https://www.elecfreaks.com/wiki/index.php?title=Joystick_breakout_module"],
+                "Schematics": ["http://elecfreaks.com/store/download/schematic-red.pdf"]
+            }
+        }
+    }
+}

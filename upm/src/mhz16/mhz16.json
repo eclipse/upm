@@ -1,0 +1,73 @@
+{
+    "Library": "mhz16",
+    "Description": "MHZ16 Serial CO2 Sensor library",
+    "Sensor Class": {
+        "MHZ16": {
+            "Name": "MHZ16 Serial CO2 Sensor library",
+            "Description": "This is the UPM Module for the Seeed/Zhengzhou Winsen Electronics Technology MHZ16 Serial CO2 Sensor. This class implements support for the Grove CO2 sensor. Its CO2 detection range is 0-2,000 ppm. It requires a 2-3 minute warm-up time before reporting valid data.",
+            "Aliases": ["Grove - CO2 Sensor", "MH-Z16 Intelligent Infrared Gas Module"],
+            "Categories": ["gaseous"],
+            "Connections": ["uart"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Seeed", "Zhengzhou Winsen Electronics Technology"],
+            "Image": "mhz16.jpg",
+            "Examples": {
+                "Java" : ["MHZ16_Example.java"],
+                "Python": ["mhz16.py"],
+                "Node.js": ["mhz16.js"],
+                "C++": ["mhz16.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.5,
+                    "max": 6.0
+                },
+                "Supply Current":{
+                    "unit": "mA",
+                    "min": "50",
+                    "max": "100"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 0,
+                    "max": 50
+                },
+                "Response Time": {
+                    "unit": "s",
+                    "time": "<90"
+                },
+                "Warm-up Time": {
+                    "unit": "minute",
+                    "time": 3
+                },
+                "Effective Range":{
+                    "unit": "ppm",
+                    "min" : 0,
+                    "max" : 2000
+                },
+                "Accuracy": {
+                    "unit": "ppm",
+                    "accuracy": 200
+                },
+                "Operating Humidity": {
+                    "unit": "RH",
+                    "min" : "0%",
+                    "max" : "90%"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Requires Grove Arduino breakout board"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Requires Grove Arduino breakout board"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-CO2-Sensor-p-1863.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-CO2_Sensor/", "https://raw.githubusercontent.com/SeeedDocument/Grove-CO2_Sensor/master/res/MH-Z16_CO2_datasheet_EN.pdf"]
+            }
+        }
+    }
+}

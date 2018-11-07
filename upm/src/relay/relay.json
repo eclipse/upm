@@ -1,0 +1,68 @@
+{
+    "Library": "relaylib",
+    "Description": "Grove Relay library",
+    "Sensor Class": {
+        "Relay": {
+            "Name": "API for the Grove Relay",
+            "Description": "This is the UPM Module for the Grove Relay. UPM module for the relay switch. The relay is a digital normally-open switch that uses low voltage or current to control a higher voltage and/or higher current.  When closed, the indicator LED (if present) lights up and current is allowed to flow.",
+            "Aliases": ["relay", "Grove - Relay"],
+            "Categories": ["relay"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["gsk", "eak", "hak"],
+            "Image": "relay.jpg",
+            "Examples": {
+                "Java": ["Relay_Example.java"],
+                "Python": ["relay.py"],
+                "Node.js": ["relay.js"],
+                "C++": ["relay.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 60,
+                    "max" : 100
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Relay Life": {
+                    "unit": "Cycles",
+                    "typ" : 100000
+                },
+                "Max AC Switching Voltage": {
+                    "unit": "V",
+                    "max": 250
+                },
+                "Max DC Switching Voltage": {
+                    "unit": "V",
+                    "max" : 30
+                },
+                "Max Switching Current": {
+                    "unit": "A",
+                    "max" : 5
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Relay-p-769.html", "http://wiki.seeed.cc/Grove-Relay/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Relay/master/res/Relay_Datasheet.pdf"]
+            }
+        }
+    }
+}

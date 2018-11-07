@@ -1,0 +1,40 @@
+{
+    "Library": "hmtrp",
+    "Description": "API for the HM-TRP Serial RF Pro Transceiver",
+    "Sensor Class":
+    {
+        "HMTRP":
+        {
+            "Name": "Serial RF Pro Module",
+            "Description": "UPM support for the HM-TRP Serial RF Pro transceiver. This was tested specifically with the Grove Serial RF Pro transceiver. In theory, this class should work with the following devices: HM-TRP-433: 414000000-454000000Hz HM-TRP-470: 450000000-490000000Hz HM-TRP-868: 849000000-889000000Hz HM-TRP-915: 895000000-935000000Hz  The only difference is the transmit and receive frequencies supported. By default, the device simply sends and receives any data presented on its UART interface. It can be put into a configuration mode by grounding the CONFIG pin on the transceiver.",
+            "Aliases": ["hmtrp"],
+            "Categories": ["wireless"],
+            "Connections": ["uart"],
+            "Project Type": ["wireless", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "hmtrp.jpg",
+            "Examples":
+            {
+                "Java": ["HMTRP_Example.java"],
+                "Python": ["hmtrp.py"],
+                "Node.js": ["hmtrp.js"],
+                "C++": ["hmtrp.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 4.75, "typ": 5.0, "high": 5.25},
+                "Sleep Current": {"unit": "uA", "typ": 1},
+                "Transmission Distance": {"unit": "Km", "max": 1},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Serial-RF-Pro-p-794.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Serial_RF_Pro/", "https://github.com/SeeedDocument/Grove-Serial_RF_Pro/raw/master/res/HM-TRP-RS232_enV1.0_20120604.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "Library": "ecezo",
+    "Description": "API for the EC-EZO EC Sensor",
+    "Sensor Class":
+    {
+        "ECEZO":
+        {
+            "Name": "Electrical Conductivity (EC) Circuit",
+            "Description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes.",
+            "Aliases": ["ecezo"],
+            "Categories": ["ec", "conductivity", "liquid"],
+            "Connections": ["i2c", "uart"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["atlas", "sparkfun"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["ECEZO_Example.java"],
+                "Python": ["ecezo.py"],
+                "Node.js": ["ecezo.js"],
+                "C++": ["ecezo.cxx"],
+                "C": ["ecezo.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5},
+                "Operating Current": {"unit": "mA", "low": 19, "high": 50},
+                "Conductivity Probe Range": {"unit": "K", "low": 0.1, "high": 10},
+                "Accurate Reading Range (K=0.1)": {"unit": "uS", "low": 0.5, "high": 50000},
+                "Accurate Reading Range (K=1.0)": {"unit": "uS", "low": 5, "high": 200000},
+                "Accurate Reading Range (K=10.0)": {"unit": "uS", "low": 10, "high": 1000000},
+                "Operating Temperature": {"unit": "degC", "low": 1, "high": 35}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.atlas-scientific.com/product_pages/kits/ec_k1_0_kit.html", "https://www.sparkfun.com/products/12908"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Biometric/EC_EZO_Datasheet.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

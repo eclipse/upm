@@ -1,0 +1,53 @@
+{
+    "Library": "mpr121",
+    "Description": "Seeed/FreeScale MPR121 Touch Sensor library",
+    "Sensor Class": {
+        "MPR121": {
+            "Name": "Seeed/FreeScale MPR121 Touch Sensor",
+            "Description": "This is the UPM Module for the Seeed/FreeScale MPR121 Touch Sensor. The MPR121 is a capacitive touch sensor controller,features internal intelligence, include an hardware configurable I2C address, an expended filtering system with debounce, and completely independent electrodes with auto-configuration built in. Note: Each touch sensor comes with 4 \"feelers\" that act as capacitive pads for touch detection.",
+            "Aliases": ["mpr121", "Grove - I2C Touch Sensor"],
+            "Categories": ["touch"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping"],
+            "Manufacturers": ["Seeed", "FreeScale"],
+            "Kits": ["tsk"],
+            "Image": "mpr121.jpg",
+            "Examples": {
+                "Java": ["MPR121_Example.java"],
+                "Python": ["mpr121.py"],
+                "Node.js": ["mpr121.js"],
+                "C++": ["mpr121.cxx"],
+                "C": ["mpr121.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 5.0
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min" : "2",
+                    "max" : "29"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need the Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need the Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-I2C-Touch-Sensor-p-840.html"],
+                "Datasheets": ["https://www.sparkfun.com/datasheets/Components/MPR121.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+set (libname "maxsonarez")
+set (libdescription "MaxSonar EZ Family of Ultrasonic Rangers")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

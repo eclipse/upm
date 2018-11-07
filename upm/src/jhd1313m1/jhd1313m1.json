@@ -1,0 +1,37 @@
+{
+    "Library": "jhd1313m1",
+    "Description": "API for the JHD1313M1 I2C LCD Controller",
+    "Sensor Class":
+    {
+        "Jhd1313m1":
+        {
+            "Name": "LCD Display Driver for the JHD1313M1 Controller for HD44780-based Displays",
+            "Description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate.",
+            "Aliases": ["jhd1313m1"],
+            "Categories": ["display"],
+            "Connections": ["i2c"],
+            "Project Type": ["display", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": ["gsk"],
+            "Examples":
+            {
+                "Java": ["Jhd1313m1_Example.java", "Jhd1313m1_lcd_Example.java"],
+                "Python": ["jhd1313m1-lcd.py"],
+                "Node.js": ["jhd1313m1-lcd.js"],
+                "C++": ["jhd1313m1-lcd.cxx"],
+                "C": ["jhd1313m1.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "max": 60}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-LCD-RGB-Backlight-p-1643.html?cPath=34_36"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-LCD_RGB_Backlight/"],
+                "Schematics": []
+            }
+        }
+    }
+}

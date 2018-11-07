@@ -1,0 +1,37 @@
+{
+    "Library": "ldt0028",
+    "Description": "API for LDT0-028 PZT Film-Based Sensors",
+    "Sensor Class":
+    {
+        "LDT0028":
+        {
+            "Name": "Piezo Vibration Sensor",
+            "Description": "This module defines the LDT0-028 interface for libupm-ldt0028",
+            "Aliases": ["ldt0028"],
+            "Categories": ["vibration"],
+            "Connections": ["analog"],
+            "Project Type": ["industrial", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "ldt0028.jpg",
+            "Examples":
+            {
+                "Java": ["LDT0028_Example.java"],
+                "Python": ["ldt0028.py"],
+                "Node.js": ["ldt0028.js"],
+                "C++": ["ldt0028.cxx"],
+                "C": ["ldt0028.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 3.3, "high": 5}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Piezo-Vibration-Sensor-p-1411.html"],
+                "Datasheets": ["http://wiki.seeed.cc/Grove-Piezo_Vibration_Sensor/", "https://raw.githubusercontent.com/SeeedDocument/Grove-Piezo_Vibration_Sensor/master/res/Piezo_Vibration_Sensor.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

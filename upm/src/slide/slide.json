@@ -1,0 +1,63 @@
+{
+    "Library": "slide",
+    "Description": "Seeed Slide Sensor library",
+    "Sensor Class": {
+        "Slide": {
+            "Name": "API for the Seeed Slide Potentiometer",
+            "Description": "This is the UPM Module for the Seeed Slide Potentiometer. Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value.",
+            "Aliases": ["slide", "Grove - Slide Potentiometer"],
+            "Categories": ["ainput"],
+            "Connections": ["analog"],
+            "Project Type": ["prototyping", "robotics"],
+            "Manufacturers": ["Seeed"],
+            "Image": "slide.jpg",
+            "Examples": {
+                "Java" : ["Slide_Example.java"],
+                "Python": ["slide.py"],
+                "Node.js": ["slide.js"],
+                "C++": ["slide.cxx"],
+                "C": ["slide.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3.3,
+                    "max": 30.0
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "max" : 30
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Operational Life": {
+                    "unit": "cycles",
+                    "typ" : ">15,000"
+                },
+                "Stroke Length": {
+                    "unit": "mm",
+                    "length": 30
+                },
+                "Total Resistance": {
+                    "unit": "Kohm",
+                    "resistance": 10
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Slide-Potentiometer-p-1196.html", "http://wiki.seeed.cc/Grove-Slide_Potentiometer/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Slide_Potentiometer/master/res/Sliding_potentiometer_datasheet.pdf"]
+            }
+        }
+    }
+}

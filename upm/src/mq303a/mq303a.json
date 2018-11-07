@@ -1,0 +1,67 @@
+{
+    "Library": "mq303a",
+    "Description": "Seeed MQ303A Alcohol Sensor library",
+    "Sensor Class": {
+        "MQ303A": {
+            "Name": "API for the Seeed MQ303A Alcohol Sensor",
+            "Description": "This is the UPM Module for the Seeed MQ303A Alcohol Sensor. It has good sensitivity and fast response to alcohol. It is suitable for making Breathalyzer. This Grove implements all the necessary circuitry for MQ303A like power conditioning and heater power supply. This sensor outputs a voltage inversely proportional to the alcohol concentration in air.",
+            "Aliases": ["mq303a", "Grove - Alcohol Sensor"],
+            "Categories": ["gaseous"],
+            "Connections": ["analog"],
+            "Project Type": ["medical", "prototyping"],
+            "Manufacturers": ["Seeed"],
+            "Kits": ["tsk"],
+            "Image": "mq303a.jpg",
+            "Examples": {
+                "Java": ["MQ303A_Example.java"],
+                "Python": ["mq303a.py"],
+                "Node.js": ["mq303a.js"],
+                "C++": ["mq303a.cxx"],
+                "C": ["mq303a.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "typ" : 5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min": 100,
+                    "max": 140
+                },
+                "Effective Range": {
+                    "unit": "ppm",
+                    "min": 20,
+                    "max": 1000
+                },
+                "Warm-up Time": {
+                    "unit": "hours",
+                    "min" : 2,
+                    "recommended" : 48
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": 18,
+                    "max": 22
+                },
+                "Operating Humidity": {
+                    "unit": "RH",
+                    "min": "60%",
+                    "max": "70%"
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-Alcohol-Sensor-p-764.html", "http://wiki.seeed.cc/Grove-Alcohol_Sensor/"],
+                "Datasheets": ["https://raw.githubusercontent.com/SeeedDocument/Grove-Alcohol_Sensor/master/res/MQ303A.pdf"]
+            }
+        }
+    }
+}

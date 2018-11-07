@@ -1,0 +1,69 @@
+{
+    "Library": "abp",
+    "Description": "Honeywell Basic Amplified Board mount Pressure(ABP) Sensor Library",
+    "Sensor Class":
+    {
+        "ABP":
+        {
+            "Name": "Honeywell ABP Pressure and Temperature Sensors",
+            "Description": "This is the UPM Module for the ABP Honeywell Pressure and Temp sensor. This sensor uses an onboard ASIC to output values of pressure that are updated at approximately 2 KHz. It is capable of detecting pressure in the 0-5 psi range and it has an i2c based interface. Temperature calculation using this driver is possible but not all ABP sensors support that functionality.",
+            "Aliases": ["abp"],
+            "Categories": ["pressure", "temperature"],
+            "Connections": ["i2c"],
+            "Project Type": ["medical", "industrial", "commercial"],
+            "Manufacturers": ["honeywell"],
+            "Examples":
+            {
+                "Python": ["abp.py"],
+                "Node.js": ["abp.js"],
+                "C++": ["abp.cxx"],
+                "C": ["abp.c"]
+            },
+            "Specifications":
+            {
+                "Vsupply": {"unit": "Vdc", "min" : -0.3, "max": 6.0},
+                "Supply Current Digital" : {
+                    "3.3 Vdc" : {"unit": "mA", "min" : "0.0", "max": "3.9"},
+                    "5.0 Vdc" : {"unit": "mA", "min" : "0.0", "max": "4.6"},
+                    "Sleep Mode" : {"unit": "uA", "min" : "0.0", "max": "10"}
+                },
+                "Operating Temperature": {"unit": "°C", "min" : -40, "max": 85},
+                "Start up Time Digital": {"unit": "ms", "time" : 3},
+                "Response Time Digital": {"unit": "ms", "time" : 0.46},
+                "Compensated Temperature Range" : {"unit": "°C", "min" : 0, "max" : 50},
+                "Pressure Range" : {
+                    "Differential" : [
+                        {"unit" : "mbar", "min" : 60, "max" : 4000},
+                        {"unit" : "kPa", "min" : 6, "max" : 400},
+                        {"unit" : "psi", "min" : 1, "max" : 60}
+                    ],
+                    "Gage" : [
+                        {"unit" : "mbar", "min" : 0, "max" : 10000},
+                        {"unit" : "kPa", "min" : 0, "max" : 1000},
+                        {"unit" : "psi", "min" : 0, "max" : 150}
+                    ]
+                }
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison":
+                {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduino 101":
+                {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://sensing.honeywell.com/sensors/amplified-board-mount-pressure-sensors/basic-abp-series"],
+                "Datasheets": ["https://sensing.honeywell.com/honeywell-sensing-basic-board-mount-pressure-abp-series-datasheet-2305128-e-en.pdf"]
+            }
+        }
+    }
+}

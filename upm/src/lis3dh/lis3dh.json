@@ -1,0 +1,38 @@
+{
+    "Library": "lis3dh",
+    "Description": "API for the LIS3DH 3-axis Accelerometer",
+    "Sensor Class":
+    {
+        "lis3dh":
+        {
+            "Name": "Digital 3-axis Accelerometer",
+            "Description": "The LIS3DH is an ultra-low-power high performance three-axis linear accelerometer belonging to the \"nano\" family which leverages the robust and mature manufacturing processes already used for the production of micromachined accelerometers. The LIS3DH has user-selectable full scales of 2g/4g/8g/16g and is capable of measuring accelerations with output data rates from 1 Hz to 5300 Hz. Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality. This driver supports both I2C (default) and SPI operation.",
+            "Aliases": ["lis3dh"],
+            "Categories": ["accelerometer"],
+            "Connections": ["i2c", "spi", "gpio"],
+            "Project Type": ["imu", "prototyping"],
+            "Manufacturers": ["stmicro"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["LIS3DH_Example.java"],
+                "Python": ["lis3dh.py"],
+                "Node.js": ["lis3dh.js"],
+                "C++": ["lis3dh.cxx"],
+                "C": ["lis3dh.c"]
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "low": 1.71, "high": 3.6},
+                "Operating Current": {"unit": "uA", "low": 0.5, "high": 11},
+                "Operating Temperature": {"unit": "degC", "low": -40, "high": 85}
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.st.com/en/mems-and-sensors/lis3dh.html"],
+                "Datasheets": ["http://www.st.com/resource/en/datasheet/lis3dh.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

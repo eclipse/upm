@@ -1,0 +1,148 @@
+{
+    "Library": "my9221",
+    "Description": "My-semi MY9221 12-channel LED driver Library",
+    "Sensor Class": {
+        "GroveCircularLED": {
+            "Name": "API for the Grove Circular LED module/My-semi MY9221 12-channel LED driver",
+            "Description": "This is the UPM Module for the Grove Circular LED module/My-semi MY9221 12-channel LED driver. This is a circular LED ring based on the MY9221 chip. It is often used with a rotary encoder and has 24 controllable LEDs.",
+            "Aliases": ["my9221", "Grove - Circular LED", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed", "My-semi"],
+            "Image": "grovecircularled.jpg",
+            "Examples": {
+                "Python": ["grovecircularled.py"],
+                "Node.js": ["grovecircularled.js"],
+                "C++": ["my9221-grovecircularled.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 4.5,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ": "5.5 per LED"
+                },
+                "LEDs": {
+                    "unit": "LED",
+                    "leds": 24
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduino 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["http://wiki.seeedstudio.com/wiki/Grove_-_Circular_LED"],
+                "Datasheets": ["http://www.my-semi.com.tw/file/MY9221_BF_3.0.pdf"]
+            }
+        },
+        "GroveLEDBar": {
+            "Name": "API for the Grove - LED Bar/My-semi MY9221 12-channel LED driver",
+            "Description": "This is the UPM Module for the Grove - LED Bar/My-semi MY9221 12-channel LED driver. This is a 10-segment LED bar, with 8 green segments, 1 yellow segment, and one red segment.  They can be daisy chained together so that this module can control multiple LED bars.",
+            "Aliases": ["my9221", "Grove - LED Bar", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Seeed", "My-semi"],
+            "Kits": ["eak"],
+            "Image": "my9221.jpg",
+            "Examples": {
+                "Java": ["GroveLEDBar_Example.java"],
+                "Python": ["groveledbar.py"],
+                "Node.js": ["groveledbar.js"],
+                "C++": ["my9221-groveledbar.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ": "5.5 per LED"
+                },
+                "LEDs": {
+                    "unit": "LED",
+                    "leds": 10
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need Grove base shield"]
+                },
+                "Arduinon 101": {
+                    "Notes": ["Might need Grove base shield"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-LED-Bar-p-1178.html", "http://wiki.seeed.cc/Grove-LED_Bar/"],
+                "Datasheets": ["http://www.my-semi.com.tw/file/MY9221_BF_3.0.pdf"]
+            }
+        },
+        "MY9221 ": {
+            "Name": "API for the My-semi MY9221 12-channel LED driver",
+            "Description": "This is the UPM Module for the My-semi MY9221 12-channel LED driver. This is the base for several grove LED modules, allowing finite control of individual LEDs",
+            "Aliases": ["my9221", "MY9221 12-Channel LED Driver With Grayscale Adaptive Pulse Density Modulation Control"],
+            "Categories": ["display"],
+            "Connections": ["gpio"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["My-semi"],
+            "Kits": ["eak"],
+            "Image": "my9221.jpg",
+            "Examples": {
+                "C++": ["my9221-grovecircularled.cxx","my9221-groveledbar.cxx"],
+                "C" : ["my9221.c"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5.5
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "typ": "5.5 per LED"
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Intel Edison": {
+                    "Notes": ["Might need pull up resistors"]
+                },
+                "Arduinon 101": {
+                    "Notes": ["Might need pull up resistors"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.seeedstudio.com/Grove-LED-Bar-p-1178.html", "http://wiki.seeed.cc/Grove-LED_Bar/"],
+                "Datasheets": ["http://www.my-semi.com.tw/file/MY9221_BF_3.0.pdf"]
+            }
+        }
+    }
+}

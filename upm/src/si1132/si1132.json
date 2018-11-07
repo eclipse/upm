@@ -1,0 +1,50 @@
+{
+    "Library": "si1132",
+    "Description": "Silicon Labs Si1132 UV and visible light sensor library",
+    "Sensor Class": {
+        "SI1132": {
+            "Name": "API for the Silicon Labs Si1132 UV and Visible Light Sensor",
+            "Description": "This is the UPM Module for the Silicon Labs Si1132 UV and Visible Light Sensor. The Silicon Labs Si1132 is a low-power, ultraviolet (UV) index, and ambient light sensor with I2C digital interface and programmable-event interrupt output.",
+            "Aliases": ["si1132"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["industrial", "commercial"],
+            "Manufacturers": ["Silicon Labs"],
+            "Examples": {
+                "C++": ["si1132.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.71,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "Standby Mode": {
+                        "unit": "uA",
+                        "min": "0.15",
+                        "max": "1.4"
+                    },
+                    "Actively Measuring": {
+                        "unit": "mA",
+                        "min": "4.3",
+                        "max": "5.5"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Measurement Time": {
+                    "unit": "us",
+                    "typ": 285
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.silabs.com/products/sensors/optical/si1132"],
+                "Datasheets": ["https://www.silabs.com/documents/public/data-sheets/Si1132.pdf"]
+            }
+        }
+    }
+}

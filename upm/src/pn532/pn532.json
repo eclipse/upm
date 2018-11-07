@@ -1,0 +1,50 @@
+{
+    "Library": "pn532",
+    "Description": "Adafruit PN532 NFC/RFID reader/writer Library",
+    "Sensor Class": {
+        "PN532": {
+            "Name": "API for the PN532 based Adafruit NFC/RFID reader/writer",
+            "Description": "This is the UPM Module for the PN532 based Adafruit NFC/RFID reader/writer. The PN532 is the most popular NFC chip, and is what is embedded in pretty much every phone or device that does NFC. It can pretty much do it all, such as read and write to tags and cards, communicate with phones (say for payment processing), and 'act' like a NFC tag. If you want to do any sort of embedded NFC work, this is the chip you'll want to use!",
+            "Aliases": ["pn532", "PN532 NFC/RFID controller breakout board - v1.6"],
+            "Categories": ["rfid"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["Philips", "Adafruit"],
+            "Image": "pn532.jpg",
+            "Examples": {
+                "Python": ["pn532-writeurl.py", "pn532.py"],
+                "Node.js": ["pn532-writeurl.js", "pn532.js"],
+                "C++": ["pn532-writeurl.cxx", "pn532.cxx"]
+            },
+            "Specifications": {
+                "Vsource": {
+                    "unit": "V",
+                    "min": 1.6,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "mA",
+                    "min" : 6,
+                    "max" : 140
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -30,
+                    "max": 85
+                }
+            },
+            "Platforms": {
+                "Intel Joule Module": {
+                },
+                "Intel Edison": {
+                },
+                "Arduino 101": {
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.adafruit.com/product/364"],
+                "Datasheets": ["https://cdn-shop.adafruit.com/datasheets/pn532ds.pdf"]
+            }
+        }
+    }
+}

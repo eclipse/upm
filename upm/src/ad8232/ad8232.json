@@ -1,0 +1,45 @@
+{
+    "Library": "ad8232",
+    "Description": "Single Lead Heart Rate Monitor",
+    "Sensor Class":
+    {
+        "AD8232":
+        {
+            "Name": "AD8232 Heart Rate Monitor Library",
+            "Description": "This module simply spits out the ADC values reported by the sensor, with the intent to send that data, via serial or network port, somewhere to another piece of software running on a computer that plots the data for you, like an EKG.",
+            "Aliases": ["ad8232"],
+            "Categories": ["heartrate"],
+            "Connections": ["gpio", "aio"],
+            "Project Type": ["medical"],
+            "Manufacturers": ["sparkfun"],
+            "Kits": [],
+            "Image": "ad8232.jpg",
+            "Examples":
+            {
+                "Java": ["Ad8232_Example.java"],
+                "Python": ["ad8232.py"],
+                "Node.js": ["ad8232.js"],
+                "C++": ["ad8232.cxx"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "V", "low" : 2.0, "high": 3.5},
+                "ESD Rating": {"unit": "kV", "low": 8}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Sensor must be driven at 3.3v only."],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.sparkfun.com/products/12650"],
+                "Datasheets": ["https://cdn.sparkfun.com/datasheets/Sensors/Biometric/AD8232.pdf"],
+                "Schematics": ["https://cdn.sparkfun.com/datasheets/Sensors/Biometric/AD8232_Heart_Rate_Monitor_v10.pdf"]
+            }
+        }
+    }
+}

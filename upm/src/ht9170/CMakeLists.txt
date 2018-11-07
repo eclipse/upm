@@ -1,0 +1,5 @@
+set (libname "ht9170")
+set (libdescription "Dual Tone Multi Frequency (DTMF) Decoder")
+set (module_src ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+upm_module_init(mraa)

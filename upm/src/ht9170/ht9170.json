@@ -1,0 +1,39 @@
+{
+    "Library": "ht9170",
+    "Description": "API for the HT9170 DTMF Decoder",
+    "Sensor Class":
+    {
+        "HT9170":
+        {
+            "Name": "Dual Tone Multi Frequency (DTMF) Decoder",
+            "Description": "This driver was developed using the DTMF (Dual-Tone Multi-Frequency) Shield by Seeed Studio*. It can decode DTMF signals presented at its audio input. It does not generate DTMF signals.",
+            "Aliases": ["ht9170"],
+            "Categories": ["telephony"],
+            "Connections": ["gpio"],
+            "Project Type": ["telephone", "prototyping"],
+            "Manufacturers": ["seeed"],
+            "Kits": [],
+            "Image": "ht9170.jpg",
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["ht9170.py"],
+                "Node.js": ["ht9170.js"],
+                "C++": ["ht9170.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "Operating Voltage": {"unit": "V", "typ": 5},
+                "Operating Current": {"unit": "mA", "typ": 3}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.seeedstudio.com/DTMFDual-Tone-Multi-Frequency-Shield-p-1839.html"],
+                "Datasheets": ["http://www.holtek.com/pdf/comm/9170v111.pdf"],
+                "Schematics": ["http://www.dossant.com/projects/wp-content/uploads/2013/01/dtmf_mod3_schematic.pdf"]
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "Library": "e50hx",
+    "Description": "UPM API for the Veris E50HX Energy Meter",
+    "Sensor Class":
+    {
+        "E50HX":
+        {
+            "Name": "Veris E50HX (E50H2/E50H5) Energy Meter Module",
+            "Description": "This module implements support for the Veris E50H2 and E50H5 BACnet Energy Meters. From the datasheet: The E50H5 BACnet MS/TP DIN Rail Meter with Data Logging combines exceptional performance and easy installation to deliver a cost-effective solution for power monitoring applications. Native serial communication via BACnet MS/TP provides complete accessibility of all measurements to your Building Automation System The data logging capability protects data in the event of a power failure. The E50H5 can be easily installed on standard DIN rail, surface mounted or contained in an optional NEMA 4 enclosure, as needed. The front-panel LCD display makes device installation and setup easy and provides local access to the full set of detailed measurements. This module was developed using the upm::BACNETMSTP module, based on libbacnet-stack 0.8.3.  Both libbacnet 0.8.3 and the upm::BACNETMSTP libraries must be present in order to build this module.  This driver was developed on the E50H5.  The Trend Log functionality is not currently supported. The Binary Input Objects are also not supported as these are only used for the Alarm bits which are already available from Analog Input Object 52 as an alarm bitfield incorporating all of the supported alarm indicators. It was connected using an RS232->RS485 interface.  You cannot use the built in MCU TTL UART pins for accessing this device -- you must use a full Serial RS232->RS485 or USB-RS485 interface connected via USB.",
+            "Aliases": ["e50hx"],
+            "Categories": ["energy"],
+            "Connections": ["rs485"],
+            "Project Type": ["industrial"],
+            "Manufacturers": ["veris"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["E50HX_Example.java"],
+                "Python": ["e50hx.py"],
+                "Node.js": ["e50hx.js"],
+                "C++": ["e50hx.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+                "AC Operating Voltage": {"unit": "VAC", "low": 90, "high": 600},
+                "AC Power Usage": {"unit": "VA", "Max": 5},
+                "DC Operating Voltage": {"unit": "VDC", "low": 125, "high": 300},
+                "DC Power Usage": {"unit": "W", "Max": 3},
+                "Operating Temperature": {"unit": "degC", "low": -30, "high": 70}
+
+            },
+            "Urls" :
+            {
+                "Product Pages": ["http://www.veris.com/Item/E50H5.aspx"],
+                "Datasheets": ["http://www.veris.com/docs/Datasheets/E5x_d0117.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

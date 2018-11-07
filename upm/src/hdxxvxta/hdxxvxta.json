@@ -1,0 +1,35 @@
+{
+    "Library": "hdxxvxta",
+    "Description": "API for the Veris HDXXVXTA Humidity Transmitter",
+    "Sensor Class":
+    {
+        "HDXXVXTA":
+        {
+            "Name": "Veris HDXXVXTA Humidity Transmitter",
+            "Description": "The driver was developed using the HD2NVSTA1 humidity transmitter.  The 'T' variant supports a temperature transmitter as well.  Both signals are provided by the device as analog 0-5Vdc or 0-10Vdc outputs.  The A1 variant supports a temperature range of -40C-50C, while the A2 variant supports a range of 0C-50C.  Humidity ranges for all devices in this device family range from 0% to 100% (non-condensing). This driver used the 5Vdc outputs for obvious reasons.  Your MCU must be configured for 5V operation.  Using any other analog reference voltage will require the appropriate external circuitry (such as a voltage divider) in order to interface safely with your MCU. For devices which do not support temperature, use '-1' as the temperature pin number in the object constructor.  If temperature measurement is disabled, getTemperature() will always return 0C/32F.",
+            "Aliases": ["hdxxvxta"],
+            "Categories": ["humidity"],
+            "Connections": ["analog"],
+            "Project Type": ["environmental", "prototyping"],
+            "Manufacturers": ["veris"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": [],
+                "Python": ["hdxxvxta.py"],
+                "Node.js": ["hdxxvxta.js"],
+                "C++": ["hdxxvxta.cxx"],
+                "C": []
+            },
+            "Specifications":
+            {
+            },
+            "Urls" :
+            {
+                "Product Pages": [],
+                "Datasheets": [],
+                "Schematics": []
+            }
+        }
+    }
+}

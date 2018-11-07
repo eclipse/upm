@@ -1,0 +1,46 @@
+{
+    "Library": "bmx050",
+    "Description": "Bosch 3-axis Magnetometer",
+    "Sensor Class":
+    {
+        "BMM150":
+        {
+            "Name": "3-axis Geomagnetic Sensor",
+            "Description": "The BMM150 is a standalone geomagnetic sensor for consumer market applications. It allows measurements of the magnetic field in three perpendicular axes. Based on Bosch's proprietary FlipCore technology, performance and features of BMM150 are carefully tuned and perfectly match the demanding requirements of all 3-axis mobile applications such as electronic compass, navigation or augmented reality. An evaluation circuitry (ASIC) converts the output of the geomagnetic sensor to digital results which can be read out over the industry standard digital interfaces (SPI and I2C). Not all functionality of this chip has been implemented in this driver, however all the pieces are present to add any desired functionality.  This driver supports both I2C (default) and SPI operation.",
+            "Aliases": ["bme280"],
+            "Categories": ["pressure", "humidity", "temperature"],
+            "Connections": ["gpio", "i2c", "spi"],
+            "Project Type": ["prototyping", "industrial"],
+            "Manufacturers": ["bosch"],
+            "Kits": [],
+            "Examples":
+            {
+                "Java": ["BMM150_Example.java"],
+                "Python": ["bmm150.py"],
+                "Node.js": ["bmm150.js"],
+                "C++": ["bmm150.cxx"],
+                "C": ["bmm150.c"]
+            },
+            "Specifications":
+            {
+                "Vdd": {"unit": "v", "low" : 1.62, "high": 3.6},
+                "Temperature Range": {"unit": "degC", "low" : -40, "high": 85},
+                "Sensing Range": {"unit": "uT (±)", "low": 1300, "high": 2500}
+            },
+            "Platforms":
+            {
+                "Intel Joule Module":
+                {
+                    "Notes": ["Requires pull-up resistors with carrier board"],
+                    "Images": [""]
+                }
+            },
+            "Urls" :
+            {
+                "Product Pages": ["https://www.bosch-sensortec.com/bst/products/all_products/bmm150"],
+                "Datasheets": ["https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMM150-DS001-01.pdf"],
+                "Schematics": []
+            }
+        }
+    }
+}

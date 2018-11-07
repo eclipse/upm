@@ -1,0 +1,49 @@
+{
+    "Library": "BH1749",
+    "Description": "ROHM BH1749 Color sensor (16-bit) library",
+    "Sensor Class": {
+        "BH1749": {
+            "Name": "ROHM BH1749 Color sensor (16-bit)",
+            "Description": "BH1749NUC is a digital color sensor IC with I2C bus interface. This IC senses Red, Green, Blue (RGB) and Infrared and converts them to digital values. The high sensitivity, wide dynamic range and excellent Ircut characteristics make it possible for this IC to obtain the accurate illuminance and color temperature of ambient light. It is ideal for adjusting LCD backlight of TV, mobile phone and tablet PC.",
+            "Categories": ["color sensor"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "commercial"],
+            "Manufacturers": ["ROHM"],
+            "Examples": {
+                "C++": ["bh1749.cxx"],
+                "C": ["bh1749.c"],
+                "Java": ["BH1749_Example.java"],
+                "Python": ["bh1749.py"],
+                "Node.js": ["bh1749.js"]
+            },
+            "Specifications": {
+                "Supply Voltage (VDD)": {
+                    "unit": "V",
+                    "min": 2.3,
+                    "max": 3.6
+                },
+                "Supply Current": {
+                    "unit": "uA",
+                    "min": 0.8,
+                    "max": 190
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                }, "Illumination Detection": {
+                    "unit" : "klx",
+                    "value": 80
+                }
+            },
+            "Urls": {
+                "Product Pages": [
+                    "https://www.rohm.com/products/sensors-mems/color-sensor-ics/bh1745nuc-product"
+                ],
+                "Datasheets": [
+                    "https://www.rohm.com/datasheet/BH1749NUC/bh1749nuc-e"
+                ]
+            }
+        }
+    }
+}

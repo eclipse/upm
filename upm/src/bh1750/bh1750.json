@@ -1,0 +1,50 @@
+{
+    "Library": "bh1750",
+    "Description": "DFRobot BH1750 light intensity sensor library",
+    "Sensor Class": {
+        "BH1750": {
+            "Name": "DFRobot BH1750 light intensity sensor",
+            "Description": "This is the UPM Module for the DFRobot bh1750 light intensity sensor. This sensor outputs light level data directly in Lux(Lx), eliminating complicated voltage calculations from your program. Offers a large range of Lx sensativity, with high resolution and i2c communication.",
+            "Aliases": ["bh1750", "DFRobot - Light Sensor - BH1750"],
+            "Categories": ["light"],
+            "Connections": ["i2c"],
+            "Project Type": ["prototyping", "industrial", "commercial"],
+            "Manufacturers": ["DFRobot", "Rohm"],
+            "Examples": {
+                "Java": ["BH1750_Example.java"],
+                "Python": ["bh1750.py"],
+                "Node.js": ["bh1750.js"],
+                "C++": ["bh1750.cxx"],
+                "C": ["bh1750.c"]
+            },
+            "Specifications": {
+                "Vdd": {
+                    "unit": "V",
+                    "min": 3,
+                    "max": 5
+                },
+                "Supply Current Digital": {
+                    "Normal mode": {
+                        "unit": "uA",
+                        "typ": "120",
+                        "max": "190"
+                    }
+                },
+                "Operating Temperature": {
+                    "unit": "°C",
+                    "min": -40,
+                    "max": 85
+                },
+                "Detection Range": {
+                    "unit": "Lux",
+                    "min" : 1,
+                    "max" : 65535
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.dfrobot.com/product-531.html"],
+                "Datasheets": ["http://image.dfrobot.com/image/data/SEN0097/BH1750FVI.pdf"]
+            }
+        }
+    }
+}
