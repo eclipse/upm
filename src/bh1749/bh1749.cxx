@@ -54,7 +54,7 @@ BH1749::BH1749(int bus, int addr) : m_bh1749(bh1749_init(bus, addr))
 BH1749::BH1749(std::string initStr) : mraaIo(initStr)
 {
   mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
-  std::vector<std::strings> upmTokens;
+  std::vector<std::string> upmTokens;
 
   m_bh1749 = (bh1749_context)malloc(sizeof(struct _bh1749_context));
   if(!m_bh1749)
@@ -82,7 +82,7 @@ BH1749::BH1749(std::string initStr) : mraaIo(initStr)
       }
   }
 
-  if(bh1749_check_who_am_i(dev) != UPM_SUCCESS)
+  if(bh1749_check_who_am_i(m_bh1749) != UPM_SUCCESS)
       throw std::runtime_error(std::string(__FUNCTION__)
                                 + ": bh1749_init() failed");
 
