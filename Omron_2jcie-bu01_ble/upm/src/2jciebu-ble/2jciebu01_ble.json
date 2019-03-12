@@ -1,0 +1,29 @@
+{
+    "Library": "2jciebu01_ble",
+    "Description": "Omron Environment Sensor",
+    "Sensor Class": {
+        "OM2JCIEBU_BLE": {
+            "Name": "API for 2JCIEBU01 Sensor Module using BLE interface",
+            "Description": "This is the UPM Module for the Omron Environment Sensor Module using BLE interface.",
+            "Aliases": [""],
+            "Categories": ["USB"],
+            "Connections": ["ble"],
+            "Project Type": ["sensor"],
+            "Manufacturers": ["Omron"],
+            "Image": "",
+            "Examples": {
+                "C++": ["omron2jciebu01_ble.cxx"]
+            },
+            "Platforms": {
+                "Intel Edison": {
+                    "Notes": ["Might need USB type omron environment sensor"]
+                }
+            },
+            "Urls": {
+                "Product Pages": ["https://www.components.omron.com/solutions/mems-sensors/environment-sensor"],
+                "Datasheets": ["https://omronfs.omron.com/en_US/ecb/products/pdf/A279-E1-01.pdf"]
+            }
+        }
+    }
+}
+
