@@ -26,7 +26,7 @@
 #pragma once
 
 #include "mraa.hpp"
-#include "../2jciebu01.hpp"
+#include "2jciebu01.hpp"
 
 /*MACROS and enum */
 
