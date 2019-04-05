@@ -39,9 +39,6 @@
 #include <sys/stat.h>
 
 
-#include <upm/upm_utilities.h>
-
-
 /*MACROS and enum */
 
 
@@ -67,26 +64,10 @@
 namespace upm
 {
 /**
-  * @brief omron 2JCIEBU01 Environment sensor
-  * @defgroup 2jciebu01 libupm-2jciebu01
-  * @ingroup Omron USB  type
-  */
-
-/**
- * @library 2jciebu01
- * @sensor 2jciebu01
- * @comname Environment Sensor Module
- * @altname Omron Environment sensor USB type
- * @type USB
- * @man Omron
- * @web https://www.components.omron.com/solutions/mems-sensors/environment-sensor
- * @con usb
+ * @class OM2JCIEBU
+ * @brief Base class for Omron 2JCIEBU Sensors
  *
- * @brief API for the Omron USB type environment Sensor Module using USB to UART interface
- *
- * It is connected via a UART at 115200 baud.
- *
- * @snippet 2jciebu01.cxx Interesting
+ * Implements common functionality for the Omron 2JCIEBU USB and BLE Sensors
  */
 class OM2JCIEBU
 {

@@ -1,25 +1,24 @@
 /*
-*
-* Author: Hiroyuki Mino <omronsupportupm@omron.com>
-* Copyright (c) 2019 Omron Electronic Components - Americas
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ * Author: Hiroyuki Mino <omronsupportupm@omron.com>
+ * Copyright (c) 2019 Omron Electronic Components - Americas
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /*=========================================================================*/
 
@@ -34,7 +33,7 @@
 #include <thread>
 #include <atomic>
 #include <csignal>
-#include "../2jciebu01.hpp"
+#include "2jciebu01.hpp"
 
 /*MACROS and enum */
 
@@ -57,26 +56,25 @@
 namespace upm
 {
 /**
-  * @brief 2JCIEBU01 Environment sensor
-  * @defgroup 2jciebu01 libupm-2jciebu01_ble
-  * @ingroup Omron USB type
+  * @brief 2JCIEBU01 BLE Environment Sensor
+  * @defgroup 2jciebu01-ble libupm-2jciebu01-ble
+  * @ingroup omron ble accelerometer pressure sound flexfor
   */
 
 /**
- * @library libupm-2jciebu01_ble
- * @sensor 2jciebu01
- * @comname Environment Sensor Module
- * @altname Omron Environment sensor USB type
- * @type USB
- * @man Omron
- * @web https://www.components.omron.com/solutions/mems-sensors/environment-sensor
+ * @library 2jciebu01-ble
+ * @sensor 2jciebu01-ble
+ * @comname Omron BLE Environment Sensor Module
+ * @type accelerometer pressure sound flexfor
+ * @man omron
  * @con ble
+ * @web https://www.components.omron.com/solutions/mems-sensors/environment-sensor
  *
  * @brief API for the Omron USB type environment Sensor Module using BLE interface
  *
  * It is connected via a BLE Interface
  *
- * @snippet 2jciebu01_ble.cxx Interesting
+ * @snippet 2jciebu01-ble.cxx Interesting
  */
 class OM2JCIEBU_BLE : public OM2JCIEBU
 {
