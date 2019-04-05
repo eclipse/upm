@@ -34,6 +34,7 @@
 
 #include "mraa/initio.hpp"
 #include <interfaces/iPressure.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -68,7 +69,7 @@ namespace upm {
      * @snippet bmpx8x.cxx Interesting
      */
 
-    class BMPX8X : virtual public iPressure {
+    class BMPX8X : virtual public iPressure, virtual public iTemperature {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -147,7 +148,7 @@ namespace upm {
          *
          * @returns The temperature in Celsius.
          */
-        float getTemperature();
+        virtual float getTemperature();
 
         /**
          * Using the supplied altitude in meters, compute the pressure
