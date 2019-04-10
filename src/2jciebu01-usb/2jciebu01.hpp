@@ -137,7 +137,7 @@ public :
         int16_t eCO2;
         int16_t discomfort_index;
         int16_t heat_stroke;
-    } __attribute__((packed))om2jciebuData_t;
+    } om2jciebuData_t;
 
     /**
     * OM2JCIEBU destructor
