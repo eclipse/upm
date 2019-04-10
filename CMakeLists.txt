@@ -150,6 +150,9 @@ pkg_check_modules (MODBUS libmodbus>=3.1.2)
 # Check for OPENZWAVE
 pkg_check_modules (OPENZWAVE libopenzwave)
 
+# Check for TinyB
+pkg_check_modules (TINYB tinyb>=0.5.1)
+
 # Find JPEG
 find_package (JPEG)
 
