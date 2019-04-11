@@ -155,6 +155,8 @@ pkg_check_modules (OPENZWAVE libopenzwave)
 
 # Check for TinyB
 pkg_check_modules (TINYB tinyb>=0.5.1)
+# And get full path to the tinyb library
+find_library(TINYB_LIBRARY NAMES tinyb HINTS ${TINYB_LIBDIR})
 
 # Find JPEG
 find_package (JPEG)

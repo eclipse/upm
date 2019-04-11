@@ -66,6 +66,8 @@ function (_get_dependency_targets target return_variable)
         # reqlibname list (used in various items like pom files, .pc files, etc
         elseif (${deplib} MATCHES mraa)
             list(APPEND ${return_variable} mraa)
+        elseif (${deplib} MATCHES tinyb)
+            list(APPEND ${return_variable} tinyb)
         endif (TARGET ${deplib})
     endforeach (deplib ${_dep_libs})
     # Uniquify
@@ -100,6 +102,8 @@ function (_gen_pkg_config_per_target LABEL)
           list(APPEND reqlibname ${deplibname})
         elseif (${deplib} MATCHES mraa)
           list(APPEND reqlibname mraa)
+        elseif (${deplib} MATCHES tinyb)
+          list(APPEND reqlibname tinyb)
         endif (TARGET ${deplib})
       endforeach (deplib ${DEPLIBS})
       # Make sure no dups exist
@@ -855,6 +859,9 @@ function(upm_module_init)
       target_link_libraries (${libname} ${MRAA_LIBRARY})
       # Always add a PUBLIC dependency to MRAA include dirs
       target_include_directories (${libname} PUBLIC ${MRAA_INCLUDE_DIRS})
+    elseif (${linkflag} MATCHES tinyb)
+      target_link_libraries (${libname} ${TINYB_LIBRARY})
+      target_include_directories (${libname} PUBLIC ${TINYB_INCLUDE_DIRS})
     else ()
       # Else, add the linkflag directly
       target_link_libraries (${libname} ${linkflag})
