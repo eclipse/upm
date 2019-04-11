@@ -1,5 +1,0 @@
-set (libname "2jciebu01-usb")
-set (libdescription "Omron USB Environment Sensor")
-set (module_src "2jciebu01_usb.cxx" "2jciebu01.cxx")
-set (module_hpp "2jciebu01_usb.hpp" "2jciebu01.hpp")
-upm_module_init(mraa)

@@ -1,5 +1,5 @@
 #ifdef SWIGPYTHON
-%module (package="upm") 2jciebu01_usb
+%module (package="upm") om2jciebu01_usb
 #endif
 
 %include "../common_top.i"
@@ -12,11 +12,10 @@ JAVA_JNI_LOADLIBRARY(javaupm_2jciebu01_usb)
 
 /* BEGIN Common SWIG syntax ------------------------------------------------- */
 %{
-#include "2jciebu01_usb.hpp"
 #include "2jciebu01.hpp"
+#include "2jciebu01_usb.hpp"
 %}
 
-%include "2jciebu01_usb.hpp"
 %include "2jciebu01.hpp"
-
+%include "2jciebu01_usb.hpp"
 /* END Common SWIG syntax */
