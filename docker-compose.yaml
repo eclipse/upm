@@ -78,12 +78,10 @@ services:
     command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 npmpkg"
 
   sonar-scan:
-    extends: all
+    extends: base
+    image: inteliotdevkit/upm-sonar
     environment:
-      - BUILDSWIGPYTHON=ON
-      - BUILDSWIGNODE=ON
-      - BUILDSWIGJAVA=ON
-      - BUILDEXAMPLES=ON
+      - BUILDTESTS=OFF
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAR_PROJ_KEY
