@@ -62,7 +62,7 @@ MMC35240::MMC35240(int device)
     }
     m_scale = 1;
     m_iio_device_num = device;
-    sprintf(trigger, "hrtimer-mmc35240-hr-dev%d", device);
+    snprintf(trigger, 64, "hrtimer-mmc35240-hr-dev%d", device);
 
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
         fprintf(stderr, "Create trigger %s failed\n", trigger);
@@ -192,7 +192,7 @@ bool
 MMC35240::enable3AxisChannel()
 {
     char trigger[64];
-    sprintf(trigger, "mmc35240-hr-dev%d", m_iio_device_num);
+    snprintf(trigger, 64, "mmc35240-hr-dev%d", m_iio_device_num);
 
     mraa_iio_write_string(m_iio, "trigger/current_trigger", trigger);
     mraa_iio_write_int(m_iio, "scan_elements/in_magn_x_en", 1);

@@ -60,7 +60,7 @@ L3GD20::L3GD20(int device) :
 
     m_scale = 1;
     m_iio_device_num = device;
-    sprintf(trigger, "hrtimer-l3gd20-hr-dev%d", device);
+    snprintf(trigger, 64, "hrtimer-l3gd20-hr-dev%d", device);
 
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
         fprintf(stderr, "Create trigger %s failed\n", trigger);
@@ -449,7 +449,7 @@ bool
 L3GD20::enable3AxisChannel()
 {
     char trigger[64];
-    sprintf(trigger, "l3gd20-hr-dev%d", m_iio_device_num);
+    snprintf(trigger, 64, "l3gd20-hr-dev%d", m_iio_device_num);
 
     mraa_iio_write_string(m_iio, "trigger/current_trigger", trigger);
     mraa_iio_write_int(m_iio, "scan_elements/in_anglvel_x_en", 1);
