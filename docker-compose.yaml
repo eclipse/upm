@@ -56,20 +56,6 @@ services:
       - BUILDEXAMPLES=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
 
-  ipk:
-    extends: all
-    environment:
-      - IPK=ON
-      - BUILDDOC=OFF
-    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
-
-  rpm:
-    extends: all
-    environment:
-      - RPM=ON
-      - BUILDDOC=OFF
-    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
-
   npm:
     extends: all
     environment:
