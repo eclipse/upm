@@ -258,11 +258,6 @@ set (upm_VERSION_MINOR ${VERSION_MINOR})
 set (upm_VERSION_PATCH ${VERSION_PATCH})
 set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH})
 
-# Detect arch
-include (TargetArch)
-target_architecture (DETECTED_ARCH)
-message (STATUS "Target arch is ${DETECTED_ARCH}")
-
 # enable c++11 standards support unconditionally
 include(CheckCXXCompilerFlag)
 if (CMAKE_VERSION VERSION_LESS "3.1")
