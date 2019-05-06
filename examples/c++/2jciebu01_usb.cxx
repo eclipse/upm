@@ -370,7 +370,6 @@ void configureAdvInterval(OM2JCIEBU_UART *p_om2jcieuart)
 int
 main(int argc, char *argv[])
 {
-    char *dev_path;
     int operation_choice = 0;
     if(argc <= 1) {
         std::cout << "usage ./a.out /dev/ttyUSB*" << std::endl;
