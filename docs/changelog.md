@@ -4,6 +4,21 @@ Changelog                         {#changelog}
 Here's a list summarizing some of the key undergoing changes to our library
 from earlier versions:
 
+### v2.0.0
+
+ * Reworked existing interfaces and extended the list to include iAcceleration,
+ iAngle, iButton, iClock, iCollision, iDistance, iDistanceInterrupter, iEC,
+ iElectromagnet, iEmg, iGas, iGps, iGyroscope, iHallEffect, iHeartRate, iHumidity,
+ iLight, iLineFinder, iMagnetometer, iMoisture, iMotion, iOrp, iPH, iPressure,
+ iProximity, iTemperature, iVDiv, iWater
+ * Provided overloaded string based constructors for a good number of sensors,
+ allowing initialization from external frameworks without type knowledge
+ * Removed deprecated basic grove classes from project
+ * Replaced 6 unsafe occurrences of sprintf() usage
+ * Cleaned-up build system around target arch detection and cpack usage, added
+ detection and resolution of tinyb library when used as a dependency
+ * New sensors: 2jciebu01_ble, 2jciebu01_usb
+
 ### v1.7.1
 
  * Bumped library compatibility to new MRAA 2.0 APIs
