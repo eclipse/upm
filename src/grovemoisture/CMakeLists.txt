@@ -1,6 +1,0 @@
-set (libname "grovemoisture")
-set (libdescription "Moisture Sensor")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-set (module_iface iMoisture.hpp)
-upm_module_init(mraa)

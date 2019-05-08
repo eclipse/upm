@@ -23,11 +23,11 @@ from __future__ import print_function
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-from upm import pyupm_grove as grove
+from upm import pyupm_relay as upmrelay
 
 def main():
     # Create the relay switch object using GPIO pin 0
-    relay = grove.Relay(0)
+    relay = upmrelay.Relay(0)
 
     # Close and then open the relay switch 3 times,
     # waiting one second each time.  The LED on the relay switch

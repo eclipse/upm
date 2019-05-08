@@ -1,6 +1,0 @@
-set (libname "grovelinefinder")
-set (libdescription "Line Finder")
-set (module_src ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-set (module_iface iLineFinder.hpp)
-upm_module_init(mraa)

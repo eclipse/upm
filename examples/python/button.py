@@ -23,11 +23,11 @@ from __future__ import print_function
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import time
-from upm import pyupm_grove as grove
+from upm import pyupm_button as upmbutton
 
 def main():
     # Create the button object using GPIO pin 0
-    button = grove.Button(0)
+    button = upmbutton.Button(0)
 
     # Read the input and print, waiting one second between readings
     while 1:
