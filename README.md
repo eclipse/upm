@@ -2,11 +2,11 @@
   <img src="https://github.com/intel-iot-devkit/upm/blob/master/docs/icons/upm_logo.png" height="150px" width="auto" algt="UPM Logo"/>
 </p>
 
-UPM (Useful Packages & Modules) Sensor/Actuator repository for MRAA
+Eclipse UPM Sensor/Actuator Repository for Eclipse MRAA
 ==============
 
-The UPM repository provides software drivers for a wide variety of commonly
-used sensors and actuators. These software drivers interact with the
+The Eclipse UPM repository provides software drivers for a wide variety of
+commonly used sensors and actuators. These software drivers interact with the
 underlying hardware platform (or microcontroller), as well as with the attached
 sensors, through calls to [MRAA](https://github.com/intel-iot-devkit/mraa) APIs.
 
