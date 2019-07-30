@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="https://github.com/intel-iot-devkit/upm/blob/master/docs/icons/upm_logo.png" height="150px" width="auto" algt="UPM Logo"/>
+  <img src="https://github.com/eclipse/upm/blob/master/docs/icons/upm_logo.png" height="150px" width="auto" algt="UPM Logo"/>
 </p>
 
-Eclipse UPM Sensor/Actuator Repository for Eclipse MRAA
+Eclipse UPM Sensor and Actuator Repository
 ==============
 
 The Eclipse UPM repository provides software drivers for a wide variety of
 commonly used sensors and actuators. These software drivers interact with the
 underlying hardware platform (or microcontroller), as well as with the attached
-sensors, through calls to [MRAA](https://github.com/intel-iot-devkit/mraa) APIs.
+sensors, through calls to [Eclipse MRAA](https://github.com/eclipse/mraa) APIs.
 
-Programmers can access the interfaces for each sensor by including the sensor’s
+Programmers can access the interfaces for each sensor by including the sensor's
 corresponding header file and instantiating the associated sensor class. In the
 typical use case, a constructor initializes the sensor based on parameters that
 identify the sensor, the I/O protocol used and the pin location of the sensor.
@@ -19,12 +19,14 @@ overloaded constructors that accept string identifiers.
 
 We endorse additions that implement the generic C and C++ interfaces provided
 with the libraries. With the 2.0 release, UPM introduces the following sensor
-interfaces: iAcceleration, iAngle, iButton, iClock, iCollision, iDistance,
+interfaces:
+```
+iAcceleration, iAngle, iButton, iClock, iCollision, iDistance,
 iDistanceInterrupter, iEC, iElectromagnet, iEmg, iGas, iGps, iGyroscope,
 iHallEffect, iHeartRate, iHumidity, iLight, iLineFinder, iMagnetometer,
 iMoisture, iMotion, iOrp, iPH, iPressure, iProximity, iTemperature, iVDiv,
 iWater.
-
+```
 The developer community is invited to propose new interfaces for actuator types.
 
 The UPM project is joining the Eclipse Foundation as an Eclipse IoT project.
@@ -61,27 +63,21 @@ A sensor/actuator is expected to work as such (here is the MMA7660 accelerometer
     }
 ```
 
-Browse through the list of all [examples](https://github.com/intel-iot-devkit/upm/tree/master/examples).
+Browse through the list of all [examples](https://github.com/eclipse/upm/tree/master/examples).
 
-Multi-sensor samples for the starter and specialized kits can be found in the
+Multi-sensor samples for starter and specialized kits can be found in the
 [iot-devkit-samples](https://github.com/intel-iot-devkit/iot-devkit-samples) repository.
 
 ### Supported Sensors
 
 Supported [sensor list](http://iotdk.intel.com/docs/master/upm/modules.html) from API documentation.
 
-You can also refer to the [Intel® IoT Developer Zone](https://software.intel.com/iot/hardware/sensors).
+### IDE Support and More
 
-### IDE Support
-
-The UPM sensor libraries are directly supported by the IDEs listed on the Intel®
-Developer Zone Tools & IDEs page.
-
-<a href="https://software.intel.com/iot/tools"><img src="docs/icons/iss.png"/></a>
-
-Intel® System Studio integration offers IoT specific features such as a sensor explorer,
-library sync tools and the ability to easily import existing projects and samples that
-use the UPM libraries. For further details please refer to the IoT User Guides on IDZ.
+The UPM project includes support for multiple industrial-grade sensors, actuators, radios,
+protocols and standards in use today. It is also highly integrated with the Eclipse IDE 
+through the help of the Foundation's partners.
+Learn more about [tools](https://software.intel.com/en-us/tools-by-segment/systems-iot).
 
 ### Installing UPM
 
@@ -92,38 +88,24 @@ Find notes on how to install UPM on various OS'es on this [page](docs/installing
 See building documentation [here](docs/building.md).
 
 [![Build Status](https://travis-ci.org/intel-iot-devkit/upm.svg?branch=master)](https://travis-ci.org/intel-iot-devkit/upm)
-
-### Making your own UPM module
-
-A quick way to add a new sensor driver is to port existing code from another
-platform (e.g. Arduino) and swap the IO calls to the MRAA API. This of course
-assumes either ownership of the original code or a MIT compatible license that
-allows unrestricted redistribution.
-
-The [porting](docs/porting.md) section has more information on this process,
-and there is an example available based on the max31855 [sensor](docs/max31855.md).
-
-We have an [on demand webinar](https://software.seek.intel.com/IoT_WebinarSeries_Reg)
-available that covers using an IDE to develop for the UPM project along with other
-considerations for new contributions.
-
-Read more on creating Java [bindings](docs/creating_java_bindings.md) for your
-new driver.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=upm-master&metric=alert_status)](https://sonarcloud.io/dashboard?id=upm-master)
 
 ### Guidelines and rules for new UPM contributions
 
 Before you begin development, take a look at our naming [conventions](docs/naming.md).
 The name you pick for a newly added sensor needs to be unique in the UPM library.
 
-Then, please go over this short set of rules for new [contributions](docs/contributions.md).
+Next, review the project's [contribution guide](docs/contributions.md).
+
 Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
-as a contributor. Signing-off your commits is mandatory and acts as an
-acknowledgment of the committer agreement.
+as a contributor. Signing-off your commits and accepting the ECA is mandatory
+for making new contributions to this project.
 
 Documenting your code is also a big part of the task. We have a strict set of
 tags used to classify our sensors and their capabilities. You can find out more
 about this in our [section](docs/documentation.md) on documenting a sensor API.
+
 Finally, if you really want to ensure consistency with the rest of the library,
 and the intel-iot-devkit repositories in general, take a look at our extensive
 [author guide](docs/guidelines.md).
