@@ -1,4 +1,13 @@
 #!/usr/bin/python
+#
+# Copyright (c) 2017-2019 Intel Corporation
+#
+# This program and the accompanying materials are made available under the
+# terms of the The MIT License which is available at
+# https://opensource.org/licenses/MIT.
+#
+# SPDX-License-Identifier: MIT
+#
 import unittest
 import re, fnmatch, os, sys
 

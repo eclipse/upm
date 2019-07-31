@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Copyright (c) 2017-2019 Intel Corporation
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the The MIT License which is available at
+ * https://opensource.org/licenses/MIT.
+ *
+ * SPDX-License-Identifier: MIT
+ ********************************************************************************/
+
 var shell = require('shelljs');
 var path = require('path');
 var expect = require('chai').expect;
