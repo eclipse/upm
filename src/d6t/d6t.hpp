@@ -152,7 +152,7 @@ namespace upm {
 	     *
              * @return One of the D6T_STATUS_T values
              */
-            D6T_STATUS_T getTemperatureScale(TemperatureUnit &unit);
+            D6T_STATUS_T getTemperatureScale(upm::TemperatureUnit &unit);
 
             /**
              * Set the thermal sensor temperature unit.
@@ -161,7 +161,7 @@ namespace upm {
 	     *
              * @return One of the D6T_STATUS_T values
              */
-            D6T_STATUS_T setTemperatureScale(TemperatureUnit unit);
+            D6T_STATUS_T setTemperatureScale(upm::TemperatureUnit unit);
 
             /**
              * Display thermal sensor data with PTAT, P0 to P15 and PEC values.
