@@ -191,13 +191,13 @@ D6T_STATUS_T D6T::getTemperature(float &ptat, std::vector<float> &temperatureDat
     return D6T_STATUS_SUCCESS;
 }
 
-D6T_STATUS_T D6T::getTemperatureScale(TemperatureUnit &unit)
+D6T_STATUS_T D6T::getTemperatureScale(upm::TemperatureUnit &unit)
 {
     unit = m_tempScale;
     return D6T_STATUS_SUCCESS;
 }
 
-D6T_STATUS_T D6T::setTemperatureScale(TemperatureUnit unit)
+D6T_STATUS_T D6T::setTemperatureScale(upm::TemperatureUnit unit)
 {
     m_tempScale = unit;
     return D6T_STATUS_SUCCESS;
