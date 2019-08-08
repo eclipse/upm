@@ -338,7 +338,6 @@ main(int argc, char** argv)
      // Variables declaration
      //float temperatureData[s_type];
      vector<float> VtemperatureData;
-     //uint8_t pec;
      //D6T_STATUS_T returnValue;
      //uint8_t counter;
 
