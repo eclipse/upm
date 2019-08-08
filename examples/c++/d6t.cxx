@@ -88,7 +88,7 @@ sig_handler(int signum)
 int
 main(int argc, char** argv)
 {
-    char option = 0;
+    //char option = 0;
     int bus = D6T_DEFAULT_I2C_BUS_NUM;
     uint32_t sleep_time = 1000;
     int interval_value;
@@ -336,12 +336,12 @@ main(int argc, char** argv)
      }
 
      // Variables declaration
-     float ptat;
-     float temperatureData[s_type];
+     //float ptat;
+     //float temperatureData[s_type];
      vector<float> VtemperatureData;
-     uint8_t pec;
-     D6T_STATUS_T returnValue;
-     uint8_t counter;
+     //uint8_t pec;
+     //D6T_STATUS_T returnValue;
+     //uint8_t counter;
 
      // Data and Time
      char dateAndTime[30];
