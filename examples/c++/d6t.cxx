@@ -336,7 +336,6 @@ main(int argc, char** argv)
      }
 
      // Variables declaration
-     //float ptat;
      //float temperatureData[s_type];
      vector<float> VtemperatureData;
      //uint8_t pec;
