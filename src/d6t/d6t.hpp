@@ -89,16 +89,16 @@ namespace upm {
     /**
       * @brief Mems Thermal Sensors
       * @defgroup d6t libupm-d6t
-      * @ingroup --add group
+      * @ingroup omron i2c thermal sensor
       */
     /**
      * @library d6t
      * @sensor d6t
      * @comname Omron Mems thermal sensors
-     * @type --add type
+     * @type thermal
      * @man omron
      * @con I2C
-     * @web --add weblink
+     * @web https://www.components.omron.com/parametric-search?nodeId=404010&nodeParentId=4040
      *
      * @brief API for the Omron Mems thermal sensors interface
      *
