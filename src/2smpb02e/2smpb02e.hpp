@@ -187,20 +187,20 @@ OM2SMPB02E_STATUS_SLEEP_MODE,
 
 namespace upm {
     /**
-      * @brief Barometric Perssure Sensors
+      * @brief Digital Barometric Perssure Sensor
       * @defgroup 2smpb02e libupm-2smpb02e
-      * @ingroup --add group
+      * @ingroup omron i2c barometric pressure sensor
       */
     /**
      * @library 2smpb02e
      * @sensor 2smpb-02e
      * @comname Omron Barometric Pressure sensors
-     * @type --add type
+     * @type barometric pressure
      * @man omron
      * @con I2C
-     * @web --add weblink
+     * @web https://www.components.omron.com/product-detail?partId=35065
      *
-     * @brief API for the Omron Mems thermal sensors interface
+     * @brief API for the Omron Mems barometric pressure sensor interface
      *
      * It is connected via a I2C Interface.
      *
@@ -316,7 +316,7 @@ namespace upm {
              * @param unit   Temperature scale unit
              * @return One of the OM2SMPB02E_STATUS_T values.
              */
-            OM2SMPB02E_STATUS_T getTemperatureScale(TemperatureUnit &unit);
+            OM2SMPB02E_STATUS_T getTemperatureScale(upm::TemperatureUnit &unit);
 
             /**
              * Set the temperature unit.
@@ -324,7 +324,7 @@ namespace upm {
              * @param unit   Temperature scale unit
              * @return One of the OM2SMPB02E_STATUS_T values.
              */
-            OM2SMPB02E_STATUS_T setTemperatureScale(TemperatureUnit unit);
+            OM2SMPB02E_STATUS_T setTemperatureScale(upm::TemperatureUnit unit);
 
             /**
              * Get the Pressure unit.
@@ -332,7 +332,7 @@ namespace upm {
              * @param unit  Pressure scale unit
              * @return One of the OM2SMPB02E_STATUS_T values.
              */
-            OM2SMPB02E_STATUS_T getPressureScale(PressureUnit &unit);
+            OM2SMPB02E_STATUS_T getPressureScale(upm::PressureUnit &unit);
 
             /**
              * Set the Pressure unit.
@@ -340,7 +340,7 @@ namespace upm {
              * @param unit   Pressure scale unit
              * @return One of the OM2SMPB02E_STATUS_T values.
              */
-            OM2SMPB02E_STATUS_T setPressureScale(PressureUnit unit);
+            OM2SMPB02E_STATUS_T setPressureScale(upm::PressureUnit unit);
 
             /**
              * Set the I2C Frequency.
@@ -361,8 +361,8 @@ namespace upm {
         private:
             INT32 mBus;
             INT32 mAddress;
-            TemperatureUnit mTempScale;
-            PressureUnit mPressureScale;
+            upm::TemperatureUnit mTempScale;
+            upm::PressureUnit mPressureScale;
             mraa::I2c* mI2c;
             UINT8 mBuf[OM2SMPB02E_COEFFI_MAX_VALUE] = {0};
             OM2SMPB02E_SETTING_T mCompFactor;
