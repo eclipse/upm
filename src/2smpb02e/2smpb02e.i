@@ -1,5 +1,5 @@
 #ifdef SWIGPYTHON
-%module (package="upm") 2smpb02e
+%module (package="upm") om2smpb02e
 #endif
 
 %include "../common_top.i"
