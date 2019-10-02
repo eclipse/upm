@@ -462,28 +462,28 @@ OM2SMPB02E_STATUS_T OM2SMPB02E::setIIRFilterValue(OM2SMPB02E_VAL_IIR_VALUES_T ii
     return OM2SMPB02E_STATUS_SUCCESS;
 }
 
-OM2SMPB02E_STATUS_T OM2SMPB02E::getTemperatureScale(TemperatureUnit &unit){
+OM2SMPB02E_STATUS_T OM2SMPB02E::getTemperatureScale(upm::TemperatureUnit &unit){
 
     // Get temperature scale
     unit = mTempScale;
     return OM2SMPB02E_STATUS_SUCCESS;
 }
 
-OM2SMPB02E_STATUS_T OM2SMPB02E::setTemperatureScale(TemperatureUnit unit){
+OM2SMPB02E_STATUS_T OM2SMPB02E::setTemperatureScale(upm::TemperatureUnit unit){
 
     // Set temperature scale
     mTempScale = unit;
     return OM2SMPB02E_STATUS_SUCCESS;
 }
 
-OM2SMPB02E_STATUS_T OM2SMPB02E::getPressureScale(PressureUnit &unit){
+OM2SMPB02E_STATUS_T OM2SMPB02E::getPressureScale(upm::PressureUnit &unit){
 
     // Get pressure scale
     unit = mPressureScale;
     return OM2SMPB02E_STATUS_SUCCESS;
 }
 
-OM2SMPB02E_STATUS_T OM2SMPB02E::setPressureScale(PressureUnit unit){
+OM2SMPB02E_STATUS_T OM2SMPB02E::setPressureScale(upm::PressureUnit unit){
 
     // Set pressure scale
     mPressureScale = unit;
