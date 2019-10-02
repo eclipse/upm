@@ -76,3 +76,8 @@ float Rotary::rel_rad()
 {
     return Rotary::rel_deg() * M_PI / 180.0;
 }
+
+ float Rotary::getAngle()
+ {
+     return Rotary::abs_deg();
+ }

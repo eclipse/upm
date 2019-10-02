@@ -31,6 +31,9 @@
 #include "bma250e.hpp"
 #include "bmg160.hpp"
 
+#include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
+
 namespace upm {
 
     /**
@@ -64,7 +67,7 @@ namespace upm {
      * @snippet bmx055-bmi055.cxx Interesting
      */
 
-    class BMI055 {
+    class BMI055: virtual public iAcceleration, virtual public iGyroscope {
     public:
         /**
          * BMI055 constructor.
@@ -93,6 +96,13 @@ namespace upm {
                int gyroBus=BMG160_DEFAULT_I2C_BUS,
                int gyroAddr=BMG160_DEFAULT_ADDR,
                int gyroCS=-1);
+
+        /**
+         * Instantiates bmi055 based on a given string.
+         *
+         * @param initStr string containing specific information for bmi055 initialization.
+         */
+        BMI055(std::string initStr);
 
         /**
          * BMI055 Destructor.
@@ -152,6 +162,13 @@ namespace upm {
          */
         void getAccelerometer(float *x, float *y, float *z);
 
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+        
         /**
          * Return accelerometer data in gravities in the form of a
          * floating point vector.  update() must have been called prior to

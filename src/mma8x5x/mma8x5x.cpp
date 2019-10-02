@@ -328,6 +328,19 @@ MMA8X5X::getZ(int bSampleData)
     return s_data->z;
 }
 
+std::vector<float>
+MMA8X5X::getAcceleration()
+{
+    sampleData();
+
+    std::vector<float> v(3);
+    v[0] = s_data->x;
+    v[1] = s_data->y;
+    v[2] = s_data->z;
+
+    return v;
+}
+
 int
 MMA8X5X::getData(mma8x5x_data_t* data, int bSampleData)
 {

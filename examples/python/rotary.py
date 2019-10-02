@@ -23,11 +23,11 @@ from __future__ import print_function
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from time import sleep
-from upm import pyupm_grove as grove
+from upm import pyupm_rotary as upmrotary
 
 def main():
     # New knob on AIO pin 0
-    knob = grove.Rotary(0)
+    knob = upmrotary.Rotary(0)
 
     # Loop indefinitely
     while True:

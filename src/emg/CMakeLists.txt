@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME emg
     CPP_HDR emg.hpp
     CPP_SRC emg.cxx
     FTI_SRC emg_fti.c
+    IFACE_HDR iEmg.hpp
     REQUIRES mraa)

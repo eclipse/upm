@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME temperature
     CPP_HDR temperature.hpp
     CPP_SRC temperature.cxx
     FTI_SRC temperature_fti.c
+    IFACE_HDR iTemperature.hpp
     REQUIRES mraa)

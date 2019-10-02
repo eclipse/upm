@@ -29,13 +29,18 @@
 #include <string.h>
 
 #include "bma220.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 using namespace std;
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
+}
 
 BMA220::BMA220(int bus, uint8_t addr) :
-  m_i2c(bus), m_gpioIntr(0)
+  m_i2c(new mraa::I2c(bus)), m_gpioIntr(0)
 {
   m_addr = addr;
 
@@ -46,7 +51,7 @@ BMA220::BMA220(int bus, uint8_t addr) :
   m_accelScale = 0.0;
 
   mraa::Result rv;
-  if ( (rv = m_i2c.address(m_addr)) != mraa::SUCCESS)
+  if ( (rv = m_i2c->address(m_addr)) != mraa::SUCCESS)
     {
       throw std::runtime_error(string(__FUNCTION__) +
                                ": I2c.address() failed");
@@ -65,9 +70,76 @@ BMA220::BMA220(int bus, uint8_t addr) :
     }
 }
 
+BMA220::BMA220(std::string initStr) : mraaIo(initStr)
+{
+  m_accelX = 0.0;
+  m_accelY = 0.0;
+  m_accelZ = 0.0;
+
+  m_accelScale = 0.0;
+
+  if(!mraaIo.i2cs.empty()) {
+    m_i2c = &mraaIo.i2cs[0];
+  }
+  else {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_i2c_init() failed");
+  }
+
+  //Init the accelerometer
+  enableAxes(true, true, true);
+
+  //set scaling rate
+  if (!setAccelerometerScale(FSL_RANGE_2G))
+  {
+    throw std::runtime_error(string(__FUNCTION__) +
+                              ": Unable to set accel scale");
+  }
+
+  std::vector<std::string> upmTokens;
+  if(!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  std::string::size_type sz;
+
+  for(std::string tok :upmTokens)
+  {
+    if(tok.substr(0, 9) == "writeReg:") {
+      uint8_t reg = std::stoul(tok.substr(9), &sz, 0);
+      tok = tok.substr(9);
+      uint8_t val = std::stoul(tok.substr(sz+1), nullptr, 0);
+      writeReg(reg, val);
+    }
+    if(tok.substr(0, 22) == "setAccelerometerScale:") {
+      FSL_RANGE_T scale = (FSL_RANGE_T)std::stoi(tok.substr(22), nullptr, 0);
+      setAccelerometerScale(scale);
+    }
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
+      setFilterConfig(filter);
+    }
+
+    if(tok.substr(0, 16) == "setSerialHighBW:") {
+      bool high = std::stoi(tok.substr(16), nullptr, 0);
+      setSerialHighBW(high);
+    }
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
+      setFilterConfig(filter);
+    }
+    if(tok.substr(0, 16) == "setFilterConfig:") {
+      FILTER_CONFIG_T filter = (FILTER_CONFIG_T)std::stoi(tok.substr(16), nullptr, 0);
+      setFilterConfig(filter);
+    }
+  }
+}
+
 BMA220::~BMA220()
 {
   uninstallISR();
+  if(!mraaIo)
+    delete m_i2c;
 }
 
 void BMA220::update()
@@ -96,13 +168,13 @@ void BMA220::updateAccelerometer()
 
 uint8_t BMA220::readReg(uint8_t reg)
 {
-  return m_i2c.readReg(reg);
+  return m_i2c->readReg(reg);
 }
 
 bool BMA220::writeReg(uint8_t reg, uint8_t val)
 {
   mraa::Result rv;
-  if ((rv = m_i2c.writeReg(reg, val)) != mraa::SUCCESS)
+  if ((rv = m_i2c->writeReg(reg, val)) != mraa::SUCCESS)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
                                ": I2c.writeReg() failed");
@@ -171,6 +243,18 @@ std::vector<float> BMA220::getAccelerometer()
 {
   std::vector<float> v(3);
   getAccelerometer(&v[0], &v[1], &v[2]);
+  return v;
+}
+
+std::vector<float> BMA220::getAcceleration()
+{
+  std::vector<float> v(3);
+
+  update();
+  v[0] = m_accelX / m_accelScale;
+  v[1] = m_accelY / m_accelScale;
+  v[2] = m_accelZ / m_accelScale;
+
   return v;
 }
 

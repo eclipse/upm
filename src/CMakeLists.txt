@@ -66,6 +66,8 @@ function (_get_dependency_targets target return_variable)
         # reqlibname list (used in various items like pom files, .pc files, etc
         elseif (${deplib} MATCHES mraa)
             list(APPEND ${return_variable} mraa)
+        elseif (${deplib} MATCHES tinyb)
+            list(APPEND ${return_variable} tinyb)
         endif (TARGET ${deplib})
     endforeach (deplib ${_dep_libs})
     # Uniquify
@@ -100,6 +102,8 @@ function (_gen_pkg_config_per_target LABEL)
           list(APPEND reqlibname ${deplibname})
         elseif (${deplib} MATCHES mraa)
           list(APPEND reqlibname mraa)
+        elseif (${deplib} MATCHES tinyb)
+          list(APPEND reqlibname tinyb)
         endif (TARGET ${deplib})
       endforeach (deplib ${DEPLIBS})
       # Make sure no dups exist
@@ -253,10 +257,41 @@ function (_get_current_dot_i_file filePrefix varDotIFile)
       set(SWIG_HASH_INCLUDES "#include \"${SWIG_HASH_INCLUDES}\"")
       # And the SWIG import string
       string(REPLACE "#" "%" SWIG_PERCENT_INCLUDES "${SWIG_HASH_INCLUDES}")
-
+      if(module_iface)
+        # Set up Python bindings
+        set(PYTHON_INTERFACES "#ifdef SWIGPYTHON\n")
+        string(APPEND PYTHON_INTERFACES "%module (package=\"upm\") ${libname}\n")
+        string(APPEND PYTHON_INTERFACES "#endif")
+        # Include interfaces
+        set(IMPORT_INTERFACES "%import \"interfaces/interfaces.i\"")
+        # Set up Java bindings
+        string(APPEND JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\n")
+        string(APPEND JAVA_TYPEMAPS "import upm_interfaces.*;\n%}")
+        if (CMAKE_VERSION VERSION_LESS "3.3" )
+          list (FIND module_iface "iAcceleration.hpp" _index)
+          if (${_index} GREATER -1)
+            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+          else()
+            list (FIND module_iface "iGyroscope.hpp" _index)
+            if(${_index} GREATER -1)
+              set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+            else()
+              list (FIND module_iface "iMagnetometer.hpp" _index)
+              if(${_index} GREATER -1)
+                set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+              endif()
+            endif()
+          endif()
+        else()
+          cmake_policy(SET CMP0057 NEW)
+          if (("iAcceleration.hpp" IN_LIST module_iface) OR ("iGyroscope.hpp" IN_LIST module_iface) OR ("iMagnetometer.hpp" IN_LIST module_iface))
+            set(JAVA_TYPEMAPS "%typemap(javaimports) SWIGTYPE %{\nimport upm_interfaces.*;\n\nimport java.util.AbstractList;\nimport java.lang.Float;\n%}\n")
+          endif()
+        endif()
+      endif()
       # Write the interface file
       configure_file (${PROJECT_SOURCE_DIR}/src/swigme.i.in "${${varDotIFile}}" @ONLY)
-  endif()
+  endif ()
 
   set(${varDotIFile} "${${varDotIFile}}" PARENT_SCOPE)
 endfunction()
@@ -271,7 +306,8 @@ macro(_upm_swig_python)
 
   include_directories (${CMAKE_CURRENT_SOURCE_DIR}
                        ${CMAKE_CURRENT_BINARY_DIR}/..
-                       ${DEPEND_DIRS})
+                       ${DEPEND_DIRS}
+                       ${UPM_COMMON_HEADER_DIRS})
 
   # Decide between ${libname}.i or a language-specific .i
   _get_current_dot_i_file(pyupm SWIG_CURRENT_DOT_I_FILE)
@@ -305,6 +341,11 @@ macro(_upm_swig_python)
   endif ()
   # Get target library name (example _pyupm_a110x-python2)
   set (python_wrapper_target ${SWIG_MODULE_${python_wrapper_name}_REAL_NAME})
+
+  if(module_iface)
+    add_dependencies(${python_wrapper_target} _pyupm_interfaces-python${PYTHON_VERSION_MAJOR})
+  endif()
+
   add_dependencies(${python_wrapper_target} ${libname})
 
   swig_link_libraries (${python_wrapper_name} ${PYTHON_LIBRARIES} ${libname} -Wl,--unresolved-symbols=report-all)
@@ -390,7 +431,7 @@ endfunction(upm_swig_python)
 function(upm_swig_node)
   # Skip if the libname is in the blacklist
   if (NOT ";${NODESWIG_BLACKLIST};" MATCHES ";${libname};")
-    # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is
+    # SWIG treats SWIG_FLAGS as a list and not a string so semicolon seperation is 
     # required. This hardcodes V8_VERSION to be <10 but I assume that's not going
     # to be a problem for a little while! SWIG uses a padded SWIG_V8 version which
     # we hack together from our findnode module.
@@ -408,6 +449,11 @@ function(upm_swig_node)
     include_directories (${CMAKE_CURRENT_SOURCE_DIR}
                          ${CMAKE_CURRENT_BINARY_DIR}/..
                          ${DEPEND_DIRS})
+
+    # Include interface directory
+    if (module_iface)
+      include_directories(${PROJECT_SOURCE_DIR}/include)
+    endif()
 
     # Decide between ${libname}.i or a language-specific .i
     _get_current_dot_i_file(jsupm SWIG_CURRENT_DOT_I_FILE)
@@ -429,6 +475,12 @@ function(upm_swig_node)
     else ()
       swig_add_library (jsupm_${libname} LANGUAGE javascript SOURCES ${SWIG_CURRENT_DOT_I_FILE})
     endif ()
+
+    # Add interfaces if necessary
+    if(module_iface)
+      add_dependencies(jsupm_${libname} jsupm_interfaces)
+    endif()
+
     add_dependencies(jsupm_${libname} ${libname})
     swig_link_libraries (jsupm_${libname} ${NODE_LIBRARIES} ${libname})
     target_include_directories ( ${SWIG_MODULE_jsupm_${libname}_REAL_NAME}
@@ -489,6 +541,9 @@ function(upm_swig_java)
                          ${CMAKE_CURRENT_SOURCE_DIR}
                          ${CMAKE_CURRENT_BINARY_DIR}/..
                          ${DEPEND_DIRS})
+    if (module_iface)
+      include_directories(${PROJECT_SOURCE_DIR}/include)
+    endif()
 
     # Decide between ${libname}.i or a language-specific .i
     _get_current_dot_i_file(javaupm SWIG_CURRENT_DOT_I_FILE)
@@ -515,12 +570,10 @@ function(upm_swig_java)
 
     # If the C++ target depends on C++ interfaces, make the JAVA target
     # depend on the JAVA interfaces
-    if ("${_c_cxx_dependency_list}" MATCHES interfaces)
+    if(module_iface)
       add_dependencies(javaupm_${libname} javaupm_interfaces)
-      # If this target depends on interfaces, include the java interfaces
-      # target .jar file in the classpath, otherwise this variable will be empty
-      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/src/interfaces/upm_interfaces.jar)
-    endif ()
+      set (INTERFACES_JAR_FILE ${CMAKE_BINARY_DIR}/interfaces/upm_interfaces.jar)
+    endif()
     # For linker to report unresolved symbols.  Note, there is currently no test
     # for linker flags (similar to compile files), so this is it for now.
     swig_link_libraries (javaupm_${libname} ${MRAAJAVA_LIBRARY} ${JAVA_LIBRARIES} ${libname} -Wl,--unresolved-symbols=report-all)
@@ -633,10 +686,8 @@ if (BUILDSWIGNODE)
 
         # Utilities and interfaces
         file (COPY ${CMAKE_SOURCE_DIR}/src/utilities DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
-        file (COPY ${CMAKE_SOURCE_DIR}/src/interfaces DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname})
         set (upm_LIB_SRCS_GYP "'utilities/upm_utilities.c',\n${upm_LIB_SRCS_GYP}")
         set (upm_LIB_INCLUDE_DIRS_GYP "'utilities',\n${upm_LIB_INCLUDE_DIRS_GYP}")
-        set (upm_LIB_INCLUDE_DIRS_GYP "'interfaces',\n${upm_LIB_INCLUDE_DIRS_GYP}")
 
         # Add readme, package.json for NPM and node-gyp config file
         configure_file (${PROJECT_SOURCE_DIR}/src/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}/binding.gyp @ONLY)
@@ -685,6 +736,7 @@ endif (BUILDCORDOVA)
 function (UPM_MIXED_MODULE_INIT)
   # CPP_WRAPS_C -> Set to have CPP library link to C library
   # DESCRIPTION -> Library description string
+  # IFACE_HDR -> List of interface header files
   # CPP_HDR -> List of CPP header files
   # CPP_SRC -> List of CPP source files
   # C_HDR -> List of C header files
@@ -696,7 +748,7 @@ function (UPM_MIXED_MODULE_INIT)
   #     libnamec -> C target name (if used)
   set (options CPP_WRAPS_C)
   set (oneValueArgs NAME DESCRIPTION)
-  set (multiValueArgs CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
+  set (multiValueArgs IFACE_HDR CPP_HDR CPP_SRC C_HDR C_SRC FTI_SRC FTI_HDR REQUIRES)
   # Parse function parameters
   cmake_parse_arguments(UPM_MIXED_MODULE_INIT "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
@@ -746,7 +798,10 @@ function (UPM_MIXED_MODULE_INIT)
     # Set the src and hpp variables for upm_module_init
     set (module_src ${UPM_MIXED_MODULE_INIT_CPP_SRC})
     set (module_hpp ${UPM_MIXED_MODULE_INIT_CPP_HDR})
-
+    if(DEFINED UPM_MIXED_MODULE_INIT_IFACE_HDR)
+      set (module_iface ${UPM_MIXED_MODULE_INIT_IFACE_HDR})
+    endif(DEFINED UPM_MIXED_MODULE_INIT_IFACE_HDR)
+    
     # Reset the libname (upm_module_init can change it)
     set (libname ${UPM_MIXED_MODULE_INIT_NAME})
     unset (IS_C_LIBRARY)
@@ -804,6 +859,9 @@ function(upm_module_init)
       target_link_libraries (${libname} ${MRAA_LIBRARY})
       # Always add a PUBLIC dependency to MRAA include dirs
       target_include_directories (${libname} PUBLIC ${MRAA_INCLUDE_DIRS})
+    elseif (${linkflag} MATCHES tinyb)
+      target_link_libraries (${libname} ${TINYB_LIBRARY})
+      target_include_directories (${libname} PUBLIC ${TINYB_INCLUDE_DIRS})
     else ()
       # Else, add the linkflag directly
       target_link_libraries (${libname} ${linkflag})
@@ -859,6 +917,18 @@ function(upm_module_init)
       DESTINATION ${LIB_INSTALL_DIR}
       COMPONENT ${CMAKE_PROJECT_NAME})
 
+  # Install interface file if it exists
+  if(DEFINED module_iface)
+    set(iface_path ${PROJECT_SOURCE_DIR}/include/interfaces)
+    set(iface_files "")
+    foreach(iface ${module_iface})
+      LIST(APPEND iface_files "${iface_path}/${iface}")
+    endforeach(iface ${module_iface})    
+    install (FILES ${iface_files}
+      DESTINATION include/upm/interfaces
+      COMPONENT ${CMAKE_PROJECT_NAME}-dev)
+  endif(DEFINED module_iface)
+  
   # Install header files to include/upm/
   install (FILES ${module_hpp}
       DESTINATION include/upm
@@ -917,18 +987,13 @@ if (NOT "${MODULE_LIST}" MATCHES ";utilities;")
   set(MODULE_LIST "utilities;${MODULE_LIST}")
 endif()
 
-# If the module list does NOT include the interfaces directory, prepend it since
-# some sensor library targets depend on interfaces
-if (NOT "${MODULE_LIST}" MATCHES ";interfaces;")
-  set(MODULE_LIST "interfaces;${MODULE_LIST}")
-endif()
-
 # Iterate over each directory in MODULE_LIST
 foreach(subdir ${MODULE_LIST})
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/CMakeLists.txt)
     add_subdirectory(${subdir})
   endif()
 endforeach()
+add_subdirectory(${PROJECT_SOURCE_DIR}/include/interfaces ${CMAKE_BINARY_DIR}/interfaces)
 
 # Print stats for all targets
 _print_target_summary()

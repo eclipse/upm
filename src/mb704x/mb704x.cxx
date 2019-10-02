@@ -47,3 +47,8 @@ int MB704X::getRange()
 {
     return mb704x_get_range(m_mb704x);
 }
+
+float MB704X::getDistance()
+{
+    return getRange();
+}

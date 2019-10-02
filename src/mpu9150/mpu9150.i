@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") mpu9150
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -6,7 +12,12 @@
 %include "arrays_java.i"
 %include "../java_buffer.i"
 
-%template(FloatVector) std::vector<float>;
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
 
 %apply int {mraa::Edge};
 
@@ -22,6 +33,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_mpu9150)
 /* BEGIN Javascript syntax  ------------------------------------------------- */
 #ifdef SWIGJAVASCRIPT
 %include "std_vector.i"
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Javascript syntax */
@@ -29,6 +41,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_mpu9150)
 /* BEGIN Python syntax  ----------------------------------------------------- */
 #ifdef SWIGPYTHON
 %include "std_vector.i"
+%include "../upm_vectortypes.i"
 %pointer_functions(float, floatp);
 #endif
 /* END Python syntax */

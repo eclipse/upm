@@ -26,6 +26,7 @@
 
 #include <vector>
 #include "bh1749.h"
+#include <mraa/initio.hpp>
 
 /**
  * @brief BH1749 Color Sensor
@@ -61,6 +62,13 @@ namespace upm {
          * @throws std::runtime_error on initialization failure
          */
         BH1749(int bus = 0, int addr = 0x39);
+
+        /**
+         * Instantiates BH1749 Color Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for BH1749 Sensor initialization.
+         */
+        BH1749(std::string initStr);
 
         /**
          * @brief Close and free sensor
@@ -337,6 +345,7 @@ namespace upm {
 
     private:
         bh1749_context m_bh1749;
+        mraa::MraaIo mraaIo;
 
         /* Disable implicit copy and assignment operators */
         BH1749(const BH1749 &) = delete;

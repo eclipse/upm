@@ -244,8 +244,15 @@ int MHZ16::getGas()
   return gas;
 }
 
-int MHZ16::getTemperature()
+float MHZ16::getConcentration()
 {
+  getData();
+  return gas;
+}
+
+float MHZ16::getTemperature()
+{
+  getData();
   return temp;
 }
 

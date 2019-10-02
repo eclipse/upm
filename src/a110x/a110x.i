@@ -1,7 +1,17 @@
+#ifdef SWIGPYTHON
+%module (package="upm") a110x
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
+
 /* Macro for loading javaupm_a110x */
 JAVA_JNI_LOADLIBRARY(javaupm_a110x)
 

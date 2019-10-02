@@ -35,8 +35,6 @@ public class BMPX8X_Example {
         // temperature values every .5 seconds
         while (true)
         {
-            sensor.update();
-
             System.out.println("Pressure: "
                                + sensor.getPressure()
                                + " Pa, Temperature: "

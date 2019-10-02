@@ -32,6 +32,7 @@
 
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.h>
 
 #include "bno055_regs.h"
 
@@ -124,7 +125,7 @@ extern "C" {
      * @param address The I2C address for this device.
      * @return The device context, or NULL if an error occurred.
      */
-    bno055_context bno055_init(int bus, uint8_t addr);
+    bno055_context bno055_init(int bus, uint8_t addr, mraa_io_descriptor* descs);
 
     /**
      * BNO055 close function.

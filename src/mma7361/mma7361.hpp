@@ -32,6 +32,8 @@
 
 #include "mma7361.h"
 
+// #include <interfaces/iAcceleration.hpp>
+
 namespace upm {
   /**
    * @brief MMA7361 Analog Accelerometer
@@ -57,6 +59,7 @@ namespace upm {
    * @snippet mma7361.cxx Interesting
    */
 
+  // class MMA7361: virtual public iAcceleration {
   class MMA7361 {
   public:
 
@@ -149,6 +152,13 @@ namespace upm {
      * @param z a pointer in which Z acceleration data will be returned
      */
     void getAcceleration(float *x, float *y, float *z);
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    // virtual std::vector<float> getAcceleration();
 
     /**
      * Get computed acceleration from the sensor. update() must have

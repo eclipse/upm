@@ -1,13 +1,20 @@
+#ifdef SWIGPYTHON
+%module (package="upm") htu21d
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+%}
+
 #ifndef ANDROID
     %module(directors="1") javaupm_si1132
 #endif
-
-%typemap(javaimports) SWIGTYPE %{import upm_interfaces.*;%}
-%import "../interfaces/javaupm_iLightSensor.i"
 
 JAVA_JNI_LOADLIBRARY(javaupm_si1132)
 #endif

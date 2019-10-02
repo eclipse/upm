@@ -27,6 +27,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <mraa/aio.h>
+#include <interfaces/iVDiv.hpp>
 
 // reference voltage in millivolts
 #define VDIV_VREF  4980
@@ -58,7 +59,7 @@ namespace upm {
    * @image html vdiv.jpg
    * @snippet vdiv.cxx Interesting
    */
-  class VDiv {
+  class VDiv : virtual public iVDiv {
   public:
     /**
      * Voltage Divider sensor constructor
@@ -79,6 +80,13 @@ namespace upm {
      * @return Average ADC conversion value
      */
     unsigned int value(unsigned int samples);
+
+    /**
+     * Gets the conversion value from the sensor
+     *
+     * @return ADC conversion value
+     */
+    virtual unsigned int getValue();
 
     /**
      * Computes the measured voltage

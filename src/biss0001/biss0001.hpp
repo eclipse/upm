@@ -24,7 +24,9 @@
  */
 #pragma once
 
+#include <interfaces/iMotion.hpp>
 #include <biss0001.h>
+#include <mraa/initio.hpp>
 
 namespace upm {
     /**
@@ -57,7 +59,7 @@ namespace upm {
      * @snippet biss0001.cxx Interesting
      */
 
-  class BISS0001 {
+  class BISS0001 : virtual public iMotion {
   public:
       /**
        * BISS0001 motion sensor constructor
@@ -65,6 +67,13 @@ namespace upm {
        * @param pin Digital pin to use
        */
       BISS0001(unsigned int pin);
+
+      /**
+       * Instantiates BISS0001 Motion Sensor object based on a given string.
+       *
+       * @param initStr string containing specific information for BISS0001 initialization.
+       */
+      BISS0001(std::string initStr);
 
       /**
        * BISS0001 destructor
@@ -81,11 +90,11 @@ namespace upm {
       /**
        * Gets the motion value from the sensor.  This is a more
        * informative method name, but we want to keep compatibility
-       * with the original for now.
+       * with the original for now. Implements iMotion interface.
        *
        * @return true if motion was detected, false otherwise.
        */
-      bool motionDetected() { return value(); };
+      virtual bool motionDetected();
 
   private:
       /* Disable implicit copy and assignment operators */
@@ -93,6 +102,7 @@ namespace upm {
       BISS0001 &operator=(const BISS0001&) = delete;
 
       biss0001_context m_biss0001;
+      mraa::MraaIo mraaIo;
   };
 }
 

@@ -27,6 +27,7 @@
 #include <vector>
 #include <string>
 #include "bh1792.h"
+#include <mraa/initio.hpp>
 
 /**
  * @brief BH1792 Heart Rate Sensor
@@ -60,6 +61,14 @@ namespace upm {
          * @throws std::runtime_error on initialization failure
          */
         BH1792(int bus = 0, int addr = 0x5b);
+
+        /**
+         * Instantiates BH1792 Heart Rate Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for BH1792 initialization.
+         */
+        BH1792(std::string initStr);
+
 
         /**
          * @brief Close and free sensor
@@ -316,6 +325,7 @@ namespace upm {
 
     private:
         bh1792_context m_bh1792;
+        mraa::MraaIo mraaIo;
 
         /* Disable implicit copy and assignment operators */
         BH1792(const BH1792 &) = delete;

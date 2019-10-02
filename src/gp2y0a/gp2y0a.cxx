@@ -67,3 +67,8 @@ float GP2Y0A::value(float aref, uint8_t samples)
 
   return volts;
 }
+
+float GP2Y0A::getValue()
+{
+    return GP2Y0A::value(5.0, (uint8_t) 1);
+}

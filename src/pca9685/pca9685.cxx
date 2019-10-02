@@ -28,6 +28,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "pca9685.hpp"
 
 using namespace upm;
@@ -54,9 +55,9 @@ PCA9685::PCA9685(int bus, uint8_t address, bool raw)
                                   ": mraa_i2c_init() failed");
       return;
     }
-      
+
   mraa_result_t rv;
-  
+
   if ( (rv = mraa_i2c_address(m_i2c, m_addr)) != MRAA_SUCCESS)
     {
       throw std::runtime_error(std::string(__FUNCTION__) +
@@ -69,6 +70,96 @@ PCA9685::PCA9685(int bus, uint8_t address, bool raw)
 
   // enable restart by default.
   enableRestart(true);
+}
+
+PCA9685::PCA9685(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  std::vector<std::string> upmTokens;
+
+  if(mraaIo.getLeftoverStr() != "") {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  if(!descs->i2cs)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+  }
+  else
+  {
+    if( !(m_i2c = descs->i2cs[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+    }
+  }
+
+  // enable auto-increment mode by default
+  enableAutoIncrement(true);
+
+  // enable restart by default.
+  enableRestart(true);
+
+  std::string::size_type sz;
+
+  for (std::string tok : upmTokens) {
+    if(tok.substr(0,10) == "writeByte:") {
+      uint8_t reg = std::stoi(tok.substr(10),&sz,0);
+      tok = tok.substr(10);
+      uint8_t byte = std::stoi(tok.substr(sz+1),nullptr,0);
+      writeByte(reg, byte);
+    }
+    if(tok.substr(0,10) == "writeWord:") {
+      uint8_t reg = std::stoi(tok.substr(10),&sz,0);
+      tok = tok.substr(10);
+      uint16_t word = std::stoi(tok.substr(sz+1),nullptr,0);
+      writeWord(reg, word);
+    }
+    if(tok.substr(0,10) == "modeSleep:") {
+      bool sleep = std::stoi(tok.substr(10),nullptr,0);
+      setModeSleep(sleep);
+    }
+    if(tok.substr(0,14) == "autoIncrement:") {
+      bool ai = std::stoi(tok.substr(14),nullptr,0);
+      enableAutoIncrement(ai);
+    }
+    if(tok.substr(0,10) == "ledFullOn:") {
+      uint8_t led = std::stoi(tok.substr(10),&sz,0);
+      tok = tok.substr(10);
+      bool val = std::stoi(tok.substr(sz+1),nullptr,0);
+      ledFullOn(led, val);
+    }
+    if(tok.substr(0,11) == "ledFullOff:") {
+      uint8_t led = std::stoi(tok.substr(11),&sz,0);
+      tok = tok.substr(11);
+      bool val = std::stoi(tok.substr(sz+1),nullptr,0);
+      ledFullOff(led, val);
+    }
+    if(tok.substr(0,10) == "ledOnTime:") {
+      uint8_t led = std::stoi(tok.substr(10),&sz,0);
+      tok = tok.substr(10);
+      uint16_t time = std::stoi(tok.substr(sz+1),nullptr,0);
+      ledOnTime(led, time);
+    }
+    if(tok.substr(0,11) == "ledOffTime:") {
+      uint8_t led = std::stoi(tok.substr(11),&sz,0);
+      tok = tok.substr(11);
+      uint16_t time = std::stoi(tok.substr(sz+1),nullptr,0);
+      ledOnTime(led, time);
+    }
+    if(tok.substr(0,9) == "prescale:") {
+      uint8_t prescale = std::stoi(tok.substr(9),nullptr,0);
+      setPrescale(prescale);
+    }
+    if(tok.substr(0,15) == "prescaleFromHz:") {
+      float hz = std::stof(tok.substr(15),&sz);
+      tok = tok.substr(15);
+      float oscFreq = std::stof(tok.substr(sz+1),nullptr);
+      setPrescaleFromHz(hz, oscFreq);
+    }
+  }
 }
 
 PCA9685::~PCA9685()
@@ -139,7 +230,7 @@ bool PCA9685::setModeSleep(bool sleep)
 
   writeByte(REG_MODE1, mode1);
 
-  // Need a delay of 500us after turning sleep mode off for the oscillator 
+  // Need a delay of 500us after turning sleep mode off for the oscillator
   // to stabilize
   if (!sleep)
     usleep(500);

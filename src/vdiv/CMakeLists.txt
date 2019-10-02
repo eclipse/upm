@@ -5,4 +5,5 @@ upm_mixed_module_init (NAME vdiv
     CPP_HDR vdiv.hpp
     CPP_SRC vdiv.cxx
     FTI_SRC vdiv_fti.c
+    IFACE_HDR iVDiv.hpp
     REQUIRES mraa)

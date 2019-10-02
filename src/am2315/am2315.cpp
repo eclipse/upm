@@ -30,6 +30,7 @@
 #include <time.h>
 
 #include "am2315.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 
@@ -47,7 +48,7 @@ AM2315::AM2315(int bus, int devAddr) {
 
     m_base_priority = sched_getscheduler(0);
 
-    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) ) 
+    if ( !(m_i2ControlCtx = mraa_i2c_init(m_bus)) )
       {
         throw std::invalid_argument(std::string(__FUNCTION__) +
                                     ": mraa_i2c_init() failed");
@@ -66,6 +67,52 @@ AM2315::AM2315(int bus, int devAddr) {
 
     fprintf(stdout,"%s: Model: 0x%04x Version: 0x%02x ID: 0x%08x\n",
             m_name, m_model, m_version, m_id );
+}
+
+AM2315::AM2315(std::string initStr) : mraaIo(initStr)
+{
+    m_temperature = 0;
+    m_humidity    = 0;
+    m_last_time = 0;
+
+    m_name = g_name;
+
+    m_base_priority = sched_getscheduler(0);
+
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+    if(!descs->i2cs)
+    {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                                    ": mraa_i2c_init() failed");
+    }
+    else
+    {
+        if( !(m_i2ControlCtx = descs->i2cs[0]) )
+        {
+            throw std::invalid_argument(std::string(__FUNCTION__) +
+                                ": mraa_i2c_init() failed");
+        }
+    }
+    m_model = i2cReadReg_16(AM2315_MODEL);
+    m_version = i2cReadReg_8(AM2315_VERSION);
+    m_id = i2cReadReg_32(AM2315_ID);
+
+    fprintf(stdout,"%s: Model: 0x%04x Version: 0x%02x ID: 0x%08x\n",
+            m_name, m_model, m_version, m_id );
+
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty())
+    {
+        upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    for (std::string tok : upmTokens) {
+      if(tok.substr(0, 13) == "updateValues:") {
+          update_values();
+      }
+    }
 }
 
 AM2315::~AM2315() {

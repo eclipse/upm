@@ -90,9 +90,10 @@ void LSM303AGR::getMagnetometer(float *x, float *y, float *z)
 
 std::vector<float> LSM303AGR::getMagnetometer()
 {
+    update();
     float v[3];
 
-    getMagnetometer(&v[0], &v[1], &v[2]);
+    lsm303agr_get_magnetometer(m_lsm303agr, &v[0], &v[1], &v[2]);
     return std::vector<float>(v, v+3);
 }
 
@@ -107,6 +108,14 @@ std::vector<float> LSM303AGR::getAccelerometer()
 
     getAccelerometer(&v[0], &v[1], &v[2]);
     return std::vector<float>(v, v+3);
+}
+
+std::vector<float> LSM303AGR::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    lsm303agr_get_accelerometer(m_lsm303agr, &v[0], &v[1], &v[2]);
+    return v;
 }
 
 float LSM303AGR::getTemperature()

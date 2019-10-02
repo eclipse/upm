@@ -84,22 +84,30 @@ float *BMI160::getAccelerometer()
   return values;
 }
 
-float *BMI160::getGyroscope()
+std::vector<float> BMI160::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    bmi160_get_accelerometer(m_bmi160, &v[0], &v[1], &v[2]);
+    return v;
+}
+
+std::vector<float> BMI160::getGyroscope()
 {
   static float values[3]; // x, y, and then z
 
   getGyroscope(&values[0], &values[1], &values[2]);
 
-  return values;
+  return std::vector<float>(values, values + 3);
 }
 
-float *BMI160::getMagnetometer()
+std::vector<float> BMI160::getMagnetometer()
 {
   static float values[3]; // x, y, and then z
 
   getMagnetometer(&values[0], &values[1], &values[2]);
 
-  return values;
+  return std::vector<float>(values, values + 3);
 }
 
 void BMI160::enableMagnetometer(bool enable)

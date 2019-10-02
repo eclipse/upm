@@ -24,6 +24,8 @@
 #pragma once
 
 #include <string>
+#include <interfaces/iPressure.hpp>
+#include <interfaces/iTemperature.hpp>
 
 #include "ms5803.h"
 
@@ -64,7 +66,7 @@ namespace upm {
      *
      * @snippet ms5803.cxx Interesting
      */
-    class MS5803 {
+    class MS5803 : virtual public iPressure, virtual public iTemperature {
     public:
 
         /**
@@ -130,16 +132,16 @@ namespace upm {
          *
          * @return Temperature in degrees C
          */
-        float getTemperature();
+        virtual float getTemperature();
 
         /**
          * Return the latest measured pressure.  update() must have
          * been called prior to calling this function.  The returned
-         * value is in millibars.
+         * value is in pascal.
          *
-         * @return Pressure in mbar
+         * @return Pressure in Pa
          */
-        float getPressure();
+        virtual float getPressure();
 
     protected:
         ms5803_context m_ms5803;

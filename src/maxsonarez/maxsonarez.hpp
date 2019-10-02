@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <mraa/aio.h>
+#include <interfaces/iDistance.hpp>
 
 // EZ series is volts/512
 #define MAXSONAREZ_RES  512
@@ -67,7 +68,7 @@ namespace upm {
    * @snippet maxsonarez.cxx Interesting
    */
 
-  class MAXSONAREZ {
+  class MAXSONAREZ : virtual public iDistance {
   public:
 
     /**
@@ -89,6 +90,13 @@ namespace upm {
      * @return Distance to the object in inches
      */
     int inches();
+
+    /**
+     * Gets the distance to the object in cm
+     *
+     * @return Distance to the object in cm
+     */
+    virtual float getDistance();
 
   private:
     mraa_aio_context m_aio;

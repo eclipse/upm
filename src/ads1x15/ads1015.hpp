@@ -26,7 +26,6 @@
 #pragma once
 
 #include "ads1x15.hpp"
-#include "interfaces/iADC.hpp"
 
 #define ADS1015_VREF 2.048
 
@@ -85,7 +84,9 @@ namespace upm {
    * @snippet ads1x15-ads1015.cxx Interesting
    * @snippet ads1x15-adc-sensor.cxx Interesting
    */
-    class ADS1015 : public ADS1X15, public IADC {
+    #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
+
+    class ADS1015 : public ADS1X15 {
 
         public:
 
@@ -124,6 +125,13 @@ namespace upm {
              * @param vref Optional reference (i.e. half full swing) voltage. Default is 2.048V
              */
             ADS1015 (int bus, uint8_t address = 0x48, float vref = ADS1015_VREF);
+
+            /**
+             * Instantiates ADS1015 converter based on a given string.
+             *
+             * @param initStr string containing specific information for ADS1015 converter initialization.
+             */
+            ADS1015(std::string initStr);
 
             /**
              * ADS1X15 destructor

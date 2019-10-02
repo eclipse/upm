@@ -26,6 +26,7 @@
 #include <string>
 #include <mraa/i2c.h>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
 
 #define PCA9685_I2C_BUS 0
 #define PCA9685_DEFAULT_I2C_ADDR 0x60
@@ -37,7 +38,7 @@
 #define PCA9685_ALL_LED 0xff
 
 namespace upm {
-  
+
   /**
    * @brief PCA9685 PWM Controller
    * @defgroup pca9685 libupm-pca9685
@@ -150,7 +151,7 @@ namespace upm {
                    REG_PRESCALE      = 0xfe,
                    REG_TESTMODE      = 0xff  // don't use
     } PCA9685_REG_T;
-    
+
     /**
      * MODE1 bits
      */
@@ -163,7 +164,7 @@ namespace upm {
                    MODE1_EXTCLK      = 0x40, // external clock enable
                    MODE1_RESTART     = 0x80  // restart status
     } PCA9685_MODE1_T;
-    
+
     /**
      * MODE2 bits
      */
@@ -176,7 +177,7 @@ namespace upm {
                    MODE2_RESERVE1    = 0x40, // reserved
                    MODE2_RESERVE2    = 0x80  // reserved
     } PCA9685_MODE2_T;
-    
+
     /**
      * PCA9685 constructor
      *
@@ -184,6 +185,13 @@ namespace upm {
      * @param address Address for this device
      */
     PCA9685(int bus, uint8_t address = PCA9685_DEFAULT_I2C_ADDR, bool raw = false);
+
+    /**
+     * Instantiates a PCA9685 PWM Controller object based on a given string.
+     *
+     * @param initStr string containing specific information for PCA9685 initialization.
+     */
+    PCA9685(std::string initStr);
 
     /**
      * PCA9685 destructor
@@ -230,7 +238,7 @@ namespace upm {
      * Puts the device in or out of the sleep mode. The device is always
      * in the sleep mode upon power-up.
      *
-     * @param sleep True to put the device in the sleep mode, false to put out  
+     * @param sleep True to put the device in the sleep mode, false to put out
      * @return True if successful
      */
     bool setModeSleep(bool sleep);
@@ -255,7 +263,7 @@ namespace upm {
     bool ledFullOff(uint8_t led, bool val);
 
     /**
-     * Sets the 'LED on' time (0-4,095). See the PCA9685 datasheet for details. 
+     * Sets the 'LED on' time (0-4,095). See the PCA9685 datasheet for details.
      *
      * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
      * @param time 12-bit value at which point the LED turns on
@@ -264,7 +272,7 @@ namespace upm {
     bool ledOnTime(uint8_t led, uint16_t time);
 
     /**
-     * Sets the 'LED off' time (0-4,095). See the PCA9685 datasheet for details. 
+     * Sets the 'LED off' time (0-4,095). See the PCA9685 datasheet for details.
      *
      * @param led LED number; valid values are 0-15, PCA9685_ALL_LED
      * @param time 12-bit value at which point the LED turns off
@@ -287,10 +295,10 @@ namespace upm {
      * prescale can only be set when the device is in the sleep mode.
      *
      * @param hz Desired frequency in Hz
-     * @param oscFreq Oscillator frequency; default is 25 MHz 
+     * @param oscFreq Oscillator frequency; default is 25 MHz
      * @return True if successful
      */
-    bool setPrescaleFromHz(float hz, 
+    bool setPrescaleFromHz(float hz,
                            float oscFreq=PCA9685_INTERNAL_OSC);
 
     /**
@@ -312,6 +320,7 @@ namespace upm {
     bool enableAutoIncrement(bool ai);
 
     bool m_restartEnabled;
+    mraa::MraaIo mraaIo;
     mraa_i2c_context m_i2c;
     uint8_t m_addr;
   };

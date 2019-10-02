@@ -25,6 +25,7 @@
 
 #include <mraa/gpio.hpp>
 #include <mraa/spi.hpp>
+#include <mraa/initio.hpp>
 #include <string>
 
 #define HIGH 1
@@ -68,6 +69,13 @@ class APA102
      * @param csn       (optional) Chip Select Pin
      */
     APA102(uint16_t ledCount, uint8_t spiBus, bool batchMode = false, int8_t csn = -1);
+
+    /**
+     * Instantiates APA102 RGB LED Strip based on a given string.
+     *
+     * @param initStr string containing specific information for APA102 RGB LED Strip initialization.
+     */
+    APA102(std::string initStr);
 
     /**
      * APA102 destructor
@@ -160,6 +168,7 @@ class APA102
     APA102(const APA102&) = delete;
     APA102 &operator=(const APA102&) = delete;
 
+    mraa::MraaIo mraaIo;
     mraa::Spi* m_spi;
     mraa::Gpio* m_csnPinCtx;
 

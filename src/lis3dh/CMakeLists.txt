@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME lis3dh
     CPP_HDR lis3dh.hpp
     CPP_SRC lis3dh.cxx
     FTI_SRC lis3dh_fti.c
+    IFACE_HDR iAcceleration.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

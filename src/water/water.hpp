@@ -25,6 +25,7 @@
 
 #include <string>
 #include "water.h"
+#include <interfaces/iWater.hpp>
 
 namespace upm {
   /**
@@ -49,7 +50,7 @@ namespace upm {
    * @image html water.jpg
    * @snippet water.cxx Interesting
    */
-  class Water {
+  class Water : virtual public iWater {
   public:
     /**
      * digital water sensor constructor
@@ -66,7 +67,7 @@ namespace upm {
      *
      * @return True if the sensor is wet, false otherwise
      */
-    bool isWet();
+    virtual bool isWet();
 
   private:
     /* Disable implicit copy and assignment operators */

@@ -32,8 +32,9 @@
 
 #include "bmpx8x.h"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include "mraa/initio.hpp"
+#include <interfaces/iPressure.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -68,7 +69,7 @@ namespace upm {
      * @snippet bmpx8x.cxx Interesting
      */
 
-    class BMPX8X : public IPressureSensor, public ITemperatureSensor {
+    class BMPX8X : virtual public iPressure, virtual public iTemperature {
     public:
         /**
          * Instantiates a BMPX8X object
@@ -79,6 +80,13 @@ namespace upm {
          */
         BMPX8X(int bus=BMPX8X_DEFAULT_I2C_BUS,
                int addr=BMPX8X_DEFAULT_I2C_ADDR);
+
+        /**
+         * Instantiates BMP Atmospheric Pressure Sensor based on a given string.
+         *
+         * @param initStr string containing specific information for BMP Atmospheric Pressure Sensor.
+         */
+        BMPX8X(std::string initStr);
 
         /**
          * BMPX8X object destructor.
@@ -132,7 +140,7 @@ namespace upm {
          *
          * @returns The pressure in Pascals.
          */
-        int getPressure();
+        virtual float getPressure();
 
         /**
          * Returns the calculated temperature in Celsius.  update()
@@ -140,7 +148,7 @@ namespace upm {
          *
          * @returns The temperature in Celsius.
          */
-        float getTemperature();
+        virtual float getTemperature();
 
         /**
          * Using the supplied altitude in meters, compute the pressure
@@ -213,6 +221,7 @@ namespace upm {
     protected:
         // our underlying C context.
         bmpx8x_context m_bmpx8x;
+        mraa::MraaIo mraaIo;
 
         /**
          * Read a register.

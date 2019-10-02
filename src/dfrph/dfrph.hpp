@@ -25,8 +25,11 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "dfrph.h"
+#include <mraa/initio.hpp>
+#include <interfaces/iPH.hpp>
 
 namespace upm {
   /**
@@ -40,7 +43,7 @@ namespace upm {
    * @sensor dfrph
    * @comname Analog pH Sensor
    * @type liquid
-   * @man dfrobot 
+   * @man dfrobot
    * @web http://www.dfrobot.com/index.php?route=product/product&product_id=1110
    * @con analog
    *
@@ -88,7 +91,7 @@ namespace upm {
    * @snippet dfrph.cxx Interesting
    */
 
-  class DFRPH {
+  class DFRPH : virtual public iPH {
   public:
 
     /**
@@ -99,6 +102,13 @@ namespace upm {
      */
     DFRPH(int pin, float vref = 5.0);
 
+    /**
+     * Instantiates DFRPH object based on a given string.
+     *
+     * @param initStr string containing specific information for DFRPH initialization.
+     */
+    DFRPH(std::string initStr);
+    
     /**
      * DFRPH destructor
      */
@@ -129,7 +139,14 @@ namespace upm {
      * @param samples The number of samples to average over, default 15
      * @return The pH value detected
      */
-    float pH(unsigned int samples = 15);
+    virtual float pH(unsigned int samples = 15);
+
+    /**
+     * Returns the detected pH value.
+     *
+     * @return The pH value detected
+     */
+    virtual float getPH();
 
   private:
     /**
@@ -139,7 +156,6 @@ namespace upm {
     DFRPH &operator=(const DFRPH &) {return *this;}
 
     dfrph_context _dev;
+    mraa::MraaIo mraaIo;
   };
 }
-
-

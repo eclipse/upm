@@ -25,6 +25,8 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <mraa/initio.hpp>
+#include <interfaces/iLight.hpp>
 
 namespace upm {
   /**
@@ -52,7 +54,7 @@ namespace upm {
    * @snippet apds9002.cxx Interesting
    */
 
-  class APDS9002 {
+  class APDS9002 : virtual public iLight {
   public:
     /**
      * APDS-9002 luminance sensor constructor
@@ -60,6 +62,12 @@ namespace upm {
      * @param pin Analog pin to use
      */
     APDS9002(int pin);
+    /**
+     * Instantiates APDS-9002 Luminance Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for APDS-9002 initialization.
+     */
+    APDS9002(std::string initStr);
     /**
      * APDS9002 destructor
      */
@@ -71,8 +79,16 @@ namespace upm {
      */
     int value();
 
+    /**
+     * Gets the luminance value from the sensor
+     *
+     * @return The measured light intensity value in Lux
+     */
+    virtual float getLuminance();
+
   private:
     mraa_aio_context m_aio;
+    mraa::MraaIo mraaIo;
   };
 }
 

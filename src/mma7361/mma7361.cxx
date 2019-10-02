@@ -112,6 +112,15 @@ void MMA7361::getAcceleration(float *x, float *y, float *z)
   mma7361_get_acceleration(m_mma7361, x, y, z);
 }
 
+// std::vector<float> MMA7361::getAcceleration()
+// {
+//   std::vector<float> v(3);
+
+//   mma7361_get_acceleration(m_mma7361, &v[0], &v[1], &v[2]);
+
+//   return v;
+// }
+
 float *MMA7361::getAcceleration()
 {
   static float data[3];

@@ -259,6 +259,11 @@ float T3311::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float T3311::getTemperature()
+{
+  return getTemperature(false);
+}
+
 float T3311::getHumidity()
 {
   return m_humidity;

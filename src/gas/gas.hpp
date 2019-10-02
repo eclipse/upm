@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.hpp>
+#include <interfaces/iGas.hpp>
 
 struct thresholdContext {
     long averageReading;
@@ -42,7 +43,7 @@ namespace upm {
  * @defgroup gas libupm-gas
  * @ingroup seeed analog gaseous eak hak
  */
-class Gas {
+class Gas: virtual public iGas {
     public:
         /**
          * Instantiates a Gas object
@@ -88,6 +89,11 @@ class Gas {
          * Returns one sample from the sensor
          */
         virtual int getSample ();
+
+        /**
+         * Returns one sample from the sensor
+         */
+        virtual float getConcentration ();
 
         /**
          *

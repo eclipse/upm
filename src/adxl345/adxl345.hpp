@@ -24,6 +24,9 @@
 #pragma once
 
 #include <mraa/i2c.hpp>
+#include <mraa/initio.hpp>
+
+// #include <interfaces/iAcceleration.hpp>
 
 #define READ_BUFFER_LENGTH 6
 
@@ -57,6 +60,7 @@ namespace upm {
  * @image html adxl345.jpeg
  * @snippet adxl345.cxx Interesting
  */
+// class Adxl345: virtual public iAcceleration {
 class Adxl345 {
 public:
     /**
@@ -67,9 +71,17 @@ public:
     Adxl345(int bus);
 
     /**
+     * Instantiates ADXL345 Accelerometer based on a given string.
+     *
+     * @param initStr string containing specific information for ADXL345 initialization.
+     */
+    Adxl345(std::string initStr);
+
+    /**
      * there is no need for a ADXL345 object destructor
      * ~Adxl345();
      */
+    ~Adxl345();
 
     /**
      * Returns a pointer to a float[3] that contains acceleration (g) forces
@@ -77,6 +89,13 @@ public:
      * @return float* to a float[3]
      */
     float* getAcceleration();
+
+    /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    // virtual std::vector<float> getAcceleration();
 
     /**
      * Returns a pointer to an int[3] that contains the raw register values
@@ -106,6 +125,7 @@ private:
     int16_t m_rawaccel[3];
     uint8_t m_buffer[READ_BUFFER_LENGTH];
     mraa::I2c m_i2c;
+    mraa::MraaIo mraaIo;
 };
 
 }

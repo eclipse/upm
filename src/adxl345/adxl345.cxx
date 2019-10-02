@@ -26,8 +26,11 @@
 #include <string>
 #include <stdexcept>
 #include <unistd.h>
+#include <utility>
 #include "math.h"
 #include "adxl345.hpp"
+#include "upm_string_parser.hpp"
+
 
 #define READ_BUFFER_LENGTH 6
 
@@ -122,6 +125,52 @@ Adxl345::Adxl345(int bus) : m_i2c(bus)
     Adxl345::update();
 }
 
+Adxl345::Adxl345(std::string initStr) : m_i2c(nullptr), mraaIo(initStr)
+{
+    mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    if(!descs->i2cs) {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_i2c_init() failed");      
+    } else {
+      m_i2c = descs->i2cs[0];
+    }
+
+    m_buffer[0] = ADXL345_POWER_CTL;
+    m_buffer[1] = ADXL345_POWER_ON;
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS ){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() control register failed");
+        return;
+    }
+
+    m_buffer[0] = ADXL345_DATA_FORMAT;
+    m_buffer[1] = ADXL345_16G | ADXL345_FULL_RES;
+    if( m_i2c.write(m_buffer, 2) != mraa::SUCCESS){
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                    ": i2c.write() mode register failed");
+        return;
+    }
+
+    //2.5V sensitivity is 256 LSB/g = 0.00390625 g/bit
+    //3.3V x and y sensitivity is 265 LSB/g = 0.003773584 g/bit, z is the same
+
+    m_offsets[0] = 0.003773584;
+    m_offsets[1] = 0.003773584;
+    m_offsets[2] = 0.00390625;
+
+    Adxl345::update();
+}
+
+Adxl345::~Adxl345()
+{
+}
+
 float*
 Adxl345::getAcceleration()
 {
@@ -130,6 +179,21 @@ Adxl345::getAcceleration()
     }
     return &m_accel[0];
 }
+
+// std::vector<float>
+// Adxl345::getAcceleration()
+// {
+//     update();
+
+//     std::vector<float> v(3);
+
+//     for(int i = 0; i < 3; i++)
+//     {
+//         v[i] = m_rawaccel[i] * m_offsets[i];
+//     }
+
+//     return v;
+// }
 
 int16_t*
 Adxl345::getRawValues()

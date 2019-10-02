@@ -602,8 +602,14 @@ void H3LIS331DL::getXYZ(int *x, int *y, int*z)
 
 std::vector<float> H3LIS331DL::getAcceleration()
 {
+  update();
   std::vector<float> v(3);
-  getAcceleration(&v[0], &v[1], &v[2]);
+
+  const float gains = 0.003;    // Seeed magic number?
+
+  v[0] = float(m_rawX - m_adjX) * gains;
+  v[1] = float(m_rawY - m_adjY) * gains;
+  v[2] = float(m_rawZ - m_adjZ) * gains;
   return v;
 }
 

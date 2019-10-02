@@ -41,6 +41,12 @@ BME280::BME280(int bus, int addr, int cs) :
 {
 }
 
+BME280::BME280(std::string initStr) :
+  BMP280(initStr)
+{
+}
+
+
 BME280::~BME280()
 {
 }

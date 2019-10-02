@@ -89,6 +89,11 @@ Gas::getSample () {
     return m_aio.read();
 }
 
+float
+Gas::getConcentration() {
+    return m_aio.read();
+}
+
 void
 Gas::printGraph (thresholdContext* ctx, uint8_t resolution) {
     std::cout << "(" << ctx->runningAverage << ") | ";

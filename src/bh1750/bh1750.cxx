@@ -25,6 +25,7 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "bh1750.hpp"
 
 using namespace upm;
@@ -36,6 +37,69 @@ BH1750::BH1750(int bus, int addr, BH1750_OPMODES_T mode) :
   if (!m_bh1750)
     throw std::runtime_error(string(__FUNCTION__) +
                              ": bh1750_init() failed");
+}
+
+BH1750::BH1750(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+  std::vector<std::string> upmTokens;
+
+  if(!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  // make sure MRAA is initialized
+  int mraa_rv;
+  if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
+  {
+    throw std::runtime_error(std::string(__FUNCTION__) +
+                             ": mraa_init() failed");
+  }
+
+  m_bh1750 = (bh1750_context)malloc(sizeof(struct _bh1750_context));
+  if(!m_bh1750)
+    throw std::runtime_error(std::string(__FUNCTION__) +
+                             ": bh1750_init() failed");
+
+  m_bh1750->is_continuous = false;
+  // init the i2c context
+  if(!descs->i2cs)
+  {
+      throw std::runtime_error(std::string(__FUNCTION__) +
+                               ": mraa_i2c_init() failed");
+  }
+  else
+  {
+      if( !(m_bh1750->i2c = descs->i2cs[0]) )
+      {
+        free(m_bh1750);
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 ": mraa_i2c_init() failed");
+      }
+  }
+
+  for (std::string tok : upmTokens)
+  {
+    if(tok.substr(0, 5) == "mode:") {
+      BH1750_OPMODES_T mode = (BH1750_OPMODES_T)std::stoi(tok.substr(5), nullptr, 0);
+        if(bh1750_set_opmode(m_bh1750, mode) != UPM_SUCCESS)
+        {
+          bh1750_close(m_bh1750);
+          throw std::runtime_error(std::string(__FUNCTION__) +
+                                   ": bh1750_init() failed");
+        }
+    }
+    if(tok.substr(0, 8) == "powerUp:") {
+      powerUp();
+    }
+    if(tok.substr(0, 10) == "powerDown:") {
+      powerDown();
+    }
+    if(tok.substr(0, 12) == "sendCommand:") {
+      uint8_t  mode = (uint8_t)std::stoul(tok.substr(12), nullptr, 0);
+      sendCommand(mode);
+    }
+  }
 }
 
 BH1750::~BH1750()
@@ -57,6 +121,11 @@ float BH1750::getLux()
                              ": bh1750_get_lux() failed");
 
   return lux;
+}
+
+float BH1750::getLuminance()
+{
+    return getLux();
 }
 
 void BH1750::powerUp()

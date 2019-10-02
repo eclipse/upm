@@ -47,7 +47,7 @@
 // #define BMP280_USE_TEST_DATA
 
 // SPI CS on and off functions
-static void _csOn(const bmp280_context dev)
+void _csOn(const bmp280_context dev)
 {
     assert(dev != NULL);
 
@@ -55,7 +55,7 @@ static void _csOn(const bmp280_context dev)
         mraa_gpio_write(dev->gpio, 0);
 }
 
-static void _csOff(const bmp280_context dev)
+void _csOff(const bmp280_context dev)
 {
     assert(dev != NULL);
 
@@ -130,7 +130,7 @@ static uint32_t _bme280_compensate_H_int32(const bmp280_context dev,
 }
 
 // read the calibration data
-static upm_result_t _read_calibration_data(const bmp280_context dev)
+upm_result_t _read_calibration_data(const bmp280_context dev)
 {
     assert(dev != NULL);
 

@@ -25,34 +25,95 @@
 
 #include "ads1x15.hpp"
 #include "mraa/i2c.hpp"
+#include "upm_string_parser.hpp"
 
 #include <unistd.h>
 #include <syslog.h>
 
 using namespace upm;
 
-ADS1X15::ADS1X15(int bus, uint8_t address){
-
-     if(!(i2c = new mraa::I2c(bus))){
-           throw std::invalid_argument(std::string(__FUNCTION__) +": I2c.init() failed");
-           return;
-     }
-
-     if((i2c->address(address) != mraa::SUCCESS)){
-           throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.address() failed");
-           return;
-     }
-
-     if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS){
-           syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
-     }
-     //Will be reset by sub class.
-     m_bitShift = 0;
-     m_conversionDelay = .001;
-     m_config_reg = 0x0000;
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+  return mraaIo.getMraaDescriptors() == NULL;
 }
 
-ADS1X15::~ADS1X15(){}
+ADS1X15::ADS1X15(int bus, uint8_t address) {
+
+    if(!(i2c = new mraa::I2c(bus))) {
+          throw std::invalid_argument(std::string(__FUNCTION__) +": I2c.init() failed");
+          return;
+    }
+
+    if((i2c->address(address) != mraa::SUCCESS)) {
+          throw std::runtime_error(std::string(__FUNCTION__) + ": I2c.address() failed");
+          return;
+    }
+
+    if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS) {
+          syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
+    }
+    //Will be reset by sub class.
+    m_bitShift = 0;
+    m_conversionDelay = .001;
+    m_config_reg = 0x0000;
+
+}
+
+ADS1X15::ADS1X15(std::string initStr) : mraaIo(initStr)
+{
+    if(!mraaIo.i2cs.empty()) {
+        i2c = &mraaIo.i2cs[0];
+    }
+    else {
+        throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.init() failed");
+    }
+
+    if(i2c->frequency( mraa::I2C_FAST) != mraa::SUCCESS) {
+          syslog(LOG_WARNING, "%s: I2c.frequency(I2C_FAST) failed, using default speed", std::string(__FUNCTION__).c_str());
+    }
+    //Will be reset by sub class.
+    m_bitShift = 0;
+    m_conversionDelay = .001;
+    m_config_reg = 0x0000;
+
+    std::vector<std::string> upmTokens;
+
+    if(!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+    }
+
+    std::string::size_type sz;
+
+    for (std::string tok : upmTokens) {
+        if(tok.substr(0, 12) == "setCompMode:") {
+          bool mode = std::stoi(tok.substr(12), nullptr, 0);
+          setCompMode(mode);
+        }
+        if(tok.substr(0, 11) == "setCompPol:") {
+          bool mode = std::stoi(tok.substr(11), nullptr, 0);
+          setCompPol(mode);
+        }
+        if(tok.substr(0, 13) == "setCompLatch:") {
+          bool mode = std::stoi(tok.substr(13), nullptr, 0);
+          setCompLatch(mode);
+        }
+        if(tok.substr(0, 14) == "setContinuous:") {
+          bool mode = std::stoi(tok.substr(14), nullptr, 0);
+          setContinuous(mode);
+        }
+        if(tok.substr(0, 21) == "updateConfigRegister:") {
+          uint16_t update = std::stoi(tok.substr(21),&sz,0);
+          tok = tok.substr(21);
+          bool read = std::stoi(tok.substr(sz+1), nullptr, 0);
+          updateConfigRegister(update, read);
+        }
+    }
+}
+
+ADS1X15::~ADS1X15() {
+  if(!mraaIo)
+    delete i2c;
+}
 
 float
 ADS1X15::getSample(ADSMUXMODE mode){
@@ -183,6 +244,11 @@ uint16_t
 ADS1X15::swapWord(uint16_t value){
      uint16_t res = value;
      return ((res & 0xFF) << 8) | ((res >> 8 ) & 0xFF);
+}
+
+std::string
+ADS1X15::getLeftoverStr(){
+    return mraaIo.getLeftoverStr();
 }
 
 

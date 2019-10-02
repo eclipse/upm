@@ -10,8 +10,6 @@ option (BUILDSWIGNODE "Build swig node modules" ON)
 option (BUILDSWIGJAVA "Build swig java modules" OFF)
 option (BUILDCORDOVA "Build cordova bindings" OFF)
 option (BUILDEXAMPLES "Build C/C++/JAVA examples" OFF)
-option (IPK "Generate IPK using CPack" OFF)
-option (RPM "Generate RPM using CPack" OFF)
 option (NPM "Generate NPM/GYP tarballs" OFF)
 option (BUILDTESTS "Generate check-ups for upm" OFF)
 option (WERROR "Make all warnings into errors." ON)
@@ -91,12 +89,15 @@ endfunction ()
 
 # Compiler flags common to both C and CXX
 # Enable -Wall
-# GCC-6 added -Wmisleading-indentation to -Wall, skip these for now
 set (C_CXX_WARNING_FLAGS -Wall
-    -Wno-misleading-indentation
     -Wno-strict-aliasing
     -Wno-deprecated-declarations # Temp fix for MRAA deprecated methods
     )
+
+# GCC-6 added -Wmisleading-indentation to -Wall, skip these for now
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "6")
+  list (APPEND C_CXX_WARNING_FLAGS -Wno-misleading-indentation)
+endif ()
 
 # Warnings as errors?
 if (WERROR)
@@ -149,6 +150,11 @@ pkg_check_modules (MODBUS libmodbus>=3.1.2)
 
 # Check for OPENZWAVE
 pkg_check_modules (OPENZWAVE libopenzwave)
+
+# Check for TinyB
+pkg_check_modules (TINYB tinyb>=0.5.1)
+# And get full path to the tinyb library
+find_library(TINYB_LIBRARY NAMES tinyb HINTS ${TINYB_LIBDIR})
 
 # Find JPEG
 find_package (JPEG)
@@ -251,11 +257,6 @@ set (upm_VERSION_MAJOR ${VERSION_MAJOR})
 set (upm_VERSION_MINOR ${VERSION_MINOR})
 set (upm_VERSION_PATCH ${VERSION_PATCH})
 set (upm_VERSION_STRING ${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH})
-
-# Detect arch
-include (TargetArch)
-target_architecture (DETECTED_ARCH)
-message (STATUS "Target arch is ${DETECTED_ARCH}")
 
 # enable c++11 standards support unconditionally
 include(CheckCXXCompilerFlag)
@@ -416,68 +417,6 @@ function (CreateDocumentationTargets)
     endif ()
   endif(BUILDSWIGNODE)
 endfunction()
-
-if (IPK)
- # Get target package arch from Yocto ADT sysroot if set or host OS, mapping to Ubuntu name if necessary
-  if (DEFINED ENV{OECORE_TARGET_SYSROOT})
-    GET_FILENAME_COMPONENT (DETECTED_SYSROOT $ENV{OECORE_TARGET_SYSROOT} NAME)
-    string (REGEX REPLACE "-poky-linux" "" TARGET_ARCH "${DETECTED_SYSROOT}")
-  else ()
-    # Debian uses amd64 to denote x86_64
-    if (DETECTED_ARCH STREQUAL "x86_64")
-      set (TARGET_ARCH "amd64")
-    else ()
-      set (TARGET_ARCH ${DETECTED_ARCH})
-    endif ()
-  endif ()
-  message (STATUS "Package arch is ${TARGET_ARCH}")
-
-  set(CPACK_GENERATOR "DEB")
-  set(OPKG_ARCH ${TARGET_ARCH})
-  set(CPACK_BINARY_DIR ${CMAKE_BINARY_DIR})
-  set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Intel IoT-Devkit") #required
-  set(upm_PACKAGE_ON_TAG ".")
-  if ("${VERSION_COMMIT}" STREQUAL "")
-    set(upm_PACKAGE_ON_TAG "")
-  endif()
-  set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
-  set(CPACK_PACKAGE_NAME "upm")
-  set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
-  set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${TARGET_ARCH})
-  set(CPACK_SYSTEM_NAME ${TARGET_ARCH})
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "mraa (>= ${MRAA_VERSION})")
-  set(CPACK_DEBIAN_PACKAGE_PROVIDES "upm-dev, upm-dbg, upm-doc")
-  set(CPACK_DEBIAN_PACKAGE_REPLACES ${CPACK_DEBIAN_PACKAGE_PROVIDES})
-  set(CPACK_DEBIAN_PACKAGE_CONFLICTS ${CPACK_DEBIAN_PACKAGE_PROVIDES})
-  set(WDIR "${CPACK_TOPLEVEL_DIRECTORY}/${CPACK_PACKAGE_FILE_NAME}")
-  include (CPack)
-endif()
-
-if (RPM)
-  message (STATUS "RPM packaging enabled for ${DETECTED_ARCH}")
-  set(CPACK_GENERATOR "RPM")
-  set(CPACK_PACKAGE_NAME "upm")
-  set(upm_PACKAGE_ON_TAG ".")
-  if ("${VERSION_COMMIT}" STREQUAL "")
-    set(upm_PACKAGE_ON_TAG "")
-  endif()
-  set(CPACK_PACKAGE_VERSION
-      "${upm_VERSION_MAJOR}.${upm_VERSION_MINOR}.${upm_VERSION_PATCH}${upm_PACKAGE_ON_TAG}${VERSION_COMMIT}")
-  set(CPACK_PACKAGE_CONTACT "Intel IoT-Devkit")
-  set(CPACK_PACKAGE_VENDOR "Intel IoT-Devkit")
-  set(CPACK_RPM_PACKAGE_REQUIRES "mraa >= ${MRAA_VERSION}")
-  set(CPACK_RPM_PACKAGE_PROVIDES "${CPACK_PACKAGE_NAME}-devel")
-  set(CPACK_RPM_PACKAGE_LICENSE "MIT")
-  EXECUTE_PROCESS(COMMAND rpm --showrc
-    COMMAND grep -E "dist[[:space:]]*\\."
-    COMMAND sed -e "s/^.*dist\\s*\\.//"
-    COMMAND tr \\n \\t
-    COMMAND sed  -e s/\\t//
-    OUTPUT_VARIABLE DIST_TAG)
-  set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${DIST_TAG}.${DETECTED_ARCH}")
-  include(CPack)
-endif()
 
 # UPM common headers
 set (UPM_COMMON_HEADER_DIRS ${CMAKE_HOME_DIRECTORY}/include)

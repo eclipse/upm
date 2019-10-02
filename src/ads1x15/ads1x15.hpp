@@ -26,6 +26,7 @@
 
 #include <iostream>
 #include <string>
+#include <mraa/initio.hpp>
 
 namespace mraa {class I2c;}
 
@@ -217,6 +218,13 @@ namespace upm {
             ADS1X15(int bus, uint8_t address);
 
             /**
+             * Instantiates ADS1X15 family controlers based on a given string.
+             *
+             * @param initStr string containing specific information for ADS1X15 family controlers initialization.
+             */
+            ADS1X15(std::string initStr);
+
+            /**
              * ADS1X15 destructor
              */
             virtual ~ADS1X15 ();
@@ -406,6 +414,11 @@ namespace upm {
              */
             void setThresh(ADSTHRESH reg = THRESH_DEFAULT , float value = 0.0);
 
+            /**
+             * Get upm parameters for converter initialization
+             */
+            std::string getLeftoverStr();
+
         protected:
             std::string m_name;
             float m_conversionDelay;
@@ -419,6 +432,7 @@ namespace upm {
             void updateConfigRegister(uint16_t update, bool read = false);
             uint16_t swapWord(uint16_t value);
 
+            mraa::MraaIo mraaIo;
             mraa::I2c* i2c;
 
     };}

@@ -24,6 +24,7 @@
 #pragma once
 
 #include "rotaryencoder.h"
+#include <interfaces/iAngle.hpp>
 
 namespace upm {
 
@@ -60,7 +61,7 @@ namespace upm {
      * @snippet rotaryencoder.cxx Interesting
      */
 
-    class RotaryEncoder {
+    class RotaryEncoder : virtual public iAngle {
     public:
         /**
          * RotaryEncoder constructor
@@ -87,6 +88,13 @@ namespace upm {
          */
         int position();
 
+        /**
+         * Get rotation value from sensor data.
+         *
+         * @return rotation value.
+         */
+        virtual float getAngle();
+
     private:
         /* Disable implicit copy and assignment operators */
         RotaryEncoder(const RotaryEncoder&) = delete;
@@ -95,5 +103,3 @@ namespace upm {
         rotaryencoder_context m_rotaryencoder;
     };
 }
-
-

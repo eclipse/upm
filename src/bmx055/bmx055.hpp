@@ -32,6 +32,9 @@
 #include "bmg160.hpp"
 #include "bmm150.hpp"
 
+#include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
+
 #define BMX055_DEFAULT_MAG_I2C_ADDR 0x12
 
 namespace upm {
@@ -76,7 +79,7 @@ namespace upm {
    * @snippet bmx055.cxx Interesting
    */
 
-    class BMX055 {
+    class BMX055: virtual public iAcceleration, virtual public iGyroscope, public virtual iMagnetometer {
     public:
         /**
          * BMX055 constructor.
@@ -113,6 +116,13 @@ namespace upm {
                int magBus=BMM150_DEFAULT_I2C_BUS,
                int magAddr=BMX055_DEFAULT_MAG_I2C_ADDR,
                int magCS=-1);
+
+        /**
+         * Instantiates BMX055 based on a given string.
+         *
+         * @param initStr string containing specific information for BMX055 initialization.
+         */
+       BMX055(std::string initStr);
 
         /**
          * BMX055 Destructor.
@@ -194,6 +204,13 @@ namespace upm {
          * that order.
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return gyroscope data in degrees per second.  update() must

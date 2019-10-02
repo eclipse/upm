@@ -26,6 +26,8 @@
 #include <string>
 #include <mraa/aio.h>
 
+#include <interfaces/iGas.hpp>
+
 namespace upm {
   /**
    * @brief Oxygen Gas Sensor
@@ -50,7 +52,7 @@ namespace upm {
    * @image html o2.jpg
    * @snippet o2.cxx Interesting
    */
-  class O2 {
+  class O2: virtual public iGas {
   public:
     /**
      * Grove O2 Oxygen Gas sensor constructor
@@ -68,6 +70,13 @@ namespace upm {
      * @return Oxygen concentration as voltage
      */
     float voltageValue();
+
+    /**
+     * Measures O2 from the sensor
+     *
+     * @return Oxygen concentration as PPM
+     */
+    float getConcentration();
 
   private:
     mraa_aio_context m_aio;

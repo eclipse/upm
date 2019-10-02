@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/aio.h>
+#include <mraa/initio.hpp>
 
 namespace upm {
 
@@ -62,6 +63,13 @@ class LDT0028 {
         LDT0028(unsigned int pin);
 
         /**
+         * Instantiates LDT0-028 Sensor object based on a given string.
+         *
+         * @param initStr string containing specific information for LDT0-028 Sensor initialization.
+         */
+        LDT0028(std::string initStr);
+
+        /**
          * LDT0028 destructor
          */
         ~LDT0028();
@@ -82,6 +90,7 @@ class LDT0028 {
 
     protected:
         std::string         m_name; //!< name of this sensor
+        mraa::MraaIo        mraaIo;
         mraa_aio_context    m_pin;  //!< AIO pin
 };
 

@@ -44,7 +44,7 @@ KXCJK1013::KXCJK1013(int device)
     }
     m_scale = 1;
     m_iio_device_num = device;
-    sprintf(trigger, "hrtimer-kxcjk1013-hr-dev%d", device);
+    snprintf(trigger, 64, "hrtimer-kxcjk1013-hr-dev%d", device);
 
     if (mraa_iio_create_trigger(m_iio, trigger) != MRAA_SUCCESS)
         fprintf(stderr, "Create trigger %s failed\n", trigger);
@@ -162,7 +162,7 @@ bool
 KXCJK1013::enable3AxisChannel()
 {
     char trigger[64];
-    sprintf(trigger, "kxcjk1013-hr-dev%d", m_iio_device_num);
+    snprintf(trigger, 64, "kxcjk1013-hr-dev%d", m_iio_device_num);
 
     mraa_iio_write_string(m_iio, "trigger/current_trigger", trigger);
     mraa_iio_write_int(m_iio, "scan_elements/in_accel_x_en", 1);

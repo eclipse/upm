@@ -12,7 +12,7 @@ before_install:
 jobs:
   fast_finish: true
   allow_failures:
-    - env: TARGET=ipk
+    - env: TARGET=android
   include:
     - &run-with-clang-minimal
       stage: Clang 3.8 - minimal with unit tests
@@ -87,9 +87,5 @@ jobs:
       env: TARGET=examples
     - <<: *run-additional-jobs
       env: TARGET=sonar-scan
-    - <<: *run-additional-jobs
-      env: TARGET=ipk
-    - <<: *run-additional-jobs
-      env: TARGET=rpm
     - <<: *run-additional-jobs
       env: TARGET=npm

@@ -58,7 +58,7 @@ namespace upm {
    * @snippet mpu9150.cxx Interesting
    */
 
-  class MPU9150: public MPU60X0
+  class MPU9150: public MPU60X0, virtual public iMagnetometer
   {
   public:
     /**

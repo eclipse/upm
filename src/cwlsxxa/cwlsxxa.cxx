@@ -25,6 +25,7 @@
 #include <iostream>
 
 #include "cwlsxxa.hpp"
+#include "upm_string_parser.hpp"
 
 using namespace upm;
 using namespace std;
@@ -40,10 +41,11 @@ static float c2f(float c)
   return (c * (9.0 / 5.0) + 32.0);
 }
 
-
 CWLSXXA::CWLSXXA(int gPin, int hPin, int tPin, float rResistor, float aref) :
-  m_aioCO2(gPin), m_aioHum(0), m_aioTemp(0)
+  m_aioCO2(0), m_aioHum(0), m_aioTemp(0)
 {
+  m_aioCO2 = new mraa::Aio(gPin);
+
   m_hasHum = (hPin >= 0) ? true : false;
   m_hasTemp = (tPin >= 0) ? true : false;
 
@@ -63,7 +65,7 @@ CWLSXXA::CWLSXXA(int gPin, int hPin, int tPin, float rResistor, float aref) :
   else
     m_aResHum = 0;
 
-  m_aResCO2 = (1 << m_aioCO2.getBit());
+  m_aResCO2 = (1 << m_aioCO2->getBit());
 
   m_temperature = 0.0;
   m_humidity = 0.0;
@@ -73,12 +75,83 @@ CWLSXXA::CWLSXXA(int gPin, int hPin, int tPin, float rResistor, float aref) :
   m_rResistor = rResistor;
 }
 
+CWLSXXA::CWLSXXA(std::string initStr)
+{
+  mraaIo = new mraa::MraaIo(initStr);
+  if(mraaIo == NULL)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": Failed to allocate memory for internal member");
+  }
+
+  if(!mraaIo->aios.empty())
+  {
+    m_aioCO2 = &mraaIo->aios[0];
+
+    if(mraaIo->aios.size() > 1)
+    {
+      m_hasTemp = 1;
+      m_aioTemp = &mraaIo->aios[1];
+      m_aResTemp = (1 << m_aioTemp->getBit());
+
+      m_hasHum = 1;
+      m_aioHum = &mraaIo->aios[2];
+      m_aResHum = (1 << m_aioHum->getBit());
+    }
+  }
+  else
+  {
+    m_hasTemp  = 0;
+    m_aResTemp = 0;
+    m_hasHum   = 0;
+    m_aResHum  = 0;
+
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                            ": mraa_aio_init() failed, invalid pin?");
+  }
+
+  m_aResCO2 = (1 << m_aioCO2->getBit());
+
+  m_temperature = 0.0;
+  m_humidity = 0.0;
+  m_co2 = 0.0;
+
+  std::vector<std::string> upmTokens;
+
+  if(!mraaIo->getLeftoverStr().empty())
+  {
+      upmTokens = UpmStringParser::parse(mraaIo->getLeftoverStr());
+  }
+
+  for(std::string tok : upmTokens)
+  {
+    if(tok.substr(0, 5) == "aref:")
+    {
+      float aref = std::stof(tok.substr(5));
+      m_aref = aref;
+    }
+    if(tok.substr(0, 10) == "rResistor:")
+    {
+      float rResistor = std::stof(tok.substr(10));
+      m_rResistor = rResistor;
+    }
+
+  }
+}
+
 CWLSXXA::~CWLSXXA()
 {
-  if (m_aioHum)
-    delete m_aioHum;
-  if (m_aioTemp)
-    delete m_aioTemp;
+  if(mraaIo)
+    delete mraaIo;
+  else
+  {
+    delete m_aioCO2;
+
+    if (m_aioHum)
+      delete m_aioHum;
+    if (m_aioTemp)
+      delete m_aioTemp;
+  }
 }
 
 void CWLSXXA::update()
@@ -137,9 +210,9 @@ void CWLSXXA::update()
     }
 
   // CO2
-  val = average(&m_aioCO2, samples);
+  val = average(m_aioCO2, samples);
   volts = (float(val) * (m_aref / m_aResCO2));
-  
+
   // CO2 range is 0-2000ppm
   if (!m_rResistor)
     m_co2 = ((volts / m_aref) * 2000.0);
@@ -160,13 +233,26 @@ float CWLSXXA::getTemperature(bool fahrenheit)
     return m_temperature;
 }
 
+float CWLSXXA::getTemperature()
+{
+  update();
+  return m_temperature;
+}
+
 float CWLSXXA::getHumidity()
 {
+  update();
   return m_humidity;
 }
 
 float CWLSXXA::getCO2()
 {
+  return m_co2;
+}
+
+float CWLSXXA::getConcentration()
+{
+  update();
   return m_co2;
 }
 

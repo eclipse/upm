@@ -31,6 +31,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <interfaces/iAcceleration.hpp>
+
 /* Supported devices by this driver */
 #define MMA8X5X_DEVICE_ID_MMA8652 0x4a
 #define MMA8X5X_DEVICE_ID_MMA8653 0x5a
@@ -341,7 +343,7 @@ typedef struct {
  *
  * @snippet mma8x5x.cxx Interesting
  */
-class MMA8X5X {
+class MMA8X5X: virtual public iAcceleration {
     public:
         /**
          *
@@ -447,6 +449,13 @@ class MMA8X5X {
          *         -999 on error
          */
         int16_t getZ(int bSampleData = 0);
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Get sensor values

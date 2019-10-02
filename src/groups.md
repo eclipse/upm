@@ -240,6 +240,11 @@ and is not meant to be installed anywhere.
 @brief Sensors requiring an ADC value to be read
 
 
+@defgroup ble BLE
+@ingroup bycon
+@brief Modules using a Bluetooth Low Energy connection
+
+
 @defgroup i2c I2C
 @ingroup bycon
 @brief Modules using the i2c bus
@@ -263,7 +268,6 @@ and is not meant to be installed anywhere.
 @defgroup uart UART
 @ingroup bycon
 @brief Modules using a serial connection (RX/TX)
-
 
 ### Groups for the various Manufacturers ###
 
@@ -351,6 +355,11 @@ and is not meant to be installed anywhere.
 @defgroup omega Omega
 @ingroup byman
 @brief Omega
+
+
+@defgroup omron Omron
+@ingroup byman
+@brief Omron
 
 
 @defgroup openelectrons Open Electrons

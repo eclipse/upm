@@ -24,22 +24,20 @@
  */
 
 #include <iostream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 #include "hcsr04.hpp"
 
 using namespace upm;
 
-HCSR04::HCSR04 (int triggerPin, int echoPin) :
-    m_hcsr04(hcsr04_init(triggerPin, echoPin))
+HCSR04::HCSR04(int triggerPin, int echoPin) : m_hcsr04(hcsr04_init(triggerPin, echoPin))
 {
-    if(!m_hcsr04)
-        throw std::runtime_error(std::string(__FUNCTION__) +
-                                ": hcsr04_init failed");
+    if (!m_hcsr04)
+        throw std::runtime_error(std::string(__FUNCTION__) + ": hcsr04_init failed");
 }
 
-HCSR04::~HCSR04 ()
+HCSR04::~HCSR04()
 {
     hcsr04_close(m_hcsr04);
 }
@@ -48,4 +46,10 @@ double
 HCSR04::getDistance(HCSR04_U unit)
 {
     return hcsr04_get_distance(m_hcsr04, unit);
+}
+
+float
+HCSR04::getDistance()
+{
+    return getDistance(HCSR04_CM);
 }

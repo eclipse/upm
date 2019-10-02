@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/iio.h>
+#include <mraa/initio.hpp>
 
 namespace upm
 {
@@ -61,6 +62,12 @@ class APDS9930
      */
     APDS9930(int device);
     /**
+     * Instantiates APDS9930 Digital Proximity and Ambient Light Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for APDS9930 initialization.
+     */
+    APDS9930(std::string initStr);
+    /**
      * APDS9930 destructor
      */
     ~APDS9930();
@@ -89,5 +96,6 @@ class APDS9930
 
   private:
     mraa_iio_context m_iio;
+    mraa::MraaIo mraaIo;
 };
 }

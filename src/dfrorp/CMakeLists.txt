@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME dfrorp
     CPP_HDR dfrorp.hpp
     CPP_SRC dfrorp.cxx
     FTI_SRC dfrorp_fti.c
+    IFACE_HDR iOrp.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

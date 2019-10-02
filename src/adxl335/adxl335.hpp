@@ -29,6 +29,9 @@
 #include <string>
 #include <vector>
 #include <mraa/aio.h>
+#include <mraa/initio.hpp>
+
+#include <interfaces/iAcceleration.hpp>
 
 #define ADXL335_DEFAULT_AREF 5.0
 #define ADXL335_SENSITIVITY 0.25 // 0.25v/g
@@ -60,7 +63,7 @@ namespace upm {
    * @image html adxl335.jpg
    * @snippet adxl335.cxx Interesting
    */
-  class ADXL335 {
+  class ADXL335: virtual public iAcceleration {
   public:
     /**
      * ADXL335 constructor
@@ -71,6 +74,13 @@ namespace upm {
      * @param aref Analog reference voltage; default is 5.0v
      */
     ADXL335(int pinX, int pinY, int pinZ, float aref=ADXL335_DEFAULT_AREF);
+
+    /**
+     * Instantiates ADXL335 Accelerometer based on a given string.
+     *
+     * @param initStr string containing specific information for ADXL335 initialization.
+     */
+    ADXL335(std::string initStr);
 
     /**
      * ADXL335 destructor
@@ -131,12 +141,20 @@ namespace upm {
     std::vector<float> acceleration();
 
     /**
+     * get acceleration values
+     * 
+     * @return stl vector of size 3 representing the 3 axis
+     */
+    virtual std::vector<float> getAcceleration();
+
+    /**
      * While the sensor is still, measures the X-axis, Y-axis, and Z-axis
      * values and uses those values as the zero values.
      */
     void calibrate();
 
   private:
+    mraa::MraaIo mraaIo;
     mraa_aio_context m_aioX;
     mraa_aio_context m_aioY;
     mraa_aio_context m_aioZ;

@@ -28,8 +28,11 @@
 #include <string>
 #include <vector>
 
+#include <mraa/initio.hpp>
 #include <mraa/gpio.hpp>
 #include "bma250e.h"
+
+#include <interfaces/iAcceleration.hpp>
 
 namespace upm {
 
@@ -73,7 +76,7 @@ namespace upm {
      * @snippet bma250e.cxx Interesting
      */
 
-    class BMA250E {
+    class BMA250E: virtual public iAcceleration {
     public:
 
         /**
@@ -95,6 +98,13 @@ namespace upm {
         BMA250E(int bus=BMA250E_DEFAULT_I2C_BUS,
                 int addr=BMA250E_DEFAULT_ADDR,
                 int cs=-1);
+
+        /**
+         * Instantiates BMA250E 3-axis Accelerometer based on a given string.
+         *
+         * @param initStr string containing specific information for BMA250E initialization.
+         */
+        BMA250E(std::string initStr);
 
         /**
          * BMA250E Destructor.
@@ -138,6 +148,13 @@ namespace upm {
          */
         std::vector<float> getAccelerometer();
 
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+        
         /**
          * Return the current measured temperature.  Note, this is not
          * ambient temperature.  update() must have been called prior to
@@ -572,11 +589,11 @@ namespace upm {
 
     protected:
         bma250e_context m_bma250e;
+        mraa::MraaIo mraaIo;
 
     private:
         /* Disable implicit copy and assignment operators */
         BMA250E(const BMA250E&) = delete;
         BMA250E &operator=(const BMA250E&) = delete;
-        
     };
 }

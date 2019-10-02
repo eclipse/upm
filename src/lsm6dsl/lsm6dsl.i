@@ -1,9 +1,19 @@
+#ifdef SWIGPYTHON
+%module (package="upm") lsm6dsl
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
-%include "../upm_vectortypes.i"
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
 
+import java.util.AbstractList;
+import java.lang.Float;
+%}
 %ignore getAccelerometer(float *, float *, float *);
 %ignore getGyroscope(float *, float *, float *);
 
@@ -17,8 +27,21 @@ JAVA_JNI_LOADLIBRARY(javaupm_lsm6dsl)
 #endif
 /* END Java syntax */
 
-/* BEGIN Common SWIG syntax ------------------------------------------------- */
+/* BEGIN Javascript syntax  ------------------------------------------------- */
+#ifdef SWIGJAVASCRIPT
 %include "../upm_vectortypes.i"
+#endif
+/* END Javascript syntax */
+
+/* BEGIN Python syntax  ----------------------------------------------------- */
+#ifdef SWIGPYTHON
+%include "../upm_vectortypes.i"
+#endif
+/* END Python syntax */
+
+/* BEGIN Common SWIG syntax ------------------------------------------------- */
+%include "std_vector.i"
+%template(floatVector) std::vector<float>;
 %{
 #include "lsm6dsl_defs.h"
 #include "lsm6dsl.hpp"

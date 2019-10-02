@@ -25,6 +25,10 @@
 #include <string>
 #include "bmi160.h"
 
+#include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
+#include <interfaces/iMagnetometer.hpp>
+
 #define BMI160_I2C_BUS 0
 #define BMI160_DEFAULT_I2C_ADDR 0x69
 
@@ -72,7 +76,7 @@ namespace upm {
      *
      * @snippet bmi160.cxx Interesting
      */
-    class BMI160 {
+    class BMI160: virtual public iAcceleration, virtual public iGyroscope, public virtual iMagnetometer {
     public:
 
         /**
@@ -143,6 +147,13 @@ namespace upm {
         void getAccelerometer(float *x, float *y, float *z);
 
         /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+
+        /**
          * Get the Gyroscope values.  This function returns a pointer to 3
          * floating point values: X, Y, and Z, in that order.  The values
          * values returned are in degrees per second.  update() must have
@@ -153,7 +164,7 @@ namespace upm {
          * @return Pointer to 3 floating point values: X, Y, and Z in
          * degrees per second.
          */
-        float *getGyroscope();
+        virtual std::vector<float> getGyroscope();
 
         /**
          * Get the Gyroscope values.  The values returned are in degrees
@@ -179,7 +190,7 @@ namespace upm {
          * @return Pointer to 3 floating point values: X, Y, and Z in
          * micro Teslas.
          */
-        float *getMagnetometer();
+        std::vector<float> getMagnetometer();
 
         /**
          * Get the Magnetometer values.  The values returned are in micro

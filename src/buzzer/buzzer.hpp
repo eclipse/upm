@@ -28,6 +28,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <mraa/pwm.hpp>
+#include <mraa/initio.hpp>
 #include <buzzer.h>
 
 namespace upm {
@@ -67,6 +70,13 @@ namespace upm {
          * @param pinNumber Buzzer pin number
          */
         Buzzer(int pinNumber);
+
+        /**
+         * Instantiates a Buzzer object based on a given string.
+         *
+         * @param initStr string containing specific information for Buzzer initialization.
+         */
+        Buzzer(std::string initStr);
 
         /**
          * Buzzer object destructor.
@@ -115,10 +125,11 @@ namespace upm {
         {
             return m_name;
         }
+
     protected:
         std::string m_name;
+        mraa::MraaIo mraaIo;
         buzzer_context m_buzzer;
-
     private:
         /* Disable implicit copy and assignment operators */
         Buzzer(const Buzzer&) = delete;

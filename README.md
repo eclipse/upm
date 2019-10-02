@@ -14,21 +14,21 @@ Programmers can access the interfaces for each sensor by including the sensor’
 corresponding header file and instantiating the associated sensor class. In the
 typical use case, a constructor initializes the sensor based on parameters that
 identify the sensor, the I/O protocol used and the pin location of the sensor.
+As of UPM 2.0, sensor initialization can also be done, in most cases, via
+overloaded constructors that accept string identifiers.
 
 We endorse additions that implement the generic C and C++ interfaces provided
-with the libraries. Multiple sensor and actuator types have been defined, for
-instance:
+with the libraries. With the 2.0 release, UPM introduces the following sensor
+interfaces: iAcceleration, iAngle, iButton, iClock, iCollision, iDistance,
+iDistanceInterrupter, iEC, iElectromagnet, iEmg, iGas, iGps, iGyroscope,
+iHallEffect, iHeartRate, iHumidity, iLight, iLineFinder, iMagnetometer,
+iMoisture, iMotion, iOrp, iPH, iPressure, iProximity, iTemperature, iVDiv,
+iWater.
 
-* Light controller 
-* Light sensor
-* Temperature sensor
-* Humidity sensor
-* Pressure sensor
-* Gas sensor
-* Analog to digital converter
+The developer community is invited to propose new interfaces for actuator types.
 
-The developer community is welcome to submit feedback on existing categories or
-suggest new ones.
+The UPM project is joining the Eclipse Foundation as an Eclipse IoT project.
+You can read more about this [here](https://projects.eclipse.org/proposals/eclipse-upm).
 
 ### Example
 
@@ -97,11 +97,15 @@ See building documentation [here](docs/building.md).
 
 A quick way to add a new sensor driver is to port existing code from another
 platform (e.g. Arduino) and swap the IO calls to the MRAA API. This of course
-assumes either ownership of the original code or licensing that allows
-unrestricted redistribution.
+assumes either ownership of the original code or a MIT compatible license that
+allows unrestricted redistribution.
 
 The [porting](docs/porting.md) section has more information on this process,
 and there is an example available based on the max31855 [sensor](docs/max31855.md).
+
+We have an [on demand webinar](https://software.seek.intel.com/IoT_WebinarSeries_Reg)
+available that covers using an IDE to develop for the UPM project along with other
+considerations for new contributions.
 
 Read more on creating Java [bindings](docs/creating_java_bindings.md) for your
 new driver.
@@ -114,7 +118,8 @@ The name you pick for a newly added sensor needs to be unique in the UPM library
 Then, please go over this short set of rules for new [contributions](docs/contributions.md).
 Make sure you add yourself as an author on every new code file submitted.
 If you are providing a fix with significant changes, feel free to add yourself
-as a contributor. Signing-off your commits is mandatory.
+as a contributor. Signing-off your commits is mandatory and acts as an
+acknowledgment of the committer agreement.
 
 Documenting your code is also a big part of the task. We have a strict set of
 tags used to classify our sensors and their capabilities. You can find out more
@@ -136,9 +141,6 @@ Even if we try our best not to, every once in a while we are forced to modify
 our API in a way that will break backwards compatibility. If you find yourself
 unable to compile code that was working fine before a library update, make sure
 you check the [API changes](docs/apichanges.md) section first.
-
-**NOTE** - Several important API changes are currently underway for some of our
-widely used libraries including `libupm-grove`
 
 ### Changelog
 Version changelog [here](docs/changelog.md).

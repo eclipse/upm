@@ -27,6 +27,12 @@
 
 #include <vector>
 #include "bno055.h"
+#include "mraa/initio.hpp"
+
+
+#include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
+#include <interfaces/iMagnetometer.hpp>
 
 namespace upm {
 
@@ -100,7 +106,7 @@ namespace upm {
      * @snippet bno055.cxx Interesting
      */
 
-    class BNO055 {
+    class BNO055: virtual public iAcceleration {
 
     public:
         /**
@@ -121,6 +127,13 @@ namespace upm {
          */
         BNO055(int bus=BNO055_DEFAULT_I2C_BUS,
                uint8_t addr=BNO055_DEFAULT_ADDR);
+
+        /**
+         * Instantiates BNO055 9DOF Fusion Hub based on a given string.
+         *
+         * @param initStr string containing specific information for BNO055 initialization.
+         */
+        BNO055(std::string initStr);
 
         /**
          * BNO055 Destructor.
@@ -421,6 +434,13 @@ namespace upm {
         std::vector<float> getAccelerometer();
 
         /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
+
+        /**
          * Return uncompensated magnetometer data (non-fusion).  In fusion
          * modes, this data will be of little value.  The returned values
          * are in micro-teslas (uT).  update() must have been called prior
@@ -644,6 +664,7 @@ namespace upm {
 
     protected:
         bno055_context m_bno055;
+        mraa::MraaIo mraaIo;
 
         /**
          * Set the current internal device register page.  This is a low

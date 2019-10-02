@@ -1,25 +1,25 @@
+#ifdef SWIGPYTHON
+%module (package="upm") bmi160
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
 #ifdef SWIGJAVA
-%include "../upm_javastdvector.i"
-
-%ignore getMagnetometer(float *, float *, float *);
-
 %typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+
 import java.util.AbstractList;
 import java.lang.Float;
 %}
 
+%ignore getMagnetometer(float *, float *, float *);
+
 %typemap(javaout) SWIGTYPE {
     return new $&javaclassname($jnicall, true);
 }
-%typemap(javaout) std::vector<float> {
-    return (AbstractList<Float>)(new $&javaclassname($jnicall, true));
-}
-%typemap(jstype) std::vector<float> "AbstractList<Float>"
-
-%template(floatVector) std::vector<float>;
 
 %ignore installISR (BMM150_INTERRUPT_PINS_T , int ,  mraa::Edge ,  void *, void *);
 

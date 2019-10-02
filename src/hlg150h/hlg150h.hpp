@@ -22,12 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "interfaces/iLightController.hpp"
 // #include "mraa/gpio.hpp"
 #include "mraa/pwm.hpp"
 
 namespace upm
 {
+    #define UPM_THROW(msg) throw std::runtime_error(std::string(__FUNCTION__) + ": " + (msg))
 
 /**
  * @brief Meanwell HLG150H Lighting Power Supply Controller
@@ -53,13 +53,13 @@ namespace upm
  * @snippet hlg150h.cxx Interesting
  */
 
-class HLG150H : public upm::ILightController
+class HLG150H
 {
 public:
    HLG150H(int pinRelay, int pinPWM);
    ~HLG150H();
 
-   virtual int getBrightness();
+   int getBrightness();
    const char* getModuleName() { return "hlg150h"; }
    void setPowerOn();
    void setPowerOff();

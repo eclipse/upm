@@ -29,8 +29,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <interfaces/iLight.hpp>
 
 #include "bh1750.h"
+#include "mraa/initio.hpp"
 
 namespace upm {
     /**
@@ -57,7 +59,7 @@ namespace upm {
      * @snippet bh1750.cxx Interesting
      */
 
-  class BH1750 {
+  class BH1750 : virtual public iLight {
   public:
 
     /**
@@ -71,6 +73,13 @@ namespace upm {
      */
     BH1750(int bus=BH1750_DEFAULT_I2C_BUS, int addr=BH1750_DEFAULT_I2C_ADDR,
            BH1750_OPMODES_T mode=BH1750_OPMODE_H2_ONCE);
+
+    /**
+     * Instantiates BH1750 Light Sensor object based on a given string.
+     *
+     * @param initStr string containing specific information for BH1750 initialization.
+     */
+    BH1750(std::string initStr);
 
     /**
      * BH1750 object destructor
@@ -93,6 +102,13 @@ namespace upm {
     float getLux();
 
     /**
+     * Gets the luminance value from the sensor
+     *
+     * @return The measured light intensity value in Lux
+     */
+    virtual float getLuminance();
+
+    /**
      * Power up the device.
      */
     void powerUp();
@@ -112,6 +128,7 @@ namespace upm {
   protected:
     // bh1750 device context
     bh1750_context m_bh1750;
+    mraa::MraaIo mraaIo;
 
     /**
      * Sends a command to the device via I2C.

@@ -108,6 +108,14 @@ std::vector<float> LIS2DS12::getAccelerometer()
     return std::vector<float>(v, v+3);
 }
 
+std::vector<float> LIS2DS12::getAcceleration()
+{
+    std::vector<float> v(3);
+
+    lis2ds12_get_accelerometer(m_lis2ds12, &v[0], &v[1], &v[2]);
+    return v;
+}
+
 float LIS2DS12::getTemperature(bool fahrenheit)
 {
     float temperature = lis2ds12_get_temperature(m_lis2ds12);

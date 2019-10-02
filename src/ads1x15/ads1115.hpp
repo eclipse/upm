@@ -124,6 +124,13 @@ namespace upm {
             ADS1115 (int bus, uint8_t address = 0x48);
 
             /**
+             * Instantiates ADS1115 converter based on a given string.
+             *
+             * @param initStr string containing specific information for ADS1115 converter initialization.
+             */
+            ADS1115(std::string initStr);
+
+            /**
              * ADS1X15 destructor
              */
             ~ADS1115();

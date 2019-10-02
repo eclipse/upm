@@ -27,9 +27,10 @@
 
 #include <string>
 #include "bmp280.h"
+#include "mraa/initio.hpp"
 
-#include "interfaces/iPressureSensor.hpp"
-#include "interfaces/iTemperatureSensor.hpp"
+#include <interfaces/iPressure.hpp>
+#include <interfaces/iTemperature.hpp>
 
 namespace upm {
 
@@ -67,7 +68,7 @@ namespace upm {
      * @snippet bmp280.cxx Interesting
      */
 
-    class BMP280 : public ITemperatureSensor, public IPressureSensor {
+    class BMP280 : virtual public iPressure, virtual public iTemperature {
     public:
 
         /**
@@ -92,6 +93,13 @@ namespace upm {
          */
         BMP280(int bus=BMP280_DEFAULT_I2C_BUS, int addr=BMP280_DEFAULT_ADDR,
                int cs=-1);
+
+        /**
+         * Instantiates BMP280/BME280 Digital Pressure Sensors based on a given string.
+         *
+         * @param initStr string containing specific information for BMP280/BME280 initialization.
+         */
+        BMP280(std::string initStr);
 
         /**
          * BMP280 Destructor.
@@ -127,7 +135,17 @@ namespace upm {
          * Celicus.  Celsius is the default.
          * @return The temperature in degrees Celsius or Fahrenheit.
          */
-        float getTemperature(bool fahrenheit=false);
+        float getTemperature(bool fahrenheit);
+
+        /**
+         * Return the current measured temperature.  Note, this is not
+         * ambient temperature - this is the temperature used to fine tune
+         * the pressure measurement.  update() must have been called prior
+         * to calling this method.
+         *
+         * @return The temperature in degrees Celsius.
+         */
+        virtual float getTemperature();
 
         /**
          * Return the current measured pressure in Pascals (Pa).  update()
@@ -135,7 +153,7 @@ namespace upm {
          *
          * @return The pressure in Pascals (Pa).
          */
-        float getPressure();
+        virtual float getPressure();
 
         /**
          * Set the pressure at sea level in hecto-Pascals (hPA).  This
@@ -235,6 +253,7 @@ namespace upm {
 
     protected:
         bmp280_context m_bmp280;
+        mraa::MraaIo mraaIo;
 
         /**
          * Return the value of the BMP280_REG_STATUS register.

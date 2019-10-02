@@ -31,6 +31,9 @@
 #include <mraa/gpio.hpp>
 #include "lsm6dsl.h"
 
+#include <interfaces/iAcceleration.hpp>
+#include <interfaces/iGyroscope.hpp>
+
 namespace upm {
 
     /**
@@ -63,7 +66,7 @@ namespace upm {
      * @snippet lsm6dsl.cxx Interesting
      */
 
-    class LSM6DSL {
+    class LSM6DSL: virtual public iAcceleration, virtual public iGyroscope {
     public:
 
         /**
@@ -127,6 +130,13 @@ namespace upm {
          * that order
          */
         std::vector<float> getAccelerometer();
+
+        /**
+         * get acceleration values
+         * 
+         * @return stl vector of size 3 representing the 3 axis
+         */
+        virtual std::vector<float> getAcceleration();
 
         /**
          * Return gyroscope data in degrees per second (DPS).

@@ -4,6 +4,7 @@
 #include <cmath>
 #include "ds1808lc.hpp"
 #include "mraa-utils.hpp"
+#include "upm_string_parser.hpp"
 
 #define DS1808_I2C_ADDR 0x28
 #define DS1808_POT2_OFFSET 0x40
@@ -11,6 +12,10 @@
 #define DS1808_LOW_VALUE 32 // Lowest pot value that the eye can differentiate from 0
 #define DS1808_HIGH_VALUE 51 // Highest pot value that the eye can differentiate from full
 
+static bool operator!(mraa::MraaIo &mraaIo)
+{
+   return mraaIo.getMraaDescriptors() == NULL;
+}
 
 namespace upm {
 DS1808LC::DS1808LC(int gpioPower, int i2cBus)
@@ -22,8 +27,41 @@ DS1808LC::DS1808LC(int gpioPower, int i2cBus)
    getBrightness();
 }
 
+DS1808LC::DS1808LC(std::string initStr) : mraaIo(initStr)
+{
+   std::vector<std::string> upmTokens;
+   
+   mraa_set_log_level(7);
+   if(!mraaIo.i2cs.empty()) {
+      i2c = &mraaIo.i2cs[0];
+   } else {
+      throw std::invalid_argument(std::string(__FUNCTION__) + ": I2c.init() failed");
+   }
+  
+   status = i2c->address(DS1808_I2C_ADDR);
+  
+   if(!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+   }
+  
+   for(std::string tok : upmTokens) {
+      if(tok.substr(0, 10) == "gpioPower:") {
+         int gpioPower = std::stoi(tok.substr(10), nullptr, 0);
+         pinPower = gpioPower;
+      }
+      if(tok.substr(0, 14) == "setBrightness:") {
+         int dutyPercent = std::stoi(tok.substr(14), nullptr, 0);
+         setBrightness(dutyPercent);
+      }
+   }
+  
+   getBrightness();
+}
+
 DS1808LC::~DS1808LC()
 {
+   if(!mraaIo)
+      delete i2c;
 }
 
 bool DS1808LC::isPowered()

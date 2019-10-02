@@ -4,6 +4,7 @@ upm_mixed_module_init (NAME mb704x
     C_SRC mb704x.c
     CPP_HDR mb704x.hpp
     CPP_SRC mb704x.cxx
+    IFACE_HDR iDistance.hpp
     FTI_SRC mb704x_fti.c
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

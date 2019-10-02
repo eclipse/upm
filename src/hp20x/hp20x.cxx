@@ -190,7 +190,8 @@ float HP20X::getPressure()
   // now read the pressure
   writeCmd(CMD_READ_P);
 
-  return ((float)readData() / 100.0);
+  // Return result in Pa, not milibars. 
+  return (float)readData();
 }
 
 float HP20X::getAltitude()

@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME lsm303agr
     CPP_HDR lsm303agr.hpp
     CPP_SRC lsm303agr.cxx
     FTI_SRC lsm303agr_fti.c
+    IFACE_HDR iAcceleration.hpp iMagnetometer.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)

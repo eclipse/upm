@@ -25,12 +25,14 @@
 
 #include <string>
 #include <iostream>
-
+#include <vector>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
 #include "dfrorp.h"
+#include <mraa/initio.hpp>
+#include <interfaces/iOrp.hpp>
 
 namespace upm {
   /**
@@ -70,7 +72,7 @@ namespace upm {
    * @snippet dfrorp.cxx Interesting
    */
 
-  class DFRORP {
+  class DFRORP : virtual public iOrp {
   public:
 
     /**
@@ -80,6 +82,13 @@ namespace upm {
      * @param a_ref The analog reference voltage in use.  Default 5.0.
      */
     DFRORP(int apin, float a_ref=5.0);
+
+    /**
+     * Instantiates DFRobot object based on a given string.
+     *
+     * @param initStr string containing specific information for DFRobot initialization.
+     */
+    DFRORP(std::string initStr);
 
     /**
      * DFRORP object destructor
@@ -119,6 +128,14 @@ namespace upm {
     float getORP();
 
     /**
+     * Get computed ORP (in millivolts) value from the
+     * sensor.
+     *
+     * @return ORP value in millivolts
+     */
+    virtual float getORPValue();
+
+    /**
      * Set the calibration offset for the device.  This is
      * determined by disconnecting the sensor probe (but leaving the
      * sensor interface board connected).  Then run one of the examples
@@ -155,6 +172,7 @@ namespace upm {
   protected:
     // dfrorp device context
     dfrorp_context m_dfrorp;
+    mraa::MraaIo mraaIo;
 
   private:
     /* Disable implicit copy and assignment operators */

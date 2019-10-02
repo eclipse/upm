@@ -25,6 +25,8 @@
 
 #include <mraa/i2c.hpp>
 
+#include <interfaces/iGyroscope.hpp>
+
 #define READ_BUFFER_LENGTH 8
 
 namespace upm {
@@ -56,7 +58,7 @@ namespace upm {
  * @image html itg3200.jpeg
  * @snippet itg3200.cxx Interesting
  */
-class Itg3200 {
+class Itg3200: virtual public iGyroscope {
 public:
     /**
      * Creates an Itg3200 object
@@ -85,6 +87,16 @@ public:
      * @return float* to a float[3]
      */
     float* getRotation();
+
+    /**
+     * Return gyroscope data in degrees per second in the form of
+     * a floating point vector.  update() must have been called
+     * prior to calling this method.
+     *
+     * @return A floating point vector containing x, y, and z in
+     * that order.
+     */
+    std::vector<float> getGyroscope();
 
     /**
      * Returns a pointer to an int[3] that contains raw register values for X, Y, and Z

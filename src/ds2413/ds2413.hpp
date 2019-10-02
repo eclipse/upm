@@ -26,6 +26,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -33,6 +34,7 @@
 
 #include <mraa/common.hpp>
 #include <mraa/uart_ow.hpp>
+#include <mraa/initio.hpp>
 
 #define DS2413_DEFAULT_UART 0
 
@@ -101,6 +103,13 @@ namespace upm {
     DS2413(int uart=DS2413_DEFAULT_UART);
 
     /**
+     * Instantiates DS2413 Switch object based on a given string.
+     *
+     * @param initStr string containing specific information for DS2413 Switch initialization.
+     */
+    DS2413(std::string initStr); 
+    
+    /**
      * DS2413 object destructor
      */
     ~DS2413();
@@ -164,7 +173,8 @@ namespace upm {
 
   protected:
     mraa::UartOW m_uart;
-
+    mraa::MraaIo mraaIo;
+    
     // the total number of devices found
     int m_devicesFound;
 

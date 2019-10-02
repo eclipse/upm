@@ -25,6 +25,7 @@
 
 #include <string>
 #include <mraa/i2c.h>
+#include <mraa/initio.hpp>
 
 #define ADC121C021_I2C_BUS 0
 #define ADC121C021_DEFAULT_I2C_ADDR 0x55
@@ -101,6 +102,13 @@ namespace upm {
                float vref = ADC121C021_DEFAULT_VREF);
 
     /**
+     * Instantiates ADC121C021 Converter based on a given string.
+     *
+     * @param initStr string containing specific information for ADC121C021 initialization.
+     */
+    ADC121C021(std::string initStr);
+
+    /**
      * ADC121C021 destructor
      */
     ~ADC121C021();
@@ -140,7 +148,7 @@ namespace upm {
     uint16_t readWord(uint8_t reg);
 
     /**
-     * Reads the current value of conversion 
+     * Reads the current value of conversion
      *
      * @return Current value of conversion
      */
@@ -166,15 +174,15 @@ namespace upm {
 
     /**
      * Returns the current value of m_alertLow.  You must call
-     * getAlertStatus() to update this value. 
+     * getAlertStatus() to update this value.
      *
-     * @return Current status of the alert low flag 
+     * @return Current status of the alert low flag
      */
     bool alertLowTriggered() { return m_alertLow; };
 
     /**
      * Returns the current value of m_alertHigh.  You must call
-     * getAlertStatus() to update this value. 
+     * getAlertStatus() to update this value.
      *
      * @return Current status of the alert high flag
      */
@@ -232,7 +240,7 @@ namespace upm {
      * Enables or disables the automatic conversion mode. When enabled, the
      * ADC samples and updates the conversion value independently.
      * It is disabled by default, so conversion is only done by
-     * calling value(). 
+     * calling value().
      *
      * @param cycleTime Sets the cycle time for automatic conversion
      */
@@ -304,6 +312,7 @@ namespace upm {
 
   private:
     mraa_i2c_context m_i2c;
+    mraa::MraaIo mraaIo;
     uint8_t m_addr;
     float m_vref;
     bool m_alertLow;

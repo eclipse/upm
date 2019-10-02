@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <mraa/aio.h>
+#include <interfaces/iProximity.hpp>
 
 namespace upm {
   /**
@@ -46,15 +47,15 @@ namespace upm {
    *
    * @brief API for the GP2Y0A family of IR Proximity Sensors
    *
-   * Sensors of this family return an analog voltage corresponding to the distance 
+   * Sensors of this family return an analog voltage corresponding to the distance
    * of an object from the sensor. The voltage is lower when objects
    * are far away; the voltage increases as objects get closer
-   * to the sensor.  
+   * to the sensor.
    *
    * @image html gp2y0a.jpg
    * @snippet gp2y0a.cxx Interesting
    */
-  class GP2Y0A {
+  class GP2Y0A : virtual public iProximity {
   public:
 
     /**
@@ -78,11 +79,19 @@ namespace upm {
      */
     float value(float aref, uint8_t samples);
 
+    /**
+     * Gets the voltage value from the sensor from a single sample
+     * A refernce voltage of 5.0V is used for the reading.
+     *
+     * @return Voltage reading from a single sample
+     */
+    virtual float getValue();
+
+
+
   private:
     mraa_aio_context m_aio;
     // ADC resolution
     int m_aRes;
   };
 }
-
-

@@ -26,6 +26,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "a110x.hpp"
 
 using namespace upm;
@@ -43,6 +44,30 @@ A110X::A110X(int pin)
   mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
   m_isrInstalled = false;
 }
+
+A110X::A110X(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  if(!descs->gpios)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_gpio_init() failed, invalid pin?");
+  }
+  else
+  {
+    if( !(m_gpio = descs->gpios[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                              ": mraa_gpio_init() failed, invalid pin?");
+
+    }
+  }
+
+  mraa_gpio_dir(m_gpio, MRAA_GPIO_IN);
+  m_isrInstalled = false;
+}
+
 
 A110X::~A110X()
 {
@@ -63,7 +88,7 @@ void A110X::installISR(void (*isr)(void *), void *arg)
     uninstallISR();
 
   // install our interrupt handler
-  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_BOTH, 
+  mraa_gpio_isr(m_gpio, MRAA_GPIO_EDGE_BOTH,
                 isr, arg);
   m_isrInstalled = true;
 }

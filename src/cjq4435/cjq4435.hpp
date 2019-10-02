@@ -23,6 +23,7 @@
  */
 #pragma once
 
+#include "mraa/initio.hpp"
 #include "cjq4435.h"
 
 namespace upm {
@@ -62,6 +63,13 @@ namespace upm {
          * @param pin Digital pin to use; this pin must be PWM-capable
          */
         CJQ4435(int pin);
+
+        /**
+         * Instantiates CJQ4435 MOSFET based on a given string.
+         *
+         * @param initStr string containing specific information for CJQ4435 MOSFET.
+         */
+        CJQ4435(std::string initStr);
 
         /**
          * CJQ4435 destructor
@@ -118,6 +126,7 @@ namespace upm {
 
     protected:
         cjq4435_context m_cjq4435;
+        mraa::MraaIo mraaIo;
 
     private:
         /* Disable implicit copy and assignment operators */

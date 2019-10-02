@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.util.AbstractList;
+
 import upm_lis2ds12.*;
 
 public class LIS2DS12_Example
@@ -42,7 +44,7 @@ public class LIS2DS12_Example
                 // update our values from the sensor
                 sensor.update();
 
-                floatVector dataA = sensor.getAccelerometer();
+                AbstractList<Float> dataA = sensor.getAccelerometer();
 
                 System.out.println("Accelerometer x: " + dataA.get(0)
                                    + " y: " + dataA.get(1)

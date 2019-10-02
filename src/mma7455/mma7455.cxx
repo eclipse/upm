@@ -140,6 +140,46 @@ std::vector<short> MMA7455::readData() {
     return v;
 }
 
+std::vector<float> MMA7455::getAcceleration() {
+    std::vector<float> v(3);
+     accelData xyz;
+    int nBytes = 0;
+
+    /*do {
+        nBytes = i2cReadReg (MMA7455_STATUS, &data, 0x1);
+    } while ( !(data & MMA7455_DRDY) && nBytes == mraa::SUCCESS);
+
+    if (nBytes == mraa::SUCCESS) {
+        std::cout << "NO_GDB :: 1" << std::endl;
+        return mraa::SUCCESS;
+    }*/
+
+    nBytes = i2cReadReg (MMA7455_XOUTL, (unsigned char *) &xyz, 0x6);
+    if (nBytes == 0) {
+        std::cout << "NO_GDB :: 2" << std::endl;
+        //return mraa::ERROR_UNSPECIFIED;
+    }
+
+    if (xyz.reg.x_msb & 0x02) {
+        xyz.reg.x_msb |= 0xFC;
+    }
+
+    if (xyz.reg.y_msb & 0x02) {
+        xyz.reg.y_msb |= 0xFC;
+    }
+
+    if (xyz.reg.z_msb & 0x02) {
+        xyz.reg.z_msb |= 0xFC;
+    }
+
+    // The result is the g-force in units of 64 per 'g'.
+    v[0] = (float)xyz.value.x;
+    v[1] = (float)xyz.value.y;
+    v[2] = (float)xyz.value.z;
+
+    return v;
+}
+
 int
 MMA7455::i2cReadReg (unsigned char reg, uint8_t *buffer, int len) {
     if (mraa::SUCCESS != m_i2ControlCtx.writeByte(reg)) {

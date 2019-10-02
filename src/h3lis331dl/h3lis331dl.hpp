@@ -28,6 +28,8 @@
 #include <mraa/common.hpp>
 #include <mraa/i2c.hpp>
 
+#include <interfaces/iAcceleration.hpp>
+
 #define H3LIS331DL_I2C_BUS 0
 #define H3LIS331DL_DEFAULT_I2C_ADDR 0x18
 
@@ -56,7 +58,7 @@ namespace upm {
    * @image html h3lis331dl.jpg
    * @snippet h3lis331dl.cxx Interesting
    */
-  class H3LIS331DL {
+  class H3LIS331DL: virtual public iAcceleration {
   public:
 
     /**

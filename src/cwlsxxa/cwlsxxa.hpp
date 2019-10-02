@@ -26,7 +26,12 @@
 #include <string>
 #include <iostream>
 
+#include <interfaces/iGas.hpp>
+#include <interfaces/iHumidity.hpp>
+#include <interfaces/iTemperature.hpp>
+
 #include <mraa/aio.hpp>
+#include <mraa/initio.hpp>
 
 // Unlikey to be changable without external circuitry (voltage divider)
 #define CWLSXXA_DEFAULT_AREF 5.0
@@ -85,7 +90,7 @@ namespace upm {
      * @snippet cwlsxxa.cxx Interesting
      */
 
-  class CWLSXXA {
+  class CWLSXXA: virtual public iGas, virtual public iHumidity, virtual public iTemperature {
   public:
 
     /**
@@ -112,6 +117,13 @@ namespace upm {
             float aref=CWLSXXA_DEFAULT_AREF);
 
     /**
+     * Instantiates CWLSXXA CO2 Sensors based on a given string.
+     *
+     * @param initStr string containing specific information for CWLSXXA Sensor.
+     */
+    CWLSXXA(std::string initStr);
+
+    /**
      * CWLSXXA object destructor
      */
     ~CWLSXXA();
@@ -134,7 +146,8 @@ namespace upm {
      * The default is false (degrees Celsius).
      * @return The last temperature reading in Celsius or Fahrenheit
      */
-    float getTemperature(bool fahrenheit=false);
+    float getTemperature(bool fahrenheit);
+    float getTemperature();
 
     /**
      * Get the current relative humidity.  update() must have been called
@@ -154,14 +167,24 @@ namespace upm {
      */
     float getCO2();
 
+    /**
+     * Get the current CO2 concentration in Parts Per Million (PPM).
+     * update() must have been called prior to calling this method.
+     *
+     * @return The last CO2 reading
+     */
+    float getConcentration();
+
 
   protected:
     // CO2 reporting is always supported
-    mraa::Aio m_aioCO2;
+    mraa::Aio *m_aioCO2 = NULL;
 
     // temperature and humidity are optional features of this transmitter
-    mraa::Aio *m_aioHum;
-    mraa::Aio *m_aioTemp;
+    mraa::Aio *m_aioHum = NULL;
+    mraa::Aio *m_aioTemp = NULL;
+
+    mraa::MraaIo *mraaIo = NULL;
 
 
   private:

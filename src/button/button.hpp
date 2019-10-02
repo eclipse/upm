@@ -27,7 +27,9 @@
 #pragma once
 
 #include <string>
+#include <mraa/initio.hpp>
 #include <mraa/gpio.hpp>
+#include <interfaces/iButton.hpp>
 
 namespace upm {
 
@@ -54,7 +56,7 @@ namespace upm {
  * @image html button.jpg
  * @snippet button.cxx Interesting
  */
-class Button{
+class Button : virtual public iButton {
     public:
         /**
          * button constructor
@@ -62,6 +64,12 @@ class Button{
          * @param pin Pin to use
          */
         Button(unsigned int pin);
+        /**
+         * Instantiates Button/Switch Library based on a given string.
+         *
+         * @param initStr string containing specific information for Button initialization.
+         */
+        Button(std::string initStr);
         /**
          * button destructor
          */
@@ -78,6 +86,13 @@ class Button{
          * @return Value from the GPIO pin
          */
         int value();
+
+        /**
+         * Gets the current button press state.
+         *
+         * @returns Button state
+         */
+         virtual bool isPressed();
 
         /**
          * Installs an interrupt service routine (ISR) to be called when
@@ -99,5 +114,6 @@ class Button{
         bool m_isrInstalled;
         std::string m_name;
         mraa_gpio_context m_gpio;
+        mraa::MraaIo mraaIo;
 };
 }

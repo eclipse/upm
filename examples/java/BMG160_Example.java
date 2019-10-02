@@ -23,6 +23,7 @@
  */
 
 import upm_bmg160.BMG160;
+import upm_interfaces.*;
 import java.util.AbstractList;
 import java.lang.Float;
 

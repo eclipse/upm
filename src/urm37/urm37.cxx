@@ -67,6 +67,12 @@ float URM37::getDistance(int degrees)
   return (distance);
 }
 
+float URM37::getDistance()
+{
+    /* TODO: compilation issue for swig. switched original method to not use default zero parameter. */
+    return getDistance(0);
+}
+
 float URM37::getTemperature()
 {
   float temperature;

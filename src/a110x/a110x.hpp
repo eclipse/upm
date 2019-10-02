@@ -25,6 +25,8 @@
 
 #include <string>
 #include <mraa/gpio.h>
+#include <mraa/initio.hpp>
+#include <interfaces/iHallEffect.hpp>
 
 namespace upm {
   /**
@@ -58,7 +60,7 @@ namespace upm {
    * An example demonstrating the use of an interrupt handler to count pulses
    * @snippet a110x-intr.cxx Interesting
    */
-  class A110X {
+  class A110X : virtual public iHallEffect {
   public:
     /**
      * A110x digital sensor constructor
@@ -66,6 +68,13 @@ namespace upm {
      * @param pin Digital pin to use
      */
     A110X(int pin);
+    /**
+     * Instantiates A110x digital sensor based on a given string.
+     *
+     * @param initStr string containing specific information for A110X initialization.
+     */
+    A110X(std::string initStr);
+
     /**
      * A110X destructor
      */
@@ -75,7 +84,7 @@ namespace upm {
      *
      * @return True if magnetic field detected
      */
-    bool magnetDetected();
+    virtual bool magnetDetected();
 
     /**
      * Installs an interrupt service routine (ISR) to be called when
@@ -96,6 +105,7 @@ namespace upm {
   private:
 
     bool m_isrInstalled;
+    mraa::MraaIo mraaIo;
     mraa_gpio_context m_gpio;
   };
 }

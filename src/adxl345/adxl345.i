@@ -1,3 +1,9 @@
+#ifdef SWIGPYTHON
+%module (package="upm") adxl345
+#endif
+
+%import "interfaces/interfaces.i"
+
 %include "../common_top.i"
 
 /* BEGIN Java syntax  ------------------------------------------------------- */
@@ -29,6 +35,13 @@
     delete [] $1;
 }
 
+%typemap(javaimports) SWIGTYPE %{
+import upm_interfaces.*;
+
+import java.util.AbstractList;
+import java.lang.Float;
+%}
+
 JAVA_JNI_LOADLIBRARY(javaupm_adxl345)
 #endif
 /* END Java syntax */
@@ -37,6 +50,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_adxl345)
 #ifdef SWIGJAVASCRIPT
 %include "../carrays_int16_t.i"
 %include "../carrays_float.i"
+%include "../upm_vectortypes.i"
 
 %typemap(out) int16_t * {
     $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_int16Array, 0 | 0 );
@@ -54,6 +68,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_adxl345)
 #ifdef SWIGPYTHON
 %include "../carrays_int16_t.i"
 %include "../carrays_float.i"
+%include "../upm_vectortypes.i"
 
 %typemap(out) int16_t * {
     $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_int16Array, 0 | 0 );

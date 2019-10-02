@@ -4,6 +4,13 @@ API Changes                       {#apichanges}
 Here's a list of other API changes made to the library that break source/binary
 compatibility between releases:
 
+# v2.0.0
+ * Sensors implementing the old interfaces (bme280, bmpx8x, si7005, si1132,
+ max44009, lp8860, ds1808lc, hlg150h) have been updated to use the new ones,
+ hence some function names and parameters will be different.
+ * Removed deprecated basic grove classes from project, see API changes for
+ v1.1.0 and prior for a complete list
+
 # v1.7.0
  * The interface of **kx122** has been modified to return values instead
  of receiving pointers. This applies to member functions: getWhoAmI,

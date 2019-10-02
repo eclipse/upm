@@ -23,7 +23,9 @@
  */
 #pragma once
 
+#include <mraa/initio.hpp>
 #include <mraa/gpio.h>
+#include <interfaces/iCollision.hpp>
 
 namespace upm {
   /**
@@ -42,15 +44,15 @@ namespace upm {
    * @con gpio
    *
    * @brief API for the Collision Sensor
-   * 
+   *
    * The Collision Sensor can detect whether any
    * collision movement or vibration happens.
-   * It outputs a low pulse signal when vibration is detected. 
+   * It outputs a low pulse signal when vibration is detected.
    *
    * @image html collision.jpg
    * @snippet collision.cxx Interesting
    */
-  class Collision {
+  class Collision : virtual public iCollision {
   public:
     /**
      * Collision sensor constructor
@@ -59,15 +61,22 @@ namespace upm {
      */
     Collision(int pin);
     /**
+     * Instantiates Collision Sensor based on a given string.
+     *
+     * @param initStr string containing specific information for  Collision Sensor.
+     */
+    Collision(std::string initStr);
+    /**
      * Collision destructor
      */
     ~Collision();
     /**
-     * @return bool  Defines whether something is colliding with sensor
+     * @return boolean value defining whether something is colliding with sensor
      */
-     bool isColliding();
+    virtual bool isColliding();
 
   private:
         mraa_gpio_context m_gpio;
-	};
+        mraa::MraaIo mraaIo;
+    };
 }

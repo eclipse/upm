@@ -27,6 +27,8 @@
 #include <stdexcept>
 
 #include "ds2413.hpp"
+#include "upm_string_parser.hpp"
+
 
 using namespace upm;
 using namespace std;
@@ -46,6 +48,39 @@ DS2413::DS2413(int uart) :
                                ": reset() failed, no devices on bus?");
       return;
     }
+}
+
+DS2413::DS2413(std::string initStr) : m_uart(nullptr), mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+  std::vector<std::string> upmTokens;
+  
+  if(!mraaIo.getLeftoverStr().empty()) {
+    upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+  
+  m_uart = descs->uart_ows[0];
+  m_devicesFound = 0;
+
+  // check basic access to the 1-wire bus (presence detect)
+  mraa::Result rv;
+
+  if ((rv = m_uart.reset()) != mraa::SUCCESS)
+  {
+    throw std::runtime_error(std::string(__FUNCTION__) +
+                              ": reset() failed, no devices on bus?");
+    return;
+  }
+  
+  for(std::string tok : upmTokens) {
+    if(tok.substr(0, 11) == "writeGpios:") {
+      std::string::size_type sz;
+      int index = std::stoi(tok.substr(11), &sz);
+      tok = tok.substr(11);
+      int value = std::stoi(tok.substr(sz+1), nullptr, 0);
+      writeGpios(index, value);
+    }
+  }
 }
 
 DS2413::~DS2413()

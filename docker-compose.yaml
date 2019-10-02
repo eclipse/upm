@@ -56,20 +56,6 @@ services:
       - BUILDEXAMPLES=ON
     command: bash -c "./scripts/run-cmake.sh && cd build && make -j8"
 
-  ipk:
-    extends: all
-    environment:
-      - IPK=ON
-      - BUILDDOC=OFF
-    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
-
-  rpm:
-    extends: all
-    environment:
-      - RPM=ON
-      - BUILDDOC=OFF
-    command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 package"
-
   npm:
     extends: all
     environment:
@@ -78,12 +64,10 @@ services:
     command: bash -c "./scripts/run-cmake.sh && make -Cbuild -j8 npmpkg"
 
   sonar-scan:
-    extends: all
+    extends: base
+    image: inteliotdevkit/upm-sonar
     environment:
-      - BUILDSWIGPYTHON=ON
-      - BUILDSWIGNODE=ON
-      - BUILDSWIGJAVA=ON
-      - BUILDEXAMPLES=ON
+      - BUILDTESTS=OFF
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAR_PROJ_KEY

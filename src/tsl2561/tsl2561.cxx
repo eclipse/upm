@@ -189,6 +189,12 @@ TSL2561::getLux()
     return lux;
 }
 
+float
+TSL2561::getLuminance()
+{
+    return getLux();
+}
+
 
 mraa::Result
 TSL2561::i2cWriteReg (uint8_t reg, uint8_t value)

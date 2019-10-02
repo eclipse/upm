@@ -26,6 +26,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "upm_string_parser.hpp"
 #include "adc121c021.hpp"
 
 using namespace upm;
@@ -55,6 +56,80 @@ ADC121C021::ADC121C021(int bus, uint8_t address, float vref)
     }
 
   m_vref = vref;
+}
+
+ADC121C021::ADC121C021(std::string initStr) : mraaIo(initStr)
+{
+  mraa_io_descriptor* descs = mraaIo.getMraaDescriptors();
+
+  std::vector<std::string> upmTokens;
+
+  if (!mraaIo.getLeftoverStr().empty()) {
+      upmTokens = UpmStringParser::parse(mraaIo.getLeftoverStr());
+  }
+
+  if(!descs->i2cs)
+  {
+    throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+  }
+  else
+  {
+    if( !(m_i2c = descs->i2cs[0]) )
+    {
+      throw std::invalid_argument(std::string(__FUNCTION__) +
+                                  ": mraa_i2c_init() failed");
+
+    }
+  }
+
+  std::string::size_type sz;
+
+  for (std::string tok : upmTokens) {
+    if(tok.substr(0, 5) == "vref:") {
+        m_vref = std::stof(tok.substr(5));
+    }
+    if(tok.substr(0, 10) == "writeByte:") {
+      uint8_t reg = std::stoul(tok.substr(10), &sz, 0);
+      tok = tok.substr(10);
+      uint8_t byte = std::stoul(tok.substr(sz+1), nullptr, 0);
+      writeByte(reg, byte);
+    }
+    if(tok.substr(0,10) == "writeWord:") {
+      uint8_t reg = std::stoul(tok.substr(10), &sz, 0);
+      tok = tok.substr(10);
+      uint16_t word = std::stoul(tok.substr(sz+1), nullptr, 0);
+      writeWord(reg, word);
+    }
+    if(tok.substr(0,16) == "enableAlertFlag:") {
+      bool enable = std::stoi(tok.substr(16), nullptr, 0);
+      enableAlertFlag(enable);
+    }
+    if(tok.substr(0,15) == "enableAlertPin:") {
+      bool enable = std::stoi(tok.substr(15), nullptr, 0);
+      enableAlertPin(enable);
+    }
+    if(tok.substr(0,16) == "enableAlertHold:") {
+      bool enable = std::stoi(tok.substr(16), nullptr, 0);
+      enableAlertHold(enable);
+    }
+    if(tok.substr(0,27) == "enableAlertPinPolarityHigh:") {
+      bool enable = std::stoi(tok.substr(27), nullptr, 0);
+      enableAlertPinPolarityHigh(enable);
+    }
+    if(tok.substr(0,17) == "setAlertLowLimit:") {
+      uint16_t limit = std::stoul(tok.substr(17), nullptr, 0);
+      setAlertLowLimit(limit);
+    }
+    if(tok.substr(0,18) == "setAlertHighLimit:") {
+      uint16_t limit = std::stoul(tok.substr(18), nullptr, 0);
+      setAlertHighLimit(limit);
+    }
+    if(tok.substr(0,14) == "setHysteresis:") {
+      uint16_t limit = std::stoul(tok.substr(14), nullptr, 0);
+      setHysteresis(limit);
+    }
+  }
 }
 
 ADC121C021::~ADC121C021()
@@ -131,12 +206,12 @@ bool ADC121C021::getAlertStatus()
       uint8_t astatus = readByte(ADC121C021_REG_ALERT_STATUS);
       if (astatus & 0x01)
         m_alertLow = true;
-      else 
+      else
         m_alertLow = false;
 
       if (astatus & 0x02)
         m_alertHigh = true;
-      else 
+      else
         m_alertHigh = false;
     }
 
@@ -210,7 +285,7 @@ void ADC121C021::enableAlertPinPolarityHigh(bool enable)
 
 void ADC121C021::setAutomaticConversion(ADC121C021_CYCLE_TIME_T cycleTime)
 {
-  // first we 
+  // first we
 
   // read the current config register, masking off the cycle time bits
   uint8_t val = readByte(ADC121C021_REG_CONFIG) & 0x1f;

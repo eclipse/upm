@@ -49,7 +49,7 @@ int main(int argc, char **argv)
   // Initialize a BNO055 using default parameters (bus 0, addr
   // 0x28).  The default running mode is NDOF absolute orientation
   // mode.
-  bno055_context sensor = bno055_init(0, BNO055_DEFAULT_ADDR);
+  bno055_context sensor = bno055_init(0, BNO055_DEFAULT_ADDR, NULL);
 
   if (!sensor)
   {

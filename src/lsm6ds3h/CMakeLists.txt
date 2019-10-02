@@ -5,5 +5,6 @@ upm_mixed_module_init (NAME lsm6ds3h
     CPP_HDR lsm6ds3h.hpp
     CPP_SRC lsm6ds3h.cxx
     FTI_SRC lsm6ds3h_fti.c
+    IFACE_HDR iAcceleration.hpp iGyroscope.hpp
     CPP_WRAPS_C
     REQUIRES mraa utilities-c)
