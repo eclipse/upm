@@ -25,7 +25,7 @@
 
 #include <iostream> //Required for c++ standard IO
 #include <string> // Required for string
-#include "mraa/uart.h" //Required for UART
+#include "mraa/mraa.hpp" //Required for UART
 #include <vector> //Required for vector
 #include "STBAPI.h" //Required for STB
 #include "STBCommonDef.h" //Required for STB
