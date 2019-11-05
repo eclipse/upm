@@ -25,10 +25,10 @@
 
 #include <iostream> //Required for c++ standard IO
 #include <string> // Required for string
-#include "mraa.hpp" //Required for UART
+#include "mraa/uart.hpp" //Required for UART
 #include <vector> //Required for vector
-#include "STBAPI.h" //Required for STB
-#include "STBCommonDef.h" //Required for STB
+#include "upm/src/b5t007001/stblib/usr_include/STBAPI.h" //Required for STB
+#include "upm/src/b5t007001/stblib/usr_include/STBCommonDef.h" //Required for STB
 
 /**
  * MACROS and enum
