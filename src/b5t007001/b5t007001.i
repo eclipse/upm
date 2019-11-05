@@ -19,4 +19,7 @@ JAVA_JNI_LOADLIBRARY(javaupm_b5t007001)
 %}
 
 %include "b5t007001.hpp"
+%include "STBAPI.h"
+%include "STBCommonDef.h"
+%include "STBTypedef.h"
 /* END Common SWIG syntax */
