@@ -9,5 +9,4 @@ set (module_hpp ${libname}.hpp stblib/usr_include/STBAPI.h stblib/usr_include/ST
 include_directories("stblib/src/include/")
 include_directories("stblib/usr_include")
 
-upm_module_init(stblib)
 upm_module_init(mraa)
