@@ -66,6 +66,15 @@ sudo dnf install upm
 sudo dnf install paython3-upm nodejs-upm upm-examples
 ```
 
+### Installing for Red Hat Enterprise Linux, CentOS and Other Linux Distributions
+
+The UPM project does not currently distribute official binaries for RHEL
+or CentOS so developers will have to compile the project from sources as
+described [here](./building.md).
+
+For testing and development purposes it may be possible to share and install
+.deb and .rpm packages across similar Linux builds.
+
 ### Node.js bindings only (NPM)
 
 This option allows compiling MRAA/UPM on any system with npm and node-gyp.
