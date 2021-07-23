@@ -25,6 +25,4 @@ sensor can inherit your class if they only have minor changes.
 
 ### Doubt
 
-If ever, give either of us a ping via email:
-mihai.tudor.panu@intel.com or brendan.le.foll@intel.com
-and we'll try suggest decent names for your module.
+If ever, open a new issue and ask for naming help from the project's community.
