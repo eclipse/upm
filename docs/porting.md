@@ -59,7 +59,6 @@ the UPM build system.
 The last step is when you're happy with your module and it works send us a pull
 request! We'd love to include your sensor in our repository.
 
-If you don't like github you can also send mihai.tudor.panu@intel.com a git
-formatted patch of your sensor. More details are on @ref contributions and on
+More details on @ref contributions and on
 https://help.github.com/articles/creating-a-pull-request
 
